@@ -66,7 +66,7 @@ unsigned long Image::getSize(bool withMipmap,
 /*! returns a data pointer for a single frame/mipmap chunk
  */
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline 
 UInt8 *Image::getData(UInt32 mipmapNum, 
                       UInt32 frameNum,

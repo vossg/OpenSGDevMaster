@@ -94,7 +94,7 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ContainerPoolBase::*GetSFNameF)(void) const;
 
     GetSFNameF GetSFName = &ContainerPoolBase::getSFName;
@@ -108,7 +108,7 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ContainerPoolBase::editSFName),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFName));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ContainerPoolBase::getSFName));
@@ -205,7 +205,7 @@ const SFString *ContainerPoolBase::getSFName(void) const
     return &_sfName;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ContainerPoolBase::getSFName           (void)
 {
     return this->editSFName           ();

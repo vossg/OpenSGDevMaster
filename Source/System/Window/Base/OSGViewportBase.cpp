@@ -165,7 +165,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(ViewportBase::*GetSFLeftF)(void) const;
 
     GetSFLeftF GetSFLeft = &ViewportBase::getSFLeft;
@@ -181,7 +181,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFLeft),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLeft));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFLeft));
@@ -189,7 +189,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(ViewportBase::*GetSFRightF)(void) const;
 
     GetSFRightF GetSFRight = &ViewportBase::getSFRight;
@@ -205,7 +205,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFRight),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFRight));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFRight));
@@ -213,7 +213,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(ViewportBase::*GetSFBottomF)(void) const;
 
     GetSFBottomF GetSFBottom = &ViewportBase::getSFBottom;
@@ -229,7 +229,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFBottom),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBottom));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFBottom));
@@ -237,7 +237,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(ViewportBase::*GetSFTopF)(void) const;
 
     GetSFTopF GetSFTop = &ViewportBase::getSFTop;
@@ -253,7 +253,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFTop),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTop));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFTop));
@@ -321,7 +321,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ViewportBase::*GetSFTravMaskF)(void) const;
 
     GetSFTravMaskF GetSFTravMask = &ViewportBase::getSFTravMask;
@@ -335,7 +335,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFTravMask),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTravMask));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFTravMask));
@@ -343,7 +343,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(ViewportBase::*GetSFDrawTimeF)(void) const;
 
     GetSFDrawTimeF GetSFDrawTime = &ViewportBase::getSFDrawTime;
@@ -357,7 +357,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFDrawTime),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDrawTime));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFDrawTime));
@@ -583,7 +583,7 @@ const SFReal32 *ViewportBase::getSFLeft(void) const
     return &_sfLeft;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *ViewportBase::getSFLeft           (void)
 {
     return this->editSFLeft           ();
@@ -602,7 +602,7 @@ const SFReal32 *ViewportBase::getSFRight(void) const
     return &_sfRight;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *ViewportBase::getSFRight          (void)
 {
     return this->editSFRight          ();
@@ -621,7 +621,7 @@ const SFReal32 *ViewportBase::getSFBottom(void) const
     return &_sfBottom;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *ViewportBase::getSFBottom         (void)
 {
     return this->editSFBottom         ();
@@ -640,7 +640,7 @@ const SFReal32 *ViewportBase::getSFTop(void) const
     return &_sfTop;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *ViewportBase::getSFTop            (void)
 {
     return this->editSFTop            ();
@@ -689,7 +689,7 @@ const SFUInt32 *ViewportBase::getSFTravMask(void) const
     return &_sfTravMask;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ViewportBase::getSFTravMask       (void)
 {
     return this->editSFTravMask       ();
@@ -708,7 +708,7 @@ const SFReal32 *ViewportBase::getSFDrawTime(void) const
     return &_sfDrawTime;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *ViewportBase::getSFDrawTime       (void)
 {
     return this->editSFDrawTime       ();

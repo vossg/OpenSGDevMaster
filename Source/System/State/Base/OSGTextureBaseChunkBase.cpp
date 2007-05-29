@@ -95,7 +95,7 @@ void TextureBaseChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureBaseChunkBase::*GetSFTargetF)(void) const;
 
     GetSFTargetF GetSFTarget = &TextureBaseChunkBase::getSFTarget;
@@ -112,7 +112,7 @@ void TextureBaseChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureBaseChunkBase::editSFTarget),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTarget));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureBaseChunkBase::getSFTarget));
@@ -200,7 +200,7 @@ const SFGLenum *TextureBaseChunkBase::getSFTarget(void) const
     return &_sfTarget;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureBaseChunkBase::getSFTarget         (void)
 {
     return this->editSFTarget         ();

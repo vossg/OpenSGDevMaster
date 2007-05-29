@@ -90,7 +90,7 @@ const UInt16 &WindowBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt16              &WindowBase::getWidth          (void)
 {
@@ -123,7 +123,7 @@ const UInt16 &WindowBase::getHeight(void) const
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt16              &WindowBase::getHeight         (void)
 {
@@ -156,7 +156,7 @@ const bool &WindowBase::getResizePending(void) const
     return _sfResizePending.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &WindowBase::getResizePending  (void)
 {
@@ -189,7 +189,7 @@ const UInt32 &WindowBase::getGlObjectEventCounter(void) const
     return _sfGlObjectEventCounter.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &WindowBase::getGlObjectEventCounter(void)
 {
@@ -244,7 +244,7 @@ MFUInt32 &WindowBase::editGlObjectLastRefresh(void)
     return _mfGlObjectLastRefresh;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &WindowBase::getGlObjectLastRefresh(const UInt32 index)
 {
@@ -291,7 +291,7 @@ MFUInt32 &WindowBase::editGlObjectLastReinitialize(void)
     return _mfGlObjectLastReinitialize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &WindowBase::getGlObjectLastReinitialize(const UInt32 index)
 {

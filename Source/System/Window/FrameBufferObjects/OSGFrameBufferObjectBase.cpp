@@ -120,7 +120,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(FrameBufferObjectBase::*GetSFGLIdF)(void) const;
 
     GetSFGLIdF GetSFGLId = &FrameBufferObjectBase::getSFGLId;
@@ -134,7 +134,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editSFGLId),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getSFGLId));
@@ -155,7 +155,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(FrameBufferObjectBase::*GetMFDrawBuffersF)(void) const;
 
     GetMFDrawBuffersF GetMFDrawBuffers = &FrameBufferObjectBase::getMFDrawBuffers;
@@ -171,7 +171,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editMFDrawBuffers),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFDrawBuffers));
 #else
         reinterpret_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getMFDrawBuffers));
@@ -203,7 +203,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt16 *(FrameBufferObjectBase::*GetSFWidthF)(void) const;
 
     GetSFWidthF GetSFWidth = &FrameBufferObjectBase::getSFWidth;
@@ -217,7 +217,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editSFWidth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getSFWidth));
@@ -225,7 +225,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt16 *(FrameBufferObjectBase::*GetSFHeightF)(void) const;
 
     GetSFHeightF GetSFHeight = &FrameBufferObjectBase::getSFHeight;
@@ -239,7 +239,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editSFHeight),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHeight));
 #else
         reinterpret_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getSFHeight));
@@ -377,7 +377,7 @@ const SFGLenum *FrameBufferObjectBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *FrameBufferObjectBase::getSFGLId           (void)
 {
     return this->editSFGLId           ();
@@ -402,7 +402,7 @@ const MFGLenum *FrameBufferObjectBase::getMFDrawBuffers(void) const
     return &_mfDrawBuffers;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *FrameBufferObjectBase::getMFDrawBuffers    (void)
 {
     return this->editMFDrawBuffers    ();
@@ -433,7 +433,7 @@ const SFUInt16 *FrameBufferObjectBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt16            *FrameBufferObjectBase::getSFWidth          (void)
 {
     return this->editSFWidth          ();
@@ -452,7 +452,7 @@ const SFUInt16 *FrameBufferObjectBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt16            *FrameBufferObjectBase::getSFHeight         (void)
 {
     return this->editSFHeight         ();

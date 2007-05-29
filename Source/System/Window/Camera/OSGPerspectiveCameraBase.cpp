@@ -98,7 +98,7 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PerspectiveCameraBase::*GetSFFovF)(void) const;
 
     GetSFFovF GetSFFov = &PerspectiveCameraBase::getSFFov;
@@ -112,7 +112,7 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editSFFov),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFov));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getSFFov));
@@ -120,7 +120,7 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PerspectiveCameraBase::*GetSFAspectF)(void) const;
 
     GetSFAspectF GetSFAspect = &PerspectiveCameraBase::getSFAspect;
@@ -134,7 +134,7 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editSFAspect),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAspect));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getSFAspect));
@@ -229,7 +229,7 @@ const SFReal32 *PerspectiveCameraBase::getSFFov(void) const
     return &_sfFov;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PerspectiveCameraBase::getSFFov            (void)
 {
     return this->editSFFov            ();
@@ -248,7 +248,7 @@ const SFReal32 *PerspectiveCameraBase::getSFAspect(void) const
     return &_sfAspect;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PerspectiveCameraBase::getSFAspect         (void)
 {
     return this->editSFAspect         ();

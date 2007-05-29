@@ -99,7 +99,7 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFMatrix *(MatrixCameraBase::*GetSFProjectionMatrixF)(void) const;
 
     GetSFProjectionMatrixF GetSFProjectionMatrix = &MatrixCameraBase::getSFProjectionMatrix;
@@ -113,7 +113,7 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MatrixCameraBase::editSFProjectionMatrix),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFProjectionMatrix));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MatrixCameraBase::getSFProjectionMatrix));
@@ -121,7 +121,7 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFMatrix *(MatrixCameraBase::*GetSFModelviewMatrixF)(void) const;
 
     GetSFModelviewMatrixF GetSFModelviewMatrix = &MatrixCameraBase::getSFModelviewMatrix;
@@ -135,7 +135,7 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MatrixCameraBase::editSFModelviewMatrix),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFModelviewMatrix));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MatrixCameraBase::getSFModelviewMatrix));
@@ -231,7 +231,7 @@ const SFMatrix *MatrixCameraBase::getSFProjectionMatrix(void) const
     return &_sfProjectionMatrix;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFMatrix            *MatrixCameraBase::getSFProjectionMatrix(void)
 {
     return this->editSFProjectionMatrix();
@@ -250,7 +250,7 @@ const SFMatrix *MatrixCameraBase::getSFModelviewMatrix(void) const
     return &_sfModelviewMatrix;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFMatrix            *MatrixCameraBase::getSFModelviewMatrix(void)
 {
     return this->editSFModelviewMatrix();

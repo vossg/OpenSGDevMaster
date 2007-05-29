@@ -98,7 +98,7 @@ MFString &StringAttributeMapBase::editKeys(void)
     return _mfKeys;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &StringAttributeMapBase::getKeys           (const UInt32 index)
 {
@@ -145,7 +145,7 @@ MFString &StringAttributeMapBase::editValues(void)
     return _mfValues;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &StringAttributeMapBase::getValues         (const UInt32 index)
 {

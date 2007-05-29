@@ -90,7 +90,7 @@ const Int32 &BackgroundBase::getClearStencilBit(void) const
     return _sfClearStencilBit.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &BackgroundBase::getClearStencilBit(void)
 {
@@ -123,7 +123,7 @@ const Real32 &BackgroundBase::getDepth(void) const
     return _sfDepth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &BackgroundBase::getDepth          (void)
 {

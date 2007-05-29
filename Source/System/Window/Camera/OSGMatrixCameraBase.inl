@@ -90,7 +90,7 @@ const Matrix &MatrixCameraBase::getProjectionMatrix(void) const
     return _sfProjectionMatrix.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Matrix              &MatrixCameraBase::getProjectionMatrix(void)
 {
@@ -123,7 +123,7 @@ const Matrix &MatrixCameraBase::getModelviewMatrix(void) const
     return _sfModelviewMatrix.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Matrix              &MatrixCameraBase::getModelviewMatrix(void)
 {

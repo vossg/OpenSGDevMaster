@@ -90,7 +90,7 @@ const GLenum &RenderBufferBase::getGLId(void) const
     return _sfGLId.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &RenderBufferBase::getGLId           (void)
 {
@@ -123,7 +123,7 @@ const GLenum &RenderBufferBase::getInternalFormat(void) const
     return _sfInternalFormat.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &RenderBufferBase::getInternalFormat (void)
 {

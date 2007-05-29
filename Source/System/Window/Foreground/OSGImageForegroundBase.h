@@ -148,7 +148,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
 
             const MFImagePtr          *getMFImages          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFPnt2f             *getMFPositions       (void);
 #endif
                   MFPnt2f             *editMFPositions      (void);
@@ -158,7 +158,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
                   ImagePtrConst getImages         (const UInt32 index) const;
             const MFImagePtr          &getImages         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Pnt2f               &getPositions       (const UInt32 index);
                   MFPnt2f             &getPositions      (void);
 #endif

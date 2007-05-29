@@ -90,7 +90,7 @@ const Matrix &MatrixCameraDecoratorBase::getPreViewing(void) const
     return _sfPreViewing.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Matrix              &MatrixCameraDecoratorBase::getPreViewing     (void)
 {
@@ -123,7 +123,7 @@ const Matrix &MatrixCameraDecoratorBase::getPostViewing(void) const
     return _sfPostViewing.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Matrix              &MatrixCameraDecoratorBase::getPostViewing    (void)
 {
@@ -156,7 +156,7 @@ const Matrix &MatrixCameraDecoratorBase::getPreProjectionTranslation(void) const
     return _sfPreProjectionTranslation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Matrix              &MatrixCameraDecoratorBase::getPreProjectionTranslation(void)
 {
@@ -189,7 +189,7 @@ const Matrix &MatrixCameraDecoratorBase::getPostProjectionTranslation(void) cons
     return _sfPostProjectionTranslation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Matrix              &MatrixCameraDecoratorBase::getPostProjectionTranslation(void)
 {
@@ -222,7 +222,7 @@ const Matrix &MatrixCameraDecoratorBase::getPreProjection(void) const
     return _sfPreProjection.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Matrix              &MatrixCameraDecoratorBase::getPreProjection  (void)
 {
@@ -255,7 +255,7 @@ const Matrix &MatrixCameraDecoratorBase::getPostProjection(void) const
     return _sfPostProjection.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Matrix              &MatrixCameraDecoratorBase::getPostProjection (void)
 {

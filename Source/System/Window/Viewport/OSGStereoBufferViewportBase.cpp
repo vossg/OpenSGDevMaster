@@ -99,7 +99,7 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(StereoBufferViewportBase::*GetSFLeftBufferF)(void) const;
 
     GetSFLeftBufferF GetSFLeftBuffer = &StereoBufferViewportBase::getSFLeftBuffer;
@@ -113,7 +113,7 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editSFLeftBuffer),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLeftBuffer));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getSFLeftBuffer));
@@ -121,7 +121,7 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(StereoBufferViewportBase::*GetSFRightBufferF)(void) const;
 
     GetSFRightBufferF GetSFRightBuffer = &StereoBufferViewportBase::getSFRightBuffer;
@@ -135,7 +135,7 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editSFRightBuffer),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFRightBuffer));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getSFRightBuffer));
@@ -236,7 +236,7 @@ const SFBool *StereoBufferViewportBase::getSFLeftBuffer(void) const
     return &_sfLeftBuffer;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *StereoBufferViewportBase::getSFLeftBuffer     (void)
 {
     return this->editSFLeftBuffer     ();
@@ -255,7 +255,7 @@ const SFBool *StereoBufferViewportBase::getSFRightBuffer(void) const
     return &_sfRightBuffer;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *StereoBufferViewportBase::getSFRightBuffer    (void)
 {
     return this->editSFRightBuffer    ();

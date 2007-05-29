@@ -143,14 +143,14 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFClearDepth      (void);
 #endif
                   SFBool              *editSFClearDepth     (void);
             const SFBool              *getSFClearDepth      (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getClearDepth      (void);
 #endif
                   bool                &editClearDepth     (void);

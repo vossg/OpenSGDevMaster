@@ -167,33 +167,33 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt16            *getSFWidth           (void);
 #endif
                   SFUInt16            *editSFWidth          (void);
             const SFUInt16            *getSFWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt16            *getSFHeight          (void);
 #endif
                   SFUInt16            *editSFHeight         (void);
             const SFUInt16            *getSFHeight          (void) const;
             const MFViewportPtr       *getMFPort            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFResizePending   (void);
 #endif
                   SFBool              *editSFResizePending  (void);
             const SFBool              *getSFResizePending   (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt16              &getWidth           (void);
 #endif
                   UInt16              &editWidth          (void);
             const UInt16              &getWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt16              &getHeight          (void);
 #endif
                   UInt16              &editHeight         (void);
@@ -202,7 +202,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   ViewportPtrConst getPort           (const UInt32 index) const;
             const MFViewportPtr       &getPort           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getResizePending   (void);
 #endif
                   bool                &editResizePending  (void);
@@ -326,32 +326,32 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFGlObjectEventCounter (void);
 #endif
                   SFUInt32            *editSFGlObjectEventCounter(void);
             const SFUInt32            *getSFGlObjectEventCounter (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFUInt32            *getMFGlObjectLastRefresh (void);
 #endif
                   MFUInt32            *editMFGlObjectLastRefresh(void);
             const MFUInt32            *getMFGlObjectLastRefresh (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFUInt32            *getMFGlObjectLastReinitialize (void);
 #endif
                   MFUInt32            *editMFGlObjectLastReinitialize(void);
             const MFUInt32            *getMFGlObjectLastReinitialize (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getGlObjectEventCounter (void);
 #endif
                   UInt32              &editGlObjectEventCounter(void);
             const UInt32              &getGlObjectEventCounter (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getGlObjectLastRefresh (const UInt32 index);
                   MFUInt32            &getGlObjectLastRefresh(void);
 #endif
@@ -360,7 +360,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   MFUInt32            &editGlObjectLastRefresh(void);
             const MFUInt32            &getGlObjectLastRefresh (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getGlObjectLastReinitialize (const UInt32 index);
                   MFUInt32            &getGlObjectLastReinitialize(void);
 #endif

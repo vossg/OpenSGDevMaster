@@ -312,7 +312,7 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     /*! \name                   Get Methods                                */
     /*! \{                                                                 */
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
           UInt8 *getData       (UInt32 mipmapNum = 0,
                                 UInt32 frameNum  = 0,
                                 UInt32 sidecount = 0);

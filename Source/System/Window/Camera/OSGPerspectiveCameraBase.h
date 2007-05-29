@@ -147,26 +147,26 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFFov             (void);
 #endif
                   SFReal32            *editSFFov            (void);
             const SFReal32            *getSFFov             (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFAspect          (void);
 #endif
                   SFReal32            *editSFAspect         (void);
             const SFReal32            *getSFAspect          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getFov             (void);
 #endif
                   Real32              &editFov            (void);
             const Real32              &getFov             (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getAspect          (void);
 #endif
                   Real32              &editAspect         (void);

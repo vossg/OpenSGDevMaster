@@ -98,7 +98,7 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(StereoCameraDecoratorBase::*GetSFLeftEyeF)(void) const;
 
     GetSFLeftEyeF GetSFLeftEye = &StereoCameraDecoratorBase::getSFLeftEye;
@@ -112,7 +112,7 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editSFLeftEye),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLeftEye));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getSFLeftEye));
@@ -120,7 +120,7 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(StereoCameraDecoratorBase::*GetSFEyeSeparationF)(void) const;
 
     GetSFEyeSeparationF GetSFEyeSeparation = &StereoCameraDecoratorBase::getSFEyeSeparation;
@@ -134,7 +134,7 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editSFEyeSeparation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEyeSeparation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getSFEyeSeparation));
@@ -231,7 +231,7 @@ const SFBool *StereoCameraDecoratorBase::getSFLeftEye(void) const
     return &_sfLeftEye;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *StereoCameraDecoratorBase::getSFLeftEye        (void)
 {
     return this->editSFLeftEye        ();
@@ -250,7 +250,7 @@ const SFReal32 *StereoCameraDecoratorBase::getSFEyeSeparation(void) const
     return &_sfEyeSeparation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *StereoCameraDecoratorBase::getSFEyeSeparation  (void)
 {
     return this->editSFEyeSeparation  ();

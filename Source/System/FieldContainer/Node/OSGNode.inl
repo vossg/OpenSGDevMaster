@@ -138,7 +138,7 @@ const DynamicVolume &Node::getVolume(void) const
 }
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 DynamicVolume &Node::getVolume(bool update)
 {

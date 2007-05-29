@@ -147,26 +147,26 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraBase : public Camera
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFMatrix            *getSFProjectionMatrix (void);
 #endif
                   SFMatrix            *editSFProjectionMatrix(void);
             const SFMatrix            *getSFProjectionMatrix (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFMatrix            *getSFModelviewMatrix (void);
 #endif
                   SFMatrix            *editSFModelviewMatrix(void);
             const SFMatrix            *getSFModelviewMatrix (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Matrix              &getProjectionMatrix (void);
 #endif
                   Matrix              &editProjectionMatrix(void);
             const Matrix              &getProjectionMatrix (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Matrix              &getModelviewMatrix (void);
 #endif
                   Matrix              &editModelviewMatrix(void);

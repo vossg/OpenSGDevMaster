@@ -90,7 +90,7 @@ const bool &DepthClearBackgroundBase::getClearDepth(void) const
     return _sfClearDepth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &DepthClearBackgroundBase::getClearDepth     (void)
 {

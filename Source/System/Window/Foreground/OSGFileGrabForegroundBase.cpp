@@ -106,7 +106,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(FileGrabForegroundBase::*GetSFNameF)(void) const;
 
     GetSFNameF GetSFName = &FileGrabForegroundBase::getSFName;
@@ -120,7 +120,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editSFName),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFName));
 #else
         reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getSFName));
@@ -128,7 +128,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(FileGrabForegroundBase::*GetSFFrameF)(void) const;
 
     GetSFFrameF GetSFFrame = &FileGrabForegroundBase::getSFFrame;
@@ -142,7 +142,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editSFFrame),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFrame));
 #else
         reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getSFFrame));
@@ -150,7 +150,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(FileGrabForegroundBase::*GetSFIncrementF)(void) const;
 
     GetSFIncrementF GetSFIncrement = &FileGrabForegroundBase::getSFIncrement;
@@ -164,7 +164,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editSFIncrement),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFIncrement));
 #else
         reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getSFIncrement));
@@ -281,7 +281,7 @@ const SFString *FileGrabForegroundBase::getSFName(void) const
     return &_sfName;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *FileGrabForegroundBase::getSFName           (void)
 {
     return this->editSFName           ();
@@ -300,7 +300,7 @@ const SFUInt32 *FileGrabForegroundBase::getSFFrame(void) const
     return &_sfFrame;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *FileGrabForegroundBase::getSFFrame          (void)
 {
     return this->editSFFrame          ();
@@ -319,7 +319,7 @@ const SFBool *FileGrabForegroundBase::getSFIncrement(void) const
     return &_sfIncrement;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *FileGrabForegroundBase::getSFIncrement      (void)
 {
     return this->editSFIncrement      ();

@@ -114,7 +114,7 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFInt32 *(ChunkMaterialBase::*GetMFSlotsF)(void) const;
 
     GetMFSlotsF GetMFSlots = &ChunkMaterialBase::getMFSlots;
@@ -128,7 +128,7 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ChunkMaterialBase::editMFSlots),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFSlots));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ChunkMaterialBase::getMFSlots));
@@ -233,7 +233,7 @@ const MFInt32 *ChunkMaterialBase::getMFSlots(void) const
     return &_mfSlots;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFInt32             *ChunkMaterialBase::getMFSlots          (void)
 {
     return this->editMFSlots          ();

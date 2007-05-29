@@ -239,7 +239,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                    Assignment                                */
     /*! \{                                                                 */
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
             DynamicVolume &getVolume       (bool update = false  );
 #endif
 

@@ -100,7 +100,7 @@ void ForegroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ForegroundBase::*GetSFActiveF)(void) const;
 
     GetSFActiveF GetSFActive = &ForegroundBase::getSFActive;
@@ -114,7 +114,7 @@ void ForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ForegroundBase::editSFActive),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFActive));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ForegroundBase::getSFActive));
@@ -214,7 +214,7 @@ const SFBool *ForegroundBase::getSFActive(void) const
     return &_sfActive;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ForegroundBase::getSFActive         (void)
 {
     return this->editSFActive         ();

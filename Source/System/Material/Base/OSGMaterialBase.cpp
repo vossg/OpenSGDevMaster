@@ -106,7 +106,7 @@ void MaterialBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(MaterialBase::*GetSFSortKeyF)(void) const;
 
     GetSFSortKeyF GetSFSortKey = &MaterialBase::getSFSortKey;
@@ -120,7 +120,7 @@ void MaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialBase::editSFSortKey),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSortKey));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialBase::getSFSortKey));
@@ -128,7 +128,7 @@ void MaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(MaterialBase::*GetSFTransparencyModeF)(void) const;
 
     GetSFTransparencyModeF GetSFTransparencyMode = &MaterialBase::getSFTransparencyMode;
@@ -142,7 +142,7 @@ void MaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialBase::editSFTransparencyMode),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTransparencyMode));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialBase::getSFTransparencyMode));
@@ -257,7 +257,7 @@ const SFInt32 *MaterialBase::getSFSortKey(void) const
     return &_sfSortKey;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *MaterialBase::getSFSortKey        (void)
 {
     return this->editSFSortKey        ();
@@ -276,7 +276,7 @@ const SFInt32 *MaterialBase::getSFTransparencyMode(void) const
     return &_sfTransparencyMode;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *MaterialBase::getSFTransparencyMode(void)
 {
     return this->editSFTransparencyMode();

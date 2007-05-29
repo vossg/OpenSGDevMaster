@@ -90,7 +90,7 @@ const bool &StereoBufferViewportBase::getLeftBuffer(void) const
     return _sfLeftBuffer.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &StereoBufferViewportBase::getLeftBuffer     (void)
 {
@@ -123,7 +123,7 @@ const bool &StereoBufferViewportBase::getRightBuffer(void) const
     return _sfRightBuffer.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &StereoBufferViewportBase::getRightBuffer    (void)
 {

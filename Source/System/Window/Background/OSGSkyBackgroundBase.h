@@ -215,31 +215,31 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFColor4f           *getMFSkyColor        (void);
 #endif
                   MFColor4f           *editMFSkyColor       (void);
             const MFColor4f           *getMFSkyColor        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFReal32            *getMFSkyAngle        (void);
 #endif
                   MFReal32            *editMFSkyAngle       (void);
             const MFReal32            *getMFSkyAngle        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFColor4f           *getMFGroundColor     (void);
 #endif
                   MFColor4f           *editMFGroundColor    (void);
             const MFColor4f           *getMFGroundColor     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFReal32            *getMFGroundAngle     (void);
 #endif
                   MFReal32            *editMFGroundAngle    (void);
             const MFReal32            *getMFGroundAngle     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFSphereRes       (void);
 #endif
                   SFUInt32            *editSFSphereRes      (void);
@@ -251,43 +251,43 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
             const SFTextureBaseChunkPtr *getSFRightTexture    (void) const;
             const SFTextureBaseChunkPtr *getSFTopTexture      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFBoxInside       (void);
 #endif
                   SFBool              *editSFBoxInside      (void);
             const SFBool              *getSFBoxInside       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFTopTexCoord     (void);
 #endif
                   MFVec3f             *editMFTopTexCoord    (void);
             const MFVec3f             *getMFTopTexCoord     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFBottomTexCoord  (void);
 #endif
                   MFVec3f             *editMFBottomTexCoord (void);
             const MFVec3f             *getMFBottomTexCoord  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFRightTexCoord   (void);
 #endif
                   MFVec3f             *editMFRightTexCoord  (void);
             const MFVec3f             *getMFRightTexCoord   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFLeftTexCoord    (void);
 #endif
                   MFVec3f             *editMFLeftTexCoord   (void);
             const MFVec3f             *getMFLeftTexCoord    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFFrontTexCoord   (void);
 #endif
                   MFVec3f             *editMFFrontTexCoord  (void);
             const MFVec3f             *getMFFrontTexCoord   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFBackTexCoord    (void);
 #endif
                   MFVec3f             *editMFBackTexCoord   (void);
@@ -295,7 +295,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
             const SFNodePtr           *getSFBeacon          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color4f             &getSkyColor        (const UInt32 index);
                   MFColor4f           &getSkyColor       (void);
 #endif
@@ -304,7 +304,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   MFColor4f           &editSkyColor       (void);
             const MFColor4f           &getSkyColor       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getSkyAngle        (const UInt32 index);
                   MFReal32            &getSkyAngle       (void);
 #endif
@@ -313,7 +313,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   MFReal32            &editSkyAngle       (void);
             const MFReal32            &getSkyAngle       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color4f             &getGroundColor     (const UInt32 index);
                   MFColor4f           &getGroundColor    (void);
 #endif
@@ -322,7 +322,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   MFColor4f           &editGroundColor    (void);
             const MFColor4f           &getGroundColor    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getGroundAngle     (const UInt32 index);
                   MFReal32            &getGroundAngle    (void);
 #endif
@@ -331,7 +331,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   MFReal32            &editGroundAngle    (void);
             const MFReal32            &getGroundAngle    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getSphereRes       (void);
 #endif
                   UInt32              &editSphereRes      (void);
@@ -349,13 +349,13 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
 
                   TextureBaseChunkPtrConst getTopTexture     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getBoxInside       (void);
 #endif
                   bool                &editBoxInside      (void);
             const bool                &getBoxInside       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3f               &getTopTexCoord     (const UInt32 index);
                   MFVec3f             &getTopTexCoord    (void);
 #endif
@@ -364,7 +364,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   MFVec3f             &editTopTexCoord    (void);
             const MFVec3f             &getTopTexCoord    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3f               &getBottomTexCoord  (const UInt32 index);
                   MFVec3f             &getBottomTexCoord (void);
 #endif
@@ -373,7 +373,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   MFVec3f             &editBottomTexCoord (void);
             const MFVec3f             &getBottomTexCoord (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3f               &getRightTexCoord   (const UInt32 index);
                   MFVec3f             &getRightTexCoord  (void);
 #endif
@@ -382,7 +382,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   MFVec3f             &editRightTexCoord  (void);
             const MFVec3f             &getRightTexCoord  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3f               &getLeftTexCoord    (const UInt32 index);
                   MFVec3f             &getLeftTexCoord   (void);
 #endif
@@ -391,7 +391,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   MFVec3f             &editLeftTexCoord   (void);
             const MFVec3f             &getLeftTexCoord   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3f               &getFrontTexCoord   (const UInt32 index);
                   MFVec3f             &getFrontTexCoord  (void);
 #endif
@@ -400,7 +400,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   MFVec3f             &editFrontTexCoord  (void);
             const MFVec3f             &getFrontTexCoord  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3f               &getBackTexCoord    (const UInt32 index);
                   MFVec3f             &getBackTexCoord   (void);
 #endif

@@ -154,7 +154,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(MaterialChunkBase::*GetSFDiffuseF)(void) const;
 
     GetSFDiffuseF GetSFDiffuse = &MaterialChunkBase::getSFDiffuse;
@@ -168,7 +168,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFDiffuse),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDiffuse));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFDiffuse));
@@ -176,7 +176,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(MaterialChunkBase::*GetSFAmbientF)(void) const;
 
     GetSFAmbientF GetSFAmbient = &MaterialChunkBase::getSFAmbient;
@@ -190,7 +190,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFAmbient),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAmbient));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFAmbient));
@@ -198,7 +198,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(MaterialChunkBase::*GetSFSpecularF)(void) const;
 
     GetSFSpecularF GetSFSpecular = &MaterialChunkBase::getSFSpecular;
@@ -212,7 +212,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFSpecular),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSpecular));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFSpecular));
@@ -220,7 +220,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(MaterialChunkBase::*GetSFEmissionF)(void) const;
 
     GetSFEmissionF GetSFEmission = &MaterialChunkBase::getSFEmission;
@@ -234,7 +234,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFEmission),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEmission));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFEmission));
@@ -242,7 +242,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(MaterialChunkBase::*GetSFShininessF)(void) const;
 
     GetSFShininessF GetSFShininess = &MaterialChunkBase::getSFShininess;
@@ -256,7 +256,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFShininess),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFShininess));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFShininess));
@@ -264,7 +264,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(MaterialChunkBase::*GetSFLitF)(void) const;
 
     GetSFLitF GetSFLit = &MaterialChunkBase::getSFLit;
@@ -279,7 +279,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFLit),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLit));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFLit));
@@ -287,7 +287,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(MaterialChunkBase::*GetSFColorMaterialF)(void) const;
 
     GetSFColorMaterialF GetSFColorMaterial = &MaterialChunkBase::getSFColorMaterial;
@@ -301,7 +301,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFColorMaterial),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFColorMaterial));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFColorMaterial));
@@ -309,7 +309,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(MaterialChunkBase::*GetSFBackMaterialF)(void) const;
 
     GetSFBackMaterialF GetSFBackMaterial = &MaterialChunkBase::getSFBackMaterial;
@@ -325,7 +325,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFBackMaterial),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBackMaterial));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFBackMaterial));
@@ -333,7 +333,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(MaterialChunkBase::*GetSFBackDiffuseF)(void) const;
 
     GetSFBackDiffuseF GetSFBackDiffuse = &MaterialChunkBase::getSFBackDiffuse;
@@ -347,7 +347,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFBackDiffuse),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBackDiffuse));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFBackDiffuse));
@@ -355,7 +355,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(MaterialChunkBase::*GetSFBackAmbientF)(void) const;
 
     GetSFBackAmbientF GetSFBackAmbient = &MaterialChunkBase::getSFBackAmbient;
@@ -369,7 +369,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFBackAmbient),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBackAmbient));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFBackAmbient));
@@ -377,7 +377,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(MaterialChunkBase::*GetSFBackSpecularF)(void) const;
 
     GetSFBackSpecularF GetSFBackSpecular = &MaterialChunkBase::getSFBackSpecular;
@@ -391,7 +391,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFBackSpecular),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBackSpecular));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFBackSpecular));
@@ -399,7 +399,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(MaterialChunkBase::*GetSFBackEmissionF)(void) const;
 
     GetSFBackEmissionF GetSFBackEmission = &MaterialChunkBase::getSFBackEmission;
@@ -413,7 +413,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFBackEmission),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBackEmission));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFBackEmission));
@@ -421,7 +421,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(MaterialChunkBase::*GetSFBackShininessF)(void) const;
 
     GetSFBackShininessF GetSFBackShininess = &MaterialChunkBase::getSFBackShininess;
@@ -435,7 +435,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFBackShininess),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBackShininess));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFBackShininess));
@@ -443,7 +443,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(MaterialChunkBase::*GetSFBackColorMaterialF)(void) const;
 
     GetSFBackColorMaterialF GetSFBackColorMaterial = &MaterialChunkBase::getSFBackColorMaterial;
@@ -457,7 +457,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editSFBackColorMaterial),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBackColorMaterial));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getSFBackColorMaterial));
@@ -662,7 +662,7 @@ const SFColor4r *MaterialChunkBase::getSFDiffuse(void) const
     return &_sfDiffuse;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *MaterialChunkBase::getSFDiffuse        (void)
 {
     return this->editSFDiffuse        ();
@@ -681,7 +681,7 @@ const SFColor4r *MaterialChunkBase::getSFAmbient(void) const
     return &_sfAmbient;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *MaterialChunkBase::getSFAmbient        (void)
 {
     return this->editSFAmbient        ();
@@ -700,7 +700,7 @@ const SFColor4r *MaterialChunkBase::getSFSpecular(void) const
     return &_sfSpecular;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *MaterialChunkBase::getSFSpecular       (void)
 {
     return this->editSFSpecular       ();
@@ -719,7 +719,7 @@ const SFColor4r *MaterialChunkBase::getSFEmission(void) const
     return &_sfEmission;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *MaterialChunkBase::getSFEmission       (void)
 {
     return this->editSFEmission       ();
@@ -738,7 +738,7 @@ const SFReal *MaterialChunkBase::getSFShininess(void) const
     return &_sfShininess;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *MaterialChunkBase::getSFShininess      (void)
 {
     return this->editSFShininess      ();
@@ -757,7 +757,7 @@ const SFBool *MaterialChunkBase::getSFLit(void) const
     return &_sfLit;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *MaterialChunkBase::getSFLit            (void)
 {
     return this->editSFLit            ();
@@ -776,7 +776,7 @@ const SFGLenum *MaterialChunkBase::getSFColorMaterial(void) const
     return &_sfColorMaterial;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *MaterialChunkBase::getSFColorMaterial  (void)
 {
     return this->editSFColorMaterial  ();
@@ -795,7 +795,7 @@ const SFBool *MaterialChunkBase::getSFBackMaterial(void) const
     return &_sfBackMaterial;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *MaterialChunkBase::getSFBackMaterial   (void)
 {
     return this->editSFBackMaterial   ();
@@ -814,7 +814,7 @@ const SFColor4r *MaterialChunkBase::getSFBackDiffuse(void) const
     return &_sfBackDiffuse;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *MaterialChunkBase::getSFBackDiffuse    (void)
 {
     return this->editSFBackDiffuse    ();
@@ -833,7 +833,7 @@ const SFColor4r *MaterialChunkBase::getSFBackAmbient(void) const
     return &_sfBackAmbient;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *MaterialChunkBase::getSFBackAmbient    (void)
 {
     return this->editSFBackAmbient    ();
@@ -852,7 +852,7 @@ const SFColor4r *MaterialChunkBase::getSFBackSpecular(void) const
     return &_sfBackSpecular;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *MaterialChunkBase::getSFBackSpecular   (void)
 {
     return this->editSFBackSpecular   ();
@@ -871,7 +871,7 @@ const SFColor4r *MaterialChunkBase::getSFBackEmission(void) const
     return &_sfBackEmission;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *MaterialChunkBase::getSFBackEmission   (void)
 {
     return this->editSFBackEmission   ();
@@ -890,7 +890,7 @@ const SFReal *MaterialChunkBase::getSFBackShininess(void) const
     return &_sfBackShininess;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *MaterialChunkBase::getSFBackShininess  (void)
 {
     return this->editSFBackShininess  ();
@@ -909,7 +909,7 @@ const SFGLenum *MaterialChunkBase::getSFBackColorMaterial(void) const
     return &_sfBackColorMaterial;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *MaterialChunkBase::getSFBackColorMaterial(void)
 {
     return this->editSFBackColorMaterial();

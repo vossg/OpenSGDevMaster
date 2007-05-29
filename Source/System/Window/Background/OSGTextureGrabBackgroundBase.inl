@@ -107,7 +107,7 @@ const bool &TextureGrabBackgroundBase::getAutoResize(void) const
     return _sfAutoResize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &TextureGrabBackgroundBase::getAutoResize     (void)
 {
@@ -140,7 +140,7 @@ const GLenum &TextureGrabBackgroundBase::getBindTarget(void) const
     return _sfBindTarget.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureGrabBackgroundBase::getBindTarget     (void)
 {
@@ -173,7 +173,7 @@ const GLenum &TextureGrabBackgroundBase::getCopyTarget(void) const
     return _sfCopyTarget.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureGrabBackgroundBase::getCopyTarget     (void)
 {

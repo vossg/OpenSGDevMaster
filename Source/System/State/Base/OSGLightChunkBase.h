@@ -183,61 +183,61 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor4r           *getSFDiffuse         (void);
 #endif
                   SFColor4r           *editSFDiffuse        (void);
             const SFColor4r           *getSFDiffuse         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor4r           *getSFAmbient         (void);
 #endif
                   SFColor4r           *editSFAmbient        (void);
             const SFColor4r           *getSFAmbient         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor4r           *getSFSpecular        (void);
 #endif
                   SFColor4r           *editSFSpecular       (void);
             const SFColor4r           *getSFSpecular        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFVec4r             *getSFPosition        (void);
 #endif
                   SFVec4r             *editSFPosition       (void);
             const SFVec4r             *getSFPosition        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFVec3r             *getSFDirection       (void);
 #endif
                   SFVec3r             *editSFDirection      (void);
             const SFVec3r             *getSFDirection       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal              *getSFExponent        (void);
 #endif
                   SFReal              *editSFExponent       (void);
             const SFReal              *getSFExponent        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal              *getSFCutoff          (void);
 #endif
                   SFReal              *editSFCutoff         (void);
             const SFReal              *getSFCutoff          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal              *getSFConstantAttenuation (void);
 #endif
                   SFReal              *editSFConstantAttenuation(void);
             const SFReal              *getSFConstantAttenuation (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal              *getSFLinearAttenuation (void);
 #endif
                   SFReal              *editSFLinearAttenuation(void);
             const SFReal              *getSFLinearAttenuation (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal              *getSFQuadraticAttenuation (void);
 #endif
                   SFReal              *editSFQuadraticAttenuation(void);
@@ -245,61 +245,61 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
             const SFNodePtr           *getSFBeacon          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color4r             &getDiffuse         (void);
 #endif
                   Color4r             &editDiffuse        (void);
             const Color4r             &getDiffuse         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color4r             &getAmbient         (void);
 #endif
                   Color4r             &editAmbient        (void);
             const Color4r             &getAmbient         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color4r             &getSpecular        (void);
 #endif
                   Color4r             &editSpecular       (void);
             const Color4r             &getSpecular        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec4r               &getPosition        (void);
 #endif
                   Vec4r               &editPosition       (void);
             const Vec4r               &getPosition        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3r               &getDirection       (void);
 #endif
                   Vec3r               &editDirection      (void);
             const Vec3r               &getDirection       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real                &getExponent        (void);
 #endif
                   Real                &editExponent       (void);
             const Real                &getExponent        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real                &getCutoff          (void);
 #endif
                   Real                &editCutoff         (void);
             const Real                &getCutoff          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real                &getConstantAttenuation (void);
 #endif
                   Real                &editConstantAttenuation(void);
             const Real                &getConstantAttenuation (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real                &getLinearAttenuation (void);
 #endif
                   Real                &editLinearAttenuation(void);
             const Real                &getLinearAttenuation (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real                &getQuadraticAttenuation (void);
 #endif
                   Real                &editQuadraticAttenuation(void);

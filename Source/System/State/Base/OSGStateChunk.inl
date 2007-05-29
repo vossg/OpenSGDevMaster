@@ -61,6 +61,14 @@ Int32 StateChunkClass::getNumSlots(UInt32 index)
     return (*_numslots)[index];
 }
 
+inline
+UInt32 StateChunkClass::getUsedSlots(void)
+{
+    return StateChunkClass::_numslots->size();
+}
+
+
+
 /*---------------------- Chunk Class Access -------------------------------*/
 
 inline
@@ -81,12 +89,6 @@ inline
 const StateChunkClass *StateChunk::getStaticClass(void)
 {
     return NULL;
-}
-
-inline
-UInt32 StateChunkClass::getUsedSlots(void)
-{
-    return StateChunkClass::_numslots->size();
 }
 
 OSG_END_NAMESPACE

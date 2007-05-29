@@ -156,19 +156,19 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
 
             const SFTextureObjChunkPtr *getSFTexture         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFTexTarget       (void);
 #endif
                   SFGLenum            *editSFTexTarget      (void);
             const SFGLenum            *getSFTexTarget       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFLevel           (void);
 #endif
                   SFUInt32            *editSFLevel          (void);
             const SFUInt32            *getSFLevel           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFZoffset         (void);
 #endif
                   SFUInt32            *editSFZoffset        (void);
@@ -177,19 +177,19 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
 
                   TextureObjChunkPtrConst getTexture        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getTexTarget       (void);
 #endif
                   GLenum              &editTexTarget      (void);
             const GLenum              &getTexTarget       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getLevel           (void);
 #endif
                   UInt32              &editLevel          (void);
             const UInt32              &getLevel           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getZoffset         (void);
 #endif
                   UInt32              &editZoffset        (void);

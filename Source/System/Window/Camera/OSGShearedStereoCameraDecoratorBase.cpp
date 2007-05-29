@@ -96,7 +96,7 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(ShearedStereoCameraDecoratorBase::*GetSFZeroParallaxDistanceF)(void) const;
 
     GetSFZeroParallaxDistanceF GetSFZeroParallaxDistance = &ShearedStereoCameraDecoratorBase::getSFZeroParallaxDistance;
@@ -110,7 +110,7 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editSFZeroParallaxDistance),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFZeroParallaxDistance));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getSFZeroParallaxDistance));
@@ -118,7 +118,7 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(ShearedStereoCameraDecoratorBase::*GetSFOverlapF)(void) const;
 
     GetSFOverlapF GetSFOverlap = &ShearedStereoCameraDecoratorBase::getSFOverlap;
@@ -132,7 +132,7 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editSFOverlap),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFOverlap));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getSFOverlap));
@@ -227,7 +227,7 @@ const SFReal32 *ShearedStereoCameraDecoratorBase::getSFZeroParallaxDistance(void
     return &_sfZeroParallaxDistance;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *ShearedStereoCameraDecoratorBase::getSFZeroParallaxDistance(void)
 {
     return this->editSFZeroParallaxDistance();
@@ -246,7 +246,7 @@ const SFReal32 *ShearedStereoCameraDecoratorBase::getSFOverlap(void) const
     return &_sfOverlap;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *ShearedStereoCameraDecoratorBase::getSFOverlap        (void)
 {
     return this->editSFOverlap        ();

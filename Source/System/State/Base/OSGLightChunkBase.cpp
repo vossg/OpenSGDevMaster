@@ -143,7 +143,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(LightChunkBase::*GetSFDiffuseF)(void) const;
 
     GetSFDiffuseF GetSFDiffuse = &LightChunkBase::getSFDiffuse;
@@ -157,7 +157,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFDiffuse),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDiffuse));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFDiffuse));
@@ -165,7 +165,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(LightChunkBase::*GetSFAmbientF)(void) const;
 
     GetSFAmbientF GetSFAmbient = &LightChunkBase::getSFAmbient;
@@ -179,7 +179,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFAmbient),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAmbient));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFAmbient));
@@ -187,7 +187,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(LightChunkBase::*GetSFSpecularF)(void) const;
 
     GetSFSpecularF GetSFSpecular = &LightChunkBase::getSFSpecular;
@@ -201,7 +201,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFSpecular),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSpecular));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFSpecular));
@@ -209,7 +209,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec4r *(LightChunkBase::*GetSFPositionF)(void) const;
 
     GetSFPositionF GetSFPosition = &LightChunkBase::getSFPosition;
@@ -223,7 +223,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFPosition),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPosition));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFPosition));
@@ -231,7 +231,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec3r *(LightChunkBase::*GetSFDirectionF)(void) const;
 
     GetSFDirectionF GetSFDirection = &LightChunkBase::getSFDirection;
@@ -245,7 +245,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFDirection),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDirection));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFDirection));
@@ -253,7 +253,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(LightChunkBase::*GetSFExponentF)(void) const;
 
     GetSFExponentF GetSFExponent = &LightChunkBase::getSFExponent;
@@ -267,7 +267,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFExponent),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFExponent));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFExponent));
@@ -275,7 +275,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(LightChunkBase::*GetSFCutoffF)(void) const;
 
     GetSFCutoffF GetSFCutoff = &LightChunkBase::getSFCutoff;
@@ -289,7 +289,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFCutoff),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCutoff));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFCutoff));
@@ -297,7 +297,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(LightChunkBase::*GetSFConstantAttenuationF)(void) const;
 
     GetSFConstantAttenuationF GetSFConstantAttenuation = &LightChunkBase::getSFConstantAttenuation;
@@ -311,7 +311,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFConstantAttenuation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFConstantAttenuation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFConstantAttenuation));
@@ -319,7 +319,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(LightChunkBase::*GetSFLinearAttenuationF)(void) const;
 
     GetSFLinearAttenuationF GetSFLinearAttenuation = &LightChunkBase::getSFLinearAttenuation;
@@ -333,7 +333,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFLinearAttenuation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLinearAttenuation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFLinearAttenuation));
@@ -341,7 +341,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(LightChunkBase::*GetSFQuadraticAttenuationF)(void) const;
 
     GetSFQuadraticAttenuationF GetSFQuadraticAttenuation = &LightChunkBase::getSFQuadraticAttenuation;
@@ -355,7 +355,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFQuadraticAttenuation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFQuadraticAttenuation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFQuadraticAttenuation));
@@ -561,7 +561,7 @@ const SFColor4r *LightChunkBase::getSFDiffuse(void) const
     return &_sfDiffuse;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *LightChunkBase::getSFDiffuse        (void)
 {
     return this->editSFDiffuse        ();
@@ -580,7 +580,7 @@ const SFColor4r *LightChunkBase::getSFAmbient(void) const
     return &_sfAmbient;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *LightChunkBase::getSFAmbient        (void)
 {
     return this->editSFAmbient        ();
@@ -599,7 +599,7 @@ const SFColor4r *LightChunkBase::getSFSpecular(void) const
     return &_sfSpecular;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *LightChunkBase::getSFSpecular       (void)
 {
     return this->editSFSpecular       ();
@@ -618,7 +618,7 @@ const SFVec4r *LightChunkBase::getSFPosition(void) const
     return &_sfPosition;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec4r             *LightChunkBase::getSFPosition       (void)
 {
     return this->editSFPosition       ();
@@ -637,7 +637,7 @@ const SFVec3r *LightChunkBase::getSFDirection(void) const
     return &_sfDirection;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec3r             *LightChunkBase::getSFDirection      (void)
 {
     return this->editSFDirection      ();
@@ -656,7 +656,7 @@ const SFReal *LightChunkBase::getSFExponent(void) const
     return &_sfExponent;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *LightChunkBase::getSFExponent       (void)
 {
     return this->editSFExponent       ();
@@ -675,7 +675,7 @@ const SFReal *LightChunkBase::getSFCutoff(void) const
     return &_sfCutoff;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *LightChunkBase::getSFCutoff         (void)
 {
     return this->editSFCutoff         ();
@@ -694,7 +694,7 @@ const SFReal *LightChunkBase::getSFConstantAttenuation(void) const
     return &_sfConstantAttenuation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *LightChunkBase::getSFConstantAttenuation(void)
 {
     return this->editSFConstantAttenuation();
@@ -713,7 +713,7 @@ const SFReal *LightChunkBase::getSFLinearAttenuation(void) const
     return &_sfLinearAttenuation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *LightChunkBase::getSFLinearAttenuation(void)
 {
     return this->editSFLinearAttenuation();
@@ -732,7 +732,7 @@ const SFReal *LightChunkBase::getSFQuadraticAttenuation(void) const
     return &_sfQuadraticAttenuation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *LightChunkBase::getSFQuadraticAttenuation(void)
 {
     return this->editSFQuadraticAttenuation();

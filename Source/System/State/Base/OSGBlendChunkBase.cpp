@@ -137,7 +137,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(BlendChunkBase::*GetSFSrcFactorF)(void) const;
 
     GetSFSrcFactorF GetSFSrcFactor = &BlendChunkBase::getSFSrcFactor;
@@ -151,7 +151,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFSrcFactor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSrcFactor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFSrcFactor));
@@ -159,7 +159,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(BlendChunkBase::*GetSFDestFactorF)(void) const;
 
     GetSFDestFactorF GetSFDestFactor = &BlendChunkBase::getSFDestFactor;
@@ -173,7 +173,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFDestFactor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDestFactor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFDestFactor));
@@ -181,7 +181,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(BlendChunkBase::*GetSFEquationF)(void) const;
 
     GetSFEquationF GetSFEquation = &BlendChunkBase::getSFEquation;
@@ -195,7 +195,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFEquation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEquation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFEquation));
@@ -203,7 +203,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4f *(BlendChunkBase::*GetSFColorF)(void) const;
 
     GetSFColorF GetSFColor = &BlendChunkBase::getSFColor;
@@ -217,7 +217,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFColor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFColor));
@@ -225,7 +225,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(BlendChunkBase::*GetSFAlphaFuncF)(void) const;
 
     GetSFAlphaFuncF GetSFAlphaFunc = &BlendChunkBase::getSFAlphaFunc;
@@ -240,7 +240,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFAlphaFunc),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAlphaFunc));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFAlphaFunc));
@@ -248,7 +248,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(BlendChunkBase::*GetSFAlphaValueF)(void) const;
 
     GetSFAlphaValueF GetSFAlphaValue = &BlendChunkBase::getSFAlphaValue;
@@ -262,7 +262,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFAlphaValue),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAlphaValue));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFAlphaValue));
@@ -270,7 +270,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(BlendChunkBase::*GetSFAlphaSrcFactorF)(void) const;
 
     GetSFAlphaSrcFactorF GetSFAlphaSrcFactor = &BlendChunkBase::getSFAlphaSrcFactor;
@@ -286,7 +286,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFAlphaSrcFactor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAlphaSrcFactor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFAlphaSrcFactor));
@@ -294,7 +294,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(BlendChunkBase::*GetSFAlphaDestFactorF)(void) const;
 
     GetSFAlphaDestFactorF GetSFAlphaDestFactor = &BlendChunkBase::getSFAlphaDestFactor;
@@ -310,7 +310,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFAlphaDestFactor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAlphaDestFactor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFAlphaDestFactor));
@@ -489,7 +489,7 @@ const SFGLenum *BlendChunkBase::getSFSrcFactor(void) const
     return &_sfSrcFactor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *BlendChunkBase::getSFSrcFactor      (void)
 {
     return this->editSFSrcFactor      ();
@@ -508,7 +508,7 @@ const SFGLenum *BlendChunkBase::getSFDestFactor(void) const
     return &_sfDestFactor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *BlendChunkBase::getSFDestFactor     (void)
 {
     return this->editSFDestFactor     ();
@@ -527,7 +527,7 @@ const SFGLenum *BlendChunkBase::getSFEquation(void) const
     return &_sfEquation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *BlendChunkBase::getSFEquation       (void)
 {
     return this->editSFEquation       ();
@@ -546,7 +546,7 @@ const SFColor4f *BlendChunkBase::getSFColor(void) const
     return &_sfColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4f           *BlendChunkBase::getSFColor          (void)
 {
     return this->editSFColor          ();
@@ -565,7 +565,7 @@ const SFGLenum *BlendChunkBase::getSFAlphaFunc(void) const
     return &_sfAlphaFunc;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *BlendChunkBase::getSFAlphaFunc      (void)
 {
     return this->editSFAlphaFunc      ();
@@ -584,7 +584,7 @@ const SFReal32 *BlendChunkBase::getSFAlphaValue(void) const
     return &_sfAlphaValue;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *BlendChunkBase::getSFAlphaValue     (void)
 {
     return this->editSFAlphaValue     ();
@@ -603,7 +603,7 @@ const SFGLenum *BlendChunkBase::getSFAlphaSrcFactor(void) const
     return &_sfAlphaSrcFactor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *BlendChunkBase::getSFAlphaSrcFactor (void)
 {
     return this->editSFAlphaSrcFactor ();
@@ -622,7 +622,7 @@ const SFGLenum *BlendChunkBase::getSFAlphaDestFactor(void) const
     return &_sfAlphaDestFactor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *BlendChunkBase::getSFAlphaDestFactor(void)
 {
     return this->editSFAlphaDestFactor();

@@ -129,7 +129,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor3r *(SimpleMaterialBase::*GetSFAmbientF)(void) const;
 
     GetSFAmbientF GetSFAmbient = &SimpleMaterialBase::getSFAmbient;
@@ -143,7 +143,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editSFAmbient),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAmbient));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getSFAmbient));
@@ -151,7 +151,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor3r *(SimpleMaterialBase::*GetSFDiffuseF)(void) const;
 
     GetSFDiffuseF GetSFDiffuse = &SimpleMaterialBase::getSFDiffuse;
@@ -165,7 +165,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editSFDiffuse),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDiffuse));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getSFDiffuse));
@@ -173,7 +173,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor3r *(SimpleMaterialBase::*GetSFSpecularF)(void) const;
 
     GetSFSpecularF GetSFSpecular = &SimpleMaterialBase::getSFSpecular;
@@ -187,7 +187,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editSFSpecular),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSpecular));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getSFSpecular));
@@ -195,7 +195,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(SimpleMaterialBase::*GetSFShininessF)(void) const;
 
     GetSFShininessF GetSFShininess = &SimpleMaterialBase::getSFShininess;
@@ -209,7 +209,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editSFShininess),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFShininess));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getSFShininess));
@@ -217,7 +217,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor3r *(SimpleMaterialBase::*GetSFEmissionF)(void) const;
 
     GetSFEmissionF GetSFEmission = &SimpleMaterialBase::getSFEmission;
@@ -231,7 +231,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editSFEmission),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEmission));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getSFEmission));
@@ -239,7 +239,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(SimpleMaterialBase::*GetSFTransparencyF)(void) const;
 
     GetSFTransparencyF GetSFTransparency = &SimpleMaterialBase::getSFTransparency;
@@ -253,7 +253,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editSFTransparency),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTransparency));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getSFTransparency));
@@ -261,7 +261,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(SimpleMaterialBase::*GetSFLitF)(void) const;
 
     GetSFLitF GetSFLit = &SimpleMaterialBase::getSFLit;
@@ -275,7 +275,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editSFLit),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLit));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getSFLit));
@@ -283,7 +283,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(SimpleMaterialBase::*GetSFColorMaterialF)(void) const;
 
     GetSFColorMaterialF GetSFColorMaterial = &SimpleMaterialBase::getSFColorMaterial;
@@ -297,7 +297,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editSFColorMaterial),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFColorMaterial));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getSFColorMaterial));
@@ -465,7 +465,7 @@ const SFColor3r *SimpleMaterialBase::getSFAmbient(void) const
     return &_sfAmbient;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor3r           *SimpleMaterialBase::getSFAmbient        (void)
 {
     return this->editSFAmbient        ();
@@ -484,7 +484,7 @@ const SFColor3r *SimpleMaterialBase::getSFDiffuse(void) const
     return &_sfDiffuse;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor3r           *SimpleMaterialBase::getSFDiffuse        (void)
 {
     return this->editSFDiffuse        ();
@@ -503,7 +503,7 @@ const SFColor3r *SimpleMaterialBase::getSFSpecular(void) const
     return &_sfSpecular;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor3r           *SimpleMaterialBase::getSFSpecular       (void)
 {
     return this->editSFSpecular       ();
@@ -522,7 +522,7 @@ const SFReal *SimpleMaterialBase::getSFShininess(void) const
     return &_sfShininess;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *SimpleMaterialBase::getSFShininess      (void)
 {
     return this->editSFShininess      ();
@@ -541,7 +541,7 @@ const SFColor3r *SimpleMaterialBase::getSFEmission(void) const
     return &_sfEmission;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor3r           *SimpleMaterialBase::getSFEmission       (void)
 {
     return this->editSFEmission       ();
@@ -560,7 +560,7 @@ const SFReal *SimpleMaterialBase::getSFTransparency(void) const
     return &_sfTransparency;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *SimpleMaterialBase::getSFTransparency   (void)
 {
     return this->editSFTransparency   ();
@@ -579,7 +579,7 @@ const SFBool *SimpleMaterialBase::getSFLit(void) const
     return &_sfLit;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *SimpleMaterialBase::getSFLit            (void)
 {
     return this->editSFLit            ();
@@ -598,7 +598,7 @@ const SFGLenum *SimpleMaterialBase::getSFColorMaterial(void) const
     return &_sfColorMaterial;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *SimpleMaterialBase::getSFColorMaterial  (void)
 {
     return this->editSFColorMaterial  ();

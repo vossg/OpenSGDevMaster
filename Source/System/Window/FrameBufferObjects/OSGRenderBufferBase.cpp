@@ -96,7 +96,7 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(RenderBufferBase::*GetSFGLIdF)(void) const;
 
     GetSFGLIdF GetSFGLId = &RenderBufferBase::getSFGLId;
@@ -110,7 +110,7 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&RenderBufferBase::editSFGLId),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderBufferBase::getSFGLId));
@@ -118,7 +118,7 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(RenderBufferBase::*GetSFInternalFormatF)(void) const;
 
     GetSFInternalFormatF GetSFInternalFormat = &RenderBufferBase::getSFInternalFormat;
@@ -132,7 +132,7 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderBufferBase::editSFInternalFormat),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFInternalFormat));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderBufferBase::getSFInternalFormat));
@@ -227,7 +227,7 @@ const SFGLenum *RenderBufferBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *RenderBufferBase::getSFGLId           (void)
 {
     return this->editSFGLId           ();
@@ -246,7 +246,7 @@ const SFGLenum *RenderBufferBase::getSFInternalFormat(void) const
     return &_sfInternalFormat;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *RenderBufferBase::getSFInternalFormat (void)
 {
     return this->editSFInternalFormat ();

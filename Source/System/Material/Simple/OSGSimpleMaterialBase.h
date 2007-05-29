@@ -171,98 +171,98 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor3r           *getSFAmbient         (void);
 #endif
                   SFColor3r           *editSFAmbient        (void);
             const SFColor3r           *getSFAmbient         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor3r           *getSFDiffuse         (void);
 #endif
                   SFColor3r           *editSFDiffuse        (void);
             const SFColor3r           *getSFDiffuse         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor3r           *getSFSpecular        (void);
 #endif
                   SFColor3r           *editSFSpecular       (void);
             const SFColor3r           *getSFSpecular        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal              *getSFShininess       (void);
 #endif
                   SFReal              *editSFShininess      (void);
             const SFReal              *getSFShininess       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor3r           *getSFEmission        (void);
 #endif
                   SFColor3r           *editSFEmission       (void);
             const SFColor3r           *getSFEmission        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal              *getSFTransparency    (void);
 #endif
                   SFReal              *editSFTransparency   (void);
             const SFReal              *getSFTransparency    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFLit             (void);
 #endif
                   SFBool              *editSFLit            (void);
             const SFBool              *getSFLit             (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFColorMaterial   (void);
 #endif
                   SFGLenum            *editSFColorMaterial  (void);
             const SFGLenum            *getSFColorMaterial   (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color3r             &getAmbient         (void);
 #endif
                   Color3r             &editAmbient        (void);
             const Color3r             &getAmbient         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color3r             &getDiffuse         (void);
 #endif
                   Color3r             &editDiffuse        (void);
             const Color3r             &getDiffuse         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color3r             &getSpecular        (void);
 #endif
                   Color3r             &editSpecular       (void);
             const Color3r             &getSpecular        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real                &getShininess       (void);
 #endif
                   Real                &editShininess      (void);
             const Real                &getShininess       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color3r             &getEmission        (void);
 #endif
                   Color3r             &editEmission       (void);
             const Color3r             &getEmission        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real                &getTransparency    (void);
 #endif
                   Real                &editTransparency   (void);
             const Real                &getTransparency    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getLit             (void);
 #endif
                   bool                &editLit            (void);
             const bool                &getLit             (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getColorMaterial   (void);
 #endif
                   GLenum              &editColorMaterial  (void);

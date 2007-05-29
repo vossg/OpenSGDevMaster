@@ -138,7 +138,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(SimpleTexturedMaterialBase::*GetSFMinFilterF)(void) const;
 
     GetSFMinFilterF GetSFMinFilter = &SimpleTexturedMaterialBase::getSFMinFilter;
@@ -153,7 +153,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editSFMinFilter),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMinFilter));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getSFMinFilter));
@@ -161,7 +161,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(SimpleTexturedMaterialBase::*GetSFMagFilterF)(void) const;
 
     GetSFMagFilterF GetSFMagFilter = &SimpleTexturedMaterialBase::getSFMagFilter;
@@ -176,7 +176,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editSFMagFilter),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMagFilter));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getSFMagFilter));
@@ -184,7 +184,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(SimpleTexturedMaterialBase::*GetSFEnvModeF)(void) const;
 
     GetSFEnvModeF GetSFEnvMode = &SimpleTexturedMaterialBase::getSFEnvMode;
@@ -199,7 +199,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editSFEnvMode),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEnvMode));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getSFEnvMode));
@@ -207,7 +207,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(SimpleTexturedMaterialBase::*GetSFEnvMapF)(void) const;
 
     GetSFEnvMapF GetSFEnvMap = &SimpleTexturedMaterialBase::getSFEnvMap;
@@ -221,7 +221,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editSFEnvMap),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEnvMap));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getSFEnvMap));
@@ -382,7 +382,7 @@ const SFGLenum *SimpleTexturedMaterialBase::getSFMinFilter(void) const
     return &_sfMinFilter;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *SimpleTexturedMaterialBase::getSFMinFilter      (void)
 {
     return this->editSFMinFilter      ();
@@ -401,7 +401,7 @@ const SFGLenum *SimpleTexturedMaterialBase::getSFMagFilter(void) const
     return &_sfMagFilter;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *SimpleTexturedMaterialBase::getSFMagFilter      (void)
 {
     return this->editSFMagFilter      ();
@@ -420,7 +420,7 @@ const SFGLenum *SimpleTexturedMaterialBase::getSFEnvMode(void) const
     return &_sfEnvMode;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *SimpleTexturedMaterialBase::getSFEnvMode        (void)
 {
     return this->editSFEnvMode        ();
@@ -439,7 +439,7 @@ const SFBool *SimpleTexturedMaterialBase::getSFEnvMap(void) const
     return &_sfEnvMap;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *SimpleTexturedMaterialBase::getSFEnvMap         (void)
 {
     return this->editSFEnvMap         ();

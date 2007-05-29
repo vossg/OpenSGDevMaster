@@ -143,14 +143,14 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFTarget          (void);
 #endif
                   SFGLenum            *editSFTarget         (void);
             const SFGLenum            *getSFTarget          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getTarget          (void);
 #endif
                   GLenum              &editTarget         (void);

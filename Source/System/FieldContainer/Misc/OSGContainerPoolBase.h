@@ -147,7 +147,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFString            *getSFName            (void);
 #endif
                   SFString            *editSFName           (void);
@@ -155,7 +155,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
             const MFFieldContainerPtr *getMFContainers      (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getName            (void);
 #endif
                   std::string         &editName           (void);

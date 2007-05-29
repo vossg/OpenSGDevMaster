@@ -107,7 +107,7 @@ const bool &PolygonBackgroundBase::getNormalizedX(void) const
     return _sfNormalizedX.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PolygonBackgroundBase::getNormalizedX    (void)
 {
@@ -140,7 +140,7 @@ const bool &PolygonBackgroundBase::getNormalizedY(void) const
     return _sfNormalizedY.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PolygonBackgroundBase::getNormalizedY    (void)
 {
@@ -173,7 +173,7 @@ const UInt16 &PolygonBackgroundBase::getAspectHeight(void) const
     return _sfAspectHeight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt16              &PolygonBackgroundBase::getAspectHeight   (void)
 {
@@ -206,7 +206,7 @@ const UInt16 &PolygonBackgroundBase::getAspectWidth(void) const
     return _sfAspectWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt16              &PolygonBackgroundBase::getAspectWidth    (void)
 {
@@ -239,7 +239,7 @@ const Real32 &PolygonBackgroundBase::getScale(void) const
     return _sfScale.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PolygonBackgroundBase::getScale          (void)
 {
@@ -272,7 +272,7 @@ const bool &PolygonBackgroundBase::getCleanup(void) const
     return _sfCleanup.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PolygonBackgroundBase::getCleanup        (void)
 {
@@ -305,7 +305,7 @@ const bool &PolygonBackgroundBase::getTile(void) const
     return _sfTile.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PolygonBackgroundBase::getTile           (void)
 {
@@ -346,7 +346,7 @@ MFVec3f &PolygonBackgroundBase::editTexCoords(void)
     return _mfTexCoords;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3f               &PolygonBackgroundBase::getTexCoords      (const UInt32 index)
 {
@@ -393,7 +393,7 @@ MFPnt2f &PolygonBackgroundBase::editPositions(void)
     return _mfPositions;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Pnt2f               &PolygonBackgroundBase::getPositions      (const UInt32 index)
 {

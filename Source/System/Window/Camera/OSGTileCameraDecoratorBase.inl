@@ -90,7 +90,7 @@ const Real32 &TileCameraDecoratorBase::getLeft(void) const
     return _sfLeft.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TileCameraDecoratorBase::getLeft           (void)
 {
@@ -123,7 +123,7 @@ const Real32 &TileCameraDecoratorBase::getRight(void) const
     return _sfRight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TileCameraDecoratorBase::getRight          (void)
 {
@@ -156,7 +156,7 @@ const Real32 &TileCameraDecoratorBase::getBottom(void) const
     return _sfBottom.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TileCameraDecoratorBase::getBottom         (void)
 {
@@ -189,7 +189,7 @@ const Real32 &TileCameraDecoratorBase::getTop(void) const
     return _sfTop.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TileCameraDecoratorBase::getTop            (void)
 {
@@ -222,7 +222,7 @@ const UInt32 &TileCameraDecoratorBase::getFullWidth(void) const
     return _sfFullWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TileCameraDecoratorBase::getFullWidth      (void)
 {
@@ -255,7 +255,7 @@ const UInt32 &TileCameraDecoratorBase::getFullHeight(void) const
     return _sfFullHeight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TileCameraDecoratorBase::getFullHeight     (void)
 {

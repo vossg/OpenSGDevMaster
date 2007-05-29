@@ -212,20 +212,20 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFString            *getMFKeys            (void);
 #endif
                   MFString            *editMFKeys           (void);
             const MFString            *getMFKeys            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFString            *getMFValues          (void);
 #endif
                   MFString            *editMFValues         (void);
             const MFString            *getMFValues          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getKeys            (const UInt32 index);
                   MFString            &getKeys           (void);
 #endif
@@ -234,7 +234,7 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
                   MFString            &editKeys           (void);
             const MFString            &getKeys            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getValues          (const UInt32 index);
                   MFString            &getValues         (void);
 #endif

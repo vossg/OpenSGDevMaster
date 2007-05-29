@@ -107,7 +107,7 @@ const bool &GrabForegroundBase::getAutoResize(void) const
     return _sfAutoResize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &GrabForegroundBase::getAutoResize     (void)
 {

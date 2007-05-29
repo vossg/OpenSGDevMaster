@@ -107,7 +107,7 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(SwitchMaterialBase::*GetSFChoiceF)(void) const;
 
     GetSFChoiceF GetSFChoice = &SwitchMaterialBase::getSFChoice;
@@ -121,7 +121,7 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SwitchMaterialBase::editSFChoice),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFChoice));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SwitchMaterialBase::getSFChoice));
@@ -217,7 +217,7 @@ const SFUInt32 *SwitchMaterialBase::getSFChoice(void) const
     return &_sfChoice;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *SwitchMaterialBase::getSFChoice         (void)
 {
     return this->editSFChoice         ();

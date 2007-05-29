@@ -98,7 +98,7 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor3r *(SolidBackgroundBase::*GetSFColorF)(void) const;
 
     GetSFColorF GetSFColor = &SolidBackgroundBase::getSFColor;
@@ -112,7 +112,7 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SolidBackgroundBase::editSFColor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SolidBackgroundBase::getSFColor));
@@ -120,7 +120,7 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(SolidBackgroundBase::*GetSFAlphaF)(void) const;
 
     GetSFAlphaF GetSFAlpha = &SolidBackgroundBase::getSFAlpha;
@@ -134,7 +134,7 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SolidBackgroundBase::editSFAlpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAlpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SolidBackgroundBase::getSFAlpha));
@@ -230,7 +230,7 @@ const SFColor3r *SolidBackgroundBase::getSFColor(void) const
     return &_sfColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor3r           *SolidBackgroundBase::getSFColor          (void)
 {
     return this->editSFColor          ();
@@ -249,7 +249,7 @@ const SFReal32 *SolidBackgroundBase::getSFAlpha(void) const
     return &_sfAlpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *SolidBackgroundBase::getSFAlpha          (void)
 {
     return this->editSFAlpha          ();

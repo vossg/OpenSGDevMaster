@@ -90,7 +90,7 @@ const bool &ForegroundBase::getActive(void) const
     return _sfActive.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ForegroundBase::getActive         (void)
 {

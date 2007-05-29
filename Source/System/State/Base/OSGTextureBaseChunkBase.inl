@@ -90,7 +90,7 @@ const GLenum &TextureBaseChunkBase::getTarget(void) const
     return _sfTarget.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureBaseChunkBase::getTarget         (void)
 {

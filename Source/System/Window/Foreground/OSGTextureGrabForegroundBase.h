@@ -156,19 +156,19 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
 
             const SFTextureObjChunkPtr *getSFTexture         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFAutoResize      (void);
 #endif
                   SFBool              *editSFAutoResize     (void);
             const SFBool              *getSFAutoResize      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFBindTarget      (void);
 #endif
                   SFGLenum            *editSFBindTarget     (void);
             const SFGLenum            *getSFBindTarget      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFCopyTarget      (void);
 #endif
                   SFGLenum            *editSFCopyTarget     (void);
@@ -177,19 +177,19 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
 
                   TextureObjChunkPtrConst getTexture        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getAutoResize      (void);
 #endif
                   bool                &editAutoResize     (void);
             const bool                &getAutoResize      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getBindTarget      (void);
 #endif
                   GLenum              &editBindTarget     (void);
             const GLenum              &getBindTarget      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getCopyTarget      (void);
 #endif
                   GLenum              &editCopyTarget     (void);

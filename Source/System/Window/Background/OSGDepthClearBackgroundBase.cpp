@@ -92,7 +92,7 @@ void DepthClearBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(DepthClearBackgroundBase::*GetSFClearDepthF)(void) const;
 
     GetSFClearDepthF GetSFClearDepth = &DepthClearBackgroundBase::getSFClearDepth;
@@ -106,7 +106,7 @@ void DepthClearBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&DepthClearBackgroundBase::editSFClearDepth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFClearDepth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&DepthClearBackgroundBase::getSFClearDepth));
@@ -190,7 +190,7 @@ const SFBool *DepthClearBackgroundBase::getSFClearDepth(void) const
     return &_sfClearDepth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *DepthClearBackgroundBase::getSFClearDepth     (void)
 {
     return this->editSFClearDepth     ();

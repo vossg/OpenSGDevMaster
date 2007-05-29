@@ -117,7 +117,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4f *(TextureBackgroundBase::*GetSFColorF)(void) const;
 
     GetSFColorF GetSFColor = &TextureBackgroundBase::getSFColor;
@@ -131,7 +131,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editSFColor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getSFColor));
@@ -151,7 +151,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFPnt2f *(TextureBackgroundBase::*GetMFTexCoordsF)(void) const;
 
     GetMFTexCoordsF GetMFTexCoords = &TextureBackgroundBase::getMFTexCoords;
@@ -165,7 +165,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editMFTexCoords),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFTexCoords));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getMFTexCoords));
@@ -173,7 +173,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(TextureBackgroundBase::*GetSFRadialDistortionF)(void) const;
 
     GetSFRadialDistortionF GetSFRadialDistortion = &TextureBackgroundBase::getSFRadialDistortion;
@@ -187,7 +187,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editSFRadialDistortion),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFRadialDistortion));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getSFRadialDistortion));
@@ -195,7 +195,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec2f *(TextureBackgroundBase::*GetSFCenterOfDistortionF)(void) const;
 
     GetSFCenterOfDistortionF GetSFCenterOfDistortion = &TextureBackgroundBase::getSFCenterOfDistortion;
@@ -209,7 +209,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editSFCenterOfDistortion),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCenterOfDistortion));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getSFCenterOfDistortion));
@@ -217,7 +217,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt16 *(TextureBackgroundBase::*GetSFHorF)(void) const;
 
     GetSFHorF GetSFHor = &TextureBackgroundBase::getSFHor;
@@ -231,7 +231,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editSFHor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getSFHor));
@@ -239,7 +239,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt16 *(TextureBackgroundBase::*GetSFVertF)(void) const;
 
     GetSFVertF GetSFVert = &TextureBackgroundBase::getSFVert;
@@ -253,7 +253,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editSFVert),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFVert));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getSFVert));
@@ -391,7 +391,7 @@ const SFColor4f *TextureBackgroundBase::getSFColor(void) const
     return &_sfColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4f           *TextureBackgroundBase::getSFColor          (void)
 {
     return this->editSFColor          ();
@@ -416,7 +416,7 @@ const MFPnt2f *TextureBackgroundBase::getMFTexCoords(void) const
     return &_mfTexCoords;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFPnt2f             *TextureBackgroundBase::getMFTexCoords      (void)
 {
     return this->editMFTexCoords      ();
@@ -435,7 +435,7 @@ const SFReal32 *TextureBackgroundBase::getSFRadialDistortion(void) const
     return &_sfRadialDistortion;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *TextureBackgroundBase::getSFRadialDistortion(void)
 {
     return this->editSFRadialDistortion();
@@ -454,7 +454,7 @@ const SFVec2f *TextureBackgroundBase::getSFCenterOfDistortion(void) const
     return &_sfCenterOfDistortion;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec2f             *TextureBackgroundBase::getSFCenterOfDistortion(void)
 {
     return this->editSFCenterOfDistortion();
@@ -473,7 +473,7 @@ const SFUInt16 *TextureBackgroundBase::getSFHor(void) const
     return &_sfHor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt16            *TextureBackgroundBase::getSFHor            (void)
 {
     return this->editSFHor            ();
@@ -492,7 +492,7 @@ const SFUInt16 *TextureBackgroundBase::getSFVert(void) const
     return &_sfVert;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt16            *TextureBackgroundBase::getSFVert           (void)
 {
     return this->editSFVert           ();

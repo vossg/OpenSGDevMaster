@@ -143,7 +143,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFPnt2f *(PolygonForegroundBase::*GetMFPositionsF)(void) const;
 
     GetMFPositionsF GetMFPositions = &PolygonForegroundBase::getMFPositions;
@@ -157,7 +157,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editMFPositions),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFPositions));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getMFPositions));
@@ -165,7 +165,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFVec3f *(PolygonForegroundBase::*GetMFTexCoordsF)(void) const;
 
     GetMFTexCoordsF GetMFTexCoords = &PolygonForegroundBase::getMFTexCoords;
@@ -179,7 +179,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editMFTexCoords),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFTexCoords));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getMFTexCoords));
@@ -187,7 +187,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(PolygonForegroundBase::*GetSFNormalizedXF)(void) const;
 
     GetSFNormalizedXF GetSFNormalizedX = &PolygonForegroundBase::getSFNormalizedX;
@@ -201,7 +201,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editSFNormalizedX),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFNormalizedX));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getSFNormalizedX));
@@ -209,7 +209,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(PolygonForegroundBase::*GetSFNormalizedYF)(void) const;
 
     GetSFNormalizedYF GetSFNormalizedY = &PolygonForegroundBase::getSFNormalizedY;
@@ -223,7 +223,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editSFNormalizedY),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFNormalizedY));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getSFNormalizedY));
@@ -231,7 +231,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt16 *(PolygonForegroundBase::*GetSFAspectHeightF)(void) const;
 
     GetSFAspectHeightF GetSFAspectHeight = &PolygonForegroundBase::getSFAspectHeight;
@@ -245,7 +245,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editSFAspectHeight),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAspectHeight));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getSFAspectHeight));
@@ -253,7 +253,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt16 *(PolygonForegroundBase::*GetSFAspectWidthF)(void) const;
 
     GetSFAspectWidthF GetSFAspectWidth = &PolygonForegroundBase::getSFAspectWidth;
@@ -267,7 +267,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editSFAspectWidth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAspectWidth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getSFAspectWidth));
@@ -275,7 +275,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PolygonForegroundBase::*GetSFScaleF)(void) const;
 
     GetSFScaleF GetSFScale = &PolygonForegroundBase::getSFScale;
@@ -289,7 +289,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editSFScale),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFScale));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getSFScale));
@@ -297,7 +297,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(PolygonForegroundBase::*GetSFTileF)(void) const;
 
     GetSFTileF GetSFTile = &PolygonForegroundBase::getSFTile;
@@ -311,7 +311,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editSFTile),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTile));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getSFTile));
@@ -492,7 +492,7 @@ const MFPnt2f *PolygonForegroundBase::getMFPositions(void) const
     return &_mfPositions;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFPnt2f             *PolygonForegroundBase::getMFPositions      (void)
 {
     return this->editMFPositions      ();
@@ -511,7 +511,7 @@ const MFVec3f *PolygonForegroundBase::getMFTexCoords(void) const
     return &_mfTexCoords;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFVec3f             *PolygonForegroundBase::getMFTexCoords      (void)
 {
     return this->editMFTexCoords      ();
@@ -530,7 +530,7 @@ const SFBool *PolygonForegroundBase::getSFNormalizedX(void) const
     return &_sfNormalizedX;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *PolygonForegroundBase::getSFNormalizedX    (void)
 {
     return this->editSFNormalizedX    ();
@@ -549,7 +549,7 @@ const SFBool *PolygonForegroundBase::getSFNormalizedY(void) const
     return &_sfNormalizedY;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *PolygonForegroundBase::getSFNormalizedY    (void)
 {
     return this->editSFNormalizedY    ();
@@ -568,7 +568,7 @@ const SFUInt16 *PolygonForegroundBase::getSFAspectHeight(void) const
     return &_sfAspectHeight;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt16            *PolygonForegroundBase::getSFAspectHeight   (void)
 {
     return this->editSFAspectHeight   ();
@@ -587,7 +587,7 @@ const SFUInt16 *PolygonForegroundBase::getSFAspectWidth(void) const
     return &_sfAspectWidth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt16            *PolygonForegroundBase::getSFAspectWidth    (void)
 {
     return this->editSFAspectWidth    ();
@@ -606,7 +606,7 @@ const SFReal32 *PolygonForegroundBase::getSFScale(void) const
     return &_sfScale;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PolygonForegroundBase::getSFScale          (void)
 {
     return this->editSFScale          ();
@@ -625,7 +625,7 @@ const SFBool *PolygonForegroundBase::getSFTile(void) const
     return &_sfTile;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *PolygonForegroundBase::getSFTile           (void)
 {
     return this->editSFTile           ();

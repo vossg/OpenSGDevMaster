@@ -154,7 +154,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFStatisticF)(void) const;
 
     GetSFStatisticF GetSFStatistic = &RenderOptionsBase::getSFStatistic;
@@ -168,7 +168,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFStatistic),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFStatistic));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFStatistic));
@@ -176,7 +176,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(RenderOptionsBase::*GetSFPolygonModeF)(void) const;
 
     GetSFPolygonModeF GetSFPolygonMode = &RenderOptionsBase::getSFPolygonMode;
@@ -190,7 +190,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFPolygonMode),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPolygonMode));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFPolygonMode));
@@ -198,7 +198,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFTwoSidedLightingF)(void) const;
 
     GetSFTwoSidedLightingF GetSFTwoSidedLighting = &RenderOptionsBase::getSFTwoSidedLighting;
@@ -212,7 +212,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFTwoSidedLighting),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTwoSidedLighting));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFTwoSidedLighting));
@@ -220,7 +220,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFSpecTexLightingF)(void) const;
 
     GetSFSpecTexLightingF GetSFSpecTexLighting = &RenderOptionsBase::getSFSpecTexLighting;
@@ -234,7 +234,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFSpecTexLighting),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSpecTexLighting));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFSpecTexLighting));
@@ -242,7 +242,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFSortTransF)(void) const;
 
     GetSFSortTransF GetSFSortTrans = &RenderOptionsBase::getSFSortTrans;
@@ -256,7 +256,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFSortTrans),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSortTrans));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFSortTrans));
@@ -264,7 +264,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFZWriteTransF)(void) const;
 
     GetSFZWriteTransF GetSFZWriteTrans = &RenderOptionsBase::getSFZWriteTrans;
@@ -278,7 +278,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFZWriteTrans),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFZWriteTrans));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFZWriteTrans));
@@ -286,7 +286,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFLocalLightsF)(void) const;
 
     GetSFLocalLightsF GetSFLocalLights = &RenderOptionsBase::getSFLocalLights;
@@ -300,7 +300,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFLocalLights),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLocalLights));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFLocalLights));
@@ -308,7 +308,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFCorrectTwoSidedLightingF)(void) const;
 
     GetSFCorrectTwoSidedLightingF GetSFCorrectTwoSidedLighting = &RenderOptionsBase::getSFCorrectTwoSidedLighting;
@@ -322,7 +322,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFCorrectTwoSidedLighting),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCorrectTwoSidedLighting));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFCorrectTwoSidedLighting));
@@ -330,7 +330,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFOcclusionCullingF)(void) const;
 
     GetSFOcclusionCullingF GetSFOcclusionCulling = &RenderOptionsBase::getSFOcclusionCulling;
@@ -344,7 +344,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFOcclusionCulling),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFOcclusionCulling));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFOcclusionCulling));
@@ -352,7 +352,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFAntialiasingF)(void) const;
 
     GetSFAntialiasingF GetSFAntialiasing = &RenderOptionsBase::getSFAntialiasing;
@@ -366,7 +366,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFAntialiasing),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAntialiasing));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFAntialiasing));
@@ -374,7 +374,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(RenderOptionsBase::*GetSFAntialiasingDistanceF)(void) const;
 
     GetSFAntialiasingDistanceF GetSFAntialiasingDistance = &RenderOptionsBase::getSFAntialiasingDistance;
@@ -388,7 +388,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFAntialiasingDistance),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAntialiasingDistance));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFAntialiasingDistance));
@@ -396,7 +396,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(RenderOptionsBase::*GetSFAntialiasingScaleF)(void) const;
 
     GetSFAntialiasingScaleF GetSFAntialiasingScale = &RenderOptionsBase::getSFAntialiasingScale;
@@ -410,7 +410,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFAntialiasingScale),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAntialiasingScale));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFAntialiasingScale));
@@ -418,7 +418,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(RenderOptionsBase::*GetSFAntialiasingTriggerF)(void) const;
 
     GetSFAntialiasingTriggerF GetSFAntialiasingTrigger = &RenderOptionsBase::getSFAntialiasingTrigger;
@@ -432,7 +432,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFAntialiasingTrigger),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAntialiasingTrigger));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFAntialiasingTrigger));
@@ -440,7 +440,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFBackfaceCullingF)(void) const;
 
     GetSFBackfaceCullingF GetSFBackfaceCulling = &RenderOptionsBase::getSFBackfaceCulling;
@@ -454,7 +454,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFBackfaceCulling),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBackfaceCulling));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFBackfaceCulling));
@@ -462,7 +462,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFSmallFeatureCullingF)(void) const;
 
     GetSFSmallFeatureCullingF GetSFSmallFeatureCulling = &RenderOptionsBase::getSFSmallFeatureCulling;
@@ -476,7 +476,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFSmallFeatureCulling),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSmallFeatureCulling));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFSmallFeatureCulling));
@@ -484,7 +484,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(RenderOptionsBase::*GetSFSmallFeaturePixelsF)(void) const;
 
     GetSFSmallFeaturePixelsF GetSFSmallFeaturePixels = &RenderOptionsBase::getSFSmallFeaturePixels;
@@ -498,7 +498,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFSmallFeaturePixels),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSmallFeaturePixels));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFSmallFeaturePixels));
@@ -506,7 +506,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(RenderOptionsBase::*GetSFSmallFeatureThresholdF)(void) const;
 
     GetSFSmallFeatureThresholdF GetSFSmallFeatureThreshold = &RenderOptionsBase::getSFSmallFeatureThreshold;
@@ -520,7 +520,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFSmallFeatureThreshold),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSmallFeatureThreshold));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFSmallFeatureThreshold));
@@ -740,7 +740,7 @@ const SFBool *RenderOptionsBase::getSFStatistic(void) const
     return &_sfStatistic;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RenderOptionsBase::getSFStatistic      (void)
 {
     return this->editSFStatistic      ();
@@ -759,7 +759,7 @@ const SFGLenum *RenderOptionsBase::getSFPolygonMode(void) const
     return &_sfPolygonMode;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *RenderOptionsBase::getSFPolygonMode    (void)
 {
     return this->editSFPolygonMode    ();
@@ -778,7 +778,7 @@ const SFBool *RenderOptionsBase::getSFTwoSidedLighting(void) const
     return &_sfTwoSidedLighting;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RenderOptionsBase::getSFTwoSidedLighting(void)
 {
     return this->editSFTwoSidedLighting();
@@ -797,7 +797,7 @@ const SFBool *RenderOptionsBase::getSFSpecTexLighting(void) const
     return &_sfSpecTexLighting;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RenderOptionsBase::getSFSpecTexLighting(void)
 {
     return this->editSFSpecTexLighting();
@@ -816,7 +816,7 @@ const SFBool *RenderOptionsBase::getSFSortTrans(void) const
     return &_sfSortTrans;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RenderOptionsBase::getSFSortTrans      (void)
 {
     return this->editSFSortTrans      ();
@@ -835,7 +835,7 @@ const SFBool *RenderOptionsBase::getSFZWriteTrans(void) const
     return &_sfZWriteTrans;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RenderOptionsBase::getSFZWriteTrans    (void)
 {
     return this->editSFZWriteTrans    ();
@@ -854,7 +854,7 @@ const SFBool *RenderOptionsBase::getSFLocalLights(void) const
     return &_sfLocalLights;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RenderOptionsBase::getSFLocalLights    (void)
 {
     return this->editSFLocalLights    ();
@@ -873,7 +873,7 @@ const SFBool *RenderOptionsBase::getSFCorrectTwoSidedLighting(void) const
     return &_sfCorrectTwoSidedLighting;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RenderOptionsBase::getSFCorrectTwoSidedLighting(void)
 {
     return this->editSFCorrectTwoSidedLighting();
@@ -892,7 +892,7 @@ const SFBool *RenderOptionsBase::getSFOcclusionCulling(void) const
     return &_sfOcclusionCulling;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RenderOptionsBase::getSFOcclusionCulling(void)
 {
     return this->editSFOcclusionCulling();
@@ -911,7 +911,7 @@ const SFBool *RenderOptionsBase::getSFAntialiasing(void) const
     return &_sfAntialiasing;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RenderOptionsBase::getSFAntialiasing   (void)
 {
     return this->editSFAntialiasing   ();
@@ -930,7 +930,7 @@ const SFReal32 *RenderOptionsBase::getSFAntialiasingDistance(void) const
     return &_sfAntialiasingDistance;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *RenderOptionsBase::getSFAntialiasingDistance(void)
 {
     return this->editSFAntialiasingDistance();
@@ -949,7 +949,7 @@ const SFReal32 *RenderOptionsBase::getSFAntialiasingScale(void) const
     return &_sfAntialiasingScale;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *RenderOptionsBase::getSFAntialiasingScale(void)
 {
     return this->editSFAntialiasingScale();
@@ -968,7 +968,7 @@ const SFUInt32 *RenderOptionsBase::getSFAntialiasingTrigger(void) const
     return &_sfAntialiasingTrigger;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *RenderOptionsBase::getSFAntialiasingTrigger(void)
 {
     return this->editSFAntialiasingTrigger();
@@ -987,7 +987,7 @@ const SFBool *RenderOptionsBase::getSFBackfaceCulling(void) const
     return &_sfBackfaceCulling;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RenderOptionsBase::getSFBackfaceCulling(void)
 {
     return this->editSFBackfaceCulling();
@@ -1006,7 +1006,7 @@ const SFBool *RenderOptionsBase::getSFSmallFeatureCulling(void) const
     return &_sfSmallFeatureCulling;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RenderOptionsBase::getSFSmallFeatureCulling(void)
 {
     return this->editSFSmallFeatureCulling();
@@ -1025,7 +1025,7 @@ const SFReal32 *RenderOptionsBase::getSFSmallFeaturePixels(void) const
     return &_sfSmallFeaturePixels;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *RenderOptionsBase::getSFSmallFeaturePixels(void)
 {
     return this->editSFSmallFeaturePixels();
@@ -1044,7 +1044,7 @@ const SFUInt32 *RenderOptionsBase::getSFSmallFeatureThreshold(void) const
     return &_sfSmallFeatureThreshold;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *RenderOptionsBase::getSFSmallFeatureThreshold(void)
 {
     return this->editSFSmallFeatureThreshold();

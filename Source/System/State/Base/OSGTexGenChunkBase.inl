@@ -90,7 +90,7 @@ const GLenum &TexGenChunkBase::getGenFuncS(void) const
     return _sfGenFuncS.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TexGenChunkBase::getGenFuncS       (void)
 {
@@ -123,7 +123,7 @@ const GLenum &TexGenChunkBase::getGenFuncT(void) const
     return _sfGenFuncT.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TexGenChunkBase::getGenFuncT       (void)
 {
@@ -156,7 +156,7 @@ const GLenum &TexGenChunkBase::getGenFuncR(void) const
     return _sfGenFuncR.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TexGenChunkBase::getGenFuncR       (void)
 {
@@ -189,7 +189,7 @@ const GLenum &TexGenChunkBase::getGenFuncQ(void) const
     return _sfGenFuncQ.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TexGenChunkBase::getGenFuncQ       (void)
 {
@@ -222,7 +222,7 @@ const Vec4f &TexGenChunkBase::getGenFuncSPlane(void) const
     return _sfGenFuncSPlane.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec4f               &TexGenChunkBase::getGenFuncSPlane  (void)
 {
@@ -255,7 +255,7 @@ const Vec4f &TexGenChunkBase::getGenFuncTPlane(void) const
     return _sfGenFuncTPlane.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec4f               &TexGenChunkBase::getGenFuncTPlane  (void)
 {
@@ -288,7 +288,7 @@ const Vec4f &TexGenChunkBase::getGenFuncRPlane(void) const
     return _sfGenFuncRPlane.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec4f               &TexGenChunkBase::getGenFuncRPlane  (void)
 {
@@ -321,7 +321,7 @@ const Vec4f &TexGenChunkBase::getGenFuncQPlane(void) const
     return _sfGenFuncQPlane.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec4f               &TexGenChunkBase::getGenFuncQPlane  (void)
 {

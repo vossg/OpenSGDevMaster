@@ -117,7 +117,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureBufferBase::*GetSFTexTargetF)(void) const;
 
     GetSFTexTargetF GetSFTexTarget = &TextureBufferBase::getSFTexTarget;
@@ -132,7 +132,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editSFTexTarget),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTexTarget));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getSFTexTarget));
@@ -140,7 +140,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(TextureBufferBase::*GetSFLevelF)(void) const;
 
     GetSFLevelF GetSFLevel = &TextureBufferBase::getSFLevel;
@@ -154,7 +154,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editSFLevel),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLevel));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getSFLevel));
@@ -162,7 +162,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(TextureBufferBase::*GetSFZoffsetF)(void) const;
 
     GetSFZoffsetF GetSFZoffset = &TextureBufferBase::getSFZoffset;
@@ -176,7 +176,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editSFZoffset),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFZoffset));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getSFZoffset));
@@ -295,7 +295,7 @@ const SFGLenum *TextureBufferBase::getSFTexTarget(void) const
     return &_sfTexTarget;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureBufferBase::getSFTexTarget      (void)
 {
     return this->editSFTexTarget      ();
@@ -314,7 +314,7 @@ const SFUInt32 *TextureBufferBase::getSFLevel(void) const
     return &_sfLevel;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *TextureBufferBase::getSFLevel          (void)
 {
     return this->editSFLevel          ();
@@ -333,7 +333,7 @@ const SFUInt32 *TextureBufferBase::getSFZoffset(void) const
     return &_sfZoffset;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *TextureBufferBase::getSFZoffset        (void)
 {
     return this->editSFZoffset        ();

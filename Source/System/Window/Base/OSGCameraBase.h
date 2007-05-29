@@ -152,13 +152,13 @@ class OSG_SYSTEM_DLLMAPPING CameraBase : public AttachmentContainer
 
     virtual const SFNodePtr           *getSFBeacon          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     virtual       SFReal32            *getSFNear            (void);
 #endif
     virtual       SFReal32            *editSFNear           (void);
     virtual const SFReal32            *getSFNear            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     virtual       SFReal32            *getSFFar             (void);
 #endif
     virtual       SFReal32            *editSFFar            (void);
@@ -167,13 +167,13 @@ class OSG_SYSTEM_DLLMAPPING CameraBase : public AttachmentContainer
 
     virtual       NodePtrConst getBeacon         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     virtual       Real32              &getNear            (void);
 #endif
     virtual       Real32              &editNear           (void);
     virtual const Real32              &getNear            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     virtual       Real32              &getFar             (void);
 #endif
     virtual       Real32              &editFar            (void);

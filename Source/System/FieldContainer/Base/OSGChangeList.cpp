@@ -110,9 +110,6 @@ void ChangeList::addCreated(const UInt32 uiContainerId)
     VALGRIND_CHECK_VALUE_IS_DEFINED(uiContainerId);
 #endif
 
-    FieldContainerPtr pTmp =
-        FieldContainerFactory::the()->getContainer(uiContainerId);
-
 #ifndef SILENT
     fprintf(stderr, "Add Create %u\n",
             uiContainerId);
@@ -330,6 +327,11 @@ void ChangeList::doCommitChanges(void)
     
     _workStore.clear();
 
+#if 0
+    std::cerr << "----------- DETECTED LOOP START -------------" << std::endl;
+    dump();
+#endif
+
     while((_uncommitedChanges.empty() == false) && !detected_loop)
     {
         _workStore.swap(_uncommitedChanges);
@@ -338,6 +340,11 @@ void ChangeList::doCommitChanges(void)
         ChangedStore::iterator       changesIt  = _workStore.begin();
         ChangedStore::const_iterator changesEnd = _workStore.end  ();
 
+#if 0
+        std::cerr << "--------- DETECTED LOOP1 START ----------" << std::endl;
+        dump();
+#endif
+
         while(changesIt != changesEnd )
         {
            OSG_ASSERT(NULL != (*changesIt));
@@ -345,11 +352,16 @@ void ChangeList::doCommitChanges(void)
             ++changesIt;
         }
 
+#if 0
+        std::cerr << "-------- DETECTED LOOP2 START ----------" << std::endl;
+        dump();
+#endif
+
         _workStore.clear();
         if(loop_count++ > loop_detection_limit)
         {
            detected_loop = true;
-           std::cerr << "------------- DETECTED LOOP --------------" << std::endl;
+           std::cerr << "----------- DETECTED LOOP ------------" << std::endl;
            dump();
         }        
     }
@@ -695,6 +707,7 @@ void ChangeList::dump(      UInt32    uiIndent,
     ChangedStoreConstIt cIt  = _createdStore.begin();
     ChangedStoreConstIt cEnd = _createdStore.end  ();
 
+#if 1
     fprintf(stderr, "CL created dump\n");
 
     while(cIt != cEnd)
@@ -734,7 +747,7 @@ void ChangeList::dump(      UInt32    uiIndent,
 
         ++cIt;
     }
-
+#endif
 
     cIt  = _uncommitedChanges.begin();
     cEnd = _uncommitedChanges.end  ();
@@ -752,11 +765,23 @@ void ChangeList::dump(      UInt32    uiIndent,
         if((*cIt)->bvUncommittedChanges != NULL)
         { tmpChanges = *((*cIt)->bvUncommittedChanges); }
 
-        fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx\n",
+
+        std::string szTmp("Unknown");
+
+        FieldContainerPtr pTmp =
+            FieldContainerFactory::the()->getContainer((*cIt)->uiContainerId);
+
+        if(pTmp != NULL)
+        {
+            szTmp.assign(pTmp->getType().getCName());
+        }
+
+        fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx | %s\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
                 tmpChanges,
-                (*cIt)->whichField);
+                (*cIt)->whichField,
+                szTmp.c_str());
 
         ++cIt;
     }

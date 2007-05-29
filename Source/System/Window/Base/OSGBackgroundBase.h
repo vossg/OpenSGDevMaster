@@ -147,26 +147,26 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFClearStencilBit (void);
 #endif
                   SFInt32             *editSFClearStencilBit(void);
             const SFInt32             *getSFClearStencilBit (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFDepth           (void);
 #endif
                   SFReal32            *editSFDepth          (void);
             const SFReal32            *getSFDepth           (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getClearStencilBit (void);
 #endif
                   Int32               &editClearStencilBit(void);
             const Int32               &getClearStencilBit (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getDepth           (void);
 #endif
                   Real32              &editDepth          (void);

@@ -160,25 +160,25 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
 
             const SFImagePtr          *getSFImage           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFMinFilter       (void);
 #endif
                   SFGLenum            *editSFMinFilter      (void);
             const SFGLenum            *getSFMinFilter       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFMagFilter       (void);
 #endif
                   SFGLenum            *editSFMagFilter      (void);
             const SFGLenum            *getSFMagFilter       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFEnvMode         (void);
 #endif
                   SFGLenum            *editSFEnvMode        (void);
             const SFGLenum            *getSFEnvMode         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFEnvMap          (void);
 #endif
                   SFBool              *editSFEnvMap         (void);
@@ -187,25 +187,25 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
 
                   ImagePtrConst getImage          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getMinFilter       (void);
 #endif
                   GLenum              &editMinFilter      (void);
             const GLenum              &getMinFilter       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getMagFilter       (void);
 #endif
                   GLenum              &editMagFilter      (void);
             const GLenum              &getMagFilter       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getEnvMode         (void);
 #endif
                   GLenum              &editEnvMode        (void);
             const GLenum              &getEnvMode         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getEnvMap          (void);
 #endif
                   bool                &editEnvMap         (void);

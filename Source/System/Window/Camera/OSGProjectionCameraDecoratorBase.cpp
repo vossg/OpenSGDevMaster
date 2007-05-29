@@ -139,7 +139,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFPnt3f *(ProjectionCameraDecoratorBase::*GetMFSurfaceF)(void) const;
 
     GetMFSurfaceF GetMFSurface = &ProjectionCameraDecoratorBase::getMFSurface;
@@ -154,7 +154,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editMFSurface),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFSurface));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getMFSurface));
@@ -162,7 +162,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFPlane *(ProjectionCameraDecoratorBase::*GetSFLeftF)(void) const;
 
     GetSFLeftF GetSFLeft = &ProjectionCameraDecoratorBase::getSFLeft;
@@ -176,7 +176,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editSFLeft),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLeft));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getSFLeft));
@@ -184,7 +184,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFPlane *(ProjectionCameraDecoratorBase::*GetSFBottomF)(void) const;
 
     GetSFBottomF GetSFBottom = &ProjectionCameraDecoratorBase::getSFBottom;
@@ -198,7 +198,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editSFBottom),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBottom));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getSFBottom));
@@ -206,7 +206,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFPlane *(ProjectionCameraDecoratorBase::*GetSFNormalF)(void) const;
 
     GetSFNormalF GetSFNormal = &ProjectionCameraDecoratorBase::getSFNormal;
@@ -220,7 +220,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editSFNormal),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFNormal));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getSFNormal));
@@ -228,7 +228,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(ProjectionCameraDecoratorBase::*GetSFWidthF)(void) const;
 
     GetSFWidthF GetSFWidth = &ProjectionCameraDecoratorBase::getSFWidth;
@@ -242,7 +242,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editSFWidth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getSFWidth));
@@ -250,7 +250,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(ProjectionCameraDecoratorBase::*GetSFHeightF)(void) const;
 
     GetSFHeightF GetSFHeight = &ProjectionCameraDecoratorBase::getSFHeight;
@@ -264,7 +264,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editSFHeight),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHeight));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getSFHeight));
@@ -427,7 +427,7 @@ const MFPnt3f *ProjectionCameraDecoratorBase::getMFSurface(void) const
     return &_mfSurface;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFPnt3f             *ProjectionCameraDecoratorBase::getMFSurface        (void)
 {
     return this->editMFSurface        ();
@@ -446,7 +446,7 @@ const SFPlane *ProjectionCameraDecoratorBase::getSFLeft(void) const
     return &_sfLeft;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFPlane             *ProjectionCameraDecoratorBase::getSFLeft           (void)
 {
     return this->editSFLeft           ();
@@ -465,7 +465,7 @@ const SFPlane *ProjectionCameraDecoratorBase::getSFBottom(void) const
     return &_sfBottom;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFPlane             *ProjectionCameraDecoratorBase::getSFBottom         (void)
 {
     return this->editSFBottom         ();
@@ -484,7 +484,7 @@ const SFPlane *ProjectionCameraDecoratorBase::getSFNormal(void) const
     return &_sfNormal;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFPlane             *ProjectionCameraDecoratorBase::getSFNormal         (void)
 {
     return this->editSFNormal         ();
@@ -503,7 +503,7 @@ const SFReal32 *ProjectionCameraDecoratorBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *ProjectionCameraDecoratorBase::getSFWidth          (void)
 {
     return this->editSFWidth          ();
@@ -522,7 +522,7 @@ const SFReal32 *ProjectionCameraDecoratorBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *ProjectionCameraDecoratorBase::getSFHeight         (void)
 {
     return this->editSFHeight         ();

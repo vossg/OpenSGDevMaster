@@ -98,7 +98,7 @@ MFColor3f &GradientBackgroundBase::editColor(void)
     return _mfColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color3f             &GradientBackgroundBase::getColor          (const UInt32 index)
 {
@@ -145,7 +145,7 @@ MFReal32 &GradientBackgroundBase::editPosition(void)
     return _mfPosition;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &GradientBackgroundBase::getPosition       (const UInt32 index)
 {

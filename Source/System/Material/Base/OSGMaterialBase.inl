@@ -90,7 +90,7 @@ const Int32 &MaterialBase::getSortKey(void) const
     return _sfSortKey.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &MaterialBase::getSortKey        (void)
 {
@@ -123,7 +123,7 @@ const Int32 &MaterialBase::getTransparencyMode(void) const
     return _sfTransparencyMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &MaterialBase::getTransparencyMode(void)
 {

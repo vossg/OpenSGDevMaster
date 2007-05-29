@@ -147,26 +147,26 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFLeftBuffer      (void);
 #endif
                   SFBool              *editSFLeftBuffer     (void);
             const SFBool              *getSFLeftBuffer      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFRightBuffer     (void);
 #endif
                   SFBool              *editSFRightBuffer    (void);
             const SFBool              *getSFRightBuffer     (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getLeftBuffer      (void);
 #endif
                   bool                &editLeftBuffer     (void);
             const bool                &getLeftBuffer      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getRightBuffer     (void);
 #endif
                   bool                &editRightBuffer    (void);

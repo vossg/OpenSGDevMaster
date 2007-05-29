@@ -147,26 +147,26 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFGLId            (void);
 #endif
                   SFGLenum            *editSFGLId           (void);
             const SFGLenum            *getSFGLId            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFInternalFormat  (void);
 #endif
                   SFGLenum            *editSFInternalFormat (void);
             const SFGLenum            *getSFInternalFormat  (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getGLId            (void);
 #endif
                   GLenum              &editGLId           (void);
             const GLenum              &getGLId            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getInternalFormat  (void);
 #endif
                   GLenum              &editInternalFormat (void);

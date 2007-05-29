@@ -123,7 +123,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFMatrix *(MatrixCameraDecoratorBase::*GetSFPreViewingF)(void) const;
 
     GetSFPreViewingF GetSFPreViewing = &MatrixCameraDecoratorBase::getSFPreViewing;
@@ -138,7 +138,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editSFPreViewing),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPreViewing));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getSFPreViewing));
@@ -146,7 +146,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFMatrix *(MatrixCameraDecoratorBase::*GetSFPostViewingF)(void) const;
 
     GetSFPostViewingF GetSFPostViewing = &MatrixCameraDecoratorBase::getSFPostViewing;
@@ -161,7 +161,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editSFPostViewing),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPostViewing));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getSFPostViewing));
@@ -169,7 +169,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFMatrix *(MatrixCameraDecoratorBase::*GetSFPreProjectionTranslationF)(void) const;
 
     GetSFPreProjectionTranslationF GetSFPreProjectionTranslation = &MatrixCameraDecoratorBase::getSFPreProjectionTranslation;
@@ -184,7 +184,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editSFPreProjectionTranslation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPreProjectionTranslation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getSFPreProjectionTranslation));
@@ -192,7 +192,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFMatrix *(MatrixCameraDecoratorBase::*GetSFPostProjectionTranslationF)(void) const;
 
     GetSFPostProjectionTranslationF GetSFPostProjectionTranslation = &MatrixCameraDecoratorBase::getSFPostProjectionTranslation;
@@ -207,7 +207,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editSFPostProjectionTranslation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPostProjectionTranslation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getSFPostProjectionTranslation));
@@ -215,7 +215,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFMatrix *(MatrixCameraDecoratorBase::*GetSFPreProjectionF)(void) const;
 
     GetSFPreProjectionF GetSFPreProjection = &MatrixCameraDecoratorBase::getSFPreProjection;
@@ -230,7 +230,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editSFPreProjection),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPreProjection));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getSFPreProjection));
@@ -238,7 +238,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFMatrix *(MatrixCameraDecoratorBase::*GetSFPostProjectionF)(void) const;
 
     GetSFPostProjectionF GetSFPostProjection = &MatrixCameraDecoratorBase::getSFPostProjection;
@@ -253,7 +253,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editSFPostProjection),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPostProjection));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getSFPostProjection));
@@ -403,7 +403,7 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPreViewing(void) const
     return &_sfPreViewing;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFMatrix            *MatrixCameraDecoratorBase::getSFPreViewing     (void)
 {
     return this->editSFPreViewing     ();
@@ -422,7 +422,7 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPostViewing(void) const
     return &_sfPostViewing;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFMatrix            *MatrixCameraDecoratorBase::getSFPostViewing    (void)
 {
     return this->editSFPostViewing    ();
@@ -441,7 +441,7 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPreProjectionTranslation(void) c
     return &_sfPreProjectionTranslation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFMatrix            *MatrixCameraDecoratorBase::getSFPreProjectionTranslation(void)
 {
     return this->editSFPreProjectionTranslation();
@@ -460,7 +460,7 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPostProjectionTranslation(void) 
     return &_sfPostProjectionTranslation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFMatrix            *MatrixCameraDecoratorBase::getSFPostProjectionTranslation(void)
 {
     return this->editSFPostProjectionTranslation();
@@ -479,7 +479,7 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPreProjection(void) const
     return &_sfPreProjection;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFMatrix            *MatrixCameraDecoratorBase::getSFPreProjection  (void)
 {
     return this->editSFPreProjection  ();
@@ -498,7 +498,7 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPostProjection(void) const
     return &_sfPostProjection;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFMatrix            *MatrixCameraDecoratorBase::getSFPostProjection (void)
 {
     return this->editSFPostProjection ();

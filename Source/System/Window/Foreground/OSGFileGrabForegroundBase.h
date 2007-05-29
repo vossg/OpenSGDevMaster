@@ -151,38 +151,38 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFString            *getSFName            (void);
 #endif
                   SFString            *editSFName           (void);
             const SFString            *getSFName            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFFrame           (void);
 #endif
                   SFUInt32            *editSFFrame          (void);
             const SFUInt32            *getSFFrame           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFIncrement       (void);
 #endif
                   SFBool              *editSFIncrement      (void);
             const SFBool              *getSFIncrement       (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getName            (void);
 #endif
                   std::string         &editName           (void);
             const std::string         &getName            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getFrame           (void);
 #endif
                   UInt32              &editFrame          (void);
             const UInt32              &getFrame           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getIncrement       (void);
 #endif
                   bool                &editIncrement      (void);

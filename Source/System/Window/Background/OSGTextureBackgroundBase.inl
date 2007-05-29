@@ -90,7 +90,7 @@ const Color4f &TextureBackgroundBase::getColor(void) const
     return _sfColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4f             &TextureBackgroundBase::getColor          (void)
 {
@@ -140,7 +140,7 @@ const Real32 &TextureBackgroundBase::getRadialDistortion(void) const
     return _sfRadialDistortion.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TextureBackgroundBase::getRadialDistortion(void)
 {
@@ -173,7 +173,7 @@ const Vec2f &TextureBackgroundBase::getCenterOfDistortion(void) const
     return _sfCenterOfDistortion.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec2f               &TextureBackgroundBase::getCenterOfDistortion(void)
 {
@@ -206,7 +206,7 @@ const UInt16 &TextureBackgroundBase::getHor(void) const
     return _sfHor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt16              &TextureBackgroundBase::getHor            (void)
 {
@@ -239,7 +239,7 @@ const UInt16 &TextureBackgroundBase::getVert(void) const
     return _sfVert.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt16              &TextureBackgroundBase::getVert           (void)
 {
@@ -280,7 +280,7 @@ MFPnt2f &TextureBackgroundBase::editTexCoords(void)
     return _mfTexCoords;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Pnt2f               &TextureBackgroundBase::getTexCoords      (const UInt32 index)
 {

@@ -107,7 +107,7 @@ const GLenum &TextureBufferBase::getTexTarget(void) const
     return _sfTexTarget.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureBufferBase::getTexTarget      (void)
 {
@@ -140,7 +140,7 @@ const UInt32 &TextureBufferBase::getLevel(void) const
     return _sfLevel.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TextureBufferBase::getLevel          (void)
 {
@@ -173,7 +173,7 @@ const UInt32 &TextureBufferBase::getZoffset(void) const
     return _sfZoffset.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TextureBufferBase::getZoffset        (void)
 {

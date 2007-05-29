@@ -90,7 +90,7 @@ const GLenum &FrameBufferObjectBase::getGLId(void) const
     return _sfGLId.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &FrameBufferObjectBase::getGLId           (void)
 {
@@ -157,7 +157,7 @@ const UInt16 &FrameBufferObjectBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt16              &FrameBufferObjectBase::getWidth          (void)
 {
@@ -190,7 +190,7 @@ const UInt16 &FrameBufferObjectBase::getHeight(void) const
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt16              &FrameBufferObjectBase::getHeight         (void)
 {
@@ -245,7 +245,7 @@ MFGLenum &FrameBufferObjectBase::editDrawBuffers(void)
     return _mfDrawBuffers;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &FrameBufferObjectBase::getDrawBuffers    (const UInt32 index)
 {

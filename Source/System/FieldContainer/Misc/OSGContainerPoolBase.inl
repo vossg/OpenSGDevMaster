@@ -90,7 +90,7 @@ const std::string &ContainerPoolBase::getName(void) const
     return _sfName.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ContainerPoolBase::getName           (void)
 {

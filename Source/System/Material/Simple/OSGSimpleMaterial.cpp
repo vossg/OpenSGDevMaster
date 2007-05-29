@@ -204,7 +204,7 @@ void SimpleMaterial::rebuildState(void)
 	Color3r v3;
 	Color4r v4;
 
-	Real  alpha = 1.f - getTransparency();
+	Real  alpha = 1.f - _sfTransparency.getValue();
 
     if(_pState != NullFC)
     {
@@ -224,30 +224,30 @@ void SimpleMaterial::rebuildState(void)
 
     prepareLocalChunks();
 
-    v3 = getAmbient();
+    v3 = _sfAmbient.getValue();
     v4.setValuesRGBA(v3[0], v3[1], v3[2], alpha);
 
     _materialChunk->setAmbient(v4);
 
-    v3 = getDiffuse();
+    v3 = _sfDiffuse.getValue();
     v4.setValuesRGBA(v3[0], v3[1], v3[2], alpha);
     
     _materialChunk->setDiffuse(v4);
     
-    v3 = getSpecular();
+    v3 = _sfSpecular.getValue();
     v4.setValuesRGBA(v3[0], v3[1], v3[2], alpha);
     
     _materialChunk->setSpecular(v4);
     
-    _materialChunk->setShininess(getShininess());
+    _materialChunk->setShininess(_sfShininess.getValue());
     
-    v3 = getEmission();
+    v3 = _sfEmission.getValue();
     v4.setValuesRGBA(v3[0], v3[1], v3[2], alpha);
     
     _materialChunk->setEmission(v4);
     
-    _materialChunk->setLit(getLit());
-    _materialChunk->setColorMaterial(getColorMaterial());
+    _materialChunk->setLit          (_sfLit          .getValue());
+    _materialChunk->setColorMaterial(_sfColorMaterial.getValue());
 
     _pState->addChunk(_materialChunk);
 

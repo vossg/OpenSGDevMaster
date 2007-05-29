@@ -226,7 +226,7 @@ const SFReal32 *CameraDecoratorBase::getSFNear(void) const
         return NULL;
     }
 }
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *CameraDecoratorBase::getSFNear           (void)
 {
     return this->editSFNear           ();
@@ -256,7 +256,7 @@ const SFReal32 *CameraDecoratorBase::getSFFar(void) const
         return NULL;
     }
 }
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *CameraDecoratorBase::getSFFar            (void)
 {
     return this->editSFFar            ();
@@ -498,7 +498,7 @@ const Real32 &CameraDecoratorBase::getNear(void) const
     }
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &CameraDecoratorBase::getNear           (void)
 {
@@ -545,7 +545,7 @@ const Real32 &CameraDecoratorBase::getFar(void) const
     }
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &CameraDecoratorBase::getFar            (void)
 {

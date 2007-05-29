@@ -90,7 +90,7 @@ const bool &ColorBufferViewportBase::getRed(void) const
     return _sfRed.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ColorBufferViewportBase::getRed            (void)
 {
@@ -123,7 +123,7 @@ const bool &ColorBufferViewportBase::getBlue(void) const
     return _sfBlue.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ColorBufferViewportBase::getBlue           (void)
 {
@@ -156,7 +156,7 @@ const bool &ColorBufferViewportBase::getGreen(void) const
     return _sfGreen.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ColorBufferViewportBase::getGreen          (void)
 {
@@ -189,7 +189,7 @@ const bool &ColorBufferViewportBase::getAlpha(void) const
     return _sfAlpha.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ColorBufferViewportBase::getAlpha          (void)
 {

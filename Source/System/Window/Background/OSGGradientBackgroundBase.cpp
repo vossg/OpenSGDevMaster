@@ -100,7 +100,7 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFColor3f *(GradientBackgroundBase::*GetMFColorF)(void) const;
 
     GetMFColorF GetMFColor = &GradientBackgroundBase::getMFColor;
@@ -114,7 +114,7 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GradientBackgroundBase::editMFColor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GradientBackgroundBase::getMFColor));
@@ -122,7 +122,7 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFReal32 *(GradientBackgroundBase::*GetMFPositionF)(void) const;
 
     GetMFPositionF GetMFPosition = &GradientBackgroundBase::getMFPosition;
@@ -136,7 +136,7 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GradientBackgroundBase::editMFPosition),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFPosition));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GradientBackgroundBase::getMFPosition));
@@ -237,7 +237,7 @@ const MFColor3f *GradientBackgroundBase::getMFColor(void) const
     return &_mfColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFColor3f           *GradientBackgroundBase::getMFColor          (void)
 {
     return this->editMFColor          ();
@@ -256,7 +256,7 @@ const MFReal32 *GradientBackgroundBase::getMFPosition(void) const
     return &_mfPosition;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFReal32            *GradientBackgroundBase::getMFPosition       (void)
 {
     return this->editMFPosition       ();

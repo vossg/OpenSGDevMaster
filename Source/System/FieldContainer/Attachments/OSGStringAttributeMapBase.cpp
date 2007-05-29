@@ -95,7 +95,7 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFString *(StringAttributeMapBase::*GetMFKeysF)(void) const;
 
     GetMFKeysF GetMFKeys = &StringAttributeMapBase::getMFKeys;
@@ -109,7 +109,7 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StringAttributeMapBase::editMFKeys),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFKeys));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StringAttributeMapBase::getMFKeys));
@@ -117,7 +117,7 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFString *(StringAttributeMapBase::*GetMFValuesF)(void) const;
 
     GetMFValuesF GetMFValues = &StringAttributeMapBase::getMFValues;
@@ -131,7 +131,7 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StringAttributeMapBase::editMFValues),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFValues));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StringAttributeMapBase::getMFValues));
@@ -221,7 +221,7 @@ const MFString *StringAttributeMapBase::getMFKeys(void) const
     return &_mfKeys;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFString            *StringAttributeMapBase::getMFKeys           (void)
 {
     return this->editMFKeys           ();
@@ -240,7 +240,7 @@ const MFString *StringAttributeMapBase::getMFValues(void) const
     return &_mfValues;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFString            *StringAttributeMapBase::getMFValues         (void)
 {
     return this->editMFValues         ();

@@ -90,7 +90,7 @@ const Int32 &ImageBase::getDimension(void) const
     return _sfDimension.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getDimension      (void)
 {
@@ -123,7 +123,7 @@ const Int32 &ImageBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getWidth          (void)
 {
@@ -156,7 +156,7 @@ const Int32 &ImageBase::getHeight(void) const
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getHeight         (void)
 {
@@ -189,7 +189,7 @@ const Int32 &ImageBase::getDepth(void) const
     return _sfDepth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getDepth          (void)
 {
@@ -222,7 +222,7 @@ const Int32 &ImageBase::getBpp(void) const
     return _sfBpp.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getBpp            (void)
 {
@@ -255,7 +255,7 @@ const Int32 &ImageBase::getMipMapCount(void) const
     return _sfMipMapCount.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getMipMapCount    (void)
 {
@@ -288,7 +288,7 @@ const Int32 &ImageBase::getFrameCount(void) const
     return _sfFrameCount.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getFrameCount     (void)
 {
@@ -321,7 +321,7 @@ const Time &ImageBase::getFrameDelay(void) const
     return _sfFrameDelay.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Time                &ImageBase::getFrameDelay     (void)
 {
@@ -354,7 +354,7 @@ const UInt32 &ImageBase::getPixelFormat(void) const
     return _sfPixelFormat.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ImageBase::getPixelFormat    (void)
 {
@@ -387,7 +387,7 @@ const Int32 &ImageBase::getFrameSize(void) const
     return _sfFrameSize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getFrameSize      (void)
 {
@@ -420,7 +420,7 @@ const std::string &ImageBase::getName(void) const
     return _sfName.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ImageBase::getName           (void)
 {
@@ -453,7 +453,7 @@ const Int32 &ImageBase::getDataType(void) const
     return _sfDataType.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getDataType       (void)
 {
@@ -486,7 +486,7 @@ const Int32 &ImageBase::getComponentSize(void) const
     return _sfComponentSize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getComponentSize  (void)
 {
@@ -519,7 +519,7 @@ const Int32 &ImageBase::getSideCount(void) const
     return _sfSideCount.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getSideCount      (void)
 {
@@ -552,7 +552,7 @@ const Int32 &ImageBase::getSideSize(void) const
     return _sfSideSize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ImageBase::getSideSize       (void)
 {
@@ -585,7 +585,7 @@ const bool &ImageBase::getForceCompressedData(void) const
     return _sfForceCompressedData.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ImageBase::getForceCompressedData(void)
 {
@@ -618,7 +618,7 @@ const bool &ImageBase::getForceAlphaChannel(void) const
     return _sfForceAlphaChannel.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ImageBase::getForceAlphaChannel(void)
 {
@@ -651,7 +651,7 @@ const bool &ImageBase::getForceColorChannel(void) const
     return _sfForceColorChannel.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ImageBase::getForceColorChannel(void)
 {
@@ -684,7 +684,7 @@ const bool &ImageBase::getForceAlphaBinary(void) const
     return _sfForceAlphaBinary.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ImageBase::getForceAlphaBinary(void)
 {
@@ -739,7 +739,7 @@ MFUInt8 &ImageBase::editPixel(void)
     return _mfPixel;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt8               &ImageBase::getPixel          (const UInt32 index)
 {

@@ -91,7 +91,7 @@ void StateChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(StateChunkBase::*GetSFIgnoreF)(void) const;
 
     GetSFIgnoreF GetSFIgnore = &StateChunkBase::getSFIgnore;
@@ -105,7 +105,7 @@ void StateChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StateChunkBase::editSFIgnore),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFIgnore));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StateChunkBase::getSFIgnore));
@@ -189,7 +189,7 @@ const SFBool *StateChunkBase::getSFIgnore(void) const
     return &_sfIgnore;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *StateChunkBase::getSFIgnore         (void)
 {
     return this->editSFIgnore         ();

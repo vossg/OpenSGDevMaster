@@ -168,19 +168,19 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
 
             const SFNodePtr           *getSFUser            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFPnt3f             *getMFSurface         (void);
 #endif
                   MFPnt3f             *editMFSurface        (void);
             const MFPnt3f             *getMFSurface         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFWidth           (void);
 #endif
                   SFReal32            *editSFWidth          (void);
             const SFReal32            *getSFWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFHeight          (void);
 #endif
                   SFReal32            *editSFHeight         (void);
@@ -189,7 +189,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
 
                   NodePtrConst getUser           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Pnt3f               &getSurface         (const UInt32 index);
                   MFPnt3f             &getSurface        (void);
 #endif
@@ -198,13 +198,13 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
                   MFPnt3f             &editSurface        (void);
             const MFPnt3f             &getSurface        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getWidth           (void);
 #endif
                   Real32              &editWidth          (void);
             const Real32              &getWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getHeight          (void);
 #endif
                   Real32              &editHeight         (void);
@@ -342,38 +342,38 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFPlane             *getSFLeft            (void);
 #endif
                   SFPlane             *editSFLeft           (void);
             const SFPlane             *getSFLeft            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFPlane             *getSFBottom          (void);
 #endif
                   SFPlane             *editSFBottom         (void);
             const SFPlane             *getSFBottom          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFPlane             *getSFNormal          (void);
 #endif
                   SFPlane             *editSFNormal         (void);
             const SFPlane             *getSFNormal          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Plane               &getLeft            (void);
 #endif
                   Plane               &editLeft           (void);
             const Plane               &getLeft            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Plane               &getBottom          (void);
 #endif
                   Plane               &editBottom         (void);
             const Plane               &getBottom          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Plane               &getNormal          (void);
 #endif
                   Plane               &editNormal         (void);

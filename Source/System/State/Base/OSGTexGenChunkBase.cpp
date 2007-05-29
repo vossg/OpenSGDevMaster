@@ -154,7 +154,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TexGenChunkBase::*GetSFGenFuncSF)(void) const;
 
     GetSFGenFuncSF GetSFGenFuncS = &TexGenChunkBase::getSFGenFuncS;
@@ -168,7 +168,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TexGenChunkBase::editSFGenFuncS),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGenFuncS));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TexGenChunkBase::getSFGenFuncS));
@@ -176,7 +176,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TexGenChunkBase::*GetSFGenFuncTF)(void) const;
 
     GetSFGenFuncTF GetSFGenFuncT = &TexGenChunkBase::getSFGenFuncT;
@@ -190,7 +190,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TexGenChunkBase::editSFGenFuncT),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGenFuncT));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TexGenChunkBase::getSFGenFuncT));
@@ -198,7 +198,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TexGenChunkBase::*GetSFGenFuncRF)(void) const;
 
     GetSFGenFuncRF GetSFGenFuncR = &TexGenChunkBase::getSFGenFuncR;
@@ -212,7 +212,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TexGenChunkBase::editSFGenFuncR),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGenFuncR));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TexGenChunkBase::getSFGenFuncR));
@@ -220,7 +220,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TexGenChunkBase::*GetSFGenFuncQF)(void) const;
 
     GetSFGenFuncQF GetSFGenFuncQ = &TexGenChunkBase::getSFGenFuncQ;
@@ -234,7 +234,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TexGenChunkBase::editSFGenFuncQ),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGenFuncQ));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TexGenChunkBase::getSFGenFuncQ));
@@ -242,7 +242,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec4f *(TexGenChunkBase::*GetSFGenFuncSPlaneF)(void) const;
 
     GetSFGenFuncSPlaneF GetSFGenFuncSPlane = &TexGenChunkBase::getSFGenFuncSPlane;
@@ -256,7 +256,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TexGenChunkBase::editSFGenFuncSPlane),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGenFuncSPlane));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TexGenChunkBase::getSFGenFuncSPlane));
@@ -264,7 +264,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec4f *(TexGenChunkBase::*GetSFGenFuncTPlaneF)(void) const;
 
     GetSFGenFuncTPlaneF GetSFGenFuncTPlane = &TexGenChunkBase::getSFGenFuncTPlane;
@@ -278,7 +278,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TexGenChunkBase::editSFGenFuncTPlane),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGenFuncTPlane));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TexGenChunkBase::getSFGenFuncTPlane));
@@ -286,7 +286,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec4f *(TexGenChunkBase::*GetSFGenFuncRPlaneF)(void) const;
 
     GetSFGenFuncRPlaneF GetSFGenFuncRPlane = &TexGenChunkBase::getSFGenFuncRPlane;
@@ -300,7 +300,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TexGenChunkBase::editSFGenFuncRPlane),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGenFuncRPlane));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TexGenChunkBase::getSFGenFuncRPlane));
@@ -308,7 +308,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec4f *(TexGenChunkBase::*GetSFGenFuncQPlaneF)(void) const;
 
     GetSFGenFuncQPlaneF GetSFGenFuncQPlane = &TexGenChunkBase::getSFGenFuncQPlane;
@@ -322,7 +322,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TexGenChunkBase::editSFGenFuncQPlane),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGenFuncQPlane));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TexGenChunkBase::getSFGenFuncQPlane));
@@ -574,7 +574,7 @@ const SFGLenum *TexGenChunkBase::getSFGenFuncS(void) const
     return &_sfGenFuncS;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TexGenChunkBase::getSFGenFuncS       (void)
 {
     return this->editSFGenFuncS       ();
@@ -593,7 +593,7 @@ const SFGLenum *TexGenChunkBase::getSFGenFuncT(void) const
     return &_sfGenFuncT;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TexGenChunkBase::getSFGenFuncT       (void)
 {
     return this->editSFGenFuncT       ();
@@ -612,7 +612,7 @@ const SFGLenum *TexGenChunkBase::getSFGenFuncR(void) const
     return &_sfGenFuncR;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TexGenChunkBase::getSFGenFuncR       (void)
 {
     return this->editSFGenFuncR       ();
@@ -631,7 +631,7 @@ const SFGLenum *TexGenChunkBase::getSFGenFuncQ(void) const
     return &_sfGenFuncQ;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TexGenChunkBase::getSFGenFuncQ       (void)
 {
     return this->editSFGenFuncQ       ();
@@ -650,7 +650,7 @@ const SFVec4f *TexGenChunkBase::getSFGenFuncSPlane(void) const
     return &_sfGenFuncSPlane;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec4f             *TexGenChunkBase::getSFGenFuncSPlane  (void)
 {
     return this->editSFGenFuncSPlane  ();
@@ -669,7 +669,7 @@ const SFVec4f *TexGenChunkBase::getSFGenFuncTPlane(void) const
     return &_sfGenFuncTPlane;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec4f             *TexGenChunkBase::getSFGenFuncTPlane  (void)
 {
     return this->editSFGenFuncTPlane  ();
@@ -688,7 +688,7 @@ const SFVec4f *TexGenChunkBase::getSFGenFuncRPlane(void) const
     return &_sfGenFuncRPlane;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec4f             *TexGenChunkBase::getSFGenFuncRPlane  (void)
 {
     return this->editSFGenFuncRPlane  ();
@@ -707,7 +707,7 @@ const SFVec4f *TexGenChunkBase::getSFGenFuncQPlane(void) const
     return &_sfGenFuncQPlane;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec4f             *TexGenChunkBase::getSFGenFuncQPlane  (void)
 {
     return this->editSFGenFuncQPlane  ();

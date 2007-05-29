@@ -148,7 +148,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
 
             const MFMaterialPtr       *getMFMaterials       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFChoice          (void);
 #endif
                   SFUInt32            *editSFChoice         (void);
@@ -158,7 +158,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
                   MaterialPtrConst getMaterials      (const UInt32 index) const;
             const MFMaterialPtr       &getMaterials      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getChoice          (void);
 #endif
                   UInt32              &editChoice         (void);

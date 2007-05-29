@@ -184,7 +184,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFColor4f *(SkyBackgroundBase::*GetMFSkyColorF)(void) const;
 
     GetMFSkyColorF GetMFSkyColor = &SkyBackgroundBase::getMFSkyColor;
@@ -202,7 +202,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFSkyColor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFSkyColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFSkyColor));
@@ -210,7 +210,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFReal32 *(SkyBackgroundBase::*GetMFSkyAngleF)(void) const;
 
     GetMFSkyAngleF GetMFSkyAngle = &SkyBackgroundBase::getMFSkyAngle;
@@ -225,7 +225,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFSkyAngle),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFSkyAngle));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFSkyAngle));
@@ -233,7 +233,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFColor4f *(SkyBackgroundBase::*GetMFGroundColorF)(void) const;
 
     GetMFGroundColorF GetMFGroundColor = &SkyBackgroundBase::getMFGroundColor;
@@ -247,7 +247,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFGroundColor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFGroundColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFGroundColor));
@@ -255,7 +255,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFReal32 *(SkyBackgroundBase::*GetMFGroundAngleF)(void) const;
 
     GetMFGroundAngleF GetMFGroundAngle = &SkyBackgroundBase::getMFGroundAngle;
@@ -270,7 +270,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFGroundAngle),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFGroundAngle));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFGroundAngle));
@@ -278,7 +278,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(SkyBackgroundBase::*GetSFSphereResF)(void) const;
 
     GetSFSphereResF GetSFSphereRes = &SkyBackgroundBase::getSFSphereRes;
@@ -292,7 +292,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editSFSphereRes),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSphereRes));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getSFSphereRes));
@@ -372,7 +372,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(SkyBackgroundBase::*GetSFBoxInsideF)(void) const;
 
     GetSFBoxInsideF GetSFBoxInside = &SkyBackgroundBase::getSFBoxInside;
@@ -386,7 +386,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editSFBoxInside),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBoxInside));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getSFBoxInside));
@@ -394,7 +394,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFVec3f *(SkyBackgroundBase::*GetMFTopTexCoordF)(void) const;
 
     GetMFTopTexCoordF GetMFTopTexCoord = &SkyBackgroundBase::getMFTopTexCoord;
@@ -408,7 +408,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFTopTexCoord),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFTopTexCoord));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFTopTexCoord));
@@ -416,7 +416,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFVec3f *(SkyBackgroundBase::*GetMFBottomTexCoordF)(void) const;
 
     GetMFBottomTexCoordF GetMFBottomTexCoord = &SkyBackgroundBase::getMFBottomTexCoord;
@@ -430,7 +430,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFBottomTexCoord),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFBottomTexCoord));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFBottomTexCoord));
@@ -438,7 +438,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFVec3f *(SkyBackgroundBase::*GetMFRightTexCoordF)(void) const;
 
     GetMFRightTexCoordF GetMFRightTexCoord = &SkyBackgroundBase::getMFRightTexCoord;
@@ -452,7 +452,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFRightTexCoord),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFRightTexCoord));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFRightTexCoord));
@@ -460,7 +460,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFVec3f *(SkyBackgroundBase::*GetMFLeftTexCoordF)(void) const;
 
     GetMFLeftTexCoordF GetMFLeftTexCoord = &SkyBackgroundBase::getMFLeftTexCoord;
@@ -474,7 +474,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFLeftTexCoord),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFLeftTexCoord));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFLeftTexCoord));
@@ -482,7 +482,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFVec3f *(SkyBackgroundBase::*GetMFFrontTexCoordF)(void) const;
 
     GetMFFrontTexCoordF GetMFFrontTexCoord = &SkyBackgroundBase::getMFFrontTexCoord;
@@ -496,7 +496,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFFrontTexCoord),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFFrontTexCoord));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFFrontTexCoord));
@@ -504,7 +504,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFVec3f *(SkyBackgroundBase::*GetMFBackTexCoordF)(void) const;
 
     GetMFBackTexCoordF GetMFBackTexCoord = &SkyBackgroundBase::getMFBackTexCoord;
@@ -518,7 +518,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFBackTexCoord),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFBackTexCoord));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFBackTexCoord));
@@ -805,7 +805,7 @@ const MFColor4f *SkyBackgroundBase::getMFSkyColor(void) const
     return &_mfSkyColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFColor4f           *SkyBackgroundBase::getMFSkyColor       (void)
 {
     return this->editMFSkyColor       ();
@@ -824,7 +824,7 @@ const MFReal32 *SkyBackgroundBase::getMFSkyAngle(void) const
     return &_mfSkyAngle;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFReal32            *SkyBackgroundBase::getMFSkyAngle       (void)
 {
     return this->editMFSkyAngle       ();
@@ -843,7 +843,7 @@ const MFColor4f *SkyBackgroundBase::getMFGroundColor(void) const
     return &_mfGroundColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFColor4f           *SkyBackgroundBase::getMFGroundColor    (void)
 {
     return this->editMFGroundColor    ();
@@ -862,7 +862,7 @@ const MFReal32 *SkyBackgroundBase::getMFGroundAngle(void) const
     return &_mfGroundAngle;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFReal32            *SkyBackgroundBase::getMFGroundAngle    (void)
 {
     return this->editMFGroundAngle    ();
@@ -881,7 +881,7 @@ const SFUInt32 *SkyBackgroundBase::getSFSphereRes(void) const
     return &_sfSphereRes;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *SkyBackgroundBase::getSFSphereRes      (void)
 {
     return this->editSFSphereRes      ();
@@ -936,7 +936,7 @@ const SFBool *SkyBackgroundBase::getSFBoxInside(void) const
     return &_sfBoxInside;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *SkyBackgroundBase::getSFBoxInside      (void)
 {
     return this->editSFBoxInside      ();
@@ -955,7 +955,7 @@ const MFVec3f *SkyBackgroundBase::getMFTopTexCoord(void) const
     return &_mfTopTexCoord;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFVec3f             *SkyBackgroundBase::getMFTopTexCoord    (void)
 {
     return this->editMFTopTexCoord    ();
@@ -974,7 +974,7 @@ const MFVec3f *SkyBackgroundBase::getMFBottomTexCoord(void) const
     return &_mfBottomTexCoord;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFVec3f             *SkyBackgroundBase::getMFBottomTexCoord (void)
 {
     return this->editMFBottomTexCoord ();
@@ -993,7 +993,7 @@ const MFVec3f *SkyBackgroundBase::getMFRightTexCoord(void) const
     return &_mfRightTexCoord;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFVec3f             *SkyBackgroundBase::getMFRightTexCoord  (void)
 {
     return this->editMFRightTexCoord  ();
@@ -1012,7 +1012,7 @@ const MFVec3f *SkyBackgroundBase::getMFLeftTexCoord(void) const
     return &_mfLeftTexCoord;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFVec3f             *SkyBackgroundBase::getMFLeftTexCoord   (void)
 {
     return this->editMFLeftTexCoord   ();
@@ -1031,7 +1031,7 @@ const MFVec3f *SkyBackgroundBase::getMFFrontTexCoord(void) const
     return &_mfFrontTexCoord;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFVec3f             *SkyBackgroundBase::getMFFrontTexCoord  (void)
 {
     return this->editMFFrontTexCoord  ();
@@ -1050,7 +1050,7 @@ const MFVec3f *SkyBackgroundBase::getMFBackTexCoord(void) const
     return &_mfBackTexCoord;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFVec3f             *SkyBackgroundBase::getMFBackTexCoord   (void)
 {
     return this->editMFBackTexCoord   ();

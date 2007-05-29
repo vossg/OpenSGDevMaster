@@ -176,49 +176,49 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
 
             const SFMaterialPtr       *getSFMaterial        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFPnt2f             *getMFPositions       (void);
 #endif
                   MFPnt2f             *editMFPositions      (void);
             const MFPnt2f             *getMFPositions       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFTexCoords       (void);
 #endif
                   MFVec3f             *editMFTexCoords      (void);
             const MFVec3f             *getMFTexCoords       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFNormalizedX     (void);
 #endif
                   SFBool              *editSFNormalizedX    (void);
             const SFBool              *getSFNormalizedX     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFNormalizedY     (void);
 #endif
                   SFBool              *editSFNormalizedY    (void);
             const SFBool              *getSFNormalizedY     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt16            *getSFAspectHeight    (void);
 #endif
                   SFUInt16            *editSFAspectHeight   (void);
             const SFUInt16            *getSFAspectHeight    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt16            *getSFAspectWidth     (void);
 #endif
                   SFUInt16            *editSFAspectWidth    (void);
             const SFUInt16            *getSFAspectWidth     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFScale           (void);
 #endif
                   SFReal32            *editSFScale          (void);
             const SFReal32            *getSFScale           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFTile            (void);
 #endif
                   SFBool              *editSFTile           (void);
@@ -227,7 +227,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
 
                   MaterialPtrConst getMaterial       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Pnt2f               &getPositions       (const UInt32 index);
                   MFPnt2f             &getPositions      (void);
 #endif
@@ -236,7 +236,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
                   MFPnt2f             &editPositions      (void);
             const MFPnt2f             &getPositions      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3f               &getTexCoords       (const UInt32 index);
                   MFVec3f             &getTexCoords      (void);
 #endif
@@ -245,37 +245,37 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
                   MFVec3f             &editTexCoords      (void);
             const MFVec3f             &getTexCoords      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getNormalizedX     (void);
 #endif
                   bool                &editNormalizedX    (void);
             const bool                &getNormalizedX     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getNormalizedY     (void);
 #endif
                   bool                &editNormalizedY    (void);
             const bool                &getNormalizedY     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt16              &getAspectHeight    (void);
 #endif
                   UInt16              &editAspectHeight   (void);
             const UInt16              &getAspectHeight    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt16              &getAspectWidth     (void);
 #endif
                   UInt16              &editAspectWidth    (void);
             const UInt16              &getAspectWidth     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getScale           (void);
 #endif
                   Real32              &editScale          (void);
             const Real32              &getScale           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getTile            (void);
 #endif
                   bool                &editTile           (void);

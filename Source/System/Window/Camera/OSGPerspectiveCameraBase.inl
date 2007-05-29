@@ -90,7 +90,7 @@ const Real32 &PerspectiveCameraBase::getFov(void) const
     return _sfFov.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PerspectiveCameraBase::getFov            (void)
 {
@@ -123,7 +123,7 @@ const Real32 &PerspectiveCameraBase::getAspect(void) const
     return _sfAspect.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PerspectiveCameraBase::getAspect         (void)
 {

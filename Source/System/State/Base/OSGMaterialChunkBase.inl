@@ -90,7 +90,7 @@ const Color4r &MaterialChunkBase::getDiffuse(void) const
     return _sfDiffuse.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &MaterialChunkBase::getDiffuse        (void)
 {
@@ -123,7 +123,7 @@ const Color4r &MaterialChunkBase::getAmbient(void) const
     return _sfAmbient.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &MaterialChunkBase::getAmbient        (void)
 {
@@ -156,7 +156,7 @@ const Color4r &MaterialChunkBase::getSpecular(void) const
     return _sfSpecular.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &MaterialChunkBase::getSpecular       (void)
 {
@@ -189,7 +189,7 @@ const Color4r &MaterialChunkBase::getEmission(void) const
     return _sfEmission.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &MaterialChunkBase::getEmission       (void)
 {
@@ -222,7 +222,7 @@ const Real &MaterialChunkBase::getShininess(void) const
     return _sfShininess.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &MaterialChunkBase::getShininess      (void)
 {
@@ -255,7 +255,7 @@ const bool &MaterialChunkBase::getLit(void) const
     return _sfLit.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &MaterialChunkBase::getLit            (void)
 {
@@ -288,7 +288,7 @@ const GLenum &MaterialChunkBase::getColorMaterial(void) const
     return _sfColorMaterial.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &MaterialChunkBase::getColorMaterial  (void)
 {
@@ -321,7 +321,7 @@ const bool &MaterialChunkBase::getBackMaterial(void) const
     return _sfBackMaterial.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &MaterialChunkBase::getBackMaterial   (void)
 {
@@ -354,7 +354,7 @@ const Color4r &MaterialChunkBase::getBackDiffuse(void) const
     return _sfBackDiffuse.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &MaterialChunkBase::getBackDiffuse    (void)
 {
@@ -387,7 +387,7 @@ const Color4r &MaterialChunkBase::getBackAmbient(void) const
     return _sfBackAmbient.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &MaterialChunkBase::getBackAmbient    (void)
 {
@@ -420,7 +420,7 @@ const Color4r &MaterialChunkBase::getBackSpecular(void) const
     return _sfBackSpecular.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &MaterialChunkBase::getBackSpecular   (void)
 {
@@ -453,7 +453,7 @@ const Color4r &MaterialChunkBase::getBackEmission(void) const
     return _sfBackEmission.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &MaterialChunkBase::getBackEmission   (void)
 {
@@ -486,7 +486,7 @@ const Real &MaterialChunkBase::getBackShininess(void) const
     return _sfBackShininess.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &MaterialChunkBase::getBackShininess  (void)
 {
@@ -519,7 +519,7 @@ const GLenum &MaterialChunkBase::getBackColorMaterial(void) const
     return _sfBackColorMaterial.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &MaterialChunkBase::getBackColorMaterial(void)
 {

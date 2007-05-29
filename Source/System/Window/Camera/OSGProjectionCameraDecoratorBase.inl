@@ -107,7 +107,7 @@ const Plane &ProjectionCameraDecoratorBase::getLeft(void) const
     return _sfLeft.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Plane               &ProjectionCameraDecoratorBase::getLeft           (void)
 {
@@ -140,7 +140,7 @@ const Plane &ProjectionCameraDecoratorBase::getBottom(void) const
     return _sfBottom.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Plane               &ProjectionCameraDecoratorBase::getBottom         (void)
 {
@@ -173,7 +173,7 @@ const Plane &ProjectionCameraDecoratorBase::getNormal(void) const
     return _sfNormal.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Plane               &ProjectionCameraDecoratorBase::getNormal         (void)
 {
@@ -206,7 +206,7 @@ const Real32 &ProjectionCameraDecoratorBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &ProjectionCameraDecoratorBase::getWidth          (void)
 {
@@ -239,7 +239,7 @@ const Real32 &ProjectionCameraDecoratorBase::getHeight(void) const
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &ProjectionCameraDecoratorBase::getHeight         (void)
 {
@@ -280,7 +280,7 @@ MFPnt3f &ProjectionCameraDecoratorBase::editSurface(void)
     return _mfSurface;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Pnt3f               &ProjectionCameraDecoratorBase::getSurface        (const UInt32 index)
 {

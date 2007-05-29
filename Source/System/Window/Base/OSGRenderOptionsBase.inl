@@ -90,7 +90,7 @@ const bool &RenderOptionsBase::getStatistic(void) const
     return _sfStatistic.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &RenderOptionsBase::getStatistic      (void)
 {
@@ -123,7 +123,7 @@ const GLenum &RenderOptionsBase::getPolygonMode(void) const
     return _sfPolygonMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &RenderOptionsBase::getPolygonMode    (void)
 {
@@ -156,7 +156,7 @@ const bool &RenderOptionsBase::getTwoSidedLighting(void) const
     return _sfTwoSidedLighting.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &RenderOptionsBase::getTwoSidedLighting(void)
 {
@@ -189,7 +189,7 @@ const bool &RenderOptionsBase::getSpecTexLighting(void) const
     return _sfSpecTexLighting.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &RenderOptionsBase::getSpecTexLighting(void)
 {
@@ -222,7 +222,7 @@ const bool &RenderOptionsBase::getSortTrans(void) const
     return _sfSortTrans.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &RenderOptionsBase::getSortTrans      (void)
 {
@@ -255,7 +255,7 @@ const bool &RenderOptionsBase::getZWriteTrans(void) const
     return _sfZWriteTrans.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &RenderOptionsBase::getZWriteTrans    (void)
 {
@@ -288,7 +288,7 @@ const bool &RenderOptionsBase::getLocalLights(void) const
     return _sfLocalLights.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &RenderOptionsBase::getLocalLights    (void)
 {
@@ -321,7 +321,7 @@ const bool &RenderOptionsBase::getCorrectTwoSidedLighting(void) const
     return _sfCorrectTwoSidedLighting.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &RenderOptionsBase::getCorrectTwoSidedLighting(void)
 {
@@ -354,7 +354,7 @@ const bool &RenderOptionsBase::getOcclusionCulling(void) const
     return _sfOcclusionCulling.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &RenderOptionsBase::getOcclusionCulling(void)
 {
@@ -387,7 +387,7 @@ const bool &RenderOptionsBase::getAntialiasing(void) const
     return _sfAntialiasing.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &RenderOptionsBase::getAntialiasing   (void)
 {
@@ -420,7 +420,7 @@ const Real32 &RenderOptionsBase::getAntialiasingDistance(void) const
     return _sfAntialiasingDistance.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &RenderOptionsBase::getAntialiasingDistance(void)
 {
@@ -453,7 +453,7 @@ const Real32 &RenderOptionsBase::getAntialiasingScale(void) const
     return _sfAntialiasingScale.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &RenderOptionsBase::getAntialiasingScale(void)
 {
@@ -486,7 +486,7 @@ const UInt32 &RenderOptionsBase::getAntialiasingTrigger(void) const
     return _sfAntialiasingTrigger.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &RenderOptionsBase::getAntialiasingTrigger(void)
 {
@@ -519,7 +519,7 @@ const bool &RenderOptionsBase::getBackfaceCulling(void) const
     return _sfBackfaceCulling.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &RenderOptionsBase::getBackfaceCulling(void)
 {
@@ -552,7 +552,7 @@ const bool &RenderOptionsBase::getSmallFeatureCulling(void) const
     return _sfSmallFeatureCulling.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &RenderOptionsBase::getSmallFeatureCulling(void)
 {
@@ -585,7 +585,7 @@ const Real32 &RenderOptionsBase::getSmallFeaturePixels(void) const
     return _sfSmallFeaturePixels.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &RenderOptionsBase::getSmallFeaturePixels(void)
 {
@@ -618,7 +618,7 @@ const UInt32 &RenderOptionsBase::getSmallFeatureThreshold(void) const
     return _sfSmallFeatureThreshold.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &RenderOptionsBase::getSmallFeatureThreshold(void)
 {

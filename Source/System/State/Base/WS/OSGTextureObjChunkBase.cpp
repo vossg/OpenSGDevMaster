@@ -269,7 +269,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjChunkBase::*GetSFInternalFormatF)(void) const;
 
     GetSFInternalFormatF GetSFInternalFormat = &TextureObjChunkBase::getSFInternalFormat;
@@ -283,7 +283,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFInternalFormat),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFInternalFormat));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFInternalFormat));
@@ -291,7 +291,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjChunkBase::*GetSFExternalFormatF)(void) const;
 
     GetSFExternalFormatF GetSFExternalFormat = &TextureObjChunkBase::getSFExternalFormat;
@@ -307,7 +307,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFExternalFormat),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFExternalFormat));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFExternalFormat));
@@ -315,7 +315,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(TextureObjChunkBase::*GetSFScaleF)(void) const;
 
     GetSFScaleF GetSFScale = &TextureObjChunkBase::getSFScale;
@@ -333,7 +333,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFScale),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFScale));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFScale));
@@ -341,7 +341,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(TextureObjChunkBase::*GetSFFrameF)(void) const;
 
     GetSFFrameF GetSFFrame = &TextureObjChunkBase::getSFFrame;
@@ -357,7 +357,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFFrame),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFrame));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFFrame));
@@ -365,7 +365,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjChunkBase::*GetSFMinFilterF)(void) const;
 
     GetSFMinFilterF GetSFMinFilter = &TextureObjChunkBase::getSFMinFilter;
@@ -379,7 +379,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFMinFilter),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMinFilter));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFMinFilter));
@@ -387,7 +387,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjChunkBase::*GetSFMagFilterF)(void) const;
 
     GetSFMagFilterF GetSFMagFilter = &TextureObjChunkBase::getSFMagFilter;
@@ -401,7 +401,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFMagFilter),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMagFilter));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFMagFilter));
@@ -409,7 +409,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjChunkBase::*GetSFWrapSF)(void) const;
 
     GetSFWrapSF GetSFWrapS = &TextureObjChunkBase::getSFWrapS;
@@ -423,7 +423,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFWrapS),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWrapS));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFWrapS));
@@ -431,7 +431,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjChunkBase::*GetSFWrapTF)(void) const;
 
     GetSFWrapTF GetSFWrapT = &TextureObjChunkBase::getSFWrapT;
@@ -445,7 +445,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFWrapT),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWrapT));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFWrapT));
@@ -453,7 +453,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjChunkBase::*GetSFWrapRF)(void) const;
 
     GetSFWrapRF GetSFWrapR = &TextureObjChunkBase::getSFWrapR;
@@ -467,7 +467,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFWrapR),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWrapR));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFWrapR));
@@ -475,7 +475,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjChunkBase::*GetSFGLIdF)(void) const;
 
     GetSFGLIdF GetSFGLId = &TextureObjChunkBase::getSFGLId;
@@ -489,7 +489,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFGLId),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFGLId));
@@ -497,7 +497,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TextureObjChunkBase::*GetSFIgnoreGLForAspectF)(void) const;
 
     GetSFIgnoreGLForAspectF GetSFIgnoreGLForAspect = &TextureObjChunkBase::getSFIgnoreGLForAspect;
@@ -511,7 +511,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFIgnoreGLForAspect),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFIgnoreGLForAspect));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFIgnoreGLForAspect));
@@ -519,7 +519,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(TextureObjChunkBase::*GetSFPriorityF)(void) const;
 
     GetSFPriorityF GetSFPriority = &TextureObjChunkBase::getSFPriority;
@@ -533,7 +533,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFPriority),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPriority));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFPriority));
@@ -541,7 +541,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TextureObjChunkBase::*GetSFDirtyLeftF)(void) const;
 
     GetSFDirtyLeftF GetSFDirtyLeft = &TextureObjChunkBase::getSFDirtyLeft;
@@ -557,7 +557,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFDirtyLeft),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDirtyLeft));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFDirtyLeft));
@@ -565,7 +565,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TextureObjChunkBase::*GetSFDirtyMinXF)(void) const;
 
     GetSFDirtyMinXF GetSFDirtyMinX = &TextureObjChunkBase::getSFDirtyMinX;
@@ -581,7 +581,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFDirtyMinX),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDirtyMinX));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFDirtyMinX));
@@ -589,7 +589,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TextureObjChunkBase::*GetSFDirtyMaxXF)(void) const;
 
     GetSFDirtyMaxXF GetSFDirtyMaxX = &TextureObjChunkBase::getSFDirtyMaxX;
@@ -605,7 +605,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFDirtyMaxX),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDirtyMaxX));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFDirtyMaxX));
@@ -613,7 +613,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TextureObjChunkBase::*GetSFDirtyMinYF)(void) const;
 
     GetSFDirtyMinYF GetSFDirtyMinY = &TextureObjChunkBase::getSFDirtyMinY;
@@ -629,7 +629,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFDirtyMinY),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDirtyMinY));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFDirtyMinY));
@@ -637,7 +637,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TextureObjChunkBase::*GetSFDirtyMaxYF)(void) const;
 
     GetSFDirtyMaxYF GetSFDirtyMaxY = &TextureObjChunkBase::getSFDirtyMaxY;
@@ -653,7 +653,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFDirtyMaxY),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDirtyMaxY));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFDirtyMaxY));
@@ -661,7 +661,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TextureObjChunkBase::*GetSFDirtyMinZF)(void) const;
 
     GetSFDirtyMinZF GetSFDirtyMinZ = &TextureObjChunkBase::getSFDirtyMinZ;
@@ -677,7 +677,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFDirtyMinZ),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDirtyMinZ));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFDirtyMinZ));
@@ -685,7 +685,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TextureObjChunkBase::*GetSFDirtyMaxZF)(void) const;
 
     GetSFDirtyMaxZF GetSFDirtyMaxZ = &TextureObjChunkBase::getSFDirtyMaxZ;
@@ -701,7 +701,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFDirtyMaxZ),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDirtyMaxZ));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFDirtyMaxZ));
@@ -709,7 +709,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(TextureObjChunkBase::*GetSFAnisotropyF)(void) const;
 
     GetSFAnisotropyF GetSFAnisotropy = &TextureObjChunkBase::getSFAnisotropy;
@@ -723,7 +723,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFAnisotropy),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAnisotropy));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFAnisotropy));
@@ -731,7 +731,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4f *(TextureObjChunkBase::*GetSFBorderColorF)(void) const;
 
     GetSFBorderColorF GetSFBorderColor = &TextureObjChunkBase::getSFBorderColor;
@@ -745,7 +745,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFBorderColor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBorderColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFBorderColor));
@@ -753,7 +753,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjChunkBase::*GetSFCompareModeF)(void) const;
 
     GetSFCompareModeF GetSFCompareMode = &TextureObjChunkBase::getSFCompareMode;
@@ -767,7 +767,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFCompareMode),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCompareMode));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFCompareMode));
@@ -775,7 +775,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjChunkBase::*GetSFCompareFuncF)(void) const;
 
     GetSFCompareFuncF GetSFCompareFunc = &TextureObjChunkBase::getSFCompareFunc;
@@ -789,7 +789,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFCompareFunc),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCompareFunc));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFCompareFunc));
@@ -797,7 +797,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjChunkBase::*GetSFDepthModeF)(void) const;
 
     GetSFDepthModeF GetSFDepthMode = &TextureObjChunkBase::getSFDepthMode;
@@ -811,7 +811,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFDepthMode),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDepthMode));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFDepthMode));
@@ -819,7 +819,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(TextureObjChunkBase::*GetSFBorderWidthF)(void) const;
 
     GetSFBorderWidthF GetSFBorderWidth = &TextureObjChunkBase::getSFBorderWidth;
@@ -833,7 +833,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFBorderWidth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBorderWidth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFBorderWidth));
@@ -841,7 +841,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(TextureObjChunkBase::*GetSFNPOTMatrixScaleF)(void) const;
 
     GetSFNPOTMatrixScaleF GetSFNPOTMatrixScale = &TextureObjChunkBase::getSFNPOTMatrixScale;
@@ -855,7 +855,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFNPOTMatrixScale),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFNPOTMatrixScale));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFNPOTMatrixScale));
@@ -1302,7 +1302,7 @@ const SFGLenum *TextureObjChunkBase::getSFInternalFormat(void) const
     return &_sfInternalFormat;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjChunkBase::getSFInternalFormat (void)
 {
     return this->editSFInternalFormat ();
@@ -1321,7 +1321,7 @@ const SFGLenum *TextureObjChunkBase::getSFExternalFormat(void) const
     return &_sfExternalFormat;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjChunkBase::getSFExternalFormat (void)
 {
     return this->editSFExternalFormat ();
@@ -1340,7 +1340,7 @@ const SFBool *TextureObjChunkBase::getSFScale(void) const
     return &_sfScale;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *TextureObjChunkBase::getSFScale          (void)
 {
     return this->editSFScale          ();
@@ -1359,7 +1359,7 @@ const SFUInt32 *TextureObjChunkBase::getSFFrame(void) const
     return &_sfFrame;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *TextureObjChunkBase::getSFFrame          (void)
 {
     return this->editSFFrame          ();
@@ -1378,7 +1378,7 @@ const SFGLenum *TextureObjChunkBase::getSFMinFilter(void) const
     return &_sfMinFilter;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjChunkBase::getSFMinFilter      (void)
 {
     return this->editSFMinFilter      ();
@@ -1397,7 +1397,7 @@ const SFGLenum *TextureObjChunkBase::getSFMagFilter(void) const
     return &_sfMagFilter;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjChunkBase::getSFMagFilter      (void)
 {
     return this->editSFMagFilter      ();
@@ -1416,7 +1416,7 @@ const SFGLenum *TextureObjChunkBase::getSFWrapS(void) const
     return &_sfWrapS;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjChunkBase::getSFWrapS          (void)
 {
     return this->editSFWrapS          ();
@@ -1435,7 +1435,7 @@ const SFGLenum *TextureObjChunkBase::getSFWrapT(void) const
     return &_sfWrapT;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjChunkBase::getSFWrapT          (void)
 {
     return this->editSFWrapT          ();
@@ -1454,7 +1454,7 @@ const SFGLenum *TextureObjChunkBase::getSFWrapR(void) const
     return &_sfWrapR;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjChunkBase::getSFWrapR          (void)
 {
     return this->editSFWrapR          ();
@@ -1473,7 +1473,7 @@ const SFGLenum *TextureObjChunkBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjChunkBase::getSFGLId           (void)
 {
     return this->editSFGLId           ();
@@ -1492,7 +1492,7 @@ const SFInt32 *TextureObjChunkBase::getSFIgnoreGLForAspect(void) const
     return &_sfIgnoreGLForAspect;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TextureObjChunkBase::getSFIgnoreGLForAspect(void)
 {
     return this->editSFIgnoreGLForAspect();
@@ -1511,7 +1511,7 @@ const SFReal32 *TextureObjChunkBase::getSFPriority(void) const
     return &_sfPriority;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *TextureObjChunkBase::getSFPriority       (void)
 {
     return this->editSFPriority       ();
@@ -1530,7 +1530,7 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyLeft(void) const
     return &_sfDirtyLeft;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TextureObjChunkBase::getSFDirtyLeft      (void)
 {
     return this->editSFDirtyLeft      ();
@@ -1549,7 +1549,7 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMinX(void) const
     return &_sfDirtyMinX;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TextureObjChunkBase::getSFDirtyMinX      (void)
 {
     return this->editSFDirtyMinX      ();
@@ -1568,7 +1568,7 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMaxX(void) const
     return &_sfDirtyMaxX;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TextureObjChunkBase::getSFDirtyMaxX      (void)
 {
     return this->editSFDirtyMaxX      ();
@@ -1587,7 +1587,7 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMinY(void) const
     return &_sfDirtyMinY;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TextureObjChunkBase::getSFDirtyMinY      (void)
 {
     return this->editSFDirtyMinY      ();
@@ -1606,7 +1606,7 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMaxY(void) const
     return &_sfDirtyMaxY;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TextureObjChunkBase::getSFDirtyMaxY      (void)
 {
     return this->editSFDirtyMaxY      ();
@@ -1625,7 +1625,7 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMinZ(void) const
     return &_sfDirtyMinZ;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TextureObjChunkBase::getSFDirtyMinZ      (void)
 {
     return this->editSFDirtyMinZ      ();
@@ -1644,7 +1644,7 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMaxZ(void) const
     return &_sfDirtyMaxZ;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TextureObjChunkBase::getSFDirtyMaxZ      (void)
 {
     return this->editSFDirtyMaxZ      ();
@@ -1663,7 +1663,7 @@ const SFReal32 *TextureObjChunkBase::getSFAnisotropy(void) const
     return &_sfAnisotropy;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *TextureObjChunkBase::getSFAnisotropy     (void)
 {
     return this->editSFAnisotropy     ();
@@ -1682,7 +1682,7 @@ const SFColor4f *TextureObjChunkBase::getSFBorderColor(void) const
     return &_sfBorderColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4f           *TextureObjChunkBase::getSFBorderColor    (void)
 {
     return this->editSFBorderColor    ();
@@ -1701,7 +1701,7 @@ const SFGLenum *TextureObjChunkBase::getSFCompareMode(void) const
     return &_sfCompareMode;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjChunkBase::getSFCompareMode    (void)
 {
     return this->editSFCompareMode    ();
@@ -1720,7 +1720,7 @@ const SFGLenum *TextureObjChunkBase::getSFCompareFunc(void) const
     return &_sfCompareFunc;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjChunkBase::getSFCompareFunc    (void)
 {
     return this->editSFCompareFunc    ();
@@ -1739,7 +1739,7 @@ const SFGLenum *TextureObjChunkBase::getSFDepthMode(void) const
     return &_sfDepthMode;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjChunkBase::getSFDepthMode      (void)
 {
     return this->editSFDepthMode      ();
@@ -1758,7 +1758,7 @@ const SFUInt32 *TextureObjChunkBase::getSFBorderWidth(void) const
     return &_sfBorderWidth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *TextureObjChunkBase::getSFBorderWidth    (void)
 {
     return this->editSFBorderWidth    ();
@@ -1777,7 +1777,7 @@ const SFUInt32 *TextureObjChunkBase::getSFNPOTMatrixScale(void) const
     return &_sfNPOTMatrixScale;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *TextureObjChunkBase::getSFNPOTMatrixScale(void)
 {
     return this->editSFNPOTMatrixScale();

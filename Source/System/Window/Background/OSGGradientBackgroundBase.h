@@ -212,20 +212,20 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFColor3f           *getMFColor           (void);
 #endif
                   MFColor3f           *editMFColor          (void);
             const MFColor3f           *getMFColor           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFReal32            *getMFPosition        (void);
 #endif
                   MFReal32            *editMFPosition       (void);
             const MFReal32            *getMFPosition        (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color3f             &getColor           (const UInt32 index);
                   MFColor3f           &getColor          (void);
 #endif
@@ -234,7 +234,7 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
                   MFColor3f           &editColor          (void);
             const MFColor3f           &getColor           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getPosition        (const UInt32 index);
                   MFReal32            &getPosition       (void);
 #endif

@@ -125,7 +125,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt16 *(WindowBase::*GetSFWidthF)(void) const;
 
     GetSFWidthF GetSFWidth = &WindowBase::getSFWidth;
@@ -139,7 +139,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&WindowBase::editSFWidth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&WindowBase::getSFWidth));
@@ -147,7 +147,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt16 *(WindowBase::*GetSFHeightF)(void) const;
 
     GetSFHeightF GetSFHeight = &WindowBase::getSFHeight;
@@ -161,7 +161,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&WindowBase::editSFHeight),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHeight));
 #else
         reinterpret_cast<FieldGetMethodSig >(&WindowBase::getSFHeight));
@@ -181,7 +181,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(WindowBase::*GetSFResizePendingF)(void) const;
 
     GetSFResizePendingF GetSFResizePending = &WindowBase::getSFResizePending;
@@ -195,7 +195,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&WindowBase::editSFResizePending),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFResizePending));
 #else
         reinterpret_cast<FieldGetMethodSig >(&WindowBase::getSFResizePending));
@@ -203,7 +203,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(WindowBase::*GetSFGlObjectEventCounterF)(void) const;
 
     GetSFGlObjectEventCounterF GetSFGlObjectEventCounter = &WindowBase::getSFGlObjectEventCounter;
@@ -218,7 +218,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&WindowBase::editSFGlObjectEventCounter),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGlObjectEventCounter));
 #else
         reinterpret_cast<FieldGetMethodSig >(&WindowBase::getSFGlObjectEventCounter));
@@ -226,7 +226,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFUInt32 *(WindowBase::*GetMFGlObjectLastRefreshF)(void) const;
 
     GetMFGlObjectLastRefreshF GetMFGlObjectLastRefresh = &WindowBase::getMFGlObjectLastRefresh;
@@ -240,7 +240,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&WindowBase::editMFGlObjectLastRefresh),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFGlObjectLastRefresh));
 #else
         reinterpret_cast<FieldGetMethodSig >(&WindowBase::getMFGlObjectLastRefresh));
@@ -248,7 +248,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFUInt32 *(WindowBase::*GetMFGlObjectLastReinitializeF)(void) const;
 
     GetMFGlObjectLastReinitializeF GetMFGlObjectLastReinitialize = &WindowBase::getMFGlObjectLastReinitialize;
@@ -262,7 +262,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&WindowBase::editMFGlObjectLastReinitialize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFGlObjectLastReinitialize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&WindowBase::getMFGlObjectLastReinitialize));
@@ -423,7 +423,7 @@ const SFUInt16 *WindowBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt16            *WindowBase::getSFWidth          (void)
 {
     return this->editSFWidth          ();
@@ -442,7 +442,7 @@ const SFUInt16 *WindowBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt16            *WindowBase::getSFHeight         (void)
 {
     return this->editSFHeight         ();
@@ -467,7 +467,7 @@ const SFBool *WindowBase::getSFResizePending(void) const
     return &_sfResizePending;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *WindowBase::getSFResizePending  (void)
 {
     return this->editSFResizePending  ();
@@ -486,7 +486,7 @@ const SFUInt32 *WindowBase::getSFGlObjectEventCounter(void) const
     return &_sfGlObjectEventCounter;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *WindowBase::getSFGlObjectEventCounter(void)
 {
     return this->editSFGlObjectEventCounter();
@@ -505,7 +505,7 @@ const MFUInt32 *WindowBase::getMFGlObjectLastRefresh(void) const
     return &_mfGlObjectLastRefresh;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFUInt32            *WindowBase::getMFGlObjectLastRefresh(void)
 {
     return this->editMFGlObjectLastRefresh();
@@ -524,7 +524,7 @@ const MFUInt32 *WindowBase::getMFGlObjectLastReinitialize(void) const
     return &_mfGlObjectLastReinitialize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFUInt32            *WindowBase::getMFGlObjectLastReinitialize(void)
 {
     return this->editMFGlObjectLastReinitialize();

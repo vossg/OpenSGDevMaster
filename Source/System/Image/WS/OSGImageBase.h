@@ -236,133 +236,133 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
 
             const MFParentFieldContainerPtr *getMFParents         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFDimension       (void);
 #endif
                   SFInt32             *editSFDimension      (void);
             const SFInt32             *getSFDimension       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFWidth           (void);
 #endif
                   SFInt32             *editSFWidth          (void);
             const SFInt32             *getSFWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFHeight          (void);
 #endif
                   SFInt32             *editSFHeight         (void);
             const SFInt32             *getSFHeight          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFDepth           (void);
 #endif
                   SFInt32             *editSFDepth          (void);
             const SFInt32             *getSFDepth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFBpp             (void);
 #endif
                   SFInt32             *editSFBpp            (void);
             const SFInt32             *getSFBpp             (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFMipMapCount     (void);
 #endif
                   SFInt32             *editSFMipMapCount    (void);
             const SFInt32             *getSFMipMapCount     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFFrameCount      (void);
 #endif
                   SFInt32             *editSFFrameCount     (void);
             const SFInt32             *getSFFrameCount      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFTime              *getSFFrameDelay      (void);
 #endif
                   SFTime              *editSFFrameDelay     (void);
             const SFTime              *getSFFrameDelay      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFPixelFormat     (void);
 #endif
                   SFUInt32            *editSFPixelFormat    (void);
             const SFUInt32            *getSFPixelFormat     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFUInt8             *getMFPixel           (void);
 #endif
                   MFUInt8             *editMFPixel          (void);
             const MFUInt8             *getMFPixel           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFFrameSize       (void);
 #endif
                   SFInt32             *editSFFrameSize      (void);
             const SFInt32             *getSFFrameSize       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFString            *getSFName            (void);
 #endif
                   SFString            *editSFName           (void);
             const SFString            *getSFName            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFDataType        (void);
 #endif
                   SFInt32             *editSFDataType       (void);
             const SFInt32             *getSFDataType        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFSideCount       (void);
 #endif
                   SFInt32             *editSFSideCount      (void);
             const SFInt32             *getSFSideCount       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFSideSize        (void);
 #endif
                   SFInt32             *editSFSideSize       (void);
             const SFInt32             *getSFSideSize        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFForceCompressedData (void);
 #endif
                   SFBool              *editSFForceCompressedData(void);
             const SFBool              *getSFForceCompressedData (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFForceAlphaChannel (void);
 #endif
                   SFBool              *editSFForceAlphaChannel(void);
             const SFBool              *getSFForceAlphaChannel (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFForceColorChannel (void);
 #endif
                   SFBool              *editSFForceColorChannel(void);
             const SFBool              *getSFForceColorChannel (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFForceAlphaBinary (void);
 #endif
                   SFBool              *editSFForceAlphaBinary(void);
             const SFBool              *getSFForceAlphaBinary (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFResX            (void);
 #endif
                   SFReal32            *editSFResX           (void);
             const SFReal32            *getSFResX            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFResY            (void);
 #endif
                   SFReal32            *editSFResY           (void);
             const SFReal32            *getSFResY            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt16            *getSFResUnit         (void);
 #endif
                   SFUInt16            *editSFResUnit        (void);
@@ -372,61 +372,61 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
                   ParentFieldContainerPtrConst getParents        (const UInt32 index) const;
             const MFParentFieldContainerPtr &getParents        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getDimension       (void);
 #endif
                   Int32               &editDimension      (void);
             const Int32               &getDimension       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getWidth           (void);
 #endif
                   Int32               &editWidth          (void);
             const Int32               &getWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getHeight          (void);
 #endif
                   Int32               &editHeight         (void);
             const Int32               &getHeight          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getDepth           (void);
 #endif
                   Int32               &editDepth          (void);
             const Int32               &getDepth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getBpp             (void);
 #endif
                   Int32               &editBpp            (void);
             const Int32               &getBpp             (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getMipMapCount     (void);
 #endif
                   Int32               &editMipMapCount    (void);
             const Int32               &getMipMapCount     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getFrameCount      (void);
 #endif
                   Int32               &editFrameCount     (void);
             const Int32               &getFrameCount      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Time                &getFrameDelay      (void);
 #endif
                   Time                &editFrameDelay     (void);
             const Time                &getFrameDelay      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getPixelFormat     (void);
 #endif
                   UInt32              &editPixelFormat    (void);
             const UInt32              &getPixelFormat     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt8               &getPixel           (const UInt32 index);
                   MFUInt8             &getPixel          (void);
 #endif
@@ -435,73 +435,73 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
                   MFUInt8             &editPixel          (void);
             const MFUInt8             &getPixel          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getFrameSize       (void);
 #endif
                   Int32               &editFrameSize      (void);
             const Int32               &getFrameSize       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getName            (void);
 #endif
                   std::string         &editName           (void);
             const std::string         &getName            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getDataType        (void);
 #endif
                   Int32               &editDataType       (void);
             const Int32               &getDataType        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getSideCount       (void);
 #endif
                   Int32               &editSideCount      (void);
             const Int32               &getSideCount       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getSideSize        (void);
 #endif
                   Int32               &editSideSize       (void);
             const Int32               &getSideSize        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getForceCompressedData (void);
 #endif
                   bool                &editForceCompressedData(void);
             const bool                &getForceCompressedData (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getForceAlphaChannel (void);
 #endif
                   bool                &editForceAlphaChannel(void);
             const bool                &getForceAlphaChannel (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getForceColorChannel (void);
 #endif
                   bool                &editForceColorChannel(void);
             const bool                &getForceColorChannel (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getForceAlphaBinary (void);
 #endif
                   bool                &editForceAlphaBinary(void);
             const bool                &getForceAlphaBinary (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getResX            (void);
 #endif
                   Real32              &editResX           (void);
             const Real32              &getResX            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getResY            (void);
 #endif
                   Real32              &editResY           (void);
             const Real32              &getResY            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt16              &getResUnit         (void);
 #endif
                   UInt16              &editResUnit        (void);
@@ -686,14 +686,14 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFComponentSize   (void);
 #endif
                   SFInt32             *editSFComponentSize  (void);
             const SFInt32             *getSFComponentSize   (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getComponentSize   (void);
 #endif
                   Int32               &editComponentSize  (void);

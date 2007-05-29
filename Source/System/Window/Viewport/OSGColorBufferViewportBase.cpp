@@ -107,7 +107,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ColorBufferViewportBase::*GetSFRedF)(void) const;
 
     GetSFRedF GetSFRed = &ColorBufferViewportBase::getSFRed;
@@ -121,7 +121,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editSFRed),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFRed));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getSFRed));
@@ -129,7 +129,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ColorBufferViewportBase::*GetSFBlueF)(void) const;
 
     GetSFBlueF GetSFBlue = &ColorBufferViewportBase::getSFBlue;
@@ -143,7 +143,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editSFBlue),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBlue));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getSFBlue));
@@ -151,7 +151,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ColorBufferViewportBase::*GetSFGreenF)(void) const;
 
     GetSFGreenF GetSFGreen = &ColorBufferViewportBase::getSFGreen;
@@ -165,7 +165,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editSFGreen),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGreen));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getSFGreen));
@@ -173,7 +173,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ColorBufferViewportBase::*GetSFAlphaF)(void) const;
 
     GetSFAlphaF GetSFAlpha = &ColorBufferViewportBase::getSFAlpha;
@@ -187,7 +187,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editSFAlpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAlpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getSFAlpha));
@@ -308,7 +308,7 @@ const SFBool *ColorBufferViewportBase::getSFRed(void) const
     return &_sfRed;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ColorBufferViewportBase::getSFRed            (void)
 {
     return this->editSFRed            ();
@@ -327,7 +327,7 @@ const SFBool *ColorBufferViewportBase::getSFBlue(void) const
     return &_sfBlue;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ColorBufferViewportBase::getSFBlue           (void)
 {
     return this->editSFBlue           ();
@@ -346,7 +346,7 @@ const SFBool *ColorBufferViewportBase::getSFGreen(void) const
     return &_sfGreen;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ColorBufferViewportBase::getSFGreen          (void)
 {
     return this->editSFGreen          ();
@@ -365,7 +365,7 @@ const SFBool *ColorBufferViewportBase::getSFAlpha(void) const
     return &_sfAlpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ColorBufferViewportBase::getSFAlpha          (void)
 {
     return this->editSFAlpha          ();

@@ -117,7 +117,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(TileCameraDecoratorBase::*GetSFLeftF)(void) const;
 
     GetSFLeftF GetSFLeft = &TileCameraDecoratorBase::getSFLeft;
@@ -131,7 +131,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editSFLeft),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLeft));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getSFLeft));
@@ -139,7 +139,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(TileCameraDecoratorBase::*GetSFRightF)(void) const;
 
     GetSFRightF GetSFRight = &TileCameraDecoratorBase::getSFRight;
@@ -153,7 +153,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editSFRight),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFRight));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getSFRight));
@@ -161,7 +161,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(TileCameraDecoratorBase::*GetSFBottomF)(void) const;
 
     GetSFBottomF GetSFBottom = &TileCameraDecoratorBase::getSFBottom;
@@ -175,7 +175,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editSFBottom),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBottom));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getSFBottom));
@@ -183,7 +183,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(TileCameraDecoratorBase::*GetSFTopF)(void) const;
 
     GetSFTopF GetSFTop = &TileCameraDecoratorBase::getSFTop;
@@ -197,7 +197,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editSFTop),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTop));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getSFTop));
@@ -205,7 +205,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(TileCameraDecoratorBase::*GetSFFullWidthF)(void) const;
 
     GetSFFullWidthF GetSFFullWidth = &TileCameraDecoratorBase::getSFFullWidth;
@@ -219,7 +219,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editSFFullWidth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFullWidth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getSFFullWidth));
@@ -227,7 +227,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(TileCameraDecoratorBase::*GetSFFullHeightF)(void) const;
 
     GetSFFullHeightF GetSFFullHeight = &TileCameraDecoratorBase::getSFFullHeight;
@@ -241,7 +241,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editSFFullHeight),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFullHeight));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getSFFullHeight));
@@ -385,7 +385,7 @@ const SFReal32 *TileCameraDecoratorBase::getSFLeft(void) const
     return &_sfLeft;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *TileCameraDecoratorBase::getSFLeft           (void)
 {
     return this->editSFLeft           ();
@@ -404,7 +404,7 @@ const SFReal32 *TileCameraDecoratorBase::getSFRight(void) const
     return &_sfRight;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *TileCameraDecoratorBase::getSFRight          (void)
 {
     return this->editSFRight          ();
@@ -423,7 +423,7 @@ const SFReal32 *TileCameraDecoratorBase::getSFBottom(void) const
     return &_sfBottom;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *TileCameraDecoratorBase::getSFBottom         (void)
 {
     return this->editSFBottom         ();
@@ -442,7 +442,7 @@ const SFReal32 *TileCameraDecoratorBase::getSFTop(void) const
     return &_sfTop;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *TileCameraDecoratorBase::getSFTop            (void)
 {
     return this->editSFTop            ();
@@ -461,7 +461,7 @@ const SFUInt32 *TileCameraDecoratorBase::getSFFullWidth(void) const
     return &_sfFullWidth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *TileCameraDecoratorBase::getSFFullWidth      (void)
 {
     return this->editSFFullWidth      ();
@@ -480,7 +480,7 @@ const SFUInt32 *TileCameraDecoratorBase::getSFFullHeight(void) const
     return &_sfFullHeight;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *TileCameraDecoratorBase::getSFFullHeight     (void)
 {
     return this->editSFFullHeight     ();

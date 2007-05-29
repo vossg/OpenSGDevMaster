@@ -90,7 +90,7 @@ const Color3r &SolidBackgroundBase::getColor(void) const
     return _sfColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color3r             &SolidBackgroundBase::getColor          (void)
 {
@@ -123,7 +123,7 @@ const Real32 &SolidBackgroundBase::getAlpha(void) const
     return _sfAlpha.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &SolidBackgroundBase::getAlpha          (void)
 {

@@ -121,7 +121,7 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(TextureGrabBackgroundBase::*GetSFAutoResizeF)(void) const;
 
     GetSFAutoResizeF GetSFAutoResize = &TextureGrabBackgroundBase::getSFAutoResize;
@@ -135,7 +135,7 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureGrabBackgroundBase::editSFAutoResize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAutoResize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureGrabBackgroundBase::getSFAutoResize));
@@ -143,7 +143,7 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureGrabBackgroundBase::*GetSFBindTargetF)(void) const;
 
     GetSFBindTargetF GetSFBindTarget = &TextureGrabBackgroundBase::getSFBindTarget;
@@ -157,7 +157,7 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureGrabBackgroundBase::editSFBindTarget),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBindTarget));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureGrabBackgroundBase::getSFBindTarget));
@@ -165,7 +165,7 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureGrabBackgroundBase::*GetSFCopyTargetF)(void) const;
 
     GetSFCopyTargetF GetSFCopyTarget = &TextureGrabBackgroundBase::getSFCopyTarget;
@@ -180,7 +180,7 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureGrabBackgroundBase::editSFCopyTarget),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCopyTarget));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureGrabBackgroundBase::getSFCopyTarget));
@@ -307,7 +307,7 @@ const SFBool *TextureGrabBackgroundBase::getSFAutoResize(void) const
     return &_sfAutoResize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *TextureGrabBackgroundBase::getSFAutoResize     (void)
 {
     return this->editSFAutoResize     ();
@@ -326,7 +326,7 @@ const SFGLenum *TextureGrabBackgroundBase::getSFBindTarget(void) const
     return &_sfBindTarget;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureGrabBackgroundBase::getSFBindTarget     (void)
 {
     return this->editSFBindTarget     ();
@@ -345,7 +345,7 @@ const SFGLenum *TextureGrabBackgroundBase::getSFCopyTarget(void) const
     return &_sfCopyTarget;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureGrabBackgroundBase::getSFCopyTarget     (void)
 {
     return this->editSFCopyTarget     ();

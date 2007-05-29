@@ -171,98 +171,98 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFSrcFactor       (void);
 #endif
                   SFGLenum            *editSFSrcFactor      (void);
             const SFGLenum            *getSFSrcFactor       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFDestFactor      (void);
 #endif
                   SFGLenum            *editSFDestFactor     (void);
             const SFGLenum            *getSFDestFactor      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFEquation        (void);
 #endif
                   SFGLenum            *editSFEquation       (void);
             const SFGLenum            *getSFEquation        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor4f           *getSFColor           (void);
 #endif
                   SFColor4f           *editSFColor          (void);
             const SFColor4f           *getSFColor           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFAlphaFunc       (void);
 #endif
                   SFGLenum            *editSFAlphaFunc      (void);
             const SFGLenum            *getSFAlphaFunc       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFAlphaValue      (void);
 #endif
                   SFReal32            *editSFAlphaValue     (void);
             const SFReal32            *getSFAlphaValue      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFAlphaSrcFactor  (void);
 #endif
                   SFGLenum            *editSFAlphaSrcFactor (void);
             const SFGLenum            *getSFAlphaSrcFactor  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFAlphaDestFactor (void);
 #endif
                   SFGLenum            *editSFAlphaDestFactor(void);
             const SFGLenum            *getSFAlphaDestFactor (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getSrcFactor       (void);
 #endif
                   GLenum              &editSrcFactor      (void);
             const GLenum              &getSrcFactor       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getDestFactor      (void);
 #endif
                   GLenum              &editDestFactor     (void);
             const GLenum              &getDestFactor      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getEquation        (void);
 #endif
                   GLenum              &editEquation       (void);
             const GLenum              &getEquation        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color4f             &getColor           (void);
 #endif
                   Color4f             &editColor          (void);
             const Color4f             &getColor           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getAlphaFunc       (void);
 #endif
                   GLenum              &editAlphaFunc      (void);
             const GLenum              &getAlphaFunc       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getAlphaValue      (void);
 #endif
                   Real32              &editAlphaValue     (void);
             const Real32              &getAlphaValue      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getAlphaSrcFactor  (void);
 #endif
                   GLenum              &editAlphaSrcFactor (void);
             const GLenum              &getAlphaSrcFactor  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getAlphaDestFactor (void);
 #endif
                   GLenum              &editAlphaDestFactor(void);

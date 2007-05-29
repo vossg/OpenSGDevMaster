@@ -143,14 +143,14 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFIgnore          (void);
 #endif
                   SFBool              *editSFIgnore         (void);
             const SFBool              *getSFIgnore          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getIgnore          (void);
 #endif
                   bool                &editIgnore         (void);

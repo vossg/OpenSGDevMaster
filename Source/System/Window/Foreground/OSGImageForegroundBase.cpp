@@ -112,7 +112,7 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFPnt2f *(ImageForegroundBase::*GetMFPositionsF)(void) const;
 
     GetMFPositionsF GetMFPositions = &ImageForegroundBase::getMFPositions;
@@ -126,7 +126,7 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageForegroundBase::editMFPositions),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFPositions));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageForegroundBase::getMFPositions));
@@ -230,7 +230,7 @@ const MFPnt2f *ImageForegroundBase::getMFPositions(void) const
     return &_mfPositions;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFPnt2f             *ImageForegroundBase::getMFPositions      (void)
 {
     return this->editMFPositions      ();

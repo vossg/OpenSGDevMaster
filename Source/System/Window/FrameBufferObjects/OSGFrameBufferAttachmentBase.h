@@ -197,26 +197,26 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt16            *getSFWidth           (void);
 #endif
                   SFUInt16            *editSFWidth          (void);
             const SFUInt16            *getSFWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt16            *getSFHeight          (void);
 #endif
                   SFUInt16            *editSFHeight         (void);
             const SFUInt16            *getSFHeight          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt16              &getWidth           (void);
 #endif
                   UInt16              &editWidth          (void);
             const UInt16              &getWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt16              &getHeight          (void);
 #endif
                   UInt16              &editHeight         (void);

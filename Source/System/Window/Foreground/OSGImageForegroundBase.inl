@@ -112,7 +112,7 @@ MFPnt2f &ImageForegroundBase::editPositions(void)
     return _mfPositions;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Pnt2f               &ImageForegroundBase::getPositions      (const UInt32 index)
 {

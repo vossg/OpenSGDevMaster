@@ -109,7 +109,7 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(GrabForegroundBase::*GetSFAutoResizeF)(void) const;
 
     GetSFAutoResizeF GetSFAutoResize = &GrabForegroundBase::getSFAutoResize;
@@ -123,7 +123,7 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GrabForegroundBase::editSFAutoResize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAutoResize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GrabForegroundBase::getSFAutoResize));
@@ -224,7 +224,7 @@ const SFBool *GrabForegroundBase::getSFAutoResize(void) const
     return &_sfAutoResize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *GrabForegroundBase::getSFAutoResize     (void)
 {
     return this->editSFAutoResize     ();

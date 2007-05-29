@@ -107,7 +107,7 @@ const GLenum &SimpleTexturedMaterialBase::getMinFilter(void) const
     return _sfMinFilter.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &SimpleTexturedMaterialBase::getMinFilter      (void)
 {
@@ -140,7 +140,7 @@ const GLenum &SimpleTexturedMaterialBase::getMagFilter(void) const
     return _sfMagFilter.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &SimpleTexturedMaterialBase::getMagFilter      (void)
 {
@@ -173,7 +173,7 @@ const GLenum &SimpleTexturedMaterialBase::getEnvMode(void) const
     return _sfEnvMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &SimpleTexturedMaterialBase::getEnvMode        (void)
 {
@@ -206,7 +206,7 @@ const bool &SimpleTexturedMaterialBase::getEnvMap(void) const
     return _sfEnvMap.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &SimpleTexturedMaterialBase::getEnvMap         (void)
 {

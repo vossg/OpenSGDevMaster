@@ -90,7 +90,7 @@ const bool &StateChunkBase::getIgnore(void) const
     return _sfIgnore.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &StateChunkBase::getIgnore         (void)
 {

@@ -116,7 +116,7 @@ void CameraBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(CameraBase::*GetSFNearF)(void) const;
 
     GetSFNearF GetSFNear = &CameraBase::getSFNear;
@@ -130,7 +130,7 @@ void CameraBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&CameraBase::editSFNear),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFNear));
 #else
         reinterpret_cast<FieldGetMethodSig >(&CameraBase::getSFNear));
@@ -138,7 +138,7 @@ void CameraBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(CameraBase::*GetSFFarF)(void) const;
 
     GetSFFarF GetSFFar = &CameraBase::getSFFar;
@@ -152,7 +152,7 @@ void CameraBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&CameraBase::editSFFar),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFar));
 #else
         reinterpret_cast<FieldGetMethodSig >(&CameraBase::getSFFar));
@@ -260,7 +260,7 @@ const SFReal32 *CameraBase::getSFNear(void) const
     return &_sfNear;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *CameraBase::getSFNear           (void)
 {
     return this->editSFNear           ();
@@ -279,7 +279,7 @@ const SFReal32 *CameraBase::getSFFar(void) const
     return &_sfFar;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *CameraBase::getSFFar            (void)
 {
     return this->editSFFar            ();
@@ -524,7 +524,7 @@ const Real32 &CameraBase::getNear(void) const
     return _sfNear.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 Real32              &CameraBase::getNear           (void)
 {
     return this->editNear           ();
@@ -553,7 +553,7 @@ const Real32 &CameraBase::getFar(void) const
     return _sfFar.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 Real32              &CameraBase::getFar            (void)
 {
     return this->editFar            ();

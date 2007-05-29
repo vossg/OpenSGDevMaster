@@ -148,7 +148,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
 
             const MFStateChunkPtr     *getMFChunks          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFInt32             *getMFSlots           (void);
 #endif
                   MFInt32             *editMFSlots          (void);
@@ -158,7 +158,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
                   StateChunkPtrConst getChunks         (const UInt32 index) const;
             const MFStateChunkPtr     &getChunks         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getSlots           (const UInt32 index);
                   MFInt32             &getSlots          (void);
 #endif

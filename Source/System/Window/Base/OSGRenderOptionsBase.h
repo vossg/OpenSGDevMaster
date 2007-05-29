@@ -207,206 +207,206 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFStatistic       (void);
 #endif
                   SFBool              *editSFStatistic      (void);
             const SFBool              *getSFStatistic       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFPolygonMode     (void);
 #endif
                   SFGLenum            *editSFPolygonMode    (void);
             const SFGLenum            *getSFPolygonMode     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFTwoSidedLighting (void);
 #endif
                   SFBool              *editSFTwoSidedLighting(void);
             const SFBool              *getSFTwoSidedLighting (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFSpecTexLighting (void);
 #endif
                   SFBool              *editSFSpecTexLighting(void);
             const SFBool              *getSFSpecTexLighting (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFSortTrans       (void);
 #endif
                   SFBool              *editSFSortTrans      (void);
             const SFBool              *getSFSortTrans       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFZWriteTrans     (void);
 #endif
                   SFBool              *editSFZWriteTrans    (void);
             const SFBool              *getSFZWriteTrans     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFLocalLights     (void);
 #endif
                   SFBool              *editSFLocalLights    (void);
             const SFBool              *getSFLocalLights     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFCorrectTwoSidedLighting (void);
 #endif
                   SFBool              *editSFCorrectTwoSidedLighting(void);
             const SFBool              *getSFCorrectTwoSidedLighting (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFOcclusionCulling (void);
 #endif
                   SFBool              *editSFOcclusionCulling(void);
             const SFBool              *getSFOcclusionCulling (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFAntialiasing    (void);
 #endif
                   SFBool              *editSFAntialiasing   (void);
             const SFBool              *getSFAntialiasing    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFAntialiasingDistance (void);
 #endif
                   SFReal32            *editSFAntialiasingDistance(void);
             const SFReal32            *getSFAntialiasingDistance (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFAntialiasingScale (void);
 #endif
                   SFReal32            *editSFAntialiasingScale(void);
             const SFReal32            *getSFAntialiasingScale (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFAntialiasingTrigger (void);
 #endif
                   SFUInt32            *editSFAntialiasingTrigger(void);
             const SFUInt32            *getSFAntialiasingTrigger (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFBackfaceCulling (void);
 #endif
                   SFBool              *editSFBackfaceCulling(void);
             const SFBool              *getSFBackfaceCulling (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFSmallFeatureCulling (void);
 #endif
                   SFBool              *editSFSmallFeatureCulling(void);
             const SFBool              *getSFSmallFeatureCulling (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFSmallFeaturePixels (void);
 #endif
                   SFReal32            *editSFSmallFeaturePixels(void);
             const SFReal32            *getSFSmallFeaturePixels (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFSmallFeatureThreshold (void);
 #endif
                   SFUInt32            *editSFSmallFeatureThreshold(void);
             const SFUInt32            *getSFSmallFeatureThreshold (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getStatistic       (void);
 #endif
                   bool                &editStatistic      (void);
             const bool                &getStatistic       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getPolygonMode     (void);
 #endif
                   GLenum              &editPolygonMode    (void);
             const GLenum              &getPolygonMode     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getTwoSidedLighting (void);
 #endif
                   bool                &editTwoSidedLighting(void);
             const bool                &getTwoSidedLighting (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getSpecTexLighting (void);
 #endif
                   bool                &editSpecTexLighting(void);
             const bool                &getSpecTexLighting (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getSortTrans       (void);
 #endif
                   bool                &editSortTrans      (void);
             const bool                &getSortTrans       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getZWriteTrans     (void);
 #endif
                   bool                &editZWriteTrans    (void);
             const bool                &getZWriteTrans     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getLocalLights     (void);
 #endif
                   bool                &editLocalLights    (void);
             const bool                &getLocalLights     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getCorrectTwoSidedLighting (void);
 #endif
                   bool                &editCorrectTwoSidedLighting(void);
             const bool                &getCorrectTwoSidedLighting (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getOcclusionCulling (void);
 #endif
                   bool                &editOcclusionCulling(void);
             const bool                &getOcclusionCulling (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getAntialiasing    (void);
 #endif
                   bool                &editAntialiasing   (void);
             const bool                &getAntialiasing    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getAntialiasingDistance (void);
 #endif
                   Real32              &editAntialiasingDistance(void);
             const Real32              &getAntialiasingDistance (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getAntialiasingScale (void);
 #endif
                   Real32              &editAntialiasingScale(void);
             const Real32              &getAntialiasingScale (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getAntialiasingTrigger (void);
 #endif
                   UInt32              &editAntialiasingTrigger(void);
             const UInt32              &getAntialiasingTrigger (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getBackfaceCulling (void);
 #endif
                   bool                &editBackfaceCulling(void);
             const bool                &getBackfaceCulling (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getSmallFeatureCulling (void);
 #endif
                   bool                &editSmallFeatureCulling(void);
             const bool                &getSmallFeatureCulling (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getSmallFeaturePixels (void);
 #endif
                   Real32              &editSmallFeaturePixels(void);
             const Real32              &getSmallFeaturePixels (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getSmallFeatureThreshold (void);
 #endif
                   UInt32              &editSmallFeatureThreshold(void);

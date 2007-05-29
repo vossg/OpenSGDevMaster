@@ -90,7 +90,7 @@ const Real32 &ViewportBase::getLeft(void) const
     return _sfLeft.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &ViewportBase::getLeft           (void)
 {
@@ -123,7 +123,7 @@ const Real32 &ViewportBase::getRight(void) const
     return _sfRight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &ViewportBase::getRight          (void)
 {
@@ -156,7 +156,7 @@ const Real32 &ViewportBase::getBottom(void) const
     return _sfBottom.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &ViewportBase::getBottom         (void)
 {
@@ -189,7 +189,7 @@ const Real32 &ViewportBase::getTop(void) const
     return _sfTop.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &ViewportBase::getTop            (void)
 {
@@ -292,7 +292,7 @@ const UInt32 &ViewportBase::getTravMask(void) const
     return _sfTravMask.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ViewportBase::getTravMask       (void)
 {
@@ -325,7 +325,7 @@ const Real32 &ViewportBase::getDrawTime(void) const
     return _sfDrawTime.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &ViewportBase::getDrawTime       (void)
 {

@@ -189,7 +189,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFDimensionF)(void) const;
 
     GetSFDimensionF GetSFDimension = &ImageBase::getSFDimension;
@@ -203,7 +203,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFDimension),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDimension));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFDimension));
@@ -211,7 +211,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFWidthF)(void) const;
 
     GetSFWidthF GetSFWidth = &ImageBase::getSFWidth;
@@ -225,7 +225,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFWidth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFWidth));
@@ -233,7 +233,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFHeightF)(void) const;
 
     GetSFHeightF GetSFHeight = &ImageBase::getSFHeight;
@@ -247,7 +247,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFHeight),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHeight));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFHeight));
@@ -255,7 +255,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFDepthF)(void) const;
 
     GetSFDepthF GetSFDepth = &ImageBase::getSFDepth;
@@ -269,7 +269,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFDepth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDepth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFDepth));
@@ -277,7 +277,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFBppF)(void) const;
 
     GetSFBppF GetSFBpp = &ImageBase::getSFBpp;
@@ -291,7 +291,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFBpp),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBpp));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFBpp));
@@ -299,7 +299,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFMipMapCountF)(void) const;
 
     GetSFMipMapCountF GetSFMipMapCount = &ImageBase::getSFMipMapCount;
@@ -313,7 +313,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFMipMapCount),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMipMapCount));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFMipMapCount));
@@ -321,7 +321,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFFrameCountF)(void) const;
 
     GetSFFrameCountF GetSFFrameCount = &ImageBase::getSFFrameCount;
@@ -335,7 +335,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFFrameCount),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFrameCount));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFFrameCount));
@@ -343,7 +343,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFTime *(ImageBase::*GetSFFrameDelayF)(void) const;
 
     GetSFFrameDelayF GetSFFrameDelay = &ImageBase::getSFFrameDelay;
@@ -357,7 +357,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFFrameDelay),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFrameDelay));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFFrameDelay));
@@ -365,7 +365,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ImageBase::*GetSFPixelFormatF)(void) const;
 
     GetSFPixelFormatF GetSFPixelFormat = &ImageBase::getSFPixelFormat;
@@ -379,7 +379,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFPixelFormat),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPixelFormat));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFPixelFormat));
@@ -387,7 +387,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFUInt8 *(ImageBase::*GetMFPixelF)(void) const;
 
     GetMFPixelF GetMFPixel = &ImageBase::getMFPixel;
@@ -401,7 +401,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editMFPixel),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFPixel));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getMFPixel));
@@ -409,7 +409,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFFrameSizeF)(void) const;
 
     GetSFFrameSizeF GetSFFrameSize = &ImageBase::getSFFrameSize;
@@ -423,7 +423,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFFrameSize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFrameSize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFFrameSize));
@@ -431,7 +431,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ImageBase::*GetSFNameF)(void) const;
 
     GetSFNameF GetSFName = &ImageBase::getSFName;
@@ -445,7 +445,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFName),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFName));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFName));
@@ -453,7 +453,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFDataTypeF)(void) const;
 
     GetSFDataTypeF GetSFDataType = &ImageBase::getSFDataType;
@@ -467,7 +467,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFDataType),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDataType));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFDataType));
@@ -475,7 +475,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFComponentSizeF)(void) const;
 
     GetSFComponentSizeF GetSFComponentSize = &ImageBase::getSFComponentSize;
@@ -490,7 +490,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFComponentSize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFComponentSize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFComponentSize));
@@ -498,7 +498,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFSideCountF)(void) const;
 
     GetSFSideCountF GetSFSideCount = &ImageBase::getSFSideCount;
@@ -512,7 +512,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFSideCount),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSideCount));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFSideCount));
@@ -520,7 +520,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ImageBase::*GetSFSideSizeF)(void) const;
 
     GetSFSideSizeF GetSFSideSize = &ImageBase::getSFSideSize;
@@ -534,7 +534,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFSideSize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSideSize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFSideSize));
@@ -542,7 +542,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ImageBase::*GetSFForceCompressedDataF)(void) const;
 
     GetSFForceCompressedDataF GetSFForceCompressedData = &ImageBase::getSFForceCompressedData;
@@ -557,7 +557,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFForceCompressedData),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFForceCompressedData));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFForceCompressedData));
@@ -565,7 +565,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ImageBase::*GetSFForceAlphaChannelF)(void) const;
 
     GetSFForceAlphaChannelF GetSFForceAlphaChannel = &ImageBase::getSFForceAlphaChannel;
@@ -580,7 +580,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFForceAlphaChannel),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFForceAlphaChannel));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFForceAlphaChannel));
@@ -588,7 +588,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ImageBase::*GetSFForceColorChannelF)(void) const;
 
     GetSFForceColorChannelF GetSFForceColorChannel = &ImageBase::getSFForceColorChannel;
@@ -603,7 +603,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFForceColorChannel),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFForceColorChannel));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFForceColorChannel));
@@ -611,7 +611,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ImageBase::*GetSFForceAlphaBinaryF)(void) const;
 
     GetSFForceAlphaBinaryF GetSFForceAlphaBinary = &ImageBase::getSFForceAlphaBinary;
@@ -626,7 +626,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFForceAlphaBinary),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFForceAlphaBinary));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFForceAlphaBinary));
@@ -905,7 +905,7 @@ const SFInt32 *ImageBase::getSFDimension(void) const
     return &_sfDimension;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFDimension      (void)
 {
     return this->editSFDimension      ();
@@ -924,7 +924,7 @@ const SFInt32 *ImageBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFWidth          (void)
 {
     return this->editSFWidth          ();
@@ -943,7 +943,7 @@ const SFInt32 *ImageBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFHeight         (void)
 {
     return this->editSFHeight         ();
@@ -962,7 +962,7 @@ const SFInt32 *ImageBase::getSFDepth(void) const
     return &_sfDepth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFDepth          (void)
 {
     return this->editSFDepth          ();
@@ -981,7 +981,7 @@ const SFInt32 *ImageBase::getSFBpp(void) const
     return &_sfBpp;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFBpp            (void)
 {
     return this->editSFBpp            ();
@@ -1000,7 +1000,7 @@ const SFInt32 *ImageBase::getSFMipMapCount(void) const
     return &_sfMipMapCount;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFMipMapCount    (void)
 {
     return this->editSFMipMapCount    ();
@@ -1019,7 +1019,7 @@ const SFInt32 *ImageBase::getSFFrameCount(void) const
     return &_sfFrameCount;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFFrameCount     (void)
 {
     return this->editSFFrameCount     ();
@@ -1038,7 +1038,7 @@ const SFTime *ImageBase::getSFFrameDelay(void) const
     return &_sfFrameDelay;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFTime              *ImageBase::getSFFrameDelay     (void)
 {
     return this->editSFFrameDelay     ();
@@ -1057,7 +1057,7 @@ const SFUInt32 *ImageBase::getSFPixelFormat(void) const
     return &_sfPixelFormat;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ImageBase::getSFPixelFormat    (void)
 {
     return this->editSFPixelFormat    ();
@@ -1076,7 +1076,7 @@ const MFUInt8 *ImageBase::getMFPixel(void) const
     return &_mfPixel;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFUInt8             *ImageBase::getMFPixel          (void)
 {
     return this->editMFPixel          ();
@@ -1095,7 +1095,7 @@ const SFInt32 *ImageBase::getSFFrameSize(void) const
     return &_sfFrameSize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFFrameSize      (void)
 {
     return this->editSFFrameSize      ();
@@ -1114,7 +1114,7 @@ const SFString *ImageBase::getSFName(void) const
     return &_sfName;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ImageBase::getSFName           (void)
 {
     return this->editSFName           ();
@@ -1133,7 +1133,7 @@ const SFInt32 *ImageBase::getSFDataType(void) const
     return &_sfDataType;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFDataType       (void)
 {
     return this->editSFDataType       ();
@@ -1152,7 +1152,7 @@ const SFInt32 *ImageBase::getSFComponentSize(void) const
     return &_sfComponentSize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFComponentSize  (void)
 {
     return this->editSFComponentSize  ();
@@ -1171,7 +1171,7 @@ const SFInt32 *ImageBase::getSFSideCount(void) const
     return &_sfSideCount;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFSideCount      (void)
 {
     return this->editSFSideCount      ();
@@ -1190,7 +1190,7 @@ const SFInt32 *ImageBase::getSFSideSize(void) const
     return &_sfSideSize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ImageBase::getSFSideSize       (void)
 {
     return this->editSFSideSize       ();
@@ -1209,7 +1209,7 @@ const SFBool *ImageBase::getSFForceCompressedData(void) const
     return &_sfForceCompressedData;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ImageBase::getSFForceCompressedData(void)
 {
     return this->editSFForceCompressedData();
@@ -1228,7 +1228,7 @@ const SFBool *ImageBase::getSFForceAlphaChannel(void) const
     return &_sfForceAlphaChannel;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ImageBase::getSFForceAlphaChannel(void)
 {
     return this->editSFForceAlphaChannel();
@@ -1247,7 +1247,7 @@ const SFBool *ImageBase::getSFForceColorChannel(void) const
     return &_sfForceColorChannel;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ImageBase::getSFForceColorChannel(void)
 {
     return this->editSFForceColorChannel();
@@ -1266,7 +1266,7 @@ const SFBool *ImageBase::getSFForceAlphaBinary(void) const
     return &_sfForceAlphaBinary;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ImageBase::getSFForceAlphaBinary(void)
 {
     return this->editSFForceAlphaBinary();

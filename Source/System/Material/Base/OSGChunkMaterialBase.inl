@@ -112,7 +112,7 @@ MFInt32 &ChunkMaterialBase::editSlots(void)
     return _mfSlots;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ChunkMaterialBase::getSlots          (const UInt32 index)
 {

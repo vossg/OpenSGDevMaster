@@ -107,7 +107,7 @@ const bool &PolygonForegroundBase::getNormalizedX(void) const
     return _sfNormalizedX.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PolygonForegroundBase::getNormalizedX    (void)
 {
@@ -140,7 +140,7 @@ const bool &PolygonForegroundBase::getNormalizedY(void) const
     return _sfNormalizedY.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PolygonForegroundBase::getNormalizedY    (void)
 {
@@ -173,7 +173,7 @@ const UInt16 &PolygonForegroundBase::getAspectHeight(void) const
     return _sfAspectHeight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt16              &PolygonForegroundBase::getAspectHeight   (void)
 {
@@ -206,7 +206,7 @@ const UInt16 &PolygonForegroundBase::getAspectWidth(void) const
     return _sfAspectWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt16              &PolygonForegroundBase::getAspectWidth    (void)
 {
@@ -239,7 +239,7 @@ const Real32 &PolygonForegroundBase::getScale(void) const
     return _sfScale.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PolygonForegroundBase::getScale          (void)
 {
@@ -272,7 +272,7 @@ const bool &PolygonForegroundBase::getTile(void) const
     return _sfTile.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PolygonForegroundBase::getTile           (void)
 {
@@ -313,7 +313,7 @@ MFPnt2f &PolygonForegroundBase::editPositions(void)
     return _mfPositions;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Pnt2f               &PolygonForegroundBase::getPositions      (const UInt32 index)
 {
@@ -360,7 +360,7 @@ MFVec3f &PolygonForegroundBase::editTexCoords(void)
     return _mfTexCoords;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3f               &PolygonForegroundBase::getTexCoords      (const UInt32 index)
 {

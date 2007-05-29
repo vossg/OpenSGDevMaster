@@ -167,14 +167,14 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFGLId            (void);
 #endif
                   SFGLenum            *editSFGLId           (void);
             const SFGLenum            *getSFGLId            (void) const;
             const MFFrameBufferAttachmentPtr *getMFColorAttachments (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFGLenum            *getMFDrawBuffers     (void);
 #endif
                   MFGLenum            *editMFDrawBuffers    (void);
@@ -182,20 +182,20 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
             const SFFrameBufferAttachmentPtr *getSFDepthAttachment (void) const;
             const SFFrameBufferAttachmentPtr *getSFStencilAttachment (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt16            *getSFWidth           (void);
 #endif
                   SFUInt16            *editSFWidth          (void);
             const SFUInt16            *getSFWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt16            *getSFHeight          (void);
 #endif
                   SFUInt16            *editSFHeight         (void);
             const SFUInt16            *getSFHeight          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getGLId            (void);
 #endif
                   GLenum              &editGLId           (void);
@@ -204,7 +204,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
                   FrameBufferAttachmentPtrConst getColorAttachments(const UInt32 index) const;
             const MFFrameBufferAttachmentPtr &getColorAttachments(void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getDrawBuffers     (const UInt32 index);
                   MFGLenum            &getDrawBuffers    (void);
 #endif
@@ -217,13 +217,13 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
 
                   FrameBufferAttachmentPtrConst getStencilAttachment(void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt16              &getWidth           (void);
 #endif
                   UInt16              &editWidth          (void);
             const UInt16              &getWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt16              &getHeight          (void);
 #endif
                   UInt16              &editHeight         (void);

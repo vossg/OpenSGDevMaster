@@ -90,7 +90,7 @@ const GLenum &BlendChunkBase::getSrcFactor(void) const
     return _sfSrcFactor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &BlendChunkBase::getSrcFactor      (void)
 {
@@ -123,7 +123,7 @@ const GLenum &BlendChunkBase::getDestFactor(void) const
     return _sfDestFactor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &BlendChunkBase::getDestFactor     (void)
 {
@@ -156,7 +156,7 @@ const GLenum &BlendChunkBase::getEquation(void) const
     return _sfEquation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &BlendChunkBase::getEquation       (void)
 {
@@ -189,7 +189,7 @@ const Color4f &BlendChunkBase::getColor(void) const
     return _sfColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4f             &BlendChunkBase::getColor          (void)
 {
@@ -222,7 +222,7 @@ const GLenum &BlendChunkBase::getAlphaFunc(void) const
     return _sfAlphaFunc.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &BlendChunkBase::getAlphaFunc      (void)
 {
@@ -255,7 +255,7 @@ const Real32 &BlendChunkBase::getAlphaValue(void) const
     return _sfAlphaValue.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &BlendChunkBase::getAlphaValue     (void)
 {
@@ -288,7 +288,7 @@ const GLenum &BlendChunkBase::getAlphaSrcFactor(void) const
     return _sfAlphaSrcFactor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &BlendChunkBase::getAlphaSrcFactor (void)
 {
@@ -321,7 +321,7 @@ const GLenum &BlendChunkBase::getAlphaDestFactor(void) const
     return _sfAlphaDestFactor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &BlendChunkBase::getAlphaDestFactor(void)
 {

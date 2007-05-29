@@ -90,7 +90,7 @@ const Color4r &LightChunkBase::getDiffuse(void) const
     return _sfDiffuse.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &LightChunkBase::getDiffuse        (void)
 {
@@ -123,7 +123,7 @@ const Color4r &LightChunkBase::getAmbient(void) const
     return _sfAmbient.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &LightChunkBase::getAmbient        (void)
 {
@@ -156,7 +156,7 @@ const Color4r &LightChunkBase::getSpecular(void) const
     return _sfSpecular.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &LightChunkBase::getSpecular       (void)
 {
@@ -189,7 +189,7 @@ const Vec4r &LightChunkBase::getPosition(void) const
     return _sfPosition.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec4r               &LightChunkBase::getPosition       (void)
 {
@@ -222,7 +222,7 @@ const Vec3r &LightChunkBase::getDirection(void) const
     return _sfDirection.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3r               &LightChunkBase::getDirection      (void)
 {
@@ -255,7 +255,7 @@ const Real &LightChunkBase::getExponent(void) const
     return _sfExponent.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &LightChunkBase::getExponent       (void)
 {
@@ -288,7 +288,7 @@ const Real &LightChunkBase::getCutoff(void) const
     return _sfCutoff.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &LightChunkBase::getCutoff         (void)
 {
@@ -321,7 +321,7 @@ const Real &LightChunkBase::getConstantAttenuation(void) const
     return _sfConstantAttenuation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &LightChunkBase::getConstantAttenuation(void)
 {
@@ -354,7 +354,7 @@ const Real &LightChunkBase::getLinearAttenuation(void) const
     return _sfLinearAttenuation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &LightChunkBase::getLinearAttenuation(void)
 {
@@ -387,7 +387,7 @@ const Real &LightChunkBase::getQuadraticAttenuation(void) const
     return _sfQuadraticAttenuation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &LightChunkBase::getQuadraticAttenuation(void)
 {

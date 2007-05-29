@@ -93,7 +93,7 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt16 *(FrameBufferAttachmentBase::*GetSFWidthF)(void) const;
 
     GetSFWidthF GetSFWidth = &FrameBufferAttachmentBase::getSFWidth;
@@ -107,7 +107,7 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editSFWidth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getSFWidth));
@@ -115,7 +115,7 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt16 *(FrameBufferAttachmentBase::*GetSFHeightF)(void) const;
 
     GetSFHeightF GetSFHeight = &FrameBufferAttachmentBase::getSFHeight;
@@ -129,7 +129,7 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editSFHeight),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHeight));
 #else
         reinterpret_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getSFHeight));
@@ -214,7 +214,7 @@ const SFUInt16 *FrameBufferAttachmentBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt16            *FrameBufferAttachmentBase::getSFWidth          (void)
 {
     return this->editSFWidth          ();
@@ -233,7 +233,7 @@ const SFUInt16 *FrameBufferAttachmentBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt16            *FrameBufferAttachmentBase::getSFHeight         (void)
 {
     return this->editSFHeight         ();

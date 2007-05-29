@@ -90,7 +90,7 @@ const Color3r &SimpleMaterialBase::getAmbient(void) const
     return _sfAmbient.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color3r             &SimpleMaterialBase::getAmbient        (void)
 {
@@ -123,7 +123,7 @@ const Color3r &SimpleMaterialBase::getDiffuse(void) const
     return _sfDiffuse.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color3r             &SimpleMaterialBase::getDiffuse        (void)
 {
@@ -156,7 +156,7 @@ const Color3r &SimpleMaterialBase::getSpecular(void) const
     return _sfSpecular.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color3r             &SimpleMaterialBase::getSpecular       (void)
 {
@@ -189,7 +189,7 @@ const Real &SimpleMaterialBase::getShininess(void) const
     return _sfShininess.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &SimpleMaterialBase::getShininess      (void)
 {
@@ -222,7 +222,7 @@ const Color3r &SimpleMaterialBase::getEmission(void) const
     return _sfEmission.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color3r             &SimpleMaterialBase::getEmission       (void)
 {
@@ -255,7 +255,7 @@ const Real &SimpleMaterialBase::getTransparency(void) const
     return _sfTransparency.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &SimpleMaterialBase::getTransparency   (void)
 {
@@ -288,7 +288,7 @@ const bool &SimpleMaterialBase::getLit(void) const
     return _sfLit.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &SimpleMaterialBase::getLit            (void)
 {
@@ -321,7 +321,7 @@ const GLenum &SimpleMaterialBase::getColorMaterial(void) const
     return _sfColorMaterial.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &SimpleMaterialBase::getColorMaterial  (void)
 {

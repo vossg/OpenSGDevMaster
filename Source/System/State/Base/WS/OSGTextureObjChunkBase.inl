@@ -107,7 +107,7 @@ const GLenum &TextureObjChunkBase::getInternalFormat(void) const
     return _sfInternalFormat.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureObjChunkBase::getInternalFormat (void)
 {
@@ -140,7 +140,7 @@ const GLenum &TextureObjChunkBase::getExternalFormat(void) const
     return _sfExternalFormat.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureObjChunkBase::getExternalFormat (void)
 {
@@ -173,7 +173,7 @@ const bool &TextureObjChunkBase::getScale(void) const
     return _sfScale.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &TextureObjChunkBase::getScale          (void)
 {
@@ -206,7 +206,7 @@ const UInt32 &TextureObjChunkBase::getFrame(void) const
     return _sfFrame.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TextureObjChunkBase::getFrame          (void)
 {
@@ -239,7 +239,7 @@ const GLenum &TextureObjChunkBase::getMinFilter(void) const
     return _sfMinFilter.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureObjChunkBase::getMinFilter      (void)
 {
@@ -272,7 +272,7 @@ const GLenum &TextureObjChunkBase::getMagFilter(void) const
     return _sfMagFilter.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureObjChunkBase::getMagFilter      (void)
 {
@@ -305,7 +305,7 @@ const GLenum &TextureObjChunkBase::getWrapS(void) const
     return _sfWrapS.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureObjChunkBase::getWrapS          (void)
 {
@@ -338,7 +338,7 @@ const GLenum &TextureObjChunkBase::getWrapT(void) const
     return _sfWrapT.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureObjChunkBase::getWrapT          (void)
 {
@@ -371,7 +371,7 @@ const GLenum &TextureObjChunkBase::getWrapR(void) const
     return _sfWrapR.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureObjChunkBase::getWrapR          (void)
 {
@@ -404,7 +404,7 @@ const GLenum &TextureObjChunkBase::getGLId(void) const
     return _sfGLId.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureObjChunkBase::getGLId           (void)
 {
@@ -437,7 +437,7 @@ const Int32 &TextureObjChunkBase::getIgnoreGLForAspect(void) const
     return _sfIgnoreGLForAspect.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureObjChunkBase::getIgnoreGLForAspect(void)
 {
@@ -470,7 +470,7 @@ const Real32 &TextureObjChunkBase::getPriority(void) const
     return _sfPriority.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TextureObjChunkBase::getPriority       (void)
 {
@@ -503,7 +503,7 @@ const Int32 &TextureObjChunkBase::getDirtyLeft(void) const
     return _sfDirtyLeft.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureObjChunkBase::getDirtyLeft      (void)
 {
@@ -536,7 +536,7 @@ const Int32 &TextureObjChunkBase::getDirtyMinX(void) const
     return _sfDirtyMinX.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureObjChunkBase::getDirtyMinX      (void)
 {
@@ -569,7 +569,7 @@ const Int32 &TextureObjChunkBase::getDirtyMaxX(void) const
     return _sfDirtyMaxX.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureObjChunkBase::getDirtyMaxX      (void)
 {
@@ -602,7 +602,7 @@ const Int32 &TextureObjChunkBase::getDirtyMinY(void) const
     return _sfDirtyMinY.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureObjChunkBase::getDirtyMinY      (void)
 {
@@ -635,7 +635,7 @@ const Int32 &TextureObjChunkBase::getDirtyMaxY(void) const
     return _sfDirtyMaxY.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureObjChunkBase::getDirtyMaxY      (void)
 {
@@ -668,7 +668,7 @@ const Int32 &TextureObjChunkBase::getDirtyMinZ(void) const
     return _sfDirtyMinZ.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureObjChunkBase::getDirtyMinZ      (void)
 {
@@ -701,7 +701,7 @@ const Int32 &TextureObjChunkBase::getDirtyMaxZ(void) const
     return _sfDirtyMaxZ.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureObjChunkBase::getDirtyMaxZ      (void)
 {
@@ -734,7 +734,7 @@ const Real32 &TextureObjChunkBase::getAnisotropy(void) const
     return _sfAnisotropy.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TextureObjChunkBase::getAnisotropy     (void)
 {
@@ -767,7 +767,7 @@ const Color4f &TextureObjChunkBase::getBorderColor(void) const
     return _sfBorderColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4f             &TextureObjChunkBase::getBorderColor    (void)
 {
@@ -800,7 +800,7 @@ const GLenum &TextureObjChunkBase::getCompareMode(void) const
     return _sfCompareMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureObjChunkBase::getCompareMode    (void)
 {
@@ -833,7 +833,7 @@ const GLenum &TextureObjChunkBase::getCompareFunc(void) const
     return _sfCompareFunc.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureObjChunkBase::getCompareFunc    (void)
 {
@@ -866,7 +866,7 @@ const GLenum &TextureObjChunkBase::getDepthMode(void) const
     return _sfDepthMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureObjChunkBase::getDepthMode      (void)
 {
@@ -899,7 +899,7 @@ const UInt32 &TextureObjChunkBase::getBorderWidth(void) const
     return _sfBorderWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TextureObjChunkBase::getBorderWidth    (void)
 {
@@ -932,7 +932,7 @@ const UInt32 &TextureObjChunkBase::getNPOTMatrixScale(void) const
     return _sfNPOTMatrixScale.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TextureObjChunkBase::getNPOTMatrixScale(void)
 {

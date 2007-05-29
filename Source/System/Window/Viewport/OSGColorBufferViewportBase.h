@@ -155,50 +155,50 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFRed             (void);
 #endif
                   SFBool              *editSFRed            (void);
             const SFBool              *getSFRed             (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFBlue            (void);
 #endif
                   SFBool              *editSFBlue           (void);
             const SFBool              *getSFBlue            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFGreen           (void);
 #endif
                   SFBool              *editSFGreen          (void);
             const SFBool              *getSFGreen           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFAlpha           (void);
 #endif
                   SFBool              *editSFAlpha          (void);
             const SFBool              *getSFAlpha           (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getRed             (void);
 #endif
                   bool                &editRed            (void);
             const bool                &getRed             (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getBlue            (void);
 #endif
                   bool                &editBlue           (void);
             const bool                &getBlue            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getGreen           (void);
 #endif
                   bool                &editGreen          (void);
             const bool                &getGreen           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getAlpha           (void);
 #endif
                   bool                &editAlpha          (void);
