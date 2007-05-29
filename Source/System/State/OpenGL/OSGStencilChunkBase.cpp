@@ -127,7 +127,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(StencilChunkBase::*GetSFStencilFuncF)(void) const;
 
     GetSFStencilFuncF GetSFStencilFunc = &StencilChunkBase::getSFStencilFunc;
@@ -142,7 +142,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilFunc),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFStencilFunc));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilFunc));
@@ -150,7 +150,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(StencilChunkBase::*GetSFStencilValueF)(void) const;
 
     GetSFStencilValueF GetSFStencilValue = &StencilChunkBase::getSFStencilValue;
@@ -165,7 +165,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilValue),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFStencilValue));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilValue));
@@ -173,7 +173,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(StencilChunkBase::*GetSFStencilMaskF)(void) const;
 
     GetSFStencilMaskF GetSFStencilMask = &StencilChunkBase::getSFStencilMask;
@@ -188,7 +188,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilMask),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFStencilMask));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilMask));
@@ -196,7 +196,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(StencilChunkBase::*GetSFStencilOpFailF)(void) const;
 
     GetSFStencilOpFailF GetSFStencilOpFail = &StencilChunkBase::getSFStencilOpFail;
@@ -211,7 +211,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilOpFail),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFStencilOpFail));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilOpFail));
@@ -219,7 +219,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(StencilChunkBase::*GetSFStencilOpZFailF)(void) const;
 
     GetSFStencilOpZFailF GetSFStencilOpZFail = &StencilChunkBase::getSFStencilOpZFail;
@@ -234,7 +234,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilOpZFail),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFStencilOpZFail));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilOpZFail));
@@ -242,7 +242,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(StencilChunkBase::*GetSFStencilOpZPassF)(void) const;
 
     GetSFStencilOpZPassF GetSFStencilOpZPass = &StencilChunkBase::getSFStencilOpZPass;
@@ -257,7 +257,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilOpZPass),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFStencilOpZPass));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilOpZPass));
@@ -265,7 +265,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(StencilChunkBase::*GetSFClearBufferF)(void) const;
 
     GetSFClearBufferF GetSFClearBuffer = &StencilChunkBase::getSFClearBuffer;
@@ -279,7 +279,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFClearBuffer),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFClearBuffer));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFClearBuffer));
@@ -287,7 +287,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(StencilChunkBase::*GetSFBitMaskF)(void) const;
 
     GetSFBitMaskF GetSFBitMask = &StencilChunkBase::getSFBitMask;
@@ -301,7 +301,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFBitMask),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBitMask));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFBitMask));
@@ -461,7 +461,7 @@ const SFGLenum *StencilChunkBase::getSFStencilFunc(void) const
     return &_sfStencilFunc;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *StencilChunkBase::getSFStencilFunc    (void)
 {
     return this->editSFStencilFunc    ();
@@ -480,7 +480,7 @@ const SFInt32 *StencilChunkBase::getSFStencilValue(void) const
     return &_sfStencilValue;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *StencilChunkBase::getSFStencilValue   (void)
 {
     return this->editSFStencilValue   ();
@@ -499,7 +499,7 @@ const SFUInt32 *StencilChunkBase::getSFStencilMask(void) const
     return &_sfStencilMask;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *StencilChunkBase::getSFStencilMask    (void)
 {
     return this->editSFStencilMask    ();
@@ -518,7 +518,7 @@ const SFGLenum *StencilChunkBase::getSFStencilOpFail(void) const
     return &_sfStencilOpFail;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *StencilChunkBase::getSFStencilOpFail  (void)
 {
     return this->editSFStencilOpFail  ();
@@ -537,7 +537,7 @@ const SFGLenum *StencilChunkBase::getSFStencilOpZFail(void) const
     return &_sfStencilOpZFail;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *StencilChunkBase::getSFStencilOpZFail (void)
 {
     return this->editSFStencilOpZFail ();
@@ -556,7 +556,7 @@ const SFGLenum *StencilChunkBase::getSFStencilOpZPass(void) const
     return &_sfStencilOpZPass;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *StencilChunkBase::getSFStencilOpZPass (void)
 {
     return this->editSFStencilOpZPass ();
@@ -575,7 +575,7 @@ const SFInt32 *StencilChunkBase::getSFClearBuffer(void) const
     return &_sfClearBuffer;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *StencilChunkBase::getSFClearBuffer    (void)
 {
     return this->editSFClearBuffer    ();
@@ -594,7 +594,7 @@ const SFUInt32 *StencilChunkBase::getSFBitMask(void) const
     return &_sfBitMask;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *StencilChunkBase::getSFBitMask        (void)
 {
     return this->editSFBitMask        ();

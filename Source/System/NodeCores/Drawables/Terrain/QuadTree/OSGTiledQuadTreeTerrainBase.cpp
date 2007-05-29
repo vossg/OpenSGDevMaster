@@ -167,7 +167,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(TiledQuadTreeTerrainBase::*GetSFSizeXF)(void) const;
 
     GetSFSizeXF GetSFSizeX = &TiledQuadTreeTerrainBase::getSFSizeX;
@@ -181,7 +181,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFSizeX),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSizeX));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFSizeX));
@@ -189,7 +189,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(TiledQuadTreeTerrainBase::*GetSFSizeYF)(void) const;
 
     GetSFSizeYF GetSFSizeY = &TiledQuadTreeTerrainBase::getSFSizeY;
@@ -203,7 +203,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFSizeY),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSizeY));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFSizeY));
@@ -211,7 +211,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(TiledQuadTreeTerrainBase::*GetSFHeightScaleF)(void) const;
 
     GetSFHeightScaleF GetSFHeightScale = &TiledQuadTreeTerrainBase::getSFHeightScale;
@@ -225,7 +225,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFHeightScale),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHeightScale));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFHeightScale));
@@ -233,7 +233,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(TiledQuadTreeTerrainBase::*GetSFVertexSpacingF)(void) const;
 
     GetSFVertexSpacingF GetSFVertexSpacing = &TiledQuadTreeTerrainBase::getSFVertexSpacing;
@@ -247,7 +247,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFVertexSpacing),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFVertexSpacing));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFVertexSpacing));
@@ -255,7 +255,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(TiledQuadTreeTerrainBase::*GetSFGeoMorphingF)(void) const;
 
     GetSFGeoMorphingF GetSFGeoMorphing = &TiledQuadTreeTerrainBase::getSFGeoMorphing;
@@ -269,7 +269,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFGeoMorphing),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGeoMorphing));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFGeoMorphing));
@@ -277,7 +277,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(TiledQuadTreeTerrainBase::*GetSFDetailF)(void) const;
 
     GetSFDetailF GetSFDetail = &TiledQuadTreeTerrainBase::getSFDetail;
@@ -291,7 +291,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFDetail),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDetail));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFDetail));
@@ -299,7 +299,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TiledQuadTreeTerrainBase::*GetSFCurrentXF)(void) const;
 
     GetSFCurrentXF GetSFCurrentX = &TiledQuadTreeTerrainBase::getSFCurrentX;
@@ -313,7 +313,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFCurrentX),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCurrentX));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFCurrentX));
@@ -321,7 +321,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TiledQuadTreeTerrainBase::*GetSFCurrentYF)(void) const;
 
     GetSFCurrentYF GetSFCurrentY = &TiledQuadTreeTerrainBase::getSFCurrentY;
@@ -335,7 +335,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFCurrentY),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCurrentY));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFCurrentY));
@@ -343,7 +343,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TiledQuadTreeTerrainBase::*GetSFSizeROIF)(void) const;
 
     GetSFSizeROIF GetSFSizeROI = &TiledQuadTreeTerrainBase::getSFSizeROI;
@@ -357,7 +357,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFSizeROI),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSizeROI));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFSizeROI));
@@ -365,7 +365,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(TiledQuadTreeTerrainBase::*GetSFUpdateF)(void) const;
 
     GetSFUpdateF GetSFUpdate = &TiledQuadTreeTerrainBase::getSFUpdate;
@@ -379,7 +379,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFUpdate),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFUpdate));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFUpdate));
@@ -387,7 +387,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(TiledQuadTreeTerrainBase::*GetSFUpdateTerrainF)(void) const;
 
     GetSFUpdateTerrainF GetSFUpdateTerrain = &TiledQuadTreeTerrainBase::getSFUpdateTerrain;
@@ -401,7 +401,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFUpdateTerrain),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFUpdateTerrain));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFUpdateTerrain));
@@ -409,7 +409,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(TiledQuadTreeTerrainBase::*GetSFPerPixelLightingF)(void) const;
 
     GetSFPerPixelLightingF GetSFPerPixelLighting = &TiledQuadTreeTerrainBase::getSFPerPixelLighting;
@@ -423,7 +423,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFPerPixelLighting),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPerPixelLighting));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFPerPixelLighting));
@@ -638,7 +638,7 @@ const SFUInt32 *TiledQuadTreeTerrainBase::getSFSizeX(void) const
     return &_sfSizeX;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *TiledQuadTreeTerrainBase::getSFSizeX          (void)
 {
     return this->editSFSizeX          ();
@@ -657,7 +657,7 @@ const SFUInt32 *TiledQuadTreeTerrainBase::getSFSizeY(void) const
     return &_sfSizeY;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *TiledQuadTreeTerrainBase::getSFSizeY          (void)
 {
     return this->editSFSizeY          ();
@@ -676,7 +676,7 @@ const SFReal32 *TiledQuadTreeTerrainBase::getSFHeightScale(void) const
     return &_sfHeightScale;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *TiledQuadTreeTerrainBase::getSFHeightScale    (void)
 {
     return this->editSFHeightScale    ();
@@ -695,7 +695,7 @@ const SFReal32 *TiledQuadTreeTerrainBase::getSFVertexSpacing(void) const
     return &_sfVertexSpacing;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *TiledQuadTreeTerrainBase::getSFVertexSpacing  (void)
 {
     return this->editSFVertexSpacing  ();
@@ -714,7 +714,7 @@ const SFBool *TiledQuadTreeTerrainBase::getSFGeoMorphing(void) const
     return &_sfGeoMorphing;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *TiledQuadTreeTerrainBase::getSFGeoMorphing    (void)
 {
     return this->editSFGeoMorphing    ();
@@ -733,7 +733,7 @@ const SFReal32 *TiledQuadTreeTerrainBase::getSFDetail(void) const
     return &_sfDetail;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *TiledQuadTreeTerrainBase::getSFDetail         (void)
 {
     return this->editSFDetail         ();
@@ -752,7 +752,7 @@ const SFInt32 *TiledQuadTreeTerrainBase::getSFCurrentX(void) const
     return &_sfCurrentX;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TiledQuadTreeTerrainBase::getSFCurrentX       (void)
 {
     return this->editSFCurrentX       ();
@@ -771,7 +771,7 @@ const SFInt32 *TiledQuadTreeTerrainBase::getSFCurrentY(void) const
     return &_sfCurrentY;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TiledQuadTreeTerrainBase::getSFCurrentY       (void)
 {
     return this->editSFCurrentY       ();
@@ -790,7 +790,7 @@ const SFInt32 *TiledQuadTreeTerrainBase::getSFSizeROI(void) const
     return &_sfSizeROI;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TiledQuadTreeTerrainBase::getSFSizeROI        (void)
 {
     return this->editSFSizeROI        ();
@@ -809,7 +809,7 @@ const SFBool *TiledQuadTreeTerrainBase::getSFUpdate(void) const
     return &_sfUpdate;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *TiledQuadTreeTerrainBase::getSFUpdate         (void)
 {
     return this->editSFUpdate         ();
@@ -828,7 +828,7 @@ const SFBool *TiledQuadTreeTerrainBase::getSFUpdateTerrain(void) const
     return &_sfUpdateTerrain;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *TiledQuadTreeTerrainBase::getSFUpdateTerrain  (void)
 {
     return this->editSFUpdateTerrain  ();
@@ -847,7 +847,7 @@ const SFBool *TiledQuadTreeTerrainBase::getSFPerPixelLighting(void) const
     return &_sfPerPixelLighting;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *TiledQuadTreeTerrainBase::getSFPerPixelLighting(void)
 {
     return this->editSFPerPixelLighting();

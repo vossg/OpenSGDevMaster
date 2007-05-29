@@ -143,14 +143,14 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindowBase : public Window
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFAGLContext        *getSFContext         (void);
 #endif
                   SFAGLContext        *editSFContext        (void);
             const SFAGLContext        *getSFContext         (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   AGLContext          &getContext         (void);
 #endif
                   AGLContext          &editContext        (void);

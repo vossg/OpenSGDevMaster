@@ -93,7 +93,7 @@ void TransformChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFMatrix *(TransformChunkBase::*GetSFMatrixF)(void) const;
 
     GetSFMatrixF GetSFMatrix = &TransformChunkBase::getSFMatrix;
@@ -107,7 +107,7 @@ void TransformChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TransformChunkBase::editSFMatrix),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMatrix));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TransformChunkBase::getSFMatrix));
@@ -190,7 +190,7 @@ const SFMatrix *TransformChunkBase::getSFMatrix(void) const
     return &_sfMatrix;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFMatrix            *TransformChunkBase::getSFMatrix         (void)
 {
     return this->editSFMatrix         ();

@@ -152,13 +152,13 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
 
             const SFAlgorithmPtr      *getSFAlgorithm       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFProjectionMode  (void);
 #endif
                   SFUInt32            *editSFProjectionMode (void);
             const SFUInt32            *getSFProjectionMode  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFMatrix            *getSFProjectionMatrix (void);
 #endif
                   SFMatrix            *editSFProjectionMatrix(void);
@@ -167,13 +167,13 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
 
                   AlgorithmPtrConst getAlgorithm      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getProjectionMode  (void);
 #endif
                   UInt32              &editProjectionMode (void);
             const UInt32              &getProjectionMode  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Matrix              &getProjectionMatrix (void);
 #endif
                   Matrix              &editProjectionMatrix(void);

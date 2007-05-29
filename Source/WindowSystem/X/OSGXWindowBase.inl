@@ -90,7 +90,7 @@ const DisplayP &XWindowBase::getDisplay(void) const
     return _sfDisplay.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 DisplayP            &XWindowBase::getDisplay        (void)
 {
@@ -123,7 +123,7 @@ const X11Window &XWindowBase::getWindow(void) const
     return _sfWindow.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 X11Window           &XWindowBase::getWindow         (void)
 {
@@ -156,7 +156,7 @@ const GLXContext &XWindowBase::getContext(void) const
     return _sfContext.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLXContext          &XWindowBase::getContext        (void)
 {

@@ -112,7 +112,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ProgramChunkBase::*GetSFProgramF)(void) const;
 
     GetSFProgramF GetSFProgram = &ProgramChunkBase::getSFProgram;
@@ -126,7 +126,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editSFProgram),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFProgram));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getSFProgram));
@@ -134,7 +134,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFVec4f *(ProgramChunkBase::*GetMFParamValuesF)(void) const;
 
     GetMFParamValuesF GetMFParamValues = &ProgramChunkBase::getMFParamValues;
@@ -148,7 +148,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editMFParamValues),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFParamValues));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getMFParamValues));
@@ -156,7 +156,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFString *(ProgramChunkBase::*GetMFParamNamesF)(void) const;
 
     GetMFParamNamesF GetMFParamNames = &ProgramChunkBase::getMFParamNames;
@@ -170,7 +170,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editMFParamNames),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFParamNames));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getMFParamNames));
@@ -178,7 +178,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ProgramChunkBase::*GetSFGLIdF)(void) const;
 
     GetSFGLIdF GetSFGLId = &ProgramChunkBase::getSFGLId;
@@ -192,7 +192,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editSFGLId),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getSFGLId));
@@ -321,7 +321,7 @@ const SFString *ProgramChunkBase::getSFProgram(void) const
     return &_sfProgram;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ProgramChunkBase::getSFProgram        (void)
 {
     return this->editSFProgram        ();
@@ -340,7 +340,7 @@ const MFVec4f *ProgramChunkBase::getMFParamValues(void) const
     return &_mfParamValues;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFVec4f             *ProgramChunkBase::getMFParamValues    (void)
 {
     return this->editMFParamValues    ();
@@ -359,7 +359,7 @@ const MFString *ProgramChunkBase::getMFParamNames(void) const
     return &_mfParamNames;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFString            *ProgramChunkBase::getMFParamNames     (void)
 {
     return this->editMFParamNames     ();
@@ -378,7 +378,7 @@ const SFUInt32 *ProgramChunkBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ProgramChunkBase::getSFGLId           (void)
 {
     return this->editSFGLId           ();

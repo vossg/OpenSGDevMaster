@@ -90,7 +90,7 @@ void TransformBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFMatrixr *(TransformBase::*GetSFMatrixF)(void) const;
 
     GetSFMatrixF GetSFMatrix = &TransformBase::getSFMatrix;
@@ -104,7 +104,7 @@ void TransformBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TransformBase::editSFMatrix),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMatrix));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TransformBase::getSFMatrix));
@@ -183,7 +183,7 @@ const SFMatrixr *TransformBase::getSFMatrix(void) const
     return &_sfMatrix;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFMatrixr           *TransformBase::getSFMatrix         (void)
 {
     return this->editSFMatrix         ();

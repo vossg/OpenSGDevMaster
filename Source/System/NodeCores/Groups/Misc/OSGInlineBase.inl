@@ -90,7 +90,7 @@ const bool &InlineBase::getLoaded(void) const
     return _sfLoaded.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &InlineBase::getLoaded         (void)
 {
@@ -131,7 +131,7 @@ MFString &InlineBase::editUrl(void)
     return _mfUrl;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &InlineBase::getUrl            (const UInt32 index)
 {

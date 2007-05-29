@@ -155,32 +155,32 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFString            *getSFProgram         (void);
 #endif
                   SFString            *editSFProgram        (void);
             const SFString            *getSFProgram         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFVec4f             *getMFParamValues     (void);
 #endif
                   MFVec4f             *editMFParamValues    (void);
             const MFVec4f             *getMFParamValues     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFString            *getMFParamNames      (void);
 #endif
                   MFString            *editMFParamNames     (void);
             const MFString            *getMFParamNames      (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getProgram         (void);
 #endif
                   std::string         &editProgram        (void);
             const std::string         &getProgram         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec4f               &getParamValues     (const UInt32 index);
                   MFVec4f             &getParamValues    (void);
 #endif
@@ -189,7 +189,7 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
                   MFVec4f             &editParamValues    (void);
             const MFVec4f             &getParamValues    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getParamNames      (const UInt32 index);
                   MFString            &getParamNames     (void);
 #endif
@@ -294,14 +294,14 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFGLId            (void);
 #endif
                   SFUInt32            *editSFGLId           (void);
             const SFUInt32            *getSFGLId            (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getGLId            (void);
 #endif
                   UInt32              &editGLId           (void);

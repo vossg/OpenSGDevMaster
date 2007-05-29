@@ -90,7 +90,7 @@ const Vec3r &ComponentTransformBase::getCenter(void) const
     return _sfCenter.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3r               &ComponentTransformBase::getCenter         (void)
 {
@@ -123,7 +123,7 @@ const Quaternionr &ComponentTransformBase::getRotation(void) const
     return _sfRotation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Quaternionr         &ComponentTransformBase::getRotation       (void)
 {
@@ -156,7 +156,7 @@ const Vec3r &ComponentTransformBase::getScale(void) const
     return _sfScale.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3r               &ComponentTransformBase::getScale          (void)
 {
@@ -189,7 +189,7 @@ const Quaternionr &ComponentTransformBase::getScaleOrientation(void) const
     return _sfScaleOrientation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Quaternionr         &ComponentTransformBase::getScaleOrientation(void)
 {
@@ -222,7 +222,7 @@ const Vec3r &ComponentTransformBase::getTranslation(void) const
     return _sfTranslation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3r               &ComponentTransformBase::getTranslation    (void)
 {

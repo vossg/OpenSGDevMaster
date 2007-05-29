@@ -105,7 +105,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec3r *(ComponentTransformBase::*GetSFCenterF)(void) const;
 
     GetSFCenterF GetSFCenter = &ComponentTransformBase::getSFCenter;
@@ -119,7 +119,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ComponentTransformBase::editSFCenter),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCenter));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ComponentTransformBase::getSFCenter));
@@ -127,7 +127,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFQuaternionr *(ComponentTransformBase::*GetSFRotationF)(void) const;
 
     GetSFRotationF GetSFRotation = &ComponentTransformBase::getSFRotation;
@@ -141,7 +141,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ComponentTransformBase::editSFRotation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFRotation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ComponentTransformBase::getSFRotation));
@@ -149,7 +149,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec3r *(ComponentTransformBase::*GetSFScaleF)(void) const;
 
     GetSFScaleF GetSFScale = &ComponentTransformBase::getSFScale;
@@ -163,7 +163,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ComponentTransformBase::editSFScale),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFScale));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ComponentTransformBase::getSFScale));
@@ -171,7 +171,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFQuaternionr *(ComponentTransformBase::*GetSFScaleOrientationF)(void) const;
 
     GetSFScaleOrientationF GetSFScaleOrientation = &ComponentTransformBase::getSFScaleOrientation;
@@ -185,7 +185,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ComponentTransformBase::editSFScaleOrientation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFScaleOrientation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ComponentTransformBase::getSFScaleOrientation));
@@ -193,7 +193,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec3r *(ComponentTransformBase::*GetSFTranslationF)(void) const;
 
     GetSFTranslationF GetSFTranslation = &ComponentTransformBase::getSFTranslation;
@@ -207,7 +207,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ComponentTransformBase::editSFTranslation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTranslation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ComponentTransformBase::getSFTranslation));
@@ -310,7 +310,7 @@ const SFVec3r *ComponentTransformBase::getSFCenter(void) const
     return &_sfCenter;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec3r             *ComponentTransformBase::getSFCenter         (void)
 {
     return this->editSFCenter         ();
@@ -329,7 +329,7 @@ const SFQuaternionr *ComponentTransformBase::getSFRotation(void) const
     return &_sfRotation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFQuaternionr       *ComponentTransformBase::getSFRotation       (void)
 {
     return this->editSFRotation       ();
@@ -348,7 +348,7 @@ const SFVec3r *ComponentTransformBase::getSFScale(void) const
     return &_sfScale;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec3r             *ComponentTransformBase::getSFScale          (void)
 {
     return this->editSFScale          ();
@@ -367,7 +367,7 @@ const SFQuaternionr *ComponentTransformBase::getSFScaleOrientation(void) const
     return &_sfScaleOrientation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFQuaternionr       *ComponentTransformBase::getSFScaleOrientation(void)
 {
     return this->editSFScaleOrientation();
@@ -386,7 +386,7 @@ const SFVec3r *ComponentTransformBase::getSFTranslation(void) const
     return &_sfTranslation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec3r             *ComponentTransformBase::getSFTranslation    (void)
 {
     return this->editSFTranslation    ();

@@ -93,7 +93,7 @@ void InlineBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFString *(InlineBase::*GetMFUrlF)(void) const;
 
     GetMFUrlF GetMFUrl = &InlineBase::getMFUrl;
@@ -107,7 +107,7 @@ void InlineBase::classDescInserter(TypeObject &oType)
         true,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&InlineBase::editMFUrl),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFUrl));
 #else
         reinterpret_cast<FieldGetMethodSig >(&InlineBase::getMFUrl));
@@ -115,7 +115,7 @@ void InlineBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(InlineBase::*GetSFLoadedF)(void) const;
 
     GetSFLoadedF GetSFLoaded = &InlineBase::getSFLoaded;
@@ -129,7 +129,7 @@ void InlineBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&InlineBase::editSFLoaded),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLoaded));
 #else
         reinterpret_cast<FieldGetMethodSig >(&InlineBase::getSFLoaded));
@@ -214,7 +214,7 @@ const MFString *InlineBase::getMFUrl(void) const
     return &_mfUrl;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFString            *InlineBase::getMFUrl            (void)
 {
     return this->editMFUrl            ();
@@ -233,7 +233,7 @@ const SFBool *InlineBase::getSFLoaded(void) const
     return &_sfLoaded;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *InlineBase::getSFLoaded         (void)
 {
     return this->editSFLoaded         ();

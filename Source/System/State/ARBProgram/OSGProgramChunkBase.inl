@@ -90,7 +90,7 @@ const std::string &ProgramChunkBase::getProgram(void) const
     return _sfProgram.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ProgramChunkBase::getProgram        (void)
 {
@@ -123,7 +123,7 @@ const UInt32 &ProgramChunkBase::getGLId(void) const
     return _sfGLId.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ProgramChunkBase::getGLId           (void)
 {
@@ -164,7 +164,7 @@ MFVec4f &ProgramChunkBase::editParamValues(void)
     return _mfParamValues;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec4f               &ProgramChunkBase::getParamValues    (const UInt32 index)
 {
@@ -211,7 +211,7 @@ MFString &ProgramChunkBase::editParamNames(void)
     return _mfParamNames;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ProgramChunkBase::getParamNames     (const UInt32 index)
 {

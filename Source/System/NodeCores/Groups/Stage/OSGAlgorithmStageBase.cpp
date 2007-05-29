@@ -110,7 +110,7 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(AlgorithmStageBase::*GetSFProjectionModeF)(void) const;
 
     GetSFProjectionModeF GetSFProjectionMode = &AlgorithmStageBase::getSFProjectionMode;
@@ -124,7 +124,7 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editSFProjectionMode),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFProjectionMode));
 #else
         reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getSFProjectionMode));
@@ -132,7 +132,7 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFMatrix *(AlgorithmStageBase::*GetSFProjectionMatrixF)(void) const;
 
     GetSFProjectionMatrixF GetSFProjectionMatrix = &AlgorithmStageBase::getSFProjectionMatrix;
@@ -146,7 +146,7 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editSFProjectionMatrix),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFProjectionMatrix));
 #else
         reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getSFProjectionMatrix));
@@ -249,7 +249,7 @@ const SFUInt32 *AlgorithmStageBase::getSFProjectionMode(void) const
     return &_sfProjectionMode;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *AlgorithmStageBase::getSFProjectionMode (void)
 {
     return this->editSFProjectionMode ();
@@ -268,7 +268,7 @@ const SFMatrix *AlgorithmStageBase::getSFProjectionMatrix(void) const
     return &_sfProjectionMatrix;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFMatrix            *AlgorithmStageBase::getSFProjectionMatrix(void)
 {
     return this->editSFProjectionMatrix();

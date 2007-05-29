@@ -90,7 +90,7 @@ const Real32 &LineChunkBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &LineChunkBase::getWidth          (void)
 {
@@ -123,7 +123,7 @@ const Int32 &LineChunkBase::getStippleRepeat(void) const
     return _sfStippleRepeat.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &LineChunkBase::getStippleRepeat  (void)
 {
@@ -156,7 +156,7 @@ const UInt16 &LineChunkBase::getStipplePattern(void) const
     return _sfStipplePattern.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt16              &LineChunkBase::getStipplePattern (void)
 {
@@ -189,7 +189,7 @@ const bool &LineChunkBase::getSmooth(void) const
     return _sfSmooth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &LineChunkBase::getSmooth         (void)
 {

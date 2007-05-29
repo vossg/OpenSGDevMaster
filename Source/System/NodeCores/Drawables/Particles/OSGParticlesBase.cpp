@@ -157,7 +157,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ParticlesBase::*GetSFModeF)(void) const;
 
     GetSFModeF GetSFMode = &ParticlesBase::getSFMode;
@@ -171,7 +171,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ParticlesBase::editSFMode),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMode));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ParticlesBase::getSFMode));
@@ -192,7 +192,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFVec3f *(ParticlesBase::*GetMFSizesF)(void) const;
 
     GetMFSizesF GetMFSizes = &ParticlesBase::getMFSizes;
@@ -210,7 +210,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ParticlesBase::editMFSizes),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFSizes));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ParticlesBase::getMFSizes));
@@ -258,7 +258,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFInt32 *(ParticlesBase::*GetMFIndicesF)(void) const;
 
     GetMFIndicesF GetMFIndices = &ParticlesBase::getMFIndices;
@@ -273,7 +273,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ParticlesBase::editMFIndices),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFIndices));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ParticlesBase::getMFIndices));
@@ -281,7 +281,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFReal32 *(ParticlesBase::*GetMFTextureZsF)(void) const;
 
     GetMFTextureZsF GetMFTextureZs = &ParticlesBase::getMFTextureZs;
@@ -296,7 +296,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ParticlesBase::editMFTextureZs),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFTextureZs));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ParticlesBase::getMFTextureZs));
@@ -304,7 +304,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ParticlesBase::*GetSFDrawOrderF)(void) const;
 
     GetSFDrawOrderF GetSFDrawOrder = &ParticlesBase::getSFDrawOrder;
@@ -319,7 +319,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ParticlesBase::editSFDrawOrder),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDrawOrder));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ParticlesBase::getSFDrawOrder));
@@ -327,7 +327,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ParticlesBase::*GetSFDynamicF)(void) const;
 
     GetSFDynamicF GetSFDynamic = &ParticlesBase::getSFDynamic;
@@ -342,7 +342,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ParticlesBase::editSFDynamic),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDynamic));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ParticlesBase::getSFDynamic));
@@ -350,7 +350,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ParticlesBase::*GetSFPumpF)(void) const;
 
     GetSFPumpF GetSFPump = &ParticlesBase::getSFPump;
@@ -364,7 +364,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ParticlesBase::editSFPump),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPump));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ParticlesBase::getSFPump));
@@ -372,7 +372,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFParticleBSPTree *(ParticlesBase::*GetSFBspF)(void) const;
 
     GetSFBspF GetSFBsp = &ParticlesBase::getSFBsp;
@@ -386,7 +386,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ParticlesBase::editSFBsp),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBsp));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ParticlesBase::getSFBsp));
@@ -394,7 +394,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(ParticlesBase::*GetSFNumParticlesF)(void) const;
 
     GetSFNumParticlesF GetSFNumParticles = &ParticlesBase::getSFNumParticles;
@@ -409,7 +409,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ParticlesBase::editSFNumParticles),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFNumParticles));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ParticlesBase::getSFNumParticles));
@@ -619,7 +619,7 @@ const SFUInt32 *ParticlesBase::getSFMode(void) const
     return &_sfMode;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ParticlesBase::getSFMode           (void)
 {
     return this->editSFMode           ();
@@ -644,7 +644,7 @@ const MFVec3f *ParticlesBase::getMFSizes(void) const
     return &_mfSizes;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFVec3f             *ParticlesBase::getMFSizes          (void)
 {
     return this->editMFSizes          ();
@@ -681,7 +681,7 @@ const MFInt32 *ParticlesBase::getMFIndices(void) const
     return &_mfIndices;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFInt32             *ParticlesBase::getMFIndices        (void)
 {
     return this->editMFIndices        ();
@@ -700,7 +700,7 @@ const MFReal32 *ParticlesBase::getMFTextureZs(void) const
     return &_mfTextureZs;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFReal32            *ParticlesBase::getMFTextureZs      (void)
 {
     return this->editMFTextureZs      ();
@@ -719,7 +719,7 @@ const SFUInt32 *ParticlesBase::getSFDrawOrder(void) const
     return &_sfDrawOrder;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ParticlesBase::getSFDrawOrder      (void)
 {
     return this->editSFDrawOrder      ();
@@ -738,7 +738,7 @@ const SFBool *ParticlesBase::getSFDynamic(void) const
     return &_sfDynamic;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ParticlesBase::getSFDynamic        (void)
 {
     return this->editSFDynamic        ();
@@ -757,7 +757,7 @@ const SFUInt32 *ParticlesBase::getSFPump(void) const
     return &_sfPump;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ParticlesBase::getSFPump           (void)
 {
     return this->editSFPump           ();
@@ -776,7 +776,7 @@ const SFParticleBSPTree *ParticlesBase::getSFBsp(void) const
     return &_sfBsp;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFParticleBSPTree   *ParticlesBase::getSFBsp            (void)
 {
     return this->editSFBsp            ();
@@ -795,7 +795,7 @@ const SFInt32 *ParticlesBase::getSFNumParticles(void) const
     return &_sfNumParticles;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *ParticlesBase::getSFNumParticles   (void)
 {
     return this->editSFNumParticles   ();

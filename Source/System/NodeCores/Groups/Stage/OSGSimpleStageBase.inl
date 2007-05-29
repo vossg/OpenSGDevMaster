@@ -90,7 +90,7 @@ const Real32 &SimpleStageBase::getLeft(void) const
     return _sfLeft.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &SimpleStageBase::getLeft           (void)
 {
@@ -123,7 +123,7 @@ const Real32 &SimpleStageBase::getRight(void) const
     return _sfRight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &SimpleStageBase::getRight          (void)
 {
@@ -156,7 +156,7 @@ const Real32 &SimpleStageBase::getBottom(void) const
     return _sfBottom.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &SimpleStageBase::getBottom         (void)
 {
@@ -189,7 +189,7 @@ const Real32 &SimpleStageBase::getTop(void) const
     return _sfTop.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &SimpleStageBase::getTop            (void)
 {

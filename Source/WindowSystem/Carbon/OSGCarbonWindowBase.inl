@@ -90,7 +90,7 @@ const AGLContext &CarbonWindowBase::getContext(void) const
     return _sfContext.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 AGLContext          &CarbonWindowBase::getContext        (void)
 {

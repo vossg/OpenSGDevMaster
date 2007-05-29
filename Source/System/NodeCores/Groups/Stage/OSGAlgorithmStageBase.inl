@@ -107,7 +107,7 @@ const UInt32 &AlgorithmStageBase::getProjectionMode(void) const
     return _sfProjectionMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &AlgorithmStageBase::getProjectionMode (void)
 {
@@ -140,7 +140,7 @@ const Matrix &AlgorithmStageBase::getProjectionMatrix(void) const
     return _sfProjectionMatrix.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Matrix              &AlgorithmStageBase::getProjectionMatrix(void)
 {

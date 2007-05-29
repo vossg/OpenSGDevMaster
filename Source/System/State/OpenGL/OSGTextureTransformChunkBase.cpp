@@ -94,7 +94,7 @@ void TextureTransformChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(TextureTransformChunkBase::*GetSFUseCameraBeaconF)(void) const;
 
     GetSFUseCameraBeaconF GetSFUseCameraBeacon = &TextureTransformChunkBase::getSFUseCameraBeacon;
@@ -108,7 +108,7 @@ void TextureTransformChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureTransformChunkBase::editSFUseCameraBeacon),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFUseCameraBeacon));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureTransformChunkBase::getSFUseCameraBeacon));
@@ -198,7 +198,7 @@ const SFBool *TextureTransformChunkBase::getSFUseCameraBeacon(void) const
     return &_sfUseCameraBeacon;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *TextureTransformChunkBase::getSFUseCameraBeacon(void)
 {
     return this->editSFUseCameraBeacon();

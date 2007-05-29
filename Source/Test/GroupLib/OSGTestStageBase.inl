@@ -90,7 +90,7 @@ const std::string &TestStageBase::getMessage(void) const
     return _sfMessage.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &TestStageBase::getMessage        (void)
 {

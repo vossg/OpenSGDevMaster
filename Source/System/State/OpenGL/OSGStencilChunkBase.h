@@ -171,98 +171,98 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFStencilFunc     (void);
 #endif
                   SFGLenum            *editSFStencilFunc    (void);
             const SFGLenum            *getSFStencilFunc     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFStencilValue    (void);
 #endif
                   SFInt32             *editSFStencilValue   (void);
             const SFInt32             *getSFStencilValue    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFStencilMask     (void);
 #endif
                   SFUInt32            *editSFStencilMask    (void);
             const SFUInt32            *getSFStencilMask     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFStencilOpFail   (void);
 #endif
                   SFGLenum            *editSFStencilOpFail  (void);
             const SFGLenum            *getSFStencilOpFail   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFStencilOpZFail  (void);
 #endif
                   SFGLenum            *editSFStencilOpZFail (void);
             const SFGLenum            *getSFStencilOpZFail  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFStencilOpZPass  (void);
 #endif
                   SFGLenum            *editSFStencilOpZPass (void);
             const SFGLenum            *getSFStencilOpZPass  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFClearBuffer     (void);
 #endif
                   SFInt32             *editSFClearBuffer    (void);
             const SFInt32             *getSFClearBuffer     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFBitMask         (void);
 #endif
                   SFUInt32            *editSFBitMask        (void);
             const SFUInt32            *getSFBitMask         (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getStencilFunc     (void);
 #endif
                   GLenum              &editStencilFunc    (void);
             const GLenum              &getStencilFunc     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getStencilValue    (void);
 #endif
                   Int32               &editStencilValue   (void);
             const Int32               &getStencilValue    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getStencilMask     (void);
 #endif
                   UInt32              &editStencilMask    (void);
             const UInt32              &getStencilMask     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getStencilOpFail   (void);
 #endif
                   GLenum              &editStencilOpFail  (void);
             const GLenum              &getStencilOpFail   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getStencilOpZFail  (void);
 #endif
                   GLenum              &editStencilOpZFail (void);
             const GLenum              &getStencilOpZFail  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getStencilOpZPass  (void);
 #endif
                   GLenum              &editStencilOpZPass (void);
             const GLenum              &getStencilOpZPass  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getClearBuffer     (void);
 #endif
                   Int32               &editClearBuffer    (void);
             const Int32               &getClearBuffer     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getBitMask         (void);
 #endif
                   UInt32              &editBitMask        (void);

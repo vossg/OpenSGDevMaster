@@ -97,7 +97,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFHWND *(WIN32WindowBase::*GetSFHwndF)(void) const;
 
     GetSFHwndF GetSFHwnd = &WIN32WindowBase::getSFHwnd;
@@ -111,7 +111,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editSFHwnd),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHwnd));
 #else
         reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getSFHwnd));
@@ -119,7 +119,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFHDC *(WIN32WindowBase::*GetSFHdcF)(void) const;
 
     GetSFHdcF GetSFHdc = &WIN32WindowBase::getSFHdc;
@@ -133,7 +133,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editSFHdc),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHdc));
 #else
         reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getSFHdc));
@@ -141,7 +141,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFHGLRC *(WIN32WindowBase::*GetSFHglrcF)(void) const;
 
     GetSFHglrcF GetSFHglrc = &WIN32WindowBase::getSFHglrc;
@@ -155,7 +155,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editSFHglrc),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHglrc));
 #else
         reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getSFHglrc));
@@ -253,7 +253,7 @@ const SFHWND *WIN32WindowBase::getSFHwnd(void) const
     return &_sfHwnd;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFHWND              *WIN32WindowBase::getSFHwnd           (void)
 {
     return this->editSFHwnd           ();
@@ -272,7 +272,7 @@ const SFHDC *WIN32WindowBase::getSFHdc(void) const
     return &_sfHdc;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFHDC               *WIN32WindowBase::getSFHdc            (void)
 {
     return this->editSFHdc            ();
@@ -291,7 +291,7 @@ const SFHGLRC *WIN32WindowBase::getSFHglrc(void) const
     return &_sfHglrc;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFHGLRC             *WIN32WindowBase::getSFHglrc          (void)
 {
     return this->editSFHglrc          ();

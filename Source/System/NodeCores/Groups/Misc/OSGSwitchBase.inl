@@ -90,7 +90,7 @@ const Int32 &SwitchBase::getChoice(void) const
     return _sfChoice.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &SwitchBase::getChoice         (void)
 {

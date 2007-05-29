@@ -105,7 +105,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec3f *(BillboardBase::*GetSFAxisOfRotationF)(void) const;
 
     GetSFAxisOfRotationF GetSFAxisOfRotation = &BillboardBase::getSFAxisOfRotation;
@@ -119,7 +119,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editSFAxisOfRotation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAxisOfRotation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getSFAxisOfRotation));
@@ -127,7 +127,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(BillboardBase::*GetSFFocusOnCameraF)(void) const;
 
     GetSFFocusOnCameraF GetSFFocusOnCamera = &BillboardBase::getSFFocusOnCamera;
@@ -141,7 +141,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editSFFocusOnCamera),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFocusOnCamera));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getSFFocusOnCamera));
@@ -149,7 +149,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(BillboardBase::*GetSFAlignToScreenF)(void) const;
 
     GetSFAlignToScreenF GetSFAlignToScreen = &BillboardBase::getSFAlignToScreen;
@@ -163,7 +163,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editSFAlignToScreen),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAlignToScreen));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getSFAlignToScreen));
@@ -171,7 +171,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(BillboardBase::*GetSFMinAngleF)(void) const;
 
     GetSFMinAngleF GetSFMinAngle = &BillboardBase::getSFMinAngle;
@@ -185,7 +185,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editSFMinAngle),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMinAngle));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getSFMinAngle));
@@ -193,7 +193,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(BillboardBase::*GetSFMaxAngleF)(void) const;
 
     GetSFMaxAngleF GetSFMaxAngle = &BillboardBase::getSFMaxAngle;
@@ -207,7 +207,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editSFMaxAngle),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMaxAngle));
 #else
         reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getSFMaxAngle));
@@ -320,7 +320,7 @@ const SFVec3f *BillboardBase::getSFAxisOfRotation(void) const
     return &_sfAxisOfRotation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec3f             *BillboardBase::getSFAxisOfRotation (void)
 {
     return this->editSFAxisOfRotation ();
@@ -339,7 +339,7 @@ const SFBool *BillboardBase::getSFFocusOnCamera(void) const
     return &_sfFocusOnCamera;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *BillboardBase::getSFFocusOnCamera  (void)
 {
     return this->editSFFocusOnCamera  ();
@@ -358,7 +358,7 @@ const SFBool *BillboardBase::getSFAlignToScreen(void) const
     return &_sfAlignToScreen;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *BillboardBase::getSFAlignToScreen  (void)
 {
     return this->editSFAlignToScreen  ();
@@ -377,7 +377,7 @@ const SFReal32 *BillboardBase::getSFMinAngle(void) const
     return &_sfMinAngle;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *BillboardBase::getSFMinAngle       (void)
 {
     return this->editSFMinAngle       ();
@@ -396,7 +396,7 @@ const SFReal32 *BillboardBase::getSFMaxAngle(void) const
     return &_sfMaxAngle;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *BillboardBase::getSFMaxAngle       (void)
 {
     return this->editSFMaxAngle       ();

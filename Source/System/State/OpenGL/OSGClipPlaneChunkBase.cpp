@@ -107,7 +107,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec4f *(ClipPlaneChunkBase::*GetSFEquationF)(void) const;
 
     GetSFEquationF GetSFEquation = &ClipPlaneChunkBase::getSFEquation;
@@ -122,7 +122,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editSFEquation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEquation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getSFEquation));
@@ -130,7 +130,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ClipPlaneChunkBase::*GetSFEnableF)(void) const;
 
     GetSFEnableF GetSFEnable = &ClipPlaneChunkBase::getSFEnable;
@@ -144,7 +144,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editSFEnable),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEnable));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getSFEnable));
@@ -271,7 +271,7 @@ const SFVec4f *ClipPlaneChunkBase::getSFEquation(void) const
     return &_sfEquation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec4f             *ClipPlaneChunkBase::getSFEquation       (void)
 {
     return this->editSFEquation       ();
@@ -290,7 +290,7 @@ const SFBool *ClipPlaneChunkBase::getSFEnable(void) const
     return &_sfEnable;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ClipPlaneChunkBase::getSFEnable         (void)
 {
     return this->editSFEnable         ();

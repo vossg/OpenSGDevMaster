@@ -159,62 +159,62 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFVec3f             *getSFAxisOfRotation  (void);
 #endif
                   SFVec3f             *editSFAxisOfRotation (void);
             const SFVec3f             *getSFAxisOfRotation  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFFocusOnCamera   (void);
 #endif
                   SFBool              *editSFFocusOnCamera  (void);
             const SFBool              *getSFFocusOnCamera   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFAlignToScreen   (void);
 #endif
                   SFBool              *editSFAlignToScreen  (void);
             const SFBool              *getSFAlignToScreen   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFMinAngle        (void);
 #endif
                   SFReal32            *editSFMinAngle       (void);
             const SFReal32            *getSFMinAngle        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFMaxAngle        (void);
 #endif
                   SFReal32            *editSFMaxAngle       (void);
             const SFReal32            *getSFMaxAngle        (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3f               &getAxisOfRotation  (void);
 #endif
                   Vec3f               &editAxisOfRotation (void);
             const Vec3f               &getAxisOfRotation  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getFocusOnCamera   (void);
 #endif
                   bool                &editFocusOnCamera  (void);
             const bool                &getFocusOnCamera   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getAlignToScreen   (void);
 #endif
                   bool                &editAlignToScreen  (void);
             const bool                &getAlignToScreen   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getMinAngle        (void);
 #endif
                   Real32              &editMinAngle       (void);
             const Real32              &getMinAngle        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getMaxAngle        (void);
 #endif
                   Real32              &editMaxAngle       (void);

@@ -90,7 +90,7 @@ const Matrix &TransformChunkBase::getMatrix(void) const
     return _sfMatrix.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Matrix              &TransformChunkBase::getMatrix         (void)
 {

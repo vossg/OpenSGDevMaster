@@ -239,7 +239,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4f *(RegisterCombinersChunkBase::*GetSFColor0F)(void) const;
 
     GetSFColor0F GetSFColor0 = &RegisterCombinersChunkBase::getSFColor0;
@@ -253,7 +253,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editSFColor0),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFColor0));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getSFColor0));
@@ -261,7 +261,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4f *(RegisterCombinersChunkBase::*GetSFColor1F)(void) const;
 
     GetSFColor1F GetSFColor1 = &RegisterCombinersChunkBase::getSFColor1;
@@ -275,7 +275,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editSFColor1),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFColor1));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getSFColor1));
@@ -283,7 +283,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RegisterCombinersChunkBase::*GetSFColorSumClampF)(void) const;
 
     GetSFColorSumClampF GetSFColorSumClamp = &RegisterCombinersChunkBase::getSFColorSumClamp;
@@ -297,7 +297,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editSFColorSumClamp),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFColorSumClamp));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getSFColorSumClamp));
@@ -305,7 +305,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFVariableArgbF)(void) const;
 
     GetMFVariableArgbF GetMFVariableArgb = &RegisterCombinersChunkBase::getMFVariableArgb;
@@ -319,7 +319,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFVariableArgb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFVariableArgb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFVariableArgb));
@@ -327,7 +327,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFVariableBrgbF)(void) const;
 
     GetMFVariableBrgbF GetMFVariableBrgb = &RegisterCombinersChunkBase::getMFVariableBrgb;
@@ -341,7 +341,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFVariableBrgb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFVariableBrgb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFVariableBrgb));
@@ -349,7 +349,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFVariableCrgbF)(void) const;
 
     GetMFVariableCrgbF GetMFVariableCrgb = &RegisterCombinersChunkBase::getMFVariableCrgb;
@@ -363,7 +363,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFVariableCrgb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFVariableCrgb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFVariableCrgb));
@@ -371,7 +371,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFVariableDrgbF)(void) const;
 
     GetMFVariableDrgbF GetMFVariableDrgb = &RegisterCombinersChunkBase::getMFVariableDrgb;
@@ -385,7 +385,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFVariableDrgb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFVariableDrgb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFVariableDrgb));
@@ -393,7 +393,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFVariableAalphaF)(void) const;
 
     GetMFVariableAalphaF GetMFVariableAalpha = &RegisterCombinersChunkBase::getMFVariableAalpha;
@@ -407,7 +407,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFVariableAalpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFVariableAalpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFVariableAalpha));
@@ -415,7 +415,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFVariableBalphaF)(void) const;
 
     GetMFVariableBalphaF GetMFVariableBalpha = &RegisterCombinersChunkBase::getMFVariableBalpha;
@@ -429,7 +429,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFVariableBalpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFVariableBalpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFVariableBalpha));
@@ -437,7 +437,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFVariableCalphaF)(void) const;
 
     GetMFVariableCalphaF GetMFVariableCalpha = &RegisterCombinersChunkBase::getMFVariableCalpha;
@@ -451,7 +451,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFVariableCalpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFVariableCalpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFVariableCalpha));
@@ -459,7 +459,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFVariableDalphaF)(void) const;
 
     GetMFVariableDalphaF GetMFVariableDalpha = &RegisterCombinersChunkBase::getMFVariableDalpha;
@@ -473,7 +473,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFVariableDalpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFVariableDalpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFVariableDalpha));
@@ -481,7 +481,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFOutputABrgbF)(void) const;
 
     GetMFOutputABrgbF GetMFOutputABrgb = &RegisterCombinersChunkBase::getMFOutputABrgb;
@@ -495,7 +495,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFOutputABrgb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFOutputABrgb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFOutputABrgb));
@@ -503,7 +503,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFOutputCDrgbF)(void) const;
 
     GetMFOutputCDrgbF GetMFOutputCDrgb = &RegisterCombinersChunkBase::getMFOutputCDrgb;
@@ -517,7 +517,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFOutputCDrgb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFOutputCDrgb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFOutputCDrgb));
@@ -525,7 +525,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFOutputSumrgbF)(void) const;
 
     GetMFOutputSumrgbF GetMFOutputSumrgb = &RegisterCombinersChunkBase::getMFOutputSumrgb;
@@ -539,7 +539,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFOutputSumrgb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFOutputSumrgb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFOutputSumrgb));
@@ -547,7 +547,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFScalergbF)(void) const;
 
     GetMFScalergbF GetMFScalergb = &RegisterCombinersChunkBase::getMFScalergb;
@@ -561,7 +561,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFScalergb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFScalergb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFScalergb));
@@ -569,7 +569,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFBiasrgbF)(void) const;
 
     GetMFBiasrgbF GetMFBiasrgb = &RegisterCombinersChunkBase::getMFBiasrgb;
@@ -583,7 +583,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFBiasrgb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFBiasrgb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFBiasrgb));
@@ -591,7 +591,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFOutputABalphaF)(void) const;
 
     GetMFOutputABalphaF GetMFOutputABalpha = &RegisterCombinersChunkBase::getMFOutputABalpha;
@@ -605,7 +605,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFOutputABalpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFOutputABalpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFOutputABalpha));
@@ -613,7 +613,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFOutputCDalphaF)(void) const;
 
     GetMFOutputCDalphaF GetMFOutputCDalpha = &RegisterCombinersChunkBase::getMFOutputCDalpha;
@@ -627,7 +627,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFOutputCDalpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFOutputCDalpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFOutputCDalpha));
@@ -635,7 +635,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFOutputSumalphaF)(void) const;
 
     GetMFOutputSumalphaF GetMFOutputSumalpha = &RegisterCombinersChunkBase::getMFOutputSumalpha;
@@ -649,7 +649,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFOutputSumalpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFOutputSumalpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFOutputSumalpha));
@@ -657,7 +657,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFUInt8 *(RegisterCombinersChunkBase::*GetMFDotABrgbF)(void) const;
 
     GetMFDotABrgbF GetMFDotABrgb = &RegisterCombinersChunkBase::getMFDotABrgb;
@@ -671,7 +671,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFDotABrgb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFDotABrgb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFDotABrgb));
@@ -679,7 +679,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFUInt8 *(RegisterCombinersChunkBase::*GetMFDotCDrgbF)(void) const;
 
     GetMFDotCDrgbF GetMFDotCDrgb = &RegisterCombinersChunkBase::getMFDotCDrgb;
@@ -693,7 +693,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFDotCDrgb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFDotCDrgb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFDotCDrgb));
@@ -701,7 +701,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFUInt8 *(RegisterCombinersChunkBase::*GetMFMuxSumrgbF)(void) const;
 
     GetMFMuxSumrgbF GetMFMuxSumrgb = &RegisterCombinersChunkBase::getMFMuxSumrgb;
@@ -715,7 +715,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFMuxSumrgb),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFMuxSumrgb));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFMuxSumrgb));
@@ -723,7 +723,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFScalealphaF)(void) const;
 
     GetMFScalealphaF GetMFScalealpha = &RegisterCombinersChunkBase::getMFScalealpha;
@@ -737,7 +737,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFScalealpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFScalealpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFScalealpha));
@@ -745,7 +745,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFBiasalphaF)(void) const;
 
     GetMFBiasalphaF GetMFBiasalpha = &RegisterCombinersChunkBase::getMFBiasalpha;
@@ -759,7 +759,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFBiasalpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFBiasalpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFBiasalpha));
@@ -767,7 +767,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFUInt8 *(RegisterCombinersChunkBase::*GetMFMuxSumalphaF)(void) const;
 
     GetMFMuxSumalphaF GetMFMuxSumalpha = &RegisterCombinersChunkBase::getMFMuxSumalpha;
@@ -781,7 +781,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFMuxSumalpha),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFMuxSumalpha));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFMuxSumalpha));
@@ -789,7 +789,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFVariableEF)(void) const;
 
     GetMFVariableEF GetMFVariableE = &RegisterCombinersChunkBase::getMFVariableE;
@@ -803,7 +803,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFVariableE),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFVariableE));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFVariableE));
@@ -811,7 +811,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFVariableFF)(void) const;
 
     GetMFVariableFF GetMFVariableF = &RegisterCombinersChunkBase::getMFVariableF;
@@ -825,7 +825,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFVariableF),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFVariableF));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFVariableF));
@@ -833,7 +833,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFGLenum *(RegisterCombinersChunkBase::*GetMFVariableGF)(void) const;
 
     GetMFVariableGF GetMFVariableG = &RegisterCombinersChunkBase::getMFVariableG;
@@ -847,7 +847,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFVariableG),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFVariableG));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFVariableG));
@@ -855,7 +855,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFColor4f *(RegisterCombinersChunkBase::*GetMFCombinerColor0F)(void) const;
 
     GetMFCombinerColor0F GetMFCombinerColor0 = &RegisterCombinersChunkBase::getMFCombinerColor0;
@@ -869,7 +869,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFCombinerColor0),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFCombinerColor0));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFCombinerColor0));
@@ -877,7 +877,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFColor4f *(RegisterCombinersChunkBase::*GetMFCombinerColor1F)(void) const;
 
     GetMFCombinerColor1F GetMFCombinerColor1 = &RegisterCombinersChunkBase::getMFCombinerColor1;
@@ -891,7 +891,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editMFCombinerColor1),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFCombinerColor1));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getMFCombinerColor1));
@@ -899,7 +899,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt8 *(RegisterCombinersChunkBase::*GetSFPerStageConstantsF)(void) const;
 
     GetSFPerStageConstantsF GetSFPerStageConstants = &RegisterCombinersChunkBase::getSFPerStageConstants;
@@ -913,7 +913,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editSFPerStageConstants),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPerStageConstants));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getSFPerStageConstants));
@@ -1292,7 +1292,7 @@ const SFColor4f *RegisterCombinersChunkBase::getSFColor0(void) const
     return &_sfColor0;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4f           *RegisterCombinersChunkBase::getSFColor0         (void)
 {
     return this->editSFColor0         ();
@@ -1311,7 +1311,7 @@ const SFColor4f *RegisterCombinersChunkBase::getSFColor1(void) const
     return &_sfColor1;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4f           *RegisterCombinersChunkBase::getSFColor1         (void)
 {
     return this->editSFColor1         ();
@@ -1330,7 +1330,7 @@ const SFBool *RegisterCombinersChunkBase::getSFColorSumClamp(void) const
     return &_sfColorSumClamp;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *RegisterCombinersChunkBase::getSFColorSumClamp  (void)
 {
     return this->editSFColorSumClamp  ();
@@ -1349,7 +1349,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableArgb(void) const
     return &_mfVariableArgb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFVariableArgb   (void)
 {
     return this->editMFVariableArgb   ();
@@ -1368,7 +1368,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableBrgb(void) const
     return &_mfVariableBrgb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFVariableBrgb   (void)
 {
     return this->editMFVariableBrgb   ();
@@ -1387,7 +1387,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableCrgb(void) const
     return &_mfVariableCrgb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFVariableCrgb   (void)
 {
     return this->editMFVariableCrgb   ();
@@ -1406,7 +1406,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableDrgb(void) const
     return &_mfVariableDrgb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFVariableDrgb   (void)
 {
     return this->editMFVariableDrgb   ();
@@ -1425,7 +1425,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableAalpha(void) const
     return &_mfVariableAalpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFVariableAalpha (void)
 {
     return this->editMFVariableAalpha ();
@@ -1444,7 +1444,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableBalpha(void) const
     return &_mfVariableBalpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFVariableBalpha (void)
 {
     return this->editMFVariableBalpha ();
@@ -1463,7 +1463,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableCalpha(void) const
     return &_mfVariableCalpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFVariableCalpha (void)
 {
     return this->editMFVariableCalpha ();
@@ -1482,7 +1482,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableDalpha(void) const
     return &_mfVariableDalpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFVariableDalpha (void)
 {
     return this->editMFVariableDalpha ();
@@ -1501,7 +1501,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputABrgb(void) const
     return &_mfOutputABrgb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFOutputABrgb    (void)
 {
     return this->editMFOutputABrgb    ();
@@ -1520,7 +1520,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputCDrgb(void) const
     return &_mfOutputCDrgb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFOutputCDrgb    (void)
 {
     return this->editMFOutputCDrgb    ();
@@ -1539,7 +1539,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputSumrgb(void) const
     return &_mfOutputSumrgb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFOutputSumrgb   (void)
 {
     return this->editMFOutputSumrgb   ();
@@ -1558,7 +1558,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFScalergb(void) const
     return &_mfScalergb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFScalergb       (void)
 {
     return this->editMFScalergb       ();
@@ -1577,7 +1577,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFBiasrgb(void) const
     return &_mfBiasrgb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFBiasrgb        (void)
 {
     return this->editMFBiasrgb        ();
@@ -1596,7 +1596,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputABalpha(void) const
     return &_mfOutputABalpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFOutputABalpha  (void)
 {
     return this->editMFOutputABalpha  ();
@@ -1615,7 +1615,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputCDalpha(void) const
     return &_mfOutputCDalpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFOutputCDalpha  (void)
 {
     return this->editMFOutputCDalpha  ();
@@ -1634,7 +1634,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputSumalpha(void) const
     return &_mfOutputSumalpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFOutputSumalpha (void)
 {
     return this->editMFOutputSumalpha ();
@@ -1653,7 +1653,7 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFDotABrgb(void) const
     return &_mfDotABrgb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFUInt8             *RegisterCombinersChunkBase::getMFDotABrgb       (void)
 {
     return this->editMFDotABrgb       ();
@@ -1672,7 +1672,7 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFDotCDrgb(void) const
     return &_mfDotCDrgb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFUInt8             *RegisterCombinersChunkBase::getMFDotCDrgb       (void)
 {
     return this->editMFDotCDrgb       ();
@@ -1691,7 +1691,7 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFMuxSumrgb(void) const
     return &_mfMuxSumrgb;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFUInt8             *RegisterCombinersChunkBase::getMFMuxSumrgb      (void)
 {
     return this->editMFMuxSumrgb      ();
@@ -1710,7 +1710,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFScalealpha(void) const
     return &_mfScalealpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFScalealpha     (void)
 {
     return this->editMFScalealpha     ();
@@ -1729,7 +1729,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFBiasalpha(void) const
     return &_mfBiasalpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFBiasalpha      (void)
 {
     return this->editMFBiasalpha      ();
@@ -1748,7 +1748,7 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFMuxSumalpha(void) const
     return &_mfMuxSumalpha;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFUInt8             *RegisterCombinersChunkBase::getMFMuxSumalpha    (void)
 {
     return this->editMFMuxSumalpha    ();
@@ -1767,7 +1767,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableE(void) const
     return &_mfVariableE;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFVariableE      (void)
 {
     return this->editMFVariableE      ();
@@ -1786,7 +1786,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableF(void) const
     return &_mfVariableF;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFVariableF      (void)
 {
     return this->editMFVariableF      ();
@@ -1805,7 +1805,7 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableG(void) const
     return &_mfVariableG;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFGLenum            *RegisterCombinersChunkBase::getMFVariableG      (void)
 {
     return this->editMFVariableG      ();
@@ -1824,7 +1824,7 @@ const MFColor4f *RegisterCombinersChunkBase::getMFCombinerColor0(void) const
     return &_mfCombinerColor0;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFColor4f           *RegisterCombinersChunkBase::getMFCombinerColor0 (void)
 {
     return this->editMFCombinerColor0 ();
@@ -1843,7 +1843,7 @@ const MFColor4f *RegisterCombinersChunkBase::getMFCombinerColor1(void) const
     return &_mfCombinerColor1;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFColor4f           *RegisterCombinersChunkBase::getMFCombinerColor1 (void)
 {
     return this->editMFCombinerColor1 ();
@@ -1862,7 +1862,7 @@ const SFUInt8 *RegisterCombinersChunkBase::getSFPerStageConstants(void) const
     return &_sfPerStageConstants;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt8             *RegisterCombinersChunkBase::getSFPerStageConstants(void)
 {
     return this->editSFPerStageConstants();

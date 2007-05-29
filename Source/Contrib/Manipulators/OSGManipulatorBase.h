@@ -206,13 +206,13 @@ class OSG_SYSTEM_DLLMAPPING ManipulatorBase : public Transform
             const SFNodePtr           *getSFActiveSubHandle (void) const;
             const SFViewportPtr       *getSFViewport        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFActive          (void);
 #endif
                   SFBool              *editSFActive         (void);
             const SFBool              *getSFActive          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFVec3f             *getSFLength          (void);
 #endif
                   SFVec3f             *editSFLength         (void);
@@ -235,13 +235,13 @@ class OSG_SYSTEM_DLLMAPPING ManipulatorBase : public Transform
 
                   ViewportPtrConst getViewport       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getActive          (void);
 #endif
                   bool                &editActive         (void);
             const bool                &getActive          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3f               &getLength          (void);
 #endif
                   Vec3f               &editLength         (void);
@@ -392,14 +392,14 @@ class OSG_SYSTEM_DLLMAPPING ManipulatorBase : public Transform
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFPnt2f             *getSFLastMousePos    (void);
 #endif
                   SFPnt2f             *editSFLastMousePos   (void);
             const SFPnt2f             *getSFLastMousePos    (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Pnt2f               &getLastMousePos    (void);
 #endif
                   Pnt2f               &editLastMousePos   (void);

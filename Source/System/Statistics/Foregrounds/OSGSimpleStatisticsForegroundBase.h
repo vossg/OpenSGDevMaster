@@ -187,80 +187,80 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFString            *getMFFormats         (void);
 #endif
                   MFString            *editMFFormats        (void);
             const MFString            *getMFFormats         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFSize            (void);
 #endif
                   SFReal32            *editSFSize           (void);
             const SFReal32            *getSFSize            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor4f           *getSFColor           (void);
 #endif
                   SFColor4f           *editSFColor          (void);
             const SFColor4f           *getSFColor           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor4f           *getSFShadowColor     (void);
 #endif
                   SFColor4f           *editSFShadowColor    (void);
             const SFColor4f           *getSFShadowColor     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor4f           *getSFBgColor         (void);
 #endif
                   SFColor4f           *editSFBgColor        (void);
             const SFColor4f           *getSFBgColor         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFString            *getSFFamily          (void);
 #endif
                   SFString            *editSFFamily         (void);
             const SFString            *getSFFamily          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFVec2f             *getSFShadowOffset    (void);
 #endif
                   SFVec2f             *editSFShadowOffset   (void);
             const SFVec2f             *getSFShadowOffset    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt8             *getSFHorizontalAlign (void);
 #endif
                   SFUInt8             *editSFHorizontalAlign(void);
             const SFUInt8             *getSFHorizontalAlign (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt8             *getSFVerticalAlign   (void);
 #endif
                   SFUInt8             *editSFVerticalAlign  (void);
             const SFUInt8             *getSFVerticalAlign   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor4f           *getSFBorderColor     (void);
 #endif
                   SFColor4f           *editSFBorderColor    (void);
             const SFColor4f           *getSFBorderColor     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFVec2f             *getSFBorderOffset    (void);
 #endif
                   SFVec2f             *editSFBorderOffset   (void);
             const SFVec2f             *getSFBorderOffset    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFVec2f             *getSFTextMargin      (void);
 #endif
                   SFVec2f             *editSFTextMargin     (void);
             const SFVec2f             *getSFTextMargin      (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getFormats         (const UInt32 index);
                   MFString            &getFormats        (void);
 #endif
@@ -269,67 +269,67 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
                   MFString            &editFormats        (void);
             const MFString            &getFormats        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getSize            (void);
 #endif
                   Real32              &editSize           (void);
             const Real32              &getSize            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color4f             &getColor           (void);
 #endif
                   Color4f             &editColor          (void);
             const Color4f             &getColor           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color4f             &getShadowColor     (void);
 #endif
                   Color4f             &editShadowColor    (void);
             const Color4f             &getShadowColor     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color4f             &getBgColor         (void);
 #endif
                   Color4f             &editBgColor        (void);
             const Color4f             &getBgColor         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getFamily          (void);
 #endif
                   std::string         &editFamily         (void);
             const std::string         &getFamily          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec2f               &getShadowOffset    (void);
 #endif
                   Vec2f               &editShadowOffset   (void);
             const Vec2f               &getShadowOffset    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt8               &getHorizontalAlign (void);
 #endif
                   UInt8               &editHorizontalAlign(void);
             const UInt8               &getHorizontalAlign (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt8               &getVerticalAlign   (void);
 #endif
                   UInt8               &editVerticalAlign  (void);
             const UInt8               &getVerticalAlign   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color4f             &getBorderColor     (void);
 #endif
                   Color4f             &editBorderColor    (void);
             const Color4f             &getBorderColor     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec2f               &getBorderOffset    (void);
 #endif
                   Vec2f               &editBorderOffset   (void);
             const Vec2f               &getBorderOffset    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec2f               &getTextMargin      (void);
 #endif
                   Vec2f               &editTextMargin     (void);

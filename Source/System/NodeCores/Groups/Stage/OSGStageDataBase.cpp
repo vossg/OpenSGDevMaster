@@ -97,7 +97,7 @@ void StageDataBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(StageDataBase::*GetSFPartitionRangeBeginF)(void) const;
 
     GetSFPartitionRangeBeginF GetSFPartitionRangeBegin = &StageDataBase::getSFPartitionRangeBegin;
@@ -111,7 +111,7 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editSFPartitionRangeBegin),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPartitionRangeBegin));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getSFPartitionRangeBegin));
@@ -119,7 +119,7 @@ void StageDataBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(StageDataBase::*GetSFPartitionRangeEndF)(void) const;
 
     GetSFPartitionRangeEndF GetSFPartitionRangeEnd = &StageDataBase::getSFPartitionRangeEnd;
@@ -133,7 +133,7 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editSFPartitionRangeEnd),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPartitionRangeEnd));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getSFPartitionRangeEnd));
@@ -141,7 +141,7 @@ void StageDataBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(StageDataBase::*GetSFGroupModeF)(void) const;
 
     GetSFGroupModeF GetSFGroupMode = &StageDataBase::getSFGroupMode;
@@ -155,7 +155,7 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editSFGroupMode),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGroupMode));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getSFGroupMode));
@@ -253,7 +253,7 @@ const SFInt32 *StageDataBase::getSFPartitionRangeBegin(void) const
     return &_sfPartitionRangeBegin;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *StageDataBase::getSFPartitionRangeBegin(void)
 {
     return this->editSFPartitionRangeBegin();
@@ -272,7 +272,7 @@ const SFInt32 *StageDataBase::getSFPartitionRangeEnd(void) const
     return &_sfPartitionRangeEnd;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *StageDataBase::getSFPartitionRangeEnd(void)
 {
     return this->editSFPartitionRangeEnd();
@@ -291,7 +291,7 @@ const SFInt32 *StageDataBase::getSFGroupMode(void) const
     return &_sfGroupMode;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *StageDataBase::getSFGroupMode      (void)
 {
     return this->editSFGroupMode      ();

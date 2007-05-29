@@ -183,134 +183,134 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFCullFace        (void);
 #endif
                   SFGLenum            *editSFCullFace       (void);
             const SFGLenum            *getSFCullFace        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFFrontFace       (void);
 #endif
                   SFGLenum            *editSFFrontFace      (void);
             const SFGLenum            *getSFFrontFace       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFFrontMode       (void);
 #endif
                   SFGLenum            *editSFFrontMode      (void);
             const SFGLenum            *getSFFrontMode       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFBackMode        (void);
 #endif
                   SFGLenum            *editSFBackMode       (void);
             const SFGLenum            *getSFBackMode        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFSmooth          (void);
 #endif
                   SFBool              *editSFSmooth         (void);
             const SFBool              *getSFSmooth          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFOffsetFactor    (void);
 #endif
                   SFReal32            *editSFOffsetFactor   (void);
             const SFReal32            *getSFOffsetFactor    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFOffsetBias      (void);
 #endif
                   SFReal32            *editSFOffsetBias     (void);
             const SFReal32            *getSFOffsetBias      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFOffsetPoint     (void);
 #endif
                   SFBool              *editSFOffsetPoint    (void);
             const SFBool              *getSFOffsetPoint     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFOffsetLine      (void);
 #endif
                   SFBool              *editSFOffsetLine     (void);
             const SFBool              *getSFOffsetLine      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFOffsetFill      (void);
 #endif
                   SFBool              *editSFOffsetFill     (void);
             const SFBool              *getSFOffsetFill      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFInt32             *getMFStipple         (void);
 #endif
                   MFInt32             *editMFStipple        (void);
             const MFInt32             *getMFStipple         (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getCullFace        (void);
 #endif
                   GLenum              &editCullFace       (void);
             const GLenum              &getCullFace        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getFrontFace       (void);
 #endif
                   GLenum              &editFrontFace      (void);
             const GLenum              &getFrontFace       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getFrontMode       (void);
 #endif
                   GLenum              &editFrontMode      (void);
             const GLenum              &getFrontMode       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getBackMode        (void);
 #endif
                   GLenum              &editBackMode       (void);
             const GLenum              &getBackMode        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getSmooth          (void);
 #endif
                   bool                &editSmooth         (void);
             const bool                &getSmooth          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getOffsetFactor    (void);
 #endif
                   Real32              &editOffsetFactor   (void);
             const Real32              &getOffsetFactor    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getOffsetBias      (void);
 #endif
                   Real32              &editOffsetBias     (void);
             const Real32              &getOffsetBias      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getOffsetPoint     (void);
 #endif
                   bool                &editOffsetPoint    (void);
             const bool                &getOffsetPoint     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getOffsetLine      (void);
 #endif
                   bool                &editOffsetLine     (void);
             const bool                &getOffsetLine      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getOffsetFill      (void);
 #endif
                   bool                &editOffsetFill     (void);
             const bool                &getOffsetFill      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getStipple         (const UInt32 index);
                   MFInt32             &getStipple        (void);
 #endif

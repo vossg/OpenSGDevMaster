@@ -90,7 +90,7 @@ const GLenum &StencilChunkBase::getStencilFunc(void) const
     return _sfStencilFunc.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &StencilChunkBase::getStencilFunc    (void)
 {
@@ -123,7 +123,7 @@ const Int32 &StencilChunkBase::getStencilValue(void) const
     return _sfStencilValue.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &StencilChunkBase::getStencilValue   (void)
 {
@@ -156,7 +156,7 @@ const UInt32 &StencilChunkBase::getStencilMask(void) const
     return _sfStencilMask.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &StencilChunkBase::getStencilMask    (void)
 {
@@ -189,7 +189,7 @@ const GLenum &StencilChunkBase::getStencilOpFail(void) const
     return _sfStencilOpFail.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &StencilChunkBase::getStencilOpFail  (void)
 {
@@ -222,7 +222,7 @@ const GLenum &StencilChunkBase::getStencilOpZFail(void) const
     return _sfStencilOpZFail.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &StencilChunkBase::getStencilOpZFail (void)
 {
@@ -255,7 +255,7 @@ const GLenum &StencilChunkBase::getStencilOpZPass(void) const
     return _sfStencilOpZPass.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &StencilChunkBase::getStencilOpZPass (void)
 {
@@ -288,7 +288,7 @@ const Int32 &StencilChunkBase::getClearBuffer(void) const
     return _sfClearBuffer.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &StencilChunkBase::getClearBuffer    (void)
 {
@@ -321,7 +321,7 @@ const UInt32 &StencilChunkBase::getBitMask(void) const
     return _sfBitMask.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &StencilChunkBase::getBitMask        (void)
 {

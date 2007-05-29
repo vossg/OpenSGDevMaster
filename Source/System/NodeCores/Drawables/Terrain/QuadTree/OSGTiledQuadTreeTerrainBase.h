@@ -197,73 +197,73 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
             const MFImagePtr          *getMFHeightTiles     (void) const;
             const MFMaterialPtr       *getMFHeightTextures  (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFSizeX           (void);
 #endif
                   SFUInt32            *editSFSizeX          (void);
             const SFUInt32            *getSFSizeX           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFSizeY           (void);
 #endif
                   SFUInt32            *editSFSizeY          (void);
             const SFUInt32            *getSFSizeY           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFHeightScale     (void);
 #endif
                   SFReal32            *editSFHeightScale    (void);
             const SFReal32            *getSFHeightScale     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFVertexSpacing   (void);
 #endif
                   SFReal32            *editSFVertexSpacing  (void);
             const SFReal32            *getSFVertexSpacing   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFGeoMorphing     (void);
 #endif
                   SFBool              *editSFGeoMorphing    (void);
             const SFBool              *getSFGeoMorphing     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFDetail          (void);
 #endif
                   SFReal32            *editSFDetail         (void);
             const SFReal32            *getSFDetail          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFCurrentX        (void);
 #endif
                   SFInt32             *editSFCurrentX       (void);
             const SFInt32             *getSFCurrentX        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFCurrentY        (void);
 #endif
                   SFInt32             *editSFCurrentY       (void);
             const SFInt32             *getSFCurrentY        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFSizeROI         (void);
 #endif
                   SFInt32             *editSFSizeROI        (void);
             const SFInt32             *getSFSizeROI         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFUpdate          (void);
 #endif
                   SFBool              *editSFUpdate         (void);
             const SFBool              *getSFUpdate          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFUpdateTerrain   (void);
 #endif
                   SFBool              *editSFUpdateTerrain  (void);
             const SFBool              *getSFUpdateTerrain   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFPerPixelLighting (void);
 #endif
                   SFBool              *editSFPerPixelLighting(void);
@@ -276,73 +276,73 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
                   MaterialPtrConst getHeightTextures (const UInt32 index) const;
             const MFMaterialPtr       &getHeightTextures (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getSizeX           (void);
 #endif
                   UInt32              &editSizeX          (void);
             const UInt32              &getSizeX           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getSizeY           (void);
 #endif
                   UInt32              &editSizeY          (void);
             const UInt32              &getSizeY           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getHeightScale     (void);
 #endif
                   Real32              &editHeightScale    (void);
             const Real32              &getHeightScale     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getVertexSpacing   (void);
 #endif
                   Real32              &editVertexSpacing  (void);
             const Real32              &getVertexSpacing   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getGeoMorphing     (void);
 #endif
                   bool                &editGeoMorphing    (void);
             const bool                &getGeoMorphing     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getDetail          (void);
 #endif
                   Real32              &editDetail         (void);
             const Real32              &getDetail          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getCurrentX        (void);
 #endif
                   Int32               &editCurrentX       (void);
             const Int32               &getCurrentX        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getCurrentY        (void);
 #endif
                   Int32               &editCurrentY       (void);
             const Int32               &getCurrentY        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getSizeROI         (void);
 #endif
                   Int32               &editSizeROI        (void);
             const Int32               &getSizeROI         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getUpdate          (void);
 #endif
                   bool                &editUpdate         (void);
             const bool                &getUpdate          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getUpdateTerrain   (void);
 #endif
                   bool                &editUpdateTerrain  (void);
             const bool                &getUpdateTerrain   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getPerPixelLighting (void);
 #endif
                   bool                &editPerPixelLighting(void);

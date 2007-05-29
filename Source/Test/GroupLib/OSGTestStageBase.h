@@ -143,14 +143,14 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFString            *getSFMessage         (void);
 #endif
                   SFString            *editSFMessage        (void);
             const SFString            *getSFMessage         (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getMessage         (void);
 #endif
                   std::string         &editMessage        (void);

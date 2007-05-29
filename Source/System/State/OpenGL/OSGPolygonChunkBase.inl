@@ -90,7 +90,7 @@ const GLenum &PolygonChunkBase::getCullFace(void) const
     return _sfCullFace.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &PolygonChunkBase::getCullFace       (void)
 {
@@ -123,7 +123,7 @@ const GLenum &PolygonChunkBase::getFrontFace(void) const
     return _sfFrontFace.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &PolygonChunkBase::getFrontFace      (void)
 {
@@ -156,7 +156,7 @@ const GLenum &PolygonChunkBase::getFrontMode(void) const
     return _sfFrontMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &PolygonChunkBase::getFrontMode      (void)
 {
@@ -189,7 +189,7 @@ const GLenum &PolygonChunkBase::getBackMode(void) const
     return _sfBackMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &PolygonChunkBase::getBackMode       (void)
 {
@@ -222,7 +222,7 @@ const bool &PolygonChunkBase::getSmooth(void) const
     return _sfSmooth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PolygonChunkBase::getSmooth         (void)
 {
@@ -255,7 +255,7 @@ const Real32 &PolygonChunkBase::getOffsetFactor(void) const
     return _sfOffsetFactor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PolygonChunkBase::getOffsetFactor   (void)
 {
@@ -288,7 +288,7 @@ const Real32 &PolygonChunkBase::getOffsetBias(void) const
     return _sfOffsetBias.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PolygonChunkBase::getOffsetBias     (void)
 {
@@ -321,7 +321,7 @@ const bool &PolygonChunkBase::getOffsetPoint(void) const
     return _sfOffsetPoint.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PolygonChunkBase::getOffsetPoint    (void)
 {
@@ -354,7 +354,7 @@ const bool &PolygonChunkBase::getOffsetLine(void) const
     return _sfOffsetLine.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PolygonChunkBase::getOffsetLine     (void)
 {
@@ -387,7 +387,7 @@ const bool &PolygonChunkBase::getOffsetFill(void) const
     return _sfOffsetFill.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PolygonChunkBase::getOffsetFill     (void)
 {
@@ -428,7 +428,7 @@ MFInt32 &PolygonChunkBase::editStipple(void)
     return _mfStipple;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &PolygonChunkBase::getStipple        (const UInt32 index)
 {

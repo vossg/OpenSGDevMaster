@@ -90,7 +90,7 @@ const bool &ProxyGroupBase::getEnabled(void) const
     return _sfEnabled.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ProxyGroupBase::getEnabled        (void)
 {
@@ -123,7 +123,7 @@ const std::string &ProxyGroupBase::getUrl(void) const
     return _sfUrl.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ProxyGroupBase::getUrl            (void)
 {
@@ -173,7 +173,7 @@ const UInt32 &ProxyGroupBase::getState(void) const
     return _sfState.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ProxyGroupBase::getState          (void)
 {
@@ -206,7 +206,7 @@ const bool &ProxyGroupBase::getConcurrentLoad(void) const
     return _sfConcurrentLoad.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ProxyGroupBase::getConcurrentLoad (void)
 {
@@ -239,7 +239,7 @@ const DynamicVolume &ProxyGroupBase::getVolume(void) const
     return _sfVolume.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 DynamicVolume       &ProxyGroupBase::getVolume         (void)
 {
@@ -272,7 +272,7 @@ const UInt32 &ProxyGroupBase::getIndices(void) const
     return _sfIndices.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ProxyGroupBase::getIndices        (void)
 {
@@ -305,7 +305,7 @@ const UInt32 &ProxyGroupBase::getTriangles(void) const
     return _sfTriangles.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ProxyGroupBase::getTriangles      (void)
 {
@@ -338,7 +338,7 @@ const UInt32 &ProxyGroupBase::getPositions(void) const
     return _sfPositions.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ProxyGroupBase::getPositions      (void)
 {
@@ -371,7 +371,7 @@ const UInt32 &ProxyGroupBase::getGeometries(void) const
     return _sfGeometries.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ProxyGroupBase::getGeometries     (void)
 {
@@ -404,7 +404,7 @@ const std::string &ProxyGroupBase::getAbsoluteUrl(void) const
     return _sfAbsoluteUrl.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ProxyGroupBase::getAbsoluteUrl    (void)
 {
@@ -445,7 +445,7 @@ MFUInt8 &ProxyGroupBase::editInline(void)
     return _mfInline;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt8               &ProxyGroupBase::getInline         (const UInt32 index)
 {

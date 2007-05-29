@@ -151,38 +151,38 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFEGLDisplay        *getSFDisplay         (void);
 #endif
                   SFEGLDisplay        *editSFDisplay        (void);
             const SFEGLDisplay        *getSFDisplay         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFEGLSurface        *getSFWindow          (void);
 #endif
                   SFEGLSurface        *editSFWindow         (void);
             const SFEGLSurface        *getSFWindow          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFEGLContext        *getSFContext         (void);
 #endif
                   SFEGLContext        *editSFContext        (void);
             const SFEGLContext        *getSFContext         (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   EGLDisplay          &getDisplay         (void);
 #endif
                   EGLDisplay          &editDisplay        (void);
             const EGLDisplay          &getDisplay         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   EGLSurface          &getWindow          (void);
 #endif
                   EGLSurface          &editWindow         (void);
             const EGLSurface          &getWindow          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   EGLContext          &getContext         (void);
 #endif
                   EGLContext          &editContext        (void);

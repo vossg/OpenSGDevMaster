@@ -143,14 +143,14 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindowBase : public Window
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFNSOpenGLContextP  *getSFContext         (void);
 #endif
                   SFNSOpenGLContextP  *editSFContext        (void);
             const SFNSOpenGLContextP  *getSFContext         (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   NSOpenGLContextP    &getContext         (void);
 #endif
                   NSOpenGLContextP    &editContext        (void);

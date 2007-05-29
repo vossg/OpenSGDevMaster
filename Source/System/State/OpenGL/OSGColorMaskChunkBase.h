@@ -155,50 +155,50 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFMaskR           (void);
 #endif
                   SFBool              *editSFMaskR          (void);
             const SFBool              *getSFMaskR           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFMaskG           (void);
 #endif
                   SFBool              *editSFMaskG          (void);
             const SFBool              *getSFMaskG           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFMaskB           (void);
 #endif
                   SFBool              *editSFMaskB          (void);
             const SFBool              *getSFMaskB           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFMaskA           (void);
 #endif
                   SFBool              *editSFMaskA          (void);
             const SFBool              *getSFMaskA           (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getMaskR           (void);
 #endif
                   bool                &editMaskR          (void);
             const bool                &getMaskR           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getMaskG           (void);
 #endif
                   bool                &editMaskG          (void);
             const bool                &getMaskG           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getMaskB           (void);
 #endif
                   bool                &editMaskB          (void);
             const bool                &getMaskB           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getMaskA           (void);
 #endif
                   bool                &editMaskA          (void);

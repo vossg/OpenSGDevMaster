@@ -90,7 +90,7 @@ const std::string &TestMultiPartitionStageBase::getMessage(void) const
     return _sfMessage.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &TestMultiPartitionStageBase::getMessage        (void)
 {
@@ -123,7 +123,7 @@ const Int32 &TestMultiPartitionStageBase::getNumPartitions(void) const
     return _sfNumPartitions.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TestMultiPartitionStageBase::getNumPartitions  (void)
 {
@@ -156,7 +156,7 @@ const bool &TestMultiPartitionStageBase::getUseGroup(void) const
     return _sfUseGroup.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &TestMultiPartitionStageBase::getUseGroup       (void)
 {
@@ -197,7 +197,7 @@ MFInt32 &TestMultiPartitionStageBase::editOrder(void)
     return _mfOrder;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TestMultiPartitionStageBase::getOrder          (const UInt32 index)
 {

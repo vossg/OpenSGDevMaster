@@ -101,7 +101,7 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(TestMultiPartitionStageBase::*GetSFMessageF)(void) const;
 
     GetSFMessageF GetSFMessage = &TestMultiPartitionStageBase::getSFMessage;
@@ -115,7 +115,7 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editSFMessage),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMessage));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getSFMessage));
@@ -123,7 +123,7 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(TestMultiPartitionStageBase::*GetSFNumPartitionsF)(void) const;
 
     GetSFNumPartitionsF GetSFNumPartitions = &TestMultiPartitionStageBase::getSFNumPartitions;
@@ -137,7 +137,7 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editSFNumPartitions),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFNumPartitions));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getSFNumPartitions));
@@ -145,7 +145,7 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFInt32 *(TestMultiPartitionStageBase::*GetMFOrderF)(void) const;
 
     GetMFOrderF GetMFOrder = &TestMultiPartitionStageBase::getMFOrder;
@@ -159,7 +159,7 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editMFOrder),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFOrder));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getMFOrder));
@@ -167,7 +167,7 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(TestMultiPartitionStageBase::*GetSFUseGroupF)(void) const;
 
     GetSFUseGroupF GetSFUseGroup = &TestMultiPartitionStageBase::getSFUseGroup;
@@ -181,7 +181,7 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editSFUseGroup),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFUseGroup));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getSFUseGroup));
@@ -285,7 +285,7 @@ const SFString *TestMultiPartitionStageBase::getSFMessage(void) const
     return &_sfMessage;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *TestMultiPartitionStageBase::getSFMessage        (void)
 {
     return this->editSFMessage        ();
@@ -304,7 +304,7 @@ const SFInt32 *TestMultiPartitionStageBase::getSFNumPartitions(void) const
     return &_sfNumPartitions;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *TestMultiPartitionStageBase::getSFNumPartitions  (void)
 {
     return this->editSFNumPartitions  ();
@@ -323,7 +323,7 @@ const MFInt32 *TestMultiPartitionStageBase::getMFOrder(void) const
     return &_mfOrder;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFInt32             *TestMultiPartitionStageBase::getMFOrder          (void)
 {
     return this->editMFOrder          ();
@@ -342,7 +342,7 @@ const SFBool *TestMultiPartitionStageBase::getSFUseGroup(void) const
     return &_sfUseGroup;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *TestMultiPartitionStageBase::getSFUseGroup       (void)
 {
     return this->editSFUseGroup       ();

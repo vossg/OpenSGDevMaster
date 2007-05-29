@@ -147,20 +147,20 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFString            *getMFUrl             (void);
 #endif
                   MFString            *editMFUrl            (void);
             const MFString            *getMFUrl             (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFLoaded          (void);
 #endif
                   SFBool              *editSFLoaded         (void);
             const SFBool              *getSFLoaded          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getUrl             (const UInt32 index);
                   MFString            &getUrl            (void);
 #endif
@@ -169,7 +169,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
                   MFString            &editUrl            (void);
             const MFString            &getUrl            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getLoaded          (void);
 #endif
                   bool                &editLoaded         (void);

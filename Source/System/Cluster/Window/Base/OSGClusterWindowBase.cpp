@@ -135,7 +135,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFString *(ClusterWindowBase::*GetMFServersF)(void) const;
 
     GetMFServersF GetMFServers = &ClusterWindowBase::getMFServers;
@@ -149,7 +149,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClusterWindowBase::editMFServers),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFServers));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getMFServers));
@@ -157,7 +157,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ClusterWindowBase::*GetSFConnectionTypeF)(void) const;
 
     GetSFConnectionTypeF GetSFConnectionType = &ClusterWindowBase::getSFConnectionType;
@@ -171,7 +171,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClusterWindowBase::editSFConnectionType),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFConnectionType));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getSFConnectionType));
@@ -179,7 +179,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ClusterWindowBase::*GetSFConnectionInterfaceF)(void) const;
 
     GetSFConnectionInterfaceF GetSFConnectionInterface = &ClusterWindowBase::getSFConnectionInterface;
@@ -193,7 +193,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClusterWindowBase::editSFConnectionInterface),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFConnectionInterface));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getSFConnectionInterface));
@@ -201,7 +201,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ClusterWindowBase::*GetSFConnectionDestinationF)(void) const;
 
     GetSFConnectionDestinationF GetSFConnectionDestination = &ClusterWindowBase::getSFConnectionDestination;
@@ -215,7 +215,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClusterWindowBase::editSFConnectionDestination),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFConnectionDestination));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getSFConnectionDestination));
@@ -223,7 +223,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ClusterWindowBase::*GetSFConnectionParamsF)(void) const;
 
     GetSFConnectionParamsF GetSFConnectionParams = &ClusterWindowBase::getSFConnectionParams;
@@ -237,7 +237,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClusterWindowBase::editSFConnectionParams),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFConnectionParams));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getSFConnectionParams));
@@ -245,7 +245,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ClusterWindowBase::*GetSFServicePortF)(void) const;
 
     GetSFServicePortF GetSFServicePort = &ClusterWindowBase::getSFServicePort;
@@ -259,7 +259,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClusterWindowBase::editSFServicePort),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFServicePort));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getSFServicePort));
@@ -267,7 +267,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ClusterWindowBase::*GetSFServiceAddressF)(void) const;
 
     GetSFServiceAddressF GetSFServiceAddress = &ClusterWindowBase::getSFServiceAddress;
@@ -281,7 +281,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClusterWindowBase::editSFServiceAddress),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFServiceAddress));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getSFServiceAddress));
@@ -301,7 +301,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ClusterWindowBase::*GetSFInterleaveF)(void) const;
 
     GetSFInterleaveF GetSFInterleave = &ClusterWindowBase::getSFInterleave;
@@ -315,7 +315,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClusterWindowBase::editSFInterleave),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFInterleave));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getSFInterleave));
@@ -323,7 +323,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ClusterWindowBase::*GetSFFrameCountF)(void) const;
 
     GetSFFrameCountF GetSFFrameCount = &ClusterWindowBase::getSFFrameCount;
@@ -337,7 +337,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClusterWindowBase::editSFFrameCount),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFrameCount));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getSFFrameCount));
@@ -357,7 +357,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFString *(ClusterWindowBase::*GetMFAutostartF)(void) const;
 
     GetMFAutostartF GetMFAutostart = &ClusterWindowBase::getMFAutostart;
@@ -371,7 +371,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ClusterWindowBase::editMFAutostart),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFAutostart));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getMFAutostart));
@@ -559,7 +559,7 @@ const MFString *ClusterWindowBase::getMFServers(void) const
     return &_mfServers;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFString            *ClusterWindowBase::getMFServers        (void)
 {
     return this->editMFServers        ();
@@ -578,7 +578,7 @@ const SFString *ClusterWindowBase::getSFConnectionType(void) const
     return &_sfConnectionType;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ClusterWindowBase::getSFConnectionType (void)
 {
     return this->editSFConnectionType ();
@@ -597,7 +597,7 @@ const SFString *ClusterWindowBase::getSFConnectionInterface(void) const
     return &_sfConnectionInterface;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ClusterWindowBase::getSFConnectionInterface(void)
 {
     return this->editSFConnectionInterface();
@@ -616,7 +616,7 @@ const SFString *ClusterWindowBase::getSFConnectionDestination(void) const
     return &_sfConnectionDestination;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ClusterWindowBase::getSFConnectionDestination(void)
 {
     return this->editSFConnectionDestination();
@@ -635,7 +635,7 @@ const SFString *ClusterWindowBase::getSFConnectionParams(void) const
     return &_sfConnectionParams;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ClusterWindowBase::getSFConnectionParams(void)
 {
     return this->editSFConnectionParams();
@@ -654,7 +654,7 @@ const SFUInt32 *ClusterWindowBase::getSFServicePort(void) const
     return &_sfServicePort;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ClusterWindowBase::getSFServicePort    (void)
 {
     return this->editSFServicePort    ();
@@ -673,7 +673,7 @@ const SFString *ClusterWindowBase::getSFServiceAddress(void) const
     return &_sfServiceAddress;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ClusterWindowBase::getSFServiceAddress (void)
 {
     return this->editSFServiceAddress ();
@@ -698,7 +698,7 @@ const SFUInt32 *ClusterWindowBase::getSFInterleave(void) const
     return &_sfInterleave;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ClusterWindowBase::getSFInterleave     (void)
 {
     return this->editSFInterleave     ();
@@ -717,7 +717,7 @@ const SFUInt32 *ClusterWindowBase::getSFFrameCount(void) const
     return &_sfFrameCount;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ClusterWindowBase::getSFFrameCount     (void)
 {
     return this->editSFFrameCount     ();
@@ -742,7 +742,7 @@ const MFString *ClusterWindowBase::getMFAutostart(void) const
     return &_mfAutostart;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFString            *ClusterWindowBase::getMFAutostart      (void)
 {
     return this->editMFAutostart      ();

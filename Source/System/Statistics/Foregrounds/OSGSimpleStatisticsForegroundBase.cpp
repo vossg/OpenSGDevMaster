@@ -152,7 +152,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFString *(SimpleStatisticsForegroundBase::*GetMFFormatsF)(void) const;
 
     GetMFFormatsF GetMFFormats = &SimpleStatisticsForegroundBase::getMFFormats;
@@ -166,7 +166,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editMFFormats),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFFormats));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getMFFormats));
@@ -174,7 +174,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(SimpleStatisticsForegroundBase::*GetSFSizeF)(void) const;
 
     GetSFSizeF GetSFSize = &SimpleStatisticsForegroundBase::getSFSize;
@@ -188,7 +188,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFSize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFSize));
@@ -196,7 +196,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4f *(SimpleStatisticsForegroundBase::*GetSFColorF)(void) const;
 
     GetSFColorF GetSFColor = &SimpleStatisticsForegroundBase::getSFColor;
@@ -210,7 +210,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFColor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFColor));
@@ -218,7 +218,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4f *(SimpleStatisticsForegroundBase::*GetSFShadowColorF)(void) const;
 
     GetSFShadowColorF GetSFShadowColor = &SimpleStatisticsForegroundBase::getSFShadowColor;
@@ -232,7 +232,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFShadowColor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFShadowColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFShadowColor));
@@ -240,7 +240,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4f *(SimpleStatisticsForegroundBase::*GetSFBgColorF)(void) const;
 
     GetSFBgColorF GetSFBgColor = &SimpleStatisticsForegroundBase::getSFBgColor;
@@ -254,7 +254,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFBgColor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBgColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFBgColor));
@@ -262,7 +262,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(SimpleStatisticsForegroundBase::*GetSFFamilyF)(void) const;
 
     GetSFFamilyF GetSFFamily = &SimpleStatisticsForegroundBase::getSFFamily;
@@ -276,7 +276,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFFamily),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFamily));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFFamily));
@@ -284,7 +284,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec2f *(SimpleStatisticsForegroundBase::*GetSFShadowOffsetF)(void) const;
 
     GetSFShadowOffsetF GetSFShadowOffset = &SimpleStatisticsForegroundBase::getSFShadowOffset;
@@ -298,7 +298,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFShadowOffset),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFShadowOffset));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFShadowOffset));
@@ -306,7 +306,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt8 *(SimpleStatisticsForegroundBase::*GetSFHorizontalAlignF)(void) const;
 
     GetSFHorizontalAlignF GetSFHorizontalAlign = &SimpleStatisticsForegroundBase::getSFHorizontalAlign;
@@ -320,7 +320,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFHorizontalAlign),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHorizontalAlign));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFHorizontalAlign));
@@ -328,7 +328,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt8 *(SimpleStatisticsForegroundBase::*GetSFVerticalAlignF)(void) const;
 
     GetSFVerticalAlignF GetSFVerticalAlign = &SimpleStatisticsForegroundBase::getSFVerticalAlign;
@@ -342,7 +342,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFVerticalAlign),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFVerticalAlign));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFVerticalAlign));
@@ -350,7 +350,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4f *(SimpleStatisticsForegroundBase::*GetSFBorderColorF)(void) const;
 
     GetSFBorderColorF GetSFBorderColor = &SimpleStatisticsForegroundBase::getSFBorderColor;
@@ -364,7 +364,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFBorderColor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBorderColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFBorderColor));
@@ -372,7 +372,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec2f *(SimpleStatisticsForegroundBase::*GetSFBorderOffsetF)(void) const;
 
     GetSFBorderOffsetF GetSFBorderOffset = &SimpleStatisticsForegroundBase::getSFBorderOffset;
@@ -386,7 +386,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFBorderOffset),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBorderOffset));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFBorderOffset));
@@ -394,7 +394,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec2f *(SimpleStatisticsForegroundBase::*GetSFTextMarginF)(void) const;
 
     GetSFTextMarginF GetSFTextMargin = &SimpleStatisticsForegroundBase::getSFTextMargin;
@@ -408,7 +408,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFTextMargin),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTextMargin));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFTextMargin));
@@ -633,7 +633,7 @@ const MFString *SimpleStatisticsForegroundBase::getMFFormats(void) const
     return &_mfFormats;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFString            *SimpleStatisticsForegroundBase::getMFFormats        (void)
 {
     return this->editMFFormats        ();
@@ -652,7 +652,7 @@ const SFReal32 *SimpleStatisticsForegroundBase::getSFSize(void) const
     return &_sfSize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *SimpleStatisticsForegroundBase::getSFSize           (void)
 {
     return this->editSFSize           ();
@@ -671,7 +671,7 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFColor(void) const
     return &_sfColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4f           *SimpleStatisticsForegroundBase::getSFColor          (void)
 {
     return this->editSFColor          ();
@@ -690,7 +690,7 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFShadowColor(void) const
     return &_sfShadowColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4f           *SimpleStatisticsForegroundBase::getSFShadowColor    (void)
 {
     return this->editSFShadowColor    ();
@@ -709,7 +709,7 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFBgColor(void) const
     return &_sfBgColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4f           *SimpleStatisticsForegroundBase::getSFBgColor        (void)
 {
     return this->editSFBgColor        ();
@@ -728,7 +728,7 @@ const SFString *SimpleStatisticsForegroundBase::getSFFamily(void) const
     return &_sfFamily;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *SimpleStatisticsForegroundBase::getSFFamily         (void)
 {
     return this->editSFFamily         ();
@@ -747,7 +747,7 @@ const SFVec2f *SimpleStatisticsForegroundBase::getSFShadowOffset(void) const
     return &_sfShadowOffset;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec2f             *SimpleStatisticsForegroundBase::getSFShadowOffset   (void)
 {
     return this->editSFShadowOffset   ();
@@ -766,7 +766,7 @@ const SFUInt8 *SimpleStatisticsForegroundBase::getSFHorizontalAlign(void) const
     return &_sfHorizontalAlign;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt8             *SimpleStatisticsForegroundBase::getSFHorizontalAlign(void)
 {
     return this->editSFHorizontalAlign();
@@ -785,7 +785,7 @@ const SFUInt8 *SimpleStatisticsForegroundBase::getSFVerticalAlign(void) const
     return &_sfVerticalAlign;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt8             *SimpleStatisticsForegroundBase::getSFVerticalAlign  (void)
 {
     return this->editSFVerticalAlign  ();
@@ -804,7 +804,7 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFBorderColor(void) const
     return &_sfBorderColor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4f           *SimpleStatisticsForegroundBase::getSFBorderColor    (void)
 {
     return this->editSFBorderColor    ();
@@ -823,7 +823,7 @@ const SFVec2f *SimpleStatisticsForegroundBase::getSFBorderOffset(void) const
     return &_sfBorderOffset;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec2f             *SimpleStatisticsForegroundBase::getSFBorderOffset   (void)
 {
     return this->editSFBorderOffset   ();
@@ -842,7 +842,7 @@ const SFVec2f *SimpleStatisticsForegroundBase::getSFTextMargin(void) const
     return &_sfTextMargin;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec2f             *SimpleStatisticsForegroundBase::getSFTextMargin     (void)
 {
     return this->editSFTextMargin     ();

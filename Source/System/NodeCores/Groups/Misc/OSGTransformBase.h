@@ -143,14 +143,14 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFMatrixr           *getSFMatrix          (void);
 #endif
                   SFMatrixr           *editSFMatrix         (void);
             const SFMatrixr           *getSFMatrix          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Matrixr             &getMatrix          (void);
 #endif
                   Matrixr             &editMatrix         (void);

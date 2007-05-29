@@ -151,13 +151,13 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFVec4f             *getSFEquation        (void);
 #endif
                   SFVec4f             *editSFEquation       (void);
             const SFVec4f             *getSFEquation        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFEnable          (void);
 #endif
                   SFBool              *editSFEnable         (void);
@@ -165,13 +165,13 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
             const SFNodePtr           *getSFBeacon          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec4f               &getEquation        (void);
 #endif
                   Vec4f               &editEquation       (void);
             const Vec4f               &getEquation        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getEnable          (void);
 #endif
                   bool                &editEnable         (void);

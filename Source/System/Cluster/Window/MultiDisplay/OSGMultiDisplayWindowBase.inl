@@ -90,7 +90,7 @@ const UInt32 &MultiDisplayWindowBase::getHServers(void) const
     return _sfHServers.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &MultiDisplayWindowBase::getHServers       (void)
 {
@@ -123,7 +123,7 @@ const UInt32 &MultiDisplayWindowBase::getVServers(void) const
     return _sfVServers.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &MultiDisplayWindowBase::getVServers       (void)
 {
@@ -156,7 +156,7 @@ const bool &MultiDisplayWindowBase::getManageClientViewports(void) const
     return _sfManageClientViewports.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &MultiDisplayWindowBase::getManageClientViewports(void)
 {
@@ -189,7 +189,7 @@ const Int32 &MultiDisplayWindowBase::getXOverlap(void) const
     return _sfXOverlap.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &MultiDisplayWindowBase::getXOverlap       (void)
 {
@@ -222,7 +222,7 @@ const Int32 &MultiDisplayWindowBase::getYOverlap(void) const
     return _sfYOverlap.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &MultiDisplayWindowBase::getYOverlap       (void)
 {

@@ -186,7 +186,7 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFPnt2f *(ManipulatorBase::*GetSFLastMousePosF)(void) const;
 
     GetSFLastMousePosF GetSFLastMousePos = &ManipulatorBase::getSFLastMousePos;
@@ -200,7 +200,7 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editSFLastMousePos),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLastMousePos));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getSFLastMousePos));
@@ -220,7 +220,7 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ManipulatorBase::*GetSFActiveF)(void) const;
 
     GetSFActiveF GetSFActive = &ManipulatorBase::getSFActive;
@@ -234,7 +234,7 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editSFActive),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFActive));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getSFActive));
@@ -242,7 +242,7 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec3f *(ManipulatorBase::*GetSFLengthF)(void) const;
 
     GetSFLengthF GetSFLength = &ManipulatorBase::getSFLength;
@@ -256,7 +256,7 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editSFLength),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLength));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getSFLength));
@@ -604,7 +604,7 @@ const SFPnt2f *ManipulatorBase::getSFLastMousePos(void) const
     return &_sfLastMousePos;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFPnt2f             *ManipulatorBase::getSFLastMousePos   (void)
 {
     return this->editSFLastMousePos   ();
@@ -629,7 +629,7 @@ const SFBool *ManipulatorBase::getSFActive(void) const
     return &_sfActive;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ManipulatorBase::getSFActive         (void)
 {
     return this->editSFActive         ();
@@ -648,7 +648,7 @@ const SFVec3f *ManipulatorBase::getSFLength(void) const
     return &_sfLength;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec3f             *ManipulatorBase::getSFLength         (void)
 {
     return this->editSFLength         ();

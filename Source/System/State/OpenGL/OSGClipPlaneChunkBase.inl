@@ -90,7 +90,7 @@ const Vec4f &ClipPlaneChunkBase::getEquation(void) const
     return _sfEquation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec4f               &ClipPlaneChunkBase::getEquation       (void)
 {
@@ -123,7 +123,7 @@ const bool &ClipPlaneChunkBase::getEnable(void) const
     return _sfEnable.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ClipPlaneChunkBase::getEnable         (void)
 {

@@ -179,122 +179,122 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFSize            (void);
 #endif
                   SFReal32            *editSFSize           (void);
             const SFReal32            *getSFSize            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFSmooth          (void);
 #endif
                   SFBool              *editSFSmooth         (void);
             const SFBool              *getSFSmooth          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFMinSize         (void);
 #endif
                   SFReal32            *editSFMinSize        (void);
             const SFReal32            *getSFMinSize         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFMaxSize         (void);
 #endif
                   SFReal32            *editSFMaxSize        (void);
             const SFReal32            *getSFMaxSize         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFConstantAttenuation (void);
 #endif
                   SFReal32            *editSFConstantAttenuation(void);
             const SFReal32            *getSFConstantAttenuation (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFLinearAttenuation (void);
 #endif
                   SFReal32            *editSFLinearAttenuation(void);
             const SFReal32            *getSFLinearAttenuation (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFQuadraticAttenuation (void);
 #endif
                   SFReal32            *editSFQuadraticAttenuation(void);
             const SFReal32            *getSFQuadraticAttenuation (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFFadeThreshold   (void);
 #endif
                   SFReal32            *editSFFadeThreshold  (void);
             const SFReal32            *getSFFadeThreshold   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFSprite          (void);
 #endif
                   SFBool              *editSFSprite         (void);
             const SFBool              *getSFSprite          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFRMode           (void);
 #endif
                   SFGLenum            *editSFRMode          (void);
             const SFGLenum            *getSFRMode           (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getSize            (void);
 #endif
                   Real32              &editSize           (void);
             const Real32              &getSize            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getSmooth          (void);
 #endif
                   bool                &editSmooth         (void);
             const bool                &getSmooth          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getMinSize         (void);
 #endif
                   Real32              &editMinSize        (void);
             const Real32              &getMinSize         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getMaxSize         (void);
 #endif
                   Real32              &editMaxSize        (void);
             const Real32              &getMaxSize         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getConstantAttenuation (void);
 #endif
                   Real32              &editConstantAttenuation(void);
             const Real32              &getConstantAttenuation (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getLinearAttenuation (void);
 #endif
                   Real32              &editLinearAttenuation(void);
             const Real32              &getLinearAttenuation (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getQuadraticAttenuation (void);
 #endif
                   Real32              &editQuadraticAttenuation(void);
             const Real32              &getQuadraticAttenuation (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getFadeThreshold   (void);
 #endif
                   Real32              &editFadeThreshold  (void);
             const Real32              &getFadeThreshold   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getSprite          (void);
 #endif
                   bool                &editSprite         (void);
             const bool                &getSprite          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getRMode           (void);
 #endif
                   GLenum              &editRMode          (void);

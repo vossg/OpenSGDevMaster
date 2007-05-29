@@ -124,7 +124,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(SimpleStageBase::*GetSFLeftF)(void) const;
 
     GetSFLeftF GetSFLeft = &SimpleStageBase::getSFLeft;
@@ -140,7 +140,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editSFLeft),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLeft));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getSFLeft));
@@ -148,7 +148,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(SimpleStageBase::*GetSFRightF)(void) const;
 
     GetSFRightF GetSFRight = &SimpleStageBase::getSFRight;
@@ -164,7 +164,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editSFRight),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFRight));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getSFRight));
@@ -172,7 +172,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(SimpleStageBase::*GetSFBottomF)(void) const;
 
     GetSFBottomF GetSFBottom = &SimpleStageBase::getSFBottom;
@@ -188,7 +188,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editSFBottom),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBottom));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getSFBottom));
@@ -196,7 +196,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(SimpleStageBase::*GetSFTopF)(void) const;
 
     GetSFTopF GetSFTop = &SimpleStageBase::getSFTop;
@@ -212,7 +212,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editSFTop),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTop));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getSFTop));
@@ -395,7 +395,7 @@ const SFReal32 *SimpleStageBase::getSFLeft(void) const
     return &_sfLeft;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *SimpleStageBase::getSFLeft           (void)
 {
     return this->editSFLeft           ();
@@ -414,7 +414,7 @@ const SFReal32 *SimpleStageBase::getSFRight(void) const
     return &_sfRight;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *SimpleStageBase::getSFRight          (void)
 {
     return this->editSFRight          ();
@@ -433,7 +433,7 @@ const SFReal32 *SimpleStageBase::getSFBottom(void) const
     return &_sfBottom;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *SimpleStageBase::getSFBottom         (void)
 {
     return this->editSFBottom         ();
@@ -452,7 +452,7 @@ const SFReal32 *SimpleStageBase::getSFTop(void) const
     return &_sfTop;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *SimpleStageBase::getSFTop            (void)
 {
     return this->editSFTop            ();

@@ -147,7 +147,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFChoice          (void);
 #endif
                   SFUInt32            *editSFChoice         (void);
@@ -155,7 +155,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
             const MFTextureBaseChunkPtr *getMFTextures        (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getChoice          (void);
 #endif
                   UInt32              &editChoice         (void);

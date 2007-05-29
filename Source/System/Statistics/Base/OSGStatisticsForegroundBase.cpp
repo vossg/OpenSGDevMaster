@@ -113,7 +113,7 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFInt32 *(StatisticsForegroundBase::*GetMFElementIDsF)(void) const;
 
     GetMFElementIDsF GetMFElementIDs = &StatisticsForegroundBase::getMFElementIDs;
@@ -127,7 +127,7 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editMFElementIDs),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFElementIDs));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getMFElementIDs));
@@ -135,7 +135,7 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFStatCollectorP *(StatisticsForegroundBase::*GetSFCollectorF)(void) const;
 
     GetSFCollectorF GetSFCollector = &StatisticsForegroundBase::getSFCollector;
@@ -149,7 +149,7 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editSFCollector),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCollector));
 #else
         reinterpret_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getSFCollector));
@@ -276,7 +276,7 @@ const MFInt32 *StatisticsForegroundBase::getMFElementIDs(void) const
     return &_mfElementIDs;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFInt32             *StatisticsForegroundBase::getMFElementIDs     (void)
 {
     return this->editMFElementIDs     ();
@@ -295,7 +295,7 @@ const SFStatCollectorP *StatisticsForegroundBase::getSFCollector(void) const
     return &_sfCollector;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFStatCollectorP    *StatisticsForegroundBase::getSFCollector      (void)
 {
     return this->editSFCollector      ();

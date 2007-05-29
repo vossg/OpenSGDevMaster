@@ -89,7 +89,7 @@ void CarbonWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFAGLContext *(CarbonWindowBase::*GetSFContextF)(void) const;
 
     GetSFContextF GetSFContext = &CarbonWindowBase::getSFContext;
@@ -103,7 +103,7 @@ void CarbonWindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&CarbonWindowBase::editSFContext),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFContext));
 #else
         reinterpret_cast<FieldGetMethodSig >(&CarbonWindowBase::getSFContext));
@@ -181,7 +181,7 @@ const SFAGLContext *CarbonWindowBase::getSFContext(void) const
     return &_sfContext;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFAGLContext        *CarbonWindowBase::getSFContext        (void)
 {
     return this->editSFContext        ();

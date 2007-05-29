@@ -90,7 +90,7 @@ const Int32 &StageDataBase::getPartitionRangeBegin(void) const
     return _sfPartitionRangeBegin.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &StageDataBase::getPartitionRangeBegin(void)
 {
@@ -123,7 +123,7 @@ const Int32 &StageDataBase::getPartitionRangeEnd(void) const
     return _sfPartitionRangeEnd.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &StageDataBase::getPartitionRangeEnd(void)
 {
@@ -156,7 +156,7 @@ const Int32 &StageDataBase::getGroupMode(void) const
     return _sfGroupMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &StageDataBase::getGroupMode      (void)
 {
@@ -177,7 +177,7 @@ void StageDataBase::setGroupMode(const Int32 &value)
 inline
 StageDataP StageDataBase::create(void)
 {
-    StageDataP fc(NULL);
+    StageDataP fc;
 
     if(getClassType().getPrototype() != NULL)
     {

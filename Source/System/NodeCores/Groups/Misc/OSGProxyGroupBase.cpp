@@ -139,7 +139,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ProxyGroupBase::*GetSFEnabledF)(void) const;
 
     GetSFEnabledF GetSFEnabled = &ProxyGroupBase::getSFEnabled;
@@ -153,7 +153,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFEnabled),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEnabled));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFEnabled));
@@ -161,7 +161,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ProxyGroupBase::*GetSFUrlF)(void) const;
 
     GetSFUrlF GetSFUrl = &ProxyGroupBase::getSFUrl;
@@ -175,7 +175,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFUrl),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFUrl));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFUrl));
@@ -195,7 +195,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ProxyGroupBase::*GetSFStateF)(void) const;
 
     GetSFStateF GetSFState = &ProxyGroupBase::getSFState;
@@ -209,7 +209,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFState),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFState));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFState));
@@ -217,7 +217,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ProxyGroupBase::*GetSFConcurrentLoadF)(void) const;
 
     GetSFConcurrentLoadF GetSFConcurrentLoad = &ProxyGroupBase::getSFConcurrentLoad;
@@ -231,7 +231,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFConcurrentLoad),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFConcurrentLoad));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFConcurrentLoad));
@@ -239,7 +239,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFDynamicVolume *(ProxyGroupBase::*GetSFVolumeF)(void) const;
 
     GetSFVolumeF GetSFVolume = &ProxyGroupBase::getSFVolume;
@@ -253,7 +253,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFVolume),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFVolume));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFVolume));
@@ -261,7 +261,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ProxyGroupBase::*GetSFIndicesF)(void) const;
 
     GetSFIndicesF GetSFIndices = &ProxyGroupBase::getSFIndices;
@@ -275,7 +275,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFIndices),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFIndices));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFIndices));
@@ -283,7 +283,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ProxyGroupBase::*GetSFTrianglesF)(void) const;
 
     GetSFTrianglesF GetSFTriangles = &ProxyGroupBase::getSFTriangles;
@@ -297,7 +297,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFTriangles),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFTriangles));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFTriangles));
@@ -305,7 +305,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ProxyGroupBase::*GetSFPositionsF)(void) const;
 
     GetSFPositionsF GetSFPositions = &ProxyGroupBase::getSFPositions;
@@ -319,7 +319,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFPositions),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPositions));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFPositions));
@@ -327,7 +327,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(ProxyGroupBase::*GetSFGeometriesF)(void) const;
 
     GetSFGeometriesF GetSFGeometries = &ProxyGroupBase::getSFGeometries;
@@ -341,7 +341,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFGeometries),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGeometries));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFGeometries));
@@ -349,7 +349,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ProxyGroupBase::*GetSFAbsoluteUrlF)(void) const;
 
     GetSFAbsoluteUrlF GetSFAbsoluteUrl = &ProxyGroupBase::getSFAbsoluteUrl;
@@ -363,7 +363,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFAbsoluteUrl),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAbsoluteUrl));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFAbsoluteUrl));
@@ -371,7 +371,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFUInt8 *(ProxyGroupBase::*GetMFInlineF)(void) const;
 
     GetMFInlineF GetMFInline = &ProxyGroupBase::getMFInline;
@@ -385,7 +385,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editMFInline),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFInline));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getMFInline));
@@ -568,7 +568,7 @@ const SFBool *ProxyGroupBase::getSFEnabled(void) const
     return &_sfEnabled;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ProxyGroupBase::getSFEnabled        (void)
 {
     return this->editSFEnabled        ();
@@ -587,7 +587,7 @@ const SFString *ProxyGroupBase::getSFUrl(void) const
     return &_sfUrl;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ProxyGroupBase::getSFUrl            (void)
 {
     return this->editSFUrl            ();
@@ -612,7 +612,7 @@ const SFUInt32 *ProxyGroupBase::getSFState(void) const
     return &_sfState;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ProxyGroupBase::getSFState          (void)
 {
     return this->editSFState          ();
@@ -631,7 +631,7 @@ const SFBool *ProxyGroupBase::getSFConcurrentLoad(void) const
     return &_sfConcurrentLoad;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ProxyGroupBase::getSFConcurrentLoad (void)
 {
     return this->editSFConcurrentLoad ();
@@ -650,7 +650,7 @@ const SFDynamicVolume *ProxyGroupBase::getSFVolume(void) const
     return &_sfVolume;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFDynamicVolume     *ProxyGroupBase::getSFVolume         (void)
 {
     return this->editSFVolume         ();
@@ -669,7 +669,7 @@ const SFUInt32 *ProxyGroupBase::getSFIndices(void) const
     return &_sfIndices;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ProxyGroupBase::getSFIndices        (void)
 {
     return this->editSFIndices        ();
@@ -688,7 +688,7 @@ const SFUInt32 *ProxyGroupBase::getSFTriangles(void) const
     return &_sfTriangles;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ProxyGroupBase::getSFTriangles      (void)
 {
     return this->editSFTriangles      ();
@@ -707,7 +707,7 @@ const SFUInt32 *ProxyGroupBase::getSFPositions(void) const
     return &_sfPositions;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ProxyGroupBase::getSFPositions      (void)
 {
     return this->editSFPositions      ();
@@ -726,7 +726,7 @@ const SFUInt32 *ProxyGroupBase::getSFGeometries(void) const
     return &_sfGeometries;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *ProxyGroupBase::getSFGeometries     (void)
 {
     return this->editSFGeometries     ();
@@ -745,7 +745,7 @@ const SFString *ProxyGroupBase::getSFAbsoluteUrl(void) const
     return &_sfAbsoluteUrl;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ProxyGroupBase::getSFAbsoluteUrl    (void)
 {
     return this->editSFAbsoluteUrl    ();
@@ -764,7 +764,7 @@ const MFUInt8 *ProxyGroupBase::getMFInline(void) const
     return &_mfInline;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFUInt8             *ProxyGroupBase::getMFInline         (void)
 {
     return this->editMFInline         ();

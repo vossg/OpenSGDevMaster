@@ -90,7 +90,7 @@ const Vec3f &BillboardBase::getAxisOfRotation(void) const
     return _sfAxisOfRotation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3f               &BillboardBase::getAxisOfRotation (void)
 {
@@ -123,7 +123,7 @@ const bool &BillboardBase::getFocusOnCamera(void) const
     return _sfFocusOnCamera.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &BillboardBase::getFocusOnCamera  (void)
 {
@@ -156,7 +156,7 @@ const bool &BillboardBase::getAlignToScreen(void) const
     return _sfAlignToScreen.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &BillboardBase::getAlignToScreen  (void)
 {
@@ -189,7 +189,7 @@ const Real32 &BillboardBase::getMinAngle(void) const
     return _sfMinAngle.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &BillboardBase::getMinAngle       (void)
 {
@@ -222,7 +222,7 @@ const Real32 &BillboardBase::getMaxAngle(void) const
     return _sfMaxAngle.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &BillboardBase::getMaxAngle       (void)
 {

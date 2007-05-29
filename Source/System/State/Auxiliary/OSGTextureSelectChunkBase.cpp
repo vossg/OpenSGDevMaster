@@ -99,7 +99,7 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(TextureSelectChunkBase::*GetSFChoiceF)(void) const;
 
     GetSFChoiceF GetSFChoice = &TextureSelectChunkBase::getSFChoice;
@@ -113,7 +113,7 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TextureSelectChunkBase::editSFChoice),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFChoice));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureSelectChunkBase::getSFChoice));
@@ -224,7 +224,7 @@ const SFUInt32 *TextureSelectChunkBase::getSFChoice(void) const
     return &_sfChoice;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *TextureSelectChunkBase::getSFChoice         (void)
 {
     return this->editSFChoice         ();

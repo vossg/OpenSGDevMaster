@@ -90,7 +90,7 @@ const Real32 &PointChunkBase::getSize(void) const
     return _sfSize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PointChunkBase::getSize           (void)
 {
@@ -123,7 +123,7 @@ const bool &PointChunkBase::getSmooth(void) const
     return _sfSmooth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PointChunkBase::getSmooth         (void)
 {
@@ -156,7 +156,7 @@ const Real32 &PointChunkBase::getMinSize(void) const
     return _sfMinSize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PointChunkBase::getMinSize        (void)
 {
@@ -189,7 +189,7 @@ const Real32 &PointChunkBase::getMaxSize(void) const
     return _sfMaxSize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PointChunkBase::getMaxSize        (void)
 {
@@ -222,7 +222,7 @@ const Real32 &PointChunkBase::getConstantAttenuation(void) const
     return _sfConstantAttenuation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PointChunkBase::getConstantAttenuation(void)
 {
@@ -255,7 +255,7 @@ const Real32 &PointChunkBase::getLinearAttenuation(void) const
     return _sfLinearAttenuation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PointChunkBase::getLinearAttenuation(void)
 {
@@ -288,7 +288,7 @@ const Real32 &PointChunkBase::getQuadraticAttenuation(void) const
     return _sfQuadraticAttenuation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PointChunkBase::getQuadraticAttenuation(void)
 {
@@ -321,7 +321,7 @@ const Real32 &PointChunkBase::getFadeThreshold(void) const
     return _sfFadeThreshold.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &PointChunkBase::getFadeThreshold  (void)
 {
@@ -354,7 +354,7 @@ const bool &PointChunkBase::getSprite(void) const
     return _sfSprite.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &PointChunkBase::getSprite         (void)
 {
@@ -387,7 +387,7 @@ const GLenum &PointChunkBase::getRMode(void) const
     return _sfRMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &PointChunkBase::getRMode          (void)
 {

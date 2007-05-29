@@ -89,7 +89,7 @@ void CoreGLWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFCGLContextObj *(CoreGLWindowBase::*GetSFContextF)(void) const;
 
     GetSFContextF GetSFContext = &CoreGLWindowBase::getSFContext;
@@ -103,7 +103,7 @@ void CoreGLWindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&CoreGLWindowBase::editSFContext),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFContext));
 #else
         reinterpret_cast<FieldGetMethodSig >(&CoreGLWindowBase::getSFContext));
@@ -181,7 +181,7 @@ const SFCGLContextObj *CoreGLWindowBase::getSFContext(void) const
     return &_sfContext;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFCGLContextObj     *CoreGLWindowBase::getSFContext        (void)
 {
     return this->editSFContext        ();

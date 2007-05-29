@@ -89,7 +89,7 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(TextureObjRefChunkBase::*GetSFGLIdF)(void) const;
 
     GetSFGLIdF GetSFGLId = &TextureObjRefChunkBase::getSFGLId;
@@ -103,7 +103,7 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
         false,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&TextureObjRefChunkBase::editSFGLId),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjRefChunkBase::getSFGLId));
@@ -182,7 +182,7 @@ const SFGLenum *TextureObjRefChunkBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *TextureObjRefChunkBase::getSFGLId           (void)
 {
     return this->editSFGLId           ();

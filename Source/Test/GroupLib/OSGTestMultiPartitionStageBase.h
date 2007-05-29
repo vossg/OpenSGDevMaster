@@ -155,44 +155,44 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFString            *getSFMessage         (void);
 #endif
                   SFString            *editSFMessage        (void);
             const SFString            *getSFMessage         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFNumPartitions   (void);
 #endif
                   SFInt32             *editSFNumPartitions  (void);
             const SFInt32             *getSFNumPartitions   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFInt32             *getMFOrder           (void);
 #endif
                   MFInt32             *editMFOrder          (void);
             const MFInt32             *getMFOrder           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFUseGroup        (void);
 #endif
                   SFBool              *editSFUseGroup       (void);
             const SFBool              *getSFUseGroup        (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getMessage         (void);
 #endif
                   std::string         &editMessage        (void);
             const std::string         &getMessage         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getNumPartitions   (void);
 #endif
                   Int32               &editNumPartitions  (void);
             const Int32               &getNumPartitions   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getOrder           (const UInt32 index);
                   MFInt32             &getOrder          (void);
 #endif
@@ -201,7 +201,7 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
                   MFInt32             &editOrder          (void);
             const MFInt32             &getOrder          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getUseGroup        (void);
 #endif
                   bool                &editUseGroup       (void);

@@ -90,7 +90,7 @@ const UInt32 &TextureSelectChunkBase::getChoice(void) const
     return _sfChoice.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TextureSelectChunkBase::getChoice         (void)
 {

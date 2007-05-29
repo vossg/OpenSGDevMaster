@@ -89,7 +89,7 @@ void TestStageBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(TestStageBase::*GetSFMessageF)(void) const;
 
     GetSFMessageF GetSFMessage = &TestStageBase::getSFMessage;
@@ -103,7 +103,7 @@ void TestStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&TestStageBase::editSFMessage),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMessage));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TestStageBase::getSFMessage));
@@ -182,7 +182,7 @@ const SFString *TestStageBase::getSFMessage(void) const
     return &_sfMessage;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *TestStageBase::getSFMessage        (void)
 {
     return this->editSFMessage        ();

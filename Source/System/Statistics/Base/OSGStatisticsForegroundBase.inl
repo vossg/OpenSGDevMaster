@@ -90,7 +90,7 @@ const StatCollectorP &StatisticsForegroundBase::getCollector(void) const
     return _sfCollector.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 StatCollectorP      &StatisticsForegroundBase::getCollector      (void)
 {
@@ -131,7 +131,7 @@ MFInt32 &StatisticsForegroundBase::editElementIDs(void)
     return _mfElementIDs;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &StatisticsForegroundBase::getElementIDs     (const UInt32 index)
 {

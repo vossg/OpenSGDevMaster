@@ -112,7 +112,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(LineChunkBase::*GetSFWidthF)(void) const;
 
     GetSFWidthF GetSFWidth = &LineChunkBase::getSFWidth;
@@ -126,7 +126,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editSFWidth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getSFWidth));
@@ -134,7 +134,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(LineChunkBase::*GetSFStippleRepeatF)(void) const;
 
     GetSFStippleRepeatF GetSFStippleRepeat = &LineChunkBase::getSFStippleRepeat;
@@ -148,7 +148,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editSFStippleRepeat),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFStippleRepeat));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getSFStippleRepeat));
@@ -156,7 +156,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt16 *(LineChunkBase::*GetSFStipplePatternF)(void) const;
 
     GetSFStipplePatternF GetSFStipplePattern = &LineChunkBase::getSFStipplePattern;
@@ -171,7 +171,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editSFStipplePattern),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFStipplePattern));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getSFStipplePattern));
@@ -179,7 +179,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(LineChunkBase::*GetSFSmoothF)(void) const;
 
     GetSFSmoothF GetSFSmooth = &LineChunkBase::getSFSmooth;
@@ -193,7 +193,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editSFSmooth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSmooth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getSFSmooth));
@@ -321,7 +321,7 @@ const SFReal32 *LineChunkBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *LineChunkBase::getSFWidth          (void)
 {
     return this->editSFWidth          ();
@@ -340,7 +340,7 @@ const SFInt32 *LineChunkBase::getSFStippleRepeat(void) const
     return &_sfStippleRepeat;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *LineChunkBase::getSFStippleRepeat  (void)
 {
     return this->editSFStippleRepeat  ();
@@ -359,7 +359,7 @@ const SFUInt16 *LineChunkBase::getSFStipplePattern(void) const
     return &_sfStipplePattern;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt16            *LineChunkBase::getSFStipplePattern (void)
 {
     return this->editSFStipplePattern ();
@@ -378,7 +378,7 @@ const SFBool *LineChunkBase::getSFSmooth(void) const
     return &_sfSmooth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *LineChunkBase::getSFSmooth         (void)
 {
     return this->editSFSmooth         ();

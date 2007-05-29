@@ -111,7 +111,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(DepthChunkBase::*GetSFEnableF)(void) const;
 
     GetSFEnableF GetSFEnable = &DepthChunkBase::getSFEnable;
@@ -125,7 +125,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editSFEnable),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEnable));
 #else
         reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getSFEnable));
@@ -133,7 +133,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(DepthChunkBase::*GetSFFuncF)(void) const;
 
     GetSFFuncF GetSFFunc = &DepthChunkBase::getSFFunc;
@@ -147,7 +147,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editSFFunc),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFunc));
 #else
         reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getSFFunc));
@@ -155,7 +155,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(DepthChunkBase::*GetSFNearF)(void) const;
 
     GetSFNearF GetSFNear = &DepthChunkBase::getSFNear;
@@ -169,7 +169,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editSFNear),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFNear));
 #else
         reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getSFNear));
@@ -177,7 +177,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(DepthChunkBase::*GetSFFarF)(void) const;
 
     GetSFFarF GetSFFar = &DepthChunkBase::getSFFar;
@@ -191,7 +191,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editSFFar),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFar));
 #else
         reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getSFFar));
@@ -199,7 +199,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(DepthChunkBase::*GetSFReadOnlyF)(void) const;
 
     GetSFReadOnlyF GetSFReadOnly = &DepthChunkBase::getSFReadOnly;
@@ -213,7 +213,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editSFReadOnly),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFReadOnly));
 #else
         reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getSFReadOnly));
@@ -344,7 +344,7 @@ const SFBool *DepthChunkBase::getSFEnable(void) const
     return &_sfEnable;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *DepthChunkBase::getSFEnable         (void)
 {
     return this->editSFEnable         ();
@@ -363,7 +363,7 @@ const SFGLenum *DepthChunkBase::getSFFunc(void) const
     return &_sfFunc;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *DepthChunkBase::getSFFunc           (void)
 {
     return this->editSFFunc           ();
@@ -382,7 +382,7 @@ const SFReal32 *DepthChunkBase::getSFNear(void) const
     return &_sfNear;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *DepthChunkBase::getSFNear           (void)
 {
     return this->editSFNear           ();
@@ -401,7 +401,7 @@ const SFReal32 *DepthChunkBase::getSFFar(void) const
     return &_sfFar;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *DepthChunkBase::getSFFar            (void)
 {
     return this->editSFFar            ();
@@ -420,7 +420,7 @@ const SFBool *DepthChunkBase::getSFReadOnly(void) const
     return &_sfReadOnly;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *DepthChunkBase::getSFReadOnly       (void)
 {
     return this->editSFReadOnly       ();

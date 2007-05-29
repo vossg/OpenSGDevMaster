@@ -107,7 +107,7 @@ const Real32 &QuadTreeTerrainBase::getHeightScale(void) const
     return _sfHeightScale.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getHeightScale    (void)
 {
@@ -140,7 +140,7 @@ const UInt32 &QuadTreeTerrainBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &QuadTreeTerrainBase::getWidth          (void)
 {
@@ -173,7 +173,7 @@ const UInt32 &QuadTreeTerrainBase::getLevel(void) const
     return _sfLevel.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &QuadTreeTerrainBase::getLevel          (void)
 {
@@ -206,7 +206,7 @@ const Real32 &QuadTreeTerrainBase::getDetail(void) const
     return _sfDetail.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getDetail         (void)
 {
@@ -239,7 +239,7 @@ const Int32 &QuadTreeTerrainBase::getBorderDetail(void) const
     return _sfBorderDetail.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &QuadTreeTerrainBase::getBorderDetail   (void)
 {
@@ -272,7 +272,7 @@ const Real32 &QuadTreeTerrainBase::getVertexSpacing(void) const
     return _sfVertexSpacing.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getVertexSpacing  (void)
 {
@@ -322,7 +322,7 @@ const bool &QuadTreeTerrainBase::getGeoMorphing(void) const
     return _sfGeoMorphing.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &QuadTreeTerrainBase::getGeoMorphing    (void)
 {
@@ -355,7 +355,7 @@ const Pnt3f &QuadTreeTerrainBase::getBoundMin(void) const
     return _sfBoundMin.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Pnt3f               &QuadTreeTerrainBase::getBoundMin       (void)
 {
@@ -388,7 +388,7 @@ const Pnt3f &QuadTreeTerrainBase::getBoundMax(void) const
     return _sfBoundMax.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Pnt3f               &QuadTreeTerrainBase::getBoundMax       (void)
 {
@@ -421,7 +421,7 @@ const Pnt3f &QuadTreeTerrainBase::getEyePoint(void) const
     return _sfEyePoint.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Pnt3f               &QuadTreeTerrainBase::getEyePoint       (void)
 {
@@ -454,7 +454,7 @@ const Real32 &QuadTreeTerrainBase::getEyeHeight(void) const
     return _sfEyeHeight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getEyeHeight      (void)
 {
@@ -487,7 +487,7 @@ const bool &QuadTreeTerrainBase::getEyePointValid(void) const
     return _sfEyePointValid.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &QuadTreeTerrainBase::getEyePointValid  (void)
 {
@@ -520,7 +520,7 @@ const Real32 &QuadTreeTerrainBase::getOriginX(void) const
     return _sfOriginX.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getOriginX        (void)
 {
@@ -553,7 +553,7 @@ const Real32 &QuadTreeTerrainBase::getOriginY(void) const
     return _sfOriginY.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getOriginY        (void)
 {
@@ -586,7 +586,7 @@ const Real32 &QuadTreeTerrainBase::getOriginTexX(void) const
     return _sfOriginTexX.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getOriginTexX     (void)
 {
@@ -619,7 +619,7 @@ const Real32 &QuadTreeTerrainBase::getOriginTexY(void) const
     return _sfOriginTexY.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getOriginTexY     (void)
 {
@@ -652,7 +652,7 @@ const Real32 &QuadTreeTerrainBase::getTexSpacing(void) const
     return _sfTexSpacing.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getTexSpacing     (void)
 {
@@ -685,7 +685,7 @@ const Real32 &QuadTreeTerrainBase::getTexYSpacing(void) const
     return _sfTexYSpacing.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getTexYSpacing    (void)
 {
@@ -718,7 +718,7 @@ const bool &QuadTreeTerrainBase::getUpdateTerrain(void) const
     return _sfUpdateTerrain.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &QuadTreeTerrainBase::getUpdateTerrain  (void)
 {
@@ -751,7 +751,7 @@ const bool &QuadTreeTerrainBase::getPerPixelLighting(void) const
     return _sfPerPixelLighting.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &QuadTreeTerrainBase::getPerPixelLighting(void)
 {
@@ -792,7 +792,7 @@ MFReal32 &QuadTreeTerrainBase::editHeightError(void)
     return _mfHeightError;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getHeightError    (const UInt32 index)
 {
@@ -839,7 +839,7 @@ MFReal32 &QuadTreeTerrainBase::editHeightQuad(void)
     return _mfHeightQuad;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &QuadTreeTerrainBase::getHeightQuad     (const UInt32 index)
 {

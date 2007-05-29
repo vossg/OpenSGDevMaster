@@ -90,7 +90,7 @@ const bool &DepthChunkBase::getEnable(void) const
     return _sfEnable.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &DepthChunkBase::getEnable         (void)
 {
@@ -123,7 +123,7 @@ const GLenum &DepthChunkBase::getFunc(void) const
     return _sfFunc.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &DepthChunkBase::getFunc           (void)
 {
@@ -156,7 +156,7 @@ const Real32 &DepthChunkBase::getNear(void) const
     return _sfNear.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &DepthChunkBase::getNear           (void)
 {
@@ -189,7 +189,7 @@ const Real32 &DepthChunkBase::getFar(void) const
     return _sfFar.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &DepthChunkBase::getFar            (void)
 {
@@ -222,7 +222,7 @@ const bool &DepthChunkBase::getReadOnly(void) const
     return _sfReadOnly.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &DepthChunkBase::getReadOnly       (void)
 {

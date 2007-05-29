@@ -93,7 +93,7 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ImageComposerBase::*GetSFEnabledF)(void) const;
 
     GetSFEnabledF GetSFEnabled = &ImageComposerBase::getSFEnabled;
@@ -107,7 +107,7 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageComposerBase::editSFEnabled),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEnabled));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageComposerBase::getSFEnabled));
@@ -115,7 +115,7 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ImageComposerBase::*GetSFStatisticsF)(void) const;
 
     GetSFStatisticsF GetSFStatistics = &ImageComposerBase::getSFStatistics;
@@ -129,7 +129,7 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ImageComposerBase::editSFStatistics),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFStatistics));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ImageComposerBase::getSFStatistics));
@@ -218,7 +218,7 @@ const SFBool *ImageComposerBase::getSFEnabled(void) const
     return &_sfEnabled;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ImageComposerBase::getSFEnabled        (void)
 {
     return this->editSFEnabled        ();
@@ -237,7 +237,7 @@ const SFBool *ImageComposerBase::getSFStatistics(void) const
     return &_sfStatistics;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ImageComposerBase::getSFStatistics     (void)
 {
     return this->editSFStatistics     ();

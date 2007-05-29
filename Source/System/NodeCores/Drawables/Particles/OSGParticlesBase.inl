@@ -90,7 +90,7 @@ const UInt32 &ParticlesBase::getMode(void) const
     return _sfMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ParticlesBase::getMode           (void)
 {
@@ -243,7 +243,7 @@ const UInt32 &ParticlesBase::getDrawOrder(void) const
     return _sfDrawOrder.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ParticlesBase::getDrawOrder      (void)
 {
@@ -276,7 +276,7 @@ const bool &ParticlesBase::getDynamic(void) const
     return _sfDynamic.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ParticlesBase::getDynamic        (void)
 {
@@ -309,7 +309,7 @@ const UInt32 &ParticlesBase::getPump(void) const
     return _sfPump.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ParticlesBase::getPump           (void)
 {
@@ -342,7 +342,7 @@ const ParticleBSPTree &ParticlesBase::getBsp(void) const
     return _sfBsp.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 ParticleBSPTree     &ParticlesBase::getBsp            (void)
 {
@@ -375,7 +375,7 @@ const Int32 &ParticlesBase::getNumParticles(void) const
     return _sfNumParticles.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ParticlesBase::getNumParticles   (void)
 {
@@ -416,7 +416,7 @@ MFVec3f &ParticlesBase::editSizes(void)
     return _mfSizes;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3f               &ParticlesBase::getSizes          (const UInt32 index)
 {
@@ -463,7 +463,7 @@ MFInt32 &ParticlesBase::editIndices(void)
     return _mfIndices;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ParticlesBase::getIndices        (const UInt32 index)
 {
@@ -510,7 +510,7 @@ MFReal32 &ParticlesBase::editTextureZs(void)
     return _mfTextureZs;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &ParticlesBase::getTextureZs      (const UInt32 index)
 {

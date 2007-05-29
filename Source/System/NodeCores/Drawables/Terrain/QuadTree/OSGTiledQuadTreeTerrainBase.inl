@@ -90,7 +90,7 @@ const UInt32 &TiledQuadTreeTerrainBase::getSizeX(void) const
     return _sfSizeX.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TiledQuadTreeTerrainBase::getSizeX          (void)
 {
@@ -123,7 +123,7 @@ const UInt32 &TiledQuadTreeTerrainBase::getSizeY(void) const
     return _sfSizeY.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TiledQuadTreeTerrainBase::getSizeY          (void)
 {
@@ -156,7 +156,7 @@ const Real32 &TiledQuadTreeTerrainBase::getHeightScale(void) const
     return _sfHeightScale.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TiledQuadTreeTerrainBase::getHeightScale    (void)
 {
@@ -189,7 +189,7 @@ const Real32 &TiledQuadTreeTerrainBase::getVertexSpacing(void) const
     return _sfVertexSpacing.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TiledQuadTreeTerrainBase::getVertexSpacing  (void)
 {
@@ -222,7 +222,7 @@ const bool &TiledQuadTreeTerrainBase::getGeoMorphing(void) const
     return _sfGeoMorphing.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &TiledQuadTreeTerrainBase::getGeoMorphing    (void)
 {
@@ -255,7 +255,7 @@ const Real32 &TiledQuadTreeTerrainBase::getDetail(void) const
     return _sfDetail.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TiledQuadTreeTerrainBase::getDetail         (void)
 {
@@ -288,7 +288,7 @@ const Int32 &TiledQuadTreeTerrainBase::getCurrentX(void) const
     return _sfCurrentX.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TiledQuadTreeTerrainBase::getCurrentX       (void)
 {
@@ -321,7 +321,7 @@ const Int32 &TiledQuadTreeTerrainBase::getCurrentY(void) const
     return _sfCurrentY.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TiledQuadTreeTerrainBase::getCurrentY       (void)
 {
@@ -354,7 +354,7 @@ const Int32 &TiledQuadTreeTerrainBase::getSizeROI(void) const
     return _sfSizeROI.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TiledQuadTreeTerrainBase::getSizeROI        (void)
 {
@@ -387,7 +387,7 @@ const bool &TiledQuadTreeTerrainBase::getUpdate(void) const
     return _sfUpdate.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &TiledQuadTreeTerrainBase::getUpdate         (void)
 {
@@ -420,7 +420,7 @@ const bool &TiledQuadTreeTerrainBase::getUpdateTerrain(void) const
     return _sfUpdateTerrain.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &TiledQuadTreeTerrainBase::getUpdateTerrain  (void)
 {
@@ -453,7 +453,7 @@ const bool &TiledQuadTreeTerrainBase::getPerPixelLighting(void) const
     return _sfPerPixelLighting.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &TiledQuadTreeTerrainBase::getPerPixelLighting(void)
 {

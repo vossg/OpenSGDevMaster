@@ -151,38 +151,38 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFHWND              *getSFHwnd            (void);
 #endif
                   SFHWND              *editSFHwnd           (void);
             const SFHWND              *getSFHwnd            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFHDC               *getSFHdc             (void);
 #endif
                   SFHDC               *editSFHdc            (void);
             const SFHDC               *getSFHdc             (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFHGLRC             *getSFHglrc           (void);
 #endif
                   SFHGLRC             *editSFHglrc          (void);
             const SFHGLRC             *getSFHglrc           (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   HWND                &getHwnd            (void);
 #endif
                   HWND                &editHwnd           (void);
             const HWND                &getHwnd            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   HDC                 &getHdc             (void);
 #endif
                   HDC                 &editHdc            (void);
             const HDC                 &getHdc             (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   HGLRC               &getHglrc           (void);
 #endif
                   HGLRC               &editHglrc          (void);

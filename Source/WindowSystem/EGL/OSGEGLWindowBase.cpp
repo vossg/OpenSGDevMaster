@@ -97,7 +97,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFEGLDisplay *(EGLWindowBase::*GetSFDisplayF)(void) const;
 
     GetSFDisplayF GetSFDisplay = &EGLWindowBase::getSFDisplay;
@@ -111,7 +111,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editSFDisplay),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDisplay));
 #else
         reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getSFDisplay));
@@ -119,7 +119,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFEGLSurface *(EGLWindowBase::*GetSFWindowF)(void) const;
 
     GetSFWindowF GetSFWindow = &EGLWindowBase::getSFWindow;
@@ -133,7 +133,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editSFWindow),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWindow));
 #else
         reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getSFWindow));
@@ -141,7 +141,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFEGLContext *(EGLWindowBase::*GetSFContextF)(void) const;
 
     GetSFContextF GetSFContext = &EGLWindowBase::getSFContext;
@@ -155,7 +155,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editSFContext),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFContext));
 #else
         reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getSFContext));
@@ -253,7 +253,7 @@ const SFEGLDisplay *EGLWindowBase::getSFDisplay(void) const
     return &_sfDisplay;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFEGLDisplay        *EGLWindowBase::getSFDisplay        (void)
 {
     return this->editSFDisplay        ();
@@ -272,7 +272,7 @@ const SFEGLSurface *EGLWindowBase::getSFWindow(void) const
     return &_sfWindow;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFEGLSurface        *EGLWindowBase::getSFWindow         (void)
 {
     return this->editSFWindow         ();
@@ -291,7 +291,7 @@ const SFEGLContext *EGLWindowBase::getSFContext(void) const
     return &_sfContext;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFEGLContext        *EGLWindowBase::getSFContext        (void)
 {
     return this->editSFContext        ();

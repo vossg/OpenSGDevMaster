@@ -90,7 +90,7 @@ const EGLDisplay &EGLWindowBase::getDisplay(void) const
     return _sfDisplay.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 EGLDisplay          &EGLWindowBase::getDisplay        (void)
 {
@@ -123,7 +123,7 @@ const EGLSurface &EGLWindowBase::getWindow(void) const
     return _sfWindow.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 EGLSurface          &EGLWindowBase::getWindow         (void)
 {
@@ -156,7 +156,7 @@ const EGLContext &EGLWindowBase::getContext(void) const
     return _sfContext.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 EGLContext          &EGLWindowBase::getContext        (void)
 {

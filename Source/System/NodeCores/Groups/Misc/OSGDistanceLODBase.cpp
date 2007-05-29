@@ -128,7 +128,7 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFPnt3f *(DistanceLODBase::*GetSFCenterF)(void) const;
 
     GetSFCenterF GetSFCenter = &DistanceLODBase::getSFCenter;
@@ -142,7 +142,7 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&DistanceLODBase::editSFCenter),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCenter));
 #else
         reinterpret_cast<FieldGetMethodSig >(&DistanceLODBase::getSFCenter));
@@ -150,7 +150,7 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFReal32 *(DistanceLODBase::*GetMFRangeF)(void) const;
 
     GetMFRangeF GetMFRange = &DistanceLODBase::getMFRange;
@@ -164,7 +164,7 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&DistanceLODBase::editMFRange),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFRange));
 #else
         reinterpret_cast<FieldGetMethodSig >(&DistanceLODBase::getMFRange));
@@ -321,7 +321,7 @@ const SFPnt3f *DistanceLODBase::getSFCenter(void) const
     return &_sfCenter;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFPnt3f             *DistanceLODBase::getSFCenter         (void)
 {
     return this->editSFCenter         ();
@@ -340,7 +340,7 @@ const MFReal32 *DistanceLODBase::getMFRange(void) const
     return &_mfRange;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFReal32            *DistanceLODBase::getMFRange          (void)
 {
     return this->editMFRange          ();

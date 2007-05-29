@@ -90,7 +90,7 @@ const bool &ColorMaskChunkBase::getMaskR(void) const
     return _sfMaskR.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ColorMaskChunkBase::getMaskR          (void)
 {
@@ -123,7 +123,7 @@ const bool &ColorMaskChunkBase::getMaskG(void) const
     return _sfMaskG.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ColorMaskChunkBase::getMaskG          (void)
 {
@@ -156,7 +156,7 @@ const bool &ColorMaskChunkBase::getMaskB(void) const
     return _sfMaskB.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ColorMaskChunkBase::getMaskB          (void)
 {
@@ -189,7 +189,7 @@ const bool &ColorMaskChunkBase::getMaskA(void) const
     return _sfMaskA.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ColorMaskChunkBase::getMaskA          (void)
 {

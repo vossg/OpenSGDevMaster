@@ -139,7 +139,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PointChunkBase::*GetSFSizeF)(void) const;
 
     GetSFSizeF GetSFSize = &PointChunkBase::getSFSize;
@@ -153,7 +153,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PointChunkBase::editSFSize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PointChunkBase::getSFSize));
@@ -161,7 +161,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(PointChunkBase::*GetSFSmoothF)(void) const;
 
     GetSFSmoothF GetSFSmooth = &PointChunkBase::getSFSmooth;
@@ -175,7 +175,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PointChunkBase::editSFSmooth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSmooth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PointChunkBase::getSFSmooth));
@@ -183,7 +183,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PointChunkBase::*GetSFMinSizeF)(void) const;
 
     GetSFMinSizeF GetSFMinSize = &PointChunkBase::getSFMinSize;
@@ -197,7 +197,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PointChunkBase::editSFMinSize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMinSize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PointChunkBase::getSFMinSize));
@@ -205,7 +205,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PointChunkBase::*GetSFMaxSizeF)(void) const;
 
     GetSFMaxSizeF GetSFMaxSize = &PointChunkBase::getSFMaxSize;
@@ -219,7 +219,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PointChunkBase::editSFMaxSize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMaxSize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PointChunkBase::getSFMaxSize));
@@ -227,7 +227,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PointChunkBase::*GetSFConstantAttenuationF)(void) const;
 
     GetSFConstantAttenuationF GetSFConstantAttenuation = &PointChunkBase::getSFConstantAttenuation;
@@ -241,7 +241,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PointChunkBase::editSFConstantAttenuation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFConstantAttenuation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PointChunkBase::getSFConstantAttenuation));
@@ -249,7 +249,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PointChunkBase::*GetSFLinearAttenuationF)(void) const;
 
     GetSFLinearAttenuationF GetSFLinearAttenuation = &PointChunkBase::getSFLinearAttenuation;
@@ -263,7 +263,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PointChunkBase::editSFLinearAttenuation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLinearAttenuation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PointChunkBase::getSFLinearAttenuation));
@@ -271,7 +271,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PointChunkBase::*GetSFQuadraticAttenuationF)(void) const;
 
     GetSFQuadraticAttenuationF GetSFQuadraticAttenuation = &PointChunkBase::getSFQuadraticAttenuation;
@@ -285,7 +285,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PointChunkBase::editSFQuadraticAttenuation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFQuadraticAttenuation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PointChunkBase::getSFQuadraticAttenuation));
@@ -293,7 +293,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PointChunkBase::*GetSFFadeThresholdF)(void) const;
 
     GetSFFadeThresholdF GetSFFadeThreshold = &PointChunkBase::getSFFadeThreshold;
@@ -307,7 +307,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PointChunkBase::editSFFadeThreshold),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFadeThreshold));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PointChunkBase::getSFFadeThreshold));
@@ -315,7 +315,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(PointChunkBase::*GetSFSpriteF)(void) const;
 
     GetSFSpriteF GetSFSprite = &PointChunkBase::getSFSprite;
@@ -329,7 +329,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PointChunkBase::editSFSprite),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSprite));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PointChunkBase::getSFSprite));
@@ -337,7 +337,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(PointChunkBase::*GetSFRModeF)(void) const;
 
     GetSFRModeF GetSFRMode = &PointChunkBase::getSFRMode;
@@ -351,7 +351,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PointChunkBase::editSFRMode),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFRMode));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PointChunkBase::getSFRMode));
@@ -544,7 +544,7 @@ const SFReal32 *PointChunkBase::getSFSize(void) const
     return &_sfSize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PointChunkBase::getSFSize           (void)
 {
     return this->editSFSize           ();
@@ -563,7 +563,7 @@ const SFBool *PointChunkBase::getSFSmooth(void) const
     return &_sfSmooth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *PointChunkBase::getSFSmooth         (void)
 {
     return this->editSFSmooth         ();
@@ -582,7 +582,7 @@ const SFReal32 *PointChunkBase::getSFMinSize(void) const
     return &_sfMinSize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PointChunkBase::getSFMinSize        (void)
 {
     return this->editSFMinSize        ();
@@ -601,7 +601,7 @@ const SFReal32 *PointChunkBase::getSFMaxSize(void) const
     return &_sfMaxSize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PointChunkBase::getSFMaxSize        (void)
 {
     return this->editSFMaxSize        ();
@@ -620,7 +620,7 @@ const SFReal32 *PointChunkBase::getSFConstantAttenuation(void) const
     return &_sfConstantAttenuation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PointChunkBase::getSFConstantAttenuation(void)
 {
     return this->editSFConstantAttenuation();
@@ -639,7 +639,7 @@ const SFReal32 *PointChunkBase::getSFLinearAttenuation(void) const
     return &_sfLinearAttenuation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PointChunkBase::getSFLinearAttenuation(void)
 {
     return this->editSFLinearAttenuation();
@@ -658,7 +658,7 @@ const SFReal32 *PointChunkBase::getSFQuadraticAttenuation(void) const
     return &_sfQuadraticAttenuation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PointChunkBase::getSFQuadraticAttenuation(void)
 {
     return this->editSFQuadraticAttenuation();
@@ -677,7 +677,7 @@ const SFReal32 *PointChunkBase::getSFFadeThreshold(void) const
     return &_sfFadeThreshold;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PointChunkBase::getSFFadeThreshold  (void)
 {
     return this->editSFFadeThreshold  ();
@@ -696,7 +696,7 @@ const SFBool *PointChunkBase::getSFSprite(void) const
     return &_sfSprite;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *PointChunkBase::getSFSprite         (void)
 {
     return this->editSFSprite         ();
@@ -715,7 +715,7 @@ const SFGLenum *PointChunkBase::getSFRMode(void) const
     return &_sfRMode;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *PointChunkBase::getSFRMode          (void)
 {
     return this->editSFRMode          ();

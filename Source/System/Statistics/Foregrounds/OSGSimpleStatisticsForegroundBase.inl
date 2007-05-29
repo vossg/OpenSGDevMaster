@@ -90,7 +90,7 @@ const Real32 &SimpleStatisticsForegroundBase::getSize(void) const
     return _sfSize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &SimpleStatisticsForegroundBase::getSize           (void)
 {
@@ -123,7 +123,7 @@ const Color4f &SimpleStatisticsForegroundBase::getColor(void) const
     return _sfColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4f             &SimpleStatisticsForegroundBase::getColor          (void)
 {
@@ -156,7 +156,7 @@ const Color4f &SimpleStatisticsForegroundBase::getShadowColor(void) const
     return _sfShadowColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4f             &SimpleStatisticsForegroundBase::getShadowColor    (void)
 {
@@ -189,7 +189,7 @@ const Color4f &SimpleStatisticsForegroundBase::getBgColor(void) const
     return _sfBgColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4f             &SimpleStatisticsForegroundBase::getBgColor        (void)
 {
@@ -222,7 +222,7 @@ const std::string &SimpleStatisticsForegroundBase::getFamily(void) const
     return _sfFamily.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &SimpleStatisticsForegroundBase::getFamily         (void)
 {
@@ -255,7 +255,7 @@ const Vec2f &SimpleStatisticsForegroundBase::getShadowOffset(void) const
     return _sfShadowOffset.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec2f               &SimpleStatisticsForegroundBase::getShadowOffset   (void)
 {
@@ -288,7 +288,7 @@ const UInt8 &SimpleStatisticsForegroundBase::getHorizontalAlign(void) const
     return _sfHorizontalAlign.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt8               &SimpleStatisticsForegroundBase::getHorizontalAlign(void)
 {
@@ -321,7 +321,7 @@ const UInt8 &SimpleStatisticsForegroundBase::getVerticalAlign(void) const
     return _sfVerticalAlign.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt8               &SimpleStatisticsForegroundBase::getVerticalAlign  (void)
 {
@@ -354,7 +354,7 @@ const Color4f &SimpleStatisticsForegroundBase::getBorderColor(void) const
     return _sfBorderColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4f             &SimpleStatisticsForegroundBase::getBorderColor    (void)
 {
@@ -387,7 +387,7 @@ const Vec2f &SimpleStatisticsForegroundBase::getBorderOffset(void) const
     return _sfBorderOffset.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec2f               &SimpleStatisticsForegroundBase::getBorderOffset   (void)
 {
@@ -420,7 +420,7 @@ const Vec2f &SimpleStatisticsForegroundBase::getTextMargin(void) const
     return _sfTextMargin.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec2f               &SimpleStatisticsForegroundBase::getTextMargin     (void)
 {
@@ -461,7 +461,7 @@ MFString &SimpleStatisticsForegroundBase::editFormats(void)
     return _mfFormats;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &SimpleStatisticsForegroundBase::getFormats        (const UInt32 index)
 {

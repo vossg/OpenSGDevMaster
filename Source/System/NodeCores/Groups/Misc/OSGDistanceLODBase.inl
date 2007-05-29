@@ -90,7 +90,7 @@ const Pnt3f &DistanceLODBase::getCenter(void) const
     return _sfCenter.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Pnt3f               &DistanceLODBase::getCenter         (void)
 {
@@ -131,7 +131,7 @@ MFReal32 &DistanceLODBase::editRange(void)
     return _mfRange;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &DistanceLODBase::getRange          (const UInt32 index)
 {

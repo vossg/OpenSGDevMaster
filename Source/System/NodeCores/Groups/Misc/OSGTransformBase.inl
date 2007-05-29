@@ -90,7 +90,7 @@ const Matrixr &TransformBase::getMatrix(void) const
     return _sfMatrix.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Matrixr             &TransformBase::getMatrix         (void)
 {

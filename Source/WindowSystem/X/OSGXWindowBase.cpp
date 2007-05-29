@@ -97,7 +97,7 @@ void XWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFDisplayP *(XWindowBase::*GetSFDisplayF)(void) const;
 
     GetSFDisplayF GetSFDisplay = &XWindowBase::getSFDisplay;
@@ -111,7 +111,7 @@ void XWindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&XWindowBase::editSFDisplay),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDisplay));
 #else
         reinterpret_cast<FieldGetMethodSig >(&XWindowBase::getSFDisplay));
@@ -119,7 +119,7 @@ void XWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFX11Window *(XWindowBase::*GetSFWindowF)(void) const;
 
     GetSFWindowF GetSFWindow = &XWindowBase::getSFWindow;
@@ -133,7 +133,7 @@ void XWindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&XWindowBase::editSFWindow),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWindow));
 #else
         reinterpret_cast<FieldGetMethodSig >(&XWindowBase::getSFWindow));
@@ -141,7 +141,7 @@ void XWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLXContext *(XWindowBase::*GetSFContextF)(void) const;
 
     GetSFContextF GetSFContext = &XWindowBase::getSFContext;
@@ -155,7 +155,7 @@ void XWindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&XWindowBase::editSFContext),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFContext));
 #else
         reinterpret_cast<FieldGetMethodSig >(&XWindowBase::getSFContext));
@@ -251,7 +251,7 @@ const SFDisplayP *XWindowBase::getSFDisplay(void) const
     return &_sfDisplay;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFDisplayP          *XWindowBase::getSFDisplay        (void)
 {
     return this->editSFDisplay        ();
@@ -270,7 +270,7 @@ const SFX11Window *XWindowBase::getSFWindow(void) const
     return &_sfWindow;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFX11Window         *XWindowBase::getSFWindow         (void)
 {
     return this->editSFWindow         ();
@@ -289,7 +289,7 @@ const SFGLXContext *XWindowBase::getSFContext(void) const
     return &_sfContext;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLXContext        *XWindowBase::getSFContext        (void)
 {
     return this->editSFContext        ();

@@ -90,7 +90,7 @@ const bool &ImageComposerBase::getEnabled(void) const
     return _sfEnabled.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ImageComposerBase::getEnabled        (void)
 {
@@ -123,7 +123,7 @@ const bool &ImageComposerBase::getStatistics(void) const
     return _sfStatistics.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ImageComposerBase::getStatistics     (void)
 {

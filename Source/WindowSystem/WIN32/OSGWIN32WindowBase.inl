@@ -90,7 +90,7 @@ const HWND &WIN32WindowBase::getHwnd(void) const
     return _sfHwnd.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 HWND                &WIN32WindowBase::getHwnd           (void)
 {
@@ -123,7 +123,7 @@ const HDC &WIN32WindowBase::getHdc(void) const
     return _sfHdc.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 HDC                 &WIN32WindowBase::getHdc            (void)
 {
@@ -156,7 +156,7 @@ const HGLRC &WIN32WindowBase::getHglrc(void) const
     return _sfHglrc.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 HGLRC               &WIN32WindowBase::getHglrc          (void)
 {

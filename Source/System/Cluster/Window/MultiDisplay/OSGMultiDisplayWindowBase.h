@@ -159,62 +159,62 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFHServers        (void);
 #endif
                   SFUInt32            *editSFHServers       (void);
             const SFUInt32            *getSFHServers        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFVServers        (void);
 #endif
                   SFUInt32            *editSFVServers       (void);
             const SFUInt32            *getSFVServers        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFManageClientViewports (void);
 #endif
                   SFBool              *editSFManageClientViewports(void);
             const SFBool              *getSFManageClientViewports (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFXOverlap        (void);
 #endif
                   SFInt32             *editSFXOverlap       (void);
             const SFInt32             *getSFXOverlap        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFYOverlap        (void);
 #endif
                   SFInt32             *editSFYOverlap       (void);
             const SFInt32             *getSFYOverlap        (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getHServers        (void);
 #endif
                   UInt32              &editHServers       (void);
             const UInt32              &getHServers        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getVServers        (void);
 #endif
                   UInt32              &editVServers       (void);
             const UInt32              &getVServers        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getManageClientViewports (void);
 #endif
                   bool                &editManageClientViewports(void);
             const bool                &getManageClientViewports (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getXOverlap        (void);
 #endif
                   Int32               &editXOverlap       (void);
             const Int32               &getXOverlap        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getYOverlap        (void);
 #endif
                   Int32               &editYOverlap       (void);

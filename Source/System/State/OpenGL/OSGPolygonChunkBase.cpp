@@ -154,7 +154,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(PolygonChunkBase::*GetSFCullFaceF)(void) const;
 
     GetSFCullFaceF GetSFCullFace = &PolygonChunkBase::getSFCullFace;
@@ -168,7 +168,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editSFCullFace),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCullFace));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getSFCullFace));
@@ -176,7 +176,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(PolygonChunkBase::*GetSFFrontFaceF)(void) const;
 
     GetSFFrontFaceF GetSFFrontFace = &PolygonChunkBase::getSFFrontFace;
@@ -191,7 +191,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editSFFrontFace),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFrontFace));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getSFFrontFace));
@@ -199,7 +199,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(PolygonChunkBase::*GetSFFrontModeF)(void) const;
 
     GetSFFrontModeF GetSFFrontMode = &PolygonChunkBase::getSFFrontMode;
@@ -213,7 +213,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editSFFrontMode),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFrontMode));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getSFFrontMode));
@@ -221,7 +221,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(PolygonChunkBase::*GetSFBackModeF)(void) const;
 
     GetSFBackModeF GetSFBackMode = &PolygonChunkBase::getSFBackMode;
@@ -235,7 +235,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editSFBackMode),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBackMode));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getSFBackMode));
@@ -243,7 +243,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(PolygonChunkBase::*GetSFSmoothF)(void) const;
 
     GetSFSmoothF GetSFSmooth = &PolygonChunkBase::getSFSmooth;
@@ -257,7 +257,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editSFSmooth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSmooth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getSFSmooth));
@@ -265,7 +265,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PolygonChunkBase::*GetSFOffsetFactorF)(void) const;
 
     GetSFOffsetFactorF GetSFOffsetFactor = &PolygonChunkBase::getSFOffsetFactor;
@@ -279,7 +279,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editSFOffsetFactor),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFOffsetFactor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getSFOffsetFactor));
@@ -287,7 +287,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(PolygonChunkBase::*GetSFOffsetBiasF)(void) const;
 
     GetSFOffsetBiasF GetSFOffsetBias = &PolygonChunkBase::getSFOffsetBias;
@@ -301,7 +301,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editSFOffsetBias),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFOffsetBias));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getSFOffsetBias));
@@ -309,7 +309,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(PolygonChunkBase::*GetSFOffsetPointF)(void) const;
 
     GetSFOffsetPointF GetSFOffsetPoint = &PolygonChunkBase::getSFOffsetPoint;
@@ -323,7 +323,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editSFOffsetPoint),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFOffsetPoint));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getSFOffsetPoint));
@@ -331,7 +331,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(PolygonChunkBase::*GetSFOffsetLineF)(void) const;
 
     GetSFOffsetLineF GetSFOffsetLine = &PolygonChunkBase::getSFOffsetLine;
@@ -345,7 +345,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editSFOffsetLine),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFOffsetLine));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getSFOffsetLine));
@@ -353,7 +353,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(PolygonChunkBase::*GetSFOffsetFillF)(void) const;
 
     GetSFOffsetFillF GetSFOffsetFill = &PolygonChunkBase::getSFOffsetFill;
@@ -367,7 +367,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editSFOffsetFill),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFOffsetFill));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getSFOffsetFill));
@@ -375,7 +375,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFInt32 *(PolygonChunkBase::*GetMFStippleF)(void) const;
 
     GetMFStippleF GetMFStipple = &PolygonChunkBase::getMFStipple;
@@ -390,7 +390,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editMFStipple),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFStipple));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getMFStipple));
@@ -601,7 +601,7 @@ const SFGLenum *PolygonChunkBase::getSFCullFace(void) const
     return &_sfCullFace;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *PolygonChunkBase::getSFCullFace       (void)
 {
     return this->editSFCullFace       ();
@@ -620,7 +620,7 @@ const SFGLenum *PolygonChunkBase::getSFFrontFace(void) const
     return &_sfFrontFace;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *PolygonChunkBase::getSFFrontFace      (void)
 {
     return this->editSFFrontFace      ();
@@ -639,7 +639,7 @@ const SFGLenum *PolygonChunkBase::getSFFrontMode(void) const
     return &_sfFrontMode;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *PolygonChunkBase::getSFFrontMode      (void)
 {
     return this->editSFFrontMode      ();
@@ -658,7 +658,7 @@ const SFGLenum *PolygonChunkBase::getSFBackMode(void) const
     return &_sfBackMode;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *PolygonChunkBase::getSFBackMode       (void)
 {
     return this->editSFBackMode       ();
@@ -677,7 +677,7 @@ const SFBool *PolygonChunkBase::getSFSmooth(void) const
     return &_sfSmooth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *PolygonChunkBase::getSFSmooth         (void)
 {
     return this->editSFSmooth         ();
@@ -696,7 +696,7 @@ const SFReal32 *PolygonChunkBase::getSFOffsetFactor(void) const
     return &_sfOffsetFactor;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PolygonChunkBase::getSFOffsetFactor   (void)
 {
     return this->editSFOffsetFactor   ();
@@ -715,7 +715,7 @@ const SFReal32 *PolygonChunkBase::getSFOffsetBias(void) const
     return &_sfOffsetBias;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *PolygonChunkBase::getSFOffsetBias     (void)
 {
     return this->editSFOffsetBias     ();
@@ -734,7 +734,7 @@ const SFBool *PolygonChunkBase::getSFOffsetPoint(void) const
     return &_sfOffsetPoint;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *PolygonChunkBase::getSFOffsetPoint    (void)
 {
     return this->editSFOffsetPoint    ();
@@ -753,7 +753,7 @@ const SFBool *PolygonChunkBase::getSFOffsetLine(void) const
     return &_sfOffsetLine;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *PolygonChunkBase::getSFOffsetLine     (void)
 {
     return this->editSFOffsetLine     ();
@@ -772,7 +772,7 @@ const SFBool *PolygonChunkBase::getSFOffsetFill(void) const
     return &_sfOffsetFill;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *PolygonChunkBase::getSFOffsetFill     (void)
 {
     return this->editSFOffsetFill     ();
@@ -791,7 +791,7 @@ const MFInt32 *PolygonChunkBase::getMFStipple(void) const
     return &_mfStipple;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFInt32             *PolygonChunkBase::getMFStipple        (void)
 {
     return this->editMFStipple        ();

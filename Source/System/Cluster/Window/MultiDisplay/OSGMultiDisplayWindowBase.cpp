@@ -105,7 +105,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(MultiDisplayWindowBase::*GetSFHServersF)(void) const;
 
     GetSFHServersF GetSFHServers = &MultiDisplayWindowBase::getSFHServers;
@@ -119,7 +119,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MultiDisplayWindowBase::editSFHServers),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHServers));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MultiDisplayWindowBase::getSFHServers));
@@ -127,7 +127,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(MultiDisplayWindowBase::*GetSFVServersF)(void) const;
 
     GetSFVServersF GetSFVServers = &MultiDisplayWindowBase::getSFVServers;
@@ -141,7 +141,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MultiDisplayWindowBase::editSFVServers),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFVServers));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MultiDisplayWindowBase::getSFVServers));
@@ -149,7 +149,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(MultiDisplayWindowBase::*GetSFManageClientViewportsF)(void) const;
 
     GetSFManageClientViewportsF GetSFManageClientViewports = &MultiDisplayWindowBase::getSFManageClientViewports;
@@ -163,7 +163,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MultiDisplayWindowBase::editSFManageClientViewports),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFManageClientViewports));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MultiDisplayWindowBase::getSFManageClientViewports));
@@ -171,7 +171,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(MultiDisplayWindowBase::*GetSFXOverlapF)(void) const;
 
     GetSFXOverlapF GetSFXOverlap = &MultiDisplayWindowBase::getSFXOverlap;
@@ -185,7 +185,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MultiDisplayWindowBase::editSFXOverlap),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFXOverlap));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MultiDisplayWindowBase::getSFXOverlap));
@@ -193,7 +193,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(MultiDisplayWindowBase::*GetSFYOverlapF)(void) const;
 
     GetSFYOverlapF GetSFYOverlap = &MultiDisplayWindowBase::getSFYOverlap;
@@ -207,7 +207,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&MultiDisplayWindowBase::editSFYOverlap),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFYOverlap));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MultiDisplayWindowBase::getSFYOverlap));
@@ -325,7 +325,7 @@ const SFUInt32 *MultiDisplayWindowBase::getSFHServers(void) const
     return &_sfHServers;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *MultiDisplayWindowBase::getSFHServers       (void)
 {
     return this->editSFHServers       ();
@@ -344,7 +344,7 @@ const SFUInt32 *MultiDisplayWindowBase::getSFVServers(void) const
     return &_sfVServers;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *MultiDisplayWindowBase::getSFVServers       (void)
 {
     return this->editSFVServers       ();
@@ -363,7 +363,7 @@ const SFBool *MultiDisplayWindowBase::getSFManageClientViewports(void) const
     return &_sfManageClientViewports;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *MultiDisplayWindowBase::getSFManageClientViewports(void)
 {
     return this->editSFManageClientViewports();
@@ -382,7 +382,7 @@ const SFInt32 *MultiDisplayWindowBase::getSFXOverlap(void) const
     return &_sfXOverlap;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *MultiDisplayWindowBase::getSFXOverlap       (void)
 {
     return this->editSFXOverlap       ();
@@ -401,7 +401,7 @@ const SFInt32 *MultiDisplayWindowBase::getSFYOverlap(void) const
     return &_sfYOverlap;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *MultiDisplayWindowBase::getSFYOverlap       (void)
 {
     return this->editSFYOverlap       ();

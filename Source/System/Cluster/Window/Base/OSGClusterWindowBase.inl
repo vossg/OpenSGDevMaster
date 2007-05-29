@@ -90,7 +90,7 @@ const std::string &ClusterWindowBase::getConnectionType(void) const
     return _sfConnectionType.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ClusterWindowBase::getConnectionType (void)
 {
@@ -123,7 +123,7 @@ const std::string &ClusterWindowBase::getConnectionInterface(void) const
     return _sfConnectionInterface.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ClusterWindowBase::getConnectionInterface(void)
 {
@@ -156,7 +156,7 @@ const std::string &ClusterWindowBase::getConnectionDestination(void) const
     return _sfConnectionDestination.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ClusterWindowBase::getConnectionDestination(void)
 {
@@ -189,7 +189,7 @@ const std::string &ClusterWindowBase::getConnectionParams(void) const
     return _sfConnectionParams.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ClusterWindowBase::getConnectionParams(void)
 {
@@ -222,7 +222,7 @@ const UInt32 &ClusterWindowBase::getServicePort(void) const
     return _sfServicePort.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ClusterWindowBase::getServicePort    (void)
 {
@@ -255,7 +255,7 @@ const std::string &ClusterWindowBase::getServiceAddress(void) const
     return _sfServiceAddress.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ClusterWindowBase::getServiceAddress (void)
 {
@@ -305,7 +305,7 @@ const UInt32 &ClusterWindowBase::getInterleave(void) const
     return _sfInterleave.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ClusterWindowBase::getInterleave     (void)
 {
@@ -338,7 +338,7 @@ const UInt32 &ClusterWindowBase::getFrameCount(void) const
     return _sfFrameCount.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &ClusterWindowBase::getFrameCount     (void)
 {
@@ -396,7 +396,7 @@ MFString &ClusterWindowBase::editServers(void)
     return _mfServers;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ClusterWindowBase::getServers        (const UInt32 index)
 {
@@ -443,7 +443,7 @@ MFString &ClusterWindowBase::editAutostart(void)
     return _mfAutostart;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ClusterWindowBase::getAutostart      (const UInt32 index)
 {

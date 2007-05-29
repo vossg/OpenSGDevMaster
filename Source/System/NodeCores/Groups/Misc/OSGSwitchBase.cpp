@@ -90,7 +90,7 @@ void SwitchBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(SwitchBase::*GetSFChoiceF)(void) const;
 
     GetSFChoiceF GetSFChoice = &SwitchBase::getSFChoice;
@@ -104,7 +104,7 @@ void SwitchBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SwitchBase::editSFChoice),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFChoice));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SwitchBase::getSFChoice));
@@ -185,7 +185,7 @@ const SFInt32 *SwitchBase::getSFChoice(void) const
     return &_sfChoice;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *SwitchBase::getSFChoice         (void)
 {
     return this->editSFChoice         ();

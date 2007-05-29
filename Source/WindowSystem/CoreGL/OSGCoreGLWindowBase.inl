@@ -90,7 +90,7 @@ const CGLContextObj &CoreGLWindowBase::getContext(void) const
     return _sfContext.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 CGLContextObj       &CoreGLWindowBase::getContext        (void)
 {

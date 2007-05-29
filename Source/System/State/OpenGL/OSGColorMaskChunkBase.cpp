@@ -101,7 +101,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ColorMaskChunkBase::*GetSFMaskRF)(void) const;
 
     GetSFMaskRF GetSFMaskR = &ColorMaskChunkBase::getSFMaskR;
@@ -115,7 +115,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editSFMaskR),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMaskR));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getSFMaskR));
@@ -123,7 +123,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ColorMaskChunkBase::*GetSFMaskGF)(void) const;
 
     GetSFMaskGF GetSFMaskG = &ColorMaskChunkBase::getSFMaskG;
@@ -137,7 +137,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editSFMaskG),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMaskG));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getSFMaskG));
@@ -145,7 +145,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ColorMaskChunkBase::*GetSFMaskBF)(void) const;
 
     GetSFMaskBF GetSFMaskB = &ColorMaskChunkBase::getSFMaskB;
@@ -159,7 +159,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editSFMaskB),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMaskB));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getSFMaskB));
@@ -167,7 +167,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ColorMaskChunkBase::*GetSFMaskAF)(void) const;
 
     GetSFMaskAF GetSFMaskA = &ColorMaskChunkBase::getSFMaskA;
@@ -181,7 +181,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editSFMaskA),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFMaskA));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getSFMaskA));
@@ -291,7 +291,7 @@ const SFBool *ColorMaskChunkBase::getSFMaskR(void) const
     return &_sfMaskR;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ColorMaskChunkBase::getSFMaskR          (void)
 {
     return this->editSFMaskR          ();
@@ -310,7 +310,7 @@ const SFBool *ColorMaskChunkBase::getSFMaskG(void) const
     return &_sfMaskG;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ColorMaskChunkBase::getSFMaskG          (void)
 {
     return this->editSFMaskG          ();
@@ -329,7 +329,7 @@ const SFBool *ColorMaskChunkBase::getSFMaskB(void) const
     return &_sfMaskB;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ColorMaskChunkBase::getSFMaskB          (void)
 {
     return this->editSFMaskB          ();
@@ -348,7 +348,7 @@ const SFBool *ColorMaskChunkBase::getSFMaskA(void) const
     return &_sfMaskA;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ColorMaskChunkBase::getSFMaskA          (void)
 {
     return this->editSFMaskA          ();

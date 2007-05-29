@@ -124,7 +124,7 @@ const Pnt2f &ManipulatorBase::getLastMousePos(void) const
     return _sfLastMousePos.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Pnt2f               &ManipulatorBase::getLastMousePos   (void)
 {
@@ -174,7 +174,7 @@ const bool &ManipulatorBase::getActive(void) const
     return _sfActive.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &ManipulatorBase::getActive         (void)
 {
@@ -207,7 +207,7 @@ const Vec3f &ManipulatorBase::getLength(void) const
     return _sfLength.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3f               &ManipulatorBase::getLength         (void)
 {
