@@ -202,7 +202,7 @@ void display( void )
     
     // note that this is the abstract parent class, it doesn't have a specific
     // type
-    GeoPositionsPtr pos = geo->getPositions();
+    GeoVectorPropertyPtr pos = geo->getPositions();
     
     for(UInt32 i = 0; i < pos->getSize(); i++)
     {

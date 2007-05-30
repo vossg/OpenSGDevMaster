@@ -20,7 +20,8 @@
 
 #include <OpenSG/OSGSimpleMaterial.h>
 #include <OpenSG/OSGImage.h>
-#include <OpenSG/OSGTextureChunk.h>
+#include <OpenSG/OSGTextureObjChunk.h>
+#include <OpenSG/OSGTextureEnvChunk.h>
 #include <OpenSG/OSGGradientBackground.h>
 #include <OpenSG/OSGSHLChunk.h>
 //#include <OpenSG/OSGShadowMapViewport.h>
@@ -151,18 +152,21 @@ int main(int argc, char **argv)
     ImagePtr bottom_img = Image::create();
     bottom_img->set(Image::OSG_RGB_PF, 2, 2, 1, 1, 1, 0, imgdata);
 
-    TextureChunkPtr bottom_tex = TextureChunk::create();
+    TextureObjChunkPtr bottom_tex     = TextureObjChunk::create();
+    TextureEnvChunkPtr bottom_tex_env = TextureEnvChunk::create();
+
     bottom_tex->setImage(bottom_img);
     bottom_tex->setMinFilter(GL_LINEAR);
     bottom_tex->setMagFilter(GL_LINEAR);
     bottom_tex->setWrapS(GL_REPEAT);
     bottom_tex->setWrapT(GL_REPEAT);
-    bottom_tex->setEnvMode(GL_MODULATE);
+    bottom_tex_env->setEnvMode(GL_MODULATE);
 
     SimpleMaterialPtr bottom_mat = SimpleMaterial::create();
     bottom_mat->setAmbient(Color3f(0.3,0.3,0.3));
     bottom_mat->setDiffuse(Color3f(1.0,1.0,1.0));
     bottom_mat->addChunk(bottom_tex);
+    bottom_mat->addChunk(bottom_tex_env);
     
     GeometryPtr bottom_geo = cast_dynamic<GeometryPtr>(bottom->getCore());
     bottom_geo->setMaterial(bottom_mat);

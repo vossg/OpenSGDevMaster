@@ -32,7 +32,7 @@ int setupGLUT( int *argc, char *argv[] );
 
 // helper class to find a named node
 // names are handled as simple attachments, get the header for that
-#include <OpenSG/OSGSimpleAttachments.h>
+#include <OpenSG/OSGNameAttachment.h>
 
 // There are two convenience functions for name access: getName() and
 // setName(). For details about general attachment handling see the
