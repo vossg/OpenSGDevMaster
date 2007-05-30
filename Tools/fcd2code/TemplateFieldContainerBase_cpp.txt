@@ -148,6 +148,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
         @!field.Name!@FieldId, @!field.Name!@FieldMask,
         @!field.Visibility!@,
         @!field.Flags!@,
+        @@if !field.noAccess
             @@if field.isPtrField
         static_cast     <FieldEditMethodSig>(&@!Classname!@Base::invalidEditField),
             @@else
@@ -166,6 +167,10 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
             @@else // !field.isPtrField
         reinterpret_cast<FieldGetMethodSig >(&@!Classname!@Base::get@!field.CARD!@@!field.Name!@));
             @@endif // !field.isPtrField
+        @@else  //!field.noAccess
+        static_cast     <FieldEditMethodSig>(&@!Classname!@Base::invalidEditField),
+        static_cast     <FieldGetMethodSig>(&@!Classname!@Base::invalidGetField));
+        @@endif //!field.noAccess
 
     oType.addInitialDesc(pDesc);
         @@EndFieldLoop@@
@@ -222,6 +227,7 @@ const SF@!Parent!@Ptr *@!Classname!@Base::getSFDecoratee(void) const
 }
 
     @@BeginFieldLoop@@
+        @@if !field.noAccess
         @@if field.isPtrField
 //! Get the @!Classname!@::_@!field.VarName!@ field.
 const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
@@ -268,12 +274,14 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base
 #endif
             @@endif // CompatOneSix
         @@endif // field.isPtrField
+        @@endif //!field.noAccess
 
     @@EndFieldLoop@@
 @@endif // isDecorator
 
 @@if !isDecorator
     @@BeginFieldLoop@@
+        @@if !field.noAccess
         @@if field.isPtrField
 //! Get the @!Classname!@::_@!field.VarName!@ field.
 const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
@@ -306,6 +314,7 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base
 #endif
             @@endif // CompatOneSix
         @@endif // field.isPtrField
+        @@endif //!field.noAccess
 
     @@EndFieldLoop@@
 @@endif // !isDecorator
@@ -318,6 +327,7 @@ void @!Classname!@Base::pushToField(      FieldContainerPtrConstArg pNewElement,
 
     @@BeginFieldLoop@@
         @@if field.isPtrField
+        @@if !field.noAccess
             @@if field.isSField
     if(uiFieldId == @!field.Name!@FieldId)
     {
@@ -331,6 +341,7 @@ void @!Classname!@Base::pushToField(      FieldContainerPtrConstArg pNewElement,
             cast_dynamic<@!field.Type!@>(pNewElement));
     }
             @@endif // field.isSField
+        @@endif // !field.noAccess
         @@endif // field.isPtrField
     @@EndFieldLoop@@
 }
@@ -343,12 +354,14 @@ void @!Classname!@Base::insertIntoMField(const UInt32                    uiIndex
 
     @@BeginMFFieldLoop@@
         @@if field.isPtrField
+        @@if !field.noAccess
     if(uiFieldId == @!field.Name!@FieldId)
     {
         static_cast<@!Classname!@ *>(this)->@!field.InsertIntoMField!@(
             uiIndex,
             cast_dynamic<@!field.Type!@>(pNewElement));
     }
+        @@endif //!field.noAccess       
         @@endif // field.isPtrField
     @@EndMFFieldLoop@@
 }
@@ -361,12 +374,14 @@ void @!Classname!@Base::replaceInMField (const UInt32                    uiIndex
 
     @@BeginMFFieldLoop@@
         @@if field.isPtrField
+        @@if !field.noAccess
     if(uiFieldId == @!field.Name!@FieldId)
     {
         static_cast<@!Classname!@ *>(this)->@!field.ReplaceInMFieldIndex!@(
             uiIndex,
             cast_dynamic<@!field.Type!@>(pNewElement));
     }
+        @@endif //!field.noAccess
         @@endif // field.isPtrField
     @@EndMFFieldLoop@@
 }
@@ -379,12 +394,14 @@ void @!Classname!@Base::replaceInMField (      FieldContainerPtrConstArg pOldEle
 
     @@BeginMFFieldLoop@@
         @@if field.isPtrField
+        @@if !field.noAccess
     if(uiFieldId == @!field.Name!@FieldId)
     {
         static_cast<@!Classname!@ *>(this)->@!field.ReplaceInMFieldObject!@(
             cast_dynamic<@!field.Type!@>(pOldElement),
             cast_dynamic<@!field.Type!@>(pNewElement));
     }
+        @@endif //!field.noAccess
         @@endif // field.isPtrField
     @@EndMFFieldLoop@@
 }
@@ -396,11 +413,13 @@ void @!Classname!@Base::removeFromMField(const UInt32 uiIndex,
 
     @@BeginMFFieldLoop@@
         @@if field.isPtrField
+        @@if !field.noAccess
     if(uiFieldId == @!field.Name!@FieldId)
     {
         static_cast<@!Classname!@ *>(this)->@!field.RemoveFromMFieldIndex!@(
             uiIndex);
     }
+        @@endif //!field.noAccess
         @@endif // field.isPtrField
     @@EndMFFieldLoop@@
 }
@@ -412,11 +431,13 @@ void @!Classname!@Base::removeFromMField(      FieldContainerPtrConstArg pElemen
 
     @@BeginMFFieldLoop@@
         @@if field.isPtrField
+        @@if !field.noAccess
     if(uiFieldId == @!field.Name!@FieldId)
     {
         static_cast<@!Classname!@ *>(this)->@!field.RemoveFromMFieldObject!@(
             cast_dynamic<@!field.Type!@>(pElement));
     }
+        @@endif //!field.noAccess
         @@endif // field.isPtrField
     @@EndMFFieldLoop@@
 }
@@ -427,6 +448,7 @@ void @!Classname!@Base::clearField(const UInt32 uiFieldId)
 
     @@BeginFieldLoop@@
         @@if field.isPtrField
+        @@if !field.noAccess
             @@if field.isSField
     if(uiFieldId == @!field.Name!@FieldId)
     {
@@ -438,6 +460,7 @@ void @!Classname!@Base::clearField(const UInt32 uiFieldId)
         static_cast<@!Classname!@ *>(this)->@!field.ClearField!@();
     }
             @@endif // field.isSField
+        @@endif //!field.noAccess
         @@endif // field.isPtrField
     @@EndFieldLoop@@
 }
@@ -445,6 +468,7 @@ void @!Classname!@Base::clearField(const UInt32 uiFieldId)
 
 @@BeginMFFieldLoop@@
     @@if field.isPtrField
+    @@if !field.noAccess
         @@if field.writePushToField
 void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ConstArg value)
 {
@@ -757,6 +781,7 @@ void @!Classname!@Base::@!field.ClearField!@(void)
 }
         @@endif // field.writeClearField
 
+    @@endif //!field.noAccess
     @@else // field.isPtrField
 /*********************************** Non-ptr code ********************************/
         @@if field.writePushToField
@@ -997,6 +1022,7 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
     {
     @@BeginFieldLoop@@
         @@if field.isPtrField
+        @@if !field.noAccess
             @@if field.isMField
 
         MF@!field.TypeCaps!@::const_iterator @!field.Name!@It  =
@@ -1014,6 +1040,7 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
 
         this->set@!field.Name!@(source->get@!field.Name!@());
             @@endif // field.isMField
+        @@endif //!field.noAccess
         @@endif // field.isPtrField
     @@EndFieldLoop@@
     }
@@ -1078,14 +1105,18 @@ void @!Classname!@Base::resolveLinks(void)
     Inherited::resolveLinks();
 @@BeginSFFieldLoop@@
     @@if field.isPtrField
+    @@if !field.noAccess
 
     static_cast<@!Classname!@ *>(this)->set@!field.Name!@(NullFC);
+    @@endif //!field.noAccess
     @@endif // field.isPtrField
 @@EndSFFieldLoop@@
 @@BeginMFFieldLoop@@
     @@if field.isPtrField
+    @@if !field.noAccess
 
     static_cast<@!Classname!@ *>(this)->@!field.ClearField!@();
+    @@endif //!field.noAccess
     @@endif // field.isPtrField
 @@EndMFFieldLoop@@
 }

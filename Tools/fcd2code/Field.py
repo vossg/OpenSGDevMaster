@@ -116,6 +116,7 @@ class Field(FCDElement):
         self["isPrivate"]   = False;
         self["isProtected"] = False;
         self["isPublic"]    = False;
+        self["noAccess"]    = False;
         
         if self.getFCD("access") == "private":
             self["isPrivate"] = True;
@@ -123,6 +124,8 @@ class Field(FCDElement):
             self["isProtected"] = True;
         elif self.getFCD("access") == "public":
             self["isPublic"] = True;
+        elif self.getFCD("access") == "none":
+            self["noAccess"] = True;
         else:
             self.m_log.warning("finalize: \"access\" has invalid value: %s", 
                 self.getFCD("access"));

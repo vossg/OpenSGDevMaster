@@ -76,6 +76,7 @@ OSG::UInt16 @!Classname!@Base::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
         @@BeginSFFieldLoop@@
+            @@if !field.noAccess
             @@if field.isPtrField
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
@@ -177,9 +178,11 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ &value)
     _@!field.VarName!@.setValue(value);
 }
         @@endif // field.isPtrField
+        @@endif //!field.noAccess
         @@EndSFFieldLoop@@
 
         @@BeginMFFieldLoop@@
+        @@if !field.noAccess
 //! Get the value of the \a index element the @!Classname!@::_@!field.VarName!@ field.
 inline
             @@if field.isPtrField
@@ -235,6 +238,7 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base
     return _@!field.VarName!@;
 }
 
+        @@endif //!field.noAccess
         @@EndMFFieldLoop@@
     @@endif // !isDecoratable
 @@else // !isDecorator
