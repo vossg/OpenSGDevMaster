@@ -359,6 +359,7 @@ void ClusterServer::doSync(bool applyToChangelist)
 
 void ClusterServer::doRender(DrawActionBase *action)
 {
+#if 0
     OSG::IndentFileOutStream outFileStream("/tmp/cluster.osg");
 
     if(outFileStream)
@@ -371,6 +372,7 @@ void ClusterServer::doRender(DrawActionBase *action)
 
         outFileStream.close();
     } 
+#endif
 
     _clusterWindow->serverRender(_window, _serverId, action);
 }
