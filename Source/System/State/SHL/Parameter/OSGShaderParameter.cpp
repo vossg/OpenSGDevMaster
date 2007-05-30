@@ -102,8 +102,45 @@ ShaderParameter::~ShaderParameter(void)
 
 /*----------------------------- class specific ----------------------------*/
 
+void ShaderParameter::addParent(
+          FieldContainerPtrConst &parent,
+    const UInt16                  uiStoredInFieldMask)
+{
+    editMField(ParentsFieldMask, _mfParents);
+
+    _mfParents.push_back(parent);
+    _mfParents.back().setParentFieldPos(uiStoredInFieldMask);
+}
+
+void ShaderParameter::subParent(FieldContainerPtrConst &parent)
+{
+    Int32 iParentIdx = _mfParents.findIndex(parent);
+
+    if(iParentIdx != -1)
+    {
+        editMField(ParentsFieldMask, _mfParents);
+
+        MFParentFieldContainerPtr::iterator parentIt = _mfParents.begin();
+
+        parentIt += iParentIdx;
+
+        _mfParents.erase(parentIt);
+    }
+}
+
 void ShaderParameter::changed(ConstFieldMaskArg whichField, UInt32 origin)
 {
+    MFParentFieldContainerPtr::iterator parentsIt  = _mfParents.begin();
+    MFParentFieldContainerPtr::iterator parentsEnd = _mfParents.end();
+    
+    while(parentsIt != parentsEnd)
+    {
+        (*parentsIt)->changed(parentsIt->getParentFieldPos(),
+                              ChangedOrigin::Child);
+        
+        ++parentsIt;
+    }
+
     Inherited::changed(whichField, origin);
 }
 

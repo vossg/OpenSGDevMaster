@@ -415,21 +415,32 @@ void SHLChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
 {
     typedef SHLChunk Self;
 
-    if((whichField & VertexProgramFieldMask  ) ||
-       (whichField & FragmentProgramFieldMask) ||
-       (whichField & GeometryProgramFieldMask) ||
-       (whichField & CgFrontEndFieldMask     ))
+    if(origin == ChangedOrigin::Child)
     {
-        Window::reinitializeGLObject(
-            static_cast<const Self *>(this)->getGLId());
+        if(whichField & ParametersFieldMask)
+        {
+            Window::refreshGLObject(
+                static_cast<const Self *>(this)->getGLId());
+        }
     }
-
-    if((whichField  & ParametersFieldMask           ) ||
-       (whichField & ProgramParameterNamesFieldMask ) ||
-       (whichField & ProgramParameterValuesFieldMask)  )
+    else
     {
-        Window::refreshGLObject(
-            static_cast<const Self *>(this)->getGLId());
+        if((whichField & VertexProgramFieldMask  ) ||
+           (whichField & FragmentProgramFieldMask) ||
+           (whichField & GeometryProgramFieldMask) ||
+           (whichField & CgFrontEndFieldMask     ))
+        {
+            Window::reinitializeGLObject(
+                static_cast<const Self *>(this)->getGLId());
+        }
+        
+        if((whichField & ParametersFieldMask           ) ||
+           (whichField & ProgramParameterNamesFieldMask ) ||
+           (whichField & ProgramParameterValuesFieldMask)  )
+        {
+            Window::refreshGLObject(
+                static_cast<const Self *>(this)->getGLId());
+        }
     }
 
     Inherited::changed(whichField, origin);

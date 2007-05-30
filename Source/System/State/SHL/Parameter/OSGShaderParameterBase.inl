@@ -120,6 +120,12 @@ void ShaderParameterBase::execSync(      ShaderParameterBase *pOther,
 
     if(FieldBits::NoField != (NameFieldMask & whichField))
         _sfName.syncWith(pOther->_sfName);
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+        _mfParents.syncWith(pOther->_mfParents,
+                                syncMode,
+                                uiSyncInfo,
+                                uiCopyOffset);
 }
 #endif
 
@@ -135,6 +141,12 @@ void ShaderParameterBase::execSync (      ShaderParameterBase *pFrom,
 
     if(FieldBits::NoField != (NameFieldMask & whichField))
         _sfName.syncWith(pFrom->_sfName);
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+        _mfParents.syncWith(pFrom->_mfParents,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 
@@ -145,6 +157,11 @@ void ShaderParameterBase::execBeginEdit(ConstFieldMaskArg whichField,
                                       UInt32            uiContainerSize)
 {
     Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.beginEdit(uiAspect, uiContainerSize);
+    }
 }
 #endif
 

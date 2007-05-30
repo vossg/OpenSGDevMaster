@@ -66,6 +66,7 @@
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGStringFields.h" // Name type
+#include "OSGParentFieldContainerFields.h" // Parents type
 
 #include "OSGShaderParameterFields.h"
 
@@ -111,11 +112,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
     enum
     {
         NameFieldId = Inherited::NextFieldId,
-        NextFieldId = NameFieldId + 1
+        ParentsFieldId = NameFieldId + 1,
+        NextFieldId = ParentsFieldId + 1
     };
 
     static const OSG::BitVector NameFieldMask =
         (TypeTraits<BitVector>::One << NameFieldId);
+    static const OSG::BitVector ParentsFieldMask =
+        (TypeTraits<BitVector>::One << ParentsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -165,8 +169,37 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
+
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void replaceInMField (const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
+                                        FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void removeFromMField(const UInt32                    uiIndex,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void clearField      (const UInt32                    uiFieldId  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -195,6 +228,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
     /*! \{                                                                 */
 
     SFString          _sfName;
+    MFParentFieldContainerPtr _mfParents;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -216,6 +250,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const ShaderParameter *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

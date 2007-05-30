@@ -61,6 +61,7 @@
 
 
 
+#include <OSGFieldContainer.h> // Parents Class
 
 #include "OSGShaderParameterBase.h"
 #include "OSGShaderParameter.h"
@@ -80,6 +81,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var std::string     ShaderParameterBase::_sfName
+    parameter name
+*/
+
+/*! \var ParentFieldContainerPtr ShaderParameterBase::_mfParents
     parameter name
 */
 
@@ -108,6 +113,18 @@ void ShaderParameterBase::classDescInserter(TypeObject &oType)
 #else
         reinterpret_cast<FieldGetMethodSig >(&ShaderParameterBase::getSFName));
 #endif
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFParentFieldContainerPtr::Description(
+        MFParentFieldContainerPtr::getClassType(),
+        "parents",
+        "parameter name\n",
+        ParentsFieldId, ParentsFieldMask,
+        true,
+        Field::MFDefaultFlags,
+        static_cast     <FieldEditMethodSig>(&ShaderParameterBase::invalidEditField),
+        static_cast     <FieldGetMethodSig>(&ShaderParameterBase::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }
@@ -145,6 +162,17 @@ ShaderParameterBase::TypeObject ShaderParameterBase::_type(
     "\t>\n"
     "\tparameter name\n"
     "\t</Field>\n"
+    "\n"
+    "\t<Field\n"
+    "\t\tname=\"parents\"\n"
+    "\t\ttype=\"ParentFieldContainerPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"none\"\n"
+    "\t>\n"
+    "\tparameter name\n"
+    "\t</Field>\n"
+    "\n"
     "</FieldContainer>\n",
     ""
     );
@@ -190,6 +218,57 @@ SFString            *ShaderParameterBase::getSFName           (void)
 
 
 
+void ShaderParameterBase::pushToField(      FieldContainerPtrConstArg pNewElement,
+                                    const UInt32                    uiFieldId  )
+{
+    Inherited::pushToField(pNewElement, uiFieldId);
+
+}
+
+void ShaderParameterBase::insertIntoMField(const UInt32                    uiIndex,
+                                               FieldContainerPtrConstArg pNewElement,
+                                         const UInt32                    uiFieldId  )
+{
+    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
+
+}
+
+void ShaderParameterBase::replaceInMField (const UInt32                    uiIndex,
+                                               FieldContainerPtrConstArg pNewElement,
+                                         const UInt32                    uiFieldId)
+{
+    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
+
+}
+
+void ShaderParameterBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
+                                               FieldContainerPtrConstArg pNewElement,
+                                         const UInt32                    uiFieldId  )
+{
+    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
+
+}
+
+void ShaderParameterBase::removeFromMField(const UInt32 uiIndex,
+                                         const UInt32 uiFieldId)
+{
+    Inherited::removeFromMField(uiIndex, uiFieldId);
+
+}
+
+void ShaderParameterBase::removeFromMField(      FieldContainerPtrConstArg pElement,
+                                         const UInt32                    uiFieldId)
+{
+    Inherited::removeFromMField(pElement, uiFieldId);
+
+}
+
+void ShaderParameterBase::clearField(const UInt32 uiFieldId)
+{
+    Inherited::clearField(uiFieldId);
+
+}
+
 
 
 /*------------------------------ access -----------------------------------*/
@@ -201,6 +280,10 @@ UInt32 ShaderParameterBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (NameFieldMask & whichField))
     {
         returnValue += _sfName.getBinSize();
+    }
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        returnValue += _mfParents.getBinSize();
     }
 
     return returnValue;
@@ -215,6 +298,10 @@ void ShaderParameterBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfName.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.copyToBin(pMem);
+    }
 }
 
 void ShaderParameterBase::copyFromBin(BinaryDataHandler &pMem,
@@ -226,6 +313,10 @@ void ShaderParameterBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfName.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.copyFromBin(pMem);
+    }
 }
 
 
@@ -234,13 +325,15 @@ void ShaderParameterBase::copyFromBin(BinaryDataHandler &pMem,
 
 ShaderParameterBase::ShaderParameterBase(void) :
     Inherited(),
-    _sfName                   ()
+    _sfName                   (),
+    _mfParents                ()
 {
 }
 
 ShaderParameterBase::ShaderParameterBase(const ShaderParameterBase &source) :
     Inherited(source),
-    _sfName                   (source._sfName                   )
+    _sfName                   (source._sfName                   ),
+    _mfParents                ()
 {
 }
 
@@ -250,6 +343,14 @@ ShaderParameterBase::~ShaderParameterBase(void)
 {
 }
 
+void ShaderParameterBase::onCreate(const ShaderParameter *source)
+{
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+    }
+}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ShaderParameterBase::execSyncV(      FieldContainer    &oFrom,

@@ -78,7 +78,7 @@ bool ShaderParameterAccess::setParameter(const Char8     *name,
 
         if(p != NullFC)
         {
-            p->setName(name);
+            p->setName (name );
             p->setValue(value);
 
             _parameters.addParameter(p);

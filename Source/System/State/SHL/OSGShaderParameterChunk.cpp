@@ -152,54 +152,40 @@ void ShaderParameterChunk::dump(      UInt32    ,
 
 bool ShaderParameterChunk::setUniformParameter(const Char8 *name, bool value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setParameter<ShaderParameterBool>(name, value);
 }
 
 bool ShaderParameterChunk::setUniformParameter(const Char8 *name, Int32 value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setParameter<ShaderParameterInt>(name, value);
 }
 
 bool ShaderParameterChunk::setUniformParameter(const Char8 *name, Real32 value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setParameter<ShaderParameterReal>(name, value);
 }
 
 bool ShaderParameterChunk::setUniformParameter(const Char8 *name, 
                                                const Vec2f &value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setParameter<ShaderParameterVec2f>(name, value);
 }
 
 bool ShaderParameterChunk::setUniformParameter(const Char8 *name, 
                                                const Vec3f &value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setParameter<ShaderParameterVec3f>(name, value);
 }
 
 bool ShaderParameterChunk::setUniformParameter(const Char8 *name, 
                                                const Vec4f &value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setParameter<ShaderParameterVec4f>(name, value);
 }
 
 bool ShaderParameterChunk::setUniformParameter(const Char8 *name, 
                                                const Matrix &value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setParameter<ShaderParameterMatrix>(name, value);
 }
 
@@ -207,43 +193,31 @@ bool ShaderParameterChunk::setUniformParameter(const Char8 *name,
 
 bool ShaderParameterChunk::setUniformParameter(const char *name, const MFInt32 &value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setMParameter<ShaderParameterMInt>(name, value);
 }
 
 bool ShaderParameterChunk::setUniformParameter(const char *name, const MFReal32 &value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setMParameter<ShaderParameterMReal>(name, value);
 }
 
 bool ShaderParameterChunk::setUniformParameter(const char *name, const MFVec2f &value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setMParameter<ShaderParameterMVec2f>(name, value);
 }
 
 bool ShaderParameterChunk::setUniformParameter(const char *name, const MFVec3f &value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setMParameter<ShaderParameterMVec3f>(name, value);
 }
 
 bool ShaderParameterChunk::setUniformParameter(const char *name, const MFVec4f &value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setMParameter<ShaderParameterMVec4f>(name, value);
 }
 
 bool ShaderParameterChunk::setUniformParameter(const char *name, const MFMatrix &value)
 {
-    editMField(ParametersFieldMask, _mfParameters);
-
     return _parameter_access->setMParameter<ShaderParameterMMatrix>(name, value);
 }
 

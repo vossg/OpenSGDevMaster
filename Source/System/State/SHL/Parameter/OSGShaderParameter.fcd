@@ -20,4 +20,15 @@
 	>
 	parameter name
 	</Field>
+
+	<Field
+		name="parents"
+		type="ParentFieldContainerPtr"
+		cardinality="multi"
+		visibility="internal"
+		access="none"
+	>
+	parameter name
+	</Field>
+
 </FieldContainer>
