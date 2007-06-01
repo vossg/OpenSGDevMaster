@@ -136,8 +136,8 @@ class StageHandlerMixin  : public ParentT
 
     void pushPartition      (RenderTraversalActionBase *pAction,
                              UInt32                     uiCopyOnPush = 0x0000, 
-                             RenderPartition::Mode      eMode        = 
-                                                RenderPartition::StateSorting);
+                             RenderPartitionBase::Mode  eMode        = 
+                                            RenderPartitionBase::StateSorting);
     void popPartition       (RenderTraversalActionBase *pAction);
 
     void beginPartitionGroup(RenderTraversalActionBase *pAction);

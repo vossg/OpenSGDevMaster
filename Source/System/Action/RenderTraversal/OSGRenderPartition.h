@@ -49,6 +49,7 @@
 #include <boost/function.hpp>
 
 #include "OSGRenderTravDef.h"
+#include "OSGRenderPartitionBase.h"
 #include "OSGRenderTraversalFwd.h"
 #include "OSGDrawEnv.h"
 #include "OSGStatIntElem.h"
@@ -83,7 +84,7 @@ class RenderTraversalAction;
             necessary to draw a scene. 
  */
 
-class OSG_RENDERTRAV_DLLMAPPING RenderPartition 
+class OSG_RENDERTRAV_DLLMAPPING RenderPartition : public RenderPartitionBase
 {
   public:
 
@@ -100,46 +101,6 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     //-----------------------------------------------------------------------
     //   enums                                                               
     //-----------------------------------------------------------------------
-
-    enum CopyOnPush
-    {
-        CopyNothing       = 0x0000,
-
-        CopyStateOverride = 0x0001,
-
-        CopyViewing       = 0x0002,
-        CopyProjection    = 0x0004,
-        CopyVisibility    = 0x0008,
-
-        CopyViewport      = 0x0010,
-        CopyWindow        = 0x0020,
-
-        CopyViewportSize  = 0x0040,
-        CopyFrustum       = 0x0080,
-
-        CopyNearFar       = 0x0100,
-
-        CopyVPCamera      = 0x0200,
-
-        CopyAll           = 0xFFFF
-    };
-
-    enum Mode
-    {
-        StateSorting     = 0x0001,
-        TransformSorting = 0x0002,
-        SimpleCallback   = 0x0003,
-        OcclusionCulling = 0x0004
-    };
-
-    enum SetupMode
-    {
-        EmptySetup      = 0x0000,
-        ProjectionSetup = 0x0001,
-        ViewportSetup   = 0x0002,
-        BackgroundSetup = 0x0004,
-        FullSetup       = 0x0007
-    };
 
     //-----------------------------------------------------------------------
     //   types                                                               
@@ -384,6 +345,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     //-----------------------------------------------------------------------
     //   types                                                               
     //-----------------------------------------------------------------------
+
+    typedef RenderPartitionBase Inherited;
 
     //-----------------------------------------------------------------------
     //   class variables                                                     

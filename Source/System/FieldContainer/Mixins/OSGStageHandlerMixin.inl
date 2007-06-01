@@ -137,7 +137,7 @@ template <class ParentT> inline
 void StageHandlerMixin<ParentT>::pushPartition(
     RenderTraversalActionBase *pAction,
     UInt32                     uiCopyOnPush, 
-    RenderPartition::Mode      eMode)
+    RenderPartitionBase::Mode  eMode)
 {
     StageDataP pData = pAction->template getData<StageData *>(_iDataSlotId);
 

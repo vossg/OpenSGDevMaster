@@ -136,6 +136,7 @@ void RenderPartition::setAction(RenderTraversalAction *pAction)
 /*------------- constructors & destructors --------------------------------*/
 
 RenderPartition::RenderPartition(Mode eMode) :
+     Inherited               (         ),
     _eMode                   (eMode    ),
     _eSetupMode              (FullSetup),
     _bDone                   (false    ),

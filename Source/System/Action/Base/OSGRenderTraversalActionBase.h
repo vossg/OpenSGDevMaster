@@ -51,7 +51,7 @@
 #include "OSGDataSlotMixin.h"
 
 #include "OSGFieldBundleMFields.h"
-#include "OSGRenderPartition.h"
+#include "OSGRenderPartitionBase.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -168,8 +168,8 @@ class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase :
 
     // tmp for testing
 
-    virtual void  pushPartition        (UInt32                uiCopyOnPush, 
-                                        RenderPartition::Mode eMode       )= 0;
+    virtual void  pushPartition        (UInt32                    uiCopyOnPush,
+                                        RenderPartitionBase::Mode eMode   )= 0;
 
     virtual void  popPartition         (void                              )= 0;
 
