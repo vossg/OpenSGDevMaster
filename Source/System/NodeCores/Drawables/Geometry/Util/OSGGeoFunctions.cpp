@@ -2151,8 +2151,6 @@ Int32 createOptimizedPrimitives(GeometryPtrArg  geo,
 
     calcPrimitiveCount(geo, triN, lineN, pointN);
 
-    fprintf(stderr, "IMS %d\n", indexMapSize);
-
     GeoVectorPropertyPtr    posPtr = geo->getPositions();
 
     UInt32 pN = ((posPtr == OSG::NullFC) ? 0 : posPtr->getSize());

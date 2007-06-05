@@ -145,7 +145,7 @@ bool StripeGraphOp::travNodeEnter(NodePtr node)
 
         // PORTME
         //createSharedIndex(geo);
-        //createOptimizedPrimitives(geo, 1, true, true, 16, false, _stitch);
+        createOptimizedPrimitives(geo, 1, true, true, 16, false, _stitch);
     }
     
     return true;
