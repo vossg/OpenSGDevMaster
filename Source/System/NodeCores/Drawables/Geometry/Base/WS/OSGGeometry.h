@@ -184,6 +184,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \{                                                                 */
 
     UInt32 indexOccurrence(GeoIntegralPropertyPtrConstArg value);
+    bool   isSingleIndex  (void                                );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -238,6 +239,16 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
     virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Pump Handling                             */
+    /*! \{                                                                 */
+
+    typedef std::vector<std::pair<GeoIntegralPropertyPtr,
+                                  std::vector<UInt16>   > > IndexBag;
+
+    IndexBag getUniqueIndexBag(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

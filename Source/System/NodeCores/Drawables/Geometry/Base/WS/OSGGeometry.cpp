@@ -556,6 +556,78 @@ UInt32 Geometry::indexOccurrence(GeoIntegralPropertyPtrConstArg value)
     return returnValue;
 }
 
+bool Geometry::isSingleIndex(void)
+{
+    bool returnValue = true;
+
+    for(UInt32 i = PositionsIndex; i < _mfPropIndices.size(); ++i)
+    {
+        if(_mfPropIndices[i] != _mfPropIndices[PositionsIndex])
+        {
+            returnValue = false;
+            break;
+        }
+    }
+
+    return returnValue;
+}
+
+Geometry::IndexBag Geometry::getUniqueIndexBag(void)
+{
+    IndexBag returnValue;
+    UInt32   i;
+
+    typedef std::pair<GeoIntegralPropertyPtr, 
+                      std::vector<UInt16>   > IndexBagEntry;
+
+    // Find the first valid prop
+    for(i = 0; i < _mfPropIndices.size(); ++i)
+    {
+        if(_mfPropIndices[i] != NullFC)
+        {
+            break;
+        }
+    }
+
+    if(i == _mfPropIndices.size())
+        return returnValue;
+
+    IndexBagEntry oEntry;
+
+    oEntry.first = _mfPropIndices[i];
+    oEntry.second.push_back(i);
+    
+    returnValue.push_back(oEntry);
+
+    bool bFoundProp;
+
+    for(UInt32 j = i + 1; j < _mfPropIndices.size(); j++)
+    {
+        bFoundProp = false;
+
+        for(UInt32 k = 0; k < returnValue.size() && bFoundProp == false; ++k)
+        {
+            if(_mfPropIndices[j] == returnValue[k].first)
+            {
+                returnValue[k].second.push_back(j);
+
+                bFoundProp = true;
+            }            
+        }
+
+        if(bFoundProp == false)
+        {
+            IndexBagEntry oEntry;
+
+            oEntry.first = _mfPropIndices[j];
+            oEntry.second.push_back(j);
+            
+            returnValue.push_back(oEntry);
+        }
+    }
+
+    return returnValue;
+}
 
 // Iterators
 

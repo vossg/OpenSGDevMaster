@@ -114,7 +114,8 @@ Int32   createOptimizedPrimitives(GeometryPtrArg  geo,
                                   bool            createStrips    = true,
                                   bool            createFans      = true,
                                   UInt32          minFanEdgeCount = 8,
-                                  bool            colorCode       = false);
+                                  bool            colorCode       = false,
+                                  bool            stitchStrips    = false);
 
 OSG_DRAWABLE_DLLMAPPING 
 void    createConvexPrimitives   (GeometryPtrArg  geo);
