@@ -64,7 +64,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::Manipulator
+/*! \class OSG::Manipulator
 Baseclass for all Manipulators
 */
 

@@ -57,7 +57,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::RotateManipulator
+/*! \class OSG::RotateManipulator
  * The MoveHandle is used for moving objects. It consist of three axis which
  * can be picked and translated and one center box to translate freely in 3D.
  */

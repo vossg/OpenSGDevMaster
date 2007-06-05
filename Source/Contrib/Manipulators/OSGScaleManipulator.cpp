@@ -57,7 +57,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ScaleManipulator
+/*! \class OSG::ScaleManipulator
  * The ScaleHandle is used for scaleing objects. It consist of three axis
  * which can be picked and scaled and one center box to scale freely in 3D.
  */
