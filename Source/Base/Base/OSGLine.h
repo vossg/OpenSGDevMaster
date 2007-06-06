@@ -146,6 +146,10 @@ class OSG_BASE_DLLMAPPING Line
 
 };
 
+OSG_BASE_DLLMAPPING 
+std::ostream &operator <<(      std::ostream &os, 
+                          const Line        &obj);
+
 OSG_END_NAMESPACE
 
 #include "OSGLine.inl"

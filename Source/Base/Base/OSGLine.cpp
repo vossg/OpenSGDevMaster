@@ -693,8 +693,11 @@ bool Line::intersect(      Real   OSG_CHECK_ARG(angle),
 #endif
 
 /*! Intersect the line with a triangle.
+* @param: v0-v2  Points definiting a triangle in CW orientation.
+* @param: t  If hit, this returns the distance the hit is down the line.
+* @param: norm If non-NULL, this is set to the normal at the point of intersection
+* @returns: True if there is an intersection.
  */
-
 bool Line::intersect(const Pnt3r &v0, 
                      const Pnt3r &v1,
                      const Pnt3r &v2, 
@@ -818,6 +821,17 @@ return (beta+gamma < 1.0f)
         && (t >= 0.0f) && (t <= 1.0f);
 
 */
+
+OSG_BEGIN_NAMESPACE
+
+OSG_BASE_DLLMAPPING
+std::ostream &operator <<(std::ostream &outStream, const Line &obj)
+{
+    return outStream << obj.getPosition() << ":" << obj.getDirection();
+}
+
+OSG_END_NAMESPACE
+
 
 
 
