@@ -1,7 +1,7 @@
 #ifndef _OSG_BACKGROUND_LOADER_H_
 #define _OSG_BACKGROUND_LOADER_H_
 
-#include <OpenSG/OSGUtilDef.h>
+#include <OpenSG/OSGContribBackgroundLoaderDef.h>
 
 #include <OpenSG/OSGBaseTypes.h>
 #include <OpenSG/OSGSingletonHolder.h>
@@ -18,7 +18,7 @@ class Thread;
 /** Helper class that supports processing requests
  * such as loading files in a background thread.
  */
-class OSG_UTIL_DLLMAPPING BackgroundLoaderBase
+class OSG_CONTRIBBACKGROUNDLOADER_DLLMAPPING BackgroundLoaderBase
 {
 public:
    typedef std::vector<std::string> desc_list_t;

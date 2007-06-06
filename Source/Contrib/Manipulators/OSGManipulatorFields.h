@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGContribGUIDef.h"
 
 #include "OSGTransformFields.h"
 
@@ -112,7 +112,7 @@ struct FieldTraits<ManipulatorPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBGUI_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFManipulatorPtr"; }
     static const char *getMName(void) { return "MFManipulatorPtr"; }
@@ -134,7 +134,7 @@ typedef SFieldAdaptor<ManipulatorPtr, SFFieldContainerPtr> SFManipulatorPtr;
 #endif
 
 #ifndef OSG_COMPILEMANIPULATORINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ManipulatorPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(SField, ManipulatorPtr, OSG_CONTRIBGUI_DLLTMPLMAPPING)
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
@@ -144,7 +144,7 @@ typedef MFieldAdaptor<ManipulatorPtr, MFFieldContainerPtr> MFManipulatorPtr;
 #endif
 
 #ifndef OSG_COMPILEMANIPULATORINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ManipulatorPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(MField, ManipulatorPtr, OSG_CONTRIBGUI_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE

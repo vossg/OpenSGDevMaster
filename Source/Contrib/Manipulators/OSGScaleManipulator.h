@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageManipulatorsScaleManipulator for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING ScaleManipulator : public ScaleManipulatorBase
+class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulator : public ScaleManipulatorBase
 {
     /*==========================  PUBLIC  =================================*/
   public:

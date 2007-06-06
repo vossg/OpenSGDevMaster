@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *                 Copyright (C) 2003 by the OpenSG Forum                    *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,20 +36,28 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGEXTERNALUPDATEHANDLER_H
-#define _OSGEXTERNALUPDATEHANDLER_H
 
-#include <OSGConfig.h>
-#include <OSGBaseFunctions.h>
-#include <OSGSimpleGeometry.h>
+#ifndef _OSGCONTRIBBACKGROUNDLOADERDEF_H_
+#define _OSGCONTRIBBACKGROUNDLOADERDEF_H_
+#ifdef __sgi
+#pragma once
+#endif
 
-using namespace OSG;
+//---------------------------------------------------------------------------
+//  Defines
+//---------------------------------------------------------------------------
 
-class OSG_CONTRIBGUI_DLLMAPPING ExternalUpdateHandler
-{
-public:
-    virtual ~ExternalUpdateHandler() {}
-    virtual void update(const NodePtrConst TransformNode) = 0;
-};
+#if defined(WIN32)
+#   ifdef OSG_COMPILECONTRIBBACKGROUNDLOADERLIB
+#       define OSG_CONTRIBBACKGROUNDLOADER_DLLMAPPING     __declspec(dllexport)
+#       define OSG_CONTRIBBACKGROUNDLOADER_DLLTMPLMAPPING __declspec(dllexport)
+#   else
+#       define OSG_CONTRIBBACKGROUNDLOADER_DLLMAPPING     __declspec(dllimport)
+#       define OSG_CONTRIBBACKGROUNDLOADER_DLLTMPLMAPPING __declspec(dllimport)
+#   endif
+#else
+#define OSG_CONTRIBBACKGROUNDLOADER_DLLMAPPING
+#define OSG_CONTRIBBACKGROUNDLOADER_DLLTMPLMAPPING
+#endif
 
-#endif // _OSGEXTERNALUPDATEHANDLER_H
+#endif /* _OSGCONTRIBBACKGROUNDLOADERDEF_H_ */

@@ -3,7 +3,7 @@
 <FieldContainer
 	name="RotateManipulator"
 	parent="Manipulator"
-	library="System"
+	library="ContribGUI"
 	pointerfieldtypes="none"
 	structure="concrete"
 	systemcomponent="true"

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGContribGUIDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class RotateManipulator;
 
 //! \brief RotateManipulator Base Class.
 
-class OSG_SYSTEM_DLLMAPPING RotateManipulatorBase : public Manipulator
+class OSG_CONTRIBGUI_DLLMAPPING RotateManipulatorBase : public Manipulator
 {
   public:
 

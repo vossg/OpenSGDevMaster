@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageManipulatorsRotateManipulator for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING RotateManipulator : public RotateManipulatorBase
+class OSG_CONTRIBGUI_DLLMAPPING RotateManipulator : public RotateManipulatorBase
 {
     /*==========================  PUBLIC  =================================*/
   public:

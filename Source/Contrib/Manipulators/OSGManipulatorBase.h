@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGContribGUIDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -90,7 +90,7 @@ class Manipulator;
 
 //! \brief Manipulator Base Class.
 
-class OSG_SYSTEM_DLLMAPPING ManipulatorBase : public Transform
+class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
 {
   public:
 

@@ -55,7 +55,7 @@ OSG_BEGIN_NAMESPACE
            PageManipulatorsManipulator for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING Manipulator : public ManipulatorBase
+class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
 {
     /*==========================  PUBLIC  =================================*/
   public:

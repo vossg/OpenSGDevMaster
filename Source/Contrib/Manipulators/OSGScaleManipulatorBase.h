@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGContribGUIDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class ScaleManipulator;
 
 //! \brief ScaleManipulator Base Class.
 
-class OSG_SYSTEM_DLLMAPPING ScaleManipulatorBase : public Manipulator
+class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
 {
   public:
 

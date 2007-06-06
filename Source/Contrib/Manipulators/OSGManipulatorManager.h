@@ -48,7 +48,7 @@
 #include "OSGRotateManipulator.h"
 #include "OSGScaleManipulator.h"
 
-class OSG_SYSTEM_DLLMAPPING ManipulatorManager
+class OSG_CONTRIBGUI_DLLMAPPING ManipulatorManager
 {
 public:
     enum    ManipulatorType { ROTATE, SCALE, TRANSLATE };

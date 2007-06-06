@@ -1,8 +1,8 @@
 #ifndef _OSG_REQUEST_H_
 #define _OSG_REQUEST_H_
 
-#include <OpenSG/OSGUtilDef.h>
 #include <OpenSG/OSGConfig.h>
+#include <OpenSG/OSGContribBackgroundLoaderDef.h>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
@@ -19,7 +19,7 @@ typedef boost::weak_ptr<Request> RequestWeakPtr;
 
 /** A request to be processed by the background loader.
  */
-class OSG_UTIL_DLLMAPPING Request
+class OSG_CONTRIBBACKGROUNDLOADER_DLLMAPPING Request
 {
 protected:
    Request();

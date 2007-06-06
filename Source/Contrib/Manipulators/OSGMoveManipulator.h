@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageManipulatorsMoveManipulator for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING MoveManipulator : public MoveManipulatorBase
+class OSG_CONTRIBGUI_DLLMAPPING MoveManipulator : public MoveManipulatorBase
 {
     /*==========================  PUBLIC  =================================*/
   public:

@@ -1,7 +1,7 @@
 #ifndef _OSG_MODEL_REQUEST_H_
 #define _OSG_MODEL_REQUEST_H_
 
-#include <OpenSG/OSGUtilDef.h>
+#include <OpenSG/OSGContribBackgroundLoaderDef.h>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
@@ -21,7 +21,8 @@ typedef boost::weak_ptr<ModelRequest> ModelRequestWeakPtr;
  * 
  * note: We hold on using refptrs, so all objects passed to us must have a positive ref count.
  */
-class OSG_UTIL_DLLMAPPING ModelRequest : public boost::enable_shared_from_this<ModelRequest>, public Request
+class OSG_CONTRIBBACKGROUNDLOADER_DLLMAPPING ModelRequest : 
+    public boost::enable_shared_from_this<ModelRequest>, public Request
 {
 protected:
    ModelRequest();

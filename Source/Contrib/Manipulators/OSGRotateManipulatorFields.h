@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGContribGUIDef.h"
 
 #include "OSGManipulatorFields.h"
 
