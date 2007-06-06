@@ -257,7 +257,7 @@
         OSG_RC_CREATE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, inline)
 
 #define OSG_RC_CREATE_SPECIALIZED_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)         \
-    template <>                                                               \
+    template <> OSG_DLL_EXPORT                                                \
     OSG_CLASS < OSG_TMPL_PARAM >::ObjPtr                                      \
         OSG_CLASS< OSG_TMPL_PARAM >::create(void)                             \
     {                                                                         \
