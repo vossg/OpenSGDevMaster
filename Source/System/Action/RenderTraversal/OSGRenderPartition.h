@@ -250,6 +250,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition : public RenderPartitionBase
     /*------------------------- your_operators ------------------------------*/
 
     void execute(void);
+    void disable(void);
 
     /*------------------------- assignment ----------------------------------*/
     

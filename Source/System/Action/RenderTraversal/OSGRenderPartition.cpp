@@ -65,8 +65,8 @@
 
 #include "OSGGeoStatsAttachment.h"
 
-#ifdef OSG_DEBUG
-#define OSG_TRACE_PARTITIONN
+#ifdef OSG_DEBUGX
+#define OSG_TRACE_PARTITION
 #endif
 
 OSG_USING_NAMESPACE

@@ -363,6 +363,12 @@ void RenderPartition::setFrustum(FrustumVolume &frust)
 }
 
 inline
+void RenderPartition::disable(void)
+{
+    _bDone = true;
+}
+
+inline
 void RenderPartition::dropFunctor(SimpleDrawCallback &oSimpleCallback)
 {
     _oSimpleDrawCallback = oSimpleCallback;

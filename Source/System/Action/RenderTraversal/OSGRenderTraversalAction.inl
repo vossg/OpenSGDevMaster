@@ -156,6 +156,12 @@ Int32 RenderTraversalAction::getLastPartitionIdx(void)
     return _vRenderPartitions[_currentBuffer].size() - 1;
 }
 
+inline
+void RenderTraversalAction::disableDefaultPartition(void)
+{
+    _vRenderPartitions[_currentBuffer][0]->disable();
+}
+
 /*-------------------------- assignment -----------------------------------*/
 
 /*-------------------------- comparison -----------------------------------*/

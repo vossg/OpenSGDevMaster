@@ -783,6 +783,8 @@ ActionBase::ResultE HDRStageRenderEnter(const NodeCorePtr &pCore,
 
     HDRStagePtr      pStage = cast_dynamic<HDRStagePtr>(pCore);
 
+    a->disableDefaultPartition();
+
     a->beginPartitionGroup();
     {
         a->pushPartition();
@@ -793,10 +795,16 @@ ActionBase::ResultE HDRStageRenderEnter(const NodeCorePtr &pCore,
             Camera            *pCam     = a->getCamera  ();
             Background        *pBack    = a->getBackground();
             
+            if(pTarget == NULL)
+            {
+                pStage->initData(pPort, a);
+
+                pTarget  = getCPtr(pStage->getRenderTarget());
+            }
+
             pPart->setRenderTarget(pTarget);
             
-
-#ifdef OSG_DEBUG
+#ifdef OSG_DEBUGX
             std::string szMessage("RenderPartition\n");
             pPart->setDebugString(szMessage          );
 #endif
@@ -869,7 +877,7 @@ ActionBase::ResultE HDRStageRenderEnter(const NodeCorePtr &pCore,
             Viewport        *pPort  = a->getViewport();
             RenderPartition *pPart  = a->getActivePartition();
 
-#ifdef OSG_DEBUG
+#ifdef OSG_DEBUGX
             std::string szMessage("PostProcessPartition\n");
             pPart->setDebugString(szMessage          );
 #endif
