@@ -36,8 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#define  GL_GLEXT_PROTOTYPES
-
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -67,15 +65,25 @@
 #include "OSGTextureObjChunk.h"
 #include "OSGDrawEnv.h"
 #include "OSGImageFunctions.h"
-#include "OSGSHLChunk.h"
 #include "OSGStateOverride.h"
 #include "OSGTextureEnvChunk.h"
+#include "OSGSHLFunctions.h"
 
 OSG_USING_NAMESPACE
 
 /*! \class osg::HDRStage
 
 */
+
+UInt32 HDRStage::_uiFramebuffer_object_extension = 
+    Window::invalidExtensionID;
+
+UInt32 HDRStage::_uiFuncDrawBuffers              =
+    Window::invalidFunctionID;
+
+typedef void   (OSG_APIENTRY *GLDrawBuffersEXTProcT)(
+          GLsizei  n, 
+    const GLenum  *buffers);
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
@@ -150,15 +158,27 @@ void HDRStage::initMethod(InitPhase ePhase)
         RenderAction::registerEnterDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(&HDRStage::render));
+
+        _uiFramebuffer_object_extension = 
+            Window::registerExtension("GL_EXT_framebuffer_object");
+
+        _uiFuncDrawBuffers  =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glDrawBuffersARB", 
+                _uiFramebuffer_object_extension);
     }
 }
 
-HDRStageDataP HDRStage::setupStageData(void)
+HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
+                                       Int32 iPixelHeight)
 {
     HDRStageDataP returnValue = HDRStageData::create();
 
     if(returnValue == NULL)
         return returnValue;
+
+
+    // Scene Target
 
     FrameBufferObjectPtr pSceneFBO    = FrameBufferObject::create();
 
@@ -172,8 +192,8 @@ HDRStageDataP HDRStage::setupStageData(void)
     ImagePtr           pImg          = Image          ::create();
     
     pImg->set(Image::OSG_RGB_PF, 
-              800, 
-              800,
+              iPixelWidth, 
+              iPixelHeight,
               1,
               1,
               1,
@@ -182,12 +202,14 @@ HDRStageDataP HDRStage::setupStageData(void)
               Image::OSG_FLOAT32_IMAGEDATA,
               false);
     
-    pSceneTex   ->setImage    (pImg      ); 
-    pSceneTex   ->setMinFilter(GL_LINEAR );
-    pSceneTex   ->setMagFilter(GL_LINEAR );
-    pSceneTex   ->setWrapS    (GL_REPEAT );
-    pSceneTex   ->setWrapT    (GL_REPEAT );
-    pSceneTexEnv->setEnvMode  (GL_REPLACE);
+    pSceneTex   ->setImage         (pImg             ); 
+    pSceneTex   ->setMinFilter     (GL_LINEAR        );
+    pSceneTex   ->setMagFilter     (GL_LINEAR        );
+    pSceneTex   ->setWrapS         (GL_REPEAT        );
+    pSceneTex   ->setWrapT         (GL_REPEAT        );
+    pSceneTex   ->setInternalFormat(getBufferFormat());
+
+    pSceneTexEnv->setEnvMode       (GL_REPLACE       );
     
     TextureBufferPtr pSceneTexBuffer   = TextureBuffer::create();
     
@@ -195,7 +217,7 @@ HDRStageDataP HDRStage::setupStageData(void)
     
 
     
-    pSceneFBO->setSize(800, 800);
+    pSceneFBO->setSize(iPixelWidth, iPixelHeight);
     
     pSceneFBO->setColorAttachment(pSceneTexBuffer, 0);
     pSceneFBO->setDepthAttachment(pDepthBuffer      );
@@ -207,18 +229,17 @@ HDRStageDataP HDRStage::setupStageData(void)
 
 
 
+    // Shrink Target (w/2, h/2)
 
-    FrameBufferObjectPtr pBlurFBO     = FrameBufferObject::create();
-    
-    TextureObjChunkPtr   pBlurTex1    = TextureObjChunk  ::create();
-    TextureEnvChunkPtr   pBlurTex1Env = TextureEnvChunk  ::create();
-    
-    
-    pImg = Image::create();
+    FrameBufferObjectPtr pShrinkFBO     = FrameBufferObject::create();
+
+    TextureObjChunkPtr   pShrinkTex     = TextureObjChunk::create();
+    TextureEnvChunkPtr   pShrinkTexEnv  = TextureEnvChunk::create();
+                         pImg           = Image          ::create();
     
     pImg->set(Image::OSG_RGB_PF, 
-              400, 
-              400,
+              iPixelWidth  / 2, 
+              iPixelHeight / 2,
               1,
               1,
               1,
@@ -227,12 +248,63 @@ HDRStageDataP HDRStage::setupStageData(void)
               Image::OSG_FLOAT32_IMAGEDATA,
               false);
     
-    pBlurTex1   ->setImage    (pImg      ); 
-    pBlurTex1   ->setMinFilter(GL_LINEAR );
-    pBlurTex1   ->setMagFilter(GL_LINEAR );
-    pBlurTex1   ->setWrapS    (GL_REPEAT );
-    pBlurTex1   ->setWrapT    (GL_REPEAT );
-    pBlurTex1Env->setEnvMode  (GL_REPLACE);
+    pShrinkTex   ->setImage         (pImg             ); 
+    pShrinkTex   ->setMinFilter     (GL_LINEAR        );
+    pShrinkTex   ->setMagFilter     (GL_LINEAR        );
+    pShrinkTex   ->setWrapS         (GL_REPEAT        );
+    pShrinkTex   ->setWrapT         (GL_REPEAT        );
+    pShrinkTex   ->setInternalFormat(getBufferFormat());
+
+    pShrinkTexEnv->setEnvMode       (GL_REPLACE       );
+    
+    TextureBufferPtr pShrinkTexBuffer   = TextureBuffer::create();
+    
+    pShrinkTexBuffer->setTexture(pShrinkTex);
+    
+
+    
+    pShrinkFBO->setSize(iPixelWidth / 2, iPixelHeight / 2);
+    
+    pShrinkFBO->setColorAttachment(pShrinkTexBuffer, 0);
+    
+    pShrinkFBO->editDrawBuffers().push_back(GL_COLOR_ATTACHMENT0_EXT);
+    
+    returnValue->setShrinkRenderTarget(pShrinkFBO);
+
+
+
+
+
+    // blur (w/4, h/4)
+
+
+    FrameBufferObjectPtr pBlurFBO     = FrameBufferObject::create();
+
+    TextureObjChunkPtr   pBlurTex1    = TextureObjChunk  ::create();
+    TextureEnvChunkPtr   pBlurTex1Env = TextureEnvChunk  ::create();
+    
+    
+    pImg = Image::create();
+    
+    pImg->set(Image::OSG_RGB_PF, 
+              iPixelWidth  / 4,
+              iPixelHeight / 4,
+              1,
+              1,
+              1,
+              0.0,
+              0,
+              Image::OSG_FLOAT32_IMAGEDATA,
+              false);
+    
+    pBlurTex1   ->setImage         (pImg             ); 
+    pBlurTex1   ->setMinFilter     (GL_LINEAR        );
+    pBlurTex1   ->setMagFilter     (GL_LINEAR        );
+    pBlurTex1   ->setWrapS         (GL_REPEAT        );
+    pBlurTex1   ->setWrapT         (GL_REPEAT        );
+    pBlurTex1   ->setInternalFormat(getBufferFormat());
+
+    pBlurTex1Env->setEnvMode       (GL_REPLACE       );
     
     TextureBufferPtr pBlurTexBuffer1 = TextureBuffer::create();
     
@@ -247,8 +319,8 @@ HDRStageDataP HDRStage::setupStageData(void)
     pImg = Image::create();
 
     pImg->set(Image::OSG_RGB_PF, 
-              400, 
-              400,
+              iPixelWidth  / 4,
+              iPixelHeight / 4,
               1,
               1,
               1,
@@ -257,26 +329,30 @@ HDRStageDataP HDRStage::setupStageData(void)
               Image::OSG_FLOAT32_IMAGEDATA,
               false);
     
-    pBlurTex2   ->setImage    (pImg      ); 
-    pBlurTex2   ->setMinFilter(GL_LINEAR );
-    pBlurTex2   ->setMagFilter(GL_LINEAR );
-    pBlurTex2   ->setWrapS    (GL_REPEAT );
-    pBlurTex2   ->setWrapT    (GL_REPEAT );
-    pBlurTex2Env->setEnvMode  (GL_REPLACE);
+    pBlurTex2   ->setImage         (pImg             ); 
+    pBlurTex2   ->setMinFilter     (GL_LINEAR        );
+    pBlurTex2   ->setMagFilter     (GL_LINEAR        );
+    pBlurTex2   ->setWrapS         (GL_REPEAT        );
+    pBlurTex2   ->setWrapT         (GL_REPEAT        );
+    pBlurTex2   ->setInternalFormat(getBufferFormat());
+
+    pBlurTex2Env->setEnvMode       (GL_REPLACE       );
     
     TextureBufferPtr pBlurTexBuffer2 = TextureBuffer::create();
 
     pBlurTexBuffer2->setTexture(pBlurTex2);
 
 
-    pBlurFBO->setSize(400, 400);
+    pBlurFBO->setSize(iPixelWidth  / 4,
+                      iPixelHeight / 4);
     
-    pBlurFBO->setColorAttachment(pBlurTexBuffer1, 0);
-    pBlurFBO->setColorAttachment(pBlurTexBuffer2, 1);
-    
+    pBlurFBO->setColorAttachment(pBlurTexBuffer1,  0);
+    pBlurFBO->setColorAttachment(pBlurTexBuffer2,  1);
     
     returnValue->setBlurRenderTarget(pBlurFBO);
 
+
+    // general mat chunk
 
 
     MaterialChunkPtr pMatChunk = MaterialChunk::create();
@@ -286,59 +362,24 @@ HDRStageDataP HDRStage::setupStageData(void)
 
 
 
-    ChunkMaterialPtr    pTonemapMat  = ChunkMaterial  ::create();
-    
-    TextureObjChunkPtr  pGammaTex    = TextureObjChunk::create();
-    TextureEnvChunkPtr  pGammaTexEnv = TextureEnvChunk::create();
-    
-    pImg = Image::create();
-    
-    createGamma(pImg, 256, 1.0 / 2.2);
-    
-    pGammaTex   ->setImage    (pImg      ); 
-    pGammaTex   ->setMinFilter(GL_LINEAR );
-    pGammaTex   ->setMagFilter(GL_LINEAR );
-    pGammaTex   ->setWrapS    (GL_CLAMP_TO_EDGE);
-    pGammaTex   ->setWrapT    (GL_CLAMP_TO_EDGE);
-    pGammaTexEnv->setEnvMode  (GL_REPLACE);
-    
-    
-    TextureObjChunkPtr pVignetteTex    = TextureObjChunk::create();
-    TextureEnvChunkPtr pVignetteTexEnv = TextureEnvChunk::create();
-    
-    pImg = Image::create();
+    // tone map material
 
-    createVignette(pImg, 800, 800, 0.25 * 800, 0.7 * 800);
-    
-    pVignetteTex   ->setImage    (pImg      ); 
-    pVignetteTex   ->setMinFilter(GL_LINEAR );
-    pVignetteTex   ->setMagFilter(GL_LINEAR );
-    pVignetteTex   ->setWrapS    (GL_CLAMP_TO_EDGE);
-    pVignetteTex   ->setWrapT    (GL_CLAMP_TO_EDGE);
-    pVignetteTexEnv->setEnvMode  (GL_REPLACE);
+    ChunkMaterialPtr    pTonemapMat  = ChunkMaterial  ::create();
     
     pTonemapMat->addChunk(pMatChunk         );
     pTonemapMat->addChunk(pSceneTex,       0);
     pTonemapMat->addChunk(pSceneTexEnv,    0);
-    pTonemapMat->addChunk(pGammaTex,       1);
-    pTonemapMat->addChunk(pGammaTexEnv,    1);
-    pTonemapMat->addChunk(pVignetteTex,    2);
-    pTonemapMat->addChunk(pVignetteTexEnv, 2);
-    pTonemapMat->addChunk(pBlurTex1,       3);
-    pTonemapMat->addChunk(pBlurTex1Env,    3);
+    pTonemapMat->addChunk(pBlurTex1,       1);
+    pTonemapMat->addChunk(pBlurTex1Env,    1);
+
+    SHLChunkPtr pTonemapShader = generateHDRFragmentProgram();
     
-    
-    SHLChunkPtr pTonemapShader = SHLChunk::create();
-    
-    if(!pTonemapShader->readFragmentProgram("hdr.fp"))
-        fprintf(stderr, "Couldn't read fragment program 'Earth.fp'\n");
-    
-    pTonemapShader->setUniformParameter("sceneTex",    0);
-    pTonemapShader->setUniformParameter("gammaTex",    1);
-    pTonemapShader->setUniformParameter("vignetteTex", 2);
-    pTonemapShader->setUniformParameter("blurTex",     3);
-    pTonemapShader->setUniformParameter("blurAmount",  0.2f);
-    pTonemapShader->setUniformParameter("fExposure", 0.1f);
+    pTonemapShader->setUniformParameter("sceneTex",     0);
+    pTonemapShader->setUniformParameter("blurTex",      1);
+    pTonemapShader->setUniformParameter("blurAmount",   getBlurAmount  ());
+    pTonemapShader->setUniformParameter("exposure",     getExposure    ());
+    pTonemapShader->setUniformParameter("effectAmount", getEffectAmount());
+    pTonemapShader->setUniformParameter("gamma",        getGamma       ());
     
     pTonemapMat->addChunk(pTonemapShader, 0);
     
@@ -347,69 +388,98 @@ HDRStageDataP HDRStage::setupStageData(void)
 
 
 
+    // Shrink material
+
+    ChunkMaterialPtr pShrinkMat = ChunkMaterial::create();
+    
+    pShrinkMat->addChunk(pMatChunk   );
+    
+    pShrinkMat->addChunk(pSceneTex,     0);
+    pShrinkMat->addChunk(pSceneTexEnv,  0);
+
+    
+    SHLChunkPtr pShrinkShader = generate2DShrinkHalfFilterFP();
+        
+    pShrinkShader->setUniformParameter("inputTex", 0);
+    
+    pShrinkMat->addChunk(pShrinkShader, 0);
+    
+    returnValue->setShrinkMaterial(pShrinkMat);
+
+
+
+
+    // Blur material
 
     ChunkMaterialPtr pBlurMat = ChunkMaterial::create();
     
     pBlurMat->addChunk(pMatChunk   );
     
-    pBlurMat->addChunk(pSceneTex,    0);
-    pBlurMat->addChunk(pSceneTexEnv, 0);
-    pBlurMat->addChunk(pBlurTex1,    1);
-    pBlurMat->addChunk(pBlurTex1Env, 1);
-    pBlurMat->addChunk(pBlurTex2,    2);
-    pBlurMat->addChunk(pBlurTex2Env, 2);
+    pBlurMat->addChunk(pShrinkTex,    0);
+    pBlurMat->addChunk(pShrinkTexEnv, 0);
+    pBlurMat->addChunk(pBlurTex1,     1);
+    pBlurMat->addChunk(pBlurTex1Env,  1);
+    pBlurMat->addChunk(pBlurTex2,     2);
+    pBlurMat->addChunk(pBlurTex2Env,  2);
 
-    
-    SHLChunkPtr pShrinkShader = SHLChunk::create();
-    
-    if(!pShrinkShader->readFragmentProgram("shrink.fp"))
-        fprintf(stderr, "Couldn't read fragment program 'shrink.fp'\n");
-    
-    pShrinkShader->setUniformParameter("inputTex", 0);
-    
     pBlurMat->addChunk(pShrinkShader, 0);
     
     returnValue->setBlurMaterial(pBlurMat);
 
 
+    // generate blur fragment programs
+    SHLChunkPtr pHBlurShader = generate1DConvolutionFilterFP(getBlurWidth(), 
+                                                             false, 
+                                                             true, 
+                                                             iPixelWidth  / 2, 
+                                                             iPixelHeight / 2);
 
+   
+    pHBlurShader->setUniformParameter("inputTex", 0);
 
-    SHLChunkPtr pHBlurShader = SHLChunk::create();
-    
-    if(!pHBlurShader->readFragmentProgram("hblur.fp"))
-        fprintf(stderr, "Couldn't read fragment program 'hblur.fp'\n");
-    
-    pHBlurShader->setUniformParameter("inputTex", 1);
-    
     returnValue->setHBlurShader(pHBlurShader);
+
     
     
+    // VBlur Override
+
+
+    SHLChunkPtr pVBlurShader = generate1DConvolutionFilterFP(getBlurWidth(),  
+                                                             true, 
+                                                             true, 
+                                                             iPixelWidth  / 2, 
+                                                             iPixelHeight / 2);
     
-    SHLChunkPtr pVBlurShader = SHLChunk::create();
-    
-    if(!pVBlurShader->readFragmentProgram("vblur.fp"))
-        fprintf(stderr, "Couldn't read fragment program 'vblur.fp'\n");
-    
-    pVBlurShader->setUniformParameter("inputTex", 2);
+    pVBlurShader->setUniformParameter("inputTex", 1);
     
     returnValue->setVBlurShader(pVBlurShader);
 
+
     Thread::getCurrentChangeList()->commitChanges();
-
-
-    fprintf(stderr, "Create Data %p\n", returnValue);
 
     return returnValue;
 }
 
+void HDRStage::resizeStageData(HDRStageDataP pData,
+                               Int32         iPixelWidth,
+                               Int32         iPixelHeight)
+{
+    FWARNING(("HDRStage resize not implemented ==> wrong results\n"));
+}
 
 void HDRStage::postProcess(DrawEnv *pEnv)
 {
-    Pnt2f p1(0.25, 0.25);
-    Pnt2f p2(0.75, 0.25);
-    Pnt2f p3(0.75, 0.75);
-    Pnt2f p4(0.25, 0.75);
-    
+    Window *win = pEnv->getWindow();
+
+    if(win->hasExtension(_uiFramebuffer_object_extension) == false)
+    {
+        FNOTICE(("Framebuffer objects not supported on Window %p!\n", win));
+        return;        
+    }
+
+    GLDrawBuffersEXTProcT glDrawBuffersEXTProc =
+        (GLDrawBuffersEXTProcT) win->getFunction(_uiFuncDrawBuffers);
+
     glColor3f(1.f, 1.f, 1.f);
     
     glMatrixMode(GL_MODELVIEW);
@@ -423,20 +493,61 @@ void HDRStage::postProcess(DrawEnv *pEnv)
         return;
 
 
-    HDRStageDataP pData = pAction->getData<HDRStageData *>(_iDataSlotId);
-
-    fprintf(stderr, "Retrieved data %p\n", pData);
+    HDRStageDataP  pData     = pAction->getData<HDRStageData *>(_iDataSlotId);
+    Viewport      *pViewport = pEnv->getViewport();
 
     if(pData == NULL)
     {
-        pData = setupStageData();
-        
-        this->setData(pData, _iDataSlotId, pAction);
-//        pAction->setData(pData, _iDataSlotId);
+        return;
     }
 
-    fprintf(stderr, "Got data %p\n", pData);
+    if((pData->getWidth () != pViewport->getPixelWidth() ) ||
+       (pData->getHeight() != pViewport->getPixelHeight())  )
+    {
+        resizeStageData(pData, 
+                        pViewport->getPixelWidth(),
+                        pViewport->getPixelHeight());
+    }
+    
 
+    // Shrink to w/2 h/2
+
+    FrameBufferObjectPtr pShrinkTarget = pData->getShrinkRenderTarget();
+    ChunkMaterialPtr     pSHM          = pData->getShrinkMaterial();
+
+
+    pShrinkTarget->activate(pEnv);
+
+    glViewport(0,
+               0, 
+               pViewport->getPixelWidth () / 2,
+               pViewport->getPixelHeight() / 2);
+
+
+    State *pShrinkState = getCPtr(pSHM->getState());
+
+    pEnv->activateState(pShrinkState, NULL);
+    
+    glBegin(GL_QUADS);
+    {
+        glTexCoord2f(0.00, 0.00);
+        glVertex2f  (0.00, 0.00);
+        
+        glTexCoord2f(1.00, 0.00);
+        glVertex2f  (1.00, 0.00);
+        
+        glTexCoord2f(1.00, 1.00);
+        glVertex2f  (1.00, 1.00);
+        
+        glTexCoord2f(0.00, 1.00);
+        glVertex2f  (0.00, 1.00);
+    }
+    glEnd();
+
+    pShrinkTarget->deactivate(pEnv);
+
+
+    // Shrink to w/4 h/4
 
     FrameBufferObjectPtr pBlurTarget = pData->getBlurRenderTarget();
 
@@ -446,161 +557,226 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     pBlurTarget->activate(pEnv);
 
-    glViewport(0, 0, 400, 400);
+    glViewport(0,
+               0, 
+               pViewport->getPixelWidth () / 4,
+               pViewport->getPixelHeight() / 4);
 
-    ChunkMaterialPtr pBLM = pData->getBlurMaterial();
+    ChunkMaterialPtr  pBLM       = pData->getBlurMaterial();
+
+    State            *pBlurState = getCPtr(pBLM->getState());
+
+    pEnv->activateState(pBlurState, NULL);
+
+    glBegin(GL_QUADS);
+    {
+        glTexCoord2f(0.00, 0.00);
+        glVertex2f  (0.00, 0.00);
+        
+        glTexCoord2f(1.00, 0.00);
+        glVertex2f  (1.00, 0.00);
+        
+        glTexCoord2f(1.00, 1.00);
+        glVertex2f  (1.00, 1.00);
+        
+        glTexCoord2f(0.00, 1.00);
+        glVertex2f  (0.00, 1.00);
+    }
+    glEnd();
+
+    // HBlur
 
     StateOverride oOverride;        
+
+    GLenum aDrawBuffers[] = { GL_COLOR_ATTACHMENT1_EXT };
+
+    oOverride.addOverride(pData->getHBlurShader()->getClassId(), 
+                          getCPtr(pData->getHBlurShader()));
+
+
+    pEnv->activateState(pBlurState, &oOverride);
+            
+    glDrawBuffersEXTProc(1, aDrawBuffers);
+
+
+    glBegin(GL_QUADS);
+    {
+        glTexCoord2f(0.00, 0.00);
+        glVertex2f  (0.00, 0.00);
+        
+        glTexCoord2f(1.00, 0.00);
+        glVertex2f  (1.00, 0.00);
+        
+        glTexCoord2f(1.00, 1.00);
+        glVertex2f  (1.00, 1.00);
+        
+        glTexCoord2f(0.00, 1.00);
+        glVertex2f  (0.00, 1.00);
+    }
+    glEnd();
+
+
+
+    // VBlur
+           
     StateOverride oOverride1;        
 
-   if(pBLM != NullFC)
+    oOverride1.addOverride(pData->getVBlurShader()->getClassId(), 
+                           getCPtr(pData->getVBlurShader()));
+    
+
+    pEnv->activateState(pBlurState, &oOverride1);
+
+    aDrawBuffers[0] = GL_COLOR_ATTACHMENT0_EXT;
+    
+    glDrawBuffersEXTProc(1, aDrawBuffers);
+    
+    glBegin(GL_QUADS);
     {
-        State *pBlurState = getCPtr(pBLM->getState());
+        glTexCoord2f(0.00, 0.00);
+        glVertex2f  (0.00, 0.00);
         
-        if(pBlurState != NULL)
-        {
-            pEnv->activateState(pBlurState, NULL);
-
-            glBegin(GL_QUADS);
-            {
-                glTexCoord2f(0.00, 0.00);
-                glVertex2f  (0.00, 0.00);
-                
-                glTexCoord2f(1.00, 0.00);
-                glVertex2f  (1.00, 0.00);
-                
-                glTexCoord2f(1.00, 1.00);
-                glVertex2f  (1.00, 1.00);
-                
-                glTexCoord2f(0.00, 1.00);
-                glVertex2f  (0.00, 1.00);
-            }
-            glEnd();
-
-            GLenum aDrawBuffers[] = { GL_COLOR_ATTACHMENT1_EXT };
-
-            oOverride.addOverride(pData->getHBlurShader()->getClassId(), 
-                                  getCPtr(pData->getHBlurShader()));
-
-
-            pEnv->activateState(pBlurState, &oOverride);
-            
-#ifndef WIN32
-            glDrawBuffers(1, aDrawBuffers);
-#endif
-
-
-            glBegin(GL_QUADS);
-            {
-                glTexCoord2f(0.00, 0.00);
-                glVertex2f  (0.00, 0.00);
-                
-                glTexCoord2f(1.00, 0.00);
-                glVertex2f  (1.00, 0.00);
-                
-                glTexCoord2f(1.00, 1.00);
-                glVertex2f  (1.00, 1.00);
-                
-                glTexCoord2f(0.00, 1.00);
-                glVertex2f  (0.00, 1.00);
-            }
-            glEnd();
-            
-
-            oOverride1.addOverride(pData->getVBlurShader()->getClassId(), 
-                                   getCPtr(pData->getVBlurShader()));
-
-
-            pEnv->activateState(pBlurState, &oOverride1);
-
-            aDrawBuffers[0] = GL_COLOR_ATTACHMENT0_EXT;
-
-#ifndef WIN32
-            glDrawBuffers(1, aDrawBuffers);
-#endif
-            
-            glBegin(GL_QUADS);
-            {
-                glTexCoord2f(0.00, 0.00);
-                glVertex2f  (0.00, 0.00);
-                
-                glTexCoord2f(1.00, 0.00);
-                glVertex2f  (1.00, 0.00);
-                
-                glTexCoord2f(1.00, 1.00);
-                glVertex2f  (1.00, 1.00);
-                
-                glTexCoord2f(0.00, 1.00);
-                glVertex2f  (0.00, 1.00);
-            }
-            glEnd();
-
-            pEnv->deactivateState();
-        }
+        glTexCoord2f(1.00, 0.00);
+        glVertex2f  (1.00, 0.00);
+        
+        glTexCoord2f(1.00, 1.00);
+        glVertex2f  (1.00, 1.00);
+        
+        glTexCoord2f(0.00, 1.00);
+        glVertex2f  (0.00, 1.00);
     }
-
+    glEnd();
+    
+    
     pBlurTarget->deactivate(pEnv);
 
-    glViewport(0, 0, 800, 800);
+
+
+    // Tonemap pass
+
+    glViewport(pViewport->getPixelLeft  (), 
+               pViewport->getPixelBottom(),
+               pViewport->getPixelRight (),
+               pViewport->getPixelTop   ());
 
     ChunkMaterialPtr pTCM = pData->getToneMappingMaterial();
 
-    if(pTCM != NullFC)
-    {
-        State *pTState = getCPtr(pTCM->getState());
+    State *pTState = getCPtr(pTCM->getState());
         
-        if(pTState != NULL)
-        {
-            pEnv->activateState(pTState, NULL);
+    pEnv->activateState(pTState, NULL);
             
-            glBegin(GL_QUADS);
-            {
-                glTexCoord2f(0.00, 0.00);
-                glVertex2f  (0.05, 0.05);
-                
-                glTexCoord2f(1.00, 0.00);
-                glVertex2f  (0.95, 0.05);
-                
-                glTexCoord2f(1.00, 1.00);
-                glVertex2f  (0.95, 0.95);
-                
-                glTexCoord2f(0.00, 1.00);
-                glVertex2f  (0.05, 0.95);
-            }
-            glEnd();
-            
-            pEnv->deactivateState();
-        }
+    glBegin(GL_QUADS);
+    {
+        glTexCoord2f(0.00, 0.00);
+        glVertex2f  (0.00, 0.00);
+        
+        glTexCoord2f(1.00, 0.00);
+        glVertex2f  (1.00, 0.00);
+        
+        glTexCoord2f(1.00, 1.00);
+        glVertex2f  (1.00, 1.00);
+        
+        glTexCoord2f(0.00, 1.00);
+        glVertex2f  (0.00, 1.00);
     }
+    glEnd();
+            
+    pEnv->deactivateState();
+
 
     glPopMatrix();
 }
 
-
-#if 0
-FrameBufferObjectPtrConst HDRStage::getRenderTarget(void) 
+void HDRStage::initData(Viewport              *pViewport,
+                        RenderTraversalAction *pAction  )
 {
-    return _sfRenderTarget.getValue();
-}
-#endif
+    HDRStageDataP pData = pAction->getData<HDRStageData *>(_iDataSlotId);
 
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
+    if(pData == NULL)
+    {
+        pData = setupStageData(pViewport->getPixelWidth(),
+                               pViewport->getPixelHeight());
+        
+        pData->setWidth (pViewport->getPixelWidth ());
+        pData->setHeight(pViewport->getPixelHeight());
 
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGHDRSTAGE_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGHDRSTAGE_INLINE_CVSID;
+        this->setData(pData, _iDataSlotId, pAction);
+    }
 }
 
-    
 
+SHLChunkPtr HDRStage::generateHDRFragmentProgram(void)
+{
+    std::ostringstream ost;
+
+    ost << "uniform sampler2D sceneTex;"
+        << "uniform sampler2D blurTex;"
+        << "uniform float     exposure;" 
+        << "uniform float     blurAmount;"
+        << "uniform float     effectAmount;"
+        << "uniform float     gamma;"
+        << ""
+        << "float vignette(vec2 pos, float inner, float outer)"
+        << "{"
+        << "    float r = length(pos);"
+        << ""
+        << "    r = 1.0 - smoothstep(inner, outer, r);"
+        << ""
+        << "    return r;"
+        << "}"
+        << "\n"
+        << "// radial blur\n"
+        << "vec4 radial(sampler2D tex,"
+        << "            vec2    texcoord,"
+        << "            int       samples,"
+        << "            float     startScale = 1.0,"
+        << "            float     scaleMul   = 0.9)"
+        << "{"
+        << "    vec4 c     = (0., 0., 0., 0.);"
+        << "    float  scale = startScale;"
+        << ""
+        << "    for(int i=0; i<samples; i++) "
+        << "    {"
+        << "        vec2 uv = ((texcoord - 0.5)*scale)+0.5;"
+        << "        vec4 s  = tex2D(tex, uv);"
+        << ""
+        << "        c += s;"
+        << ""
+        << "        scale *= scaleMul;"
+        << "    }"
+        << ""
+        << "    c /= samples;"
+        << ""
+        << "    return c;"
+        << "}"
+        << ""
+        << "void main(void)"
+        << "{"
+        << "    vec4 scene   = texture2D(sceneTex, gl_TexCoord[0].xy);"
+        << "    vec4 blurred = texture2D(blurTex,  gl_TexCoord[0].xy);"
+        << "	vec4 effect  = radial   (blurTex,  gl_TexCoord[0].xy, "
+        << "                             30, 1.0, 0.95);"
+        << ""
+        << "    vec4 c = lerp(scene, blurred, blurAmount);"
+        << ""
+        << "	c += effect * effectAmount;"
+        << "\n"
+        << "    // exposure\n"
+        << "    c = c * exposure;"
+        << "\n"
+        << "    // vignette effect\n"
+        << "    c *= vignette(gl_TexCoord[0].xy * 2 - 1, 0.7, 1.5);"
+        << "\n"
+        << "    // gamma correction\n"
+        << "    c.rgb = pow(c.rgb, gamma);"
+        << ""
+        << "    gl_FragColor = c;"
+        << "}"
+        << "";
+
+    SHLChunkPtr returnValue = SHLChunk::create();
+
+    returnValue->setFragmentProgram(ost.str());
+
+    return returnValue;
+}
