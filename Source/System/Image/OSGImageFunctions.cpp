@@ -1555,4 +1555,149 @@ bool createVignette(ImagePtr pImg,
     }
 }
 
+bool convertCrossToCubeMap(ImageConstPtrArg pIn,
+                           ImagePtr         pOut)
+{
+    int face_width =  pIn->getWidth()  / 3;
+    int face_height = pIn->getHeight() / 4;
+
+
+    pOut->set(pIn->getPixelFormat(),
+              face_width,
+              face_height,
+              1,
+              1,
+              1,
+              0.0,
+              NULL,
+              pIn->getDataType(),
+              true,
+              6);
+
+   
+          OSG::Real32 *pDst = (      OSG::Real32 *) pOut->editData();
+    const OSG::Real32 *pSrc = (const OSG::Real32 *) pIn ->getData();
+
+    OSG::UInt32 i, j;
+
+    // - X
+    for(j = 0; j < face_height; j++) 
+    {
+        for(int i = 0;  i < face_width; i++) 
+        {
+            *pDst++ = pSrc[(pIn->getHeight() - (face_height + j + 1)) * (pIn->getWidth() * 3) +
+                           (i * 3) +
+                           0];
+            *pDst++ = pSrc[(pIn->getHeight() - (face_height + j + 1)) * (pIn->getWidth() * 3) +
+                           (i * 3) +
+                           1];
+            *pDst++ = pSrc[(pIn->getHeight() - (face_height + j + 1)) * (pIn->getWidth() * 3) +
+                           (i * 3) +
+                           2];
+        }
+    }
+
+   
+    // +X
+    for (j=0; j < face_height; j++) 
+    {
+        for (int i = 0;  i < face_width; i++) 
+        {
+            *pDst++ = pSrc[(pIn->getHeight() - (face_height + j + 1)) * (pIn->getWidth() * 3) +
+                           (2 * face_width + i) * 3 +
+                           0];
+            *pDst++ = pSrc[(pIn->getHeight() - (face_height + j + 1)) * (pIn->getWidth() * 3) +
+                           (2 * face_width + i) * 3 +
+                           1];
+            *pDst++ = pSrc[(pIn->getHeight() - (face_height + j + 1)) * (pIn->getWidth() * 3) +
+                           (2 * face_width + i) * 3 +
+                           2];
+        }
+    }
+
+    // +Y
+    OSG::UInt32 uiBaseY  = 3 * face_height;
+    OSG::UInt32 uiBaseX  = face_width;
+    
+    for(OSG::UInt32 j = 0; j < face_height; ++j)
+    {
+        for(OSG::UInt32 i = 0; i < face_width; ++i)
+        {            
+            *pDst++ = pSrc[(uiBaseY + j) * (pIn->getWidth() * 3) +
+                           (pIn->getWidth() - (face_width + i + 1)) * 3                     +
+                           0];
+            *pDst++ = pSrc[(uiBaseY + j) * (pIn->getWidth() * 3) +
+                           (pIn->getWidth() - (face_width + i + 1)) * 3                     +
+                           1];
+            *pDst++ = pSrc[(uiBaseY + j) * (pIn->getWidth() * 3) +
+                           (pIn->getWidth() - (face_width + i + 1)) * 3                     +
+                           2];
+        }
+    }
+
+    // -Y
+    uiBaseY  = face_height;
+    uiBaseX  = face_width;
+    
+    for(OSG::UInt32 j = 0; j < face_height; ++j)
+    {
+        for(OSG::UInt32 i = 0; i < face_width; ++i)
+        {            
+            *pDst++ = pSrc[(uiBaseY + j) * (pIn->getWidth() * 3) +
+                           (pIn->getWidth() - (face_width + i + 1)) * 3                     +
+
+                           0];
+            *pDst++ = pSrc[(uiBaseY + j) * (pIn->getWidth() * 3) +
+                           (pIn->getWidth() - (face_width + i + 1)) * 3                     +
+                           1];
+            *pDst++ = pSrc[(uiBaseY + j) * (pIn->getWidth() * 3) +
+                           (pIn->getWidth() - (face_width + i + 1)) * 3                     +
+                           2];
+        }
+    }
+
+
+    // -Z
+    uiBaseY  = 0;
+    uiBaseX  = face_width;
+    
+    for(OSG::UInt32 j = 0; j < face_height; ++j)
+    {
+        for(OSG::UInt32 i = 0; i < face_width; ++i)
+        {            
+            *pDst++ = pSrc[(j + 1) * (pIn->getWidth() * 3) +
+                           (pIn->getWidth() - (face_width + i + 1)) * 3                     +
+                           0];
+            *pDst++ = pSrc[(j + 1) * (pIn->getWidth() * 3) +
+                           (pIn->getWidth() - (face_width + i + 1)) * 3                     +
+                           1];
+            *pDst++ = pSrc[(j + 1) * (pIn->getWidth() * 3) +
+                           (pIn->getWidth() - (face_width + i + 1)) * 3                     +
+                           2];
+        }
+    }
+
+    // +Z
+    uiBaseY  = 2 * face_height;
+    uiBaseX  = face_width;
+    
+    for(OSG::UInt32 j = 0; j < face_height; ++j)
+    {
+        for(OSG::UInt32 i = 0; i < face_width; ++i)
+        {            
+            *pDst++ = pSrc[(pIn->getHeight() - (face_height + j + 1)) * (pIn->getWidth() * 3) +
+                           (i + uiBaseX) * 3                     +
+                           0];
+            *pDst++ = pSrc[(pIn->getHeight() - (face_height + j + 1)) * (pIn->getWidth() * 3) +
+                           (i + uiBaseX) * 3                     +
+                           1];
+            *pDst++ = pSrc[(pIn->getHeight() - (face_height + j + 1)) * (pIn->getWidth() * 3) +
+                           (i + uiBaseX) * 3                     +
+                           2];
+        }
+    }
+
+    return true;
+}
+
 OSG_END_NAMESPACE

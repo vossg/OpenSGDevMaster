@@ -139,6 +139,10 @@ bool createVignette(ImagePtr image,
                     Real32   r0, 
                     Real32   r1);
 
+OSG_SYSTEM_DLLMAPPING
+bool convertCrossToCubeMap(ImageConstPtrArg pIn,
+                           ImagePtr         pOut);
+                           
 OSG_END_NAMESPACE
 
 #include "OSGImageFunctions.inl"
