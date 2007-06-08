@@ -615,7 +615,7 @@ Geometry::IndexBag Geometry::getUniqueIndexBag(void)
             }            
         }
 
-        if(bFoundProp == false)
+        if(bFoundProp == false && _mfPropIndices[j] != NullFC)
         {
             IndexBagEntry oEntry;
 
