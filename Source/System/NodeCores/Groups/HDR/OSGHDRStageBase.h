@@ -163,74 +163,74 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFExposure        (void);
 #endif
                   SFReal32            *editSFExposure       (void);
             const SFReal32            *getSFExposure        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFBlurWidth       (void);
 #endif
                   SFReal32            *editSFBlurWidth      (void);
             const SFReal32            *getSFBlurWidth       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFBlurAmount      (void);
 #endif
                   SFReal32            *editSFBlurAmount     (void);
             const SFReal32            *getSFBlurAmount      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFEffectAmount    (void);
 #endif
                   SFReal32            *editSFEffectAmount   (void);
             const SFReal32            *getSFEffectAmount    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFGamma           (void);
 #endif
                   SFReal32            *editSFGamma          (void);
             const SFReal32            *getSFGamma           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFBufferFormat    (void);
 #endif
                   SFGLenum            *editSFBufferFormat   (void);
             const SFGLenum            *getSFBufferFormat    (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getExposure        (void);
 #endif
                   Real32              &editExposure       (void);
             const Real32              &getExposure        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getBlurWidth       (void);
 #endif
                   Real32              &editBlurWidth      (void);
             const Real32              &getBlurWidth       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getBlurAmount      (void);
 #endif
                   Real32              &editBlurAmount     (void);
             const Real32              &getBlurAmount      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getEffectAmount    (void);
 #endif
                   Real32              &editEffectAmount   (void);
             const Real32              &getEffectAmount    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getGamma           (void);
 #endif
                   Real32              &editGamma          (void);
             const Real32              &getGamma           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getBufferFormat    (void);
 #endif
                   GLenum              &editBufferFormat   (void);

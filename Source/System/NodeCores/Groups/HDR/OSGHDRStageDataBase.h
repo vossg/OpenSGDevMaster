@@ -179,13 +179,13 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
             const SFSHLChunkPtr       *getSFHBlurShader     (void) const;
             const SFSHLChunkPtr       *getSFVBlurShader     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFWidth           (void);
 #endif
                   SFUInt32            *editSFWidth          (void);
             const SFUInt32            *getSFWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFHeight          (void);
 #endif
                   SFUInt32            *editSFHeight         (void);
@@ -204,13 +204,13 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
 
                   SHLChunkPtrConst getVBlurShader    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getWidth           (void);
 #endif
                   UInt32              &editWidth          (void);
             const UInt32              &getWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getHeight          (void);
 #endif
                   UInt32              &editHeight         (void);

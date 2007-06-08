@@ -110,7 +110,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(HDRStageBase::*GetSFExposureF)(void) const;
 
     GetSFExposureF GetSFExposure = &HDRStageBase::getSFExposure;
@@ -124,7 +124,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFExposure),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFExposure));
 #else
         reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFExposure));
@@ -132,7 +132,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(HDRStageBase::*GetSFBlurWidthF)(void) const;
 
     GetSFBlurWidthF GetSFBlurWidth = &HDRStageBase::getSFBlurWidth;
@@ -146,7 +146,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFBlurWidth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBlurWidth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFBlurWidth));
@@ -154,7 +154,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(HDRStageBase::*GetSFBlurAmountF)(void) const;
 
     GetSFBlurAmountF GetSFBlurAmount = &HDRStageBase::getSFBlurAmount;
@@ -168,7 +168,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFBlurAmount),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBlurAmount));
 #else
         reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFBlurAmount));
@@ -176,7 +176,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(HDRStageBase::*GetSFEffectAmountF)(void) const;
 
     GetSFEffectAmountF GetSFEffectAmount = &HDRStageBase::getSFEffectAmount;
@@ -190,7 +190,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFEffectAmount),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEffectAmount));
 #else
         reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFEffectAmount));
@@ -198,7 +198,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(HDRStageBase::*GetSFGammaF)(void) const;
 
     GetSFGammaF GetSFGamma = &HDRStageBase::getSFGamma;
@@ -212,7 +212,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFGamma),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGamma));
 #else
         reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFGamma));
@@ -220,7 +220,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(HDRStageBase::*GetSFBufferFormatF)(void) const;
 
     GetSFBufferFormatF GetSFBufferFormat = &HDRStageBase::getSFBufferFormat;
@@ -234,7 +234,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFBufferFormat),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFBufferFormat));
 #else
         reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFBufferFormat));
@@ -359,7 +359,7 @@ const SFReal32 *HDRStageBase::getSFExposure(void) const
     return &_sfExposure;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *HDRStageBase::getSFExposure       (void)
 {
     return this->editSFExposure       ();
@@ -378,7 +378,7 @@ const SFReal32 *HDRStageBase::getSFBlurWidth(void) const
     return &_sfBlurWidth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *HDRStageBase::getSFBlurWidth      (void)
 {
     return this->editSFBlurWidth      ();
@@ -397,7 +397,7 @@ const SFReal32 *HDRStageBase::getSFBlurAmount(void) const
     return &_sfBlurAmount;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *HDRStageBase::getSFBlurAmount     (void)
 {
     return this->editSFBlurAmount     ();
@@ -416,7 +416,7 @@ const SFReal32 *HDRStageBase::getSFEffectAmount(void) const
     return &_sfEffectAmount;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *HDRStageBase::getSFEffectAmount   (void)
 {
     return this->editSFEffectAmount   ();
@@ -435,7 +435,7 @@ const SFReal32 *HDRStageBase::getSFGamma(void) const
     return &_sfGamma;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *HDRStageBase::getSFGamma          (void)
 {
     return this->editSFGamma          ();
@@ -454,7 +454,7 @@ const SFGLenum *HDRStageBase::getSFBufferFormat(void) const
     return &_sfBufferFormat;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *HDRStageBase::getSFBufferFormat   (void)
 {
     return this->editSFBufferFormat   ();

@@ -90,7 +90,7 @@ const Real32 &HDRStageBase::getExposure(void) const
     return _sfExposure.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &HDRStageBase::getExposure       (void)
 {
@@ -123,7 +123,7 @@ const Real32 &HDRStageBase::getBlurWidth(void) const
     return _sfBlurWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &HDRStageBase::getBlurWidth      (void)
 {
@@ -156,7 +156,7 @@ const Real32 &HDRStageBase::getBlurAmount(void) const
     return _sfBlurAmount.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &HDRStageBase::getBlurAmount     (void)
 {
@@ -189,7 +189,7 @@ const Real32 &HDRStageBase::getEffectAmount(void) const
     return _sfEffectAmount.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &HDRStageBase::getEffectAmount   (void)
 {
@@ -222,7 +222,7 @@ const Real32 &HDRStageBase::getGamma(void) const
     return _sfGamma.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &HDRStageBase::getGamma          (void)
 {
@@ -255,7 +255,7 @@ const GLenum &HDRStageBase::getBufferFormat(void) const
     return _sfBufferFormat.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &HDRStageBase::getBufferFormat   (void)
 {

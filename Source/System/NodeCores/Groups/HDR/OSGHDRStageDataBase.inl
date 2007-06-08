@@ -175,7 +175,7 @@ const UInt32 &HDRStageDataBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &HDRStageDataBase::getWidth          (void)
 {
@@ -208,7 +208,7 @@ const UInt32 &HDRStageDataBase::getHeight(void) const
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &HDRStageDataBase::getHeight         (void)
 {

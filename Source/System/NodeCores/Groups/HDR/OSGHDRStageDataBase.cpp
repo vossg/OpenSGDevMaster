@@ -188,7 +188,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(HDRStageDataBase::*GetSFWidthF)(void) const;
 
     GetSFWidthF GetSFWidth = &HDRStageDataBase::getSFWidth;
@@ -202,7 +202,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editSFWidth),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
 #else
         reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getSFWidth));
@@ -210,7 +210,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(HDRStageDataBase::*GetSFHeightF)(void) const;
 
     GetSFHeightF GetSFHeight = &HDRStageDataBase::getSFHeight;
@@ -224,7 +224,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editSFHeight),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFHeight));
 #else
         reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getSFHeight));
@@ -430,7 +430,7 @@ const SFUInt32 *HDRStageDataBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *HDRStageDataBase::getSFWidth          (void)
 {
     return this->editSFWidth          ();
@@ -449,7 +449,7 @@ const SFUInt32 *HDRStageDataBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *HDRStageDataBase::getSFHeight         (void)
 {
     return this->editSFHeight         ();
