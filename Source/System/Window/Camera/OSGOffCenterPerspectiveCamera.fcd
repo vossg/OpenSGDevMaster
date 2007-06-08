@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="OffCenterPerspectiveCamera"
+	parent="PerspectiveCamera"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+A generalized perspective camera for an asymmetric frustum.
+	<Field
+		name="principalPoint"
+		type="Vec2f"
+		cardinality="single"
+		visibility="external"
+                defaultValue="0,0"
+	>
+	The relative position of the principal point.
+	</Field>
+</FieldContainer>
