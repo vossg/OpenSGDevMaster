@@ -58,6 +58,7 @@
 OSG_BEGIN_NAMESPACE
 
 class DrawEnv;
+class RenderTraversalAction;
 
 //! Stage
 //! \ingroup GrpSystemNodeCoresMisc
