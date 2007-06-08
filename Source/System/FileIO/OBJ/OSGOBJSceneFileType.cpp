@@ -58,7 +58,6 @@
 #include "OSGGeometry.h"
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"
-#include "OSGGeoProperty.h"
 #include "OSGGeoFunctions.h"
 #include "OSGSimpleTexturedMaterial.h"
 #include "OSGImageFileHandler.h"
