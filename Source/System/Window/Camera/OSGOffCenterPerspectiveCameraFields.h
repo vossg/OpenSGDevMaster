@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGWindowDef.h"
 
 #include "OSGPerspectiveCameraFields.h"
 
@@ -92,7 +92,7 @@ typedef PointerFwdBuilder<PerspectiveCameraPtr,
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpWindowFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -112,7 +112,7 @@ struct FieldTraits<OffCenterPerspectiveCameraPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
+    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFOffCenterPerspectiveCameraPtr"; }
     static const char *getMName(void) { return "MFOffCenterPerspectiveCameraPtr"; }
@@ -128,23 +128,23 @@ struct FieldTraits<OffCenterPerspectiveCameraPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
+/*! \ingroup GrpWindowFieldSingle */
 
 typedef SFieldAdaptor<OffCenterPerspectiveCameraPtr, SFFieldContainerPtr> SFOffCenterPerspectiveCameraPtr;
 #endif
 
 #ifndef OSG_COMPILEOFFCENTERPERSPECTIVECAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, OffCenterPerspectiveCameraPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(SField, OffCenterPerspectiveCameraPtr, OSG_WINDOW_DLLTMPLMAPPING)
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
+/*! \ingroup GrpWindowFieldMulti */
 
 typedef MFieldAdaptor<OffCenterPerspectiveCameraPtr, MFFieldContainerPtr> MFOffCenterPerspectiveCameraPtr;
 #endif
 
 #ifndef OSG_COMPILEOFFCENTERPERSPECTIVECAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, OffCenterPerspectiveCameraPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(MField, OffCenterPerspectiveCameraPtr, OSG_WINDOW_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE

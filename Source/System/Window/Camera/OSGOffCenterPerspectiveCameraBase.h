@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGWindowDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class OffCenterPerspectiveCamera;
 
 //! \brief OffCenterPerspectiveCamera Base Class.
 
-class OSG_SYSTEM_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveCamera
+class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveCamera
 {
   public:
 

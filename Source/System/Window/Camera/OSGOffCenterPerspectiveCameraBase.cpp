@@ -128,7 +128,7 @@ OffCenterPerspectiveCameraBase::TypeObject OffCenterPerspectiveCameraBase::_type
     "<FieldContainer\n"
     "\tname=\"OffCenterPerspectiveCamera\"\n"
     "\tparent=\"PerspectiveCamera\"\n"
-    "\tlibrary=\"System\"\n"
+    "\tlibrary=\"Window\"\n"
     "\tstructure=\"concrete\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tsystemcomponent=\"true\"\n"
