@@ -70,6 +70,10 @@
 #include "OSGChunkMaterialFields.h" // BlurMaterial type
 #include "OSGSHLChunkFields.h" // HBlurShader type
 #include "OSGSHLChunkFields.h" // VBlurShader type
+#include "OSGUInt32Fields.h" // Width type
+#include "OSGUInt32Fields.h" // Height type
+#include "OSGFrameBufferObjectFields.h" // ShrinkRenderTarget type
+#include "OSGChunkMaterialFields.h" // ShrinkMaterial type
 
 #include "OSGHDRStageDataFields.h"
 
@@ -118,7 +122,11 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
         BlurMaterialFieldId = BlurRenderTargetFieldId + 1,
         HBlurShaderFieldId = BlurMaterialFieldId + 1,
         VBlurShaderFieldId = HBlurShaderFieldId + 1,
-        NextFieldId = VBlurShaderFieldId + 1
+        WidthFieldId = VBlurShaderFieldId + 1,
+        HeightFieldId = WidthFieldId + 1,
+        ShrinkRenderTargetFieldId = HeightFieldId + 1,
+        ShrinkMaterialFieldId = ShrinkRenderTargetFieldId + 1,
+        NextFieldId = ShrinkMaterialFieldId + 1
     };
 
     static const OSG::BitVector ToneMappingMaterialFieldMask =
@@ -131,6 +139,14 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
         (TypeTraits<BitVector>::One << HBlurShaderFieldId);
     static const OSG::BitVector VBlurShaderFieldMask =
         (TypeTraits<BitVector>::One << VBlurShaderFieldId);
+    static const OSG::BitVector WidthFieldMask =
+        (TypeTraits<BitVector>::One << WidthFieldId);
+    static const OSG::BitVector HeightFieldMask =
+        (TypeTraits<BitVector>::One << HeightFieldId);
+    static const OSG::BitVector ShrinkRenderTargetFieldMask =
+        (TypeTraits<BitVector>::One << ShrinkRenderTargetFieldId);
+    static const OSG::BitVector ShrinkMaterialFieldMask =
+        (TypeTraits<BitVector>::One << ShrinkMaterialFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -163,6 +179,20 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
             const SFSHLChunkPtr       *getSFHBlurShader     (void) const;
             const SFSHLChunkPtr       *getSFVBlurShader     (void) const;
 
+#ifdef OSG_1_COMPAT
+                  SFUInt32            *getSFWidth           (void);
+#endif
+                  SFUInt32            *editSFWidth          (void);
+            const SFUInt32            *getSFWidth           (void) const;
+
+#ifdef OSG_1_COMPAT
+                  SFUInt32            *getSFHeight          (void);
+#endif
+                  SFUInt32            *editSFHeight         (void);
+            const SFUInt32            *getSFHeight          (void) const;
+            const SFFrameBufferObjectPtr *getSFShrinkRenderTarget (void) const;
+            const SFChunkMaterialPtr  *getSFShrinkMaterial  (void) const;
+
 
                   ChunkMaterialPtrConst getToneMappingMaterial(void) const;
 
@@ -174,6 +204,22 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
 
                   SHLChunkPtrConst getVBlurShader    (void) const;
 
+#ifdef OSG_1_COMPAT
+                  UInt32              &getWidth           (void);
+#endif
+                  UInt32              &editWidth          (void);
+            const UInt32              &getWidth           (void) const;
+
+#ifdef OSG_1_COMPAT
+                  UInt32              &getHeight          (void);
+#endif
+                  UInt32              &editHeight         (void);
+            const UInt32              &getHeight          (void) const;
+
+                  FrameBufferObjectPtrConst getShrinkRenderTarget(void) const;
+
+                  ChunkMaterialPtrConst getShrinkMaterial (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -184,6 +230,10 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
             void setBlurMaterial   (ChunkMaterialPtrConstArg value);
             void setHBlurShader    (SHLChunkPtrConstArg value);
             void setVBlurShader    (SHLChunkPtrConstArg value);
+            void setWidth          (const UInt32 &value);
+            void setHeight         (const UInt32 &value);
+            void setShrinkRenderTarget(FrameBufferObjectPtrConstArg value);
+            void setShrinkMaterial (ChunkMaterialPtrConstArg value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -264,6 +314,10 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     SFChunkMaterialPtr _sfBlurMaterial;
     SFSHLChunkPtr     _sfHBlurShader;
     SFSHLChunkPtr     _sfVBlurShader;
+    SFUInt32          _sfWidth;
+    SFUInt32          _sfHeight;
+    SFFrameBufferObjectPtr _sfShrinkRenderTarget;
+    SFChunkMaterialPtr _sfShrinkMaterial;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

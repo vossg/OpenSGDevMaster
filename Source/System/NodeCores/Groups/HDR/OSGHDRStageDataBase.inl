@@ -158,6 +158,106 @@ void HDRStageDataBase::setVBlurShader(SHLChunkPtrConstArg value)
     setRefd(_sfVBlurShader.getValue(), value);
 
 }
+//! Get the value of the HDRStageData::_sfWidth field.
+
+inline
+UInt32 &HDRStageDataBase::editWidth(void)
+{
+    editSField(WidthFieldMask);
+
+    return _sfWidth.getValue();
+}
+
+//! Get the value of the HDRStageData::_sfWidth field.
+inline
+const UInt32 &HDRStageDataBase::getWidth(void) const
+{
+    return _sfWidth.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32              &HDRStageDataBase::getWidth          (void)
+{
+    return this->editWidth          ();
+}
+#endif
+
+//! Set the value of the HDRStageData::_sfWidth field.
+inline
+void HDRStageDataBase::setWidth(const UInt32 &value)
+{
+    editSField(WidthFieldMask);
+
+    _sfWidth.setValue(value);
+}
+//! Get the value of the HDRStageData::_sfHeight field.
+
+inline
+UInt32 &HDRStageDataBase::editHeight(void)
+{
+    editSField(HeightFieldMask);
+
+    return _sfHeight.getValue();
+}
+
+//! Get the value of the HDRStageData::_sfHeight field.
+inline
+const UInt32 &HDRStageDataBase::getHeight(void) const
+{
+    return _sfHeight.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32              &HDRStageDataBase::getHeight         (void)
+{
+    return this->editHeight         ();
+}
+#endif
+
+//! Set the value of the HDRStageData::_sfHeight field.
+inline
+void HDRStageDataBase::setHeight(const UInt32 &value)
+{
+    editSField(HeightFieldMask);
+
+    _sfHeight.setValue(value);
+}
+
+//! Get the value of the HDRStageData::_sfShrinkRenderTarget field.
+inline
+FrameBufferObjectPtrConst HDRStageDataBase::getShrinkRenderTarget(void) const
+{
+    return _sfShrinkRenderTarget.getValue();
+}
+
+//! Set the value of the HDRStageData::_sfShrinkRenderTarget field.
+inline
+void HDRStageDataBase::setShrinkRenderTarget(FrameBufferObjectPtrConstArg value)
+{
+    editSField(ShrinkRenderTargetFieldMask);
+
+    setRefd(_sfShrinkRenderTarget.getValue(), value);
+
+}
+
+//! Get the value of the HDRStageData::_sfShrinkMaterial field.
+inline
+ChunkMaterialPtrConst HDRStageDataBase::getShrinkMaterial(void) const
+{
+    return _sfShrinkMaterial.getValue();
+}
+
+//! Set the value of the HDRStageData::_sfShrinkMaterial field.
+inline
+void HDRStageDataBase::setShrinkMaterial(ChunkMaterialPtrConstArg value)
+{
+    editSField(ShrinkMaterialFieldMask);
+
+    setRefd(_sfShrinkMaterial.getValue(), value);
+
+}
 
 //! create a new instance of the class
 inline

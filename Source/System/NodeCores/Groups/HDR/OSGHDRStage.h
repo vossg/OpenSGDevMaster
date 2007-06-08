@@ -47,6 +47,7 @@
 #include "OSGHDRStageBase.h"
 #include "OSGAction.h"
 #include "OSGHDRStageDataFields.h"
+#include "OSGSHLChunk.h"
 
 #ifndef OSG_MT_FIELDCONTAINERPTR
 #include "OSGChunkMaterial.h"
@@ -88,9 +89,8 @@ class OSG_GROUP_DLLMAPPING HDRStage : public HDRStageBase
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-#if 0
-    FrameBufferObjectPtrConst getRenderTarget(void);
-#endif
+    void initData(Viewport              *pViewport,
+                  RenderTraversalAction *pAction  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -121,6 +121,14 @@ class OSG_GROUP_DLLMAPPING HDRStage : public HDRStageBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                         GL                                   */
+    /*! \{                                                                 */
+
+    static UInt32 _uiFramebuffer_object_extension;
+    static UInt32 _uiFuncDrawBuffers;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
@@ -143,7 +151,20 @@ class OSG_GROUP_DLLMAPPING HDRStage : public HDRStageBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    HDRStageDataP setupStageData(void);
+    HDRStageDataP setupStageData (Int32         iPixelWidth,
+                                  Int32         iPixelHeight);
+
+    void          resizeStageData(HDRStageDataP pData,
+                                  Int32         iPixelWidth,
+                                  Int32         iPixelHeight);
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Draw                                       */
+    /*! \{                                                                 */
+
+    SHLChunkPtr generateHDRFragmentProgram(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -180,7 +201,5 @@ OSG_END_NAMESPACE
 
 #include "OSGHDRStageBase.inl"
 #include "OSGHDRStage.inl"
-
-#define OSGHDRSTAGE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGHDRSTAGE_H_ */

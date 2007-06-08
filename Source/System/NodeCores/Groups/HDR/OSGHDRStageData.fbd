@@ -58,4 +58,40 @@ Data use for rendering by the HDR stage
 		access="public"
 	>
 	</Field>
+    <Field
+		name="width"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+    >
+    </Field>
+    <Field
+		name="height"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+    >
+    </Field>
+	<Field
+		name="shrinkRenderTarget"
+		type="FrameBufferObjectPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NullFC"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="shrinkMaterial"
+		type="ChunkMaterialPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NullFC"
+		access="public"
+	>
+	</Field>
 </FieldContainer>
