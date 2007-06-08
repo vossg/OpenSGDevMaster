@@ -94,8 +94,6 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
 {
     Window *pWindow = pEnv->getWindow();
 
-    fprintf(stderr, "TextureBuffer Activate %p\n", this);
-
     if(_sfTexture.getValue() != NullFC)
     {
         pWindow->validateGLObject(_sfTexture.getValue()->getGLId(), pEnv);
