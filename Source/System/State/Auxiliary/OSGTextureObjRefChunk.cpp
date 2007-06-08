@@ -165,7 +165,7 @@ void TextureObjRefChunk::activate(DrawEnv *pEnv, UInt32 idx)
         return; // trying to access too many textures
 
     glBindTexture(this->getTarget(), 
-                  this->getGLId  ());
+                  pWin->getGLObjectId(this->getGLId()));
 
     pEnv->setActiveTexTarget(idx, this->getTarget());
 
@@ -189,7 +189,7 @@ void TextureObjRefChunk::changeFrom(DrawEnv    *pEnv,
         return; // trying to access too many textures
 
     glBindTexture(this->getTarget(), 
-                  this->getGLId  ());
+                  pWin->getGLObjectId(this->getGLId()));
 
     pEnv->setActiveTexTarget(idx, this->getTarget());
 
