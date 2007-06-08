@@ -376,8 +376,6 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
 
         glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &iMaxColorAttachments);
 
-        fprintf(stderr, "Max attach %d\n", iMaxColorAttachments);
-
         UInt32 index = GL_COLOR_ATTACHMENT0_EXT;
         
         iMaxColorAttachments += GL_COLOR_ATTACHMENT0_EXT;
@@ -408,8 +406,7 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
                                              index,
                                              GL_RENDERBUFFER_EXT,
                                              0);
-            fprintf(stderr, "%x\n", index);
-
+            
             glErr("FrameBufferObject::coloroff");
 
             ++index;
@@ -445,11 +442,6 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
 
         glErr("FrameBufferObject::stencil");
     }
-
-    fprintf(stderr, "FBO handleGL %p, %p, %d\n", 
-            this,
-            win,
-            osgid);
 }
 
 void FrameBufferObject::handleDestroyGL(DrawEnv                 *pEnv, 
@@ -471,8 +463,4 @@ void FrameBufferObject::handleDestroyGL(DrawEnv                 *pEnv,
             glDeleteFramebuffersEXTProc(1, &uiFBOId);
         }
     }
-
-    fprintf(stderr, "FBO handleDestroyGL %p, %d\n", 
-            win,
-            osgid);
 }

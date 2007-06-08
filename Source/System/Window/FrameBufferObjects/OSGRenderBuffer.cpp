@@ -103,8 +103,6 @@ void RenderBuffer::bind(DrawEnv *pEnv, UInt32 index)
         (GLFramebufferRenderbufferEXTProcT) pWindow->getFunction(
             _uiFuncFramebufferRenderbuffer);
 
-    fprintf(stderr, "RenderBuffer Activate %p\n", this);
-
     pWindow->validateGLObject(getGLId(), pEnv);
 
     glFramebufferRenderbufferEXTProc(GL_FRAMEBUFFER_EXT,
@@ -204,11 +202,6 @@ void RenderBuffer::handleGL(DrawEnv                 *pEnv,
 {
     Window *pWindow = pEnv->getWindow();
     
-    fprintf(stderr, "RenderBuffer handleGL %p, %p, %d\n", 
-            this,
-            pWindow,
-            id);
-
     if(mode == Window::initialize || mode == Window::reinitialize ||
             mode == Window::needrefresh )
     {
@@ -238,10 +231,6 @@ void RenderBuffer::handleDestroyGL(DrawEnv                 *pEnv,
 {
     Window *pWindow = pEnv->getWindow();
     
-    fprintf(stderr, "RenderBuffer handleDestroyGL %p, %d\n", 
-            pWindow,
-            id);
-
     if(mode == Window::destroy)
     {
         GLuint tex = id;
