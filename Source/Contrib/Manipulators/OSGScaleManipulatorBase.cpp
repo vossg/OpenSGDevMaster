@@ -91,7 +91,7 @@ ScaleManipulatorBase::TypeObject ScaleManipulatorBase::_type(
     "<FieldContainer\n"
     "\tname=\"ScaleManipulator\"\n"
     "\tparent=\"Manipulator\"\n"
-    "\tlibrary=\"System\"\n"
+    "\tlibrary=\"ContribGUI\"\n"
     "\tpointerfieldtypes=\"none\"\n"
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"

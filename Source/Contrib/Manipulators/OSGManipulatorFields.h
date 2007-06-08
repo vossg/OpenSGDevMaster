@@ -92,7 +92,7 @@ typedef PointerFwdBuilder<TransformPtr,
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpContribGUIFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -128,7 +128,7 @@ struct FieldTraits<ManipulatorPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
+/*! \ingroup GrpContribGUIFieldSingle */
 
 typedef SFieldAdaptor<ManipulatorPtr, SFFieldContainerPtr> SFManipulatorPtr;
 #endif
@@ -138,7 +138,7 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ManipulatorPtr, OSG_CONTRIBGUI_DLLTMPLMAPPING)
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
+/*! \ingroup GrpContribGUIFieldMulti */
 
 typedef MFieldAdaptor<ManipulatorPtr, MFFieldContainerPtr> MFManipulatorPtr;
 #endif

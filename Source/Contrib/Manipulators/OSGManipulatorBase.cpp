@@ -401,7 +401,7 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     "<FieldContainer\n"
     "\tname=\"Manipulator\"\n"
     "\tparent=\"Transform\"\n"
-    "\tlibrary=\"System\"\n"
+    "\tlibrary=\"ContribGUI\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"abstract\"\n"
     "\tsystemcomponent=\"true\"\n"
