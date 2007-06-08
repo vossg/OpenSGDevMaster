@@ -134,7 +134,7 @@ bool OffCenterPerspectiveCamera::MatrixPerspectivePrincipalPnt(
     Real32 rPrincipalPointX,
     Real32 rPrincipalPointY)
 {
-    Real32 ct = osgtan(rFovy);
+    Real32 ct = osgTan(rFovy);
     bool error = false;
     
     if(rNear > rFar)
@@ -151,7 +151,7 @@ bool OffCenterPerspectiveCamera::MatrixPerspectivePrincipalPnt(
         error = true;
     }
 
-    if(osgabs(rNear - rFar) < Eps)
+    if(osgAbs(rNear - rFar) < Eps)
     {
         SWARNING << "MatrixPerspective: near " << rNear << " ~= far " << rFar
                  << "!\n" << std::endl;
@@ -197,7 +197,7 @@ void OffCenterPerspectiveCamera::getProjection(Matrix &result,
     
     // try to be nice to people giving degrees...
     if(fov > Pi)
-        fov = osgdegree2rad(fov);
+        fov = osgDegree2Rad(fov);
 
     Real32 principalPointX = getPrincipalPoint()[0];
     Real32 principalPointY = getPrincipalPoint()[1];
