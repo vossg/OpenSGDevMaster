@@ -114,7 +114,36 @@ UInt32 IndexDic::entryCount(void) const
 {
     return _indexVec.size();
 }
+
 //! }
+
+/*! \ingroup STLHelpers
+    memory comparison
+*/
+template<class type>
+struct memless
+{
+    bool operator ()(const type &a, const type &b) const
+    {
+        if(a.second && b.second)
+        {
+            if(a.second == b.second)
+            {
+                return (memcmp(a.first, b.first, a.second) < 0) ? true : false;
+            }
+            else
+            {
+                FFATAL(("a.memSize != b.memSize in memless::operator()\n"));
+            }
+        }
+        else
+        {
+            FFATAL(("memSize is NULL in memless::operator()\n"));
+        }
+        return false;
+    }
+};
+
 
 
 //------------------------------------------------------------
@@ -2485,8 +2514,205 @@ void createConvexPrimitives(GeometryPtrArg  geo)
 
 Int32 createSharedIndex(GeometryPtrArg geoPtr)
 {
-    FFATAL(("createSharedIndex:: NYI!\n"));
-    return -1;
+    UInt32 indexSharedCount = 0, dataRemapCount = 0, indexRemapCount = 0;
+    UInt32 i, iN, index, si, sN;
+    UInt32 indexMapSize, indexBlock = 0, masterDSize;
+
+    GeoVectorPropertyPtr masterProp = NullFC, slaveProp = NullFC;
+
+    const UInt8 *masterData;
+
+    std::vector<UInt32       > slaveDSizeVec;
+    std::vector<const UInt8 *> slaveDataVec;
+
+    UInt16 mapMask, propMask, masterPropMask;
+
+    typedef std::pair<const UInt8 *, UInt32> Mem;
+
+    Mem mem;
+
+    std::map<Mem, UInt32, memless<Mem> > memMap;
+    std::map<Mem, UInt32, memless<Mem> >::iterator mmI;
+
+//    GeoIntegralPropertyPtr indexPtr;
+
+    const UChar8 *dataElem;
+
+    std::vector < Int32 > indexRemap;
+
+    Geometry::IndexBag indexBag;
+
+    if(geoPtr != NullFC)
+    {
+        if(geoPtr->getPositions() != NullFC)
+        {
+            // check/create indexPtr
+            iN = geoPtr->getPositions()->size();
+
+            indexBag = geoPtr->getUniqueIndexBag();
+
+            if(indexBag.size() == 0)
+            {
+#if 0
+                indexPtr = GeoIndicesUI32::create();
+                indexPtr->resize(iN);
+
+                for(i = 0; i < iN; i++)
+                    indexPtr->setValue(i, i);
+
+                beginEditCP(geoPtr);
+                {
+                    geoPtr->setIndices(indexPtr);
+                }
+
+                endEditCP(geoPtr);
+#else
+                FNOTICE(("non indexed geo not handled in createSharedIndex()\n"));
+                return 0;
+#endif
+            }
+        }
+        else
+        {
+            FNOTICE(("Invalid geoPtr->getPositions() in createSharedIndex()\n"));
+            return 0;
+        }
+    }
+    else
+    {
+        FNOTICE(("Invalid geoPtr in createSharedIndex()\n"));
+        return 0;
+    }
+
+
+    // reset stat counter
+    indexSharedCount = 0;
+    dataRemapCount   = 0;
+    indexRemapCount  = 0;
+    
+    for(UInt32 i = 0; i < indexBag.size(); ++i)
+    {
+        masterProp = geoPtr->getProperty(indexBag[i].second[0]);
+        masterData = masterProp->getData();
+
+        if(masterProp != NULL && masterData != NULL)
+        {
+            // calc master data element size
+            masterDSize = 
+                masterProp->getFormatSize() *
+                masterProp->getDimension () +
+                masterProp->getStride    ();
+
+            // find and store slave property data and size
+            slaveDataVec.clear();
+            slaveDSizeVec.clear();
+
+            for(UInt32 j = 1; j < indexBag[i].second.size(); ++j)
+            {
+                slaveProp = geoPtr->getProperty(indexBag[i].second[j]);
+
+                if(slaveProp != NullFC)
+                {
+                    slaveDataVec .push_back(slaveProp->getData());
+                    slaveDSizeVec.push_back(slaveProp->getFormatSize() *
+                                            slaveProp->getDimension());
+                }
+                else
+                {
+#if 0
+                    // disabled as wrongly triggered by setindices
+                    FWARNING(("Invalid slaveProp %d\n", 
+                              indexBag[i].second[j]));
+#endif
+                }
+            }
+
+            GeoIntegralPropertyPtr indexPtr = indexBag[i].first;
+
+            sN = slaveDataVec.size();
+
+            iN = indexPtr->size();
+
+            memMap.clear();
+
+            indexRemap.clear();
+            indexRemap.resize(masterProp->size(), -1);
+
+            mem.second = masterProp->getFormatSize() * masterProp->getDimension();
+
+            for(i = 0; i < iN; i++)
+            {
+                index = indexPtr->getValue(i);
+
+                if(indexRemap[index] >= 0)
+                {
+                    if(indexRemap[index] == index)
+                    {
+                        indexSharedCount++;
+                    }
+                    else
+                    {
+                        indexPtr->setValue(indexRemap[index], i);
+                        indexRemapCount++;
+                    }
+                }
+                else
+                {
+                    // find/include the data block
+                    dataElem = masterData + (index * masterDSize);
+
+                    mem.first = dataElem;
+
+                    mmI = memMap.find(mem);
+
+                    if(mmI == memMap.end())
+                    {
+                        // index not found; store new data/index
+                        memMap[mem] = index;
+                        indexRemap[index] = index;
+                    }
+                    else
+                    {
+                        // data found; check slave property
+                        for(si = 0; si < sN; si++)
+                        {
+                            if(memcmp(slaveDataVec[si] + (index * slaveDSizeVec[si]),
+                                      slaveDataVec[si] + (mmI->second * slaveDSizeVec[si]),
+                                      slaveDSizeVec[si]))
+                                break;
+                        }
+                        
+                        if(si == sN)
+                        {
+                            // no or valid slave data; remap the index
+                            indexPtr->setValue(mmI->second, i);
+
+                            indexRemap[index] = mmI->second;
+                            dataRemapCount++;
+                        }
+                        else
+                        {
+                            // invalid slave data; cannot remap index
+                            indexRemap[index] = index;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            FWARNING(("Invalid masterProp %p, mask: %d, block: %d\n",
+                      getCPtr(masterProp), propMask, indexBlock));
+        }
+        
+        FINFO(("Create sharedIndex: %d/%d pass; "
+               "data/index remap: %d/%d \n",
+               indexBlock, int(propMask), dataRemapCount, 
+               indexRemapCount));
+        
+    }
+
+    return indexRemapCount + dataRemapCount;
 }
 
 Int32 createSingleIndex(GeometryPtrArg  geo)
