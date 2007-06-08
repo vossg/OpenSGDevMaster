@@ -143,8 +143,7 @@ bool StripeGraphOp::travNodeEnter(NodePtr node)
             }
         }
 
-        // PORTME
-        //createSharedIndex(geo);
+        createSharedIndex(geo);
         createOptimizedPrimitives(geo, 1, true, true, 16, false, _stitch);
     }
     
