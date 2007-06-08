@@ -167,7 +167,9 @@ class OSG_SYSTEM_DLLMAPPING StatCollector : public MemoryObject
     StatElemStore _elemVec;
 };
 
-typedef StatCollector *StatCollectorP;
+typedef StatCollector *       StatCollectorP;
+typedef StatCollector * const StatCollectorPConst;
+typedef StatCollector * const StatCollectorPConstArg;
 
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
