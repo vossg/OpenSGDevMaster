@@ -38,12 +38,15 @@ OSG::UInt64 getNumAllocatedFieldContainers()
 {
    OSG::UInt64 num_allocated_fcs(0);
 
-   OSG::FieldContainerFactoryBase* fcf = OSG::FieldContainerFactory::the();
-   const OSG::FieldContainerFactoryBase::ContainerStore& fcs(fcf->getContainerStore());
-   for(OSG::UInt64 i=0; i<fcs.size(); i++)
+
+   for(OSG::UInt64 i=0; 
+                   i<OSG::FieldContainerFactory::the()->getNumContainers(); 
+                   i++)
    {
-      OSG::FieldContainerPtr fcp(fcs[i]);
-      if (fcp != OSG::NullFC)
+       OSG::FieldContainerPtr fcp = 
+           OSG::FieldContainerFactory::the()->getContainer(i);
+
+      if (fcp != NullFC)
       {
          num_allocated_fcs += 1;
       }

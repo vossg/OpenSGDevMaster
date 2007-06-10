@@ -9,8 +9,8 @@ OSG_USING_NAMESPACE
 OSG_BEGIN_NAMESPACE
 
 ModelRequest::ModelRequest()
-   : mParent(OSG::NullFC)
-   , mModel(OSG::NullFC)
+   : mParent(NullFC)
+   , mModel (NullFC)
 {;}
 
 ModelRequest::~ModelRequest()
@@ -38,7 +38,7 @@ void ModelRequest::execute()
 
 void ModelRequest::sync()
 {
-   if (mParent != OSG::NullFC && mModel != OSG::NullFC)
+   if (mParent != NullFC && mModel != NullFC)
    {
       std::cout << "ModelRequest: adding model to scene: " << mFilename << std::endl;
       mParent->addChild(mModel);

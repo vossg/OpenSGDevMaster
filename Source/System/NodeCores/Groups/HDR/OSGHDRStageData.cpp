@@ -45,6 +45,9 @@
 
 #include <OSGConfig.h>
 
+#include "OSGChunkMaterial.h"
+#include "OSGFrameBufferObject.h"
+#include "OSGSHLChunk.h"
 #include "OSGHDRStageData.h"
 
 OSG_BEGIN_NAMESPACE

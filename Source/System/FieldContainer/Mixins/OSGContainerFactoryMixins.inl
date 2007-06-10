@@ -560,6 +560,24 @@ bool ContainerStoreFactoryMixin<ParentT>::deregisterContainer(
     return returnValue;
 }
 
+template <class ParentT> inline
+UInt32 ContainerStoreFactoryMixin<ParentT>::getNumContainers(void) const
+{
+    UInt32 returnValue = 0;
+
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+    returnValue = _vContainerStore.size();
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
+}
+
 /*! Return container from the store with the given index (fcid).
    \param uiContainerId  Id of the container to lookup.
    \return Ptr to the container found.
@@ -596,12 +614,14 @@ typename ContainerStoreFactoryMixin<ParentT>::ContainerPtr
     return Desc::getNilPtr();
 }
 
+#if 0
 template <class ParentT> inline
 const typename ContainerStoreFactoryMixin<ParentT>::ContainerStore &
     ContainerStoreFactoryMixin<ParentT>::getContainerStore(void)
 {
     return _vContainerStore;
 }
+#endif
 
 template <class ParentT> inline
 ContainerStoreFactoryMixin<ParentT>::ContainerStoreFactoryMixin(
@@ -717,6 +737,18 @@ bool HandledContainerStoreFactoryMixin<ParentT>::deregisterContainer(
     _pStoreLock->release();
 
     return returnValue;
+}
+
+template <class ParentT> inline
+UInt32 HandledContainerStoreFactoryMixin<ParentT>::getNumContainers(void) const
+{
+    UInt32 returnValue = 0;
+
+    _pStoreLock->acquire();
+
+    returnValue = _vContainerStore.size();
+    
+    _pStoreLock->release();
 }
 
 template <class ParentT> inline

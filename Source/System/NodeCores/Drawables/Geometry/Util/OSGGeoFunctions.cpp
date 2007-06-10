@@ -2182,7 +2182,7 @@ Int32 createOptimizedPrimitives(GeometryPtrArg  geo,
 
     GeoVectorPropertyPtr    posPtr = geo->getPositions();
 
-    UInt32 pN = ((posPtr == OSG::NullFC) ? 0 : posPtr->getSize());
+    UInt32 pN = ((posPtr == NullFC) ? 0 : posPtr->getSize());
 
     GeoIntegralPropertyPtr posIndexPtr = 
         geo->getIndex(Geometry::PositionsIndex);
@@ -2316,7 +2316,7 @@ Int32 createOptimizedPrimitives(GeometryPtrArg  geo,
 
         lensPtr = geo->getLengths();
 
-        if(lensPtr == OSG::NullFC)
+        if(lensPtr == NullFC)
         {
             lensPtr = OSG::GeoUInt32Property::create();
 
@@ -2325,7 +2325,7 @@ Int32 createOptimizedPrimitives(GeometryPtrArg  geo,
 
         geoTypePtr = geo->getTypes();
 
-        if(geoTypePtr == OSG::NullFC)
+        if(geoTypePtr == NullFC)
         {
             geoTypePtr = OSG::GeoUInt8Property::create();
 

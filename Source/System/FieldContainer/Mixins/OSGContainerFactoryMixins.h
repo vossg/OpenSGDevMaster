@@ -567,6 +567,7 @@ class ContainerStoreFactoryMixin : public ParentT
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    UInt32       getNumContainers  (void                ) const;
     ContainerPtr getContainer      (UInt32 uiContainerId) const;
     ContainerPtr getMappedContainer(UInt32 uiContainerId) const;
 
@@ -575,7 +576,9 @@ class ContainerStoreFactoryMixin : public ParentT
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
+#if 0
     const ContainerStore &getContainerStore(void);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -727,6 +730,7 @@ class HandledContainerStoreFactoryMixin : public ParentT
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    UInt32            getNumContainers   (void                ) const;
     ContainerPtr      getContainer       (UInt32 uiContainerId) const;
     ContainerHandlerP getContainerHandler(UInt32 uiContainerId) const;
     ContainerPtr      getMappedContainer (UInt32 uiContainerId) const;
