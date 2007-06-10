@@ -12,7 +12,7 @@ int main (int argc, char **argv)
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
     OSG::UInt32 iPre = 
-        OSG::FieldContainerFactory::the()->getContainerStore().size();
+        OSG::FieldContainerFactory::the()->getNumContainers();
     
     fprintf(stderr, "FCs pre : %d\n", iPre);
 #endif
@@ -57,7 +57,7 @@ int main (int argc, char **argv)
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
     OSG::UInt32 iPost = 
-        OSG::FieldContainerFactory::the()->getContainerStore().size();
+        OSG::FieldContainerFactory::the()->getNumContainers();
 
     fprintf(stderr, "FCs post : %d\n", iPost);
     
@@ -65,12 +65,11 @@ int main (int argc, char **argv)
     {
         fprintf(stderr, "[%d] : ", i);
 
-        if(OSG::FieldContainerFactory::the()->getContainerStore()[i] != 
-                                                                   OSGNullFC)
+        if(OSG::FieldContainerFactory::the()->getContainer(i) != OSGNullFC)
         {
             fprintf(stderr, "%s\n", 
                     OSG::FieldContainerFactory::the()->
-                    getContainerStore()[i]->getType().getCName());
+                    getContainer(i)->getType().getCName());
         }
         else
         {
