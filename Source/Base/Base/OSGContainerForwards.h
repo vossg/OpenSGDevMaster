@@ -74,7 +74,6 @@ class FieldContainerAttachment;
 
 struct ContainerChangeEntry;
 
-typedef ReflexiveContainer    *ReflexiveContainerP;
 typedef FieldBundleAttachment *FieldBundleAttachmentP;
 
 typedef FieldBundle       *       FieldBundleP;
@@ -83,109 +82,16 @@ typedef FieldBundle       * const FieldBundlePConstArg;
 typedef FieldBundle const *       FieldBundleConstP;
 typedef FieldBundle const * const FieldBundleConstPConst;
 
+
+typedef ReflexiveContainer       *       ReflexiveContainerPtr;
+typedef ReflexiveContainer       * const ReflexiveContainerPtrConst;
+typedef ReflexiveContainer       * const ReflexiveContainerPtrConstArg;
+typedef ReflexiveContainer const *       ReflexiveContainerConstPtr;
+typedef ReflexiveContainer const * const ReflexiveContainerConstPtrConst;
+
 struct PointerFuncs;
 struct CPointerFuncs;
 
-template <class Object, class Ptr>
-struct PtrWrapper
-{
-    typedef PtrWrapper<Object, Ptr> Self;
-    typedef Ptr                     Pointer;
-    typedef Object                  StoredObject;
-
-    Ptr    _ptr;
-
-    UInt16 _parentFPos;
-
-    PtrWrapper(void) : 
-        _ptr       (NULL),
-        _parentFPos(0xFFFF)
-      
-    {
-    }
-    
-    PtrWrapper(Ptr ptr) :
-        _ptr(ptr),
-        _parentFPos(0xFFFF)
-    {
-    } 
-
-    ~PtrWrapper(void) 
-    {
-    }
-
-    void setParentFieldPos(UInt16 parentFPos)
-    {
-        _parentFPos = parentFPos;
-    }
-
-    UInt16 getParentFieldPos(void)
-    {
-        return _parentFPos;
-    }
-
-    Ptr getCPtr(void)
-    {
-        return _ptr;
-    }
-    
-    void addReference(void) const
-    {
-        _ptr->addReference();
-    }
-
-    void subReference(void) const
-    {
-        _ptr->subReference();
-    }
-
-    operator Ptr(void) const
-    {
-        return _ptr;
-    }
-
-    Object &operator *(void)
-    {
-        return *_ptr;
-    }
-
-    Object &operator *(void) const
-    {
-        return *_ptr;
-    }
-
-    Ptr operator->(void)
-    {
-        return _ptr;
-    }
-
-    Ptr operator->(void) const 
-    {
-        return _ptr;
-    }
-
-    bool operator ==(const Self &other) const
-    {
-        return _ptr == other._ptr;
-    }
-
-    bool operator ==(const Ptr other) const
-    {
-        return _ptr == other;
-    }
-
-/*
-    bool operator ==(const int other) const
-    {
-        return _ptr == NULL;
-    }
-
-    bool operator !=(const int other) const
-    {
-        return _ptr != NULL;
-    }
- */
-};
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 
@@ -443,18 +349,6 @@ typedef FieldContainerPtr NilFieldContainerReturnType;
 
 #else
 
-typedef PtrWrapper<FieldContainer,
-                   FieldContainerPtr>        ParentFieldContainerPtr;
-
-typedef PtrWrapper<FieldContainer,
-                   FieldContainerPtr> const &ParentFieldContainerPtrConstArg;
-
-typedef PtrWrapper<FieldContainer,
-                   FieldContainerPtr> const  ParentFieldContainerPtrConst;
-
-typedef PtrWrapper<Node,
-                   NodePtr          > ParentNodePtr;
-
 //static const void *NilPtr = NULL;
 
 #define NullFC      NULL
@@ -467,16 +361,6 @@ typedef FieldContainerPtr NilFieldContainerReturnType;
 typedef FieldContainerAttachment *FieldContainerAttachmentPtr;
 
 #endif
-
-typedef PtrWrapper<FieldBundle,
-                   FieldBundleP>        ParentFieldBundleP;
-
-typedef PtrWrapper<FieldBundle,
-                   FieldBundleP> const &ParentFieldBundlePConstArg;
-
-typedef PtrWrapper<FieldBundle,
-                   FieldBundleP> const  ParentFieldBundlePConst;
-
 
 
 //static const ReflexiveContainerP NilP   = NULL;
@@ -495,27 +379,6 @@ typedef SField  <FieldContainerAttachmentMap,
 template <class DescT>
 class ContainerMixinHead;
 
-template<class ParentT>
-class RefCountMixin;
-
-template<class ParentT>
-class ContainerIdMixin;
-
-template <class DescT>
-class FactoryMixinHead;
-
-template <class ParentT>
-class ContainerFactoryMixin;
-
-template <class ParentT>
-class PrototypeFactoryMixin;
-
-template <class ParentT>
-class ContainerStoreFactoryMixin;
-
-template <class ParentT>
-class HandledContainerStoreFactoryMixin;
-
 template <class SingletonBaseT>
 class SingletonHolder;
 
@@ -527,68 +390,6 @@ class FieldBundleFactoryBase;
 
 typedef SingletonHolder<FieldContainerFactoryBase> FieldContainerFactory;
 typedef SingletonHolder<FieldBundleFactoryBase   > FieldBundleFactory;
-
-#ifdef OSG_MT_CPTR_ASPECT
-struct HandledFieldContainerFactoryDesc;
-
-typedef HandledContainerStoreFactoryMixin<
-          PrototypeFactoryMixin    <
-              ContainerFactoryMixin <
-                  FactoryMixinHead   <HandledFieldContainerFactoryDesc> > > > 
-    FieldContainerFactoryParent;
-#else
-struct FieldContainerFactoryDesc;
-
-typedef ContainerStoreFactoryMixin<
-          PrototypeFactoryMixin    <
-              ContainerFactoryMixin <
-                  FactoryMixinHead   <FieldContainerFactoryDesc> > > > 
-    FieldContainerFactoryParent;
-#endif
-
-struct FieldBundleFactoryDesc;
-
-typedef ContainerStoreFactoryMixin<
-          PrototypeFactoryMixin    <
-              ContainerFactoryMixin <
-                  FactoryMixinHead   <FieldBundleFactoryDesc> > > > 
-    FieldBundleFactoryParent;
-
-template <class ParentT>
-class PtrCreateMixin;
-
-struct FieldContainerDesc
-{
-    typedef ReflexiveContainer    ParentT;
-    typedef FieldContainerType    TypeObject;
-    typedef FieldContainerFactory ContainerFactoryT;
-};
-
-#ifdef OSG_MT_FIELDCONTAINERPTR
-
-typedef PtrCreateMixin<
-            ContainerMixinHead<FieldContainerDesc> > FieldContainerParent;
-
-#else
-
-typedef RefCountMixin<
-         ContainerIdMixin<
-          PtrCreateMixin<
-            ContainerMixinHead<FieldContainerDesc> > > > FieldContainerParent;
-
-#endif
-
-struct FieldBundleDesc
-{
-    typedef ReflexiveContainer ParentT;
-    typedef FieldBundleType    TypeObject;
-    typedef FieldBundleFactory ContainerFactoryT;
-};
-
-typedef 
-    RefCountMixin<
-        ContainerIdMixin<
-            ContainerMixinHead<FieldBundleDesc> > > FieldBundleParent;
 
 
 typedef boost::function<

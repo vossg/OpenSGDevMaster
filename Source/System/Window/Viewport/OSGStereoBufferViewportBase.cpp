@@ -412,6 +412,8 @@ FieldContainerPtr StereoBufferViewportBase::createAspectCopy(void) const
 void StereoBufferViewportBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

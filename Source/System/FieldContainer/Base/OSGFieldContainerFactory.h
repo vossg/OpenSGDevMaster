@@ -46,9 +46,10 @@
 #include "OSGSystemDef.h"
 #include "OSGSingletonHolder.h"
 #include "OSGContainerForwards.h"
-#include "OSGContainerFactoryMixins.h"
+#include "OSGContainerFactory.h"
 #include "OSGFieldContainerPtr.h"
 #include "OSGAspectStore.h"
+#include "OSGContainerIdMapper.h"
 
 #ifdef OSG_MT_CPTR_ASPECT
 #include "OSGFieldContainer.h"
@@ -56,55 +57,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief Helper class for mapping field container id's from one system to another.
-    \ingroup GrpSystemFieldContainer
-*/
-struct OSG_SYSTEM_DLLMAPPING FieldContainerMapper
-{
-    virtual ~FieldContainerMapper();
-
-    /*! Return mapping of field container id.
-      \param uiId  The id to map from.
-      \return Returns the mapped id.
-    */
-    virtual UInt32 map(UInt32 uiId) = 0;
-};
-
-#ifdef OSG_MT_CPTR_ASPECT
-struct HandledFieldContainerFactoryDesc
-{
-    typedef FieldContainerType ContainerType;
-    typedef FieldContainerPtr  ContainerPtr;
-    typedef AspectStoreP       ContainerHandler;
-
-    static Char8 *getContainerFactoryLockName(void)
-    {
-        return "ContainerFactory::cflock";
-    }
-
-    static Char8 *getStoreLockName(void)
-    {
-        return "ContainerFactoryFactory::slock";
-    }
-
-    static NilFieldContainerReturnType getNilPtr(void)
-    {
-        return NULL;
-    }
-
-    static AspectStoreP getHandler(const FieldContainerPtr pContainer)
-    {
-        if(pContainer == NULL)
-        {
-            return NULL;
-        }
-        else
-        {
-            return pContainer->getAspectStore();
-        }
-    }
-};
-#else
 struct FieldContainerFactoryDesc
 {
     typedef FieldContainerType ContainerType;
@@ -114,29 +66,25 @@ struct FieldContainerFactoryDesc
     {
         return "ContainerFactory::cflock";
     }
-
-    static Char8 *getStoreLockName(void)
-    {
-        return "ContainerFactoryFactory::slock";
-    }
-
-    static NilFieldContainerReturnType getNilPtr(void)
-    {
-        return NullFC;
-    }
 };
-#endif
 
-/*! \brief FieldContainerFactoryBase is the central class in OpenSG for accessing,
-           allocating, and mapping field containers allocated in the system.
+
+/*! \brief FieldContainerFactoryBase is the central class in OpenSG for 
+  accessing, allocating, and mapping field containers allocated in the system.
     \ingroup GrpSystemFieldContainer
  */
 class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
-    public FieldContainerFactoryParent
+    public ContainerFactory<FieldContainerFactoryDesc>
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+    typedef FieldContainerPtr              ContainerPtr;
+    typedef AspectStoreP                   ContainerHandlerP;
+
+    typedef std::vector<ContainerHandlerP> ContainerStore;
+    typedef ContainerStore::iterator       ContainerStoreIt;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
@@ -162,14 +110,26 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
-    void              setMapper         (FieldContainerMapper *pMapper);
-
-    FieldContainerPtr getMappedContainer(UInt32 uiContainerId) const;
+    void setMapper(ContainerIdMapper *pMapper);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
+
+    UInt32            getNumContainers   (void                ) const;
+    ContainerPtr      getContainer       (UInt32 uiContainerId) const;
+    ContainerHandlerP getContainerHandler(UInt32 uiContainerId) const;
+
+    ContainerPtr      getMappedContainer (UInt32 uiContainerId) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Get                                     */
+    /*! \{                                                                 */
+
+    UInt32 registerContainer  (const ContainerPtr &pContainer   );
+    bool   deregisterContainer(const UInt32        uiContainerId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -230,8 +190,14 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+#ifndef OSG_WINCE
+    Lock              *_pStoreLock;
+#endif
+
+    ContainerStore     _vContainerStore;
+
     /*! Currently active field container mapper. */
-    FieldContainerMapper *_pMapper;
+    ContainerIdMapper *_pMapper;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -268,7 +234,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
 
   private:
 
-    typedef FieldContainerFactoryParent Inherited;
+    typedef ContainerFactory<FieldContainerFactoryDesc> Inherited;
 
 
     /*!\brief prohibit default function (move to 'public' if needed) */
@@ -288,8 +254,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
 typedef SingletonHolder<FieldContainerFactoryBase> FieldContainerFactory;
 
 OSG_END_NAMESPACE
-
-#define OSGFIELDCONTAINERFACTORY_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldContainerFactory.inl"
 

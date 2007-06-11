@@ -80,7 +80,8 @@ void ChangeList::addAddRefd(const UInt32 uiContainerId)
     pEntry->uiContainerId = uiContainerId;
 }
 
-void ChangeList::addSubRefd(const UInt32 uiContainerId)
+void ChangeList::addSubRefd(const UInt32 uiContainerId,
+                                  bool   ignoreLevel  )
 {
 #ifdef OSG_ENABLE_VALGRIND_CHECKS
     VALGRIND_CHECK_VALUE_IS_DEFINED(uiContainerId);
@@ -92,7 +93,7 @@ void ChangeList::addSubRefd(const UInt32 uiContainerId)
 
     ContainerChangeEntry *pEntry = getNewEntry();
 
-    if(_iSubRefLevel == 0)
+    if(_iSubRefLevel == 0 || ignoreLevel == true)
     {
         pEntry->uiEntryDesc   = ContainerChangeEntry::SubReference;
     }
@@ -463,19 +464,44 @@ void ChangeList::doApply(void)
                 (*ccIt)->uiContainerId);
 
         if(pHandler == NULL)
+        {
+#ifndef SILENT_CPTR
+            fprintf(stderr, "Strange handler nil %d %p\n", 
+                    (*ccIt)->uiContainerId, 
+                    pHandler);
+
+#endif
+            ++ccIt;
             continue;
+        }
 
         pSrc = pHandler->getPtr(_uiAspect                 );
         pDst = pHandler->getPtr(Thread::getCurrentAspect());
 
         if(pSrc == NULL)
+        {
+#ifndef SILENT_CPTR
+            fprintf(stderr, "Strange src nil %d %p\n", 
+                    (*ccIt)->uiContainerId, 
+                    pSrc);
+            
+#endif
+            ++ccIt;
             continue;
+        }
 
         if(pDst == NULL)
         {
             pDst = pSrc->getType().createAspectCopy((*ccIt)->uiContainerId);
 
-            pDst->setupAspectStore(pHandler);
+#ifndef SILENT_CPTR
+            fprintf(stderr, "Setup store for %d %p \n",
+                    (*ccIt)->uiContainerId,
+                   pDst);
+#endif
+
+            if(pDst != NULL)
+                pDst->setupAspectStore(pHandler);
 
 #ifndef SILENT_CPTR
             pHandler->dump();
@@ -506,7 +532,10 @@ void ChangeList::doApply(void)
                 (*cIt)->uiContainerId);
 
         if(pHandler == NULL)
+        {
+            ++cIt;
             continue;
+        }
 
         pSrc = pHandler->getPtr(_uiAspect                 );
         pDst = pHandler->getPtr(Thread::getCurrentAspect());
@@ -521,14 +550,12 @@ void ChangeList::doApply(void)
                 pDst != NULL ? pSrc->getType().getCName() : "null");
 #endif
 
-        if(pSrc == NULL)
-            continue;
-
-        if(pDst == NULL)
+        if(pDst == NULL && pSrc != NULL)
         {
             pDst = pSrc->getType().createAspectCopy((*cIt)->uiContainerId);
 
-            pDst->setupAspectStore(pHandler);
+            if(pDst != NULL) 
+                pDst->setupAspectStore(pHandler);
 
 #ifndef SILENT_CPTR
             pHandler->dump();
@@ -547,13 +574,12 @@ void ChangeList::doApply(void)
                 pHandler);
 #endif
 
-        if(pSrc != NULL)
+        if((*cIt)->uiEntryDesc == ContainerChangeEntry::Change)
         {
-            pSrc->setChangeEntry(NULL);
-
-#if 1
-            if((*cIt)->uiEntryDesc == ContainerChangeEntry::Change)
+            if(pSrc != NULL && pDst != NULL) // be safe for now
             {
+                pSrc->setChangeEntry(NULL);
+
                 pHandler->fillOffsetArray(oOffsets, pDst);
 
 #ifndef SILENT_CPTR
@@ -585,34 +611,28 @@ void ChangeList::doApply(void)
                              syncMode,
                              0);
  */
-
             }
-            else
-#endif
-                if((*cIt)->uiEntryDesc == ContainerChangeEntry::AddReference)
-            {
+        }
+        else if((*cIt)->uiEntryDesc == ContainerChangeEntry::AddReference)
+        {
 #ifndef SILENT_CPTR
-                fprintf(stderr, "Execute add Ref for %d %s\n",
-                        (*cIt)->uiContainerId, pDst->getType().getCName());
+            fprintf(stderr, "Execute add Ref for %d %s\n",
+                    (*cIt)->uiContainerId, pDst->getType().getCName());
 #endif
 
-#ifdef OSG_ASPECT_REFCOUNT
+            if(pDst != NULL)
                 pDst->addReference();
-#endif
-            }
-            else if(
-                (*cIt)->uiEntryDesc == ContainerChangeEntry::SubReference ||
-                (*cIt)->uiEntryDesc == ContainerChangeEntry::DepSubReference)
-            {
+        }
+        else if((*cIt)->uiEntryDesc == ContainerChangeEntry::SubReference)// ||
+//            (*cIt)->uiEntryDesc == ContainerChangeEntry::DepSubReference)
+        {
 #ifndef SILENT_CPTR
-                fprintf(stderr, "Execute sub Ref for %d %s\n",
-                        (*cIt)->uiContainerId, pDst->getType().getCName());
+            fprintf(stderr, "Execute sub Ref for %d %s\n",
+                    (*cIt)->uiContainerId, pDst->getType().getCName());
 #endif
-
-#ifdef OSG_ASPECT_REFCOUNT
+            
+            if(pDst != NULL)
                 pDst->subReference();
-#endif
-            }
         }
 
         ++cIt;
@@ -655,7 +675,10 @@ void ChangeList::doClear(void)
                 (*cIt)->uiContainerId);
 
         if(pHandler == NULL)
+        {
+            ++cIt;
             continue;
+        }
 
         pDst = pHandler->getPtr(Thread::getCurrentAspect());
 

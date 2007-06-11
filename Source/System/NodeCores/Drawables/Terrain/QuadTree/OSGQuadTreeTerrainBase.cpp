@@ -2109,6 +2109,21 @@ void QuadTreeTerrainBase::resolveLinks(void)
     static_cast<QuadTreeTerrain *>(this)->setHeightData(NullFC);
 
     static_cast<QuadTreeTerrain *>(this)->setHeightVertices(NullFC);
+
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfHeightError.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfHeightQuad.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

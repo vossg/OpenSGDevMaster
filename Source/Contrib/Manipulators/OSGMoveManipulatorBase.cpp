@@ -246,6 +246,8 @@ FieldContainerPtr MoveManipulatorBase::createAspectCopy(void) const
 void MoveManipulatorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

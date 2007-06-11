@@ -1138,6 +1138,8 @@ void TexGenChunkBase::resolveLinks(void)
     static_cast<TexGenChunk *>(this)->setRBeacon(NullFC);
 
     static_cast<TexGenChunk *>(this)->setQBeacon(NullFC);
+
+
 }
 
 

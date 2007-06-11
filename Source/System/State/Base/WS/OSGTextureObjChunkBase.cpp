@@ -2355,6 +2355,8 @@ void TextureObjChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<TextureObjChunk *>(this)->setImage(NullFC);
+
+
 }
 
 

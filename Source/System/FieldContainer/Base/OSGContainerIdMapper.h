@@ -36,40 +36,33 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#ifndef _OSGCONTAINERIDMAPPER_H_
+#define _OSGCONTAINERIDMAPPER_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSGBaseTypes.h"
+#include "OSGSystemDef.h"
+
 OSG_BEGIN_NAMESPACE
 
-template <class ParentT>
-ContainerIdMixin<ParentT>::ContainerIdMixin(void) :
-     Inherited    ( ),
-    _uiContainerId(0)
-{
-}
+/*! \brief Helper class for mapping field container id's from one system to 
+          another.
+    \ingroup GrpSystemFieldContainer
+*/
 
-template <class ParentT>
-ContainerIdMixin<ParentT>::ContainerIdMixin(const ContainerIdMixin &source) :
-     Inherited    (source),
-    _uiContainerId(     0)
+struct OSG_SYSTEM_DLLMAPPING ContainerIdMapper
 {
-}
+    virtual ~ContainerIdMapper();
 
-template <class ParentT>
-ContainerIdMixin<ParentT>::~ContainerIdMixin(void)
-{
-}
-
-template <class ParentT>
-void ContainerIdMixin<ParentT>::setId(UInt32 uiContainerId)
-{
-    _uiContainerId = uiContainerId;
-}
-
-template <class ParentT>
-UInt32 ContainerIdMixin<ParentT>::getId(void) const
-{
-    return _uiContainerId;
-}
+    /*! Return mapping of field container id.
+      \param uiId  The id to map from.
+      \return Returns the mapped id.
+    */
+    virtual UInt32 map(UInt32 uiId) = 0;
+};
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERIDMIXIN_INLINE_CVSID "@(#)$Id$"
-
+#endif /* _OSGCONTAINERIDMAPPER_H_ */

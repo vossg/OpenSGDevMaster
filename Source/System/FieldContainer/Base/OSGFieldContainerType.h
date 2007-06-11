@@ -242,7 +242,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
   private:
 
     template <class ParentT>
-    friend class ContainerFactoryMixin;
+    friend class ContainerFactory;
 
     template <class AttachmentDescT>
     friend class DynFieldAttachment;
@@ -256,8 +256,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
 };
 
 OSG_END_NAMESPACE
-
-#define OSGFIELDCONTAINERTYPE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldContainerType.inl"
 

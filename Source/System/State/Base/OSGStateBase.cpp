@@ -543,6 +543,7 @@ void StateBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
+
     static_cast<State *>(this)->clearChunks();
 }
 

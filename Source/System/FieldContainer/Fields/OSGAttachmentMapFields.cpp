@@ -58,7 +58,7 @@
 
 #endif
 
-#include <OSGSFieldAdaptor.ins>
+//#include <OSGSFieldAdaptor.ins>
 
 
 OSG_BEGIN_NAMESPACE

@@ -595,6 +595,8 @@ FieldContainerPtr BillboardBase::createAspectCopy(void) const
 void BillboardBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

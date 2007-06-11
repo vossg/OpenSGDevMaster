@@ -561,6 +561,21 @@ FieldContainerPtr StringAttributeMapBase::createAspectCopy(void) const
 void StringAttributeMapBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfKeys.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfValues.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

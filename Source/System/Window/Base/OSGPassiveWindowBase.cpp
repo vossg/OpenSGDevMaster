@@ -250,6 +250,8 @@ FieldContainerPtr PassiveWindowBase::createAspectCopy(void) const
 void PassiveWindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

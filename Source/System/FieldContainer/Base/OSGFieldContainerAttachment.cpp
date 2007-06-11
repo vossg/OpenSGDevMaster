@@ -54,7 +54,36 @@ OSG_USING_NAMESPACE
 
 void FieldContainerAttachment::classDescInserter(TypeObject &oType)
 {
-    Inherited::classDescInserter(oType);
+    FieldDescriptionBase *pDesc;
+
+    typedef MFParentFieldContainerPtr::Description SFDesc;
+
+    pDesc = new SFDesc(
+        MFParentFieldContainerPtr::getClassType(),
+        "parents",
+        "",
+        OSG_RC_FIELD_DESC(Self::Parents),
+        true,
+        Field::MFDefaultFlags,
+        static_cast     <FieldEditMethodSig>(&Self::invalidEditField),
+        reinterpret_cast<FieldGetMethodSig >(&Self::getMFParents),
+        NULL);
+
+    oType.addInitialDesc(pDesc);
+
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "internal",
+        "",
+        OSG_RC_FIELD_DESC(Self::Internal),
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&Self::editSFInternal),
+        reinterpret_cast<FieldGetMethodSig >(&Self::getSFInternal),
+        NULL);
+
+    oType.addInitialDesc(pDesc);
 }
 
 Char8 *FieldContainerAttachment::getClassname(void)
@@ -77,14 +106,18 @@ FieldContainerAttachment::TypeObject FieldContainerAttachment::_type(
 /*                            Constructors                                 */
 
 FieldContainerAttachment::FieldContainerAttachment(void) :
-    Inherited()
+     Inherited (     ),
+    _mfParents (     ),
+    _sfInternal(false)
 {
 }
 
 FieldContainerAttachment::FieldContainerAttachment(
     const FieldContainerAttachment &source) :
 
-    Inherited(source)
+     Inherited (source            ),
+    _mfParents (                  ),
+    _sfInternal(source._sfInternal)
 {
 }
 /*-------------------------------------------------------------------------*/
@@ -99,25 +132,55 @@ OSG_ABSTR_FIELD_CONTAINER_DEF(FieldContainerAttachment)
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
 
+UInt32 FieldContainerAttachment::getBinSize(ConstFieldMaskArg whichField)
+{
+    UInt32 returnValue = Inherited::getBinSize(whichField);
+    
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        returnValue += _mfParents.getBinSize();
+    }
+    
+    if(FieldBits::NoField != (InternalFieldMask & whichField))
+    {
+        returnValue += _sfInternal.getBinSize();
+    }
+    
+    return returnValue;
+}
+
+void FieldContainerAttachment::copyToBin(BinaryDataHandler &pMem,
+                                         ConstFieldMaskArg  whichField)
+{
+    Inherited::copyToBin(pMem, whichField);
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.copyToBin(pMem);
+    }
+    
+    if(FieldBits::NoField != (InternalFieldMask & whichField))
+    {
+        _sfInternal.copyToBin(pMem);
+    }
+}
+
+void FieldContainerAttachment::copyFromBin(BinaryDataHandler &pMem,
+                                           ConstFieldMaskArg  whichField)
+{
+    Inherited::copyFromBin(pMem, whichField);
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.copyFromBin(pMem);
+    }
+
+    if(FieldBits::NoField != (InternalFieldMask & whichField))
+    {
+        _sfInternal.copyFromBin(pMem);
+    }
+}
+
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGFIELDCONTAINERATTACHMENT_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGFIELDCONTAINERATTACHMENT_INLINE_CVSID;
-}
 

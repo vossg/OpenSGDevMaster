@@ -435,6 +435,8 @@ void GeoPropertyBase::execBeginEditV(ConstFieldMaskArg whichField,
 void GeoPropertyBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

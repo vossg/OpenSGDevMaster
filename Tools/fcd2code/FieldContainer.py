@@ -152,6 +152,8 @@ class FieldContainer(FCDElement):
         self["Fields"]  = [];
         self["SFields"] = [];
         self["MFields"] = [];
+
+        self["hasValueMField"] = False;
         
         for i, field in enumerate(self.m_fields):
             
@@ -192,6 +194,9 @@ class FieldContainer(FCDElement):
             
             if field.isMField():
                 self["MFields"].append(field);
+
+                if not field.isPtrField():
+                    self["hasValueMField"] = True;
         
         self["PointerField"]   = False;
         self["SFPointerField"] = False;

@@ -379,6 +379,8 @@ void FBOViewportBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<FBOViewport *>(this)->setFrameBufferObject(NullFC);
+
+
 }
 
 

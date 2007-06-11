@@ -399,6 +399,8 @@ void BackgroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 void BackgroundBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

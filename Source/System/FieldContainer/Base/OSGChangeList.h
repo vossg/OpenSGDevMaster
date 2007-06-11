@@ -168,7 +168,8 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \{                                                                 */
 
     void addAddRefd  (const UInt32 uiContainerId);
-    void addSubRefd  (const UInt32 uiContainerId);
+    void addSubRefd  (const UInt32 uiContainerId,
+                            bool   ignoreLevel = false);
 
     void addCreated  (const UInt32 uiContainerId);
 

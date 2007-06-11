@@ -324,6 +324,8 @@ FieldContainerPtr ShaderParameterVec3fBase::createAspectCopy(void) const
 void ShaderParameterVec3fBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

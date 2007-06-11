@@ -364,6 +364,8 @@ void ImageComposerBase::execBeginEditV(ConstFieldMaskArg whichField,
 void ImageComposerBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

@@ -185,8 +185,6 @@ class MFieldVector : public std::vector<Ty, A>
 
 OSG_END_NAMESPACE
 
-#define OSGMFIELDVECTOR_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGMFieldVector.inl"
 
 #endif /* _OSGMFIELDVECTOR_H_ */

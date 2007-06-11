@@ -480,6 +480,8 @@ FieldContainerPtr SpotLightBase::createAspectCopy(void) const
 void SpotLightBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

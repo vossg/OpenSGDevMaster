@@ -379,6 +379,8 @@ void StageBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<Stage *>(this)->setRenderTarget(NullFC);
+
+
 }
 
 

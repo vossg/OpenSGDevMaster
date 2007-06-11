@@ -863,6 +863,8 @@ FieldContainerPtr BlendChunkBase::createAspectCopy(void) const
 void BlendChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

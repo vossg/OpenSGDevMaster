@@ -901,6 +901,8 @@ void LightBase::resolveLinks(void)
     static_cast<Light *>(this)->setBeacon(NullFC);
 
     static_cast<Light *>(this)->setLightEngine(NullFC);
+
+
 }
 
 

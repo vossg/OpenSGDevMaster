@@ -47,20 +47,22 @@
 
 #include "OSGReflexiveContainer.h"
 #include "OSGFieldContainerType.h"
-#include "OSGRefCountMixin.h"
-#include "OSGContainerCreateMixin.h"
 #include "OSGContainerMixinHead.h"
-#include "OSGContainerIdMixin.h"
 #include "OSGSystemProfile.h"
 #include "OSGChangedFunctorMFields.h"
 #include "OSGAspectStore.h"
 
 OSG_BEGIN_NAMESPACE
 
+template <class ContainerFactoryT>    
+struct PtrConstructionFunctions;
+
+class FieldContainerFactoryBase;
+
 /*! \ingroup GrpSystemFieldContainer
  */
 
-class FieldContainer : public FieldContainerParent
+class FieldContainer : public ReflexiveContainer
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -70,9 +72,11 @@ class FieldContainer : public FieldContainerParent
     /*! \name                    Type definitions                          */
     /*! \{                                                                 */
 
-    typedef FieldContainerParent                             Inherited;
+    typedef ReflexiveContainer                               Inherited;
 
     typedef FieldContainerType                               TypeObject;
+
+    typedef FieldContainer                                   Self;
 
     typedef PointerBuilder<FieldContainer>::ObjPtr           ObjPtr;
     typedef PointerBuilder<FieldContainer>::ObjPtrConst      ObjPtrConst;
@@ -209,6 +213,18 @@ class FieldContainer : public FieldContainerParent
     /*! \name                       Helper                                 */
     /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING
+    void  addReference        (void);
+
+    OSG_SYSTEM_DLLMAPPING
+    void  subReference        (void);
+
+    OSG_SYSTEM_DLLMAPPING
+    void  subReferenceLocalVar(void);
+
+    OSG_SYSTEM_DLLMAPPING
+    Int32 getRefCount         (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
@@ -231,6 +247,9 @@ class FieldContainer : public FieldContainerParent
 
   protected:
 
+    typedef PtrConstructionFunctions <
+                FieldContainerFactory>  PtrConstructionFuncs;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
@@ -241,6 +260,8 @@ class FieldContainer : public FieldContainerParent
 
     FieldFlags               *_pFieldFlags;
     MFChangedFunctorCallback  _mfChangedFunctors;
+
+    Int32                     _iRefCount;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -295,28 +316,13 @@ class FieldContainer : public FieldContainerParent
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-    OSG_SYSTEM_DLLMAPPING
-    virtual void execSyncV(      FieldContainer    &oFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo,
-                                 UInt32             uiCopyOffset) = 0;
-
-    OSG_SYSTEM_DLLMAPPING
-            void execSync (      FieldContainer    *pFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo,
-                                 UInt32             uiCopyOffset);
-#endif
 #ifdef OSG_MT_CPTR_ASPECT
     OSG_SYSTEM_DLLMAPPING
     virtual void execSyncV(      FieldContainer    &oFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
-                                 ConstFieldMaskArg         syncMode  ,
-                           const UInt32                    uiSyncInfo) = 0;
+                                 ConstFieldMaskArg  syncMode  ,
+                           const UInt32             uiSyncInfo) = 0;
 
     OSG_SYSTEM_DLLMAPPING
             void execSync (      FieldContainer    *pFrom,
@@ -330,18 +336,6 @@ class FieldContainer : public FieldContainerParent
     /*---------------------------------------------------------------------*/
     /*! \name                         Edit                                 */
     /*! \{                                                                 */
-
-#if 0
-    OSG_SYSTEM_DLLMAPPING
-    virtual void execBeginEditV(ConstFieldMaskArg whichField,
-                                UInt32            uiAspect,
-                                UInt32            uiContainerSize) = 0;
-
-    OSG_SYSTEM_DLLMAPPING
-            void execBeginEdit (ConstFieldMaskArg whichField,
-                                UInt32            uiAspect,
-                                UInt32            uiContainerSize);
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -357,12 +351,13 @@ class FieldContainer : public FieldContainerParent
     OSG_SYSTEM_DLLMAPPING
     virtual void onDestroy     (      UInt32          uiContainerId     );
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                MT Construction                               */
+    /*! \{                                                                 */
+
     OSG_SYSTEM_DLLMAPPING
     virtual bool deregister    (      UInt32          uiContainerId     );
-
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjPtr createAspectCopy(void) const = 0;
-#endif
 
     OSG_SYSTEM_DLLMAPPING
     virtual void resolveLinks   (      void                             );
@@ -377,6 +372,40 @@ class FieldContainer : public FieldContainerParent
 
     OSG_SYSTEM_DLLMAPPING
     virtual void registerChangedContainerV(void);
+
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual ObjPtr createAspectCopy(void) const = 0;
+#endif
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                MT Construction                               */
+    /*! \{                                                                 */
+
+    template <class ObjectT>
+    static void newPtr       (      typename ObjectT::ObjPtr &result, 
+                              const          ObjectT         *prototypeP);
+
+    template <class ObjectT>
+    static void newPtr       (      typename ObjectT::ObjPtr &result);
+
+#ifdef OSG_MT_CPTR_ASPECT
+    template <class ObjectT>
+    static void newAspectCopy(      typename ObjectT::ObjPtr &result,
+                              const          ObjectT         *prototypeP);
+#endif
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                MT Construction                               */
+    /*! \{                                                                 */
+
+    template <class ObjectT>
+    static typename ObjectT::     ObjPtr constructPtr(      ObjectT *pObj);
+
+    template <class ObjectT>
+    static typename ObjectT::ObjConstPtr constructPtr(const ObjectT *pObj);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -400,6 +429,8 @@ class FieldContainer : public FieldContainerParent
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    friend class FieldContainerFactoryBase;
 
     template<class ContainerFactoryT>
     friend struct CPtrConstructionFunctions;
@@ -480,9 +511,30 @@ template<class ContainerPtr> inline
 ContainerPtr convertToCurrentAspect(ContainerPtr pFC);
 #endif
 
-OSG_END_NAMESPACE
+template <class ContainerFactoryT>    
+struct PtrConstructionFunctions
+{
+    template <class ObjectT>
+    static void newPtr       (      typename ObjectT::ObjPtr &result, 
+                              const          ObjectT         *prototypeP);
 
-#define OSGFIELDCONTAINER_HEADER_CVSID "@(#)$Id$"
+    template <class ObjectT>
+    static void newPtr       (      typename ObjectT::ObjPtr &result);
+
+#ifdef OSG_MT_CPTR_ASPECT
+    template <class ObjectT>
+    static void newAspectCopy(      typename ObjectT::ObjPtr &result, 
+                              const          ObjectT         *prototypeP);
+#endif
+
+    template <class ObjectT>
+    static       ObjectT *constructPtr(      ObjectT *pObj);
+
+    template <class ObjectT>
+    static const ObjectT *constructPtr(const ObjectT *pObj);
+};
+
+OSG_END_NAMESPACE
 
 #include "OSGFieldContainerFactory.h"
 #include "OSGFieldContainer.inl"

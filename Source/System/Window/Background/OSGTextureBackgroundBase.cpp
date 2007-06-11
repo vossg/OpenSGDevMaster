@@ -872,6 +872,17 @@ void TextureBackgroundBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<TextureBackground *>(this)->setTexture(NullFC);
+
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfTexCoords.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

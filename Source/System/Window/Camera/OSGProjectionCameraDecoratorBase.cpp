@@ -902,6 +902,17 @@ void ProjectionCameraDecoratorBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<ProjectionCameraDecorator *>(this)->setUser(NullFC);
+
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfSurface.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

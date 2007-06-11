@@ -294,7 +294,7 @@ void GeoStatsAttachment::attachTo(AttachmentContainerPtr obj)
         while(getParents().size())
         {
             AttachmentContainerPtr p =
-                cast_dynamic<AttachmentContainerPtr>(getParents()[0]);
+                dynamic_cast<AttachmentContainerPtr>(this->getParent(0));
 
             p->subAttachment(st);
         }
@@ -317,7 +317,7 @@ void GeoStatsAttachment::validate(void)
         return;
 
     AttachmentContainerPtr cont =
-        cast_dynamic<AttachmentContainerPtr>(getParents()[0]);
+        dynamic_cast<AttachmentContainerPtr>(this->getParent(0));
 
     // Called on a non-AttachmentContainer?
     if(cont == NullFC)
@@ -403,7 +403,9 @@ void GeoStatsAttachment::invalidate(FieldContainerPtrArg obj)
     // Traverse upwards
     if(st->getParents().size())
     {
-        FieldContainerPtr p = st->getParents()[0]; // Can't have more than 1
+        // Can't have more than 1
+        FieldContainerPtr p = 
+            dynamic_cast<FieldContainerPtr>(st->getParent(0)); 
 
         // Is this attached to a NodeCore?
         NodeCorePtr c = cast_dynamic<NodeCorePtr>(p);

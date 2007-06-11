@@ -533,6 +533,8 @@ FieldContainerPtr ColorMaskChunkBase::createAspectCopy(void) const
 void ColorMaskChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

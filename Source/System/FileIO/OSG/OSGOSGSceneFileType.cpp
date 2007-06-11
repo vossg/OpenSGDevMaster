@@ -78,8 +78,6 @@ OSGSceneFileType OSGSceneFileType::_the(_suffixA,
                                         OSG_READ_SUPPORTED | 
                                         OSG_WRITE_SUPPORTED);
 
-OSGLoader *OSGSceneFileType::_pFile = NULL;
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -119,12 +117,15 @@ const Char8 *OSGSceneFileType::getName(void) const
 
 NodePtr OSGSceneFileType::read(std::istream &is, const Char8 *) const
 {
-    if(_pFile == NULL)
-        _pFile = new OSGLoader;
+    OSGLoader *_pFile = new OSGLoader;
 
     _pFile->scanStream(is);
 
-    return _pFile->getRootNode();
+    NodePtr returnValue = _pFile->getRootNode();
+
+    delete _pFile;
+
+    return returnValue;
 }
 
 bool OSGSceneFileType::write(const NodePtr      &root, 
@@ -182,22 +183,4 @@ OSGSceneFileType::OSGSceneFileType(const char   *suffixArray[],
 
 OSGSceneFileType::~OSGSceneFileType(void)
 {
-}
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGOSGSCENEFILETYPE_HEADER_CVSID;
 }

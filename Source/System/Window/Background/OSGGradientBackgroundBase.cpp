@@ -577,6 +577,21 @@ FieldContainerPtr GradientBackgroundBase::createAspectCopy(void) const
 void GradientBackgroundBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfColor.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfPosition.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

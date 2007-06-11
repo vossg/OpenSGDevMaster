@@ -71,18 +71,56 @@ void FieldBundle::changed(ConstFieldMaskArg,
 {
 }
 
+inline
+void FieldBundle::addReference(void)
+{
+    ++_iRefCount;
+    
+    Thread::getCurrentChangeList()->addAddRefd(Inherited::getId());
+
+}
+
+inline
+void FieldBundle::subReference(void)
+{
+    Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+
+    --_iRefCount;
+
+    if(_iRefCount <= 0)
+    {
+        this->onDestroy   (Inherited::getId());
+        this->resolveLinks(                  );
+
+        delete this;
+    }
+}
+
+inline
+Int32 FieldBundle::getRefCount(void) const
+{
+    return _iRefCount;
+}
+
+inline
+void FieldBundle::resolveLinks(void)
+{
+}
+
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
 inline
 FieldBundle::FieldBundle(void) :
-    Inherited()
+    Inherited(),
+    _iRefCount(   0)
 {
 }
 
 inline
 FieldBundle::FieldBundle(const FieldBundle &source) :
-    Inherited(source)
+    Inherited(source),
+    _iRefCount(     0)
 {
 }
 
@@ -132,6 +170,4 @@ typename ObjectT::ObjConstPtr FieldBundle::constructPtr(const ObjectT *pObj)
 
 
 OSG_END_NAMESPACE
-
-#define OSGFIELDBUNDLE_INLINE_CVSID "@(#)$Id$"
 

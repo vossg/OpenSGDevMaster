@@ -38,7 +38,81 @@
 
 OSG_BEGIN_NAMESPACE
 
+
+inline
+SFBool &FieldBundleAttachment::editInternal(void)
+{
+    Inherited::editSField(InternalFieldMask);
+
+    return _sfInternal;
+}
+
+inline
+const SFBool &FieldBundleAttachment::getInternal(void) const
+{
+    return _sfInternal;
+}
+
+inline
+SFBool *FieldBundleAttachment::editSFInternal(void)
+{
+    Inherited::editSField(InternalFieldMask);
+
+    return &_sfInternal;
+}
+
+inline
+const SFBool *FieldBundleAttachment::getSFInternal(void) const
+{
+    return &_sfInternal;
+}
+
+inline
+const MFParentFieldBundleP &FieldBundleAttachment::getParents(void) const
+{
+    return _mfParents;
+}
+
+inline
+const MFParentFieldBundleP *FieldBundleAttachment::getMFParents(void) const
+{
+    return &_mfParents;
+}
+
+inline
+void FieldBundleAttachment::setInternal(bool bVal)
+{
+    Inherited::editSField(InternalFieldMask);
+
+    _sfInternal.setValue(bVal);
+}
+
+inline
+void FieldBundleAttachment::addParent(
+          FieldBundlePConst parent,
+    const UInt16            uiStoredInFieldId)
+{
+    Inherited::editMField(ParentsFieldMask, _mfParents);
+
+    _mfParents.push_back(parent);
+    _mfParents.back().setParentFieldPos(uiStoredInFieldId);
+}
+
+inline
+void FieldBundleAttachment::subParent(FieldBundlePConst parent)
+{
+    Int32 iParentIdx = _mfParents.findIndex(parent);
+
+    if(iParentIdx != -1)
+    {
+        Inherited::editMField(ParentsFieldMask, _mfParents);
+
+        MFParentFieldBundleP::iterator parentIt = _mfParents.begin();
+
+        parentIt += iParentIdx;
+
+        _mfParents.erase(parentIt);
+    }
+}
+
 OSG_END_NAMESPACE
-
-#define OSGFIELDBUNDLEATTACHMENT_INLINE_CVSID "@(#)$Id$"
-

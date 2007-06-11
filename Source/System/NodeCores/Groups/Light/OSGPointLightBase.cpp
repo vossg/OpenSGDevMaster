@@ -335,6 +335,8 @@ FieldContainerPtr PointLightBase::createAspectCopy(void) const
 void PointLightBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

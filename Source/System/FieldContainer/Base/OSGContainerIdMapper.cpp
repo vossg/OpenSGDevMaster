@@ -36,59 +36,16 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
+
+#include "OSGContainerIdMapper.h"
+
 OSG_BEGIN_NAMESPACE
 
-template <class ParentT>
-RefCountMixin<ParentT>::RefCountMixin(void) :
-     Inherited( ),
-    _iRefCount(0)
+ContainerIdMapper::~ContainerIdMapper(void)
 {
-}
-
-template <class ParentT>
-RefCountMixin<ParentT>::RefCountMixin(const RefCountMixin &source) :
-     Inherited(source),
-    _iRefCount(     0)
-{
-}
-
-template <class ParentT>
-RefCountMixin<ParentT>::~RefCountMixin(void)
-{
-}
-
-template <class ParentT>
-void RefCountMixin<ParentT>::addReference(void)
-{
-    ++_iRefCount;
-    
-    Thread::getCurrentChangeList()->addAddRefd(Inherited::getId());
-
-}
-
-template <class ParentT>
-void RefCountMixin<ParentT>::subReference(void)
-{
-    Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
-
-    --_iRefCount;
-
-    if(_iRefCount <= 0)
-    {
-        this->onDestroy   (Inherited::getId());
-        this->resolveLinks(                  );
-
-        delete this;
-    }
-}
-
-template <class ParentT>
-Int32 RefCountMixin<ParentT>::getRefCount(void) const
-{
-    return _iRefCount;
 }
 
 OSG_END_NAMESPACE
-
-#define OSGREFCOUNTMIXIN_INLINE_CVSID "@(#)$Id$"
-

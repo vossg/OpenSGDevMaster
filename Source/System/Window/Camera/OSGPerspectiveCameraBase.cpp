@@ -405,6 +405,8 @@ FieldContainerPtr PerspectiveCameraBase::createAspectCopy(void) const
 void PerspectiveCameraBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

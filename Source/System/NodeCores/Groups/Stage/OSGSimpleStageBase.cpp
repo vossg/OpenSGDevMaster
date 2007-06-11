@@ -951,6 +951,7 @@ void SimpleStageBase::resolveLinks(void)
 
     static_cast<SimpleStage *>(this)->setBackground(NullFC);
 
+
     static_cast<SimpleStage *>(this)->clearForegrounds();
 }
 

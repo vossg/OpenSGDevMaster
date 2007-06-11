@@ -55,6 +55,13 @@ void PointerFuncs::subRef(const PtrT objectP)
 }
 
 template <class PtrT> inline
+void PointerFuncs::subRefLocalVar(const PtrT objectP)
+{
+    if(objectP != NilP)
+        objectP->subReferenceLocalVar();
+}
+
+template <class PtrT> inline
 void PointerFuncs::beginEdit(const PtrT     ,
                                    BitVector,
                                    UInt32   )
@@ -278,6 +285,18 @@ void subRef(FieldContainerPtrConst objectP)
             CPointerFuncs                   >::type Functions;
 
     Functions::subRef(objectP);
+}
+
+inline
+void subRefLocalVar(FieldContainerPtrConst objectP)
+{
+    typedef 
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<FieldContainerPtr>::value>,
+            PointerFuncs,
+            CPointerFuncs                   >::type Functions;
+
+    Functions::subRefLocalVar(objectP);
 }
 
 #ifndef OSG_MT_FIELDCONTAINERPTR

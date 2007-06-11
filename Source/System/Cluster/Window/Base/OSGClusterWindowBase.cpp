@@ -1287,6 +1287,21 @@ void ClusterWindowBase::resolveLinks(void)
     static_cast<ClusterWindow *>(this)->setClientWindow(NullFC);
 
     static_cast<ClusterWindow *>(this)->setComposer(NullFC);
+
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfServers.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfAutostart.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

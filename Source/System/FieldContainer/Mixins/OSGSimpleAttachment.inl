@@ -138,7 +138,7 @@ void SimpleAttachment<AttachmentDescT>::execSync(
           ConstFieldMaskArg  syncMode  ,
     const UInt32             uiSyncInfo)
 {
-    OSG_ASSERT(false);
+//    OSG_ASSERT(false);
 }
 
 template <class AttachmentDescT> inline

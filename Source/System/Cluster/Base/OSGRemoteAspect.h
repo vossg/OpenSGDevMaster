@@ -260,7 +260,7 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
 // class pointer
 typedef RemoteAspect *RemoteAspectP;
 
-struct RemoteAspectFieldContainerMapper : public FieldContainerMapper
+struct RemoteAspectFieldContainerMapper : public ContainerIdMapper
 {                                              
     virtual UInt32 map(UInt32 uiId);
 

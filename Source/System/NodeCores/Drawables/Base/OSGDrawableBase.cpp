@@ -214,6 +214,8 @@ void DrawableBase::execBeginEditV(ConstFieldMaskArg whichField,
 void DrawableBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

@@ -684,7 +684,17 @@ void ChunkMaterialBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
     static_cast<ChunkMaterial *>(this)->clearChunks();
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfSlots.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

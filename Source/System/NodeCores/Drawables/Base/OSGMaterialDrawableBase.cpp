@@ -342,6 +342,8 @@ void MaterialDrawableBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<MaterialDrawable *>(this)->setMaterial(NullFC);
+
+
 }
 
 

@@ -596,6 +596,7 @@ void ContainerPoolBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
+
     static_cast<ContainerPool *>(this)->clearContainers();
 }
 

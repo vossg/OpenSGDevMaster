@@ -324,6 +324,8 @@ FieldContainerPtr ShaderParameterStringBase::createAspectCopy(void) const
 void ShaderParameterStringBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

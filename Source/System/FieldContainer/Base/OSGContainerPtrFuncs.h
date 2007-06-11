@@ -50,6 +50,7 @@
 #endif
 
 #include "OSGFieldContainer.h"
+#include "OSGParentContainer.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -59,10 +60,13 @@ OSG_BEGIN_NAMESPACE
 struct PointerFuncs
 {
     template <class PtrT> 
-    static void addRef (const PtrT objectP);
+    static void addRef        (const PtrT objectP);
 
     template <class PtrT> 
-    static void subRef (const PtrT objectP);
+    static void subRef        (const PtrT objectP);
+
+    template <class PtrT> 
+    static void subRefLocalVar(const PtrT objectP);
 
     template <class PtrT> 
     static void shallowSubRef (const PtrT objectP);
@@ -160,6 +164,9 @@ void subRef(FieldBundlePConst objectP);
 
 inline
 void subRef(FieldContainerPtrConst objectP);
+
+inline
+void subRefLocalVar(FieldContainerPtrConst objectP);
 
 #ifndef OSG_MT_FIELDCONTAINERPTR
 inline 

@@ -267,6 +267,8 @@ FieldContainerPtr VertexProgramChunkBase::createAspectCopy(void) const
 void VertexProgramChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

@@ -286,6 +286,3 @@ NodePtr makeNodeFor(CorePtr c)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGNODE_INLINE_CVSID "@(#)$Id$"
-

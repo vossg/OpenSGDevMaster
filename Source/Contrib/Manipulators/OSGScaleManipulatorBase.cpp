@@ -246,6 +246,8 @@ FieldContainerPtr ScaleManipulatorBase::createAspectCopy(void) const
 void ScaleManipulatorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

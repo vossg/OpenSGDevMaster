@@ -328,6 +328,8 @@ FieldContainerPtr SwitchBase::createAspectCopy(void) const
 void SwitchBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

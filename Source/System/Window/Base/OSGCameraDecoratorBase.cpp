@@ -441,6 +441,8 @@ void CameraDecoratorBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<CameraDecorator *>(this)->setBeacon(NullFC);
+
+
 }
 
 /*------------------------------ get -----------------------------------*/

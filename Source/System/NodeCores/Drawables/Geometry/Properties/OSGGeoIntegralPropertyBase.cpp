@@ -221,6 +221,8 @@ void GeoIntegralPropertyBase::execBeginEditV(ConstFieldMaskArg whichField,
 void GeoIntegralPropertyBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

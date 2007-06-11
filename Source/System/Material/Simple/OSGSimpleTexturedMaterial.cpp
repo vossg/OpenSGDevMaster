@@ -85,9 +85,6 @@ SimpleTexturedMaterial::SimpleTexturedMaterial(
 
 SimpleTexturedMaterial::~SimpleTexturedMaterial(void)
 {
-    subRef(_textureChunk);
-    subRef(_texGenChunk );
-    subRef(_texEnvChunk );
 }
 
 /*----------------------------- class specific ----------------------------*/
@@ -95,6 +92,13 @@ SimpleTexturedMaterial::~SimpleTexturedMaterial(void)
 void SimpleTexturedMaterial::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
+}
+
+void SimpleTexturedMaterial::resolveLinks(void)
+{
+    subRefLocalVar(_textureChunk);
+    subRefLocalVar(_texGenChunk );
+    subRefLocalVar(_texEnvChunk );
 }
 
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)

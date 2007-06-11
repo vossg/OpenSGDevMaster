@@ -373,6 +373,8 @@ void SHLParameterChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<SHLParameterChunk *>(this)->setSHLChunk(NullFC);
+
+
 }
 
 

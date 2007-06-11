@@ -49,6 +49,7 @@
 #endif
 
 #include "OSGSystemDef.h"
+#include "OSGContainerPtrFuncs.h"
 
 OSG_BEGIN_NAMESPACE
 

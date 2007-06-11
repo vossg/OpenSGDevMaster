@@ -1234,6 +1234,8 @@ FieldContainerPtr MaterialChunkBase::createAspectCopy(void) const
 void MaterialChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

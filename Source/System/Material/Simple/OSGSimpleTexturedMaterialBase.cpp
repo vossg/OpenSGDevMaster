@@ -709,6 +709,8 @@ void SimpleTexturedMaterialBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<SimpleTexturedMaterial *>(this)->setImage(NullFC);
+
+
 }
 
 

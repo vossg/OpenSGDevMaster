@@ -174,7 +174,8 @@ const Char8 *ReflexiveContainer::getTypeName(void) const
 inline
 ReflexiveContainer::ReflexiveContainer(void) :
     _bvChanged        (TypeTraits<BitVector>::BitsClear),
-    _pContainerChanges(NULL                            )
+    _pContainerChanges(NULL                            ),
+    _uiContainerId    (0                               )
 {
 }
 
@@ -182,7 +183,8 @@ inline
 ReflexiveContainer::ReflexiveContainer(const ReflexiveContainer
                                                 &OSG_CHECK_ARG(source)) :
     _bvChanged        (TypeTraits<BitVector>::BitsClear),
-    _pContainerChanges(NULL                            )
+    _pContainerChanges(NULL                            ),
+    _uiContainerId    (0                               )
 {
 }
 
@@ -217,11 +219,6 @@ void ReflexiveContainer::onDestroy(UInt32)
 inline
 void ReflexiveContainer::onDestroyAspect(UInt32 OSG_CHECK_ARG(uiContainerId),
                                          UInt32 OSG_CHECK_ARG(uiAspect))
-{
-}
-
-inline
-void ReflexiveContainer::resolveLinks(void)
 {
 }
 
@@ -378,7 +375,16 @@ FieldDescriptionBase *ReflexiveContainer::getFieldDescription(
     return getType().getFieldDesc(fieldName);
 }
 
+inline
+void ReflexiveContainer::setId(UInt32 uiContainerId)
+{
+    _uiContainerId = uiContainerId;
+}
+
+inline
+UInt32 ReflexiveContainer::getId(void) const
+{
+    return _uiContainerId;
+}
+
 OSG_END_NAMESPACE
-
-#define OSGREFLEXIVECONTAINER_INLINE_CVSID "@(#)$Id$"
-

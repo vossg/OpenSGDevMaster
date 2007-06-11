@@ -324,6 +324,8 @@ FieldContainerPtr GLUTWindowBase::createAspectCopy(void) const
 void GLUTWindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

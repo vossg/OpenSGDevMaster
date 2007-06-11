@@ -491,6 +491,8 @@ void CameraBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<Camera *>(this)->setBeacon(NullFC);
+
+
 }
 
 /*------------------------------ get -----------------------------------*/

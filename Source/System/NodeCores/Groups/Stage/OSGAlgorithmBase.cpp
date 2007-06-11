@@ -216,6 +216,8 @@ void AlgorithmBase::execBeginEditV(ConstFieldMaskArg whichField,
 void AlgorithmBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

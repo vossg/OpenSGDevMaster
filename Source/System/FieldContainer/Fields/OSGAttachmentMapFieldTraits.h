@@ -44,6 +44,7 @@
 
 #include "OSGFieldTraits.h"
 #include "OSGContainerForwards.h"
+#include "OSGContainerPtrFuncs.h"
 
 #include "OSGFieldContainerAttachment.h"
 

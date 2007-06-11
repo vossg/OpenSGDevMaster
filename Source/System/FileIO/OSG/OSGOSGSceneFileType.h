@@ -108,8 +108,6 @@ class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
     static const Char8            *_suffixA[];
     static       OSGSceneFileType  _the;
 
-    static       OSGLoader        *_pFile;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -139,7 +137,5 @@ class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
 //---------------------------------------------------------------------------
 
 OSG_END_NAMESPACE
-
-#define OSGOSGSCENEFILETYPE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGOSGSCENEFILETYPE_H_ */

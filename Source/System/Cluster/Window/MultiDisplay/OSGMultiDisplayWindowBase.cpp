@@ -600,6 +600,8 @@ FieldContainerPtr MultiDisplayWindowBase::createAspectCopy(void) const
 void MultiDisplayWindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

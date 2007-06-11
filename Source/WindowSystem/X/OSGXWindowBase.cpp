@@ -460,6 +460,8 @@ FieldContainerPtr XWindowBase::createAspectCopy(void) const
 void XWindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

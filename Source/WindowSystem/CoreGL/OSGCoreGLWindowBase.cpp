@@ -324,6 +324,8 @@ FieldContainerPtr CoreGLWindowBase::createAspectCopy(void) const
 void CoreGLWindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

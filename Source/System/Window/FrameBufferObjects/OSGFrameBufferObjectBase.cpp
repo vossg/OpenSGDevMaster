@@ -1015,7 +1015,17 @@ void FrameBufferObjectBase::resolveLinks(void)
 
     static_cast<FrameBufferObject *>(this)->setStencilAttachment(NullFC);
 
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
     static_cast<FrameBufferObject *>(this)->clearColorAttachments();
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfDrawBuffers.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

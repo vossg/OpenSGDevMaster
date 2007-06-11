@@ -133,6 +133,13 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterial :
     /*! \name                     Helper                                   */
     /*! \{                                                                 */
 
+    virtual void resolveLinks(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Helper                                   */
+    /*! \{                                                                 */
+
     void prepareLocalChunks(void);
 
     /*! \}                                                                 */

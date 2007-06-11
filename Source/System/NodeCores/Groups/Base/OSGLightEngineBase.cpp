@@ -293,6 +293,8 @@ void LightEngineBase::execBeginEditV(ConstFieldMaskArg whichField,
 void LightEngineBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

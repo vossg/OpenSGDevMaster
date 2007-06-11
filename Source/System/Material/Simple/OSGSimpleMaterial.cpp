@@ -105,8 +105,10 @@ void SimpleMaterial::initMethod(InitPhase ePhase)
 
 void SimpleMaterial::resolveLinks(void)
 {
-    subRef(_materialChunk);
-    subRef(_blendChunk   );    
+    Inherited::resolveLinks();
+
+    subRefLocalVar(_materialChunk);
+    subRefLocalVar(_blendChunk   );    
 }
 
 /***************************************************************************\

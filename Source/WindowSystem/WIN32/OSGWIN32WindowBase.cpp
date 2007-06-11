@@ -462,6 +462,8 @@ FieldContainerPtr WIN32WindowBase::createAspectCopy(void) const
 void WIN32WindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

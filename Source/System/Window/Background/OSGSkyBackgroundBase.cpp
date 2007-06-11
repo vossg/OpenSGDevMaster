@@ -2420,6 +2420,53 @@ void SkyBackgroundBase::resolveLinks(void)
     static_cast<SkyBackground *>(this)->setTopTexture(NullFC);
 
     static_cast<SkyBackground *>(this)->setBeacon(NullFC);
+
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfSkyColor.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfSkyAngle.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfGroundColor.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfGroundAngle.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfTopTexCoord.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfBottomTexCoord.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfRightTexCoord.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfLeftTexCoord.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfFrontTexCoord.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfBackTexCoord.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

@@ -815,6 +815,18 @@ typename MField<ValueT,
 
     return pOther;
 }
+
+template <class ValueT, Int32 iNamespace> inline
+void MField<ValueT, iNamespace>::terminateShare(UInt32             uiAspect,
+                                                AspectOffsetStore &oOffsets)
+{
+    if(_uiSharedWith != 0x0000)
+    {
+        Self   *pOther = resolveShare(uiAspect, oOffsets);
+
+        _values.resolveShare();
+    }
+}
 #endif
 
 
@@ -831,6 +843,4 @@ void MField<ValueT, iNamespace>::dump(      UInt32    uiIndent,
 }
 
 OSG_END_NAMESPACE
-
-#define OSGMFIELD_INLINE_CVSID "@(#)$Id$"
 

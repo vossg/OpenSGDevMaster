@@ -407,6 +407,8 @@ FieldContainerPtr MatrixCameraBase::createAspectCopy(void) const
 void MatrixCameraBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

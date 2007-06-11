@@ -1258,6 +1258,8 @@ void ManipulatorBase::resolveLinks(void)
     static_cast<Manipulator *>(this)->setMaterialZ(NullFC);
 
     static_cast<Manipulator *>(this)->setAxisLinesN(NullFC);
+
+
 }
 
 

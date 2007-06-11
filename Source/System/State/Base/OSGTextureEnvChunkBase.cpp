@@ -2329,6 +2329,17 @@ FieldContainerPtr TextureEnvChunkBase::createAspectCopy(void) const
 void TextureEnvChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfShaderOffsetMatrix.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

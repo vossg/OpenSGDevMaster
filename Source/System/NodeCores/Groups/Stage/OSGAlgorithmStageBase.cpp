@@ -510,6 +510,8 @@ void AlgorithmStageBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<AlgorithmStage *>(this)->setAlgorithm(NullFC);
+
+
 }
 
 

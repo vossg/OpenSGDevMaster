@@ -44,20 +44,19 @@
 
 #include "OSGReflexiveContainer.h"
 #include "OSGFieldBundleType.h"
-#include "OSGRefCountMixin.h"
-#include "OSGContainerIdMixin.h"
-#include "OSGContainerMixinHead.h"
 
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpSystemFieldContainer
  */
 
-class FieldBundle : public FieldBundleParent
+class FieldBundle : public ReflexiveContainer
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+    typedef ReflexiveContainer Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Type definitions                          */
@@ -114,6 +113,28 @@ class FieldBundle : public FieldBundleParent
 
     virtual void changed(ConstFieldMaskArg whichField, 
                          UInt32            origin    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   your_category                              */
+    /*! \{                                                                 */
+
+    OSG_SYSTEM_DLLMAPPING
+    void  addReference(void);
+
+    OSG_SYSTEM_DLLMAPPING
+    void  subReference(void);
+
+    OSG_SYSTEM_DLLMAPPING
+    Int32 getRefCount (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Container Access                             */
+    /*! \{                                                                 */
+
+    OSG_SYSTEM_DLLMAPPING
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -196,6 +217,13 @@ class FieldBundle : public FieldBundleParent
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    Int32 _iRefCount;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
     static       void   classDescInserter(TypeObject &oType);
     static const Char8 *getClassname     (void             );
 
@@ -262,8 +290,6 @@ class FieldBundle : public FieldBundleParent
 
   private:
 
-    typedef FieldBundleParent Inherited;
-
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const FieldBundle &source);
 };
@@ -274,8 +300,6 @@ typedef FieldBundle::ObjConstPtr FieldBundleConstP;
 
 
 OSG_END_NAMESPACE
-
-#define OSGFIELDBUNDLE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldBundle.inl"
 #include "OSGContainerPtrFuncs.h"

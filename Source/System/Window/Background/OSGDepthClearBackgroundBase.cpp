@@ -333,6 +333,8 @@ FieldContainerPtr DepthClearBackgroundBase::createAspectCopy(void) const
 void DepthClearBackgroundBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

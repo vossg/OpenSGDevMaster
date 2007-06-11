@@ -266,6 +266,12 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Edit                                   */
+    /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
 #endif
 
     /*! \}                                                                 */

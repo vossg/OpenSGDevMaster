@@ -40,19 +40,86 @@ OSG_BEGIN_NAMESPACE
 
 /*! Set the mapper to use for mapping field container ids. */
 inline
-void FieldContainerFactoryBase::setMapper(FieldContainerMapper *pMapper)
+void FieldContainerFactoryBase::setMapper(ContainerIdMapper *pMapper)
 {
     _pMapper = pMapper;
 }
 
-/*! Get the container for the given id remapped using the active field container mapper.
-    \param uiContainerId  The container id to look up.
-    \return Field container found after mapping.  If no mapper is active, results
-            in standard getContainer lookup.
-*/
 inline
-FieldContainerPtr FieldContainerFactoryBase::getMappedContainer(
-    UInt32 uiContainerId) const
+UInt32 FieldContainerFactoryBase::getNumContainers(void) const
+{
+    UInt32 returnValue = 0;
+
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+    returnValue = _vContainerStore.size();
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
+}
+
+inline
+FieldContainerFactoryBase::ContainerPtr 
+    FieldContainerFactoryBase::getContainer(UInt32 uiContainerId) const
+{
+    ContainerPtr returnValue = NULL;
+
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+    if(uiContainerId < _vContainerStore.size())
+    {
+        if(_vContainerStore[uiContainerId] != NULL)
+        {
+            returnValue = _vContainerStore[uiContainerId]->getPtr();
+        }
+    }
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
+}
+
+inline
+FieldContainerFactoryBase::ContainerHandlerP
+    FieldContainerFactoryBase::getContainerHandler(UInt32 uiContainerId) const
+{
+    ContainerHandlerP returnValue = NULL;
+
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+    if(uiContainerId < _vContainerStore.size())
+    {
+        returnValue = _vContainerStore[uiContainerId];
+    }
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
+}
+
+/*! Get the container for the given id remapped using the active field 
+  container mapper.
+    \param uiContainerId  The container id to look up.
+    \return Field container found after mapping.  If no mapper is active, 
+  results in standard getContainer lookup.
+*/
+
+inline
+FieldContainerFactoryBase::ContainerPtr 
+    FieldContainerFactoryBase::getMappedContainer(UInt32 uiContainerId) const
 {
     if(_pMapper != NULL)
     {
@@ -64,7 +131,66 @@ FieldContainerPtr FieldContainerFactoryBase::getMappedContainer(
     }
 }
 
-OSG_END_NAMESPACE
+inline
+UInt32 FieldContainerFactoryBase::registerContainer(
+    const ContainerPtr &pContainer)
+{
+#ifdef OSG_ENABLE_VALGRIND_CHECKS
+    VALGRIND_CHECK_VALUE_IS_DEFINED(pContainer);
+#endif
 
-#define OSGFIELDCONTAINERFACTORY_INLINE_CVSID "@(#)$Id$"
+    UInt32 returnValue = 0;
+
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+    ContainerHandlerP pHandler = NULL;
+
+    if(pContainer != NULL)
+        pHandler = pContainer->getAspectStore();
+
+    _vContainerStore.push_back(pHandler);
+
+    returnValue = _vContainerStore.size() - 1;
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
+}
+
+inline
+bool FieldContainerFactoryBase::deregisterContainer(const UInt32 uiContainerId)
+{
+    bool returnValue = false;
+
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+    if(uiContainerId < _vContainerStore.size())
+    {
+        _vContainerStore[uiContainerId] = NULL;
+    }
+#ifdef OSG_DEBUG
+    else
+    {
+        FWARNING(("FieldContainerFactory::unregisterFieldContainer:"
+                  "id %d inconsistent with store size %d!\n",
+                uiContainerId,
+                _vContainerStore.size()));
+        returnValue = true;
+    }
+#endif
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
+}
+
+OSG_END_NAMESPACE
 

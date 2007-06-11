@@ -430,6 +430,8 @@ void ShaderChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 void ShaderChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

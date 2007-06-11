@@ -53,8 +53,6 @@
 #include "OSGFieldBundleType.h"
 #include "OSGFieldBundleFactory.h"
 
-OSG_USING_NAMESPACE
-
 OSG_BEGIN_NAMESPACE
 
 OSG_SINGLETON_INST(FieldBundleFactoryBase)
@@ -65,12 +63,18 @@ template class SingletonHolder<FieldBundleFactoryBase>;
 /*                            Constructors                                 */
 
 FieldBundleFactoryBase::FieldBundleFactoryBase(void) :
-    Inherited("FieldBundleFactory")
+     Inherited      ("FieldBundleFactory"),
+    _pStoreLock     (NULL                ),
+    _vContainerStore(                    ),
+    _pMapper        (NULL                )
 {
 }
 
 FieldBundleFactoryBase::FieldBundleFactoryBase(const Char8 *szFactoryName) :
-    Inherited(szFactoryName)
+     Inherited      (szFactoryName),
+    _pStoreLock     (NULL         ),
+    _vContainerStore(             ),
+    _pMapper        (NULL         )
 {
 }
 
@@ -86,12 +90,40 @@ FieldBundleFactoryBase::~FieldBundleFactoryBase(void)
 
 bool FieldBundleFactoryBase::initialize(void)
 {
-    return Inherited::initialize();
+    if(this->_bInitialized == true)
+        return true;
+
+#ifndef OSG_WINCE
+    _pStoreLock = ThreadManager::the()->getLock("BundleFactory::slock");
+
+    addRef(_pStoreLock);
+
+    PINFO << "Got store lock " << _pStoreLock << std::endl;
+
+    if(_pStoreLock == NULL)
+    {
+        return false;
+    }
+    else
+    {
+#endif
+        return Inherited::initialize();
+#ifndef OSG_WINCE
+    }
+#endif
 }
 
 bool FieldBundleFactoryBase::terminate(void)
 {
-    return Inherited::terminate();
+    bool returnValue = Inherited::terminate();
+
+#ifndef OSG_WINCE
+    subRef(_pStoreLock);
+#endif
+
+    this->_bInitialized = false;
+
+    return returnValue;
 }
 
 bool FieldBundleFactoryBase::initializeFactoryPost(void)
@@ -102,24 +134,5 @@ bool FieldBundleFactoryBase::initializeFactoryPost(void)
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
 
-
 OSG_END_NAMESPACE
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGFIELDBUNDLEFACTORY_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGFIELDBUNDLEFACTORY_INLINE_CVSID;
-}
 

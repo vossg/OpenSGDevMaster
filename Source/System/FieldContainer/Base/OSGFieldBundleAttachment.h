@@ -43,39 +43,21 @@
 #endif
 
 #include "OSGFieldBundle.h"
-#include "OSGAttachmentMixin.h"
-#include "OSGContainerMixinHead.h"
 #include "OSGFieldBundleMFields.h"
+#include "OSGSysSFields.h"
 
 OSG_BEGIN_NAMESPACE
-
-struct FieldBundleAttachmentDesc;
-
-typedef AttachmentMixin< 
-          ContainerMixinHead<
-              FieldBundleAttachmentDesc > > FieldBundleAttachmentParent;
-
-struct FieldBundleAttachmentDesc
-{
-    typedef FieldBundle             ParentT;
-
-    typedef FieldBundle::TypeObject TypeObject;
-
-    typedef MFParentFieldBundleP    ParentField;
-
-    typedef FieldBundleP            ParentPtr;
-    typedef FieldBundlePConst       ParentPtrConst;
-};
 
 //! Brief
 //! \ingroup baselib
 
-class OSG_SYSTEM_DLLMAPPING FieldBundleAttachment : 
-    public FieldBundleAttachmentParent
+class OSG_SYSTEM_DLLMAPPING FieldBundleAttachment : public FieldBundle
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+    typedef FieldBundle Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
@@ -90,6 +72,12 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleAttachment :
     /*---------------------------------------------------------------------*/
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
+
+    OSG_RC_FIRST_FIELD_DECL(Parents          );
+
+    OSG_RC_FIELD_DECL      (Internal, Parents);
+
+    OSG_RC_LAST_FIELD_DECL (Internal         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -111,20 +99,41 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleAttachment :
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
+          SFBool                        &editInternal  (void);
+    const SFBool                        &getInternal   (void) const;
+
+          SFBool                        *editSFInternal(void);
+    const SFBool                        *getSFInternal (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
+
+    void setInternal(bool bVal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
+    void addParent(      FieldBundlePConst parent, 
+                   const UInt16            uiStoredInFieldId = 
+                                                            InvalidParentEPos);
+
+    void subParent(FieldBundlePConst       parent);
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
+
+    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual void   copyToBin  (BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+    virtual void   copyFromBin(BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -156,14 +165,21 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleAttachment :
 
   protected:
 
+    typedef FieldBundleAttachment Self;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
+
+    static TypeObject _type;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
+
+    MFParentFieldBundleP _mfParents;
+    SFBool               _sfInternal;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -180,6 +196,9 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleAttachment :
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
+    static void   classDescInserter(TypeObject &oType);
+    static Char8 *getClassname     (void             );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
@@ -190,20 +209,20 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleAttachment :
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
+    const MFParentFieldBundleP &getParents   (void) const;
+    const MFParentFieldBundleP *getMFParents (void) const;
+
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    typedef FieldBundleAttachmentParent Inherited;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const FieldBundleAttachment &source);
 };
 
 OSG_END_NAMESPACE
-
-#define OSGFIELDBUNDLEATTACHMENT_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldBundleAttachment.inl"
 

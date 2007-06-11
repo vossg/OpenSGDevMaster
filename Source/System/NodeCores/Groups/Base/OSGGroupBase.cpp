@@ -252,6 +252,8 @@ FieldContainerPtr GroupBase::createAspectCopy(void) const
 void GroupBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

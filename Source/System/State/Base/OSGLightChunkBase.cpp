@@ -1092,6 +1092,8 @@ void LightChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<LightChunk *>(this)->setBeacon(NullFC);
+
+
 }
 
 

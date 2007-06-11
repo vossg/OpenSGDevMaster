@@ -377,6 +377,8 @@ void StereoCameraDecoratorBase::execBeginEditV(ConstFieldMaskArg whichField,
 void StereoCameraDecoratorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

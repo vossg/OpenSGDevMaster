@@ -47,6 +47,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+template <class DescT>
+class ContainerFactory;
+
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
@@ -215,7 +218,7 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleType : public ReflexiveContainerType
     typedef ReflexiveContainerType Inherited;
 
     template <class ParentT>
-    friend class ContainerFactoryMixin;
+    friend class ContainerFactory;
 
 
     /*!\brief prohibit default function (move to 'public' if needed) */
@@ -225,8 +228,6 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleType : public ReflexiveContainerType
 };
 
 OSG_END_NAMESPACE
-
-#define OSGFIELDBUNDLETYPE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldBundleType.inl"
 

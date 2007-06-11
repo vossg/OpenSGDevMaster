@@ -246,6 +246,8 @@ FieldContainerPtr LightEnvBase::createAspectCopy(void) const
 void LightEnvBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

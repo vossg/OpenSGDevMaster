@@ -420,6 +420,3 @@ void AttachmentContainerMixin<ParentT>::resolveLinks(void)
 /*                             Comparison                                  */
 
 OSG_END_NAMESPACE
-
-#define OSGATTACHMENTCONTAINERMIXIN_INLINE_CVSID "@(#)$Id$"
-

@@ -2208,7 +2208,17 @@ void ImageBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
     static_cast<Image *>(this)->clearParents();
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfPixel.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

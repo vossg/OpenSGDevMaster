@@ -835,6 +835,8 @@ FieldContainerPtr StencilChunkBase::createAspectCopy(void) const
 void StencilChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

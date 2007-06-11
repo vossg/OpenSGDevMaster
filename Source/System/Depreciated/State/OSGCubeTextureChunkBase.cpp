@@ -710,6 +710,8 @@ void CubeTextureChunkBase::resolveLinks(void)
     static_cast<CubeTextureChunk *>(this)->setPosYImage(NullFC);
 
     static_cast<CubeTextureChunk *>(this)->setNegYImage(NullFC);
+
+
 }
 
 

@@ -40,7 +40,96 @@ OSG_BEGIN_NAMESPACE
 
 OSG_ABSTR_FIELD_CONTAINER_INL_DEF(FieldContainerAttachment)
 
-OSG_END_NAMESPACE
+inline
+SFBool &FieldContainerAttachment::editInternal(void)
+{
+    Inherited::editSField(InternalFieldMask);
 
-#define OSGFIELDCONTAINERATTACHMENT_INLINE_CVSID "@(#)$Id$"
+    return _sfInternal;
+}
+
+inline
+const SFBool &FieldContainerAttachment::getInternal(void) const
+{
+    return _sfInternal;
+}
+
+inline
+SFBool *FieldContainerAttachment::editSFInternal(void)
+{
+    Inherited::editSField(InternalFieldMask);
+
+    return &_sfInternal;
+}
+
+inline
+const SFBool *FieldContainerAttachment::getSFInternal(void) const
+{
+    return &_sfInternal;
+}
+
+inline
+const MFParentFieldContainerPtr &
+    FieldContainerAttachment::getParents(void) const
+{
+    return _mfParents;
+}
+
+inline
+const MFParentFieldContainerPtr *
+    FieldContainerAttachment::getMFParents(void) const
+{
+    return &_mfParents;
+}
+
+inline
+void FieldContainerAttachment::setInternal(bool bVal)
+{
+    Inherited::editSField(InternalFieldMask);
+
+    _sfInternal.setValue(bVal);
+}
+
+inline
+void FieldContainerAttachment::addParent(
+          FieldContainerPtrConst parent,
+    const UInt16                 uiStoredInFieldId)
+{
+    Inherited::editMField(ParentsFieldMask, _mfParents);
+
+    _mfParents.push_back(parent);
+    _mfParents.back().setParentFieldPos(uiStoredInFieldId);
+}
+
+inline
+void FieldContainerAttachment::subParent(FieldContainerPtrConst parent)
+{
+    Int32 iParentIdx = _mfParents.findIndex(parent);
+
+    if(iParentIdx != -1)
+    {
+        Inherited::editMField(ParentsFieldMask, _mfParents);
+
+        MFParentFieldContainerPtr::iterator parentIt = _mfParents.begin();
+
+        parentIt += iParentIdx;
+
+        _mfParents.erase(parentIt);
+    }
+}
+
+inline
+FieldContainerPtr FieldContainerAttachment::getParent(UInt32 uiIdx)
+{
+    if(uiIdx < _mfParents.size())
+    {
+        return _mfParents[uiIdx].getCPtr();
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+OSG_END_NAMESPACE
 

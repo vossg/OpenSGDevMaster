@@ -585,6 +585,8 @@ FieldContainerPtr ComponentTransformBase::createAspectCopy(void) const
 void ComponentTransformBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

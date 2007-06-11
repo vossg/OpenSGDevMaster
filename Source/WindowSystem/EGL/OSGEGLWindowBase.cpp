@@ -462,6 +462,8 @@ FieldContainerPtr EGLWindowBase::createAspectCopy(void) const
 void EGLWindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

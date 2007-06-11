@@ -370,6 +370,7 @@ class ReflexiveContainer
     
     BitVector             _bvChanged;
     ContainerChangeEntry *_pContainerChanges;
+    UInt32                _uiContainerId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -385,9 +386,6 @@ class ReflexiveContainer
     OSG_SYSTEM_DLLMAPPING
     virtual void onDestroyAspect(      UInt32              uiContainerId,
                                        UInt32              uiAspect     );
-
-    OSG_SYSTEM_DLLMAPPING
-    virtual void resolveLinks   (      void                             );
 
     OSG_SYSTEM_DLLMAPPING       
     virtual bool deregister     (      UInt32              uiContainerId) = 0;
@@ -415,14 +413,20 @@ class ReflexiveContainer
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING       
+    void   setId(UInt32 uiContainerId);
+
+    OSG_SYSTEM_DLLMAPPING       
+    UInt32 getId(void                ) const;
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainerPtrBase;
-    friend class ChangeList;
+    friend class  ChangeList;
     friend struct ContainerChangeEntry;
+    friend struct PointerFuncs;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const ReflexiveContainer &source);
@@ -455,8 +459,6 @@ class ReflexiveContainer
     OSG_FIELDNAME##FieldId, OSG_FIELDNAME##FieldMask
 
 OSG_END_NAMESPACE
-
-#define OSGREFLEXIVECONTAINER_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldDescriptionBase.h"
 #include "OSGReflexiveContainer.inl"

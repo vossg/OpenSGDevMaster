@@ -403,6 +403,8 @@ void MaterialBase::execBeginEditV(ConstFieldMaskArg whichField,
 void MaterialBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

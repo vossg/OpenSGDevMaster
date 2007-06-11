@@ -38,7 +38,140 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! Set the mapper to use for mapping field container ids. */
+
+inline
+void FieldBundleFactoryBase::setMapper(ContainerIdMapper *pMapper)
+{
+    _pMapper = pMapper;
+}
+
+inline
+UInt32 FieldBundleFactoryBase::getNumContainers(void) const
+{
+    UInt32 returnValue = 0;
+
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+    returnValue = _vContainerStore.size();
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
+}
+
+/*! Return container from the store with the given index (fcid).
+   \param uiContainerId  Id of the container to lookup.
+   \return Ptr to the container found.
+           Null if index is out of bounds or found container is Null.
+*/
+
+inline
+FieldBundleFactoryBase::ContainerPtr
+    FieldBundleFactoryBase::getContainer(UInt32 uiContainerId) const
+{
+    ContainerPtr returnValue = NULL;
+
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+    if(uiContainerId < _vContainerStore.size())
+    {
+        returnValue = _vContainerStore[uiContainerId];
+    }
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
+}
+
+inline
+FieldBundleFactoryBase::ContainerPtr
+    FieldBundleFactoryBase::getMappedContainer(UInt32 uiContainerId) const
+{
+    if(_pMapper != NULL)
+    {
+        return getContainer(_pMapper->map(uiContainerId));
+    }
+    else
+    {
+        return getContainer(uiContainerId);
+    }
+}
+
+/*! Register a new container with the store.
+The container is added to the store and its index in the store (the fcid)
+is returned.
+   \param pContainer  The new container to add.  Must not be NullFC
+   \return The index in the store.
+*/
+
+inline
+UInt32 FieldBundleFactoryBase::registerContainer(
+    const ContainerPtr &pContainer)
+{
+#ifdef OSG_ENABLE_VALGRIND_CHECKS
+    VALGRIND_CHECK_VALUE_IS_DEFINED(pContainer);
+#endif
+
+    UInt32 returnValue = 0;
+
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+    _vContainerStore.push_back(pContainer);
+
+    returnValue = _vContainerStore.size() - 1;
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
+}
+
+/*! Unregister a field container with the store.
+   \param uiContainerId  The id in the store to remove.
+          If id is out of range, ignore.
+   \return true if compiled debug and out of range otherwise false.
+*/
+inline
+bool FieldBundleFactoryBase::deregisterContainer(const UInt32 uiContainerId)
+{
+    bool returnValue = false;
+
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+    if(uiContainerId < _vContainerStore.size())
+    {
+        _vContainerStore[uiContainerId] = NULL;
+    }
+#ifdef OSG_DEBUG
+    else
+    {
+        FWARNING(("FieldContainerFactory::unregisterFieldContainer:"
+                  "id %d inconsistent with store size %d!\n",
+                uiContainerId,
+                _vContainerStore.size()));
+        returnValue = true;
+    }
+#endif
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
+}
+
 OSG_END_NAMESPACE
-
-#define OSGFIELDBUNDLEFACTORY_INLINE_CVSID "@(#)$Id$"
-

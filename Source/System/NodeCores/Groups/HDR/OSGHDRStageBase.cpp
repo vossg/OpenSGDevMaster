@@ -667,6 +667,8 @@ FieldContainerPtr HDRStageBase::createAspectCopy(void) const
 void HDRStageBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

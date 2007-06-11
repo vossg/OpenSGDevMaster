@@ -589,6 +589,8 @@ void TextureBufferBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<TextureBuffer *>(this)->setTexture(NullFC);
+
+
 }
 
 

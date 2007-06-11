@@ -136,6 +136,17 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::execSyncV(
                    syncMode,
                    uiSyncInfo);
 }
+template <class GeoPropertyDesc> inline
+void TypedGeoIntegralProperty<GeoPropertyDesc>::resolveLinks(void)
+{
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+
+    _field.terminateShare(Thread::getCurrentAspect(), oOffsets);
+}
+
+
 #endif
 
 #if 0

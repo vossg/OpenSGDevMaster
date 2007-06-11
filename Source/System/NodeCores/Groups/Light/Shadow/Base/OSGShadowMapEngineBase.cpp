@@ -685,6 +685,8 @@ void ShadowMapEngineBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<ShadowMapEngine *>(this)->setRenderTarget(NullFC);
+
+
 }
 
 

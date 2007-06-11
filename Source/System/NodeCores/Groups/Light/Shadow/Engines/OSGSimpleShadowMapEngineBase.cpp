@@ -323,6 +323,8 @@ FieldContainerPtr SimpleShadowMapEngineBase::createAspectCopy(void) const
 void SimpleShadowMapEngineBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

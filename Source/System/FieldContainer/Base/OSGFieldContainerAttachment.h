@@ -43,39 +43,21 @@
 #endif
 
 #include "OSGFieldContainer.h"
-#include "OSGAttachmentMixin.h"
-#include "OSGContainerMixinHead.h"
-#include "OSGFieldContainerAttachmentFields.h"
+#include "OSGFieldContainerMFields.h"
+#include "OSGSysSFields.h"
 
 OSG_BEGIN_NAMESPACE
-
-struct FieldContainerAttachmentDesc;
-
-typedef AttachmentMixin< 
-          ContainerMixinHead<
-              FieldContainerAttachmentDesc > > FieldContainerAttachmentParent;
-
-struct FieldContainerAttachmentDesc
-{
-    typedef FieldContainer             ParentT;
-
-    typedef FieldContainer::TypeObject TypeObject;
-
-    typedef MFParentFieldContainerPtr  ParentField;
-
-    typedef FieldContainerPtr          ParentPtr;
-    typedef FieldContainerPtrConst     ParentPtrConst;
-};
 
 //! Brief
 //! \ingroup baselib
 
-class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : 
-    public FieldContainerAttachmentParent
+class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+    typedef FieldContainer Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
@@ -107,6 +89,12 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment :
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    OSG_RC_FIRST_FIELD_DECL(Parents          );
+
+    OSG_RC_FIELD_DECL      (Internal, Parents);
+
+    OSG_RC_LAST_FIELD_DECL (Internal         );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
@@ -122,25 +110,47 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment :
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
+          SFBool &editInternal  (void);
+    const SFBool &getInternal   (void) const;
+
+          SFBool *editSFInternal(void);
+    const SFBool *getSFInternal (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
+
+    void setInternal(bool bVal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
+    void addParent(      FieldContainerPtrConst parent, 
+                   const UInt16                 uiStoredInFieldId = 
+                                                            InvalidParentEPos);
+
+    void subParent(FieldContainerPtrConst       parent                       );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
+    FieldContainerPtr getParent(UInt32 uiIdx);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
+
+    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual void   copyToBin  (BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+    virtual void   copyFromBin(BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,11 +177,22 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment :
 
   protected:
 
+    typedef FieldContainerAttachment  Self;
+    typedef MFParentFieldContainerPtr ParentField;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
     static TypeObject _type;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    MFParentFieldContainerPtr _mfParents;
+    SFBool                    _sfInternal;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -196,6 +217,10 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment :
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
+    const MFParentFieldContainerPtr &getParents   (void) const;
+
+    const MFParentFieldContainerPtr *getMFParents (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
@@ -210,8 +235,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment :
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    typedef FieldContainerAttachmentParent Inherited;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const FieldContainerAttachment &source);
@@ -253,8 +276,6 @@ typedef FieldContainerAttachmentRefPtr      AttachmentRefPtr;
 #endif
 
 OSG_END_NAMESPACE
-
-#define OSGFIELDCONTAINERATTACHMENT_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldContainerAttachment.inl"
 

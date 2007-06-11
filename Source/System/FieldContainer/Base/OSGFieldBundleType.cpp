@@ -168,22 +168,3 @@ FieldBundleP FieldBundleType::createContainer(void) const
 
     return fp;
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGFIELDBUNDLETYPE_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGFIELDBUNDLETYPE_INLINE_CVSID;
-}
-

@@ -74,7 +74,7 @@ void FieldContainer::callChangedFunctors(ConstFieldMaskArg whichField)
     MFChangedFunctorCallback::iterator       cfIt = _mfChangedFunctors.begin();
     MFChangedFunctorCallback::const_iterator cfEnd= _mfChangedFunctors.end();
 
-    ObjPtr thisP = Inherited::constructPtr<FieldContainer>(this);
+    ObjPtr thisP = Self::constructPtr<FieldContainer>(this);
 
     while(cfIt != cfEnd)
     {
@@ -83,6 +83,102 @@ void FieldContainer::callChangedFunctors(ConstFieldMaskArg whichField)
 
         ++cfIt;
     }
+}
+
+inline
+void FieldContainer::addReference(void)
+{
+    ++_iRefCount;
+    
+    Thread::getCurrentChangeList()->addAddRefd(Inherited::getId());
+
+}
+
+inline
+void FieldContainer::subReference(void)
+{
+    --_iRefCount;
+
+    if(_iRefCount <= 0)
+    {
+        Thread::getCurrentChangeList()->incSubRefLevel();
+
+        this->resolveLinks();
+
+        Thread::getCurrentChangeList()->decSubRefLevel();
+
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+
+#ifdef OSG_MT_CPTR_ASPECT
+        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
+
+        if(_pAspectStore->getRefCount() == 1)
+        {
+            this->deregister(Inherited::getId());
+            this->onDestroy (Inherited::getId());
+        }
+
+        OSG::subRef(_pAspectStore);
+#else
+        this->deregister(Inherited::getId());
+        this->onDestroy (Inherited::getId());
+#endif
+
+        delete this;
+    }
+    else
+    {
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+    }
+
+}
+
+
+inline
+void FieldContainer::subReferenceLocalVar(void)
+{
+    --_iRefCount;
+
+    if(_iRefCount <= 0)
+    {
+
+        Thread::getCurrentChangeList()->incSubRefLevel();
+
+        this->resolveLinks();
+
+        Thread::getCurrentChangeList()->decSubRefLevel();
+
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId(),
+                                                   true);
+
+#ifdef OSG_MT_CPTR_ASPECT
+        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
+
+        if(_pAspectStore->getRefCount() == 1)
+        {
+            this->deregister(Inherited::getId());
+            this->onDestroy (Inherited::getId());
+        }
+
+        OSG::subRef(_pAspectStore);
+#else
+        this->deregister(Inherited::getId());
+        this->onDestroy (Inherited::getId());
+#endif
+
+        delete this;
+    }
+    else
+    {
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+    }
+
+}
+
+inline
+Int32 FieldContainer::getRefCount(void) const
+{
+    return _iRefCount;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -95,7 +191,8 @@ FieldContainer::FieldContainer(void) :
     _pAspectStore     (NULL),
 #endif
     _pFieldFlags      (NULL),
-    _mfChangedFunctors(    )
+    _mfChangedFunctors(    ),
+    _iRefCount        (   0)
 {
     _pFieldFlags = new FieldFlags;
 }
@@ -107,7 +204,8 @@ FieldContainer::FieldContainer(const FieldContainer &source) :
     _pAspectStore     (NULL                     ),
 #endif
     _pFieldFlags      (NULL                     ),
-    _mfChangedFunctors(source._mfChangedFunctors)
+    _mfChangedFunctors(source._mfChangedFunctors),
+    _iRefCount        (                        0)
 {
     _pFieldFlags = new FieldFlags(*(source._pFieldFlags));
 }
@@ -191,7 +289,7 @@ const FieldFlags *FieldContainer::getFieldFlags(void)
 inline
 FieldContainerPtr FieldContainer::getPtr(void)
 {
-    return Inherited::constructPtr<FieldContainer>(this);
+    return Self::constructPtr<FieldContainer>(this);
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -243,22 +341,7 @@ void FieldContainer::editSField(ConstFieldMaskArg whichField)
     _bvChanged |= whichField;
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-template<class FieldT> inline
-void FieldContainer::editMField(ConstFieldMaskArg  whichField,
-                                FieldT            &oField    )
-{
-    if(_bvChanged == TypeTraits<BitVector>::BitsClear)
-    {
-        registerChangedContainer();
-    }
-    
-    _bvChanged |= whichField;
-
-    oField.beginEdit(Thread::getCurrentAspect(),
-                     this->getContainerSize());
-}
-#elif OSG_MT_CPTR_ASPECT
+#if OSG_MT_CPTR_ASPECT
 template<class FieldT> inline
 void FieldContainer::editMField(ConstFieldMaskArg  whichField,
                                 FieldT            &oField    )
@@ -296,18 +379,6 @@ void FieldContainer::editMField(ConstFieldMaskArg  whichField,
 }
 #endif
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void FieldContainer::execSync(      FieldContainer    *,
-                                    ConstFieldMaskArg  whichField,
-                                    ConstFieldMaskArg  ,
-                              const UInt32,             
-                                    UInt32             )
-{
-    editSField(whichField);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void FieldContainer::execSync(      FieldContainer    *pFrom,
@@ -317,15 +388,6 @@ void FieldContainer::execSync(      FieldContainer    *pFrom,
                               const UInt32             uiSyncInfo)
 {
     editSField(whichField);
-}
-#endif
-
-#if 0
-inline
-void FieldContainer::execBeginEdit(ConstFieldMaskArg, 
-                                   UInt32,
-                                   UInt32           )
-{
 }
 #endif
 
@@ -381,17 +443,8 @@ void FieldContainer::onCreate(const FieldContainer *OSG_CHECK_ARG(source))
 }
 
 inline
-void FieldContainer::onDestroy(UInt32 uiContainerId)
+void FieldContainer::onDestroy(UInt32)
 {
-#ifdef OSG_MT_CPTR_ASPECT
-    this->deregister(uiContainerId);
-
-    _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
-
-    OSG::subRef(_pAspectStore);
-#else
-    boost::ignore_unused_variable_warning(uiContainerId);
-#endif
 }
 
 inline
@@ -424,7 +477,112 @@ ContainerPtr convertToCurrentAspect(ContainerPtr pFC)
 }
 #endif
 
-OSG_END_NAMESPACE
+template <class ContainerFactoryT>    
+template <class ObjectT> inline
+void PtrConstructionFunctions<ContainerFactoryT>::newPtr(      
+          typename ObjectT::ObjPtr &result, 
+    const          ObjectT        *pPrototype)
+{
+    result = new ObjectT(*pPrototype);
 
-#define OSGFIELDCONTAINER_INLINE_CVSID "@(#)$Id$"
+#ifdef OSG_MT_CPTR_ASPECT
+    result->setupAspectStore();
+#endif
+
+    result->setId(ContainerFactoryT::the()->registerContainer(result));
+    
+    Thread::getCurrentChangeList()->addCreated(result->getId());
+
+    result->onCreate      (        pPrototype);
+    result->onCreateAspect(result, pPrototype);
+}
+
+template <class ContainerFactoryT>    
+template <class ObjectT> inline
+void PtrConstructionFunctions<ContainerFactoryT>::newPtr(
+    typename ObjectT::ObjPtr &result)
+{
+    result = new ObjectT;
+
+#ifdef OSG_MT_CPTR_ASPECT
+    result->setupAspectStore();
+#endif
+
+    result->setId(ContainerFactoryT::the()->registerContainer(result));
+    
+    Thread::getCurrentChangeList()->addCreated(result->getId());
+
+    result->onCreate      (      );
+    result->onCreateAspect(result);
+}
+
+
+#ifdef OSG_MT_CPTR_ASPECT
+template <class ContainerFactoryT>    
+template <class ObjectT> inline
+void PtrConstructionFunctions<ContainerFactoryT>::newAspectCopy(      
+          typename ObjectT::ObjPtr &result, 
+    const          ObjectT        *pPrototype)
+{
+    result = new ObjectT(*pPrototype);
+
+    result->onCreateAspect(result, pPrototype);
+}
+#endif
+
+template <class ContainerFactoryT>    
+template <class ObjectT          > inline
+ObjectT *PtrConstructionFunctions<ContainerFactoryT>::constructPtr(
+    ObjectT *pObj)
+{
+    return pObj;
+}
+
+template <class ContainerFactoryT>    
+template <class ObjectT          > inline
+const ObjectT *PtrConstructionFunctions<ContainerFactoryT>::constructPtr(
+    const ObjectT *pObj)
+{
+    return pObj;
+}
+
+
+
+template <class ObjectT> inline
+void FieldContainer::newPtr(      typename ObjectT::ObjPtr &result, 
+                            const          ObjectT         *pPrototype)
+{
+    PtrConstructionFuncs::template newPtr<ObjectT>(result, pPrototype);
+}
+
+template <class ObjectT> inline
+void FieldContainer::newPtr(typename ObjectT::ObjPtr &result)
+{
+    PtrConstructionFuncs::template newPtr<ObjectT>(result);
+}
+
+#ifdef OSG_MT_CPTR_ASPECT
+template <class ObjectT> inline
+void FieldContainer::newAspectCopy(      typename ObjectT::ObjPtr &result, 
+                                   const          ObjectT         *pPrototype)
+{
+    PtrConstructionFuncs::template newAspectCopy<ObjectT>(result, pPrototype);
+}
+#endif
+
+template <class ObjectT> inline
+typename ObjectT::ObjPtr FieldContainer::constructPtr(ObjectT *pObj)
+{
+    return PtrConstructionFuncs::template constructPtr<ObjectT>(pObj);
+}
+
+
+template <class ObjectT> inline
+typename ObjectT::ObjConstPtr FieldContainer::constructPtr(
+    const ObjectT *pObj)
+{
+    return PtrConstructionFuncs::template constructPtr<ObjectT>(pObj);
+}
+
+OSG_END_NAMESPACE
 

@@ -579,6 +579,17 @@ FieldContainerPtr DistanceLODBase::createAspectCopy(void) const
 void DistanceLODBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfRange.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

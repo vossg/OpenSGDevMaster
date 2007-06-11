@@ -1569,8 +1569,8 @@ void TiledQuadTreeTerrainBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<TiledQuadTreeTerrain *>(this)->clearHeightTiles();
 
+    static_cast<TiledQuadTreeTerrain *>(this)->clearHeightTiles();
     static_cast<TiledQuadTreeTerrain *>(this)->clearHeightTextures();
 }
 

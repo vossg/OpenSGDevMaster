@@ -406,6 +406,8 @@ FieldContainerPtr SolidBackgroundBase::createAspectCopy(void) const
 void SolidBackgroundBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

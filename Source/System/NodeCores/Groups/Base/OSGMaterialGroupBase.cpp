@@ -382,6 +382,8 @@ void MaterialGroupBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<MaterialGroup *>(this)->setMaterial(NullFC);
+
+
 }
 
 

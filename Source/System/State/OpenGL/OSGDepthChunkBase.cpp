@@ -619,6 +619,8 @@ FieldContainerPtr DepthChunkBase::createAspectCopy(void) const
 void DepthChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

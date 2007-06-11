@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *                 Copyright (C) 2000 by the OpenSG Forum                    *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,102 +36,139 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+
+#ifndef _OSGPARENTCONTAINER_H_
+#define _OSGPARENTCONTAINER_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSGContainerForwards.h"
+
 OSG_BEGIN_NAMESPACE
 
-inline
-void NodeCore::addParent(      FieldContainerPtrConst &parent,
-                         const UInt16                  uiStoredInFieldId)
+template <class Object, class Ptr>
+struct PtrWrapper
 {
-    editMField(ParentsFieldMask, _mfParents);
+    typedef PtrWrapper<Object, Ptr> Self;
+    typedef Ptr                     Pointer;
+    typedef Object                  StoredObject;
 
-    _mfParents.push_back(parent);
-    _mfParents.back().setParentFieldPos(uiStoredInFieldId);
-}
+    Ptr    _ptr;
 
-inline
-void NodeCore::subParent(FieldContainerPtrConst &parent)
-{
-    Int32 iParentIdx = _mfParents.findIndex(parent);
+    UInt16 _parentFPos;
 
-    if(iParentIdx != -1)
+    PtrWrapper(void) : 
+        _ptr       (NULL),
+        _parentFPos(0xFFFF)
+      
     {
-        editMField(ParentsFieldMask, _mfParents);
-
-        MFParentFieldContainerPtr::iterator parentIt = _mfParents.begin();
-
-        parentIt += iParentIdx;
-
-        _mfParents.erase(parentIt);
     }
-}
-
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void NodeCore::execSync(      NodeCore          *pFrom,
-                              ConstFieldMaskArg  whichField,
-                              ConstFieldMaskArg  syncMode  ,
-                        const UInt32             uiSyncInfo,
-                              UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pFrom, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    
+    PtrWrapper(Ptr ptr) :
+        _ptr(ptr),
+        _parentFPos(0xFFFF)
     {
-        _mfParents.syncWith(pFrom->_mfParents, 
-                            syncMode, 
-                            uiSyncInfo, 
-                            uiCopyOffset);
-    }
-}
-#endif
+    } 
 
-#ifdef OSG_MT_CPTR_ASPECT
-inline
-void NodeCore::execSync (      NodeCore          *pFrom,
-                               ConstFieldMaskArg  whichField,
-                               AspectOffsetStore &oOffsets,
-                               ConstFieldMaskArg  syncMode  ,
-                         const UInt32             uiSyncInfo)
-{
-    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    ~PtrWrapper(void) 
     {
-        _mfParents.syncWith(pFrom->_mfParents, 
-                            syncMode, 
-                            uiSyncInfo, 
-                            oOffsets);
     }
-}
-#endif
 
-#if 0
-inline
-void NodeCore::execBeginEdit(ConstFieldMaskArg whichField, 
-                             UInt32            uiAspect,
-                             UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    void setParentFieldPos(UInt16 parentFPos)
     {
-        _mfParents.beginEdit(uiAspect, uiContainerSize);
+        _parentFPos = parentFPos;
     }
-}
-#endif
 
-inline
-void NodeCore::resolveLinks(void)
-{
-    Inherited::resolveLinks();
-}
+    UInt16 getParentFieldPos(void)
+    {
+        return _parentFPos;
+    }
 
-inline
-Char8 *NodeCore::getClassname(void)
-{
-    return "NodeCore";
-}
+    Ptr getCPtr(void)
+    {
+        return _ptr;
+    }
+    
+    void addReference(void) const
+    {
+        _ptr->addReference();
+    }
 
-OSG_ABSTR_FIELD_CONTAINER_INL_DEF(NodeCore)
+    void subReference(void) const
+    {
+        _ptr->subReference();
+    }
+
+    operator Ptr(void) const
+    {
+        return _ptr;
+    }
+
+    Object &operator *(void)
+    {
+        return *_ptr;
+    }
+
+    Object &operator *(void) const
+    {
+        return *_ptr;
+    }
+
+    Ptr operator->(void)
+    {
+        return _ptr;
+    }
+
+    Ptr operator->(void) const 
+    {
+        return _ptr;
+    }
+
+    bool operator ==(const Self &other) const
+    {
+        return _ptr == other._ptr;
+    }
+
+    bool operator ==(const Ptr other) const
+    {
+        return _ptr == other;
+    }
+
+/*
+    bool operator ==(const int other) const
+    {
+        return _ptr == NULL;
+    }
+
+    bool operator !=(const int other) const
+    {
+        return _ptr != NULL;
+    }
+ */
+};
+
+typedef PtrWrapper<FieldContainer,
+                   FieldContainerPtr>        ParentFieldContainerPtr;
+
+typedef PtrWrapper<FieldContainer,
+                   FieldContainerPtr> const &ParentFieldContainerPtrConstArg;
+
+typedef PtrWrapper<FieldContainer,
+                   FieldContainerPtr> const  ParentFieldContainerPtrConst;
+
+typedef PtrWrapper<Node,
+                   NodePtr          >        ParentNodePtr;
+
+typedef PtrWrapper<FieldBundle,
+                   FieldBundleP>             ParentFieldBundleP;
+
+typedef PtrWrapper<FieldBundle,
+                   FieldBundleP> const      &ParentFieldBundlePConstArg;
+
+typedef PtrWrapper<FieldBundle,
+                   FieldBundleP> const       ParentFieldBundlePConst;
 
 OSG_END_NAMESPACE
+
+#endif /* _OSGPARENTCONTAINER_H_ */

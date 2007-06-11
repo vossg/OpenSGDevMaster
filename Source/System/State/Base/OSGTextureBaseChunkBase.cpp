@@ -313,6 +313,8 @@ void TextureBaseChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 void TextureBaseChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

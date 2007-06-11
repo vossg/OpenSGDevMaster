@@ -530,6 +530,7 @@ void MultiPassMaterialBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
+
     static_cast<MultiPassMaterial *>(this)->clearMaterials();
 }
 

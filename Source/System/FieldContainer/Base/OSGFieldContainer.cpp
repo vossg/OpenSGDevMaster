@@ -74,8 +74,8 @@ void FieldContainer::classDescInserter(TypeObject &oType)
 
 FieldContainer::TypeObject FieldContainer::_type(
     FieldContainer::getClassname(),
-    NULL,
-    NULL,
+    "ReflexiveContainer",
+    "FieldContainer",
     0,
     NULL,
     NULL,
@@ -419,22 +419,3 @@ OSG::deepClone(
 
     return fcClone;
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGFIELDCONTAINER_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGFIELDCONTAINER_INLINE_CVSID;
-}
-

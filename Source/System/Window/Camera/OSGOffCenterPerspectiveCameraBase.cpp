@@ -323,6 +323,8 @@ FieldContainerPtr OffCenterPerspectiveCameraBase::createAspectCopy(void) const
 void OffCenterPerspectiveCameraBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

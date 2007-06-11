@@ -245,6 +245,8 @@ FieldContainerPtr TwoSidedLightingChunkBase::createAspectCopy(void) const
 void TwoSidedLightingChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

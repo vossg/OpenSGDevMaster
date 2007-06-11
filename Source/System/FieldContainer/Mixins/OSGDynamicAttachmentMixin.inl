@@ -279,7 +279,7 @@ void DynFieldAttachment<AttachmentDescT>::execSyncV(
     const UInt32              uiSyncInfo,
           UInt32              uiCopyOffset)
 {
-    OSG_ASSERT(false);
+//    OSG_ASSERT(false);
 }
 
 #if 0
@@ -289,7 +289,7 @@ void DynFieldAttachment<AttachmentDescT>::execBeginEditV(
     UInt32            uiAspect,
     UInt32            uiContainerSize)
 {
-    OSG_ASSERT(false);
+//    OSG_ASSERT(false);
 }
 #endif
 #endif

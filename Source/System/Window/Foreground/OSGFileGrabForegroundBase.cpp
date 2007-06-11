@@ -490,6 +490,8 @@ FieldContainerPtr FileGrabForegroundBase::createAspectCopy(void) const
 void FileGrabForegroundBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

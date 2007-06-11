@@ -2298,22 +2298,15 @@ void VTKMapperBase::resolveLinks(void)
 
     static_cast<VTKMapper *>(this)->setRoot(NullFC);
 
+
     static_cast<VTKMapper *>(this)->clearGeoRoots();
-
     static_cast<VTKMapper *>(this)->clearGeometries();
-
     static_cast<VTKMapper *>(this)->clearMaterials();
-
     static_cast<VTKMapper *>(this)->clearMaterialChunks();
-
     static_cast<VTKMapper *>(this)->clearPositions();
-
     static_cast<VTKMapper *>(this)->clearLength();
-
     static_cast<VTKMapper *>(this)->clearTypes();
-
     static_cast<VTKMapper *>(this)->clearColors();
-
     static_cast<VTKMapper *>(this)->clearNormals();
 }
 

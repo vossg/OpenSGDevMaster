@@ -615,6 +615,7 @@ void TextureSelectChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
+
     static_cast<TextureSelectChunk *>(this)->clearTextures();
 }
 

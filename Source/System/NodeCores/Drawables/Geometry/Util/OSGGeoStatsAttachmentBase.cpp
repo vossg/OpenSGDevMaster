@@ -781,6 +781,8 @@ FieldContainerPtr GeoStatsAttachmentBase::createAspectCopy(void) const
 void GeoStatsAttachmentBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

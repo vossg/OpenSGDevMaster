@@ -43,24 +43,76 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGConfig.h"
-
 #include "OSGFieldBundleAttachment.h"
 
 OSG_USING_NAMESPACE
+
+void FieldBundleAttachment::classDescInserter(TypeObject &oType)
+{
+    FieldDescriptionBase *pDesc;
+
+    typedef MFParentFieldBundleP::Description SFDesc;
+
+    pDesc = new SFDesc(
+        MFParentFieldBundleP::getClassType(),
+        "parents",
+        "",
+        OSG_RC_FIELD_DESC(Self::Parents),
+        true,
+        Field::MFDefaultFlags,
+        static_cast     <FieldEditMethodSig>(&Self::invalidEditField),
+        reinterpret_cast<FieldGetMethodSig >(&Self::getMFParents),
+        NULL);
+
+    oType.addInitialDesc(pDesc);
+
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "internal",
+        "",
+        OSG_RC_FIELD_DESC(Self::Internal),
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&Self::editSFInternal),
+        reinterpret_cast<FieldGetMethodSig >(&Self::getSFInternal),
+        NULL);
+
+    oType.addInitialDesc(pDesc);
+}
+
+Char8 *FieldBundleAttachment::getClassname(void)
+{
+    return "FieldBundleAttachment";
+}
+
+FieldBundleAttachment::TypeObject FieldBundleAttachment::_type(
+    FieldBundleAttachment::getClassname(),
+    Inherited            ::getClassname(),
+    "FieldBundle",
+    0,
+    NULL,
+    NULL,
+    (InitalInsertDescFunc) &FieldBundleAttachment::classDescInserter,
+    false,
+    0);
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
 FieldBundleAttachment::FieldBundleAttachment(void) :
-    Inherited()
+     Inherited (     ),
+    _mfParents (     ),
+    _sfInternal(false)
 {
 }
 
 FieldBundleAttachment::FieldBundleAttachment(
     const FieldBundleAttachment &source) :
 
-    Inherited(source)
+     Inherited (source            ),
+    _mfParents (                  ),
+    _sfInternal(source._sfInternal)
 {
 }
 /*-------------------------------------------------------------------------*/
@@ -73,25 +125,55 @@ FieldBundleAttachment::~FieldBundleAttachment(void)
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
 
+UInt32 FieldBundleAttachment::getBinSize(ConstFieldMaskArg whichField)
+{
+    UInt32 returnValue = Inherited::getBinSize(whichField);
+    
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        returnValue += _mfParents.getBinSize();
+    }
+    
+    if(FieldBits::NoField != (InternalFieldMask & whichField))
+    {
+        returnValue += _sfInternal.getBinSize();
+    }
+    
+    return returnValue;
+}
+
+void FieldBundleAttachment::copyToBin(BinaryDataHandler &pMem,
+                                      ConstFieldMaskArg  whichField)
+{
+    Inherited::copyToBin(pMem, whichField);
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.copyToBin(pMem);
+    }
+    
+    if(FieldBits::NoField != (InternalFieldMask & whichField))
+    {
+        _sfInternal.copyToBin(pMem);
+    }
+}
+
+void FieldBundleAttachment::copyFromBin(BinaryDataHandler &pMem,
+                                        ConstFieldMaskArg  whichField)
+{
+    Inherited::copyFromBin(pMem, whichField);
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.copyFromBin(pMem);
+    }
+
+    if(FieldBits::NoField != (InternalFieldMask & whichField))
+    {
+        _sfInternal.copyFromBin(pMem);
+    }
+}
+
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGFIELDBUNDLEATTACHMENT_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGFIELDBUNDLEATTACHMENT_INLINE_CVSID;
-}
 

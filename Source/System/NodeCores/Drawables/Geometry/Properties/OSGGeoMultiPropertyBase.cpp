@@ -800,6 +800,8 @@ void GeoMultiPropertyBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<GeoMultiProperty *>(this)->setContainer(NullFC);
+
+
 }
 
 

@@ -245,6 +245,8 @@ FieldContainerPtr PassiveViewportBase::createAspectCopy(void) const
 void PassiveViewportBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

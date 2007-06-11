@@ -538,6 +538,8 @@ void ClipPlaneChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<ClipPlaneChunk *>(this)->setBeacon(NullFC);
+
+
 }
 
 

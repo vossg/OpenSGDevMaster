@@ -600,6 +600,8 @@ VTKMapper::~VTKMapper(void)
 
 void VTKMapper::resolveLinks(void)
 {
+    Inherited::resolveLinks();
+
 #ifdef OSG_WITH_VTK
     if(_pActor != NULL)
         _pActor->UnRegister(NULL);

@@ -46,7 +46,8 @@
 #include "OSGSystemDef.h"
 #include "OSGSingletonHolder.h"
 #include "OSGContainerForwards.h"
-#include "OSGContainerFactoryMixins.h"
+#include "OSGContainerFactory.h"
+#include "OSGContainerIdMapper.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -59,27 +60,22 @@ struct FieldBundleFactoryDesc
     {
         return "BundleFactory::cflock";
     }
-
-    static Char8 *getStoreLockName(void)
-    {
-        return "BundleFactory::slock";
-    }
-
-    static FieldBundleP getNilPtr(void)
-    {
-        return NilP;
-    }
 };
 
 /*! \ingroup GrpSystemFieldContainer
  */
 
 class OSG_SYSTEM_DLLMAPPING FieldBundleFactoryBase : 
-    public FieldBundleFactoryParent
+    public ContainerFactory<FieldBundleFactoryDesc>
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+    typedef FieldBundleP              ContainerPtr;
+
+    typedef std::vector<ContainerPtr> ContainerStore;
+    typedef ContainerStore::iterator  ContainerStoreIt;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
@@ -105,15 +101,24 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleFactoryBase :
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
+    void setMapper(ContainerIdMapper *pMapper);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
+    UInt32       getNumContainers   (void                ) const;
+    ContainerPtr getContainer       (UInt32 uiContainerId) const;
+    ContainerPtr getMappedContainer (UInt32 uiContainerId) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
+
+    UInt32 registerContainer  (const ContainerPtr &pContainer   );
+    bool   deregisterContainer(const UInt32        uiContainerId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -169,6 +174,14 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleFactoryBase :
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+#ifndef OSG_WINCE
+    Lock              *_pStoreLock;
+#endif
+
+    ContainerStore     _vContainerStore;
+
+    ContainerIdMapper *_pMapper;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -204,7 +217,7 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleFactoryBase :
 
   private:
 
-    typedef FieldBundleFactoryParent Inherited;
+    typedef ContainerFactory<FieldBundleFactoryDesc> Inherited;
 
 
     /*!\brief prohibit default function (move to 'public' if needed) */
@@ -224,8 +237,6 @@ class OSG_SYSTEM_DLLMAPPING SingletonHolder<FieldBundleFactoryBase>;
 typedef SingletonHolder<FieldBundleFactoryBase> FieldBundleFactory;
 
 OSG_END_NAMESPACE
-
-#define OSGFIELDBUNDLEFACTORY_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldBundleFactory.inl"
 

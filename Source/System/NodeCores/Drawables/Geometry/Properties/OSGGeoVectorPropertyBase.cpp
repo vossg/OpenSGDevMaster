@@ -221,6 +221,8 @@ void GeoVectorPropertyBase::execBeginEditV(ConstFieldMaskArg whichField,
 void GeoVectorPropertyBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

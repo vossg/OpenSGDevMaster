@@ -403,6 +403,8 @@ FieldContainerPtr RenderBufferBase::createAspectCopy(void) const
 void RenderBufferBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

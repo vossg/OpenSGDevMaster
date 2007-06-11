@@ -403,6 +403,8 @@ FieldContainerPtr ShearedStereoCameraDecoratorBase::createAspectCopy(void) const
 void ShearedStereoCameraDecoratorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

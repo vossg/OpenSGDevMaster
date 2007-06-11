@@ -839,6 +839,8 @@ FieldContainerPtr SimpleMaterialBase::createAspectCopy(void) const
 void SimpleMaterialBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

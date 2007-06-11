@@ -104,6 +104,11 @@ void Material::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
+void Material::resolveLinks(void)
+{
+    subRefLocalVar(_pState);
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
@@ -133,7 +138,6 @@ Material::Material(const Material &source) :
 
 Material::~Material(void)
 {
-    subRef(_pState);
 }
 
 
@@ -236,7 +240,7 @@ MaterialPtr getDefaultMaterial(void)
 
         addRef(_defaultMaterial);
 
-        addPostFactoryExitFunction(subRefDefaultMaterial);
+        addPreFactoryExitFunction(subRefDefaultMaterial);
 
         _defaultMaterial->rebuildState();
     }
@@ -265,7 +269,7 @@ MaterialPtr getDefaultUnlitMaterial(void)
 
         addRef(_defaultUnlitMaterial);
 
-        addPostFactoryExitFunction(subRefDefaultUnlitMaterial);
+        addPreFactoryExitFunction(subRefDefaultUnlitMaterial);
 
         _defaultUnlitMaterial->rebuildState();
 	}

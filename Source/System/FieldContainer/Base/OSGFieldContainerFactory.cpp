@@ -59,10 +59,6 @@ OSG_SINGLETON_INST(FieldContainerFactoryBase)
 
 template class SingletonHolder<FieldContainerFactoryBase>;
 
-FieldContainerMapper::~FieldContainerMapper(void)
-{
-}
-
 /*! \class OSG::FieldContainerFactoryBase
 
 This class is a singleton.  It should be accessed using the typedef
@@ -74,16 +70,20 @@ for OSG::FieldContainerFactory.
 /*                            Constructors                                 */
 
 FieldContainerFactoryBase::FieldContainerFactoryBase(void) :
-     Inherited("FieldContainerFactory"),
-    _pMapper  (NULL                   )
+     Inherited      ("FieldContainerFactory"),
+    _pStoreLock     (NULL                   ),
+    _vContainerStore(                       ),
+    _pMapper        (NULL                   )
 {
 }
 
 FieldContainerFactoryBase::FieldContainerFactoryBase(
     const Char8 *szFactoryName) :
 
-     Inherited(szFactoryName),
-    _pMapper  (NULL         )
+     Inherited      (szFactoryName),
+    _pStoreLock     (NULL         ),
+    _vContainerStore(             ),
+    _pMapper        (NULL         )
 {
 }
 
@@ -99,12 +99,40 @@ FieldContainerFactoryBase::~FieldContainerFactoryBase(void)
 
 bool FieldContainerFactoryBase::initialize(void)
 {
-    return Inherited::initialize();
+    if(this->_bInitialized == true)
+        return true;
+
+#ifndef OSG_WINCE
+    _pStoreLock = ThreadManager::the()->getLock("ContainerFactory::slock");
+
+    addRef(_pStoreLock);
+
+    PINFO << "Got store lock " << _pStoreLock << std::endl;
+
+    if(_pStoreLock == NULL)
+    {
+        return false;
+    }
+    else
+    {
+#endif
+        return Inherited::initialize();
+#ifndef OSG_WINCE
+    }
+#endif
 }
 
 bool FieldContainerFactoryBase::terminate(void)
 {
-    return Inherited::terminate();
+    bool returnValue = Inherited::terminate();
+
+#ifndef OSG_WINCE
+    subRef(_pStoreLock);
+#endif
+
+    this->_bInitialized = false;
+
+    return returnValue;
 }
 
 bool FieldContainerFactoryBase::initializeFactoryPost(void)
@@ -119,21 +147,4 @@ bool FieldContainerFactoryBase::initializeFactoryPost(void)
 
 OSG_END_NAMESPACE
 
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGFIELDCONTAINERFACTORY_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGFIELDCONTAINERFACTORY_INLINE_CVSID;
-}
 

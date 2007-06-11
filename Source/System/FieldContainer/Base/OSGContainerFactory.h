@@ -36,66 +36,38 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCONTAINERCREATEMIXIN_H_
-#define _OSGCONTAINERCREATEMIXIN_H_
+#ifndef _OSGCONTAINERFACTORY_H_
+#define _OSGCONTAINERFACTORY_H_
 #ifdef __sgi
 #pragma once
 #endif
 
+#include "OSGBaseTypes.h"
+#include "OSGFactoryController.h"
+#include "OSGFactoryBase.h"
 #ifndef OSG_WINCE
+#include "OSGLock.h"
 #include "OSGThreadManager.h"
 #endif
-#include "OSGChangeList.h"
-#include "OSGThread.h"
+#include "OSGLog.h"
+#include "OSGContainerForwards.h"
 
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_pointer.hpp>
+#include "map"
+#include "vector"
 
 OSG_BEGIN_NAMESPACE
-
-template <class ContainerFactoryT>    
-struct CPtrConstructionFunctions
+/*!
+    \ingroup GrpSystemFieldContainer
+ */
+template <class DescT>
+class ContainerFactory : public FactoryBase
 {
-    template <class ObjectT>
-    static void newPtr(      typename ObjectT::ObjPtr &result, 
-                       const          ObjectT         *prototypeP);
+    /*==========================  PRIVATE  ================================*/
 
-    template <class ObjectT>
-    static void newPtr(      typename ObjectT::ObjPtr &result);
+  private:
 
-    template <class ObjectT>
-    static typename ObjectT::     ObjPtr constructPtr(      ObjectT *pObj);
+    typedef FactoryBase Inherited;
 
-    template <class ObjectT>
-    static typename ObjectT::ObjConstPtr constructPtr(const ObjectT *pObj);
-};
-
-template <class ContainerFactoryT>    
-struct PtrConstructionFunctions
-{
-    template <class ObjectT>
-    static void newPtr       (      typename ObjectT::ObjPtr &result, 
-                              const          ObjectT         *prototypeP);
-
-    template <class ObjectT>
-    static void newPtr       (      typename ObjectT::ObjPtr &result);
-
-#ifdef OSG_MT_CPTR_ASPECT
-    template <class ObjectT>
-    static void newAspectCopy(      typename ObjectT::ObjPtr &result, 
-                              const          ObjectT         *prototypeP);
-#endif
-
-    template <class ObjectT>
-    static       ObjectT *constructPtr(      ObjectT *pObj);
-
-    template <class ObjectT>
-    static const ObjectT *constructPtr(const ObjectT *pObj);
-};
-
-template <class ParentT>
-class PtrCreateMixin : public ParentT
-{
     /*==========================  PUBLIC  =================================*/
 
   public:
@@ -104,38 +76,54 @@ class PtrCreateMixin : public ParentT
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    typedef          ParentT                  Inherited;
+    typedef DescT                             Desc;
+    typedef ContainerFactory<DescT>           Self;
 
-    typedef          PtrCreateMixin<ParentT>  Self;
-
-    typedef typename Inherited::Desc          Desc;
-
-    typedef typename Desc::ContainerFactoryT  ContainerFactory;
+    typedef typename Desc     ::ContainerType ContainerType;
+    typedef typename Desc     ::ContainerPtr  ContainerPtr;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
 
+          UInt16  findGroupId  (const Char8  *szName   ) const;
+    const Char8  *findGroupName(      UInt16  uiGroupId) const;
+
+          UInt32  getNumGroups (      void             ) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
+
+    void   registerType (      ContainerType *pType      );
+    UInt16 registerGroup(const Char8         *szGroupName);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
+    ContainerType *findType   (      UInt32  uiTypeId) const;
+    ContainerType *findType   (const Char8  *szName  ) const;
+    UInt32         getNumTypes(      void            ) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
+    ContainerPtr createContainer(const Char8 *szName);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
+
+#ifdef OSG_1_COMPAT
+    ContainerPtr createFieldContainer(const Char8 *szName);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -182,79 +170,64 @@ class PtrCreateMixin : public ParentT
 
   protected:
 
-/*
-    struct CPtrConstructionFunctions
-    {
-        template <class ObjectT>
-        static void newPtr(      typename ObjectT::Ptr &result, 
-                           const          ObjectT      *prototypeP);
-
-        template <class ObjectT>
-        static void newPtr(typename ObjectT::Ptr &result);
-
-        template <class ObjectT>
-        static typename ObjectT::Ptr constructPtr(ObjectT *pObj);
-    };
-    
-    struct PtrConstructionFunctions
-    {
-        template <class ObjectT>
-        static void newPtr(      typename ObjectT::Ptr &result, 
-                           const          ObjectT      *prototypeP);
-
-        template <class ObjectT>
-        static void newPtr(typename ObjectT::Ptr &result);
-
-        template <class ObjectT>
-        static typename ObjectT *constructPtr(ObjectT *pObj);
-    };
- */
-
-    typedef CPtrConstructionFunctions<ContainerFactory> CPtrConstructionFuncs;
-    typedef PtrConstructionFunctions <ContainerFactory>  PtrConstructionFuncs;
-
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    template <class ObjectT>
-    static void newPtr       (      typename ObjectT::ObjPtr &result, 
-                              const          ObjectT         *prototypeP);
+    typedef std::map   <UInt32,       ContainerType *>    TypeIdMap;
+    typedef std::map   <IDStringLink, ContainerType *>    TypeNameMap;
+    typedef std::map   <IDStringLink, UInt16         >    GroupMap;
 
-    template <class ObjectT>
-    static void newPtr       (      typename ObjectT::ObjPtr &result);
+    typedef std::vector<              ContainerType *>    UninitTypeStore;
 
-#ifdef OSG_MT_CPTR_ASPECT
-    template <class ObjectT>
-    static void newAspectCopy(      typename ObjectT::ObjPtr &result,
-                              const          ObjectT         *prototypeP);
-#endif
+    typedef typename TypeIdMap      ::iterator            TypeIdMapIt;
+    typedef typename TypeNameMap    ::iterator            TypeNameMapIt;
+    typedef typename UninitTypeStore::iterator            UninitTypeStoreIt;
+    typedef typename GroupMap       ::iterator            GroupMapIt;
 
-    template <class ObjectT>
-    static typename ObjectT::     ObjPtr constructPtr(      ObjectT *pObj);
-
-    template <class ObjectT>
-    static typename ObjectT::ObjConstPtr constructPtr(const ObjectT *pObj);
+    typedef typename TypeIdMap      ::const_iterator      TypeIdMapConstIt;
+    typedef typename TypeNameMap    ::const_iterator      TypeNameMapCnstIt;
+    typedef typename GroupMap       ::const_iterator      GroupMapConstIt;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    bool             _bInitialized;
+    TypeIdMap        _mTypeIdMap;
+    TypeNameMap      _mTypeNameMap;
+
+    GroupMap         _mGroupMap;
+
+    UninitTypeStore  _vUnitTypesStore;
+    UninitTypeStore  _vPostUnitTypes;
+
+#ifndef OSG_WINCE
+    Lock            *_pLock;
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    PtrCreateMixin(void);
-    PtrCreateMixin(const PtrCreateMixin &source);
+    ContainerFactory(const Char8 *szFactoryName);
 
-    virtual ~PtrCreateMixin(void);
+    virtual ~ContainerFactory(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
+
+    virtual bool initializePendingElements(void);
+
+    virtual bool initialize(void);
+    virtual bool terminate (void);
+
+    virtual bool initializeFactoryPost               (void);
+    virtual bool initializePendingElementsFactoryPost(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -268,14 +241,17 @@ class PtrCreateMixin : public ParentT
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const PtrCreateMixin &source);
+    ContainerFactory(const ContainerFactory &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const ContainerFactory &source);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGContainerCreateMixin.inl"
+#include "OSGContainerFactory.inl"
 
-#endif /* _OSGCONTAINERCREATEMIXIN_H_ */
+#endif /* _OSGCONTAIENRFACTORY_H_ */

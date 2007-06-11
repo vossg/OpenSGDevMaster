@@ -563,6 +563,8 @@ FieldContainerPtr LineChunkBase::createAspectCopy(void) const
 void LineChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

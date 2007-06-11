@@ -601,6 +601,8 @@ void TextureGrabBackgroundBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<TextureGrabBackground *>(this)->setTexture(NullFC);
+
+
 }
 
 

@@ -46,6 +46,7 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGThread.h"
+#include "OSGThreadManager.h"
 
 #include <vector>
 

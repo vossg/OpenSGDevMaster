@@ -1411,6 +1411,8 @@ FieldContainerPtr RenderOptionsBase::createAspectCopy(void) const
 void RenderOptionsBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

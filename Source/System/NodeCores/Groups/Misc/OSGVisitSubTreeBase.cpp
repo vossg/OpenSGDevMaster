@@ -391,6 +391,8 @@ void VisitSubTreeBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<VisitSubTree *>(this)->setSubTreeRoot(NullFC);
+
+
 }
 
 

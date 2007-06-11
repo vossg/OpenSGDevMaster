@@ -135,6 +135,16 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::execSyncV(
                    syncMode,
                    uiSyncInfo);
 }
+
+template <class GeoPropertyDesc> inline
+void TypedGeoVectorProperty<GeoPropertyDesc>::resolveLinks(void)
+{
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+
+    _field.terminateShare(Thread::getCurrentAspect(), oOffsets);
+}
 #endif
 
 #if 0

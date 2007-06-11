@@ -44,6 +44,7 @@
 #endif
 
 #include "OSGFieldContainerAttachment.h"
+#include "OSGContainerPtrFuncs.h"
 
 OSG_BEGIN_NAMESPACE
 

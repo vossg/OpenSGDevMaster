@@ -282,6 +282,9 @@ class MField : public Field
 
     Self *resolveShare  (UInt32              uiAspect, 
                          AspectOffsetStore  &oOffsets    );
+
+    void  terminateShare(UInt32              uiAspect, 
+                         AspectOffsetStore  &oOffsets    );
 #endif
 
     /*! \}                                                                 */
@@ -330,8 +333,6 @@ class MField : public Field
 };
 
 OSG_END_NAMESPACE
-
-#define OSGMFIELD_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGMField.inl"
 

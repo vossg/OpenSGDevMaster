@@ -341,6 +341,8 @@ FieldContainerPtr TextureTransformChunkBase::createAspectCopy(void) const
 void TextureTransformChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

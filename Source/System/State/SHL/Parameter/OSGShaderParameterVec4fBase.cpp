@@ -324,6 +324,8 @@ FieldContainerPtr ShaderParameterVec4fBase::createAspectCopy(void) const
 void ShaderParameterVec4fBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

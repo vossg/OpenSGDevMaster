@@ -239,6 +239,3 @@ void MFieldVector<UInt32>::dump(      UInt32    uiIndent,
 #endif
 
 OSG_END_NAMESPACE
-
-#define OSGMFIELDVECTOR_INLINE_CVSID "@(#)$Id$"
-

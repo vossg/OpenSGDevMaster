@@ -326,6 +326,8 @@ FieldContainerPtr DirectionalLightBase::createAspectCopy(void) const
 void DirectionalLightBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

@@ -215,6 +215,8 @@ void StatsAttachmentBase::execBeginEditV(ConstFieldMaskArg whichField,
 void StatsAttachmentBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

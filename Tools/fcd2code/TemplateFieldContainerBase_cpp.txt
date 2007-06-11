@@ -1111,12 +1111,25 @@ void @!Classname!@Base::resolveLinks(void)
     @@endif //!field.noAccess
     @@endif // field.isPtrField
 @@EndSFFieldLoop@@
+
+@@if hasValueMField
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+@@endif
+
 @@BeginMFFieldLoop@@
     @@if field.isPtrField
     @@if !field.noAccess
-
     static_cast<@!Classname!@ *>(this)->@!field.ClearField!@();
     @@endif //!field.noAccess
+    @@else
+#ifdef OSG_MT_CPTR_ASPECT
+    _@!field.VarName!@.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
     @@endif // field.isPtrField
 @@EndMFFieldLoop@@
 }

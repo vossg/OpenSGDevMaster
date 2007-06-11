@@ -270,8 +270,6 @@ class AttachmentContainerMixin  : public ParentT
 
 OSG_END_NAMESPACE
 
-#define OSGATTACHMENTCONTAINERMIXIN_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGAttachmentContainerMixin.inl"
 
 #endif /* _OSGATTACHMENTCONTAINERMIXIN_H_ */

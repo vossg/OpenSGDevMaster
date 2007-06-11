@@ -4355,6 +4355,17 @@ void TextureObjChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<TextureObjChunk *>(this)->setImage(NullFC);
+
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
+
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfShaderOffsetMatrix.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

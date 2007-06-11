@@ -452,6 +452,8 @@ void GrabForegroundBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<GrabForeground *>(this)->setImage(NullFC);
+
+
 }
 
 

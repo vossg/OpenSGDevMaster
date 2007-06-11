@@ -550,6 +550,8 @@ FieldContainerPtr ColorBufferViewportBase::createAspectCopy(void) const
 void ColorBufferViewportBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 
