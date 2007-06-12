@@ -228,6 +228,20 @@ void CarbonWindowBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+CarbonWindowPtr CarbonWindowBase::create(void)
+{
+    CarbonWindowPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<CarbonWindow::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 CarbonWindowPtr CarbonWindowBase::createEmpty(void)
 {

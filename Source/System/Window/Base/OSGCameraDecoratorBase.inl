@@ -136,14 +136,7 @@ Char8 *CameraDecoratorBase::getClassname(void)
 {
     return "CameraDecorator";
 }
-
-typedef PointerBuilder<CameraDecorator>::ObjPtr          CameraDecoratorPtr;
-typedef PointerBuilder<CameraDecorator>::ObjPtrConst     CameraDecoratorPtrConst;
-typedef PointerBuilder<CameraDecorator>::ObjConstPtr     CameraDecoratorConstPtr;
-
-typedef PointerBuilder<CameraDecorator>::ObjPtrArg       CameraDecoratorPtrArg;
-typedef PointerBuilder<CameraDecorator>::ObjConstPtrArg  CameraDecoratorConstPtrArg;
-typedef PointerBuilder<CameraDecorator>::ObjPtrConstArg  CameraDecoratorPtrConstArg;
+OSG_GEN_CONTAINERPTR(CameraDecorator);
 
 OSG_END_NAMESPACE
 

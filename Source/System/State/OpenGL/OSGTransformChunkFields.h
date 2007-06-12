@@ -70,24 +70,7 @@ class TransformChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TransformChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TransformChunk>::ObjPtr         TransformChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TransformChunk>::ObjPtrConst    TransformChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TransformChunk>::ObjConstPtr    TransformChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TransformChunk>::ObjPtrArg      TransformChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TransformChunk>::ObjConstPtrArg TransformChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TransformChunk>::ObjPtrConstArg TransformChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TransformChunk);
 
 #endif
 

@@ -107,20 +107,6 @@ void CoreGLWindowBase::setContext(const CGLContextObj &value)
     _sfContext.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-CoreGLWindowPtr CoreGLWindowBase::create(void)
-{
-    CoreGLWindowPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<CoreGLWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *CoreGLWindowBase::getClassname(void)
 {
     return "CoreGLWindow";
 }
-
-typedef PointerBuilder<CoreGLWindow>::ObjPtr          CoreGLWindowPtr;
-typedef PointerBuilder<CoreGLWindow>::ObjPtrConst     CoreGLWindowPtrConst;
-typedef PointerBuilder<CoreGLWindow>::ObjConstPtr     CoreGLWindowConstPtr;
-
-typedef PointerBuilder<CoreGLWindow>::ObjPtrArg       CoreGLWindowPtrArg;
-typedef PointerBuilder<CoreGLWindow>::ObjConstPtrArg  CoreGLWindowConstPtrArg;
-typedef PointerBuilder<CoreGLWindow>::ObjPtrConstArg  CoreGLWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(CoreGLWindow);
 
 OSG_END_NAMESPACE
 

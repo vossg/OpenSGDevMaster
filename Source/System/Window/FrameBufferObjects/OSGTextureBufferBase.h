@@ -88,24 +88,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              TextureBuffer>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              TextureBuffer>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              TextureBuffer>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              TextureBuffer>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              TextureBuffer>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              TextureBuffer>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(TextureBuffer);
 
     /*==========================  PUBLIC  =================================*/
 

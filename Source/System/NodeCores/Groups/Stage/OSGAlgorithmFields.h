@@ -70,24 +70,7 @@ class Algorithm;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! AlgorithmPtr
 
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          Algorithm>::ObjPtr         AlgorithmPtr;
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          Algorithm>::ObjPtrConst    AlgorithmPtrConst;
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          Algorithm>::ObjConstPtr    AlgorithmConstPtr;
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          Algorithm>::ObjPtrArg      AlgorithmPtrArg;
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          Algorithm>::ObjConstPtrArg AlgorithmConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          Algorithm>::ObjPtrConstArg AlgorithmPtrConstArg;
+OSG_GEN_CONTAINERPTR(Algorithm);
 
 #endif
 

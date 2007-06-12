@@ -61,15 +61,6 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMap : public StringAttributeMapBase
     typedef StringAttributeMapBase Inherited;
     typedef StringAttributeMap     Self;
 
-    typedef PointerBuilder<StringAttributeMap>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<StringAttributeMap>::ObjPtrConst      ObjPtrConst;
-
-    typedef PointerBuilder<StringAttributeMap>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<StringAttributeMap>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<StringAttributeMap>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<StringAttributeMap>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -147,15 +138,6 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMap : public StringAttributeMapBase
 };
 
 typedef StringAttributeMap *StringAttributeMapP;
-
-typedef StringAttributeMap::ObjPtr           StringAttributeMapPtr;
-typedef StringAttributeMap::ObjPtrConst      StringAttributeMapPtrConst;
-
-typedef StringAttributeMap::ObjConstPtr      StringAttributeMapConstPtr;
-typedef StringAttributeMap::ObjConstPtrConst StringAttributeMapConstPtrConst;
-
-typedef StringAttributeMap::ObjPtrArg        StringAttributeMapPtrArg;
-typedef StringAttributeMap::ObjPtrConstArg   StringAttributeMapPtrConstArg;
 
 /*---------------------------------------------------------------------*/
 /*! \name              StringAttributeMap Util                         */

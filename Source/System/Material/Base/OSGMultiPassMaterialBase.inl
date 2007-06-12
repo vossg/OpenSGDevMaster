@@ -88,20 +88,6 @@ const MFMaterialPtr &MultiPassMaterialBase::getMaterials(void) const
     return _mfMaterials;
 }
 
-//! create a new instance of the class
-inline
-MultiPassMaterialPtr MultiPassMaterialBase::create(void)
-{
-    MultiPassMaterialPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<MultiPassMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -160,14 +146,7 @@ Char8 *MultiPassMaterialBase::getClassname(void)
 {
     return "MultiPassMaterial";
 }
-
-typedef PointerBuilder<MultiPassMaterial>::ObjPtr          MultiPassMaterialPtr;
-typedef PointerBuilder<MultiPassMaterial>::ObjPtrConst     MultiPassMaterialPtrConst;
-typedef PointerBuilder<MultiPassMaterial>::ObjConstPtr     MultiPassMaterialConstPtr;
-
-typedef PointerBuilder<MultiPassMaterial>::ObjPtrArg       MultiPassMaterialPtrArg;
-typedef PointerBuilder<MultiPassMaterial>::ObjConstPtrArg  MultiPassMaterialConstPtrArg;
-typedef PointerBuilder<MultiPassMaterial>::ObjPtrConstArg  MultiPassMaterialPtrConstArg;
+OSG_GEN_CONTAINERPTR(MultiPassMaterial);
 
 OSG_END_NAMESPACE
 

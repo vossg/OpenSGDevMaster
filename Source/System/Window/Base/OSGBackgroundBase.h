@@ -86,24 +86,7 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Background>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Background>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Background>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Background>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Background>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Background>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(Background);
 
     /*==========================  PUBLIC  =================================*/
 

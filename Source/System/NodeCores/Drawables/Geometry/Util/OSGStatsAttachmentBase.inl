@@ -115,14 +115,7 @@ Char8 *StatsAttachmentBase::getClassname(void)
 {
     return "StatsAttachment";
 }
-
-typedef PointerBuilder<StatsAttachment>::ObjPtr          StatsAttachmentPtr;
-typedef PointerBuilder<StatsAttachment>::ObjPtrConst     StatsAttachmentPtrConst;
-typedef PointerBuilder<StatsAttachment>::ObjConstPtr     StatsAttachmentConstPtr;
-
-typedef PointerBuilder<StatsAttachment>::ObjPtrArg       StatsAttachmentPtrArg;
-typedef PointerBuilder<StatsAttachment>::ObjConstPtrArg  StatsAttachmentConstPtrArg;
-typedef PointerBuilder<StatsAttachment>::ObjPtrConstArg  StatsAttachmentPtrConstArg;
+OSG_GEN_CONTAINERPTR(StatsAttachment);
 
 OSG_END_NAMESPACE
 

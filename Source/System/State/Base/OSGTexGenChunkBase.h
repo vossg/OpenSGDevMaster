@@ -96,24 +96,7 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              TexGenChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              TexGenChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              TexGenChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              TexGenChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              TexGenChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              TexGenChunk>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(TexGenChunk);
 
     /*==========================  PUBLIC  =================================*/
 

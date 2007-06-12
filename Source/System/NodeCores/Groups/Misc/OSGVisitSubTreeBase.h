@@ -85,24 +85,7 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              VisitSubTree>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              VisitSubTree>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              VisitSubTree>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              VisitSubTree>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              VisitSubTree>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              VisitSubTree>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(VisitSubTree);
 
     /*==========================  PUBLIC  =================================*/
 

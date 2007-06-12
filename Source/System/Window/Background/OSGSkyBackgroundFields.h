@@ -70,24 +70,7 @@ class SkyBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SkyBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SkyBackground>::ObjPtr         SkyBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SkyBackground>::ObjPtrConst    SkyBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SkyBackground>::ObjConstPtr    SkyBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SkyBackground>::ObjPtrArg      SkyBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SkyBackground>::ObjConstPtrArg SkyBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SkyBackground>::ObjPtrConstArg SkyBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(SkyBackground);
 
 #endif
 

@@ -70,24 +70,7 @@ class TestMultiPartitionStage;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TestMultiPartitionStagePtr
 
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          TestMultiPartitionStage>::ObjPtr         TestMultiPartitionStagePtr;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          TestMultiPartitionStage>::ObjPtrConst    TestMultiPartitionStagePtrConst;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          TestMultiPartitionStage>::ObjConstPtr    TestMultiPartitionStageConstPtr;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          TestMultiPartitionStage>::ObjPtrArg      TestMultiPartitionStagePtrArg;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          TestMultiPartitionStage>::ObjConstPtrArg TestMultiPartitionStageConstPtrArg;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          TestMultiPartitionStage>::ObjPtrConstArg TestMultiPartitionStagePtrConstArg;
+OSG_GEN_CONTAINERPTR(TestMultiPartitionStage);
 
 #endif
 

@@ -238,6 +238,7 @@ void StateChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 StateChunkBase::StateChunkBase(void) :

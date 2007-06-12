@@ -70,24 +70,7 @@ class PointChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PointChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PointChunk>::ObjPtr         PointChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PointChunk>::ObjPtrConst    PointChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PointChunk>::ObjConstPtr    PointChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PointChunk>::ObjPtrArg      PointChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PointChunk>::ObjConstPtrArg PointChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PointChunk>::ObjPtrConstArg PointChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(PointChunk);
 
 #endif
 

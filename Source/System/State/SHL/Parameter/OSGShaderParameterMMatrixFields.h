@@ -70,24 +70,7 @@ class ShaderParameterMMatrix;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShaderParameterMMatrixPtr
 
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMMatrix>::ObjPtr         ShaderParameterMMatrixPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMMatrix>::ObjPtrConst    ShaderParameterMMatrixPtrConst;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMMatrix>::ObjConstPtr    ShaderParameterMMatrixConstPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMMatrix>::ObjPtrArg      ShaderParameterMMatrixPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMMatrix>::ObjConstPtrArg ShaderParameterMMatrixConstPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMMatrix>::ObjPtrConstArg ShaderParameterMMatrixPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterMMatrix);
 
 #endif
 

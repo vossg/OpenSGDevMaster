@@ -89,24 +89,7 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ShaderChunkPtr,
-                              ShaderChunkConstPtr,
-                              SHLChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ShaderChunkPtr,
-                              ShaderChunkConstPtr,
-                              SHLChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ShaderChunkPtr,
-                              ShaderChunkConstPtr,
-                              SHLChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ShaderChunkPtr,
-                              ShaderChunkConstPtr,
-                              SHLChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ShaderChunkPtr,
-                              ShaderChunkConstPtr,
-                              SHLChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ShaderChunkPtr,
-                              ShaderChunkConstPtr,
-                              SHLChunk>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(SHLChunk);
 
     /*==========================  PUBLIC  =================================*/
 

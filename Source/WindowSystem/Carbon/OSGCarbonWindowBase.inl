@@ -107,20 +107,6 @@ void CarbonWindowBase::setContext(const AGLContext &value)
     _sfContext.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-CarbonWindowPtr CarbonWindowBase::create(void)
-{
-    CarbonWindowPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<CarbonWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *CarbonWindowBase::getClassname(void)
 {
     return "CarbonWindow";
 }
-
-typedef PointerBuilder<CarbonWindow>::ObjPtr          CarbonWindowPtr;
-typedef PointerBuilder<CarbonWindow>::ObjPtrConst     CarbonWindowPtrConst;
-typedef PointerBuilder<CarbonWindow>::ObjConstPtr     CarbonWindowConstPtr;
-
-typedef PointerBuilder<CarbonWindow>::ObjPtrArg       CarbonWindowPtrArg;
-typedef PointerBuilder<CarbonWindow>::ObjConstPtrArg  CarbonWindowConstPtrArg;
-typedef PointerBuilder<CarbonWindow>::ObjPtrConstArg  CarbonWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(CarbonWindow);
 
 OSG_END_NAMESPACE
 

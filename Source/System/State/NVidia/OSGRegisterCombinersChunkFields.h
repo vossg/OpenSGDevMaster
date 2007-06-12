@@ -70,24 +70,7 @@ class RegisterCombinersChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! RegisterCombinersChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          RegisterCombinersChunk>::ObjPtr         RegisterCombinersChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          RegisterCombinersChunk>::ObjPtrConst    RegisterCombinersChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          RegisterCombinersChunk>::ObjConstPtr    RegisterCombinersChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          RegisterCombinersChunk>::ObjPtrArg      RegisterCombinersChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          RegisterCombinersChunk>::ObjConstPtrArg RegisterCombinersChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          RegisterCombinersChunk>::ObjPtrConstArg RegisterCombinersChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(RegisterCombinersChunk);
 
 #endif
 

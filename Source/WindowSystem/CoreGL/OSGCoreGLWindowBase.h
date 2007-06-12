@@ -85,24 +85,7 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CoreGLWindow>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CoreGLWindow>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CoreGLWindow>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CoreGLWindow>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CoreGLWindow>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CoreGLWindow>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(CoreGLWindow);
 
     /*==========================  PUBLIC  =================================*/
 

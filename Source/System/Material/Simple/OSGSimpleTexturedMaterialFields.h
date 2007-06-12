@@ -70,24 +70,7 @@ class SimpleTexturedMaterial;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SimpleTexturedMaterialPtr
 
-typedef PointerFwdBuilder<SimpleMaterialPtr,
-                          SimpleMaterialConstPtr,
-                          SimpleTexturedMaterial>::ObjPtr         SimpleTexturedMaterialPtr;
-typedef PointerFwdBuilder<SimpleMaterialPtr,
-                          SimpleMaterialConstPtr,
-                          SimpleTexturedMaterial>::ObjPtrConst    SimpleTexturedMaterialPtrConst;
-typedef PointerFwdBuilder<SimpleMaterialPtr,
-                          SimpleMaterialConstPtr,
-                          SimpleTexturedMaterial>::ObjConstPtr    SimpleTexturedMaterialConstPtr;
-typedef PointerFwdBuilder<SimpleMaterialPtr,
-                          SimpleMaterialConstPtr,
-                          SimpleTexturedMaterial>::ObjPtrArg      SimpleTexturedMaterialPtrArg;
-typedef PointerFwdBuilder<SimpleMaterialPtr,
-                          SimpleMaterialConstPtr,
-                          SimpleTexturedMaterial>::ObjConstPtrArg SimpleTexturedMaterialConstPtrArg;
-typedef PointerFwdBuilder<SimpleMaterialPtr,
-                          SimpleMaterialConstPtr,
-                          SimpleTexturedMaterial>::ObjPtrConstArg SimpleTexturedMaterialPtrConstArg;
+OSG_GEN_CONTAINERPTR(SimpleTexturedMaterial);
 
 #endif
 

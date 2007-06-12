@@ -140,20 +140,6 @@ void StereoBufferViewportBase::setRightBuffer(const bool &value)
     _sfRightBuffer.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-StereoBufferViewportPtr StereoBufferViewportBase::create(void)
-{
-    StereoBufferViewportPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<StereoBufferViewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -207,14 +193,7 @@ Char8 *StereoBufferViewportBase::getClassname(void)
 {
     return "StereoBufferViewport";
 }
-
-typedef PointerBuilder<StereoBufferViewport>::ObjPtr          StereoBufferViewportPtr;
-typedef PointerBuilder<StereoBufferViewport>::ObjPtrConst     StereoBufferViewportPtrConst;
-typedef PointerBuilder<StereoBufferViewport>::ObjConstPtr     StereoBufferViewportConstPtr;
-
-typedef PointerBuilder<StereoBufferViewport>::ObjPtrArg       StereoBufferViewportPtrArg;
-typedef PointerBuilder<StereoBufferViewport>::ObjConstPtrArg  StereoBufferViewportConstPtrArg;
-typedef PointerBuilder<StereoBufferViewport>::ObjPtrConstArg  StereoBufferViewportPtrConstArg;
+OSG_GEN_CONTAINERPTR(StereoBufferViewport);
 
 OSG_END_NAMESPACE
 

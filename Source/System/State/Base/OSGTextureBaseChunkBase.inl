@@ -154,14 +154,7 @@ Char8 *TextureBaseChunkBase::getClassname(void)
 {
     return "TextureBaseChunk";
 }
-
-typedef PointerBuilder<TextureBaseChunk>::ObjPtr          TextureBaseChunkPtr;
-typedef PointerBuilder<TextureBaseChunk>::ObjPtrConst     TextureBaseChunkPtrConst;
-typedef PointerBuilder<TextureBaseChunk>::ObjConstPtr     TextureBaseChunkConstPtr;
-
-typedef PointerBuilder<TextureBaseChunk>::ObjPtrArg       TextureBaseChunkPtrArg;
-typedef PointerBuilder<TextureBaseChunk>::ObjConstPtrArg  TextureBaseChunkConstPtrArg;
-typedef PointerBuilder<TextureBaseChunk>::ObjPtrConstArg  TextureBaseChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureBaseChunk);
 
 OSG_END_NAMESPACE
 

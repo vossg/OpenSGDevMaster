@@ -85,24 +85,7 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              Transform>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              Transform>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              Transform>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              Transform>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              Transform>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              Transform>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(Transform);
 
     /*==========================  PUBLIC  =================================*/
 

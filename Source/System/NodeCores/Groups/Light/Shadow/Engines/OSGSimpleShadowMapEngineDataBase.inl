@@ -216,23 +216,7 @@ Char8 *SimpleShadowMapEngineDataBase::getClassname(void)
     return "SimpleShadowMapEngineData";
 }
 
-typedef BundlePointerBuilder<
-    SimpleShadowMapEngineData>::ObjPtr          SimpleShadowMapEngineDataP;
-
-typedef BundlePointerBuilder<
-    SimpleShadowMapEngineData>::ObjPtrConst     SimpleShadowMapEngineDataPConst;
-
-typedef BundlePointerBuilder<
-    SimpleShadowMapEngineData>::ObjConstPtr     SimpleShadowMapEngineDataConstP;
-
-typedef BundlePointerBuilder<
-    SimpleShadowMapEngineData>::ObjPtrArg       SimpleShadowMapEngineDataPArg;
-
-typedef BundlePointerBuilder<
-    SimpleShadowMapEngineData>::ObjConstPtrArg  SimpleShadowMapEngineDataConstPArg;
-
-typedef BundlePointerBuilder<
-    SimpleShadowMapEngineData>::ObjPtrConstArg  SimpleShadowMapEngineDataPConstArg;
+OSG_GEN_BUNDLEP(SimpleShadowMapEngineData);
 
 OSG_END_NAMESPACE
 

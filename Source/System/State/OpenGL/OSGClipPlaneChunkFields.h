@@ -70,24 +70,7 @@ class ClipPlaneChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ClipPlaneChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ClipPlaneChunk>::ObjPtr         ClipPlaneChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ClipPlaneChunk>::ObjPtrConst    ClipPlaneChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ClipPlaneChunk>::ObjConstPtr    ClipPlaneChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ClipPlaneChunk>::ObjPtrArg      ClipPlaneChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ClipPlaneChunk>::ObjConstPtrArg ClipPlaneChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ClipPlaneChunk>::ObjPtrConstArg ClipPlaneChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(ClipPlaneChunk);
 
 #endif
 

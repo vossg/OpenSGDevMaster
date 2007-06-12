@@ -140,20 +140,6 @@ void ShearedStereoCameraDecoratorBase::setOverlap(const Real32 &value)
     _sfOverlap.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::create(void)
-{
-    ShearedStereoCameraDecoratorPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ShearedStereoCameraDecorator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -207,14 +193,7 @@ Char8 *ShearedStereoCameraDecoratorBase::getClassname(void)
 {
     return "ShearedStereoCameraDecorator";
 }
-
-typedef PointerBuilder<ShearedStereoCameraDecorator>::ObjPtr          ShearedStereoCameraDecoratorPtr;
-typedef PointerBuilder<ShearedStereoCameraDecorator>::ObjPtrConst     ShearedStereoCameraDecoratorPtrConst;
-typedef PointerBuilder<ShearedStereoCameraDecorator>::ObjConstPtr     ShearedStereoCameraDecoratorConstPtr;
-
-typedef PointerBuilder<ShearedStereoCameraDecorator>::ObjPtrArg       ShearedStereoCameraDecoratorPtrArg;
-typedef PointerBuilder<ShearedStereoCameraDecorator>::ObjConstPtrArg  ShearedStereoCameraDecoratorConstPtrArg;
-typedef PointerBuilder<ShearedStereoCameraDecorator>::ObjPtrConstArg  ShearedStereoCameraDecoratorPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShearedStereoCameraDecorator);
 
 OSG_END_NAMESPACE
 

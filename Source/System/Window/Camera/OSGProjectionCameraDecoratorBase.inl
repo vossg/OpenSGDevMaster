@@ -303,20 +303,6 @@ const MFPnt3f &ProjectionCameraDecoratorBase::getSurface(void) const
     return _mfSurface;
 }
 
-//! create a new instance of the class
-inline
-ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::create(void)
-{
-    ProjectionCameraDecoratorPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ProjectionCameraDecorator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -411,14 +397,7 @@ Char8 *ProjectionCameraDecoratorBase::getClassname(void)
 {
     return "ProjectionCameraDecorator";
 }
-
-typedef PointerBuilder<ProjectionCameraDecorator>::ObjPtr          ProjectionCameraDecoratorPtr;
-typedef PointerBuilder<ProjectionCameraDecorator>::ObjPtrConst     ProjectionCameraDecoratorPtrConst;
-typedef PointerBuilder<ProjectionCameraDecorator>::ObjConstPtr     ProjectionCameraDecoratorConstPtr;
-
-typedef PointerBuilder<ProjectionCameraDecorator>::ObjPtrArg       ProjectionCameraDecoratorPtrArg;
-typedef PointerBuilder<ProjectionCameraDecorator>::ObjConstPtrArg  ProjectionCameraDecoratorConstPtrArg;
-typedef PointerBuilder<ProjectionCameraDecorator>::ObjPtrConstArg  ProjectionCameraDecoratorPtrConstArg;
+OSG_GEN_CONTAINERPTR(ProjectionCameraDecorator);
 
 OSG_END_NAMESPACE
 

@@ -74,20 +74,6 @@ OSG::UInt16 PassiveViewportBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-PassiveViewportPtr PassiveViewportBase::create(void)
-{
-    PassiveViewportPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<PassiveViewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *PassiveViewportBase::getClassname(void)
 {
     return "PassiveViewport";
 }
-
-typedef PointerBuilder<PassiveViewport>::ObjPtr          PassiveViewportPtr;
-typedef PointerBuilder<PassiveViewport>::ObjPtrConst     PassiveViewportPtrConst;
-typedef PointerBuilder<PassiveViewport>::ObjConstPtr     PassiveViewportConstPtr;
-
-typedef PointerBuilder<PassiveViewport>::ObjPtrArg       PassiveViewportPtrArg;
-typedef PointerBuilder<PassiveViewport>::ObjConstPtrArg  PassiveViewportConstPtrArg;
-typedef PointerBuilder<PassiveViewport>::ObjPtrConstArg  PassiveViewportPtrConstArg;
+OSG_GEN_CONTAINERPTR(PassiveViewport);
 
 OSG_END_NAMESPACE
 

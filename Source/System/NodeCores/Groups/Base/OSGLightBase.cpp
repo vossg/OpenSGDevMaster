@@ -805,6 +805,7 @@ void LightBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 LightBase::LightBase(void) :

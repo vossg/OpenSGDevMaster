@@ -70,24 +70,7 @@ class ScreenLOD;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ScreenLODPtr
 
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ScreenLOD>::ObjPtr         ScreenLODPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ScreenLOD>::ObjPtrConst    ScreenLODPtrConst;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ScreenLOD>::ObjConstPtr    ScreenLODConstPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ScreenLOD>::ObjPtrArg      ScreenLODPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ScreenLOD>::ObjConstPtrArg ScreenLODConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ScreenLOD>::ObjPtrConstArg ScreenLODPtrConstArg;
+OSG_GEN_CONTAINERPTR(ScreenLOD);
 
 #endif
 

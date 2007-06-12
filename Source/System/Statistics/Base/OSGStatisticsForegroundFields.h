@@ -70,24 +70,7 @@ class StatisticsForeground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StatisticsForegroundPtr
 
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          StatisticsForeground>::ObjPtr         StatisticsForegroundPtr;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          StatisticsForeground>::ObjPtrConst    StatisticsForegroundPtrConst;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          StatisticsForeground>::ObjConstPtr    StatisticsForegroundConstPtr;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          StatisticsForeground>::ObjPtrArg      StatisticsForegroundPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          StatisticsForeground>::ObjConstPtrArg StatisticsForegroundConstPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          StatisticsForeground>::ObjPtrConstArg StatisticsForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(StatisticsForeground);
 
 #endif
 

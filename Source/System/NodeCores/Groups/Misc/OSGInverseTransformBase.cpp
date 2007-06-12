@@ -152,6 +152,20 @@ void InverseTransformBase::copyFromBin(BinaryDataHandler &pMem,
 
 }
 
+//! create a new instance of the class
+InverseTransformPtr InverseTransformBase::create(void)
+{
+    InverseTransformPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<InverseTransform::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 InverseTransformPtr InverseTransformBase::createEmpty(void)
 {

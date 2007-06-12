@@ -70,23 +70,7 @@ class HDRStageData;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! HDRStageDataP
 
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjPtr         HDRStageDataP;
-
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjPtrConst    HDRStageDataPConst;
-
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjConstPtr    HDRStageDataConstP;
-
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjPtrArg      HDRStageDataPArg;
-
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjConstPtrArg HDRStageDataConstPArg;
-
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjPtrConstArg HDRStageDataPConstArg;
+OSG_GEN_BUNDLEP(HDRStageData);
 
 #endif
 

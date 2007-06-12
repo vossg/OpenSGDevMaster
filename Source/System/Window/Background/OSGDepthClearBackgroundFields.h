@@ -70,24 +70,7 @@ class DepthClearBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! DepthClearBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          DepthClearBackground>::ObjPtr         DepthClearBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          DepthClearBackground>::ObjPtrConst    DepthClearBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          DepthClearBackground>::ObjConstPtr    DepthClearBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          DepthClearBackground>::ObjPtrArg      DepthClearBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          DepthClearBackground>::ObjConstPtrArg DepthClearBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          DepthClearBackground>::ObjPtrConstArg DepthClearBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(DepthClearBackground);
 
 #endif
 

@@ -67,15 +67,6 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLOD : public ScreenLODBase
     typedef ScreenLODBase Inherited;
     typedef ScreenLOD     Self;
 
-    typedef PointerBuilder<ScreenLOD>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<ScreenLOD>::ObjPtrConst      ObjPtrConst;
-
-    typedef PointerBuilder<ScreenLOD>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<ScreenLOD>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<ScreenLOD>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<ScreenLOD>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -144,15 +135,6 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLOD : public ScreenLODBase
 };
 
 typedef ScreenLOD *ScreenLODP;
-
-typedef ScreenLOD::ObjPtr           ScreenLODPtr;
-typedef ScreenLOD::ObjPtrConst      ScreenLODPtrConst;
-
-typedef ScreenLOD::ObjConstPtr      ScreenLODConstPtr;
-typedef ScreenLOD::ObjConstPtrConst ScreenLODConstPtrConst;
-
-typedef ScreenLOD::ObjPtrArg        ScreenLODPtrArg;
-typedef ScreenLOD::ObjPtrConstArg   ScreenLODPtrConstArg;
 
 OSG_END_NAMESPACE
 

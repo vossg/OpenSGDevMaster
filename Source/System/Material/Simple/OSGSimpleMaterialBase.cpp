@@ -729,6 +729,20 @@ void SimpleMaterialBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+SimpleMaterialPtr SimpleMaterialBase::create(void)
+{
+    SimpleMaterialPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<SimpleMaterial::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SimpleMaterialPtr SimpleMaterialBase::createEmpty(void)
 {

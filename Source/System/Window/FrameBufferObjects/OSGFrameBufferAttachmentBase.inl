@@ -193,14 +193,7 @@ Char8 *FrameBufferAttachmentBase::getClassname(void)
 {
     return "FrameBufferAttachment";
 }
-
-typedef PointerBuilder<FrameBufferAttachment>::ObjPtr          FrameBufferAttachmentPtr;
-typedef PointerBuilder<FrameBufferAttachment>::ObjPtrConst     FrameBufferAttachmentPtrConst;
-typedef PointerBuilder<FrameBufferAttachment>::ObjConstPtr     FrameBufferAttachmentConstPtr;
-
-typedef PointerBuilder<FrameBufferAttachment>::ObjPtrArg       FrameBufferAttachmentPtrArg;
-typedef PointerBuilder<FrameBufferAttachment>::ObjConstPtrArg  FrameBufferAttachmentConstPtrArg;
-typedef PointerBuilder<FrameBufferAttachment>::ObjPtrConstArg  FrameBufferAttachmentPtrConstArg;
+OSG_GEN_CONTAINERPTR(FrameBufferAttachment);
 
 OSG_END_NAMESPACE
 

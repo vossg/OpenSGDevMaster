@@ -159,6 +159,7 @@ void GeoVectorPropertyBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 GeoVectorPropertyBase::GeoVectorPropertyBase(void) :

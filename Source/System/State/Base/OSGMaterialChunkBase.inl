@@ -536,20 +536,6 @@ void MaterialChunkBase::setBackColorMaterial(const GLenum &value)
     _sfBackColorMaterial.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-MaterialChunkPtr MaterialChunkBase::create(void)
-{
-    MaterialChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<MaterialChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -675,14 +661,7 @@ Char8 *MaterialChunkBase::getClassname(void)
 {
     return "MaterialChunk";
 }
-
-typedef PointerBuilder<MaterialChunk>::ObjPtr          MaterialChunkPtr;
-typedef PointerBuilder<MaterialChunk>::ObjPtrConst     MaterialChunkPtrConst;
-typedef PointerBuilder<MaterialChunk>::ObjConstPtr     MaterialChunkConstPtr;
-
-typedef PointerBuilder<MaterialChunk>::ObjPtrArg       MaterialChunkPtrArg;
-typedef PointerBuilder<MaterialChunk>::ObjConstPtrArg  MaterialChunkConstPtrArg;
-typedef PointerBuilder<MaterialChunk>::ObjPtrConstArg  MaterialChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(MaterialChunk);
 
 OSG_END_NAMESPACE
 

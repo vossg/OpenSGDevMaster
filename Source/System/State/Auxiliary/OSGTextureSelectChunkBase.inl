@@ -121,20 +121,6 @@ const MFTextureBaseChunkPtr &TextureSelectChunkBase::getTextures(void) const
     return _mfTextures;
 }
 
-//! create a new instance of the class
-inline
-TextureSelectChunkPtr TextureSelectChunkBase::create(void)
-{
-    TextureSelectChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TextureSelectChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -199,14 +185,7 @@ Char8 *TextureSelectChunkBase::getClassname(void)
 {
     return "TextureSelectChunk";
 }
-
-typedef PointerBuilder<TextureSelectChunk>::ObjPtr          TextureSelectChunkPtr;
-typedef PointerBuilder<TextureSelectChunk>::ObjPtrConst     TextureSelectChunkPtrConst;
-typedef PointerBuilder<TextureSelectChunk>::ObjConstPtr     TextureSelectChunkConstPtr;
-
-typedef PointerBuilder<TextureSelectChunk>::ObjPtrArg       TextureSelectChunkPtrArg;
-typedef PointerBuilder<TextureSelectChunk>::ObjConstPtrArg  TextureSelectChunkConstPtrArg;
-typedef PointerBuilder<TextureSelectChunk>::ObjPtrConstArg  TextureSelectChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureSelectChunk);
 
 OSG_END_NAMESPACE
 

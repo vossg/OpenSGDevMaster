@@ -356,20 +356,6 @@ const MFForegroundPtr &ViewportBase::getForegrounds(void) const
     return _mfForegrounds;
 }
 
-//! create a new instance of the class
-inline
-ViewportPtr ViewportBase::create(void)
-{
-    ViewportPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<Viewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -488,14 +474,7 @@ Char8 *ViewportBase::getClassname(void)
 {
     return "Viewport";
 }
-
-typedef PointerBuilder<Viewport>::ObjPtr          ViewportPtr;
-typedef PointerBuilder<Viewport>::ObjPtrConst     ViewportPtrConst;
-typedef PointerBuilder<Viewport>::ObjConstPtr     ViewportConstPtr;
-
-typedef PointerBuilder<Viewport>::ObjPtrArg       ViewportPtrArg;
-typedef PointerBuilder<Viewport>::ObjConstPtrArg  ViewportConstPtrArg;
-typedef PointerBuilder<Viewport>::ObjPtrConstArg  ViewportPtrConstArg;
+OSG_GEN_CONTAINERPTR(Viewport);
 
 OSG_END_NAMESPACE
 

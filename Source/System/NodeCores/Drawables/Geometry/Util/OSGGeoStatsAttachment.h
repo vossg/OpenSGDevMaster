@@ -62,15 +62,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachment : public GeoStatsAttachmentBase
     typedef GeoStatsAttachmentBase Inherited;
     typedef GeoStatsAttachment     Self;
 
-    typedef PointerBuilder<GeoStatsAttachment>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<GeoStatsAttachment>::ObjPtrConst      ObjPtrConst;
-
-    typedef PointerBuilder<GeoStatsAttachment>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<GeoStatsAttachment>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<GeoStatsAttachment>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<GeoStatsAttachment>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -184,16 +175,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachment : public GeoStatsAttachmentBase
 };
 
 typedef GeoStatsAttachment *GeoStatsAttachmentP;
-
-typedef GeoStatsAttachment::ObjPtr           GeoStatsAttachmentPtr;
-typedef GeoStatsAttachment::ObjPtrConst      GeoStatsAttachmentPtrConst;
-
-typedef GeoStatsAttachment::ObjConstPtr      GeoStatsAttachmentConstPtr;
-typedef GeoStatsAttachment::ObjConstPtrConst GeoStatsAttachmentConstPtrConst;
-
-typedef GeoStatsAttachment::ObjPtrArg        GeoStatsAttachmentPtrArg;
-typedef GeoStatsAttachment::ObjPtrConstArg   GeoStatsAttachmentPtrConstArg;
-
 
 /*! Operators
    \{

@@ -115,14 +115,7 @@ Char8 *GeoVectorPropertyBase::getClassname(void)
 {
     return "GeoVectorProperty";
 }
-
-typedef PointerBuilder<GeoVectorProperty>::ObjPtr          GeoVectorPropertyPtr;
-typedef PointerBuilder<GeoVectorProperty>::ObjPtrConst     GeoVectorPropertyPtrConst;
-typedef PointerBuilder<GeoVectorProperty>::ObjConstPtr     GeoVectorPropertyConstPtr;
-
-typedef PointerBuilder<GeoVectorProperty>::ObjPtrArg       GeoVectorPropertyPtrArg;
-typedef PointerBuilder<GeoVectorProperty>::ObjConstPtrArg  GeoVectorPropertyConstPtrArg;
-typedef PointerBuilder<GeoVectorProperty>::ObjPtrConstArg  GeoVectorPropertyPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoVectorProperty);
 
 OSG_END_NAMESPACE
 

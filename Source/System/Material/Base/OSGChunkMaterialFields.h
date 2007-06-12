@@ -70,24 +70,7 @@ class ChunkMaterial;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ChunkMaterialPtr
 
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          ChunkMaterial>::ObjPtr         ChunkMaterialPtr;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          ChunkMaterial>::ObjPtrConst    ChunkMaterialPtrConst;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          ChunkMaterial>::ObjConstPtr    ChunkMaterialConstPtr;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          ChunkMaterial>::ObjPtrArg      ChunkMaterialPtrArg;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          ChunkMaterial>::ObjConstPtrArg ChunkMaterialConstPtrArg;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          ChunkMaterial>::ObjPtrConstArg ChunkMaterialPtrConstArg;
+OSG_GEN_CONTAINERPTR(ChunkMaterial);
 
 #endif
 

@@ -70,24 +70,7 @@ class ShaderParameterMReal;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShaderParameterMRealPtr
 
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMReal>::ObjPtr         ShaderParameterMRealPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMReal>::ObjPtrConst    ShaderParameterMRealPtrConst;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMReal>::ObjConstPtr    ShaderParameterMRealConstPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMReal>::ObjPtrArg      ShaderParameterMRealPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMReal>::ObjConstPtrArg ShaderParameterMRealConstPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMReal>::ObjPtrConstArg ShaderParameterMRealPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterMReal);
 
 #endif
 

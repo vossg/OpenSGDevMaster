@@ -70,24 +70,7 @@ class LightChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! LightChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LightChunk>::ObjPtr         LightChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LightChunk>::ObjPtrConst    LightChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LightChunk>::ObjConstPtr    LightChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LightChunk>::ObjPtrArg      LightChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LightChunk>::ObjConstPtrArg LightChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LightChunk>::ObjPtrConstArg LightChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(LightChunk);
 
 #endif
 

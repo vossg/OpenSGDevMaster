@@ -85,24 +85,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterStringBase : public ShaderParameter
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterString>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterString>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterString>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterString>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterString>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterString>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ShaderParameterString);
 
     /*==========================  PUBLIC  =================================*/
 

@@ -158,6 +158,20 @@ void GroupBase::copyFromBin(BinaryDataHandler &pMem,
 
 }
 
+//! create a new instance of the class
+GroupPtr GroupBase::create(void)
+{
+    GroupPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<Group::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 GroupPtr GroupBase::createEmpty(void)
 {

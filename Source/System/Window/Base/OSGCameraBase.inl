@@ -130,14 +130,7 @@ Char8 *CameraBase::getClassname(void)
 {
     return "Camera";
 }
-
-typedef PointerBuilder<Camera>::ObjPtr          CameraPtr;
-typedef PointerBuilder<Camera>::ObjPtrConst     CameraPtrConst;
-typedef PointerBuilder<Camera>::ObjConstPtr     CameraConstPtr;
-
-typedef PointerBuilder<Camera>::ObjPtrArg       CameraPtrArg;
-typedef PointerBuilder<Camera>::ObjConstPtrArg  CameraConstPtrArg;
-typedef PointerBuilder<Camera>::ObjPtrConstArg  CameraPtrConstArg;
+OSG_GEN_CONTAINERPTR(Camera);
 
 OSG_END_NAMESPACE
 

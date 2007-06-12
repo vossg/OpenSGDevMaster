@@ -70,24 +70,7 @@ class StateChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StateChunkPtr
 
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StateChunk>::ObjPtr         StateChunkPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StateChunk>::ObjPtrConst    StateChunkPtrConst;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StateChunk>::ObjConstPtr    StateChunkConstPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StateChunk>::ObjPtrArg      StateChunkPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StateChunk>::ObjConstPtrArg StateChunkConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StateChunk>::ObjPtrConstArg StateChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(StateChunk);
 
 #endif
 

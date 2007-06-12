@@ -86,24 +86,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Material>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Material>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Material>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Material>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Material>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Material>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(Material);
 
     /*==========================  PUBLIC  =================================*/
 

@@ -70,24 +70,7 @@ class StereoCameraDecorator;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StereoCameraDecoratorPtr
 
-typedef PointerFwdBuilder<CameraDecoratorPtr,
-                          CameraDecoratorConstPtr,
-                          StereoCameraDecorator>::ObjPtr         StereoCameraDecoratorPtr;
-typedef PointerFwdBuilder<CameraDecoratorPtr,
-                          CameraDecoratorConstPtr,
-                          StereoCameraDecorator>::ObjPtrConst    StereoCameraDecoratorPtrConst;
-typedef PointerFwdBuilder<CameraDecoratorPtr,
-                          CameraDecoratorConstPtr,
-                          StereoCameraDecorator>::ObjConstPtr    StereoCameraDecoratorConstPtr;
-typedef PointerFwdBuilder<CameraDecoratorPtr,
-                          CameraDecoratorConstPtr,
-                          StereoCameraDecorator>::ObjPtrArg      StereoCameraDecoratorPtrArg;
-typedef PointerFwdBuilder<CameraDecoratorPtr,
-                          CameraDecoratorConstPtr,
-                          StereoCameraDecorator>::ObjConstPtrArg StereoCameraDecoratorConstPtrArg;
-typedef PointerFwdBuilder<CameraDecoratorPtr,
-                          CameraDecoratorConstPtr,
-                          StereoCameraDecorator>::ObjPtrConstArg StereoCameraDecoratorPtrConstArg;
+OSG_GEN_CONTAINERPTR(StereoCameraDecorator);
 
 #endif
 

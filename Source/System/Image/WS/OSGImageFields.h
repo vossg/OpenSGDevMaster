@@ -70,24 +70,7 @@ class Image;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ImagePtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Image>::ObjPtr         ImagePtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Image>::ObjPtrConst    ImagePtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Image>::ObjConstPtr    ImageConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Image>::ObjPtrArg      ImagePtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Image>::ObjConstPtrArg ImageConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Image>::ObjPtrConstArg ImagePtrConstArg;
+OSG_GEN_CONTAINERPTR(Image);
 
 #endif
 

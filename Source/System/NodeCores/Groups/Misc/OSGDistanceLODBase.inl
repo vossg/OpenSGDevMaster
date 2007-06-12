@@ -154,20 +154,6 @@ const MFReal32 &DistanceLODBase::getRange(void) const
     return _mfRange;
 }
 
-//! create a new instance of the class
-inline
-DistanceLODPtr DistanceLODBase::create(void)
-{
-    DistanceLODPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<DistanceLOD::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -232,14 +218,7 @@ Char8 *DistanceLODBase::getClassname(void)
 {
     return "DistanceLOD";
 }
-
-typedef PointerBuilder<DistanceLOD>::ObjPtr          DistanceLODPtr;
-typedef PointerBuilder<DistanceLOD>::ObjPtrConst     DistanceLODPtrConst;
-typedef PointerBuilder<DistanceLOD>::ObjConstPtr     DistanceLODConstPtr;
-
-typedef PointerBuilder<DistanceLOD>::ObjPtrArg       DistanceLODPtrArg;
-typedef PointerBuilder<DistanceLOD>::ObjConstPtrArg  DistanceLODConstPtrArg;
-typedef PointerBuilder<DistanceLOD>::ObjPtrConstArg  DistanceLODPtrConstArg;
+OSG_GEN_CONTAINERPTR(DistanceLOD);
 
 OSG_END_NAMESPACE
 

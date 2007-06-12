@@ -70,24 +70,7 @@ class ColorBufferViewport;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ColorBufferViewportPtr
 
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          ColorBufferViewport>::ObjPtr         ColorBufferViewportPtr;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          ColorBufferViewport>::ObjPtrConst    ColorBufferViewportPtrConst;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          ColorBufferViewport>::ObjConstPtr    ColorBufferViewportConstPtr;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          ColorBufferViewport>::ObjPtrArg      ColorBufferViewportPtrArg;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          ColorBufferViewport>::ObjConstPtrArg ColorBufferViewportConstPtrArg;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          ColorBufferViewport>::ObjPtrConstArg ColorBufferViewportPtrConstArg;
+OSG_GEN_CONTAINERPTR(ColorBufferViewport);
 
 #endif
 

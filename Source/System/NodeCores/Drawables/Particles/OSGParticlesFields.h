@@ -70,24 +70,7 @@ class Particles;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ParticlesPtr
 
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Particles>::ObjPtr         ParticlesPtr;
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Particles>::ObjPtrConst    ParticlesPtrConst;
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Particles>::ObjConstPtr    ParticlesConstPtr;
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Particles>::ObjPtrArg      ParticlesPtrArg;
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Particles>::ObjConstPtrArg ParticlesConstPtrArg;
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Particles>::ObjPtrConstArg ParticlesPtrConstArg;
+OSG_GEN_CONTAINERPTR(Particles);
 
 #endif
 

@@ -85,24 +85,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec3fBase : public ShaderParameter
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterMVec3f>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterMVec3f>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterMVec3f>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterMVec3f>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterMVec3f>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterMVec3f>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ShaderParameterMVec3f);
 
     /*==========================  PUBLIC  =================================*/
 

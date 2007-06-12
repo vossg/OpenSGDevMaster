@@ -70,24 +70,7 @@ class StatsAttachment;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StatsAttachmentPtr
 
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StatsAttachment>::ObjPtr         StatsAttachmentPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StatsAttachment>::ObjPtrConst    StatsAttachmentPtrConst;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StatsAttachment>::ObjConstPtr    StatsAttachmentConstPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StatsAttachment>::ObjPtrArg      StatsAttachmentPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StatsAttachment>::ObjConstPtrArg StatsAttachmentConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StatsAttachment>::ObjPtrConstArg StatsAttachmentPtrConstArg;
+OSG_GEN_CONTAINERPTR(StatsAttachment);
 
 #endif
 

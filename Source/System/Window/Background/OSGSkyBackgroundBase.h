@@ -103,24 +103,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              SkyBackground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              SkyBackground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              SkyBackground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              SkyBackground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              SkyBackground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              SkyBackground>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(SkyBackground);
 
     /*==========================  PUBLIC  =================================*/
 

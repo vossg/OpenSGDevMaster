@@ -70,24 +70,7 @@ class PointLight;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PointLightPtr
 
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          PointLight>::ObjPtr         PointLightPtr;
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          PointLight>::ObjPtrConst    PointLightPtrConst;
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          PointLight>::ObjConstPtr    PointLightConstPtr;
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          PointLight>::ObjPtrArg      PointLightPtrArg;
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          PointLight>::ObjConstPtrArg PointLightConstPtrArg;
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          PointLight>::ObjPtrConstArg PointLightPtrConstArg;
+OSG_GEN_CONTAINERPTR(PointLight);
 
 #endif
 

@@ -964,6 +964,20 @@ void LightChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+LightChunkPtr LightChunkBase::create(void)
+{
+    LightChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<LightChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 LightChunkPtr LightChunkBase::createEmpty(void)
 {

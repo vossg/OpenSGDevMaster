@@ -261,20 +261,6 @@ const MFGeoIntegralPropertyPtr &GeometryBase::getPropIndices(void) const
     return _mfPropIndices;
 }
 
-//! create a new instance of the class
-inline
-GeometryPtr GeometryBase::create(void)
-{
-    GeometryPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<Geometry::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -380,14 +366,7 @@ Char8 *GeometryBase::getClassname(void)
 {
     return "Geometry";
 }
-
-typedef PointerBuilder<Geometry>::ObjPtr          GeometryPtr;
-typedef PointerBuilder<Geometry>::ObjPtrConst     GeometryPtrConst;
-typedef PointerBuilder<Geometry>::ObjConstPtr     GeometryConstPtr;
-
-typedef PointerBuilder<Geometry>::ObjPtrArg       GeometryPtrArg;
-typedef PointerBuilder<Geometry>::ObjConstPtrArg  GeometryConstPtrArg;
-typedef PointerBuilder<Geometry>::ObjPtrConstArg  GeometryPtrConstArg;
+OSG_GEN_CONTAINERPTR(Geometry);
 
 OSG_END_NAMESPACE
 

@@ -70,24 +70,7 @@ class ShearedStereoCameraDecorator;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShearedStereoCameraDecoratorPtr
 
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                          StereoCameraDecoratorConstPtr,
-                          ShearedStereoCameraDecorator>::ObjPtr         ShearedStereoCameraDecoratorPtr;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                          StereoCameraDecoratorConstPtr,
-                          ShearedStereoCameraDecorator>::ObjPtrConst    ShearedStereoCameraDecoratorPtrConst;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                          StereoCameraDecoratorConstPtr,
-                          ShearedStereoCameraDecorator>::ObjConstPtr    ShearedStereoCameraDecoratorConstPtr;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                          StereoCameraDecoratorConstPtr,
-                          ShearedStereoCameraDecorator>::ObjPtrArg      ShearedStereoCameraDecoratorPtrArg;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                          StereoCameraDecoratorConstPtr,
-                          ShearedStereoCameraDecorator>::ObjConstPtrArg ShearedStereoCameraDecoratorConstPtrArg;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                          StereoCameraDecoratorConstPtr,
-                          ShearedStereoCameraDecorator>::ObjPtrConstArg ShearedStereoCameraDecoratorPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShearedStereoCameraDecorator);
 
 #endif
 

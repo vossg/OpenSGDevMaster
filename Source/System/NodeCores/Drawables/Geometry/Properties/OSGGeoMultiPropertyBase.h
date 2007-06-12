@@ -91,24 +91,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
-                              GeoVectorPropertyConstPtr,
-                              GeoMultiProperty>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
-                              GeoVectorPropertyConstPtr,
-                              GeoMultiProperty>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
-                              GeoVectorPropertyConstPtr,
-                              GeoMultiProperty>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
-                              GeoVectorPropertyConstPtr,
-                              GeoMultiProperty>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
-                              GeoVectorPropertyConstPtr,
-                              GeoMultiProperty>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
-                              GeoVectorPropertyConstPtr,
-                              GeoMultiProperty>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(GeoMultiProperty);
 
     /*==========================  PUBLIC  =================================*/
 

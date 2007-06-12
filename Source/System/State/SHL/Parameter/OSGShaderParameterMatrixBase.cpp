@@ -228,6 +228,20 @@ void ShaderParameterMatrixBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+ShaderParameterMatrixPtr ShaderParameterMatrixBase::create(void)
+{
+    ShaderParameterMatrixPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<ShaderParameterMatrix::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ShaderParameterMatrixPtr ShaderParameterMatrixBase::createEmpty(void)
 {

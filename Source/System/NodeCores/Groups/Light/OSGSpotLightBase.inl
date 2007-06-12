@@ -173,20 +173,6 @@ void SpotLightBase::setSpotCutOff(const Real &value)
     _sfSpotCutOff.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-SpotLightPtr SpotLightBase::create(void)
-{
-    SpotLightPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<SpotLight::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -246,14 +232,7 @@ Char8 *SpotLightBase::getClassname(void)
 {
     return "SpotLight";
 }
-
-typedef PointerBuilder<SpotLight>::ObjPtr          SpotLightPtr;
-typedef PointerBuilder<SpotLight>::ObjPtrConst     SpotLightPtrConst;
-typedef PointerBuilder<SpotLight>::ObjConstPtr     SpotLightConstPtr;
-
-typedef PointerBuilder<SpotLight>::ObjPtrArg       SpotLightPtrArg;
-typedef PointerBuilder<SpotLight>::ObjConstPtrArg  SpotLightConstPtrArg;
-typedef PointerBuilder<SpotLight>::ObjPtrConstArg  SpotLightPtrConstArg;
+OSG_GEN_CONTAINERPTR(SpotLight);
 
 OSG_END_NAMESPACE
 

@@ -51,6 +51,41 @@
 //  typedefs
 //---------------------------------------------------------------------------
 
+#define OSG_GEN_INTERNALPTR(CLASST)                        \
+    typedef       CLASST *       ObjPtr;                   \
+    typedef       CLASST * const ObjPtrConst;              \
+    typedef const CLASST *       ObjConstPtr;              \
+    typedef const CLASST * const ObjConstPtrConst;         \
+                                                           \
+    typedef       CLASST *       ObjPtrArg;                \
+    typedef       CLASST * const ObjPtrConstArg;           \
+    typedef const CLASST *       ObjConstPtrArg
+
+#define OSG_GEN_CONTAINERPTR(CLASST)                      \
+    typedef       CLASST *       CLASST##Ptr;             \
+    typedef       CLASST * const CLASST##PtrConst;        \
+    typedef const CLASST *       CLASST##ConstPtr;        \
+    typedef const CLASST * const CLASST##ConstPtrConst;   \
+                                                          \
+    typedef       CLASST *       CLASST##PtrArg;          \
+    typedef       CLASST * const CLASST##PtrConstArg;     \
+    typedef const CLASST *       CLASST##ConstPtrArg
+
+#define OSG_GEN_BUNDLEP(CLASST)                           \
+    typedef       CLASST *       CLASST##P;               \
+    typedef       CLASST * const CLASST##PConst;          \
+    typedef const CLASST *       CLASST##ConstP;          \
+    typedef const CLASST * const CLASST##ConstPConst;     \
+                                                          \
+    typedef       CLASST *       CLASST##PArg;            \
+    typedef       CLASST * const CLASST##PConstArg;       \
+    typedef const CLASST *       CLASST##ConstPArg
+
+#define NullFC      NULL
+#define OSGNullFC   NULL
+#define NilP        NULL
+
+
 OSG_BEGIN_NAMESPACE
 
 class TypeBase;
@@ -74,6 +109,16 @@ class FieldContainerAttachment;
 
 struct ContainerChangeEntry;
 
+
+OSG_GEN_BUNDLEP(FieldBundle);
+
+OSG_GEN_CONTAINERPTR(FieldContainer);
+OSG_GEN_CONTAINERPTR(FieldContainerAttachment);
+OSG_GEN_CONTAINERPTR(AttachmentContainer);
+OSG_GEN_CONTAINERPTR(Node);
+OSG_GEN_CONTAINERPTR(NodeCore);
+
+#if 0
 typedef FieldBundleAttachment *FieldBundleAttachmentP;
 
 typedef FieldBundle       *       FieldBundleP;
@@ -93,162 +138,8 @@ struct PointerFuncs;
 struct CPointerFuncs;
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
 
-class                      FieldContainerPtr;
-class                      FieldContainerConstPtr;
-
-
-//typedef ReflexiveContainer FieldContainerParent;
-
-template <class ParentPtrTypeT, class FieldContainerTypeT> 
-class FCPtr;
-
-template <class ParentPtrTypeT, class FieldContainerTypeT> 
-class FCConstPtr;
-
-template<class ContainerT>
-struct PointerBuilder
-{
-    typedef typename ContainerT::ParentContainer          Parent;
-    typedef typename Parent    ::ObjPtr                   ParentPtr;
-    typedef typename Parent    ::ObjConstPtr              ParentConstPtr;
-
-    typedef FCPtr     <ParentPtr,      ContainerT>        ObjPtr;
-    typedef FCConstPtr<ParentConstPtr, ContainerT>        ObjConstPtr;
-
-    typedef FCPtr     <ParentPtr,      ContainerT> const  ObjPtrConst;
-    typedef FCConstPtr<ParentPtr,      ContainerT> const  ObjConstPtrConst;
-
-    typedef FCPtr     <ParentPtr,      ContainerT>       &ObjPtrArg;
-    typedef FCPtr     <ParentPtr,      ContainerT> const &ObjPtrConstArg;
-    typedef FCConstPtr<ParentConstPtr, ContainerT> const &ObjConstPtrArg;
-};
-
-template<class ParentPtr, class ParentConstPtr, class ContainerT>
-struct PointerFwdBuilder
-{
-    typedef FCPtr     <ParentPtr,      ContainerT>        ObjPtr;
-    typedef FCPtr     <ParentPtr,      ContainerT> const  ObjPtrConst;
-    typedef FCPtr     <ParentPtr,      ContainerT> const &ObjPtrConstArg;
-
-    typedef FCConstPtr<ParentConstPtr, ContainerT>        ObjConstPtr;
-
-    typedef FCPtr     <ParentPtr,      ContainerT>       &ObjPtrArg;
-    typedef FCConstPtr<ParentConstPtr, ContainerT> const &ObjConstPtrArg;
-};
-
-template<>
-struct PointerBuilder<FieldContainer>
-{
-    typedef FieldContainerPtr             ObjPtr;
-    typedef FieldContainerPtr      const  ObjPtrConst;
-    typedef FieldContainerConstPtr        ObjConstPtr;
-    typedef FieldContainerConstPtr const  ObjConstPtrConst;
-
-    typedef FieldContainerPtr            &ObjPtrArg;
-    typedef FieldContainerConstPtr       &ObjConstPtrArg;
-    typedef FieldContainerPtr      const &ObjPtrConstArg;
-};
-
-typedef PointerBuilder<FieldContainer>::ObjPtrArg FieldContainerPtrArg;
-typedef PointerBuilder<FieldContainer>::ObjConstPtrArg 
-                                                  FieldContainerConstPtrArg;
-
-template<>
-struct PointerBuilder<FieldContainerAttachment>
-{
-    typedef FCPtr     <FieldContainerPtr, 
-                       FieldContainerAttachment>        ObjPtr;
-    typedef FCPtr     <FieldContainerPtr, 
-                       FieldContainerAttachment> const  ObjPtrConst;
-    typedef FCConstPtr<FieldContainerConstPtr, 
-                       FieldContainerAttachment>        ObjConstPtr;
-    typedef FCConstPtr<FieldContainerPtr, 
-                       FieldContainerAttachment> const  ObjConstPtrConst;
-
-    typedef FCPtr     <FieldContainerPtr, 
-                       FieldContainerAttachment>       &ObjPtrArg;
-    typedef FCConstPtr<FieldContainerConstPtr, 
-                       FieldContainerAttachment>       &ObjConstPtrArg;
-    typedef FCPtr     <FieldContainerPtr, 
-                       FieldContainerAttachment> const &ObjPtrConstArg;
-};
-
-template<>
-struct PointerBuilder<AttachmentContainer>
-{
-    typedef FCPtr     <FieldContainerPtr, 
-                       AttachmentContainer>        ObjPtr;
-    typedef FCPtr     <FieldContainerPtr, 
-                       AttachmentContainer> const  ObjPtrConst;
-    typedef FCConstPtr<FieldContainerPtr, 
-                       AttachmentContainer>        ObjConstPtr;
-    typedef FCConstPtr<FieldContainerPtr, 
-                       AttachmentContainer> const  ObjConstPtrConst;
-
-    typedef FCPtr     <FieldContainerPtr, 
-                       AttachmentContainer>       &ObjPtrArg;
-    typedef FCConstPtr<FieldContainerPtr, 
-                       AttachmentContainer>       &ObjConstPtrArg;
-    typedef FCPtr     <FieldContainerPtr, 
-                       AttachmentContainer> const &ObjPtrConstArg;
-};
-
-typedef PointerBuilder<AttachmentContainer>::ObjPtr AttachmentContainerPtr;
-
-template<>
-struct PointerBuilder<Node>
-{
-    typedef FCPtr     <AttachmentContainerPtr, Node>        ObjPtr;
-    typedef FCPtr     <AttachmentContainerPtr, Node> const  ObjPtrConst;
-    typedef FCConstPtr<AttachmentContainerPtr, Node>        ObjConstPtr;
-    typedef FCConstPtr<AttachmentContainerPtr, Node> const  ObjConstPtrConst;
-
-    typedef FCPtr     <AttachmentContainerPtr, Node>       &ObjPtrArg;
-    typedef FCConstPtr<AttachmentContainerPtr, Node>       &ObjConstPtrArg;
-    typedef FCPtr     <AttachmentContainerPtr, Node> const &ObjPtrConstArg;
-};
-
-template<>
-struct PointerBuilder<NodeCore>
-{
-    typedef FCPtr     <AttachmentContainerPtr, 
-                       NodeCore              >        ObjPtr;
-    typedef FCPtr     <AttachmentContainerPtr, 
-                       NodeCore              > const  ObjPtrConst;
-    typedef FCConstPtr<AttachmentContainerPtr,
-                       NodeCore              >        ObjConstPtr;
-    typedef FCConstPtr<AttachmentContainerPtr, 
-                       NodeCore              > const  ObjConstPtrConst;
-
-    typedef FCPtr     <AttachmentContainerPtr, 
-                       NodeCore              >       &ObjPtrArg;
-    typedef FCConstPtr<AttachmentContainerPtr,
-                       NodeCore              >       &ObjConstPtrArg;
-    typedef FCPtr     <AttachmentContainerPtr,
-                       NodeCore              > const &ObjPtrConstArg;
-};
-
-#define OSGNullFC OSG::NullFC
-
-#else
-
-
-/*
-template <class ObjectT> inline
-void newPtr(ObjectT *&result)
-{
-    result = new ObjectT;
-}
-
-template <class ObjectT> inline
-void newPtr(      ObjectT *&result,
-            const ObjectT * pPrototype)
-{
-    result = new ObjectT(*pPrototype);
-}
-*/
+#if 0
 
 template<class ContainerT>
 struct PointerBuilder
@@ -278,7 +169,6 @@ struct PointerFwdBuilder
     typedef ContainerT const *       ObjConstPtrArg;
 };
 
-#endif
 
 template<class ContainerT>
 struct BundlePointerBuilder
@@ -337,6 +227,7 @@ typedef PointerBuilder<
 
 typedef PointerBuilder<
     AttachmentContainer>::ObjPtrConstArg   AttachmentContainerPtrConstArg;
+#endif
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 typedef FieldContainerPtr         ParentFieldContainerPtr;
@@ -351,8 +242,6 @@ typedef FieldContainerPtr NilFieldContainerReturnType;
 
 //static const void *NilPtr = NULL;
 
-#define NullFC      NULL
-#define OSGNullFC   NULL
 
 typedef void *NilFieldContainerPtr ;
 
@@ -364,7 +253,6 @@ typedef FieldContainerAttachment *FieldContainerAttachmentPtr;
 
 
 //static const ReflexiveContainerP NilP   = NULL;
-#define NilP 0
 
 typedef std::map<UInt32, 
                  FieldBundleAttachmentP     >  FieldBundleAttachmentMap;
@@ -379,18 +267,20 @@ typedef SField  <FieldContainerAttachmentMap,
 template <class DescT>
 class ContainerMixinHead;
 
-template <class SingletonBaseT>
-class SingletonHolder;
+
+#endif
 
 template <class Core>
 class CoredNodePtr;
+
+template <class SingletonBaseT>
+class SingletonHolder;
 
 class FieldContainerFactoryBase;
 class FieldBundleFactoryBase;
 
 typedef SingletonHolder<FieldContainerFactoryBase> FieldContainerFactory;
 typedef SingletonHolder<FieldBundleFactoryBase   > FieldBundleFactory;
-
 
 typedef boost::function<
               void (FieldContainerPtrArg, ConstFieldMaskArg )> ChangedFunctor;

@@ -239,20 +239,6 @@ void MultiDisplayWindowBase::setYOverlap(const Int32 &value)
     _sfYOverlap.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-MultiDisplayWindowPtr MultiDisplayWindowBase::create(void)
-{
-    MultiDisplayWindowPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<MultiDisplayWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -324,14 +310,7 @@ Char8 *MultiDisplayWindowBase::getClassname(void)
 {
     return "MultiDisplayWindow";
 }
-
-typedef PointerBuilder<MultiDisplayWindow>::ObjPtr          MultiDisplayWindowPtr;
-typedef PointerBuilder<MultiDisplayWindow>::ObjPtrConst     MultiDisplayWindowPtrConst;
-typedef PointerBuilder<MultiDisplayWindow>::ObjConstPtr     MultiDisplayWindowConstPtr;
-
-typedef PointerBuilder<MultiDisplayWindow>::ObjPtrArg       MultiDisplayWindowPtrArg;
-typedef PointerBuilder<MultiDisplayWindow>::ObjConstPtrArg  MultiDisplayWindowConstPtrArg;
-typedef PointerBuilder<MultiDisplayWindow>::ObjPtrConstArg  MultiDisplayWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(MultiDisplayWindow);
 
 OSG_END_NAMESPACE
 

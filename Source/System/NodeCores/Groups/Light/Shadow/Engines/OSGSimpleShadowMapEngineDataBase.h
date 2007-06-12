@@ -91,23 +91,7 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjPtr         ObjPtr;
-
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjPtrConst    ObjPtrConst;
-
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjConstPtr    ObjConstPtr;
-
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjPtrArg      ObjPtrArg;
-
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjConstPtrArg ObjConstPtrArg;
-
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(SimpleShadowMapEngineData);
 
     /*==========================  PUBLIC  =================================*/
 

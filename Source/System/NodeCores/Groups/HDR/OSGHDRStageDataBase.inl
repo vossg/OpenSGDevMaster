@@ -282,23 +282,7 @@ Char8 *HDRStageDataBase::getClassname(void)
     return "HDRStageData";
 }
 
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjPtr          HDRStageDataP;
-
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjPtrConst     HDRStageDataPConst;
-
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjConstPtr     HDRStageDataConstP;
-
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjPtrArg       HDRStageDataPArg;
-
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjConstPtrArg  HDRStageDataConstPArg;
-
-typedef BundlePointerBuilder<
-    HDRStageData>::ObjPtrConstArg  HDRStageDataPConstArg;
+OSG_GEN_BUNDLEP(HDRStageData);
 
 OSG_END_NAMESPACE
 

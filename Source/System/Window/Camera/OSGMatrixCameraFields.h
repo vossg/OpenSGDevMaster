@@ -70,24 +70,7 @@ class MatrixCamera;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MatrixCameraPtr
 
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          MatrixCamera>::ObjPtr         MatrixCameraPtr;
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          MatrixCamera>::ObjPtrConst    MatrixCameraPtrConst;
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          MatrixCamera>::ObjConstPtr    MatrixCameraConstPtr;
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          MatrixCamera>::ObjPtrArg      MatrixCameraPtrArg;
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          MatrixCamera>::ObjConstPtrArg MatrixCameraConstPtrArg;
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          MatrixCamera>::ObjPtrConstArg MatrixCameraPtrConstArg;
+OSG_GEN_CONTAINERPTR(MatrixCamera);
 
 #endif
 

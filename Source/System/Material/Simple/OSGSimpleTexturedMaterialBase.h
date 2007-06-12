@@ -89,24 +89,7 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<SimpleMaterialPtr,
-                              SimpleMaterialConstPtr,
-                              SimpleTexturedMaterial>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<SimpleMaterialPtr,
-                              SimpleMaterialConstPtr,
-                              SimpleTexturedMaterial>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<SimpleMaterialPtr,
-                              SimpleMaterialConstPtr,
-                              SimpleTexturedMaterial>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<SimpleMaterialPtr,
-                              SimpleMaterialConstPtr,
-                              SimpleTexturedMaterial>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<SimpleMaterialPtr,
-                              SimpleMaterialConstPtr,
-                              SimpleTexturedMaterial>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<SimpleMaterialPtr,
-                              SimpleMaterialConstPtr,
-                              SimpleTexturedMaterial>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(SimpleTexturedMaterial);
 
     /*==========================  PUBLIC  =================================*/
 

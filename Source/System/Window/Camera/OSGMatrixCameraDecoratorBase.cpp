@@ -605,6 +605,20 @@ void MatrixCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::create(void)
+{
+    MatrixCameraDecoratorPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<MatrixCameraDecorator::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::createEmpty(void)
 {

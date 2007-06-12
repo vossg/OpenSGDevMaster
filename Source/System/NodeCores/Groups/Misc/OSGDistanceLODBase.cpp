@@ -481,6 +481,20 @@ void DistanceLODBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+DistanceLODPtr DistanceLODBase::create(void)
+{
+    DistanceLODPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<DistanceLOD::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 DistanceLODPtr DistanceLODBase::createEmpty(void)
 {

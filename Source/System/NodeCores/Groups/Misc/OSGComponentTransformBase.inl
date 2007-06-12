@@ -239,20 +239,6 @@ void ComponentTransformBase::setTranslation(const Vec3r &value)
     _sfTranslation.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-ComponentTransformPtr ComponentTransformBase::create(void)
-{
-    ComponentTransformPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ComponentTransform::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -324,14 +310,7 @@ Char8 *ComponentTransformBase::getClassname(void)
 {
     return "ComponentTransform";
 }
-
-typedef PointerBuilder<ComponentTransform>::ObjPtr          ComponentTransformPtr;
-typedef PointerBuilder<ComponentTransform>::ObjPtrConst     ComponentTransformPtrConst;
-typedef PointerBuilder<ComponentTransform>::ObjConstPtr     ComponentTransformConstPtr;
-
-typedef PointerBuilder<ComponentTransform>::ObjPtrArg       ComponentTransformPtrArg;
-typedef PointerBuilder<ComponentTransform>::ObjConstPtrArg  ComponentTransformConstPtrArg;
-typedef PointerBuilder<ComponentTransform>::ObjPtrConstArg  ComponentTransformPtrConstArg;
+OSG_GEN_CONTAINERPTR(ComponentTransform);
 
 OSG_END_NAMESPACE
 

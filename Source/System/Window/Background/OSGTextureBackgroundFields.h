@@ -70,24 +70,7 @@ class TextureBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          TextureBackground>::ObjPtr         TextureBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          TextureBackground>::ObjPtrConst    TextureBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          TextureBackground>::ObjConstPtr    TextureBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          TextureBackground>::ObjPtrArg      TextureBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          TextureBackground>::ObjConstPtrArg TextureBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          TextureBackground>::ObjPtrConstArg TextureBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureBackground);
 
 #endif
 

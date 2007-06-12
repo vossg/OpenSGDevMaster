@@ -333,14 +333,7 @@ Char8 *ShadowMapEngineBase::getClassname(void)
 {
     return "ShadowMapEngine";
 }
-
-typedef PointerBuilder<ShadowMapEngine>::ObjPtr          ShadowMapEnginePtr;
-typedef PointerBuilder<ShadowMapEngine>::ObjPtrConst     ShadowMapEnginePtrConst;
-typedef PointerBuilder<ShadowMapEngine>::ObjConstPtr     ShadowMapEngineConstPtr;
-
-typedef PointerBuilder<ShadowMapEngine>::ObjPtrArg       ShadowMapEnginePtrArg;
-typedef PointerBuilder<ShadowMapEngine>::ObjConstPtrArg  ShadowMapEngineConstPtrArg;
-typedef PointerBuilder<ShadowMapEngine>::ObjPtrConstArg  ShadowMapEnginePtrConstArg;
+OSG_GEN_CONTAINERPTR(ShadowMapEngine);
 
 OSG_END_NAMESPACE
 

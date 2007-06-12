@@ -124,20 +124,6 @@ void GrabForegroundBase::setAutoResize(const bool &value)
     _sfAutoResize.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-GrabForegroundPtr GrabForegroundBase::create(void)
-{
-    GrabForegroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<GrabForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -191,14 +177,7 @@ Char8 *GrabForegroundBase::getClassname(void)
 {
     return "GrabForeground";
 }
-
-typedef PointerBuilder<GrabForeground>::ObjPtr          GrabForegroundPtr;
-typedef PointerBuilder<GrabForeground>::ObjPtrConst     GrabForegroundPtrConst;
-typedef PointerBuilder<GrabForeground>::ObjConstPtr     GrabForegroundConstPtr;
-
-typedef PointerBuilder<GrabForeground>::ObjPtrArg       GrabForegroundPtrArg;
-typedef PointerBuilder<GrabForeground>::ObjConstPtrArg  GrabForegroundConstPtrArg;
-typedef PointerBuilder<GrabForeground>::ObjPtrConstArg  GrabForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(GrabForeground);
 
 OSG_END_NAMESPACE
 

@@ -70,24 +70,7 @@ class ShaderChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShaderChunkPtr
 
-typedef PointerFwdBuilder<ShaderParameterChunkPtr,
-                          ShaderParameterChunkConstPtr,
-                          ShaderChunk>::ObjPtr         ShaderChunkPtr;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr,
-                          ShaderParameterChunkConstPtr,
-                          ShaderChunk>::ObjPtrConst    ShaderChunkPtrConst;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr,
-                          ShaderParameterChunkConstPtr,
-                          ShaderChunk>::ObjConstPtr    ShaderChunkConstPtr;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr,
-                          ShaderParameterChunkConstPtr,
-                          ShaderChunk>::ObjPtrArg      ShaderChunkPtrArg;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr,
-                          ShaderParameterChunkConstPtr,
-                          ShaderChunk>::ObjConstPtrArg ShaderChunkConstPtrArg;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr,
-                          ShaderParameterChunkConstPtr,
-                          ShaderChunk>::ObjPtrConstArg ShaderChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderChunk);
 
 #endif
 

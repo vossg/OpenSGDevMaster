@@ -85,24 +85,7 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StateChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StateChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StateChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StateChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StateChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StateChunk>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(StateChunk);
 
     /*==========================  PUBLIC  =================================*/
 

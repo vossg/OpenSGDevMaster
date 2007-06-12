@@ -298,6 +298,7 @@ void ImageComposerBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 ImageComposerBase::ImageComposerBase(void) :

@@ -1951,6 +1951,20 @@ void QuadTreeTerrainBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+QuadTreeTerrainPtr QuadTreeTerrainBase::create(void)
+{
+    QuadTreeTerrainPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<QuadTreeTerrain::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 QuadTreeTerrainPtr QuadTreeTerrainBase::createEmpty(void)
 {

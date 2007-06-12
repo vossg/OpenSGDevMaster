@@ -86,24 +86,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              ShaderParameter>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              ShaderParameter>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              ShaderParameter>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              ShaderParameter>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              ShaderParameter>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              ShaderParameter>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ShaderParameter);
 
     /*==========================  PUBLIC  =================================*/
 

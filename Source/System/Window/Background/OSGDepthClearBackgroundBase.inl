@@ -107,20 +107,6 @@ void DepthClearBackgroundBase::setClearDepth(const bool &value)
     _sfClearDepth.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-DepthClearBackgroundPtr DepthClearBackgroundBase::create(void)
-{
-    DepthClearBackgroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<DepthClearBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *DepthClearBackgroundBase::getClassname(void)
 {
     return "DepthClearBackground";
 }
-
-typedef PointerBuilder<DepthClearBackground>::ObjPtr          DepthClearBackgroundPtr;
-typedef PointerBuilder<DepthClearBackground>::ObjPtrConst     DepthClearBackgroundPtrConst;
-typedef PointerBuilder<DepthClearBackground>::ObjConstPtr     DepthClearBackgroundConstPtr;
-
-typedef PointerBuilder<DepthClearBackground>::ObjPtrArg       DepthClearBackgroundPtrArg;
-typedef PointerBuilder<DepthClearBackground>::ObjConstPtrArg  DepthClearBackgroundConstPtrArg;
-typedef PointerBuilder<DepthClearBackground>::ObjPtrConstArg  DepthClearBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(DepthClearBackground);
 
 OSG_END_NAMESPACE
 

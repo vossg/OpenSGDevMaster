@@ -70,24 +70,7 @@ class SwitchMaterial;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SwitchMaterialPtr
 
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          SwitchMaterial>::ObjPtr         SwitchMaterialPtr;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          SwitchMaterial>::ObjPtrConst    SwitchMaterialPtrConst;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          SwitchMaterial>::ObjConstPtr    SwitchMaterialConstPtr;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          SwitchMaterial>::ObjPtrArg      SwitchMaterialPtrArg;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          SwitchMaterial>::ObjConstPtrArg SwitchMaterialConstPtrArg;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          SwitchMaterial>::ObjPtrConstArg SwitchMaterialPtrConstArg;
+OSG_GEN_CONTAINERPTR(SwitchMaterial);
 
 #endif
 

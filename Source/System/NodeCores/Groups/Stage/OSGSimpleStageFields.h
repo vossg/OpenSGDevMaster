@@ -70,24 +70,7 @@ class SimpleStage;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SimpleStagePtr
 
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          SimpleStage>::ObjPtr         SimpleStagePtr;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          SimpleStage>::ObjPtrConst    SimpleStagePtrConst;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          SimpleStage>::ObjConstPtr    SimpleStageConstPtr;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          SimpleStage>::ObjPtrArg      SimpleStagePtrArg;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          SimpleStage>::ObjConstPtrArg SimpleStageConstPtrArg;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          SimpleStage>::ObjPtrConstArg SimpleStagePtrConstArg;
+OSG_GEN_CONTAINERPTR(SimpleStage);
 
 #endif
 

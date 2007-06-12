@@ -729,20 +729,6 @@ const MFVec3f &SkyBackgroundBase::getBackTexCoord(void) const
     return _mfBackTexCoord;
 }
 
-//! create a new instance of the class
-inline
-SkyBackgroundPtr SkyBackgroundBase::create(void)
-{
-    SkyBackgroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<SkyBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -1008,14 +994,7 @@ Char8 *SkyBackgroundBase::getClassname(void)
 {
     return "SkyBackground";
 }
-
-typedef PointerBuilder<SkyBackground>::ObjPtr          SkyBackgroundPtr;
-typedef PointerBuilder<SkyBackground>::ObjPtrConst     SkyBackgroundPtrConst;
-typedef PointerBuilder<SkyBackground>::ObjConstPtr     SkyBackgroundConstPtr;
-
-typedef PointerBuilder<SkyBackground>::ObjPtrArg       SkyBackgroundPtrArg;
-typedef PointerBuilder<SkyBackground>::ObjConstPtrArg  SkyBackgroundConstPtrArg;
-typedef PointerBuilder<SkyBackground>::ObjPtrConstArg  SkyBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(SkyBackground);
 
 OSG_END_NAMESPACE
 

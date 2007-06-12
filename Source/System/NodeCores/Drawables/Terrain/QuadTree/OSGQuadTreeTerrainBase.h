@@ -108,24 +108,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GeometryPtr,
-                              GeometryConstPtr,
-                              QuadTreeTerrain>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GeometryPtr,
-                              GeometryConstPtr,
-                              QuadTreeTerrain>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GeometryPtr,
-                              GeometryConstPtr,
-                              QuadTreeTerrain>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GeometryPtr,
-                              GeometryConstPtr,
-                              QuadTreeTerrain>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GeometryPtr,
-                              GeometryConstPtr,
-                              QuadTreeTerrain>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GeometryPtr,
-                              GeometryConstPtr,
-                              QuadTreeTerrain>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(QuadTreeTerrain);
 
     /*==========================  PUBLIC  =================================*/
 

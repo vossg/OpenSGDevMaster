@@ -70,24 +70,7 @@ class SolidBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SolidBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SolidBackground>::ObjPtr         SolidBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SolidBackground>::ObjPtrConst    SolidBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SolidBackground>::ObjConstPtr    SolidBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SolidBackground>::ObjPtrArg      SolidBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SolidBackground>::ObjConstPtrArg SolidBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          SolidBackground>::ObjPtrConstArg SolidBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(SolidBackground);
 
 #endif
 

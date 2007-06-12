@@ -635,20 +635,6 @@ void RenderOptionsBase::setSmallFeatureThreshold(const UInt32 &value)
     _sfSmallFeatureThreshold.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-RenderOptionsPtr RenderOptionsBase::create(void)
-{
-    RenderOptionsPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<RenderOptions::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -792,14 +778,7 @@ Char8 *RenderOptionsBase::getClassname(void)
 {
     return "RenderOptions";
 }
-
-typedef PointerBuilder<RenderOptions>::ObjPtr          RenderOptionsPtr;
-typedef PointerBuilder<RenderOptions>::ObjPtrConst     RenderOptionsPtrConst;
-typedef PointerBuilder<RenderOptions>::ObjConstPtr     RenderOptionsConstPtr;
-
-typedef PointerBuilder<RenderOptions>::ObjPtrArg       RenderOptionsPtrArg;
-typedef PointerBuilder<RenderOptions>::ObjConstPtrArg  RenderOptionsConstPtrArg;
-typedef PointerBuilder<RenderOptions>::ObjPtrConstArg  RenderOptionsPtrConstArg;
+OSG_GEN_CONTAINERPTR(RenderOptions);
 
 OSG_END_NAMESPACE
 

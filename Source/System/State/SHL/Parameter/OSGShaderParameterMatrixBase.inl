@@ -107,20 +107,6 @@ void ShaderParameterMatrixBase::setValue(const Matrix &value)
     _sfValue.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-ShaderParameterMatrixPtr ShaderParameterMatrixBase::create(void)
-{
-    ShaderParameterMatrixPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ShaderParameterMatrix::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *ShaderParameterMatrixBase::getClassname(void)
 {
     return "ShaderParameterMatrix";
 }
-
-typedef PointerBuilder<ShaderParameterMatrix>::ObjPtr          ShaderParameterMatrixPtr;
-typedef PointerBuilder<ShaderParameterMatrix>::ObjPtrConst     ShaderParameterMatrixPtrConst;
-typedef PointerBuilder<ShaderParameterMatrix>::ObjConstPtr     ShaderParameterMatrixConstPtr;
-
-typedef PointerBuilder<ShaderParameterMatrix>::ObjPtrArg       ShaderParameterMatrixPtrArg;
-typedef PointerBuilder<ShaderParameterMatrix>::ObjConstPtrArg  ShaderParameterMatrixConstPtrArg;
-typedef PointerBuilder<ShaderParameterMatrix>::ObjPtrConstArg  ShaderParameterMatrixPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterMatrix);
 
 OSG_END_NAMESPACE
 

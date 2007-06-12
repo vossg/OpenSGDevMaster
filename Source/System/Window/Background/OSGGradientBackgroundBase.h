@@ -86,24 +86,7 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              GradientBackground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              GradientBackground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              GradientBackground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              GradientBackground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              GradientBackground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              GradientBackground>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(GradientBackground);
 
     /*==========================  PUBLIC  =================================*/
 

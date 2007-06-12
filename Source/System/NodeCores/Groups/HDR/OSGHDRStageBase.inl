@@ -272,20 +272,6 @@ void HDRStageBase::setBufferFormat(const GLenum &value)
     _sfBufferFormat.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-HDRStagePtr HDRStageBase::create(void)
-{
-    HDRStagePtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<HDRStage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -363,14 +349,7 @@ Char8 *HDRStageBase::getClassname(void)
 {
     return "HDRStage";
 }
-
-typedef PointerBuilder<HDRStage>::ObjPtr          HDRStagePtr;
-typedef PointerBuilder<HDRStage>::ObjPtrConst     HDRStagePtrConst;
-typedef PointerBuilder<HDRStage>::ObjConstPtr     HDRStageConstPtr;
-
-typedef PointerBuilder<HDRStage>::ObjPtrArg       HDRStagePtrArg;
-typedef PointerBuilder<HDRStage>::ObjConstPtrArg  HDRStageConstPtrArg;
-typedef PointerBuilder<HDRStage>::ObjPtrConstArg  HDRStagePtrConstArg;
+OSG_GEN_CONTAINERPTR(HDRStage);
 
 OSG_END_NAMESPACE
 

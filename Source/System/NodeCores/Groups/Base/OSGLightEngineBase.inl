@@ -154,14 +154,7 @@ Char8 *LightEngineBase::getClassname(void)
 {
     return "LightEngine";
 }
-
-typedef PointerBuilder<LightEngine>::ObjPtr          LightEnginePtr;
-typedef PointerBuilder<LightEngine>::ObjPtrConst     LightEnginePtrConst;
-typedef PointerBuilder<LightEngine>::ObjConstPtr     LightEngineConstPtr;
-
-typedef PointerBuilder<LightEngine>::ObjPtrArg       LightEnginePtrArg;
-typedef PointerBuilder<LightEngine>::ObjConstPtrArg  LightEngineConstPtrArg;
-typedef PointerBuilder<LightEngine>::ObjPtrConstArg  LightEnginePtrConstArg;
+OSG_GEN_CONTAINERPTR(LightEngine);
 
 OSG_END_NAMESPACE
 

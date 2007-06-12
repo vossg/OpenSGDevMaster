@@ -239,6 +239,20 @@ void PointLightBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+PointLightPtr PointLightBase::create(void)
+{
+    PointLightPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<PointLight::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PointLightPtr PointLightBase::createEmpty(void)
 {

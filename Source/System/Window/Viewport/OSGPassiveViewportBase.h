@@ -84,24 +84,7 @@ class OSG_WINDOW_DLLMAPPING PassiveViewportBase : public Viewport
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              PassiveViewport>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              PassiveViewport>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              PassiveViewport>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              PassiveViewport>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              PassiveViewport>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              PassiveViewport>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(PassiveViewport);
 
     /*==========================  PUBLIC  =================================*/
 

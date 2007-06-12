@@ -95,24 +95,7 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              PolygonChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              PolygonChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              PolygonChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              PolygonChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              PolygonChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              PolygonChunk>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(PolygonChunk);
 
     /*==========================  PUBLIC  =================================*/
 

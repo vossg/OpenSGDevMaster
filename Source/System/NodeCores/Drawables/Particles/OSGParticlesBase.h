@@ -97,24 +97,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Particles>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Particles>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Particles>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Particles>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Particles>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Particles>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(Particles);
 
     /*==========================  PUBLIC  =================================*/
 

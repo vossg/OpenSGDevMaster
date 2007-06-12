@@ -272,20 +272,6 @@ void TileCameraDecoratorBase::setFullHeight(const UInt32 &value)
     _sfFullHeight.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-TileCameraDecoratorPtr TileCameraDecoratorBase::create(void)
-{
-    TileCameraDecoratorPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TileCameraDecorator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -363,14 +349,7 @@ Char8 *TileCameraDecoratorBase::getClassname(void)
 {
     return "TileCameraDecorator";
 }
-
-typedef PointerBuilder<TileCameraDecorator>::ObjPtr          TileCameraDecoratorPtr;
-typedef PointerBuilder<TileCameraDecorator>::ObjPtrConst     TileCameraDecoratorPtrConst;
-typedef PointerBuilder<TileCameraDecorator>::ObjConstPtr     TileCameraDecoratorConstPtr;
-
-typedef PointerBuilder<TileCameraDecorator>::ObjPtrArg       TileCameraDecoratorPtrArg;
-typedef PointerBuilder<TileCameraDecorator>::ObjConstPtrArg  TileCameraDecoratorConstPtrArg;
-typedef PointerBuilder<TileCameraDecorator>::ObjPtrConstArg  TileCameraDecoratorPtrConstArg;
+OSG_GEN_CONTAINERPTR(TileCameraDecorator);
 
 OSG_END_NAMESPACE
 

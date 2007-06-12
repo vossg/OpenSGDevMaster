@@ -86,24 +86,7 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              StereoBufferViewport>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              StereoBufferViewport>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              StereoBufferViewport>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              StereoBufferViewport>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              StereoBufferViewport>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              StereoBufferViewport>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(StereoBufferViewport);
 
     /*==========================  PUBLIC  =================================*/
 

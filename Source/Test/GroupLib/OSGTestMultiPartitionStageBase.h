@@ -88,24 +88,7 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              TestMultiPartitionStage>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              TestMultiPartitionStage>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              TestMultiPartitionStage>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              TestMultiPartitionStage>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              TestMultiPartitionStage>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              TestMultiPartitionStage>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(TestMultiPartitionStage);
 
     /*==========================  PUBLIC  =================================*/
 

@@ -107,20 +107,6 @@ void PointLightBase::setPosition(const Pnt3r &value)
     _sfPosition.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-PointLightPtr PointLightBase::create(void)
-{
-    PointLightPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<PointLight::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *PointLightBase::getClassname(void)
 {
     return "PointLight";
 }
-
-typedef PointerBuilder<PointLight>::ObjPtr          PointLightPtr;
-typedef PointerBuilder<PointLight>::ObjPtrConst     PointLightPtrConst;
-typedef PointerBuilder<PointLight>::ObjConstPtr     PointLightConstPtr;
-
-typedef PointerBuilder<PointLight>::ObjPtrArg       PointLightPtrArg;
-typedef PointerBuilder<PointLight>::ObjConstPtrArg  PointLightConstPtrArg;
-typedef PointerBuilder<PointLight>::ObjPtrConstArg  PointLightPtrConstArg;
+OSG_GEN_CONTAINERPTR(PointLight);
 
 OSG_END_NAMESPACE
 

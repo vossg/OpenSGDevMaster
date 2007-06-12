@@ -70,24 +70,7 @@ class VTKMapper;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! VTKMapperPtr
 
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VTKMapper>::ObjPtr         VTKMapperPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VTKMapper>::ObjPtrConst    VTKMapperPtrConst;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VTKMapper>::ObjConstPtr    VTKMapperConstPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VTKMapper>::ObjPtrArg      VTKMapperPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VTKMapper>::ObjConstPtrArg VTKMapperConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VTKMapper>::ObjPtrConstArg VTKMapperPtrConstArg;
+OSG_GEN_CONTAINERPTR(VTKMapper);
 
 #endif
 

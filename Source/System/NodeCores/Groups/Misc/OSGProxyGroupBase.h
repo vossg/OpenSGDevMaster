@@ -96,24 +96,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ProxyGroup>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ProxyGroup>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ProxyGroup>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ProxyGroup>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ProxyGroup>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ProxyGroup>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ProxyGroup);
 
     /*==========================  PUBLIC  =================================*/
 

@@ -107,20 +107,6 @@ void TransformBase::setMatrix(const Matrixr &value)
     _sfMatrix.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-TransformPtr TransformBase::create(void)
-{
-    TransformPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<Transform::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *TransformBase::getClassname(void)
 {
     return "Transform";
 }
-
-typedef PointerBuilder<Transform>::ObjPtr          TransformPtr;
-typedef PointerBuilder<Transform>::ObjPtrConst     TransformPtrConst;
-typedef PointerBuilder<Transform>::ObjConstPtr     TransformConstPtr;
-
-typedef PointerBuilder<Transform>::ObjPtrArg       TransformPtrArg;
-typedef PointerBuilder<Transform>::ObjConstPtrArg  TransformConstPtrArg;
-typedef PointerBuilder<Transform>::ObjPtrConstArg  TransformPtrConstArg;
+OSG_GEN_CONTAINERPTR(Transform);
 
 OSG_END_NAMESPACE
 

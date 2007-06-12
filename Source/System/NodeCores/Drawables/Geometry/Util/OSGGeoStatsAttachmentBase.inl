@@ -305,20 +305,6 @@ void GeoStatsAttachmentBase::setValid(const bool &value)
     _sfValid.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-GeoStatsAttachmentPtr GeoStatsAttachmentBase::create(void)
-{
-    GeoStatsAttachmentPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<GeoStatsAttachment::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -402,14 +388,7 @@ Char8 *GeoStatsAttachmentBase::getClassname(void)
 {
     return "GeoStatsAttachment";
 }
-
-typedef PointerBuilder<GeoStatsAttachment>::ObjPtr          GeoStatsAttachmentPtr;
-typedef PointerBuilder<GeoStatsAttachment>::ObjPtrConst     GeoStatsAttachmentPtrConst;
-typedef PointerBuilder<GeoStatsAttachment>::ObjConstPtr     GeoStatsAttachmentConstPtr;
-
-typedef PointerBuilder<GeoStatsAttachment>::ObjPtrArg       GeoStatsAttachmentPtrArg;
-typedef PointerBuilder<GeoStatsAttachment>::ObjConstPtrArg  GeoStatsAttachmentConstPtrArg;
-typedef PointerBuilder<GeoStatsAttachment>::ObjPtrConstArg  GeoStatsAttachmentPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoStatsAttachment);
 
 OSG_END_NAMESPACE
 

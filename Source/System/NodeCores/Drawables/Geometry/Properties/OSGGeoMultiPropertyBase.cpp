@@ -680,6 +680,20 @@ void GeoMultiPropertyBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+GeoMultiPropertyPtr GeoMultiPropertyBase::create(void)
+{
+    GeoMultiPropertyPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<GeoMultiProperty::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 GeoMultiPropertyPtr GeoMultiPropertyBase::createEmpty(void)
 {

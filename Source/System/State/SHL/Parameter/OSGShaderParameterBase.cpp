@@ -321,6 +321,7 @@ void ShaderParameterBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 ShaderParameterBase::ShaderParameterBase(void) :

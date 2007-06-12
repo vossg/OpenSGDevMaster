@@ -70,24 +70,7 @@ class Billboard;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! BillboardPtr
 
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Billboard>::ObjPtr         BillboardPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Billboard>::ObjPtrConst    BillboardPtrConst;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Billboard>::ObjConstPtr    BillboardConstPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Billboard>::ObjPtrArg      BillboardPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Billboard>::ObjConstPtrArg BillboardConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Billboard>::ObjPtrConstArg BillboardPtrConstArg;
+OSG_GEN_CONTAINERPTR(Billboard);
 
 #endif
 

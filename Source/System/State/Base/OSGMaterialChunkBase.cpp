@@ -1112,6 +1112,20 @@ void MaterialChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+MaterialChunkPtr MaterialChunkBase::create(void)
+{
+    MaterialChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<MaterialChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MaterialChunkPtr MaterialChunkBase::createEmpty(void)
 {

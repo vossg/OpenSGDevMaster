@@ -85,24 +85,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterReal>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterReal>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterReal>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterReal>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterReal>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterPtr,
-                              ShaderParameterConstPtr,
-                              ShaderParameterReal>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ShaderParameterReal);
 
     /*==========================  PUBLIC  =================================*/
 

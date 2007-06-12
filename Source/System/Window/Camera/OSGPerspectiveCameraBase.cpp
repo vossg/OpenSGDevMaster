@@ -307,6 +307,20 @@ void PerspectiveCameraBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+PerspectiveCameraPtr PerspectiveCameraBase::create(void)
+{
+    PerspectiveCameraPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<PerspectiveCamera::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PerspectiveCameraPtr PerspectiveCameraBase::createEmpty(void)
 {

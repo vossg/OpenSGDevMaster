@@ -85,24 +85,7 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              MultiPassMaterial>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              MultiPassMaterial>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              MultiPassMaterial>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              MultiPassMaterial>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              MultiPassMaterial>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              MultiPassMaterial>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(MultiPassMaterial);
 
     /*==========================  PUBLIC  =================================*/
 

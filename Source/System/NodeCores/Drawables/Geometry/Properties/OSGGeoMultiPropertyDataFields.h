@@ -70,24 +70,7 @@ class GeoMultiPropertyData;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeoMultiPropertyDataPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          GeoMultiPropertyData>::ObjPtr         GeoMultiPropertyDataPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          GeoMultiPropertyData>::ObjPtrConst    GeoMultiPropertyDataPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          GeoMultiPropertyData>::ObjConstPtr    GeoMultiPropertyDataConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          GeoMultiPropertyData>::ObjPtrArg      GeoMultiPropertyDataPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          GeoMultiPropertyData>::ObjConstPtrArg GeoMultiPropertyDataConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          GeoMultiPropertyData>::ObjPtrConstArg GeoMultiPropertyDataPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoMultiPropertyData);
 
 #endif
 

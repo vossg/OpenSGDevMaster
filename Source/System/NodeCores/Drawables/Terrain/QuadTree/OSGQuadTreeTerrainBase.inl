@@ -862,20 +862,6 @@ const MFReal32 &QuadTreeTerrainBase::getHeightQuad(void) const
     return _mfHeightQuad;
 }
 
-//! create a new instance of the class
-inline
-QuadTreeTerrainPtr QuadTreeTerrainBase::create(void)
-{
-    QuadTreeTerrainPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<QuadTreeTerrain::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -1083,14 +1069,7 @@ Char8 *QuadTreeTerrainBase::getClassname(void)
 {
     return "QuadTreeTerrain";
 }
-
-typedef PointerBuilder<QuadTreeTerrain>::ObjPtr          QuadTreeTerrainPtr;
-typedef PointerBuilder<QuadTreeTerrain>::ObjPtrConst     QuadTreeTerrainPtrConst;
-typedef PointerBuilder<QuadTreeTerrain>::ObjConstPtr     QuadTreeTerrainConstPtr;
-
-typedef PointerBuilder<QuadTreeTerrain>::ObjPtrArg       QuadTreeTerrainPtrArg;
-typedef PointerBuilder<QuadTreeTerrain>::ObjConstPtrArg  QuadTreeTerrainConstPtrArg;
-typedef PointerBuilder<QuadTreeTerrain>::ObjPtrConstArg  QuadTreeTerrainPtrConstArg;
+OSG_GEN_CONTAINERPTR(QuadTreeTerrain);
 
 OSG_END_NAMESPACE
 

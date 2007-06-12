@@ -70,24 +70,7 @@ class Window;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! WindowPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Window>::ObjPtr         WindowPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Window>::ObjPtrConst    WindowPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Window>::ObjConstPtr    WindowConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Window>::ObjPtrArg      WindowPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Window>::ObjConstPtrArg WindowConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Window>::ObjPtrConstArg WindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(Window);
 
 #endif
 

@@ -380,6 +380,20 @@ void SpotLightBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+SpotLightPtr SpotLightBase::create(void)
+{
+    SpotLightPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<SpotLight::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SpotLightPtr SpotLightBase::createEmpty(void)
 {

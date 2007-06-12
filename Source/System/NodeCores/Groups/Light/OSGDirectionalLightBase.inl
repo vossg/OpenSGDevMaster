@@ -107,20 +107,6 @@ void DirectionalLightBase::setDirection(const Vec3r &value)
     _sfDirection.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-DirectionalLightPtr DirectionalLightBase::create(void)
-{
-    DirectionalLightPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<DirectionalLight::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *DirectionalLightBase::getClassname(void)
 {
     return "DirectionalLight";
 }
-
-typedef PointerBuilder<DirectionalLight>::ObjPtr          DirectionalLightPtr;
-typedef PointerBuilder<DirectionalLight>::ObjPtrConst     DirectionalLightPtrConst;
-typedef PointerBuilder<DirectionalLight>::ObjConstPtr     DirectionalLightConstPtr;
-
-typedef PointerBuilder<DirectionalLight>::ObjPtrArg       DirectionalLightPtrArg;
-typedef PointerBuilder<DirectionalLight>::ObjConstPtrArg  DirectionalLightConstPtrArg;
-typedef PointerBuilder<DirectionalLight>::ObjPtrConstArg  DirectionalLightPtrConstArg;
+OSG_GEN_CONTAINERPTR(DirectionalLight);
 
 OSG_END_NAMESPACE
 

@@ -84,24 +84,7 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              FragmentProgramChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              FragmentProgramChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              FragmentProgramChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              FragmentProgramChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              FragmentProgramChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              FragmentProgramChunk>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(FragmentProgramChunk);
 
     /*==========================  PUBLIC  =================================*/
 

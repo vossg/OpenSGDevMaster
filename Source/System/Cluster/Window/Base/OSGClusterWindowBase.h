@@ -96,24 +96,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              ClusterWindow>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              ClusterWindow>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              ClusterWindow>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              ClusterWindow>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              ClusterWindow>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              ClusterWindow>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ClusterWindow);
 
     /*==========================  PUBLIC  =================================*/
 

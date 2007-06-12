@@ -87,24 +87,7 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              XWindow>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              XWindow>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              XWindow>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              XWindow>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              XWindow>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              XWindow>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(XWindow);
 
     /*==========================  PUBLIC  =================================*/
 

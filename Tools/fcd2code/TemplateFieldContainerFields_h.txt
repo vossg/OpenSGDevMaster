@@ -72,24 +72,7 @@ class @!Classname!@;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! @!Classname!@Ptr
 
-typedef PointerFwdBuilder<@!Parent!@Ptr,
-                          @!Parent!@ConstPtr,
-                          @!Classname!@>::ObjPtr         @!Classname!@Ptr;
-typedef PointerFwdBuilder<@!Parent!@Ptr,
-                          @!Parent!@ConstPtr,
-                          @!Classname!@>::ObjPtrConst    @!Classname!@PtrConst;
-typedef PointerFwdBuilder<@!Parent!@Ptr,
-                          @!Parent!@ConstPtr,
-                          @!Classname!@>::ObjConstPtr    @!Classname!@ConstPtr;
-typedef PointerFwdBuilder<@!Parent!@Ptr,
-                          @!Parent!@ConstPtr,
-                          @!Classname!@>::ObjPtrArg      @!Classname!@PtrArg;
-typedef PointerFwdBuilder<@!Parent!@Ptr,
-                          @!Parent!@ConstPtr,
-                          @!Classname!@>::ObjConstPtrArg @!Classname!@ConstPtrArg;
-typedef PointerFwdBuilder<@!Parent!@Ptr,
-                          @!Parent!@ConstPtr,
-                          @!Classname!@>::ObjPtrConstArg @!Classname!@PtrConstArg;
+OSG_GEN_CONTAINERPTR(@!Classname!@);
 
 #endif
 

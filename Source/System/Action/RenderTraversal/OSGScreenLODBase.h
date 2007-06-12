@@ -85,24 +85,7 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ScreenLOD>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ScreenLOD>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ScreenLOD>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ScreenLOD>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ScreenLOD>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              ScreenLOD>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ScreenLOD);
 
     /*==========================  PUBLIC  =================================*/
 

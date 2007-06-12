@@ -107,20 +107,6 @@ void TransformChunkBase::setMatrix(const Matrix &value)
     _sfMatrix.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-TransformChunkPtr TransformChunkBase::create(void)
-{
-    TransformChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TransformChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *TransformChunkBase::getClassname(void)
 {
     return "TransformChunk";
 }
-
-typedef PointerBuilder<TransformChunk>::ObjPtr          TransformChunkPtr;
-typedef PointerBuilder<TransformChunk>::ObjPtrConst     TransformChunkPtrConst;
-typedef PointerBuilder<TransformChunk>::ObjConstPtr     TransformChunkConstPtr;
-
-typedef PointerBuilder<TransformChunk>::ObjPtrArg       TransformChunkPtrArg;
-typedef PointerBuilder<TransformChunk>::ObjConstPtrArg  TransformChunkConstPtrArg;
-typedef PointerBuilder<TransformChunk>::ObjPtrConstArg  TransformChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TransformChunk);
 
 OSG_END_NAMESPACE
 

@@ -50,20 +50,7 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeoIntegralPropertyPtr
 
-typedef PointerFwdBuilder<
-          GeoIntegralPropertyPtr, 
-          GeoIntegralPropertyConstPtr, 
-          GeoUInt8Property>::ObjPtr         GeoUInt8PropertyPtr;
-
-typedef PointerFwdBuilder<
-          GeoIntegralPropertyPtr,
-          GeoIntegralPropertyConstPtr, 
-          GeoUInt8Property>::ObjPtrConst    GeoUInt8PropertyPtrConst;
-
-typedef PointerFwdBuilder<
-          GeoIntegralPropertyPtr,
-          GeoIntegralPropertyConstPtr, 
-          GeoUInt8Property>::ObjPtrConstArg GeoUInt8PropertyPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoUInt8Property);
 
 #endif
 
@@ -135,20 +122,7 @@ OSG_FIELD_DLLEXPORT_DECL1(MField,
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeoIntegralPropertyPtr
 
-typedef PointerFwdBuilder<
-          GeoIntegralPropertyPtr, 
-          GeoIntegralPropertyConstPtr, 
-          GeoUInt32Property>::ObjPtr         GeoUInt32PropertyPtr;
-
-typedef PointerFwdBuilder<
-          GeoIntegralPropertyPtr,
-          GeoIntegralPropertyConstPtr, 
-          GeoUInt32Property>::ObjPtrConst    GeoUInt32PropertyPtrConst;
-
-typedef PointerFwdBuilder<
-          GeoIntegralPropertyPtr,
-          GeoIntegralPropertyConstPtr, 
-          GeoUInt32Property>::ObjPtrConstArg GeoUInt32PropertyPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoUInt32Property);
 
 #endif
 

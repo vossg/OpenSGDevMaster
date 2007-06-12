@@ -404,20 +404,6 @@ void PointChunkBase::setRMode(const GLenum &value)
     _sfRMode.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-PointChunkPtr PointChunkBase::create(void)
-{
-    PointChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<PointChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -519,14 +505,7 @@ Char8 *PointChunkBase::getClassname(void)
 {
     return "PointChunk";
 }
-
-typedef PointerBuilder<PointChunk>::ObjPtr          PointChunkPtr;
-typedef PointerBuilder<PointChunk>::ObjPtrConst     PointChunkPtrConst;
-typedef PointerBuilder<PointChunk>::ObjConstPtr     PointChunkConstPtr;
-
-typedef PointerBuilder<PointChunk>::ObjPtrArg       PointChunkPtrArg;
-typedef PointerBuilder<PointChunk>::ObjConstPtrArg  PointChunkConstPtrArg;
-typedef PointerBuilder<PointChunk>::ObjPtrConstArg  PointChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(PointChunk);
 
 OSG_END_NAMESPACE
 

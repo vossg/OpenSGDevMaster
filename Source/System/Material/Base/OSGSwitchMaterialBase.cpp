@@ -483,6 +483,20 @@ void SwitchMaterialBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+SwitchMaterialPtr SwitchMaterialBase::create(void)
+{
+    SwitchMaterialPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<SwitchMaterial::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SwitchMaterialPtr SwitchMaterialBase::createEmpty(void)
 {

@@ -70,24 +70,7 @@ class StringAttributeMap;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StringAttributeMapPtr
 
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StringAttributeMap>::ObjPtr         StringAttributeMapPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StringAttributeMap>::ObjPtrConst    StringAttributeMapPtrConst;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StringAttributeMap>::ObjConstPtr    StringAttributeMapConstPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StringAttributeMap>::ObjPtrArg      StringAttributeMapPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StringAttributeMap>::ObjConstPtrArg StringAttributeMapConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          StringAttributeMap>::ObjPtrConstArg StringAttributeMapPtrConstArg;
+OSG_GEN_CONTAINERPTR(StringAttributeMap);
 
 #endif
 

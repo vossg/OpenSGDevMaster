@@ -947,6 +947,22 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 }
 
 @@if !isAbstract
+//! create a new instance of the class
+@!Classname!@Ptr @!Classname!@Base::create(void)
+{
+    @!Classname!@Ptr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<@!Classname!@::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+@@endif // !isAbstract
+
+@@if !isAbstract
 //! create an empty new instance of the class, do not copy the prototype
 @!Classname!@Ptr @!Classname!@Base::createEmpty(void)
 {

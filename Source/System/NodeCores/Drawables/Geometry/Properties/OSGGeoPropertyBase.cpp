@@ -367,6 +367,7 @@ void GeoPropertyBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 GeoPropertyBase::GeoPropertyBase(void) :

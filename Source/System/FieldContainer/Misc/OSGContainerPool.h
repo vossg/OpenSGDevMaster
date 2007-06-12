@@ -61,15 +61,6 @@ class OSG_SYSTEM_DLLMAPPING ContainerPool : public ContainerPoolBase
     typedef ContainerPoolBase Inherited;
     typedef ContainerPool     Self;
 
-    typedef PointerBuilder<ContainerPool>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<ContainerPool>::ObjPtrConst      ObjPtrConst;
-
-    typedef PointerBuilder<ContainerPool>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<ContainerPool>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<ContainerPool>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<ContainerPool>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -140,15 +131,6 @@ class OSG_SYSTEM_DLLMAPPING ContainerPool : public ContainerPoolBase
 };
 
 typedef ContainerPool *ContainerPoolP;
-
-typedef ContainerPool::ObjPtr           ContainerPoolPtr;
-typedef ContainerPool::ObjPtrConst      ContainerPoolPtrConst;
-
-typedef ContainerPool::ObjConstPtr      ContainerPoolConstPtr;
-typedef ContainerPool::ObjConstPtrConst ContainerPoolConstPtrConst;
-
-typedef ContainerPool::ObjPtrArg        ContainerPoolPtrArg;
-typedef ContainerPool::ObjPtrConstArg   ContainerPoolPtrConstArg;
 
 OSG_END_NAMESPACE
 

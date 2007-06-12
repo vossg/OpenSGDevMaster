@@ -77,6 +77,7 @@ void CoredNodePtrBase::setNode(NodePtrConstArg pNode)
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
+#if 0
 inline
 void CoredNodePtrBase::setNode(const NilFieldContainerPtr &)
 {
@@ -85,6 +86,7 @@ void CoredNodePtrBase::setNode(const NilFieldContainerPtr &)
 
     _pNode = NullFC;
 }
+#endif
 #endif
 
 // CoredNodePtr methods
@@ -230,6 +232,7 @@ CoredNodePtr<Core>& CoredNodePtr<Core>::operator =(
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
+#if 0
 template<class Core> inline
 CoredNodePtr<Core>& CoredNodePtr<Core>::operator =(
     const NilFieldContainerPtr &)
@@ -239,6 +242,7 @@ CoredNodePtr<Core>& CoredNodePtr<Core>::operator =(
 
     return *this;
 }
+#endif
 #endif
 
 template<class Core> inline
@@ -286,5 +290,4 @@ void CoredNodePtr<Core>::updateNode(void)
 
 OSG_END_NAMESPACE
 
-#define OSGCOREDNODEPTR_INLINE_CVSID "@(#)$Id$"
 

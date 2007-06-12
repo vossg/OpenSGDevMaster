@@ -87,24 +87,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ClipPlaneChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ClipPlaneChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ClipPlaneChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ClipPlaneChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ClipPlaneChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ClipPlaneChunk>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ClipPlaneChunk);
 
     /*==========================  PUBLIC  =================================*/
 

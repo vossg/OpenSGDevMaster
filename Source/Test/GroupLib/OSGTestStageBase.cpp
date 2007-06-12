@@ -229,6 +229,20 @@ void TestStageBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+TestStagePtr TestStageBase::create(void)
+{
+    TestStagePtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<TestStage::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TestStagePtr TestStageBase::createEmpty(void)
 {

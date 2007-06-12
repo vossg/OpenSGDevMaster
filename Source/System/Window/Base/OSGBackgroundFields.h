@@ -70,24 +70,7 @@ class Background;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! BackgroundPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Background>::ObjPtr         BackgroundPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Background>::ObjPtrConst    BackgroundPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Background>::ObjConstPtr    BackgroundConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Background>::ObjPtrArg      BackgroundPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Background>::ObjConstPtrArg BackgroundConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Background>::ObjPtrConstArg BackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(Background);
 
 #endif
 

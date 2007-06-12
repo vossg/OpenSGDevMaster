@@ -74,20 +74,6 @@ OSG::UInt16 PassiveWindowBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-PassiveWindowPtr PassiveWindowBase::create(void)
-{
-    PassiveWindowPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<PassiveWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *PassiveWindowBase::getClassname(void)
 {
     return "PassiveWindow";
 }
-
-typedef PointerBuilder<PassiveWindow>::ObjPtr          PassiveWindowPtr;
-typedef PointerBuilder<PassiveWindow>::ObjPtrConst     PassiveWindowPtrConst;
-typedef PointerBuilder<PassiveWindow>::ObjConstPtr     PassiveWindowConstPtr;
-
-typedef PointerBuilder<PassiveWindow>::ObjPtrArg       PassiveWindowPtrArg;
-typedef PointerBuilder<PassiveWindow>::ObjConstPtrArg  PassiveWindowConstPtrArg;
-typedef PointerBuilder<PassiveWindow>::ObjPtrConstArg  PassiveWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(PassiveWindow);
 
 OSG_END_NAMESPACE
 

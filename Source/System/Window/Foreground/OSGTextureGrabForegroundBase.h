@@ -88,24 +88,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              TextureGrabForeground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              TextureGrabForeground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              TextureGrabForeground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              TextureGrabForeground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              TextureGrabForeground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              TextureGrabForeground>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(TextureGrabForeground);
 
     /*==========================  PUBLIC  =================================*/
 

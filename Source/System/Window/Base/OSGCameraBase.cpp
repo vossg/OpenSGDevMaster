@@ -411,6 +411,7 @@ void CameraBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 CameraBase::CameraBase(void) :

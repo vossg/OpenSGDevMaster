@@ -232,14 +232,7 @@ Char8 *GeoPropertyBase::getClassname(void)
 {
     return "GeoProperty";
 }
-
-typedef PointerBuilder<GeoProperty>::ObjPtr          GeoPropertyPtr;
-typedef PointerBuilder<GeoProperty>::ObjPtrConst     GeoPropertyPtrConst;
-typedef PointerBuilder<GeoProperty>::ObjConstPtr     GeoPropertyConstPtr;
-
-typedef PointerBuilder<GeoProperty>::ObjPtrArg       GeoPropertyPtrArg;
-typedef PointerBuilder<GeoProperty>::ObjConstPtrArg  GeoPropertyConstPtrArg;
-typedef PointerBuilder<GeoProperty>::ObjPtrConstArg  GeoPropertyPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoProperty);
 
 OSG_END_NAMESPACE
 

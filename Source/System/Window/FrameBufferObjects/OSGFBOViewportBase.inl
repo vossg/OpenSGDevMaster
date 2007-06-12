@@ -91,20 +91,6 @@ void FBOViewportBase::setFrameBufferObject(FrameBufferObjectPtrConstArg value)
 
 }
 
-//! create a new instance of the class
-inline
-FBOViewportPtr FBOViewportBase::create(void)
-{
-    FBOViewportPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<FBOViewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -152,14 +138,7 @@ Char8 *FBOViewportBase::getClassname(void)
 {
     return "FBOViewport";
 }
-
-typedef PointerBuilder<FBOViewport>::ObjPtr          FBOViewportPtr;
-typedef PointerBuilder<FBOViewport>::ObjPtrConst     FBOViewportPtrConst;
-typedef PointerBuilder<FBOViewport>::ObjConstPtr     FBOViewportConstPtr;
-
-typedef PointerBuilder<FBOViewport>::ObjPtrArg       FBOViewportPtrArg;
-typedef PointerBuilder<FBOViewport>::ObjConstPtrArg  FBOViewportConstPtrArg;
-typedef PointerBuilder<FBOViewport>::ObjPtrConstArg  FBOViewportPtrConstArg;
+OSG_GEN_CONTAINERPTR(FBOViewport);
 
 OSG_END_NAMESPACE
 

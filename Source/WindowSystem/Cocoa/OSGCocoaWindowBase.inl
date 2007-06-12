@@ -107,20 +107,6 @@ void CocoaWindowBase::setContext(const NSOpenGLContextP &value)
     _sfContext.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-CocoaWindowPtr CocoaWindowBase::create(void)
-{
-    CocoaWindowPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<CocoaWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *CocoaWindowBase::getClassname(void)
 {
     return "CocoaWindow";
 }
-
-typedef PointerBuilder<CocoaWindow>::ObjPtr          CocoaWindowPtr;
-typedef PointerBuilder<CocoaWindow>::ObjPtrConst     CocoaWindowPtrConst;
-typedef PointerBuilder<CocoaWindow>::ObjConstPtr     CocoaWindowConstPtr;
-
-typedef PointerBuilder<CocoaWindow>::ObjPtrArg       CocoaWindowPtrArg;
-typedef PointerBuilder<CocoaWindow>::ObjConstPtrArg  CocoaWindowConstPtrArg;
-typedef PointerBuilder<CocoaWindow>::ObjPtrConstArg  CocoaWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(CocoaWindow);
 
 OSG_END_NAMESPACE
 

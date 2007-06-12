@@ -74,20 +74,6 @@ OSG::UInt16 TwoSidedLightingChunkBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::create(void)
-{
-    TwoSidedLightingChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TwoSidedLightingChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *TwoSidedLightingChunkBase::getClassname(void)
 {
     return "TwoSidedLightingChunk";
 }
-
-typedef PointerBuilder<TwoSidedLightingChunk>::ObjPtr          TwoSidedLightingChunkPtr;
-typedef PointerBuilder<TwoSidedLightingChunk>::ObjPtrConst     TwoSidedLightingChunkPtrConst;
-typedef PointerBuilder<TwoSidedLightingChunk>::ObjConstPtr     TwoSidedLightingChunkConstPtr;
-
-typedef PointerBuilder<TwoSidedLightingChunk>::ObjPtrArg       TwoSidedLightingChunkPtrArg;
-typedef PointerBuilder<TwoSidedLightingChunk>::ObjConstPtrArg  TwoSidedLightingChunkConstPtrArg;
-typedef PointerBuilder<TwoSidedLightingChunk>::ObjPtrConstArg  TwoSidedLightingChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TwoSidedLightingChunk);
 
 OSG_END_NAMESPACE
 

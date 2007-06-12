@@ -228,6 +228,20 @@ void ShaderParameterVec2fBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+ShaderParameterVec2fPtr ShaderParameterVec2fBase::create(void)
+{
+    ShaderParameterVec2fPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<ShaderParameterVec2f::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ShaderParameterVec2fPtr ShaderParameterVec2fBase::createEmpty(void)
 {

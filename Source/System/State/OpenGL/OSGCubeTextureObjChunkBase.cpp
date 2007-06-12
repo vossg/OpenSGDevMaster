@@ -570,6 +570,20 @@ void CubeTextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+CubeTextureObjChunkPtr CubeTextureObjChunkBase::create(void)
+{
+    CubeTextureObjChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<CubeTextureObjChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 CubeTextureObjChunkPtr CubeTextureObjChunkBase::createEmpty(void)
 {

@@ -196,23 +196,7 @@ Char8 *StageDataBase::getClassname(void)
     return "StageData";
 }
 
-typedef BundlePointerBuilder<
-    StageData>::ObjPtr          StageDataP;
-
-typedef BundlePointerBuilder<
-    StageData>::ObjPtrConst     StageDataPConst;
-
-typedef BundlePointerBuilder<
-    StageData>::ObjConstPtr     StageDataConstP;
-
-typedef BundlePointerBuilder<
-    StageData>::ObjPtrArg       StageDataPArg;
-
-typedef BundlePointerBuilder<
-    StageData>::ObjConstPtrArg  StageDataConstPArg;
-
-typedef BundlePointerBuilder<
-    StageData>::ObjPtrConstArg  StageDataPConstArg;
+OSG_GEN_BUNDLEP(StageData);
 
 OSG_END_NAMESPACE
 

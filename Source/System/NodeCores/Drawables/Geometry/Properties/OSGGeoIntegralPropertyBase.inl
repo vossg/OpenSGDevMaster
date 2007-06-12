@@ -115,14 +115,7 @@ Char8 *GeoIntegralPropertyBase::getClassname(void)
 {
     return "GeoIntegralProperty";
 }
-
-typedef PointerBuilder<GeoIntegralProperty>::ObjPtr          GeoIntegralPropertyPtr;
-typedef PointerBuilder<GeoIntegralProperty>::ObjPtrConst     GeoIntegralPropertyPtrConst;
-typedef PointerBuilder<GeoIntegralProperty>::ObjConstPtr     GeoIntegralPropertyConstPtr;
-
-typedef PointerBuilder<GeoIntegralProperty>::ObjPtrArg       GeoIntegralPropertyPtrArg;
-typedef PointerBuilder<GeoIntegralProperty>::ObjConstPtrArg  GeoIntegralPropertyConstPtrArg;
-typedef PointerBuilder<GeoIntegralProperty>::ObjPtrConstArg  GeoIntegralPropertyPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoIntegralProperty);
 
 OSG_END_NAMESPACE
 

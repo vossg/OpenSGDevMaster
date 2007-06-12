@@ -84,24 +84,7 @@ class OSG_GROUP_DLLMAPPING InverseTransformBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              InverseTransform>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              InverseTransform>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              InverseTransform>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              InverseTransform>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              InverseTransform>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GroupPtr,
-                              GroupConstPtr,
-                              InverseTransform>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(InverseTransform);
 
     /*==========================  PUBLIC  =================================*/
 

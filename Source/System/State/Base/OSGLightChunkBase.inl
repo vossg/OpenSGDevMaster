@@ -421,20 +421,6 @@ void LightChunkBase::setBeacon(NodePtrConstArg value)
 
 }
 
-//! create a new instance of the class
-inline
-LightChunkPtr LightChunkBase::create(void)
-{
-    LightChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<LightChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -542,14 +528,7 @@ Char8 *LightChunkBase::getClassname(void)
 {
     return "LightChunk";
 }
-
-typedef PointerBuilder<LightChunk>::ObjPtr          LightChunkPtr;
-typedef PointerBuilder<LightChunk>::ObjPtrConst     LightChunkPtrConst;
-typedef PointerBuilder<LightChunk>::ObjConstPtr     LightChunkConstPtr;
-
-typedef PointerBuilder<LightChunk>::ObjPtrArg       LightChunkPtrArg;
-typedef PointerBuilder<LightChunk>::ObjConstPtrArg  LightChunkConstPtrArg;
-typedef PointerBuilder<LightChunk>::ObjPtrConstArg  LightChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(LightChunk);
 
 OSG_END_NAMESPACE
 

@@ -84,24 +84,7 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Group>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Group>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Group>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Group>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Group>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Group>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(Group);
 
     /*==========================  PUBLIC  =================================*/
 

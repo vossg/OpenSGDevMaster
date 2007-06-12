@@ -228,6 +228,20 @@ void ShaderParameterRealBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+ShaderParameterRealPtr ShaderParameterRealBase::create(void)
+{
+    ShaderParameterRealPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<ShaderParameterReal::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ShaderParameterRealPtr ShaderParameterRealBase::createEmpty(void)
 {

@@ -85,24 +85,7 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindowBase : public Window
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CarbonWindow>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CarbonWindow>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CarbonWindow>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CarbonWindow>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CarbonWindow>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              CarbonWindow>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(CarbonWindow);
 
     /*==========================  PUBLIC  =================================*/
 

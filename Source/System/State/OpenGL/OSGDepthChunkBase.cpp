@@ -515,6 +515,20 @@ void DepthChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+DepthChunkPtr DepthChunkBase::create(void)
+{
+    DepthChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<DepthChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 DepthChunkPtr DepthChunkBase::createEmpty(void)
 {

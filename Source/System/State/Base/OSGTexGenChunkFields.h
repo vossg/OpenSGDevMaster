@@ -70,24 +70,7 @@ class TexGenChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TexGenChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TexGenChunk>::ObjPtr         TexGenChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TexGenChunk>::ObjPtrConst    TexGenChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TexGenChunk>::ObjConstPtr    TexGenChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TexGenChunk>::ObjPtrArg      TexGenChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TexGenChunk>::ObjConstPtrArg TexGenChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TexGenChunk>::ObjPtrConstArg TexGenChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TexGenChunk);
 
 #endif
 

@@ -91,24 +91,7 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              SimpleStage>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              SimpleStage>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              SimpleStage>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              SimpleStage>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              SimpleStage>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              SimpleStage>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(SimpleStage);
 
     /*==========================  PUBLIC  =================================*/
 

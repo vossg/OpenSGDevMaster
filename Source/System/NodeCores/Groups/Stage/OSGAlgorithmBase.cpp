@@ -154,6 +154,7 @@ void AlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 AlgorithmBase::AlgorithmBase(void) :

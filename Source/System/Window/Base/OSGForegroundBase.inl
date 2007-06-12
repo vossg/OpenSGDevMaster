@@ -154,14 +154,7 @@ Char8 *ForegroundBase::getClassname(void)
 {
     return "Foreground";
 }
-
-typedef PointerBuilder<Foreground>::ObjPtr          ForegroundPtr;
-typedef PointerBuilder<Foreground>::ObjPtrConst     ForegroundPtrConst;
-typedef PointerBuilder<Foreground>::ObjConstPtr     ForegroundConstPtr;
-
-typedef PointerBuilder<Foreground>::ObjPtrArg       ForegroundPtrArg;
-typedef PointerBuilder<Foreground>::ObjConstPtrArg  ForegroundConstPtrArg;
-typedef PointerBuilder<Foreground>::ObjPtrConstArg  ForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(Foreground);
 
 OSG_END_NAMESPACE
 

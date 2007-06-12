@@ -878,6 +878,20 @@ void FrameBufferObjectBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+FrameBufferObjectPtr FrameBufferObjectBase::create(void)
+{
+    FrameBufferObjectPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<FrameBufferObject::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 FrameBufferObjectPtr FrameBufferObjectBase::createEmpty(void)
 {

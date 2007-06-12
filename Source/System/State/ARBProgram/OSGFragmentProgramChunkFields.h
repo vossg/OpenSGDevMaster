@@ -70,24 +70,7 @@ class FragmentProgramChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! FragmentProgramChunkPtr
 
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          FragmentProgramChunk>::ObjPtr         FragmentProgramChunkPtr;
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          FragmentProgramChunk>::ObjPtrConst    FragmentProgramChunkPtrConst;
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          FragmentProgramChunk>::ObjConstPtr    FragmentProgramChunkConstPtr;
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          FragmentProgramChunk>::ObjPtrArg      FragmentProgramChunkPtrArg;
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          FragmentProgramChunk>::ObjConstPtrArg FragmentProgramChunkConstPtrArg;
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          FragmentProgramChunk>::ObjPtrConstArg FragmentProgramChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(FragmentProgramChunk);
 
 #endif
 

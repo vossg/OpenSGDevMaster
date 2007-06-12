@@ -239,20 +239,6 @@ void BillboardBase::setMaxAngle(const Real32 &value)
     _sfMaxAngle.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-BillboardPtr BillboardBase::create(void)
-{
-    BillboardPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<Billboard::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -324,14 +310,7 @@ Char8 *BillboardBase::getClassname(void)
 {
     return "Billboard";
 }
-
-typedef PointerBuilder<Billboard>::ObjPtr          BillboardPtr;
-typedef PointerBuilder<Billboard>::ObjPtrConst     BillboardPtrConst;
-typedef PointerBuilder<Billboard>::ObjConstPtr     BillboardConstPtr;
-
-typedef PointerBuilder<Billboard>::ObjPtrArg       BillboardPtrArg;
-typedef PointerBuilder<Billboard>::ObjConstPtrArg  BillboardConstPtrArg;
-typedef PointerBuilder<Billboard>::ObjPtrConstArg  BillboardPtrConstArg;
+OSG_GEN_CONTAINERPTR(Billboard);
 
 OSG_END_NAMESPACE
 

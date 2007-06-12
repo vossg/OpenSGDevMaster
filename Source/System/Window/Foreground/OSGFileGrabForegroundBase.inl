@@ -173,20 +173,6 @@ void FileGrabForegroundBase::setIncrement(const bool &value)
     _sfIncrement.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-FileGrabForegroundPtr FileGrabForegroundBase::create(void)
-{
-    FileGrabForegroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<FileGrabForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -246,14 +232,7 @@ Char8 *FileGrabForegroundBase::getClassname(void)
 {
     return "FileGrabForeground";
 }
-
-typedef PointerBuilder<FileGrabForeground>::ObjPtr          FileGrabForegroundPtr;
-typedef PointerBuilder<FileGrabForeground>::ObjPtrConst     FileGrabForegroundPtrConst;
-typedef PointerBuilder<FileGrabForeground>::ObjConstPtr     FileGrabForegroundConstPtr;
-
-typedef PointerBuilder<FileGrabForeground>::ObjPtrArg       FileGrabForegroundPtrArg;
-typedef PointerBuilder<FileGrabForeground>::ObjConstPtrArg  FileGrabForegroundConstPtrArg;
-typedef PointerBuilder<FileGrabForeground>::ObjPtrConstArg  FileGrabForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(FileGrabForeground);
 
 OSG_END_NAMESPACE
 

@@ -121,20 +121,6 @@ const MFReal32 &ScreenLODBase::getCoverageOverride(void) const
     return _mfCoverageOverride;
 }
 
-//! create a new instance of the class
-inline
-ScreenLODPtr ScreenLODBase::create(void)
-{
-    ScreenLODPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ScreenLOD::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -193,14 +179,7 @@ Char8 *ScreenLODBase::getClassname(void)
 {
     return "ScreenLOD";
 }
-
-typedef PointerBuilder<ScreenLOD>::ObjPtr          ScreenLODPtr;
-typedef PointerBuilder<ScreenLOD>::ObjPtrConst     ScreenLODPtrConst;
-typedef PointerBuilder<ScreenLOD>::ObjConstPtr     ScreenLODConstPtr;
-
-typedef PointerBuilder<ScreenLOD>::ObjPtrArg       ScreenLODPtrArg;
-typedef PointerBuilder<ScreenLOD>::ObjConstPtrArg  ScreenLODConstPtrArg;
-typedef PointerBuilder<ScreenLOD>::ObjPtrConstArg  ScreenLODPtrConstArg;
+OSG_GEN_CONTAINERPTR(ScreenLOD);
 
 OSG_END_NAMESPACE
 

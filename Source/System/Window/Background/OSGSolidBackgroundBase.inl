@@ -140,20 +140,6 @@ void SolidBackgroundBase::setAlpha(const Real32 &value)
     _sfAlpha.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-SolidBackgroundPtr SolidBackgroundBase::create(void)
-{
-    SolidBackgroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<SolidBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -207,14 +193,7 @@ Char8 *SolidBackgroundBase::getClassname(void)
 {
     return "SolidBackground";
 }
-
-typedef PointerBuilder<SolidBackground>::ObjPtr          SolidBackgroundPtr;
-typedef PointerBuilder<SolidBackground>::ObjPtrConst     SolidBackgroundPtrConst;
-typedef PointerBuilder<SolidBackground>::ObjConstPtr     SolidBackgroundConstPtr;
-
-typedef PointerBuilder<SolidBackground>::ObjPtrArg       SolidBackgroundPtrArg;
-typedef PointerBuilder<SolidBackground>::ObjConstPtrArg  SolidBackgroundConstPtrArg;
-typedef PointerBuilder<SolidBackground>::ObjPtrConstArg  SolidBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(SolidBackground);
 
 OSG_END_NAMESPACE
 

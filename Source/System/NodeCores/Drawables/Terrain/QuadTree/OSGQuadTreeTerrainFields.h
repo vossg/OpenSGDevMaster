@@ -70,24 +70,7 @@ class QuadTreeTerrain;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! QuadTreeTerrainPtr
 
-typedef PointerFwdBuilder<GeometryPtr,
-                          GeometryConstPtr,
-                          QuadTreeTerrain>::ObjPtr         QuadTreeTerrainPtr;
-typedef PointerFwdBuilder<GeometryPtr,
-                          GeometryConstPtr,
-                          QuadTreeTerrain>::ObjPtrConst    QuadTreeTerrainPtrConst;
-typedef PointerFwdBuilder<GeometryPtr,
-                          GeometryConstPtr,
-                          QuadTreeTerrain>::ObjConstPtr    QuadTreeTerrainConstPtr;
-typedef PointerFwdBuilder<GeometryPtr,
-                          GeometryConstPtr,
-                          QuadTreeTerrain>::ObjPtrArg      QuadTreeTerrainPtrArg;
-typedef PointerFwdBuilder<GeometryPtr,
-                          GeometryConstPtr,
-                          QuadTreeTerrain>::ObjConstPtrArg QuadTreeTerrainConstPtrArg;
-typedef PointerFwdBuilder<GeometryPtr,
-                          GeometryConstPtr,
-                          QuadTreeTerrain>::ObjPtrConstArg QuadTreeTerrainPtrConstArg;
+OSG_GEN_CONTAINERPTR(QuadTreeTerrain);
 
 #endif
 

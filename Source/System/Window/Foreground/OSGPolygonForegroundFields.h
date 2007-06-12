@@ -70,24 +70,7 @@ class PolygonForeground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PolygonForegroundPtr
 
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          PolygonForeground>::ObjPtr         PolygonForegroundPtr;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          PolygonForeground>::ObjPtrConst    PolygonForegroundPtrConst;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          PolygonForeground>::ObjConstPtr    PolygonForegroundConstPtr;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          PolygonForeground>::ObjPtrArg      PolygonForegroundPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          PolygonForeground>::ObjConstPtrArg PolygonForegroundConstPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          PolygonForeground>::ObjPtrConstArg PolygonForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(PolygonForeground);
 
 #endif
 

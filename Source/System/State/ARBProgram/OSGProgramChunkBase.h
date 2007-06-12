@@ -88,24 +88,7 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ProgramChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ProgramChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ProgramChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ProgramChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ProgramChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              ProgramChunk>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ProgramChunk);
 
     /*==========================  PUBLIC  =================================*/
 

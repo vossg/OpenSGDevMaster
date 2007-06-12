@@ -135,20 +135,6 @@ const MFInt32 &ChunkMaterialBase::getSlots(void) const
     return _mfSlots;
 }
 
-//! create a new instance of the class
-inline
-ChunkMaterialPtr ChunkMaterialBase::create(void)
-{
-    ChunkMaterialPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ChunkMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -224,14 +210,7 @@ Char8 *ChunkMaterialBase::getClassname(void)
 {
     return "ChunkMaterial";
 }
-
-typedef PointerBuilder<ChunkMaterial>::ObjPtr          ChunkMaterialPtr;
-typedef PointerBuilder<ChunkMaterial>::ObjPtrConst     ChunkMaterialPtrConst;
-typedef PointerBuilder<ChunkMaterial>::ObjConstPtr     ChunkMaterialConstPtr;
-
-typedef PointerBuilder<ChunkMaterial>::ObjPtrArg       ChunkMaterialPtrArg;
-typedef PointerBuilder<ChunkMaterial>::ObjConstPtrArg  ChunkMaterialConstPtrArg;
-typedef PointerBuilder<ChunkMaterial>::ObjPtrConstArg  ChunkMaterialPtrConstArg;
+OSG_GEN_CONTAINERPTR(ChunkMaterial);
 
 OSG_END_NAMESPACE
 

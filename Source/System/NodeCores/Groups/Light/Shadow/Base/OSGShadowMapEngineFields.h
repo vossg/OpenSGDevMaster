@@ -70,24 +70,7 @@ class ShadowMapEngine;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShadowMapEnginePtr
 
-typedef PointerFwdBuilder<LightEnginePtr,
-                          LightEngineConstPtr,
-                          ShadowMapEngine>::ObjPtr         ShadowMapEnginePtr;
-typedef PointerFwdBuilder<LightEnginePtr,
-                          LightEngineConstPtr,
-                          ShadowMapEngine>::ObjPtrConst    ShadowMapEnginePtrConst;
-typedef PointerFwdBuilder<LightEnginePtr,
-                          LightEngineConstPtr,
-                          ShadowMapEngine>::ObjConstPtr    ShadowMapEngineConstPtr;
-typedef PointerFwdBuilder<LightEnginePtr,
-                          LightEngineConstPtr,
-                          ShadowMapEngine>::ObjPtrArg      ShadowMapEnginePtrArg;
-typedef PointerFwdBuilder<LightEnginePtr,
-                          LightEngineConstPtr,
-                          ShadowMapEngine>::ObjConstPtrArg ShadowMapEngineConstPtrArg;
-typedef PointerFwdBuilder<LightEnginePtr,
-                          LightEngineConstPtr,
-                          ShadowMapEngine>::ObjPtrConstArg ShadowMapEnginePtrConstArg;
+OSG_GEN_CONTAINERPTR(ShadowMapEngine);
 
 #endif
 

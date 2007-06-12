@@ -362,6 +362,20 @@ void WIN32WindowBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+WIN32WindowPtr WIN32WindowBase::create(void)
+{
+    WIN32WindowPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<WIN32Window::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 WIN32WindowPtr WIN32WindowBase::createEmpty(void)
 {

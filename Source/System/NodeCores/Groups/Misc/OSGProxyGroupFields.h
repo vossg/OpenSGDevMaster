@@ -70,24 +70,7 @@ class ProxyGroup;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ProxyGroupPtr
 
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ProxyGroup>::ObjPtr         ProxyGroupPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ProxyGroup>::ObjPtrConst    ProxyGroupPtrConst;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ProxyGroup>::ObjConstPtr    ProxyGroupConstPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ProxyGroup>::ObjPtrArg      ProxyGroupPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ProxyGroup>::ObjConstPtrArg ProxyGroupConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          ProxyGroup>::ObjPtrConstArg ProxyGroupPtrConstArg;
+OSG_GEN_CONTAINERPTR(ProxyGroup);
 
 #endif
 

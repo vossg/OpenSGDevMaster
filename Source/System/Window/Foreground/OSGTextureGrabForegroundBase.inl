@@ -190,20 +190,6 @@ void TextureGrabForegroundBase::setCopyTarget(const GLenum &value)
     _sfCopyTarget.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-TextureGrabForegroundPtr TextureGrabForegroundBase::create(void)
-{
-    TextureGrabForegroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TextureGrabForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -269,14 +255,7 @@ Char8 *TextureGrabForegroundBase::getClassname(void)
 {
     return "TextureGrabForeground";
 }
-
-typedef PointerBuilder<TextureGrabForeground>::ObjPtr          TextureGrabForegroundPtr;
-typedef PointerBuilder<TextureGrabForeground>::ObjPtrConst     TextureGrabForegroundPtrConst;
-typedef PointerBuilder<TextureGrabForeground>::ObjConstPtr     TextureGrabForegroundConstPtr;
-
-typedef PointerBuilder<TextureGrabForeground>::ObjPtrArg       TextureGrabForegroundPtrArg;
-typedef PointerBuilder<TextureGrabForeground>::ObjConstPtrArg  TextureGrabForegroundConstPtrArg;
-typedef PointerBuilder<TextureGrabForeground>::ObjPtrConstArg  TextureGrabForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureGrabForeground);
 
 OSG_END_NAMESPACE
 

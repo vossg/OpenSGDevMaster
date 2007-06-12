@@ -333,6 +333,7 @@ void BackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 BackgroundBase::BackgroundBase(void) :

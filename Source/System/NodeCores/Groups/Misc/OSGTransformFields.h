@@ -70,24 +70,7 @@ class Transform;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TransformPtr
 
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Transform>::ObjPtr         TransformPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Transform>::ObjPtrConst    TransformPtrConst;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Transform>::ObjConstPtr    TransformConstPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Transform>::ObjPtrArg      TransformPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Transform>::ObjConstPtrArg TransformConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Transform>::ObjPtrConstArg TransformPtrConstArg;
+OSG_GEN_CONTAINERPTR(Transform);
 
 #endif
 

@@ -107,20 +107,6 @@ void SimpleShadowMapEngineBase::setForceTextureUnit(const Int32 &value)
     _sfForceTextureUnit.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-SimpleShadowMapEnginePtr SimpleShadowMapEngineBase::create(void)
-{
-    SimpleShadowMapEnginePtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<SimpleShadowMapEngine::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *SimpleShadowMapEngineBase::getClassname(void)
 {
     return "SimpleShadowMapEngine";
 }
-
-typedef PointerBuilder<SimpleShadowMapEngine>::ObjPtr          SimpleShadowMapEnginePtr;
-typedef PointerBuilder<SimpleShadowMapEngine>::ObjPtrConst     SimpleShadowMapEnginePtrConst;
-typedef PointerBuilder<SimpleShadowMapEngine>::ObjConstPtr     SimpleShadowMapEngineConstPtr;
-
-typedef PointerBuilder<SimpleShadowMapEngine>::ObjPtrArg       SimpleShadowMapEnginePtrArg;
-typedef PointerBuilder<SimpleShadowMapEngine>::ObjConstPtrArg  SimpleShadowMapEngineConstPtrArg;
-typedef PointerBuilder<SimpleShadowMapEngine>::ObjPtrConstArg  SimpleShadowMapEnginePtrConstArg;
+OSG_GEN_CONTAINERPTR(SimpleShadowMapEngine);
 
 OSG_END_NAMESPACE
 

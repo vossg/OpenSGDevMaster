@@ -70,24 +70,7 @@ class DirectionalLight;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! DirectionalLightPtr
 
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          DirectionalLight>::ObjPtr         DirectionalLightPtr;
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          DirectionalLight>::ObjPtrConst    DirectionalLightPtrConst;
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          DirectionalLight>::ObjConstPtr    DirectionalLightConstPtr;
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          DirectionalLight>::ObjPtrArg      DirectionalLightPtrArg;
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          DirectionalLight>::ObjConstPtrArg DirectionalLightConstPtrArg;
-typedef PointerFwdBuilder<LightPtr,
-                          LightConstPtr,
-                          DirectionalLight>::ObjPtrConstArg DirectionalLightPtrConstArg;
+OSG_GEN_CONTAINERPTR(DirectionalLight);
 
 #endif
 

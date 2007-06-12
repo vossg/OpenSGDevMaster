@@ -996,6 +996,20 @@ void TexGenChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+TexGenChunkPtr TexGenChunkBase::create(void)
+{
+    TexGenChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<TexGenChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TexGenChunkPtr TexGenChunkBase::createEmpty(void)
 {

@@ -1318,6 +1318,20 @@ void ParticlesBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+ParticlesPtr ParticlesBase::create(void)
+{
+    ParticlesPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<Particles::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ParticlesPtr ParticlesBase::createEmpty(void)
 {

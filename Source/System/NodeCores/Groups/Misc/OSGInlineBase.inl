@@ -154,20 +154,6 @@ const MFString &InlineBase::getUrl(void) const
     return _mfUrl;
 }
 
-//! create a new instance of the class
-inline
-InlinePtr InlineBase::create(void)
-{
-    InlinePtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<Inline::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -232,14 +218,7 @@ Char8 *InlineBase::getClassname(void)
 {
     return "Inline";
 }
-
-typedef PointerBuilder<Inline>::ObjPtr          InlinePtr;
-typedef PointerBuilder<Inline>::ObjPtrConst     InlinePtrConst;
-typedef PointerBuilder<Inline>::ObjConstPtr     InlineConstPtr;
-
-typedef PointerBuilder<Inline>::ObjPtrArg       InlinePtrArg;
-typedef PointerBuilder<Inline>::ObjConstPtrArg  InlineConstPtrArg;
-typedef PointerBuilder<Inline>::ObjPtrConstArg  InlinePtrConstArg;
+OSG_GEN_CONTAINERPTR(Inline);
 
 OSG_END_NAMESPACE
 

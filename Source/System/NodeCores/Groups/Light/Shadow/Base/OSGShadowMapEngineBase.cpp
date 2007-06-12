@@ -599,6 +599,7 @@ void ShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 ShadowMapEngineBase::ShadowMapEngineBase(void) :

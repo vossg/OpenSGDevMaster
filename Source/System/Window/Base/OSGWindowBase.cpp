@@ -1064,6 +1064,7 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 WindowBase::WindowBase(void) :

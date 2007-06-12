@@ -308,6 +308,20 @@ void SolidBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+SolidBackgroundPtr SolidBackgroundBase::create(void)
+{
+    SolidBackgroundPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<SolidBackground::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SolidBackgroundPtr SolidBackgroundBase::createEmpty(void)
 {

@@ -70,24 +70,7 @@ class Stage;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StagePtr
 
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Stage>::ObjPtr         StagePtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Stage>::ObjPtrConst    StagePtrConst;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Stage>::ObjConstPtr    StageConstPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Stage>::ObjPtrArg      StagePtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Stage>::ObjConstPtrArg StageConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Stage>::ObjPtrConstArg StagePtrConstArg;
+OSG_GEN_CONTAINERPTR(Stage);
 
 #endif
 

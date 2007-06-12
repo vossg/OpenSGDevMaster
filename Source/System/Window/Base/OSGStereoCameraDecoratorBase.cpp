@@ -311,6 +311,7 @@ void StereoCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 StereoCameraDecoratorBase::StereoCameraDecoratorBase(void) :

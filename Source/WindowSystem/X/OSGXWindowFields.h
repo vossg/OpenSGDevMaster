@@ -70,24 +70,7 @@ class XWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! XWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          XWindow>::ObjPtr         XWindowPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          XWindow>::ObjPtrConst    XWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          XWindow>::ObjConstPtr    XWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          XWindow>::ObjPtrArg      XWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          XWindow>::ObjConstPtrArg XWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          XWindow>::ObjPtrConstArg XWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(XWindow);
 
 #endif
 

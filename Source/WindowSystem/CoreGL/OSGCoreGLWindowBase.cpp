@@ -228,6 +228,20 @@ void CoreGLWindowBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+CoreGLWindowPtr CoreGLWindowBase::create(void)
+{
+    CoreGLWindowPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<CoreGLWindow::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 CoreGLWindowPtr CoreGLWindowBase::createEmpty(void)
 {

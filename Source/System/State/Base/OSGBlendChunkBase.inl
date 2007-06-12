@@ -338,20 +338,6 @@ void BlendChunkBase::setAlphaDestFactor(const GLenum &value)
     _sfAlphaDestFactor.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-BlendChunkPtr BlendChunkBase::create(void)
-{
-    BlendChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<BlendChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -441,14 +427,7 @@ Char8 *BlendChunkBase::getClassname(void)
 {
     return "BlendChunk";
 }
-
-typedef PointerBuilder<BlendChunk>::ObjPtr          BlendChunkPtr;
-typedef PointerBuilder<BlendChunk>::ObjPtrConst     BlendChunkPtrConst;
-typedef PointerBuilder<BlendChunk>::ObjConstPtr     BlendChunkConstPtr;
-
-typedef PointerBuilder<BlendChunk>::ObjPtrArg       BlendChunkPtrArg;
-typedef PointerBuilder<BlendChunk>::ObjConstPtrArg  BlendChunkConstPtrArg;
-typedef PointerBuilder<BlendChunk>::ObjPtrConstArg  BlendChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(BlendChunk);
 
 OSG_END_NAMESPACE
 

@@ -496,6 +496,20 @@ void MultiDisplayWindowBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+MultiDisplayWindowPtr MultiDisplayWindowBase::create(void)
+{
+    MultiDisplayWindowPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<MultiDisplayWindow::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MultiDisplayWindowPtr MultiDisplayWindowBase::createEmpty(void)
 {

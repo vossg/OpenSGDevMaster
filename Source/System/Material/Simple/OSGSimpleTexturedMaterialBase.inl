@@ -223,20 +223,6 @@ void SimpleTexturedMaterialBase::setEnvMap(const bool &value)
     _sfEnvMap.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::create(void)
-{
-    SimpleTexturedMaterialPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<SimpleTexturedMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -308,14 +294,7 @@ Char8 *SimpleTexturedMaterialBase::getClassname(void)
 {
     return "SimpleTexturedMaterial";
 }
-
-typedef PointerBuilder<SimpleTexturedMaterial>::ObjPtr          SimpleTexturedMaterialPtr;
-typedef PointerBuilder<SimpleTexturedMaterial>::ObjPtrConst     SimpleTexturedMaterialPtrConst;
-typedef PointerBuilder<SimpleTexturedMaterial>::ObjConstPtr     SimpleTexturedMaterialConstPtr;
-
-typedef PointerBuilder<SimpleTexturedMaterial>::ObjPtrArg       SimpleTexturedMaterialPtrArg;
-typedef PointerBuilder<SimpleTexturedMaterial>::ObjConstPtrArg  SimpleTexturedMaterialConstPtrArg;
-typedef PointerBuilder<SimpleTexturedMaterial>::ObjPtrConstArg  SimpleTexturedMaterialPtrConstArg;
+OSG_GEN_CONTAINERPTR(SimpleTexturedMaterial);
 
 OSG_END_NAMESPACE
 

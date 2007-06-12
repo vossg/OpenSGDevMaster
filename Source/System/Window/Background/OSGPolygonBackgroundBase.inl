@@ -416,20 +416,6 @@ const MFPnt2f &PolygonBackgroundBase::getPositions(void) const
     return _mfPositions;
 }
 
-//! create a new instance of the class
-inline
-PolygonBackgroundPtr PolygonBackgroundBase::create(void)
-{
-    PolygonBackgroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<PolygonBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -553,14 +539,7 @@ Char8 *PolygonBackgroundBase::getClassname(void)
 {
     return "PolygonBackground";
 }
-
-typedef PointerBuilder<PolygonBackground>::ObjPtr          PolygonBackgroundPtr;
-typedef PointerBuilder<PolygonBackground>::ObjPtrConst     PolygonBackgroundPtrConst;
-typedef PointerBuilder<PolygonBackground>::ObjConstPtr     PolygonBackgroundConstPtr;
-
-typedef PointerBuilder<PolygonBackground>::ObjPtrArg       PolygonBackgroundPtrArg;
-typedef PointerBuilder<PolygonBackground>::ObjConstPtrArg  PolygonBackgroundConstPtrArg;
-typedef PointerBuilder<PolygonBackground>::ObjPtrConstArg  PolygonBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(PolygonBackground);
 
 OSG_END_NAMESPACE
 

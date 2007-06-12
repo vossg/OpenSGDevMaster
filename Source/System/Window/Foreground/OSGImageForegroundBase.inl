@@ -135,20 +135,6 @@ const MFPnt2f &ImageForegroundBase::getPositions(void) const
     return _mfPositions;
 }
 
-//! create a new instance of the class
-inline
-ImageForegroundPtr ImageForegroundBase::create(void)
-{
-    ImageForegroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ImageForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -224,14 +210,7 @@ Char8 *ImageForegroundBase::getClassname(void)
 {
     return "ImageForeground";
 }
-
-typedef PointerBuilder<ImageForeground>::ObjPtr          ImageForegroundPtr;
-typedef PointerBuilder<ImageForeground>::ObjPtrConst     ImageForegroundPtrConst;
-typedef PointerBuilder<ImageForeground>::ObjConstPtr     ImageForegroundConstPtr;
-
-typedef PointerBuilder<ImageForeground>::ObjPtrArg       ImageForegroundPtrArg;
-typedef PointerBuilder<ImageForeground>::ObjConstPtrArg  ImageForegroundConstPtrArg;
-typedef PointerBuilder<ImageForeground>::ObjPtrConstArg  ImageForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(ImageForeground);
 
 OSG_END_NAMESPACE
 

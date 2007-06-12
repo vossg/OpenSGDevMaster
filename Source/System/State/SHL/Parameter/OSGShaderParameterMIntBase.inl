@@ -121,20 +121,6 @@ const MFInt32 &ShaderParameterMIntBase::getValue(void) const
     return _mfValue;
 }
 
-//! create a new instance of the class
-inline
-ShaderParameterMIntPtr ShaderParameterMIntBase::create(void)
-{
-    ShaderParameterMIntPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ShaderParameterMInt::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -193,14 +179,7 @@ Char8 *ShaderParameterMIntBase::getClassname(void)
 {
     return "ShaderParameterMInt";
 }
-
-typedef PointerBuilder<ShaderParameterMInt>::ObjPtr          ShaderParameterMIntPtr;
-typedef PointerBuilder<ShaderParameterMInt>::ObjPtrConst     ShaderParameterMIntPtrConst;
-typedef PointerBuilder<ShaderParameterMInt>::ObjConstPtr     ShaderParameterMIntConstPtr;
-
-typedef PointerBuilder<ShaderParameterMInt>::ObjPtrArg       ShaderParameterMIntPtrArg;
-typedef PointerBuilder<ShaderParameterMInt>::ObjConstPtrArg  ShaderParameterMIntConstPtrArg;
-typedef PointerBuilder<ShaderParameterMInt>::ObjPtrConstArg  ShaderParameterMIntPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterMInt);
 
 OSG_END_NAMESPACE
 

@@ -70,24 +70,7 @@ class RenderBuffer;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! RenderBufferPtr
 
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          RenderBuffer>::ObjPtr         RenderBufferPtr;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          RenderBuffer>::ObjPtrConst    RenderBufferPtrConst;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          RenderBuffer>::ObjConstPtr    RenderBufferConstPtr;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          RenderBuffer>::ObjPtrArg      RenderBufferPtrArg;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          RenderBuffer>::ObjConstPtrArg RenderBufferConstPtrArg;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          RenderBuffer>::ObjPtrConstArg RenderBufferPtrConstArg;
+OSG_GEN_CONTAINERPTR(RenderBuffer);
 
 #endif
 

@@ -91,24 +91,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Window>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Window>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Window>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Window>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Window>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              Window>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(Window);
 
     /*==========================  PUBLIC  =================================*/
 

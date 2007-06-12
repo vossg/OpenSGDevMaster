@@ -461,6 +461,20 @@ void LineChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+LineChunkPtr LineChunkBase::create(void)
+{
+    LineChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<LineChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 LineChunkPtr LineChunkBase::createEmpty(void)
 {

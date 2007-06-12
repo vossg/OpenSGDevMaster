@@ -76,14 +76,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     typedef AttachmentContainer                    Inherited;
     typedef AttachmentContainer                    ParentContainer;
 
-    typedef PointerBuilder<Node>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<Node>::ObjPtrConst      ObjPtrConst;
-    typedef PointerBuilder<Node>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<Node>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<Node>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<Node>::ObjPtrConstArg   ObjPtrConstArg;
-    typedef PointerBuilder<Node>::ObjConstPtrArg   ObjConstPtrArg;
+    OSG_GEN_INTERNALPTR(Node);
 
     typedef Inherited::TypeObject                  TypeObject;
 
@@ -415,15 +408,6 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const Node &source);
 };
-
-typedef Node::ObjPtr           NodePtr;
-typedef Node::ObjPtrConst      NodePtrConst;
-typedef Node::ObjConstPtr      NodeConstPtr;
-typedef Node::ObjConstPtrConst NodeConstPtrConst;
-
-typedef Node::ObjPtrArg        NodePtrArg;
-typedef Node::ObjPtrConstArg   NodePtrConstArg;
-typedef Node::ObjConstPtrArg   NodeConstPtrArg;
 
 typedef RefPtr<NodePtr>        NodeRefPtr;
 

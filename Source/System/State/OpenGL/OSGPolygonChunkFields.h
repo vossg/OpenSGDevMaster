@@ -70,24 +70,7 @@ class PolygonChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PolygonChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PolygonChunk>::ObjPtr         PolygonChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PolygonChunk>::ObjPtrConst    PolygonChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PolygonChunk>::ObjConstPtr    PolygonChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PolygonChunk>::ObjPtrArg      PolygonChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PolygonChunk>::ObjConstPtrArg PolygonChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          PolygonChunk>::ObjPtrConstArg PolygonChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(PolygonChunk);
 
 #endif
 

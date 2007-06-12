@@ -70,24 +70,7 @@ class StereoBufferViewport;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StereoBufferViewportPtr
 
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          StereoBufferViewport>::ObjPtr         StereoBufferViewportPtr;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          StereoBufferViewport>::ObjPtrConst    StereoBufferViewportPtrConst;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          StereoBufferViewport>::ObjConstPtr    StereoBufferViewportConstPtr;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          StereoBufferViewport>::ObjPtrArg      StereoBufferViewportPtrArg;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          StereoBufferViewport>::ObjConstPtrArg StereoBufferViewportConstPtrArg;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          StereoBufferViewport>::ObjPtrConstArg StereoBufferViewportPtrConstArg;
+OSG_GEN_CONTAINERPTR(StereoBufferViewport);
 
 #endif
 

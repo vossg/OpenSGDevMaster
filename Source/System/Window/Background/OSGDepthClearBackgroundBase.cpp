@@ -237,6 +237,20 @@ void DepthClearBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+DepthClearBackgroundPtr DepthClearBackgroundBase::create(void)
+{
+    DepthClearBackgroundPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<DepthClearBackground::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 DepthClearBackgroundPtr DepthClearBackgroundBase::createEmpty(void)
 {

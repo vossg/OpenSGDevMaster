@@ -95,24 +95,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              LightChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              LightChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              LightChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              LightChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              LightChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              LightChunk>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(LightChunk);
 
     /*==========================  PUBLIC  =================================*/
 

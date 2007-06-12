@@ -84,24 +84,7 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              VertexProgramChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              VertexProgramChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              VertexProgramChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              VertexProgramChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              VertexProgramChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ProgramChunkPtr,
-                              ProgramChunkConstPtr,
-                              VertexProgramChunk>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(VertexProgramChunk);
 
     /*==========================  PUBLIC  =================================*/
 

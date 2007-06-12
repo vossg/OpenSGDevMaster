@@ -173,20 +173,6 @@ void EGLWindowBase::setContext(const EGLContext &value)
     _sfContext.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-EGLWindowPtr EGLWindowBase::create(void)
-{
-    EGLWindowPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<EGLWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -246,14 +232,7 @@ Char8 *EGLWindowBase::getClassname(void)
 {
     return "EGLWindow";
 }
-
-typedef PointerBuilder<EGLWindow>::ObjPtr          EGLWindowPtr;
-typedef PointerBuilder<EGLWindow>::ObjPtrConst     EGLWindowPtrConst;
-typedef PointerBuilder<EGLWindow>::ObjConstPtr     EGLWindowConstPtr;
-
-typedef PointerBuilder<EGLWindow>::ObjPtrArg       EGLWindowPtrArg;
-typedef PointerBuilder<EGLWindow>::ObjConstPtrArg  EGLWindowConstPtrArg;
-typedef PointerBuilder<EGLWindow>::ObjPtrConstArg  EGLWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(EGLWindow);
 
 OSG_END_NAMESPACE
 

@@ -74,20 +74,6 @@ OSG::UInt16 VertexProgramChunkBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-VertexProgramChunkPtr VertexProgramChunkBase::create(void)
-{
-    VertexProgramChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<VertexProgramChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *VertexProgramChunkBase::getClassname(void)
 {
     return "VertexProgramChunk";
 }
-
-typedef PointerBuilder<VertexProgramChunk>::ObjPtr          VertexProgramChunkPtr;
-typedef PointerBuilder<VertexProgramChunk>::ObjPtrConst     VertexProgramChunkPtrConst;
-typedef PointerBuilder<VertexProgramChunk>::ObjConstPtr     VertexProgramChunkConstPtr;
-
-typedef PointerBuilder<VertexProgramChunk>::ObjPtrArg       VertexProgramChunkPtrArg;
-typedef PointerBuilder<VertexProgramChunk>::ObjConstPtrArg  VertexProgramChunkConstPtrArg;
-typedef PointerBuilder<VertexProgramChunk>::ObjPtrConstArg  VertexProgramChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(VertexProgramChunk);
 
 OSG_END_NAMESPACE
 

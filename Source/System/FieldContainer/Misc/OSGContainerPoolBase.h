@@ -86,24 +86,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              ContainerPool>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              ContainerPool>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              ContainerPool>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              ContainerPool>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              ContainerPool>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              ContainerPool>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ContainerPool);
 
     /*==========================  PUBLIC  =================================*/
 

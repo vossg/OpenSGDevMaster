@@ -206,20 +206,6 @@ void LineChunkBase::setSmooth(const bool &value)
     _sfSmooth.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-LineChunkPtr LineChunkBase::create(void)
-{
-    LineChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<LineChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -285,14 +271,7 @@ Char8 *LineChunkBase::getClassname(void)
 {
     return "LineChunk";
 }
-
-typedef PointerBuilder<LineChunk>::ObjPtr          LineChunkPtr;
-typedef PointerBuilder<LineChunk>::ObjPtrConst     LineChunkPtrConst;
-typedef PointerBuilder<LineChunk>::ObjConstPtr     LineChunkConstPtr;
-
-typedef PointerBuilder<LineChunk>::ObjPtrArg       LineChunkPtrArg;
-typedef PointerBuilder<LineChunk>::ObjConstPtrArg  LineChunkConstPtrArg;
-typedef PointerBuilder<LineChunk>::ObjPtrConstArg  LineChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(LineChunk);
 
 OSG_END_NAMESPACE
 

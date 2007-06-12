@@ -93,24 +93,7 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Light>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Light>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Light>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Light>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Light>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Light>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(Light);
 
     /*==========================  PUBLIC  =================================*/
 

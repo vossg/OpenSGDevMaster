@@ -268,20 +268,6 @@ const MFGLenum &FrameBufferObjectBase::getDrawBuffers(void) const
     return _mfDrawBuffers;
 }
 
-//! create a new instance of the class
-inline
-FrameBufferObjectPtr FrameBufferObjectBase::create(void)
-{
-    FrameBufferObjectPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<FrameBufferObject::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -387,14 +373,7 @@ Char8 *FrameBufferObjectBase::getClassname(void)
 {
     return "FrameBufferObject";
 }
-
-typedef PointerBuilder<FrameBufferObject>::ObjPtr          FrameBufferObjectPtr;
-typedef PointerBuilder<FrameBufferObject>::ObjPtrConst     FrameBufferObjectPtrConst;
-typedef PointerBuilder<FrameBufferObject>::ObjConstPtr     FrameBufferObjectConstPtr;
-
-typedef PointerBuilder<FrameBufferObject>::ObjPtrArg       FrameBufferObjectPtrArg;
-typedef PointerBuilder<FrameBufferObject>::ObjConstPtrArg  FrameBufferObjectConstPtrArg;
-typedef PointerBuilder<FrameBufferObject>::ObjPtrConstArg  FrameBufferObjectPtrConstArg;
+OSG_GEN_CONTAINERPTR(FrameBufferObject);
 
 OSG_END_NAMESPACE
 

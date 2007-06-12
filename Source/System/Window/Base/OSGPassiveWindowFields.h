@@ -70,24 +70,7 @@ class PassiveWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PassiveWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          PassiveWindow>::ObjPtr         PassiveWindowPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          PassiveWindow>::ObjPtrConst    PassiveWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          PassiveWindow>::ObjConstPtr    PassiveWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          PassiveWindow>::ObjPtrArg      PassiveWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          PassiveWindow>::ObjConstPtrArg PassiveWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          PassiveWindow>::ObjPtrConstArg PassiveWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(PassiveWindow);
 
 #endif
 

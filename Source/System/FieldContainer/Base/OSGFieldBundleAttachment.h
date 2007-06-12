@@ -63,10 +63,7 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleAttachment : public FieldBundle
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    typedef BundlePointerBuilder<
-              FieldBundleAttachment>::ObjPtr      ObjPtr;
-    typedef BundlePointerBuilder<
-              FieldBundleAttachment>::ObjConstPtr ObjConstPtr;
+    OSG_GEN_INTERNALPTR(FieldBundleAttachment);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -221,6 +218,8 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleAttachment : public FieldBundle
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const FieldBundleAttachment &source);
 };
+
+OSG_GEN_BUNDLEP(FieldBundleAttachment);
 
 OSG_END_NAMESPACE
 

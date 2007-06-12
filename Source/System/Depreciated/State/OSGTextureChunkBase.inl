@@ -1887,20 +1887,6 @@ const MFReal32 &TextureChunkBase::getShaderOffsetMatrix(void) const
     return _mfShaderOffsetMatrix;
 }
 
-//! create a new instance of the class
-inline
-TextureChunkPtr TextureChunkBase::create(void)
-{
-    TextureChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TextureChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -2283,14 +2269,7 @@ Char8 *TextureChunkBase::getClassname(void)
 {
     return "TextureChunk";
 }
-
-typedef PointerBuilder<TextureChunk>::ObjPtr          TextureChunkPtr;
-typedef PointerBuilder<TextureChunk>::ObjPtrConst     TextureChunkPtrConst;
-typedef PointerBuilder<TextureChunk>::ObjConstPtr     TextureChunkConstPtr;
-
-typedef PointerBuilder<TextureChunk>::ObjPtrArg       TextureChunkPtrArg;
-typedef PointerBuilder<TextureChunk>::ObjConstPtrArg  TextureChunkConstPtrArg;
-typedef PointerBuilder<TextureChunk>::ObjPtrConstArg  TextureChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureChunk);
 
 OSG_END_NAMESPACE
 

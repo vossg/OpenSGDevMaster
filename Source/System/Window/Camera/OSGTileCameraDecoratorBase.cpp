@@ -587,6 +587,20 @@ void TileCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+TileCameraDecoratorPtr TileCameraDecoratorBase::create(void)
+{
+    TileCameraDecoratorPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<TileCameraDecorator::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TileCameraDecoratorPtr TileCameraDecoratorBase::createEmpty(void)
 {

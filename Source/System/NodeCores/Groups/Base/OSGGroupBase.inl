@@ -74,20 +74,6 @@ OSG::UInt16 GroupBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-GroupPtr GroupBase::create(void)
-{
-    GroupPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<Group::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *GroupBase::getClassname(void)
 {
     return "Group";
 }
-
-typedef PointerBuilder<Group>::ObjPtr          GroupPtr;
-typedef PointerBuilder<Group>::ObjPtrConst     GroupPtrConst;
-typedef PointerBuilder<Group>::ObjConstPtr     GroupConstPtr;
-
-typedef PointerBuilder<Group>::ObjPtrArg       GroupPtrArg;
-typedef PointerBuilder<Group>::ObjConstPtrArg  GroupConstPtrArg;
-typedef PointerBuilder<Group>::ObjPtrConstArg  GroupPtrConstArg;
+OSG_GEN_CONTAINERPTR(Group);
 
 OSG_END_NAMESPACE
 

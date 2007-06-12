@@ -70,24 +70,7 @@ class CarbonWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! CarbonWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CarbonWindow>::ObjPtr         CarbonWindowPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CarbonWindow>::ObjPtrConst    CarbonWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CarbonWindow>::ObjConstPtr    CarbonWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CarbonWindow>::ObjPtrArg      CarbonWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CarbonWindow>::ObjConstPtrArg CarbonWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CarbonWindow>::ObjPtrConstArg CarbonWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(CarbonWindow);
 
 #endif
 

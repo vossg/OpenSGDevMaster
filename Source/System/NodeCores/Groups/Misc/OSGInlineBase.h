@@ -86,24 +86,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Inline>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Inline>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Inline>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Inline>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Inline>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Inline>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(Inline);
 
     /*==========================  PUBLIC  =================================*/
 

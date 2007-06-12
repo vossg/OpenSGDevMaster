@@ -152,6 +152,20 @@ void MoveManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 
 }
 
+//! create a new instance of the class
+MoveManipulatorPtr MoveManipulatorBase::create(void)
+{
+    MoveManipulatorPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<MoveManipulator::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MoveManipulatorPtr MoveManipulatorBase::createEmpty(void)
 {

@@ -338,20 +338,6 @@ void StencilChunkBase::setBitMask(const UInt32 &value)
     _sfBitMask.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-StencilChunkPtr StencilChunkBase::create(void)
-{
-    StencilChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<StencilChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -441,14 +427,7 @@ Char8 *StencilChunkBase::getClassname(void)
 {
     return "StencilChunk";
 }
-
-typedef PointerBuilder<StencilChunk>::ObjPtr          StencilChunkPtr;
-typedef PointerBuilder<StencilChunk>::ObjPtrConst     StencilChunkPtrConst;
-typedef PointerBuilder<StencilChunk>::ObjConstPtr     StencilChunkConstPtr;
-
-typedef PointerBuilder<StencilChunk>::ObjPtrArg       StencilChunkPtrArg;
-typedef PointerBuilder<StencilChunk>::ObjConstPtrArg  StencilChunkConstPtrArg;
-typedef PointerBuilder<StencilChunk>::ObjPtrConstArg  StencilChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(StencilChunk);
 
 OSG_END_NAMESPACE
 

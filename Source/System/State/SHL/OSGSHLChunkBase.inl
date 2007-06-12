@@ -267,20 +267,6 @@ const MFUInt32 &SHLChunkBase::getProgramParameterValues(void) const
     return _mfProgramParameterValues;
 }
 
-//! create a new instance of the class
-inline
-SHLChunkPtr SHLChunkBase::create(void)
-{
-    SHLChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<SHLChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -374,14 +360,7 @@ Char8 *SHLChunkBase::getClassname(void)
 {
     return "SHLChunk";
 }
-
-typedef PointerBuilder<SHLChunk>::ObjPtr          SHLChunkPtr;
-typedef PointerBuilder<SHLChunk>::ObjPtrConst     SHLChunkPtrConst;
-typedef PointerBuilder<SHLChunk>::ObjConstPtr     SHLChunkConstPtr;
-
-typedef PointerBuilder<SHLChunk>::ObjPtrArg       SHLChunkPtrArg;
-typedef PointerBuilder<SHLChunk>::ObjConstPtrArg  SHLChunkConstPtrArg;
-typedef PointerBuilder<SHLChunk>::ObjPtrConstArg  SHLChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(SHLChunk);
 
 OSG_END_NAMESPACE
 

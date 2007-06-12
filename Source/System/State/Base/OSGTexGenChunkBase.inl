@@ -406,20 +406,6 @@ void TexGenChunkBase::setQBeacon(NodePtrConstArg value)
 
 }
 
-//! create a new instance of the class
-inline
-TexGenChunkPtr TexGenChunkBase::create(void)
-{
-    TexGenChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TexGenChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -533,14 +519,7 @@ Char8 *TexGenChunkBase::getClassname(void)
 {
     return "TexGenChunk";
 }
-
-typedef PointerBuilder<TexGenChunk>::ObjPtr          TexGenChunkPtr;
-typedef PointerBuilder<TexGenChunk>::ObjPtrConst     TexGenChunkPtrConst;
-typedef PointerBuilder<TexGenChunk>::ObjConstPtr     TexGenChunkConstPtr;
-
-typedef PointerBuilder<TexGenChunk>::ObjPtrArg       TexGenChunkPtrArg;
-typedef PointerBuilder<TexGenChunk>::ObjConstPtrArg  TexGenChunkConstPtrArg;
-typedef PointerBuilder<TexGenChunk>::ObjPtrConstArg  TexGenChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TexGenChunk);
 
 OSG_END_NAMESPACE
 

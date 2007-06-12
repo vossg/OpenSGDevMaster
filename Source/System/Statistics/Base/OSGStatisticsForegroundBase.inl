@@ -218,14 +218,7 @@ Char8 *StatisticsForegroundBase::getClassname(void)
 {
     return "StatisticsForeground";
 }
-
-typedef PointerBuilder<StatisticsForeground>::ObjPtr          StatisticsForegroundPtr;
-typedef PointerBuilder<StatisticsForeground>::ObjPtrConst     StatisticsForegroundPtrConst;
-typedef PointerBuilder<StatisticsForeground>::ObjConstPtr     StatisticsForegroundConstPtr;
-
-typedef PointerBuilder<StatisticsForeground>::ObjPtrArg       StatisticsForegroundPtrArg;
-typedef PointerBuilder<StatisticsForeground>::ObjConstPtrArg  StatisticsForegroundConstPtrArg;
-typedef PointerBuilder<StatisticsForeground>::ObjPtrConstArg  StatisticsForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(StatisticsForeground);
 
 OSG_END_NAMESPACE
 

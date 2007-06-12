@@ -154,6 +154,20 @@ void PassiveBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 
 }
 
+//! create a new instance of the class
+PassiveBackgroundPtr PassiveBackgroundBase::create(void)
+{
+    PassiveBackgroundPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<PassiveBackground::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PassiveBackgroundPtr PassiveBackgroundBase::createEmpty(void)
 {

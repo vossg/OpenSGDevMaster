@@ -70,24 +70,7 @@ class TextureEnvChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureEnvChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TextureEnvChunk>::ObjPtr         TextureEnvChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TextureEnvChunk>::ObjPtrConst    TextureEnvChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TextureEnvChunk>::ObjConstPtr    TextureEnvChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TextureEnvChunk>::ObjPtrArg      TextureEnvChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TextureEnvChunk>::ObjConstPtrArg TextureEnvChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TextureEnvChunk>::ObjPtrConstArg TextureEnvChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureEnvChunk);
 
 #endif
 

@@ -266,6 +266,7 @@ void MaterialDrawableBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 MaterialDrawableBase::MaterialDrawableBase(void) :

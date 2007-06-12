@@ -206,20 +206,6 @@ void ColorBufferViewportBase::setAlpha(const bool &value)
     _sfAlpha.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-ColorBufferViewportPtr ColorBufferViewportBase::create(void)
-{
-    ColorBufferViewportPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ColorBufferViewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -285,14 +271,7 @@ Char8 *ColorBufferViewportBase::getClassname(void)
 {
     return "ColorBufferViewport";
 }
-
-typedef PointerBuilder<ColorBufferViewport>::ObjPtr          ColorBufferViewportPtr;
-typedef PointerBuilder<ColorBufferViewport>::ObjPtrConst     ColorBufferViewportPtrConst;
-typedef PointerBuilder<ColorBufferViewport>::ObjConstPtr     ColorBufferViewportConstPtr;
-
-typedef PointerBuilder<ColorBufferViewport>::ObjPtrArg       ColorBufferViewportPtrArg;
-typedef PointerBuilder<ColorBufferViewport>::ObjConstPtrArg  ColorBufferViewportConstPtrArg;
-typedef PointerBuilder<ColorBufferViewport>::ObjPtrConstArg  ColorBufferViewportPtrConstArg;
+OSG_GEN_CONTAINERPTR(ColorBufferViewport);
 
 OSG_END_NAMESPACE
 

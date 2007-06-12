@@ -254,20 +254,6 @@ const MFForegroundPtr &SimpleStageBase::getForegrounds(void) const
     return _mfForegrounds;
 }
 
-//! create a new instance of the class
-inline
-SimpleStagePtr SimpleStageBase::create(void)
-{
-    SimpleStagePtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<SimpleStage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -362,14 +348,7 @@ Char8 *SimpleStageBase::getClassname(void)
 {
     return "SimpleStage";
 }
-
-typedef PointerBuilder<SimpleStage>::ObjPtr          SimpleStagePtr;
-typedef PointerBuilder<SimpleStage>::ObjPtrConst     SimpleStagePtrConst;
-typedef PointerBuilder<SimpleStage>::ObjConstPtr     SimpleStageConstPtr;
-
-typedef PointerBuilder<SimpleStage>::ObjPtrArg       SimpleStagePtrArg;
-typedef PointerBuilder<SimpleStage>::ObjConstPtrArg  SimpleStageConstPtrArg;
-typedef PointerBuilder<SimpleStage>::ObjPtrConstArg  SimpleStagePtrConstArg;
+OSG_GEN_CONTAINERPTR(SimpleStage);
 
 OSG_END_NAMESPACE
 

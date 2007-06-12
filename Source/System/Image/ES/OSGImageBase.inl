@@ -762,20 +762,6 @@ const MFUInt8 &ImageBase::getPixel(void) const
     return _mfPixel;
 }
 
-//! create a new instance of the class
-inline
-ImagePtr ImageBase::create(void)
-{
-    ImagePtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<Image::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -965,14 +951,7 @@ Char8 *ImageBase::getClassname(void)
 {
     return "Image";
 }
-
-typedef PointerBuilder<Image>::ObjPtr          ImagePtr;
-typedef PointerBuilder<Image>::ObjPtrConst     ImagePtrConst;
-typedef PointerBuilder<Image>::ObjConstPtr     ImageConstPtr;
-
-typedef PointerBuilder<Image>::ObjPtrArg       ImagePtrArg;
-typedef PointerBuilder<Image>::ObjConstPtrArg  ImageConstPtrArg;
-typedef PointerBuilder<Image>::ObjPtrConstArg  ImagePtrConstArg;
+OSG_GEN_CONTAINERPTR(Image);
 
 OSG_END_NAMESPACE
 

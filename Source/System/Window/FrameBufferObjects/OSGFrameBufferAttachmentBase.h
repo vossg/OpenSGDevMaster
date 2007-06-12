@@ -86,24 +86,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              FrameBufferAttachment>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              FrameBufferAttachment>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              FrameBufferAttachment>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              FrameBufferAttachment>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              FrameBufferAttachment>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr,
-                              AttachmentContainerConstPtr,
-                              FrameBufferAttachment>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(FrameBufferAttachment);
 
     /*==========================  PUBLIC  =================================*/
 

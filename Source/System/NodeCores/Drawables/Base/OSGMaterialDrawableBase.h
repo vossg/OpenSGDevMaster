@@ -85,24 +85,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawableBase : public Drawable
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<DrawablePtr,
-                              DrawableConstPtr,
-                              MaterialDrawable>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<DrawablePtr,
-                              DrawableConstPtr,
-                              MaterialDrawable>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<DrawablePtr,
-                              DrawableConstPtr,
-                              MaterialDrawable>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<DrawablePtr,
-                              DrawableConstPtr,
-                              MaterialDrawable>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<DrawablePtr,
-                              DrawableConstPtr,
-                              MaterialDrawable>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<DrawablePtr,
-                              DrawableConstPtr,
-                              MaterialDrawable>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(MaterialDrawable);
 
     /*==========================  PUBLIC  =================================*/
 

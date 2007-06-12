@@ -193,14 +193,7 @@ Char8 *ImageComposerBase::getClassname(void)
 {
     return "ImageComposer";
 }
-
-typedef PointerBuilder<ImageComposer>::ObjPtr          ImageComposerPtr;
-typedef PointerBuilder<ImageComposer>::ObjPtrConst     ImageComposerPtrConst;
-typedef PointerBuilder<ImageComposer>::ObjConstPtr     ImageComposerConstPtr;
-
-typedef PointerBuilder<ImageComposer>::ObjPtrArg       ImageComposerPtrArg;
-typedef PointerBuilder<ImageComposer>::ObjConstPtrArg  ImageComposerConstPtrArg;
-typedef PointerBuilder<ImageComposer>::ObjPtrConstArg  ImageComposerPtrConstArg;
+OSG_GEN_CONTAINERPTR(ImageComposer);
 
 OSG_END_NAMESPACE
 

@@ -70,24 +70,7 @@ class ClusterWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ClusterWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          ClusterWindow>::ObjPtr         ClusterWindowPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          ClusterWindow>::ObjPtrConst    ClusterWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          ClusterWindow>::ObjConstPtr    ClusterWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          ClusterWindow>::ObjPtrArg      ClusterWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          ClusterWindow>::ObjConstPtrArg ClusterWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          ClusterWindow>::ObjPtrConstArg ClusterWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(ClusterWindow);
 
 #endif
 

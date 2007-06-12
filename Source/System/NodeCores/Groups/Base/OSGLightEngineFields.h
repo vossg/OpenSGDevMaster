@@ -70,24 +70,7 @@ class LightEngine;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! LightEnginePtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          LightEngine>::ObjPtr         LightEnginePtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          LightEngine>::ObjPtrConst    LightEnginePtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          LightEngine>::ObjConstPtr    LightEngineConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          LightEngine>::ObjPtrArg      LightEnginePtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          LightEngine>::ObjConstPtrArg LightEngineConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          LightEngine>::ObjPtrConstArg LightEnginePtrConstArg;
+OSG_GEN_CONTAINERPTR(LightEngine);
 
 #endif
 

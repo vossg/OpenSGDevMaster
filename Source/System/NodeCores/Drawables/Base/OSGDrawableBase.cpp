@@ -152,6 +152,7 @@ void DrawableBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 DrawableBase::DrawableBase(void) :

@@ -85,24 +85,7 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              GLUTWindow>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              GLUTWindow>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              GLUTWindow>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              GLUTWindow>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              GLUTWindow>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<WindowPtr,
-                              WindowConstPtr,
-                              GLUTWindow>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(GLUTWindow);
 
     /*==========================  PUBLIC  =================================*/
 

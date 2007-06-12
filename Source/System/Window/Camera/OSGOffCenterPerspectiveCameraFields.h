@@ -70,24 +70,7 @@ class OffCenterPerspectiveCamera;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! OffCenterPerspectiveCameraPtr
 
-typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                          PerspectiveCameraConstPtr,
-                          OffCenterPerspectiveCamera>::ObjPtr         OffCenterPerspectiveCameraPtr;
-typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                          PerspectiveCameraConstPtr,
-                          OffCenterPerspectiveCamera>::ObjPtrConst    OffCenterPerspectiveCameraPtrConst;
-typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                          PerspectiveCameraConstPtr,
-                          OffCenterPerspectiveCamera>::ObjConstPtr    OffCenterPerspectiveCameraConstPtr;
-typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                          PerspectiveCameraConstPtr,
-                          OffCenterPerspectiveCamera>::ObjPtrArg      OffCenterPerspectiveCameraPtrArg;
-typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                          PerspectiveCameraConstPtr,
-                          OffCenterPerspectiveCamera>::ObjConstPtrArg OffCenterPerspectiveCameraConstPtrArg;
-typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                          PerspectiveCameraConstPtr,
-                          OffCenterPerspectiveCamera>::ObjPtrConstArg OffCenterPerspectiveCameraPtrConstArg;
+OSG_GEN_CONTAINERPTR(OffCenterPerspectiveCamera);
 
 #endif
 

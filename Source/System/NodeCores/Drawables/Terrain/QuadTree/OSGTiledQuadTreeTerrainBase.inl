@@ -498,20 +498,6 @@ const MFMaterialPtr &TiledQuadTreeTerrainBase::getHeightTextures(void) const
     return _mfHeightTextures;
 }
 
-//! create a new instance of the class
-inline
-TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::create(void)
-{
-    TiledQuadTreeTerrainPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TiledQuadTreeTerrain::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -659,14 +645,7 @@ Char8 *TiledQuadTreeTerrainBase::getClassname(void)
 {
     return "TiledQuadTreeTerrain";
 }
-
-typedef PointerBuilder<TiledQuadTreeTerrain>::ObjPtr          TiledQuadTreeTerrainPtr;
-typedef PointerBuilder<TiledQuadTreeTerrain>::ObjPtrConst     TiledQuadTreeTerrainPtrConst;
-typedef PointerBuilder<TiledQuadTreeTerrain>::ObjConstPtr     TiledQuadTreeTerrainConstPtr;
-
-typedef PointerBuilder<TiledQuadTreeTerrain>::ObjPtrArg       TiledQuadTreeTerrainPtrArg;
-typedef PointerBuilder<TiledQuadTreeTerrain>::ObjConstPtrArg  TiledQuadTreeTerrainConstPtrArg;
-typedef PointerBuilder<TiledQuadTreeTerrain>::ObjPtrConstArg  TiledQuadTreeTerrainPtrConstArg;
+OSG_GEN_CONTAINERPTR(TiledQuadTreeTerrain);
 
 OSG_END_NAMESPACE
 

@@ -86,24 +86,7 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              RenderBuffer>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              RenderBuffer>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              RenderBuffer>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              RenderBuffer>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              RenderBuffer>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                              FrameBufferAttachmentConstPtr,
-                              RenderBuffer>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(RenderBuffer);
 
     /*==========================  PUBLIC  =================================*/
 

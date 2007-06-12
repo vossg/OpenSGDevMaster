@@ -70,24 +70,7 @@ class TextureGrabForeground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureGrabForegroundPtr
 
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          TextureGrabForeground>::ObjPtr         TextureGrabForegroundPtr;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          TextureGrabForeground>::ObjPtrConst    TextureGrabForegroundPtrConst;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          TextureGrabForeground>::ObjConstPtr    TextureGrabForegroundConstPtr;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          TextureGrabForeground>::ObjPtrArg      TextureGrabForegroundPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          TextureGrabForeground>::ObjConstPtrArg TextureGrabForegroundConstPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr,
-                          ForegroundConstPtr,
-                          TextureGrabForeground>::ObjPtrConstArg TextureGrabForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureGrabForeground);
 
 #endif
 

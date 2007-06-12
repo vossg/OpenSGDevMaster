@@ -70,24 +70,7 @@ class State;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StatePtr
 
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          State>::ObjPtr         StatePtr;
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          State>::ObjPtrConst    StatePtrConst;
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          State>::ObjConstPtr    StateConstPtr;
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          State>::ObjPtrArg      StatePtrArg;
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          State>::ObjConstPtrArg StateConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerPtr,
-                          FieldContainerConstPtr,
-                          State>::ObjPtrConstArg StatePtrConstArg;
+OSG_GEN_CONTAINERPTR(State);
 
 #endif
 

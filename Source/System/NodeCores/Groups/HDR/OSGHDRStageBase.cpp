@@ -561,6 +561,20 @@ void HDRStageBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+HDRStagePtr HDRStageBase::create(void)
+{
+    HDRStagePtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<HDRStage::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 HDRStagePtr HDRStageBase::createEmpty(void)
 {

@@ -88,24 +88,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<SolidBackgroundPtr,
-                              SolidBackgroundConstPtr,
-                              TextureGrabBackground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<SolidBackgroundPtr,
-                              SolidBackgroundConstPtr,
-                              TextureGrabBackground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<SolidBackgroundPtr,
-                              SolidBackgroundConstPtr,
-                              TextureGrabBackground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<SolidBackgroundPtr,
-                              SolidBackgroundConstPtr,
-                              TextureGrabBackground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<SolidBackgroundPtr,
-                              SolidBackgroundConstPtr,
-                              TextureGrabBackground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<SolidBackgroundPtr,
-                              SolidBackgroundConstPtr,
-                              TextureGrabBackground>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(TextureGrabBackground);
 
     /*==========================  PUBLIC  =================================*/
 

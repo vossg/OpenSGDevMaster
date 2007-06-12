@@ -140,20 +140,6 @@ void MatrixCameraBase::setModelviewMatrix(const Matrix &value)
     _sfModelviewMatrix.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-MatrixCameraPtr MatrixCameraBase::create(void)
-{
-    MatrixCameraPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<MatrixCamera::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -207,14 +193,7 @@ Char8 *MatrixCameraBase::getClassname(void)
 {
     return "MatrixCamera";
 }
-
-typedef PointerBuilder<MatrixCamera>::ObjPtr          MatrixCameraPtr;
-typedef PointerBuilder<MatrixCamera>::ObjPtrConst     MatrixCameraPtrConst;
-typedef PointerBuilder<MatrixCamera>::ObjConstPtr     MatrixCameraConstPtr;
-
-typedef PointerBuilder<MatrixCamera>::ObjPtrArg       MatrixCameraPtrArg;
-typedef PointerBuilder<MatrixCamera>::ObjConstPtrArg  MatrixCameraConstPtrArg;
-typedef PointerBuilder<MatrixCamera>::ObjPtrConstArg  MatrixCameraPtrConstArg;
+OSG_GEN_CONTAINERPTR(MatrixCamera);
 
 OSG_END_NAMESPACE
 

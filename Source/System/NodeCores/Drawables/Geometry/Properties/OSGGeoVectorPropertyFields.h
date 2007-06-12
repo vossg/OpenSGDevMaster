@@ -70,24 +70,7 @@ class GeoVectorProperty;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeoVectorPropertyPtr
 
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoVectorProperty>::ObjPtr         GeoVectorPropertyPtr;
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoVectorProperty>::ObjPtrConst    GeoVectorPropertyPtrConst;
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoVectorProperty>::ObjConstPtr    GeoVectorPropertyConstPtr;
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoVectorProperty>::ObjPtrArg      GeoVectorPropertyPtrArg;
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoVectorProperty>::ObjConstPtrArg GeoVectorPropertyConstPtrArg;
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoVectorProperty>::ObjPtrConstArg GeoVectorPropertyPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoVectorProperty);
 
 #endif
 

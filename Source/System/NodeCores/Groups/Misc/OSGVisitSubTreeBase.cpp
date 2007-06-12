@@ -283,6 +283,20 @@ void VisitSubTreeBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+VisitSubTreePtr VisitSubTreeBase::create(void)
+{
+    VisitSubTreePtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<VisitSubTree::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 VisitSubTreePtr VisitSubTreeBase::createEmpty(void)
 {

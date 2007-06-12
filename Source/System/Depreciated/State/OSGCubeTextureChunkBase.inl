@@ -192,20 +192,6 @@ void CubeTextureChunkBase::setIsReflectionMap(const bool &value)
     _sfIsReflectionMap.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-CubeTextureChunkPtr CubeTextureChunkBase::create(void)
-{
-    CubeTextureChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<CubeTextureChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -283,14 +269,7 @@ Char8 *CubeTextureChunkBase::getClassname(void)
 {
     return "CubeTextureChunk";
 }
-
-typedef PointerBuilder<CubeTextureChunk>::ObjPtr          CubeTextureChunkPtr;
-typedef PointerBuilder<CubeTextureChunk>::ObjPtrConst     CubeTextureChunkPtrConst;
-typedef PointerBuilder<CubeTextureChunk>::ObjConstPtr     CubeTextureChunkConstPtr;
-
-typedef PointerBuilder<CubeTextureChunk>::ObjPtrArg       CubeTextureChunkPtrArg;
-typedef PointerBuilder<CubeTextureChunk>::ObjConstPtrArg  CubeTextureChunkConstPtrArg;
-typedef PointerBuilder<CubeTextureChunk>::ObjPtrConstArg  CubeTextureChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(CubeTextureChunk);
 
 OSG_END_NAMESPACE
 

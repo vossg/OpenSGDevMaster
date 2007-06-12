@@ -309,6 +309,20 @@ void MatrixCameraBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+MatrixCameraPtr MatrixCameraBase::create(void)
+{
+    MatrixCameraPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<MatrixCamera::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MatrixCameraPtr MatrixCameraBase::createEmpty(void)
 {

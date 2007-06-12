@@ -70,24 +70,7 @@ class MaterialDrawable;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MaterialDrawablePtr
 
-typedef PointerFwdBuilder<DrawablePtr,
-                          DrawableConstPtr,
-                          MaterialDrawable>::ObjPtr         MaterialDrawablePtr;
-typedef PointerFwdBuilder<DrawablePtr,
-                          DrawableConstPtr,
-                          MaterialDrawable>::ObjPtrConst    MaterialDrawablePtrConst;
-typedef PointerFwdBuilder<DrawablePtr,
-                          DrawableConstPtr,
-                          MaterialDrawable>::ObjConstPtr    MaterialDrawableConstPtr;
-typedef PointerFwdBuilder<DrawablePtr,
-                          DrawableConstPtr,
-                          MaterialDrawable>::ObjPtrArg      MaterialDrawablePtrArg;
-typedef PointerFwdBuilder<DrawablePtr,
-                          DrawableConstPtr,
-                          MaterialDrawable>::ObjConstPtrArg MaterialDrawableConstPtrArg;
-typedef PointerFwdBuilder<DrawablePtr,
-                          DrawableConstPtr,
-                          MaterialDrawable>::ObjPtrConstArg MaterialDrawablePtrConstArg;
+OSG_GEN_CONTAINERPTR(MaterialDrawable);
 
 #endif
 

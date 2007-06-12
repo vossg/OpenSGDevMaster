@@ -91,20 +91,6 @@ void SHLParameterChunkBase::setSHLChunk(SHLChunkPtrConstArg value)
 
 }
 
-//! create a new instance of the class
-inline
-SHLParameterChunkPtr SHLParameterChunkBase::create(void)
-{
-    SHLParameterChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<SHLParameterChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -152,14 +138,7 @@ Char8 *SHLParameterChunkBase::getClassname(void)
 {
     return "SHLParameterChunk";
 }
-
-typedef PointerBuilder<SHLParameterChunk>::ObjPtr          SHLParameterChunkPtr;
-typedef PointerBuilder<SHLParameterChunk>::ObjPtrConst     SHLParameterChunkPtrConst;
-typedef PointerBuilder<SHLParameterChunk>::ObjConstPtr     SHLParameterChunkConstPtr;
-
-typedef PointerBuilder<SHLParameterChunk>::ObjPtrArg       SHLParameterChunkPtrArg;
-typedef PointerBuilder<SHLParameterChunk>::ObjConstPtrArg  SHLParameterChunkConstPtrArg;
-typedef PointerBuilder<SHLParameterChunk>::ObjPtrConstArg  SHLParameterChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(SHLParameterChunk);
 
 OSG_END_NAMESPACE
 

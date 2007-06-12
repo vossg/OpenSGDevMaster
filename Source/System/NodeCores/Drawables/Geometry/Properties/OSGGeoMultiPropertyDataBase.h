@@ -86,24 +86,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              GeoMultiPropertyData>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              GeoMultiPropertyData>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              GeoMultiPropertyData>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              GeoMultiPropertyData>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              GeoMultiPropertyData>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr,
-                              StateChunkConstPtr,
-                              GeoMultiPropertyData>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(GeoMultiPropertyData);
 
     /*==========================  PUBLIC  =================================*/
 

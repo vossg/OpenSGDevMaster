@@ -70,24 +70,7 @@ class Viewport;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ViewportPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Viewport>::ObjPtr         ViewportPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Viewport>::ObjPtrConst    ViewportPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Viewport>::ObjConstPtr    ViewportConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Viewport>::ObjPtrArg      ViewportPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Viewport>::ObjConstPtrArg ViewportConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Viewport>::ObjPtrConstArg ViewportPtrConstArg;
+OSG_GEN_CONTAINERPTR(Viewport);
 
 #endif
 

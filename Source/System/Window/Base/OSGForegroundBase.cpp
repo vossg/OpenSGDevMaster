@@ -263,6 +263,7 @@ void ForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 ForegroundBase::ForegroundBase(void) :

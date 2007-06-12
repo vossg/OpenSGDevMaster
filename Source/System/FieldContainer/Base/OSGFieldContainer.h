@@ -78,16 +78,8 @@ class FieldContainer : public ReflexiveContainer
 
     typedef FieldContainer                                   Self;
 
-    typedef PointerBuilder<FieldContainer>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<FieldContainer>::ObjPtrConst      ObjPtrConst;
-    typedef PointerBuilder<FieldContainer>::ObjConstPtr      ObjConstPtr;
 
-    typedef PointerBuilder<FieldContainer>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<FieldContainer>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<FieldContainer>::ObjConstPtrArg   ObjConstPtrArg;
-    typedef PointerBuilder<FieldContainer>::ObjPtrConstArg   ObjPtrConstArg;
-
+    OSG_GEN_INTERNALPTR(FieldContainer);
 
     struct  attempt_to_create_CoredNodePtr_on_non_NodeCore_FC {};
 

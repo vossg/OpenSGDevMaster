@@ -70,24 +70,7 @@ class WIN32Window;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! WIN32WindowPtr
 
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          WIN32Window>::ObjPtr         WIN32WindowPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          WIN32Window>::ObjPtrConst    WIN32WindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          WIN32Window>::ObjConstPtr    WIN32WindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          WIN32Window>::ObjPtrArg      WIN32WindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          WIN32Window>::ObjConstPtrArg WIN32WindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          WIN32Window>::ObjPtrConstArg WIN32WindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(WIN32Window);
 
 #endif
 

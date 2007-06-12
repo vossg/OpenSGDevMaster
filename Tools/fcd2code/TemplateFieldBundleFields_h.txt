@@ -72,23 +72,7 @@ class @!Classname!@;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! @!Classname!@P
 
-typedef BundlePointerBuilder<
-    @!Classname!@>::ObjPtr         @!Classname!@P;
-
-typedef BundlePointerBuilder<
-    @!Classname!@>::ObjPtrConst    @!Classname!@PConst;
-
-typedef BundlePointerBuilder<
-    @!Classname!@>::ObjConstPtr    @!Classname!@ConstP;
-
-typedef BundlePointerBuilder<
-    @!Classname!@>::ObjPtrArg      @!Classname!@PArg;
-
-typedef BundlePointerBuilder<
-    @!Classname!@>::ObjConstPtrArg @!Classname!@ConstPArg;
-
-typedef BundlePointerBuilder<
-    @!Classname!@>::ObjPtrConstArg @!Classname!@PConstArg;
+OSG_GEN_BUNDLEP(@!Classname!@);
 
 #endif
 

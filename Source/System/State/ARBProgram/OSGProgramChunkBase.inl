@@ -321,14 +321,7 @@ Char8 *ProgramChunkBase::getClassname(void)
 {
     return "ProgramChunk";
 }
-
-typedef PointerBuilder<ProgramChunk>::ObjPtr          ProgramChunkPtr;
-typedef PointerBuilder<ProgramChunk>::ObjPtrConst     ProgramChunkPtrConst;
-typedef PointerBuilder<ProgramChunk>::ObjConstPtr     ProgramChunkConstPtr;
-
-typedef PointerBuilder<ProgramChunk>::ObjPtrArg       ProgramChunkPtrArg;
-typedef PointerBuilder<ProgramChunk>::ObjConstPtrArg  ProgramChunkConstPtrArg;
-typedef PointerBuilder<ProgramChunk>::ObjPtrConstArg  ProgramChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(ProgramChunk);
 
 OSG_END_NAMESPACE
 

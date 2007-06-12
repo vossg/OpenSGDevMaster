@@ -84,24 +84,7 @@ class OSG_DRAWABLE_DLLMAPPING StatsAttachmentBase : public FieldContainerAttachm
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StatsAttachment>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StatsAttachment>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StatsAttachment>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StatsAttachment>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StatsAttachment>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StatsAttachment>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(StatsAttachment);
 
     /*==========================  PUBLIC  =================================*/
 

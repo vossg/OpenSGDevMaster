@@ -173,20 +173,6 @@ void WIN32WindowBase::setHglrc(const HGLRC &value)
     _sfHglrc.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-WIN32WindowPtr WIN32WindowBase::create(void)
-{
-    WIN32WindowPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<WIN32Window::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -246,14 +232,7 @@ Char8 *WIN32WindowBase::getClassname(void)
 {
     return "WIN32Window";
 }
-
-typedef PointerBuilder<WIN32Window>::ObjPtr          WIN32WindowPtr;
-typedef PointerBuilder<WIN32Window>::ObjPtrConst     WIN32WindowPtrConst;
-typedef PointerBuilder<WIN32Window>::ObjConstPtr     WIN32WindowConstPtr;
-
-typedef PointerBuilder<WIN32Window>::ObjPtrArg       WIN32WindowPtrArg;
-typedef PointerBuilder<WIN32Window>::ObjConstPtrArg  WIN32WindowConstPtrArg;
-typedef PointerBuilder<WIN32Window>::ObjPtrConstArg  WIN32WindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(WIN32Window);
 
 OSG_END_NAMESPACE
 

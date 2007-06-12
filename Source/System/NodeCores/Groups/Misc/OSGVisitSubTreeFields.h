@@ -70,24 +70,7 @@ class VisitSubTree;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! VisitSubTreePtr
 
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VisitSubTree>::ObjPtr         VisitSubTreePtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VisitSubTree>::ObjPtrConst    VisitSubTreePtrConst;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VisitSubTree>::ObjConstPtr    VisitSubTreeConstPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VisitSubTree>::ObjPtrArg      VisitSubTreePtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VisitSubTree>::ObjConstPtrArg VisitSubTreeConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          VisitSubTree>::ObjPtrConstArg VisitSubTreePtrConstArg;
+OSG_GEN_CONTAINERPTR(VisitSubTree);
 
 #endif
 

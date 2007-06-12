@@ -229,6 +229,7 @@ void LightEngineBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 LightEngineBase::LightEngineBase(void) :

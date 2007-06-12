@@ -154,20 +154,6 @@ const MFUInt8 &GeoMultiPropertyDataBase::getIData(void) const
     return _mfIData;
 }
 
-//! create a new instance of the class
-inline
-GeoMultiPropertyDataPtr GeoMultiPropertyDataBase::create(void)
-{
-    GeoMultiPropertyDataPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<GeoMultiPropertyData::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -232,14 +218,7 @@ Char8 *GeoMultiPropertyDataBase::getClassname(void)
 {
     return "GeoMultiPropertyData";
 }
-
-typedef PointerBuilder<GeoMultiPropertyData>::ObjPtr          GeoMultiPropertyDataPtr;
-typedef PointerBuilder<GeoMultiPropertyData>::ObjPtrConst     GeoMultiPropertyDataPtrConst;
-typedef PointerBuilder<GeoMultiPropertyData>::ObjConstPtr     GeoMultiPropertyDataConstPtr;
-
-typedef PointerBuilder<GeoMultiPropertyData>::ObjPtrArg       GeoMultiPropertyDataPtrArg;
-typedef PointerBuilder<GeoMultiPropertyData>::ObjConstPtrArg  GeoMultiPropertyDataConstPtrArg;
-typedef PointerBuilder<GeoMultiPropertyData>::ObjPtrConstArg  GeoMultiPropertyDataPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoMultiPropertyData);
 
 OSG_END_NAMESPACE
 

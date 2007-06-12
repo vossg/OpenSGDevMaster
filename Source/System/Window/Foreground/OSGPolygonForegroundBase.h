@@ -93,24 +93,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              PolygonForeground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              PolygonForeground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              PolygonForeground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              PolygonForeground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              PolygonForeground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              PolygonForeground>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(PolygonForeground);
 
     /*==========================  PUBLIC  =================================*/
 

@@ -74,20 +74,6 @@ OSG::UInt16 ScaleManipulatorBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-ScaleManipulatorPtr ScaleManipulatorBase::create(void)
-{
-    ScaleManipulatorPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ScaleManipulator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *ScaleManipulatorBase::getClassname(void)
 {
     return "ScaleManipulator";
 }
-
-typedef PointerBuilder<ScaleManipulator>::ObjPtr          ScaleManipulatorPtr;
-typedef PointerBuilder<ScaleManipulator>::ObjPtrConst     ScaleManipulatorPtrConst;
-typedef PointerBuilder<ScaleManipulator>::ObjConstPtr     ScaleManipulatorConstPtr;
-
-typedef PointerBuilder<ScaleManipulator>::ObjPtrArg       ScaleManipulatorPtrArg;
-typedef PointerBuilder<ScaleManipulator>::ObjConstPtrArg  ScaleManipulatorConstPtrArg;
-typedef PointerBuilder<ScaleManipulator>::ObjPtrConstArg  ScaleManipulatorPtrConstArg;
+OSG_GEN_CONTAINERPTR(ScaleManipulator);
 
 OSG_END_NAMESPACE
 

@@ -70,24 +70,7 @@ class PassiveViewport;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PassiveViewportPtr
 
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          PassiveViewport>::ObjPtr         PassiveViewportPtr;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          PassiveViewport>::ObjPtrConst    PassiveViewportPtrConst;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          PassiveViewport>::ObjConstPtr    PassiveViewportConstPtr;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          PassiveViewport>::ObjPtrArg      PassiveViewportPtrArg;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          PassiveViewport>::ObjConstPtrArg PassiveViewportConstPtrArg;
-typedef PointerFwdBuilder<ViewportPtr,
-                          ViewportConstPtr,
-                          PassiveViewport>::ObjPtrConstArg PassiveViewportPtrConstArg;
+OSG_GEN_CONTAINERPTR(PassiveViewport);
 
 #endif
 

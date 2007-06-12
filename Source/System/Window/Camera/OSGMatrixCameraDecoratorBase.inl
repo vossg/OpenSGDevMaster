@@ -272,20 +272,6 @@ void MatrixCameraDecoratorBase::setPostProjection(const Matrix &value)
     _sfPostProjection.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::create(void)
-{
-    MatrixCameraDecoratorPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<MatrixCameraDecorator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -363,14 +349,7 @@ Char8 *MatrixCameraDecoratorBase::getClassname(void)
 {
     return "MatrixCameraDecorator";
 }
-
-typedef PointerBuilder<MatrixCameraDecorator>::ObjPtr          MatrixCameraDecoratorPtr;
-typedef PointerBuilder<MatrixCameraDecorator>::ObjPtrConst     MatrixCameraDecoratorPtrConst;
-typedef PointerBuilder<MatrixCameraDecorator>::ObjConstPtr     MatrixCameraDecoratorConstPtr;
-
-typedef PointerBuilder<MatrixCameraDecorator>::ObjPtrArg       MatrixCameraDecoratorPtrArg;
-typedef PointerBuilder<MatrixCameraDecorator>::ObjConstPtrArg  MatrixCameraDecoratorConstPtrArg;
-typedef PointerBuilder<MatrixCameraDecorator>::ObjPtrConstArg  MatrixCameraDecoratorPtrConstArg;
+OSG_GEN_CONTAINERPTR(MatrixCameraDecorator);
 
 OSG_END_NAMESPACE
 

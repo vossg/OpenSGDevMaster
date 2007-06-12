@@ -70,24 +70,7 @@ class Inline;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! InlinePtr
 
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Inline>::ObjPtr         InlinePtr;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Inline>::ObjPtrConst    InlinePtrConst;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Inline>::ObjConstPtr    InlineConstPtr;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Inline>::ObjPtrArg      InlinePtrArg;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Inline>::ObjConstPtrArg InlineConstPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Inline>::ObjPtrConstArg InlinePtrConstArg;
+OSG_GEN_CONTAINERPTR(Inline);
 
 #endif
 

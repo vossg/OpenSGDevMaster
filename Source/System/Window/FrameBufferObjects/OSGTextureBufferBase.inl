@@ -190,20 +190,6 @@ void TextureBufferBase::setZoffset(const UInt32 &value)
     _sfZoffset.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-TextureBufferPtr TextureBufferBase::create(void)
-{
-    TextureBufferPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TextureBuffer::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -269,14 +255,7 @@ Char8 *TextureBufferBase::getClassname(void)
 {
     return "TextureBuffer";
 }
-
-typedef PointerBuilder<TextureBuffer>::ObjPtr          TextureBufferPtr;
-typedef PointerBuilder<TextureBuffer>::ObjPtrConst     TextureBufferPtrConst;
-typedef PointerBuilder<TextureBuffer>::ObjConstPtr     TextureBufferConstPtr;
-
-typedef PointerBuilder<TextureBuffer>::ObjPtrArg       TextureBufferPtrArg;
-typedef PointerBuilder<TextureBuffer>::ObjConstPtrArg  TextureBufferConstPtrArg;
-typedef PointerBuilder<TextureBuffer>::ObjPtrConstArg  TextureBufferPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureBuffer);
 
 OSG_END_NAMESPACE
 

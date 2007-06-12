@@ -61,24 +61,6 @@ class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
     typedef StageDataBase Inherited;
     typedef StageData     Self;
 
-    typedef BundlePointerBuilder<
-        StageData>::ObjPtr           ObjPtr;
-
-    typedef BundlePointerBuilder<
-        StageData>::ObjPtrConst      ObjPtrConst;
-
-    typedef BundlePointerBuilder<
-        StageData>::ObjConstPtr      ObjConstPtr;
-
-    typedef BundlePointerBuilder<
-        StageData>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef BundlePointerBuilder<
-        StageData>::ObjPtrArg        ObjPtrArg;
-
-    typedef BundlePointerBuilder<
-        StageData>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */

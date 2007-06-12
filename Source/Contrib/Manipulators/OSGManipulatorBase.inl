@@ -531,14 +531,7 @@ Char8 *ManipulatorBase::getClassname(void)
 {
     return "Manipulator";
 }
-
-typedef PointerBuilder<Manipulator>::ObjPtr          ManipulatorPtr;
-typedef PointerBuilder<Manipulator>::ObjPtrConst     ManipulatorPtrConst;
-typedef PointerBuilder<Manipulator>::ObjConstPtr     ManipulatorConstPtr;
-
-typedef PointerBuilder<Manipulator>::ObjPtrArg       ManipulatorPtrArg;
-typedef PointerBuilder<Manipulator>::ObjConstPtrArg  ManipulatorConstPtrArg;
-typedef PointerBuilder<Manipulator>::ObjPtrConstArg  ManipulatorPtrConstArg;
+OSG_GEN_CONTAINERPTR(Manipulator);
 
 OSG_END_NAMESPACE
 

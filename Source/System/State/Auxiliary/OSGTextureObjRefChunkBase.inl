@@ -107,20 +107,6 @@ void TextureObjRefChunkBase::setGLId(const GLenum &value)
     _sfGLId.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-TextureObjRefChunkPtr TextureObjRefChunkBase::create(void)
-{
-    TextureObjRefChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TextureObjRefChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *TextureObjRefChunkBase::getClassname(void)
 {
     return "TextureObjRefChunk";
 }
-
-typedef PointerBuilder<TextureObjRefChunk>::ObjPtr          TextureObjRefChunkPtr;
-typedef PointerBuilder<TextureObjRefChunk>::ObjPtrConst     TextureObjRefChunkPtrConst;
-typedef PointerBuilder<TextureObjRefChunk>::ObjConstPtr     TextureObjRefChunkConstPtr;
-
-typedef PointerBuilder<TextureObjRefChunk>::ObjPtrArg       TextureObjRefChunkPtrArg;
-typedef PointerBuilder<TextureObjRefChunk>::ObjConstPtrArg  TextureObjRefChunkConstPtrArg;
-typedef PointerBuilder<TextureObjRefChunk>::ObjPtrConstArg  TextureObjRefChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureObjRefChunk);
 
 OSG_END_NAMESPACE
 

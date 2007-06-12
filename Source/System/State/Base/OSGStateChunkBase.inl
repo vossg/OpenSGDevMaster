@@ -154,14 +154,7 @@ Char8 *StateChunkBase::getClassname(void)
 {
     return "StateChunk";
 }
-
-typedef PointerBuilder<StateChunk>::ObjPtr          StateChunkPtr;
-typedef PointerBuilder<StateChunk>::ObjPtrConst     StateChunkPtrConst;
-typedef PointerBuilder<StateChunk>::ObjConstPtr     StateChunkConstPtr;
-
-typedef PointerBuilder<StateChunk>::ObjPtrArg       StateChunkPtrArg;
-typedef PointerBuilder<StateChunk>::ObjConstPtrArg  StateChunkConstPtrArg;
-typedef PointerBuilder<StateChunk>::ObjPtrConstArg  StateChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(StateChunk);
 
 OSG_END_NAMESPACE
 

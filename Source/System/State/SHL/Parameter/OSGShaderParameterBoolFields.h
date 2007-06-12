@@ -70,24 +70,7 @@ class ShaderParameterBool;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShaderParameterBoolPtr
 
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterBool>::ObjPtr         ShaderParameterBoolPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterBool>::ObjPtrConst    ShaderParameterBoolPtrConst;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterBool>::ObjConstPtr    ShaderParameterBoolConstPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterBool>::ObjPtrArg      ShaderParameterBoolPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterBool>::ObjConstPtrArg ShaderParameterBoolConstPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterBool>::ObjPtrConstArg ShaderParameterBoolPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterBool);
 
 #endif
 

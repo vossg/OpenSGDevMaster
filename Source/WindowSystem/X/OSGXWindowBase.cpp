@@ -360,6 +360,20 @@ void XWindowBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+XWindowPtr XWindowBase::create(void)
+{
+    XWindowPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<XWindow::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 XWindowPtr XWindowBase::createEmpty(void)
 {

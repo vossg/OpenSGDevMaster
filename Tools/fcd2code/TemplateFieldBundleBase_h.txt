@@ -97,23 +97,7 @@ class @!Classname!@Base : public @!Parent!@
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjPtr         ObjPtr;
-
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjPtrConst    ObjPtrConst;
-
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjConstPtr    ObjConstPtr;
-
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjPtrArg      ObjPtrArg;
-
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjConstPtrArg ObjConstPtrArg;
-
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(@!Classname!@);
 
     /*==========================  PUBLIC  =================================*/
 

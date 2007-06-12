@@ -70,24 +70,7 @@ class Light;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! LightPtr
 
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Light>::ObjPtr         LightPtr;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Light>::ObjPtrConst    LightPtrConst;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Light>::ObjConstPtr    LightConstPtr;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Light>::ObjPtrArg      LightPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Light>::ObjConstPtrArg LightConstPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Light>::ObjPtrConstArg LightPtrConstArg;
+OSG_GEN_CONTAINERPTR(Light);
 
 #endif
 

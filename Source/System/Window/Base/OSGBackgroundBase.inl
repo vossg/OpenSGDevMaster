@@ -193,14 +193,7 @@ Char8 *BackgroundBase::getClassname(void)
 {
     return "Background";
 }
-
-typedef PointerBuilder<Background>::ObjPtr          BackgroundPtr;
-typedef PointerBuilder<Background>::ObjPtrConst     BackgroundPtrConst;
-typedef PointerBuilder<Background>::ObjConstPtr     BackgroundConstPtr;
-
-typedef PointerBuilder<Background>::ObjPtrArg       BackgroundPtrArg;
-typedef PointerBuilder<Background>::ObjConstPtrArg  BackgroundConstPtrArg;
-typedef PointerBuilder<Background>::ObjPtrConstArg  BackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(Background);
 
 OSG_END_NAMESPACE
 

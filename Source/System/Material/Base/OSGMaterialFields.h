@@ -70,24 +70,7 @@ class Material;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MaterialPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Material>::ObjPtr         MaterialPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Material>::ObjPtrConst    MaterialPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Material>::ObjConstPtr    MaterialConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Material>::ObjPtrArg      MaterialPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Material>::ObjConstPtrArg MaterialConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Material>::ObjPtrConstArg MaterialPtrConstArg;
+OSG_GEN_CONTAINERPTR(Material);
 
 #endif
 

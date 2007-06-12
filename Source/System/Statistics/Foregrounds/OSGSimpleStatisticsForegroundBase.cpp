@@ -1103,6 +1103,20 @@ void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::create(void)
+{
+    SimpleStatisticsForegroundPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<SimpleStatisticsForeground::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::createEmpty(void)
 {

@@ -206,20 +206,6 @@ void ColorMaskChunkBase::setMaskA(const bool &value)
     _sfMaskA.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-ColorMaskChunkPtr ColorMaskChunkBase::create(void)
-{
-    ColorMaskChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ColorMaskChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -285,14 +271,7 @@ Char8 *ColorMaskChunkBase::getClassname(void)
 {
     return "ColorMaskChunk";
 }
-
-typedef PointerBuilder<ColorMaskChunk>::ObjPtr          ColorMaskChunkPtr;
-typedef PointerBuilder<ColorMaskChunk>::ObjPtrConst     ColorMaskChunkPtrConst;
-typedef PointerBuilder<ColorMaskChunk>::ObjConstPtr     ColorMaskChunkConstPtr;
-
-typedef PointerBuilder<ColorMaskChunk>::ObjPtrArg       ColorMaskChunkPtrArg;
-typedef PointerBuilder<ColorMaskChunk>::ObjConstPtrArg  ColorMaskChunkConstPtrArg;
-typedef PointerBuilder<ColorMaskChunk>::ObjPtrConstArg  ColorMaskChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(ColorMaskChunk);
 
 OSG_END_NAMESPACE
 

@@ -85,24 +85,7 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              CameraDecorator>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              CameraDecorator>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              CameraDecorator>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              CameraDecorator>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              CameraDecorator>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              CameraDecorator>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(CameraDecorator);
 
     /*==========================  PUBLIC  =================================*/
 

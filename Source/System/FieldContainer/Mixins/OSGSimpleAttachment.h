@@ -75,14 +75,8 @@ class SimpleAttachment : public FieldContainerAttachment
 
     typedef          SimpleAttachment<AttachmentDescT> Self;
 
-    typedef typename PointerBuilder  <Self>::ObjPtr         ObjPtr;
-    typedef typename PointerBuilder  <Self>::ObjConstPtr    ObjConstPtr;
-    typedef typename PointerBuilder  <Self>::ObjPtrConst    ObjPtrConst;
-  
-    typedef typename PointerBuilder  <Self>::ObjPtrArg      ObjPtrArg;
-    typedef typename PointerBuilder  <Self>::ObjConstPtrArg ObjConstPtrArg;
-    typedef typename PointerBuilder  <Self>::ObjPtrConstArg ObjPtrConstArg;
-  
+    OSG_GEN_INTERNALPTR(Self);
+
     enum 
     { 
         SimpleFieldId     = Inherited::NextFieldId, 

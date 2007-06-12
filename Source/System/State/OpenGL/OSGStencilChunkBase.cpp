@@ -725,6 +725,20 @@ void StencilChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+StencilChunkPtr StencilChunkBase::create(void)
+{
+    StencilChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<StencilChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 StencilChunkPtr StencilChunkBase::createEmpty(void)
 {

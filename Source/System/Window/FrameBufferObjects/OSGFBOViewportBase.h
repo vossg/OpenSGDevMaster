@@ -85,24 +85,7 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              FBOViewport>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              FBOViewport>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              FBOViewport>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              FBOViewport>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              FBOViewport>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              FBOViewport>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(FBOViewport);
 
     /*==========================  PUBLIC  =================================*/
 

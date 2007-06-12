@@ -113,24 +113,7 @@ class @!Classname!@Base : public @!Parent!@
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<@!Parent!@Ptr,
-                              @!Parent!@ConstPtr,
-                              @!Classname!@>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<@!Parent!@Ptr,
-                              @!Parent!@ConstPtr,
-                              @!Classname!@>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<@!Parent!@Ptr,
-                              @!Parent!@ConstPtr,
-                              @!Classname!@>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<@!Parent!@Ptr,
-                              @!Parent!@ConstPtr,
-                              @!Classname!@>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<@!Parent!@Ptr,
-                              @!Parent!@ConstPtr,
-                              @!Classname!@>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<@!Parent!@Ptr,
-                              @!Parent!@ConstPtr,
-                              @!Classname!@>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(@!Classname!@);
 
     /*==========================  PUBLIC  =================================*/
 

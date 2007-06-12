@@ -70,24 +70,7 @@ class MultiDisplayWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MultiDisplayWindowPtr
 
-typedef PointerFwdBuilder<ClusterWindowPtr,
-                          ClusterWindowConstPtr,
-                          MultiDisplayWindow>::ObjPtr         MultiDisplayWindowPtr;
-typedef PointerFwdBuilder<ClusterWindowPtr,
-                          ClusterWindowConstPtr,
-                          MultiDisplayWindow>::ObjPtrConst    MultiDisplayWindowPtrConst;
-typedef PointerFwdBuilder<ClusterWindowPtr,
-                          ClusterWindowConstPtr,
-                          MultiDisplayWindow>::ObjConstPtr    MultiDisplayWindowConstPtr;
-typedef PointerFwdBuilder<ClusterWindowPtr,
-                          ClusterWindowConstPtr,
-                          MultiDisplayWindow>::ObjPtrArg      MultiDisplayWindowPtrArg;
-typedef PointerFwdBuilder<ClusterWindowPtr,
-                          ClusterWindowConstPtr,
-                          MultiDisplayWindow>::ObjConstPtrArg MultiDisplayWindowConstPtrArg;
-typedef PointerFwdBuilder<ClusterWindowPtr,
-                          ClusterWindowConstPtr,
-                          MultiDisplayWindow>::ObjPtrConstArg MultiDisplayWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(MultiDisplayWindow);
 
 #endif
 

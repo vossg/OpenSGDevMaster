@@ -70,24 +70,7 @@ class Manipulator;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ManipulatorPtr
 
-typedef PointerFwdBuilder<TransformPtr,
-                          TransformConstPtr,
-                          Manipulator>::ObjPtr         ManipulatorPtr;
-typedef PointerFwdBuilder<TransformPtr,
-                          TransformConstPtr,
-                          Manipulator>::ObjPtrConst    ManipulatorPtrConst;
-typedef PointerFwdBuilder<TransformPtr,
-                          TransformConstPtr,
-                          Manipulator>::ObjConstPtr    ManipulatorConstPtr;
-typedef PointerFwdBuilder<TransformPtr,
-                          TransformConstPtr,
-                          Manipulator>::ObjPtrArg      ManipulatorPtrArg;
-typedef PointerFwdBuilder<TransformPtr,
-                          TransformConstPtr,
-                          Manipulator>::ObjConstPtrArg ManipulatorConstPtrArg;
-typedef PointerFwdBuilder<TransformPtr,
-                          TransformConstPtr,
-                          Manipulator>::ObjPtrConstArg ManipulatorPtrConstArg;
+OSG_GEN_CONTAINERPTR(Manipulator);
 
 #endif
 

@@ -1118,6 +1118,20 @@ void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+ViewportPtr ViewportBase::create(void)
+{
+    ViewportPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<Viewport::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ViewportPtr ViewportBase::createEmpty(void)
 {

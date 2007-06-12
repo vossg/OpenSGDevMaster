@@ -249,6 +249,7 @@ void TextureBaseChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 TextureBaseChunkBase::TextureBaseChunkBase(void) :

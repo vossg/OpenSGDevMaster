@@ -86,24 +86,7 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              StatisticsForeground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              StatisticsForeground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              StatisticsForeground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              StatisticsForeground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              StatisticsForeground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              StatisticsForeground>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(StatisticsForeground);
 
     /*==========================  PUBLIC  =================================*/
 

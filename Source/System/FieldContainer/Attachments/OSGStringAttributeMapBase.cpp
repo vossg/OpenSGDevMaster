@@ -463,6 +463,20 @@ void StringAttributeMapBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+StringAttributeMapPtr StringAttributeMapBase::create(void)
+{
+    StringAttributeMapPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<StringAttributeMap::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 StringAttributeMapPtr StringAttributeMapBase::createEmpty(void)
 {

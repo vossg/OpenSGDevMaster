@@ -107,20 +107,6 @@ void GLUTWindowBase::setId(const Int32 &value)
     _sfId.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-GLUTWindowPtr GLUTWindowBase::create(void)
-{
-    GLUTWindowPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<GLUTWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *GLUTWindowBase::getClassname(void)
 {
     return "GLUTWindow";
 }
-
-typedef PointerBuilder<GLUTWindow>::ObjPtr          GLUTWindowPtr;
-typedef PointerBuilder<GLUTWindow>::ObjPtrConst     GLUTWindowPtrConst;
-typedef PointerBuilder<GLUTWindow>::ObjConstPtr     GLUTWindowConstPtr;
-
-typedef PointerBuilder<GLUTWindow>::ObjPtrArg       GLUTWindowPtrArg;
-typedef PointerBuilder<GLUTWindow>::ObjConstPtrArg  GLUTWindowConstPtrArg;
-typedef PointerBuilder<GLUTWindow>::ObjPtrConstArg  GLUTWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(GLUTWindow);
 
 OSG_END_NAMESPACE
 

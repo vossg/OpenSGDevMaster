@@ -90,24 +90,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Geometry>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Geometry>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Geometry>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Geometry>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Geometry>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<MaterialDrawablePtr,
-                              MaterialDrawableConstPtr,
-                              Geometry>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(Geometry);
 
     /*==========================  PUBLIC  =================================*/
 

@@ -64,9 +64,7 @@ class FieldBundle : public ReflexiveContainer
     
     typedef FieldBundleType                                TypeObject;
 
-    typedef BundlePointerBuilder<FieldBundle>::ObjPtr      ObjPtr;
-    typedef BundlePointerBuilder<FieldBundle>::ObjPtrConst ObjPtrConst;
-    typedef BundlePointerBuilder<FieldBundle>::ObjConstPtr ObjConstPtr;
+    OSG_GEN_INTERNALPTR(FieldBundle);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -293,11 +291,6 @@ class FieldBundle : public ReflexiveContainer
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const FieldBundle &source);
 };
-
-typedef FieldBundle::ObjPtr      FieldBundleP;
-typedef FieldBundle::ObjPtrConst FieldBundlePConst;
-typedef FieldBundle::ObjConstPtr FieldBundleConstP;
-
 
 OSG_END_NAMESPACE
 

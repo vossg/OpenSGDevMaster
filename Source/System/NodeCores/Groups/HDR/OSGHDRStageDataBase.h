@@ -93,23 +93,7 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef BundlePointerBuilder<
-        HDRStageData>::ObjPtr         ObjPtr;
-
-    typedef BundlePointerBuilder<
-        HDRStageData>::ObjPtrConst    ObjPtrConst;
-
-    typedef BundlePointerBuilder<
-        HDRStageData>::ObjConstPtr    ObjConstPtr;
-
-    typedef BundlePointerBuilder<
-        HDRStageData>::ObjPtrArg      ObjPtrArg;
-
-    typedef BundlePointerBuilder<
-        HDRStageData>::ObjConstPtrArg ObjConstPtrArg;
-
-    typedef BundlePointerBuilder<
-        HDRStageData>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(HDRStageData);
 
     /*==========================  PUBLIC  =================================*/
 

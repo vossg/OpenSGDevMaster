@@ -140,20 +140,6 @@ void RenderBufferBase::setInternalFormat(const GLenum &value)
     _sfInternalFormat.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-RenderBufferPtr RenderBufferBase::create(void)
-{
-    RenderBufferPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<RenderBuffer::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -207,14 +193,7 @@ Char8 *RenderBufferBase::getClassname(void)
 {
     return "RenderBuffer";
 }
-
-typedef PointerBuilder<RenderBuffer>::ObjPtr          RenderBufferPtr;
-typedef PointerBuilder<RenderBuffer>::ObjPtrConst     RenderBufferPtrConst;
-typedef PointerBuilder<RenderBuffer>::ObjConstPtr     RenderBufferConstPtr;
-
-typedef PointerBuilder<RenderBuffer>::ObjPtrArg       RenderBufferPtrArg;
-typedef PointerBuilder<RenderBuffer>::ObjConstPtrArg  RenderBufferConstPtrArg;
-typedef PointerBuilder<RenderBuffer>::ObjPtrConstArg  RenderBufferPtrConstArg;
+OSG_GEN_CONTAINERPTR(RenderBuffer);
 
 OSG_END_NAMESPACE
 

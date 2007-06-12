@@ -85,24 +85,7 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<TransformChunkPtr,
-                              TransformChunkConstPtr,
-                              TextureTransformChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<TransformChunkPtr,
-                              TransformChunkConstPtr,
-                              TextureTransformChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<TransformChunkPtr,
-                              TransformChunkConstPtr,
-                              TextureTransformChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<TransformChunkPtr,
-                              TransformChunkConstPtr,
-                              TextureTransformChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<TransformChunkPtr,
-                              TransformChunkConstPtr,
-                              TextureTransformChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<TransformChunkPtr,
-                              TransformChunkConstPtr,
-                              TextureTransformChunk>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(TextureTransformChunk);
 
     /*==========================  PUBLIC  =================================*/
 

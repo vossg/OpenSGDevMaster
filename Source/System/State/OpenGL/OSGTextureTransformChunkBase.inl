@@ -107,20 +107,6 @@ void TextureTransformChunkBase::setUseCameraBeacon(const bool &value)
     _sfUseCameraBeacon.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-TextureTransformChunkPtr TextureTransformChunkBase::create(void)
-{
-    TextureTransformChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TextureTransformChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *TextureTransformChunkBase::getClassname(void)
 {
     return "TextureTransformChunk";
 }
-
-typedef PointerBuilder<TextureTransformChunk>::ObjPtr          TextureTransformChunkPtr;
-typedef PointerBuilder<TextureTransformChunk>::ObjPtrConst     TextureTransformChunkPtrConst;
-typedef PointerBuilder<TextureTransformChunk>::ObjConstPtr     TextureTransformChunkConstPtr;
-
-typedef PointerBuilder<TextureTransformChunk>::ObjPtrArg       TextureTransformChunkPtrArg;
-typedef PointerBuilder<TextureTransformChunk>::ObjConstPtrArg  TextureTransformChunkConstPtrArg;
-typedef PointerBuilder<TextureTransformChunk>::ObjPtrConstArg  TextureTransformChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureTransformChunk);
 
 OSG_END_NAMESPACE
 

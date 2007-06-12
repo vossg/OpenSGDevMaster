@@ -61,15 +61,6 @@ class OSG_DRAWABLE_DLLMAPPING StatsAttachment : public StatsAttachmentBase
     typedef StatsAttachmentBase Inherited;
     typedef StatsAttachment     Self;
 
-    typedef PointerBuilder<StatsAttachment>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<StatsAttachment>::ObjPtrConst      ObjPtrConst;
-
-    typedef PointerBuilder<StatsAttachment>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<StatsAttachment>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<StatsAttachment>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<StatsAttachment>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -137,15 +128,6 @@ class OSG_DRAWABLE_DLLMAPPING StatsAttachment : public StatsAttachmentBase
 };
 
 typedef StatsAttachment *StatsAttachmentP;
-
-typedef StatsAttachment::ObjPtr           StatsAttachmentPtr;
-typedef StatsAttachment::ObjPtrConst      StatsAttachmentPtrConst;
-
-typedef StatsAttachment::ObjConstPtr      StatsAttachmentConstPtr;
-typedef StatsAttachment::ObjConstPtrConst StatsAttachmentConstPtrConst;
-
-typedef StatsAttachment::ObjPtrArg        StatsAttachmentPtrArg;
-typedef StatsAttachment::ObjPtrConstArg   StatsAttachmentPtrConstArg;
 
 OSG_END_NAMESPACE
 

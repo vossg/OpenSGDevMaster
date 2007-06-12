@@ -487,6 +487,20 @@ void TextureGrabBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+TextureGrabBackgroundPtr TextureGrabBackgroundBase::create(void)
+{
+    TextureGrabBackgroundPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<TextureGrabBackground::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TextureGrabBackgroundPtr TextureGrabBackgroundBase::createEmpty(void)
 {

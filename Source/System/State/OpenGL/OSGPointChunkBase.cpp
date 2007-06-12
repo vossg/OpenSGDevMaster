@@ -870,6 +870,20 @@ void PointChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+PointChunkPtr PointChunkBase::create(void)
+{
+    PointChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<PointChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PointChunkPtr PointChunkBase::createEmpty(void)
 {

@@ -70,24 +70,7 @@ class FileGrabForeground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! FileGrabForegroundPtr
 
-typedef PointerFwdBuilder<GrabForegroundPtr,
-                          GrabForegroundConstPtr,
-                          FileGrabForeground>::ObjPtr         FileGrabForegroundPtr;
-typedef PointerFwdBuilder<GrabForegroundPtr,
-                          GrabForegroundConstPtr,
-                          FileGrabForeground>::ObjPtrConst    FileGrabForegroundPtrConst;
-typedef PointerFwdBuilder<GrabForegroundPtr,
-                          GrabForegroundConstPtr,
-                          FileGrabForeground>::ObjConstPtr    FileGrabForegroundConstPtr;
-typedef PointerFwdBuilder<GrabForegroundPtr,
-                          GrabForegroundConstPtr,
-                          FileGrabForeground>::ObjPtrArg      FileGrabForegroundPtrArg;
-typedef PointerFwdBuilder<GrabForegroundPtr,
-                          GrabForegroundConstPtr,
-                          FileGrabForeground>::ObjConstPtrArg FileGrabForegroundConstPtrArg;
-typedef PointerFwdBuilder<GrabForegroundPtr,
-                          GrabForegroundConstPtr,
-                          FileGrabForeground>::ObjPtrConstArg FileGrabForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(FileGrabForeground);
 
 #endif
 

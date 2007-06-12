@@ -70,24 +70,7 @@ class CocoaWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! CocoaWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CocoaWindow>::ObjPtr         CocoaWindowPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CocoaWindow>::ObjPtrConst    CocoaWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CocoaWindow>::ObjConstPtr    CocoaWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CocoaWindow>::ObjPtrArg      CocoaWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CocoaWindow>::ObjConstPtrArg CocoaWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CocoaWindow>::ObjPtrConstArg CocoaWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(CocoaWindow);
 
 #endif
 

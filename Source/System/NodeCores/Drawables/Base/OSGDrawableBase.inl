@@ -115,14 +115,7 @@ Char8 *DrawableBase::getClassname(void)
 {
     return "Drawable";
 }
-
-typedef PointerBuilder<Drawable>::ObjPtr          DrawablePtr;
-typedef PointerBuilder<Drawable>::ObjPtrConst     DrawablePtrConst;
-typedef PointerBuilder<Drawable>::ObjConstPtr     DrawableConstPtr;
-
-typedef PointerBuilder<Drawable>::ObjPtrArg       DrawablePtrArg;
-typedef PointerBuilder<Drawable>::ObjConstPtrArg  DrawableConstPtrArg;
-typedef PointerBuilder<Drawable>::ObjPtrConstArg  DrawablePtrConstArg;
+OSG_GEN_CONTAINERPTR(Drawable);
 
 OSG_END_NAMESPACE
 

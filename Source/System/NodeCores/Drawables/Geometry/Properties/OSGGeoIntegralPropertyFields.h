@@ -70,24 +70,7 @@ class GeoIntegralProperty;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeoIntegralPropertyPtr
 
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoIntegralProperty>::ObjPtr         GeoIntegralPropertyPtr;
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoIntegralProperty>::ObjPtrConst    GeoIntegralPropertyPtrConst;
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoIntegralProperty>::ObjConstPtr    GeoIntegralPropertyConstPtr;
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoIntegralProperty>::ObjPtrArg      GeoIntegralPropertyPtrArg;
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoIntegralProperty>::ObjConstPtrArg GeoIntegralPropertyConstPtrArg;
-typedef PointerFwdBuilder<GeoPropertyPtr,
-                          GeoPropertyConstPtr,
-                          GeoIntegralProperty>::ObjPtrConstArg GeoIntegralPropertyPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoIntegralProperty);
 
 #endif
 

@@ -63,19 +63,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    typedef PointerBuilder<
-              FieldContainerAttachment>::ObjPtr         ObjPtr;
-    typedef PointerBuilder<
-              FieldContainerAttachment>::ObjConstPtr    ObjConstPtr;
-    typedef PointerBuilder<
-              FieldContainerAttachment>::ObjPtrConst    ObjPtrConst;
-
-    typedef PointerBuilder<
-              FieldContainerAttachment>::ObjPtrArg      ObjPtrArg;
-    typedef PointerBuilder<
-              FieldContainerAttachment>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerBuilder<
-              FieldContainerAttachment>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(FieldContainerAttachment);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -240,23 +228,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
     void operator =(const FieldContainerAttachment &source);
 };
 
-typedef FieldContainerAttachment::ObjPtr         FieldContainerAttachmentPtr;
-
-typedef FieldContainerAttachment::ObjPtrConst    
-    FieldContainerAttachmentPtrConst;
-
-typedef FieldContainerAttachment::ObjConstPtr    
-    FieldContainerAttachmentConstPtr;
-
-
-typedef FieldContainerAttachment::ObjPtrArg 
-    FieldContainerAttachmentPtrArg;
-
-typedef FieldContainerAttachment::ObjConstPtrArg 
-    FieldContainerAttachmentConstPtrArg;
-
-typedef FieldContainerAttachment::ObjPtrConstArg 
-    FieldContainerAttachmentPtrConstArg;
+OSG_GEN_CONTAINERPTR(FieldContainerAttachment);
 
 typedef RefPtr<FieldContainerAttachmentPtr>     
     FieldContainerAttachmentRefPtr;

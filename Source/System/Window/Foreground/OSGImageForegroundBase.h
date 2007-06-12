@@ -86,24 +86,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              ImageForeground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              ImageForeground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              ImageForeground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              ImageForeground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              ImageForeground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr,
-                              ForegroundConstPtr,
-                              ImageForeground>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ImageForeground);
 
     /*==========================  PUBLIC  =================================*/
 

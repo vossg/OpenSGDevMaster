@@ -91,20 +91,6 @@ void StageBase::setRenderTarget(FrameBufferObjectPtrConstArg value)
 
 }
 
-//! create a new instance of the class
-inline
-StagePtr StageBase::create(void)
-{
-    StagePtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<Stage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -152,14 +138,7 @@ Char8 *StageBase::getClassname(void)
 {
     return "Stage";
 }
-
-typedef PointerBuilder<Stage>::ObjPtr          StagePtr;
-typedef PointerBuilder<Stage>::ObjPtrConst     StagePtrConst;
-typedef PointerBuilder<Stage>::ObjConstPtr     StageConstPtr;
-
-typedef PointerBuilder<Stage>::ObjPtrArg       StagePtrArg;
-typedef PointerBuilder<Stage>::ObjConstPtrArg  StageConstPtrArg;
-typedef PointerBuilder<Stage>::ObjPtrConstArg  StagePtrConstArg;
+OSG_GEN_CONTAINERPTR(Stage);
 
 OSG_END_NAMESPACE
 

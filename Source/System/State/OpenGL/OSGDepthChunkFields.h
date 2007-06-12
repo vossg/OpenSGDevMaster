@@ -70,24 +70,7 @@ class DepthChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! DepthChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          DepthChunk>::ObjPtr         DepthChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          DepthChunk>::ObjPtrConst    DepthChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          DepthChunk>::ObjConstPtr    DepthChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          DepthChunk>::ObjPtrArg      DepthChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          DepthChunk>::ObjConstPtrArg DepthChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          DepthChunk>::ObjPtrConstArg DepthChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(DepthChunk);
 
 #endif
 

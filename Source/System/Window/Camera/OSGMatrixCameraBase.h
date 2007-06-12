@@ -86,24 +86,7 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraBase : public Camera
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              MatrixCamera>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              MatrixCamera>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              MatrixCamera>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              MatrixCamera>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              MatrixCamera>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<CameraPtr,
-                              CameraConstPtr,
-                              MatrixCamera>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(MatrixCamera);
 
     /*==========================  PUBLIC  =================================*/
 

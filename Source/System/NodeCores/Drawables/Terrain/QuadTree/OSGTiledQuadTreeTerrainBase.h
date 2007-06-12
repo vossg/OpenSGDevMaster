@@ -98,24 +98,7 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<MaterialGroupPtr,
-                              MaterialGroupConstPtr,
-                              TiledQuadTreeTerrain>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<MaterialGroupPtr,
-                              MaterialGroupConstPtr,
-                              TiledQuadTreeTerrain>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<MaterialGroupPtr,
-                              MaterialGroupConstPtr,
-                              TiledQuadTreeTerrain>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<MaterialGroupPtr,
-                              MaterialGroupConstPtr,
-                              TiledQuadTreeTerrain>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<MaterialGroupPtr,
-                              MaterialGroupConstPtr,
-                              TiledQuadTreeTerrain>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<MaterialGroupPtr,
-                              MaterialGroupConstPtr,
-                              TiledQuadTreeTerrain>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(TiledQuadTreeTerrain);
 
     /*==========================  PUBLIC  =================================*/
 

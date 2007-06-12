@@ -70,24 +70,7 @@ class EGLWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! EGLWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          EGLWindow>::ObjPtr         EGLWindowPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          EGLWindow>::ObjPtrConst    EGLWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          EGLWindow>::ObjConstPtr    EGLWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          EGLWindow>::ObjPtrArg      EGLWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          EGLWindow>::ObjConstPtrArg EGLWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          EGLWindow>::ObjPtrConstArg EGLWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(EGLWindow);
 
 #endif
 

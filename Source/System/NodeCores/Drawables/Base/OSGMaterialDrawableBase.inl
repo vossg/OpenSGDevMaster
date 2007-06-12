@@ -138,14 +138,7 @@ Char8 *MaterialDrawableBase::getClassname(void)
 {
     return "MaterialDrawable";
 }
-
-typedef PointerBuilder<MaterialDrawable>::ObjPtr          MaterialDrawablePtr;
-typedef PointerBuilder<MaterialDrawable>::ObjPtrConst     MaterialDrawablePtrConst;
-typedef PointerBuilder<MaterialDrawable>::ObjConstPtr     MaterialDrawableConstPtr;
-
-typedef PointerBuilder<MaterialDrawable>::ObjPtrArg       MaterialDrawablePtrArg;
-typedef PointerBuilder<MaterialDrawable>::ObjConstPtrArg  MaterialDrawableConstPtrArg;
-typedef PointerBuilder<MaterialDrawable>::ObjPtrConstArg  MaterialDrawablePtrConstArg;
+OSG_GEN_CONTAINERPTR(MaterialDrawable);
 
 OSG_END_NAMESPACE
 

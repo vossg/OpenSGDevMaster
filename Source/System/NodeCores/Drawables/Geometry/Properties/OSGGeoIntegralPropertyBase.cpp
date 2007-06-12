@@ -159,6 +159,7 @@ void GeoIntegralPropertyBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 GeoIntegralPropertyBase::GeoIntegralPropertyBase(void) :

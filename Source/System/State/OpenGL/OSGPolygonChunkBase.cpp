@@ -1040,6 +1040,20 @@ void PolygonChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+PolygonChunkPtr PolygonChunkBase::create(void)
+{
+    PolygonChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<PolygonChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PolygonChunkPtr PolygonChunkBase::createEmpty(void)
 {

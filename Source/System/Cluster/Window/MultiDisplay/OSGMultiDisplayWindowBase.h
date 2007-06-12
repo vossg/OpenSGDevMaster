@@ -89,24 +89,7 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ClusterWindowPtr,
-                              ClusterWindowConstPtr,
-                              MultiDisplayWindow>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ClusterWindowPtr,
-                              ClusterWindowConstPtr,
-                              MultiDisplayWindow>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ClusterWindowPtr,
-                              ClusterWindowConstPtr,
-                              MultiDisplayWindow>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ClusterWindowPtr,
-                              ClusterWindowConstPtr,
-                              MultiDisplayWindow>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ClusterWindowPtr,
-                              ClusterWindowConstPtr,
-                              MultiDisplayWindow>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ClusterWindowPtr,
-                              ClusterWindowConstPtr,
-                              MultiDisplayWindow>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(MultiDisplayWindow);
 
     /*==========================  PUBLIC  =================================*/
 

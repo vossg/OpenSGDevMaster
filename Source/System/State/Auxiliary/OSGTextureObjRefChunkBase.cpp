@@ -229,6 +229,20 @@ void TextureObjRefChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+TextureObjRefChunkPtr TextureObjRefChunkBase::create(void)
+{
+    TextureObjRefChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<TextureObjRefChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TextureObjRefChunkPtr TextureObjRefChunkBase::createEmpty(void)
 {

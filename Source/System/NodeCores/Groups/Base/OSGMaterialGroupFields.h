@@ -70,24 +70,7 @@ class MaterialGroup;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MaterialGroupPtr
 
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          MaterialGroup>::ObjPtr         MaterialGroupPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          MaterialGroup>::ObjPtrConst    MaterialGroupPtrConst;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          MaterialGroup>::ObjConstPtr    MaterialGroupConstPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          MaterialGroup>::ObjPtrArg      MaterialGroupPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          MaterialGroup>::ObjConstPtrArg MaterialGroupConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          MaterialGroup>::ObjPtrConstArg MaterialGroupPtrConstArg;
+OSG_GEN_CONTAINERPTR(MaterialGroup);
 
 #endif
 

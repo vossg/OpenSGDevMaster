@@ -47,6 +47,7 @@
 #include "OSGContainerPtrFuncs.h"
 
 #include "OSGFieldContainerAttachment.h"
+#include "OSGFieldBundleAttachment.h"
 
 #include "map"
 

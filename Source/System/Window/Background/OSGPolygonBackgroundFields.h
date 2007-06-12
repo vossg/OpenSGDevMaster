@@ -70,24 +70,7 @@ class PolygonBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PolygonBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PolygonBackground>::ObjPtr         PolygonBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PolygonBackground>::ObjPtrConst    PolygonBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PolygonBackground>::ObjConstPtr    PolygonBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PolygonBackground>::ObjPtrArg      PolygonBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PolygonBackground>::ObjConstPtrArg PolygonBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PolygonBackground>::ObjPtrConstArg PolygonBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(PolygonBackground);
 
 #endif
 

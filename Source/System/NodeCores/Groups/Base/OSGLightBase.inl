@@ -434,14 +434,7 @@ Char8 *LightBase::getClassname(void)
 {
     return "Light";
 }
-
-typedef PointerBuilder<Light>::ObjPtr          LightPtr;
-typedef PointerBuilder<Light>::ObjPtrConst     LightPtrConst;
-typedef PointerBuilder<Light>::ObjConstPtr     LightConstPtr;
-
-typedef PointerBuilder<Light>::ObjPtrArg       LightPtrArg;
-typedef PointerBuilder<Light>::ObjConstPtrArg  LightConstPtrArg;
-typedef PointerBuilder<Light>::ObjPtrConstArg  LightPtrConstArg;
+OSG_GEN_CONTAINERPTR(Light);
 
 OSG_END_NAMESPACE
 

@@ -70,24 +70,7 @@ class GLUTWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GLUTWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          GLUTWindow>::ObjPtr         GLUTWindowPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          GLUTWindow>::ObjPtrConst    GLUTWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          GLUTWindow>::ObjConstPtr    GLUTWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          GLUTWindow>::ObjPtrArg      GLUTWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          GLUTWindow>::ObjConstPtrArg GLUTWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          GLUTWindow>::ObjPtrConstArg GLUTWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(GLUTWindow);
 
 #endif
 

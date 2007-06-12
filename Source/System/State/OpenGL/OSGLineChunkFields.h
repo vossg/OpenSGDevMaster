@@ -70,24 +70,7 @@ class LineChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! LineChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LineChunk>::ObjPtr         LineChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LineChunk>::ObjPtrConst    LineChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LineChunk>::ObjConstPtr    LineChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LineChunk>::ObjPtrArg      LineChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LineChunk>::ObjConstPtrArg LineChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          LineChunk>::ObjPtrConstArg LineChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(LineChunk);
 
 #endif
 

@@ -70,24 +70,7 @@ class PerspectiveCamera;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PerspectiveCameraPtr
 
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          PerspectiveCamera>::ObjPtr         PerspectiveCameraPtr;
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          PerspectiveCamera>::ObjPtrConst    PerspectiveCameraPtrConst;
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          PerspectiveCamera>::ObjConstPtr    PerspectiveCameraConstPtr;
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          PerspectiveCamera>::ObjPtrArg      PerspectiveCameraPtrArg;
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          PerspectiveCamera>::ObjConstPtrArg PerspectiveCameraConstPtrArg;
-typedef PointerFwdBuilder<CameraPtr,
-                          CameraConstPtr,
-                          PerspectiveCamera>::ObjPtrConstArg PerspectiveCameraPtrConstArg;
+OSG_GEN_CONTAINERPTR(PerspectiveCamera);
 
 #endif
 

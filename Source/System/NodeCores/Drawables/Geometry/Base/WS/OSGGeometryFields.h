@@ -70,24 +70,7 @@ class Geometry;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeometryPtr
 
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Geometry>::ObjPtr         GeometryPtr;
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Geometry>::ObjPtrConst    GeometryPtrConst;
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Geometry>::ObjConstPtr    GeometryConstPtr;
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Geometry>::ObjPtrArg      GeometryPtrArg;
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Geometry>::ObjConstPtrArg GeometryConstPtrArg;
-typedef PointerFwdBuilder<MaterialDrawablePtr,
-                          MaterialDrawableConstPtr,
-                          Geometry>::ObjPtrConstArg GeometryPtrConstArg;
+OSG_GEN_CONTAINERPTR(Geometry);
 
 #endif
 

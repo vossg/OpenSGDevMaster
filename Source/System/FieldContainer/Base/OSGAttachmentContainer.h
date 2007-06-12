@@ -66,14 +66,8 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer :
 
     typedef ContainerAttachmentContainerParent                  Inherited;
 
-
-    typedef PointerBuilder<AttachmentContainer>::ObjPtr         ObjPtr;
-    typedef PointerBuilder<AttachmentContainer>::ObjPtrConst    ObjPtrConst;
-    typedef PointerBuilder<AttachmentContainer>::ObjConstPtr    ObjConstPtr;
-
-    typedef PointerBuilder<AttachmentContainer>::ObjPtrArg      ObjPtrArg;
-    typedef PointerBuilder<AttachmentContainer>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerBuilder<AttachmentContainer>::ObjPtrConstArg ObjPtrConstArg;
+    
+    OSG_GEN_INTERNALPTR(AttachmentContainer);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -195,13 +189,7 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer :
     void operator =(const AttachmentContainer &source);
 };
 
-typedef AttachmentContainer::ObjPtr         AttachmentContainerPtr;
-typedef AttachmentContainer::ObjPtrConst    AttachmentContainerPtrConst;
-typedef AttachmentContainer::ObjConstPtr    AttachmentContainerConstPtr;
-
-typedef AttachmentContainer::ObjPtrArg      AttachmentContainerPtrArg;
-typedef AttachmentContainer::ObjConstPtrArg AttachmentContainerConstPtrArg;
-typedef AttachmentContainer::ObjPtrConstArg AttachmentContainerPtrConstArg;
+OSG_GEN_CONTAINERPTR(AttachmentContainer);
 
 typedef RefPtr<AttachmentContainerPtr>      AttachmentContainerRefPtr;
 
@@ -296,8 +284,6 @@ deepCloneAttachments(
         std::vector<UInt16>()                                         );
 
 OSG_END_NAMESPACE
-
-#define OSGATTACHMENTCONTAINER_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGAttachmentContainer.inl"
 

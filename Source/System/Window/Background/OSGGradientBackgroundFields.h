@@ -70,24 +70,7 @@ class GradientBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GradientBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          GradientBackground>::ObjPtr         GradientBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          GradientBackground>::ObjPtrConst    GradientBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          GradientBackground>::ObjConstPtr    GradientBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          GradientBackground>::ObjPtrArg      GradientBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          GradientBackground>::ObjConstPtrArg GradientBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          GradientBackground>::ObjPtrConstArg GradientBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(GradientBackground);
 
 #endif
 

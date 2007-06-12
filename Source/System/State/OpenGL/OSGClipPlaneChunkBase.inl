@@ -157,20 +157,6 @@ void ClipPlaneChunkBase::setBeacon(NodePtrConstArg value)
 
 }
 
-//! create a new instance of the class
-inline
-ClipPlaneChunkPtr ClipPlaneChunkBase::create(void)
-{
-    ClipPlaneChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ClipPlaneChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -230,14 +216,7 @@ Char8 *ClipPlaneChunkBase::getClassname(void)
 {
     return "ClipPlaneChunk";
 }
-
-typedef PointerBuilder<ClipPlaneChunk>::ObjPtr          ClipPlaneChunkPtr;
-typedef PointerBuilder<ClipPlaneChunk>::ObjPtrConst     ClipPlaneChunkPtrConst;
-typedef PointerBuilder<ClipPlaneChunk>::ObjConstPtr     ClipPlaneChunkConstPtr;
-
-typedef PointerBuilder<ClipPlaneChunk>::ObjPtrArg       ClipPlaneChunkPtrArg;
-typedef PointerBuilder<ClipPlaneChunk>::ObjConstPtrArg  ClipPlaneChunkConstPtrArg;
-typedef PointerBuilder<ClipPlaneChunk>::ObjPtrConstArg  ClipPlaneChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(ClipPlaneChunk);
 
 OSG_END_NAMESPACE
 

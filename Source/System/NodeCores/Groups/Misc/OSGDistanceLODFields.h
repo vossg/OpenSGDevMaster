@@ -70,24 +70,7 @@ class DistanceLOD;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! DistanceLODPtr
 
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          DistanceLOD>::ObjPtr         DistanceLODPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          DistanceLOD>::ObjPtrConst    DistanceLODPtrConst;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          DistanceLOD>::ObjConstPtr    DistanceLODConstPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          DistanceLOD>::ObjPtrArg      DistanceLODPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          DistanceLOD>::ObjConstPtrArg DistanceLODConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          DistanceLOD>::ObjPtrConstArg DistanceLODPtrConstArg;
+OSG_GEN_CONTAINERPTR(DistanceLOD);
 
 #endif
 

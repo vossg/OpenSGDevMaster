@@ -140,20 +140,6 @@ void PerspectiveCameraBase::setAspect(const Real32 &value)
     _sfAspect.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-PerspectiveCameraPtr PerspectiveCameraBase::create(void)
-{
-    PerspectiveCameraPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<PerspectiveCamera::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -207,14 +193,7 @@ Char8 *PerspectiveCameraBase::getClassname(void)
 {
     return "PerspectiveCamera";
 }
-
-typedef PointerBuilder<PerspectiveCamera>::ObjPtr          PerspectiveCameraPtr;
-typedef PointerBuilder<PerspectiveCamera>::ObjPtrConst     PerspectiveCameraPtrConst;
-typedef PointerBuilder<PerspectiveCamera>::ObjConstPtr     PerspectiveCameraConstPtr;
-
-typedef PointerBuilder<PerspectiveCamera>::ObjPtrArg       PerspectiveCameraPtrArg;
-typedef PointerBuilder<PerspectiveCamera>::ObjConstPtrArg  PerspectiveCameraConstPtrArg;
-typedef PointerBuilder<PerspectiveCamera>::ObjPtrConstArg  PerspectiveCameraPtrConstArg;
+OSG_GEN_CONTAINERPTR(PerspectiveCamera);
 
 OSG_END_NAMESPACE
 

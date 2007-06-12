@@ -257,22 +257,6 @@ void @!Classname!@Base::setDecoratee(const @!Parent!@Ptr &value)
     setRefd(_sfDecoratee.getValue(), value);
 }
 @@endif // !isDecorator
-@@if !isAbstract
-//! create a new instance of the class
-inline
-@!Classname!@Ptr @!Classname!@Base::create(void)
-{
-    @!Classname!@Ptr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<@!Classname!@::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
-@@endif // !isAbstract
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -365,14 +349,7 @@ Char8 *@!Classname!@Base::getClassname(void)
 {
     return "@!Classname!@";
 }
-
-typedef PointerBuilder<@!Classname!@>::ObjPtr          @!Classname!@Ptr;
-typedef PointerBuilder<@!Classname!@>::ObjPtrConst     @!Classname!@PtrConst;
-typedef PointerBuilder<@!Classname!@>::ObjConstPtr     @!Classname!@ConstPtr;
-
-typedef PointerBuilder<@!Classname!@>::ObjPtrArg       @!Classname!@PtrArg;
-typedef PointerBuilder<@!Classname!@>::ObjConstPtrArg  @!Classname!@ConstPtrArg;
-typedef PointerBuilder<@!Classname!@>::ObjPtrConstArg  @!Classname!@PtrConstArg;
+OSG_GEN_CONTAINERPTR(@!Classname!@);
 
 OSG_END_NAMESPACE
 

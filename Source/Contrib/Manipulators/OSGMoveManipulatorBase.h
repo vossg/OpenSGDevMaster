@@ -84,24 +84,7 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              MoveManipulator>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              MoveManipulator>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              MoveManipulator>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              MoveManipulator>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              MoveManipulator>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              MoveManipulator>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(MoveManipulator);
 
     /*==========================  PUBLIC  =================================*/
 

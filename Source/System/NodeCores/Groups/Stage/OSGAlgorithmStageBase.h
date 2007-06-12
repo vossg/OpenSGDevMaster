@@ -87,24 +87,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              AlgorithmStage>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              AlgorithmStage>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              AlgorithmStage>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              AlgorithmStage>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              AlgorithmStage>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StagePtr,
-                              StageConstPtr,
-                              AlgorithmStage>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(AlgorithmStage);
 
     /*==========================  PUBLIC  =================================*/
 

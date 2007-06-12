@@ -70,24 +70,7 @@ class Drawable;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! DrawablePtr
 
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Drawable>::ObjPtr         DrawablePtr;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Drawable>::ObjPtrConst    DrawablePtrConst;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Drawable>::ObjConstPtr    DrawableConstPtr;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Drawable>::ObjPtrArg      DrawablePtrArg;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Drawable>::ObjConstPtrArg DrawableConstPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Drawable>::ObjPtrConstArg DrawablePtrConstArg;
+OSG_GEN_CONTAINERPTR(Drawable);
 
 #endif
 

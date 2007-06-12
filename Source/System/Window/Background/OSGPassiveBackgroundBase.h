@@ -84,24 +84,7 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              PassiveBackground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              PassiveBackground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              PassiveBackground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              PassiveBackground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              PassiveBackground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              PassiveBackground>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(PassiveBackground);
 
     /*==========================  PUBLIC  =================================*/
 

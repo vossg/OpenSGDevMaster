@@ -74,20 +74,6 @@ OSG::UInt16 PassiveBackgroundBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-PassiveBackgroundPtr PassiveBackgroundBase::create(void)
-{
-    PassiveBackgroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<PassiveBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *PassiveBackgroundBase::getClassname(void)
 {
     return "PassiveBackground";
 }
-
-typedef PointerBuilder<PassiveBackground>::ObjPtr          PassiveBackgroundPtr;
-typedef PointerBuilder<PassiveBackground>::ObjPtrConst     PassiveBackgroundPtrConst;
-typedef PointerBuilder<PassiveBackground>::ObjConstPtr     PassiveBackgroundConstPtr;
-
-typedef PointerBuilder<PassiveBackground>::ObjPtrArg       PassiveBackgroundPtrArg;
-typedef PointerBuilder<PassiveBackground>::ObjConstPtrArg  PassiveBackgroundConstPtrArg;
-typedef PointerBuilder<PassiveBackground>::ObjPtrConstArg  PassiveBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(PassiveBackground);
 
 OSG_END_NAMESPACE
 

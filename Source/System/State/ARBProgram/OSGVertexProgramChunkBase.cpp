@@ -173,6 +173,20 @@ void VertexProgramChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
 }
 
+//! create a new instance of the class
+VertexProgramChunkPtr VertexProgramChunkBase::create(void)
+{
+    VertexProgramChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<VertexProgramChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 VertexProgramChunkPtr VertexProgramChunkBase::createEmpty(void)
 {

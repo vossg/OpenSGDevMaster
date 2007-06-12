@@ -70,24 +70,7 @@ class TwoSidedLightingChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TwoSidedLightingChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TwoSidedLightingChunk>::ObjPtr         TwoSidedLightingChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TwoSidedLightingChunk>::ObjPtrConst    TwoSidedLightingChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TwoSidedLightingChunk>::ObjConstPtr    TwoSidedLightingChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TwoSidedLightingChunk>::ObjPtrArg      TwoSidedLightingChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TwoSidedLightingChunk>::ObjConstPtrArg TwoSidedLightingChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          TwoSidedLightingChunk>::ObjPtrConstArg TwoSidedLightingChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TwoSidedLightingChunk);
 
 #endif
 

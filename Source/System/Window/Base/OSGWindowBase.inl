@@ -430,14 +430,7 @@ Char8 *WindowBase::getClassname(void)
 {
     return "Window";
 }
-
-typedef PointerBuilder<Window>::ObjPtr          WindowPtr;
-typedef PointerBuilder<Window>::ObjPtrConst     WindowPtrConst;
-typedef PointerBuilder<Window>::ObjConstPtr     WindowConstPtr;
-
-typedef PointerBuilder<Window>::ObjPtrArg       WindowPtrArg;
-typedef PointerBuilder<Window>::ObjConstPtrArg  WindowConstPtrArg;
-typedef PointerBuilder<Window>::ObjPtrConstArg  WindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(Window);
 
 OSG_END_NAMESPACE
 

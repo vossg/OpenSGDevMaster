@@ -193,14 +193,7 @@ Char8 *StereoCameraDecoratorBase::getClassname(void)
 {
     return "StereoCameraDecorator";
 }
-
-typedef PointerBuilder<StereoCameraDecorator>::ObjPtr          StereoCameraDecoratorPtr;
-typedef PointerBuilder<StereoCameraDecorator>::ObjPtrConst     StereoCameraDecoratorPtrConst;
-typedef PointerBuilder<StereoCameraDecorator>::ObjConstPtr     StereoCameraDecoratorConstPtr;
-
-typedef PointerBuilder<StereoCameraDecorator>::ObjPtrArg       StereoCameraDecoratorPtrArg;
-typedef PointerBuilder<StereoCameraDecorator>::ObjConstPtrArg  StereoCameraDecoratorConstPtrArg;
-typedef PointerBuilder<StereoCameraDecorator>::ObjPtrConstArg  StereoCameraDecoratorPtrConstArg;
+OSG_GEN_CONTAINERPTR(StereoCameraDecorator);
 
 OSG_END_NAMESPACE
 

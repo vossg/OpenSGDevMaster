@@ -107,20 +107,6 @@ void TestStageBase::setMessage(const std::string &value)
     _sfMessage.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-TestStagePtr TestStageBase::create(void)
-{
-    TestStagePtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TestStage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *TestStageBase::getClassname(void)
 {
     return "TestStage";
 }
-
-typedef PointerBuilder<TestStage>::ObjPtr          TestStagePtr;
-typedef PointerBuilder<TestStage>::ObjPtrConst     TestStagePtrConst;
-typedef PointerBuilder<TestStage>::ObjConstPtr     TestStageConstPtr;
-
-typedef PointerBuilder<TestStage>::ObjPtrArg       TestStagePtrArg;
-typedef PointerBuilder<TestStage>::ObjConstPtrArg  TestStageConstPtrArg;
-typedef PointerBuilder<TestStage>::ObjPtrConstArg  TestStagePtrConstArg;
+OSG_GEN_CONTAINERPTR(TestStage);
 
 OSG_END_NAMESPACE
 

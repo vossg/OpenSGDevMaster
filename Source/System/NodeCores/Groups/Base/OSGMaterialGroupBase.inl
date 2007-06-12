@@ -91,20 +91,6 @@ void MaterialGroupBase::setMaterial(MaterialPtrConstArg value)
 
 }
 
-//! create a new instance of the class
-inline
-MaterialGroupPtr MaterialGroupBase::create(void)
-{
-    MaterialGroupPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<MaterialGroup::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -152,14 +138,7 @@ Char8 *MaterialGroupBase::getClassname(void)
 {
     return "MaterialGroup";
 }
-
-typedef PointerBuilder<MaterialGroup>::ObjPtr          MaterialGroupPtr;
-typedef PointerBuilder<MaterialGroup>::ObjPtrConst     MaterialGroupPtrConst;
-typedef PointerBuilder<MaterialGroup>::ObjConstPtr     MaterialGroupConstPtr;
-
-typedef PointerBuilder<MaterialGroup>::ObjPtrArg       MaterialGroupPtrArg;
-typedef PointerBuilder<MaterialGroup>::ObjConstPtrArg  MaterialGroupConstPtrArg;
-typedef PointerBuilder<MaterialGroup>::ObjPtrConstArg  MaterialGroupPtrConstArg;
+OSG_GEN_CONTAINERPTR(MaterialGroup);
 
 OSG_END_NAMESPACE
 

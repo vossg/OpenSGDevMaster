@@ -337,6 +337,7 @@ void MaterialBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 MaterialBase::MaterialBase(void) :

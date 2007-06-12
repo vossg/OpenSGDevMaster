@@ -70,24 +70,7 @@ class PassiveBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PassiveBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PassiveBackground>::ObjPtr         PassiveBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PassiveBackground>::ObjPtrConst    PassiveBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PassiveBackground>::ObjConstPtr    PassiveBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PassiveBackground>::ObjPtrArg      PassiveBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PassiveBackground>::ObjConstPtrArg PassiveBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr,
-                          BackgroundConstPtr,
-                          PassiveBackground>::ObjPtrConstArg PassiveBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(PassiveBackground);
 
 #endif
 

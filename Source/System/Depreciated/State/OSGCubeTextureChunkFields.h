@@ -70,24 +70,7 @@ class CubeTextureChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! CubeTextureChunkPtr
 
-typedef PointerFwdBuilder<TextureChunkPtr,
-                          TextureChunkConstPtr,
-                          CubeTextureChunk>::ObjPtr         CubeTextureChunkPtr;
-typedef PointerFwdBuilder<TextureChunkPtr,
-                          TextureChunkConstPtr,
-                          CubeTextureChunk>::ObjPtrConst    CubeTextureChunkPtrConst;
-typedef PointerFwdBuilder<TextureChunkPtr,
-                          TextureChunkConstPtr,
-                          CubeTextureChunk>::ObjConstPtr    CubeTextureChunkConstPtr;
-typedef PointerFwdBuilder<TextureChunkPtr,
-                          TextureChunkConstPtr,
-                          CubeTextureChunk>::ObjPtrArg      CubeTextureChunkPtrArg;
-typedef PointerFwdBuilder<TextureChunkPtr,
-                          TextureChunkConstPtr,
-                          CubeTextureChunk>::ObjConstPtrArg CubeTextureChunkConstPtrArg;
-typedef PointerFwdBuilder<TextureChunkPtr,
-                          TextureChunkConstPtr,
-                          CubeTextureChunk>::ObjPtrConstArg CubeTextureChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(CubeTextureChunk);
 
 #endif
 

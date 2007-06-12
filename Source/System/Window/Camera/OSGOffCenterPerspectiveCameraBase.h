@@ -85,24 +85,7 @@ class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveC
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                              PerspectiveCameraConstPtr,
-                              OffCenterPerspectiveCamera>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                              PerspectiveCameraConstPtr,
-                              OffCenterPerspectiveCamera>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                              PerspectiveCameraConstPtr,
-                              OffCenterPerspectiveCamera>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                              PerspectiveCameraConstPtr,
-                              OffCenterPerspectiveCamera>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                              PerspectiveCameraConstPtr,
-                              OffCenterPerspectiveCamera>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<PerspectiveCameraPtr,
-                              PerspectiveCameraConstPtr,
-                              OffCenterPerspectiveCamera>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(OffCenterPerspectiveCamera);
 
     /*==========================  PUBLIC  =================================*/
 

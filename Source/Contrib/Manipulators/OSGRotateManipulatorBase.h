@@ -84,24 +84,7 @@ class OSG_CONTRIBGUI_DLLMAPPING RotateManipulatorBase : public Manipulator
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              RotateManipulator>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              RotateManipulator>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              RotateManipulator>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              RotateManipulator>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              RotateManipulator>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              RotateManipulator>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(RotateManipulator);
 
     /*==========================  PUBLIC  =================================*/
 

@@ -331,6 +331,20 @@ void ScreenLODBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+ScreenLODPtr ScreenLODBase::create(void)
+{
+    ScreenLODPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<ScreenLOD::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ScreenLODPtr ScreenLODBase::createEmpty(void)
 {

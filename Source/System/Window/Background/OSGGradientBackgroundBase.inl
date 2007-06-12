@@ -168,20 +168,6 @@ const MFReal32 &GradientBackgroundBase::getPosition(void) const
     return _mfPosition;
 }
 
-//! create a new instance of the class
-inline
-GradientBackgroundPtr GradientBackgroundBase::create(void)
-{
-    GradientBackgroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<GradientBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -257,14 +243,7 @@ Char8 *GradientBackgroundBase::getClassname(void)
 {
     return "GradientBackground";
 }
-
-typedef PointerBuilder<GradientBackground>::ObjPtr          GradientBackgroundPtr;
-typedef PointerBuilder<GradientBackground>::ObjPtrConst     GradientBackgroundPtrConst;
-typedef PointerBuilder<GradientBackground>::ObjConstPtr     GradientBackgroundConstPtr;
-
-typedef PointerBuilder<GradientBackground>::ObjPtrArg       GradientBackgroundPtrArg;
-typedef PointerBuilder<GradientBackground>::ObjConstPtrArg  GradientBackgroundConstPtrArg;
-typedef PointerBuilder<GradientBackground>::ObjPtrConstArg  GradientBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(GradientBackground);
 
 OSG_END_NAMESPACE
 

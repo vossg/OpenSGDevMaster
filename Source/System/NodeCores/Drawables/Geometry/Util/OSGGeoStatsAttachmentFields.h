@@ -70,24 +70,7 @@ class GeoStatsAttachment;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeoStatsAttachmentPtr
 
-typedef PointerFwdBuilder<StatsAttachmentPtr,
-                          StatsAttachmentConstPtr,
-                          GeoStatsAttachment>::ObjPtr         GeoStatsAttachmentPtr;
-typedef PointerFwdBuilder<StatsAttachmentPtr,
-                          StatsAttachmentConstPtr,
-                          GeoStatsAttachment>::ObjPtrConst    GeoStatsAttachmentPtrConst;
-typedef PointerFwdBuilder<StatsAttachmentPtr,
-                          StatsAttachmentConstPtr,
-                          GeoStatsAttachment>::ObjConstPtr    GeoStatsAttachmentConstPtr;
-typedef PointerFwdBuilder<StatsAttachmentPtr,
-                          StatsAttachmentConstPtr,
-                          GeoStatsAttachment>::ObjPtrArg      GeoStatsAttachmentPtrArg;
-typedef PointerFwdBuilder<StatsAttachmentPtr,
-                          StatsAttachmentConstPtr,
-                          GeoStatsAttachment>::ObjConstPtrArg GeoStatsAttachmentConstPtrArg;
-typedef PointerFwdBuilder<StatsAttachmentPtr,
-                          StatsAttachmentConstPtr,
-                          GeoStatsAttachment>::ObjPtrConstArg GeoStatsAttachmentPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoStatsAttachment);
 
 #endif
 

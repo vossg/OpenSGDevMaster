@@ -70,24 +70,7 @@ class BlendChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! BlendChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          BlendChunk>::ObjPtr         BlendChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          BlendChunk>::ObjPtrConst    BlendChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          BlendChunk>::ObjConstPtr    BlendChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          BlendChunk>::ObjPtrArg      BlendChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          BlendChunk>::ObjConstPtrArg BlendChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          BlendChunk>::ObjPtrConstArg BlendChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(BlendChunk);
 
 #endif
 

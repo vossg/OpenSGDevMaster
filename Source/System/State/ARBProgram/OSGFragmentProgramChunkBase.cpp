@@ -165,6 +165,20 @@ void FragmentProgramChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
 }
 
+//! create a new instance of the class
+FragmentProgramChunkPtr FragmentProgramChunkBase::create(void)
+{
+    FragmentProgramChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<FragmentProgramChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 FragmentProgramChunkPtr FragmentProgramChunkBase::createEmpty(void)
 {

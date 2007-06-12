@@ -70,24 +70,7 @@ class Camera;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! CameraPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Camera>::ObjPtr         CameraPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Camera>::ObjPtrConst    CameraPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Camera>::ObjConstPtr    CameraConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Camera>::ObjPtrArg      CameraPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Camera>::ObjConstPtrArg CameraConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          Camera>::ObjPtrConstArg CameraPtrConstArg;
+OSG_GEN_CONTAINERPTR(Camera);
 
 #endif
 

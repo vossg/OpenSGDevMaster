@@ -70,24 +70,7 @@ class TextureSelectChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureSelectChunkPtr
 
-typedef PointerFwdBuilder<TextureBaseChunkPtr,
-                          TextureBaseChunkConstPtr,
-                          TextureSelectChunk>::ObjPtr         TextureSelectChunkPtr;
-typedef PointerFwdBuilder<TextureBaseChunkPtr,
-                          TextureBaseChunkConstPtr,
-                          TextureSelectChunk>::ObjPtrConst    TextureSelectChunkPtrConst;
-typedef PointerFwdBuilder<TextureBaseChunkPtr,
-                          TextureBaseChunkConstPtr,
-                          TextureSelectChunk>::ObjConstPtr    TextureSelectChunkConstPtr;
-typedef PointerFwdBuilder<TextureBaseChunkPtr,
-                          TextureBaseChunkConstPtr,
-                          TextureSelectChunk>::ObjPtrArg      TextureSelectChunkPtrArg;
-typedef PointerFwdBuilder<TextureBaseChunkPtr,
-                          TextureBaseChunkConstPtr,
-                          TextureSelectChunk>::ObjConstPtrArg TextureSelectChunkConstPtrArg;
-typedef PointerFwdBuilder<TextureBaseChunkPtr,
-                          TextureBaseChunkConstPtr,
-                          TextureSelectChunk>::ObjPtrConstArg TextureSelectChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureSelectChunk);
 
 #endif
 

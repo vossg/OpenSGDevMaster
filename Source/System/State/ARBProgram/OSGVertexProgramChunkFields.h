@@ -70,24 +70,7 @@ class VertexProgramChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! VertexProgramChunkPtr
 
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          VertexProgramChunk>::ObjPtr         VertexProgramChunkPtr;
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          VertexProgramChunk>::ObjPtrConst    VertexProgramChunkPtrConst;
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          VertexProgramChunk>::ObjConstPtr    VertexProgramChunkConstPtr;
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          VertexProgramChunk>::ObjPtrArg      VertexProgramChunkPtrArg;
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          VertexProgramChunk>::ObjConstPtrArg VertexProgramChunkConstPtrArg;
-typedef PointerFwdBuilder<ProgramChunkPtr,
-                          ProgramChunkConstPtr,
-                          VertexProgramChunk>::ObjPtrConstArg VertexProgramChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(VertexProgramChunk);
 
 #endif
 

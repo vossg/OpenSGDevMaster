@@ -88,24 +88,7 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              ColorBufferViewport>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              ColorBufferViewport>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              ColorBufferViewport>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              ColorBufferViewport>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              ColorBufferViewport>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr,
-                              ViewportConstPtr,
-                              ColorBufferViewport>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ColorBufferViewport);
 
     /*==========================  PUBLIC  =================================*/
 

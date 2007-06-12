@@ -70,14 +70,7 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
     typedef AttachmentContainer                              Inherited;
     typedef AttachmentContainer                              ParentContainer;
 
-    typedef PointerBuilder<NodeCore>::ObjPtr                 ObjPtr;
-    typedef PointerBuilder<NodeCore>::ObjPtrConst            ObjPtrConst;
-    typedef PointerBuilder<NodeCore>::ObjConstPtr            ObjConstPtr;
-    typedef PointerBuilder<NodeCore>::ObjConstPtrConst       ObjConstPtrConst;
-    
-    typedef PointerBuilder<NodeCore>::ObjPtrArg              ObjPtrArg;
-    typedef PointerBuilder<NodeCore>::ObjConstPtrArg         ObjConstPtrArg;
-    typedef PointerBuilder<NodeCore>::ObjPtrConstArg         ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(NodeCore);
 
     typedef Inherited::TypeObject                            TypeObject;
 
@@ -336,14 +329,7 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
     void operator =(const NodeCore &source);
 };
 
-typedef NodeCore::ObjPtr           NodeCorePtr;
-typedef NodeCore::ObjPtrConst      NodeCorePtrConst;
-typedef NodeCore::ObjConstPtr      NodeCoreConstPtr;
-typedef NodeCore::ObjConstPtrConst NodeCoreConstPtrConst;
-
-typedef NodeCore::ObjPtrArg        NodeCorePtrArg;
-typedef NodeCore::ObjConstPtrArg   NodeCoreConstPtrArg;
-typedef NodeCore::ObjPtrConstArg   NodeCorePtrConstArg;
+OSG_GEN_CONTAINERPTR(NodeCore);
 
 typedef RefPtr<NodeCorePtr>        NodeCoreRefPtr;
 

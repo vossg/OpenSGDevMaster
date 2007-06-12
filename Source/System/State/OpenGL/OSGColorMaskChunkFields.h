@@ -70,24 +70,7 @@ class ColorMaskChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ColorMaskChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ColorMaskChunk>::ObjPtr         ColorMaskChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ColorMaskChunk>::ObjPtrConst    ColorMaskChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ColorMaskChunk>::ObjConstPtr    ColorMaskChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ColorMaskChunk>::ObjPtrArg      ColorMaskChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ColorMaskChunk>::ObjConstPtrArg ColorMaskChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          ColorMaskChunk>::ObjPtrConstArg ColorMaskChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(ColorMaskChunk);
 
 #endif
 

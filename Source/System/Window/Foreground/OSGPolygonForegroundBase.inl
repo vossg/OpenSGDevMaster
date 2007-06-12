@@ -383,20 +383,6 @@ const MFVec3f &PolygonForegroundBase::getTexCoords(void) const
     return _mfTexCoords;
 }
 
-//! create a new instance of the class
-inline
-PolygonForegroundPtr PolygonForegroundBase::create(void)
-{
-    PolygonForegroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<PolygonForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -514,14 +500,7 @@ Char8 *PolygonForegroundBase::getClassname(void)
 {
     return "PolygonForeground";
 }
-
-typedef PointerBuilder<PolygonForeground>::ObjPtr          PolygonForegroundPtr;
-typedef PointerBuilder<PolygonForeground>::ObjPtrConst     PolygonForegroundPtrConst;
-typedef PointerBuilder<PolygonForeground>::ObjConstPtr     PolygonForegroundConstPtr;
-
-typedef PointerBuilder<PolygonForeground>::ObjPtrArg       PolygonForegroundPtrArg;
-typedef PointerBuilder<PolygonForeground>::ObjConstPtrArg  PolygonForegroundConstPtrArg;
-typedef PointerBuilder<PolygonForeground>::ObjPtrConstArg  PolygonForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(PolygonForeground);
 
 OSG_END_NAMESPACE
 

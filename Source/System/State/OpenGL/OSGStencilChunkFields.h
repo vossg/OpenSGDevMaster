@@ -70,24 +70,7 @@ class StencilChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StencilChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          StencilChunk>::ObjPtr         StencilChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          StencilChunk>::ObjPtrConst    StencilChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          StencilChunk>::ObjConstPtr    StencilChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          StencilChunk>::ObjPtrArg      StencilChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          StencilChunk>::ObjConstPtrArg StencilChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          StencilChunk>::ObjPtrConstArg StencilChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(StencilChunk);
 
 #endif
 

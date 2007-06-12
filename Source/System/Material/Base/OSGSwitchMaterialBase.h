@@ -86,24 +86,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              SwitchMaterial>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              SwitchMaterial>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              SwitchMaterial>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              SwitchMaterial>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              SwitchMaterial>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<MaterialPtr,
-                              MaterialConstPtr,
-                              SwitchMaterial>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(SwitchMaterial);
 
     /*==========================  PUBLIC  =================================*/
 

@@ -466,20 +466,6 @@ const MFString &ClusterWindowBase::getAutostart(void) const
     return _mfAutostart;
 }
 
-//! create a new instance of the class
-inline
-ClusterWindowPtr ClusterWindowBase::create(void)
-{
-    ClusterWindowPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ClusterWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -615,14 +601,7 @@ Char8 *ClusterWindowBase::getClassname(void)
 {
     return "ClusterWindow";
 }
-
-typedef PointerBuilder<ClusterWindow>::ObjPtr          ClusterWindowPtr;
-typedef PointerBuilder<ClusterWindow>::ObjPtrConst     ClusterWindowPtrConst;
-typedef PointerBuilder<ClusterWindow>::ObjConstPtr     ClusterWindowConstPtr;
-
-typedef PointerBuilder<ClusterWindow>::ObjPtrArg       ClusterWindowPtrArg;
-typedef PointerBuilder<ClusterWindow>::ObjConstPtrArg  ClusterWindowConstPtrArg;
-typedef PointerBuilder<ClusterWindow>::ObjPtrConstArg  ClusterWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(ClusterWindow);
 
 OSG_END_NAMESPACE
 

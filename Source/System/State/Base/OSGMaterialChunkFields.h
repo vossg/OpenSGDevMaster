@@ -70,24 +70,7 @@ class MaterialChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MaterialChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          MaterialChunk>::ObjPtr         MaterialChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          MaterialChunk>::ObjPtrConst    MaterialChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          MaterialChunk>::ObjConstPtr    MaterialChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          MaterialChunk>::ObjPtrArg      MaterialChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          MaterialChunk>::ObjConstPtrArg MaterialChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr,
-                          StateChunkConstPtr,
-                          MaterialChunk>::ObjPtrConstArg MaterialChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(MaterialChunk);
 
 #endif
 

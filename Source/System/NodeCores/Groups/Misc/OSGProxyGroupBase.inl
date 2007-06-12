@@ -468,20 +468,6 @@ const MFUInt8 &ProxyGroupBase::getInline(void) const
     return _mfInline;
 }
 
-//! create a new instance of the class
-inline
-ProxyGroupPtr ProxyGroupBase::create(void)
-{
-    ProxyGroupPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ProxyGroup::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -606,14 +592,7 @@ Char8 *ProxyGroupBase::getClassname(void)
 {
     return "ProxyGroup";
 }
-
-typedef PointerBuilder<ProxyGroup>::ObjPtr          ProxyGroupPtr;
-typedef PointerBuilder<ProxyGroup>::ObjPtrConst     ProxyGroupPtrConst;
-typedef PointerBuilder<ProxyGroup>::ObjConstPtr     ProxyGroupConstPtr;
-
-typedef PointerBuilder<ProxyGroup>::ObjPtrArg       ProxyGroupPtrArg;
-typedef PointerBuilder<ProxyGroup>::ObjConstPtrArg  ProxyGroupConstPtrArg;
-typedef PointerBuilder<ProxyGroup>::ObjPtrConstArg  ProxyGroupPtrConstArg;
+OSG_GEN_CONTAINERPTR(ProxyGroup);
 
 OSG_END_NAMESPACE
 

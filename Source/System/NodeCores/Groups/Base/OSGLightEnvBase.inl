@@ -74,20 +74,6 @@ OSG::UInt16 LightEnvBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-LightEnvPtr LightEnvBase::create(void)
-{
-    LightEnvPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<LightEnv::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *LightEnvBase::getClassname(void)
 {
     return "LightEnv";
 }
-
-typedef PointerBuilder<LightEnv>::ObjPtr          LightEnvPtr;
-typedef PointerBuilder<LightEnv>::ObjPtrConst     LightEnvPtrConst;
-typedef PointerBuilder<LightEnv>::ObjConstPtr     LightEnvConstPtr;
-
-typedef PointerBuilder<LightEnv>::ObjPtrArg       LightEnvPtrArg;
-typedef PointerBuilder<LightEnv>::ObjConstPtrArg  LightEnvConstPtrArg;
-typedef PointerBuilder<LightEnv>::ObjPtrConstArg  LightEnvPtrConstArg;
+OSG_GEN_CONTAINERPTR(LightEnv);
 
 OSG_END_NAMESPACE
 

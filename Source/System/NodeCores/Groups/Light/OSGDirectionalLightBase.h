@@ -85,24 +85,7 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              DirectionalLight>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              DirectionalLight>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              DirectionalLight>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              DirectionalLight>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              DirectionalLight>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              DirectionalLight>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(DirectionalLight);
 
     /*==========================  PUBLIC  =================================*/
 

@@ -74,20 +74,6 @@ OSG::UInt16 InverseTransformBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-InverseTransformPtr InverseTransformBase::create(void)
-{
-    InverseTransformPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<InverseTransform::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *InverseTransformBase::getClassname(void)
 {
     return "InverseTransform";
 }
-
-typedef PointerBuilder<InverseTransform>::ObjPtr          InverseTransformPtr;
-typedef PointerBuilder<InverseTransform>::ObjPtrConst     InverseTransformPtrConst;
-typedef PointerBuilder<InverseTransform>::ObjConstPtr     InverseTransformConstPtr;
-
-typedef PointerBuilder<InverseTransform>::ObjPtrArg       InverseTransformPtrArg;
-typedef PointerBuilder<InverseTransform>::ObjConstPtrArg  InverseTransformConstPtrArg;
-typedef PointerBuilder<InverseTransform>::ObjPtrConstArg  InverseTransformPtrConstArg;
+OSG_GEN_CONTAINERPTR(InverseTransform);
 
 OSG_END_NAMESPACE
 

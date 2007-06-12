@@ -92,24 +92,7 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ChunkMaterialPtr,
-                              ChunkMaterialConstPtr,
-                              SimpleMaterial>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ChunkMaterialPtr,
-                              ChunkMaterialConstPtr,
-                              SimpleMaterial>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ChunkMaterialPtr,
-                              ChunkMaterialConstPtr,
-                              SimpleMaterial>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ChunkMaterialPtr,
-                              ChunkMaterialConstPtr,
-                              SimpleMaterial>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ChunkMaterialPtr,
-                              ChunkMaterialConstPtr,
-                              SimpleMaterial>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ChunkMaterialPtr,
-                              ChunkMaterialConstPtr,
-                              SimpleMaterial>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(SimpleMaterial);
 
     /*==========================  PUBLIC  =================================*/
 

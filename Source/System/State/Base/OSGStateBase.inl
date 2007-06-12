@@ -88,20 +88,6 @@ const MFStateChunkPtr &StateBase::getChunks(void) const
     return _mfChunks;
 }
 
-//! create a new instance of the class
-inline
-StatePtr StateBase::create(void)
-{
-    StatePtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<State::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -160,14 +146,7 @@ Char8 *StateBase::getClassname(void)
 {
     return "State";
 }
-
-typedef PointerBuilder<State>::ObjPtr          StatePtr;
-typedef PointerBuilder<State>::ObjPtrConst     StatePtrConst;
-typedef PointerBuilder<State>::ObjConstPtr     StateConstPtr;
-
-typedef PointerBuilder<State>::ObjPtrArg       StatePtrArg;
-typedef PointerBuilder<State>::ObjConstPtrArg  StateConstPtrArg;
-typedef PointerBuilder<State>::ObjPtrConstArg  StatePtrConstArg;
+OSG_GEN_CONTAINERPTR(State);
 
 OSG_END_NAMESPACE
 

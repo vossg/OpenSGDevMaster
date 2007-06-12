@@ -70,24 +70,7 @@ class RotateManipulator;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! RotateManipulatorPtr
 
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          RotateManipulator>::ObjPtr         RotateManipulatorPtr;
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          RotateManipulator>::ObjPtrConst    RotateManipulatorPtrConst;
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          RotateManipulator>::ObjConstPtr    RotateManipulatorConstPtr;
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          RotateManipulator>::ObjPtrArg      RotateManipulatorPtrArg;
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          RotateManipulator>::ObjConstPtrArg RotateManipulatorConstPtrArg;
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          RotateManipulator>::ObjPtrConstArg RotateManipulatorPtrConstArg;
+OSG_GEN_CONTAINERPTR(RotateManipulator);
 
 #endif
 

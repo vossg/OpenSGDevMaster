@@ -193,14 +193,7 @@ Char8 *MaterialBase::getClassname(void)
 {
     return "Material";
 }
-
-typedef PointerBuilder<Material>::ObjPtr          MaterialPtr;
-typedef PointerBuilder<Material>::ObjPtrConst     MaterialPtrConst;
-typedef PointerBuilder<Material>::ObjConstPtr     MaterialConstPtr;
-
-typedef PointerBuilder<Material>::ObjPtrArg       MaterialPtrArg;
-typedef PointerBuilder<Material>::ObjConstPtrArg  MaterialConstPtrArg;
-typedef PointerBuilder<Material>::ObjPtrConstArg  MaterialPtrConstArg;
+OSG_GEN_CONTAINERPTR(Material);
 
 OSG_END_NAMESPACE
 

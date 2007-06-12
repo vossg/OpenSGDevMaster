@@ -70,24 +70,7 @@ class ShaderParameterMVec4f;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShaderParameterMVec4fPtr
 
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMVec4f>::ObjPtr         ShaderParameterMVec4fPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMVec4f>::ObjPtrConst    ShaderParameterMVec4fPtrConst;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMVec4f>::ObjConstPtr    ShaderParameterMVec4fConstPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMVec4f>::ObjPtrArg      ShaderParameterMVec4fPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMVec4f>::ObjConstPtrArg ShaderParameterMVec4fConstPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMVec4f>::ObjPtrConstArg ShaderParameterMVec4fPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterMVec4f);
 
 #endif
 

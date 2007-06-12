@@ -70,24 +70,7 @@ class InverseTransform;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! InverseTransformPtr
 
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          InverseTransform>::ObjPtr         InverseTransformPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          InverseTransform>::ObjPtrConst    InverseTransformPtrConst;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          InverseTransform>::ObjConstPtr    InverseTransformConstPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          InverseTransform>::ObjPtrArg      InverseTransformPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          InverseTransform>::ObjConstPtrArg InverseTransformConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          InverseTransform>::ObjPtrConstArg InverseTransformPtrConstArg;
+OSG_GEN_CONTAINERPTR(InverseTransform);
 
 #endif
 

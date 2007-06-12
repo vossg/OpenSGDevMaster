@@ -168,20 +168,6 @@ const MFString &StringAttributeMapBase::getValues(void) const
     return _mfValues;
 }
 
-//! create a new instance of the class
-inline
-StringAttributeMapPtr StringAttributeMapBase::create(void)
-{
-    StringAttributeMapPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<StringAttributeMap::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -257,14 +243,7 @@ Char8 *StringAttributeMapBase::getClassname(void)
 {
     return "StringAttributeMap";
 }
-
-typedef PointerBuilder<StringAttributeMap>::ObjPtr          StringAttributeMapPtr;
-typedef PointerBuilder<StringAttributeMap>::ObjPtrConst     StringAttributeMapPtrConst;
-typedef PointerBuilder<StringAttributeMap>::ObjConstPtr     StringAttributeMapConstPtr;
-
-typedef PointerBuilder<StringAttributeMap>::ObjPtrArg       StringAttributeMapPtrArg;
-typedef PointerBuilder<StringAttributeMap>::ObjConstPtrArg  StringAttributeMapConstPtrArg;
-typedef PointerBuilder<StringAttributeMap>::ObjPtrConstArg  StringAttributeMapPtrConstArg;
+OSG_GEN_CONTAINERPTR(StringAttributeMap);
 
 OSG_END_NAMESPACE
 

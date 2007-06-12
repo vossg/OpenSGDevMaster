@@ -107,20 +107,6 @@ void ShaderParameterStringBase::setValue(const std::string &value)
     _sfValue.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-ShaderParameterStringPtr ShaderParameterStringBase::create(void)
-{
-    ShaderParameterStringPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ShaderParameterString::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *ShaderParameterStringBase::getClassname(void)
 {
     return "ShaderParameterString";
 }
-
-typedef PointerBuilder<ShaderParameterString>::ObjPtr          ShaderParameterStringPtr;
-typedef PointerBuilder<ShaderParameterString>::ObjPtrConst     ShaderParameterStringPtrConst;
-typedef PointerBuilder<ShaderParameterString>::ObjConstPtr     ShaderParameterStringConstPtr;
-
-typedef PointerBuilder<ShaderParameterString>::ObjPtrArg       ShaderParameterStringPtrArg;
-typedef PointerBuilder<ShaderParameterString>::ObjConstPtrArg  ShaderParameterStringConstPtrArg;
-typedef PointerBuilder<ShaderParameterString>::ObjPtrConstArg  ShaderParameterStringPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterString);
 
 OSG_END_NAMESPACE
 

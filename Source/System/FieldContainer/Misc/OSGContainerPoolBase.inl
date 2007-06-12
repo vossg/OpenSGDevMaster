@@ -121,20 +121,6 @@ const MFFieldContainerPtr &ContainerPoolBase::getContainers(void) const
     return _mfContainers;
 }
 
-//! create a new instance of the class
-inline
-ContainerPoolPtr ContainerPoolBase::create(void)
-{
-    ContainerPoolPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ContainerPool::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -199,14 +185,7 @@ Char8 *ContainerPoolBase::getClassname(void)
 {
     return "ContainerPool";
 }
-
-typedef PointerBuilder<ContainerPool>::ObjPtr          ContainerPoolPtr;
-typedef PointerBuilder<ContainerPool>::ObjPtrConst     ContainerPoolPtrConst;
-typedef PointerBuilder<ContainerPool>::ObjConstPtr     ContainerPoolConstPtr;
-
-typedef PointerBuilder<ContainerPool>::ObjPtrArg       ContainerPoolPtrArg;
-typedef PointerBuilder<ContainerPool>::ObjConstPtrArg  ContainerPoolConstPtrArg;
-typedef PointerBuilder<ContainerPool>::ObjPtrConstArg  ContainerPoolPtrConstArg;
+OSG_GEN_CONTAINERPTR(ContainerPool);
 
 OSG_END_NAMESPACE
 

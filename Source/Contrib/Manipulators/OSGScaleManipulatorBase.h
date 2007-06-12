@@ -84,24 +84,7 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              ScaleManipulator>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              ScaleManipulator>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              ScaleManipulator>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              ScaleManipulator>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              ScaleManipulator>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ManipulatorPtr,
-                              ManipulatorConstPtr,
-                              ScaleManipulator>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ScaleManipulator);
 
     /*==========================  PUBLIC  =================================*/
 

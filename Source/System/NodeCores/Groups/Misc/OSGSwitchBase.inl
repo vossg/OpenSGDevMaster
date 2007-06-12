@@ -107,20 +107,6 @@ void SwitchBase::setChoice(const Int32 &value)
     _sfChoice.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-SwitchPtr SwitchBase::create(void)
-{
-    SwitchPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<Switch::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *SwitchBase::getClassname(void)
 {
     return "Switch";
 }
-
-typedef PointerBuilder<Switch>::ObjPtr          SwitchPtr;
-typedef PointerBuilder<Switch>::ObjPtrConst     SwitchPtrConst;
-typedef PointerBuilder<Switch>::ObjConstPtr     SwitchConstPtr;
-
-typedef PointerBuilder<Switch>::ObjPtrArg       SwitchPtrArg;
-typedef PointerBuilder<Switch>::ObjConstPtrArg  SwitchConstPtrArg;
-typedef PointerBuilder<Switch>::ObjPtrConstArg  SwitchPtrConstArg;
+OSG_GEN_CONTAINERPTR(Switch);
 
 OSG_END_NAMESPACE
 

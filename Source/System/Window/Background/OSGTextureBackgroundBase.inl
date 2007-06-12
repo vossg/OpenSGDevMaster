@@ -303,20 +303,6 @@ const MFPnt2f &TextureBackgroundBase::getTexCoords(void) const
     return _mfTexCoords;
 }
 
-//! create a new instance of the class
-inline
-TextureBackgroundPtr TextureBackgroundBase::create(void)
-{
-    TextureBackgroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TextureBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -411,14 +397,7 @@ Char8 *TextureBackgroundBase::getClassname(void)
 {
     return "TextureBackground";
 }
-
-typedef PointerBuilder<TextureBackground>::ObjPtr          TextureBackgroundPtr;
-typedef PointerBuilder<TextureBackground>::ObjPtrConst     TextureBackgroundPtrConst;
-typedef PointerBuilder<TextureBackground>::ObjConstPtr     TextureBackgroundConstPtr;
-
-typedef PointerBuilder<TextureBackground>::ObjPtrArg       TextureBackgroundPtrArg;
-typedef PointerBuilder<TextureBackground>::ObjConstPtrArg  TextureBackgroundConstPtrArg;
-typedef PointerBuilder<TextureBackground>::ObjPtrConstArg  TextureBackgroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureBackground);
 
 OSG_END_NAMESPACE
 

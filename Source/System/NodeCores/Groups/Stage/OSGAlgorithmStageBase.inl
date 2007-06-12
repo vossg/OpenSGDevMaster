@@ -157,20 +157,6 @@ void AlgorithmStageBase::setProjectionMatrix(const Matrix &value)
     _sfProjectionMatrix.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-AlgorithmStagePtr AlgorithmStageBase::create(void)
-{
-    AlgorithmStagePtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<AlgorithmStage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -230,14 +216,7 @@ Char8 *AlgorithmStageBase::getClassname(void)
 {
     return "AlgorithmStage";
 }
-
-typedef PointerBuilder<AlgorithmStage>::ObjPtr          AlgorithmStagePtr;
-typedef PointerBuilder<AlgorithmStage>::ObjPtrConst     AlgorithmStagePtrConst;
-typedef PointerBuilder<AlgorithmStage>::ObjConstPtr     AlgorithmStageConstPtr;
-
-typedef PointerBuilder<AlgorithmStage>::ObjPtrArg       AlgorithmStagePtrArg;
-typedef PointerBuilder<AlgorithmStage>::ObjConstPtrArg  AlgorithmStageConstPtrArg;
-typedef PointerBuilder<AlgorithmStage>::ObjPtrConstArg  AlgorithmStagePtrConstArg;
+OSG_GEN_CONTAINERPTR(AlgorithmStage);
 
 OSG_END_NAMESPACE
 

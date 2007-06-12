@@ -70,24 +70,7 @@ class ImageComposer;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ImageComposerPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          ImageComposer>::ObjPtr         ImageComposerPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          ImageComposer>::ObjPtrConst    ImageComposerPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          ImageComposer>::ObjConstPtr    ImageComposerConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          ImageComposer>::ObjPtrArg      ImageComposerPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          ImageComposer>::ObjConstPtrArg ImageComposerConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          ImageComposer>::ObjPtrConstArg ImageComposerPtrConstArg;
+OSG_GEN_CONTAINERPTR(ImageComposer);
 
 #endif
 

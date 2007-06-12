@@ -752,6 +752,20 @@ void SHLChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+SHLChunkPtr SHLChunkBase::create(void)
+{
+    SHLChunkPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<SHLChunk::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SHLChunkPtr SHLChunkBase::createEmpty(void)
 {

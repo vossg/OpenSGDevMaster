@@ -74,20 +74,6 @@ OSG::UInt16 MoveManipulatorBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-MoveManipulatorPtr MoveManipulatorBase::create(void)
-{
-    MoveManipulatorPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<MoveManipulator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *MoveManipulatorBase::getClassname(void)
 {
     return "MoveManipulator";
 }
-
-typedef PointerBuilder<MoveManipulator>::ObjPtr          MoveManipulatorPtr;
-typedef PointerBuilder<MoveManipulator>::ObjPtrConst     MoveManipulatorPtrConst;
-typedef PointerBuilder<MoveManipulator>::ObjConstPtr     MoveManipulatorConstPtr;
-
-typedef PointerBuilder<MoveManipulator>::ObjPtrArg       MoveManipulatorPtrArg;
-typedef PointerBuilder<MoveManipulator>::ObjConstPtrArg  MoveManipulatorConstPtrArg;
-typedef PointerBuilder<MoveManipulator>::ObjPtrConstArg  MoveManipulatorPtrConstArg;
+OSG_GEN_CONTAINERPTR(MoveManipulator);
 
 OSG_END_NAMESPACE
 

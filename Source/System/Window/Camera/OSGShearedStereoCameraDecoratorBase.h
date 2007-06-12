@@ -86,24 +86,7 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                              StereoCameraDecoratorConstPtr,
-                              ShearedStereoCameraDecorator>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                              StereoCameraDecoratorConstPtr,
-                              ShearedStereoCameraDecorator>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                              StereoCameraDecoratorConstPtr,
-                              ShearedStereoCameraDecorator>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                              StereoCameraDecoratorConstPtr,
-                              ShearedStereoCameraDecorator>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                              StereoCameraDecoratorConstPtr,
-                              ShearedStereoCameraDecorator>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
-                              StereoCameraDecoratorConstPtr,
-                              ShearedStereoCameraDecorator>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ShearedStereoCameraDecorator);
 
     /*==========================  PUBLIC  =================================*/
 

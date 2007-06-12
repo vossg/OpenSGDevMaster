@@ -84,24 +84,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public FieldContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              Algorithm>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              Algorithm>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              Algorithm>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              Algorithm>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              Algorithm>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              Algorithm>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(Algorithm);
 
     /*==========================  PUBLIC  =================================*/
 

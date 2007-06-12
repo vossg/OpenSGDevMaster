@@ -1475,20 +1475,6 @@ const MFColor4f &RegisterCombinersChunkBase::getCombinerColor1(void) const
     return _mfCombinerColor1;
 }
 
-//! create a new instance of the class
-inline
-RegisterCombinersChunkPtr RegisterCombinersChunkBase::create(void)
-{
-    RegisterCombinersChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<RegisterCombinersChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -2013,14 +1999,7 @@ Char8 *RegisterCombinersChunkBase::getClassname(void)
 {
     return "RegisterCombinersChunk";
 }
-
-typedef PointerBuilder<RegisterCombinersChunk>::ObjPtr          RegisterCombinersChunkPtr;
-typedef PointerBuilder<RegisterCombinersChunk>::ObjPtrConst     RegisterCombinersChunkPtrConst;
-typedef PointerBuilder<RegisterCombinersChunk>::ObjConstPtr     RegisterCombinersChunkConstPtr;
-
-typedef PointerBuilder<RegisterCombinersChunk>::ObjPtrArg       RegisterCombinersChunkPtrArg;
-typedef PointerBuilder<RegisterCombinersChunk>::ObjConstPtrArg  RegisterCombinersChunkConstPtrArg;
-typedef PointerBuilder<RegisterCombinersChunk>::ObjPtrConstArg  RegisterCombinersChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(RegisterCombinersChunk);
 
 OSG_END_NAMESPACE
 

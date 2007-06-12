@@ -74,20 +74,6 @@ OSG::UInt16 RotateManipulatorBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-RotateManipulatorPtr RotateManipulatorBase::create(void)
-{
-    RotateManipulatorPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<RotateManipulator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *RotateManipulatorBase::getClassname(void)
 {
     return "RotateManipulator";
 }
-
-typedef PointerBuilder<RotateManipulator>::ObjPtr          RotateManipulatorPtr;
-typedef PointerBuilder<RotateManipulator>::ObjPtrConst     RotateManipulatorPtrConst;
-typedef PointerBuilder<RotateManipulator>::ObjConstPtr     RotateManipulatorConstPtr;
-
-typedef PointerBuilder<RotateManipulator>::ObjPtrArg       RotateManipulatorPtrArg;
-typedef PointerBuilder<RotateManipulator>::ObjConstPtrArg  RotateManipulatorConstPtrArg;
-typedef PointerBuilder<RotateManipulator>::ObjPtrConstArg  RotateManipulatorPtrConstArg;
+OSG_GEN_CONTAINERPTR(RotateManipulator);
 
 OSG_END_NAMESPACE
 

@@ -87,23 +87,7 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef BundlePointerBuilder<
-        StageData>::ObjPtr         ObjPtr;
-
-    typedef BundlePointerBuilder<
-        StageData>::ObjPtrConst    ObjPtrConst;
-
-    typedef BundlePointerBuilder<
-        StageData>::ObjConstPtr    ObjConstPtr;
-
-    typedef BundlePointerBuilder<
-        StageData>::ObjPtrArg      ObjPtrArg;
-
-    typedef BundlePointerBuilder<
-        StageData>::ObjConstPtrArg ObjConstPtrArg;
-
-    typedef BundlePointerBuilder<
-        StageData>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(StageData);
 
     /*==========================  PUBLIC  =================================*/
 

@@ -86,24 +86,7 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StringAttributeMap>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StringAttributeMap>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StringAttributeMap>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StringAttributeMap>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StringAttributeMap>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              StringAttributeMap>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(StringAttributeMap);
 
     /*==========================  PUBLIC  =================================*/
 

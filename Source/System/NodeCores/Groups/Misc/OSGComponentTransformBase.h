@@ -89,24 +89,7 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<TransformPtr,
-                              TransformConstPtr,
-                              ComponentTransform>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<TransformPtr,
-                              TransformConstPtr,
-                              ComponentTransform>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<TransformPtr,
-                              TransformConstPtr,
-                              ComponentTransform>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<TransformPtr,
-                              TransformConstPtr,
-                              ComponentTransform>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<TransformPtr,
-                              TransformConstPtr,
-                              ComponentTransform>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<TransformPtr,
-                              TransformConstPtr,
-                              ComponentTransform>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ComponentTransform);
 
     /*==========================  PUBLIC  =================================*/
 

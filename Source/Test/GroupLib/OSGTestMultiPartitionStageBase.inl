@@ -220,20 +220,6 @@ const MFInt32 &TestMultiPartitionStageBase::getOrder(void) const
     return _mfOrder;
 }
 
-//! create a new instance of the class
-inline
-TestMultiPartitionStagePtr TestMultiPartitionStageBase::create(void)
-{
-    TestMultiPartitionStagePtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<TestMultiPartitionStage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -310,14 +296,7 @@ Char8 *TestMultiPartitionStageBase::getClassname(void)
 {
     return "TestMultiPartitionStage";
 }
-
-typedef PointerBuilder<TestMultiPartitionStage>::ObjPtr          TestMultiPartitionStagePtr;
-typedef PointerBuilder<TestMultiPartitionStage>::ObjPtrConst     TestMultiPartitionStagePtrConst;
-typedef PointerBuilder<TestMultiPartitionStage>::ObjConstPtr     TestMultiPartitionStageConstPtr;
-
-typedef PointerBuilder<TestMultiPartitionStage>::ObjPtrArg       TestMultiPartitionStagePtrArg;
-typedef PointerBuilder<TestMultiPartitionStage>::ObjConstPtrArg  TestMultiPartitionStageConstPtrArg;
-typedef PointerBuilder<TestMultiPartitionStage>::ObjPtrConstArg  TestMultiPartitionStagePtrConstArg;
+OSG_GEN_CONTAINERPTR(TestMultiPartitionStage);
 
 OSG_END_NAMESPACE
 

@@ -70,24 +70,7 @@ class MultiPassMaterial;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MultiPassMaterialPtr
 
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          MultiPassMaterial>::ObjPtr         MultiPassMaterialPtr;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          MultiPassMaterial>::ObjPtrConst    MultiPassMaterialPtrConst;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          MultiPassMaterial>::ObjConstPtr    MultiPassMaterialConstPtr;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          MultiPassMaterial>::ObjPtrArg      MultiPassMaterialPtrArg;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          MultiPassMaterial>::ObjConstPtrArg MultiPassMaterialConstPtrArg;
-typedef PointerFwdBuilder<MaterialPtr,
-                          MaterialConstPtr,
-                          MultiPassMaterial>::ObjPtrConstArg MultiPassMaterialPtrConstArg;
+OSG_GEN_CONTAINERPTR(MultiPassMaterial);
 
 #endif
 

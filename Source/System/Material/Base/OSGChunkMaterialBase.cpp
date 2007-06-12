@@ -565,6 +565,20 @@ void ChunkMaterialBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+ChunkMaterialPtr ChunkMaterialBase::create(void)
+{
+    ChunkMaterialPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<ChunkMaterial::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ChunkMaterialPtr ChunkMaterialBase::createEmpty(void)
 {

@@ -70,23 +70,7 @@ class StageData;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StageDataP
 
-typedef BundlePointerBuilder<
-    StageData>::ObjPtr         StageDataP;
-
-typedef BundlePointerBuilder<
-    StageData>::ObjPtrConst    StageDataPConst;
-
-typedef BundlePointerBuilder<
-    StageData>::ObjConstPtr    StageDataConstP;
-
-typedef BundlePointerBuilder<
-    StageData>::ObjPtrArg      StageDataPArg;
-
-typedef BundlePointerBuilder<
-    StageData>::ObjConstPtrArg StageDataConstPArg;
-
-typedef BundlePointerBuilder<
-    StageData>::ObjPtrConstArg StageDataPConstArg;
+OSG_GEN_BUNDLEP(StageData);
 
 #endif
 

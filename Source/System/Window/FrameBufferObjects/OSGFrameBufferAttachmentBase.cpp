@@ -294,6 +294,7 @@ void FrameBufferAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 FrameBufferAttachmentBase::FrameBufferAttachmentBase(void) :

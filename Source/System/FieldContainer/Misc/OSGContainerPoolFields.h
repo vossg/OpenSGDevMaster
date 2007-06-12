@@ -70,24 +70,7 @@ class ContainerPool;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ContainerPoolPtr
 
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          ContainerPool>::ObjPtr         ContainerPoolPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          ContainerPool>::ObjPtrConst    ContainerPoolPtrConst;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          ContainerPool>::ObjConstPtr    ContainerPoolConstPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          ContainerPool>::ObjPtrArg      ContainerPoolPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          ContainerPool>::ObjConstPtrArg ContainerPoolConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                          FieldContainerAttachmentConstPtr,
-                          ContainerPool>::ObjPtrConstArg ContainerPoolPtrConstArg;
+OSG_GEN_CONTAINERPTR(ContainerPool);
 
 #endif
 

@@ -1414,6 +1414,20 @@ void TiledQuadTreeTerrainBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::create(void)
+{
+    TiledQuadTreeTerrainPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<TiledQuadTreeTerrain::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::createEmpty(void)
 {

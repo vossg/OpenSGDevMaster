@@ -153,6 +153,7 @@ void StatsAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 StatsAttachmentBase::StatsAttachmentBase(void) :

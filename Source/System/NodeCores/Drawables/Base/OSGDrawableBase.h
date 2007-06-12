@@ -84,24 +84,7 @@ class OSG_SYSTEM_DLLMAPPING DrawableBase : public NodeCore
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Drawable>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Drawable>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Drawable>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Drawable>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Drawable>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr,
-                              NodeCoreConstPtr,
-                              Drawable>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(Drawable);
 
     /*==========================  PUBLIC  =================================*/
 

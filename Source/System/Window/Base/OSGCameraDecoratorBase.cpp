@@ -365,6 +365,7 @@ void CameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 CameraDecoratorBase::CameraDecoratorBase(void) :

@@ -305,6 +305,20 @@ void RenderBufferBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+RenderBufferPtr RenderBufferBase::create(void)
+{
+    RenderBufferPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<RenderBuffer::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 RenderBufferPtr RenderBufferBase::createEmpty(void)
 {

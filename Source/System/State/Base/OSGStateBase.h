@@ -85,24 +85,7 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              State>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              State>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              State>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              State>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              State>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerPtr,
-                              FieldContainerConstPtr,
-                              State>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(State);
 
     /*==========================  PUBLIC  =================================*/
 

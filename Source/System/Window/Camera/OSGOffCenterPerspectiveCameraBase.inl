@@ -107,20 +107,6 @@ void OffCenterPerspectiveCameraBase::setPrincipalPoint(const Vec2f &value)
     _sfPrincipalPoint.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-OffCenterPerspectiveCameraPtr OffCenterPerspectiveCameraBase::create(void)
-{
-    OffCenterPerspectiveCameraPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<OffCenterPerspectiveCamera::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *OffCenterPerspectiveCameraBase::getClassname(void)
 {
     return "OffCenterPerspectiveCamera";
 }
-
-typedef PointerBuilder<OffCenterPerspectiveCamera>::ObjPtr          OffCenterPerspectiveCameraPtr;
-typedef PointerBuilder<OffCenterPerspectiveCamera>::ObjPtrConst     OffCenterPerspectiveCameraPtrConst;
-typedef PointerBuilder<OffCenterPerspectiveCamera>::ObjConstPtr     OffCenterPerspectiveCameraConstPtr;
-
-typedef PointerBuilder<OffCenterPerspectiveCamera>::ObjPtrArg       OffCenterPerspectiveCameraPtrArg;
-typedef PointerBuilder<OffCenterPerspectiveCamera>::ObjConstPtrArg  OffCenterPerspectiveCameraConstPtrArg;
-typedef PointerBuilder<OffCenterPerspectiveCamera>::ObjPtrConstArg  OffCenterPerspectiveCameraPtrConstArg;
+OSG_GEN_CONTAINERPTR(OffCenterPerspectiveCamera);
 
 OSG_END_NAMESPACE
 

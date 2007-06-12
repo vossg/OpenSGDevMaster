@@ -50,20 +50,7 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeoVectorPropertyPtr
 
-typedef PointerFwdBuilder<
-          GeoVectorPropertyPtr, 
-          GeoVectorPropertyConstPtr, 
-          GeoPnt3fProperty>::ObjPtr         GeoPnt3fPropertyPtr;
-
-typedef PointerFwdBuilder<
-          GeoVectorPropertyPtr,
-          GeoVectorPropertyConstPtr, 
-          GeoPnt3fProperty>::ObjPtrConst    GeoPnt3fPropertyPtrConst;
-
-typedef PointerFwdBuilder<
-          GeoVectorPropertyPtr,
-          GeoVectorPropertyConstPtr, 
-          GeoPnt3fProperty>::ObjPtrConstArg GeoPnt3fPropertyPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoPnt3fProperty);
 
 #endif
 
@@ -135,20 +122,7 @@ OSG_FIELD_DLLEXPORT_DECL1(MField,
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeoVectorPropertyPtr
 
-typedef PointerFwdBuilder<
-          GeoVectorPropertyPtr, 
-          GeoVectorPropertyConstPtr, 
-          GeoVec3fProperty>::ObjPtr         GeoVec3fPropertyPtr;
-
-typedef PointerFwdBuilder<
-          GeoVectorPropertyPtr,
-          GeoVectorPropertyConstPtr, 
-          GeoVec3fProperty>::ObjPtrConst    GeoVec3fPropertyPtrConst;
-
-typedef PointerFwdBuilder<
-          GeoVectorPropertyPtr,
-          GeoVectorPropertyConstPtr, 
-          GeoVec3fProperty>::ObjPtrConstArg GeoVec3fPropertyPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoVec3fProperty);
 
 #endif
 
@@ -222,20 +196,7 @@ OSG_FIELD_DLLEXPORT_DECL1(MField,
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeoVectroPropertyPtr
 
-typedef PointerFwdBuilder<
-          GeoVectorPropertyPtr, 
-          GeoVectorPropertyConstPtr, 
-          GeoColor4fProperty>::ObjPtr         GeoColor4fPropertyPtr;
-
-typedef PointerFwdBuilder<
-          GeoVectorPropertyPtr,
-          GeoVectorPropertyConstPtr, 
-          GeoColor4fProperty>::ObjPtrConst    GeoColor4fPropertyPtrConst;
-
-typedef PointerFwdBuilder<
-          GeoVectorPropertyPtr,
-          GeoVectorPropertyConstPtr, 
-          GeoColor4fProperty>::ObjPtrConstArg GeoColor4fPropertyPtrConstArg;
+OSG_GEN_CONTAINERPTR(GeoColor4fProperty);
 
 #endif
 

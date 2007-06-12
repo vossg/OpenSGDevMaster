@@ -70,24 +70,7 @@ class CoreGLWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! CoreGLWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CoreGLWindow>::ObjPtr         CoreGLWindowPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CoreGLWindow>::ObjPtrConst    CoreGLWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CoreGLWindow>::ObjConstPtr    CoreGLWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CoreGLWindow>::ObjPtrArg      CoreGLWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CoreGLWindow>::ObjConstPtrArg CoreGLWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr,
-                          WindowConstPtr,
-                          CoreGLWindow>::ObjPtrConstArg CoreGLWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(CoreGLWindow);
 
 #endif
 

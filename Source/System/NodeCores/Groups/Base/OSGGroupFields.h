@@ -70,24 +70,7 @@ class Group;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GroupPtr
 
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Group>::ObjPtr         GroupPtr;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Group>::ObjPtrConst    GroupPtrConst;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Group>::ObjConstPtr    GroupConstPtr;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Group>::ObjPtrArg      GroupPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Group>::ObjConstPtrArg GroupConstPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          Group>::ObjPtrConstArg GroupPtrConstArg;
+OSG_GEN_CONTAINERPTR(Group);
 
 #endif
 

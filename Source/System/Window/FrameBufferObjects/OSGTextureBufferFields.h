@@ -70,24 +70,7 @@ class TextureBuffer;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureBufferPtr
 
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          TextureBuffer>::ObjPtr         TextureBufferPtr;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          TextureBuffer>::ObjPtrConst    TextureBufferPtrConst;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          TextureBuffer>::ObjConstPtr    TextureBufferConstPtr;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          TextureBuffer>::ObjPtrArg      TextureBufferPtrArg;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          TextureBuffer>::ObjConstPtrArg TextureBufferConstPtrArg;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
-                          FrameBufferAttachmentConstPtr,
-                          TextureBuffer>::ObjPtrConstArg TextureBufferPtrConstArg;
+OSG_GEN_CONTAINERPTR(TextureBuffer);
 
 #endif
 

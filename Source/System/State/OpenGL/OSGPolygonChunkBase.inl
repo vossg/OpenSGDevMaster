@@ -451,20 +451,6 @@ const MFInt32 &PolygonChunkBase::getStipple(void) const
     return _mfStipple;
 }
 
-//! create a new instance of the class
-inline
-PolygonChunkPtr PolygonChunkBase::create(void)
-{
-    PolygonChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<PolygonChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -583,14 +569,7 @@ Char8 *PolygonChunkBase::getClassname(void)
 {
     return "PolygonChunk";
 }
-
-typedef PointerBuilder<PolygonChunk>::ObjPtr          PolygonChunkPtr;
-typedef PointerBuilder<PolygonChunk>::ObjPtrConst     PolygonChunkPtrConst;
-typedef PointerBuilder<PolygonChunk>::ObjConstPtr     PolygonChunkConstPtr;
-
-typedef PointerBuilder<PolygonChunk>::ObjPtrArg       PolygonChunkPtrArg;
-typedef PointerBuilder<PolygonChunk>::ObjConstPtrArg  PolygonChunkConstPtrArg;
-typedef PointerBuilder<PolygonChunk>::ObjPtrConstArg  PolygonChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(PolygonChunk);
 
 OSG_END_NAMESPACE
 

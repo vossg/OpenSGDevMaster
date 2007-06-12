@@ -87,24 +87,7 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GrabForegroundPtr,
-                              GrabForegroundConstPtr,
-                              FileGrabForeground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GrabForegroundPtr,
-                              GrabForegroundConstPtr,
-                              FileGrabForeground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GrabForegroundPtr,
-                              GrabForegroundConstPtr,
-                              FileGrabForeground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GrabForegroundPtr,
-                              GrabForegroundConstPtr,
-                              FileGrabForeground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GrabForegroundPtr,
-                              GrabForegroundConstPtr,
-                              FileGrabForeground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GrabForegroundPtr,
-                              GrabForegroundConstPtr,
-                              FileGrabForeground>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(FileGrabForeground);
 
     /*==========================  PUBLIC  =================================*/
 

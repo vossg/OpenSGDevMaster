@@ -115,14 +115,7 @@ Char8 *AlgorithmBase::getClassname(void)
 {
     return "Algorithm";
 }
-
-typedef PointerBuilder<Algorithm>::ObjPtr          AlgorithmPtr;
-typedef PointerBuilder<Algorithm>::ObjPtrConst     AlgorithmPtrConst;
-typedef PointerBuilder<Algorithm>::ObjConstPtr     AlgorithmConstPtr;
-
-typedef PointerBuilder<Algorithm>::ObjPtrArg       AlgorithmPtrArg;
-typedef PointerBuilder<Algorithm>::ObjConstPtrArg  AlgorithmConstPtrArg;
-typedef PointerBuilder<Algorithm>::ObjPtrConstArg  AlgorithmPtrConstArg;
+OSG_GEN_CONTAINERPTR(Algorithm);
 
 OSG_END_NAMESPACE
 

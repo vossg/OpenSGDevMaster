@@ -338,20 +338,6 @@ void SimpleMaterialBase::setColorMaterial(const GLenum &value)
     _sfColorMaterial.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-SimpleMaterialPtr SimpleMaterialBase::create(void)
-{
-    SimpleMaterialPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<SimpleMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -441,14 +427,7 @@ Char8 *SimpleMaterialBase::getClassname(void)
 {
     return "SimpleMaterial";
 }
-
-typedef PointerBuilder<SimpleMaterial>::ObjPtr          SimpleMaterialPtr;
-typedef PointerBuilder<SimpleMaterial>::ObjPtrConst     SimpleMaterialPtrConst;
-typedef PointerBuilder<SimpleMaterial>::ObjConstPtr     SimpleMaterialConstPtr;
-
-typedef PointerBuilder<SimpleMaterial>::ObjPtrArg       SimpleMaterialPtrArg;
-typedef PointerBuilder<SimpleMaterial>::ObjConstPtrArg  SimpleMaterialConstPtrArg;
-typedef PointerBuilder<SimpleMaterial>::ObjPtrConstArg  SimpleMaterialPtrConstArg;
+OSG_GEN_CONTAINERPTR(SimpleMaterial);
 
 OSG_END_NAMESPACE
 

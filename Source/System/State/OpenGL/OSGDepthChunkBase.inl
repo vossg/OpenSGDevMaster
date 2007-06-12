@@ -239,20 +239,6 @@ void DepthChunkBase::setReadOnly(const bool &value)
     _sfReadOnly.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-DepthChunkPtr DepthChunkBase::create(void)
-{
-    DepthChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<DepthChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -324,14 +310,7 @@ Char8 *DepthChunkBase::getClassname(void)
 {
     return "DepthChunk";
 }
-
-typedef PointerBuilder<DepthChunk>::ObjPtr          DepthChunkPtr;
-typedef PointerBuilder<DepthChunk>::ObjPtrConst     DepthChunkPtrConst;
-typedef PointerBuilder<DepthChunk>::ObjConstPtr     DepthChunkConstPtr;
-
-typedef PointerBuilder<DepthChunk>::ObjPtrArg       DepthChunkPtrArg;
-typedef PointerBuilder<DepthChunk>::ObjConstPtrArg  DepthChunkConstPtrArg;
-typedef PointerBuilder<DepthChunk>::ObjPtrConstArg  DepthChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(DepthChunk);
 
 OSG_END_NAMESPACE
 

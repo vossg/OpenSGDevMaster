@@ -217,20 +217,6 @@ const MFGeoVec3fPropertyPtr &VTKMapperBase::getNormals(void) const
     return _mfNormals;
 }
 
-//! create a new instance of the class
-inline
-VTKMapperPtr VTKMapperBase::create(void)
-{
-    VTKMapperPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<VTKMapper::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -431,14 +417,7 @@ Char8 *VTKMapperBase::getClassname(void)
 {
     return "VTKMapper";
 }
-
-typedef PointerBuilder<VTKMapper>::ObjPtr          VTKMapperPtr;
-typedef PointerBuilder<VTKMapper>::ObjPtrConst     VTKMapperPtrConst;
-typedef PointerBuilder<VTKMapper>::ObjConstPtr     VTKMapperConstPtr;
-
-typedef PointerBuilder<VTKMapper>::ObjPtrArg       VTKMapperPtrArg;
-typedef PointerBuilder<VTKMapper>::ObjConstPtrArg  VTKMapperConstPtrArg;
-typedef PointerBuilder<VTKMapper>::ObjPtrConstArg  VTKMapperPtrConstArg;
+OSG_GEN_CONTAINERPTR(VTKMapper);
 
 OSG_END_NAMESPACE
 

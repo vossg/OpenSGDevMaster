@@ -232,14 +232,7 @@ Char8 *ShaderChunkBase::getClassname(void)
 {
     return "ShaderChunk";
 }
-
-typedef PointerBuilder<ShaderChunk>::ObjPtr          ShaderChunkPtr;
-typedef PointerBuilder<ShaderChunk>::ObjPtrConst     ShaderChunkPtrConst;
-typedef PointerBuilder<ShaderChunk>::ObjConstPtr     ShaderChunkConstPtr;
-
-typedef PointerBuilder<ShaderChunk>::ObjPtrArg       ShaderChunkPtrArg;
-typedef PointerBuilder<ShaderChunk>::ObjConstPtrArg  ShaderChunkConstPtrArg;
-typedef PointerBuilder<ShaderChunk>::ObjPtrConstArg  ShaderChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderChunk);
 
 OSG_END_NAMESPACE
 

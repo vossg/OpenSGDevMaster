@@ -91,24 +91,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StatsAttachmentPtr,
-                              StatsAttachmentConstPtr,
-                              GeoStatsAttachment>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StatsAttachmentPtr,
-                              StatsAttachmentConstPtr,
-                              GeoStatsAttachment>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StatsAttachmentPtr,
-                              StatsAttachmentConstPtr,
-                              GeoStatsAttachment>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StatsAttachmentPtr,
-                              StatsAttachmentConstPtr,
-                              GeoStatsAttachment>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StatsAttachmentPtr,
-                              StatsAttachmentConstPtr,
-                              GeoStatsAttachment>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StatsAttachmentPtr,
-                              StatsAttachmentConstPtr,
-                              GeoStatsAttachment>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(GeoStatsAttachment);
 
     /*==========================  PUBLIC  =================================*/
 

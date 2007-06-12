@@ -67,24 +67,6 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineData : public SimpleShadowM
     typedef SimpleShadowMapEngineDataBase Inherited;
     typedef SimpleShadowMapEngineData     Self;
 
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjPtr           ObjPtr;
-
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjPtrConst      ObjPtrConst;
-
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjConstPtr      ObjConstPtr;
-
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjPtrArg        ObjPtrArg;
-
-    typedef BundlePointerBuilder<
-        SimpleShadowMapEngineData>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */

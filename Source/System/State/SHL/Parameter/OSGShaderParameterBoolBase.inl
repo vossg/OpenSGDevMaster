@@ -107,20 +107,6 @@ void ShaderParameterBoolBase::setValue(const bool &value)
     _sfValue.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-ShaderParameterBoolPtr ShaderParameterBoolBase::create(void)
-{
-    ShaderParameterBoolPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ShaderParameterBool::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -168,14 +154,7 @@ Char8 *ShaderParameterBoolBase::getClassname(void)
 {
     return "ShaderParameterBool";
 }
-
-typedef PointerBuilder<ShaderParameterBool>::ObjPtr          ShaderParameterBoolPtr;
-typedef PointerBuilder<ShaderParameterBool>::ObjPtrConst     ShaderParameterBoolPtrConst;
-typedef PointerBuilder<ShaderParameterBool>::ObjConstPtr     ShaderParameterBoolConstPtr;
-
-typedef PointerBuilder<ShaderParameterBool>::ObjPtrArg       ShaderParameterBoolPtrArg;
-typedef PointerBuilder<ShaderParameterBool>::ObjConstPtrArg  ShaderParameterBoolConstPtrArg;
-typedef PointerBuilder<ShaderParameterBool>::ObjPtrConstArg  ShaderParameterBoolPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterBool);
 
 OSG_END_NAMESPACE
 

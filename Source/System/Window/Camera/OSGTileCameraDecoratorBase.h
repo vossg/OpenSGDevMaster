@@ -90,24 +90,7 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<CameraDecoratorPtr,
-                              CameraDecoratorConstPtr,
-                              TileCameraDecorator>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<CameraDecoratorPtr,
-                              CameraDecoratorConstPtr,
-                              TileCameraDecorator>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<CameraDecoratorPtr,
-                              CameraDecoratorConstPtr,
-                              TileCameraDecorator>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<CameraDecoratorPtr,
-                              CameraDecoratorConstPtr,
-                              TileCameraDecorator>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<CameraDecoratorPtr,
-                              CameraDecoratorConstPtr,
-                              TileCameraDecorator>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<CameraDecoratorPtr,
-                              CameraDecoratorConstPtr,
-                              TileCameraDecorator>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(TileCameraDecorator);
 
     /*==========================  PUBLIC  =================================*/
 

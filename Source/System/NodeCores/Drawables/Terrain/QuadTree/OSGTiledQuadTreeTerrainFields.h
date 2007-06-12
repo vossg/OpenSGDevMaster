@@ -70,24 +70,7 @@ class TiledQuadTreeTerrain;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TiledQuadTreeTerrainPtr
 
-typedef PointerFwdBuilder<MaterialGroupPtr,
-                          MaterialGroupConstPtr,
-                          TiledQuadTreeTerrain>::ObjPtr         TiledQuadTreeTerrainPtr;
-typedef PointerFwdBuilder<MaterialGroupPtr,
-                          MaterialGroupConstPtr,
-                          TiledQuadTreeTerrain>::ObjPtrConst    TiledQuadTreeTerrainPtrConst;
-typedef PointerFwdBuilder<MaterialGroupPtr,
-                          MaterialGroupConstPtr,
-                          TiledQuadTreeTerrain>::ObjConstPtr    TiledQuadTreeTerrainConstPtr;
-typedef PointerFwdBuilder<MaterialGroupPtr,
-                          MaterialGroupConstPtr,
-                          TiledQuadTreeTerrain>::ObjPtrArg      TiledQuadTreeTerrainPtrArg;
-typedef PointerFwdBuilder<MaterialGroupPtr,
-                          MaterialGroupConstPtr,
-                          TiledQuadTreeTerrain>::ObjConstPtrArg TiledQuadTreeTerrainConstPtrArg;
-typedef PointerFwdBuilder<MaterialGroupPtr,
-                          MaterialGroupConstPtr,
-                          TiledQuadTreeTerrain>::ObjPtrConstArg TiledQuadTreeTerrainPtrConstArg;
+OSG_GEN_CONTAINERPTR(TiledQuadTreeTerrain);
 
 #endif
 

@@ -438,6 +438,7 @@ void StatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 StatisticsForegroundBase::StatisticsForegroundBase(void) :

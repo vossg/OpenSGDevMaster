@@ -91,20 +91,6 @@ void VisitSubTreeBase::setSubTreeRoot(NodePtrConstArg value)
 
 }
 
-//! create a new instance of the class
-inline
-VisitSubTreePtr VisitSubTreeBase::create(void)
-{
-    VisitSubTreePtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<VisitSubTree::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -152,14 +138,7 @@ Char8 *VisitSubTreeBase::getClassname(void)
 {
     return "VisitSubTree";
 }
-
-typedef PointerBuilder<VisitSubTree>::ObjPtr          VisitSubTreePtr;
-typedef PointerBuilder<VisitSubTree>::ObjPtrConst     VisitSubTreePtrConst;
-typedef PointerBuilder<VisitSubTree>::ObjConstPtr     VisitSubTreeConstPtr;
-
-typedef PointerBuilder<VisitSubTree>::ObjPtrArg       VisitSubTreePtrArg;
-typedef PointerBuilder<VisitSubTree>::ObjConstPtrArg  VisitSubTreeConstPtrArg;
-typedef PointerBuilder<VisitSubTree>::ObjPtrConstArg  VisitSubTreePtrConstArg;
+OSG_GEN_CONTAINERPTR(VisitSubTree);
 
 OSG_END_NAMESPACE
 

@@ -92,24 +92,7 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public ShadowMapEnginePare
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<LightEnginePtr,
-                              LightEngineConstPtr,
-                              ShadowMapEngine>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<LightEnginePtr,
-                              LightEngineConstPtr,
-                              ShadowMapEngine>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<LightEnginePtr,
-                              LightEngineConstPtr,
-                              ShadowMapEngine>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<LightEnginePtr,
-                              LightEngineConstPtr,
-                              ShadowMapEngine>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<LightEnginePtr,
-                              LightEngineConstPtr,
-                              ShadowMapEngine>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<LightEnginePtr,
-                              LightEngineConstPtr,
-                              ShadowMapEngine>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(ShadowMapEngine);
 
     /*==========================  PUBLIC  =================================*/
 

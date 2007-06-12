@@ -278,30 +278,6 @@ struct FieldTraits<ParentFieldContainerPtr, 1> :
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-
-typedef PointerFwdBuilder<
-    FieldContainerPtr, 
-    FieldContainerConstPtr,
-    FieldContainerAttachment>::ObjPtr      FieldContainerAttachmentPtr;
-
-typedef PointerFwdBuilder<
-    FieldContainerPtr, 
-    FieldContainerConstPtr,
-    FieldContainerAttachment>::ObjPtrConst FieldContainerAttachmentPtrConst;
-
-typedef PointerFwdBuilder<
-    FieldContainerPtr, 
-    FieldContainerConstPtr,
-    FieldContainerAttachment>::ObjConstPtr FieldContainerAttachmentConstPtr;
-
-typedef PointerFwdBuilder<
-    FieldContainerPtr, 
-    FieldContainerConstPtr,
-    FieldContainerAttachment>::ObjPtrConstArg 
-                                           FieldContainerAttachmentPtrConstArg;
-
 OSG_END_NAMESPACE
-
-#define OSGFIELDCONTAINERFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGFIELDCONTAINERFIELDTRAITS_H_ */

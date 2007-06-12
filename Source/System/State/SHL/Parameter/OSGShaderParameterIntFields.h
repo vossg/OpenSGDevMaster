@@ -70,24 +70,7 @@ class ShaderParameterInt;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShaderParameterIntPtr
 
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterInt>::ObjPtr         ShaderParameterIntPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterInt>::ObjPtrConst    ShaderParameterIntPtrConst;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterInt>::ObjConstPtr    ShaderParameterIntConstPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterInt>::ObjPtrArg      ShaderParameterIntPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterInt>::ObjConstPtrArg ShaderParameterIntConstPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterInt>::ObjPtrConstArg ShaderParameterIntPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterInt);
 
 #endif
 

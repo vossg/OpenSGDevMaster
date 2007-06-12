@@ -70,24 +70,7 @@ class LightEnv;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! LightEnvPtr
 
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          LightEnv>::ObjPtr         LightEnvPtr;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          LightEnv>::ObjPtrConst    LightEnvPtrConst;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          LightEnv>::ObjConstPtr    LightEnvConstPtr;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          LightEnv>::ObjPtrArg      LightEnvPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          LightEnv>::ObjConstPtrArg LightEnvConstPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr,
-                          NodeCoreConstPtr,
-                          LightEnv>::ObjPtrConstArg LightEnvPtrConstArg;
+OSG_GEN_CONTAINERPTR(LightEnv);
 
 #endif
 

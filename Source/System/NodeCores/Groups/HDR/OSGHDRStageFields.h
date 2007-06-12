@@ -70,24 +70,7 @@ class HDRStage;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! HDRStagePtr
 
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          HDRStage>::ObjPtr         HDRStagePtr;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          HDRStage>::ObjPtrConst    HDRStagePtrConst;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          HDRStage>::ObjConstPtr    HDRStageConstPtr;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          HDRStage>::ObjPtrArg      HDRStagePtrArg;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          HDRStage>::ObjConstPtrArg HDRStageConstPtrArg;
-typedef PointerFwdBuilder<StagePtr,
-                          StageConstPtr,
-                          HDRStage>::ObjPtrConstArg HDRStagePtrConstArg;
+OSG_GEN_CONTAINERPTR(HDRStage);
 
 #endif
 

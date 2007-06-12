@@ -1104,6 +1104,7 @@ void ManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 ManipulatorBase::ManipulatorBase(void) :

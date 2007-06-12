@@ -85,24 +85,7 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              DepthClearBackground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              DepthClearBackground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              DepthClearBackground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              DepthClearBackground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              DepthClearBackground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr,
-                              BackgroundConstPtr,
-                              DepthClearBackground>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(DepthClearBackground);
 
     /*==========================  PUBLIC  =================================*/
 

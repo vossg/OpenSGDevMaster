@@ -171,14 +171,7 @@ Char8 *ShaderParameterBase::getClassname(void)
 {
     return "ShaderParameter";
 }
-
-typedef PointerBuilder<ShaderParameter>::ObjPtr          ShaderParameterPtr;
-typedef PointerBuilder<ShaderParameter>::ObjPtrConst     ShaderParameterPtrConst;
-typedef PointerBuilder<ShaderParameter>::ObjConstPtr     ShaderParameterConstPtr;
-
-typedef PointerBuilder<ShaderParameter>::ObjPtrArg       ShaderParameterPtrArg;
-typedef PointerBuilder<ShaderParameter>::ObjConstPtrArg  ShaderParameterConstPtrArg;
-typedef PointerBuilder<ShaderParameter>::ObjPtrConstArg  ShaderParameterPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameter);
 
 OSG_END_NAMESPACE
 

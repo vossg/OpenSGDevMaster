@@ -121,20 +121,6 @@ const MFVec4f &ShaderParameterMVec4fBase::getValue(void) const
     return _mfValue;
 }
 
-//! create a new instance of the class
-inline
-ShaderParameterMVec4fPtr ShaderParameterMVec4fBase::create(void)
-{
-    ShaderParameterMVec4fPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ShaderParameterMVec4f::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -193,14 +179,7 @@ Char8 *ShaderParameterMVec4fBase::getClassname(void)
 {
     return "ShaderParameterMVec4f";
 }
-
-typedef PointerBuilder<ShaderParameterMVec4f>::ObjPtr          ShaderParameterMVec4fPtr;
-typedef PointerBuilder<ShaderParameterMVec4f>::ObjPtrConst     ShaderParameterMVec4fPtrConst;
-typedef PointerBuilder<ShaderParameterMVec4f>::ObjConstPtr     ShaderParameterMVec4fConstPtr;
-
-typedef PointerBuilder<ShaderParameterMVec4f>::ObjPtrArg       ShaderParameterMVec4fPtrArg;
-typedef PointerBuilder<ShaderParameterMVec4f>::ObjConstPtrArg  ShaderParameterMVec4fConstPtrArg;
-typedef PointerBuilder<ShaderParameterMVec4f>::ObjPtrConstArg  ShaderParameterMVec4fPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterMVec4f);
 
 OSG_END_NAMESPACE
 

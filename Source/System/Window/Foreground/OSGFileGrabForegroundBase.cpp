@@ -390,6 +390,20 @@ void FileGrabForegroundBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+FileGrabForegroundPtr FileGrabForegroundBase::create(void)
+{
+    FileGrabForegroundPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<FileGrabForeground::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 FileGrabForegroundPtr FileGrabForegroundBase::createEmpty(void)
 {

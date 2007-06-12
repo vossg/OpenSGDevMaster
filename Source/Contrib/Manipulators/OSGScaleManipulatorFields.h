@@ -70,24 +70,7 @@ class ScaleManipulator;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ScaleManipulatorPtr
 
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          ScaleManipulator>::ObjPtr         ScaleManipulatorPtr;
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          ScaleManipulator>::ObjPtrConst    ScaleManipulatorPtrConst;
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          ScaleManipulator>::ObjConstPtr    ScaleManipulatorConstPtr;
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          ScaleManipulator>::ObjPtrArg      ScaleManipulatorPtrArg;
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          ScaleManipulator>::ObjConstPtrArg ScaleManipulatorConstPtrArg;
-typedef PointerFwdBuilder<ManipulatorPtr,
-                          ManipulatorConstPtr,
-                          ScaleManipulator>::ObjPtrConstArg ScaleManipulatorPtrConstArg;
+OSG_GEN_CONTAINERPTR(ScaleManipulator);
 
 #endif
 

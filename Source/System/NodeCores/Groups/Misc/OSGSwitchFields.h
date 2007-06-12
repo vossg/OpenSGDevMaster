@@ -70,24 +70,7 @@ class Switch;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SwitchPtr
 
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Switch>::ObjPtr         SwitchPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Switch>::ObjPtrConst    SwitchPtrConst;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Switch>::ObjConstPtr    SwitchConstPtr;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Switch>::ObjPtrArg      SwitchPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Switch>::ObjConstPtrArg SwitchConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr,
-                          GroupConstPtr,
-                          Switch>::ObjPtrConstArg SwitchPtrConstArg;
+OSG_GEN_CONTAINERPTR(Switch);
 
 #endif
 

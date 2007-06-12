@@ -121,20 +121,6 @@ const MFMaterialPtr &SwitchMaterialBase::getMaterials(void) const
     return _mfMaterials;
 }
 
-//! create a new instance of the class
-inline
-SwitchMaterialPtr SwitchMaterialBase::create(void)
-{
-    SwitchMaterialPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<SwitchMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -199,14 +185,7 @@ Char8 *SwitchMaterialBase::getClassname(void)
 {
     return "SwitchMaterial";
 }
-
-typedef PointerBuilder<SwitchMaterial>::ObjPtr          SwitchMaterialPtr;
-typedef PointerBuilder<SwitchMaterial>::ObjPtrConst     SwitchMaterialPtrConst;
-typedef PointerBuilder<SwitchMaterial>::ObjConstPtr     SwitchMaterialConstPtr;
-
-typedef PointerBuilder<SwitchMaterial>::ObjPtrArg       SwitchMaterialPtrArg;
-typedef PointerBuilder<SwitchMaterial>::ObjConstPtrArg  SwitchMaterialConstPtrArg;
-typedef PointerBuilder<SwitchMaterial>::ObjPtrConstArg  SwitchMaterialPtrConstArg;
+OSG_GEN_CONTAINERPTR(SwitchMaterial);
 
 OSG_END_NAMESPACE
 

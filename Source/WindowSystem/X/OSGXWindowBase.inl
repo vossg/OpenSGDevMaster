@@ -173,20 +173,6 @@ void XWindowBase::setContext(const GLXContext &value)
     _sfContext.setValue(value);
 }
 
-//! create a new instance of the class
-inline
-XWindowPtr XWindowBase::create(void)
-{
-    XWindowPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<XWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -246,14 +232,7 @@ Char8 *XWindowBase::getClassname(void)
 {
     return "XWindow";
 }
-
-typedef PointerBuilder<XWindow>::ObjPtr          XWindowPtr;
-typedef PointerBuilder<XWindow>::ObjPtrConst     XWindowPtrConst;
-typedef PointerBuilder<XWindow>::ObjConstPtr     XWindowConstPtr;
-
-typedef PointerBuilder<XWindow>::ObjPtrArg       XWindowPtrArg;
-typedef PointerBuilder<XWindow>::ObjConstPtrArg  XWindowConstPtrArg;
-typedef PointerBuilder<XWindow>::ObjPtrConstArg  XWindowPtrConstArg;
+OSG_GEN_CONTAINERPTR(XWindow);
 
 OSG_END_NAMESPACE
 

@@ -484,20 +484,6 @@ const MFString &SimpleStatisticsForegroundBase::getFormats(void) const
     return _mfFormats;
 }
 
-//! create a new instance of the class
-inline
-SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::create(void)
-{
-    SimpleStatisticsForegroundPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<SimpleStatisticsForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -622,14 +608,7 @@ Char8 *SimpleStatisticsForegroundBase::getClassname(void)
 {
     return "SimpleStatisticsForeground";
 }
-
-typedef PointerBuilder<SimpleStatisticsForeground>::ObjPtr          SimpleStatisticsForegroundPtr;
-typedef PointerBuilder<SimpleStatisticsForeground>::ObjPtrConst     SimpleStatisticsForegroundPtrConst;
-typedef PointerBuilder<SimpleStatisticsForeground>::ObjConstPtr     SimpleStatisticsForegroundConstPtr;
-
-typedef PointerBuilder<SimpleStatisticsForeground>::ObjPtrArg       SimpleStatisticsForegroundPtrArg;
-typedef PointerBuilder<SimpleStatisticsForeground>::ObjConstPtrArg  SimpleStatisticsForegroundConstPtrArg;
-typedef PointerBuilder<SimpleStatisticsForeground>::ObjPtrConstArg  SimpleStatisticsForegroundPtrConstArg;
+OSG_GEN_CONTAINERPTR(SimpleStatisticsForeground);
 
 OSG_END_NAMESPACE
 

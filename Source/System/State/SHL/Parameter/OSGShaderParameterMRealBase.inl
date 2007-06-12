@@ -121,20 +121,6 @@ const MFReal32 &ShaderParameterMRealBase::getValue(void) const
     return _mfValue;
 }
 
-//! create a new instance of the class
-inline
-ShaderParameterMRealPtr ShaderParameterMRealBase::create(void)
-{
-    ShaderParameterMRealPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<ShaderParameterMReal::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -193,14 +179,7 @@ Char8 *ShaderParameterMRealBase::getClassname(void)
 {
     return "ShaderParameterMReal";
 }
-
-typedef PointerBuilder<ShaderParameterMReal>::ObjPtr          ShaderParameterMRealPtr;
-typedef PointerBuilder<ShaderParameterMReal>::ObjPtrConst     ShaderParameterMRealPtrConst;
-typedef PointerBuilder<ShaderParameterMReal>::ObjConstPtr     ShaderParameterMRealConstPtr;
-
-typedef PointerBuilder<ShaderParameterMReal>::ObjPtrArg       ShaderParameterMRealPtrArg;
-typedef PointerBuilder<ShaderParameterMReal>::ObjConstPtrArg  ShaderParameterMRealConstPtrArg;
-typedef PointerBuilder<ShaderParameterMReal>::ObjPtrConstArg  ShaderParameterMRealPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterMReal);
 
 OSG_END_NAMESPACE
 

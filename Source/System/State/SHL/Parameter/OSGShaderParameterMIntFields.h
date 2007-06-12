@@ -70,24 +70,7 @@ class ShaderParameterMInt;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShaderParameterMIntPtr
 
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMInt>::ObjPtr         ShaderParameterMIntPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMInt>::ObjPtrConst    ShaderParameterMIntPtrConst;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMInt>::ObjConstPtr    ShaderParameterMIntConstPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMInt>::ObjPtrArg      ShaderParameterMIntPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMInt>::ObjConstPtrArg ShaderParameterMIntConstPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr,
-                          ShaderParameterConstPtr,
-                          ShaderParameterMInt>::ObjPtrConstArg ShaderParameterMIntPtrConstArg;
+OSG_GEN_CONTAINERPTR(ShaderParameterMInt);
 
 #endif
 

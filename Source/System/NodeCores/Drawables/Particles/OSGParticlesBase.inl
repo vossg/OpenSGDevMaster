@@ -533,20 +533,6 @@ const MFReal32 &ParticlesBase::getTextureZs(void) const
     return _mfTextureZs;
 }
 
-//! create a new instance of the class
-inline
-ParticlesPtr ParticlesBase::create(void)
-{
-    ParticlesPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<Particles::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -699,14 +685,7 @@ Char8 *ParticlesBase::getClassname(void)
 {
     return "Particles";
 }
-
-typedef PointerBuilder<Particles>::ObjPtr          ParticlesPtr;
-typedef PointerBuilder<Particles>::ObjPtrConst     ParticlesPtrConst;
-typedef PointerBuilder<Particles>::ObjConstPtr     ParticlesConstPtr;
-
-typedef PointerBuilder<Particles>::ObjPtrArg       ParticlesPtrArg;
-typedef PointerBuilder<Particles>::ObjConstPtrArg  ParticlesConstPtrArg;
-typedef PointerBuilder<Particles>::ObjPtrConstArg  ParticlesPtrConstArg;
+OSG_GEN_CONTAINERPTR(Particles);
 
 OSG_END_NAMESPACE
 

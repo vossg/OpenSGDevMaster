@@ -70,24 +70,7 @@ class FrameBufferObject;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! FrameBufferObjectPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          FrameBufferObject>::ObjPtr         FrameBufferObjectPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          FrameBufferObject>::ObjPtrConst    FrameBufferObjectPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          FrameBufferObject>::ObjConstPtr    FrameBufferObjectConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          FrameBufferObject>::ObjPtrArg      FrameBufferObjectPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          FrameBufferObject>::ObjConstPtrArg FrameBufferObjectConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr,
-                          AttachmentContainerConstPtr,
-                          FrameBufferObject>::ObjPtrConstArg FrameBufferObjectPtrConstArg;
+OSG_GEN_CONTAINERPTR(FrameBufferObject);
 
 #endif
 

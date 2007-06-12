@@ -314,6 +314,20 @@ void StereoBufferViewportBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+StereoBufferViewportPtr StereoBufferViewportBase::create(void)
+{
+    StereoBufferViewportPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = OSG::cast_dynamic<StereoBufferViewport::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 StereoBufferViewportPtr StereoBufferViewportBase::createEmpty(void)
 {

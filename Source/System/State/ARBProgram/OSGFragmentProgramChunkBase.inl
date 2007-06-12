@@ -74,20 +74,6 @@ OSG::UInt16 FragmentProgramChunkBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
-inline
-FragmentProgramChunkPtr FragmentProgramChunkBase::create(void)
-{
-    FragmentProgramChunkPtr fc;
-
-    if(getClassType().getPrototype() != NullFC)
-    {
-        fc = OSG::cast_dynamic<FragmentProgramChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
-}
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -129,14 +115,7 @@ Char8 *FragmentProgramChunkBase::getClassname(void)
 {
     return "FragmentProgramChunk";
 }
-
-typedef PointerBuilder<FragmentProgramChunk>::ObjPtr          FragmentProgramChunkPtr;
-typedef PointerBuilder<FragmentProgramChunk>::ObjPtrConst     FragmentProgramChunkPtrConst;
-typedef PointerBuilder<FragmentProgramChunk>::ObjConstPtr     FragmentProgramChunkConstPtr;
-
-typedef PointerBuilder<FragmentProgramChunk>::ObjPtrArg       FragmentProgramChunkPtrArg;
-typedef PointerBuilder<FragmentProgramChunk>::ObjConstPtrArg  FragmentProgramChunkConstPtrArg;
-typedef PointerBuilder<FragmentProgramChunk>::ObjPtrConstArg  FragmentProgramChunkPtrConstArg;
+OSG_GEN_CONTAINERPTR(FragmentProgramChunk);
 
 OSG_END_NAMESPACE
 

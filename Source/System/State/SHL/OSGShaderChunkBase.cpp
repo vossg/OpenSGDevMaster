@@ -362,6 +362,7 @@ void ShaderChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 ShaderChunkBase::ShaderChunkBase(void) :

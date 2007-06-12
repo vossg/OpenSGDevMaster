@@ -101,24 +101,7 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              RenderOptions>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              RenderOptions>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              RenderOptions>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              RenderOptions>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              RenderOptions>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
-                              FieldContainerAttachmentConstPtr,
-                              RenderOptions>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(RenderOptions);
 
     /*==========================  PUBLIC  =================================*/
 

@@ -85,24 +85,7 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              PointLight>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              PointLight>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              PointLight>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              PointLight>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              PointLight>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<LightPtr,
-                              LightConstPtr,
-                              PointLight>::ObjPtrConstArg ObjPtrConstArg;
+    OSG_GEN_INTERNALPTR(PointLight);
 
     /*==========================  PUBLIC  =================================*/
 
