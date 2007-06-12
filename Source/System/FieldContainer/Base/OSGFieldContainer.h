@@ -51,6 +51,7 @@
 #include "OSGSystemProfile.h"
 #include "OSGChangedFunctorMFields.h"
 #include "OSGAspectStore.h"
+#include "OSGRefPtr.h"
 
 OSG_BEGIN_NAMESPACE
 

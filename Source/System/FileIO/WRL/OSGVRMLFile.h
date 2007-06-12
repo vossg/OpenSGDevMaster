@@ -52,7 +52,6 @@
 #include "OSGScanParseSkel.h"
 #include "OSGScanParseFieldTypeMapper.h"
 
-#include "OSGFieldContainerPtr.h"
 #include "OSGField.h"
 #include "OSGFieldContainer.h"
 

@@ -44,7 +44,6 @@
 #endif
 
 #include "OSGBaseTypes.h"
-#include "OSGFieldContainerPtr.h"
 #include "OSGNodeCore.h"
 #include "OSGGeoProperty.h"
 #include "OSGPrimitiveIterator.h"

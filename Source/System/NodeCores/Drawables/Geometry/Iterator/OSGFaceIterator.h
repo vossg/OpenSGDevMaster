@@ -44,7 +44,6 @@
 #endif
 
 #include "OSGBaseTypes.h"
-#include "OSGFieldContainerPtr.h"
 #include "OSGNodeCore.h"
 #include "OSGDrawableDef.h"
 #include "OSGGeoProperty.h"

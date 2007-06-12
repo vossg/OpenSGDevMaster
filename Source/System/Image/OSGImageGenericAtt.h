@@ -60,7 +60,6 @@
 #include <map>
 #endif
 
-#include "OSGFieldContainerPtr.h"
 #include "OSGFieldContainer.h"
 #include "OSGFieldContainerAttachment.h"
 #include "OSGDynamicAttachmentMixin.h"

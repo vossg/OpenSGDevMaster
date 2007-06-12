@@ -47,7 +47,6 @@
 
 #include <OSGLog.h>
 #include <OSGFieldContainer.h>
-#include <OSGFieldContainerPtr.h>
 #include <OSGNode.h>
 #include <OSGNodeCore.h>
 #include <OSGAction.h>

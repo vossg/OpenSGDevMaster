@@ -47,7 +47,6 @@
 #include "OSGSingletonHolder.h"
 #include "OSGContainerForwards.h"
 #include "OSGContainerFactory.h"
-#include "OSGFieldContainerPtr.h"
 #include "OSGAspectStore.h"
 #include "OSGContainerIdMapper.h"
 

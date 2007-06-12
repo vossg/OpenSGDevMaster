@@ -69,8 +69,6 @@
 #include "OSGNodeCoreSFields.h"
 #include "OSGNodeCoreMFields.h"
 
-#include "OSGFieldContainerPtr.h"
-
 #include <OSGSFieldAdaptor.ins>
 #include <OSGMFieldAdaptor.ins>
 

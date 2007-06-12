@@ -47,7 +47,7 @@
  */
 #endif
 
-#include "OSGFieldContainerPtr.h"
+#include "OSGContainerForwards.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -138,7 +138,5 @@ typedef RefPtr<FieldContainerPtr> FieldContainerRefPtr;
 OSG_END_NAMESPACE
 
 #include "OSGRefPtr.inl"
-
-#define OSGREFPTR_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGCOREDNODEPTR_H_ */

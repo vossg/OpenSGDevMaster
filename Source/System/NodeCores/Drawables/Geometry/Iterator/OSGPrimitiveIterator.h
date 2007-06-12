@@ -46,7 +46,6 @@
 #include "OSGBaseTypes.h"
 #include "OSGVector.h"
 #include "OSGColor.h"
-#include "OSGFieldContainerPtr.h"
 #include "OSGNodeCore.h"
 #include "OSGDrawableDef.h"
 #include "OSGGeometry.h"

@@ -49,7 +49,6 @@
 #include <OSGGL.h>
 
 #include "OSGNode.h"
-#include "OSGFieldContainerPtr.h"
 #include "OSGViewport.h"
 #include "OSGWindow.h"
 #include "OSGLine.h"

@@ -53,7 +53,6 @@
 
 #include "OSGLog.h"
 
-#include "OSGFieldContainerPtr.h"
 #include "OSGGeometry.h"
 #include "OSGDrawEnv.h"
 

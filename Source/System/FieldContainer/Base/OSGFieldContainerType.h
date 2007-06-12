@@ -44,7 +44,6 @@
 
 #include "OSGContainerForwards.h"
 #include "OSGReflexiveContainerType.h"
-#include "OSGFieldContainerPtr.h"
 //#include "OSGAspectStore.h"
 
 OSG_BEGIN_NAMESPACE

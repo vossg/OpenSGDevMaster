@@ -42,7 +42,6 @@
 #pragma once
 #endif
 
-#include <OpenSG/OSGFieldContainerPtr.h>
 #include <boost/preprocessor/facilities/empty.hpp>
 
 /*---------------------------- get type decl --------------------------------*/
@@ -427,7 +426,5 @@
 #else
 #define OSG_ABSTR_FC_DLLEXPORT_DECL(CLASSNAME, T1, DLLMAPPING)
 #endif
-
-#define OSGCONTAINERDEFINES_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGCONTAINERDEFINES_H_ */
