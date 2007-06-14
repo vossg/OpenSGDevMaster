@@ -73,7 +73,7 @@ OSBDriver::read(std::istream &inStream, const std::string &optionStr)
     root->read    ("");
     root->postRead(  );
 
-    node = cast_dynamic<NodePtr>(root->getContainer());
+    node = dynamic_cast<NodePtr>(root->getContainer());
 
     root->terminateRead();
 

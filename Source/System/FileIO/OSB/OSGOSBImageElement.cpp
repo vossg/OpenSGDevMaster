@@ -184,7 +184,7 @@ OSBImageElement::write(void)
         return;
     }
 
-    ImagePtr               img   = cast_dynamic<ImagePtr>(getContainer());
+    ImagePtr               img   = dynamic_cast<ImagePtr>(getContainer());
     BinaryWriteHandler    *wh    = editRoot()->getWriteHandler();
     const OSBRootElement *root  = getRoot();
     UInt8                  flags = 0;
@@ -234,7 +234,7 @@ void
 OSBImageElement::readCompressedPixelData(void)
 {
     BinaryReadHandler *rh  = editRoot()->getReadHandler();
-    ImagePtr           img = cast_dynamic<ImagePtr>(getContainer());
+    ImagePtr           img = dynamic_cast<ImagePtr>(getContainer());
 
     std::string        fieldTypeName;
     UInt32             fieldSize;
@@ -274,7 +274,7 @@ OSBImageElement::writeCompressedPixelData(void)
     const OSBRootElement *root = getRoot();
     BinaryWriteHandler   *wh   = editRoot()->getWriteHandler();
 
-    ImagePtr    img       = cast_dynamic<ImagePtr>(getContainer());
+    ImagePtr    img       = dynamic_cast<ImagePtr>(getContainer());
     //std::string imageType = root->getOptions().textureImageType();
     std::string imageType = "jpeg";
 

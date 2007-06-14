@@ -518,7 +518,7 @@ void GeoMultiPropertyBase::pushToField(      FieldContainerPtrConstArg pNewEleme
     if(uiFieldId == ContainerFieldId)
     {
         static_cast<GeoMultiProperty *>(this)->setContainer(
-            cast_dynamic<GeoMultiPropertyDataPtr>(pNewElement));
+            dynamic_cast<GeoMultiPropertyDataPtr>(pNewElement));
     }
 }
 
@@ -687,7 +687,7 @@ GeoMultiPropertyPtr GeoMultiPropertyBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<GeoMultiProperty::ObjPtr>(
+        fc = dynamic_cast<GeoMultiProperty::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

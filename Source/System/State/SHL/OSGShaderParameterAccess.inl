@@ -58,7 +58,7 @@ bool ShaderParameterAccess::setParameter(const Char8     *name,
         //ParameterType::Ptr p = 
         //    ParameterType::Ptr::dcast(_parameters[(*it).second]);
 
-        ParamPtr p = cast_dynamic<ParamPtr>(
+        ParamPtr p = dynamic_cast<ParamPtr>(
             _parameters.getParameters()[(*it).second]);
 
         if(p == NullFC)
@@ -111,7 +111,7 @@ bool ShaderParameterAccess::setMParameter(const char      *name,
     if(it != _parametermap.end())
     {
         //ParameterType::Ptr p = ParameterType::Ptr::dcast(_parameters[(*it).second]);
-        ParamPtr p = cast_dynamic<ParamPtr>(
+        ParamPtr p = dynamic_cast<ParamPtr>(
             _parameters.getParameters()[(*it).second]);
 
         if(p == NullFC)
@@ -162,7 +162,7 @@ bool ShaderParameterAccess::getParameter(const Char8 *name, ValueType &value)
     
     if(it != _parametermap.end())
     {
-        ParamPtr p = cast_dynamic<ParamPtr>(
+        ParamPtr p = dynamic_cast<ParamPtr>(
             _parameters.getParameters()[(*it).second]);
 
         if(p == NullFC)

@@ -82,7 +82,7 @@ all the different ClusterWindows!
 		type="ParentFieldContainerPtr"
 		cardinality="single"
 		visibility="external"
-		access="public"
+		access="none"
         doRefCount="false"
         passFieldMask="true"
 	>

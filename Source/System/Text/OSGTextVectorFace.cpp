@@ -135,7 +135,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
     // cast the field containers down to the needed type and create them
     // when they have the wrong type
     GeoPnt3fPropertyPtr posPtr = 
-        cast_dynamic<GeoPnt3fPropertyPtr>(geoPtr->getPositions());
+        dynamic_cast<GeoPnt3fPropertyPtr>(geoPtr->getPositions());
 
     if (posPtr == NullFC)
     {
@@ -145,7 +145,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
     else
         posPtr->clear();
     GeoVec3fPropertyPtr normalsPtr = 
-        cast_dynamic<GeoVec3fPropertyPtr>(geoPtr->getNormals());
+        dynamic_cast<GeoVec3fPropertyPtr>(geoPtr->getNormals());
 
     if (normalsPtr == NullFC)
     {
@@ -156,7 +156,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
         normalsPtr->clear();
 
     GeoVec2fPropertyPtr texPtr = 
-        cast_dynamic<GeoVec2fPropertyPtr>(geoPtr->getTexCoords());
+        dynamic_cast<GeoVec2fPropertyPtr>(geoPtr->getTexCoords());
 
     if (texPtr == NullFC)
     {
@@ -167,7 +167,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
         texPtr->clear();
 
     GeoUInt32PropertyPtr lensPtr = 
-        cast_dynamic<GeoUInt32PropertyPtr>(geoPtr->getLengths());
+        dynamic_cast<GeoUInt32PropertyPtr>(geoPtr->getLengths());
 
     if (lensPtr == NullFC)
     {
@@ -178,7 +178,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
         lensPtr->clear();
 
     GeoUInt32PropertyPtr posIndicesPtr = 
-        cast_dynamic<GeoUInt32PropertyPtr>(
+        dynamic_cast<GeoUInt32PropertyPtr>(
             geoPtr->getIndex(Geometry::PositionsIndex));
 
     if (posIndicesPtr == NullFC)
@@ -190,7 +190,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
         posIndicesPtr->clear();
 
     GeoUInt32PropertyPtr normalIndicesPtr = 
-        cast_dynamic<GeoUInt32PropertyPtr>(
+        dynamic_cast<GeoUInt32PropertyPtr>(
             geoPtr->getIndex(Geometry::NormalsIndex));
 
     if (normalIndicesPtr == NullFC)
@@ -202,7 +202,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
         normalIndicesPtr->clear();
 
     GeoUInt32PropertyPtr texCoordIndicesPtr = 
-        cast_dynamic<GeoUInt32PropertyPtr>(
+        dynamic_cast<GeoUInt32PropertyPtr>(
             geoPtr->getIndex(Geometry::TexCoordsIndex));
 
     if (texCoordIndicesPtr == NullFC)
@@ -214,7 +214,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
         texCoordIndicesPtr->clear();
 
     GeoUInt8PropertyPtr typesPtr = 
-        cast_dynamic<GeoUInt8PropertyPtr>(geoPtr->getTypes());
+        dynamic_cast<GeoUInt8PropertyPtr>(geoPtr->getTypes());
 
     if (typesPtr == NullFC)
     {

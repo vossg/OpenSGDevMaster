@@ -252,7 +252,7 @@ TextureTransformChunkPtr TextureTransformChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TextureTransformChunk::ObjPtr>(
+        fc = dynamic_cast<TextureTransformChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

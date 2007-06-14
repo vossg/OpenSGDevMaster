@@ -237,7 +237,7 @@ void SimpleShadowMapEngine::lightRenderEnter(LightPtr               pLight,
     
     Int32         iLightIndex     = pAction->allocateLightIndex();
 
-    LightChunkPtr pLightChunk     = cast_dynamic<LightChunkPtr>(pChunk);
+    LightChunkPtr pLightChunk     = dynamic_cast<LightChunkPtr>(pChunk);
 
 //    Color4f tmpVal(0.0, 0.0, 0.0, 1.0);
     
@@ -266,10 +266,10 @@ void SimpleShadowMapEngine::setupCamera(LightPtr               pLight,
     if(eType == Directional)
     {
         DirectionalLightPtr pDLight = 
-            cast_dynamic<DirectionalLightPtr>(pLight);
+            dynamic_cast<DirectionalLightPtr>(pLight);
 
         MatrixCameraPtr pCam = 
-            cast_dynamic<MatrixCameraPtr>(pEngineData->getCamera());
+            dynamic_cast<MatrixCameraPtr>(pEngineData->getCamera());
         
         if(pCam == NullFC)
         {
@@ -326,10 +326,10 @@ void SimpleShadowMapEngine::setupCamera(LightPtr               pLight,
     }
     else if(eType == Point)
     {
-        PointLightPtr pPLight = cast_dynamic<PointLightPtr>(pLight);
+        PointLightPtr pPLight = dynamic_cast<PointLightPtr>(pLight);
 
         MatrixCameraPtr pCam = 
-            cast_dynamic<MatrixCameraPtr>(pEngineData->getCamera());
+            dynamic_cast<MatrixCameraPtr>(pEngineData->getCamera());
         
         if(pCam == NullFC)
         {
@@ -399,7 +399,7 @@ void SimpleShadowMapEngine::setupLightChunk(LightPtr               pLight,
     if(eType == Directional)
     {
         DirectionalLightPtr pDLight = 
-            cast_dynamic<DirectionalLightPtr>(pLight);
+            dynamic_cast<DirectionalLightPtr>(pLight);
 
         LightChunkPtr pChunk = pEngineData->getLightChunk();
 
@@ -432,7 +432,7 @@ void SimpleShadowMapEngine::setupLightChunk(LightPtr               pLight,
     }
     else if(eType == Point)
     {
-        PointLightPtr pPLight = cast_dynamic<PointLightPtr>(pLight);
+        PointLightPtr pPLight = dynamic_cast<PointLightPtr>(pLight);
 
         LightChunkPtr pChunk = pEngineData->getLightChunk();
         
@@ -675,7 +675,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr               pLight,
     biasMatrix.setScale(0.5);
     biasMatrix.setTranslate(0.5,0.5,0.5);
     
-    MatrixCameraPtr pCam = cast_dynamic<MatrixCameraPtr>(
+    MatrixCameraPtr pCam = dynamic_cast<MatrixCameraPtr>(
         pEngineData->getCamera());
 
     pCam->getProjection(projectionMatrix,

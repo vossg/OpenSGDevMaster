@@ -387,7 +387,7 @@ SpotLightPtr SpotLightBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<SpotLight::ObjPtr>(
+        fc = dynamic_cast<SpotLight::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

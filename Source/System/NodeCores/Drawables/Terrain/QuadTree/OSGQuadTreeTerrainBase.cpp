@@ -1412,12 +1412,12 @@ void QuadTreeTerrainBase::pushToField(      FieldContainerPtrConstArg pNewElemen
     if(uiFieldId == HeightDataFieldId)
     {
         static_cast<QuadTreeTerrain *>(this)->setHeightData(
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
     if(uiFieldId == HeightVerticesFieldId)
     {
         static_cast<QuadTreeTerrain *>(this)->setHeightVertices(
-            cast_dynamic<GeoVectorPropertyPtr>(pNewElement));
+            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
     }
 }
 
@@ -1958,7 +1958,7 @@ QuadTreeTerrainPtr QuadTreeTerrainBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<QuadTreeTerrain::ObjPtr>(
+        fc = dynamic_cast<QuadTreeTerrain::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

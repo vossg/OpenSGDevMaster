@@ -366,7 +366,7 @@ RenderAction::RenderAction(void) :
     _funcGetQueryObjectuivARB   = Window::registerFunction (OSG_DLSYM_UNDERSCORE"glGetQueryObjectuivARB", _arbOcclusionQuery);
 
     // we can't include OSGCGChunk here because it is in Contrib ...
-    StateChunkPtr cgChunk = cast_dynamic<StateChunkPtr>(FieldContainerFactory::the()->createContainer("CGChunk"));
+    StateChunkPtr cgChunk = dynamic_cast<StateChunkPtr>(FieldContainerFactory::the()->createContainer("CGChunk"));
     if(cgChunk != NullFC)
     {
         _cgChunkId = cgChunk->getClass()->getId();
@@ -374,14 +374,14 @@ RenderAction::RenderAction(void) :
     }
 
     // we can't include OSGCGFXChunk here because it is in Contrib ...
-    StateChunkPtr cgfxChunk = cast_dynamic<StateChunkPtr>(FieldContainerFactory::the()->createContainer("CGFXChunk"));
+    StateChunkPtr cgfxChunk = dynamic_cast<StateChunkPtr>(FieldContainerFactory::the()->createContainer("CGFXChunk"));
     if(cgfxChunk != NullFC)
     {
         _cgfxChunkId = cgfxChunk->getClass()->getId();
         subRef(cgfxChunk);
     }
 
-    StateChunkPtr shlChunk = cast_dynamic<StateChunkPtr>(FieldContainerFactory::the()->createContainer("SHLChunk"));
+    StateChunkPtr shlChunk = dynamic_cast<StateChunkPtr>(FieldContainerFactory::the()->createContainer("SHLChunk"));
     if(shlChunk != NullFC)
     {
         _shlChunkId = shlChunk->getClass()->getId();
@@ -1794,7 +1794,7 @@ void RenderAction::deleteOcclusionQueriesPool(void)
     for(std::map<UInt32, GLuint>::iterator it=_occlusionQueries.begin();
         it!=_occlusionQueries.end();++it)
     {
-        NodePtr node = cast_dynamic<NodePtr>(FieldContainerFactory::the()->getContainer((*it).first));
+        NodePtr node = dynamic_cast<NodePtr>(FieldContainerFactory::the()->getContainer((*it).first));
         if(node != NullFC)
             setOcclusionMask(node, 0);
     }
@@ -1804,7 +1804,7 @@ void RenderAction::deleteOcclusionQueriesPool(void)
     for(std::set<UInt32>::iterator it=_hier_occlusions.begin();
         it!=_hier_occlusions.end();++it)
     {
-        NodePtr node = cast_dynamic<NodePtr>(FieldContainerFactory::the()->getContainer(*it));
+        NodePtr node = dynamic_cast<NodePtr>(FieldContainerFactory::the()->getContainer(*it));
         if(node != NullFC)
             setOcclusionMask(node, 0);
     }
@@ -2734,7 +2734,7 @@ Action::ResultE RenderAction::stop(ResultE res)
             for(std::set<UInt32>::iterator it=_hier_occlusions.begin();
                 it!=_hier_occlusions.end();++it)
             {
-                NodePtr node = cast_dynamic<NodePtr>(FieldContainerFactory::the()->getContainer(*it));
+                NodePtr node = dynamic_cast<NodePtr>(FieldContainerFactory::the()->getContainer(*it));
                 if(node != NullFC)
                 {
                     GLuint occlusionQuery = getOcclusionQuery(node);
@@ -2908,7 +2908,7 @@ Action::ResultE RenderAction::stop(ResultE res)
             for(std::set<UInt32>::iterator it=_hier_occlusions.begin();
                 it!=_hier_occlusions.end();++it)
             {
-                NodePtr node = cast_dynamic<NodePtr>(FieldContainerFactory::the()->getContainer(*it));
+                NodePtr node = dynamic_cast<NodePtr>(FieldContainerFactory::the()->getContainer(*it));
                 if(node != NullFC)
                     drawHierarchicalMultiFrameOcclusionBB(view, node);
             }

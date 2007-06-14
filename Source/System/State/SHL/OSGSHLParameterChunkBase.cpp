@@ -175,7 +175,7 @@ void SHLParameterChunkBase::pushToField(      FieldContainerPtrConstArg pNewElem
     if(uiFieldId == SHLChunkFieldId)
     {
         static_cast<SHLParameterChunk *>(this)->setSHLChunk(
-            cast_dynamic<SHLChunkPtr>(pNewElement));
+            dynamic_cast<SHLChunkPtr>(pNewElement));
     }
 }
 
@@ -272,7 +272,7 @@ SHLParameterChunkPtr SHLParameterChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<SHLParameterChunk::ObjPtr>(
+        fc = dynamic_cast<SHLParameterChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

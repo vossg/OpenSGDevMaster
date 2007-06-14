@@ -236,14 +236,14 @@ std::string MaterialMergeGraphOp::usage(void)
 
 Action::ResultE MaterialMergeGraphOp::traverseEnter(NodePtrConstArg node)
 {
-    GeometryPtr geo = cast_dynamic<GeometryPtr>(node->getCore());
+    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
     if (geo != NullFC)
     {
         addObject(MaterialObject(geo));
         return Action::Continue;
     }
     
-    MaterialGroupPtr mg = cast_dynamic<MaterialGroupPtr>(node->getCore());
+    MaterialGroupPtr mg = dynamic_cast<MaterialGroupPtr>(node->getCore());
     if (mg != NullFC)
     {
         addObject(MaterialObject(mg));

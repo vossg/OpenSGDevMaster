@@ -370,37 +370,37 @@ void SimpleShadowMapEngineDataBase::pushToField(      FieldBundlePConstArg pNewE
     if(uiFieldId == CameraFieldId)
     {
         static_cast<SimpleShadowMapEngineData *>(this)->setCamera(
-            cast_dynamic<CameraPtr>(pNewElement));
+            dynamic_cast<CameraPtr>(pNewElement));
     }
     if(uiFieldId == TexChunkFieldId)
     {
         static_cast<SimpleShadowMapEngineData *>(this)->setTexChunk(
-            cast_dynamic<TextureObjChunkPtr>(pNewElement));
+            dynamic_cast<TextureObjChunkPtr>(pNewElement));
     }
     if(uiFieldId == TexBufferFieldId)
     {
         static_cast<SimpleShadowMapEngineData *>(this)->setTexBuffer(
-            cast_dynamic<TextureBufferPtr>(pNewElement));
+            dynamic_cast<TextureBufferPtr>(pNewElement));
     }
     if(uiFieldId == LightChunkFieldId)
     {
         static_cast<SimpleShadowMapEngineData *>(this)->setLightChunk(
-            cast_dynamic<LightChunkPtr>(pNewElement));
+            dynamic_cast<LightChunkPtr>(pNewElement));
     }
     if(uiFieldId == BlendChunkFieldId)
     {
         static_cast<SimpleShadowMapEngineData *>(this)->setBlendChunk(
-            cast_dynamic<BlendChunkPtr>(pNewElement));
+            dynamic_cast<BlendChunkPtr>(pNewElement));
     }
     if(uiFieldId == TexGenChunkFieldId)
     {
         static_cast<SimpleShadowMapEngineData *>(this)->setTexGenChunk(
-            cast_dynamic<TexGenChunkPtr>(pNewElement));
+            dynamic_cast<TexGenChunkPtr>(pNewElement));
     }
     if(uiFieldId == PolyChunkFieldId)
     {
         static_cast<SimpleShadowMapEngineData *>(this)->setPolyChunk(
-            cast_dynamic<PolygonChunkPtr>(pNewElement));
+            dynamic_cast<PolygonChunkPtr>(pNewElement));
     }
 #endif
 }

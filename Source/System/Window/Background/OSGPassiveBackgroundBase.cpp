@@ -161,7 +161,7 @@ PassiveBackgroundPtr PassiveBackgroundBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<PassiveBackground::ObjPtr>(
+        fc = dynamic_cast<PassiveBackground::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

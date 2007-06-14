@@ -235,7 +235,7 @@ GLUTWindowPtr GLUTWindowBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<GLUTWindow::ObjPtr>(
+        fc = dynamic_cast<GLUTWindow::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

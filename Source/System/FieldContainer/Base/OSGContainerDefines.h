@@ -229,7 +229,7 @@
         ObjPtr fc;                                                            \
                                                                               \
         if(getClassType().getPrototype() != OSGNullFC)                        \
-         fc = OSG::cast_dynamic<Self::ObjPtr>(                                \
+         fc = dynamic_cast<Self::ObjPtr>(                                     \
              getClassType().getPrototype()->shallowCopy());                   \
                                                                               \
         return fc;                                                            \
@@ -245,7 +245,7 @@
         if(getClassType().getPrototype() != OSGNullFC)                        \
         {                                                                     \
          OSG::FieldContainerPtr temp_ptr = getClassType().getPrototype()->shallowCopy();  \
-         fc = OSG::cast_dynamic<typename Self::ObjPtr>(temp_ptr);             \
+         fc = dynamic_cast<typename Self::ObjPtr>(temp_ptr);                  \
         }                                                                     \
                                                                               \
         return fc;                                                            \
@@ -265,7 +265,7 @@
         if(getClassType().getPrototype() != OSGNullFC)                        \
         { \
          OSG::FieldContainerPtr temp_ptr = getClassType().getPrototype()->shallowCopy();  \
-         fc = OSG::cast_dynamic<Self::ObjPtr>(temp_ptr);                      \
+         fc = dynamic_cast<Self::ObjPtr>(temp_ptr);                           \
         }                                                                     \
                                                                               \
         return fc;                                                            \

@@ -286,7 +286,7 @@ GeoIntegralPropertyPtr Geometry::getIndex(UInt16 index) const
         return NullFC;
 
     GeoIntegralPropertyPtr p =
-        cast_dynamic<GeoIntegralPropertyPtr>(_mfPropIndices[index]);
+        dynamic_cast<GeoIntegralPropertyPtr>(_mfPropIndices[index]);
 
     return p;
 }

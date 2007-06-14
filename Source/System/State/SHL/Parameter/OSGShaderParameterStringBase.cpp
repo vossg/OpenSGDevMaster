@@ -235,7 +235,7 @@ ShaderParameterStringPtr ShaderParameterStringBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ShaderParameterString::ObjPtr>(
+        fc = dynamic_cast<ShaderParameterString::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

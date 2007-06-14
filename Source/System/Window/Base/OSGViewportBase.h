@@ -189,7 +189,6 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
 #endif
                   SFReal32            *editSFTop            (void);
             const SFReal32            *getSFTop             (void) const;
-            const SFParentFieldContainerPtr *getSFParent          (void) const;
             const SFCameraPtr         *getSFCamera          (void) const;
             const SFNodePtr           *getSFRoot            (void) const;
             const SFBackgroundPtr     *getSFBackground      (void) const;
@@ -232,8 +231,6 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                   Real32              &editTop            (void);
             const Real32              &getTop             (void) const;
 
-                  ParentFieldContainerPtrConst getParent         (void) const;
-
                   CameraPtrConst getCamera         (void) const;
 
                   NodePtrConst getRoot           (void) const;
@@ -264,8 +261,6 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
             void setRight          (const Real32 &value);
             void setBottom         (const Real32 &value);
             void setTop            (const Real32 &value);
-            void setParent         (      ParentFieldContainerPtrConstArg value,
-                    const UInt16        uiStoredInFieldId = InvalidParentEPos);
             void setCamera         (CameraPtrConstArg value);
             void setRoot           (NodePtrConstArg value);
             void setBackground     (BackgroundPtrConstArg value);

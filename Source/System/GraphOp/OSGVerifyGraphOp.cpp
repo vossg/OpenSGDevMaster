@@ -198,7 +198,7 @@ Action::ResultE VerifyGraphOp::traverseEnter(NodePtrConstArg node)
     // Check based on core types
     if(NullFC != node_core)
     {
-        if(cast_dynamic<GeometryPtr>(node_core) != NullFC)
+        if(dynamic_cast<GeometryPtr>(node_core) != NullFC)
         {
             return verifyGeometry(node);
         }
@@ -216,7 +216,7 @@ Action::ResultE VerifyGraphOp::traverseLeave(NodePtrConstArg, Action::ResultE re
 /** Verify geometry method. */
 Action::ResultE VerifyGraphOp::verifyGeometry(NodePtrConst node)
 {
-    GeometryPtr geo = cast_dynamic<GeometryPtr>(node->getCore());
+    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
 
     if(geo == NullFC)
         return Action::Continue;
@@ -450,7 +450,7 @@ bool VerifyGraphOp::repairGeometry(void)
             // now replace corrupted geometry core with a group core.
             for (UInt32 j=0;j<_corruptedGeos[i]->getParents().size();++j)
             {
-                NodePtr parent = cast_dynamic<NodePtr>(_corruptedGeos[i]->getParents()[j]);
+                NodePtr parent = dynamic_cast<NodePtr>(_corruptedGeos[i]->getParents()[j].getCPtr());
                 if (parent != NullFC)
                 {
                     std::string nname;

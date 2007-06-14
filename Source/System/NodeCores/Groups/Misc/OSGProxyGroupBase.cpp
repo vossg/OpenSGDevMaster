@@ -780,7 +780,7 @@ void ProxyGroupBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == RootFieldId)
     {
         static_cast<ProxyGroup *>(this)->setRoot(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
 }
 
@@ -1091,7 +1091,7 @@ ProxyGroupPtr ProxyGroupBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ProxyGroup::ObjPtr>(
+        fc = dynamic_cast<ProxyGroup::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

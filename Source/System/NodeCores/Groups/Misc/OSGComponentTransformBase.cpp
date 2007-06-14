@@ -488,7 +488,7 @@ ComponentTransformPtr ComponentTransformBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ComponentTransform::ObjPtr>(
+        fc = dynamic_cast<ComponentTransform::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

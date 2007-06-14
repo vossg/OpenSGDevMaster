@@ -67,7 +67,7 @@ GraphOp* GeoTypeGraphOp::create()
 
 bool GeoTypeGraphOp::travNodeEnter(NodePtr node)
 {
-    GeometryPtr geo = cast_dynamic<GeometryPtr>(node->getCore());
+    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
 
     if(geo == NullFC)
     {

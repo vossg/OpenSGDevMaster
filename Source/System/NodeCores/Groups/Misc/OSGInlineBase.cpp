@@ -381,7 +381,7 @@ InlinePtr InlineBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<Inline::ObjPtr>(
+        fc = dynamic_cast<Inline::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

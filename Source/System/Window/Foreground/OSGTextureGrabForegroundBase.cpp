@@ -352,7 +352,7 @@ void TextureGrabForegroundBase::pushToField(      FieldContainerPtrConstArg pNew
     if(uiFieldId == TextureFieldId)
     {
         static_cast<TextureGrabForeground *>(this)->setTexture(
-            cast_dynamic<TextureObjChunkPtr>(pNewElement));
+            dynamic_cast<TextureObjChunkPtr>(pNewElement));
     }
 }
 
@@ -485,7 +485,7 @@ TextureGrabForegroundPtr TextureGrabForegroundBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TextureGrabForeground::ObjPtr>(
+        fc = dynamic_cast<TextureGrabForeground::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

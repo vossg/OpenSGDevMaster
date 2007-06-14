@@ -312,7 +312,7 @@ RenderBufferPtr RenderBufferBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<RenderBuffer::ObjPtr>(
+        fc = dynamic_cast<RenderBuffer::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

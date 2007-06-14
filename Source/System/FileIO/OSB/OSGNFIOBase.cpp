@@ -126,7 +126,7 @@ NodePtr NFIOBase::read(std::istream &is, const std::string &options)
     NodePtr node = NullFC;
 
     FieldContainerPtr fc = readFieldContainer();
-    node = cast_dynamic<NodePtr>(fc);
+    node = dynamic_cast<NodePtr>(fc);
 
     delete _in;
 

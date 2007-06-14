@@ -237,7 +237,7 @@ DirectionalLightPtr DirectionalLightBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<DirectionalLight::ObjPtr>(
+        fc = dynamic_cast<DirectionalLight::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

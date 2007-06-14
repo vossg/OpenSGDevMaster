@@ -317,7 +317,7 @@ ShaderParameterMIntPtr ShaderParameterMIntBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ShaderParameterMInt::ObjPtr>(
+        fc = dynamic_cast<ShaderParameterMInt::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -305,10 +305,10 @@ GeometryPtr makeSelectionGeo(NodePtr geoN)
 
     LineChunkPtr       lineChunk = LineChunk::create();
 
-    GeometryPtr selGeoC = cast_dynamic<GeometryPtr>(geoN->getCore());
+    GeometryPtr selGeoC = dynamic_cast<GeometryPtr>(geoN->getCore());
     if( selGeoC != NullFC )
     {
-         GeoPnt3fPropertyPtr pnts = cast_dynamic<GeoPnt3fPropertyPtr>(selGeoC->getPositions());
+         GeoPnt3fPropertyPtr pnts = dynamic_cast<GeoPnt3fPropertyPtr>(selGeoC->getPositions());
 //        GeoPositions3f::StoredFieldType     *p = pnts->getFieldPtr();
 
 //        GeoPositions3f::StoredFieldType::iterator it;

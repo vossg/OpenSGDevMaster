@@ -165,7 +165,7 @@ GroupPtr GroupBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<Group::ObjPtr>(
+        fc = dynamic_cast<Group::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

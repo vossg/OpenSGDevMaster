@@ -438,7 +438,7 @@ ColorMaskChunkPtr ColorMaskChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ColorMaskChunk::ObjPtr>(
+        fc = dynamic_cast<ColorMaskChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -1290,7 +1290,7 @@ RenderOptionsPtr RenderOptionsBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<RenderOptions::ObjPtr>(
+        fc = dynamic_cast<RenderOptions::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

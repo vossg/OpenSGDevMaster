@@ -233,7 +233,7 @@ void SwitchMaterialBase::pushToField(      FieldContainerPtrConstArg pNewElement
     if(uiFieldId == MaterialsFieldId)
     {
         static_cast<SwitchMaterial *>(this)->pushToMaterials(
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -247,7 +247,7 @@ void SwitchMaterialBase::insertIntoMField(const UInt32                    uiInde
     {
         static_cast<SwitchMaterial *>(this)->insertIntoMaterials(
             uiIndex,
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -261,7 +261,7 @@ void SwitchMaterialBase::replaceInMField (const UInt32                    uiInde
     {
         static_cast<SwitchMaterial *>(this)->replaceInMaterials(
             uiIndex,
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -274,8 +274,8 @@ void SwitchMaterialBase::replaceInMField (      FieldContainerPtrConstArg pOldEl
     if(uiFieldId == MaterialsFieldId)
     {
         static_cast<SwitchMaterial *>(this)->replaceInMaterials(
-            cast_dynamic<MaterialPtr>(pOldElement),
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pOldElement),
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -299,7 +299,7 @@ void SwitchMaterialBase::removeFromMField(      FieldContainerPtrConstArg pEleme
     if(uiFieldId == MaterialsFieldId)
     {
         static_cast<SwitchMaterial *>(this)->removeFromMaterials(
-            cast_dynamic<MaterialPtr>(pElement));
+            dynamic_cast<MaterialPtr>(pElement));
     }
 }
 
@@ -490,7 +490,7 @@ SwitchMaterialPtr SwitchMaterialBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<SwitchMaterial::ObjPtr>(
+        fc = dynamic_cast<SwitchMaterial::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -367,7 +367,7 @@ XWindowPtr XWindowBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<XWindow::ObjPtr>(
+        fc = dynamic_cast<XWindow::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -522,7 +522,7 @@ void Navigator::updateCameraTransformation()
 
     if(_cartN != NullFC)
     {
-        TransformPtr t = cast_dynamic<TransformPtr>(_cartN->getCore());
+        TransformPtr t = dynamic_cast<TransformPtr>(_cartN->getCore());
         if(t == NullFC)
         {
             FWARNING (("Navigator: updateCamTrans, core is not TransformPtr\n"));

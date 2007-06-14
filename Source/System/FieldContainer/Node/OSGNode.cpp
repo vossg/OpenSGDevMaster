@@ -364,11 +364,11 @@ void Node::pushToField(      FieldContainerPtrConstArg pNewElement,
 
     if(uiFieldId == CoreFieldId)
     {
-        setCore(cast_dynamic<NodeCorePtr>(pNewElement));
+        setCore(dynamic_cast<NodeCorePtr>(pNewElement));
     }
     else if(uiFieldId == ChildrenFieldId)
     {
-        addChild(cast_dynamic<NodePtr>(pNewElement));
+        addChild(dynamic_cast<NodePtr>(pNewElement));
     }
 }
 
@@ -381,7 +381,7 @@ void Node::insertIntoMField(const UInt32                    uiIndex,
     if(uiFieldId == ChildrenFieldId)
     {
         insertChild(uiIndex,
-                    cast_dynamic<NodePtr>(pNewElement));
+                    dynamic_cast<NodePtr>(pNewElement));
     }
 }
 
@@ -394,7 +394,7 @@ void Node::replaceInMField(const UInt32                    uiIndex,
     if(uiFieldId & ChildrenFieldId)
     {
         replaceChild(uiIndex,
-                    cast_dynamic<NodePtr>(pNewElement));
+                    dynamic_cast<NodePtr>(pNewElement));
     }
 }
 
@@ -406,8 +406,8 @@ void Node::replaceInMField (      FieldContainerPtrConstArg pOldElement,
 
     if(uiFieldId == ChildrenFieldId)
     {
-        replaceChildBy(cast_dynamic<NodePtr>(pOldElement),
-                       cast_dynamic<NodePtr>(pNewElement));
+        replaceChildBy(dynamic_cast<NodePtr>(pOldElement),
+                       dynamic_cast<NodePtr>(pNewElement));
     }
 }
 
@@ -429,7 +429,7 @@ void Node::removeFromMField(      FieldContainerPtrConstArg pElement,
 
     if(uiFieldId == ChildrenFieldId)
     {
-        subChild(cast_dynamic<NodePtr>(pElement));
+        subChild(dynamic_cast<NodePtr>(pElement));
     }
 }
 
@@ -1040,7 +1040,7 @@ OSG::cloneTree(      NodePtrConstArg                          rootNode,
                        cloneTypes.end(),    coreType)   )
                 {
                     // clone core
-                    coreClone = cast_dynamic<NodeCorePtr>(
+                    coreClone = dynamic_cast<NodeCorePtr>(
                                     OSG::deepClone(core,
                                                    cloneTypes,    ignoreTypes,
                                                    cloneGroupIds, ignoreGroupIds));
@@ -1214,7 +1214,7 @@ OSG::deepCloneTree(      NodePtrConstArg                          rootNode,
                 else
                 {
                     // clone core
-                    coreClone = cast_dynamic<NodeCorePtr>(
+                    coreClone = dynamic_cast<NodeCorePtr>(
                                     OSG::deepClone(core,
                                                    shareTypes,    ignoreTypes,
                                                    shareGroupIds, ignoreGroupIds));

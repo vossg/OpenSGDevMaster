@@ -438,7 +438,7 @@ bool ClusterServer::windowChanged(const FieldContainerPtr &fcp,
     if(_clusterWindow != NullFC)
         return true;
     
-    ClusterWindowPtr window = cast_dynamic<ClusterWindowPtr>(fcp);
+    ClusterWindowPtr window = dynamic_cast<ClusterWindowPtr>(fcp);
 
     if(window->getServers().size())
     {

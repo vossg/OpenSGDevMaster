@@ -1072,37 +1072,37 @@ void SkyBackgroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == BackTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setBackTexture(
-            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
+            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
     }
     if(uiFieldId == BottomTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setBottomTexture(
-            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
+            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
     }
     if(uiFieldId == FrontTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setFrontTexture(
-            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
+            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
     }
     if(uiFieldId == LeftTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setLeftTexture(
-            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
+            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
     }
     if(uiFieldId == RightTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setRightTexture(
-            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
+            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
     }
     if(uiFieldId == TopTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setTopTexture(
-            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
+            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
     }
     if(uiFieldId == BeaconFieldId)
     {
         static_cast<SkyBackground *>(this)->setBeacon(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
 }
 
@@ -2259,7 +2259,7 @@ SkyBackgroundPtr SkyBackgroundBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<SkyBackground::ObjPtr>(
+        fc = dynamic_cast<SkyBackground::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

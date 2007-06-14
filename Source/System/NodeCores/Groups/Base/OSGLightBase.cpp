@@ -608,12 +608,12 @@ void LightBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == BeaconFieldId)
     {
         static_cast<Light *>(this)->setBeacon(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == LightEngineFieldId)
     {
         static_cast<Light *>(this)->setLightEngine(
-            cast_dynamic<LightEnginePtr>(pNewElement));
+            dynamic_cast<LightEnginePtr>(pNewElement));
     }
 }
 

@@ -213,7 +213,7 @@ bool Viewport::isFullWindow(void) const
 
 WindowPtrConst Viewport::getParent(void) const
 {
-    return cast_dynamic<WindowPtrConst>(_sfParent.getValue());
+    return dynamic_cast<WindowPtrConst>(_sfParent.getValue().getCPtr());
 }
 
 /*-------------------------- your_category---------------------------------*/

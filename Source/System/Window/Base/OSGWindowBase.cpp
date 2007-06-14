@@ -540,7 +540,7 @@ void WindowBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == PortFieldId)
     {
         static_cast<Window *>(this)->addPort(
-            cast_dynamic<ViewportPtr>(pNewElement));
+            dynamic_cast<ViewportPtr>(pNewElement));
     }
 }
 
@@ -554,7 +554,7 @@ void WindowBase::insertIntoMField(const UInt32                    uiIndex,
     {
         static_cast<Window *>(this)->insertPort(
             uiIndex,
-            cast_dynamic<ViewportPtr>(pNewElement));
+            dynamic_cast<ViewportPtr>(pNewElement));
     }
 }
 
@@ -568,7 +568,7 @@ void WindowBase::replaceInMField (const UInt32                    uiIndex,
     {
         static_cast<Window *>(this)->replacePort(
             uiIndex,
-            cast_dynamic<ViewportPtr>(pNewElement));
+            dynamic_cast<ViewportPtr>(pNewElement));
     }
 }
 
@@ -581,8 +581,8 @@ void WindowBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
     if(uiFieldId == PortFieldId)
     {
         static_cast<Window *>(this)->replacePortyBy(
-            cast_dynamic<ViewportPtr>(pOldElement),
-            cast_dynamic<ViewportPtr>(pNewElement));
+            dynamic_cast<ViewportPtr>(pOldElement),
+            dynamic_cast<ViewportPtr>(pNewElement));
     }
 }
 
@@ -606,7 +606,7 @@ void WindowBase::removeFromMField(      FieldContainerPtrConstArg pElement,
     if(uiFieldId == PortFieldId)
     {
         static_cast<Window *>(this)->subPort(
-            cast_dynamic<ViewportPtr>(pElement));
+            dynamic_cast<ViewportPtr>(pElement));
     }
 }
 

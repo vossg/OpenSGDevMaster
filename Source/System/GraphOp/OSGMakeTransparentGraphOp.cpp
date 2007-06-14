@@ -86,7 +86,7 @@ bool MakeTransparentGraphOp::traverse(NodePtr& node)
     for (; itr != _materialObjects.end(); ++itr)
     {
         MaterialPtr oldMaterial = itr->first;
-        MaterialPtr newMaterial = cast_dynamic<MaterialPtr>(deepClone(oldMaterial));
+        MaterialPtr newMaterial = dynamic_cast<MaterialPtr>(deepClone(oldMaterial));
         if (newMaterial != NullFC)
         {
             std::cout << "Applying transparency:  ";
@@ -133,14 +133,14 @@ std::string MakeTransparentGraphOp::usage(void)
 
 Action::ResultE MakeTransparentGraphOp::traverseEnter(NodePtrConstArg node)
 {
-    GeometryPtr geo = cast_dynamic<GeometryPtr>(node->getCore());
+    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
     if (geo != NullFC)
     {
         addObject(MaterialObject(geo));
         return Action::Continue;
     }
 
-    MaterialGroupPtr mg = cast_dynamic<MaterialGroupPtr>(node->getCore());
+    MaterialGroupPtr mg = dynamic_cast<MaterialGroupPtr>(node->getCore());
     if (mg != NullFC)
     {
         addObject(MaterialObject(mg));
@@ -179,7 +179,7 @@ typename Chunk::ObjPtr getOrAddChunk(ChunkMaterialPtr cm,
                                      Type2Type<Chunk> = Type2Type<Chunk>()) {
     OSG::StateChunkPtr stateChunk = cm->find(Chunk::getClassType());
 
-    typename Chunk::ObjPtr chunk = cast_dynamic<typename Chunk::ObjPtr>(stateChunk);
+    typename Chunk::ObjPtr chunk = dynamic_cast<typename Chunk::ObjPtr>(stateChunk);
 
     if (!chunk) {
         chunk = Chunk::create();
@@ -191,7 +191,7 @@ typename Chunk::ObjPtr getOrAddChunk(ChunkMaterialPtr cm,
 
 void MakeTransparentGraphOp::applyTransparency(MaterialPtr m) {
  
-    SimpleMaterialPtr sm = cast_dynamic<SimpleMaterialPtr>(m);
+    SimpleMaterialPtr sm = dynamic_cast<SimpleMaterialPtr>(m);
     if (sm != NullFC) {
         std::cout << "SimpleMaterial" << std::endl;
         sm->setTransparency(1.0f - (1.0f - sm->getTransparency()) * 
@@ -203,7 +203,7 @@ void MakeTransparentGraphOp::applyTransparency(MaterialPtr m) {
         return;
     }
 
-    ChunkMaterialPtr cm = cast_dynamic<ChunkMaterialPtr>(m);
+    ChunkMaterialPtr cm = dynamic_cast<ChunkMaterialPtr>(m);
     if (cm != NullFC) {
         std::cout << "ChunkMaterial" << std::endl;
         BlendChunkPtr blendChunk = getOrAddChunk<BlendChunk>(cm);

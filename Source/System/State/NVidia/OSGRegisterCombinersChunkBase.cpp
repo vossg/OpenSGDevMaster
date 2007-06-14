@@ -4490,7 +4490,7 @@ RegisterCombinersChunkPtr RegisterCombinersChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<RegisterCombinersChunk::ObjPtr>(
+        fc = dynamic_cast<RegisterCombinersChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

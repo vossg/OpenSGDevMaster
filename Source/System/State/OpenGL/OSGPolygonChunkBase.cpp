@@ -1047,7 +1047,7 @@ PolygonChunkPtr PolygonChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<PolygonChunk::ObjPtr>(
+        fc = dynamic_cast<PolygonChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

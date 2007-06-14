@@ -369,7 +369,7 @@ EGLWindowPtr EGLWindowBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<EGLWindow::ObjPtr>(
+        fc = dynamic_cast<EGLWindow::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

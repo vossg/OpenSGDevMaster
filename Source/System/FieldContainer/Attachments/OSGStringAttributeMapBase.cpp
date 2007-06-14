@@ -470,7 +470,7 @@ StringAttributeMapPtr StringAttributeMapBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<StringAttributeMap::ObjPtr>(
+        fc = dynamic_cast<StringAttributeMap::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

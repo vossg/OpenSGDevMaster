@@ -486,17 +486,17 @@ void SimpleStageBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == CameraFieldId)
     {
         static_cast<SimpleStage *>(this)->setCamera(
-            cast_dynamic<CameraPtr>(pNewElement));
+            dynamic_cast<CameraPtr>(pNewElement));
     }
     if(uiFieldId == BackgroundFieldId)
     {
         static_cast<SimpleStage *>(this)->setBackground(
-            cast_dynamic<BackgroundPtr>(pNewElement));
+            dynamic_cast<BackgroundPtr>(pNewElement));
     }
     if(uiFieldId == ForegroundsFieldId)
     {
         static_cast<SimpleStage *>(this)->pushToForegrounds(
-            cast_dynamic<ForegroundPtr>(pNewElement));
+            dynamic_cast<ForegroundPtr>(pNewElement));
     }
 }
 
@@ -510,7 +510,7 @@ void SimpleStageBase::insertIntoMField(const UInt32                    uiIndex,
     {
         static_cast<SimpleStage *>(this)->insertIntoForegrounds(
             uiIndex,
-            cast_dynamic<ForegroundPtr>(pNewElement));
+            dynamic_cast<ForegroundPtr>(pNewElement));
     }
 }
 
@@ -524,7 +524,7 @@ void SimpleStageBase::replaceInMField (const UInt32                    uiIndex,
     {
         static_cast<SimpleStage *>(this)->replaceInForegrounds(
             uiIndex,
-            cast_dynamic<ForegroundPtr>(pNewElement));
+            dynamic_cast<ForegroundPtr>(pNewElement));
     }
 }
 
@@ -537,8 +537,8 @@ void SimpleStageBase::replaceInMField (      FieldContainerPtrConstArg pOldEleme
     if(uiFieldId == ForegroundsFieldId)
     {
         static_cast<SimpleStage *>(this)->replaceInForegrounds(
-            cast_dynamic<ForegroundPtr>(pOldElement),
-            cast_dynamic<ForegroundPtr>(pNewElement));
+            dynamic_cast<ForegroundPtr>(pOldElement),
+            dynamic_cast<ForegroundPtr>(pNewElement));
     }
 }
 
@@ -562,7 +562,7 @@ void SimpleStageBase::removeFromMField(      FieldContainerPtrConstArg pElement,
     if(uiFieldId == ForegroundsFieldId)
     {
         static_cast<SimpleStage *>(this)->removeFromForegrounds(
-            cast_dynamic<ForegroundPtr>(pElement));
+            dynamic_cast<ForegroundPtr>(pElement));
     }
 }
 
@@ -821,7 +821,7 @@ SimpleStagePtr SimpleStageBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<SimpleStage::ObjPtr>(
+        fc = dynamic_cast<SimpleStage::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

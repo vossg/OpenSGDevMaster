@@ -736,7 +736,7 @@ SimpleMaterialPtr SimpleMaterialBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<SimpleMaterial::ObjPtr>(
+        fc = dynamic_cast<SimpleMaterial::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

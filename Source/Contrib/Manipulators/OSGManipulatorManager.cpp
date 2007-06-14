@@ -82,7 +82,7 @@ void ManipulatorManager::changeManipulator(const ManipulatorType type)
     {
         if ( ! _maniC->getParents().empty() )
         {
-            NodePtr maniN = cast_dynamic<NodePtr>(_maniC->getParents()[0]);
+            NodePtr maniN = dynamic_cast<NodePtr>(_maniC->getParents()[0].getCPtr());
 
             _maniC = NullFC;
 

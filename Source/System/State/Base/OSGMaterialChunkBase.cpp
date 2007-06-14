@@ -1119,7 +1119,7 @@ MaterialChunkPtr MaterialChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<MaterialChunk::ObjPtr>(
+        fc = dynamic_cast<MaterialChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

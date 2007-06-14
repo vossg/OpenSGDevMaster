@@ -187,7 +187,7 @@ OSBTypedGeoVectorPropertyElement<GeoPropertyTypeT>::write(void)
     UInt8                 quanRes = getQuantizeResolution();
     UInt8                 flags   = 0;
     GeoPropertyPtrType    prop    =
-        cast_dynamic<GeoPropertyPtrType>(getContainer());
+        dynamic_cast<GeoPropertyPtrType>(getContainer());
 
     wh->putValue(getFCPtrType(getContainer()));
     wh->putValue(getVersion()                );

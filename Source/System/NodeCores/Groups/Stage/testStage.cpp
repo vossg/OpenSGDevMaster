@@ -455,7 +455,7 @@ void initPlaneSetup(void)
 
     file->dump();
 
-    GeometryPtr pGeo = cast_dynamic<GeometryPtr>(file->getCore());
+    GeometryPtr pGeo = dynamic_cast<GeometryPtr>(file->getCore());
 
     UChar8 imgdata[] =
     {  

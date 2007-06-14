@@ -334,7 +334,7 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
     {
         FieldContainerAttachmentPtr att    = NullFC;
         AttachmentContainerPtr      attCon =
-            cast_dynamic<AttachmentContainerPtr>(ptrField.getContainer());
+            dynamic_cast<AttachmentContainerPtr>(ptrField.getContainer());
 
         for(; (idIt != idEnd) && (bindingIt != bindingEnd); ++idIt, ++bindingIt)
         {
@@ -344,7 +344,7 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
 
                 if(idMapIt != idMapEnd)
                 {
-                    att = cast_dynamic<FieldContainerAttachmentPtr>(
+                    att = dynamic_cast<FieldContainerAttachmentPtr>(
                         FieldContainerFactory::the()->getContainer(
                             idMapIt->second));
                 }

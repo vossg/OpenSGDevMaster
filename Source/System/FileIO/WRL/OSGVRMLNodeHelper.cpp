@@ -280,8 +280,8 @@ FieldContainerPtr VRMLNodeHelper::beginNode(
         {
             FieldContainerPtr pCoreClone = _pNodeCoreProto->shallowCopy();
 
-            pNode = cast_dynamic<NodePtr    >(returnValue);
-            pCore = cast_dynamic<NodeCorePtr>(pCoreClone );
+            pNode = dynamic_cast<NodePtr    >(returnValue);
+            pCore = dynamic_cast<NodeCorePtr>(pCoreClone );
 
             pNode->setCore(pCore);
         }
@@ -290,7 +290,7 @@ FieldContainerPtr VRMLNodeHelper::beginNode(
         {
             FieldContainerPtr pAttClone = _pGenAttProto->clone();
 
-            pAtt = cast_dynamic<VRMLGenericAttPtr>(pAttClone);
+            pAtt = dynamic_cast<VRMLGenericAttPtr>(pAttClone);
 
             if(pAtt != NullFC)
             {
@@ -304,7 +304,7 @@ FieldContainerPtr VRMLNodeHelper::beginNode(
             else
             {
                 AttachmentContainerPtr pAttCnt = 
-                    cast_dynamic<AttachmentContainerPtr>(returnValue);
+                    dynamic_cast<AttachmentContainerPtr>(returnValue);
 
                 if(pAttCnt != NULL)
                 {
@@ -460,7 +460,7 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
     {
         if(pFC->getType().isNode() == true)
         {
-            pNode     = cast_dynamic<NodePtr>(pFC);
+            pNode     = dynamic_cast<NodePtr>(pFC);
             
             pNodeCore = pNode->getCore();
 
@@ -524,7 +524,7 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
         }
         else if(pFC->getType().isNodeCore() == true)
         {
-            pNodeCore = cast_dynamic<NodeCorePtr>(pFC);
+            pNodeCore = dynamic_cast<NodeCorePtr>(pFC);
 
             pTmpFC = pNodeCore->findAttachment(
                 VRMLGenericAtt::getClassType().getGroupId());
@@ -990,7 +990,7 @@ void VRMLGroupHelper::getFieldAndDesc(
         return;
     }
 
-    NodePtr pNode = cast_dynamic<NodePtr>(pFC);
+    NodePtr pNode = dynamic_cast<NodePtr>(pFC);
 
 #ifdef OSG_DEBUG_VRML
     indentLog(getIndent(), PINFO);
@@ -1007,7 +1007,7 @@ void VRMLGroupHelper::getFieldAndDesc(
 
     NodeCorePtr pNodeCore = pNode->getCore();
 
-    GroupPtr pGroup       = cast_dynamic<GroupPtr>(pNodeCore);
+    GroupPtr pGroup       = dynamic_cast<GroupPtr>(pNodeCore);
 
     if(pGroup == NullFC)
     {
@@ -1615,7 +1615,7 @@ void VRMLShapeHelper::getFieldAndDesc(
               << std::endl;
 #endif
 
-        NodePtr pNode = cast_dynamic<NodePtr>(pFC);
+        NodePtr pNode = dynamic_cast<NodePtr>(pFC);
 
         if(pNode != NullFC)
         {
@@ -1657,7 +1657,7 @@ void VRMLShapeHelper::endNode(FieldContainerPtr pFC)
 {
     if(pFC != NullFC)
     {
-        NodePtr pNode = cast_dynamic<NodePtr>(pFC);
+        NodePtr pNode = dynamic_cast<NodePtr>(pFC);
 
         if(pNode != NullFC && pNode->getCore() == NullFC)
         {
@@ -1673,7 +1673,7 @@ void VRMLShapeHelper::endNode(FieldContainerPtr pFC)
         {
             MaterialGroupPtr pMatGroup;
 
-            pMatGroup = cast_dynamic<MaterialGroupPtr>(pNode->getCore());
+            pMatGroup = dynamic_cast<MaterialGroupPtr>(pNode->getCore());
 
             if(pMatGroup != NullFC)
             {
@@ -1885,16 +1885,16 @@ void VRMLAppearanceHelper::endNode(FieldContainerPtr pFC)
 {
     if(pFC != NullFC)
     {
-        ChunkMaterialPtr pChunkMat = cast_dynamic<ChunkMaterialPtr>(pFC);
+        ChunkMaterialPtr pChunkMat = dynamic_cast<ChunkMaterialPtr>(pFC);
 
         if(pChunkMat != NullFC)
         {
             TextureObjChunkPtr pTexC = 
-                cast_dynamic<TextureObjChunkPtr>(
+                dynamic_cast<TextureObjChunkPtr>(
                     pChunkMat->find(TextureObjChunk::getClassType()));
 
             TextureEnvChunkPtr pTexE = 
-                cast_dynamic<TextureEnvChunkPtr>(
+                dynamic_cast<TextureEnvChunkPtr>(
                     pChunkMat->find(TextureEnvChunk::getClassType()));
             
          
@@ -1933,7 +1933,7 @@ void VRMLAppearanceHelper::endNode(FieldContainerPtr pFC)
                 }
 
                 MaterialChunkPtr pMatC = 
-                    cast_dynamic<MaterialChunkPtr>(
+                    dynamic_cast<MaterialChunkPtr>(
                         pChunkMat->find(MaterialChunk::getClassType()));
 
                 if(pMatC == NullFC)
@@ -2108,7 +2108,7 @@ void VRMLIndexedGeometryHelper::getFieldAndDesc(
         return;
     }
 
-    NodePtr pNode = cast_dynamic<NodePtr>(pFC);
+    NodePtr pNode = dynamic_cast<NodePtr>(pFC);
 
     if(pNode == NullFC)
     {
@@ -2118,7 +2118,7 @@ void VRMLIndexedGeometryHelper::getFieldAndDesc(
 
     NodeCorePtr pNodeCore = pNode->getCore();
 
-    GeometryPtr pGeo      = cast_dynamic<GeometryPtr>(pNodeCore);
+    GeometryPtr pGeo      = dynamic_cast<GeometryPtr>(pNodeCore);
 
     if(pGeo == NullFC)
     {
@@ -2207,14 +2207,14 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
         return;
     }
 
-    pNode = cast_dynamic<NodePtr>(pFC);
+    pNode = dynamic_cast<NodePtr>(pFC);
 
     if(pNode == NullFC)
     {
         return;
     }
 
-    pGeo = cast_dynamic<GeometryPtr>(pNode->getCore());
+    pGeo = dynamic_cast<GeometryPtr>(pNode->getCore());
 
     if(pGeo == NullFC)
     {
@@ -2473,10 +2473,10 @@ void VRMLIndexedGeometryHelper::setContainerFieldValue(
           FieldContainerPtr     pFieldFC  )
 {
     GeometryPtr          pGeo     = 
-        cast_dynamic<GeometryPtr         >(pFieldFC);
+        dynamic_cast<GeometryPtr         >(pFieldFC);
 
     GeoVectorPropertyPtr pVecProp = 
-        cast_dynamic<GeoVectorPropertyPtr>(pFC);
+        dynamic_cast<GeoVectorPropertyPtr>(pFC);
 
     if(pGeo != NullFC && pVecProp != NullFC)
     {
@@ -2899,7 +2899,7 @@ void VRMLImageTextureHelper::endNode(FieldContainerPtr pFC)
 
     ImagePtr            pImage   = NullFC;
 
-    pTexture = cast_dynamic<TextureObjChunkPtr>(pFC);
+    pTexture = dynamic_cast<TextureObjChunkPtr>(pFC);
 
 
     if(pTexture != NullFC && _url.size() != 0)

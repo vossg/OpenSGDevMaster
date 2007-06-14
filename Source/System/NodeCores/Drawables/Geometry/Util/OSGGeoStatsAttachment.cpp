@@ -260,7 +260,7 @@ otherwise.
 */
 GeoStatsAttachmentPtr GeoStatsAttachment::get(AttachmentContainer *arg)
 {
-    return cast_dynamic<GeoStatsAttachmentPtr>(
+    return dynamic_cast<GeoStatsAttachmentPtr>(
             arg->findAttachment(GeoStatsAttachment::getClassType()));
 
 }
@@ -284,7 +284,7 @@ GeoStatsAttachmentPtr GeoStatsAttachment::addTo(AttachmentContainerPtr obj)
 */
 void GeoStatsAttachment::attachTo(AttachmentContainerPtr obj)
 {
-    GeoStatsAttachmentPtr st = cast_dynamic<GeoStatsAttachmentPtr>(getPtr());
+    GeoStatsAttachmentPtr st = dynamic_cast<GeoStatsAttachmentPtr>(getPtr());
 
     if(getParents().size())
     {
@@ -326,18 +326,18 @@ void GeoStatsAttachment::validate(void)
     reset();
 
     // Geometry?
-    GeometryPtr g = cast_dynamic<GeometryPtr>(cont);
+    GeometryPtr g = dynamic_cast<GeometryPtr>(cont);
     if(g != NullFC)
     {
         calc(g);
     }
 
     // Node?
-    NodePtr n = cast_dynamic<NodePtr>(cont);
+    NodePtr n = dynamic_cast<NodePtr>(cont);
     if(n != NullFC)
     {
         // Validate the core
-        GeometryPtr g = cast_dynamic<GeometryPtr>(n->getCore());
+        GeometryPtr g = dynamic_cast<GeometryPtr>(n->getCore());
         if(g != NullFC)
         {
             GeoStatsAttachmentPtr s = get(g);
@@ -385,7 +385,7 @@ void GeoStatsAttachment::invalidate(FieldContainerPtrArg obj)
     if(obj == NullFC)
         return;
 
-    AttachmentContainerPtr cont = cast_dynamic<AttachmentContainerPtr>(obj);
+    AttachmentContainerPtr cont = dynamic_cast<AttachmentContainerPtr>(obj);
 
     // Called on a non-AttachmentContainer?
     if(cont == NullFC)
@@ -408,7 +408,7 @@ void GeoStatsAttachment::invalidate(FieldContainerPtrArg obj)
             dynamic_cast<FieldContainerPtr>(st->getParent(0)); 
 
         // Is this attached to a NodeCore?
-        NodeCorePtr c = cast_dynamic<NodeCorePtr>(p);
+        NodeCorePtr c = dynamic_cast<NodeCorePtr>(p);
         if(c != NullFC)
         {
             MFParentFieldContainerPtr::const_iterator pnI;
@@ -417,13 +417,13 @@ void GeoStatsAttachment::invalidate(FieldContainerPtrArg obj)
                   pnI != c->getMFParents()->end  ();
                 ++pnI)
             {
-                NodePtr node = cast_dynamic<NodePtr>(*pnI);
+                NodePtr node = dynamic_cast<NodePtr>((*pnI).getCPtr());
                 invalidate(node);
             }
         }
 
         // Is this attached to a Node?
-        NodePtr n = cast_dynamic<NodePtr>(p);
+        NodePtr n = dynamic_cast<NodePtr>(p);
         if(n != NullFC)
         {
             NodePtr par = n->getParent();

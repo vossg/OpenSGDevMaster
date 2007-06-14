@@ -174,7 +174,7 @@ void MaterialDrawableBase::pushToField(      FieldContainerPtrConstArg pNewEleme
     if(uiFieldId == MaterialFieldId)
     {
         static_cast<MaterialDrawable *>(this)->setMaterial(
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 

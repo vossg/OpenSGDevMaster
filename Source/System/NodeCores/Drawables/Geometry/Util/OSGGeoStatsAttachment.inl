@@ -47,7 +47,7 @@ otherwise.
 template<class CntPtr> inline
 GeoStatsAttachmentPtr GeoStatsAttachment::get(CntPtr arg)
 {
-    return cast_dynamic<GeoStatsAttachmentPtr>(
+    return dynamic_cast<GeoStatsAttachmentPtr>(
             arg->findAttachment(GeoStatsAttachment::getClassType()));
 
 }

@@ -680,7 +680,7 @@ GeoStatsAttachmentPtr GeoStatsAttachmentBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<GeoStatsAttachment::ObjPtr>(
+        fc = dynamic_cast<GeoStatsAttachment::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

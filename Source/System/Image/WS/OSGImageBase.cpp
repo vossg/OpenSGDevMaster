@@ -197,7 +197,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         static_cast     <FieldEditMethodSig>(&ImageBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getMFParents));
+        static_cast     <FieldGetMethodSig>(&ImageBase::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -745,7 +745,7 @@ ImageBase::TypeObject ImageBase::_type(
     "\t\ttype=\"ParentFieldContainerPtr\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
+    "\t\taccess=\"none\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -997,11 +997,6 @@ UInt32 ImageBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the Image::_mfParents field.
-const MFParentFieldContainerPtr *ImageBase::getMFParents(void) const
-{
-    return &_mfParents;
-}
 
 SFInt32 *ImageBase::editSFDimension(void)
 {
@@ -1446,11 +1441,6 @@ void ImageBase::pushToField(      FieldContainerPtrConstArg pNewElement,
 {
     Inherited::pushToField(pNewElement, uiFieldId);
 
-    if(uiFieldId == ParentsFieldId)
-    {
-        static_cast<Image *>(this)->pushToParents(
-            cast_dynamic<ParentFieldContainerPtr>(pNewElement));
-    }
 }
 
 void ImageBase::insertIntoMField(const UInt32                    uiIndex,
@@ -1459,12 +1449,6 @@ void ImageBase::insertIntoMField(const UInt32                    uiIndex,
 {
     Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
 
-    if(uiFieldId == ParentsFieldId)
-    {
-        static_cast<Image *>(this)->insertIntoParents(
-            uiIndex,
-            cast_dynamic<ParentFieldContainerPtr>(pNewElement));
-    }
 }
 
 void ImageBase::replaceInMField (const UInt32                    uiIndex,
@@ -1473,12 +1457,6 @@ void ImageBase::replaceInMField (const UInt32                    uiIndex,
 {
     Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
 
-    if(uiFieldId == ParentsFieldId)
-    {
-        static_cast<Image *>(this)->replaceInParents(
-            uiIndex,
-            cast_dynamic<ParentFieldContainerPtr>(pNewElement));
-    }
 }
 
 void ImageBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
@@ -1487,12 +1465,6 @@ void ImageBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
 {
     Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
 
-    if(uiFieldId == ParentsFieldId)
-    {
-        static_cast<Image *>(this)->replaceInParents(
-            cast_dynamic<ParentFieldContainerPtr>(pOldElement),
-            cast_dynamic<ParentFieldContainerPtr>(pNewElement));
-    }
 }
 
 void ImageBase::removeFromMField(const UInt32 uiIndex,
@@ -1500,11 +1472,6 @@ void ImageBase::removeFromMField(const UInt32 uiIndex,
 {
     Inherited::removeFromMField(uiIndex, uiFieldId);
 
-    if(uiFieldId == ParentsFieldId)
-    {
-        static_cast<Image *>(this)->removeFromParents(
-            uiIndex);
-    }
 }
 
 void ImageBase::removeFromMField(      FieldContainerPtrConstArg pElement,
@@ -1512,141 +1479,12 @@ void ImageBase::removeFromMField(      FieldContainerPtrConstArg pElement,
 {
     Inherited::removeFromMField(pElement, uiFieldId);
 
-    if(uiFieldId == ParentsFieldId)
-    {
-        static_cast<Image *>(this)->removeFromParents(
-            cast_dynamic<ParentFieldContainerPtr>(pElement));
-    }
 }
 
 void ImageBase::clearField(const UInt32 uiFieldId)
 {
     Inherited::clearField(uiFieldId);
 
-    if(uiFieldId == ParentsFieldId)
-    {
-        static_cast<Image *>(this)->clearParents();
-    }
-}
-
-void ImageBase::pushToParents(ParentFieldContainerPtrConstArg value)
-{
-    if(value == NullFC)
-        return;
-
-    editMField(ParentsFieldMask, _mfParents);
-
-    addRef(value);
-
-    _mfParents.push_back(value);
-}
-
-void ImageBase::insertIntoParents(UInt32                uiIndex,
-                                                   ParentFieldContainerPtrConstArg value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(ParentsFieldMask, _mfParents);
-
-    MFParentFieldContainerPtr::iterator fieldIt = _mfParents.begin();
-
-    addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfParents.insert(fieldIt, value);
-}
-
-void ImageBase::replaceInParents(UInt32                uiIndex,
-                                                       ParentFieldContainerPtrConstArg value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfParents.size())
-        return;
-
-    editMField(ParentsFieldMask, _mfParents);
-
-    addRef(value);
-
-    subRef(_mfParents[uiIndex]);
-
-    _mfParents[uiIndex] = value;
-}
-
-void ImageBase::replaceInParents(ParentFieldContainerPtrConstArg pOldElem,
-                                                        ParentFieldContainerPtrConstArg pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfParents.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(ParentsFieldMask, _mfParents);
-
-        MFParentFieldContainerPtr::iterator fieldIt = _mfParents.begin();
-
-        fieldIt += elemIdx;
-
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
-    }
-}
-
-void ImageBase::removeFromParents(UInt32 uiIndex)
-{
-    if(uiIndex < _mfParents.size())
-    {
-        editMField(ParentsFieldMask, _mfParents);
-
-        MFParentFieldContainerPtr::iterator fieldIt = _mfParents.begin();
-
-        fieldIt += uiIndex;
-
-        subRef(*fieldIt);
-
-        _mfParents.erase(fieldIt);
-    }
-}
-
-void ImageBase::removeFromParents(ParentFieldContainerPtrConstArg value)
-{
-    Int32 iElemIdx = _mfParents.findIndex(value);
-
-    if(iElemIdx != -1)
-    {
-        editMField(ParentsFieldMask, _mfParents);
-
-        MFParentFieldContainerPtr::iterator fieldIt = _mfParents.begin();
-
-        fieldIt += iElemIdx;
-
-        subRef(*fieldIt);
-
-        _mfParents.erase(fieldIt);
-    }
-}
-void ImageBase::clearParents(void)
-{
-    editMField(ParentsFieldMask, _mfParents);
-
-    MFParentFieldContainerPtr::iterator       fieldIt  = _mfParents.begin();
-    MFParentFieldContainerPtr::const_iterator fieldEnd = _mfParents.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        subRef(*fieldIt);
-
-        ++fieldIt;
-    }
-
-    _mfParents.clear();
 }
 
 /*********************************** Non-ptr code ********************************/
@@ -2052,7 +1890,7 @@ ImagePtr ImageBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<Image::ObjPtr>(
+        fc = dynamic_cast<Image::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 
@@ -2152,18 +1990,6 @@ void ImageBase::onCreate(const Image *source)
 
     if(source != NULL)
     {
-
-        MFParentFieldContainerPtr::const_iterator ParentsIt  =
-            source->_mfParents.begin();
-        MFParentFieldContainerPtr::const_iterator ParentsEnd =
-            source->_mfParents.end  ();
-
-        while(ParentsIt != ParentsEnd)
-        {
-            this->pushToParents(*ParentsIt);
-
-            ++ParentsIt;
-        }
     }
 }
 
@@ -2228,7 +2054,6 @@ void ImageBase::resolveLinks(void)
     _pAspectStore->fillOffsetArray(oOffsets, this);
 #endif
 
-    static_cast<Image *>(this)->clearParents();
 #ifdef OSG_MT_CPTR_ASPECT
     _mfPixel.terminateShare(Thread::getCurrentAspect(), 
                                       oOffsets);

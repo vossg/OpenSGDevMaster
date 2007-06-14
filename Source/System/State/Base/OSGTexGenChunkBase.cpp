@@ -747,22 +747,22 @@ void TexGenChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == SBeaconFieldId)
     {
         static_cast<TexGenChunk *>(this)->setSBeacon(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == TBeaconFieldId)
     {
         static_cast<TexGenChunk *>(this)->setTBeacon(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == RBeaconFieldId)
     {
         static_cast<TexGenChunk *>(this)->setRBeacon(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == QBeaconFieldId)
     {
         static_cast<TexGenChunk *>(this)->setQBeacon(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
 }
 
@@ -1003,7 +1003,7 @@ TexGenChunkPtr TexGenChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TexGenChunk::ObjPtr>(
+        fc = dynamic_cast<TexGenChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

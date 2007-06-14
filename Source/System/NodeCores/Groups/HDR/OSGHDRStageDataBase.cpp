@@ -478,37 +478,37 @@ void HDRStageDataBase::pushToField(      FieldBundlePConstArg pNewElement,
     if(uiFieldId == ToneMappingMaterialFieldId)
     {
         static_cast<HDRStageData *>(this)->setToneMappingMaterial(
-            cast_dynamic<ChunkMaterialPtr>(pNewElement));
+            dynamic_cast<ChunkMaterialPtr>(pNewElement));
     }
     if(uiFieldId == BlurRenderTargetFieldId)
     {
         static_cast<HDRStageData *>(this)->setBlurRenderTarget(
-            cast_dynamic<FrameBufferObjectPtr>(pNewElement));
+            dynamic_cast<FrameBufferObjectPtr>(pNewElement));
     }
     if(uiFieldId == BlurMaterialFieldId)
     {
         static_cast<HDRStageData *>(this)->setBlurMaterial(
-            cast_dynamic<ChunkMaterialPtr>(pNewElement));
+            dynamic_cast<ChunkMaterialPtr>(pNewElement));
     }
     if(uiFieldId == HBlurShaderFieldId)
     {
         static_cast<HDRStageData *>(this)->setHBlurShader(
-            cast_dynamic<SHLChunkPtr>(pNewElement));
+            dynamic_cast<SHLChunkPtr>(pNewElement));
     }
     if(uiFieldId == VBlurShaderFieldId)
     {
         static_cast<HDRStageData *>(this)->setVBlurShader(
-            cast_dynamic<SHLChunkPtr>(pNewElement));
+            dynamic_cast<SHLChunkPtr>(pNewElement));
     }
     if(uiFieldId == ShrinkRenderTargetFieldId)
     {
         static_cast<HDRStageData *>(this)->setShrinkRenderTarget(
-            cast_dynamic<FrameBufferObjectPtr>(pNewElement));
+            dynamic_cast<FrameBufferObjectPtr>(pNewElement));
     }
     if(uiFieldId == ShrinkMaterialFieldId)
     {
         static_cast<HDRStageData *>(this)->setShrinkMaterial(
-            cast_dynamic<ChunkMaterialPtr>(pNewElement));
+            dynamic_cast<ChunkMaterialPtr>(pNewElement));
     }
 #endif
 }

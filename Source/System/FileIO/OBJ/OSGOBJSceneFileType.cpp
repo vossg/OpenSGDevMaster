@@ -473,7 +473,7 @@ void OBJSceneFileType::write(const NodePtr &node,
                              UInt32 &tIndex) const
 {
     UInt32 i,pCount=0,nCount=0,tCount=0;
-    GeometryPtr g = cast_dynamic<GeometryPtr>(node->getCore());
+    GeometryPtr g = dynamic_cast<GeometryPtr>(node->getCore());
     if(g != NullFC)
     {
         // HACK separate it in several geometry nodes.

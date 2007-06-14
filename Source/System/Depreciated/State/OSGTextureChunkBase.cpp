@@ -3372,7 +3372,7 @@ void TextureChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == ImageFieldId)
     {
         static_cast<TextureChunk *>(this)->setImage(
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
 }
 
@@ -4199,7 +4199,7 @@ TextureChunkPtr TextureChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TextureChunk::ObjPtr>(
+        fc = dynamic_cast<TextureChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

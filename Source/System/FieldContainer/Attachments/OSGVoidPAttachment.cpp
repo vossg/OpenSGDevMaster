@@ -101,7 +101,7 @@ void *getVoidP(AttachmentContainerPtrConstArg pContainer)
    
     // Cast to name pointer                           
 
-    VoidPPtr voidP = cast_dynamic<VoidPPtr>(att);
+    VoidPPtr voidP = dynamic_cast<VoidPPtr>(att);
 
     if(voidP == NullFC)
         return NULL;
@@ -137,7 +137,7 @@ void setVoidP(AttachmentContainerPtrConstArg  pContainer,
     }
     else
     {   
-        voidP = cast_dynamic<VoidPPtr>(att);
+        voidP = dynamic_cast<VoidPPtr>(att);
 
         if(voidP == NullFC)
         {

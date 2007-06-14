@@ -760,7 +760,7 @@ BlendChunkPtr BlendChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<BlendChunk::ObjPtr>(
+        fc = dynamic_cast<BlendChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

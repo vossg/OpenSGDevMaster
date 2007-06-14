@@ -122,7 +122,7 @@ std::string StripeGraphOp::usage(void)
 
 bool StripeGraphOp::travNodeEnter(NodePtr node)
 {
-    GeometryPtr geo = cast_dynamic<GeometryPtr>(node->getCore());
+    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
 
     if(geo != NullFC)
     {

@@ -179,13 +179,13 @@ void prepareSceneGraph(const NodePtr &node)
     NodeCorePtr core  =node->getCore();
     if(core != NullFC)
     {
-        GeometryPtr geo   = cast_dynamic<GeometryPtr>(core);
+        GeometryPtr geo   = dynamic_cast<GeometryPtr>(core);
         if(geo != NullFC)
         {
             MaterialPtr mat = geo->getMaterial();
             if(mat != NullFC)
             {
-                ChunkMaterialPtr cmat = cast_dynamic<ChunkMaterialPtr>(mat);
+                ChunkMaterialPtr cmat = dynamic_cast<ChunkMaterialPtr>(mat);
                 if(cmat->getChunks().find(polygonChunk) == cmat->getChunks().end())
                 {
                     cmat->addChunk(polygonChunk);
@@ -203,14 +203,14 @@ void prepareSceneGraph(const NodePtr &node)
         }
         else
         {
-            MaterialGroupPtr matGrp = cast_dynamic<MaterialGroupPtr>(core);
+            MaterialGroupPtr matGrp = dynamic_cast<MaterialGroupPtr>(core);
             if(matGrp != NullFC)
             {
                 MaterialPtr mat = matGrp->getMaterial();
                 if(mat != NullFC)
                 {
                     ChunkMaterialPtr cmat = 
-                        cast_dynamic<ChunkMaterialPtr>(mat);
+                        dynamic_cast<ChunkMaterialPtr>(mat);
 
                     if(cmat->getChunks().find(polygonChunk) == cmat->getChunks().end())
                     {
@@ -220,7 +220,7 @@ void prepareSceneGraph(const NodePtr &node)
             }
             else
             {
-                ProxyGroupPtr proxy = cast_dynamic<ProxyGroupPtr>(core);
+                ProxyGroupPtr proxy = dynamic_cast<ProxyGroupPtr>(core);
                 if(proxy != NullFC)
                 {
                     sum_triangles += proxy->getTriangles();
@@ -411,7 +411,7 @@ void setHEyeWallParameter(Real32 dsFactor, bool enablecc)
 {
     static char str[1024];
     
-    NamePtr parameters = cast_dynamic<NamePtr>(clusterWindow->findAttachment(Name::getClassType()));
+    NamePtr parameters = dynamic_cast<NamePtr>(clusterWindow->findAttachment(Name::getClassType()));
 
     if(parameters == NullFC)
     {

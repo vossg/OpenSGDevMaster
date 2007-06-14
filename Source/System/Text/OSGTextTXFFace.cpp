@@ -143,38 +143,38 @@ void TextTXFFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layoutRes
     // cast the field containers down to the needed type and create them
     // when they have the wrong type
     GeoPnt3fPropertyPtr posPtr = 
-        cast_dynamic<GeoPnt3fPropertyPtr>(geoPtr->getPositions());
+        dynamic_cast<GeoPnt3fPropertyPtr>(geoPtr->getPositions());
 
     if (posPtr != NullFC)
        posPtr->clear();
 
     // Clear out any existing data and then add to the geom
     GeoVec3fPropertyPtr normalPtr = 
-        cast_dynamic<GeoVec3fPropertyPtr>(geoPtr->getNormals());
+        dynamic_cast<GeoVec3fPropertyPtr>(geoPtr->getNormals());
 
     if (normalPtr != NullFC)
        normalPtr->clear();
 
     GeoVec2fPropertyPtr texPtr = 
-        cast_dynamic<GeoVec2fPropertyPtr>(geoPtr->getTexCoords());
+        dynamic_cast<GeoVec2fPropertyPtr>(geoPtr->getTexCoords());
 
     if (texPtr != NullFC)
        texPtr->clear();
 
     GeoColor3fPropertyPtr colorPtr = 
-        cast_dynamic<GeoColor3fPropertyPtr>(geoPtr->getColors());
+        dynamic_cast<GeoColor3fPropertyPtr>(geoPtr->getColors());
 
     if (NullFC != colorPtr)
        colorPtr->clear();
 
     GeoUInt32PropertyPtr lensPtr = 
-        cast_dynamic<GeoUInt32PropertyPtr>(geoPtr->getLengths());
+        dynamic_cast<GeoUInt32PropertyPtr>(geoPtr->getLengths());
 
     if (lensPtr != NullFC)
        lensPtr->clear();
 
     GeoUInt8PropertyPtr typesPtr = 
-        cast_dynamic<GeoUInt8PropertyPtr>(geoPtr->getTypes());
+        dynamic_cast<GeoUInt8PropertyPtr>(geoPtr->getTypes());
 
     if (typesPtr != NullFC)
        typesPtr->clear();
@@ -194,22 +194,22 @@ void TextTXFFace::addToGeom(GeometryPtr &geoPtr, const TextLayoutResult &layoutR
     // cast the field containers down to the needed type and create them
     // when they have the wrong type
     GeoPnt3fPropertyPtr posPtr = 
-        cast_dynamic<GeoPnt3fPropertyPtr>(geoPtr->getPositions());
+        dynamic_cast<GeoPnt3fPropertyPtr>(geoPtr->getPositions());
 
     GeoVec3fPropertyPtr normalPtr = 
-        cast_dynamic<GeoVec3fPropertyPtr>(geoPtr->getNormals());
+        dynamic_cast<GeoVec3fPropertyPtr>(geoPtr->getNormals());
 
     GeoVec2fPropertyPtr texPtr = 
-        cast_dynamic<GeoVec2fPropertyPtr>(geoPtr->getTexCoords());
+        dynamic_cast<GeoVec2fPropertyPtr>(geoPtr->getTexCoords());
 
     GeoColor3fPropertyPtr colorPtr = 
-        cast_dynamic<GeoColor3fPropertyPtr>(geoPtr->getColors());
+        dynamic_cast<GeoColor3fPropertyPtr>(geoPtr->getColors());
 
     GeoUInt32PropertyPtr lensPtr = 
-        cast_dynamic<GeoUInt32PropertyPtr>(geoPtr->getLengths());
+        dynamic_cast<GeoUInt32PropertyPtr>(geoPtr->getLengths());
 
     GeoUInt8PropertyPtr typesPtr = 
-        cast_dynamic<GeoUInt8PropertyPtr>(geoPtr->getTypes());
+        dynamic_cast<GeoUInt8PropertyPtr>(geoPtr->getTypes());
 
     // Create color buffer: If Null container AND color is set && we have not potentially added text before
     if ((NullFC == colorPtr) && (color != OSG::Color3f(-1,-1,-1)) &&

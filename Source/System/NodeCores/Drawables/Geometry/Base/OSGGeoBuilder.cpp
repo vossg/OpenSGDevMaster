@@ -121,7 +121,7 @@ GeoVectorPropertyPtr GeoBuilder::getProperty(UInt32 index)
     if(index >= _geo->getProperties().size() ||
        _geo->getProperty(index) == NullFC)
     {
-        att = cast_dynamic<GeoVectorPropertyPtr>(
+        att = dynamic_cast<GeoVectorPropertyPtr>(
                 FieldContainerFactory::the()->createContainer(
                     _defaultPropTypes[index]));
 

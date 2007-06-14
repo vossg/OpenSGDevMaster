@@ -159,7 +159,7 @@ ScaleManipulatorPtr ScaleManipulatorBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ScaleManipulator::ObjPtr>(
+        fc = dynamic_cast<ScaleManipulator::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

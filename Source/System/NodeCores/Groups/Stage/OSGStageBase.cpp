@@ -181,7 +181,7 @@ void StageBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == RenderTargetFieldId)
     {
         static_cast<Stage *>(this)->setRenderTarget(
-            cast_dynamic<FrameBufferObjectPtr>(pNewElement));
+            dynamic_cast<FrameBufferObjectPtr>(pNewElement));
     }
 }
 
@@ -278,7 +278,7 @@ StagePtr StageBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<Stage::ObjPtr>(
+        fc = dynamic_cast<Stage::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

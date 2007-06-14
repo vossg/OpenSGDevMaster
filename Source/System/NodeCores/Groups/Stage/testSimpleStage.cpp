@@ -354,7 +354,7 @@ void initPlaneSetup(void)
 #endif
     mat->addChunk  (tx1e          );
 
-    GeometryPtr pGeo = cast_dynamic<GeometryPtr>(plane_node->getCore());
+    GeometryPtr pGeo = dynamic_cast<GeometryPtr>(plane_node->getCore());
     pGeo->setMaterial(mat);
 
     // Finish connecting graph

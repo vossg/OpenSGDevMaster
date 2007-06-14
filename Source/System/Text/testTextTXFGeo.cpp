@@ -577,7 +577,7 @@ void updateScene()
     textNode->setCore(geo);
 #else
     NodePtr textNode = face->makeNode(layoutResult, scale);
-    GeometryPtr geo = cast_dynamic<GeometryPtr>(textNode->getCore());
+    GeometryPtr geo = dynamic_cast<GeometryPtr>(textNode->getCore());
 #endif
     NodePtr transNodePtr = Node::create();
     TransformPtr transPtr = Transform::create();

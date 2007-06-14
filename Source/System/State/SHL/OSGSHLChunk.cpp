@@ -897,7 +897,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeBool:
             {
                 ShaderParameterBoolPtr p =
-                    cast_dynamic<ShaderParameterBoolPtr>(parameter);
+                    dynamic_cast<ShaderParameterBoolPtr>(parameter);
 
                 // get "glUniform1iARB" function pointer
                 OSGGLUNIFORM1IARBPROC uniform1i =
@@ -922,7 +922,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeInt:
             {
                 ShaderParameterIntPtr p =
-                    cast_dynamic<ShaderParameterIntPtr>(parameter);
+                    dynamic_cast<ShaderParameterIntPtr>(parameter);
 
                 // get "glUniform1iARB" function pointer
                 OSGGLUNIFORM1IARBPROC uniform1i =
@@ -947,7 +947,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeReal:
             {
                 ShaderParameterRealPtr p =
-                    cast_dynamic<ShaderParameterRealPtr>(parameter);
+                    dynamic_cast<ShaderParameterRealPtr>(parameter);
 
                 // get "glUniform1fARB" function pointer
                 OSGGLUNIFORM1FARBPROC uniform1f =
@@ -972,7 +972,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeVec2f:
             {
                 ShaderParameterVec2fPtr p =
-                    cast_dynamic<ShaderParameterVec2fPtr>(parameter);
+                    dynamic_cast<ShaderParameterVec2fPtr>(parameter);
 
                 // get "glUniform2fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform2fv =
@@ -999,7 +999,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeVec3f:
             {
                 ShaderParameterVec3fPtr p =
-                    cast_dynamic<ShaderParameterVec3fPtr>(parameter);
+                    dynamic_cast<ShaderParameterVec3fPtr>(parameter);
 
                 // get "glUniform3fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform3fv =
@@ -1025,7 +1025,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeVec4f:
             {
                 ShaderParameterVec4fPtr p =
-                    cast_dynamic<ShaderParameterVec4fPtr>(parameter);
+                    dynamic_cast<ShaderParameterVec4fPtr>(parameter);
 
                 // get "glUniform4fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform4fv =
@@ -1051,7 +1051,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeMatrix:
             {
                 ShaderParameterMatrixPtr p =
-                    cast_dynamic<ShaderParameterMatrixPtr>(parameter);
+                    dynamic_cast<ShaderParameterMatrixPtr>(parameter);
 
                 // get "glUniformMatrix4fvARB" function pointer
                 OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv =
@@ -1078,7 +1078,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeMInt:
             {
                 ShaderParameterMIntPtr p = 
-                    cast_dynamic<ShaderParameterMIntPtr>(parameter);
+                    dynamic_cast<ShaderParameterMIntPtr>(parameter);
                 // get "glUniform1ivARB" function pointer
                 OSGGLUNIFORMIVARBPROC uniform1iv = (OSGGLUNIFORMIVARBPROC)
                     win->getFunction(_funcUniform1iv);
@@ -1095,7 +1095,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeMReal:
             {
                 ShaderParameterMRealPtr p = 
-                    cast_dynamic<ShaderParameterMRealPtr>(parameter);
+                    dynamic_cast<ShaderParameterMRealPtr>(parameter);
                 // get "glUniform1fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform1fv = (OSGGLUNIFORMFVARBPROC)
                     win->getFunction(_funcUniform1fv);
@@ -1113,7 +1113,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeMVec2f:
             {
                 ShaderParameterMVec2fPtr p = 
-                    cast_dynamic<ShaderParameterMVec2fPtr>(parameter);
+                    dynamic_cast<ShaderParameterMVec2fPtr>(parameter);
                 // get "glUniform2fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform2fv = (OSGGLUNIFORMFVARBPROC)
                     win->getFunction(_funcUniform2fv);
@@ -1131,7 +1131,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeMVec3f:
             {
                 ShaderParameterMVec3fPtr p = 
-                    cast_dynamic<ShaderParameterMVec3fPtr>(parameter);
+                    dynamic_cast<ShaderParameterMVec3fPtr>(parameter);
                 // get "glUniform3fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform3fv = (OSGGLUNIFORMFVARBPROC)
                     win->getFunction(_funcUniform3fv);
@@ -1148,7 +1148,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeMVec4f:
             {
                 ShaderParameterMVec4fPtr p = 
-                    cast_dynamic<ShaderParameterMVec4fPtr>(parameter);
+                    dynamic_cast<ShaderParameterMVec4fPtr>(parameter);
                 // get "glUniform4fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform4fv = (OSGGLUNIFORMFVARBPROC)
                     win->getFunction(_funcUniform4fv);
@@ -1165,7 +1165,7 @@ void SHLChunk::updateParameters(Window *win,
             case ShaderParameter::SHPTypeMMatrix:
             {
                 ShaderParameterMMatrixPtr p = 
-                    cast_dynamic<ShaderParameterMMatrixPtr>(parameter);
+                    dynamic_cast<ShaderParameterMMatrixPtr>(parameter);
                 // get "glUniformMatrix4fvARB" function pointer
                 OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = (OSGGLUNIFORMMATRIXFVARBPROC)
                     win->getFunction(_funcUniformMatrix4fv);

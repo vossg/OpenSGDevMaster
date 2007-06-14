@@ -317,7 +317,7 @@ ShaderParameterMVec2fPtr ShaderParameterMVec2fBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ShaderParameterMVec2f::ObjPtr>(
+        fc = dynamic_cast<ShaderParameterMVec2f::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

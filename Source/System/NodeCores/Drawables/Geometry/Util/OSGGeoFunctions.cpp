@@ -758,7 +758,7 @@ void calcVertexTexCoordsProp2D(GeometryPtr geo,
           pnI != geo->getMFParents()->end  ();
         ++pnI)
     {
-        NodePtr node = cast_dynamic<NodePtr>(*pnI);
+        NodePtr node = dynamic_cast<NodePtr>((*pnI).getCPtr());
 
         if(node != NullFC)
         {

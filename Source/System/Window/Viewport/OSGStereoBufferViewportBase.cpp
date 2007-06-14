@@ -321,7 +321,7 @@ StereoBufferViewportPtr StereoBufferViewportBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<StereoBufferViewport::ObjPtr>(
+        fc = dynamic_cast<StereoBufferViewport::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

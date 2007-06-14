@@ -246,7 +246,7 @@ void ImageForegroundBase::pushToField(      FieldContainerPtrConstArg pNewElemen
     if(uiFieldId == ImagesFieldId)
     {
         static_cast<ImageForeground *>(this)->pushToImages(
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
 }
 
@@ -260,7 +260,7 @@ void ImageForegroundBase::insertIntoMField(const UInt32                    uiInd
     {
         static_cast<ImageForeground *>(this)->insertIntoImages(
             uiIndex,
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
 }
 
@@ -274,7 +274,7 @@ void ImageForegroundBase::replaceInMField (const UInt32                    uiInd
     {
         static_cast<ImageForeground *>(this)->replaceInImages(
             uiIndex,
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
 }
 
@@ -287,8 +287,8 @@ void ImageForegroundBase::replaceInMField (      FieldContainerPtrConstArg pOldE
     if(uiFieldId == ImagesFieldId)
     {
         static_cast<ImageForeground *>(this)->replaceInImages(
-            cast_dynamic<ImagePtr>(pOldElement),
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pOldElement),
+            dynamic_cast<ImagePtr>(pNewElement));
     }
 }
 
@@ -312,7 +312,7 @@ void ImageForegroundBase::removeFromMField(      FieldContainerPtrConstArg pElem
     if(uiFieldId == ImagesFieldId)
     {
         static_cast<ImageForeground *>(this)->removeFromImages(
-            cast_dynamic<ImagePtr>(pElement));
+            dynamic_cast<ImagePtr>(pElement));
     }
 }
 
@@ -585,7 +585,7 @@ ImageForegroundPtr ImageForegroundBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ImageForeground::ObjPtr>(
+        fc = dynamic_cast<ImageForeground::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

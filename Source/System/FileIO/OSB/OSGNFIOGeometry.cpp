@@ -483,7 +483,7 @@ void NFIOGeometry::readPackedIndices(GeometryPtr &geo, UInt32 size)
     
     if(using_16bit)
     {
-        MFUInt16 *ind = cast_dynamic<GeoUInt16PropertyPtr>(indices)->editFieldPtr();
+        MFUInt16 *ind = dynamic_cast<GeoUInt16PropertyPtr>(indices)->editFieldPtr();
         ind->reserve(indices_size);
         BitUnpacker unpacker(buffer, max);
         for(UInt32 i=0;i<indices_size;++i)
@@ -491,7 +491,7 @@ void NFIOGeometry::readPackedIndices(GeometryPtr &geo, UInt32 size)
     }
     else
     {
-        MFUInt32 *ind = cast_dynamic<GeoUInt32PropertyPtr>(indices)->editFieldPtr();
+        MFUInt32 *ind = dynamic_cast<GeoUInt32PropertyPtr>(indices)->editFieldPtr();
         ind->reserve(indices_size);
         BitUnpacker unpacker(buffer, max);
         for(UInt32 i=0;i<indices_size;++i)
@@ -575,7 +575,7 @@ void NFIOGeometry::writeFC(const FieldContainerPtr &fc)
 {
     FDEBUG(("NFIOGeometry::witeFC\n"));
     
-    GeometryPtr geo = cast_dynamic<GeometryPtr>(fc);
+    GeometryPtr geo = dynamic_cast<GeometryPtr>(fc);
     
     _out->putValue(_version);
 
@@ -609,7 +609,7 @@ void NFIOGeometry::writeFC(const FieldContainerPtr &fc)
 
 void NFIOGeometry::writeQuantizedPositions(const GeometryPtr &geo, UInt8 res)
 {
-    GeoPnt3fPropertyPtr positions = cast_dynamic<GeoPnt3fPropertyPtr>(geo->getPositions());
+    GeoPnt3fPropertyPtr positions = dynamic_cast<GeoPnt3fPropertyPtr>(geo->getPositions());
     
     if(positions != NullFC)
     {
@@ -620,7 +620,7 @@ void NFIOGeometry::writeQuantizedPositions(const GeometryPtr &geo, UInt8 res)
 
 void NFIOGeometry::writeQuantizedNormals(const GeometryPtr &geo, UInt8 res)
 {
-    GeoVec3fPropertyPtr normals = cast_dynamic<GeoVec3fPropertyPtr>(geo->getNormals());
+    GeoVec3fPropertyPtr normals = dynamic_cast<GeoVec3fPropertyPtr>(geo->getNormals());
     
     if(normals != NullFC)
     {
@@ -630,7 +630,7 @@ void NFIOGeometry::writeQuantizedNormals(const GeometryPtr &geo, UInt8 res)
 
 void NFIOGeometry::writeQuantizedTexCoords(const GeometryPtr &geo, UInt8 res)
 {
-    GeoVec2fPropertyPtr texcoords = cast_dynamic<GeoVec2fPropertyPtr>(geo->getTexCoords());
+    GeoVec2fPropertyPtr texcoords = dynamic_cast<GeoVec2fPropertyPtr>(geo->getTexCoords());
     
     if(texcoords != NullFC)
     {
@@ -784,7 +784,7 @@ void NFIOGeometry::postProcessFC(const FieldContainerPtr &fc)
     if(!_conversion)
         return;
 
-    GeometryPtr geo = cast_dynamic<GeometryPtr>(fc);
+    GeometryPtr geo = dynamic_cast<GeometryPtr>(fc);
     
     if(geo == NullFC)
         return;

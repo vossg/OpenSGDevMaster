@@ -236,7 +236,7 @@ struct FieldTraits<FieldContainerAttachmentMap> :
             pMem.getValue(binding);
             pMem.getValue(fcId   );
             
-            attPtr = cast_dynamic<FieldContainerAttachmentPtr>(
+            attPtr = dynamic_cast<FieldContainerAttachmentPtr>(
                 FieldContainerFactory::the()->getMappedContainer(fcId));
             
             key = (static_cast<UInt32>(attPtr->getGroupId()) << 16) | binding;

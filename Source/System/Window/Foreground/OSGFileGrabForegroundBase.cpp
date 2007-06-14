@@ -397,7 +397,7 @@ FileGrabForegroundPtr FileGrabForegroundBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<FileGrabForeground::ObjPtr>(
+        fc = dynamic_cast<FileGrabForeground::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

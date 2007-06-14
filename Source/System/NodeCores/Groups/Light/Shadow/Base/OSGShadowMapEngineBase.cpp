@@ -447,7 +447,7 @@ void ShadowMapEngineBase::pushToField(      FieldContainerPtrConstArg pNewElemen
     if(uiFieldId == RenderTargetFieldId)
     {
         static_cast<ShadowMapEngine *>(this)->setRenderTarget(
-            cast_dynamic<FrameBufferObjectPtr>(pNewElement));
+            dynamic_cast<FrameBufferObjectPtr>(pNewElement));
     }
 }
 

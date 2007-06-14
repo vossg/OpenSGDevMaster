@@ -316,7 +316,7 @@ MatrixCameraPtr MatrixCameraBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<MatrixCamera::ObjPtr>(
+        fc = dynamic_cast<MatrixCamera::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

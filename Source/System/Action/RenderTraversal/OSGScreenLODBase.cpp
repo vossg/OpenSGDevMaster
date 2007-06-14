@@ -338,7 +338,7 @@ ScreenLODPtr ScreenLODBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ScreenLOD::ObjPtr>(
+        fc = dynamic_cast<ScreenLOD::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

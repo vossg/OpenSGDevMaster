@@ -538,7 +538,7 @@ void ProjectionCameraDecoratorBase::pushToField(      FieldContainerPtrConstArg 
     if(uiFieldId == UserFieldId)
     {
         static_cast<ProjectionCameraDecorator *>(this)->setUser(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
 }
 
@@ -789,7 +789,7 @@ ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ProjectionCameraDecorator::ObjPtr>(
+        fc = dynamic_cast<ProjectionCameraDecorator::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -249,7 +249,7 @@ void ChunkMaterialBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == ChunksFieldId)
     {
         static_cast<ChunkMaterial *>(this)->pushToChunks(
-            cast_dynamic<StateChunkPtr>(pNewElement));
+            dynamic_cast<StateChunkPtr>(pNewElement));
     }
 }
 
@@ -263,7 +263,7 @@ void ChunkMaterialBase::insertIntoMField(const UInt32                    uiIndex
     {
         static_cast<ChunkMaterial *>(this)->insertIntoChunks(
             uiIndex,
-            cast_dynamic<StateChunkPtr>(pNewElement));
+            dynamic_cast<StateChunkPtr>(pNewElement));
     }
 }
 
@@ -277,7 +277,7 @@ void ChunkMaterialBase::replaceInMField (const UInt32                    uiIndex
     {
         static_cast<ChunkMaterial *>(this)->replaceInChunks(
             uiIndex,
-            cast_dynamic<StateChunkPtr>(pNewElement));
+            dynamic_cast<StateChunkPtr>(pNewElement));
     }
 }
 
@@ -290,8 +290,8 @@ void ChunkMaterialBase::replaceInMField (      FieldContainerPtrConstArg pOldEle
     if(uiFieldId == ChunksFieldId)
     {
         static_cast<ChunkMaterial *>(this)->replaceInChunks(
-            cast_dynamic<StateChunkPtr>(pOldElement),
-            cast_dynamic<StateChunkPtr>(pNewElement));
+            dynamic_cast<StateChunkPtr>(pOldElement),
+            dynamic_cast<StateChunkPtr>(pNewElement));
     }
 }
 
@@ -315,7 +315,7 @@ void ChunkMaterialBase::removeFromMField(      FieldContainerPtrConstArg pElemen
     if(uiFieldId == ChunksFieldId)
     {
         static_cast<ChunkMaterial *>(this)->removeFromChunks(
-            cast_dynamic<StateChunkPtr>(pElement));
+            dynamic_cast<StateChunkPtr>(pElement));
     }
 }
 
@@ -572,7 +572,7 @@ ChunkMaterialPtr ChunkMaterialBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ChunkMaterial::ObjPtr>(
+        fc = dynamic_cast<ChunkMaterial::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

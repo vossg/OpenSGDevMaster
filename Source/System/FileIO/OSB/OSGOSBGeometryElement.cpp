@@ -571,7 +571,7 @@ OSBGeometryElement::postReadV100(void)
 
     OSBRootElement  *root             = editRoot();
     GeometryPtr      geo              =
-        cast_dynamic<GeometryPtr>(getContainer());
+        dynamic_cast<GeometryPtr>(getContainer());
     UInt32           indexMappingSize = _indexMapping.size();
 
     if(indexMappingSize <= 1)
@@ -623,7 +623,7 @@ OSBGeometryElement::postReadV100(void)
             if(_indices16Bit)
             {
                 GeoUInt16PropertyPtr ui16Indices =
-                    cast_dynamic<GeoUInt16PropertyPtr>(_indices);
+                    dynamic_cast<GeoUInt16PropertyPtr>(_indices);
 
                 gh.splitMultiIndex<GeoUInt16PropertyPtr>(
                     _indexMapping, ui16Indices, geo);
@@ -631,7 +631,7 @@ OSBGeometryElement::postReadV100(void)
             else
             {
                 GeoUInt32PropertyPtr ui32Indices =
-                    cast_dynamic<GeoUInt32PropertyPtr>(_indices);
+                    dynamic_cast<GeoUInt32PropertyPtr>(_indices);
 
                 gh.splitMultiIndex<GeoUInt32PropertyPtr>(
                     _indexMapping, ui32Indices, geo);
@@ -647,7 +647,7 @@ OSBGeometryElement::postReadV100(void)
 
             if(mapIt != root->getIdMap().end())
             {
-                _indices = cast_dynamic<GeoIntegralPropertyPtr>(
+                _indices = dynamic_cast<GeoIntegralPropertyPtr>(
                     FieldContainerFactory::the()->getContainer(mapIt->second));
             }
             else
@@ -660,7 +660,7 @@ OSBGeometryElement::postReadV100(void)
             if(_indices->getFormatSize() == sizeof(UInt16))
             {
                 GeoUInt16PropertyPtr ui16Indices =
-                    cast_dynamic<GeoUInt16PropertyPtr>(_indices);
+                    dynamic_cast<GeoUInt16PropertyPtr>(_indices);
 
                 gh.splitMultiIndex<GeoUInt16PropertyPtr>(
                     _indexMapping, ui16Indices, geo);
@@ -668,7 +668,7 @@ OSBGeometryElement::postReadV100(void)
             else if(_indices->getFormatSize() == sizeof(UInt32))
             {
                 GeoUInt32PropertyPtr ui32Indices =
-                    cast_dynamic<GeoUInt32PropertyPtr>(_indices);
+                    dynamic_cast<GeoUInt32PropertyPtr>(_indices);
 
                 gh.splitMultiIndex<GeoUInt32PropertyPtr>(
                     _indexMapping, ui32Indices, geo);

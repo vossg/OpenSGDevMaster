@@ -486,7 +486,7 @@ GradientBackgroundPtr GradientBackgroundBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<GradientBackground::ObjPtr>(
+        fc = dynamic_cast<GradientBackground::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -468,17 +468,17 @@ void FrameBufferObjectBase::pushToField(      FieldContainerPtrConstArg pNewElem
     if(uiFieldId == ColorAttachmentsFieldId)
     {
         static_cast<FrameBufferObject *>(this)->pushToColorAttachments(
-            cast_dynamic<FrameBufferAttachmentPtr>(pNewElement));
+            dynamic_cast<FrameBufferAttachmentPtr>(pNewElement));
     }
     if(uiFieldId == DepthAttachmentFieldId)
     {
         static_cast<FrameBufferObject *>(this)->setDepthAttachment(
-            cast_dynamic<FrameBufferAttachmentPtr>(pNewElement));
+            dynamic_cast<FrameBufferAttachmentPtr>(pNewElement));
     }
     if(uiFieldId == StencilAttachmentFieldId)
     {
         static_cast<FrameBufferObject *>(this)->setStencilAttachment(
-            cast_dynamic<FrameBufferAttachmentPtr>(pNewElement));
+            dynamic_cast<FrameBufferAttachmentPtr>(pNewElement));
     }
 }
 
@@ -492,7 +492,7 @@ void FrameBufferObjectBase::insertIntoMField(const UInt32                    uiI
     {
         static_cast<FrameBufferObject *>(this)->insertIntoColorAttachments(
             uiIndex,
-            cast_dynamic<FrameBufferAttachmentPtr>(pNewElement));
+            dynamic_cast<FrameBufferAttachmentPtr>(pNewElement));
     }
 }
 
@@ -506,7 +506,7 @@ void FrameBufferObjectBase::replaceInMField (const UInt32                    uiI
     {
         static_cast<FrameBufferObject *>(this)->replaceInColorAttachments(
             uiIndex,
-            cast_dynamic<FrameBufferAttachmentPtr>(pNewElement));
+            dynamic_cast<FrameBufferAttachmentPtr>(pNewElement));
     }
 }
 
@@ -519,8 +519,8 @@ void FrameBufferObjectBase::replaceInMField (      FieldContainerPtrConstArg pOl
     if(uiFieldId == ColorAttachmentsFieldId)
     {
         static_cast<FrameBufferObject *>(this)->replaceInColorAttachments(
-            cast_dynamic<FrameBufferAttachmentPtr>(pOldElement),
-            cast_dynamic<FrameBufferAttachmentPtr>(pNewElement));
+            dynamic_cast<FrameBufferAttachmentPtr>(pOldElement),
+            dynamic_cast<FrameBufferAttachmentPtr>(pNewElement));
     }
 }
 
@@ -544,7 +544,7 @@ void FrameBufferObjectBase::removeFromMField(      FieldContainerPtrConstArg pEl
     if(uiFieldId == ColorAttachmentsFieldId)
     {
         static_cast<FrameBufferObject *>(this)->removeFromColorAttachments(
-            cast_dynamic<FrameBufferAttachmentPtr>(pElement));
+            dynamic_cast<FrameBufferAttachmentPtr>(pElement));
     }
 }
 
@@ -885,7 +885,7 @@ FrameBufferObjectPtr FrameBufferObjectBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<FrameBufferObject::ObjPtr>(
+        fc = dynamic_cast<FrameBufferObject::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

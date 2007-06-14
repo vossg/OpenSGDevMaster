@@ -1282,7 +1282,7 @@ void ImageBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == ParentsFieldId)
     {
         static_cast<Image *>(this)->pushToParents(
-            cast_dynamic<ParentFieldContainerPtr>(pNewElement));
+            dynamic_cast<ParentFieldContainerPtr>(pNewElement));
     }
 }
 
@@ -1296,7 +1296,7 @@ void ImageBase::insertIntoMField(const UInt32                    uiIndex,
     {
         static_cast<Image *>(this)->insertIntoParents(
             uiIndex,
-            cast_dynamic<ParentFieldContainerPtr>(pNewElement));
+            dynamic_cast<ParentFieldContainerPtr>(pNewElement));
     }
 }
 
@@ -1310,7 +1310,7 @@ void ImageBase::replaceInMField (const UInt32                    uiIndex,
     {
         static_cast<Image *>(this)->replaceInParents(
             uiIndex,
-            cast_dynamic<ParentFieldContainerPtr>(pNewElement));
+            dynamic_cast<ParentFieldContainerPtr>(pNewElement));
     }
 }
 
@@ -1323,8 +1323,8 @@ void ImageBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
     if(uiFieldId == ParentsFieldId)
     {
         static_cast<Image *>(this)->replaceInParents(
-            cast_dynamic<ParentFieldContainerPtr>(pOldElement),
-            cast_dynamic<ParentFieldContainerPtr>(pNewElement));
+            dynamic_cast<ParentFieldContainerPtr>(pOldElement),
+            dynamic_cast<ParentFieldContainerPtr>(pNewElement));
     }
 }
 
@@ -1348,7 +1348,7 @@ void ImageBase::removeFromMField(      FieldContainerPtrConstArg pElement,
     if(uiFieldId == ParentsFieldId)
     {
         static_cast<Image *>(this)->removeFromParents(
-            cast_dynamic<ParentFieldContainerPtr>(pElement));
+            dynamic_cast<ParentFieldContainerPtr>(pElement));
     }
 }
 
@@ -1849,7 +1849,7 @@ ImagePtr ImageBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<Image::ObjPtr>(
+        fc = dynamic_cast<Image::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

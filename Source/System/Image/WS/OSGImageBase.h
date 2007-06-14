@@ -217,7 +217,6 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFParentFieldContainerPtr *getMFParents         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFDimension       (void);
@@ -351,9 +350,6 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
                   SFUInt16            *editSFResUnit        (void);
             const SFUInt16            *getSFResUnit         (void) const;
 
-
-                  ParentFieldContainerPtrConst getParents        (const UInt32 index) const;
-            const MFParentFieldContainerPtr &getParents        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getDimension       (void);
@@ -549,17 +545,6 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToParents             (ParentFieldContainerPtrConstArg value   );
-    void insertIntoParents      (UInt32                uiIndex,
-                                             ParentFieldContainerPtrConstArg value   );
-    void replaceInParents  (UInt32                uiIndex,
-                                             ParentFieldContainerPtrConstArg value   );
-    void replaceInParents (ParentFieldContainerPtrConstArg pOldElem,
-                                             ParentFieldContainerPtrConstArg pNewElem);
-    void removeFromParents (UInt32                uiIndex );
-    void removeFromParents(ParentFieldContainerPtrConstArg value   );
-    void clearParents               (void                          );
 
 
 

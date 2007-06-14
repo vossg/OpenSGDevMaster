@@ -669,7 +669,7 @@ void PolygonBackgroundBase::pushToField(      FieldContainerPtrConstArg pNewElem
     if(uiFieldId == MaterialFieldId)
     {
         static_cast<PolygonBackground *>(this)->setMaterial(
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -1038,7 +1038,7 @@ PolygonBackgroundPtr PolygonBackgroundBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<PolygonBackground::ObjPtr>(
+        fc = dynamic_cast<PolygonBackground::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

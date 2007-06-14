@@ -568,7 +568,7 @@ HDRStagePtr HDRStageBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<HDRStage::ObjPtr>(
+        fc = dynamic_cast<HDRStage::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

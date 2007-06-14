@@ -148,10 +148,10 @@ Action::ResultE SplitGraphOp::traverseEnter(NodePtrConstArg node)
 {
     if (isLeaf(node)) return Action::Skip;
 
-    SwitchPtr switch_ = cast_dynamic<SwitchPtr>(node->getCore());
+    SwitchPtr switch_ = dynamic_cast<SwitchPtr>(node->getCore());
     if (switch_!=NullFC) return Action::Skip;
     
-    DistanceLODPtr dlod = cast_dynamic<DistanceLODPtr>(node->getCore());
+    DistanceLODPtr dlod = dynamic_cast<DistanceLODPtr>(node->getCore());
     if (dlod!=NullFC) return Action::Skip;   
     
     return Action::Continue;    
@@ -268,7 +268,7 @@ for (UInt32 k=0; k<LENGTH; k++)                                         \
 #define setupAttr( type , arr1 , arr2 , getmethod )                                 \
 if (geo->getmethod()!=NullFC && geo->getmethod()->size()>0)                         \
 {                                                                                   \
-    arr1[i]    = cast_dynamic<type>(geo->getmethod()->getType().createFieldContainer());   \
+    arr1[i]    = dynamic_cast<type>(geo->getmethod()->getType().createFieldContainer());   \
     arr2[i]    = new int[geo->getmethod()->size()];                                 \
     for (UInt32 j=0; j<geo->getmethod()->size(); j++)                               \
         arr2[i][j]=-1;                                                              \
@@ -321,7 +321,7 @@ bool SplitGraphOp::splitNode(const NodePtr& node, std::vector<NodePtr> &split)
     if (!isLeaf(node) || isInExcludeList(node) ||
         !node->getCore()->getType().isDerivedFrom(Geometry::getClassType())) return false;
 
-    GeometryPtr geo = cast_dynamic<GeometryPtr>(node->getCore());
+    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
 
     if ( geo->getPositions() == NullFC || geo->getPositions()->size() == 0 ||
          geo->getLengths()   == NullFC || geo->getLengths()->size() == 0 ||
@@ -433,12 +433,12 @@ bool SplitGraphOp::splitNode(const NodePtr& node, std::vector<NodePtr> &split)
         if(geo->getMFIndexMapping() != NULL)
             geos[i]->getMFIndexMapping()->setValues(*(geo->getMFIndexMapping()));
 
-        types[i]   = cast_dynamic<GeoPTypesPtr>(geo->getTypes()->getType().createFieldContainer());
-        lens[i]    = cast_dynamic<GeoPLengthsPtr>(geo->getLengths()->getType().createFieldContainer());
+        types[i]   = dynamic_cast<GeoPTypesPtr>(geo->getTypes()->getType().createFieldContainer());
+        lens[i]    = dynamic_cast<GeoPLengthsPtr>(geo->getLengths()->getType().createFieldContainer());
 
         if (geo->getIndices()!=NullFC)
         {
-            indices[i]  = cast_dynamic<GeoIndicesPtr>(geo->getIndices()->getType().createFieldContainer());
+            indices[i]  = dynamic_cast<GeoIndicesPtr>(geo->getIndices()->getType().createFieldContainer());
         }
         else
             indices[i]  = NullFC;

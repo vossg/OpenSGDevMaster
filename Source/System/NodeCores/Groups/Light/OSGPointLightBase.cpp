@@ -246,7 +246,7 @@ PointLightPtr PointLightBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<PointLight::ObjPtr>(
+        fc = dynamic_cast<PointLight::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

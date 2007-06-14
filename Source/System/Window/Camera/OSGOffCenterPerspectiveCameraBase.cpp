@@ -234,7 +234,7 @@ OffCenterPerspectiveCameraPtr OffCenterPerspectiveCameraBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<OffCenterPerspectiveCamera::ObjPtr>(
+        fc = dynamic_cast<OffCenterPerspectiveCamera::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

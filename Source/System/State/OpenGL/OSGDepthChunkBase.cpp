@@ -522,7 +522,7 @@ DepthChunkPtr DepthChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<DepthChunk::ObjPtr>(
+        fc = dynamic_cast<DepthChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -132,7 +132,7 @@ bool VerifyGeoGraphOp::travNodeEnter(NodePtr node)
 
     bool _verified = true;
 
-    GeometryPtr geo = cast_dynamic<GeometryPtr>(node->getCore());
+    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
 
     if(geo->getTypes() != NullFC && geo->getTypes()->size() == 0)
     {

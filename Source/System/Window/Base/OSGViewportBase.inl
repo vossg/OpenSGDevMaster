@@ -206,25 +206,6 @@ void ViewportBase::setTop(const Real32 &value)
     _sfTop.setValue(value);
 }
 
-//! Get the value of the Viewport::_sfParent field.
-inline
-ParentFieldContainerPtrConst ViewportBase::getParent(void) const
-{
-    return _sfParent.getValue();
-}
-
-//! Set the value of the Viewport::_sfParent field.
-inline
-void ViewportBase::setParent(ParentFieldContainerPtrConstArg value,
-                             const UInt16      uiStoredInFieldId)
-{
-    editSField(ParentFieldMask);
-
-    _sfParent.setValue(value);
-    _sfParent.getValue().setParentFieldPos(uiStoredInFieldId);
-
-}
-
 //! Get the value of the Viewport::_sfCamera field.
 inline
 CameraPtrConst ViewportBase::getCamera(void) const

@@ -228,19 +228,19 @@ Action::ResultE MergeGraphOp::excludeListEnter(NodePtrConstArg node)
 
 Action::ResultE MergeGraphOp::excludeListLeave(NodePtrConstArg node, Action::ResultE res)
 {
-    DirectionalLightPtr dlight = cast_dynamic<DirectionalLightPtr>(node->getCore());
+    DirectionalLightPtr dlight = dynamic_cast<DirectionalLightPtr>(node->getCore());
     if (dlight!=NullFC)
         addToExcludeList(dlight->getBeacon());
     
-    LightPtr light = cast_dynamic<LightPtr>(node->getCore());
+    LightPtr light = dynamic_cast<LightPtr>(node->getCore());
     if (light!=NullFC)
         addToExcludeList(light->getBeacon());    
     
-    PointLightPtr plight = cast_dynamic<PointLightPtr>(node->getCore());
+    PointLightPtr plight = dynamic_cast<PointLightPtr>(node->getCore());
     if (plight!=NullFC)
         addToExcludeList(plight->getBeacon());
     
-    SpotLightPtr slight = cast_dynamic<SpotLightPtr>(node->getCore());
+    SpotLightPtr slight = dynamic_cast<SpotLightPtr>(node->getCore());
     if (slight!=NullFC)
         addToExcludeList(slight->getBeacon());    
     
@@ -249,10 +249,10 @@ Action::ResultE MergeGraphOp::excludeListLeave(NodePtrConstArg node, Action::Res
 
 Action::ResultE MergeGraphOp::traverseEnter(NodePtrConstArg node)
 {
-    SwitchPtr switch_ = cast_dynamic<SwitchPtr>(node->getCore());
+    SwitchPtr switch_ = dynamic_cast<SwitchPtr>(node->getCore());
     if (switch_!=NullFC) return Action::Skip;
     
-    DistanceLODPtr dlod = cast_dynamic<DistanceLODPtr>(node->getCore());
+    DistanceLODPtr dlod = dynamic_cast<DistanceLODPtr>(node->getCore());
     if (dlod!=NullFC) return Action::Skip;
     
     //leaf, don't enter, cause no job here
@@ -334,7 +334,7 @@ void MergeGraphOp::processGroups(NodePtrConst node)
         }
         else if ((*it)->getCore()->getType().isDerivedFrom( MaterialGroup::getClassType() ))
         {
-            MaterialGroupPtr mg = cast_dynamic<MaterialGroupPtr>((*it)->getCore());
+            MaterialGroupPtr mg = dynamic_cast<MaterialGroupPtr>((*it)->getCore());
             
             std::vector<NodePtr>::const_iterator it2 = (*it)->getMFChildren()->getValues().begin();
             std::vector<NodePtr>::const_iterator en2 = (*it)->getMFChildren()->getValues().end  ();
@@ -356,7 +356,7 @@ void MergeGraphOp::processGroups(NodePtrConst node)
                         else
                         {                                
                             //it is a leaf geometry, so apply the transformation
-                            GeometryPtr geo = cast_dynamic<GeometryPtr>((*it2)->getCore());
+                            GeometryPtr geo = dynamic_cast<GeometryPtr>((*it2)->getCore());
                             geo->setMaterial(mg->getMaterial());
                             toAdd.push_back(*it2);                            
                         }
@@ -425,18 +425,18 @@ void MergeGraphOp::processTransformations(NodePtrConst node)
                             else
                             {                                
                                 //it is a leaf geometry, so apply the transformation
-                                GeometryPtr geo_old = cast_dynamic<GeometryPtr>((*it2)->getCore());
+                                GeometryPtr geo_old = dynamic_cast<GeometryPtr>((*it2)->getCore());
                                 //GeometryPtr geo = geo_old->clone();
-                                GeometryPtr geo = cast_dynamic<GeometryPtr>(OSG::deepClone(geo_old, "Material"));
-                                TransformPtr  t = cast_dynamic<TransformPtr>((*it)->getCore());
-                                GeoPnt3fPropertyPtr pos  = cast_dynamic<GeoPnt3fPropertyPtr>(geo->getPositions());
-                                GeoVec3fPropertyPtr   norm = cast_dynamic<GeoVec3fPropertyPtr>(geo->getNormals());
-                                GeoColor3fPropertyPtr color = cast_dynamic<GeoColor3fPropertyPtr>(geo->getColors());
-                                GeoColor3fPropertyPtr scolor = cast_dynamic<GeoColor3fPropertyPtr>(geo->getSecondaryColors());
-                                GeoVec3fPropertyPtr texcoord0 = cast_dynamic<GeoVec3fPropertyPtr>(geo->getTexCoords());
-                                GeoVec3fPropertyPtr texcoord1 = cast_dynamic<GeoVec3fPropertyPtr>(geo->getTexCoords1());
-                                GeoVec3fPropertyPtr texcoord2 = cast_dynamic<GeoVec3fPropertyPtr>(geo->getTexCoords2());
-                                GeoVec3fPropertyPtr texcoord3 = cast_dynamic<GeoVec3fPropertyPtr>(geo->getTexCoords3());
+                                GeometryPtr geo = dynamic_cast<GeometryPtr>(OSG::deepClone(geo_old, "Material"));
+                                TransformPtr  t = dynamic_cast<TransformPtr>((*it)->getCore());
+                                GeoPnt3fPropertyPtr pos  = dynamic_cast<GeoPnt3fPropertyPtr>(geo->getPositions());
+                                GeoVec3fPropertyPtr   norm = dynamic_cast<GeoVec3fPropertyPtr>(geo->getNormals());
+                                GeoColor3fPropertyPtr color = dynamic_cast<GeoColor3fPropertyPtr>(geo->getColors());
+                                GeoColor3fPropertyPtr scolor = dynamic_cast<GeoColor3fPropertyPtr>(geo->getSecondaryColors());
+                                GeoVec3fPropertyPtr texcoord0 = dynamic_cast<GeoVec3fPropertyPtr>(geo->getTexCoords());
+                                GeoVec3fPropertyPtr texcoord1 = dynamic_cast<GeoVec3fPropertyPtr>(geo->getTexCoords1());
+                                GeoVec3fPropertyPtr texcoord2 = dynamic_cast<GeoVec3fPropertyPtr>(geo->getTexCoords2());
+                                GeoVec3fPropertyPtr texcoord3 = dynamic_cast<GeoVec3fPropertyPtr>(geo->getTexCoords3());
                                 Matrix m=t->getMatrix();
                                 if (pos!=NullFC) 
                                 {
@@ -587,7 +587,7 @@ void MergeGraphOp::processGeometries(NodePtrConst node)
         
         if ((*it)->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
         {
-            GeometryPtr geo = cast_dynamic<GeometryPtr>((*it)->getCore());
+            GeometryPtr geo = dynamic_cast<GeometryPtr>((*it)->getCore());
             //if a geometry, try to merge it in another geometry
             //if successfull, delete it.
             //check also if it is added for exclusion
@@ -609,7 +609,7 @@ void MergeGraphOp::processGeometries(NodePtrConst node)
                 {
                     if (!isInExcludeList(*it2) && (*it2)->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
                     {
-                        GeometryPtr geo2 = cast_dynamic<GeometryPtr>((*it2)->getCore());
+                        GeometryPtr geo2 = dynamic_cast<GeometryPtr>((*it2)->getCore());
 #ifndef OSG2_MERGE_MISSING
                         if (geo->isMergeable(geo2))
                         {

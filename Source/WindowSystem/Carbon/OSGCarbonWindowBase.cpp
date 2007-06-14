@@ -235,7 +235,7 @@ CarbonWindowPtr CarbonWindowBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<CarbonWindow::ObjPtr>(
+        fc = dynamic_cast<CarbonWindow::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

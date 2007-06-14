@@ -234,7 +234,7 @@ SimpleShadowMapEnginePtr SimpleShadowMapEngineBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<SimpleShadowMapEngine::ObjPtr>(
+        fc = dynamic_cast<SimpleShadowMapEngine::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

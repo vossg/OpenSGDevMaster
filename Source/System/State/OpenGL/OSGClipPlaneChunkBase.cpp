@@ -312,7 +312,7 @@ void ClipPlaneChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement
     if(uiFieldId == BeaconFieldId)
     {
         static_cast<ClipPlaneChunk *>(this)->setBeacon(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
 }
 
@@ -433,7 +433,7 @@ ClipPlaneChunkPtr ClipPlaneChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ClipPlaneChunk::ObjPtr>(
+        fc = dynamic_cast<ClipPlaneChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

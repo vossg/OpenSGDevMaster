@@ -384,27 +384,27 @@ void CubeTextureObjChunkBase::pushToField(      FieldContainerPtrConstArg pNewEl
     if(uiFieldId == PosZImageFieldId)
     {
         static_cast<CubeTextureObjChunk *>(this)->setPosZImage(
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
     if(uiFieldId == PosXImageFieldId)
     {
         static_cast<CubeTextureObjChunk *>(this)->setPosXImage(
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
     if(uiFieldId == NegXImageFieldId)
     {
         static_cast<CubeTextureObjChunk *>(this)->setNegXImage(
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
     if(uiFieldId == PosYImageFieldId)
     {
         static_cast<CubeTextureObjChunk *>(this)->setPosYImage(
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
     if(uiFieldId == NegYImageFieldId)
     {
         static_cast<CubeTextureObjChunk *>(this)->setNegYImage(
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
 }
 
@@ -577,7 +577,7 @@ CubeTextureObjChunkPtr CubeTextureObjChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<CubeTextureObjChunk::ObjPtr>(
+        fc = dynamic_cast<CubeTextureObjChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

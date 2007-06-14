@@ -468,7 +468,7 @@ LineChunkPtr LineChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<LineChunk::ObjPtr>(
+        fc = dynamic_cast<LineChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -811,22 +811,22 @@ void ParticlesBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == PositionsFieldId)
     {
         static_cast<Particles *>(this)->setPositions(
-            cast_dynamic<GeoVectorPropertyPtr>(pNewElement));
+            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
     }
     if(uiFieldId == SecPositionsFieldId)
     {
         static_cast<Particles *>(this)->setSecPositions(
-            cast_dynamic<GeoVectorPropertyPtr>(pNewElement));
+            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
     }
     if(uiFieldId == ColorsFieldId)
     {
         static_cast<Particles *>(this)->setColors(
-            cast_dynamic<GeoVectorPropertyPtr>(pNewElement));
+            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
     }
     if(uiFieldId == NormalsFieldId)
     {
         static_cast<Particles *>(this)->setNormals(
-            cast_dynamic<GeoVectorPropertyPtr>(pNewElement));
+            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
     }
 }
 
@@ -1325,7 +1325,7 @@ ParticlesPtr ParticlesBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<Particles::ObjPtr>(
+        fc = dynamic_cast<Particles::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -212,7 +212,7 @@ StringAttributeMapPtr stringAttributeMap(AttachmentContainerPtr container)
     }
     else
     {
-        attr_map = cast_dynamic<StringAttributeMapPtr>(attach_ptr);
+        attr_map = dynamic_cast<StringAttributeMapPtr>(attach_ptr);
 
         if ( NullFC == attr_map )
         {

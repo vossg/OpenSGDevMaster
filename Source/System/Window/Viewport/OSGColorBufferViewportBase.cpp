@@ -455,7 +455,7 @@ ColorBufferViewportPtr ColorBufferViewportBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ColorBufferViewport::ObjPtr>(
+        fc = dynamic_cast<ColorBufferViewport::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -200,7 +200,7 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
             std::string szKey = szNodename;
 
             AttachmentContainerPtr pAttC = 
-                cast_dynamic<AttachmentContainerPtr>(pNewNode);
+                dynamic_cast<AttachmentContainerPtr>(pNewNode);
 
             if(pAttC != NULL)
             {
@@ -238,7 +238,7 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
 
     if(_fcStack.size() == 1)
     {
-        NodePtr pNode = cast_dynamic<NodePtr>(_pCurrentFC);
+        NodePtr pNode = dynamic_cast<NodePtr>(_pCurrentFC);
 
         if(_pSceneRootNode == NullFC)
         {
@@ -285,7 +285,7 @@ void VRMLFile::endNode(void)
     {
         if(_pCurrentFC->getType().isNode() == true)
         {
-            NodePtr pNode = cast_dynamic<NodePtr>(_pCurrentFC);
+            NodePtr pNode = dynamic_cast<NodePtr>(_pCurrentFC);
 
             if(pNode->getCore() == NullFC)
             {
@@ -515,7 +515,7 @@ void VRMLFile::use(const Char8 *szName)
         {
             if(pUsedFC->getType().isNode())
             {
-                NodePtr pRootNode = cast_dynamic<NodePtr>(pUsedFC);
+                NodePtr pRootNode = dynamic_cast<NodePtr>(pUsedFC);
                 
                 pUsedFC = cloneTree(pRootNode);
             }
@@ -549,29 +549,29 @@ void VRMLFile::scanStandardPrototypes(const Char8  *szFilename)
 
 static Action::ResultE modifyMaterial(NodePtrConstArg node)
 {   
-    MaterialGroupPtr mg = cast_dynamic<MaterialGroupPtr>(node->getCore());
+    MaterialGroupPtr mg = dynamic_cast<MaterialGroupPtr>(node->getCore());
     
     if(mg == NullFC)
         return Action::Continue; 
     
-    ChunkMaterialPtr cmat = cast_dynamic<ChunkMaterialPtr>(mg->getMaterial());
+    ChunkMaterialPtr cmat = dynamic_cast<ChunkMaterialPtr>(mg->getMaterial());
     
     if(cmat == NullFC)
         return Action::Continue; 
     
     TextureObjChunkPtr texc = 
-        cast_dynamic<TextureObjChunkPtr>(
+        dynamic_cast<TextureObjChunkPtr>(
             cmat->find(TextureObjChunk::getClassType()));
     
     if(texc == NullFC)
         return Action::Continue;
     
     MaterialChunkPtr matc = 
-        cast_dynamic<MaterialChunkPtr>(
+        dynamic_cast<MaterialChunkPtr>(
             cmat->find(MaterialChunk::getClassType()));
 
     TextureEnvChunkPtr texe = 
-        cast_dynamic<TextureEnvChunkPtr>(
+        dynamic_cast<TextureEnvChunkPtr>(
             cmat->find(TextureEnvChunk::getClassType()));
     
     if(texe == NullFC)
@@ -606,7 +606,7 @@ static Action::ResultE modifyMaterial(NodePtrConstArg node)
             img->getBpp()         ==      4   )
         {
             BlendChunkPtr blendc = 
-                cast_dynamic<BlendChunkPtr>(
+                dynamic_cast<BlendChunkPtr>(
                     cmat->find(BlendChunk::getClassType()));
 
             if(blendc == NullFC)
@@ -881,7 +881,7 @@ FieldContainerPtr VRMLFile::findFCByName(const Char8  *szName,
     // check if name matches nodename
 
     pNodename =
-        cast_dynamic<NamePtr>(
+        dynamic_cast<NamePtr>(
             pNode->findAttachment(Name::getClassType().getGroupId()));
 
     if(pNodename != NullFC)
@@ -895,7 +895,7 @@ FieldContainerPtr VRMLFile::findFCByName(const Char8  *szName,
 
     if(pCore != NullFC)
     {
-        pNodename = cast_dynamic<NamePtr>(
+        pNodename = dynamic_cast<NamePtr>(
             pCore->findAttachment(Name::getClassType().getGroupId()));
 
         if(pNodename != NullFC)

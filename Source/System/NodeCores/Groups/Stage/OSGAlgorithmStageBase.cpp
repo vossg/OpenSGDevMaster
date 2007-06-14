@@ -284,7 +284,7 @@ void AlgorithmStageBase::pushToField(      FieldContainerPtrConstArg pNewElement
     if(uiFieldId == AlgorithmFieldId)
     {
         static_cast<AlgorithmStage *>(this)->setAlgorithm(
-            cast_dynamic<AlgorithmPtr>(pNewElement));
+            dynamic_cast<AlgorithmPtr>(pNewElement));
     }
 }
 
@@ -405,7 +405,7 @@ AlgorithmStagePtr AlgorithmStageBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<AlgorithmStage::ObjPtr>(
+        fc = dynamic_cast<AlgorithmStage::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

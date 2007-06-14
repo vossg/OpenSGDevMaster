@@ -594,7 +594,7 @@ TileCameraDecoratorPtr TileCameraDecoratorBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TileCameraDecorator::ObjPtr>(
+        fc = dynamic_cast<TileCameraDecorator::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

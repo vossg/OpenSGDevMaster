@@ -2186,7 +2186,7 @@ TextureEnvChunkPtr TextureEnvChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TextureEnvChunk::ObjPtr>(
+        fc = dynamic_cast<TextureEnvChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

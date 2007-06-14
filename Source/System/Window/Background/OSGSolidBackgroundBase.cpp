@@ -315,7 +315,7 @@ SolidBackgroundPtr SolidBackgroundBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<SolidBackground::ObjPtr>(
+        fc = dynamic_cast<SolidBackground::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

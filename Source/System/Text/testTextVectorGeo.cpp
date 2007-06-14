@@ -543,7 +543,7 @@ void updateScene()
     textNode->setCore(geo);
 #else
     NodePtr textNode = face->makeNode(layoutResult, scale, 0.5f, 0);
-    GeometryPtr geo = cast_dynamic<GeometryPtr>(textNode->getCore());
+    GeometryPtr geo = dynamic_cast<GeometryPtr>(textNode->getCore());
 #endif
 
     geo->setMaterial(matPtr);

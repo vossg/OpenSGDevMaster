@@ -237,7 +237,7 @@ TransformPtr TransformBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<Transform::ObjPtr>(
+        fc = dynamic_cast<Transform::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -759,7 +759,7 @@ SHLChunkPtr SHLChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<SHLChunk::ObjPtr>(
+        fc = dynamic_cast<SHLChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

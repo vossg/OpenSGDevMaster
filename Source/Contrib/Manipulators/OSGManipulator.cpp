@@ -142,7 +142,7 @@ void Manipulator::changed(ConstFieldMaskArg whichField,
         if ( !getParents().empty() )
         {
             //std::cout << "parent size= " << parents.getSize() << std::endl;
-            parent = cast_dynamic<NodePtr>(getParents()[0]); // Dangerous! multiple parents?
+            parent = dynamic_cast<NodePtr>(getParents()[0].getCPtr()); // Dangerous! multiple parents?
         }
         else
         {
@@ -194,7 +194,7 @@ void Manipulator::reverseTransform()
 {
     if ( getTarget() != NullFC )
     {
-        TransformPtr t = cast_dynamic<TransformPtr>(getTarget()->getCore());
+        TransformPtr t = dynamic_cast<TransformPtr>(getTarget()->getCore());
         Matrix          m,n,o;
 
         Vec3f      translation;
@@ -273,12 +273,12 @@ void Manipulator::onCreate(const Manipulator* source)
     _transHandleXC->setTranslation(Vec3f(getLength()[0], 0, 0)                   );
     _transHandleXC->setRotation   (Quaternion(Vec3f(0, 0, 1), osgDegree2Rad(-90)));
 
-    simpleMat = cast_dynamic<SimpleMaterialPtr>(getMaterialX());
+    simpleMat = dynamic_cast<SimpleMaterialPtr>(getMaterialX());
 
     simpleMat->setDiffuse(Color3f(1, 0, 0));
     simpleMat->setLit    (true            );
 
-    geo = cast_dynamic<GeometryPtr>(getHandleXNode()->getCore());
+    geo = dynamic_cast<GeometryPtr>(getHandleXNode()->getCore());
     geo->setMaterial(simpleMat);
 
     //
@@ -300,11 +300,11 @@ void Manipulator::onCreate(const Manipulator* source)
     _transHandleYC->setTranslation(Vec3f(0, getLength()[1], 0)                    );
 //    _transHandleYC->setRotation   ( Quaternion(Vec3f(0, 0, 1), osgDegree2Rad(-90)));
 
-    simpleMat = cast_dynamic<SimpleMaterialPtr>(getMaterialY());
+    simpleMat = dynamic_cast<SimpleMaterialPtr>(getMaterialY());
     simpleMat->setDiffuse(Color3f(0, 1, 0));
     simpleMat->setLit    (true            );
 
-    geo = cast_dynamic<GeometryPtr>(getHandleYNode()->getCore());
+    geo = dynamic_cast<GeometryPtr>(getHandleYNode()->getCore());
     geo->setMaterial(simpleMat);
 
     //
@@ -326,11 +326,11 @@ void Manipulator::onCreate(const Manipulator* source)
     _transHandleZC->setTranslation(Vec3f(0, 0, getLength()[2])                  );
     _transHandleZC->setRotation   (Quaternion(Vec3f(1, 0, 0), osgDegree2Rad(90)));
 
-    simpleMat = cast_dynamic<SimpleMaterialPtr>(getMaterialZ());
+    simpleMat = dynamic_cast<SimpleMaterialPtr>(getMaterialZ());
     simpleMat->setDiffuse(Color3f(0, 0, 1));
     simpleMat->setLit    (true            );
 
-    geo = cast_dynamic<GeometryPtr>(getHandleZNode()->getCore());
+    geo = dynamic_cast<GeometryPtr>(getHandleZNode()->getCore());
     geo->setMaterial(simpleMat);
 
     commitChanges();
@@ -409,7 +409,7 @@ void Manipulator::mouseMove(const Int16 x,
     if( getTarget() != NullFC )
     {
         // get transformation of beacon
-        TransformPtr t = cast_dynamic<TransformPtr>(getTarget()->getCore());
+        TransformPtr t = dynamic_cast<TransformPtr>(getTarget()->getCore());
 
         if( t != NullFC )
         {

@@ -295,7 +295,7 @@ void CameraBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == BeaconFieldId)
     {
         static_cast<Camera *>(this)->setBeacon(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
 }
 

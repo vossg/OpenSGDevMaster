@@ -863,12 +863,12 @@ void TiledQuadTreeTerrainBase::pushToField(      FieldContainerPtrConstArg pNewE
     if(uiFieldId == HeightTilesFieldId)
     {
         static_cast<TiledQuadTreeTerrain *>(this)->pushToHeightTiles(
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
     if(uiFieldId == HeightTexturesFieldId)
     {
         static_cast<TiledQuadTreeTerrain *>(this)->pushToHeightTextures(
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -882,13 +882,13 @@ void TiledQuadTreeTerrainBase::insertIntoMField(const UInt32                    
     {
         static_cast<TiledQuadTreeTerrain *>(this)->insertIntoHeightTiles(
             uiIndex,
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
     if(uiFieldId == HeightTexturesFieldId)
     {
         static_cast<TiledQuadTreeTerrain *>(this)->insertIntoHeightTextures(
             uiIndex,
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -902,13 +902,13 @@ void TiledQuadTreeTerrainBase::replaceInMField (const UInt32                    
     {
         static_cast<TiledQuadTreeTerrain *>(this)->replaceInHeightTiles(
             uiIndex,
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
     if(uiFieldId == HeightTexturesFieldId)
     {
         static_cast<TiledQuadTreeTerrain *>(this)->replaceInHeightTextures(
             uiIndex,
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -921,14 +921,14 @@ void TiledQuadTreeTerrainBase::replaceInMField (      FieldContainerPtrConstArg 
     if(uiFieldId == HeightTilesFieldId)
     {
         static_cast<TiledQuadTreeTerrain *>(this)->replaceInHeightTiles(
-            cast_dynamic<ImagePtr>(pOldElement),
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pOldElement),
+            dynamic_cast<ImagePtr>(pNewElement));
     }
     if(uiFieldId == HeightTexturesFieldId)
     {
         static_cast<TiledQuadTreeTerrain *>(this)->replaceInHeightTextures(
-            cast_dynamic<MaterialPtr>(pOldElement),
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pOldElement),
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -957,12 +957,12 @@ void TiledQuadTreeTerrainBase::removeFromMField(      FieldContainerPtrConstArg 
     if(uiFieldId == HeightTilesFieldId)
     {
         static_cast<TiledQuadTreeTerrain *>(this)->removeFromHeightTiles(
-            cast_dynamic<ImagePtr>(pElement));
+            dynamic_cast<ImagePtr>(pElement));
     }
     if(uiFieldId == HeightTexturesFieldId)
     {
         static_cast<TiledQuadTreeTerrain *>(this)->removeFromHeightTextures(
-            cast_dynamic<MaterialPtr>(pElement));
+            dynamic_cast<MaterialPtr>(pElement));
     }
 }
 
@@ -1421,7 +1421,7 @@ TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TiledQuadTreeTerrain::ObjPtr>(
+        fc = dynamic_cast<TiledQuadTreeTerrain::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

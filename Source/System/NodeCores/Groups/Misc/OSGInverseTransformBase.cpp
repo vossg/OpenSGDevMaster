@@ -159,7 +159,7 @@ InverseTransformPtr InverseTransformBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<InverseTransform::ObjPtr>(
+        fc = dynamic_cast<InverseTransform::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -126,7 +126,7 @@ void NFIOImage::writeFC(const FieldContainerPtr &fc)
     
     static bool jpeg = isJPEGSupported();
     
-    ImagePtr img = cast_dynamic<ImagePtr>(fc);
+    ImagePtr img = dynamic_cast<ImagePtr>(fc);
     
     _out->putValue(_version);
     

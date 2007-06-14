@@ -232,7 +232,7 @@ void PrimitiveIterator::setGeo(GeometryConstPtrArg geo)
 */
 void PrimitiveIterator::setGeo(const NodePtr& geo)
 {
-    GeometryPtr gc = cast_dynamic<GeometryPtr>(geo->getCore());
+    GeometryPtr gc = dynamic_cast<GeometryPtr>(geo->getCore());
     
     if(gc == NullFC)
     {

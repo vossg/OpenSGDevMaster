@@ -159,7 +159,7 @@ RotateManipulatorPtr RotateManipulatorBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<RotateManipulator::ObjPtr>(
+        fc = dynamic_cast<RotateManipulator::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

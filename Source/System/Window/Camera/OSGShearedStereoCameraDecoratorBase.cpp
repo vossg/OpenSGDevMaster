@@ -312,7 +312,7 @@ ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ShearedStereoCameraDecorator::ObjPtr>(
+        fc = dynamic_cast<ShearedStereoCameraDecorator::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

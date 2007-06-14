@@ -81,7 +81,7 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
         pAttMap->getValue().begin();
     FieldContainerAttachmentMap::const_iterator mapEnd =
         pAttMap->getValue().end();
-    AttachmentContainerPtr pDstAC = cast_dynamic<AttachmentContainerPtr>(pDst);
+    AttachmentContainerPtr pDstAC = dynamic_cast<AttachmentContainerPtr>(pDst);
 
     for(; mapIt != mapEnd; ++mapIt)
     {
@@ -109,7 +109,7 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
                                                     shareTypes.end(),
                                                     attType               )   )
                 {
-                    att = cast_dynamic<FieldContainerAttachmentPtr>(
+                    att = dynamic_cast<FieldContainerAttachmentPtr>(
                         OSG::deepClone(att, shareTypes,    ignoreTypes,
                                             shareGroupIds, ignoreGroupIds));
                 }
@@ -138,7 +138,7 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
         pAttMap->getValue().begin();
     FieldContainerAttachmentMap::const_iterator mapEnd =
         pAttMap->getValue().end();
-    AttachmentContainerPtr pDstAC = cast_dynamic<AttachmentContainerPtr>(pDst);
+    AttachmentContainerPtr pDstAC = dynamic_cast<AttachmentContainerPtr>(pDst);
 
     for(; mapIt != mapEnd; ++mapIt)
     {
@@ -166,7 +166,7 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
                                                    cloneTypes.end(),
                                                    attType               )   )
                 {
-                    att = cast_dynamic<FieldContainerAttachmentPtr>(
+                    att = dynamic_cast<FieldContainerAttachmentPtr>(
                         OSG::deepClone(att, cloneTypes,    ignoreTypes,
                                             cloneGroupIds, ignoreGroupIds));
                 }

@@ -172,7 +172,7 @@ FragmentProgramChunkPtr FragmentProgramChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<FragmentProgramChunk::ObjPtr>(
+        fc = dynamic_cast<FragmentProgramChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

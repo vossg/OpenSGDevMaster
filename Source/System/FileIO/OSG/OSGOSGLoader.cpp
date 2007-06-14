@@ -390,13 +390,13 @@ void OSGLoader::beginNode(const Char8 *szNodeTypename,
 
         if(_pCurrentFC->getType().isNode())
         {
-            pNode = cast_dynamic<NodePtr>(_pCurrentFC);
+            pNode = dynamic_cast<NodePtr>(_pCurrentFC);
         }
         else if(_pCurrentFC->getType().isNodeCore())
         {
             pNode = Node::create();
 
-            pNode->setCore(cast_dynamic<NodeCorePtr>(_pCurrentFC));
+            pNode->setCore(dynamic_cast<NodeCorePtr>(_pCurrentFC));
         }
         else
         {
@@ -433,7 +433,7 @@ void OSGLoader::endNode(void)
     {
         if(_pCurrentFC->getType().isNode() == true)
         {
-            NodePtr pNode = cast_dynamic<NodePtr>(_pCurrentFC);
+            NodePtr pNode = dynamic_cast<NodePtr>(_pCurrentFC);
 
             if(pNode->getCore() == NullFC)
             {

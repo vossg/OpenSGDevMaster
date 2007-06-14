@@ -514,7 +514,7 @@ TestMultiPartitionStagePtr TestMultiPartitionStageBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TestMultiPartitionStage::ObjPtr>(
+        fc = dynamic_cast<TestMultiPartitionStage::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

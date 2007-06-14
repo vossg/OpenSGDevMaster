@@ -186,7 +186,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         serverWindow,
     {
         clientPort = getPort()[cv];
 
-        clientStereoPort = cast_dynamic<StereoBufferViewportPtr>(clientPort);
+        clientStereoPort = dynamic_cast<StereoBufferViewportPtr>(clientPort);
 
         cleft   = (Int32)(clientPort->getPixelLeft()      * scaleCWidth)   ;
         cbottom = (Int32)(clientPort->getPixelBottom()    * scaleCHeight)  ;
@@ -210,7 +210,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         serverWindow,
 
         if(serverWindow->getPort().size() <= sv)
         {
-            serverPort = cast_dynamic<ViewportPtr>(clientPort->shallowCopy());
+            serverPort = dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
 
             deco = TileCameraDecorator::create();
 
@@ -222,7 +222,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         serverWindow,
         {
             serverPort = serverWindow->getPort()[sv];
 
-            deco = cast_dynamic<TileCameraDecoratorPtr>(
+            deco = dynamic_cast<TileCameraDecoratorPtr>(
                 serverPort->getCamera());
 
             if(serverWindow->getPort()[sv]->getType() != clientPort->getType())
@@ -231,14 +231,14 @@ void MultiDisplayWindow::serverRender(WindowPtr         serverWindow,
                 subRef(serverWindow->getPort()[sv]);
 
                 serverPort = 
-                    cast_dynamic<ViewportPtr>(clientPort->shallowCopy());
+                    dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
 
                 serverWindow->replacePort(sv, serverPort);//[sv] = serverPort;
                 serverPort->setCamera(deco);
             }
             else
             {
-                deco = cast_dynamic<TileCameraDecoratorPtr>(
+                deco = dynamic_cast<TileCameraDecoratorPtr>(
                     serverPort->getCamera());
             }
         }
@@ -337,7 +337,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
     {
         clientPort = getPort()[cv];
 
-        clientStereoPort = cast_dynamic<StereoBufferViewportPtr>(clientPort);
+        clientStereoPort = dynamic_cast<StereoBufferViewportPtr>(clientPort);
 
         cleft   = (Int32)(clientPort->getPixelLeft()      * scaleCWidth)   ;
         cbottom = (Int32)(clientPort->getPixelBottom()    * scaleCHeight)  ;
@@ -361,7 +361,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
 
         if(window->getPort().size() <= sv)
         {
-            serverPort = cast_dynamic<ViewportPtr>(clientPort->shallowCopy());
+            serverPort = dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
 
             deco = TileCameraDecorator::create();
 
@@ -373,7 +373,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
         {
             serverPort = window->getPort()[sv];
 
-            deco = cast_dynamic<TileCameraDecoratorPtr>(
+            deco = dynamic_cast<TileCameraDecoratorPtr>(
                 serverPort->getCamera());
 
             if(window->getPort()[sv]->getType() != clientPort->getType())
@@ -382,14 +382,14 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
                 subRef(window->getPort()[sv]);
 
                 serverPort =
-                    cast_dynamic<ViewportPtr>(clientPort->shallowCopy());
+                    dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
 
                 window->replacePort(sv, serverPort);//[sv] = serverPort;
                 serverPort->setCamera(deco);
             }
             else
             {
-                deco = cast_dynamic<TileCameraDecoratorPtr>(
+                deco = dynamic_cast<TileCameraDecoratorPtr>(
                     serverPort->getCamera());
             }
         }
@@ -524,7 +524,7 @@ void MultiDisplayWindow::clientInit(void)
         for(UInt32 v=0 ; v<getPort().size() ;v++)
         {
             getClientWindow()->addPort(
-                cast_dynamic<ViewportPtr>(getPort(v)->shallowCopy()));
+                dynamic_cast<ViewportPtr>(getPort(v)->shallowCopy()));
         }
     }
 }

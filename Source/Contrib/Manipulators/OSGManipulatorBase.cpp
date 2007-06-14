@@ -724,67 +724,67 @@ void ManipulatorBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == TargetFieldId)
     {
         static_cast<Manipulator *>(this)->setTarget(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == ActiveSubHandleFieldId)
     {
         static_cast<Manipulator *>(this)->setActiveSubHandle(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == ViewportFieldId)
     {
         static_cast<Manipulator *>(this)->setViewport(
-            cast_dynamic<ViewportPtr>(pNewElement));
+            dynamic_cast<ViewportPtr>(pNewElement));
     }
     if(uiFieldId == HandleXNodeFieldId)
     {
         static_cast<Manipulator *>(this)->setHandleXNode(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == HandleYNodeFieldId)
     {
         static_cast<Manipulator *>(this)->setHandleYNode(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == HandleZNodeFieldId)
     {
         static_cast<Manipulator *>(this)->setHandleZNode(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == TransXNodeFieldId)
     {
         static_cast<Manipulator *>(this)->setTransXNode(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == TransYNodeFieldId)
     {
         static_cast<Manipulator *>(this)->setTransYNode(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == TransZNodeFieldId)
     {
         static_cast<Manipulator *>(this)->setTransZNode(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == MaterialXFieldId)
     {
         static_cast<Manipulator *>(this)->setMaterialX(
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
     if(uiFieldId == MaterialYFieldId)
     {
         static_cast<Manipulator *>(this)->setMaterialY(
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
     if(uiFieldId == MaterialZFieldId)
     {
         static_cast<Manipulator *>(this)->setMaterialZ(
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
     if(uiFieldId == AxisLinesNFieldId)
     {
         static_cast<Manipulator *>(this)->setAxisLinesN(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
 }
 

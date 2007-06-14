@@ -239,7 +239,7 @@ SwitchPtr SwitchBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<Switch::ObjPtr>(
+        fc = dynamic_cast<Switch::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

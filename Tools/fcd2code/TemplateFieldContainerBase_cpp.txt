@@ -332,13 +332,13 @@ void @!Classname!@Base::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == @!field.Name!@FieldId)
     {
         static_cast<@!Classname!@ *>(this)->set@!field.Name!@(
-            cast_dynamic<@!field.Type!@>(pNewElement));
+            dynamic_cast<@!field.Type!@>(pNewElement));
     }
             @@else // field.isSField
     if(uiFieldId == @!field.Name!@FieldId)
     {
         static_cast<@!Classname!@ *>(this)->@!field.PushToField!@(
-            cast_dynamic<@!field.Type!@>(pNewElement));
+            dynamic_cast<@!field.Type!@>(pNewElement));
     }
             @@endif // field.isSField
         @@endif // !field.noAccess
@@ -359,7 +359,7 @@ void @!Classname!@Base::insertIntoMField(const UInt32                    uiIndex
     {
         static_cast<@!Classname!@ *>(this)->@!field.InsertIntoMField!@(
             uiIndex,
-            cast_dynamic<@!field.Type!@>(pNewElement));
+            dynamic_cast<@!field.Type!@>(pNewElement));
     }
         @@endif //!field.noAccess       
         @@endif // field.isPtrField
@@ -379,7 +379,7 @@ void @!Classname!@Base::replaceInMField (const UInt32                    uiIndex
     {
         static_cast<@!Classname!@ *>(this)->@!field.ReplaceInMFieldIndex!@(
             uiIndex,
-            cast_dynamic<@!field.Type!@>(pNewElement));
+            dynamic_cast<@!field.Type!@>(pNewElement));
     }
         @@endif //!field.noAccess
         @@endif // field.isPtrField
@@ -398,8 +398,8 @@ void @!Classname!@Base::replaceInMField (      FieldContainerPtrConstArg pOldEle
     if(uiFieldId == @!field.Name!@FieldId)
     {
         static_cast<@!Classname!@ *>(this)->@!field.ReplaceInMFieldObject!@(
-            cast_dynamic<@!field.Type!@>(pOldElement),
-            cast_dynamic<@!field.Type!@>(pNewElement));
+            dynamic_cast<@!field.Type!@>(pOldElement),
+            dynamic_cast<@!field.Type!@>(pNewElement));
     }
         @@endif //!field.noAccess
         @@endif // field.isPtrField
@@ -435,7 +435,7 @@ void @!Classname!@Base::removeFromMField(      FieldContainerPtrConstArg pElemen
     if(uiFieldId == @!field.Name!@FieldId)
     {
         static_cast<@!Classname!@ *>(this)->@!field.RemoveFromMFieldObject!@(
-            cast_dynamic<@!field.Type!@>(pElement));
+            dynamic_cast<@!field.Type!@>(pElement));
     }
         @@endif //!field.noAccess
         @@endif // field.isPtrField
@@ -954,7 +954,7 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<@!Classname!@::ObjPtr>(
+        fc = dynamic_cast<@!Classname!@::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

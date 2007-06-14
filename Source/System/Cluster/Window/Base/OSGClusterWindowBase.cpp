@@ -758,12 +758,12 @@ void ClusterWindowBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == ClientWindowFieldId)
     {
         static_cast<ClusterWindow *>(this)->setClientWindow(
-            cast_dynamic<WindowPtr>(pNewElement));
+            dynamic_cast<WindowPtr>(pNewElement));
     }
     if(uiFieldId == ComposerFieldId)
     {
         static_cast<ClusterWindow *>(this)->setComposer(
-            cast_dynamic<ImageComposerPtr>(pNewElement));
+            dynamic_cast<ImageComposerPtr>(pNewElement));
     }
 }
 
@@ -1160,7 +1160,7 @@ ClusterWindowPtr ClusterWindowBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ClusterWindow::ObjPtr>(
+        fc = dynamic_cast<ClusterWindow::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

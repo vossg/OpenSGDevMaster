@@ -877,7 +877,7 @@ PointChunkPtr PointChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<PointChunk::ObjPtr>(
+        fc = dynamic_cast<PointChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

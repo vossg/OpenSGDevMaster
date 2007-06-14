@@ -503,7 +503,7 @@ MultiDisplayWindowPtr MultiDisplayWindowBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<MultiDisplayWindow::ObjPtr>(
+        fc = dynamic_cast<MultiDisplayWindow::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

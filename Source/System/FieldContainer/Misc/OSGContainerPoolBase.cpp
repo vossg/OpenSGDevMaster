@@ -227,7 +227,7 @@ void ContainerPoolBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == ContainersFieldId)
     {
         static_cast<ContainerPool *>(this)->pushToContainers(
-            cast_dynamic<FieldContainerPtr>(pNewElement));
+            dynamic_cast<FieldContainerPtr>(pNewElement));
     }
 }
 
@@ -241,7 +241,7 @@ void ContainerPoolBase::insertIntoMField(const UInt32                    uiIndex
     {
         static_cast<ContainerPool *>(this)->insertIntoContainers(
             uiIndex,
-            cast_dynamic<FieldContainerPtr>(pNewElement));
+            dynamic_cast<FieldContainerPtr>(pNewElement));
     }
 }
 
@@ -255,7 +255,7 @@ void ContainerPoolBase::replaceInMField (const UInt32                    uiIndex
     {
         static_cast<ContainerPool *>(this)->replaceInContainers(
             uiIndex,
-            cast_dynamic<FieldContainerPtr>(pNewElement));
+            dynamic_cast<FieldContainerPtr>(pNewElement));
     }
 }
 
@@ -268,8 +268,8 @@ void ContainerPoolBase::replaceInMField (      FieldContainerPtrConstArg pOldEle
     if(uiFieldId == ContainersFieldId)
     {
         static_cast<ContainerPool *>(this)->replaceInContainers(
-            cast_dynamic<FieldContainerPtr>(pOldElement),
-            cast_dynamic<FieldContainerPtr>(pNewElement));
+            dynamic_cast<FieldContainerPtr>(pOldElement),
+            dynamic_cast<FieldContainerPtr>(pNewElement));
     }
 }
 
@@ -293,7 +293,7 @@ void ContainerPoolBase::removeFromMField(      FieldContainerPtrConstArg pElemen
     if(uiFieldId == ContainersFieldId)
     {
         static_cast<ContainerPool *>(this)->removeFromContainers(
-            cast_dynamic<FieldContainerPtr>(pElement));
+            dynamic_cast<FieldContainerPtr>(pElement));
     }
 }
 
@@ -484,7 +484,7 @@ ContainerPoolPtr ContainerPoolBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ContainerPool::ObjPtr>(
+        fc = dynamic_cast<ContainerPool::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

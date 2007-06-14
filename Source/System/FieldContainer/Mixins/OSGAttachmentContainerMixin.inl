@@ -72,7 +72,7 @@ void AttachmentContainerMixin<ParentT>::pushToField(
 
     if(uiFieldId == AttachmentsFieldId)
     {
-        addAttachment(cast_dynamic<AttachmentObjPtr>(pNewElement));
+        addAttachment(dynamic_cast<AttachmentObjPtr>(pNewElement));
     }
 }
 

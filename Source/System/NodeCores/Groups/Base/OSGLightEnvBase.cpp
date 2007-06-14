@@ -159,7 +159,7 @@ LightEnvPtr LightEnvBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<LightEnv::ObjPtr>(
+        fc = dynamic_cast<LightEnv::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -109,7 +109,7 @@ void ShearedStereoCameraDecorator::getProjection(Matrix &result,
     }
        
     PerspectiveCameraPtr cam = 
-        cast_dynamic<PerspectiveCameraPtr>(getDecoratee());
+        dynamic_cast<PerspectiveCameraPtr>(getDecoratee());
     
     if(cam == NullFC)
     {

@@ -101,7 +101,7 @@ const Char8 *getName(AttachmentContainerPtrConstArg pContainer)
    
     // Cast to name pointer                           
 
-    NamePtr name = cast_dynamic<NamePtr>(att);
+    NamePtr name = dynamic_cast<NamePtr>(att);
 
     if(name == NullFC)
         return NULL;
@@ -136,7 +136,7 @@ void setName(      AttachmentContainerPtrConstArg  pContainer,
     }
     else
     {   
-        name = cast_dynamic<NamePtr>(att);
+        name = dynamic_cast<NamePtr>(att);
 
         if(name == NullFC)
         {

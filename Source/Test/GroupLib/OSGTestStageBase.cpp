@@ -236,7 +236,7 @@ TestStagePtr TestStageBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TestStage::ObjPtr>(
+        fc = dynamic_cast<TestStage::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -732,7 +732,7 @@ StencilChunkPtr StencilChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<StencilChunk::ObjPtr>(
+        fc = dynamic_cast<StencilChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

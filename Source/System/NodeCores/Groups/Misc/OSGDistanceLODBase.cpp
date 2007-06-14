@@ -488,7 +488,7 @@ DistanceLODPtr DistanceLODBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<DistanceLOD::ObjPtr>(
+        fc = dynamic_cast<DistanceLOD::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

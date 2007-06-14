@@ -181,7 +181,7 @@ void FBOViewportBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == FrameBufferObjectFieldId)
     {
         static_cast<FBOViewport *>(this)->setFrameBufferObject(
-            cast_dynamic<FrameBufferObjectPtr>(pNewElement));
+            dynamic_cast<FrameBufferObjectPtr>(pNewElement));
     }
 }
 
@@ -278,7 +278,7 @@ FBOViewportPtr FBOViewportBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<FBOViewport::ObjPtr>(
+        fc = dynamic_cast<FBOViewport::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

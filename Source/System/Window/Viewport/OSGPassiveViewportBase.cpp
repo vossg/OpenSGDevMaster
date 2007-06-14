@@ -158,7 +158,7 @@ PassiveViewportPtr PassiveViewportBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<PassiveViewport::ObjPtr>(
+        fc = dynamic_cast<PassiveViewport::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

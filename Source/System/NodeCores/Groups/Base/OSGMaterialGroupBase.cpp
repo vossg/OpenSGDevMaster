@@ -184,7 +184,7 @@ void MaterialGroupBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == MaterialFieldId)
     {
         static_cast<MaterialGroup *>(this)->setMaterial(
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -281,7 +281,7 @@ MaterialGroupPtr MaterialGroupBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<MaterialGroup::ObjPtr>(
+        fc = dynamic_cast<MaterialGroup::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

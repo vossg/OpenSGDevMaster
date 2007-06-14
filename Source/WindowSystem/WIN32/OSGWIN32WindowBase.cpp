@@ -369,7 +369,7 @@ WIN32WindowPtr WIN32WindowBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<WIN32Window::ObjPtr>(
+        fc = dynamic_cast<WIN32Window::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

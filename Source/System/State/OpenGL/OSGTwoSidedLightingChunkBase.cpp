@@ -158,7 +158,7 @@ TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TwoSidedLightingChunk::ObjPtr>(
+        fc = dynamic_cast<TwoSidedLightingChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

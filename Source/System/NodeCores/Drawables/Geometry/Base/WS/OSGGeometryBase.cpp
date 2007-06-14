@@ -458,22 +458,22 @@ void GeometryBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == TypesFieldId)
     {
         static_cast<Geometry *>(this)->setTypes(
-            cast_dynamic<GeoIntegralPropertyPtr>(pNewElement));
+            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
     }
     if(uiFieldId == LengthsFieldId)
     {
         static_cast<Geometry *>(this)->setLengths(
-            cast_dynamic<GeoIntegralPropertyPtr>(pNewElement));
+            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
     }
     if(uiFieldId == PropertiesFieldId)
     {
         static_cast<Geometry *>(this)->pushToProperties(
-            cast_dynamic<GeoVectorPropertyPtr>(pNewElement));
+            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
     }
     if(uiFieldId == PropIndicesFieldId)
     {
         static_cast<Geometry *>(this)->pushToPropIndices(
-            cast_dynamic<GeoIntegralPropertyPtr>(pNewElement));
+            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
     }
 }
 
@@ -487,13 +487,13 @@ void GeometryBase::insertIntoMField(const UInt32                    uiIndex,
     {
         static_cast<Geometry *>(this)->insertIntoProperties(
             uiIndex,
-            cast_dynamic<GeoVectorPropertyPtr>(pNewElement));
+            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
     }
     if(uiFieldId == PropIndicesFieldId)
     {
         static_cast<Geometry *>(this)->insertIntoPropIndices(
             uiIndex,
-            cast_dynamic<GeoIntegralPropertyPtr>(pNewElement));
+            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
     }
 }
 
@@ -507,13 +507,13 @@ void GeometryBase::replaceInMField (const UInt32                    uiIndex,
     {
         static_cast<Geometry *>(this)->replaceInProperties(
             uiIndex,
-            cast_dynamic<GeoVectorPropertyPtr>(pNewElement));
+            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
     }
     if(uiFieldId == PropIndicesFieldId)
     {
         static_cast<Geometry *>(this)->replaceInPropIndices(
             uiIndex,
-            cast_dynamic<GeoIntegralPropertyPtr>(pNewElement));
+            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
     }
 }
 
@@ -526,14 +526,14 @@ void GeometryBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
     if(uiFieldId == PropertiesFieldId)
     {
         static_cast<Geometry *>(this)->replaceInProperties(
-            cast_dynamic<GeoVectorPropertyPtr>(pOldElement),
-            cast_dynamic<GeoVectorPropertyPtr>(pNewElement));
+            dynamic_cast<GeoVectorPropertyPtr>(pOldElement),
+            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
     }
     if(uiFieldId == PropIndicesFieldId)
     {
         static_cast<Geometry *>(this)->replaceInPropIndices(
-            cast_dynamic<GeoIntegralPropertyPtr>(pOldElement),
-            cast_dynamic<GeoIntegralPropertyPtr>(pNewElement));
+            dynamic_cast<GeoIntegralPropertyPtr>(pOldElement),
+            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
     }
 }
 
@@ -562,12 +562,12 @@ void GeometryBase::removeFromMField(      FieldContainerPtrConstArg pElement,
     if(uiFieldId == PropertiesFieldId)
     {
         static_cast<Geometry *>(this)->removeFromProperties(
-            cast_dynamic<GeoVectorPropertyPtr>(pElement));
+            dynamic_cast<GeoVectorPropertyPtr>(pElement));
     }
     if(uiFieldId == PropIndicesFieldId)
     {
         static_cast<Geometry *>(this)->removeFromPropIndices(
-            cast_dynamic<GeoIntegralPropertyPtr>(pElement));
+            dynamic_cast<GeoIntegralPropertyPtr>(pElement));
     }
 }
 
@@ -1058,7 +1058,7 @@ GeometryPtr GeometryBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<Geometry::ObjPtr>(
+        fc = dynamic_cast<Geometry::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

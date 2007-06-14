@@ -193,7 +193,7 @@ void VisitSubTreeBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == SubTreeRootFieldId)
     {
         static_cast<VisitSubTree *>(this)->setSubTreeRoot(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
 }
 
@@ -290,7 +290,7 @@ VisitSubTreePtr VisitSubTreeBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<VisitSubTree::ObjPtr>(
+        fc = dynamic_cast<VisitSubTree::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

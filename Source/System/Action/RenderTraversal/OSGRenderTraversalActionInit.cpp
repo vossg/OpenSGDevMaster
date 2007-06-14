@@ -99,7 +99,7 @@ Action::ResultE MaterialDrawableRenderEnter(const NodeCorePtr &pCore,
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
     
-    MaterialDrawablePtr pMDraw = cast_dynamic<MaterialDrawablePtr>(pCore);
+    MaterialDrawablePtr pMDraw = dynamic_cast<MaterialDrawablePtr>(pCore);
 
     Material::DrawFunctor func;
 
@@ -165,7 +165,7 @@ Action::ResultE MaterialDrawableRenderLeave(const NodeCorePtr &pCore,
 {
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
     
-    MaterialDrawablePtr pMDraw = cast_dynamic<MaterialDrawablePtr>(pCore);
+    MaterialDrawablePtr pMDraw = dynamic_cast<MaterialDrawablePtr>(pCore);
 
     Material::DrawFunctor func;
 
@@ -231,7 +231,7 @@ ActionBase::ResultE SwitchRenderEnter(const NodeCorePtr &pCore,
 #endif
 
     Action::ResultE        returnValue = Action::Continue;
-    SwitchPtr              pThis       = cast_dynamic<SwitchPtr>(pCore);
+    SwitchPtr              pThis       = dynamic_cast<SwitchPtr>(pCore);
     RenderTraversalAction *pAction     =
         dynamic_cast<RenderTraversalAction*>(action);
     
@@ -272,7 +272,7 @@ Action::ResultE SwitchRenderLeave(const NodeCorePtr &pCore,
 
 ActionBase::ResultE BillboardRenderEnter(const NodeCorePtr &pCore, Action *action)
 {
-    BillboardPtr pBillboard = cast_dynamic<BillboardPtr>(pCore);
+    BillboardPtr pBillboard = dynamic_cast<BillboardPtr>(pCore);
     RenderTraversalAction *pAction = 
         dynamic_cast<RenderTraversalAction *>(action);
 
@@ -308,7 +308,7 @@ ActionBase::ResultE TransformRenderEnter(const NodeCorePtr &pCore,
     FDEBUG_GV(("Enter Transform %p\n", &(*pCore)));
 #endif
 
-    TransformPtr pThis = cast_dynamic<TransformPtr>(pCore);
+    TransformPtr pThis = dynamic_cast<TransformPtr>(pCore);
 
     RenderTraversalAction *pAction = 
         dynamic_cast<RenderTraversalAction *>(action);
@@ -347,7 +347,7 @@ ActionBase::ResultE MaterialGroupRenderEnter(const NodeCorePtr &pCore,
     RenderTraversalAction *pAction = 
         dynamic_cast<RenderTraversalAction *>(action);
 
-    MaterialGroupPtr pMatGroup = cast_dynamic<MaterialGroupPtr>(pCore);
+    MaterialGroupPtr pMatGroup = dynamic_cast<MaterialGroupPtr>(pCore);
 
     if(pAction                  != NULL   && 
        pMatGroup                != NullFC &&
@@ -385,7 +385,7 @@ Action::ResultE LightRenderEnter(const NodeCorePtr              &pCore,
     Action::ResultE        r = Action::Continue;
 //    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
     
-    LightPtr      pLight      = cast_dynamic<LightPtr>(pCore);
+    LightPtr      pLight      = dynamic_cast<LightPtr>(pCore);
 
     if(pLight->getOn() == false)
         return Action::Continue;
@@ -431,7 +431,7 @@ Action::ResultE LightRenderLeave(const NodeCorePtr              &pCore,
     Action::ResultE        r = Action::Continue;
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
 
-    LightPtr      pLight     = cast_dynamic<LightPtr>(pCore);
+    LightPtr      pLight     = dynamic_cast<LightPtr>(pCore);
 
     if(pLight->getOn() == false)
         return Action::Continue;
@@ -595,7 +595,7 @@ ActionBase::ResultE StageRenderEnter(const NodeCorePtr &pCore,
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
-    StagePtr               pStage = cast_dynamic<StagePtr>(pCore);
+    StagePtr               pStage = dynamic_cast<StagePtr>(pCore);
     if(a == NULL || pStage == NullFC)
         return ActionBase::Continue;
 
@@ -693,7 +693,7 @@ ActionBase::ResultE SimpleStageRenderEnter(const NodeCorePtr &pCore,
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
-    SimpleStagePtr         pStage = cast_dynamic<SimpleStagePtr>(pCore);
+    SimpleStagePtr         pStage = dynamic_cast<SimpleStagePtr>(pCore);
 
     if(a == NULL || pStage == NullFC)
         return ActionBase::Continue;
@@ -781,7 +781,7 @@ ActionBase::ResultE HDRStageRenderEnter(const NodeCorePtr &pCore,
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
 
-    HDRStagePtr      pStage = cast_dynamic<HDRStagePtr>(pCore);
+    HDRStagePtr      pStage = dynamic_cast<HDRStagePtr>(pCore);
 
     a->disableDefaultPartition();
 
@@ -942,7 +942,7 @@ ActionBase::ResultE AlgorithmStageRenderEnter(const NodeCorePtr &pCore,
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
 
-    AlgorithmStagePtr pStage = cast_dynamic<AlgorithmStagePtr>(pCore);
+    AlgorithmStagePtr pStage = dynamic_cast<AlgorithmStagePtr>(pCore);
 
     a->pushPartition(0, RenderPartition::SimpleCallback);
     {
@@ -1056,7 +1056,7 @@ ActionBase::ResultE VisitSubTreeRender(const NodeCorePtr &pCore,
                                              Action      *action)
 {
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
-    VisitSubTreePtr pVisit = cast_dynamic<VisitSubTreePtr>(pCore);
+    VisitSubTreePtr pVisit = dynamic_cast<VisitSubTreePtr>(pCore);
 
     a->useNodeList();
     

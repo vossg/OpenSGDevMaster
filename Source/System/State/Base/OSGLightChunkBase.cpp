@@ -754,7 +754,7 @@ void LightChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == BeaconFieldId)
     {
         static_cast<LightChunk *>(this)->setBeacon(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
 }
 
@@ -971,7 +971,7 @@ LightChunkPtr LightChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<LightChunk::ObjPtr>(
+        fc = dynamic_cast<LightChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

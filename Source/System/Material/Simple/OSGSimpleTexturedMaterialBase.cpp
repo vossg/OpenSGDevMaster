@@ -455,7 +455,7 @@ void SimpleTexturedMaterialBase::pushToField(      FieldContainerPtrConstArg pNe
     if(uiFieldId == ImageFieldId)
     {
         static_cast<SimpleTexturedMaterial *>(this)->setImage(
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
 }
 
@@ -600,7 +600,7 @@ SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<SimpleTexturedMaterial::ObjPtr>(
+        fc = dynamic_cast<SimpleTexturedMaterial::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

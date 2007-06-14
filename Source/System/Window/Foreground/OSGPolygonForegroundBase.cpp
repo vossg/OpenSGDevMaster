@@ -641,7 +641,7 @@ void PolygonForegroundBase::pushToField(      FieldContainerPtrConstArg pNewElem
     if(uiFieldId == MaterialFieldId)
     {
         static_cast<PolygonForeground *>(this)->setMaterial(
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -998,7 +998,7 @@ PolygonForegroundPtr PolygonForegroundBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<PolygonForeground::ObjPtr>(
+        fc = dynamic_cast<PolygonForeground::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

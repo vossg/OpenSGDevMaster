@@ -79,6 +79,19 @@ StageValidator *Viewport::getStageValidator(void)
     return _pStageValidator;
 }
 
+//! Set the value of the Viewport::_sfParent field.
+inline
+void Viewport::setParent(      
+          ParentFieldContainerPtrConstArg value,
+    const UInt16                          uiStoredInFieldId)
+{
+    editSField(ParentFieldMask);
+
+    _sfParent.setValue(value);
+    _sfParent.getValue().setParentFieldPos(uiStoredInFieldId);
+
+}
+
 OSG_END_NAMESPACE
 
 #define OSGVIEWPORT_INLINE_CVSID "@(#)$Id$"

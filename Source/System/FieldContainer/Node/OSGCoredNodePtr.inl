@@ -103,7 +103,7 @@ CoredNodePtr<Core>::CoredNodePtr(const NodePtr &pNode) :
      Inherited(pNode),
     _pCore    (NullFC)
 {
-    setCore(cast_dynamic<CorePtr>(Inherited::node()->getCore()));
+    setCore(dynamic_cast<CorePtr>(Inherited::node()->getCore()));
 }
 
 template<class Core> inline
@@ -111,7 +111,7 @@ CoredNodePtr<Core>::CoredNodePtr(const NodeCorePtr &pCore) :
      Inherited(      ),
     _pCore    (NullFC)
 {
-    setCore(cast_dynamic<CorePtr>(pCore));
+    setCore(dynamic_cast<CorePtr>(pCore));
 
     updateNode();
 }
@@ -205,7 +205,7 @@ CoredNodePtr<Core> &CoredNodePtr<Core>::operator =(const NodePtr &pNode)
 {
     setNode(pNode);
 
-    setCore(cast_dynamic<CorePtr>(pNode->getCore()));
+    setCore(dynamic_cast<CorePtr>(pNode->getCore()));
 
     return *this;
 }
@@ -254,7 +254,7 @@ NodeCorePtr CoredNodePtr<Core>::getCoreV(void) const
 template<class Core> inline
 void CoredNodePtr<Core>::setCore(const NodeCorePtr &pCore)
 {
-    setCore(cast_dynamic<CorePtr>(pCore));
+    setCore(dynamic_cast<CorePtr>(pCore));
 }
 
 template<class Core> inline

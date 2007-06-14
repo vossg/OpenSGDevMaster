@@ -180,7 +180,7 @@ VertexProgramChunkPtr VertexProgramChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<VertexProgramChunk::ObjPtr>(
+        fc = dynamic_cast<VertexProgramChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

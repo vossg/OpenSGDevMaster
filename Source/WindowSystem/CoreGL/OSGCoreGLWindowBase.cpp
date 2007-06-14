@@ -235,7 +235,7 @@ CoreGLWindowPtr CoreGLWindowBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<CoreGLWindow::ObjPtr>(
+        fc = dynamic_cast<CoreGLWindow::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

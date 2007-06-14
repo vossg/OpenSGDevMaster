@@ -269,7 +269,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         static_cast     <FieldEditMethodSig>(&ViewportBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFParent));
+        static_cast     <FieldGetMethodSig>(&ViewportBase::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -461,7 +461,7 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\t\ttype=\"ParentFieldContainerPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
+    "\t\taccess=\"none\"\n"
     "        doRefCount=\"false\"\n"
     "        passFieldMask=\"true\"\n"
     "\t>\n"
@@ -647,11 +647,6 @@ SFReal32            *ViewportBase::getSFTop            (void)
 }
 #endif
 
-//! Get the Viewport::_sfParent field.
-const SFParentFieldContainerPtr *ViewportBase::getSFParent(void) const
-{
-    return &_sfParent;
-}
 
 //! Get the Viewport::_sfCamera field.
 const SFCameraPtr *ViewportBase::getSFCamera(void) const
@@ -721,30 +716,25 @@ void ViewportBase::pushToField(      FieldContainerPtrConstArg pNewElement,
 {
     Inherited::pushToField(pNewElement, uiFieldId);
 
-    if(uiFieldId == ParentFieldId)
-    {
-        static_cast<Viewport *>(this)->setParent(
-            cast_dynamic<ParentFieldContainerPtr>(pNewElement));
-    }
     if(uiFieldId == CameraFieldId)
     {
         static_cast<Viewport *>(this)->setCamera(
-            cast_dynamic<CameraPtr>(pNewElement));
+            dynamic_cast<CameraPtr>(pNewElement));
     }
     if(uiFieldId == RootFieldId)
     {
         static_cast<Viewport *>(this)->setRoot(
-            cast_dynamic<NodePtr>(pNewElement));
+            dynamic_cast<NodePtr>(pNewElement));
     }
     if(uiFieldId == BackgroundFieldId)
     {
         static_cast<Viewport *>(this)->setBackground(
-            cast_dynamic<BackgroundPtr>(pNewElement));
+            dynamic_cast<BackgroundPtr>(pNewElement));
     }
     if(uiFieldId == ForegroundsFieldId)
     {
         static_cast<Viewport *>(this)->addForeground(
-            cast_dynamic<ForegroundPtr>(pNewElement));
+            dynamic_cast<ForegroundPtr>(pNewElement));
     }
 }
 
@@ -758,7 +748,7 @@ void ViewportBase::insertIntoMField(const UInt32                    uiIndex,
     {
         static_cast<Viewport *>(this)->insertIntoForegrounds(
             uiIndex,
-            cast_dynamic<ForegroundPtr>(pNewElement));
+            dynamic_cast<ForegroundPtr>(pNewElement));
     }
 }
 
@@ -772,7 +762,7 @@ void ViewportBase::replaceInMField (const UInt32                    uiIndex,
     {
         static_cast<Viewport *>(this)->replaceInForegrounds(
             uiIndex,
-            cast_dynamic<ForegroundPtr>(pNewElement));
+            dynamic_cast<ForegroundPtr>(pNewElement));
     }
 }
 
@@ -785,8 +775,8 @@ void ViewportBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
     if(uiFieldId == ForegroundsFieldId)
     {
         static_cast<Viewport *>(this)->replaceInForegrounds(
-            cast_dynamic<ForegroundPtr>(pOldElement),
-            cast_dynamic<ForegroundPtr>(pNewElement));
+            dynamic_cast<ForegroundPtr>(pOldElement),
+            dynamic_cast<ForegroundPtr>(pNewElement));
     }
 }
 
@@ -810,7 +800,7 @@ void ViewportBase::removeFromMField(      FieldContainerPtrConstArg pElement,
     if(uiFieldId == ForegroundsFieldId)
     {
         static_cast<Viewport *>(this)->removeFromForegrounds(
-            cast_dynamic<ForegroundPtr>(pElement));
+            dynamic_cast<ForegroundPtr>(pElement));
     }
 }
 
@@ -818,10 +808,6 @@ void ViewportBase::clearField(const UInt32 uiFieldId)
 {
     Inherited::clearField(uiFieldId);
 
-    if(uiFieldId == ParentFieldId)
-    {
-        static_cast<Viewport *>(this)->setParent(NullFC);
-    }
     if(uiFieldId == CameraFieldId)
     {
         static_cast<Viewport *>(this)->setCamera(NullFC);
@@ -1125,7 +1111,7 @@ ViewportPtr ViewportBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<Viewport::ObjPtr>(
+        fc = dynamic_cast<Viewport::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 
@@ -1199,8 +1185,6 @@ void ViewportBase::onCreate(const Viewport *source)
 
     if(source != NULL)
     {
-
-        this->setParent(source->getParent());
 
         this->setCamera(source->getCamera());
 
@@ -1276,8 +1260,6 @@ FieldContainerPtr ViewportBase::createAspectCopy(void) const
 void ViewportBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
-
-    static_cast<Viewport *>(this)->setParent(NullFC);
 
     static_cast<Viewport *>(this)->setCamera(NullFC);
 

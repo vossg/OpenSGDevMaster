@@ -109,7 +109,7 @@ TiledQuadTreeTerrain::~TiledQuadTreeTerrain(void)
 
 inline MaterialPtr cloneMaterial(const MaterialPtr &mat)
 {
-    ChunkMaterialPtr m     = cast_dynamic<ChunkMaterialPtr>(mat);
+    ChunkMaterialPtr m     = dynamic_cast<ChunkMaterialPtr>(mat);
     ChunkMaterialPtr clone = ChunkMaterial::create();
 
     for(MFStateChunkPtr::const_iterator it =  m->getChunks().begin();
@@ -142,7 +142,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
     {
         if(getParents()[0] != NullFC)
         { // parent must be set!
-            NodePtr pParent = cast_dynamic<NodePtr>(getParents()[0]);
+            NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
             while(pParent->getNChildren() > 0) 
             {
@@ -214,12 +214,12 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
         {
             for(i=0; i<roi; ++i) 
             {
-                NodePtr pParent = cast_dynamic<NodePtr>(getParents()[0]);
+                NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
                 NodePtr node = pParent->getChild(j*roi+i);
 
                 QuadTreeTerrainPtr terrain = 
-                    cast_dynamic<QuadTreeTerrainPtr>(node->getCore());
+                    dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
 
                 if (terrain == NullFC) 
                 {
@@ -257,12 +257,12 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
 
         for(UInt32 i=0; i<roi2; ++i) 
         {
-            NodePtr pParent = cast_dynamic<NodePtr>(getParents()[0]);
+            NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
             NodePtr node = pParent->getChild(i);
             
             QuadTreeTerrainPtr terrain = 
-                cast_dynamic<QuadTreeTerrainPtr>(node->getCore());
+                dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
 
             if(terrain == NullFC) 
             {
@@ -280,12 +280,12 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
 
         for (UInt32 i=0; i<roi2; ++i) 
         {
-            NodePtr pParent = cast_dynamic<NodePtr>(getParents()[0]);
+            NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
             NodePtr    node = pParent->getChild(i);
 
             QuadTreeTerrainPtr terrain = 
-                cast_dynamic<QuadTreeTerrainPtr>(node->getCore());
+                dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
 
             if(terrain == NullFC) 
             {
@@ -504,10 +504,10 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
       
       for(UInt32 i=0; i<roi2; ++i) 
       {
-          NodePtr pParent = cast_dynamic<NodePtr>(getParents()[0]);
+          NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
           node = pParent->getChild(i);
 
-          core = cast_dynamic<QuadTreeTerrainPtr>(node->getCore());
+          core = dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
 
           core->setEyePoint(eyePoint);
           core->setUpdateTerrain(getUpdateTerrain());
@@ -563,7 +563,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case -1: 
                       {
                           NodePtr pParent = 
-                              cast_dynamic<NodePtr>(getParents()[0]);
+                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
                           caseChilds_n1n1(pParent, order, roi);
                           
@@ -577,7 +577,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
 
                                   core->setHeightData(
@@ -617,7 +617,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
                                   
                                   core->setHeightData(
@@ -654,7 +654,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case 0: 
                       {
                           NodePtr pParent = 
-                              cast_dynamic<NodePtr>(getParents()[0]);
+                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
                           caseChilds_n10(pParent, order, roi);
 
@@ -669,7 +669,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
                                   
                                   core->setHeightData(
@@ -706,7 +706,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case 1: 
                       {
                           NodePtr pParent = 
-                              cast_dynamic<NodePtr>(getParents()[0]);
+                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
                           caseChilds_n1p1(pParent, order, roi);
 
@@ -721,7 +721,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
 
                                   core->setHeightData(
@@ -763,7 +763,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
 
                                   core->setHeightData(
@@ -805,7 +805,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case -1: 
                       {
                           NodePtr pParent = 
-                              cast_dynamic<NodePtr>(getParents()[0]);
+                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
                           caseChilds_0n1(pParent, order, roi);
 
@@ -820,7 +820,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
                                   
                                   core->setHeightData(
@@ -854,7 +854,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case 1: 
                       {
                           NodePtr pParent = 
-                              cast_dynamic<NodePtr>(getParents()[0]);
+                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
                           caseChilds_0p1(pParent, order, roi);
                           
@@ -868,7 +868,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
 
                                   core->setHeightData(
@@ -906,7 +906,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case -1: 
                       {
                           NodePtr pParent = 
-                              cast_dynamic<NodePtr>(getParents()[0]);
+                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
                           caseChilds_p1n1(pParent, order, roi);
                           
@@ -921,7 +921,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
                                   
                                   core->setHeightData(
@@ -961,7 +961,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
                                   
                                   core->setHeightData(
@@ -996,7 +996,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case 0: 
                       {
                           NodePtr pParent = 
-                              cast_dynamic<NodePtr>(getParents()[0]);
+                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
                           caseChilds_p10(pParent, order, roi);
 
@@ -1011,7 +1011,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
                                   
                                   core->setHeightData(
@@ -1047,7 +1047,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case 1: 
                       {
                           NodePtr pParent = 
-                              cast_dynamic<NodePtr>(getParents()[0]);
+                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
                           caseChilds_p1p1(pParent, order, roi);
 
@@ -1062,7 +1062,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
                                   
                                   core->setHeightData(
@@ -1104,7 +1104,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
                                   core = 
-                                      cast_dynamic<QuadTreeTerrainPtr>(
+                                      dynamic_cast<QuadTreeTerrainPtr>(
                                           node->getCore());
                                   
                                   core->setHeightData(
@@ -1152,10 +1152,10 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
           UInt32 dup;
           for (UInt32 i=0; i<roi2; ++i) 
           {
-              NodePtr pParent = cast_dynamic<NodePtr>(getParents()[0]);
+              NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
               node = pParent->getChild(i);
 
-              core = cast_dynamic<QuadTreeTerrainPtr>(node->getCore());
+              core = dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
 
               if(node->getTravMask()) 
               {
@@ -1167,10 +1167,10 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                   for(UInt32 j=0; j<roi2; ++j) 
                   {
                       NodePtr            pParent2 = 
-                          cast_dynamic<NodePtr>(getParents()[0]);
+                          dynamic_cast<NodePtr>(getParents()[0].getCPtr());
                       NodePtr            node2 = pParent2->getChild(j);
                       QuadTreeTerrainPtr core2 = 
-                          cast_dynamic<QuadTreeTerrainPtr>(node2->getCore());
+                          dynamic_cast<QuadTreeTerrainPtr>(node2->getCore());
 
                       if (node2->getTravMask() && 
                           core->getOriginX() == core2->getOriginX() && 
@@ -1196,7 +1196,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
    
    UInt32 numIndis = 0;
    UInt32 numFans = 0;
-   NodePtr pParent = cast_dynamic<NodePtr>(getParents()[0]);
+   NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
               
    for(UInt32 i=0; i<pParent->getNChildren(); ++i) 
    {
@@ -1204,7 +1204,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
        
        if (node != NullFC) 
        {
-           core = cast_dynamic<QuadTreeTerrainPtr>(node->getCore());
+           core = dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
 
            if(core != NullFC && core->getIndices() != NullFC) 
            {

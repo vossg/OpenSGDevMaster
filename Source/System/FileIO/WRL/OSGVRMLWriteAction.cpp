@@ -440,7 +440,7 @@ Action::ResultE VRMLWriteAction::writeComponentTransformEnter(NodeCorePtrConstAr
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
     NodePtr pNode = pAction->getActNode();
     ComponentTransformPtr pTrans = 
-        cast_dynamic<ComponentTransformPtr>(pNode->getCore());
+        dynamic_cast<ComponentTransformPtr>(pNode->getCore());
 
     Real32 rQX;
     Real32 rQY;
@@ -573,7 +573,7 @@ Action::ResultE VRMLWriteAction::writeTransformEnter(NodeCorePtrConstArg , Actio
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
     NodePtr pNode = pAction->getActNode();
-    TransformPtr pTrans = cast_dynamic<TransformPtr>(pNode->getCore());
+    TransformPtr pTrans = dynamic_cast<TransformPtr>(pNode->getCore());
 
     Real32 rQX;
     Real32 rQY;
@@ -1226,7 +1226,7 @@ void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo,
     if(sChunk == NullFC)
         return;
     
-    MaterialChunkPtr mChunk = cast_dynamic<MaterialChunkPtr>(sChunk);
+    MaterialChunkPtr mChunk = dynamic_cast<MaterialChunkPtr>(sChunk);
     
     if(mChunk == NullFC)
         return;
@@ -1306,7 +1306,7 @@ void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo,
 
     sChunk = st->getChunk(TextureObjChunk::getStaticClassId());    
 
-    TextureObjChunkPtr pTChunk = cast_dynamic<TextureObjChunkPtr>(sChunk);
+    TextureObjChunkPtr pTChunk = dynamic_cast<TextureObjChunkPtr>(sChunk);
 
     if(pTChunk != NullFC)
     {
@@ -1429,7 +1429,7 @@ void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo,
 /*
     sChunk = st->getChunk(TextureTransformChunk::getStaticClassId());    
 
-    TextureTransformChunkPtr pTTChunk = cast_dynamic<TextureTransformChunkPtr>(sChunk);
+    TextureTransformChunkPtr pTTChunk = dynamic_cast<TextureTransformChunkPtr>(sChunk);
 
     if(pTTChunk != NullFC)
     {
@@ -1601,7 +1601,7 @@ Action::ResultE VRMLWriteAction::writeGeoEnter(NodeCorePtrConstArg , Action *pAc
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
     NodePtr pNode = pAction->getActNode();
-    GeometryPtr pGeo = cast_dynamic<GeometryPtr>(pNode->getCore());
+    GeometryPtr pGeo = dynamic_cast<GeometryPtr>(pNode->getCore());
 
     if(pWriter == NULL || pGeo == NullFC)
     {
@@ -1740,7 +1740,7 @@ Action::ResultE VRMLWriteAction::writeMatGroupEnter(NodeCorePtrConstArg , Action
     NodePtr pNode = pAction->getActNode();
 
     MaterialGroupPtr pMatGroup = 
-        cast_dynamic<MaterialGroupPtr>(pNode->getCore());
+        dynamic_cast<MaterialGroupPtr>(pNode->getCore());
 
     if(pWriter == NULL || pMatGroup == NullFC)
     {
@@ -1881,11 +1881,11 @@ void VRMLWriteAction::addNodeUse(NodePtr &pNode)
     FCInfo *pInfoCore = _vFCInfos[getContainerId(pCore)];
 
     NamePtr pNodename =
-        cast_dynamic<NamePtr>(pNode->findAttachment(
+        dynamic_cast<NamePtr>(pNode->findAttachment(
             Name::getClassType().getGroupId()));
 
     NamePtr pCorename =
-        cast_dynamic<NamePtr>(pCore->findAttachment(
+        dynamic_cast<NamePtr>(pCore->findAttachment(
             Name::getClassType().getGroupId()));
 
     pInfoNode->incUse();

@@ -244,7 +244,7 @@ DepthClearBackgroundPtr DepthClearBackgroundBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<DepthClearBackground::ObjPtr>(
+        fc = dynamic_cast<DepthClearBackground::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

@@ -163,7 +163,7 @@ PassiveWindowPtr PassiveWindowBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<PassiveWindow::ObjPtr>(
+        fc = dynamic_cast<PassiveWindow::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

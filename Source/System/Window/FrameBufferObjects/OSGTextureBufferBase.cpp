@@ -349,7 +349,7 @@ void TextureBufferBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == TextureFieldId)
     {
         static_cast<TextureBuffer *>(this)->setTexture(
-            cast_dynamic<TextureObjChunkPtr>(pNewElement));
+            dynamic_cast<TextureObjChunkPtr>(pNewElement));
     }
 }
 
@@ -482,7 +482,7 @@ TextureBufferPtr TextureBufferBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TextureBuffer::ObjPtr>(
+        fc = dynamic_cast<TextureBuffer::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

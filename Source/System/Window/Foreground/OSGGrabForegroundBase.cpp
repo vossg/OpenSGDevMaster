@@ -240,7 +240,7 @@ void GrabForegroundBase::pushToField(      FieldContainerPtrConstArg pNewElement
     if(uiFieldId == ImageFieldId)
     {
         static_cast<GrabForeground *>(this)->setImage(
-            cast_dynamic<ImagePtr>(pNewElement));
+            dynamic_cast<ImagePtr>(pNewElement));
     }
 }
 
@@ -349,7 +349,7 @@ GrabForegroundPtr GrabForegroundBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<GrabForeground::ObjPtr>(
+        fc = dynamic_cast<GrabForeground::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

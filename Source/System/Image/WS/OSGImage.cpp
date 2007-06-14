@@ -2465,7 +2465,7 @@ bool Image::hasAttachment(void) const
 {
     Image *img=const_cast<Image*>(this);
 
-    ImageGenericAttPtr att = cast_dynamic<ImageGenericAttPtr>(
+    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
         img->Inherited::findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 
@@ -2482,7 +2482,7 @@ UInt32 Image::attachmentCount(void) const
 {
     Image *img=const_cast<Image*>(this);
 
-    ImageGenericAttPtr att = cast_dynamic<ImageGenericAttPtr>(
+    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
         img->Inherited::findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 
@@ -2502,7 +2502,7 @@ UInt32 Image::attachmentCount(void) const
 void Image::setAttachmentField(const std::string &key,
                                const std::string &data)
 {
-    ImageGenericAttPtr att = cast_dynamic<ImageGenericAttPtr>(
+    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
         findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 
@@ -2559,7 +2559,7 @@ const std::string *Image::findAttachmentField(const std::string &key) const
 {
     Image *img=const_cast<Image*>(this);
 
-    ImageGenericAttPtr att = cast_dynamic<ImageGenericAttPtr>(
+    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
         img->findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 

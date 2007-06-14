@@ -246,7 +246,7 @@ void TextureSelectChunkBase::pushToField(      FieldContainerPtrConstArg pNewEle
     if(uiFieldId == TexturesFieldId)
     {
         static_cast<TextureSelectChunk *>(this)->pushToTextures(
-            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
+            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
     }
 }
 
@@ -260,7 +260,7 @@ void TextureSelectChunkBase::insertIntoMField(const UInt32                    ui
     {
         static_cast<TextureSelectChunk *>(this)->insertIntoTextures(
             uiIndex,
-            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
+            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
     }
 }
 
@@ -274,7 +274,7 @@ void TextureSelectChunkBase::replaceInMField (const UInt32                    ui
     {
         static_cast<TextureSelectChunk *>(this)->replaceInTextures(
             uiIndex,
-            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
+            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
     }
 }
 
@@ -287,8 +287,8 @@ void TextureSelectChunkBase::replaceInMField (      FieldContainerPtrConstArg pO
     if(uiFieldId == TexturesFieldId)
     {
         static_cast<TextureSelectChunk *>(this)->replaceInTextures(
-            cast_dynamic<TextureBaseChunkPtr>(pOldElement),
-            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
+            dynamic_cast<TextureBaseChunkPtr>(pOldElement),
+            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
     }
 }
 
@@ -312,7 +312,7 @@ void TextureSelectChunkBase::removeFromMField(      FieldContainerPtrConstArg pE
     if(uiFieldId == TexturesFieldId)
     {
         static_cast<TextureSelectChunk *>(this)->removeFromTextures(
-            cast_dynamic<TextureBaseChunkPtr>(pElement));
+            dynamic_cast<TextureBaseChunkPtr>(pElement));
     }
 }
 
@@ -503,7 +503,7 @@ TextureSelectChunkPtr TextureSelectChunkBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<TextureSelectChunk::ObjPtr>(
+        fc = dynamic_cast<TextureSelectChunk::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

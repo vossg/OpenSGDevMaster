@@ -175,7 +175,7 @@ void MultiPassMaterialBase::pushToField(      FieldContainerPtrConstArg pNewElem
     if(uiFieldId == MaterialsFieldId)
     {
         static_cast<MultiPassMaterial *>(this)->addMaterial(
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -189,7 +189,7 @@ void MultiPassMaterialBase::insertIntoMField(const UInt32                    uiI
     {
         static_cast<MultiPassMaterial *>(this)->insertIntoMaterials(
             uiIndex,
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -203,7 +203,7 @@ void MultiPassMaterialBase::replaceInMField (const UInt32                    uiI
     {
         static_cast<MultiPassMaterial *>(this)->replaceInMaterials(
             uiIndex,
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -216,8 +216,8 @@ void MultiPassMaterialBase::replaceInMField (      FieldContainerPtrConstArg pOl
     if(uiFieldId == MaterialsFieldId)
     {
         static_cast<MultiPassMaterial *>(this)->replaceInMaterials(
-            cast_dynamic<MaterialPtr>(pOldElement),
-            cast_dynamic<MaterialPtr>(pNewElement));
+            dynamic_cast<MaterialPtr>(pOldElement),
+            dynamic_cast<MaterialPtr>(pNewElement));
     }
 }
 
@@ -241,7 +241,7 @@ void MultiPassMaterialBase::removeFromMField(      FieldContainerPtrConstArg pEl
     if(uiFieldId == MaterialsFieldId)
     {
         static_cast<MultiPassMaterial *>(this)->removeFromMaterials(
-            cast_dynamic<MaterialPtr>(pElement));
+            dynamic_cast<MaterialPtr>(pElement));
     }
 }
 
@@ -420,7 +420,7 @@ MultiPassMaterialPtr MultiPassMaterialBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<MultiPassMaterial::ObjPtr>(
+        fc = dynamic_cast<MultiPassMaterial::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

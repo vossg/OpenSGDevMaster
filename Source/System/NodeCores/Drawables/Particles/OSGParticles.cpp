@@ -552,7 +552,7 @@ struct PosTrait3f : public ParticleTraits
                             dataType                     &data,
                             GeoVectorPropertyPtrConstArg  pos)
     {
-        GeoPnt3fPropertyPtr pos3f = cast_dynamic<GeoPnt3fPropertyPtr>(pos);
+        GeoPnt3fPropertyPtr pos3f = dynamic_cast<GeoPnt3fPropertyPtr>(pos);
  
         data.pos  = pos3f->getFieldPtr();
     }
@@ -917,7 +917,7 @@ struct NormalTraitGeneric3f : public ParticleTraits
     static inline void init(Particles *part, DrawEnv *, dataType &data)
     {
         GeoVec3fPropertyPtr norms3f = 
-            cast_dynamic<GeoVec3fPropertyPtr>(part->getNormals());
+            dynamic_cast<GeoVec3fPropertyPtr>(part->getNormals());
         
         data.norms = norms3f->getFieldPtr();
         

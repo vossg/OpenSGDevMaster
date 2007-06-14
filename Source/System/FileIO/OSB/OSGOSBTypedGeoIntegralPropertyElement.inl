@@ -183,7 +183,7 @@ OSBTypedGeoIntegralPropertyElement<GeoPropertyTypeT>::write(void)
     const OSBRootElement  *root  = getRoot();
     UInt8                  flags = 0;
     GeoPropertyPtrType     prop  =
-        cast_dynamic<GeoPropertyPtrType>(getContainer());
+        dynamic_cast<GeoPropertyPtrType>(getContainer());
 
     wh->putValue(getFCPtrType(getContainer()));
     wh->putValue(getVersion()                );

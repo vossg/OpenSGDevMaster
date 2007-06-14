@@ -184,7 +184,7 @@ void ShaderParameterChunkBase::pushToField(      FieldContainerPtrConstArg pNewE
     if(uiFieldId == ParametersFieldId)
     {
         static_cast<ShaderParameterChunk *>(this)->addParameter(
-            cast_dynamic<ShaderParameterPtr>(pNewElement));
+            dynamic_cast<ShaderParameterPtr>(pNewElement));
     }
 }
 
@@ -198,7 +198,7 @@ void ShaderParameterChunkBase::insertIntoMField(const UInt32                    
     {
         static_cast<ShaderParameterChunk *>(this)->insertParameter(
             uiIndex,
-            cast_dynamic<ShaderParameterPtr>(pNewElement));
+            dynamic_cast<ShaderParameterPtr>(pNewElement));
     }
 }
 
@@ -212,7 +212,7 @@ void ShaderParameterChunkBase::replaceInMField (const UInt32                    
     {
         static_cast<ShaderParameterChunk *>(this)->replaceParameter(
             uiIndex,
-            cast_dynamic<ShaderParameterPtr>(pNewElement));
+            dynamic_cast<ShaderParameterPtr>(pNewElement));
     }
 }
 
@@ -225,8 +225,8 @@ void ShaderParameterChunkBase::replaceInMField (      FieldContainerPtrConstArg 
     if(uiFieldId == ParametersFieldId)
     {
         static_cast<ShaderParameterChunk *>(this)->replaceParameterBy(
-            cast_dynamic<ShaderParameterPtr>(pOldElement),
-            cast_dynamic<ShaderParameterPtr>(pNewElement));
+            dynamic_cast<ShaderParameterPtr>(pOldElement),
+            dynamic_cast<ShaderParameterPtr>(pNewElement));
     }
 }
 
@@ -250,7 +250,7 @@ void ShaderParameterChunkBase::removeFromMField(      FieldContainerPtrConstArg 
     if(uiFieldId == ParametersFieldId)
     {
         static_cast<ShaderParameterChunk *>(this)->subParameter(
-            cast_dynamic<ShaderParameterPtr>(pElement));
+            dynamic_cast<ShaderParameterPtr>(pElement));
     }
 }
 

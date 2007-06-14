@@ -384,7 +384,7 @@ GeoMultiPropertyDataPtr GeoMultiPropertyDataBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<GeoMultiPropertyData::ObjPtr>(
+        fc = dynamic_cast<GeoMultiPropertyData::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 

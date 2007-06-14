@@ -85,7 +85,7 @@ struct PtrWrapper
         return _parentFPos;
     }
 
-    Ptr getCPtr(void)
+    Ptr getCPtr(void) const
     {
         return _ptr;
     }

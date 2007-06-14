@@ -235,7 +235,7 @@ ShaderParameterMatrixPtr ShaderParameterMatrixBase::create(void)
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = OSG::cast_dynamic<ShaderParameterMatrix::ObjPtr>(
+        fc = dynamic_cast<ShaderParameterMatrix::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 
