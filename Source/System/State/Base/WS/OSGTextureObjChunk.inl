@@ -58,6 +58,3 @@ void TextureObjChunk::imageContentChanged(Int32 minx, Int32 maxx,
 
 
 OSG_END_NAMESPACE
-
-#define OSGTEXTUREOBJCHUNK_INLINE_CVSID "@(#)$Id$"
-

@@ -165,6 +165,4 @@ OSG_END_NAMESPACE
 
 #include "OSGConnection.inl"
 
-#define OSG_CONNECTION_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _CONNECTION_H_ */

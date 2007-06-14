@@ -265,6 +265,4 @@ struct FieldTraits<FieldContainerAttachmentMap> :
 
 OSG_END_NAMESPACE
 
-#define OSGATTACHMENTMAPFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGATTACHMENTMAPFIELDTRAITS_H_ */

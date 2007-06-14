@@ -203,8 +203,6 @@ class SimplePool<Int32, PoolTag, LockPolicy>
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLEPOOL_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGSimplePool.inl"
 
 #endif /* _OSGSIMPLEPOOL_H_ */

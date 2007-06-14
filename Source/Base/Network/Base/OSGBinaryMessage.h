@@ -161,8 +161,6 @@ typedef BinaryMessage *BinaryMessageP;
 
 OSG_END_NAMESPACE
 
-#define OSG_BINSOCKETMESSAGEHEADER_CVSID "@(#)$Id$"
-
 #include "OSGBinaryMessage.inl"
 
 #endif /* _BINSOCKETMESSAGE_H_ */

@@ -102,6 +102,4 @@ class TaggedSingletonHolder
 
 OSG_END_NAMESPACE
 
-#define OSGTAGGEDSINGLETONHOLDER_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTAGGEDSINGLETONHOLDER_H_ */

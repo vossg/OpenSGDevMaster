@@ -139,6 +139,4 @@ OSG_END_NAMESPACE
 #include "OSGShaderChunkBase.inl"
 #include "OSGShaderChunk.inl"
 
-#define OSGSHADERCHUNK_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSHADERCHUNK_H_ */

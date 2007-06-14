@@ -45,5 +45,3 @@ inline TextBackend::TextBackend() {}
 
 OSG_END_NAMESPACE
 
-
-#define OSGTEXTBACKEND_INLINE_CVSID "@(#)$Id$"

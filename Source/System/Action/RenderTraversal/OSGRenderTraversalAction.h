@@ -434,8 +434,6 @@ Action::ResultE MaterialDrawableRenderLeave(const NodeCorePtr &pCore,
 
 OSG_END_NAMESPACE
 
-#define OSGRENDERTRAVERSALACTION_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGRenderTraversalAction.inl"
 
 #endif /* _OSGRENDERTRAVERSALACTION_H_ */

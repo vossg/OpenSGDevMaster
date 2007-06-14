@@ -416,6 +416,4 @@ OSG_END_NAMESPACE
 #include "OSGSHLChunkBase.inl"
 #include "OSGSHLChunk.inl"
 
-#define OSGSHLCHUNK_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGCGCHUNK_H_ */

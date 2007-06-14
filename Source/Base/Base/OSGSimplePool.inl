@@ -180,6 +180,3 @@ void SimplePool<ValueT, PoolTag, LockPolicy>::printStat(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGSIMPLEPOOL_INLINE_CVSID "@(#)$Id$"
-

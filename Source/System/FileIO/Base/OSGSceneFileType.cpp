@@ -234,20 +234,3 @@ bool SceneFileType::writeFile(const NodePtr &OSG_CHECK_ARG(node    ),
     return false;
 }
 #endif
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGSCENEFILETYPE_HEADER_CVSID;
-}

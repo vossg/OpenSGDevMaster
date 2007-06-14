@@ -162,6 +162,4 @@ OSG_END_NAMESPACE
 #include "OSGSpotLightBase.inl"
 #include "OSGSpotLight.inl"
 
-#define OSGSPOTLIGHT_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSPOTLIGHT_H_ */

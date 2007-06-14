@@ -150,6 +150,4 @@ OSG_END_NAMESPACE
 #include "OSGColorBufferViewportBase.inl"
 #include "OSGColorBufferViewport.inl"
 
-#define OSGCOLORBUFFERVIEWPORT_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGCOLORBUFFERVIEWPORT_H_ */

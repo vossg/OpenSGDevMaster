@@ -137,6 +137,4 @@ OSG_END_NAMESPACE
 #include "OSGPassiveViewportBase.inl"
 #include "OSGPassiveViewport.inl"
 
-#define OSGPASSIVEVIEWPORT_HEADER_CVSID "@(#)$Id: $"
-
 #endif /* _OSGPASSIVEVIEWPORT_H_ */

@@ -946,21 +946,3 @@ void NFIOBase::BinaryWriteHandler::write(MemoryHandle mem, UInt32 size)
     _os.write((const char *) mem, size);
 }
 
-
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning(disable : 177)
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGNFIOBASE_HEADER_CVSID;
-}

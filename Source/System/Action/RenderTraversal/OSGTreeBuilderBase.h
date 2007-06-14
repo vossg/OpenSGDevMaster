@@ -237,8 +237,6 @@ class OSG_RENDERTRAV_DLLMAPPING TreeBuilderBase
 
 OSG_END_NAMESPACE
 
-#define OSGTREEBUILDERBASE_HEADER_CVSID "@(#)$Id: OSGTreeBuilderBase.h 106 2006-09-14 03:15:53Z dirk $"
-
 #include "OSGTreeBuilderBase.inl"
 
 #endif /* _OSGTREEBUILDERBASE_H_ */

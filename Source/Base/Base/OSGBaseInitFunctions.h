@@ -167,6 +167,4 @@ bool osgExit(void);
 
 OSG_END_NAMESPACE
 
-#define OSGBASEINITFUNCTIONS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* OSGBASEINITFUNCTIONS_H */

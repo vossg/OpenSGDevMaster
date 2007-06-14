@@ -125,6 +125,3 @@ Char8 *TestFC::getClassname(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGTESTFC_INLINE_CVSID "@(#)$Id$"
-

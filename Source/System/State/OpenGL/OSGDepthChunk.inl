@@ -54,6 +54,3 @@ UInt32 DepthChunk::getStaticClassId(void)
 
 
 OSG_END_NAMESPACE
-
-#define OSGDEPTHCHUNK_INLINE_CVSID "@(#)$Id$"
-

@@ -160,6 +160,4 @@ OSG_END_NAMESPACE
 #include "OSGRenderBufferBase.inl"
 #include "OSGRenderBuffer.inl"
 
-#define OSGRENDERBUFFER_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGRENDERBUFFER_H_ */

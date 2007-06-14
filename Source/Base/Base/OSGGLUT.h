@@ -52,7 +52,4 @@
 #include <GL/glut.h>
 #endif
 
-
-#define OSGGLUT_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGGLUT_H_ */

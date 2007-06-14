@@ -150,6 +150,4 @@ OSG_END_NAMESPACE
 #include "OSGStringAttributeMapBase.inl"
 #include "OSGStringAttributeMap.inl"
 
-#define OSGSTRINGATTRIBUTEMAP_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSTRINGATTRIBUTEMAP_H_ */

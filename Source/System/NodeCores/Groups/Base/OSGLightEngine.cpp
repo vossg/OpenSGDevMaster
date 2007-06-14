@@ -97,26 +97,3 @@ void LightEngine::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGLIGHTENGINE_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGLIGHTENGINE_INLINE_CVSID;
-}
-
-
-
-
-

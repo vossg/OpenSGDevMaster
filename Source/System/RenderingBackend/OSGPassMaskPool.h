@@ -56,6 +56,4 @@ typedef TaggedSingletonHolder<PassMaskPoolBase,
 
 OSG_END_NAMESPACE
 
-#define OSGPASSMASKPOOL_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGPASSPOOL_H_ */

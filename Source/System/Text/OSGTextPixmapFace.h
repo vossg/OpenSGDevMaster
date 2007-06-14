@@ -203,6 +203,4 @@ OSG_END_NAMESPACE
 
 #include "OSGTextPixmapFace.inl"
 
-#define OSGTEXTPIXMAPFACE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTEXTPIXMAPFACE_H_ */

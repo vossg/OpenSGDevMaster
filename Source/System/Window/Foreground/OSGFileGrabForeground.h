@@ -134,6 +134,4 @@ OSG_END_NAMESPACE
 #include "OSGFileGrabForegroundBase.inl"
 #include "OSGFileGrabForeground.inl"
 
-#define OSGFILEGRABFOREGROUND_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGFILEGRABFOREGROUND_H_ */

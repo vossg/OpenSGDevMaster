@@ -316,6 +316,4 @@ OSG_END_NAMESPACE
 
 #include "OSGQuaternion.inl"
 
-#define OSGQUATERNION_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGQUATERNION_H_ */

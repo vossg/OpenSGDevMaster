@@ -1549,8 +1549,6 @@ OSG_END_NAMESPACE
 #pragma reset woff 1209
 #endif
 
-#define OSGVECTOR_HEADER_CVSID "@(#)$Id$"
-
 #endif /* OSGVECTOR_H */
 
 

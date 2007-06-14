@@ -128,21 +128,3 @@ const Char8 *FactoryBase::getCName(void) const
     return _szName.str();
 }
 
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace 
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGFACTORYBASE_HEADER_CVSID;
-}
-

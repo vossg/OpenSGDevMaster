@@ -127,8 +127,6 @@ class OSG_BASE_DLLMAPPING Field
 
 OSG_END_NAMESPACE
 
-#define OSGFIELD_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGFIELD_HPP_ */
 
 

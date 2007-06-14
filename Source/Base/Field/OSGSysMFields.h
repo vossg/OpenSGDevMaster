@@ -269,6 +269,4 @@ typedef MFFixed32 MFReal;
 
 OSG_END_NAMESPACE
 
-#define OSGSYSMFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSYSMFIELDS_H_ */

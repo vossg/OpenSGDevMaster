@@ -147,6 +147,4 @@ OSG_END_NAMESPACE
 #include "OSGMatrixCameraDecoratorBase.inl"
 #include "OSGMatrixCameraDecorator.inl"
 
-#define OSGMATRIXCAMERADECORATOR_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGMATRIXCAMERADECORATOR_H_ */

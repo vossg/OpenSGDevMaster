@@ -127,8 +127,6 @@ class Pool
 
 OSG_END_NAMESPACE
 
-#define OSGPOOL_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGPool.inl"
 
 #endif /* _OSGPOOL_H_ */

@@ -137,6 +137,4 @@ OSG_END_NAMESPACE
 #include "OSGLightEnvBase.inl"
 #include "OSGLightEnv.inl"
 
-#define OSGLIGHTENV_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGLIGHTENV_H_ */

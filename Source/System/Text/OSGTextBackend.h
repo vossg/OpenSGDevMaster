@@ -145,6 +145,4 @@ OSG_END_NAMESPACE
 
 #include "OSGTextBackend.inl"
 
-#define OSGTEXTBACKEND_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTEXTBACKEND_H_ */

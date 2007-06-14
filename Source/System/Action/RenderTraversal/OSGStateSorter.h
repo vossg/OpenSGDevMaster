@@ -222,8 +222,6 @@ class OSG_RENDERTRAV_DLLMAPPING StateSorter
 
 OSG_END_NAMESPACE
 
-#define OSGSTATESORTER_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGStateSorter.inl"
 
 #endif /* _OSGSTATESORTER_H_ */

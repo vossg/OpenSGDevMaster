@@ -69,5 +69,3 @@ void SHLParameterChunk::updateParameters(Window *win)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGSHLPARAMETERCHUNK_INLINE_CVSID "@(#)$Id$"

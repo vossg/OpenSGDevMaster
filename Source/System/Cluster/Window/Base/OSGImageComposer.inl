@@ -77,6 +77,3 @@ ClusterWindowPtr ImageComposer::clusterWindow(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGIMAGECOMPOSER_INLINE_CVSID "@(#)$Id$"
-

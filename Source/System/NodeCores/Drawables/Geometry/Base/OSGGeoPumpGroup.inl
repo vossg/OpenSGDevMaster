@@ -50,5 +50,3 @@ inline std::vector<GeoPumpGroup*> &
 
 OSG_END_NAMESPACE
 
-#define OSGGEOPUMPGROUP_INLINE_CVSID "@(#)$Id$"
-

@@ -334,6 +334,3 @@ void DynFieldAttachment<AttachmentDescT>::execSync (
 #endif
 
 OSG_END_NAMESPACE
-
-#define OSGDYNAMICATTACHMENTMIXIN_INLINE_CVSID "@(#)$Id$"
-

@@ -921,7 +921,5 @@ struct FieldTraits<Plane> : public FieldTraitsTemplateBase<Plane>
 
 OSG_END_NAMESPACE
 
-#define OSGBASEFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGBASEFIELDTRAITS_H_ */
 

@@ -150,6 +150,4 @@ typedef SingletonHolder<ConnectionFactoryBase> ConnectionFactory;
 
 OSG_END_NAMESPACE
 
-#define OSG_CONNECTIONFACTORYHEADER_CVSID "@(#)$Id$"
-
 #endif /* _CONNECTIONFACTORY_H_ */

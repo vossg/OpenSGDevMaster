@@ -84,8 +84,6 @@ class ActionBase
 
 OSG_END_NAMESPACE
 
-#define OSGACTIONBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGACTIONBASE_H_ */
 
 

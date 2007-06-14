@@ -154,6 +154,4 @@ OSG_END_NAMESPACE
 #include "OSGLightEngineBase.inl"
 #include "OSGLightEngine.inl"
 
-#define OSGLIGHTENGINE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGLIGHTENGINE_H_ */

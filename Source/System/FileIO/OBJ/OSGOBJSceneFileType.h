@@ -202,7 +202,5 @@ typedef OBJSceneFileType* OBJSceneFileTypeP;
 
 OSG_END_NAMESPACE
 
-#define OSGOBJSCENEFILETYPE_HEADER_CVSID "@(#)$Id$"
-
 #endif // _OSGOBJSCENEFILETYPE_H_
 

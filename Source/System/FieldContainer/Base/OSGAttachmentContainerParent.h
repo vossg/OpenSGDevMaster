@@ -74,6 +74,4 @@ struct ContainerAttachmentContainerDesc
 
 OSG_END_NAMESPACE
 
-#define OSGATTACHMENTCONTAINERPARENT_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGATTACHMENTCONTAINERPARENT_H_ */

@@ -57,5 +57,3 @@ const Time &StatTimeElem::getTime(void) const
 }
 
 OSG_END_NAMESPACE
-
-#define OSGSTATTIMEELEM_INLINE_CVSID "@(#)$Id$"

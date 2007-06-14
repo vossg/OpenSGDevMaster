@@ -176,6 +176,4 @@ typedef PointSockConnection *PointSockConnectionP;
 
 OSG_END_NAMESPACE
 
-#define OSG_POINTSOCKCONNECTION_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _GROUPSOCKCONNECTION_H_ */

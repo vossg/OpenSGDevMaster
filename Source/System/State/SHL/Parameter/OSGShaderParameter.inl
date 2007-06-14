@@ -95,6 +95,3 @@ void  ShaderParameter::setFlags(UInt32 flags)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGSHADERPARAMETER_INLINE_CVSID "@(#)$Id$"
-

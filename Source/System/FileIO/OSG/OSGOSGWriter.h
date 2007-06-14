@@ -129,8 +129,6 @@ class OSG_SYSTEM_DLLMAPPING OSGWriter
 };
 
 OSG_END_NAMESPACE
-
-#define OSGOSGWRITER_HEADER_CVSID "@(#)$Id$"
     
 #endif /* _OSGOSGWRITER_H_ */
 

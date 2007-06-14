@@ -208,6 +208,4 @@ OSG_END_NAMESPACE
 #include "OSGSHLParameterChunkBase.inl"
 #include "OSGSHLParameterChunk.inl"
 
-#define OSGSHLPARAMETERCHUNK_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSHLPARAMETERCHUNK_H_ */

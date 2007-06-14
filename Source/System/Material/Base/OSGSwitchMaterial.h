@@ -158,6 +158,4 @@ OSG_END_NAMESPACE
 #include "OSGSwitchMaterialBase.inl"
 #include "OSGSwitchMaterial.inl"
 
-#define OSGSWITCHMATERIAL_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSWITCHMATERIAL_H_ */

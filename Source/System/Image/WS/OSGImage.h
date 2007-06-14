@@ -451,6 +451,4 @@ OSG_END_NAMESPACE
 #include "OSGImageBase.inl"
 #include "OSGImage.inl"
 
-#define OSGIMAGE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGIMAGE_H_ */

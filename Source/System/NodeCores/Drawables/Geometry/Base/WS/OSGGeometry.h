@@ -334,6 +334,4 @@ OSG_END_NAMESPACE
 #include "OSGGeometryBase.inl"
 #include "OSGGeometry.inl"
 
-#define OSGGEOMETRY_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGGEOMETRY_H_ */

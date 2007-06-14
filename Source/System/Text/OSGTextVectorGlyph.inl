@@ -63,5 +63,3 @@ inline TextVectorGlyph::VertexNormal::VertexNormal(const Vec2f &nextEdgeNormal_,
 
 OSG_END_NAMESPACE
 
-
-#define OSGTEXTVECTORGLYPH_INLINE_CVSID "@(#)$Id$"

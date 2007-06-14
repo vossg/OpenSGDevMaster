@@ -310,6 +310,4 @@ OSG_END_NAMESPACE
 
 #include "OSGColor.inl"
 
-#define OSGCOLOR_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSG_COLOR_H_ */

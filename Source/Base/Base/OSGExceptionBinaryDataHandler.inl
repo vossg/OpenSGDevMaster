@@ -920,6 +920,3 @@ ExceptionBinaryDataHandler::BuffersT::iterator
 }
 
 OSG_END_NAMESPACE
-
-#define OSGEXCEPTIONBINARYDATAHANDLER_INLINE_CVSID "@(#)$Id$"
-

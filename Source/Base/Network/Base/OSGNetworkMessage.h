@@ -116,6 +116,4 @@ typedef NetworkMessage *NetworkMessageP;
 
 OSG_END_NAMESPACE
 
-#define OSG_NETWORK_MESSAGE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSG_NETWORK_MESSAGE_H_ */

@@ -78,6 +78,3 @@ void DrawTreeNodeFactory::freeAll(void)
 
 
 OSG_END_NAMESPACE
-
-#define OSGDRAWTREENODEFACTORY_INLINE_CVSID "@(#)$Id$"
-

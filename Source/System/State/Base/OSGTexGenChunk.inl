@@ -53,6 +53,3 @@ UInt32 TexGenChunk::getStaticClassId(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGTEXGENCHUNK_INLINE_CVSID "@(#)$Id$"
-

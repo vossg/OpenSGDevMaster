@@ -50,5 +50,3 @@ UInt32 BlendChunk::getStaticClassId(void)
 
 OSG_END_NAMESPACE
 
-#define OSGBLENDCHUNK_INLINE_CVSID "@(#)$Id$"
-

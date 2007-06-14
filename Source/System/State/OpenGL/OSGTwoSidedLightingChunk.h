@@ -181,6 +181,4 @@ OSG_END_NAMESPACE
 #include "OSGTwoSidedLightingChunkBase.inl"
 #include "OSGTwoSidedLightingChunk.inl"
 
-#define OSGTWOSIDEDLIGHTINGCHUNK_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTWOSIDEDLIGHTINGCHUNK_H_ */

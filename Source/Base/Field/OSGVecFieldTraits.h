@@ -143,6 +143,4 @@ defineDTrait(fx)
 
 OSG_END_NAMESPACE
 
-#define OSGVECFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGVECFIELDTRAITS_H_ */

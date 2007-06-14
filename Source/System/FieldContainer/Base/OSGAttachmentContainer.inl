@@ -47,6 +47,3 @@ Char8 *AttachmentContainer::getClassname(void)
 OSG_ABSTR_FIELD_CONTAINER_INL_DEF(AttachmentContainer)
 
 OSG_END_NAMESPACE
-
-#define OSGATTACHMENTCONTAINER_INLINE_CVSID "@(#)$Id$"
-

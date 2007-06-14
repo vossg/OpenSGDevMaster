@@ -256,6 +256,4 @@ OSG_END_NAMESPACE
 
 #include "OSGTextFace.inl"
 
-#define OSGTEXTFACE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTEXTFACE_H_ */

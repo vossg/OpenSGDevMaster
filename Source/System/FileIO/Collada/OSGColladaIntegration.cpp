@@ -1778,25 +1778,4 @@ void initColladaIntegration(void)
 
 OSG_END_NAMESPACE
 
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace 
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGCOLLADAINTEGRATION_HEADER_CVSID;
-}
-
-#endif
-
 #endif /* OSG_WITH_COLLADA */

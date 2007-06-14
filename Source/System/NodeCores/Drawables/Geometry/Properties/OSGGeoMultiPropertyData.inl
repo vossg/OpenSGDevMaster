@@ -78,6 +78,3 @@ UInt32 GeoMultiPropertyData::getSize(void) const
 
 
 OSG_END_NAMESPACE
-
-#define OSGGEOMULTIPROPERTYDATA_INLINE_CVSID "@(#)$Id$"
-

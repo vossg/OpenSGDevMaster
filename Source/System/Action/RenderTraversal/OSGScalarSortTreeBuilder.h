@@ -199,8 +199,6 @@ class OSG_RENDERTRAV_DLLMAPPING ScalarSortTreeBuilder : public TreeBuilderBase
 
 OSG_END_NAMESPACE
 
-#define OSGSCALARSORTTREEBUILDER_HEADER_CVSID "@(#)$Id: OSGScalarSortTreeBuilder.h 106 2006-09-14 03:15:53Z dirk $"
-
 #include "OSGScalarSortTreeBuilder.inl"
 
 #endif /* _OSGSCALARSORTTREEBUILDER_H_ */

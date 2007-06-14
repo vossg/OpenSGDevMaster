@@ -117,6 +117,4 @@ class OSG_UTIL_DLLMAPPING FlyNavigator
 
 OSG_END_NAMESPACE
 
-#define OSGFLYNAVIGATOR_HEADER_CVSID "@(#)$Id$"
-
 #endif

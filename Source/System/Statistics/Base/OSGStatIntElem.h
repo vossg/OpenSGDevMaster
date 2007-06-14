@@ -152,6 +152,4 @@ OSG_END_NAMESPACE
 
 #include "OSGStatIntElem.inl"
 
-#define OSGSTATINTELEM_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSTATINTELEM_H_ */

@@ -192,8 +192,6 @@ private:
     //   class variables                                                     
     //-----------------------------------------------------------------------
 
-//	static char cvsid[];
-
     //-----------------------------------------------------------------------
     //   class functions                                                     
     //-----------------------------------------------------------------------
@@ -225,7 +223,5 @@ typedef LinearTransform<Real32> LinearTransform4f;
 OSG_END_NAMESPACE
 
 #include "OSGLinearTransform.inl"
-
-#define OSGLINEARTRANSFORM_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGLINEARTRANSFORM_H_ */

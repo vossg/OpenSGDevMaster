@@ -219,6 +219,4 @@ OSG_END_NAMESPACE
 #include "OSGViewportBase.inl"
 #include "OSGViewport.inl"
 
-#define OSGVIEWPORT_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGVIEWPORT_H_ */

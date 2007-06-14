@@ -217,6 +217,4 @@ class OSGScanParseLexer : public OSGScanParseSkel_FlexLexer
 
 //OSG_END_NAMESPACE
 
-#define OSGSCANPARSELEXER_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSCANPARSESKELLEXER_H_ */

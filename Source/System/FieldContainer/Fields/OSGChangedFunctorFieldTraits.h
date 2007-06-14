@@ -102,6 +102,4 @@ struct FieldTraits<ChangedFunctorCallback> :
 
 OSG_END_NAMESPACE
 
-#define OSGCHANGEDFUNCTORFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGCHANGEDFUNCTORFIELDTRAITS_H_ */

@@ -148,6 +148,4 @@ OSG_END_NAMESPACE
 #include "OSGSwitchBase.inl"
 #include "OSGSwitch.inl"
 
-#define OSGSWITCH_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSWITCH_H_ */

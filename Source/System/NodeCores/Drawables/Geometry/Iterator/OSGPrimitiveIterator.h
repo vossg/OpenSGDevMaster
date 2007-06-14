@@ -174,8 +174,6 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
 
     friend class Geometry;
 
-    static char cvsid[];
-
     /*---------------------------------------------------------------------*/
     /*! \name                       Data                                   */
     /*! \{                                                                 */

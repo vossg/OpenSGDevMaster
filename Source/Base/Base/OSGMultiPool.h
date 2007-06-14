@@ -143,8 +143,6 @@ class MultiPool
 
 OSG_END_NAMESPACE
 
-#define OSGMULTIPOOL_HEADER_CVSID "@(#)$Id: OSGMultiPool.h 106 2006-09-14 03:15:53Z dirk $"
-
 #include "OSGMultiPool.inl"
 
 #endif /* _OSGMULTIPOOL_H_ */

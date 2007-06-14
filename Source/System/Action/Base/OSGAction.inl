@@ -212,5 +212,3 @@ ActionBase::ResultE Action::callLeave(NodePtrConstArg node)
 \*-------------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
-
-#define OSGACTION_INLINE_CVSID "@(#)$Id$"

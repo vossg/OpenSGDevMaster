@@ -128,6 +128,4 @@ private:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIOBITPACKER_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGNFIOBITPACKER_H_ */

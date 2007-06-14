@@ -186,19 +186,3 @@ static NFIOGeoConversion<GeoUInt32Property> geoPLengthsUI32("GeoPLengthsUI32");
 static NFIOGeoConversion<GeoUInt8Property> geoIndicesUI8("GeoIndicesUI8");
 static NFIOGeoConversion<GeoUInt16Property> geoIndicesUI16("GeoIndicesUI16");
 static NFIOGeoConversion<GeoUInt32Property> geoIndicesUI32("GeoIndicesUI32");
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning(disable : 177)
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-}

@@ -53,6 +53,3 @@ GeoStatsAttachmentPtr GeoStatsAttachment::get(CntPtr arg)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGGEOSTATSATTACHMENT_INLINE_CVSID "@(#)$Id$"
-

@@ -96,6 +96,4 @@ private:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIOQUANTIZER_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGNFIOQUANTIZER_H_ */

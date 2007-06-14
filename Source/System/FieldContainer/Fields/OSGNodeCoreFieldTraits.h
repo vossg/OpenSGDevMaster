@@ -103,6 +103,4 @@ struct NodeCorePtrFieldDesc : public FieldDescBase
 
 OSG_END_NAMESPACE
 
-#define OSGNODECOREFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGNODECOREFIELDTRAITS_H_ */

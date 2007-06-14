@@ -56,5 +56,3 @@ inline TextGlyph::TextGlyph()
 
 OSG_END_NAMESPACE
 
-
-#define OSGTEXTGLYPH_INLINE_CVSID "@(#)$Id$"

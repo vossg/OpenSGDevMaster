@@ -123,6 +123,4 @@ OSG_END_NAMESPACE
 #include "OSGInlineBase.inl"
 #include "OSGInline.inl"
 
-#define OSGINLINE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGINLINE_H_ */

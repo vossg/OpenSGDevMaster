@@ -130,6 +130,4 @@ OSG_END_NAMESPACE
 #include <OSGMoveManipulatorBase.inl>
 #include <OSGMoveManipulator.inl>
 
-#define OSGMOVEMANIPULATOR_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGMOVEMANIPULATOR_H_ */

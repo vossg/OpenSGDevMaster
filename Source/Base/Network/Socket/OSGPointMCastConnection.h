@@ -195,6 +195,4 @@ typedef PointMCastConnection *PointMCastConnectionP;
 
 OSG_END_NAMESPACE
 
-#define OSG_POINTMCASTCONNECTION_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _GROUPMCASTCONNECTION_H_ */

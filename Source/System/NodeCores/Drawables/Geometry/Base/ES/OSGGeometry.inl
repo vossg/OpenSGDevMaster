@@ -395,5 +395,3 @@ inline GeoIntegralPropertyPtr Geometry::getIndices(void)
 
 OSG_END_NAMESPACE
 
-#define OSGGEOMETRY_INLINE_CVSID "@(#)$Id$"
-

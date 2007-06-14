@@ -191,6 +191,4 @@ OSG_END_NAMESPACE
 #include "OSGImageComposerBase.inl"
 #include "OSGImageComposer.inl"
 
-#define OSGIMAGECOMPOSER_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGIMAGECOMPOSER_H_ */

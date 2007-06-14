@@ -66,6 +66,4 @@ typedef FieldDescription<NodeCorePtrFieldDesc,
 
 OSG_END_NAMESPACE
 
-#define OSGNODECORESFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGNODECORESFIELDS_H_ */

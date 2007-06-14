@@ -145,5 +145,3 @@ detail::GeoConvertFunc<ValueTypeT,
 }
 
 OSG_END_NAMESPACE
-
-#define OSGGEOVECTORPROPERTYCONVERSION_INLINE_CVSID "@(#)$Id$"

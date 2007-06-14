@@ -68,5 +68,3 @@ inline const std::wstring &TextTXFParam::getCharacters() const { return _charact
 
 OSG_END_NAMESPACE
 
-
-#define OSGTEXTTXFPARAM_INLINE_CVSID "@(#)$Id$"

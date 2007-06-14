@@ -80,5 +80,3 @@ TypePredicates::typeInGroupIds(      InIteratorTypeT         begin,
 }
 
 OSG_END_NAMESPACE
-
-#define OSGREFLEXIVECONTAINERTYPEPREDICATES_INLINE_CVSID "@(#)$Id$"

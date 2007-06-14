@@ -150,8 +150,6 @@ OSG_END_NAMESPACE
 #include "OSGImageForegroundBase.inl"
 #include "OSGImageForeground.inl"
 
-#define OSGIMAGEFOREGROUND_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGIMAGEFORGROUND_H_ */
 
 

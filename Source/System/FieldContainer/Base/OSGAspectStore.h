@@ -146,8 +146,6 @@ OSG_END_NAMESPACE
 
 #include "OSGAspectStore.inl"
 
-#define OSGASPECTSTORE_HEADER_CVSID "@(#)$Id$"
-
 #endif
 
 #endif /* _OSGASPECTSTORE_H_ */

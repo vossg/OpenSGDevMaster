@@ -63,5 +63,3 @@ inline bool Manipulator::hasSubHandle(const NodePtr& n)
 
 OSG_END_NAMESPACE
 
-#define OSGMANIPULATOR_INLINE_CVSID "@(#)$Id$"
-

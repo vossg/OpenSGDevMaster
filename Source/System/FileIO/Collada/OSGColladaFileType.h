@@ -198,10 +198,4 @@ class OSG_FILEIO_DLLMAPPING ColladaFileType : public SceneFileType
 
 OSG_END_NAMESPACE
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-
-#define OSGCOLLADAFILETYPE_HEADER_CVSID "@(#)$Id$"
-
-#endif
-
 #endif /* _OSGCOLLADAFILETYPE_HPP_ */

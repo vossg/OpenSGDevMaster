@@ -184,6 +184,3 @@ ParameterT *MultiPool<ValueBaseT>::TypeStore::create(ParameterT &oParam)
 
 
 OSG_END_NAMESPACE
-
-#define OSGMULTIPOOL_INLINE_CVSID "@(#)$Id: OSGMultiPool.inl 106 2006-09-14 03:15:53Z dirk $"
-

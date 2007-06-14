@@ -263,8 +263,6 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
     //   class variables                                                     
     //-----------------------------------------------------------------------
 
-    static char cvsid[];
-
     // the prototype which is copied to create new actions
     static VRMLWriteAction * _prototype;
 

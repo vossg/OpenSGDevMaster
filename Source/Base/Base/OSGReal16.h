@@ -758,6 +758,4 @@ Real16::setBits (unsigned short bits)
 
 OSG_END_NAMESPACE
 
-#define OSGREAL16_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGREAL16_H_ */

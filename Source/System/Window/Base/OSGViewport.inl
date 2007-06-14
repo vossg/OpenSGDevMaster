@@ -93,6 +93,3 @@ void Viewport::setParent(
 }
 
 OSG_END_NAMESPACE
-
-#define OSGVIEWPORT_INLINE_CVSID "@(#)$Id$"
-

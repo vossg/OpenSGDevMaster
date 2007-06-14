@@ -172,6 +172,4 @@ OSG_END_NAMESPACE
 #include "OSGDepthChunkBase.inl"
 #include "OSGDepthChunk.inl"
 
-#define OSGDEPTHCHUNK_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGDEPTHCHUNK_H_ */

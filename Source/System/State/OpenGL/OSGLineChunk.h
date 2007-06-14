@@ -173,6 +173,4 @@ OSG_END_NAMESPACE
 #include "OSGLineChunkBase.inl"
 #include "OSGLineChunk.inl"
 
-#define OSGLINECHUNK_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGLINECHUNK_H_ */

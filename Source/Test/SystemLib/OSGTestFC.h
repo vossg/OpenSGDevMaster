@@ -335,8 +335,6 @@ typedef TestFC::ObjConstPtr TestFCConstPtr;
 
 OSG_END_NAMESPACE
 
-#define OSGTESTFC_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGTestFC.inl"
 
 #endif /* _OSGTESTFC_H_ */

@@ -258,6 +258,4 @@ DynFieldAttachment< DESC >::TypeObject &                                      \
 
 #include "OSGDynamicAttachmentMixin.inl"
 
-#define OSGDYNAMICATTACHMENTMIXIN_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGDYNAMICATTACHMENTMIXIN_H_ */

@@ -135,6 +135,4 @@ private:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIOGEOMETRY_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGNFIOGEOMETRY_H_ */

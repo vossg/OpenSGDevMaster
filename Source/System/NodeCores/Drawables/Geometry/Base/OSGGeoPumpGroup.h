@@ -167,6 +167,4 @@ OSG_END_NAMESPACE
 
 #include "OSGGeoPumpGroup.inl"
 
-#define OSGGEOPUMPGROUP_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGGEOPUMPGROUP_H_ */

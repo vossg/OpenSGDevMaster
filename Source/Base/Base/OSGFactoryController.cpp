@@ -325,21 +325,4 @@ FactoryBase *FactoryControllerBase::findFactory(const Char8 *szName)
     return ((factIt == _mFactoryMap.end()) ? NULL : (*factIt).second);
 }
 
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
 OSG_END_NAMESPACE
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace 
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGFACTORYCONTROLLER_HEADER_CVSID;
-}

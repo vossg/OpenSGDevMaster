@@ -53,5 +53,3 @@ UInt32 TwoSidedLightingChunk::getStaticClassId(void)
 //----------------------------------------------------------------------------
 
 OSG_END_NAMESPACE
-
-#define OSGTWOSIDEDLIGHTINGCHUNK_INLINE_CVSID "@(#)$Id$"

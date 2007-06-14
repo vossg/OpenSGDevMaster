@@ -98,6 +98,4 @@ class OSG_BASE_DLLMAPPING StreamSocket:public Socket
 
 OSG_END_NAMESPACE
 
-#define OSG_STREAMSOCKET_HEADER_CVSID "@(#)$Id$"
-
 #endif

@@ -58,4 +58,3 @@ inline Real32 TextLayoutParam::getLength(UInt32 index) const
 OSG_END_NAMESPACE
 
 
-#define OSGTEXTLAYOUTPARAM_INLINE_CVSID "@(#)$Id$"

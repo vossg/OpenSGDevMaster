@@ -79,6 +79,3 @@ UInt32 GeoProperty::MapFormatToSize(GLenum format)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGGEOPROPERTY_INLINE_CVSID "@(#)$Id$"
-

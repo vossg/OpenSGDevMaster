@@ -478,8 +478,6 @@ struct GeoConvertNormalize
 
 OSG_END_NAMESPACE
 
-#define OSGGEOVECTORPROPERTYCONVERSION_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGGEOVECTORPROPERTYCONVERSION_H_ */
 /*---------------------------------------------------------------------------*\
  *                                OpenSG                                     *
@@ -960,7 +958,5 @@ struct GeoConvertNormalize
 #endif
 
 OSG_END_NAMESPACE
-
-#define OSGGEOVECTORPROPERTYCONVERSION_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGGEOVECTORPROPERTYCONVERSION_H_ */

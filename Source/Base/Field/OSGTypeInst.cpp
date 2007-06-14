@@ -576,26 +576,3 @@ OSG_FIELD_DLLEXPORT_DEF1(MField, Quaternion     )
 OSG_FIELD_DLLEXPORT_DEF1(MField, Quaternionfx   )
 
 OSG_END_NAMESPACE
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace 
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-
-//    static Char8 cvsid_sfbt_hpp[] = OSGSFBASETYPES_HEADER_CVSID;
-//    static Char8 cvsid_mfbt_hpp[] = OSGMFBASETYPES_HEADER_CVSID;
-//    static Char8 cvsid_bfdt_hpp[] = OSGBASEFIELDDATATYPE_HEADER_CVSID;
-}
-
-
-

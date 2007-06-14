@@ -124,6 +124,3 @@ void TextureObjChunk::setShaderOffsetMatrix(Real32 m11, Real32 m12,
 
 
 OSG_END_NAMESPACE
-
-#define OSGTEXTUREOBJCHUNK_INLINE_CVSID "@(#)$Id$"
-

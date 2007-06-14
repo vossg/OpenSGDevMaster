@@ -141,7 +141,6 @@ class OSG_DRAWABLE_DLLMAPPING FaceIterator : public PrimitiveIterator
           
    /*==========================  PRIVATE  ================================*/    
   private:
-    static char cvsid[];
   
     Int32             _faceIndex;
     UInt32            _actPrimIndex;

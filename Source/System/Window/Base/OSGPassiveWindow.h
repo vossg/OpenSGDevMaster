@@ -136,6 +136,4 @@ OSG_END_NAMESPACE
 #include "OSGPassiveWindowBase.inl"
 #include "OSGPassiveWindow.inl"
 
-#define OSGPASSIVEWINDOW_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGPASSIVEWINDOW_H_ */

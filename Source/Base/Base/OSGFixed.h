@@ -118,8 +118,6 @@ Fixed32 operator *(const Real32 lhs, const Fixed32 rhs);
 
 std::ostream &operator << (std::ostream &os, const Fixed32 fVal);
 
-#define OSGFIXED_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGFixed.inl"
 
 #endif /* _OSGFIXED_H_ */

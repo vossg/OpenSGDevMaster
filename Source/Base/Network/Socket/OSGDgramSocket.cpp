@@ -385,20 +385,3 @@ const DgramSocket & DgramSocket::operator =(const DgramSocket &source)
     _sd=source._sd;
     return *this;
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSG_DGRAMSOCKET_HEADER_CVSID;
-}

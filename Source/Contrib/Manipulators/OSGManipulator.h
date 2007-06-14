@@ -174,6 +174,4 @@ OSG_END_NAMESPACE
 #include <OSGManipulatorBase.inl>
 #include <OSGManipulator.inl>
 
-#define OSGMANIPULATOR_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGMANIPULATOR_H_ */

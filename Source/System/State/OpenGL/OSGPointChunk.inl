@@ -53,6 +53,3 @@ UInt32 PointChunk::getStaticClassId(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGPOINTCHUNK_INLINE_CVSID "@(#)$Id$"
-

@@ -100,6 +100,4 @@ class SingletonHolder
 
 OSG_END_NAMESPACE
 
-#define OSGSINGLETONHOLDER_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSINGLETONHOLDER_H_ */

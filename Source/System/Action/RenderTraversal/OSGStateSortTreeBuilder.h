@@ -206,8 +206,6 @@ class OSG_RENDERTRAV_DLLMAPPING StateSortTreeBuilder : public TreeBuilderBase
 
 OSG_END_NAMESPACE
 
-#define OSGSTATESORTTREEBUILDER_HEADER_CVSID "@(#)$Id: OSGStateSortTreeBuilder.h 106 2006-09-14 03:15:53Z dirk $"
-
 #include "OSGStateSortTreeBuilder.inl"
 
 #endif /* _OSGSTATESORTTREEBUILDER_H_ */

@@ -122,12 +122,8 @@ class OSG_BASE_DLLMAPPING DgramSocket:public Socket
   private:
 
     typedef Socket Inherited;
-
-	static char cvsid[];
 };
 
 OSG_END_NAMESPACE
-
-#define OSG_DGRAMSOCKET_HEADER_CVSID "@(#)$Id$"
 
 #endif

@@ -118,6 +118,4 @@ Int32 ScanParseFieldTypeMapper<BaseT>::mapIntExtFieldType(
 
 OSG_END_NAMESPACE
 
-#define OSGSCANPARSEFIELDTYPEMAPPER_INLINE_CVSID "@(#)$Id$"
-
 

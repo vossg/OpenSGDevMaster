@@ -276,6 +276,4 @@ protected:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIOBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGNFIOBASE_H_ */

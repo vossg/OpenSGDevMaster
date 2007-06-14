@@ -51,5 +51,3 @@ inline UInt32 TextLayoutResult::getNumGlyphs() const
 
 OSG_END_NAMESPACE
 
-
-#define OSGTEXTLAYOUTRESULT_INLINE_CVSID "@(#)$Id$"

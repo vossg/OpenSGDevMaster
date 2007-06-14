@@ -168,6 +168,4 @@ OSG_END_NAMESPACE
 #include "OSGSimpleTexturedMaterialBase.inl"
 #include "OSGSimpleTexturedMaterial.inl"
 
-#define OSGSIMPLETEXTUREDMATERIAL_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTEXTUREDSIMPLEMATERIAL_H_ */

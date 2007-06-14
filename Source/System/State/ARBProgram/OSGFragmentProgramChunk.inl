@@ -53,6 +53,3 @@ UInt32 FragmentProgramChunk::getStaticClassId(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGFRAGMENTPROGRAMCHUNK_INLINE_CVSID "@(#)$Id$"
-

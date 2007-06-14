@@ -199,6 +199,4 @@ typedef GroupSockConnection *GroupSockConnectionP;
 
 OSG_END_NAMESPACE
 
-#define OSG_GROUPSOCKCONNECTION_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _GROUPSOCKCONNECTION_H_ */

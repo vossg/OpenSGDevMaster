@@ -152,6 +152,4 @@ OSG_END_NAMESPACE
 #include "OSGSkyBackgroundBase.inl"
 #include "OSGSkyBackground.inl"
 
-#define OSGSKYBACKGROUND_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSKYBACKGROUND_H_ */

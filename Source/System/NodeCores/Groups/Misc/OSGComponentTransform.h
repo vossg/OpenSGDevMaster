@@ -128,6 +128,4 @@ OSG_END_NAMESPACE
 #include "OSGComponentTransformBase.inl"
 #include "OSGComponentTransform.inl"
 
-#define OSGCOMPONENTTRANSFORM_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGCOMPONENTTRANSFORM_H_ */

@@ -168,6 +168,4 @@ typedef GroupConnection *GroupConnectionP;
 
 OSG_END_NAMESPACE
 
-#define OSG_GROUPCONNECTION_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _CONNECTION_H_ */

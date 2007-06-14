@@ -67,5 +67,3 @@ inline TextFace::TextFace()
 
 OSG_END_NAMESPACE
 
-
-#define OSGTEXTFACE_INLINE_CVSID "@(#)$Id$"

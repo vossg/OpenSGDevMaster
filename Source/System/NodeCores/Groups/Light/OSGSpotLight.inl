@@ -59,5 +59,3 @@ Real SpotLight::getSpotCutOffDeg(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGSPOTLIGHT_INLINE_CVSID "@(#)$Id$"

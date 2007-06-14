@@ -196,6 +196,3 @@ void Barrier::enter(UInt32 uiNumWaitFor)
 
 
 OSG_END_NAMESPACE
-
-#define OSGBARRIER_INLINE_CVSID "@(#)$Id$"
-

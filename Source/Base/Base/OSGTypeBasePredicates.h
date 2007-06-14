@@ -140,6 +140,4 @@ OSG_END_NAMESPACE
 
 #include "OSGTypeBasePredicates.inl"
 
-#define OSGTYPEBASEPREDICATES_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTYPEBASEPREDICATES_H_ */

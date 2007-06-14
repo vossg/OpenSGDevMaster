@@ -68,6 +68,4 @@
 
 #define OSG_GL_UNUSED 0xffff
 
-#define OSGGL_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGGL_H_ */

@@ -129,6 +129,4 @@ OSG_END_NAMESPACE
 #include <OSGScaleManipulatorBase.inl>
 #include <OSGScaleManipulator.inl>
 
-#define OSGSCALEMANIPULATOR_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSCALEMANIPULATOR_H_ */

@@ -285,6 +285,4 @@ typedef SceneFileHandler* SceneFileHandlerP;
 
 OSG_END_NAMESPACE
 
-#define OSGSCENEFILEHANDLER_HEADER_CVSID "@(#)$Id$"
-
 #endif // OSGIMAGEFILEHANDLER_CLASS_DECLARATION

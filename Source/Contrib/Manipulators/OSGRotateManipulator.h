@@ -129,6 +129,4 @@ OSG_END_NAMESPACE
 #include <OSGRotateManipulatorBase.inl>
 #include <OSGRotateManipulator.inl>
 
-#define OSGROTATEMANIPULATOR_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGROTATEMANIPULATOR_H_ */

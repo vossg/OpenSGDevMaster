@@ -141,6 +141,4 @@ class OSG_UTIL_DLLMAPPING TrackballNavigator
 
 OSG_END_NAMESPACE
 
-#define OSGTRACKBALLNAVIGATOR_HEADER_CVSID "@(#)$Id$"
-
 #endif

@@ -156,6 +156,4 @@ OSG_END_NAMESPACE
 #include "OSGMultiPassMaterialBase.inl"
 #include "OSGMultiPassMaterial.inl"
 
-#define OSGMULTIPASSMATERIAL_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGMULTIPASSMATERIAL_H_ */

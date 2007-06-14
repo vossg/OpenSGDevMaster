@@ -256,6 +256,4 @@ OSG_END_NAMESPACE
 #include "OSGClusterWindow.inl"
 #include "OSGClusterWindowBase.inl"
 
-#define OSGCLUSTERWINDOW_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGCLUSTERWINDOW_H_ */

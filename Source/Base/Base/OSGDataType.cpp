@@ -89,26 +89,3 @@ bool DataType::operator !=(const DataType &other) const
 {
     return ! (*this == other);
 }
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace 
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGDATATYPE_HEADER_CVSID;
-}
-
-
-
-
-

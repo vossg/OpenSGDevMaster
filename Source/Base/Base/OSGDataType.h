@@ -96,6 +96,4 @@ class OSG_BASE_DLLMAPPING DataType : public TypeBase
 
 OSG_END_NAMESPACE
 
-#define OSGDATATYPE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGDATATYPE_H_ */

@@ -171,6 +171,4 @@ typedef OSGLoader *OSGLoaderP;
 
 OSG_END_NAMESPACE
 
-#define OSGLOADER_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGLOADER_H_ */

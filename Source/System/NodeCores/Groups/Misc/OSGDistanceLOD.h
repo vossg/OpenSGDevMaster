@@ -134,6 +134,4 @@ OSG_END_NAMESPACE
 #include "OSGDistanceLODBase.inl"
 #include "OSGDistanceLOD.inl"
 
-#define OSGDISTANCELOD_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGDISTANCELOD_H_ */

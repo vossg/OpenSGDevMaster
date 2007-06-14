@@ -276,8 +276,6 @@ class OSG_RENDERTRAV_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilder
 
 OSG_END_NAMESPACE
 
-#define OSGOCCLUSIONCULLINGTREEBUILDER_HEADER_CVSID "@(#)$Id: OSGOcclusionCullingTreeBuilder.h 106 2006-09-14 03:15:53Z dirk $"
-
 #include "OSGOcclusionCullingTreeBuilder.inl"
 
 #endif /* _OSGOCCLUSIONCULLINGTREEBUILDER_H_ */

@@ -679,21 +679,3 @@ void MultiDisplayWindow::updateViewport(ViewportPtr &serverPort,
         }
     }
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static char cvsid_cpp[] = "@(#)$Id$";
-    static char cvsid_hpp[] = OSGMULTIDISPLAYCONFIG_HEADER_CVSID;
-    static char cvsid_inl[] = OSGMULTIDISPLAYCONFIG_INLINE_CVSID;
-}

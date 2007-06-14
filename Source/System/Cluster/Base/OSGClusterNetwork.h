@@ -153,6 +153,4 @@ class OSG_CLUSTER_DLLMAPPING ClusterNetwork : public MemoryObject
 
 OSG_END_NAMESPACE
 
-#define OSG_CLUSTERCONNECTINFOHEADER_CVSID "@(#)$Id:$"
-
 #endif /* _CLUSTERCONNECTINFO_H_ */

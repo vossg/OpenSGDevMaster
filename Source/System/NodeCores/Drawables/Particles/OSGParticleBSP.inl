@@ -90,6 +90,3 @@ bool ParticleBSPTree::created(void) const
 OSG_END_NAMESPACE
 
 #endif // Doc exclude
-
-#define OSGPARTICLEBSP_INLINE_CVSID "@(#)$Id$"
-

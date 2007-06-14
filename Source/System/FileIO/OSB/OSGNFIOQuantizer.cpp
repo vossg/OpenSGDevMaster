@@ -139,20 +139,3 @@ Real32 Quantizer::normalizeInput(Real32 input, Real32 inputMin, Real32 inputScal
     return normalized;
 }
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning(disable : 177)
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGNFIOQUANTIZER_HEADER_CVSID;
-}

@@ -323,21 +323,3 @@ Barrier *Barrier::create (const Char8  *szName,
 
     return returnValue;
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGBARRIER_HEADER_CVSID;
-}
-

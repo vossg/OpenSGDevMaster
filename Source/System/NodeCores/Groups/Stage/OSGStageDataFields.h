@@ -108,6 +108,4 @@ struct FieldTraits<StageDataP> :
 
 OSG_END_NAMESPACE
 
-#define OSGSTAGEDATAFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSTAGEDATAFIELDS_H_ */

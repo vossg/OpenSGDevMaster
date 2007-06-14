@@ -60,6 +60,4 @@ typedef MFieldAdaptor<NodeCorePtr, MFFieldContainerPtr> MFNodeCorePtr;
 
 OSG_END_NAMESPACE
 
-#define OSGNODECOREMFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGNODECOREMFIELDS_H_ */

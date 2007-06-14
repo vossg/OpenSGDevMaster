@@ -176,8 +176,6 @@ class OSG_CLUSTER_DLLMAPPING RenderNode
 
 OSG_END_NAMESPACE
 
-#define OSG_CLUSTERNODE_HEADER_CVSID "@(#)$Id:$"
-
 #include "OSGRenderNode.inl"
 
 #endif /* _CLUSTERNODE_H_ */

@@ -142,6 +142,4 @@ OSG_END_NAMESPACE
 #include "OSGShearedStereoCameraDecoratorBase.inl"
 #include "OSGShearedStereoCameraDecorator.inl"
 
-#define OSGSHEAREDSTEREOCAMERADECORATOR_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSHEAREDSTEREOCAMERADECORATOR_H_ */

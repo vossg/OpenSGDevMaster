@@ -158,8 +158,6 @@ OSG_END_NAMESPACE
 #include "OSGCoreGLWindowBase.inl"
 #include "OSGCoreGLWindow.inl"
 
-#define OSGCOREGLWINDOW_HEADER_CVSID "@(#)$Id: FCTemplate_h.h 106 2006-09-14 03:15:53Z dirk $"
-
 #endif /* __APPLE__ */
 
 #endif /* _OSGCOREGLWINDOW_H_ */

@@ -100,6 +100,4 @@ private:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIOATEST_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGNFIOGENERIC_H_ */

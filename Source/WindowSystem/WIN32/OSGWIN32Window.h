@@ -138,8 +138,6 @@ OSG_END_NAMESPACE
 #include "OSGWIN32Window.inl"
 #include "OSGWIN32WindowBase.inl"
 
-#define OSGWIN32WINDOW_HEADER_CVSID "@(#)$Id$"
-
 #endif /* WIN32 */
 
 #endif /* _OSGWIN32WINDOW_H_ */

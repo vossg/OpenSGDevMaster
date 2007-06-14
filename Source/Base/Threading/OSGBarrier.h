@@ -439,8 +439,6 @@ class OSG_BASE_DLLMAPPING Barrier : public BarrierBase
 
 OSG_END_NAMESPACE
 
-#define OSGBARRIER_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGBarrier.inl"
 
 #endif /* _OSGBARRIER_H_ */

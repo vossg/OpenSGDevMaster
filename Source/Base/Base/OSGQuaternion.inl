@@ -1085,5 +1085,3 @@ std::ostream &operator <<(      std::ostream               &os,
 }
 
 OSG_END_NAMESPACE
-
-#define OSGQUATERNION_INLINE_CVSID "@(#)$Id$"

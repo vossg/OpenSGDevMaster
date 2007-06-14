@@ -622,5 +622,3 @@ std::ostream &operator <<(      std::ostream       &outStream,
 */
 
 OSG_END_NAMESPACE
-
-#define OSGCOLOR_INLINE_CVSID "@(#)$Id$"

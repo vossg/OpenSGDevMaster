@@ -72,5 +72,3 @@ inline TextPixmapGlyph::TextPixmapGlyph()
 
 OSG_END_NAMESPACE
 
-
-#define OSGTEXTPIXMAPGLYPH_INLINE_CVSID "@(#)$Id$"

@@ -137,6 +137,4 @@ OSG_END_NAMESPACE
 #include "OSGContainerPoolBase.inl"
 #include "OSGContainerPool.inl"
 
-#define OSGCONTAINERPOOL_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGCONTAINERPOOL_H_ */

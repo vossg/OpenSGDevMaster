@@ -121,6 +121,4 @@ class OSG_BASE_DLLMAPPING SocketConnReset : public SocketError
 
 OSG_END_NAMESPACE
 
-#define OSG_SOCKETEXCEPTION_HEADER_CVSID "@(#)$Id$"
-
 #endif

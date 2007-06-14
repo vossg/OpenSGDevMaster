@@ -99,6 +99,3 @@ bool ProgramChunk::setParameter(const std::string &name, const Vec4f &value)
 }
     
 OSG_END_NAMESPACE
-
-#define OSGPROGRAMCHUNK_INLINE_CVSID "@(#)$Id$"
-

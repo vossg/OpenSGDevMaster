@@ -253,6 +253,4 @@ OSG_END_NAMESPACE
 #include "OSGProgramChunkBase.inl"
 #include "OSGProgramChunk.inl"
 
-#define OSGPROGRAMCHUNK_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGPROGRAMCHUNK_H_ */

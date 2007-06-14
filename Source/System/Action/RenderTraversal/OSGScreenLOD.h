@@ -141,6 +141,4 @@ OSG_END_NAMESPACE
 #include "OSGScreenLODBase.inl"
 #include "OSGScreenLOD.inl"
 
-#define OSGSCREENLOD_HEADER_CVSID "@(#)$Id: FCTemplate_h.h 106 2006-09-14 03:15:53Z dirk $"
-
 #endif /* _OSGSCREENLOD_H_ */

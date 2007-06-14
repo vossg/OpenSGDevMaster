@@ -971,19 +971,3 @@ UInt32 RemoteAspectFieldContainerMapper::map(UInt32 uiId)
 
     return mappedId;
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-#ifdef OSG_LINUX_ICC
-#pragma warning(disable : 177)
-#endif
-
-namespace
-{
-    static Char8    cvsid_cpp[] = "@(#)$Id$";
-    static Char8    cvsid_hpp[] = OSGREMOTEASPECT_HEADER_CVSID;
-}

@@ -622,6 +622,4 @@ typedef SFPnt4fx SFPnt4r;
 
 OSG_END_NAMESPACE
 
-#define OSGVECSFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGVECSFIELDS_H_ */

@@ -169,6 +169,4 @@ OSG_END_NAMESPACE
 #include "OSGLightChunkBase.inl"
 #include "OSGLightChunk.inl"
 
-#define OSGLIGHTCHUNK_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGLIGHTCHUNK_H_ */

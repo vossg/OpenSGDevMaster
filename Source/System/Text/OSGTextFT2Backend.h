@@ -187,6 +187,4 @@ OSG_END_NAMESPACE
 
 #include "OSGTextFT2Backend.inl"
 
-#define OSGTEXTFT2BACKEND_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTEXTFT2BACKEND_H_ */

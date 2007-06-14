@@ -248,23 +248,3 @@ Real32 FlyNavigator::right(Real32 step)
     transl.multMatrixPnt(_rFrom);
     return 0.0;
 }
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGFLYNAVIGATOR_HEADER_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGFLYNAVIGATOR_HEADER_CVSID;
-}

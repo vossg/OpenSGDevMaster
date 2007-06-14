@@ -472,6 +472,4 @@ OSG_END_NAMESPACE
 #include "OSGWindowBase.inl"
 #include "OSGWindow.inl"
 
-#define OSGWINDOW_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGWINDOW_H_ */

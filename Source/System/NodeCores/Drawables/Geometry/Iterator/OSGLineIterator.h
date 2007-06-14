@@ -143,8 +143,6 @@ class OSG_DRAWABLE_DLLMAPPING LineIterator : public PrimitiveIterator
 
     friend class Geometry;
 
-    static char cvsid[];
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */

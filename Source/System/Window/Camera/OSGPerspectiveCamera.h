@@ -139,6 +139,4 @@ OSG_END_NAMESPACE
 #include "OSGPerspectiveCameraBase.inl"
 #include "OSGPerspectiveCamera.inl"
 
-#define OSGPERSPECTIVECAMERA_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGPERSPECTIVECAMERA_H_ */

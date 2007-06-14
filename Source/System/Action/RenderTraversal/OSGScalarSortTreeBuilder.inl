@@ -100,5 +100,3 @@ OSG_BEGIN_NAMESPACE
 \*-------------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
-
-#define OSGSCALARSORTTREEBUILDER_INLINE_CVSID "@(#)$Id: OSGTreeBuilderBase.inl 106 2006-09-14 03:15:53Z dirk $"

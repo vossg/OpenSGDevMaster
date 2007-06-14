@@ -1026,24 +1026,3 @@ void Navigator::calcDeltas(Int16 , Int16 , Int16 toX, Int16 toY,
     distanceX = transl[0];
     distanceY = transl[1];
 }
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id: ";
-    static Char8 cvsid_hpp       [] = OSGNAVIGATOR_HEADER_CVSID;
-    //static Char8 cvsid_inl       [] = OSGNAVIGATOR_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGNAVIGATOR_HEADER_CVSID;
-}

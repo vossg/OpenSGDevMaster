@@ -352,5 +352,3 @@ StageValidator *Window::getStageValidator(void)
 
 
 OSG_END_NAMESPACE
-
-#define OSGWINDOW_INLINE_CVSID "@(#)$Id$"

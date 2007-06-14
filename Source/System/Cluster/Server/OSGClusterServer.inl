@@ -52,6 +52,3 @@ void ClusterServer::setInterface(const std::string &interf)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGCLUSTERSERVER_INLINE_CVSID "@(#)$Id$"
-

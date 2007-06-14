@@ -573,20 +573,3 @@ double RenderNode::runRasterBench(void)
     glDeleteLists(dList, 1);
     return (vw * vh * c) / t;
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-#ifdef OSG_LINUX_ICC
-#pragma warning(disable : 177)
-#endif
-
-namespace
-{
-    static Char8    cvsid_cpp[] = "@(#)$Id$";
-    static Char8    cvsid_hpp[] = OSG_CLUSTERNODE_HEADER_CVSID;
-    static Char8    cvsid_inl[] = OSG_CLUSTERNODE_INLINE_CVSID;
-}

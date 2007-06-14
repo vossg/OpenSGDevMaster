@@ -185,6 +185,4 @@ OSG_END_NAMESPACE
 #include "OSGParticlesBase.inl"
 #include "OSGParticles.inl"
 
-#define OSGPARTICLES_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGPARTICLES_H_ */

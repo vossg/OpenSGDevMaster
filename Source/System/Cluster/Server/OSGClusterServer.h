@@ -168,7 +168,5 @@ OSG_END_NAMESPACE
 
 #include "OSGClusterServer.inl"
 
-#define OSG_CLUSTERSERVERHEADER_CVSID "@(#)$Id:$"
-
 #endif /* _CLUSTERSERVER_H_ */
 

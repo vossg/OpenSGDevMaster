@@ -134,6 +134,4 @@ OSG_END_NAMESPACE
 #include "OSGStatsAttachmentBase.inl"
 #include "OSGStatsAttachment.inl"
 
-#define OSGSTATSATTACHMENT_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSTATSATTACHMENT_H_ */

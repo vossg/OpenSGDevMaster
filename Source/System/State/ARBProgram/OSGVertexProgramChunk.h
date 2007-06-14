@@ -179,6 +179,4 @@ OSG_END_NAMESPACE
 #include "OSGVertexProgramChunkBase.inl"
 #include "OSGVertexProgramChunk.inl"
 
-#define OSGVERTEXPROGRAMCHUNK_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGVERTEXPROGRAMCHUNK_H_ */

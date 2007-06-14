@@ -658,21 +658,3 @@ void GroupMCastConnection::initialize()
 ConnectionType GroupMCastConnection::_type(
     &GroupMCastConnection::create,
     "Multicast");
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSG_GROUPMCASTCONNECTION_HEADER_CVSID;
-}
-

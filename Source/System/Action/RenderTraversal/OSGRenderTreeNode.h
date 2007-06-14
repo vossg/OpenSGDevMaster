@@ -184,6 +184,4 @@ OSG_END_NAMESPACE
 
 #include "OSGRenderTreeNode.inl"
 
-#define OSGRENDERTREENODE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGRENDERTREENODE_H_ */

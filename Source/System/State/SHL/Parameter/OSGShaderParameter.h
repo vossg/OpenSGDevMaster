@@ -194,6 +194,4 @@ OSG_END_NAMESPACE
 #include "OSGShaderParameterBase.inl"
 #include "OSGShaderParameter.inl"
 
-#define OSGSHADERPARAMETER_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSHADERPARAMETER_H_ */

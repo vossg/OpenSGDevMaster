@@ -49,5 +49,3 @@ UInt32 PolygonChunk::getStaticClassId(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGPOLYGONCHUNK_INLINE_CVSID "@(#)$Id$"

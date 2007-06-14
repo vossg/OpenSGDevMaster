@@ -143,8 +143,6 @@ OSG_END_NAMESPACE
 #include "OSGEGLWindow.inl"
 #include "OSGEGLWindowBase.inl"
 
-#define OSGEGLWINDOW_HEADER_CVSID "@(#)$Id$"
-
 #endif /* OSG_USE_GLES */
 
 #endif /* _OSGEGLWINDOW_H_ */

@@ -174,8 +174,6 @@ BitVector NamedPool<BitVector>::getInvalidValue(void)
 
 OSG_END_NAMESPACE
 
-#define OSGNAMEDPOOL_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGNamedPool.inl"
 
 #endif /* _OSGNAMEDPOOL_H_ */

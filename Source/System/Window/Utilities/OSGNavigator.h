@@ -214,6 +214,4 @@ class OSG_UTIL_DLLMAPPING Navigator
 
 OSG_END_NAMESPACE
 
-#define OSGNAVIGATOR_HEADER_CVSID "@(#)$Id$"
-
 #endif

@@ -164,7 +164,5 @@ OSG_END_NAMESPACE
 #include "OSGMultiDisplayWindow.inl"
 #include "OSGMultiDisplayWindowBase.inl"
 
-#define OSGMULTIDISPLAYCONFIG_HEADER_CVSID "@(#)$Id:$"
-
 #endif /* _OSGMULTIDISPLAYCONFIG_H_ */
 

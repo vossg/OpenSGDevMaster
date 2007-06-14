@@ -121,5 +121,3 @@ TypePredicates::typeBaseOfAll     (      InIteratorTypeT  begin,
 }
 
 OSG_END_NAMESPACE
-
-#define OSGTYPEBASEPREDICATES_INLINE_CVSID "@(#)$Id$"

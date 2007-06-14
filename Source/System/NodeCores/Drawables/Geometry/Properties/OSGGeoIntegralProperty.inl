@@ -63,6 +63,3 @@ const StateChunkClass *GeoIntegralProperty::getStaticClass(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGGEOINTEGRALPROPERTY_INLINE_CVSID "@(#)$Id$"
-

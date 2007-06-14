@@ -55,5 +55,3 @@ void Light::setSpecular(const Color4r &col)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGLIGHT_INLINE_CVSID "@(#)$Id$"

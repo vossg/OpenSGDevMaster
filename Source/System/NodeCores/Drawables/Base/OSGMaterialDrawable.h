@@ -141,6 +141,4 @@ OSG_END_NAMESPACE
 #include "OSGMaterialDrawableBase.inl"
 #include "OSGMaterialDrawable.inl"
 
-#define OSGMATERIALDRAWABLE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGMATERIALDRAWABLE_H_ */

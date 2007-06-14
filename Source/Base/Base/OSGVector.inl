@@ -1979,6 +1979,4 @@ std::ostream &operator <<(        std::ostream                 &os,
 
 OSG_END_NAMESPACE
 
-#define OSGVECTOR_INLINE_CVSID "@(#)$Id$"
-
 

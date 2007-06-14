@@ -51,5 +51,3 @@ TextureObjChunkPtr StatisticsDefaultFontBase::getTexture() const
 }
 
 OSG_END_NAMESPACE
-
-#define OSGSTATISTICSDEFAULTFONT_INLINE_CVSID "@(#)$Id: OSGStatisticsDefaultFont.inl 106 2006-09-14 03:15:53Z dirk $"

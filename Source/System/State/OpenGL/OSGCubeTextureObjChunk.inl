@@ -53,6 +53,3 @@ UInt32 CubeTextureObjChunk::getStaticClassId(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGCUBETEXTUREOBJCHUNK_INLINE_CVSID "@(#)$Id$"
-

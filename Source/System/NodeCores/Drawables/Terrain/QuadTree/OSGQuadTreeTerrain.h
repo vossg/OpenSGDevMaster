@@ -218,6 +218,4 @@ OSG_END_NAMESPACE
 #include "OSGQuadTreeTerrainBase.inl"
 #include "OSGQuadTreeTerrain.inl"
 
-#define OSGQUADTREETERRAIN_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGQUADTREETERRAIN_H_ */

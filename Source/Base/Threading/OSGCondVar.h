@@ -500,8 +500,6 @@ class OSG_BASE_DLLMAPPING CondVar : public CondVarBase
 
 OSG_END_NAMESPACE
 
-#define OSGCONDVAR_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGCondVar.inl"
 
 #endif /* _OSGCONDVAR_H_ */

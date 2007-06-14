@@ -224,6 +224,4 @@ OSG_END_NAMESPACE
 #include "OSGGeoIntegralPropertyBase.inl"
 #include "OSGGeoIntegralProperty.inl"
 
-#define OSGGEOINTEGRALPROPERTY_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGGEOINTEGRALPROPERTY_H_ */

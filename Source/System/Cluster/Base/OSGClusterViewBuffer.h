@@ -165,6 +165,4 @@ typedef ClusterViewBuffer *ClusterViewBufferP;
 
 OSG_END_NAMESPACE
 
-#define OSG_CLUSTERVIEWBUFFER_HEADER_CVSID "@(#)$Id:$"
-
 #endif /* _CLUSTERVIEWBUFFER_H_ */

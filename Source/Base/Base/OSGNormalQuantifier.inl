@@ -60,5 +60,4 @@ UInt32 NormalQuantifier::getNormalCount (void) const
 
 OSG_END_NAMESPACE
 
-#define OSGNORMALQUANTIFIER_INLINE_CVSID "@(#)$Id: "
 

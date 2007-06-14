@@ -146,6 +146,4 @@ OSG_END_NAMESPACE
 #include "OSGStereoBufferViewportBase.inl"
 #include "OSGStereoBufferViewport.inl"
 
-#define OSGSTEREOBUFFERVIEWPORT_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSTEREOBUFFERVIEWPORT_H_ */

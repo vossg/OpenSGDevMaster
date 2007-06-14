@@ -168,8 +168,6 @@ bool Dgram::operator <(const Dgram &other) const
 }
 
 OSG_END_NAMESPACE
- 
-#define OSG_DGRAMINLINE_CVSID "@(#)$Id$"
 
 #endif
 

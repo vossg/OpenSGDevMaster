@@ -97,6 +97,4 @@ OSG_END_NAMESPACE
 
 #include "OSGTextLayoutResult.inl"
 
-#define OSGTEXTLAYOUTRESULT_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTEXTLAYOUTRESULT_H_ */

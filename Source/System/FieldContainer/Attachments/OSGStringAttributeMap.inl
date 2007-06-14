@@ -116,6 +116,3 @@ inline std::string& StringAttributeMap::operator[](const std::string& key)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGSTRINGATTRIBUTEMAP_INLINE_CVSID "@(#)$Id$"
-

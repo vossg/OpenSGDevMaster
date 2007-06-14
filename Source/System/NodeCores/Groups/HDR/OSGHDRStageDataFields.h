@@ -108,6 +108,4 @@ struct FieldTraits<HDRStageDataP> :
 
 OSG_END_NAMESPACE
 
-#define OSGHDRSTAGEDATAFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGHDRSTAGEDATAFIELDS_H_ */

@@ -94,6 +94,4 @@ private:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIOIMAGE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGNFIOIMAGE_H_ */

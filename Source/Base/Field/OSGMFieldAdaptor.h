@@ -264,8 +264,6 @@ class MFieldAdaptor : public ParentT
 
 OSG_END_NAMESPACE
 
-#define OSGMFIELDADAPTOR_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGMFieldAdaptor.inl"
 
 #endif /* _OSGMFIELDADAPTOR_H_ */

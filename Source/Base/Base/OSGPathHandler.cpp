@@ -852,27 +852,3 @@ void PathHandler::parseWin32PathList(const Char8 *pathList, PathList &result)
 
     convertWin32PathList(result);
 }
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGPATHHANDLER_HEADER_CVSID;
-}
-
-
-
-
-
-

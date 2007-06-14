@@ -531,21 +531,3 @@ OSG_FIELD_DLLEXPORT_DEF1(SField, ParticleBSPTree);
 OSG_END_NAMESPACE
 
 #endif            // exclude from user doc
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static char cvsid_cpp[] = "@(#)$Id$";
-    static char cvsid_hpp[] = OSGPARTICLEBSP_HEADER_CVSID;
-    static char cvsid_inl[] = OSGPARTICLEBSP_INLINE_CVSID;
-}

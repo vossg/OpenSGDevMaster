@@ -142,7 +142,6 @@ class OSG_DRAWABLE_DLLMAPPING EdgeIterator : public PrimitiveIterator
           
    /*==========================  PRIVATE  ================================*/    
   private:
-    static char cvsid[];
   
     Int32             _edgeIndex;
     UInt32            _actPrimIndex;

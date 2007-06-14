@@ -75,8 +75,6 @@ class OSG_CLUSTER_DLLMAPPING RemoteSyncError : public ClusterException
 
 OSG_END_NAMESPACE
 
-#define OSGCLUSTEREXCEPTION_HEADER_CVSID "@(#)$Id:$"
-
 #endif 
 
 

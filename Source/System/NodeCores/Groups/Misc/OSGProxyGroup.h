@@ -177,6 +177,4 @@ OSG_END_NAMESPACE
 #include "OSGProxyGroupBase.inl"
 #include "OSGProxyGroup.inl"
 
-#define OSGPROXYGROUP_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGPROXYGROUP_H_ */

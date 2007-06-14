@@ -186,5 +186,3 @@ RenderTreeNode *HashSorter::setupLevel1Root(RenderTreeNodePool *pPool)
 \*-------------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
-
-#define OSGHASHSORTER_INLINE_CVSID "@(#)$Id$"

@@ -144,12 +144,3 @@ Real32 RenderNode::estimatePerformance(Real32 invisibleFaces,
 }
 
 OSG_END_NAMESPACE
-
-#define OSG_CLUSTERNODE_INLINE_CVSID "@(#)$Id:$"
-
-
-
-
-
-
-

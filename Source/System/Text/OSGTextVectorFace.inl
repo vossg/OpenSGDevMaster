@@ -47,5 +47,3 @@ inline TextVectorFace::TextVectorFace()
 
 OSG_END_NAMESPACE
 
-
-#define OSGTEXTVECTORFACE_INLINE_CVSID "@(#)$Id$"

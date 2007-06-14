@@ -88,6 +88,4 @@ private:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIONAME_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGNFIONAME_H_ */

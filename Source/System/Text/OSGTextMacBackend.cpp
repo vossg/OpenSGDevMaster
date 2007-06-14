@@ -1531,26 +1531,3 @@ OSG_END_NAMESPACE
 
 
 #endif // __APPLE__
-
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static OSG::Char8 cvsid_cpp[] = "@(#)$Id$";
-    static OSG::Char8 cvsid_hpp[] = OSGTEXTMACBACKEND_HEADER_CVSID;
-    static OSG::Char8 cvsid_inl[] = OSGTEXTMACBACKEND_INLINE_CVSID;
-}
-
-#ifdef __sgi
-#pragma reset woff 1174
-#endif

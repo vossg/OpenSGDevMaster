@@ -246,5 +246,3 @@ void CondVar::broadcast(void)
 
 OSG_END_NAMESPACE
 
-#define OSGCONDVAR_INLINE_CVSID "@(#)$Id$"
-

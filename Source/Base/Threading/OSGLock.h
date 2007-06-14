@@ -568,8 +568,6 @@ class OSG_BASE_DLLMAPPING LockPool : public LockCommonBase
 
 OSG_END_NAMESPACE
 
-#define OSGLOCK_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGLock.inl"
 
 #endif /* _OSGLOCK_H_ */

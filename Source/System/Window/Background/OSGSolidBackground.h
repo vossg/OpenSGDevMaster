@@ -137,6 +137,4 @@ OSG_END_NAMESPACE
 #include "OSGSolidBackgroundBase.inl"
 #include "OSGSolidBackground.inl"
 
-#define OSGSOLIDBACKGROUND_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSOLIDBACKGROUND_H_ */

@@ -131,5 +131,3 @@ UInt32 SHLChunk::getStaticClassId(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGSHLCHUNK_INLINE_CVSID "@(#)$Id$"

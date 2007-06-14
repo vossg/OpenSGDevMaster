@@ -49,6 +49,3 @@ UInt32 TransformChunk::getStaticClassId(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGTRANSFORMCHUNK_INLINE_CVSID "@(#)$Id$"
-

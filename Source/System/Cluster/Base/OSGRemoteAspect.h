@@ -269,6 +269,4 @@ struct RemoteAspectFieldContainerMapper : public ContainerIdMapper
 
 OSG_END_NAMESPACE
 
-#define OSGREMOTEASPECT_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _REMOTEASPECT_H_ */

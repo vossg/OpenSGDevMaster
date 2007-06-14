@@ -88,6 +88,4 @@ void FieldDescription<FieldTraits<ChangedFunctorCallback>,
 
 OSG_END_NAMESPACE
 
-#define OSGCHANGEDFUNCTORSFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGCHANGEDFUNCTORSFIELDS_H_ */

@@ -879,26 +879,3 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnLeave(
     return ActionBase::Continue;
 }
 
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGSIMPLESHADOWMAPENGINE_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGSIMPLESHADOWMAPENGINE_INLINE_CVSID;
-}
-
-
-
-
-

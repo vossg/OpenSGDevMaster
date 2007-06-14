@@ -43,5 +43,3 @@ void PointLight::setPosition(const Pnt3f &pos)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGPOINTLIGHT_INLINE_CVSID "@(#)$Id$"

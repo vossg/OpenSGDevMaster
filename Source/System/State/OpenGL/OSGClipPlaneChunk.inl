@@ -53,6 +53,3 @@ UInt32 ClipPlaneChunk::getStaticClassId(void)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGCLIPPLANECHUNK_INLINE_CVSID "@(#)$Id$"
-

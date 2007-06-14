@@ -131,6 +131,4 @@ typedef MField<ParentFieldContainerPtr, 1> MFParentFieldContainerPtr;
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDCONTAINERMFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGFIELDCONTAINERMFIELDS_H_ */

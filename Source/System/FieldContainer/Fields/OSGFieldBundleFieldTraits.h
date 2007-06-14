@@ -250,6 +250,4 @@ struct FieldTraits<ParentFieldBundleP, 1> :
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDBUNDLEFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGFIELDBUNDLEFIELDTRAITS_H_ */

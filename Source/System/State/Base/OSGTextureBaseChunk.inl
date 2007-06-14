@@ -99,5 +99,3 @@ bool TextureBaseChunk::activateTexture(Window *win, UInt16 texture)
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTUREBASECHUNK_INLINE_CVSID "@(#)$Id$"
-

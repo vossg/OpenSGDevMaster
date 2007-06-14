@@ -436,12 +436,6 @@ void initColladaIntegration(void);
 
 OSG_END_NAMESPACE
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-
-#define OSGCOLLADAINTEGRATION_HEADER_CVSID "@(#)$Id$"
-
-#endif
-
 #endif /* OSG_WITH_COLLADA */
 
 

@@ -187,6 +187,3 @@ void RefPtr<ContainerPtr>::setRef(const Ref &pContainer)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGREFPTR_INLINE_CVSID "@(#)$Id$"
-

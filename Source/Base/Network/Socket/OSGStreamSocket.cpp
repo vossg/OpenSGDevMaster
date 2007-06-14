@@ -204,20 +204,3 @@ const StreamSocket & StreamSocket::operator =(const StreamSocket &source)
     _sd=source._sd;
     return *this;
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSG_STREAMSOCKET_HEADER_CVSID;
-}

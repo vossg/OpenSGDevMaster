@@ -158,8 +158,6 @@ OSG_END_NAMESPACE
 #include "OSGCarbonWindowBase.inl"
 #include "OSGCarbonWindow.inl"
 
-#define OSGCARBONWINDOW_HEADER_CVSID "@(#)$Id: FCTemplate_h.h 106 2006-09-14 03:15:53Z dirk $"
-
 #endif /* __APPLE__ */
 
 #endif /* _OSGCARBONWINDOW_H_ */

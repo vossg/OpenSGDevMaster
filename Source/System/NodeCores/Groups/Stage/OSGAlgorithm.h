@@ -148,6 +148,4 @@ OSG_END_NAMESPACE
 #include "OSGAlgorithmBase.inl"
 #include "OSGAlgorithm.inl"
 
-#define OSGALGORITHM_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGALGORITHM_H_ */

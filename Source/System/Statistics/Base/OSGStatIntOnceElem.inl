@@ -87,5 +87,3 @@ Int32 StatIntOnceElem::get() const
 
 
 OSG_END_NAMESPACE
-
-#define OSGSTATINTONCEELEM_INLINE_CVSID "@(#)$Id$"

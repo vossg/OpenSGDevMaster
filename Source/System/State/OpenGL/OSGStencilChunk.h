@@ -172,6 +172,4 @@ OSG_END_NAMESPACE
 #include "OSGStencilChunkBase.inl"
 #include "OSGStencilChunk.inl"
 
-#define OSGSTENCILCHUNK_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSTENCILCHUNK_H_ */

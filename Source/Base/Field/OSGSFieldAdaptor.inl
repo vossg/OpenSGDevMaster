@@ -101,6 +101,3 @@ typename SFieldAdaptor<ValueT, ParentT, iNamespace>::const_reference
 
 
 OSG_END_NAMESPACE
-
-#define OSGSFIELDADAPTOR_INLINE_CVSID "@(#)$Id$"
-
