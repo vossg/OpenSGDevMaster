@@ -268,39 +268,6 @@ const MFUInt32 &SHLChunkBase::getProgramParameterValues(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void SHLChunkBase::execSync(      SHLChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (CgFrontEndFieldMask & whichField))
-        _sfCgFrontEnd.syncWith(pOther->_sfCgFrontEnd);
-
-    if(FieldBits::NoField != (PointSizeFieldMask & whichField))
-        _sfPointSize.syncWith(pOther->_sfPointSize);
-
-    if(FieldBits::NoField != (ProgramParameterNamesFieldMask & whichField))
-        _mfProgramParameterNames.syncWith(pOther->_mfProgramParameterNames,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (ProgramParameterValuesFieldMask & whichField))
-        _mfProgramParameterValues.syncWith(pOther->_mfProgramParameterValues,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
-        _sfGLId.syncWith(pOther->_sfGLId);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SHLChunkBase::execSync (      SHLChunkBase *pFrom,
@@ -331,26 +298,6 @@ void SHLChunkBase::execSync (      SHLChunkBase *pFrom,
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
         _sfGLId.syncWith(pFrom->_sfGLId);
-}
-#endif
-
-#if 0
-inline
-void SHLChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ProgramParameterNamesFieldMask & whichField))
-    {
-        _mfProgramParameterNames.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (ProgramParameterValuesFieldMask & whichField))
-    {
-        _mfProgramParameterValues.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

@@ -141,24 +141,6 @@ void ImageComposerBase::setStatistics(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ImageComposerBase::execSync(      ImageComposerBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (EnabledFieldMask & whichField))
-        _sfEnabled.syncWith(pOther->_sfEnabled);
-
-    if(FieldBits::NoField != (StatisticsFieldMask & whichField))
-        _sfStatistics.syncWith(pOther->_sfStatistics);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ImageComposerBase::execSync (      ImageComposerBase *pFrom,
@@ -174,16 +156,6 @@ void ImageComposerBase::execSync (      ImageComposerBase *pFrom,
 
     if(FieldBits::NoField != (StatisticsFieldMask & whichField))
         _sfStatistics.syncWith(pFrom->_sfStatistics);
-}
-#endif
-
-#if 0
-inline
-void ImageComposerBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

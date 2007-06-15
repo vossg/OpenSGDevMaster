@@ -92,21 +92,6 @@ void FBOViewportBase::setFrameBufferObject(FrameBufferObjectPtrConstArg value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void FBOViewportBase::execSync(      FBOViewportBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (FrameBufferObjectFieldMask & whichField))
-        _sfFrameBufferObject.syncWith(pOther->_sfFrameBufferObject);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void FBOViewportBase::execSync (      FBOViewportBase *pFrom,
@@ -119,16 +104,6 @@ void FBOViewportBase::execSync (      FBOViewportBase *pFrom,
 
     if(FieldBits::NoField != (FrameBufferObjectFieldMask & whichField))
         _sfFrameBufferObject.syncWith(pFrom->_sfFrameBufferObject);
-}
-#endif
-
-#if 0
-inline
-void FBOViewportBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

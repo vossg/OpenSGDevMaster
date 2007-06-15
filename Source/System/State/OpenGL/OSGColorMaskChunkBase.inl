@@ -207,30 +207,6 @@ void ColorMaskChunkBase::setMaskA(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ColorMaskChunkBase::execSync(      ColorMaskChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (MaskRFieldMask & whichField))
-        _sfMaskR.syncWith(pOther->_sfMaskR);
-
-    if(FieldBits::NoField != (MaskGFieldMask & whichField))
-        _sfMaskG.syncWith(pOther->_sfMaskG);
-
-    if(FieldBits::NoField != (MaskBFieldMask & whichField))
-        _sfMaskB.syncWith(pOther->_sfMaskB);
-
-    if(FieldBits::NoField != (MaskAFieldMask & whichField))
-        _sfMaskA.syncWith(pOther->_sfMaskA);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ColorMaskChunkBase::execSync (      ColorMaskChunkBase *pFrom,
@@ -252,16 +228,6 @@ void ColorMaskChunkBase::execSync (      ColorMaskChunkBase *pFrom,
 
     if(FieldBits::NoField != (MaskAFieldMask & whichField))
         _sfMaskA.syncWith(pFrom->_sfMaskA);
-}
-#endif
-
-#if 0
-inline
-void ColorMaskChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

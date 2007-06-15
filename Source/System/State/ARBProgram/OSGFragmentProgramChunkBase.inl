@@ -75,18 +75,6 @@ OSG::UInt16 FragmentProgramChunkBase::getClassGroupId(void)
 
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void FragmentProgramChunkBase::execSync(      FragmentProgramChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void FragmentProgramChunkBase::execSync (      FragmentProgramChunkBase *pFrom,
@@ -96,16 +84,6 @@ void FragmentProgramChunkBase::execSync (      FragmentProgramChunkBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-}
-#endif
-
-#if 0
-inline
-void FragmentProgramChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

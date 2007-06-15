@@ -174,27 +174,6 @@ void GeoPropertyBase::setUsage(const Int32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void GeoPropertyBase::execSync(      GeoPropertyBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (UseVBOFieldMask & whichField))
-        _sfUseVBO.syncWith(pOther->_sfUseVBO);
-
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
-        _sfGLId.syncWith(pOther->_sfGLId);
-
-    if(FieldBits::NoField != (UsageFieldMask & whichField))
-        _sfUsage.syncWith(pOther->_sfUsage);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void GeoPropertyBase::execSync (      GeoPropertyBase *pFrom,
@@ -213,16 +192,6 @@ void GeoPropertyBase::execSync (      GeoPropertyBase *pFrom,
 
     if(FieldBits::NoField != (UsageFieldMask & whichField))
         _sfUsage.syncWith(pFrom->_sfUsage);
-}
-#endif
-
-#if 0
-inline
-void GeoPropertyBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

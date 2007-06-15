@@ -339,42 +339,6 @@ void StencilChunkBase::setBitMask(const UInt32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void StencilChunkBase::execSync(      StencilChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (StencilFuncFieldMask & whichField))
-        _sfStencilFunc.syncWith(pOther->_sfStencilFunc);
-
-    if(FieldBits::NoField != (StencilValueFieldMask & whichField))
-        _sfStencilValue.syncWith(pOther->_sfStencilValue);
-
-    if(FieldBits::NoField != (StencilMaskFieldMask & whichField))
-        _sfStencilMask.syncWith(pOther->_sfStencilMask);
-
-    if(FieldBits::NoField != (StencilOpFailFieldMask & whichField))
-        _sfStencilOpFail.syncWith(pOther->_sfStencilOpFail);
-
-    if(FieldBits::NoField != (StencilOpZFailFieldMask & whichField))
-        _sfStencilOpZFail.syncWith(pOther->_sfStencilOpZFail);
-
-    if(FieldBits::NoField != (StencilOpZPassFieldMask & whichField))
-        _sfStencilOpZPass.syncWith(pOther->_sfStencilOpZPass);
-
-    if(FieldBits::NoField != (ClearBufferFieldMask & whichField))
-        _sfClearBuffer.syncWith(pOther->_sfClearBuffer);
-
-    if(FieldBits::NoField != (BitMaskFieldMask & whichField))
-        _sfBitMask.syncWith(pOther->_sfBitMask);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void StencilChunkBase::execSync (      StencilChunkBase *pFrom,
@@ -408,16 +372,6 @@ void StencilChunkBase::execSync (      StencilChunkBase *pFrom,
 
     if(FieldBits::NoField != (BitMaskFieldMask & whichField))
         _sfBitMask.syncWith(pFrom->_sfBitMask);
-}
-#endif
-
-#if 0
-inline
-void StencilChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

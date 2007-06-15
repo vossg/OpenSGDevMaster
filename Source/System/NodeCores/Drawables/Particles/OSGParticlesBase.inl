@@ -534,66 +534,6 @@ const MFReal32 &ParticlesBase::getTextureZs(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ParticlesBase::execSync(      ParticlesBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ModeFieldMask & whichField))
-        _sfMode.syncWith(pOther->_sfMode);
-
-    if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _sfPositions.syncWith(pOther->_sfPositions);
-
-    if(FieldBits::NoField != (SizesFieldMask & whichField))
-        _mfSizes.syncWith(pOther->_mfSizes,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (SecPositionsFieldMask & whichField))
-        _sfSecPositions.syncWith(pOther->_sfSecPositions);
-
-    if(FieldBits::NoField != (ColorsFieldMask & whichField))
-        _sfColors.syncWith(pOther->_sfColors);
-
-    if(FieldBits::NoField != (NormalsFieldMask & whichField))
-        _sfNormals.syncWith(pOther->_sfNormals);
-
-    if(FieldBits::NoField != (IndicesFieldMask & whichField))
-        _mfIndices.syncWith(pOther->_mfIndices,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (TextureZsFieldMask & whichField))
-        _mfTextureZs.syncWith(pOther->_mfTextureZs,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (DrawOrderFieldMask & whichField))
-        _sfDrawOrder.syncWith(pOther->_sfDrawOrder);
-
-    if(FieldBits::NoField != (DynamicFieldMask & whichField))
-        _sfDynamic.syncWith(pOther->_sfDynamic);
-
-    if(FieldBits::NoField != (PumpFieldMask & whichField))
-        _sfPump.syncWith(pOther->_sfPump);
-
-    if(FieldBits::NoField != (BspFieldMask & whichField))
-        _sfBsp.syncWith(pOther->_sfBsp);
-
-    if(FieldBits::NoField != (NumParticlesFieldMask & whichField))
-        _sfNumParticles.syncWith(pOther->_sfNumParticles);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ParticlesBase::execSync (      ParticlesBase *pFrom,
@@ -651,31 +591,6 @@ void ParticlesBase::execSync (      ParticlesBase *pFrom,
 
     if(FieldBits::NoField != (NumParticlesFieldMask & whichField))
         _sfNumParticles.syncWith(pFrom->_sfNumParticles);
-}
-#endif
-
-#if 0
-inline
-void ParticlesBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (SizesFieldMask & whichField))
-    {
-        _mfSizes.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (IndicesFieldMask & whichField))
-    {
-        _mfIndices.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (TextureZsFieldMask & whichField))
-    {
-        _mfTextureZs.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

@@ -141,24 +141,6 @@ void FrameBufferAttachmentBase::setHeight(const UInt16 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void FrameBufferAttachmentBase::execSync(      FrameBufferAttachmentBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (WidthFieldMask & whichField))
-        _sfWidth.syncWith(pOther->_sfWidth);
-
-    if(FieldBits::NoField != (HeightFieldMask & whichField))
-        _sfHeight.syncWith(pOther->_sfHeight);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void FrameBufferAttachmentBase::execSync (      FrameBufferAttachmentBase *pFrom,
@@ -174,16 +156,6 @@ void FrameBufferAttachmentBase::execSync (      FrameBufferAttachmentBase *pFrom
 
     if(FieldBits::NoField != (HeightFieldMask & whichField))
         _sfHeight.syncWith(pFrom->_sfHeight);
-}
-#endif
-
-#if 0
-inline
-void FrameBufferAttachmentBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

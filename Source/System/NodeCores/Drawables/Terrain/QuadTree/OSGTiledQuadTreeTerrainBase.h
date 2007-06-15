@@ -489,19 +489,6 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-    virtual void execSyncV(      FieldContainer    &oFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo,
-                                 UInt32             uiCopyOffset);
-
-            void execSync (      TiledQuadTreeTerrainBase *pFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo,
-                                 UInt32             uiCopyOffset);
-#endif
 #ifdef OSG_MT_CPTR_ASPECT
     virtual void execSyncV(      FieldContainer    &oFrom,
                                  ConstFieldMaskArg  whichField,
@@ -520,16 +507,6 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
-
-#if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField,
-                                UInt32            uiAspect,
-                                UInt32            uiContainerSize);
-
-            void execBeginEdit (ConstFieldMaskArg whichField,
-                                UInt32            uiAspect,
-                                UInt32            uiContainerSize);
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

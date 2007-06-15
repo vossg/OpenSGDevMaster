@@ -407,54 +407,6 @@ void TexGenChunkBase::setQBeacon(NodePtrConstArg value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TexGenChunkBase::execSync(      TexGenChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (GenFuncSFieldMask & whichField))
-        _sfGenFuncS.syncWith(pOther->_sfGenFuncS);
-
-    if(FieldBits::NoField != (GenFuncTFieldMask & whichField))
-        _sfGenFuncT.syncWith(pOther->_sfGenFuncT);
-
-    if(FieldBits::NoField != (GenFuncRFieldMask & whichField))
-        _sfGenFuncR.syncWith(pOther->_sfGenFuncR);
-
-    if(FieldBits::NoField != (GenFuncQFieldMask & whichField))
-        _sfGenFuncQ.syncWith(pOther->_sfGenFuncQ);
-
-    if(FieldBits::NoField != (GenFuncSPlaneFieldMask & whichField))
-        _sfGenFuncSPlane.syncWith(pOther->_sfGenFuncSPlane);
-
-    if(FieldBits::NoField != (GenFuncTPlaneFieldMask & whichField))
-        _sfGenFuncTPlane.syncWith(pOther->_sfGenFuncTPlane);
-
-    if(FieldBits::NoField != (GenFuncRPlaneFieldMask & whichField))
-        _sfGenFuncRPlane.syncWith(pOther->_sfGenFuncRPlane);
-
-    if(FieldBits::NoField != (GenFuncQPlaneFieldMask & whichField))
-        _sfGenFuncQPlane.syncWith(pOther->_sfGenFuncQPlane);
-
-    if(FieldBits::NoField != (SBeaconFieldMask & whichField))
-        _sfSBeacon.syncWith(pOther->_sfSBeacon);
-
-    if(FieldBits::NoField != (TBeaconFieldMask & whichField))
-        _sfTBeacon.syncWith(pOther->_sfTBeacon);
-
-    if(FieldBits::NoField != (RBeaconFieldMask & whichField))
-        _sfRBeacon.syncWith(pOther->_sfRBeacon);
-
-    if(FieldBits::NoField != (QBeaconFieldMask & whichField))
-        _sfQBeacon.syncWith(pOther->_sfQBeacon);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TexGenChunkBase::execSync (      TexGenChunkBase *pFrom,
@@ -500,16 +452,6 @@ void TexGenChunkBase::execSync (      TexGenChunkBase *pFrom,
 
     if(FieldBits::NoField != (QBeaconFieldMask & whichField))
         _sfQBeacon.syncWith(pFrom->_sfQBeacon);
-}
-#endif
-
-#if 0
-inline
-void TexGenChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

@@ -273,36 +273,6 @@ void TileCameraDecoratorBase::setFullHeight(const UInt32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TileCameraDecoratorBase::execSync(      TileCameraDecoratorBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (LeftFieldMask & whichField))
-        _sfLeft.syncWith(pOther->_sfLeft);
-
-    if(FieldBits::NoField != (RightFieldMask & whichField))
-        _sfRight.syncWith(pOther->_sfRight);
-
-    if(FieldBits::NoField != (BottomFieldMask & whichField))
-        _sfBottom.syncWith(pOther->_sfBottom);
-
-    if(FieldBits::NoField != (TopFieldMask & whichField))
-        _sfTop.syncWith(pOther->_sfTop);
-
-    if(FieldBits::NoField != (FullWidthFieldMask & whichField))
-        _sfFullWidth.syncWith(pOther->_sfFullWidth);
-
-    if(FieldBits::NoField != (FullHeightFieldMask & whichField))
-        _sfFullHeight.syncWith(pOther->_sfFullHeight);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TileCameraDecoratorBase::execSync (      TileCameraDecoratorBase *pFrom,
@@ -330,16 +300,6 @@ void TileCameraDecoratorBase::execSync (      TileCameraDecoratorBase *pFrom,
 
     if(FieldBits::NoField != (FullHeightFieldMask & whichField))
         _sfFullHeight.syncWith(pFrom->_sfFullHeight);
-}
-#endif
-
-#if 0
-inline
-void TileCameraDecoratorBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

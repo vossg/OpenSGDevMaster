@@ -108,21 +108,6 @@ void DirectionalLightBase::setDirection(const Vec3r &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void DirectionalLightBase::execSync(      DirectionalLightBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (DirectionFieldMask & whichField))
-        _sfDirection.syncWith(pOther->_sfDirection);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void DirectionalLightBase::execSync (      DirectionalLightBase *pFrom,
@@ -135,16 +120,6 @@ void DirectionalLightBase::execSync (      DirectionalLightBase *pFrom,
 
     if(FieldBits::NoField != (DirectionFieldMask & whichField))
         _sfDirection.syncWith(pFrom->_sfDirection);
-}
-#endif
-
-#if 0
-inline
-void DirectionalLightBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

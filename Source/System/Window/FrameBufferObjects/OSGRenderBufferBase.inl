@@ -141,24 +141,6 @@ void RenderBufferBase::setInternalFormat(const GLenum &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void RenderBufferBase::execSync(      RenderBufferBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
-        _sfGLId.syncWith(pOther->_sfGLId);
-
-    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
-        _sfInternalFormat.syncWith(pOther->_sfInternalFormat);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void RenderBufferBase::execSync (      RenderBufferBase *pFrom,
@@ -174,16 +156,6 @@ void RenderBufferBase::execSync (      RenderBufferBase *pFrom,
 
     if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
         _sfInternalFormat.syncWith(pFrom->_sfInternalFormat);
-}
-#endif
-
-#if 0
-inline
-void RenderBufferBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

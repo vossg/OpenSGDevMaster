@@ -368,23 +368,6 @@ void StageHandlerMixin<ParentT>::dump(      UInt32    uiIndent,
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-template <class ParentT> inline
-void StageHandlerMixin<ParentT>::execSync(
-          Self              *pFrom,
-          ConstFieldMaskArg  whichField,
-          ConstFieldMaskArg  syncMode  ,
-    const UInt32             uiSyncInfo,
-          UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pFrom, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (UpdateModeFieldMask & whichField))
-    {
-        _sfUpdateMode.syncWith(pFrom->_sfUpdateMode);
-    }
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 template <class ParentT> inline

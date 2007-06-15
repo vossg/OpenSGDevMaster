@@ -207,30 +207,6 @@ void LineChunkBase::setSmooth(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void LineChunkBase::execSync(      LineChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (WidthFieldMask & whichField))
-        _sfWidth.syncWith(pOther->_sfWidth);
-
-    if(FieldBits::NoField != (StippleRepeatFieldMask & whichField))
-        _sfStippleRepeat.syncWith(pOther->_sfStippleRepeat);
-
-    if(FieldBits::NoField != (StipplePatternFieldMask & whichField))
-        _sfStipplePattern.syncWith(pOther->_sfStipplePattern);
-
-    if(FieldBits::NoField != (SmoothFieldMask & whichField))
-        _sfSmooth.syncWith(pOther->_sfSmooth);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void LineChunkBase::execSync (      LineChunkBase *pFrom,
@@ -252,16 +228,6 @@ void LineChunkBase::execSync (      LineChunkBase *pFrom,
 
     if(FieldBits::NoField != (SmoothFieldMask & whichField))
         _sfSmooth.syncWith(pFrom->_sfSmooth);
-}
-#endif
-
-#if 0
-inline
-void LineChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

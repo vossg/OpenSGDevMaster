@@ -823,21 +823,6 @@ BlendChunkBase::~BlendChunkBase(void)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void BlendChunkBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<BlendChunkBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void BlendChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -853,14 +838,6 @@ void BlendChunkBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void BlendChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr BlendChunkBase::createAspectCopy(void) const

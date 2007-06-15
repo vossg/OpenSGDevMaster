@@ -108,21 +108,6 @@ void ShaderParameterStringBase::setValue(const std::string &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ShaderParameterStringBase::execSync(      ShaderParameterStringBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ValueFieldMask & whichField))
-        _sfValue.syncWith(pOther->_sfValue);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ShaderParameterStringBase::execSync (      ShaderParameterStringBase *pFrom,
@@ -135,16 +120,6 @@ void ShaderParameterStringBase::execSync (      ShaderParameterStringBase *pFrom
 
     if(FieldBits::NoField != (ValueFieldMask & whichField))
         _sfValue.syncWith(pFrom->_sfValue);
-}
-#endif
-
-#if 0
-inline
-void ShaderParameterStringBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

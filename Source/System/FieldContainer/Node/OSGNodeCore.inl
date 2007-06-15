@@ -65,26 +65,6 @@ void NodeCore::subParent(FieldContainerPtrConst &parent)
     }
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void NodeCore::execSync(      NodeCore          *pFrom,
-                              ConstFieldMaskArg  whichField,
-                              ConstFieldMaskArg  syncMode  ,
-                        const UInt32             uiSyncInfo,
-                              UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pFrom, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
-    {
-        _mfParents.syncWith(pFrom->_mfParents, 
-                            syncMode, 
-                            uiSyncInfo, 
-                            uiCopyOffset);
-    }
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void NodeCore::execSync (      NodeCore          *pFrom,
@@ -105,20 +85,6 @@ void NodeCore::execSync (      NodeCore          *pFrom,
 }
 #endif
 
-#if 0
-inline
-void NodeCore::execBeginEdit(ConstFieldMaskArg whichField, 
-                             UInt32            uiAspect,
-                             UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
-    {
-        _mfParents.beginEdit(uiAspect, uiContainerSize);
-    }
-}
-#endif
 
 inline
 void NodeCore::resolveLinks(void)

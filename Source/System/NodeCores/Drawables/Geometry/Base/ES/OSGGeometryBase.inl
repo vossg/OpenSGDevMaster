@@ -229,42 +229,6 @@ const MFGeoIntegralPropertyPtr &GeometryBase::getPropIndices(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void GeometryBase::execSync(      GeometryBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (TypesFieldMask & whichField))
-        _sfTypes.syncWith(pOther->_sfTypes);
-
-    if(FieldBits::NoField != (LengthsFieldMask & whichField))
-        _sfLengths.syncWith(pOther->_sfLengths);
-
-    if(FieldBits::NoField != (PropertiesFieldMask & whichField))
-        _mfProperties.syncWith(pOther->_mfProperties,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (PropIndicesFieldMask & whichField))
-        _mfPropIndices.syncWith(pOther->_mfPropIndices,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (ClassicGLIdFieldMask & whichField))
-        _sfClassicGLId.syncWith(pOther->_sfClassicGLId);
-
-    if(FieldBits::NoField != (AttGLIdFieldMask & whichField))
-        _sfAttGLId.syncWith(pOther->_sfAttGLId);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void GeometryBase::execSync (      GeometryBase *pFrom,
@@ -298,26 +262,6 @@ void GeometryBase::execSync (      GeometryBase *pFrom,
 
     if(FieldBits::NoField != (AttGLIdFieldMask & whichField))
         _sfAttGLId.syncWith(pFrom->_sfAttGLId);
-}
-#endif
-
-#if 0
-inline
-void GeometryBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (PropertiesFieldMask & whichField))
-    {
-        _mfProperties.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (PropIndicesFieldMask & whichField))
-    {
-        _mfPropIndices.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

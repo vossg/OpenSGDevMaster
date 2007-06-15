@@ -469,57 +469,6 @@ const MFUInt8 &ProxyGroupBase::getInline(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ProxyGroupBase::execSync(      ProxyGroupBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (EnabledFieldMask & whichField))
-        _sfEnabled.syncWith(pOther->_sfEnabled);
-
-    if(FieldBits::NoField != (UrlFieldMask & whichField))
-        _sfUrl.syncWith(pOther->_sfUrl);
-
-    if(FieldBits::NoField != (RootFieldMask & whichField))
-        _sfRoot.syncWith(pOther->_sfRoot);
-
-    if(FieldBits::NoField != (StateFieldMask & whichField))
-        _sfState.syncWith(pOther->_sfState);
-
-    if(FieldBits::NoField != (ConcurrentLoadFieldMask & whichField))
-        _sfConcurrentLoad.syncWith(pOther->_sfConcurrentLoad);
-
-    if(FieldBits::NoField != (VolumeFieldMask & whichField))
-        _sfVolume.syncWith(pOther->_sfVolume);
-
-    if(FieldBits::NoField != (IndicesFieldMask & whichField))
-        _sfIndices.syncWith(pOther->_sfIndices);
-
-    if(FieldBits::NoField != (TrianglesFieldMask & whichField))
-        _sfTriangles.syncWith(pOther->_sfTriangles);
-
-    if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _sfPositions.syncWith(pOther->_sfPositions);
-
-    if(FieldBits::NoField != (GeometriesFieldMask & whichField))
-        _sfGeometries.syncWith(pOther->_sfGeometries);
-
-    if(FieldBits::NoField != (AbsoluteUrlFieldMask & whichField))
-        _sfAbsoluteUrl.syncWith(pOther->_sfAbsoluteUrl);
-
-    if(FieldBits::NoField != (InlineFieldMask & whichField))
-        _mfInline.syncWith(pOther->_mfInline,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ProxyGroupBase::execSync (      ProxyGroupBase *pFrom,
@@ -568,21 +517,6 @@ void ProxyGroupBase::execSync (      ProxyGroupBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void ProxyGroupBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (InlineFieldMask & whichField))
-    {
-        _mfInline.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

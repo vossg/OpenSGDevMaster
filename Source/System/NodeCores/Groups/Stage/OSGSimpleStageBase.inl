@@ -255,42 +255,6 @@ const MFForegroundPtr &SimpleStageBase::getForegrounds(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void SimpleStageBase::execSync(      SimpleStageBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (LeftFieldMask & whichField))
-        _sfLeft.syncWith(pOther->_sfLeft);
-
-    if(FieldBits::NoField != (RightFieldMask & whichField))
-        _sfRight.syncWith(pOther->_sfRight);
-
-    if(FieldBits::NoField != (BottomFieldMask & whichField))
-        _sfBottom.syncWith(pOther->_sfBottom);
-
-    if(FieldBits::NoField != (TopFieldMask & whichField))
-        _sfTop.syncWith(pOther->_sfTop);
-
-    if(FieldBits::NoField != (CameraFieldMask & whichField))
-        _sfCamera.syncWith(pOther->_sfCamera);
-
-    if(FieldBits::NoField != (BackgroundFieldMask & whichField))
-        _sfBackground.syncWith(pOther->_sfBackground);
-
-    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
-        _mfForegrounds.syncWith(pOther->_mfForegrounds,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SimpleStageBase::execSync (      SimpleStageBase *pFrom,
@@ -324,21 +288,6 @@ void SimpleStageBase::execSync (      SimpleStageBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void SimpleStageBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
-    {
-        _mfForegrounds.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

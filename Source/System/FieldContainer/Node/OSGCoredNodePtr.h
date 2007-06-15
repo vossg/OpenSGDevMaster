@@ -94,9 +94,6 @@ class OSG_SYSTEM_DLLMAPPING CoredNodePtrBase
     
     void        setNode (      NodePtrConstArg       pNode);
     
-#ifdef OSG_MT_FIELDCONTAINERPTR
-//    void        setNode (const NilFieldContainerPtr &     );
-#endif
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
@@ -166,8 +163,6 @@ class CoredNodePtr : public CoredNodePtrBase
 
     CoredNodePtr<Core> &operator =(const          CoredNodePtr<Core> &pCNP );
 
-//    CoredNodePtr<Core> &operator =(const          NilFieldContainerPtr &   );
-   
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/ 
 
@@ -185,9 +180,6 @@ class CoredNodePtr : public CoredNodePtrBase
     
     void        setCore   (const          NodeCorePtr           &pCore);
     void        setCore   (const typename Core::ObjPtr          &pCore);
-#ifdef OSG_MT_FIELDCONTAINERPTR
-//    void        setCore   (const          NilFieldContainerPtr  &     );
-#endif
 
     void        updateNode(               void                        );
     

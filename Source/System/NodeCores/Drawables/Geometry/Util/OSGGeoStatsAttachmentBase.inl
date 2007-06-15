@@ -306,39 +306,6 @@ void GeoStatsAttachmentBase::setValid(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void GeoStatsAttachmentBase::execSync(      GeoStatsAttachmentBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (VerticesFieldMask & whichField))
-        _sfVertices.syncWith(pOther->_sfVertices);
-
-    if(FieldBits::NoField != (PointsFieldMask & whichField))
-        _sfPoints.syncWith(pOther->_sfPoints);
-
-    if(FieldBits::NoField != (LinesFieldMask & whichField))
-        _sfLines.syncWith(pOther->_sfLines);
-
-    if(FieldBits::NoField != (TrianglesFieldMask & whichField))
-        _sfTriangles.syncWith(pOther->_sfTriangles);
-
-    if(FieldBits::NoField != (ProcessedAttributeBytesFieldMask & whichField))
-        _sfProcessedAttributeBytes.syncWith(pOther->_sfProcessedAttributeBytes);
-
-    if(FieldBits::NoField != (StoredAttributeBytesFieldMask & whichField))
-        _sfStoredAttributeBytes.syncWith(pOther->_sfStoredAttributeBytes);
-
-    if(FieldBits::NoField != (ValidFieldMask & whichField))
-        _sfValid.syncWith(pOther->_sfValid);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void GeoStatsAttachmentBase::execSync (      GeoStatsAttachmentBase *pFrom,
@@ -369,16 +336,6 @@ void GeoStatsAttachmentBase::execSync (      GeoStatsAttachmentBase *pFrom,
 
     if(FieldBits::NoField != (ValidFieldMask & whichField))
         _sfValid.syncWith(pFrom->_sfValid);
-}
-#endif
-
-#if 0
-inline
-void GeoStatsAttachmentBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

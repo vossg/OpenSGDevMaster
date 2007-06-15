@@ -76,18 +76,6 @@ void CoredNodePtrBase::setNode(NodePtrConstArg pNode)
     setRefd(_pNode, pNode);
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-#if 0
-inline
-void CoredNodePtrBase::setNode(const NilFieldContainerPtr &)
-{
-    if(_pNode != NullFC)
-        subRef(_pNode);
-
-    _pNode = NullFC;
-}
-#endif
-#endif
 
 // CoredNodePtr methods
 
@@ -205,7 +193,14 @@ CoredNodePtr<Core> &CoredNodePtr<Core>::operator =(const NodePtr &pNode)
 {
     setNode(pNode);
 
-    setCore(dynamic_cast<CorePtr>(pNode->getCore()));
+    if(_pNode != NullFC)
+    {
+        setCore(dynamic_cast<CorePtr>(pNode->getCore()));
+    }
+    else
+    {
+        setCore(NullFC);
+    }
 
     return *this;
 }
@@ -231,20 +226,6 @@ CoredNodePtr<Core>& CoredNodePtr<Core>::operator =(
     return *this;
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-#if 0
-template<class Core> inline
-CoredNodePtr<Core>& CoredNodePtr<Core>::operator =(
-    const NilFieldContainerPtr &)
-{
-    setNode(NullFC);
-    setCore(NullFC);
-
-    return *this;
-}
-#endif
-#endif
-
 template<class Core> inline
 NodeCorePtr CoredNodePtr<Core>::getCoreV(void) const
 {
@@ -265,17 +246,6 @@ void CoredNodePtr<Core>::setCore(const typename Core::ObjPtr &pCore)
 
     setRefd(_pCore, pCore);
 }
-
-#ifdef OSG_MT_FIELDCONTAINERPTR
-template<class Core> inline
-void CoredNodePtr<Core>::setCore(const NilFieldContainerPtr &)
-{
-    if(_pCore != NullFC)
-        subRef(_pCore);
-
-    _pCore = NullFC;
-}
-#endif
 
 template<class Core> inline
 void CoredNodePtr<Core>::updateNode(void)

@@ -240,33 +240,6 @@ void DepthChunkBase::setReadOnly(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void DepthChunkBase::execSync(      DepthChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (EnableFieldMask & whichField))
-        _sfEnable.syncWith(pOther->_sfEnable);
-
-    if(FieldBits::NoField != (FuncFieldMask & whichField))
-        _sfFunc.syncWith(pOther->_sfFunc);
-
-    if(FieldBits::NoField != (NearFieldMask & whichField))
-        _sfNear.syncWith(pOther->_sfNear);
-
-    if(FieldBits::NoField != (FarFieldMask & whichField))
-        _sfFar.syncWith(pOther->_sfFar);
-
-    if(FieldBits::NoField != (ReadOnlyFieldMask & whichField))
-        _sfReadOnly.syncWith(pOther->_sfReadOnly);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void DepthChunkBase::execSync (      DepthChunkBase *pFrom,
@@ -291,16 +264,6 @@ void DepthChunkBase::execSync (      DepthChunkBase *pFrom,
 
     if(FieldBits::NoField != (ReadOnlyFieldMask & whichField))
         _sfReadOnly.syncWith(pFrom->_sfReadOnly);
-}
-#endif
-
-#if 0
-inline
-void DepthChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

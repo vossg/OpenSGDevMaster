@@ -141,24 +141,6 @@ void SolidBackgroundBase::setAlpha(const Real32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void SolidBackgroundBase::execSync(      SolidBackgroundBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ColorFieldMask & whichField))
-        _sfColor.syncWith(pOther->_sfColor);
-
-    if(FieldBits::NoField != (AlphaFieldMask & whichField))
-        _sfAlpha.syncWith(pOther->_sfAlpha);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SolidBackgroundBase::execSync (      SolidBackgroundBase *pFrom,
@@ -174,16 +156,6 @@ void SolidBackgroundBase::execSync (      SolidBackgroundBase *pFrom,
 
     if(FieldBits::NoField != (AlphaFieldMask & whichField))
         _sfAlpha.syncWith(pFrom->_sfAlpha);
-}
-#endif
-
-#if 0
-inline
-void SolidBackgroundBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

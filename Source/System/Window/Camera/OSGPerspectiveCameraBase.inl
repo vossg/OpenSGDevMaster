@@ -141,24 +141,6 @@ void PerspectiveCameraBase::setAspect(const Real32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void PerspectiveCameraBase::execSync(      PerspectiveCameraBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (FovFieldMask & whichField))
-        _sfFov.syncWith(pOther->_sfFov);
-
-    if(FieldBits::NoField != (AspectFieldMask & whichField))
-        _sfAspect.syncWith(pOther->_sfAspect);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void PerspectiveCameraBase::execSync (      PerspectiveCameraBase *pFrom,
@@ -174,16 +156,6 @@ void PerspectiveCameraBase::execSync (      PerspectiveCameraBase *pFrom,
 
     if(FieldBits::NoField != (AspectFieldMask & whichField))
         _sfAspect.syncWith(pFrom->_sfAspect);
-}
-#endif
-
-#if 0
-inline
-void PerspectiveCameraBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

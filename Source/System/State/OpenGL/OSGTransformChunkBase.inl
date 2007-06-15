@@ -108,21 +108,6 @@ void TransformChunkBase::setMatrix(const Matrix &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TransformChunkBase::execSync(      TransformChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (MatrixFieldMask & whichField))
-        _sfMatrix.syncWith(pOther->_sfMatrix);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TransformChunkBase::execSync (      TransformChunkBase *pFrom,
@@ -135,16 +120,6 @@ void TransformChunkBase::execSync (      TransformChunkBase *pFrom,
 
     if(FieldBits::NoField != (MatrixFieldMask & whichField))
         _sfMatrix.syncWith(pFrom->_sfMatrix);
-}
-#endif
-
-#if 0
-inline
-void TransformChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

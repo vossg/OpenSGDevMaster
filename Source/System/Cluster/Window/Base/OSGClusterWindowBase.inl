@@ -467,60 +467,6 @@ const MFString &ClusterWindowBase::getAutostart(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ClusterWindowBase::execSync(      ClusterWindowBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ServersFieldMask & whichField))
-        _mfServers.syncWith(pOther->_mfServers,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (ConnectionTypeFieldMask & whichField))
-        _sfConnectionType.syncWith(pOther->_sfConnectionType);
-
-    if(FieldBits::NoField != (ConnectionInterfaceFieldMask & whichField))
-        _sfConnectionInterface.syncWith(pOther->_sfConnectionInterface);
-
-    if(FieldBits::NoField != (ConnectionDestinationFieldMask & whichField))
-        _sfConnectionDestination.syncWith(pOther->_sfConnectionDestination);
-
-    if(FieldBits::NoField != (ConnectionParamsFieldMask & whichField))
-        _sfConnectionParams.syncWith(pOther->_sfConnectionParams);
-
-    if(FieldBits::NoField != (ServicePortFieldMask & whichField))
-        _sfServicePort.syncWith(pOther->_sfServicePort);
-
-    if(FieldBits::NoField != (ServiceAddressFieldMask & whichField))
-        _sfServiceAddress.syncWith(pOther->_sfServiceAddress);
-
-    if(FieldBits::NoField != (ClientWindowFieldMask & whichField))
-        _sfClientWindow.syncWith(pOther->_sfClientWindow);
-
-    if(FieldBits::NoField != (InterleaveFieldMask & whichField))
-        _sfInterleave.syncWith(pOther->_sfInterleave);
-
-    if(FieldBits::NoField != (FrameCountFieldMask & whichField))
-        _sfFrameCount.syncWith(pOther->_sfFrameCount);
-
-    if(FieldBits::NoField != (ComposerFieldMask & whichField))
-        _sfComposer.syncWith(pOther->_sfComposer);
-
-    if(FieldBits::NoField != (AutostartFieldMask & whichField))
-        _mfAutostart.syncWith(pOther->_mfAutostart,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ClusterWindowBase::execSync (      ClusterWindowBase *pFrom,
@@ -572,26 +518,6 @@ void ClusterWindowBase::execSync (      ClusterWindowBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void ClusterWindowBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ServersFieldMask & whichField))
-    {
-        _mfServers.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (AutostartFieldMask & whichField))
-    {
-        _mfAutostart.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

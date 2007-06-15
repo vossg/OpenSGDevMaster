@@ -108,21 +108,6 @@ void ForegroundBase::setActive(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ForegroundBase::execSync(      ForegroundBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ActiveFieldMask & whichField))
-        _sfActive.syncWith(pOther->_sfActive);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ForegroundBase::execSync (      ForegroundBase *pFrom,
@@ -135,16 +120,6 @@ void ForegroundBase::execSync (      ForegroundBase *pFrom,
 
     if(FieldBits::NoField != (ActiveFieldMask & whichField))
         _sfActive.syncWith(pFrom->_sfActive);
-}
-#endif
-
-#if 0
-inline
-void ForegroundBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

@@ -366,21 +366,6 @@ ShaderParameterMVec2fBase::~ShaderParameterMVec2fBase(void)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void ShaderParameterMVec2fBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<ShaderParameterMVec2fBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void ShaderParameterMVec2fBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -396,14 +381,6 @@ void ShaderParameterMVec2fBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void ShaderParameterMVec2fBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ShaderParameterMVec2fBase::createAspectCopy(void) const

@@ -496,21 +496,6 @@ void ClipPlaneChunkBase::onCreate(const ClipPlaneChunk *source)
     }
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void ClipPlaneChunkBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<ClipPlaneChunkBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void ClipPlaneChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -526,14 +511,6 @@ void ClipPlaneChunkBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void ClipPlaneChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ClipPlaneChunkBase::createAspectCopy(void) const

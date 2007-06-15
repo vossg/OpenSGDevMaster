@@ -122,27 +122,6 @@ const MFTextureBaseChunkPtr &TextureSelectChunkBase::getTextures(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TextureSelectChunkBase::execSync(      TextureSelectChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ChoiceFieldMask & whichField))
-        _sfChoice.syncWith(pOther->_sfChoice);
-
-    if(FieldBits::NoField != (TexturesFieldMask & whichField))
-        _mfTextures.syncWith(pOther->_mfTextures,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TextureSelectChunkBase::execSync (      TextureSelectChunkBase *pFrom,
@@ -161,21 +140,6 @@ void TextureSelectChunkBase::execSync (      TextureSelectChunkBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void TextureSelectChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (TexturesFieldMask & whichField))
-    {
-        _mfTextures.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

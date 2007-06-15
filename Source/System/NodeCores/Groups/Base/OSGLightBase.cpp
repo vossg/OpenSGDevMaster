@@ -855,21 +855,6 @@ void LightBase::onCreate(const Light *source)
     }
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void LightBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<LightBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void LightBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -885,14 +870,6 @@ void LightBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void LightBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 
 void LightBase::resolveLinks(void)

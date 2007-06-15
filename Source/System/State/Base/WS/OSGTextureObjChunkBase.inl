@@ -950,99 +950,6 @@ void TextureObjChunkBase::setNPOTMatrixScale(const UInt32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TextureObjChunkBase::execSync(      TextureObjChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ImageFieldMask & whichField))
-        _sfImage.syncWith(pOther->_sfImage);
-
-    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
-        _sfInternalFormat.syncWith(pOther->_sfInternalFormat);
-
-    if(FieldBits::NoField != (ExternalFormatFieldMask & whichField))
-        _sfExternalFormat.syncWith(pOther->_sfExternalFormat);
-
-    if(FieldBits::NoField != (ScaleFieldMask & whichField))
-        _sfScale.syncWith(pOther->_sfScale);
-
-    if(FieldBits::NoField != (FrameFieldMask & whichField))
-        _sfFrame.syncWith(pOther->_sfFrame);
-
-    if(FieldBits::NoField != (MinFilterFieldMask & whichField))
-        _sfMinFilter.syncWith(pOther->_sfMinFilter);
-
-    if(FieldBits::NoField != (MagFilterFieldMask & whichField))
-        _sfMagFilter.syncWith(pOther->_sfMagFilter);
-
-    if(FieldBits::NoField != (WrapSFieldMask & whichField))
-        _sfWrapS.syncWith(pOther->_sfWrapS);
-
-    if(FieldBits::NoField != (WrapTFieldMask & whichField))
-        _sfWrapT.syncWith(pOther->_sfWrapT);
-
-    if(FieldBits::NoField != (WrapRFieldMask & whichField))
-        _sfWrapR.syncWith(pOther->_sfWrapR);
-
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
-        _sfGLId.syncWith(pOther->_sfGLId);
-
-    if(FieldBits::NoField != (IgnoreGLForAspectFieldMask & whichField))
-        _sfIgnoreGLForAspect.syncWith(pOther->_sfIgnoreGLForAspect);
-
-    if(FieldBits::NoField != (PriorityFieldMask & whichField))
-        _sfPriority.syncWith(pOther->_sfPriority);
-
-    if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
-        _sfDirtyLeft.syncWith(pOther->_sfDirtyLeft);
-
-    if(FieldBits::NoField != (DirtyMinXFieldMask & whichField))
-        _sfDirtyMinX.syncWith(pOther->_sfDirtyMinX);
-
-    if(FieldBits::NoField != (DirtyMaxXFieldMask & whichField))
-        _sfDirtyMaxX.syncWith(pOther->_sfDirtyMaxX);
-
-    if(FieldBits::NoField != (DirtyMinYFieldMask & whichField))
-        _sfDirtyMinY.syncWith(pOther->_sfDirtyMinY);
-
-    if(FieldBits::NoField != (DirtyMaxYFieldMask & whichField))
-        _sfDirtyMaxY.syncWith(pOther->_sfDirtyMaxY);
-
-    if(FieldBits::NoField != (DirtyMinZFieldMask & whichField))
-        _sfDirtyMinZ.syncWith(pOther->_sfDirtyMinZ);
-
-    if(FieldBits::NoField != (DirtyMaxZFieldMask & whichField))
-        _sfDirtyMaxZ.syncWith(pOther->_sfDirtyMaxZ);
-
-    if(FieldBits::NoField != (AnisotropyFieldMask & whichField))
-        _sfAnisotropy.syncWith(pOther->_sfAnisotropy);
-
-    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
-        _sfBorderColor.syncWith(pOther->_sfBorderColor);
-
-    if(FieldBits::NoField != (CompareModeFieldMask & whichField))
-        _sfCompareMode.syncWith(pOther->_sfCompareMode);
-
-    if(FieldBits::NoField != (CompareFuncFieldMask & whichField))
-        _sfCompareFunc.syncWith(pOther->_sfCompareFunc);
-
-    if(FieldBits::NoField != (DepthModeFieldMask & whichField))
-        _sfDepthMode.syncWith(pOther->_sfDepthMode);
-
-    if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
-        _sfBorderWidth.syncWith(pOther->_sfBorderWidth);
-
-    if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
-        _sfNPOTMatrixScale.syncWith(pOther->_sfNPOTMatrixScale);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TextureObjChunkBase::execSync (      TextureObjChunkBase *pFrom,
@@ -1133,16 +1040,6 @@ void TextureObjChunkBase::execSync (      TextureObjChunkBase *pFrom,
 
     if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
         _sfNPOTMatrixScale.syncWith(pFrom->_sfNPOTMatrixScale);
-}
-#endif
-
-#if 0
-inline
-void TextureObjChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

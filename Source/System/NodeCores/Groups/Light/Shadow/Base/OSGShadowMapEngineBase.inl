@@ -257,36 +257,6 @@ void ShadowMapEngineBase::setOffsetFactor(const Real32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ShadowMapEngineBase::execSync(      ShadowMapEngineBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
-        _sfRenderTarget.syncWith(pOther->_sfRenderTarget);
-
-    if(FieldBits::NoField != (WidthFieldMask & whichField))
-        _sfWidth.syncWith(pOther->_sfWidth);
-
-    if(FieldBits::NoField != (HeightFieldMask & whichField))
-        _sfHeight.syncWith(pOther->_sfHeight);
-
-    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
-        _sfShadowColor.syncWith(pOther->_sfShadowColor);
-
-    if(FieldBits::NoField != (OffsetBiasFieldMask & whichField))
-        _sfOffsetBias.syncWith(pOther->_sfOffsetBias);
-
-    if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
-        _sfOffsetFactor.syncWith(pOther->_sfOffsetFactor);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ShadowMapEngineBase::execSync (      ShadowMapEngineBase *pFrom,
@@ -314,16 +284,6 @@ void ShadowMapEngineBase::execSync (      ShadowMapEngineBase *pFrom,
 
     if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
         _sfOffsetFactor.syncWith(pFrom->_sfOffsetFactor);
-}
-#endif
-
-#if 0
-inline
-void ShadowMapEngineBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

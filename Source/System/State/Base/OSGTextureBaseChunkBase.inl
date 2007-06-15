@@ -108,21 +108,6 @@ void TextureBaseChunkBase::setTarget(const GLenum &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TextureBaseChunkBase::execSync(      TextureBaseChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-        _sfTarget.syncWith(pOther->_sfTarget);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TextureBaseChunkBase::execSync (      TextureBaseChunkBase *pFrom,
@@ -135,16 +120,6 @@ void TextureBaseChunkBase::execSync (      TextureBaseChunkBase *pFrom,
 
     if(FieldBits::NoField != (TargetFieldMask & whichField))
         _sfTarget.syncWith(pFrom->_sfTarget);
-}
-#endif
-
-#if 0
-inline
-void TextureBaseChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

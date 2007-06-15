@@ -160,45 +160,6 @@ NodePtr Node::getPtr(void)
     return Inherited::constructPtr<Node>(this);
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void Node::execSync(      Node              *pFrom,
-                          ConstFieldMaskArg  whichField,
-                          ConstFieldMaskArg  syncMode  ,
-                    const UInt32             uiSyncInfo,
-                          UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pFrom, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (VolumeFieldMask & whichField))
-    {
-        _sfVolume.syncWith(pFrom->_sfVolume);
-    }
-
-    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
-    {
-        _sfTravMask.syncWith(pFrom->_sfTravMask);
-    }
-
-    if(FieldBits::NoField != (ParentFieldMask & whichField))
-    {
-        _sfParent.syncWith(pFrom->_sfParent);
-    }
-
-    if(FieldBits::NoField != (ChildrenFieldMask & whichField))
-    {
-        _mfChildren.syncWith(pFrom->_mfChildren, 
-                             syncMode, 
-                             uiSyncInfo,
-                             uiCopyOffset);
-    }
-
-    if(FieldBits::NoField != (CoreFieldMask & whichField))
-    {
-        _sfCore.syncWith(pFrom->_sfCore);
-    }
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -236,21 +197,6 @@ void Node::execSync(      Node              *pFrom,
     if(FieldBits::NoField != (CoreFieldMask & whichField))
     {
         _sfCore.syncWith(pFrom->_sfCore);
-    }
-}
-#endif
-
-#if 0
-inline
-void Node::execBeginEdit(ConstFieldMaskArg whichField, 
-                         UInt32            uiAspect,
-                         UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ChildrenFieldMask & whichField))
-    {
-        _mfChildren.beginEdit(uiAspect, uiContainerSize);
     }
 }
 #endif

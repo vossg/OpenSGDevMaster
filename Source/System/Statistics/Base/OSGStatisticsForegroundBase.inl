@@ -155,27 +155,6 @@ const MFInt32 &StatisticsForegroundBase::getElementIDs(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void StatisticsForegroundBase::execSync(      StatisticsForegroundBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ElementIDsFieldMask & whichField))
-        _mfElementIDs.syncWith(pOther->_mfElementIDs,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (CollectorFieldMask & whichField))
-        _sfCollector.syncWith(pOther->_sfCollector);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void StatisticsForegroundBase::execSync (      StatisticsForegroundBase *pFrom,
@@ -194,21 +173,6 @@ void StatisticsForegroundBase::execSync (      StatisticsForegroundBase *pFrom,
 
     if(FieldBits::NoField != (CollectorFieldMask & whichField))
         _sfCollector.syncWith(pFrom->_sfCollector);
-}
-#endif
-
-#if 0
-inline
-void StatisticsForegroundBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ElementIDsFieldMask & whichField))
-    {
-        _mfElementIDs.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

@@ -108,21 +108,6 @@ void SwitchBase::setChoice(const Int32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void SwitchBase::execSync(      SwitchBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ChoiceFieldMask & whichField))
-        _sfChoice.syncWith(pOther->_sfChoice);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SwitchBase::execSync (      SwitchBase *pFrom,
@@ -135,16 +120,6 @@ void SwitchBase::execSync (      SwitchBase *pFrom,
 
     if(FieldBits::NoField != (ChoiceFieldMask & whichField))
         _sfChoice.syncWith(pFrom->_sfChoice);
-}
-#endif
-
-#if 0
-inline
-void SwitchBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

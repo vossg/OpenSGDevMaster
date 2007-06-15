@@ -174,27 +174,6 @@ void SpotLightBase::setSpotCutOff(const Real &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void SpotLightBase::execSync(      SpotLightBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (DirectionFieldMask & whichField))
-        _sfDirection.syncWith(pOther->_sfDirection);
-
-    if(FieldBits::NoField != (SpotExponentFieldMask & whichField))
-        _sfSpotExponent.syncWith(pOther->_sfSpotExponent);
-
-    if(FieldBits::NoField != (SpotCutOffFieldMask & whichField))
-        _sfSpotCutOff.syncWith(pOther->_sfSpotCutOff);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SpotLightBase::execSync (      SpotLightBase *pFrom,
@@ -213,16 +192,6 @@ void SpotLightBase::execSync (      SpotLightBase *pFrom,
 
     if(FieldBits::NoField != (SpotCutOffFieldMask & whichField))
         _sfSpotCutOff.syncWith(pFrom->_sfSpotCutOff);
-}
-#endif
-
-#if 0
-inline
-void SpotLightBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

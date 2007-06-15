@@ -141,24 +141,6 @@ void ShearedStereoCameraDecoratorBase::setOverlap(const Real32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ShearedStereoCameraDecoratorBase::execSync(      ShearedStereoCameraDecoratorBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ZeroParallaxDistanceFieldMask & whichField))
-        _sfZeroParallaxDistance.syncWith(pOther->_sfZeroParallaxDistance);
-
-    if(FieldBits::NoField != (OverlapFieldMask & whichField))
-        _sfOverlap.syncWith(pOther->_sfOverlap);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ShearedStereoCameraDecoratorBase::execSync (      ShearedStereoCameraDecoratorBase *pFrom,
@@ -174,16 +156,6 @@ void ShearedStereoCameraDecoratorBase::execSync (      ShearedStereoCameraDecora
 
     if(FieldBits::NoField != (OverlapFieldMask & whichField))
         _sfOverlap.syncWith(pFrom->_sfOverlap);
-}
-#endif
-
-#if 0
-inline
-void ShearedStereoCameraDecoratorBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

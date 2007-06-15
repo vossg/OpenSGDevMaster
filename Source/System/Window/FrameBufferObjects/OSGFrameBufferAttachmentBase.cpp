@@ -318,21 +318,6 @@ FrameBufferAttachmentBase::~FrameBufferAttachmentBase(void)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void FrameBufferAttachmentBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<FrameBufferAttachmentBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void FrameBufferAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -348,14 +333,6 @@ void FrameBufferAttachmentBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void FrameBufferAttachmentBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 
 void FrameBufferAttachmentBase::resolveLinks(void)

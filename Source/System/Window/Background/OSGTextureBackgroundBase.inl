@@ -304,42 +304,6 @@ const MFPnt2f &TextureBackgroundBase::getTexCoords(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TextureBackgroundBase::execSync(      TextureBackgroundBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ColorFieldMask & whichField))
-        _sfColor.syncWith(pOther->_sfColor);
-
-    if(FieldBits::NoField != (TextureFieldMask & whichField))
-        _sfTexture.syncWith(pOther->_sfTexture);
-
-    if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
-        _mfTexCoords.syncWith(pOther->_mfTexCoords,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (RadialDistortionFieldMask & whichField))
-        _sfRadialDistortion.syncWith(pOther->_sfRadialDistortion);
-
-    if(FieldBits::NoField != (CenterOfDistortionFieldMask & whichField))
-        _sfCenterOfDistortion.syncWith(pOther->_sfCenterOfDistortion);
-
-    if(FieldBits::NoField != (HorFieldMask & whichField))
-        _sfHor.syncWith(pOther->_sfHor);
-
-    if(FieldBits::NoField != (VertFieldMask & whichField))
-        _sfVert.syncWith(pOther->_sfVert);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TextureBackgroundBase::execSync (      TextureBackgroundBase *pFrom,
@@ -373,21 +337,6 @@ void TextureBackgroundBase::execSync (      TextureBackgroundBase *pFrom,
 
     if(FieldBits::NoField != (VertFieldMask & whichField))
         _sfVert.syncWith(pFrom->_sfVert);
-}
-#endif
-
-#if 0
-inline
-void TextureBackgroundBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
-    {
-        _mfTexCoords.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

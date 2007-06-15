@@ -46,10 +46,7 @@
 
 #include "OSGStageBase.h"
 #include "OSGAction.h"
-
-#ifndef OSG_MT_FIELDCONTAINERPTR
 #include "OSGFrameBufferObject.h"
-#endif
 
 OSG_BEGIN_NAMESPACE
 

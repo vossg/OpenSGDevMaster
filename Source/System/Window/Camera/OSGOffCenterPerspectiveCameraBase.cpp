@@ -283,21 +283,6 @@ OffCenterPerspectiveCameraBase::~OffCenterPerspectiveCameraBase(void)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void OffCenterPerspectiveCameraBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<OffCenterPerspectiveCameraBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void OffCenterPerspectiveCameraBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -313,14 +298,6 @@ void OffCenterPerspectiveCameraBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void OffCenterPerspectiveCameraBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr OffCenterPerspectiveCameraBase::createAspectCopy(void) const

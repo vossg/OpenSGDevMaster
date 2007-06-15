@@ -86,23 +86,6 @@ void CameraDecoratorBase::setDecoratee(const CameraPtr &value)
     setRefd(_sfDecoratee.getValue(), value);
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void CameraDecoratorBase::execSync(      CameraDecoratorBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (DecorateeFieldMask & whichField))
-    {
-        _sfDecoratee.syncWith(pOther->_sfDecoratee);
-    }
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void CameraDecoratorBase::execSync (      CameraDecoratorBase *pFrom,
@@ -117,16 +100,6 @@ void CameraDecoratorBase::execSync (      CameraDecoratorBase *pFrom,
     {
         _sfDecoratee.syncWith(pFrom->_sfDecoratee);
     }
-}
-#endif
-
-#if 0
-inline
-void CameraDecoratorBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

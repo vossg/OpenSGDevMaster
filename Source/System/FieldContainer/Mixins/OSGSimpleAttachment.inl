@@ -102,33 +102,6 @@ SimpleAttachment<AttachmentDescT>::~SimpleAttachment(void)
 {
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-template <class AttachmentDescT> inline
-void SimpleAttachment<AttachmentDescT>::execSync(      
-          SimpleAttachment   *OSG_CHECK_ARG(pFrom),
-          ConstFieldMaskArg   OSG_CHECK_ARG(whichField),
-          ConstFieldMaskArg   OSG_CHECK_ARG(syncMode),
-    const UInt32              OSG_CHECK_ARG(uiSyncInfo),
-          UInt32              OSG_CHECK_ARG(uiCopyOffset))
-{
-}
-
-template <class AttachmentDescT> inline
-void SimpleAttachment<AttachmentDescT>::execSyncV(     
-          FieldContainer     &oFrom,
-          ConstFieldMaskArg   whichField,
-          ConstFieldMaskArg   syncMode  ,
-    const UInt32              uiSyncInfo,
-          UInt32              uiCopyOffset)
-{
-    this->execSync(static_cast<Self *>(&oFrom), 
-                   whichField, 
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 template <class AttachmentDescT> inline
 void SimpleAttachment<AttachmentDescT>::execSync(
@@ -168,25 +141,6 @@ typename SimpleAttachment<AttachmentDescT>::ObjPtr
                   dynamic_cast<const Self *>(this)); 
 
     return returnValue; 
-}
-#endif
-
-#if 0
-template <class AttachmentDescT> inline
-void SimpleAttachment<AttachmentDescT>::execBeginEdit(
-    ConstFieldMaskArg whichField, 
-    UInt32            uiAspect,
-    UInt32            uiContainerSize)
-{
-}
-
-template <class AttachmentDescT> inline
-void SimpleAttachment<AttachmentDescT>::execBeginEditV(
-    ConstFieldMaskArg whichField, 
-    UInt32            uiAspect,
-    UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

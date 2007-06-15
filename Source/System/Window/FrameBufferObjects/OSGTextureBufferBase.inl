@@ -191,30 +191,6 @@ void TextureBufferBase::setZoffset(const UInt32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TextureBufferBase::execSync(      TextureBufferBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (TextureFieldMask & whichField))
-        _sfTexture.syncWith(pOther->_sfTexture);
-
-    if(FieldBits::NoField != (TexTargetFieldMask & whichField))
-        _sfTexTarget.syncWith(pOther->_sfTexTarget);
-
-    if(FieldBits::NoField != (LevelFieldMask & whichField))
-        _sfLevel.syncWith(pOther->_sfLevel);
-
-    if(FieldBits::NoField != (ZoffsetFieldMask & whichField))
-        _sfZoffset.syncWith(pOther->_sfZoffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TextureBufferBase::execSync (      TextureBufferBase *pFrom,
@@ -236,16 +212,6 @@ void TextureBufferBase::execSync (      TextureBufferBase *pFrom,
 
     if(FieldBits::NoField != (ZoffsetFieldMask & whichField))
         _sfZoffset.syncWith(pFrom->_sfZoffset);
-}
-#endif
-
-#if 0
-inline
-void TextureBufferBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

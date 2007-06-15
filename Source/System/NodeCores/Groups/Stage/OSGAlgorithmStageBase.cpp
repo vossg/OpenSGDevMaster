@@ -468,21 +468,6 @@ void AlgorithmStageBase::onCreate(const AlgorithmStage *source)
     }
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void AlgorithmStageBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<AlgorithmStageBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void AlgorithmStageBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -498,14 +483,6 @@ void AlgorithmStageBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void AlgorithmStageBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr AlgorithmStageBase::createAspectCopy(void) const

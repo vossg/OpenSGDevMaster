@@ -636,69 +636,6 @@ void RenderOptionsBase::setSmallFeatureThreshold(const UInt32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void RenderOptionsBase::execSync(      RenderOptionsBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (StatisticFieldMask & whichField))
-        _sfStatistic.syncWith(pOther->_sfStatistic);
-
-    if(FieldBits::NoField != (PolygonModeFieldMask & whichField))
-        _sfPolygonMode.syncWith(pOther->_sfPolygonMode);
-
-    if(FieldBits::NoField != (TwoSidedLightingFieldMask & whichField))
-        _sfTwoSidedLighting.syncWith(pOther->_sfTwoSidedLighting);
-
-    if(FieldBits::NoField != (SpecTexLightingFieldMask & whichField))
-        _sfSpecTexLighting.syncWith(pOther->_sfSpecTexLighting);
-
-    if(FieldBits::NoField != (SortTransFieldMask & whichField))
-        _sfSortTrans.syncWith(pOther->_sfSortTrans);
-
-    if(FieldBits::NoField != (ZWriteTransFieldMask & whichField))
-        _sfZWriteTrans.syncWith(pOther->_sfZWriteTrans);
-
-    if(FieldBits::NoField != (LocalLightsFieldMask & whichField))
-        _sfLocalLights.syncWith(pOther->_sfLocalLights);
-
-    if(FieldBits::NoField != (CorrectTwoSidedLightingFieldMask & whichField))
-        _sfCorrectTwoSidedLighting.syncWith(pOther->_sfCorrectTwoSidedLighting);
-
-    if(FieldBits::NoField != (OcclusionCullingFieldMask & whichField))
-        _sfOcclusionCulling.syncWith(pOther->_sfOcclusionCulling);
-
-    if(FieldBits::NoField != (AntialiasingFieldMask & whichField))
-        _sfAntialiasing.syncWith(pOther->_sfAntialiasing);
-
-    if(FieldBits::NoField != (AntialiasingDistanceFieldMask & whichField))
-        _sfAntialiasingDistance.syncWith(pOther->_sfAntialiasingDistance);
-
-    if(FieldBits::NoField != (AntialiasingScaleFieldMask & whichField))
-        _sfAntialiasingScale.syncWith(pOther->_sfAntialiasingScale);
-
-    if(FieldBits::NoField != (AntialiasingTriggerFieldMask & whichField))
-        _sfAntialiasingTrigger.syncWith(pOther->_sfAntialiasingTrigger);
-
-    if(FieldBits::NoField != (BackfaceCullingFieldMask & whichField))
-        _sfBackfaceCulling.syncWith(pOther->_sfBackfaceCulling);
-
-    if(FieldBits::NoField != (SmallFeatureCullingFieldMask & whichField))
-        _sfSmallFeatureCulling.syncWith(pOther->_sfSmallFeatureCulling);
-
-    if(FieldBits::NoField != (SmallFeaturePixelsFieldMask & whichField))
-        _sfSmallFeaturePixels.syncWith(pOther->_sfSmallFeaturePixels);
-
-    if(FieldBits::NoField != (SmallFeatureThresholdFieldMask & whichField))
-        _sfSmallFeatureThreshold.syncWith(pOther->_sfSmallFeatureThreshold);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
@@ -759,16 +696,6 @@ void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
 
     if(FieldBits::NoField != (SmallFeatureThresholdFieldMask & whichField))
         _sfSmallFeatureThreshold.syncWith(pFrom->_sfSmallFeatureThreshold);
-}
-#endif
-
-#if 0
-inline
-void RenderOptionsBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

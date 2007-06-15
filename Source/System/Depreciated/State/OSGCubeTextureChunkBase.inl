@@ -193,36 +193,6 @@ void CubeTextureChunkBase::setIsReflectionMap(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void CubeTextureChunkBase::execSync(      CubeTextureChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (PosZImageFieldMask & whichField))
-        _sfPosZImage.syncWith(pOther->_sfPosZImage);
-
-    if(FieldBits::NoField != (PosXImageFieldMask & whichField))
-        _sfPosXImage.syncWith(pOther->_sfPosXImage);
-
-    if(FieldBits::NoField != (NegXImageFieldMask & whichField))
-        _sfNegXImage.syncWith(pOther->_sfNegXImage);
-
-    if(FieldBits::NoField != (PosYImageFieldMask & whichField))
-        _sfPosYImage.syncWith(pOther->_sfPosYImage);
-
-    if(FieldBits::NoField != (NegYImageFieldMask & whichField))
-        _sfNegYImage.syncWith(pOther->_sfNegYImage);
-
-    if(FieldBits::NoField != (IsReflectionMapFieldMask & whichField))
-        _sfIsReflectionMap.syncWith(pOther->_sfIsReflectionMap);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void CubeTextureChunkBase::execSync (      CubeTextureChunkBase *pFrom,
@@ -250,16 +220,6 @@ void CubeTextureChunkBase::execSync (      CubeTextureChunkBase *pFrom,
 
     if(FieldBits::NoField != (IsReflectionMapFieldMask & whichField))
         _sfIsReflectionMap.syncWith(pFrom->_sfIsReflectionMap);
-}
-#endif
-
-#if 0
-inline
-void CubeTextureChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

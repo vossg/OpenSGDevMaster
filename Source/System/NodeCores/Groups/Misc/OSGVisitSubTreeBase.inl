@@ -92,21 +92,6 @@ void VisitSubTreeBase::setSubTreeRoot(NodePtrConstArg value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void VisitSubTreeBase::execSync(      VisitSubTreeBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (SubTreeRootFieldMask & whichField))
-        _sfSubTreeRoot.syncWith(pOther->_sfSubTreeRoot);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void VisitSubTreeBase::execSync (      VisitSubTreeBase *pFrom,
@@ -119,16 +104,6 @@ void VisitSubTreeBase::execSync (      VisitSubTreeBase *pFrom,
 
     if(FieldBits::NoField != (SubTreeRootFieldMask & whichField))
         _sfSubTreeRoot.syncWith(pFrom->_sfSubTreeRoot);
-}
-#endif
-
-#if 0
-inline
-void VisitSubTreeBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

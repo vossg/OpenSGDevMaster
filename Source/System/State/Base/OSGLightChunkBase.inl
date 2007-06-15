@@ -422,51 +422,6 @@ void LightChunkBase::setBeacon(NodePtrConstArg value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void LightChunkBase::execSync(      LightChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (DiffuseFieldMask & whichField))
-        _sfDiffuse.syncWith(pOther->_sfDiffuse);
-
-    if(FieldBits::NoField != (AmbientFieldMask & whichField))
-        _sfAmbient.syncWith(pOther->_sfAmbient);
-
-    if(FieldBits::NoField != (SpecularFieldMask & whichField))
-        _sfSpecular.syncWith(pOther->_sfSpecular);
-
-    if(FieldBits::NoField != (PositionFieldMask & whichField))
-        _sfPosition.syncWith(pOther->_sfPosition);
-
-    if(FieldBits::NoField != (DirectionFieldMask & whichField))
-        _sfDirection.syncWith(pOther->_sfDirection);
-
-    if(FieldBits::NoField != (ExponentFieldMask & whichField))
-        _sfExponent.syncWith(pOther->_sfExponent);
-
-    if(FieldBits::NoField != (CutoffFieldMask & whichField))
-        _sfCutoff.syncWith(pOther->_sfCutoff);
-
-    if(FieldBits::NoField != (ConstantAttenuationFieldMask & whichField))
-        _sfConstantAttenuation.syncWith(pOther->_sfConstantAttenuation);
-
-    if(FieldBits::NoField != (LinearAttenuationFieldMask & whichField))
-        _sfLinearAttenuation.syncWith(pOther->_sfLinearAttenuation);
-
-    if(FieldBits::NoField != (QuadraticAttenuationFieldMask & whichField))
-        _sfQuadraticAttenuation.syncWith(pOther->_sfQuadraticAttenuation);
-
-    if(FieldBits::NoField != (BeaconFieldMask & whichField))
-        _sfBeacon.syncWith(pOther->_sfBeacon);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void LightChunkBase::execSync (      LightChunkBase *pFrom,
@@ -509,16 +464,6 @@ void LightChunkBase::execSync (      LightChunkBase *pFrom,
 
     if(FieldBits::NoField != (BeaconFieldMask & whichField))
         _sfBeacon.syncWith(pFrom->_sfBeacon);
-}
-#endif
-
-#if 0
-inline
-void LightChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

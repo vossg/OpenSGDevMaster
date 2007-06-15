@@ -240,33 +240,6 @@ void ComponentTransformBase::setTranslation(const Vec3r &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ComponentTransformBase::execSync(      ComponentTransformBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (CenterFieldMask & whichField))
-        _sfCenter.syncWith(pOther->_sfCenter);
-
-    if(FieldBits::NoField != (RotationFieldMask & whichField))
-        _sfRotation.syncWith(pOther->_sfRotation);
-
-    if(FieldBits::NoField != (ScaleFieldMask & whichField))
-        _sfScale.syncWith(pOther->_sfScale);
-
-    if(FieldBits::NoField != (ScaleOrientationFieldMask & whichField))
-        _sfScaleOrientation.syncWith(pOther->_sfScaleOrientation);
-
-    if(FieldBits::NoField != (TranslationFieldMask & whichField))
-        _sfTranslation.syncWith(pOther->_sfTranslation);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ComponentTransformBase::execSync (      ComponentTransformBase *pFrom,
@@ -291,16 +264,6 @@ void ComponentTransformBase::execSync (      ComponentTransformBase *pFrom,
 
     if(FieldBits::NoField != (TranslationFieldMask & whichField))
         _sfTranslation.syncWith(pFrom->_sfTranslation);
-}
-#endif
-
-#if 0
-inline
-void ComponentTransformBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

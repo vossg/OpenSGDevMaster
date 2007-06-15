@@ -383,70 +383,6 @@ void ChangeList::commitChangesAndClear(void)
 
 void ChangeList::doApply(void)
 {
-#ifdef OSG_MT_FIELDCONTAINERPTR
-    ChangedStoreIt      cIt  = _changedStore.begin();
-    ChangedStoreConstIt cEnd = _changedStore.end  ();
-
-#ifndef SILENT
-    fprintf(stderr, "CL apply %u -> %u\n",
-            _uiAspect,
-            Thread::getCurrentAspect());
-#endif
-
-    FieldContainerPtr pTmp;
-    BitVector syncMode = 0;
-
-    while(cIt != cEnd)
-    {
-        pTmp = FieldContainerFactory::the()->getContainer(
-            (*cIt)->uiContainerId);
-
-#ifndef SILENT
-        fprintf(stderr, "process changes for %d %s\n",
-                        (*cIt)->uiContainerId, pTmp->getType().getCName());
-#endif
-
-        if(pTmp != NullFC)
-        {
-            pTmp.getAspectCPtr(_uiAspect)->setChangeEntry(NULL);
-
-            if((*cIt)->uiEntryDesc == ContainerChangeEntry::Change)
-            {
-                executeSync(  pTmp,
-                             _uiAspect,
-                              Thread::getCurrentAspect(),
-                              (*cIt)->whichField,
-                              syncMode,
-                              0                         );
-            }
-            else if((*cIt)->uiEntryDesc == ContainerChangeEntry::AddReference)
-            {
-#ifndef SILENT
-                fprintf(stderr, "Execute add Ref for %d %s\n",
-                        (*cIt)->uiContainerId, pTmp->getType().getCName());
-#endif
-
-#ifdef OSG_ASPECT_REFCOUNT
-                pTmp.addAReference();
-#endif
-            }
-            else if(
-                (*cIt)->uiEntryDesc == ContainerChangeEntry::SubReference ||
-                (*cIt)->uiEntryDesc == ContainerChangeEntry::DepSubReference)
-            {
-#ifndef SILENT
-                fprintf(stderr, "Execute sub Ref for %d %s\n",
-                        (*cIt)->uiContainerId, pTmp->getType().getCName());
-#endif
-
-#ifdef OSG_ASPECT_REFCOUNT
-                pTmp.subAReference();
-#endif
-            }
-        }
-        ++cIt;
-    }
-#else
 #ifdef OSG_MT_CPTR_ASPECT
 
 
@@ -638,30 +574,10 @@ void ChangeList::doApply(void)
         ++cIt;
     }
 #endif
-#endif
 }
 
 void ChangeList::doClear(void)
 {
-#ifdef OSG_MT_FIELDCONTAINERPTR
-    ChangedStoreIt      cIt  = _changedStore.begin();
-    ChangedStoreConstIt cEnd = _changedStore.end  ();
-
-    FieldContainerPtr pTmp;
-
-    while(cIt != cEnd)
-    {
-        pTmp = FieldContainerFactory::the()->getContainer(
-            (*cIt)->uiContainerId);
-
-        if(pTmp != NullFC)
-        {
-            pTmp.getAspectCPtr(_uiAspect)->setChangeEntry(NULL);
-        }
-
-        ++cIt;
-    }
-#else
 #ifdef OSG_MT_CPTR_ASPECT
     ChangedStoreIt      cIt  = _changedStore.begin();
     ChangedStoreConstIt cEnd = _changedStore.end  ();
@@ -689,7 +605,6 @@ void ChangeList::doClear(void)
 
         ++cIt;
     }
-#endif
 #endif
 }
 

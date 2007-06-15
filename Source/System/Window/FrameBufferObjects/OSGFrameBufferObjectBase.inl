@@ -269,45 +269,6 @@ const MFGLenum &FrameBufferObjectBase::getDrawBuffers(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void FrameBufferObjectBase::execSync(      FrameBufferObjectBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
-        _sfGLId.syncWith(pOther->_sfGLId);
-
-    if(FieldBits::NoField != (ColorAttachmentsFieldMask & whichField))
-        _mfColorAttachments.syncWith(pOther->_mfColorAttachments,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (DrawBuffersFieldMask & whichField))
-        _mfDrawBuffers.syncWith(pOther->_mfDrawBuffers,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (DepthAttachmentFieldMask & whichField))
-        _sfDepthAttachment.syncWith(pOther->_sfDepthAttachment);
-
-    if(FieldBits::NoField != (StencilAttachmentFieldMask & whichField))
-        _sfStencilAttachment.syncWith(pOther->_sfStencilAttachment);
-
-    if(FieldBits::NoField != (WidthFieldMask & whichField))
-        _sfWidth.syncWith(pOther->_sfWidth);
-
-    if(FieldBits::NoField != (HeightFieldMask & whichField))
-        _sfHeight.syncWith(pOther->_sfHeight);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void FrameBufferObjectBase::execSync (      FrameBufferObjectBase *pFrom,
@@ -344,26 +305,6 @@ void FrameBufferObjectBase::execSync (      FrameBufferObjectBase *pFrom,
 
     if(FieldBits::NoField != (HeightFieldMask & whichField))
         _sfHeight.syncWith(pFrom->_sfHeight);
-}
-#endif
-
-#if 0
-inline
-void FrameBufferObjectBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ColorAttachmentsFieldMask & whichField))
-    {
-        _mfColorAttachments.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (DrawBuffersFieldMask & whichField))
-    {
-        _mfDrawBuffers.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

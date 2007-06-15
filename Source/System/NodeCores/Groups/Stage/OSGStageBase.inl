@@ -92,21 +92,6 @@ void StageBase::setRenderTarget(FrameBufferObjectPtrConstArg value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void StageBase::execSync(      StageBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
-        _sfRenderTarget.syncWith(pOther->_sfRenderTarget);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void StageBase::execSync (      StageBase *pFrom,
@@ -119,16 +104,6 @@ void StageBase::execSync (      StageBase *pFrom,
 
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
         _sfRenderTarget.syncWith(pFrom->_sfRenderTarget);
-}
-#endif
-
-#if 0
-inline
-void StageBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

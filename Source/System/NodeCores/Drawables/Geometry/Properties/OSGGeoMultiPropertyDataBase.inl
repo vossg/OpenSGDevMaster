@@ -155,27 +155,6 @@ const MFUInt8 &GeoMultiPropertyDataBase::getIData(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void GeoMultiPropertyDataBase::execSync(      GeoMultiPropertyDataBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (IDataFieldMask & whichField))
-        _mfIData.syncWith(pOther->_mfIData,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
-        _sfGLId.syncWith(pOther->_sfGLId);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void GeoMultiPropertyDataBase::execSync (      GeoMultiPropertyDataBase *pFrom,
@@ -194,21 +173,6 @@ void GeoMultiPropertyDataBase::execSync (      GeoMultiPropertyDataBase *pFrom,
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
         _sfGLId.syncWith(pFrom->_sfGLId);
-}
-#endif
-
-#if 0
-inline
-void GeoMultiPropertyDataBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (IDataFieldMask & whichField))
-    {
-        _mfIData.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

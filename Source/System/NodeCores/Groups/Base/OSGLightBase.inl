@@ -340,45 +340,6 @@ void LightBase::setLightEngine(LightEnginePtrConstArg value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void LightBase::execSync(      LightBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (AmbientFieldMask & whichField))
-        _sfAmbient.syncWith(pOther->_sfAmbient);
-
-    if(FieldBits::NoField != (DiffuseFieldMask & whichField))
-        _sfDiffuse.syncWith(pOther->_sfDiffuse);
-
-    if(FieldBits::NoField != (SpecularFieldMask & whichField))
-        _sfSpecular.syncWith(pOther->_sfSpecular);
-
-    if(FieldBits::NoField != (BeaconFieldMask & whichField))
-        _sfBeacon.syncWith(pOther->_sfBeacon);
-
-    if(FieldBits::NoField != (OnFieldMask & whichField))
-        _sfOn.syncWith(pOther->_sfOn);
-
-    if(FieldBits::NoField != (ConstantAttenuationFieldMask & whichField))
-        _sfConstantAttenuation.syncWith(pOther->_sfConstantAttenuation);
-
-    if(FieldBits::NoField != (LinearAttenuationFieldMask & whichField))
-        _sfLinearAttenuation.syncWith(pOther->_sfLinearAttenuation);
-
-    if(FieldBits::NoField != (QuadraticAttenuationFieldMask & whichField))
-        _sfQuadraticAttenuation.syncWith(pOther->_sfQuadraticAttenuation);
-
-    if(FieldBits::NoField != (LightEngineFieldMask & whichField))
-        _sfLightEngine.syncWith(pOther->_sfLightEngine);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void LightBase::execSync (      LightBase *pFrom,
@@ -415,16 +376,6 @@ void LightBase::execSync (      LightBase *pFrom,
 
     if(FieldBits::NoField != (LightEngineFieldMask & whichField))
         _sfLightEngine.syncWith(pFrom->_sfLightEngine);
-}
-#endif
-
-#if 0
-inline
-void LightBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

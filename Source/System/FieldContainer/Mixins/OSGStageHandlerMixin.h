@@ -246,13 +246,6 @@ class StageHandlerMixin  : public ParentT
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-    void execSync  (      Self              *pFrom,
-                          ConstFieldMaskArg  whichField,
-                          ConstFieldMaskArg  syncMode  ,
-                    const UInt32             uiSyncInfo,
-                          UInt32             uiCopyOffset);
-#endif
 #ifdef OSG_MT_CPTR_ASPECT
     void execSync  (      Self              *pFrom,
                           ConstFieldMaskArg  whichField,

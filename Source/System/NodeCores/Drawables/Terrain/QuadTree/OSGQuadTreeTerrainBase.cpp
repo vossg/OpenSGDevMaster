@@ -2065,21 +2065,6 @@ void QuadTreeTerrainBase::onCreate(const QuadTreeTerrain *source)
     }
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void QuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<QuadTreeTerrainBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void QuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -2095,14 +2080,6 @@ void QuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void QuadTreeTerrainBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr QuadTreeTerrainBase::createAspectCopy(void) const

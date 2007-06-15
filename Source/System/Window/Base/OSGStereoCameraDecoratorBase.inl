@@ -141,24 +141,6 @@ void StereoCameraDecoratorBase::setEyeSeparation(const Real32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void StereoCameraDecoratorBase::execSync(      StereoCameraDecoratorBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (LeftEyeFieldMask & whichField))
-        _sfLeftEye.syncWith(pOther->_sfLeftEye);
-
-    if(FieldBits::NoField != (EyeSeparationFieldMask & whichField))
-        _sfEyeSeparation.syncWith(pOther->_sfEyeSeparation);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void StereoCameraDecoratorBase::execSync (      StereoCameraDecoratorBase *pFrom,
@@ -174,16 +156,6 @@ void StereoCameraDecoratorBase::execSync (      StereoCameraDecoratorBase *pFrom
 
     if(FieldBits::NoField != (EyeSeparationFieldMask & whichField))
         _sfEyeSeparation.syncWith(pFrom->_sfEyeSeparation);
-}
-#endif
-
-#if 0
-inline
-void StereoCameraDecoratorBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

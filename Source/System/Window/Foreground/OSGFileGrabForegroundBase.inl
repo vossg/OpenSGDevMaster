@@ -174,27 +174,6 @@ void FileGrabForegroundBase::setIncrement(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void FileGrabForegroundBase::execSync(      FileGrabForegroundBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (NameFieldMask & whichField))
-        _sfName.syncWith(pOther->_sfName);
-
-    if(FieldBits::NoField != (FrameFieldMask & whichField))
-        _sfFrame.syncWith(pOther->_sfFrame);
-
-    if(FieldBits::NoField != (IncrementFieldMask & whichField))
-        _sfIncrement.syncWith(pOther->_sfIncrement);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void FileGrabForegroundBase::execSync (      FileGrabForegroundBase *pFrom,
@@ -213,16 +192,6 @@ void FileGrabForegroundBase::execSync (      FileGrabForegroundBase *pFrom,
 
     if(FieldBits::NoField != (IncrementFieldMask & whichField))
         _sfIncrement.syncWith(pFrom->_sfIncrement);
-}
-#endif
-
-#if 0
-inline
-void FileGrabForegroundBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

@@ -339,42 +339,6 @@ void BlendChunkBase::setAlphaDestFactor(const GLenum &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void BlendChunkBase::execSync(      BlendChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (SrcFactorFieldMask & whichField))
-        _sfSrcFactor.syncWith(pOther->_sfSrcFactor);
-
-    if(FieldBits::NoField != (DestFactorFieldMask & whichField))
-        _sfDestFactor.syncWith(pOther->_sfDestFactor);
-
-    if(FieldBits::NoField != (EquationFieldMask & whichField))
-        _sfEquation.syncWith(pOther->_sfEquation);
-
-    if(FieldBits::NoField != (ColorFieldMask & whichField))
-        _sfColor.syncWith(pOther->_sfColor);
-
-    if(FieldBits::NoField != (AlphaFuncFieldMask & whichField))
-        _sfAlphaFunc.syncWith(pOther->_sfAlphaFunc);
-
-    if(FieldBits::NoField != (AlphaValueFieldMask & whichField))
-        _sfAlphaValue.syncWith(pOther->_sfAlphaValue);
-
-    if(FieldBits::NoField != (AlphaSrcFactorFieldMask & whichField))
-        _sfAlphaSrcFactor.syncWith(pOther->_sfAlphaSrcFactor);
-
-    if(FieldBits::NoField != (AlphaDestFactorFieldMask & whichField))
-        _sfAlphaDestFactor.syncWith(pOther->_sfAlphaDestFactor);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void BlendChunkBase::execSync (      BlendChunkBase *pFrom,
@@ -408,16 +372,6 @@ void BlendChunkBase::execSync (      BlendChunkBase *pFrom,
 
     if(FieldBits::NoField != (AlphaDestFactorFieldMask & whichField))
         _sfAlphaDestFactor.syncWith(pFrom->_sfAlphaDestFactor);
-}
-#endif
-
-#if 0
-inline
-void BlendChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

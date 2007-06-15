@@ -240,33 +240,6 @@ void MultiDisplayWindowBase::setYOverlap(const Int32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void MultiDisplayWindowBase::execSync(      MultiDisplayWindowBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (HServersFieldMask & whichField))
-        _sfHServers.syncWith(pOther->_sfHServers);
-
-    if(FieldBits::NoField != (VServersFieldMask & whichField))
-        _sfVServers.syncWith(pOther->_sfVServers);
-
-    if(FieldBits::NoField != (ManageClientViewportsFieldMask & whichField))
-        _sfManageClientViewports.syncWith(pOther->_sfManageClientViewports);
-
-    if(FieldBits::NoField != (XOverlapFieldMask & whichField))
-        _sfXOverlap.syncWith(pOther->_sfXOverlap);
-
-    if(FieldBits::NoField != (YOverlapFieldMask & whichField))
-        _sfYOverlap.syncWith(pOther->_sfYOverlap);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void MultiDisplayWindowBase::execSync (      MultiDisplayWindowBase *pFrom,
@@ -291,16 +264,6 @@ void MultiDisplayWindowBase::execSync (      MultiDisplayWindowBase *pFrom,
 
     if(FieldBits::NoField != (YOverlapFieldMask & whichField))
         _sfYOverlap.syncWith(pFrom->_sfYOverlap);
-}
-#endif
-
-#if 0
-inline
-void MultiDisplayWindowBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

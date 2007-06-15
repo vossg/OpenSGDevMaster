@@ -141,24 +141,6 @@ void MaterialBase::setTransparencyMode(const Int32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void MaterialBase::execSync(      MaterialBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (SortKeyFieldMask & whichField))
-        _sfSortKey.syncWith(pOther->_sfSortKey);
-
-    if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
-        _sfTransparencyMode.syncWith(pOther->_sfTransparencyMode);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void MaterialBase::execSync (      MaterialBase *pFrom,
@@ -174,16 +156,6 @@ void MaterialBase::execSync (      MaterialBase *pFrom,
 
     if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
         _sfTransparencyMode.syncWith(pFrom->_sfTransparencyMode);
-}
-#endif
-
-#if 0
-inline
-void MaterialBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

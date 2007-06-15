@@ -405,48 +405,6 @@ void PointChunkBase::setRMode(const GLenum &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void PointChunkBase::execSync(      PointChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (SizeFieldMask & whichField))
-        _sfSize.syncWith(pOther->_sfSize);
-
-    if(FieldBits::NoField != (SmoothFieldMask & whichField))
-        _sfSmooth.syncWith(pOther->_sfSmooth);
-
-    if(FieldBits::NoField != (MinSizeFieldMask & whichField))
-        _sfMinSize.syncWith(pOther->_sfMinSize);
-
-    if(FieldBits::NoField != (MaxSizeFieldMask & whichField))
-        _sfMaxSize.syncWith(pOther->_sfMaxSize);
-
-    if(FieldBits::NoField != (ConstantAttenuationFieldMask & whichField))
-        _sfConstantAttenuation.syncWith(pOther->_sfConstantAttenuation);
-
-    if(FieldBits::NoField != (LinearAttenuationFieldMask & whichField))
-        _sfLinearAttenuation.syncWith(pOther->_sfLinearAttenuation);
-
-    if(FieldBits::NoField != (QuadraticAttenuationFieldMask & whichField))
-        _sfQuadraticAttenuation.syncWith(pOther->_sfQuadraticAttenuation);
-
-    if(FieldBits::NoField != (FadeThresholdFieldMask & whichField))
-        _sfFadeThreshold.syncWith(pOther->_sfFadeThreshold);
-
-    if(FieldBits::NoField != (SpriteFieldMask & whichField))
-        _sfSprite.syncWith(pOther->_sfSprite);
-
-    if(FieldBits::NoField != (RModeFieldMask & whichField))
-        _sfRMode.syncWith(pOther->_sfRMode);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void PointChunkBase::execSync (      PointChunkBase *pFrom,
@@ -486,16 +444,6 @@ void PointChunkBase::execSync (      PointChunkBase *pFrom,
 
     if(FieldBits::NoField != (RModeFieldMask & whichField))
         _sfRMode.syncWith(pFrom->_sfRMode);
-}
-#endif
-
-#if 0
-inline
-void PointChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

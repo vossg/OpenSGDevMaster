@@ -89,24 +89,6 @@ const MFShaderParameterPtr &ShaderParameterChunkBase::getParameters(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ShaderParameterChunkBase::execSync(      ShaderParameterChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ParametersFieldMask & whichField))
-        _mfParameters.syncWith(pOther->_mfParameters,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ShaderParameterChunkBase::execSync (      ShaderParameterChunkBase *pFrom,
@@ -122,21 +104,6 @@ void ShaderParameterChunkBase::execSync (      ShaderParameterChunkBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void ShaderParameterChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ParametersFieldMask & whichField))
-    {
-        _mfParameters.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

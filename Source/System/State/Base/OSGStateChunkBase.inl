@@ -108,21 +108,6 @@ void StateChunkBase::setIgnore(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void StateChunkBase::execSync(      StateChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (IgnoreFieldMask & whichField))
-        _sfIgnore.syncWith(pOther->_sfIgnore);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void StateChunkBase::execSync (      StateChunkBase *pFrom,
@@ -135,16 +120,6 @@ void StateChunkBase::execSync (      StateChunkBase *pFrom,
 
     if(FieldBits::NoField != (IgnoreFieldMask & whichField))
         _sfIgnore.syncWith(pFrom->_sfIgnore);
-}
-#endif
-
-#if 0
-inline
-void StateChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

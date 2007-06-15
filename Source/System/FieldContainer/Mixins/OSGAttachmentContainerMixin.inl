@@ -360,23 +360,6 @@ void AttachmentContainerMixin<ParentT>::dump(      UInt32    uiIndent,
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-template <class ParentT> inline
-void AttachmentContainerMixin<ParentT>::execSync(
-          Self              *pFrom,
-          ConstFieldMaskArg  whichField,
-          ConstFieldMaskArg  syncMode  ,
-    const UInt32             uiSyncInfo,
-          UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pFrom, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
-    {
-        _sfAttachments.syncWith(pFrom->_sfAttachments);
-    }
-}
-#endif
 #ifdef OSG_MT_CPTR_ASPECT
 template <class ParentT> inline
 void AttachmentContainerMixin<ParentT>::execSync(

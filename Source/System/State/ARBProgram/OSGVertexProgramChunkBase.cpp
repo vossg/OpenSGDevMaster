@@ -227,21 +227,6 @@ VertexProgramChunkBase::~VertexProgramChunkBase(void)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void VertexProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<VertexProgramChunkBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void VertexProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -257,14 +242,6 @@ void VertexProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void VertexProgramChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr VertexProgramChunkBase::createAspectCopy(void) const

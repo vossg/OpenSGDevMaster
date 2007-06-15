@@ -315,48 +315,6 @@ const MFUInt32 &WindowBase::getGlObjectLastReinitialize(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void WindowBase::execSync(      WindowBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (WidthFieldMask & whichField))
-        _sfWidth.syncWith(pOther->_sfWidth);
-
-    if(FieldBits::NoField != (HeightFieldMask & whichField))
-        _sfHeight.syncWith(pOther->_sfHeight);
-
-    if(FieldBits::NoField != (PortFieldMask & whichField))
-        _mfPort.syncWith(pOther->_mfPort,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (ResizePendingFieldMask & whichField))
-        _sfResizePending.syncWith(pOther->_sfResizePending);
-
-    if(FieldBits::NoField != (GlObjectEventCounterFieldMask & whichField))
-        _sfGlObjectEventCounter.syncWith(pOther->_sfGlObjectEventCounter);
-
-    if(FieldBits::NoField != (GlObjectLastRefreshFieldMask & whichField))
-        _mfGlObjectLastRefresh.syncWith(pOther->_mfGlObjectLastRefresh,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (GlObjectLastReinitializeFieldMask & whichField))
-        _mfGlObjectLastReinitialize.syncWith(pOther->_mfGlObjectLastReinitialize,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void WindowBase::execSync (      WindowBase *pFrom,
@@ -396,31 +354,6 @@ void WindowBase::execSync (      WindowBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void WindowBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (PortFieldMask & whichField))
-    {
-        _mfPort.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (GlObjectLastRefreshFieldMask & whichField))
-    {
-        _mfGlObjectLastRefresh.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (GlObjectLastReinitializeFieldMask & whichField))
-    {
-        _mfGlObjectLastReinitialize.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

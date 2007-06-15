@@ -46,10 +46,6 @@
 #include "OSGStatElemTypes.h"
 #include "OSGImageComposer.h"
 
-#ifndef OSG_MT_FIELDCONTAINERPTR
-#include "OSGImageComposer.h"
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 class StatCollector;

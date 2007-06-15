@@ -795,21 +795,6 @@ StencilChunkBase::~StencilChunkBase(void)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void StencilChunkBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<StencilChunkBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void StencilChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -825,14 +810,6 @@ void StencilChunkBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void StencilChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr StencilChunkBase::createAspectCopy(void) const

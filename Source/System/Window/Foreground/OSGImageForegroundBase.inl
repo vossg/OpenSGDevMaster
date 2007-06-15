@@ -136,30 +136,6 @@ const MFPnt2f &ImageForegroundBase::getPositions(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ImageForegroundBase::execSync(      ImageForegroundBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ImagesFieldMask & whichField))
-        _mfImages.syncWith(pOther->_mfImages,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _mfPositions.syncWith(pOther->_mfPositions,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ImageForegroundBase::execSync (      ImageForegroundBase *pFrom,
@@ -181,26 +157,6 @@ void ImageForegroundBase::execSync (      ImageForegroundBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void ImageForegroundBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ImagesFieldMask & whichField))
-    {
-        _mfImages.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (PositionsFieldMask & whichField))
-    {
-        _mfPositions.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

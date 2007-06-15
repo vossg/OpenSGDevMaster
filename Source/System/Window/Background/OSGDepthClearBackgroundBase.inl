@@ -108,21 +108,6 @@ void DepthClearBackgroundBase::setClearDepth(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void DepthClearBackgroundBase::execSync(      DepthClearBackgroundBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
-        _sfClearDepth.syncWith(pOther->_sfClearDepth);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void DepthClearBackgroundBase::execSync (      DepthClearBackgroundBase *pFrom,
@@ -135,16 +120,6 @@ void DepthClearBackgroundBase::execSync (      DepthClearBackgroundBase *pFrom,
 
     if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
         _sfClearDepth.syncWith(pFrom->_sfClearDepth);
-}
-#endif
-
-#if 0
-inline
-void DepthClearBackgroundBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

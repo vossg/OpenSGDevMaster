@@ -224,33 +224,6 @@ void SimpleTexturedMaterialBase::setEnvMap(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void SimpleTexturedMaterialBase::execSync(      SimpleTexturedMaterialBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ImageFieldMask & whichField))
-        _sfImage.syncWith(pOther->_sfImage);
-
-    if(FieldBits::NoField != (MinFilterFieldMask & whichField))
-        _sfMinFilter.syncWith(pOther->_sfMinFilter);
-
-    if(FieldBits::NoField != (MagFilterFieldMask & whichField))
-        _sfMagFilter.syncWith(pOther->_sfMagFilter);
-
-    if(FieldBits::NoField != (EnvModeFieldMask & whichField))
-        _sfEnvMode.syncWith(pOther->_sfEnvMode);
-
-    if(FieldBits::NoField != (EnvMapFieldMask & whichField))
-        _sfEnvMap.syncWith(pOther->_sfEnvMap);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SimpleTexturedMaterialBase::execSync (      SimpleTexturedMaterialBase *pFrom,
@@ -275,16 +248,6 @@ void SimpleTexturedMaterialBase::execSync (      SimpleTexturedMaterialBase *pFr
 
     if(FieldBits::NoField != (EnvMapFieldMask & whichField))
         _sfEnvMap.syncWith(pFrom->_sfEnvMap);
-}
-#endif
-
-#if 0
-inline
-void SimpleTexturedMaterialBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

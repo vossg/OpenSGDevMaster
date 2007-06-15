@@ -122,27 +122,6 @@ const MFFieldContainerPtr &ContainerPoolBase::getContainers(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ContainerPoolBase::execSync(      ContainerPoolBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (NameFieldMask & whichField))
-        _sfName.syncWith(pOther->_sfName);
-
-    if(FieldBits::NoField != (ContainersFieldMask & whichField))
-        _mfContainers.syncWith(pOther->_mfContainers,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ContainerPoolBase::execSync (      ContainerPoolBase *pFrom,
@@ -161,21 +140,6 @@ void ContainerPoolBase::execSync (      ContainerPoolBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void ContainerPoolBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ContainersFieldMask & whichField))
-    {
-        _mfContainers.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

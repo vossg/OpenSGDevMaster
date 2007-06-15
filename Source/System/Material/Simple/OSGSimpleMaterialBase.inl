@@ -339,42 +339,6 @@ void SimpleMaterialBase::setColorMaterial(const GLenum &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void SimpleMaterialBase::execSync(      SimpleMaterialBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (AmbientFieldMask & whichField))
-        _sfAmbient.syncWith(pOther->_sfAmbient);
-
-    if(FieldBits::NoField != (DiffuseFieldMask & whichField))
-        _sfDiffuse.syncWith(pOther->_sfDiffuse);
-
-    if(FieldBits::NoField != (SpecularFieldMask & whichField))
-        _sfSpecular.syncWith(pOther->_sfSpecular);
-
-    if(FieldBits::NoField != (ShininessFieldMask & whichField))
-        _sfShininess.syncWith(pOther->_sfShininess);
-
-    if(FieldBits::NoField != (EmissionFieldMask & whichField))
-        _sfEmission.syncWith(pOther->_sfEmission);
-
-    if(FieldBits::NoField != (TransparencyFieldMask & whichField))
-        _sfTransparency.syncWith(pOther->_sfTransparency);
-
-    if(FieldBits::NoField != (LitFieldMask & whichField))
-        _sfLit.syncWith(pOther->_sfLit);
-
-    if(FieldBits::NoField != (ColorMaterialFieldMask & whichField))
-        _sfColorMaterial.syncWith(pOther->_sfColorMaterial);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SimpleMaterialBase::execSync (      SimpleMaterialBase *pFrom,
@@ -408,16 +372,6 @@ void SimpleMaterialBase::execSync (      SimpleMaterialBase *pFrom,
 
     if(FieldBits::NoField != (ColorMaterialFieldMask & whichField))
         _sfColorMaterial.syncWith(pFrom->_sfColorMaterial);
-}
-#endif
-
-#if 0
-inline
-void SimpleMaterialBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

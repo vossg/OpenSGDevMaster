@@ -136,30 +136,6 @@ const MFInt32 &ChunkMaterialBase::getSlots(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ChunkMaterialBase::execSync(      ChunkMaterialBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ChunksFieldMask & whichField))
-        _mfChunks.syncWith(pOther->_mfChunks,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (SlotsFieldMask & whichField))
-        _mfSlots.syncWith(pOther->_mfSlots,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ChunkMaterialBase::execSync (      ChunkMaterialBase *pFrom,
@@ -181,26 +157,6 @@ void ChunkMaterialBase::execSync (      ChunkMaterialBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void ChunkMaterialBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ChunksFieldMask & whichField))
-    {
-        _mfChunks.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (SlotsFieldMask & whichField))
-    {
-        _mfSlots.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

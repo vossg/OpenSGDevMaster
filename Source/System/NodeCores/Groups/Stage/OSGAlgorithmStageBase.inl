@@ -158,27 +158,6 @@ void AlgorithmStageBase::setProjectionMatrix(const Matrix &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void AlgorithmStageBase::execSync(      AlgorithmStageBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
-        _sfAlgorithm.syncWith(pOther->_sfAlgorithm);
-
-    if(FieldBits::NoField != (ProjectionModeFieldMask & whichField))
-        _sfProjectionMode.syncWith(pOther->_sfProjectionMode);
-
-    if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
-        _sfProjectionMatrix.syncWith(pOther->_sfProjectionMatrix);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void AlgorithmStageBase::execSync (      AlgorithmStageBase *pFrom,
@@ -197,16 +176,6 @@ void AlgorithmStageBase::execSync (      AlgorithmStageBase *pFrom,
 
     if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
         _sfProjectionMatrix.syncWith(pFrom->_sfProjectionMatrix);
-}
-#endif
-
-#if 0
-inline
-void AlgorithmStageBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

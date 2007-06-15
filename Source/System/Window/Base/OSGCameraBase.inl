@@ -72,27 +72,6 @@ OSG::UInt16 CameraBase::getClassGroupId(void)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void CameraBase::execSync(      CameraBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (BeaconFieldMask & whichField))
-        _sfBeacon.syncWith(pOther->_sfBeacon);
-
-    if(FieldBits::NoField != (NearFieldMask & whichField))
-        _sfNear.syncWith(pOther->_sfNear);
-
-    if(FieldBits::NoField != (FarFieldMask & whichField))
-        _sfFar.syncWith(pOther->_sfFar);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void CameraBase::execSync (      CameraBase *pFrom,
@@ -111,16 +90,6 @@ void CameraBase::execSync (      CameraBase *pFrom,
 
     if(FieldBits::NoField != (FarFieldMask & whichField))
         _sfFar.syncWith(pFrom->_sfFar);
-}
-#endif
-
-#if 0
-inline
-void CameraBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

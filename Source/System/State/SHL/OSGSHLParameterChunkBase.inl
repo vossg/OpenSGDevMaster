@@ -92,21 +92,6 @@ void SHLParameterChunkBase::setSHLChunk(SHLChunkPtrConstArg value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void SHLParameterChunkBase::execSync(      SHLParameterChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (SHLChunkFieldMask & whichField))
-        _sfSHLChunk.syncWith(pOther->_sfSHLChunk);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SHLParameterChunkBase::execSync (      SHLParameterChunkBase *pFrom,
@@ -119,16 +104,6 @@ void SHLParameterChunkBase::execSync (      SHLParameterChunkBase *pFrom,
 
     if(FieldBits::NoField != (SHLChunkFieldMask & whichField))
         _sfSHLChunk.syncWith(pFrom->_sfSHLChunk);
-}
-#endif
-
-#if 0
-inline
-void SHLParameterChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

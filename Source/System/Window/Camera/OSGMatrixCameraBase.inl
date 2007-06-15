@@ -141,24 +141,6 @@ void MatrixCameraBase::setModelviewMatrix(const Matrix &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void MatrixCameraBase::execSync(      MatrixCameraBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
-        _sfProjectionMatrix.syncWith(pOther->_sfProjectionMatrix);
-
-    if(FieldBits::NoField != (ModelviewMatrixFieldMask & whichField))
-        _sfModelviewMatrix.syncWith(pOther->_sfModelviewMatrix);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void MatrixCameraBase::execSync (      MatrixCameraBase *pFrom,
@@ -174,16 +156,6 @@ void MatrixCameraBase::execSync (      MatrixCameraBase *pFrom,
 
     if(FieldBits::NoField != (ModelviewMatrixFieldMask & whichField))
         _sfModelviewMatrix.syncWith(pFrom->_sfModelviewMatrix);
-}
-#endif
-
-#if 0
-inline
-void MatrixCameraBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

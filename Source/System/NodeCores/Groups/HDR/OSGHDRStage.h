@@ -49,12 +49,6 @@
 #include "OSGHDRStageDataFields.h"
 #include "OSGSHLChunk.h"
 
-#ifndef OSG_MT_FIELDCONTAINERPTR
-#include "OSGChunkMaterial.h"
-#include "OSGSHLChunk.h"
-#include "OSGAlgorithm.h"
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 class DrawEnv;

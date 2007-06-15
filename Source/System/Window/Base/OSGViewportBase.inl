@@ -338,54 +338,6 @@ const MFForegroundPtr &ViewportBase::getForegrounds(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ViewportBase::execSync(      ViewportBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (LeftFieldMask & whichField))
-        _sfLeft.syncWith(pOther->_sfLeft);
-
-    if(FieldBits::NoField != (RightFieldMask & whichField))
-        _sfRight.syncWith(pOther->_sfRight);
-
-    if(FieldBits::NoField != (BottomFieldMask & whichField))
-        _sfBottom.syncWith(pOther->_sfBottom);
-
-    if(FieldBits::NoField != (TopFieldMask & whichField))
-        _sfTop.syncWith(pOther->_sfTop);
-
-    if(FieldBits::NoField != (ParentFieldMask & whichField))
-        _sfParent.syncWith(pOther->_sfParent);
-
-    if(FieldBits::NoField != (CameraFieldMask & whichField))
-        _sfCamera.syncWith(pOther->_sfCamera);
-
-    if(FieldBits::NoField != (RootFieldMask & whichField))
-        _sfRoot.syncWith(pOther->_sfRoot);
-
-    if(FieldBits::NoField != (BackgroundFieldMask & whichField))
-        _sfBackground.syncWith(pOther->_sfBackground);
-
-    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
-        _mfForegrounds.syncWith(pOther->_mfForegrounds,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
-        _sfTravMask.syncWith(pOther->_sfTravMask);
-
-    if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
-        _sfDrawTime.syncWith(pOther->_sfDrawTime);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ViewportBase::execSync (      ViewportBase *pFrom,
@@ -431,21 +383,6 @@ void ViewportBase::execSync (      ViewportBase *pFrom,
 
     if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
         _sfDrawTime.syncWith(pFrom->_sfDrawTime);
-}
-#endif
-
-#if 0
-inline
-void ViewportBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
-    {
-        _mfForegrounds.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

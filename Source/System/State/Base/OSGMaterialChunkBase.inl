@@ -537,60 +537,6 @@ void MaterialChunkBase::setBackColorMaterial(const GLenum &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void MaterialChunkBase::execSync(      MaterialChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (DiffuseFieldMask & whichField))
-        _sfDiffuse.syncWith(pOther->_sfDiffuse);
-
-    if(FieldBits::NoField != (AmbientFieldMask & whichField))
-        _sfAmbient.syncWith(pOther->_sfAmbient);
-
-    if(FieldBits::NoField != (SpecularFieldMask & whichField))
-        _sfSpecular.syncWith(pOther->_sfSpecular);
-
-    if(FieldBits::NoField != (EmissionFieldMask & whichField))
-        _sfEmission.syncWith(pOther->_sfEmission);
-
-    if(FieldBits::NoField != (ShininessFieldMask & whichField))
-        _sfShininess.syncWith(pOther->_sfShininess);
-
-    if(FieldBits::NoField != (LitFieldMask & whichField))
-        _sfLit.syncWith(pOther->_sfLit);
-
-    if(FieldBits::NoField != (ColorMaterialFieldMask & whichField))
-        _sfColorMaterial.syncWith(pOther->_sfColorMaterial);
-
-    if(FieldBits::NoField != (BackMaterialFieldMask & whichField))
-        _sfBackMaterial.syncWith(pOther->_sfBackMaterial);
-
-    if(FieldBits::NoField != (BackDiffuseFieldMask & whichField))
-        _sfBackDiffuse.syncWith(pOther->_sfBackDiffuse);
-
-    if(FieldBits::NoField != (BackAmbientFieldMask & whichField))
-        _sfBackAmbient.syncWith(pOther->_sfBackAmbient);
-
-    if(FieldBits::NoField != (BackSpecularFieldMask & whichField))
-        _sfBackSpecular.syncWith(pOther->_sfBackSpecular);
-
-    if(FieldBits::NoField != (BackEmissionFieldMask & whichField))
-        _sfBackEmission.syncWith(pOther->_sfBackEmission);
-
-    if(FieldBits::NoField != (BackShininessFieldMask & whichField))
-        _sfBackShininess.syncWith(pOther->_sfBackShininess);
-
-    if(FieldBits::NoField != (BackColorMaterialFieldMask & whichField))
-        _sfBackColorMaterial.syncWith(pOther->_sfBackColorMaterial);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void MaterialChunkBase::execSync (      MaterialChunkBase *pFrom,
@@ -642,16 +588,6 @@ void MaterialChunkBase::execSync (      MaterialChunkBase *pFrom,
 
     if(FieldBits::NoField != (BackColorMaterialFieldMask & whichField))
         _sfBackColorMaterial.syncWith(pFrom->_sfBackColorMaterial);
-}
-#endif
-
-#if 0
-inline
-void MaterialChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

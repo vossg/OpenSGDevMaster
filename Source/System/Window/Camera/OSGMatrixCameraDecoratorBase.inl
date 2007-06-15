@@ -273,36 +273,6 @@ void MatrixCameraDecoratorBase::setPostProjection(const Matrix &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void MatrixCameraDecoratorBase::execSync(      MatrixCameraDecoratorBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (PreViewingFieldMask & whichField))
-        _sfPreViewing.syncWith(pOther->_sfPreViewing);
-
-    if(FieldBits::NoField != (PostViewingFieldMask & whichField))
-        _sfPostViewing.syncWith(pOther->_sfPostViewing);
-
-    if(FieldBits::NoField != (PreProjectionTranslationFieldMask & whichField))
-        _sfPreProjectionTranslation.syncWith(pOther->_sfPreProjectionTranslation);
-
-    if(FieldBits::NoField != (PostProjectionTranslationFieldMask & whichField))
-        _sfPostProjectionTranslation.syncWith(pOther->_sfPostProjectionTranslation);
-
-    if(FieldBits::NoField != (PreProjectionFieldMask & whichField))
-        _sfPreProjection.syncWith(pOther->_sfPreProjection);
-
-    if(FieldBits::NoField != (PostProjectionFieldMask & whichField))
-        _sfPostProjection.syncWith(pOther->_sfPostProjection);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void MatrixCameraDecoratorBase::execSync (      MatrixCameraDecoratorBase *pFrom,
@@ -330,16 +300,6 @@ void MatrixCameraDecoratorBase::execSync (      MatrixCameraDecoratorBase *pFrom
 
     if(FieldBits::NoField != (PostProjectionFieldMask & whichField))
         _sfPostProjection.syncWith(pFrom->_sfPostProjection);
-}
-#endif
-
-#if 0
-inline
-void MatrixCameraDecoratorBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

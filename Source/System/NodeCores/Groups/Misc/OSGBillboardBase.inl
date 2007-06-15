@@ -240,33 +240,6 @@ void BillboardBase::setMaxAngle(const Real32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void BillboardBase::execSync(      BillboardBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (AxisOfRotationFieldMask & whichField))
-        _sfAxisOfRotation.syncWith(pOther->_sfAxisOfRotation);
-
-    if(FieldBits::NoField != (FocusOnCameraFieldMask & whichField))
-        _sfFocusOnCamera.syncWith(pOther->_sfFocusOnCamera);
-
-    if(FieldBits::NoField != (AlignToScreenFieldMask & whichField))
-        _sfAlignToScreen.syncWith(pOther->_sfAlignToScreen);
-
-    if(FieldBits::NoField != (MinAngleFieldMask & whichField))
-        _sfMinAngle.syncWith(pOther->_sfMinAngle);
-
-    if(FieldBits::NoField != (MaxAngleFieldMask & whichField))
-        _sfMaxAngle.syncWith(pOther->_sfMaxAngle);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void BillboardBase::execSync (      BillboardBase *pFrom,
@@ -291,16 +264,6 @@ void BillboardBase::execSync (      BillboardBase *pFrom,
 
     if(FieldBits::NoField != (MaxAngleFieldMask & whichField))
         _sfMaxAngle.syncWith(pFrom->_sfMaxAngle);
-}
-#endif
-
-#if 0
-inline
-void BillboardBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

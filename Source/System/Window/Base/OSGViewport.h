@@ -45,11 +45,8 @@
 
 #include "OSGViewportBase.h"
 #include "OSGWindowFields.h"
-
-#ifndef OSG_MT_FIELDCONTAINERPTR
+#include "OSGBackground.h"
 #include "OSGCamera.h"
-#include "OSGWindow.h"
-#endif
 
 OSG_BEGIN_NAMESPACE
 

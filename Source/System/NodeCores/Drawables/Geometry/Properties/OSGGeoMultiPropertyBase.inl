@@ -290,39 +290,6 @@ void GeoMultiPropertyBase::setIStride(const UInt32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void GeoMultiPropertyBase::execSync(      GeoMultiPropertyBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ContainerFieldMask & whichField))
-        _sfContainer.syncWith(pOther->_sfContainer);
-
-    if(FieldBits::NoField != (OffsetFieldMask & whichField))
-        _sfOffset.syncWith(pOther->_sfOffset);
-
-    if(FieldBits::NoField != (IFormatFieldMask & whichField))
-        _sfIFormat.syncWith(pOther->_sfIFormat);
-
-    if(FieldBits::NoField != (IDimensionFieldMask & whichField))
-        _sfIDimension.syncWith(pOther->_sfIDimension);
-
-    if(FieldBits::NoField != (ISizeFieldMask & whichField))
-        _sfISize.syncWith(pOther->_sfISize);
-
-    if(FieldBits::NoField != (INormalizeFieldMask & whichField))
-        _sfINormalize.syncWith(pOther->_sfINormalize);
-
-    if(FieldBits::NoField != (IStrideFieldMask & whichField))
-        _sfIStride.syncWith(pOther->_sfIStride);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void GeoMultiPropertyBase::execSync (      GeoMultiPropertyBase *pFrom,
@@ -353,16 +320,6 @@ void GeoMultiPropertyBase::execSync (      GeoMultiPropertyBase *pFrom,
 
     if(FieldBits::NoField != (IStrideFieldMask & whichField))
         _sfIStride.syncWith(pFrom->_sfIStride);
-}
-#endif
-
-#if 0
-inline
-void GeoMultiPropertyBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

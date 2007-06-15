@@ -105,35 +105,6 @@ RefPtr<ContainerPtr> &RefPtr<ContainerPtr>::operator =(const RefPtr &refPtr)
     return *this;
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-template<class ContainerPtr> inline
-RefPtr<ContainerPtr>& RefPtr<ContainerPtr>::operator =(
-    const NilFieldContainerPtr&)
-{
-    setRef(NullFC);
-    
-    return *this;
-}
-
-template<class ContainerPtr> inline
-bool RefPtr<ContainerPtr>::operator < (const NilFieldContainerPtr&) const
-{
-    return false;
-}
-
-template<class ContainerPtr> inline
-bool RefPtr<ContainerPtr>::operator ==(const NilFieldContainerPtr&) const
-{
-    return _pRef == NullFC;
-}
-
-template<class ContainerPtr> inline
-bool RefPtr<ContainerPtr>::operator !=(const NilFieldContainerPtr&) const
-{
-    return _pRef != NullFC;
-}
-#endif
-
 template<class ContainerPtr> inline
 bool RefPtr<ContainerPtr>::operator < (const FieldContainerPtr &other) const
 {

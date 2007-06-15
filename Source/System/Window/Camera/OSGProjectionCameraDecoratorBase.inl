@@ -304,42 +304,6 @@ const MFPnt3f &ProjectionCameraDecoratorBase::getSurface(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ProjectionCameraDecoratorBase::execSync(      ProjectionCameraDecoratorBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (UserFieldMask & whichField))
-        _sfUser.syncWith(pOther->_sfUser);
-
-    if(FieldBits::NoField != (SurfaceFieldMask & whichField))
-        _mfSurface.syncWith(pOther->_mfSurface,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (LeftFieldMask & whichField))
-        _sfLeft.syncWith(pOther->_sfLeft);
-
-    if(FieldBits::NoField != (BottomFieldMask & whichField))
-        _sfBottom.syncWith(pOther->_sfBottom);
-
-    if(FieldBits::NoField != (NormalFieldMask & whichField))
-        _sfNormal.syncWith(pOther->_sfNormal);
-
-    if(FieldBits::NoField != (WidthFieldMask & whichField))
-        _sfWidth.syncWith(pOther->_sfWidth);
-
-    if(FieldBits::NoField != (HeightFieldMask & whichField))
-        _sfHeight.syncWith(pOther->_sfHeight);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ProjectionCameraDecoratorBase::execSync (      ProjectionCameraDecoratorBase *pFrom,
@@ -373,21 +337,6 @@ void ProjectionCameraDecoratorBase::execSync (      ProjectionCameraDecoratorBas
 
     if(FieldBits::NoField != (HeightFieldMask & whichField))
         _sfHeight.syncWith(pFrom->_sfHeight);
-}
-#endif
-
-#if 0
-inline
-void ProjectionCameraDecoratorBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (SurfaceFieldMask & whichField))
-    {
-        _mfSurface.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

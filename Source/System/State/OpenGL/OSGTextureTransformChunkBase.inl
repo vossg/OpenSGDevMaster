@@ -108,21 +108,6 @@ void TextureTransformChunkBase::setUseCameraBeacon(const bool &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TextureTransformChunkBase::execSync(      TextureTransformChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (UseCameraBeaconFieldMask & whichField))
-        _sfUseCameraBeacon.syncWith(pOther->_sfUseCameraBeacon);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TextureTransformChunkBase::execSync (      TextureTransformChunkBase *pFrom,
@@ -135,16 +120,6 @@ void TextureTransformChunkBase::execSync (      TextureTransformChunkBase *pFrom
 
     if(FieldBits::NoField != (UseCameraBeaconFieldMask & whichField))
         _sfUseCameraBeacon.syncWith(pFrom->_sfUseCameraBeacon);
-}
-#endif
-
-#if 0
-inline
-void TextureTransformChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

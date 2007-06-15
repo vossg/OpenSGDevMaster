@@ -452,54 +452,6 @@ const MFInt32 &PolygonChunkBase::getStipple(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void PolygonChunkBase::execSync(      PolygonChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (CullFaceFieldMask & whichField))
-        _sfCullFace.syncWith(pOther->_sfCullFace);
-
-    if(FieldBits::NoField != (FrontFaceFieldMask & whichField))
-        _sfFrontFace.syncWith(pOther->_sfFrontFace);
-
-    if(FieldBits::NoField != (FrontModeFieldMask & whichField))
-        _sfFrontMode.syncWith(pOther->_sfFrontMode);
-
-    if(FieldBits::NoField != (BackModeFieldMask & whichField))
-        _sfBackMode.syncWith(pOther->_sfBackMode);
-
-    if(FieldBits::NoField != (SmoothFieldMask & whichField))
-        _sfSmooth.syncWith(pOther->_sfSmooth);
-
-    if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
-        _sfOffsetFactor.syncWith(pOther->_sfOffsetFactor);
-
-    if(FieldBits::NoField != (OffsetBiasFieldMask & whichField))
-        _sfOffsetBias.syncWith(pOther->_sfOffsetBias);
-
-    if(FieldBits::NoField != (OffsetPointFieldMask & whichField))
-        _sfOffsetPoint.syncWith(pOther->_sfOffsetPoint);
-
-    if(FieldBits::NoField != (OffsetLineFieldMask & whichField))
-        _sfOffsetLine.syncWith(pOther->_sfOffsetLine);
-
-    if(FieldBits::NoField != (OffsetFillFieldMask & whichField))
-        _sfOffsetFill.syncWith(pOther->_sfOffsetFill);
-
-    if(FieldBits::NoField != (StippleFieldMask & whichField))
-        _mfStipple.syncWith(pOther->_mfStipple,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void PolygonChunkBase::execSync (      PolygonChunkBase *pFrom,
@@ -545,21 +497,6 @@ void PolygonChunkBase::execSync (      PolygonChunkBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void PolygonChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (StippleFieldMask & whichField))
-    {
-        _mfStipple.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

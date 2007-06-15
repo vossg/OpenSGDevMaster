@@ -141,24 +141,6 @@ void BackgroundBase::setDepth(const Real32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void BackgroundBase::execSync(      BackgroundBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ClearStencilBitFieldMask & whichField))
-        _sfClearStencilBit.syncWith(pOther->_sfClearStencilBit);
-
-    if(FieldBits::NoField != (DepthFieldMask & whichField))
-        _sfDepth.syncWith(pOther->_sfDepth);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void BackgroundBase::execSync (      BackgroundBase *pFrom,
@@ -174,16 +156,6 @@ void BackgroundBase::execSync (      BackgroundBase *pFrom,
 
     if(FieldBits::NoField != (DepthFieldMask & whichField))
         _sfDepth.syncWith(pFrom->_sfDepth);
-}
-#endif
-
-#if 0
-inline
-void BackgroundBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

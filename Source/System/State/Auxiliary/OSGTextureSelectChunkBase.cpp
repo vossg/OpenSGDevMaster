@@ -574,21 +574,6 @@ void TextureSelectChunkBase::onCreate(const TextureSelectChunk *source)
     }
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void TextureSelectChunkBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<TextureSelectChunkBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void TextureSelectChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -604,14 +589,6 @@ void TextureSelectChunkBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void TextureSelectChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TextureSelectChunkBase::createAspectCopy(void) const

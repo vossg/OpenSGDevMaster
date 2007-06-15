@@ -273,36 +273,6 @@ void HDRStageBase::setBufferFormat(const GLenum &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void HDRStageBase::execSync(      HDRStageBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ExposureFieldMask & whichField))
-        _sfExposure.syncWith(pOther->_sfExposure);
-
-    if(FieldBits::NoField != (BlurWidthFieldMask & whichField))
-        _sfBlurWidth.syncWith(pOther->_sfBlurWidth);
-
-    if(FieldBits::NoField != (BlurAmountFieldMask & whichField))
-        _sfBlurAmount.syncWith(pOther->_sfBlurAmount);
-
-    if(FieldBits::NoField != (EffectAmountFieldMask & whichField))
-        _sfEffectAmount.syncWith(pOther->_sfEffectAmount);
-
-    if(FieldBits::NoField != (GammaFieldMask & whichField))
-        _sfGamma.syncWith(pOther->_sfGamma);
-
-    if(FieldBits::NoField != (BufferFormatFieldMask & whichField))
-        _sfBufferFormat.syncWith(pOther->_sfBufferFormat);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void HDRStageBase::execSync (      HDRStageBase *pFrom,
@@ -330,16 +300,6 @@ void HDRStageBase::execSync (      HDRStageBase *pFrom,
 
     if(FieldBits::NoField != (BufferFormatFieldMask & whichField))
         _sfBufferFormat.syncWith(pFrom->_sfBufferFormat);
-}
-#endif
-
-#if 0
-inline
-void HDRStageBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

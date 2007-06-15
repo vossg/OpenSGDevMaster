@@ -158,27 +158,6 @@ void ClipPlaneChunkBase::setBeacon(NodePtrConstArg value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ClipPlaneChunkBase::execSync(      ClipPlaneChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (EquationFieldMask & whichField))
-        _sfEquation.syncWith(pOther->_sfEquation);
-
-    if(FieldBits::NoField != (EnableFieldMask & whichField))
-        _sfEnable.syncWith(pOther->_sfEnable);
-
-    if(FieldBits::NoField != (BeaconFieldMask & whichField))
-        _sfBeacon.syncWith(pOther->_sfBeacon);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ClipPlaneChunkBase::execSync (      ClipPlaneChunkBase *pFrom,
@@ -197,16 +176,6 @@ void ClipPlaneChunkBase::execSync (      ClipPlaneChunkBase *pFrom,
 
     if(FieldBits::NoField != (BeaconFieldMask & whichField))
         _sfBeacon.syncWith(pFrom->_sfBeacon);
-}
-#endif
-
-#if 0
-inline
-void ClipPlaneChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

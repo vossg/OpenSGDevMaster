@@ -174,27 +174,6 @@ void ShaderChunkBase::setGeometryProgram(const std::string &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ShaderChunkBase::execSync(      ShaderChunkBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (VertexProgramFieldMask & whichField))
-        _sfVertexProgram.syncWith(pOther->_sfVertexProgram);
-
-    if(FieldBits::NoField != (FragmentProgramFieldMask & whichField))
-        _sfFragmentProgram.syncWith(pOther->_sfFragmentProgram);
-
-    if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
-        _sfGeometryProgram.syncWith(pOther->_sfGeometryProgram);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ShaderChunkBase::execSync (      ShaderChunkBase *pFrom,
@@ -213,16 +192,6 @@ void ShaderChunkBase::execSync (      ShaderChunkBase *pFrom,
 
     if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
         _sfGeometryProgram.syncWith(pFrom->_sfGeometryProgram);
-}
-#endif
-
-#if 0
-inline
-void ShaderChunkBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

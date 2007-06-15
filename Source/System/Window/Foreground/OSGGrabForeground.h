@@ -43,10 +43,7 @@
 #endif
 
 #include "OSGGrabForegroundBase.h"
-
-#ifndef OSG_MT_FIELDCONTAINERPTR
 #include "OSGImage.h"
-#endif
 
 OSG_BEGIN_NAMESPACE
 

@@ -108,21 +108,6 @@ void PointLightBase::setPosition(const Pnt3r &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void PointLightBase::execSync(      PointLightBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (PositionFieldMask & whichField))
-        _sfPosition.syncWith(pOther->_sfPosition);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void PointLightBase::execSync (      PointLightBase *pFrom,
@@ -135,16 +120,6 @@ void PointLightBase::execSync (      PointLightBase *pFrom,
 
     if(FieldBits::NoField != (PositionFieldMask & whichField))
         _sfPosition.syncWith(pFrom->_sfPosition);
-}
-#endif
-
-#if 0
-inline
-void PointLightBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

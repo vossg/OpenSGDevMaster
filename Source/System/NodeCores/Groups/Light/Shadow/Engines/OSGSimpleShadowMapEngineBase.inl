@@ -108,21 +108,6 @@ void SimpleShadowMapEngineBase::setForceTextureUnit(const Int32 &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void SimpleShadowMapEngineBase::execSync(      SimpleShadowMapEngineBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ForceTextureUnitFieldMask & whichField))
-        _sfForceTextureUnit.syncWith(pOther->_sfForceTextureUnit);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SimpleShadowMapEngineBase::execSync (      SimpleShadowMapEngineBase *pFrom,
@@ -135,16 +120,6 @@ void SimpleShadowMapEngineBase::execSync (      SimpleShadowMapEngineBase *pFrom
 
     if(FieldBits::NoField != (ForceTextureUnitFieldMask & whichField))
         _sfForceTextureUnit.syncWith(pFrom->_sfForceTextureUnit);
-}
-#endif
-
-#if 0
-inline
-void SimpleShadowMapEngineBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

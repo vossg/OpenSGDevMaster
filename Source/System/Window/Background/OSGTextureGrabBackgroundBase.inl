@@ -191,30 +191,6 @@ void TextureGrabBackgroundBase::setCopyTarget(const GLenum &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TextureGrabBackgroundBase::execSync(      TextureGrabBackgroundBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (TextureFieldMask & whichField))
-        _sfTexture.syncWith(pOther->_sfTexture);
-
-    if(FieldBits::NoField != (AutoResizeFieldMask & whichField))
-        _sfAutoResize.syncWith(pOther->_sfAutoResize);
-
-    if(FieldBits::NoField != (BindTargetFieldMask & whichField))
-        _sfBindTarget.syncWith(pOther->_sfBindTarget);
-
-    if(FieldBits::NoField != (CopyTargetFieldMask & whichField))
-        _sfCopyTarget.syncWith(pOther->_sfCopyTarget);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TextureGrabBackgroundBase::execSync (      TextureGrabBackgroundBase *pFrom,
@@ -236,16 +212,6 @@ void TextureGrabBackgroundBase::execSync (      TextureGrabBackgroundBase *pFrom
 
     if(FieldBits::NoField != (CopyTargetFieldMask & whichField))
         _sfCopyTarget.syncWith(pFrom->_sfCopyTarget);
-}
-#endif
-
-#if 0
-inline
-void TextureGrabBackgroundBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

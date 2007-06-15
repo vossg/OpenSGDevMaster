@@ -763,87 +763,6 @@ const MFUInt8 &ImageBase::getPixel(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ImageBase::execSync(      ImageBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
-        _mfParents.syncWith(pOther->_mfParents,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (DimensionFieldMask & whichField))
-        _sfDimension.syncWith(pOther->_sfDimension);
-
-    if(FieldBits::NoField != (WidthFieldMask & whichField))
-        _sfWidth.syncWith(pOther->_sfWidth);
-
-    if(FieldBits::NoField != (HeightFieldMask & whichField))
-        _sfHeight.syncWith(pOther->_sfHeight);
-
-    if(FieldBits::NoField != (DepthFieldMask & whichField))
-        _sfDepth.syncWith(pOther->_sfDepth);
-
-    if(FieldBits::NoField != (BppFieldMask & whichField))
-        _sfBpp.syncWith(pOther->_sfBpp);
-
-    if(FieldBits::NoField != (MipMapCountFieldMask & whichField))
-        _sfMipMapCount.syncWith(pOther->_sfMipMapCount);
-
-    if(FieldBits::NoField != (FrameCountFieldMask & whichField))
-        _sfFrameCount.syncWith(pOther->_sfFrameCount);
-
-    if(FieldBits::NoField != (FrameDelayFieldMask & whichField))
-        _sfFrameDelay.syncWith(pOther->_sfFrameDelay);
-
-    if(FieldBits::NoField != (PixelFormatFieldMask & whichField))
-        _sfPixelFormat.syncWith(pOther->_sfPixelFormat);
-
-    if(FieldBits::NoField != (PixelFieldMask & whichField))
-        _mfPixel.syncWith(pOther->_mfPixel,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (FrameSizeFieldMask & whichField))
-        _sfFrameSize.syncWith(pOther->_sfFrameSize);
-
-    if(FieldBits::NoField != (NameFieldMask & whichField))
-        _sfName.syncWith(pOther->_sfName);
-
-    if(FieldBits::NoField != (DataTypeFieldMask & whichField))
-        _sfDataType.syncWith(pOther->_sfDataType);
-
-    if(FieldBits::NoField != (ComponentSizeFieldMask & whichField))
-        _sfComponentSize.syncWith(pOther->_sfComponentSize);
-
-    if(FieldBits::NoField != (SideCountFieldMask & whichField))
-        _sfSideCount.syncWith(pOther->_sfSideCount);
-
-    if(FieldBits::NoField != (SideSizeFieldMask & whichField))
-        _sfSideSize.syncWith(pOther->_sfSideSize);
-
-    if(FieldBits::NoField != (ForceCompressedDataFieldMask & whichField))
-        _sfForceCompressedData.syncWith(pOther->_sfForceCompressedData);
-
-    if(FieldBits::NoField != (ForceAlphaChannelFieldMask & whichField))
-        _sfForceAlphaChannel.syncWith(pOther->_sfForceAlphaChannel);
-
-    if(FieldBits::NoField != (ForceColorChannelFieldMask & whichField))
-        _sfForceColorChannel.syncWith(pOther->_sfForceColorChannel);
-
-    if(FieldBits::NoField != (ForceAlphaBinaryFieldMask & whichField))
-        _sfForceAlphaBinary.syncWith(pOther->_sfForceAlphaBinary);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ImageBase::execSync (      ImageBase *pFrom,
@@ -922,26 +841,6 @@ void ImageBase::execSync (      ImageBase *pFrom,
 
     if(FieldBits::NoField != (ForceAlphaBinaryFieldMask & whichField))
         _sfForceAlphaBinary.syncWith(pFrom->_sfForceAlphaBinary);
-}
-#endif
-
-#if 0
-inline
-void ImageBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
-    {
-        _mfParents.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (PixelFieldMask & whichField))
-    {
-        _mfPixel.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

@@ -485,57 +485,6 @@ const MFString &SimpleStatisticsForegroundBase::getFormats(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void SimpleStatisticsForegroundBase::execSync(      SimpleStatisticsForegroundBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (FormatsFieldMask & whichField))
-        _mfFormats.syncWith(pOther->_mfFormats,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (SizeFieldMask & whichField))
-        _sfSize.syncWith(pOther->_sfSize);
-
-    if(FieldBits::NoField != (ColorFieldMask & whichField))
-        _sfColor.syncWith(pOther->_sfColor);
-
-    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
-        _sfShadowColor.syncWith(pOther->_sfShadowColor);
-
-    if(FieldBits::NoField != (BgColorFieldMask & whichField))
-        _sfBgColor.syncWith(pOther->_sfBgColor);
-
-    if(FieldBits::NoField != (FamilyFieldMask & whichField))
-        _sfFamily.syncWith(pOther->_sfFamily);
-
-    if(FieldBits::NoField != (ShadowOffsetFieldMask & whichField))
-        _sfShadowOffset.syncWith(pOther->_sfShadowOffset);
-
-    if(FieldBits::NoField != (HorizontalAlignFieldMask & whichField))
-        _sfHorizontalAlign.syncWith(pOther->_sfHorizontalAlign);
-
-    if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
-        _sfVerticalAlign.syncWith(pOther->_sfVerticalAlign);
-
-    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
-        _sfBorderColor.syncWith(pOther->_sfBorderColor);
-
-    if(FieldBits::NoField != (BorderOffsetFieldMask & whichField))
-        _sfBorderOffset.syncWith(pOther->_sfBorderOffset);
-
-    if(FieldBits::NoField != (TextMarginFieldMask & whichField))
-        _sfTextMargin.syncWith(pOther->_sfTextMargin);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SimpleStatisticsForegroundBase::execSync (      SimpleStatisticsForegroundBase *pFrom,
@@ -584,21 +533,6 @@ void SimpleStatisticsForegroundBase::execSync (      SimpleStatisticsForegroundB
 
     if(FieldBits::NoField != (TextMarginFieldMask & whichField))
         _sfTextMargin.syncWith(pFrom->_sfTextMargin);
-}
-#endif
-
-#if 0
-inline
-void SimpleStatisticsForegroundBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (FormatsFieldMask & whichField))
-    {
-        _mfFormats.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

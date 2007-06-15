@@ -270,29 +270,6 @@ DynFieldAttachment<AttachmentDescT>::~DynFieldAttachment(void)
     _localType.terminate();
 }
  
-#ifdef OSG_MT_FIELDCONTAINERPTR
-template <class AttachmentDescT> inline
-void DynFieldAttachment<AttachmentDescT>::execSyncV(
-          FieldContainer     &oFrom,
-          ConstFieldMaskArg   whichField,
-          ConstFieldMaskArg   syncMode  ,
-    const UInt32              uiSyncInfo,
-          UInt32              uiCopyOffset)
-{
-//    OSG_ASSERT(false);
-}
-
-#if 0
-template <class AttachmentDescT> inline
-void DynFieldAttachment<AttachmentDescT>::execBeginEditV(
-    ConstFieldMaskArg whichField, 
-    UInt32            uiAspect,
-    UInt32            uiContainerSize)
-{
-//    OSG_ASSERT(false);
-}
-#endif
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 template <class AttachmentDescT> inline
@@ -306,9 +283,7 @@ typename DynFieldAttachment<AttachmentDescT>::ObjPtr
 
     return returnValue;
 }
-#endif
 
-#ifdef OSG_MT_CPTR_ASPECT
 template <class AttachmentDescT> inline
 void DynFieldAttachment<AttachmentDescT>::execSyncV(
           FieldContainer     &oFrom,
@@ -317,7 +292,7 @@ void DynFieldAttachment<AttachmentDescT>::execSyncV(
           ConstFieldMaskArg   syncMode  ,
     const UInt32              uiSyncInfo)
 {
-    OSG_ASSERT(false);
+//    OSG_ASSERT(false);
 }
 
 template <class AttachmentDescT> inline
@@ -328,7 +303,7 @@ void DynFieldAttachment<AttachmentDescT>::execSync (
           ConstFieldMaskArg   syncMode  ,
     const UInt32              uiSyncInfo)
 {
-    OSG_ASSERT(false);
+//    OSG_ASSERT(false);
 }
 
 #endif

@@ -499,66 +499,6 @@ const MFMaterialPtr &TiledQuadTreeTerrainBase::getHeightTextures(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TiledQuadTreeTerrainBase::execSync(      TiledQuadTreeTerrainBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (HeightTilesFieldMask & whichField))
-        _mfHeightTiles.syncWith(pOther->_mfHeightTiles,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (HeightTexturesFieldMask & whichField))
-        _mfHeightTextures.syncWith(pOther->_mfHeightTextures,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (SizeXFieldMask & whichField))
-        _sfSizeX.syncWith(pOther->_sfSizeX);
-
-    if(FieldBits::NoField != (SizeYFieldMask & whichField))
-        _sfSizeY.syncWith(pOther->_sfSizeY);
-
-    if(FieldBits::NoField != (HeightScaleFieldMask & whichField))
-        _sfHeightScale.syncWith(pOther->_sfHeightScale);
-
-    if(FieldBits::NoField != (VertexSpacingFieldMask & whichField))
-        _sfVertexSpacing.syncWith(pOther->_sfVertexSpacing);
-
-    if(FieldBits::NoField != (GeoMorphingFieldMask & whichField))
-        _sfGeoMorphing.syncWith(pOther->_sfGeoMorphing);
-
-    if(FieldBits::NoField != (DetailFieldMask & whichField))
-        _sfDetail.syncWith(pOther->_sfDetail);
-
-    if(FieldBits::NoField != (CurrentXFieldMask & whichField))
-        _sfCurrentX.syncWith(pOther->_sfCurrentX);
-
-    if(FieldBits::NoField != (CurrentYFieldMask & whichField))
-        _sfCurrentY.syncWith(pOther->_sfCurrentY);
-
-    if(FieldBits::NoField != (SizeROIFieldMask & whichField))
-        _sfSizeROI.syncWith(pOther->_sfSizeROI);
-
-    if(FieldBits::NoField != (UpdateFieldMask & whichField))
-        _sfUpdate.syncWith(pOther->_sfUpdate);
-
-    if(FieldBits::NoField != (UpdateTerrainFieldMask & whichField))
-        _sfUpdateTerrain.syncWith(pOther->_sfUpdateTerrain);
-
-    if(FieldBits::NoField != (PerPixelLightingFieldMask & whichField))
-        _sfPerPixelLighting.syncWith(pOther->_sfPerPixelLighting);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TiledQuadTreeTerrainBase::execSync (      TiledQuadTreeTerrainBase *pFrom,
@@ -616,26 +556,6 @@ void TiledQuadTreeTerrainBase::execSync (      TiledQuadTreeTerrainBase *pFrom,
 
     if(FieldBits::NoField != (PerPixelLightingFieldMask & whichField))
         _sfPerPixelLighting.syncWith(pFrom->_sfPerPixelLighting);
-}
-#endif
-
-#if 0
-inline
-void TiledQuadTreeTerrainBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (HeightTilesFieldMask & whichField))
-    {
-        _mfHeightTiles.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (HeightTexturesFieldMask & whichField))
-    {
-        _mfHeightTextures.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

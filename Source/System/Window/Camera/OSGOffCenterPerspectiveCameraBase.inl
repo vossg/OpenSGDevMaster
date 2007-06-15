@@ -108,21 +108,6 @@ void OffCenterPerspectiveCameraBase::setPrincipalPoint(const Vec2f &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void OffCenterPerspectiveCameraBase::execSync(      OffCenterPerspectiveCameraBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (PrincipalPointFieldMask & whichField))
-        _sfPrincipalPoint.syncWith(pOther->_sfPrincipalPoint);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void OffCenterPerspectiveCameraBase::execSync (      OffCenterPerspectiveCameraBase *pFrom,
@@ -135,16 +120,6 @@ void OffCenterPerspectiveCameraBase::execSync (      OffCenterPerspectiveCameraB
 
     if(FieldBits::NoField != (PrincipalPointFieldMask & whichField))
         _sfPrincipalPoint.syncWith(pFrom->_sfPrincipalPoint);
-}
-#endif
-
-#if 0
-inline
-void OffCenterPerspectiveCameraBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

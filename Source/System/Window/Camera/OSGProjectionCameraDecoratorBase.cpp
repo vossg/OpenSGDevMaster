@@ -860,21 +860,6 @@ void ProjectionCameraDecoratorBase::onCreate(const ProjectionCameraDecorator *so
     }
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void ProjectionCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<ProjectionCameraDecoratorBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void ProjectionCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -890,14 +875,6 @@ void ProjectionCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void ProjectionCameraDecoratorBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ProjectionCameraDecoratorBase::createAspectCopy(void) const

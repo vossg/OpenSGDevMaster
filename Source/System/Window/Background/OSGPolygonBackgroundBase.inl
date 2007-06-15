@@ -417,54 +417,6 @@ const MFPnt2f &PolygonBackgroundBase::getPositions(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void PolygonBackgroundBase::execSync(      PolygonBackgroundBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (MaterialFieldMask & whichField))
-        _sfMaterial.syncWith(pOther->_sfMaterial);
-
-    if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
-        _mfTexCoords.syncWith(pOther->_mfTexCoords,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _mfPositions.syncWith(pOther->_mfPositions,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (NormalizedXFieldMask & whichField))
-        _sfNormalizedX.syncWith(pOther->_sfNormalizedX);
-
-    if(FieldBits::NoField != (NormalizedYFieldMask & whichField))
-        _sfNormalizedY.syncWith(pOther->_sfNormalizedY);
-
-    if(FieldBits::NoField != (AspectHeightFieldMask & whichField))
-        _sfAspectHeight.syncWith(pOther->_sfAspectHeight);
-
-    if(FieldBits::NoField != (AspectWidthFieldMask & whichField))
-        _sfAspectWidth.syncWith(pOther->_sfAspectWidth);
-
-    if(FieldBits::NoField != (ScaleFieldMask & whichField))
-        _sfScale.syncWith(pOther->_sfScale);
-
-    if(FieldBits::NoField != (CleanupFieldMask & whichField))
-        _sfCleanup.syncWith(pOther->_sfCleanup);
-
-    if(FieldBits::NoField != (TileFieldMask & whichField))
-        _sfTile.syncWith(pOther->_sfTile);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void PolygonBackgroundBase::execSync (      PolygonBackgroundBase *pFrom,
@@ -510,26 +462,6 @@ void PolygonBackgroundBase::execSync (      PolygonBackgroundBase *pFrom,
 
     if(FieldBits::NoField != (TileFieldMask & whichField))
         _sfTile.syncWith(pFrom->_sfTile);
-}
-#endif
-
-#if 0
-inline
-void PolygonBackgroundBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
-    {
-        _mfTexCoords.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (PositionsFieldMask & whichField))
-    {
-        _mfPositions.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

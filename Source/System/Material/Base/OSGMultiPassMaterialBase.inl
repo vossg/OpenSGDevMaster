@@ -89,24 +89,6 @@ const MFMaterialPtr &MultiPassMaterialBase::getMaterials(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void MultiPassMaterialBase::execSync(      MultiPassMaterialBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (MaterialsFieldMask & whichField))
-        _mfMaterials.syncWith(pOther->_mfMaterials,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void MultiPassMaterialBase::execSync (      MultiPassMaterialBase *pFrom,
@@ -122,21 +104,6 @@ void MultiPassMaterialBase::execSync (      MultiPassMaterialBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void MultiPassMaterialBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (MaterialsFieldMask & whichField))
-    {
-        _mfMaterials.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

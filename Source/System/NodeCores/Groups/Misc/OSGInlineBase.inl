@@ -155,27 +155,6 @@ const MFString &InlineBase::getUrl(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void InlineBase::execSync(      InlineBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (UrlFieldMask & whichField))
-        _mfUrl.syncWith(pOther->_mfUrl,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (LoadedFieldMask & whichField))
-        _sfLoaded.syncWith(pOther->_sfLoaded);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void InlineBase::execSync (      InlineBase *pFrom,
@@ -194,21 +173,6 @@ void InlineBase::execSync (      InlineBase *pFrom,
 
     if(FieldBits::NoField != (LoadedFieldMask & whichField))
         _sfLoaded.syncWith(pFrom->_sfLoaded);
-}
-#endif
-
-#if 0
-inline
-void InlineBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (UrlFieldMask & whichField))
-    {
-        _mfUrl.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

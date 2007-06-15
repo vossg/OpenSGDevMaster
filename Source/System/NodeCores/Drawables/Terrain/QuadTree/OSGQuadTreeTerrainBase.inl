@@ -863,96 +863,6 @@ const MFReal32 &QuadTreeTerrainBase::getHeightQuad(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void QuadTreeTerrainBase::execSync(      QuadTreeTerrainBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (HeightDataFieldMask & whichField))
-        _sfHeightData.syncWith(pOther->_sfHeightData);
-
-    if(FieldBits::NoField != (HeightScaleFieldMask & whichField))
-        _sfHeightScale.syncWith(pOther->_sfHeightScale);
-
-    if(FieldBits::NoField != (HeightErrorFieldMask & whichField))
-        _mfHeightError.syncWith(pOther->_mfHeightError,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (HeightQuadFieldMask & whichField))
-        _mfHeightQuad.syncWith(pOther->_mfHeightQuad,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (WidthFieldMask & whichField))
-        _sfWidth.syncWith(pOther->_sfWidth);
-
-    if(FieldBits::NoField != (LevelFieldMask & whichField))
-        _sfLevel.syncWith(pOther->_sfLevel);
-
-    if(FieldBits::NoField != (DetailFieldMask & whichField))
-        _sfDetail.syncWith(pOther->_sfDetail);
-
-    if(FieldBits::NoField != (BorderDetailFieldMask & whichField))
-        _sfBorderDetail.syncWith(pOther->_sfBorderDetail);
-
-    if(FieldBits::NoField != (VertexSpacingFieldMask & whichField))
-        _sfVertexSpacing.syncWith(pOther->_sfVertexSpacing);
-
-    if(FieldBits::NoField != (HeightVerticesFieldMask & whichField))
-        _sfHeightVertices.syncWith(pOther->_sfHeightVertices);
-
-    if(FieldBits::NoField != (GeoMorphingFieldMask & whichField))
-        _sfGeoMorphing.syncWith(pOther->_sfGeoMorphing);
-
-    if(FieldBits::NoField != (BoundMinFieldMask & whichField))
-        _sfBoundMin.syncWith(pOther->_sfBoundMin);
-
-    if(FieldBits::NoField != (BoundMaxFieldMask & whichField))
-        _sfBoundMax.syncWith(pOther->_sfBoundMax);
-
-    if(FieldBits::NoField != (EyePointFieldMask & whichField))
-        _sfEyePoint.syncWith(pOther->_sfEyePoint);
-
-    if(FieldBits::NoField != (EyeHeightFieldMask & whichField))
-        _sfEyeHeight.syncWith(pOther->_sfEyeHeight);
-
-    if(FieldBits::NoField != (EyePointValidFieldMask & whichField))
-        _sfEyePointValid.syncWith(pOther->_sfEyePointValid);
-
-    if(FieldBits::NoField != (OriginXFieldMask & whichField))
-        _sfOriginX.syncWith(pOther->_sfOriginX);
-
-    if(FieldBits::NoField != (OriginYFieldMask & whichField))
-        _sfOriginY.syncWith(pOther->_sfOriginY);
-
-    if(FieldBits::NoField != (OriginTexXFieldMask & whichField))
-        _sfOriginTexX.syncWith(pOther->_sfOriginTexX);
-
-    if(FieldBits::NoField != (OriginTexYFieldMask & whichField))
-        _sfOriginTexY.syncWith(pOther->_sfOriginTexY);
-
-    if(FieldBits::NoField != (TexSpacingFieldMask & whichField))
-        _sfTexSpacing.syncWith(pOther->_sfTexSpacing);
-
-    if(FieldBits::NoField != (TexYSpacingFieldMask & whichField))
-        _sfTexYSpacing.syncWith(pOther->_sfTexYSpacing);
-
-    if(FieldBits::NoField != (UpdateTerrainFieldMask & whichField))
-        _sfUpdateTerrain.syncWith(pOther->_sfUpdateTerrain);
-
-    if(FieldBits::NoField != (PerPixelLightingFieldMask & whichField))
-        _sfPerPixelLighting.syncWith(pOther->_sfPerPixelLighting);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void QuadTreeTerrainBase::execSync (      QuadTreeTerrainBase *pFrom,
@@ -1040,26 +950,6 @@ void QuadTreeTerrainBase::execSync (      QuadTreeTerrainBase *pFrom,
 
     if(FieldBits::NoField != (PerPixelLightingFieldMask & whichField))
         _sfPerPixelLighting.syncWith(pFrom->_sfPerPixelLighting);
-}
-#endif
-
-#if 0
-inline
-void QuadTreeTerrainBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (HeightErrorFieldMask & whichField))
-    {
-        _mfHeightError.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (HeightQuadFieldMask & whichField))
-    {
-        _mfHeightQuad.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 
