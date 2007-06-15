@@ -69,15 +69,6 @@ class @!Classname!@ : public @!Classname!@Base
     typedef @!Classname!@Base Inherited;
     typedef @!Classname!@     Self;
 
-    typedef PointerBuilder<@!Classname!@>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<@!Classname!@>::ObjPtrConst      ObjPtrConst;
-
-    typedef PointerBuilder<@!Classname!@>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<@!Classname!@>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<@!Classname!@>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<@!Classname!@>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -139,15 +130,6 @@ class @!Classname!@ : public @!Classname!@Base
 };
 
 typedef @!Classname!@ *@!Classname!@P;
-
-typedef @!Classname!@::ObjPtr           @!Classname!@Ptr;
-typedef @!Classname!@::ObjPtrConst      @!Classname!@PtrConst;
-
-typedef @!Classname!@::ObjConstPtr      @!Classname!@ConstPtr;
-typedef @!Classname!@::ObjConstPtrConst @!Classname!@ConstPtrConst;
-
-typedef @!Classname!@::ObjPtrArg        @!Classname!@PtrArg;
-typedef @!Classname!@::ObjPtrConstArg   @!Classname!@PtrConstArg;
 
 OSG_END_NAMESPACE
 

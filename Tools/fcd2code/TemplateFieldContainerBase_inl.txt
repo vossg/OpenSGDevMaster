@@ -258,39 +258,6 @@ void @!Classname!@Base::setDecoratee(const @!Parent!@Ptr &value)
 }
 @@endif // !isDecorator
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void @!Classname!@Base::execSync(      @!Classname!@Base *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-@@if isDecorator
-
-    if(FieldBits::NoField != (DecorateeFieldMask & whichField))
-    {
-        _sfDecoratee.syncWith(pOther->_sfDecoratee);
-    }
-@@else // isDecorator
-    @@BeginFieldLoop@@
-
-        @@if field.isSField
-    if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
-        _@!field.VarName!@.syncWith(pOther->_@!field.VarName!@);
-        @@else // field.isSField
-    if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
-        _@!field.VarName!@.syncWith(pOther->_@!field.VarName!@,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-        @@endif // field.isSField
-    @@EndFieldLoop@@
-@@endif // isDecorator
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void @!Classname!@Base::execSync (      @!Classname!@Base *pFrom,
@@ -321,25 +288,6 @@ void @!Classname!@Base::execSync (      @!Classname!@Base *pFrom,
     @@endif // field.isSField
     @@EndFieldLoop@@
 @@endif // isDecorator
-}
-#endif
-
-#if 0
-inline
-void @!Classname!@Base::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-@@if !isDecorator
-    @@BeginMFFieldLoop@@
-
-    if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
-    {
-        _@!field.VarName!@.beginEdit(uiAspect, uiContainerSize);
-    }
-    @@EndMFFieldLoop@@
-@@endif // !isDecorator
 }
 #endif
 

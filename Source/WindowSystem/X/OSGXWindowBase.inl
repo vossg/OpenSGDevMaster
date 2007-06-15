@@ -174,27 +174,6 @@ void XWindowBase::setContext(const GLXContext &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void XWindowBase::execSync(      XWindowBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (DisplayFieldMask & whichField))
-        _sfDisplay.syncWith(pOther->_sfDisplay);
-
-    if(FieldBits::NoField != (WindowFieldMask & whichField))
-        _sfWindow.syncWith(pOther->_sfWindow);
-
-    if(FieldBits::NoField != (ContextFieldMask & whichField))
-        _sfContext.syncWith(pOther->_sfContext);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void XWindowBase::execSync (      XWindowBase *pFrom,
@@ -213,16 +192,6 @@ void XWindowBase::execSync (      XWindowBase *pFrom,
 
     if(FieldBits::NoField != (ContextFieldMask & whichField))
         _sfContext.syncWith(pFrom->_sfContext);
-}
-#endif
-
-#if 0
-inline
-void XWindowBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

@@ -108,21 +108,6 @@ void CocoaWindowBase::setContext(const NSOpenGLContextP &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void CocoaWindowBase::execSync(      CocoaWindowBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (ContextFieldMask & whichField))
-        _sfContext.syncWith(pOther->_sfContext);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void CocoaWindowBase::execSync (      CocoaWindowBase *pFrom,
@@ -135,16 +120,6 @@ void CocoaWindowBase::execSync (      CocoaWindowBase *pFrom,
 
     if(FieldBits::NoField != (ContextFieldMask & whichField))
         _sfContext.syncWith(pFrom->_sfContext);
-}
-#endif
-
-#if 0
-inline
-void CocoaWindowBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

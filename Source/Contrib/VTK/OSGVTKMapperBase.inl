@@ -218,75 +218,6 @@ const MFGeoVec3fPropertyPtr &VTKMapperBase::getNormals(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void VTKMapperBase::execSync(      VTKMapperBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (RootFieldMask & whichField))
-        _sfRoot.syncWith(pOther->_sfRoot);
-
-    if(FieldBits::NoField != (GeoRootsFieldMask & whichField))
-        _mfGeoRoots.syncWith(pOther->_mfGeoRoots,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (GeometriesFieldMask & whichField))
-        _mfGeometries.syncWith(pOther->_mfGeometries,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (MaterialsFieldMask & whichField))
-        _mfMaterials.syncWith(pOther->_mfMaterials,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (MaterialChunksFieldMask & whichField))
-        _mfMaterialChunks.syncWith(pOther->_mfMaterialChunks,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _mfPositions.syncWith(pOther->_mfPositions,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (LengthFieldMask & whichField))
-        _mfLength.syncWith(pOther->_mfLength,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (TypesFieldMask & whichField))
-        _mfTypes.syncWith(pOther->_mfTypes,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (ColorsFieldMask & whichField))
-        _mfColors.syncWith(pOther->_mfColors,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (NormalsFieldMask & whichField))
-        _mfNormals.syncWith(pOther->_mfNormals,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void VTKMapperBase::execSync (      VTKMapperBase *pFrom,
@@ -353,61 +284,6 @@ void VTKMapperBase::execSync (      VTKMapperBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-}
-#endif
-
-#if 0
-inline
-void VTKMapperBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (GeoRootsFieldMask & whichField))
-    {
-        _mfGeoRoots.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (GeometriesFieldMask & whichField))
-    {
-        _mfGeometries.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (MaterialsFieldMask & whichField))
-    {
-        _mfMaterials.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (MaterialChunksFieldMask & whichField))
-    {
-        _mfMaterialChunks.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (PositionsFieldMask & whichField))
-    {
-        _mfPositions.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (LengthFieldMask & whichField))
-    {
-        _mfLength.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (TypesFieldMask & whichField))
-    {
-        _mfTypes.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (ColorsFieldMask & whichField))
-    {
-        _mfColors.beginEdit(uiAspect, uiContainerSize);
-    }
-
-    if(FieldBits::NoField != (NormalsFieldMask & whichField))
-    {
-        _mfNormals.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

@@ -228,20 +228,6 @@ const MFUInt32 *TestFC::getMFField3(void) const
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void TestFC::execSyncV(      FieldContainer    &oFrom,
-                             ConstFieldMaskArg  whichField,
-                             ConstFieldMaskArg  syncMode  ,
-                       const UInt32             uiSyncInfo,
-                             UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<TestFC *>(&oFrom), 
-                   whichField, 
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
 #ifdef OSG_MT_CPTR_ASPECT
 void TestFC::execSyncV(      FieldContainer    &oFrom,
                              ConstFieldMaskArg  whichField,
@@ -254,15 +240,6 @@ void TestFC::execSyncV(      FieldContainer    &oFrom,
                    oOffsets,
                    syncMode,
                    uiSyncInfo);
-}
-#endif
-
-#if 0
-void TestFC::execBeginEditV(ConstFieldMaskArg whichField, 
-                            UInt32            uiAspect,
-                            UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

@@ -2255,21 +2255,6 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
     }
 }
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-void VTKMapperBase::execSyncV(      FieldContainer    &oFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo,
-                                        UInt32             uiCopyOffset)
-{
-    this->execSync(static_cast<VTKMapperBase *>(&oFrom),
-                   whichField,
-                   syncMode,
-                   uiSyncInfo,
-                   uiCopyOffset);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 void VTKMapperBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
@@ -2285,14 +2270,6 @@ void VTKMapperBase::execSyncV(      FieldContainer    &oFrom,
 }
 #endif
 
-#if 0
-void VTKMapperBase::execBeginEditV(ConstFieldMaskArg whichField,
-                                       UInt32            uiAspect,
-                                       UInt32            uiContainerSize)
-{
-    this->execBeginEdit(whichField, uiAspect, uiContainerSize);
-}
-#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr VTKMapperBase::createAspectCopy(void) const

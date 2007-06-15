@@ -40,38 +40,6 @@ OSG_BEGIN_NAMESPACE
 
 OSG_FIELD_CONTAINER_INL_DEF(TestFC)
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TestFC::execSync(      TestFC            *pFrom,
-                            ConstFieldMaskArg  whichField,
-                            ConstFieldMaskArg  syncMode  ,
-                      const UInt32             uiSyncInfo,
-                            UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pFrom, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (Field1FieldMask & whichField))
-    {
-        _mfField1.syncWith(pFrom->_mfField1, 
-                           syncMode, 
-                           uiSyncInfo, 
-                           uiCopyOffset);
-    }
-
-    if(FieldBits::NoField != (Field2FieldMask & whichField))
-    {
-        _sfField2.syncWith(pFrom->_sfField2);
-    }
-
-    if(FieldBits::NoField != (Field3FieldMask & whichField))
-    {
-        _mfField3.syncWith(pFrom->_mfField3, 
-                           syncMode, 
-                           uiSyncInfo, 
-                           uiCopyOffset);
-    }
-}
-#endif
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TestFC::execSync (      TestFC            *pFrom,
@@ -92,28 +60,13 @@ void TestFC::execSync (      TestFC            *pFrom,
     {
         _sfField2.syncWith(pFrom->_sfField2);
     }
-}
-#endif
-
-#if 0
-inline
-void TestFC::execBeginEdit(ConstFieldMaskArg whichField, 
-                           UInt32            uiAspect,
-                           UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    fprintf(stderr, "TestFC::beginEdit %p 0x%016llx %u\n", 
-            this, whichField, uiContainerSize);
-
-    if(FieldBits::NoField != (Field1FieldMask & whichField))
-    {
-        _mfField1.beginEdit(uiAspect, uiContainerSize);
-    }
 
     if(FieldBits::NoField != (Field3FieldMask & whichField))
     {
-        _mfField3.beginEdit(uiAspect, uiContainerSize);
+        _mfField3.syncWith(pFrom->_mfField3, 
+                           syncMode, 
+                           uiSyncInfo, 
+                           uiOffsets);
     }
 }
 #endif

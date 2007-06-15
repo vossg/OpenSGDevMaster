@@ -221,33 +221,6 @@ const MFInt32 &TestMultiPartitionStageBase::getOrder(void) const
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TestMultiPartitionStageBase::execSync(      TestMultiPartitionStageBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (MessageFieldMask & whichField))
-        _sfMessage.syncWith(pOther->_sfMessage);
-
-    if(FieldBits::NoField != (NumPartitionsFieldMask & whichField))
-        _sfNumPartitions.syncWith(pOther->_sfNumPartitions);
-
-    if(FieldBits::NoField != (OrderFieldMask & whichField))
-        _mfOrder.syncWith(pOther->_mfOrder,
-                                syncMode,
-                                uiSyncInfo,
-                                uiCopyOffset);
-
-    if(FieldBits::NoField != (UseGroupFieldMask & whichField))
-        _sfUseGroup.syncWith(pOther->_sfUseGroup);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TestMultiPartitionStageBase::execSync (      TestMultiPartitionStageBase *pFrom,
@@ -272,21 +245,6 @@ void TestMultiPartitionStageBase::execSync (      TestMultiPartitionStageBase *p
 
     if(FieldBits::NoField != (UseGroupFieldMask & whichField))
         _sfUseGroup.syncWith(pFrom->_sfUseGroup);
-}
-#endif
-
-#if 0
-inline
-void TestMultiPartitionStageBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
-
-    if(FieldBits::NoField != (OrderFieldMask & whichField))
-    {
-        _mfOrder.beginEdit(uiAspect, uiContainerSize);
-    }
 }
 #endif
 

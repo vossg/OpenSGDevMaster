@@ -395,66 +395,6 @@ void ManipulatorBase::setAxisLinesN(NodePtrConstArg value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void ManipulatorBase::execSync(      ManipulatorBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-        _sfTarget.syncWith(pOther->_sfTarget);
-
-    if(FieldBits::NoField != (ActiveSubHandleFieldMask & whichField))
-        _sfActiveSubHandle.syncWith(pOther->_sfActiveSubHandle);
-
-    if(FieldBits::NoField != (LastMousePosFieldMask & whichField))
-        _sfLastMousePos.syncWith(pOther->_sfLastMousePos);
-
-    if(FieldBits::NoField != (ViewportFieldMask & whichField))
-        _sfViewport.syncWith(pOther->_sfViewport);
-
-    if(FieldBits::NoField != (ActiveFieldMask & whichField))
-        _sfActive.syncWith(pOther->_sfActive);
-
-    if(FieldBits::NoField != (LengthFieldMask & whichField))
-        _sfLength.syncWith(pOther->_sfLength);
-
-    if(FieldBits::NoField != (HandleXNodeFieldMask & whichField))
-        _sfHandleXNode.syncWith(pOther->_sfHandleXNode);
-
-    if(FieldBits::NoField != (HandleYNodeFieldMask & whichField))
-        _sfHandleYNode.syncWith(pOther->_sfHandleYNode);
-
-    if(FieldBits::NoField != (HandleZNodeFieldMask & whichField))
-        _sfHandleZNode.syncWith(pOther->_sfHandleZNode);
-
-    if(FieldBits::NoField != (TransXNodeFieldMask & whichField))
-        _sfTransXNode.syncWith(pOther->_sfTransXNode);
-
-    if(FieldBits::NoField != (TransYNodeFieldMask & whichField))
-        _sfTransYNode.syncWith(pOther->_sfTransYNode);
-
-    if(FieldBits::NoField != (TransZNodeFieldMask & whichField))
-        _sfTransZNode.syncWith(pOther->_sfTransZNode);
-
-    if(FieldBits::NoField != (MaterialXFieldMask & whichField))
-        _sfMaterialX.syncWith(pOther->_sfMaterialX);
-
-    if(FieldBits::NoField != (MaterialYFieldMask & whichField))
-        _sfMaterialY.syncWith(pOther->_sfMaterialY);
-
-    if(FieldBits::NoField != (MaterialZFieldMask & whichField))
-        _sfMaterialZ.syncWith(pOther->_sfMaterialZ);
-
-    if(FieldBits::NoField != (AxisLinesNFieldMask & whichField))
-        _sfAxisLinesN.syncWith(pOther->_sfAxisLinesN);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ManipulatorBase::execSync (      ManipulatorBase *pFrom,
@@ -512,16 +452,6 @@ void ManipulatorBase::execSync (      ManipulatorBase *pFrom,
 
     if(FieldBits::NoField != (AxisLinesNFieldMask & whichField))
         _sfAxisLinesN.syncWith(pFrom->_sfAxisLinesN);
-}
-#endif
-
-#if 0
-inline
-void ManipulatorBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

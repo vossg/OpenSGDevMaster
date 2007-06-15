@@ -108,21 +108,6 @@ void TestStageBase::setMessage(const std::string &value)
 }
 
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-inline
-void TestStageBase::execSync(      TestStageBase *pOther,
-                                       ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode,
-                                 const UInt32             uiSyncInfo,
-                                       UInt32             uiCopyOffset)
-{
-    Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
-
-    if(FieldBits::NoField != (MessageFieldMask & whichField))
-        _sfMessage.syncWith(pOther->_sfMessage);
-}
-#endif
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void TestStageBase::execSync (      TestStageBase *pFrom,
@@ -135,16 +120,6 @@ void TestStageBase::execSync (      TestStageBase *pFrom,
 
     if(FieldBits::NoField != (MessageFieldMask & whichField))
         _sfMessage.syncWith(pFrom->_sfMessage);
-}
-#endif
-
-#if 0
-inline
-void TestStageBase::execBeginEdit(ConstFieldMaskArg whichField,
-                                      UInt32            uiAspect,
-                                      UInt32            uiContainerSize)
-{
-    Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 }
 #endif
 

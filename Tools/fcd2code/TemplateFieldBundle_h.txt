@@ -69,24 +69,6 @@ class @!Classname!@ : public @!Classname!@Base
     typedef @!Classname!@Base Inherited;
     typedef @!Classname!@     Self;
 
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjPtr           ObjPtr;
-
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjPtrConst      ObjPtrConst;
-
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjConstPtr      ObjConstPtr;
-
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjPtrArg        ObjPtrArg;
-
-    typedef BundlePointerBuilder<
-        @!Classname!@>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
