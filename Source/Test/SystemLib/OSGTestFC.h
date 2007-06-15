@@ -65,8 +65,7 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     typedef AttachmentContainer                     Inherited;
     typedef AttachmentContainer                     ParentContainer;
 
-    typedef PointerBuilder<TestFC>::ObjPtr          ObjPtr;
-    typedef PointerBuilder<TestFC>::ObjConstPtr     ObjConstPtr;
+    OSG_GEN_INTERNALPTR(TestFC);
 
     typedef Inherited::TypeObject                   TypeObject;
     
@@ -262,14 +261,12 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    OSG_SYSTEM_DLLMAPPING 
     virtual void execSyncV(      FieldContainer    &oFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-    OSG_SYSTEM_DLLMAPPING 
             void execSync (      TestFC            *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,

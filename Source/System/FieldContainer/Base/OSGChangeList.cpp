@@ -384,8 +384,6 @@ void ChangeList::commitChangesAndClear(void)
 void ChangeList::doApply(void)
 {
 #ifdef OSG_MT_CPTR_ASPECT
-
-
     FieldContainerPtr   pSrc = NULL;
     FieldContainerPtr   pDst = NULL;
 

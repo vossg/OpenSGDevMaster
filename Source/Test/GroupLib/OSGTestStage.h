@@ -63,15 +63,6 @@ class OSG_GROUP_DLLMAPPING TestStage : public TestStageBase
     typedef TestStageBase Inherited;
     typedef TestStage     Self;
 
-    typedef PointerBuilder<TestStage>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<TestStage>::ObjPtrConst      ObjPtrConst;
-
-    typedef PointerBuilder<TestStage>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<TestStage>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<TestStage>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<TestStage>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -140,15 +131,6 @@ class OSG_GROUP_DLLMAPPING TestStage : public TestStageBase
 };
 
 typedef TestStage *TestStageP;
-
-typedef TestStage::ObjPtr           TestStagePtr;
-typedef TestStage::ObjPtrConst      TestStagePtrConst;
-
-typedef TestStage::ObjConstPtr      TestStageConstPtr;
-typedef TestStage::ObjConstPtrConst TestStageConstPtrConst;
-
-typedef TestStage::ObjPtrArg        TestStagePtrArg;
-typedef TestStage::ObjPtrConstArg   TestStagePtrConstArg;
 
 OSG_END_NAMESPACE
 

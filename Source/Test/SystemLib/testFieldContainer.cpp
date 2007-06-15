@@ -4,27 +4,6 @@
 #include "OSGNodeCore.h"
 #include "OSGTestFC.h"
 
-OSG_BEGIN_NAMESPACE
-
-#ifdef OSG_MT_CPTR_ASPECT
-template<class ContainerPtr>
-ContainerPtr convertToCurrentAspect(ContainerPtr pFC)
-{
-    if(pFC == NullFC)
-    {
-        return NullFC;
-    }
-    
-    ContainerPtr result = 
-        static_cast<ContainerPtr>(
-            pFC->getAspectPtr(Thread::getCurrentAspect()));
-
-    return result;
-}
-#endif
-
-OSG_END_NAMESPACE
-
 static void dumpAspect(OSG::TestFCPtr pFC, OSG::UInt32 uiAspect)
 {
     OSG::UInt32 uiCurrAspect= OSG::Thread::getCurrentAspect();
@@ -397,6 +376,23 @@ void testRefCount(void)
     fprintf(stderr, "7\n");
 }
 
+void testChangeList(void)
+{
+    fprintf(stderr, "testChangeList\n");
+    fprintf(stderr, "%d\n", sizeof(OSG::TestFC));
+
+    OSG::TestFCPtr pTestFC = OSG::TestFC::create();
+
+    fprintf(stderr, "sharing | created\n");
+
+    for(OSG::UInt32 i = 0; i < OSG::ThreadManager::getNumAspects(); ++i)
+    {
+        fprintf(stderr, "Aspect %d\n", i);
+
+        dumpAspect(pTestFC, i);
+    }
+}
+
 int main (int argc, char **argv)
 {
     OSG::ThreadManager::setNumAspects(3);
@@ -411,7 +407,9 @@ int main (int argc, char **argv)
 //    testRefCount();
 //    testNode();
 
-    testSharing();
+//    testSharing();
+
+    testChangeList();
 
     fprintf(stderr, "exit\n");
 

@@ -66,7 +66,7 @@ void TestFC::execSync (      TestFC            *pFrom,
         _mfField3.syncWith(pFrom->_mfField3, 
                            syncMode, 
                            uiSyncInfo, 
-                           uiOffsets);
+                           oOffsets);
     }
 }
 #endif

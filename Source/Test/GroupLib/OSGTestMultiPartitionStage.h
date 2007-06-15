@@ -61,15 +61,6 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStage : public TestMultiPartitionSt
     typedef TestMultiPartitionStageBase Inherited;
     typedef TestMultiPartitionStage     Self;
 
-    typedef PointerBuilder<TestMultiPartitionStage>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<TestMultiPartitionStage>::ObjPtrConst      ObjPtrConst;
-
-    typedef PointerBuilder<TestMultiPartitionStage>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<TestMultiPartitionStage>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<TestMultiPartitionStage>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<TestMultiPartitionStage>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -131,15 +122,6 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStage : public TestMultiPartitionSt
 };
 
 typedef TestMultiPartitionStage *TestMultiPartitionStageP;
-
-typedef TestMultiPartitionStage::ObjPtr           TestMultiPartitionStagePtr;
-typedef TestMultiPartitionStage::ObjPtrConst      TestMultiPartitionStagePtrConst;
-
-typedef TestMultiPartitionStage::ObjConstPtr      TestMultiPartitionStageConstPtr;
-typedef TestMultiPartitionStage::ObjConstPtrConst TestMultiPartitionStageConstPtrConst;
-
-typedef TestMultiPartitionStage::ObjPtrArg        TestMultiPartitionStagePtrArg;
-typedef TestMultiPartitionStage::ObjPtrConstArg   TestMultiPartitionStagePtrConstArg;
 
 OSG_END_NAMESPACE
 

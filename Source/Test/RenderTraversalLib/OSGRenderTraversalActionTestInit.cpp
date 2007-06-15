@@ -70,7 +70,7 @@ ActionBase::ResultE TestStageRenderEnter(const NodeCorePtr &pCore,
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
-    TestStagePtr      pStage = cast_dynamic<TestStagePtr>(pCore);
+    TestStagePtr      pStage = dynamic_cast<TestStagePtr>(pCore);
 
 #ifdef OSG_DEBUGX
     if(pStage != NullFC && pStage->getMessage().size() != 0)
@@ -116,7 +116,7 @@ ActionBase::ResultE TestStageRenderLeave(const NodeCorePtr &pCore,
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
-    TestStagePtr      pStage = cast_dynamic<TestStagePtr>(pCore);
+    TestStagePtr      pStage = dynamic_cast<TestStagePtr>(pCore);
 
 #ifdef OSG_DEBUGX
     if(pStage != NullFC && pStage->getMessage().size() != 0)
@@ -156,7 +156,7 @@ ActionBase::ResultE TestMultiPartStageRenderEnter(const NodeCorePtr &pCore,
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
     TestMultiPartitionStagePtr pStage = 
-        cast_dynamic<TestMultiPartitionStagePtr>(pCore);
+        dynamic_cast<TestMultiPartitionStagePtr>(pCore);
 
 #ifdef OSG_DEBUGX
     if(pStage != NullFC && pStage->getMessage().size() != 0)
@@ -240,7 +240,7 @@ ActionBase::ResultE TestMultiPartStageRenderLeave(const NodeCorePtr &pCore,
         dynamic_cast<RenderTraversalAction *>(action);
 
     TestMultiPartitionStagePtr  pStage = 
-        cast_dynamic<TestMultiPartitionStagePtr>(pCore);
+        dynamic_cast<TestMultiPartitionStagePtr>(pCore);
 
 #ifdef OSG_DEBUGX
     if(pStage != NullFC && pStage->getMessage().size() != 0)
