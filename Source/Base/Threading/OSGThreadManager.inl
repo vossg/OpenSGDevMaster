@@ -209,7 +209,7 @@ UInt32 MPFieldStore<MPFieldT>::registerMPType(MPFieldType *pType)
 inline
 UInt32 ThreadManager::getNumAspects(void)
 {
-#if defined(OSG_MT_FIELDCONTAINERPTR) || defined(OSG_MT_CPTR_ASPECT)
+#if defined(OSG_MT_CPTR_ASPECT)
     return _uiNumAspects;
 #else
     return 1;

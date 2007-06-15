@@ -991,10 +991,4 @@
 #define OSG_OLD_RENDER_ACTION 1
 #define OSG_CLEANED_RENDERACTION 1
 
-// Verify a sane setting for fcptrs
-#if defined(OSG_MT_FIELDCONTAINERPTR) && defined(OSG_MT_CPTR_ASPECT)
-#error Use either fcptr aspects or cptr aspects
-#endif
-
-
 #endif /* _OSGCONFIG_H_ */

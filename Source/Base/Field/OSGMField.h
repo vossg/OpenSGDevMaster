@@ -254,22 +254,6 @@ class MField : public Field
     /*! \name                      MT Sync                                 */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_FIELDCONTAINERPTR
-    void syncWith       (Self               &source, 
-                         ConstFieldMaskArg   syncMode,
-                         UInt32              uiSyncInfo,
-                         UInt32              uiCopyOffset);
-
-
-    void beginEdit      (UInt32              uiAspect,
-                         UInt32              uiCopyOffset);
-
-    Self *resolveShare  (UInt32              uiAspect, 
-                         UInt32              uiCopyOffset);
-
-    void  terminateShare(UInt32 uiAspect, 
-                         UInt32 uiCopyOffset            );
-#endif
 #ifdef OSG_MT_CPTR_ASPECT
     void syncWith       (Self               &source, 
                          ConstFieldMaskArg   syncMode,
