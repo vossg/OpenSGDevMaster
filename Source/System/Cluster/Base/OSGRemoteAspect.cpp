@@ -383,11 +383,11 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
 
     if(applyToChangelist)
     {
-        OSG::Thread::getCurrentChangeList()->commitChanges();
+        commitChanges();
     }
     else
     {
-        OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
+        commitChangesAndClear();
     }
 
     // unregister mapper into factory

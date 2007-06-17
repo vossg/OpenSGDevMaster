@@ -44,6 +44,17 @@ void applyToAspect(OSG::UInt32 uiAspect, bool bClear = true)
     OSG::Thread::setAspectTo(uiCurrAspect);
 }
 
+void applyToAspectAndClear(OSG::UInt32 uiAspect)
+{
+    OSG::UInt32 uiCurrAspect= OSG::Thread::getCurrentAspect();
+
+    OSG::Thread::setAspectTo(uiAspect);
+
+    OSG::Thread::getCurrentChangeList()->applyAndClear();
+
+    OSG::Thread::setAspectTo(uiCurrAspect);
+}
+
 void testSharing(void)
 {
     fprintf(stderr, "sharing\n");
@@ -391,6 +402,112 @@ void testChangeList(void)
 
         dumpAspect(pTestFC, i);
     }
+
+    OSG::addRef(pTestFC);
+
+    OSG::Thread::getCurrentChangeList()->dump();
+
+    fprintf(stderr, "=================================================\n");
+
+    pTestFC->editSFField2()->setValue(4);
+
+    fprintf(stderr, "Changed\n");
+    OSG::Thread::getCurrentChangeList()->dump();
+
+    OSG::Thread::getCurrentChangeList()->commitChanges();
+
+    fprintf(stderr, "Commited\n");
+    OSG::Thread::getCurrentChangeList()->dump();
+
+    for(OSG::UInt32 i = 0; i < OSG::ThreadManager::getNumAspects(); ++i)
+    {
+        fprintf(stderr, "Aspect %d\n", i);
+
+        dumpAspect(pTestFC, i);
+    }
+
+    fprintf(stderr, "=================================================\n");
+
+    pTestFC->editSFField2()->setValue(4);
+
+    fprintf(stderr, "Changed\n");
+    OSG::Thread::getCurrentChangeList()->dump();
+
+    OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
+
+    fprintf(stderr, "CommitAndCleared\n");
+    OSG::Thread::getCurrentChangeList()->dump();
+
+    for(OSG::UInt32 i = 0; i < OSG::ThreadManager::getNumAspects(); ++i)
+    {
+        fprintf(stderr, "Aspect %d\n", i);
+
+        dumpAspect(pTestFC, i);
+    }
+
+    fprintf(stderr, "=================================================\n");
+
+    pTestFC->editSFField2()->setValue(4);
+
+    fprintf(stderr, "Changed\n");
+    OSG::Thread::getCurrentChangeList()->dump();
+
+//    OSG::Thread::getCurrentChangeList()->commitChanges();
+
+    applyToAspectAndClear(1);
+
+    fprintf(stderr, "Changed\n");
+    OSG::Thread::getCurrentChangeList()->dump();
+
+    for(OSG::UInt32 i = 0; i < OSG::ThreadManager::getNumAspects(); ++i)
+    {
+        fprintf(stderr, "Aspect %d\n", i);
+
+        dumpAspect(pTestFC, i);
+    }
+
+    fprintf(stderr, "=================================================\n");
+
+    pTestFC->editSFField2()->setValue(4);
+
+    fprintf(stderr, "Changed\n");
+    OSG::Thread::getCurrentChangeList()->dump();
+
+//    OSG::Thread::getCurrentChangeList()->commitChanges();
+
+    applyToAspect(1, false);
+
+    fprintf(stderr, "Changed\n");
+    OSG::Thread::getCurrentChangeList()->dump();
+
+    for(OSG::UInt32 i = 0; i < OSG::ThreadManager::getNumAspects(); ++i)
+    {
+        fprintf(stderr, "Aspect %d\n", i);
+
+        dumpAspect(pTestFC, i);
+    }
+
+    fprintf(stderr, "=================================================\n");
+
+    pTestFC->editSFField2()->setValue(4);
+
+    fprintf(stderr, "Changed\n");
+    OSG::Thread::getCurrentChangeList()->dump();
+
+//    OSG::Thread::getCurrentChangeList()->commitChanges();
+
+    applyToAspect(1, true);
+
+    fprintf(stderr, "Changed\n");
+    OSG::Thread::getCurrentChangeList()->dump();
+
+    for(OSG::UInt32 i = 0; i < OSG::ThreadManager::getNumAspects(); ++i)
+    {
+        fprintf(stderr, "Aspect %d\n", i);
+
+        dumpAspect(pTestFC, i);
+    }
+
 }
 
 int main (int argc, char **argv)

@@ -119,8 +119,8 @@ void GLUTWindow::init(void)
 // activate the window: bind the OGL context    
 void GLUTWindow::activate(void)
 {
-    if(glutGetWindow() != getId())
-        glutSetWindow(getId());
+    if(glutGetWindow() != getGlutId())
+        glutSetWindow(getGlutId());
 }
     
 // deactivate the window  

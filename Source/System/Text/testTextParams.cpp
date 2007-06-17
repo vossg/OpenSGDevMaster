@@ -309,7 +309,7 @@ int main(int argc, char* argv[])
     OSG::osgInit(argc,argv);
     int winid = setupGLUT(&argc, argv);
     OSG::GLUTWindowPtr gwin = OSG::GLUTWindow::create();
-    gwin->setId(winid);
+    gwin->setGlutId(winid);
     gwin->init();
 
     printFontFamilies();

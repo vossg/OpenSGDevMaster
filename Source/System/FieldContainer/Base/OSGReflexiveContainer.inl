@@ -228,16 +228,22 @@ void ReflexiveContainer::execEndEdit(ConstFieldMaskArg whichField)
     _pContainerChanges->whichField |= whichField;
 }
 
+#if 0
 inline
 ContainerChangeEntry *ReflexiveContainer::getChangeEntry(void)
 {
     return _pContainerChanges;
 }
+#endif
 
 inline
-void ReflexiveContainer::setChangeEntry(ContainerChangeEntry *pEntry)
+void ReflexiveContainer::clearChangeEntry(ContainerChangeEntry *pRef)
 {
-    _pContainerChanges = pEntry;
+    if(_pContainerChanges == pRef)
+    {
+        _pContainerChanges = NULL;
+        _bvChanged         = 0x0000;
+    }
 }
 
 inline

@@ -153,6 +153,7 @@ void ContainerChangeEntry::commitChanges(void)
         
         BitVector tmpChanges;
         //OSG_ASSERT(NULL !=  bvUncommittedChanges);
+
         if (NULL != bvUncommittedChanges)
         { 
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
@@ -161,48 +162,8 @@ void ContainerChangeEntry::commitChanges(void)
            tmpChanges             = *bvUncommittedChanges; 
            whichField            |= *bvUncommittedChanges;
            *bvUncommittedChanges  = TypeTraits<BitVector>::BitsClear;
-        }
 
-        // moved to FieldContainer::changed()
-        // pTmp->callChangedFunctors(uncommitedChanges);
-
-        pTmp->changed      (tmpChanges, ChangedOrigin::Commit);
-    }
-}
-
-void ContainerChangeEntry::commitChangesAndClear(void)
-{
-#ifdef OSG_ENABLE_VALGRIND_CHECKS
-    VALGRIND_CHECK_VALUE_IS_DEFINED(uiContainerId);
-#endif
-    FieldContainerPtr pTmp =
-        FieldContainerFactory::the()->getContainer(uiContainerId);
-
-
-    if(pTmp != NullFC)
-    {
-#ifndef SILENT
-    fprintf(stderr, "Commit for and clear %u %s\n",
-            uiContainerId, pTmp->getType().getCName());
-#endif
-        
-        BitVector tmpChanges;
-        //OSG_ASSERT(NULL !=  bvUncommittedChanges);
-        if (NULL != bvUncommittedChanges)
-        { 
-#ifdef OSG_ENABLE_MEMORY_DEBUGGING
-           OSG_ASSERT(*bvUncommittedChanges != 0xDEADBEEF);
-#endif
-           tmpChanges = *bvUncommittedChanges; 
-        }
-
-        pTmp->setChangeEntry(NULL);
-        pTmp->changed(tmpChanges, ChangedOrigin::Commit);
-
-        if(NULL != bvUncommittedChanges)
-        {
-           whichField            |= *bvUncommittedChanges;
-           *bvUncommittedChanges  = TypeTraits<BitVector>::BitsClear;
+           pTmp->changed      (tmpChanges, ChangedOrigin::Commit);
         }
     }
 }
@@ -229,6 +190,16 @@ StatElemDesc<StatIntElem> ChangeList::statNPoolSize(
     StatElemDescBase::RESET_NEVER);
 
 
+ChangeList *ChangeList::create(void)
+{
+    ChangeList *returnValue = new ChangeList;
+
+    returnValue->_uiAspect  = Thread::getCurrentAspect();
+    returnValue->_bExternal = true;
+
+    return returnValue;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
@@ -242,7 +213,8 @@ ChangeList::ChangeList(void) :
     _uncommitedChanges (                   ),
     _workStore         (                   ),
     _uiAspect          (                  0),
-    _iSubRefLevel      (                  0)
+    _iSubRefLevel      (                  0),
+    _bExternal         (false              )
 {
     _entryPool.push_back(ChangeEntryStore());
 
@@ -348,8 +320,13 @@ void ChangeList::doCommitChanges(void)
 
         while(changesIt != changesEnd )
         {
-           OSG_ASSERT(NULL != (*changesIt));
-            ((*changesIt)->*func)();
+            OSG_ASSERT(NULL != (*changesIt));
+            
+            if((*changesIt)->uiEntryDesc == ContainerChangeEntry::Change)
+            {
+                ((*changesIt)->*func)();
+            }
+            
             ++changesIt;
         }
 
@@ -375,13 +352,12 @@ void ChangeList::commitChanges(void)
 
 void ChangeList::commitChangesAndClear(void)
 {
-    doCommitChanges<&ContainerChangeEntry::commitChangesAndClear>();
-
-    clearPool();
+    doCommitChanges<&ContainerChangeEntry::commitChanges>();
+    clear();
 }
 
 
-void ChangeList::doApply(void)
+void ChangeList::doApply(bool bClear)
 {
 #ifdef OSG_MT_CPTR_ASPECT
     FieldContainerPtr   pSrc = NULL;
@@ -512,8 +488,6 @@ void ChangeList::doApply(void)
         {
             if(pSrc != NULL && pDst != NULL) // be safe for now
             {
-                pSrc->setChangeEntry(NULL);
-
                 pHandler->fillOffsetArray(oOffsets, pDst);
 
 #ifndef SILENT_CPTR
@@ -535,16 +509,10 @@ void ChangeList::doApply(void)
                                 syncMode,
                                 uiSInfo);
 
-
-/*
-                executeSync( pDst,
-                            _uiAspect,
-                             Thread::getCurrentAspect(),
-                             oOffsets,
-                             (*cIt)->whichField,
-                             syncMode,
-                             0);
- */
+                if(bClear == true)
+                {
+                    pSrc->clearChangeEntry(*cIt);
+                }
             }
         }
         else if((*cIt)->uiEntryDesc == ContainerChangeEntry::AddReference)
@@ -577,6 +545,14 @@ void ChangeList::doApply(void)
 void ChangeList::doClear(void)
 {
 #ifdef OSG_MT_CPTR_ASPECT
+    if(_uiAspect != Thread::getCurrentAspect())
+    {
+        fprintf(stderr, "ChangeList::doClear aspects don't match %d %d\n",
+                _uiAspect, Thread::getCurrentAspect());
+        
+        return;
+    }
+
     ChangedStoreIt      cIt  = _changedStore.begin();
     ChangedStoreConstIt cEnd = _changedStore.end  ();
 
@@ -598,7 +574,7 @@ void ChangeList::doClear(void)
 
         if(pDst != NULL)
         {
-            pDst->setChangeEntry(NULL);
+            pDst->clearChangeEntry(*cIt);
         }
 
         ++cIt;
@@ -607,25 +583,81 @@ void ChangeList::doClear(void)
 }
 
 
-void ChangeList::swap(ChangeList &pOther)
-{
-    FFATAL(("**************************************\n"
-            "ChangeList::swap: Not implemented yet!\n"
-            "**************************************\n"));
-}
-
 void ChangeList::merge(ChangeList &other)
 {
-    FFATAL(("***************************************\n"
-            "ChangeList::merge: Not implemented yet!\n"
-            "***************************************\n"));
+    ChangedStoreConstIt cIt  = other._createdStore.begin();
+    ChangedStoreConstIt cEnd = other._createdStore.end  ();
+
+    while(cIt != cEnd)
+    {
+        ContainerChangeEntry *pEntry = getNewCreatedEntry();
+
+        pEntry->uiEntryDesc   = ContainerChangeEntry::Create;
+        pEntry->uiContainerId = (*cIt)->uiContainerId;
+
+        ++cIt;
+    }
+
+    cIt  = other._changedStore.begin();
+    cEnd = other._changedStore.end  ();
+
+    while(cIt != cEnd)
+    {
+        if((*cIt)->uiEntryDesc == ContainerChangeEntry::AddReference   ||
+           (*cIt)->uiEntryDesc == ContainerChangeEntry::SubReference   ||
+           (*cIt)->uiEntryDesc == ContainerChangeEntry::DepSubReference )
+        {
+            ContainerChangeEntry *pEntry = getNewEntry();
+     
+            pEntry->uiEntryDesc   = (*cIt)->uiEntryDesc;
+            pEntry->uiContainerId = (*cIt)->uiContainerId;
+        }
+        else if((*cIt)->uiEntryDesc == ContainerChangeEntry::Change)
+        {
+            ContainerChangeEntry *pEntry = getNewEntry();
+            
+            pEntry->uiEntryDesc   = ContainerChangeEntry::Change;
+            pEntry->pFieldFlags   = (*cIt)->pFieldFlags;
+            pEntry->uiContainerId = (*cIt)->uiContainerId;
+            pEntry->whichField    = (*cIt)->whichField;
+        }
+
+        ++cIt;
+    }
 }
 
-void ChangeList::copy(ChangeList &other)
+void ChangeList::fillFromCurrentState(UInt32 uiFieldContainerId)
 {
-    FFATAL(("**************************************\n"
-            "ChangeList::copy: Not implemented yet!\n"
-            "**************************************\n"));
+    this->clear();
+
+    UInt32 uiNumContainers = 
+        FieldContainerFactory::the()->getNumContainers();
+
+    if(uiNumContainers <= uiFieldContainerId)
+    {
+        return;
+    }
+
+    for(UInt32 i = uiFieldContainerId; i < uiNumContainers; ++i)
+    {
+        FieldContainerPtr pContainer = 
+            FieldContainerFactory::the()->getContainer(i);
+
+        if(pContainer != NullFC)
+        {
+            this->addCreated(i);
+
+            for(UInt32 j = 0; j < pContainer->getRefCount(); ++j)
+                this->addAddRefd(i);
+
+            ContainerChangeEntry *pEntry = this->getNewEntry();
+
+            pEntry->uiEntryDesc   = ContainerChangeEntry::Change;
+            pEntry->pFieldFlags   = pContainer->getFieldFlags();
+            pEntry->uiContainerId = i;
+            pEntry->whichField    = FieldBits::AllFields;
+        }
+    } 
 }
 
 #ifdef OSG_1_COMPAT
@@ -643,7 +675,6 @@ void ChangeList::dump(      UInt32    uiIndent,
     ChangedStoreConstIt cIt  = _createdStore.begin();
     ChangedStoreConstIt cEnd = _createdStore.end  ();
 
-#if 1
     fprintf(stderr, "CL created dump\n");
 
     while(cIt != cEnd)
@@ -672,18 +703,34 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
-        BitVector tmpChanges;
+        FieldContainerPtr pTmp =
+            FieldContainerFactory::the()->getContainer((*cIt)->uiContainerId);
+
+        std::string szTmp("Unknown");
+
+        if(pTmp != NULL)
+        {
+            szTmp.assign(pTmp->getType().getCName());
+        }
+
+        BitVector tmpChanges = 0xDEADBEEF;
+
         if((*cIt)->bvUncommittedChanges != NULL)
-        { tmpChanges = *((*cIt)->bvUncommittedChanges); }
-        fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx\n",
+        { 
+            tmpChanges = *((*cIt)->bvUncommittedChanges); 
+        }
+
+        fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx (%p|%p) | %s\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
                 tmpChanges,
-                (*cIt)->whichField);
+                (*cIt)->whichField,
+                (*cIt),
+                (*cIt)->bvUncommittedChanges,
+                szTmp.c_str());
 
         ++cIt;
     }
-#endif
 
     cIt  = _uncommitedChanges.begin();
     cEnd = _uncommitedChanges.end  ();
@@ -697,26 +744,31 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
-        BitVector tmpChanges;
+        BitVector tmpChanges = 0xDEADBEEF;
+
         if((*cIt)->bvUncommittedChanges != NULL)
-        { tmpChanges = *((*cIt)->bvUncommittedChanges); }
+        { 
+            tmpChanges = *((*cIt)->bvUncommittedChanges); 
+        }
 
-
-        std::string szTmp("Unknown");
 
         FieldContainerPtr pTmp =
             FieldContainerFactory::the()->getContainer((*cIt)->uiContainerId);
+
+        std::string szTmp("Unknown");
 
         if(pTmp != NULL)
         {
             szTmp.assign(pTmp->getType().getCName());
         }
 
-        fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx | %s\n",
+        fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx (%p|%p) | %s\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
                 tmpChanges,
                 (*cIt)->whichField,
+                (*cIt),
+                (*cIt)->bvUncommittedChanges,
                 szTmp.c_str());
 
         ++cIt;
@@ -734,9 +786,12 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
-        BitVector tmpChanges;
+        BitVector tmpChanges = 0xDEADBEEF;
+
         if((*cIt)->bvUncommittedChanges != NULL)
-        { tmpChanges = *((*cIt)->bvUncommittedChanges); }
+        { 
+            tmpChanges = *((*cIt)->bvUncommittedChanges); 
+        }
 
         fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx\n",
                 (*cIt)->uiEntryDesc,

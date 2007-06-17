@@ -344,11 +344,11 @@ void ClusterServer::doSync(bool applyToChangelist)
 
     if(applyToChangelist)
     {
-        OSG::Thread::getCurrentChangeList()->commitChanges();
+        commitChanges();
     }
     else
     {
-        OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
+        commitChangesAndClear();
     }
 }
 

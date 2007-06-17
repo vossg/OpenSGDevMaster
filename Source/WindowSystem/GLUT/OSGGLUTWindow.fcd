@@ -11,7 +11,7 @@
 >
 The class for GLUT-based windows. See \ref PageWindowGlut for a description.
 	<Field
-		name="id"
+		name="glutId"
 		type="Int32"
 		cardinality="single"
 		visibility="internal"

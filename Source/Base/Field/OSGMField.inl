@@ -51,24 +51,30 @@ OSG_BEGIN_NAMESPACE
 template <class ValueT, Int32 iNamespace> inline
 MField<ValueT, iNamespace>::MField(void) :
      Inherited   ( ),
-    _values      ( ),
-    _uiSharedWith(0)
+    _values      ( )
+#ifdef OSG_MT_CPTR_ASPECT
+   ,_uiSharedWith(0)
+#endif
 {
 }
 
 template <class ValueT, Int32 iNamespace> inline
 MField<ValueT, iNamespace>::MField(const MField &obj) :
      Inherited   (obj        ),
-    _values      (obj._values),
-    _uiSharedWith(0          )
+    _values      (obj._values)
+#ifdef OSG_MT_CPTR_ASPECT
+   ,_uiSharedWith(0          )
+#endif
 {
 }
 
 template <class ValueT, Int32 iNamespace> inline
 MField<ValueT, iNamespace>::MField(const UInt32 size) :
      Inherited   ( ),
-    _values      ( ),
-    _uiSharedWith(0)
+    _values      ( )
+#ifdef OSG_MT_CPTR_ASPECT
+    ,_uiSharedWith(0)
+#endif
 {
     _values.resize(size);
 }
@@ -670,6 +676,13 @@ void MField<ValueT, iNamespace>::terminateShare(UInt32             uiAspect,
         _values.resolveShare();
     }
 }
+
+template <class ValueT, Int32 iNamespace> inline
+bool  MField<ValueT, iNamespace>::isShared(void)
+{
+    return _uiSharedWith != 0x0000;
+}
+
 #endif
 
 

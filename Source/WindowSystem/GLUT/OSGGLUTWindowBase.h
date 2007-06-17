@@ -65,7 +65,7 @@
 
 #include "OSGWindow.h" // Parent
 
-#include "OSGInt32Fields.h" // Id type
+#include "OSGInt32Fields.h" // GlutId type
 
 #include "OSGGLUTWindowFields.h"
 
@@ -93,12 +93,12 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
 
     enum
     {
-        IdFieldId = Inherited::NextFieldId,
-        NextFieldId = IdFieldId + 1
+        GlutIdFieldId = Inherited::NextFieldId,
+        NextFieldId = GlutIdFieldId + 1
     };
 
-    static const OSG::BitVector IdFieldMask =
-        (TypeTraits<BitVector>::One << IdFieldId);
+    static const OSG::BitVector GlutIdFieldMask =
+        (TypeTraits<BitVector>::One << GlutIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -127,24 +127,24 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
 
 
 #ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFId              (void);
+                  SFInt32             *getSFGlutId          (void);
 #endif
-                  SFInt32             *editSFId             (void);
-            const SFInt32             *getSFId              (void) const;
+                  SFInt32             *editSFGlutId         (void);
+            const SFInt32             *getSFGlutId          (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
-                  Int32               &getId              (void);
+                  Int32               &getGlutId          (void);
 #endif
-                  Int32               &editId             (void);
-            const Int32               &getId              (void) const;
+                  Int32               &editGlutId         (void);
+            const Int32               &getGlutId          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setId             (const Int32 &value);
+            void setGlutId         (const Int32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -192,7 +192,7 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFInt32           _sfId;
+    SFInt32           _sfGlutId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -63,6 +63,10 @@ class PThreadBase;
 class SprocBase;
 class WinThreadBase;
 class StatCollector;
+class FieldContainer;
+
+template<class ContainerFactoryT>
+struct PtrConstructionFunctions;
 
 /*! \ingroup GrpSystemMultithreading
  */
@@ -78,11 +82,16 @@ struct OSG_SYSTEM_DLLMAPPING ContainerChangeEntry
         Change          = 0x0010
     };
 
-    UInt32      uiEntryDesc;
-    UInt32      uiContainerId;         /**< The id of the container we hold changes for. */
-    FieldFlags *pFieldFlags;
-    BitVector   whichField;            /**< Bit vector of fields have have changed and need commited. */
-    BitVector  *bvUncommittedChanges;  /**< Bit vector of changes that still need to be committed for this entry. */
+          UInt32      uiEntryDesc;
+          UInt32      uiContainerId;         /* The id of the container we 
+                                                hold changes for. */
+    const FieldFlags *pFieldFlags;
+          BitVector   whichField;            /* Bit vector of fields have 
+                                                have changed and need 
+                                                commited. */
+          BitVector  *bvUncommittedChanges;  /* Bit vector of changes that 
+                                                still need to be committed 
+                                                for this entry. */
 
     ContainerChangeEntry()        
     {
@@ -106,8 +115,7 @@ struct OSG_SYSTEM_DLLMAPPING ContainerChangeEntry
         bvUncommittedChanges = NULL;
     }
 
-    void commitChanges        (void);
-    void commitChangesAndClear(void);
+    void commitChanges(void);
 };
 
 /*! \ingroup GrpSystemMultithreading
@@ -143,50 +151,14 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    ChangeList(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~ChangeList(void);
+    void fillFromCurrentState(UInt32 uiFieldContainerId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Get                                     */
-    /*! \{                                                                 */
-
-    void addAddRefd  (const UInt32 uiContainerId);
-    void addSubRefd  (const UInt32 uiContainerId,
-                            bool   ignoreLevel = false);
-
-    void addCreated  (const UInt32 uiContainerId);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
-    /*! \{                                                                 */
-
-    ContainerChangeEntry *getNewEntry       (void         );
-    ContainerChangeEntry *getNewCreatedEntry(void         );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
-    /*! \{                                                                 */
-
-    void addUncommited(ContainerChangeEntry *pEntry);
+    static ChangeList *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -216,8 +188,6 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    void swap (ChangeList &pOther);
-    void copy (ChangeList &pOther);
     void merge(ChangeList &pOther);
 
     /*! \}                                                                 */
@@ -230,14 +200,6 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
 
     ChangedStoreConstIt beginCreated(void) const;
     ChangedStoreConstIt endCreated  (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Assignment                                */
-    /*! \{                                                                 */
-
-    void incSubRefLevel(void);
-    void decSubRefLevel(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -285,10 +247,60 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     UInt32             _uiAspect;
     Int32              _iSubRefLevel;
 
+    bool               _bExternal;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    ChangeList(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~ChangeList(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Get                                     */
+    /*! \{                                                                 */
+
+    void addAddRefd  (const UInt32 uiContainerId);
+    void addSubRefd  (const UInt32 uiContainerId,
+                            bool   ignoreLevel = false);
+
+    void addCreated  (const UInt32 uiContainerId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Set                                     */
+    /*! \{                                                                 */
+
+    ContainerChangeEntry *getNewEntry       (void         );
+    ContainerChangeEntry *getNewCreatedEntry(void         );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Set                                     */
+    /*! \{                                                                 */
+
+    void addUncommited(ContainerChangeEntry *pEntry);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Assignment                                */
+    /*! \{                                                                 */
+
+    void incSubRefLevel(void);
+    void decSubRefLevel(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -298,7 +310,7 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
 
     ContainerChangeEntry *createNewEntry(void         );
 
-    void                 doApply        (void         );
+    void                 doApply        (bool bClear  );
     void                 doClear        (void         );
     void                 clearPool      (void         );
 
@@ -332,6 +344,10 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     friend class PThreadBase;
     friend class SprocBase;
     friend class WinThreadBase;
+    friend class FieldContainer;
+
+    template<class ContainerFactoryT>
+    friend struct PtrConstructionFunctions;
 
     typedef MemoryObject Inherited;
 
@@ -343,7 +359,9 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
 
 
 /*! Convenience function for committing changes */
-inline void commitChanges(void);
+void commitChanges        (void);
+void commitChangesAndClear(void);
+void clearChangeList      (void);
 
 OSG_END_NAMESPACE
 

@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     int winid = setupGLUT(&argc, argv);
 
     GLUTWindowPtr gwin= GLUTWindow::create();
-    gwin->setId(winid);
+    gwin->setGlutId(winid);
     gwin->init();
 
     mgr = new SimpleSceneManager;

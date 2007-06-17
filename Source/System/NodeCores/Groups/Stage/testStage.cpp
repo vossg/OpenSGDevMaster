@@ -591,7 +591,7 @@ int main (int argc, char **argv)
 
     gwin = GLUTWindow::create();
 
-    gwin->setId  (winid           );
+    gwin->setGlutId(winid           );
     gwin->setSize(glvp[2], glvp[3]);
 
     win = gwin;

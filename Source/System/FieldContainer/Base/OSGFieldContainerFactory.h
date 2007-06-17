@@ -54,6 +54,8 @@
 #include "OSGFieldContainer.h"
 #endif
 
+#include <deque>
+
 OSG_BEGIN_NAMESPACE
 
 struct FieldContainerFactoryDesc
@@ -82,7 +84,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
     typedef FieldContainerPtr              ContainerPtr;
     typedef AspectStoreP                   ContainerHandlerP;
 
-    typedef std::vector<ContainerHandlerP> ContainerStore;
+    typedef std::deque<ContainerHandlerP>  ContainerStore;
     typedef ContainerStore::iterator       ContainerStoreIt;
 
     /*---------------------------------------------------------------------*/

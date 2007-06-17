@@ -73,38 +73,38 @@ OSG::UInt16 GLUTWindowBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the GLUTWindow::_sfId field.
+//! Get the value of the GLUTWindow::_sfGlutId field.
 
 inline
-Int32 &GLUTWindowBase::editId(void)
+Int32 &GLUTWindowBase::editGlutId(void)
 {
-    editSField(IdFieldMask);
+    editSField(GlutIdFieldMask);
 
-    return _sfId.getValue();
+    return _sfGlutId.getValue();
 }
 
-//! Get the value of the GLUTWindow::_sfId field.
+//! Get the value of the GLUTWindow::_sfGlutId field.
 inline
-const Int32 &GLUTWindowBase::getId(void) const
+const Int32 &GLUTWindowBase::getGlutId(void) const
 {
-    return _sfId.getValue();
+    return _sfGlutId.getValue();
 }
 
 #ifdef OSG_1_GET_COMPAT
 inline
-Int32               &GLUTWindowBase::getId             (void)
+Int32               &GLUTWindowBase::getGlutId         (void)
 {
-    return this->editId             ();
+    return this->editGlutId         ();
 }
 #endif
 
-//! Set the value of the GLUTWindow::_sfId field.
+//! Set the value of the GLUTWindow::_sfGlutId field.
 inline
-void GLUTWindowBase::setId(const Int32 &value)
+void GLUTWindowBase::setGlutId(const Int32 &value)
 {
-    editSField(IdFieldMask);
+    editSField(GlutIdFieldMask);
 
-    _sfId.setValue(value);
+    _sfGlutId.setValue(value);
 }
 
 
@@ -118,8 +118,8 @@ void GLUTWindowBase::execSync (      GLUTWindowBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (IdFieldMask & whichField))
-        _sfId.syncWith(pFrom->_sfId);
+    if(FieldBits::NoField != (GlutIdFieldMask & whichField))
+        _sfGlutId.syncWith(pFrom->_sfGlutId);
 }
 #endif
 

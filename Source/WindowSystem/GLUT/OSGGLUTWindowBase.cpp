@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var Int32           GLUTWindowBase::_sfId
+/*! \var Int32           GLUTWindowBase::_sfGlutId
     
 */
 
@@ -90,23 +90,23 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
 
 
 #ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(GLUTWindowBase::*GetSFIdF)(void) const;
+    typedef const SFInt32 *(GLUTWindowBase::*GetSFGlutIdF)(void) const;
 
-    GetSFIdF GetSFId = &GLUTWindowBase::getSFId;
+    GetSFGlutIdF GetSFGlutId = &GLUTWindowBase::getSFGlutId;
 #endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
-        "id",
+        "glutId",
         "",
-        IdFieldId, IdFieldMask,
+        GlutIdFieldId, GlutIdFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GLUTWindowBase::editSFId),
+        reinterpret_cast<FieldEditMethodSig>(&GLUTWindowBase::editSFGlutId),
 #ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFId));
+        reinterpret_cast<FieldGetMethodSig >(GetSFGlutId));
 #else
-        reinterpret_cast<FieldGetMethodSig >(&GLUTWindowBase::getSFId));
+        reinterpret_cast<FieldGetMethodSig >(&GLUTWindowBase::getSFGlutId));
 #endif
 
     oType.addInitialDesc(pDesc);
@@ -136,7 +136,7 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(
     ">\n"
     "The class for GLUT-based windows. See \\ref PageWindowGlut for a description.\n"
     "\t<Field\n"
-    "\t\tname=\"id\"\n"
+    "\t\tname=\"glutId\"\n"
     "\t\ttype=\"Int32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
@@ -169,22 +169,22 @@ UInt32 GLUTWindowBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-SFInt32 *GLUTWindowBase::editSFId(void)
+SFInt32 *GLUTWindowBase::editSFGlutId(void)
 {
-    editSField(IdFieldMask);
+    editSField(GlutIdFieldMask);
 
-    return &_sfId;
+    return &_sfGlutId;
 }
 
-const SFInt32 *GLUTWindowBase::getSFId(void) const
+const SFInt32 *GLUTWindowBase::getSFGlutId(void) const
 {
-    return &_sfId;
+    return &_sfGlutId;
 }
 
 #ifdef OSG_1_GET_COMPAT
-SFInt32             *GLUTWindowBase::getSFId             (void)
+SFInt32             *GLUTWindowBase::getSFGlutId         (void)
 {
-    return this->editSFId             ();
+    return this->editSFGlutId         ();
 }
 #endif
 
@@ -198,9 +198,9 @@ UInt32 GLUTWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (IdFieldMask & whichField))
+    if(FieldBits::NoField != (GlutIdFieldMask & whichField))
     {
-        returnValue += _sfId.getBinSize();
+        returnValue += _sfGlutId.getBinSize();
     }
 
     return returnValue;
@@ -211,9 +211,9 @@ void GLUTWindowBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (IdFieldMask & whichField))
+    if(FieldBits::NoField != (GlutIdFieldMask & whichField))
     {
-        _sfId.copyToBin(pMem);
+        _sfGlutId.copyToBin(pMem);
     }
 }
 
@@ -222,9 +222,9 @@ void GLUTWindowBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (IdFieldMask & whichField))
+    if(FieldBits::NoField != (GlutIdFieldMask & whichField))
     {
-        _sfId.copyFromBin(pMem);
+        _sfGlutId.copyFromBin(pMem);
     }
 }
 
@@ -267,13 +267,13 @@ FieldContainerPtr GLUTWindowBase::shallowCopy(void) const
 
 GLUTWindowBase::GLUTWindowBase(void) :
     Inherited(),
-    _sfId                     (Int32(0))
+    _sfGlutId                 (Int32(0))
 {
 }
 
 GLUTWindowBase::GLUTWindowBase(const GLUTWindowBase &source) :
     Inherited(source),
-    _sfId                     (source._sfId                     )
+    _sfGlutId                 (source._sfGlutId                 )
 {
 }
 

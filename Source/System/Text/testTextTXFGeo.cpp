@@ -631,7 +631,7 @@ int main(int argc, char **argv)
 
     // the connection between GLUT and OpenSG
     GLUTWindowPtr gwin= GLUTWindow::create();
-    gwin->setId(winid);
+    gwin->setGlutId(winid);
     gwin->init();
 
     lines.push_back(argc >= 2 ? argv[1] : "Hello World!");

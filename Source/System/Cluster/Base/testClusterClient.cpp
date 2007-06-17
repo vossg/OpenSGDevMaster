@@ -1197,7 +1197,7 @@ int main(int argc,char **argv)
         clientWindow=GLUTWindow::create();
 //        glutReshapeWindow(800,600);
         glutReshapeWindow(winwidth,winheight);
-        clientWindow->setId(winid);
+        clientWindow->setGlutId(winid);
         clientWindow->init();
 
         // init scene graph

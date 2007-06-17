@@ -104,19 +104,27 @@ void ChangeList::addUncommited(ContainerChangeEntry *pEntry)
 inline
 void ChangeList::applyAndClear(void)
 {
-    doApply  ();
-    clearPool();
+    doApply  (true);
+    clearPool(    );
 }
 
 inline
 void ChangeList::applyNoClear (void)
 {
-    doApply();
+    doApply(false);
 }
 
 inline
 void ChangeList::clear(void)
 {
+    if(_uiAspect != Thread::getCurrentAspect())
+    {
+        fprintf(stderr, "ChangeList::clear aspects don't match %d %d\n",
+                _uiAspect, Thread::getCurrentAspect());
+        
+        return;
+    }
+
     doClear  ();
     clearPool();
 }
@@ -167,6 +175,18 @@ inline
 void commitChanges(void)
 {
     Thread::getCurrentChangeList()->commitChanges();
+}
+
+inline 
+void commitChangesAndClear(void)
+{
+    Thread::getCurrentChangeList()->commitChangesAndClear();
+}
+
+inline 
+void clearChangeList(void)
+{
+    Thread::getCurrentChangeList()->clear();
 }
 
 OSG_END_NAMESPACE

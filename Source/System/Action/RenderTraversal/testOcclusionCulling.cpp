@@ -696,7 +696,7 @@ int main(int argc, char **argv)
     glutKeyboardFunc(keyboard);
 
     GLUTWindowPtr mainwin=GLUTWindow::create();
-    mainwin->setId(mainwinid);
+    mainwin->setGlutId(mainwinid);
     mainwin->init();
     
     // create the SimpleSceneManager helper
@@ -734,7 +734,7 @@ int main(int argc, char **argv)
         glutKeyboardFunc(keyboard);
 
         debugwin=GLUTWindow::create();
-        debugwin->setId(debugwinid);
+        debugwin->setGlutId(debugwinid);
         debugwin->init();       
         
         ViewportPtr vp = mainwin->getPort(0);

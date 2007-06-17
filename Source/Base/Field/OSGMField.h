@@ -269,6 +269,8 @@ class MField : public Field
 
     void  terminateShare(UInt32              uiAspect, 
                          AspectOffsetStore  &oOffsets    );
+
+    bool  isShared      (void                            );
 #endif
 
     /*! \}                                                                 */
@@ -304,7 +306,9 @@ class MField : public Field
 
            StorageType _values;
 
+#ifdef OSG_MT_CPTR_ASPECT
            UInt32      _uiSharedWith;
+#endif
 
 #if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_HELPER_FCT)
     const FieldType &fieldTypeExportHelper(void);

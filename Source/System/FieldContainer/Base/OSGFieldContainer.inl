@@ -351,12 +351,12 @@ void FieldContainer::editMField(ConstFieldMaskArg  whichField,
         registerChangedContainer();
     }
 
-    if(0x0000 != (_bvChanged & whichField))
+    _bvChanged |= whichField;
+
+    if(oField.isShared() == false)
     {
         return;
     }
-
-    _bvChanged |= whichField;
 
     AspectOffsetStore oOffsets;
 

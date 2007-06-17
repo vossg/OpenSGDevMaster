@@ -76,14 +76,14 @@ void FieldBundle::addReference(void)
 {
     ++_iRefCount;
     
-    Thread::getCurrentChangeList()->addAddRefd(Inherited::getId());
+//    Thread::getCurrentChangeList()->addAddRefd(Inherited::getId());
 
 }
 
 inline
 void FieldBundle::subReference(void)
 {
-    Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+//    Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
     --_iRefCount;
 

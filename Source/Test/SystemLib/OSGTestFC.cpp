@@ -156,8 +156,6 @@ TestFC::ObjPtr TestFC::createAspectCopy(void) const
 void TestFC::changed(ConstFieldMaskArg whichField, 
                    UInt32            origin    )
 {
-    fprintf(stderr, "TestFC Changed\n");
-
     Inherited::changed(whichField, origin);
 }
 
@@ -169,6 +167,11 @@ void TestFC::dump(      UInt32    uiIndent,
 
     _pAspectStore->dump();
 #endif
+
+    fprintf(stderr, "%p %p | 0x%016llx\n", 
+            _pContainerChanges, 
+            &_bvChanged,
+           _bvChanged);
 
     _mfField1.dump(uiIndent + 4, bvFlags);
     

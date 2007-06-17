@@ -529,12 +529,13 @@ void ClusterWindow::frameInit(void)
 
             // send sync
 
+            commitChanges();
             remoteAspect->sendSync(*connection);
 
-            ChangeList cl;
+            ChangeList *cl = ChangeList::create();
 
-            cl.clear();
-            cl.copy(*Thread::getCurrentChangeList());
+            cl->clear();
+            cl->merge(*Thread::getCurrentChangeList());
 
             Thread::getCurrentChangeList()->clear();
 
@@ -543,11 +544,14 @@ void ClusterWindow::frameInit(void)
             // last chance to modifie before sync
             clientPreSync();
             // send sync
+            commitChanges();
             remoteAspect->sendSync(*connection);
 
 //            cl.merge(*Thread::getCurrentChangeList());
 //            Thread::getCurrentChangeList()->clear();
-            Thread::getCurrentChangeList()->merge(cl);
+            Thread::getCurrentChangeList()->merge(*cl);
+
+            OSG::subRef(cl);
 
             _firstFrame = false;
         }
@@ -555,6 +559,8 @@ void ClusterWindow::frameInit(void)
         {
             editFrameCount()++;
             clientPreSync();
+
+            commitChanges();
             remoteAspect->sendSync(*connection);
         }
     }

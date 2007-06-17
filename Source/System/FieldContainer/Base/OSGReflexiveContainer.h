@@ -404,8 +404,8 @@ class ReflexiveContainer
 
     void                  execEndEdit   (ConstFieldMaskArg whichField);
 
-    ContainerChangeEntry *getChangeEntry(void                        );
-    void                  setChangeEntry(ContainerChangeEntry *pEntry);
+//    ContainerChangeEntry *getChangeEntry(void                        );
+    void                  clearChangeEntry(ContainerChangeEntry *pRef);
 
 
     /*! \}                                                                 */
