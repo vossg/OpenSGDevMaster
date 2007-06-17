@@ -145,12 +145,16 @@ UInt32 FieldContainerFactoryBase::registerContainer(
     _pStoreLock->acquire();
 #endif
 
+#ifdef OSG_MT_CPTR_ASPECT
     ContainerHandlerP pHandler = NULL;
 
     if(pContainer != NULL)
         pHandler = pContainer->getAspectStore();
 
     _vContainerStore.push_back(pHandler);
+#else
+    _vContainerStore.push_back(pContainer);
+#endif
 
     returnValue = _vContainerStore.size() - 1;
 

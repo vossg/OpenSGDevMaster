@@ -12,14 +12,14 @@ int main (int argc, char **argv)
 
     // Test getting pointers
     OSG::NodePtr node_ptr = OSG::Node::create();
-#ifdef OSG_MT_FIELDCONTAINERPTR
+#ifdef OSG_MT_FIELDCONTAINERPTRX
     OSG::Node* node_cptr = get_pointer(node_ptr);
 #else
     OSG::Node* node_cptr = getCPtr(node_ptr);
 #endif
     
     OSG::NodeRefPtr node_rptr(OSG::Node::create());
-#ifdef OSG_MT_FIELDCONTAINERPTR
+#ifdef OSG_MT_FIELDCONTAINERPTRX
     node_cptr = get_pointer(node_rptr);
 #endif
 }

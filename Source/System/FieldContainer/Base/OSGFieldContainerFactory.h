@@ -50,9 +50,7 @@
 #include "OSGAspectStore.h"
 #include "OSGContainerIdMapper.h"
 
-#ifdef OSG_MT_CPTR_ASPECT
 #include "OSGFieldContainer.h"
-#endif
 
 #include <deque>
 
@@ -82,7 +80,11 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
   public:
 
     typedef FieldContainerPtr              ContainerPtr;
+#ifdef OSG_MT_CPTR_ASPECT
     typedef AspectStoreP                   ContainerHandlerP;
+#else
+    typedef FieldContainerPtr              ContainerHandlerP;
+#endif
 
     typedef std::deque<ContainerHandlerP>  ContainerStore;
     typedef ContainerStore::iterator       ContainerStoreIt;
