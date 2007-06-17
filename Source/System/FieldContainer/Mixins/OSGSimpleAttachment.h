@@ -228,14 +228,12 @@ class SimpleAttachment : public FieldContainerAttachment
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    OSG_SYSTEM_DLLMAPPING 
     virtual void execSyncV(      FieldContainer    &oFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-    OSG_SYSTEM_DLLMAPPING 
             void execSync (      SimpleAttachment  *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
