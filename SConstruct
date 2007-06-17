@@ -753,7 +753,6 @@ if not SConsAddons.Util.hasHelpFlag():
                                               "Disable interface that will go away in the future"),
                 "OSG_NO_GLUT_GLSUBDIR"     : (common_env["disable_glut_glsubdir"],
                                               "Don't use GL subdir for glut"),
-                "OSG_MT_FIELDCONTAINERPTR" : ("MT_FCPTR" == common_env["fcptr_mode"]),
                 "OSG_MT_CPTR_ASPECT"       : ("MT_CPTR" == common_env["fcptr_mode"]),
                 "OSG_1_COMPAT"             : common_env["enable_osg1_compat"],
                 "OSG_DEPRECATED_PROPS"     : common_env["enable_deprecated_props"],
