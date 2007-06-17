@@ -522,7 +522,7 @@ feature_options["gif"] = sca_opts.BoolOption(
 
 feature_options["fcptr_mode"] = sca_opts.EnumOption(
     "fcptr_mode", "Select the mode for field container pointers",
-    "MT_FCPTR", ["SINGLE_THREAD", "MT_CPTR", "MT_FCPTR"])
+    "MT_CPTR", ["SINGLE_THREAD", "MT_CPTR"])
 
 feature_options["disable_deprecated"] = sca_opts.BoolOption(
     "disable_deprecated", "Disable deprecated interfaces and code", False)
