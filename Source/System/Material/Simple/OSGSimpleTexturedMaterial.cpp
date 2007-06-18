@@ -130,8 +130,10 @@ void SimpleTexturedMaterial::changed(BitVector whichField, UInt32 origin)
     {
         if (getEnvMap())
         {
+#ifndef OSG_WINCE
             _texGenChunk->setGenFuncS(GL_SPHERE_MAP);
             _texGenChunk->setGenFuncT(GL_SPHERE_MAP);
+#endif
         }
         else
         {

@@ -64,7 +64,9 @@ template class SingletonHolder<FieldBundleFactoryBase>;
 
 FieldBundleFactoryBase::FieldBundleFactoryBase(void) :
      Inherited      ("FieldBundleFactory"),
+#ifndef OSG_WINCE
     _pStoreLock     (NULL                ),
+#endif
     _vContainerStore(                    ),
     _pMapper        (NULL                )
 {
@@ -72,7 +74,9 @@ FieldBundleFactoryBase::FieldBundleFactoryBase(void) :
 
 FieldBundleFactoryBase::FieldBundleFactoryBase(const Char8 *szFactoryName) :
      Inherited      (szFactoryName),
+#ifndef OSG_WINCE
     _pStoreLock     (NULL         ),
+#endif
     _vContainerStore(             ),
     _pMapper        (NULL         )
 {

@@ -77,7 +77,11 @@ FieldContainerFactoryBase::ContainerPtr
     {
         if(_vContainerStore[uiContainerId] != NULL)
         {
+#ifdef OSG_MT_CPTR_ASPECT
             returnValue = _vContainerStore[uiContainerId]->getPtr();
+#else
+            returnValue = _vContainerStore[uiContainerId];
+#endif
         }
     }
 

@@ -666,9 +666,12 @@ class OSG_SYSTEM_DLLMAPPING Thread
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    static ChangeList *getCurrentChangeList(      void         );
-    
-//    static Thread     *getCurrent          (      void         );
+    static ChangeList *getCurrentChangeList(void);
+
+    static UInt32      getCurrentAspect    (void)
+    {
+        return 1;
+    }
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

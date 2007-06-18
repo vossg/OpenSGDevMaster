@@ -117,6 +117,7 @@ void ChangeList::applyNoClear (void)
 inline
 void ChangeList::clear(void)
 {
+#ifdef OSG_MT_CPTR_ASPECT
     if(_uiAspect != Thread::getCurrentAspect())
     {
         fprintf(stderr, "ChangeList::clear aspects don't match %d %d\n",
@@ -124,6 +125,7 @@ void ChangeList::clear(void)
         
         return;
     }
+#endif
 
     doClear  ();
     clearPool();

@@ -75,7 +75,9 @@ for OSG::FieldContainerFactory.
 
 FieldContainerFactoryBase::FieldContainerFactoryBase(void) :
      Inherited      ("FieldContainerFactory"),
+#ifndef OSG_WINCE
     _pStoreLock     (NULL                   ),
+#endif
     _vContainerStore(                       ),
     _pMapper        (NULL                   )
 {
@@ -85,8 +87,10 @@ FieldContainerFactoryBase::FieldContainerFactoryBase(
     const Char8 *szFactoryName) :
 
      Inherited      (szFactoryName),
+#ifndef OSG_WINCE
     _pStoreLock     (NULL         ),
-    _vContainerStore(             ),
+#endif
+	_vContainerStore(             ),
     _pMapper        (NULL         )
 {
 }

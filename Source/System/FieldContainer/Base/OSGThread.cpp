@@ -669,7 +669,7 @@ ChangeList *Thread::getCurrentChangeList(void)
 
     if(theList == NULL)
     {
-        theList = new ChangeList;
+		theList = ChangeList::create();
     }
 
     return theList;

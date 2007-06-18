@@ -195,6 +195,7 @@ ChangeList *ChangeList::create(void)
     ChangeList *returnValue = new ChangeList;
 
     returnValue->_uiAspect  = Thread::getCurrentAspect();
+
     returnValue->_bExternal = true;
 
     return returnValue;
