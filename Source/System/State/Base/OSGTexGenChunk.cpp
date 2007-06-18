@@ -132,9 +132,10 @@ static inline void setGenFunc(      GLenum   coord,
                                     NodePtr  beacon, 
                                     Matrix  &cameraMat)
 {
-    if(beacon != NullFC)
+#ifndef OSG_WINCE
+	if(beacon != NullFC)
     {
-        Matrix beaconMat;
+        Matrixr beaconMat;
         beacon->getToWorld(beaconMat);
         beaconMat.multLeft(cameraMat);
         glPushMatrix();
@@ -164,12 +165,14 @@ static inline void setGenFunc(      GLenum   coord,
             
         glEnable(gen);
     }
+#endif
 }
 
 void TexGenChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
     glErr("TexGenChunk::activate precheck");
- 
+
+#ifndef OSG_WINCE
     Window *win = pEnv->getWindow();   
 
     Real32 ntexcoords;
@@ -221,7 +224,8 @@ void TexGenChunk::activate(DrawEnv *pEnv, UInt32 idx)
     glErr("TexGenChunk::activateR");
     setGenFunc(GL_Q, GL_TEXTURE_GEN_Q, getGenFuncQ(), getGenFuncQPlane(),
                 getQBeacon(), cameraMat);
-    glErr("TexGenChunk::activateQ");
+	glErr("TexGenChunk::activateQ");
+#endif
 }
 
 
@@ -234,7 +238,8 @@ static inline void changeGenFunc(      GLenum   oldfunc,
                                        NodePtr  beacon, 
                                        Matrix  &cameraMat)
 {
-    if(beacon != NullFC)
+#ifndef OSG_WINCE
+	if(beacon != NullFC)
     {
         Matrix beaconMat;
         beacon->getToWorld(beaconMat);
@@ -261,6 +266,7 @@ static inline void changeGenFunc(      GLenum   oldfunc,
     }
     else if(oldfunc != GL_NONE || oldbeacon != NullFC) 
         glDisable(gen);  
+#endif
 }
 
 void TexGenChunk::changeFrom(DrawEnv    *pEnv, 
@@ -274,7 +280,7 @@ void TexGenChunk::changeFrom(DrawEnv    *pEnv,
     // toWorld matrix!!!
     // if(old == this)
     //     return;
-
+#ifndef OSG_WINCE
     TexGenChunk *oldp      = dynamic_cast<TexGenChunk *>(old);
     
     // If the old one is not a texgen chunk, deactivate it and activate
@@ -344,6 +350,7 @@ void TexGenChunk::changeFrom(DrawEnv    *pEnv,
                 GL_TEXTURE_GEN_Q, 
                 getGenFuncQ(), getGenFuncQPlane(), getQBeacon(), cameraMat);
 
+#endif
     glErr("TexGenChunk::changeFrom");
 }
 
@@ -351,6 +358,7 @@ void TexGenChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
     glErr("TexGenChunk::deactivate precheck");
 
+#ifndef OSG_WINCE
     Window *win = pEnv->getWindow();   
 
     Real32 ntexcoords;
@@ -389,6 +397,7 @@ void TexGenChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         glDisable(GL_TEXTURE_GEN_Q);
 
     glErr("TexGenChunk::deactivate");
+#endif
 }
 
 /*-------------------------- Comparison -----------------------------------*/

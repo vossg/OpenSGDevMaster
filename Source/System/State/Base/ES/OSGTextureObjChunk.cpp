@@ -345,8 +345,12 @@ void TextureObjChunk::onCreate(const TextureObjChunk *source)
     {
 #endif
         setGLId(Window::registerGLObject(
-                    boost::bind(&TextureObjChunk::handleGL, this, _1, _2),
-                    1));
+                    boost::bind(&TextureObjChunk::handleGL, 
+                                this, 
+                                _1, 
+                                _2, 
+                                _3),
+                    &TextureObjChunk::handleDestroyGL));
 
 #ifdef GV_CHECK
     }
@@ -1544,7 +1548,9 @@ void TextureObjChunk::handleTexture(Window *win,
 /*! GL object handler
     create the texture and destroy it
 */
-void TextureObjChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
+void TextureObjChunk::handleGL(DrawEnv                 *pEnv, 
+                               UInt32                   osgid,
+                               Window::GLObjectStatusE  mode)
 {
 #ifndef OSG_WINCE
     Window::GLObjectStatusE mode;
@@ -1656,6 +1662,12 @@ void TextureObjChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
              << mode << " for id " << id << std::endl;
     }
 #endif
+}
+
+void TextureObjChunk::handleDestroyGL(DrawEnv                 *pEnv, 
+                                      UInt32                   osgid, 
+                                      Window::GLObjectStatusE  mode)
+{
 }
 
 void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)

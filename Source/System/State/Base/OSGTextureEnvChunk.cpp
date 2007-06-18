@@ -157,6 +157,7 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
         return;
     }
 
+#ifndef OSG_WINCE
     glErr("textureShader precheck");
 
     glTexEnvi(GL_TEXTURE_SHADER_NV, GL_SHADER_OPERATION_NV,
@@ -189,7 +190,7 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
     if(getShaderOffsetMatrix().size() == 4)
     {
         glTexEnvfv(GL_TEXTURE_SHADER_NV, GL_OFFSET_TEXTURE_MATRIX_NV,
-                    (GLfloat*)&(getShaderOffsetMatrix()[0]));
+                   &(getShaderOffsetMatrix()[0]));
 
         glErr("textureShader setup: offset matrix");
     }
@@ -267,6 +268,7 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
     {
         FWARNING(("Texture shaders not consistent!\n"));
     }
+#endif
 #endif
 }
 
@@ -364,12 +366,14 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
     }
 #endif
 
-    if(getLodBias() != 0.0f && win->hasExtension(_extTextureLodBias))
+#ifndef OSG_WINCE
+	if(getLodBias() != 0.0f && win->hasExtension(_extTextureLodBias))
     {
         glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT, 
                   GL_TEXTURE_LOD_BIAS_EXT,
 	              getLodBias());
     }
+#endif
 
     Real32 ntexunits = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
 
@@ -380,13 +384,14 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
     if(idx < static_cast<UInt32>(ntexunits))
     {
         // texture env
-        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, getEnvMode());
+		GLP::glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, getEnvMode());
 
-        glTexEnvfv(GL_TEXTURE_ENV, 
-                   GL_TEXTURE_ENV_COLOR,
-                   (GLfloat*)getEnvColor().getValuesRGBA());
+		GLP::glTexEnvfv(GL_TEXTURE_ENV, 
+				        GL_TEXTURE_ENV_COLOR,
+					    getEnvColor().getValuesRGBA());
 
-        if(getEnvMode() == GL_COMBINE_EXT)
+#ifndef OSG_WINCE
+		if(getEnvMode() == GL_COMBINE_EXT)
         {
             glTexEnvi(GL_TEXTURE_ENV, 
                       GL_COMBINE_RGB_EXT,  
@@ -454,7 +459,7 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
                       getEnvOperand2Alpha());
         }
 
-        TextureEnvChunk::handleTextureShader(
+		TextureEnvChunk::handleTextureShader(
             win, 
             pEnv->getActiveTexTarget(idx));
 
@@ -464,7 +469,9 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
         {
             glEnable(GL_TEXTURE_SHADER_NV);
         }
-    }
+
+#endif
+	}
     
     glErr("TextureEnvChunk::activate");
 }
@@ -535,26 +542,29 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
     }
 #endif
 
-    if(oldp->getLodBias() != getLodBias() &&
+#ifndef OSG_WINCE
+	if(oldp->getLodBias() != getLodBias() &&
        win->hasExtension(_extTextureLodBias))
     {
         glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT, 
                   GL_TEXTURE_LOD_BIAS_EXT,
                   getLodBias());
     }
+#endif
 
-    if(idx < ntexunits)
+	if(idx < ntexunits)
     {
         if(oldp->getEnvMode() != getEnvMode())
         {
-            glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, getEnvMode());
+			GLP::glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, getEnvMode());
         }
 
-        glTexEnvfv(GL_TEXTURE_ENV, 
-                   GL_TEXTURE_ENV_COLOR,
-                   (GLfloat *) getEnvColor().getValuesRGBA());
+		GLP::glTexEnvfv(GL_TEXTURE_ENV, 
+                        GL_TEXTURE_ENV_COLOR,
+                        getEnvColor().getValuesRGBA());
 
-        if(getEnvMode() == GL_COMBINE_EXT)
+#ifndef OSG_WINCE
+		if(getEnvMode() == GL_COMBINE_EXT)
         {
             glTexEnvi(GL_TEXTURE_ENV, 
                       GL_COMBINE_RGB_EXT,  
@@ -647,7 +657,8 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
                 }
             }
         }
-    }
+#endif
+	}
 
     glErr("TextureEnvChunk::changeFrom");
 }
@@ -705,7 +716,8 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     }
 #endif
 
-    if(getLodBias() != 0.0f && win->hasExtension(_extTextureLodBias))
+#ifndef OSG_WINCE
+	if(getLodBias() != 0.0f && win->hasExtension(_extTextureLodBias))
     {
         if(!isActive)
         {
@@ -718,7 +730,8 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
                   0.0f);
 
     }
-    
+#endif
+
     Real32 ntexunits = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
 
     if(ntexunits == Window::unknownConstant)
@@ -733,13 +746,14 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         TextureBaseChunk::activateTexture(win, idx);
 
 
-    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	GLP::glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
-    glTexEnvfv(GL_TEXTURE_ENV, 
-               GL_TEXTURE_ENV_COLOR,
-               (GLfloat *) Vec4f::Null.getValues());
+	GLP::glTexEnvfv(GL_TEXTURE_ENV, 
+                    GL_TEXTURE_ENV_COLOR,
+                    Vec4r::Null.getValues());
     
-    if(getShaderOperation() != GL_NONE &&
+#ifndef OSG_WINCE
+	if(getShaderOperation() != GL_NONE &&
        win->hasExtension(_nvTextureShader))
     {
         glTexEnvi(GL_TEXTURE_SHADER_NV, GL_SHADER_OPERATION_NV, GL_NONE);
@@ -747,6 +761,7 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         if(idx == 0)
             glDisable(GL_TEXTURE_SHADER_NV);
     }
+#endif
 
     glErr("CubeTextureBaseChunk::deactivate");
 }
@@ -777,7 +792,8 @@ bool TextureEnvChunk::operator == (const StateChunk &other) const
     bool returnValue = 
         getEnvMode  () == tother->getEnvMode  ();
 
-    if(returnValue == true && getEnvMode() == GL_COMBINE_EXT)
+#ifndef OSG_WINCE
+	if(returnValue == true && getEnvMode() == GL_COMBINE_EXT)
     {
         returnValue =
             getEnvCombineRGB ()   == tother->getEnvCombineRGB   () &&
@@ -806,9 +822,8 @@ bool TextureEnvChunk::operator == (const StateChunk &other) const
            ((tother->getEnvScaleRGB  () -         getEnvScaleRGB  ()) < Eps) &&
            ((        getEnvScaleAlpha() - tother->getEnvScaleAlpha()) < Eps) &&
            ((tother->getEnvScaleAlpha() -         getEnvScaleAlpha()) < Eps);
-
-
     }
+#endif
 
     return returnValue;
 }

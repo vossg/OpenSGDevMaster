@@ -1377,39 +1377,6 @@ void TextureObjChunkBase::setLodBias(const Real32 &value)
 
     _sfLodBias.setValue(value);
 }
-//! Get the value of the TextureObjChunk::_sfTarget field.
-
-inline
-GLenum &TextureObjChunkBase::editTarget(void)
-{
-    editSField(TargetFieldMask);
-
-    return _sfTarget.getValue();
-}
-
-//! Get the value of the TextureObjChunk::_sfTarget field.
-inline
-const GLenum &TextureObjChunkBase::getTarget(void) const
-{
-    return _sfTarget.getValue();
-}
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &TextureObjChunkBase::getTarget         (void)
-{
-    return this->editTarget         ();
-}
-#endif
-
-//! Set the value of the TextureObjChunk::_sfTarget field.
-inline
-void TextureObjChunkBase::setTarget(const GLenum &value)
-{
-    editSField(TargetFieldMask);
-
-    _sfTarget.setValue(value);
-}
 //! Get the value of the TextureObjChunk::_sfDirtyLeft field.
 
 inline
@@ -1990,9 +1957,6 @@ void TextureObjChunkBase::execSync (      TextureObjChunkBase *pFrom,
 
     if(FieldBits::NoField != (LodBiasFieldMask & whichField))
         _sfLodBias.syncWith(pFrom->_sfLodBias);
-
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-        _sfTarget.syncWith(pFrom->_sfTarget);
 
     if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
         _sfDirtyLeft.syncWith(pFrom->_sfDirtyLeft);

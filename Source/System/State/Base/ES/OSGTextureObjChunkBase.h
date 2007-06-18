@@ -106,7 +106,6 @@
 #include "OSGUInt8Fields.h" // ShaderCullModes type
 #include "OSGVec3fFields.h" // ShaderConstEye type
 #include "OSGReal32Fields.h" // LodBias type
-#include "OSGGLenumFields.h" // Target type
 #include "OSGInt32Fields.h" // DirtyLeft type
 #include "OSGInt32Fields.h" // DirtyMinX type
 #include "OSGInt32Fields.h" // DirtyMaxX type
@@ -187,8 +186,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
         ShaderCullModesFieldId = ShaderRGBADotProductFieldId + 1,
         ShaderConstEyeFieldId = ShaderCullModesFieldId + 1,
         LodBiasFieldId = ShaderConstEyeFieldId + 1,
-        TargetFieldId = LodBiasFieldId + 1,
-        DirtyLeftFieldId = TargetFieldId + 1,
+        DirtyLeftFieldId = LodBiasFieldId + 1,
         DirtyMinXFieldId = DirtyLeftFieldId + 1,
         DirtyMaxXFieldId = DirtyMinXFieldId + 1,
         DirtyMinYFieldId = DirtyMaxXFieldId + 1,
@@ -285,8 +283,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
         (TypeTraits<BitVector>::One << ShaderConstEyeFieldId);
     static const OSG::BitVector LodBiasFieldMask =
         (TypeTraits<BitVector>::One << LodBiasFieldId);
-    static const OSG::BitVector TargetFieldMask =
-        (TypeTraits<BitVector>::One << TargetFieldId);
     static const OSG::BitVector DirtyLeftFieldMask =
         (TypeTraits<BitVector>::One << DirtyLeftFieldId);
     static const OSG::BitVector DirtyMinXFieldMask =
@@ -578,12 +574,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
 #endif
                   SFReal32            *editSFLodBias        (void);
             const SFReal32            *getSFLodBias         (void) const;
-
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFTarget          (void);
-#endif
-                  SFGLenum            *editSFTarget         (void);
-            const SFGLenum            *getSFTarget          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFDirtyLeft       (void);
@@ -904,12 +894,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
             const Real32              &getLodBias         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  GLenum              &getTarget          (void);
-#endif
-                  GLenum              &editTarget         (void);
-            const GLenum              &getTarget          (void) const;
-
-#ifdef OSG_1_GET_COMPAT
                   Int32               &getDirtyLeft       (void);
 #endif
                   Int32               &editDirtyLeft      (void);
@@ -1026,7 +1010,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
             void setShaderCullModes(const UInt8 &value);
             void setShaderConstEye (const Vec3f &value);
             void setLodBias        (const Real32 &value);
-            void setTarget         (const GLenum &value);
             void setDirtyLeft      (const Int32 &value);
             void setDirtyMinX      (const Int32 &value);
             void setDirtyMaxX      (const Int32 &value);
@@ -1168,7 +1151,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     SFUInt8           _sfShaderCullModes;
     SFVec3f           _sfShaderConstEye;
     SFReal32          _sfLodBias;
-    SFGLenum          _sfTarget;
     SFInt32           _sfDirtyLeft;
     SFInt32           _sfDirtyMinX;
     SFInt32           _sfDirtyMaxX;

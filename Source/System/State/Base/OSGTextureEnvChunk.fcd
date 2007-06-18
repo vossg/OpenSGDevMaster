@@ -26,10 +26,10 @@
 	</Field>
 	<Field
 		name="envColor"
-		type="Color4f"
+		type="Color4r"
 		cardinality="single"
 		visibility="external"
-		defaultValue="0,0,0,0"
+		defaultValue="0.f,0.f,0.f,0.f"
 		access="public"
 	>
         Texture environment color default transparent black.
@@ -300,7 +300,7 @@
 	</Field>
 	<Field
 		name="shaderConstEye"
-		type="Vec3f"
+		type="Vec3r"
 		cardinality="single"
 		visibility="external"
 		access="public"

@@ -68,9 +68,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
 
   public:
 
-    typedef PointerBuilder<TextureObjChunk>::ObjPtr       ObjPtr;
-    typedef PointerBuilder<TextureObjChunk>::ObjConstPtr  ObjConstPtr;
-
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */
     /*! \{                                                                 */
@@ -270,8 +267,13 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    void handleGL(DrawEnv *pEnv, UInt32 id);
-    
+           void handleGL       (DrawEnv                 *pEnv, 
+                                UInt32                   osgid,
+                                Window::GLObjectStatusE  mode);
+    static void handleDestroyGL(DrawEnv                 *pEnv, 
+                                UInt32                   osgid, 
+                                Window::GLObjectStatusE  mode);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
@@ -280,9 +282,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
 };
 
 typedef TextureObjChunk *TextureObjChunkP;
-
-typedef TextureObjChunk::ObjPtr       TextureObjChunkPtr;
-typedef TextureObjChunk::ObjConstPtr  TextureObjChunkConstPtr;
 
 OSG_END_NAMESPACE
 
