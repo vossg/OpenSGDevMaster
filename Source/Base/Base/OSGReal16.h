@@ -268,7 +268,7 @@ void            printBits   (char  c[35], float f);
 
 #define REAL16_NRM_MIN    6.10351562e-05    // Smallest positive normalized half
 
-#define REAL16_MAX    65504.0        // Largest positive half
+#define REAL16_MAX    65504.0f       // Largest positive half
 
 #define REAL16_EPSILON    0.00097656    // Smallest positive e for which
                     // half (1.0 + e) != half (1.0)
