@@ -284,7 +284,7 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
 
     static void initMethod(InitPhase ePhase);
 
-    static const ObjPtr NullPtr;
+//    static const ObjPtr NullPtr;
 
     static TypeObject  _type;
 };
@@ -419,6 +419,19 @@ typedef GeoUInt32PropertyPtr   GeoPLengthsUI32Ptr;
 typedef GeoUInt32PropertyPtr   GeoIndicesUI32Ptr;
 #endif
 
+#endif
+
+#ifdef OSG_GLES
+
+#ifdef OSG_FLOAT_PROFILE
+#else
+typedef GeoUInt16Property      GeoUIntProperty;
+typedef GeoUInt16PropertyPtr   GeoUIntPropertyPtr;
+#endif
+
+#else
+typedef GeoUInt32Property      GeoUIntProperty;
+typedef GeoUInt32PropertyPtr   GeoUIntPropertyPtr;
 #endif
  
 OSG_END_NAMESPACE

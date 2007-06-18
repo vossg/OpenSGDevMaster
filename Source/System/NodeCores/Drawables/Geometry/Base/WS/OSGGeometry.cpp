@@ -198,8 +198,8 @@ void Geometry::adjustVolume(Volume & volume)
 /*! OpenGL object handler. Used for DisplayList caching.
 */
 void Geometry::handleClassicGL(DrawEnv                 *pEnv, 
-                        UInt32                   id, 
-                        Window::GLObjectStatusE  mode)
+                               UInt32                   id, 
+                               Window::GLObjectStatusE  mode)
 {
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
@@ -274,8 +274,8 @@ void Geometry::handleClassicDestroyGL(DrawEnv                 *pEnv,
 }
 
 void Geometry::handleAttGL(DrawEnv                 *pEnv, 
-                        UInt32                   id, 
-                        Window::GLObjectStatusE  mode)
+                           UInt32                   id, 
+                           Window::GLObjectStatusE  mode)
 {
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
@@ -324,9 +324,10 @@ void Geometry::handleAttGL(DrawEnv                 *pEnv,
     }
 
 }
+
 void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv, 
-                        UInt32                   id, 
-                        Window::GLObjectStatusE  mode)
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode)
 {
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();

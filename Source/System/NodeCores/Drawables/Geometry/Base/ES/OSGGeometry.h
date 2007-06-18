@@ -82,13 +82,6 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
     typedef GeometryBase                             Inherited;
 
-    typedef PointerBuilder<Geometry>::ObjPtr         ObjPtr;
-    typedef PointerBuilder<Geometry>::ObjPtrArg      ObjPtrArg;
-    typedef PointerBuilder<Geometry>::ObjConstPtr    ObjConstPtr;
-    typedef PointerBuilder<Geometry>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerBuilder<Geometry>::ObjPtrConst    ObjPtrConst;
-    typedef PointerBuilder<Geometry>::ObjPtrConstArg ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name               Simplification Constants                       */
     /*! \{                                                                 */
@@ -194,13 +187,12 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                       Iterator Access                        */
     /*! \{                                                                 */
 
-#if 0
     TriangleIterator   beginTriangles   (void) const;
     TriangleIterator   endTriangles     (void) const;
 
     PrimitiveIterator  beginPrimitives  (void) const;
     PrimitiveIterator  endPrimitives    (void) const;
-
+#if 0
     FaceIterator       beginFaces       (void) const;
     FaceIterator       endFaces         (void) const;
 
@@ -293,10 +285,24 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                   Class Specific                             */
     /*! \{                                                                 */
 
-    void handleClassicGL(DrawEnv *pEnv, UInt32 id);
-    void handleAttGL    (DrawEnv *pEnv, UInt32 id);
+           void handleClassicGL       (DrawEnv                 *pEnv, 
+                                       UInt32                   id,
+                                       Window::GLObjectStatusE  mode);
 
-    void onCreate(const Geometry *source = NULL);
+    static void handleClassicDestroyGL(DrawEnv                 *pEnv, 
+                                       UInt32                   id, 
+                                       Window::GLObjectStatusE  mode);
+
+           void handleAttGL           (DrawEnv                 *pEnv, 
+                                       UInt32                   id,
+                                       Window::GLObjectStatusE  mode);
+    
+    static void handleAttDestroyGL    (DrawEnv                 *pEnv, 
+                                       UInt32                   id, 
+                                       Window::GLObjectStatusE  mode);
+
+    void onCreate (const Geometry *source = NULL);
+    void onDestroy(UInt32 id);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -326,11 +332,6 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 };
 
 typedef Geometry                 *GeometryP;
-typedef Geometry::ObjPtr          GeometryPtr;
-typedef Geometry::ObjPtrArg       GeometryPtrArg;
-typedef Geometry::ObjConstPtr     GeometryConstPtr;
-typedef Geometry::ObjConstPtrArg  GeometryConstPtrArg;
-typedef Geometry::ObjPtrConstArg  GeometryPtrConstArg;
 
 OSG_END_NAMESPACE
 

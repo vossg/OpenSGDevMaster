@@ -724,6 +724,28 @@ typedef GeoVec4dPropertyPtr  GeoTexCoords4dPtr;
 
 #endif
 
+#ifdef OSG_GLES
+#ifdef OSG_FLOAT_PROFILE
+#else
+typedef GeoPnt3fxProperty     GeoPnt3rProperty;
+typedef GeoVec2fxProperty     GeoVec2rProperty;
+typedef GeoVec3fxProperty     GeoVec3rProperty;
+
+typedef GeoPnt3fxPropertyPtr  GeoPnt3rPropertyPtr;
+typedef GeoVec2fxPropertyPtr  GeoVec2rPropertyPtr;
+typedef GeoVec3fxPropertyPtr  GeoVec3rPropertyPtr;
+#endif
+#else
+typedef GeoPnt3fProperty      GeoPnt3rProperty;
+typedef GeoVec2fProperty      GeoVec2rProperty;
+typedef GeoVec3fProperty      GeoVec3rProperty;
+
+typedef GeoPnt3fPropertyPtr   GeoPnt3rPropertyPtr;
+typedef GeoVec2fPropertyPtr   GeoVec2rPropertyPtr;
+typedef GeoVec3fPropertyPtr   GeoVec3rPropertyPtr;
+#endif
+
+
 OSG_END_NAMESPACE
 
 #include "OSGTypedGeoVectorProperty.inl"

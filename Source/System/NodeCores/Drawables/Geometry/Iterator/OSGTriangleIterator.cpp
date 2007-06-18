@@ -47,6 +47,7 @@
 #include "OSGGeometry.h"
 #include "OSGPrimitiveIterator.h"
 #include "OSGTriangleIterator.h"
+#include "OSGGLEXT.h"
 
 OSG_USING_NAMESPACE
 

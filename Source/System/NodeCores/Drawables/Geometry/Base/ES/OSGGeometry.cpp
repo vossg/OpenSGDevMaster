@@ -61,12 +61,12 @@
 #if 0
 //#include <OSGIntersectActor.h>
 
-#include "OSGTriangleIterator.h"
-#include "OSGPrimitiveIterator.h"
 #include "OSGFaceIterator.h"
 #include "OSGLineIterator.h"
 #include "OSGEdgeIterator.h"
 #endif
+#include "OSGTriangleIterator.h"
+#include "OSGPrimitiveIterator.h"
 
 OSG_USING_NAMESPACE
 
@@ -162,12 +162,6 @@ void Geometry::freeParent(FieldContainerAttachmentPtr value,
 
 Geometry::~Geometry(void)
 {
-    UInt16 i;
- 
-    if(getClassicGLId() > 0)
-        Window::destroyGLObject(getClassicGLId(), 1);  
-    if(getAttGLId() > 0)
-        Window::destroyGLObject(getAttGLId(), 1);  
 }
 
 void Geometry::onCreate(const Geometry *)
@@ -178,13 +172,21 @@ void Geometry::onCreate(const Geometry *)
 
     setClassicGLId(
         Window::registerGLObject(
-            boost::bind(&Geometry::handleClassicGL, this, _1, _2),
-            1));
+            boost::bind(&Geometry::handleClassicGL, this, _1, _2, _3),
+            &Geometry::handleClassicDestroyGL));
 
     setAttGLId(
         Window::registerGLObject(
-            boost::bind(&Geometry::handleAttGL, this, _1, _2),
-            1));
+            boost::bind(&Geometry::handleAttGL, this, _1, _2, _3),
+            &Geometry::handleAttDestroyGL));
+}
+
+void Geometry::onDestroy(UInt32)
+{
+    if(getClassicGLId() > 0)
+        Window::destroyGLObject(getClassicGLId(), 1);
+    if(getAttGLId() > 0)
+        Window::destroyGLObject(getAttGLId(), 1);
 }
 
 /*------------------------------ access -----------------------------------*/
@@ -218,14 +220,12 @@ void Geometry::adjustVolume(Volume & volume)
 
 /*! OpenGL object handler. Used for DisplayList caching.
 */
-void Geometry::handleClassicGL(DrawEnv *pEnv, UInt32 idstatus)
+void Geometry::handleClassicGL(DrawEnv                 *pEnv, 
+                               UInt32                   id, 
+                               Window::GLObjectStatusE  mode)
 {
-    Window::GLObjectStatusE  mode;
-    UInt32                   id;
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
-
-    Window::unpackIdStatus(idstatus, id, mode);
 
 #if 0
     if(mode == Window::initialize || mode == Window::needrefresh ||
@@ -264,7 +264,24 @@ void Geometry::handleClassicGL(DrawEnv *pEnv, UInt32 idstatus)
 
         glEndList();
     }
-    else if(mode == Window::destroy)
+    else
+    {
+        SWARNING << "Geometry(" << this << "::handleGL: Illegal mode: "
+                 << mode << " for id " << id << std::endl;
+    }
+
+#endif
+}
+
+void Geometry::handleClassicDestroyGL(DrawEnv                 *pEnv, 
+                                      UInt32                   id, 
+                                      Window::GLObjectStatusE  mode)
+{
+    UInt32                   glid;
+    Window                  *pWin = pEnv->getWindow();
+
+#if 0
+    if(mode == Window::destroy)
     {
         glid = pWin->getGLObjectId(id);
 
@@ -276,20 +293,18 @@ void Geometry::handleClassicGL(DrawEnv *pEnv, UInt32 idstatus)
     }
     else
     {
-        SWARNING << "Geometry(" << this << "::handleGL: Illegal mode: "
+        SWARNING << "Geometry::handleClassicDestroyGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
-
 #endif
 }
-void Geometry::handleAttGL(DrawEnv *pEnv, UInt32 idstatus)
+
+void Geometry::handleAttGL(DrawEnv                 *pEnv, 
+                           UInt32                   id, 
+                           Window::GLObjectStatusE  mode)
 {
-    Window::GLObjectStatusE  mode;
-    UInt32                   id;
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
-
-    Window::unpackIdStatus(idstatus, id, mode);
 
 #if 0
     if(mode == Window::initialize || mode == Window::needrefresh ||
@@ -329,7 +344,23 @@ void Geometry::handleAttGL(DrawEnv *pEnv, UInt32 idstatus)
 
         glEndList();
     }
-    else if(mode == Window::destroy)
+    else
+    {
+        SWARNING << "Geometry(" << this << "::handleGL: Illegal mode: "
+                 << mode << " for id " << id << std::endl;
+    }
+#endif
+}
+
+void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv, 
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode)
+{
+    UInt32                   glid;
+    Window                  *pWin = pEnv->getWindow();
+
+#if 0
+    if(mode == Window::destroy)
     {
         glid = pWin->getGLObjectId(id);
 
@@ -341,7 +372,7 @@ void Geometry::handleAttGL(DrawEnv *pEnv, UInt32 idstatus)
     }
     else
     {
-        SWARNING << "Geometry(" << this << "::handleGL: Illegal mode: "
+        SWARNING << "Geometry::handleAttDestroyGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
 #endif
@@ -370,13 +401,13 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
                     pNorms->getStride(), 
                     pNorms->getData  ());
 
-    GeoUInt16PropertyPtr index = cast_dynamic<GeoUInt16PropertyPtr>(pIdx    ); 
-    GeoUInt16PropertyPtr lens  = cast_dynamic<GeoUInt16PropertyPtr>(pLengths); 
-    GeoUInt8PropertyPtr  types = cast_dynamic<GeoUInt8PropertyPtr >(pTypes  ); 
+    GeoUInt16PropertyPtr index = dynamic_cast<GeoUInt16PropertyPtr>(pIdx    ); 
+    GeoUInt16PropertyPtr lens  = dynamic_cast<GeoUInt16PropertyPtr>(pLengths); 
+    GeoUInt8PropertyPtr  types = dynamic_cast<GeoUInt8PropertyPtr >(pTypes  ); 
     
     const GeoUInt16Property::StoredFieldType *idx  = index->getFieldPtr();
     const GeoUInt16Property::StoredFieldType *len  = lens ->getFieldPtr();
-    const GeoUInt8Property::StoredFieldType  *typ  = types->getFieldPtr();
+    const GeoUInt8Property ::StoredFieldType *typ  = types->getFieldPtr();
 
     UInt32 uiSize    = len->size();
     UInt32 uiCurrIdx = 0;
@@ -577,7 +608,6 @@ void Geometry::dump(      UInt32    ,
 
 /*-------------------------- Primitive Iterator --------------------------------*/
 
-#if 0
 /*! Return a PrimitiveIterator poiting to the beginning of the Geometry.
 */
 PrimitiveIterator Geometry::beginPrimitives(void) const
@@ -621,7 +651,7 @@ TriangleIterator Geometry::endTriangles(void) const
 
     return it;
 }
-
+#if 0
 /*! Return a FaceIterator poiting to the beginning of the Geometry.
 */
 FaceIterator Geometry::beginFaces(void) const
