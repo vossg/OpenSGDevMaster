@@ -230,7 +230,7 @@ void Camera::getWorldToScreen(Matrixr &result, const Viewport& p)
   The default is identity.
 */
 
-void Camera::getDecoration(Matrix &result, UInt32 width, UInt32 height)
+void Camera::getDecoration(Matrixr &result, UInt32 width, UInt32 height)
 {
     result.setIdentity();
 }

@@ -233,9 +233,9 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     void setOcclusionMask(NodePtr node, UInt8 mask);
     bool hasGeometryChild(NodePtr node);
 
-    void drawOcclusionBB(const Pnt3f &bbmin, const Pnt3f &bbmax);
+    void drawOcclusionBB(const Pnt3r &bbmin, const Pnt3r &bbmax);
     void drawMultiFrameOcclusionBB(DrawTreeNode *pRoot);
-    void drawHierarchicalMultiFrameOcclusionBB(const Matrix &view, NodePtr node);
+    void drawHierarchicalMultiFrameOcclusionBB(const Matrixr &view, NodePtr node);
     // test a single node
     bool            isVisible( Node* node );
 

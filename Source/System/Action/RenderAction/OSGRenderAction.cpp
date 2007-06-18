@@ -505,11 +505,13 @@ RenderAction::~RenderAction(void)
 {
     delete _pNodeFactory;
 
-    if(_occ_bb_dl != 0)
+#ifndef OSG_WINCE
+	if(_occ_bb_dl != 0)
         glDeleteLists(_occ_bb_dl, 1);
 
     if(_occlusionQuery != 0)
         _glDeleteQueriesARB(1, &_occlusionQuery);
+#endif
 
     deleteOcclusionQueriesPool();
 }
@@ -960,7 +962,7 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
             pState = states[mpi];
 
             DrawTreeNode *pNewElem = _pNodeFactory->create();
-            Pnt3f         objPos;
+            Pnt3r         objPos;
             getActNode()->getVolume().getCenter(objPos);
 
             _currMatrix.second.mult(objPos);
@@ -1570,6 +1572,7 @@ void RenderAction::activateLocalClipPlanes(DrawTreeNode *pRoot)
                  << std::endl;
     }
 
+#ifndef OSG_WINCE
     //printf("deactivate clipPlanes: ");
     const Color4f black(0.0f, 0.0f, 0.0f, 1.0f);
     for(UInt32 i = clipPlane_id;i < _activeClipPlanesCount;++i)
@@ -1579,6 +1582,7 @@ void RenderAction::activateLocalClipPlanes(DrawTreeNode *pRoot)
         glDisable(GL_CLIP_PLANE0 + i);
     }
     //printf("\n");
+#endif
 
     _activeClipPlanesState = pRoot->getClipPlanesState();
     _activeClipPlanesCount = clipPlane_id;
@@ -1701,8 +1705,10 @@ bool RenderAction::isOccluded(DrawTreeNode *pRoot)
                     return false;
 
                 GLuint pixels = 0;
-                _glGetQueryObjectuivARB(occlusionQuery, GL_QUERY_RESULT_ARB, &pixels);
-                ++_uiNumOcclusionTests;
+#ifndef OSG_WINCE
+				_glGetQueryObjectuivARB(occlusionQuery, GL_QUERY_RESULT_ARB, &pixels);
+#endif
+				++_uiNumOcclusionTests;
                 //printf("geo occ test: '%s' %d pixels\n", OSG::getName(pRoot->getNode()), pixels);
 
                 if(pixels > _occlusionCullingPixels)
@@ -1744,19 +1750,23 @@ bool RenderAction::isOccluded(DrawTreeNode *pRoot)
                     _glGenQueriesARB(1, &_occlusionQuery);
 
                 const DynamicVolume& vol = pRoot->getNode()->getVolume();
-                Pnt3f min,max;
+                Pnt3r min,max;
                 vol.getBounds(min, max);
 
-                _glBeginQueryARB(GL_SAMPLES_PASSED_ARB, _occlusionQuery);
+#ifndef OSG_WINCE
+				_glBeginQueryARB(GL_SAMPLES_PASSED_ARB, _occlusionQuery);
                 drawOcclusionBB(min, max);
                 _glEndQueryARB(GL_SAMPLES_PASSED_ARB);
+#endif
 
                 glDepthMask(GL_TRUE);
                 glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
 
                 GLuint pixels = 0;
-                _glGetQueryObjectuivARB(_occlusionQuery, GL_QUERY_RESULT_ARB, &pixels);
-                ++_uiNumOcclusionTests;
+#ifndef OSG_WINCE
+				_glGetQueryObjectuivARB(_occlusionQuery, GL_QUERY_RESULT_ARB, &pixels);
+#endif
+				++_uiNumOcclusionTests;
 
                 if(pixels > _occlusionCullingPixels)
                 {
@@ -1894,8 +1904,9 @@ void RenderAction::setOcclusionQuery(NodePtr node, GLuint occlusionQuery)
     _occlusionQueries.insert(std::make_pair(getContainerId(node), occlusionQuery));
 }
 
-void RenderAction::drawOcclusionBB(const Pnt3f &bbmin, const Pnt3f &bbmax)
+void RenderAction::drawOcclusionBB(const Pnt3r &bbmin, const Pnt3r &bbmax)
 {
+#ifndef OSG_WINCE
 #if 1
 
 #if 0
@@ -1985,6 +1996,7 @@ void RenderAction::drawOcclusionBB(const Pnt3f &bbmin, const Pnt3f &bbmax)
     glPopMatrix();
 
 #endif
+#endif
 }
 
 void RenderAction::drawMultiFrameOcclusionBB(DrawTreeNode *pRoot)
@@ -2017,21 +2029,23 @@ void RenderAction::drawMultiFrameOcclusionBB(DrawTreeNode *pRoot)
                     UInt32 uiNextMatrix = pRoot->getMatrixStore().first;
                     if(uiNextMatrix != 0 && uiNextMatrix != _uiActiveMatrix)
                     {
-                        glLoadMatrixf(pRoot->getMatrixStore().second.getValues());
+						GLP::glLoadMatrixf(pRoot->getMatrixStore().second.getValues());
         
                         _uiActiveMatrix = uiNextMatrix;
                         _uiNumMatrixChanges++;
                         _currMatrix.second = pRoot->getMatrixStore().second;
                     }
 
-                    Pnt3f min,max;
+                    Pnt3r min,max;
                     pRoot->getNode()->getVolume().getBounds(min, max);
     
                     GLuint occlusionQuery = getOcclusionQuery();
 
-                    _glBeginQueryARB(GL_SAMPLES_PASSED_ARB, occlusionQuery);
+#ifndef OSG_WINCE
+					_glBeginQueryARB(GL_SAMPLES_PASSED_ARB, occlusionQuery);
                     drawOcclusionBB(min, max);
                     _glEndQueryARB(GL_SAMPLES_PASSED_ARB);
+#endif
 
                     // we use the node because the geometry core could be shared!
                     setOcclusionQuery(pRoot->getNode(), occlusionQuery);
@@ -2052,29 +2066,30 @@ void RenderAction::drawMultiFrameOcclusionBB(DrawTreeNode *pRoot)
     }
 }
 
-void RenderAction::drawHierarchicalMultiFrameOcclusionBB(const Matrix &view,
+void RenderAction::drawHierarchicalMultiFrameOcclusionBB(const Matrixr &view,
                                                          NodePtr node)
 {
     if(node == NullFC || _glGenQueriesARB == NULL)
         return;
 
     DynamicVolume vol = node->getVolume();
-    Matrix m = view;
+    Matrixr m = view;
     if(node->getParent() != NullFC)
         m.mult(node->getParent()->getToWorld());
     vol.transform(m);
     // ignore objects behind the camera.
     if(vol.getMax()[2] < 0.0f)
     {
-        glLoadMatrixf(m.getValues());
-        Pnt3f min,max;
+		GLP::glLoadMatrixf(m.getValues());
+        Pnt3r min,max;
         node->getVolume().getBounds(min, max);
 
         GLuint occlusionQuery = getOcclusionQuery();
-
+#ifndef OSG_WINCE
         _glBeginQueryARB(GL_SAMPLES_PASSED_ARB, occlusionQuery);
         drawOcclusionBB(min, max);
         _glEndQueryARB(GL_SAMPLES_PASSED_ARB);
+#endif
 
         // we use the node because the geometry core could be shared!
         setOcclusionQuery(node, occlusionQuery);
@@ -2591,9 +2606,11 @@ Action::ResultE RenderAction::stop(ResultE res)
         }
     }
 
+#ifndef OSG_WINCE
     // disable all clipping planes.
     for(i = 0;i < 6;++i)
         glDisable(GL_CLIP_PLANE0 + i);
+#endif
 
     glDepthMask(GL_TRUE);
 
@@ -2719,8 +2736,10 @@ Action::ResultE RenderAction::stop(ResultE res)
         }
     }
 
+#ifndef OSG_WINCE
     for(i = 0;i < _activeClipPlanesCount;++i)
         glDisable(GL_CLIP_PLANE0 + i);
+#endif
 
     if(_bOcclusionCulling && (_occlusionCullingMode & OcclusionMultiFrame))
     {
@@ -2743,8 +2762,10 @@ Action::ResultE RenderAction::stop(ResultE res)
                     }
     
                     GLuint pixels = 0;
-                    _glGetQueryObjectuivARB(occlusionQuery, GL_QUERY_RESULT_ARB, &pixels);
-                    ++_uiNumOcclusionTests;
+#ifndef OSG_WINCE
+					_glGetQueryObjectuivARB(occlusionQuery, GL_QUERY_RESULT_ARB, &pixels);
+#endif
+					++_uiNumOcclusionTests;
                     //printf("hier occ test: '%s' %d pixels\n", OSG::getName(node), pixels);
 
                     if(pixels > _occlusionCullingPixels)
@@ -2894,7 +2915,7 @@ Action::ResultE RenderAction::stop(ResultE res)
         if(_occlusionCullingMode == OcclusionHierarchicalMultiFrame)
         {
             // render hierarchical multi frame bounding boxes.
-            Matrix view;
+            Matrixr view;
             if(_camera != NULL)
             {
                 _camera->getViewing(view, 

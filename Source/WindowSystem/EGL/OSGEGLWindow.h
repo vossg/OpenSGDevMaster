@@ -60,9 +60,6 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindow : public EGLWindowBase
 
     typedef EGLWindowBase                           Inherited;
 
-    typedef PointerBuilder<EGLWindow>::ObjPtr       ObjPtr;
-    typedef PointerBuilder<EGLWindow>::ObjConstPtr  ObjConstPtr;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -129,9 +126,6 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindow : public EGLWindowBase
 };
 
 typedef EGLWindow *EGLWindowP;
-
-typedef EGLWindow::ObjPtr      EGLWindowPtr;
-typedef EGLWindow::ObjConstPtr EGLWindowConstPtr;
 
 OSG_END_NAMESPACE
 
