@@ -50,6 +50,8 @@
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"
 
+#include "OSGRAWSceneFileType.h"
+
 //-----------------------------------------------------------------------------
 // Parameterization
 //-----------------------------------------------------------------------------
@@ -649,7 +651,11 @@ int WINAPI WinMain(HINSTANCE hInstance,
     camTrans->setCore(camTransCore);
 
     camTransCore->editMatrix().setIdentity();
+#ifdef DO_SPHERES
     camTransCore->editMatrix()[3][2] = 300.f;
+#else
+    camTransCore->editMatrix()[3][2] = 15.f;
+#endif
 
     // beacon for camera and light  
 
@@ -680,6 +686,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
     
     file->setCore(OSG::Group::create());
 
+#ifdef DO_SPHERES
     for(int i = 0; i < NUM_FLAKES; ++i)
 	{
 //        OSG::NodePtr pG = OSG::Node::create();
@@ -691,6 +698,17 @@ int WINAPI WinMain(HINSTANCE hInstance,
 //        pT->addChild(pG);
         file->addChild(s_pFlakes[i].pTN);
 	}
+#else
+	std::ifstream sin("\\data\\dino.raw", std::ios::binary);
+
+	if(sin)
+	{
+		OSG::NodePtr pFileTree = OSG::RAWSceneFileType::the().read(sin, "");
+
+		file->addChild(pFileTree);
+	}
+
+#endif
 
 
     OSG::Thread::getCurrentChangeList()->commitChanges();
@@ -748,7 +766,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			DispatchMessage(&msg);
 		}
 
-		update ();
+//		update ();
 		display();
 
 		//How to detect key press and how to display a GDI message box

@@ -128,7 +128,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="2"
-				AdditionalIncludeDirectories=".;..\BaseLib;..\..\..\Source\Base\Base;..\..\..\Source\Base\Field;..\..\..\Source\Base\Field\Wrapper;..\..\..\Source\System\FieldContainer\Base;..\..\..\Source\System\FieldContainer\Mixins;..\..\..\Source\System\FieldContainer\Fields;..\..\..\Source\System\FieldContainer\Fields\Wrapper;..\..\..\Source\System\FieldContainer\Node;..\..\..\Source\System\Window\Base"
+				AdditionalIncludeDirectories=".;..\BaseLib;..\include;..\include\OpenSG"
 				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;_WINDOWS;_USRDLL;WINDOWEGL_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;_OSG_HAVE_CONFIGURED_H_;OSG_BUILD_DLL;OSG_COMPILEWINDOWEGLLIB"
 				MinimalRebuild="true"
 				RuntimeLibrary="2"
