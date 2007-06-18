@@ -126,13 +126,13 @@ NodePtr RAWSceneFileType::read(std::istream &is, const Char8 *) const
 {
     NodePtr                 root;
     GeometryPtr             geo;
-    GeoPnt3fPropertyPtr     points;
-    GeoVec3fPropertyPtr     normals;
+    GeoPnt3rPropertyPtr     points;
+    GeoVec3rPropertyPtr     normals;
     GeoIntegralPropertyPtr  index;
     GeoIntegralPropertyPtr  lens;
     GeoIntegralPropertyPtr  type;
 
-    Vec3f vec[3];
+    Vec3r vec[3];
 
     UInt32 i = 0, n, triCount = 0;
 
@@ -145,11 +145,11 @@ NodePtr RAWSceneFileType::read(std::istream &is, const Char8 *) const
 
         root->setCore( geo );
 
-        points = GeoPnt3fProperty::create();
+        points = GeoPnt3rProperty::create();
 
         geo->setPositions(points);
 
-        normals = GeoVec3fProperty::create();
+        normals = GeoVec3rProperty::create();
 
         geo->setNormals(normals);
 
@@ -166,9 +166,11 @@ NodePtr RAWSceneFileType::read(std::istream &is, const Char8 *) const
             }
             else 
             {
-                points->editFieldPtr()->push_back(Pnt3f(x, y, z));
+                points->editFieldPtr()->push_back(Pnt3r(x, y, z));
 
                 vec[i].setValues(x,y,z);
+
+				std::cerr << x << " " << y << " " << z << std::endl;
 
                 if(i == 2) 
                 {
@@ -193,7 +195,7 @@ NodePtr RAWSceneFileType::read(std::istream &is, const Char8 *) const
 
         if(triCount != 0)
         {
-            index = GeoUInt32Property::create();
+            index = GeoUIntProperty::create();
 
             geo->setIndex(index, Geometry::PositionsIndex);
             geo->setIndex(index, Geometry::NormalsIndex  );
@@ -205,7 +207,7 @@ NodePtr RAWSceneFileType::read(std::istream &is, const Char8 *) const
 
 
 
-            lens = GeoUInt32Property::create();
+            lens = GeoUIntProperty::create();
 
             geo->setLengths(lens);
 
@@ -220,9 +222,9 @@ NodePtr RAWSceneFileType::read(std::istream &is, const Char8 *) const
 
         SimpleMaterialPtr mat = SimpleMaterial::create();
 
-        mat->setDiffuse  (Color3f(  .8,  .8,  .8));
-        mat->setSpecular (Color3f( 1,   1,   1  ));
-        mat->setShininess(20                     );
+        mat->setDiffuse  (Color3r(  .8f,  .8f,  .8f));
+        mat->setSpecular (Color3r( 1.f,  1.f,  1.f ));
+        mat->setShininess(20.f                      );
 
         geo->setMaterial(mat);
     }

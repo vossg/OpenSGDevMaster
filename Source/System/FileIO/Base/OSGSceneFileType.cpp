@@ -51,7 +51,9 @@
 #include <OSGLog.h>
 
 #include "OSGSceneFileType.h"
+#ifndef OSG_WINCE
 #include "OSGSceneFileHandler.h"
+#endif
 #include "OSGBaseInitFunctions.h"
 
 OSG_USING_NAMESPACE
@@ -100,7 +102,9 @@ SceneFileType::SceneFileType(const Char8  *suffixArray[],
         sI->set(suffixArray[i++]);
     }
 
-    SceneFileHandler::the()->addSceneFileType(*this);
+#ifndef OSG_WINCE
+	SceneFileHandler::the()->addSceneFileType(*this);
+#endif
 }
 
 //---------------------------------------------------------
@@ -118,8 +122,10 @@ SceneFileType::SceneFileType(const SceneFileType &obj) :
 //---------------------------------------------------------
 SceneFileType::~SceneFileType(void)
 {
-    if(GlobalSystemState != Shutdown)
+#ifndef OSG_WINCE
+	if(GlobalSystemState != Shutdown)
         SceneFileHandler::the()->subSceneFileType(*this);
+#endif
 }
 
 //---------------------------------------------------------

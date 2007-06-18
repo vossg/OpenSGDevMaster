@@ -58,12 +58,18 @@
 #include "OSGGeometry.h"
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"
+#ifndef OSG_WINCE
 #include "OSGGeoFunctions.h"
+#endif
 #include "OSGSimpleTexturedMaterial.h"
+#ifndef OSG_WINCE
 #include "OSGImageFileHandler.h"
 #include "OSGPathHandler.h"
+#endif
 #include "OSGGroup.h"
+#ifndef OSG_WINCE
 #include "OSGSceneFileHandler.h"
+#endif
 #include "OSGTriangleIterator.h"
 
 #include "OSGOBJSceneFileType.h"
@@ -132,12 +138,13 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
     NodePtr rootPtr, nodePtr;
     std::string elem;
     std::map<std::string, DataElem>::const_iterator elemI;
-    Vec3f vec3f;
-    Vec2f vec2f;
+    Vec3r vec3r;
+    Pnt3r pnt3r;
+    Vec2r vec2r;
     Real32 x,y,z;
-    GeoPnt3fPropertyPtr coordPtr      = GeoPnt3fProperty::create();
-    GeoVec2fPropertyPtr texCoordPtr  = GeoVec2fProperty::create();
-    GeoVec3fPropertyPtr   normalPtr   = GeoVec3fProperty::create();
+    GeoPnt3rPropertyPtr coordPtr    = GeoPnt3rProperty::create();
+    GeoVec2rPropertyPtr texCoordPtr = GeoVec2rProperty::create();
+    GeoVec3rPropertyPtr normalPtr   = GeoVec3rProperty::create();
     GeometryPtr geoPtr;
     GeoIntegralPropertyPtr posIndexPtr, texIndexPtr, normalIndexPtr;
     GeoIntegralPropertyPtr lensPtr;
@@ -176,7 +183,9 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
             }
             else
             {
-                SceneFileHandler::the()->updateReadProgress();
+#ifndef OSG_WINCE
+				SceneFileHandler::the()->updateReadProgress();
+#endif
                 elemI = _dataElemMap.find(elem);
                 dataElem = ((elemI == _dataElemMap.end()) ?
                         UNKNOWN_DE : elemI->second );
@@ -190,20 +199,20 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                     case VERTEX_DE:
                         primCount[0]++;
                         is >> x >> y >> z;
-                        vec3f.setValues(x,y,z);
-                        coordPtr->addValue(vec3f);
+                        pnt3r.setValues(x,y,z);
+                        coordPtr->addValue(pnt3r);
                     break;
                     case VERTEX_TEXTURECOORD_DE:
                         primCount[1]++;
                         is >> x >> y;
-                        vec2f.setValues(x,y);
-                        texCoordPtr->addValue(vec2f);
+                        vec2r.setValues(x,y);
+                        texCoordPtr->addValue(vec2r);
                     break;
                     case VERTEX_NORMAL_DE:
                         primCount[2]++;
                         is >> x >> y >> z;
-                        vec3f.setValues(x,y,z);
-                        normalPtr->addValue(vec3f);
+                        vec3r.setValues(x,y,z);
+                        normalPtr->addValue(vec3r);
                     break;
                     case LIB_MTL_DE:
                         is >> elem;
@@ -285,7 +294,7 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
             posIndexPtr = NullFC;
             texIndexPtr = NullFC;
             normalIndexPtr = NullFC;
-            lensPtr  = GeoUInt32Property::create();
+            lensPtr  = GeoUIntProperty::create();
             typePtr  = GeoUInt8Property::create();
 
             // create and check mesh index mask
@@ -354,7 +363,7 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
             if (meshIndexMask)
             {
                 geoPtr->setPositions ( coordPtr );
-                posIndexPtr = GeoUInt32Property::create();
+                posIndexPtr = GeoUIntProperty::create();
                 if(!isSingleIndex)
                     geoPtr->setIndex(posIndexPtr, Geometry::PositionsIndex);
                 geoPtr->setLengths   ( lensPtr );
@@ -363,7 +372,7 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                 if ( (meshIndexMask & 2) && texCoordPtr->size() > 0 )
                 {
                     geoPtr->setTexCoords ( texCoordPtr );
-                    texIndexPtr = GeoUInt32Property::create();
+                    texIndexPtr = GeoUIntProperty::create();
                     if(!isSingleIndex)
                         geoPtr->setIndex(texIndexPtr, Geometry::TexCoordsIndex);
                 }
@@ -375,7 +384,7 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                 if ( (meshIndexMask & 4) && normalPtr->size() > 0 )
                 {
                     geoPtr->setNormals   ( normalPtr );
-                    normalIndexPtr = GeoUInt32Property::create();
+                    normalIndexPtr = GeoUIntProperty::create();
                     if(!isSingleIndex)
                         geoPtr->setIndex(normalIndexPtr, Geometry::NormalsIndex);
                 }
@@ -387,9 +396,9 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                 if (meshI->mtlPtr == NullFC)
                 {
                     meshI->mtlPtr = SimpleTexturedMaterial::create();
-                    meshI->mtlPtr->setDiffuse( Color3f( .8, .8, .8 ) );
-                    meshI->mtlPtr->setSpecular( Color3f( 1, 1, 1 ) );
-                    meshI->mtlPtr->setShininess( 20 );
+                    meshI->mtlPtr->setDiffuse( Color3r( .8f, .8f, .8f ) );
+                    meshI->mtlPtr->setSpecular( Color3r( 1.f, 1.f, 1.f ) );
+                    meshI->mtlPtr->setShininess( 20.f );
                 }
                 geoPtr->setMaterial  ( meshI->mtlPtr );
 
@@ -423,7 +432,11 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                 }
     
                 if(isSingleIndex)
-                    geoPtr->setIndices(posIndexPtr);
+				{
+                    geoPtr->setIndex(posIndexPtr, Geometry::PositionsIndex);
+                    geoPtr->setIndex(posIndexPtr, Geometry::NormalsIndex  );
+                    geoPtr->setIndex(posIndexPtr, Geometry::TexCoordsIndex);
+				}
 
                 // need to port the geometry functions ...
 #if 0
@@ -432,11 +445,12 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
     
                 // check if we have normals
                 // need to port the geometry functions ...
-#if 0
-                if(geoPtr->getNormals() == NullFC)
+
+#ifndef OSG_WINCE
+				if(geoPtr->getNormals() == NullFC)
                     calcVertexNormals(geoPtr);
 #endif
-    
+
                 // create and link the node
                 nodePtr = Node::create();
                 nodePtr->setCore( geoPtr );
@@ -462,7 +476,9 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
         }
     }
 
-    SceneFileHandler::the()->updateReadProgress(100);
+#ifndef OSG_WINCE
+	SceneFileHandler::the()->updateReadProgress(100);
+#endif
     return rootPtr;
 }
 
@@ -472,21 +488,22 @@ void OBJSceneFileType::write(const NodePtr &node,
                              UInt32 &nIndex,
                              UInt32 &tIndex) const
 {
-    UInt32 i,pCount=0,nCount=0,tCount=0;
+#ifndef OSG_WINCE
+	UInt32 i,pCount=0,nCount=0,tCount=0;
     GeometryPtr g = dynamic_cast<GeometryPtr>(node->getCore());
     if(g != NullFC)
     {
         // HACK separate it in several geometry nodes.
         os << "g Geometry" << std::endl;
         os << "usemtl Geometry" << std::endl;
-        Matrix mat = node->getToWorld();
+        Matrixr mat = node->getToWorld();
         // write vertices
         if(g->getPositions())
         {
             pCount = g->getPositions()->getSize();
             for(i=0 ; i< pCount ; ++i)
             {
-                Pnt3f v;
+                Pnt3r v;
                 g->getPositions()->getValue(v, i);
                 mat.multMatrixPnt(v);
                 os << "v " << v[0] << " " << v[1] << " " << v[2] << std::endl;
@@ -498,7 +515,7 @@ void OBJSceneFileType::write(const NodePtr &node,
             nCount = g->getNormals()->getSize();
             for(i=0 ; i< nCount ; ++i)
             {
-                Vec3f v;
+                Vec3r v;
                 g->getNormals()->getValue(v, i);
                 mat.multMatrixVec(v);
                 os << "vn " << v[0] << " " << v[1] << " " << v[2] << std::endl;
@@ -544,7 +561,7 @@ void OBJSceneFileType::write(const NodePtr &node,
     {
         write((*nI),os,pIndex,nIndex,tIndex);
     }
-
+#endif
 }
 
 bool OBJSceneFileType::write(const NodePtr &node, std::ostream &os,
@@ -749,12 +766,16 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
 
     Int32 mtlCount = 0;
 
-    PathHandler *pathHandler = SceneFileHandler::the()->getPathHandler();
-    std::string fullFilePath;
-    if(pathHandler != NULL)
+#ifndef OSG_WINCE
+	PathHandler *pathHandler = SceneFileHandler::the()->getPathHandler();
+#endif
+	std::string fullFilePath;
+#ifndef OSG_WINCE
+	if(pathHandler != NULL)
         fullFilePath = pathHandler->findFile(fileName);
     else
         fullFilePath = fileName;
+#endif
 
     if(fullFilePath.empty())
     {
@@ -813,17 +834,17 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
                             case MTL_DIFFUSE_ME:
                                 in >> a >> b >> c;
                                 if (!constDiffuse)
-                                    mtlPtr->setDiffuse( Color3f( a,b,c ));
+                                    mtlPtr->setDiffuse( Color3r( a,b,c ));
                             break;
                             case MTL_AMBIENT_ME:
                                 in >> a >> b >> c;
                                 if (!constAmbient)
-                                    mtlPtr->setAmbient( Color3f( a,b,c ));
+                                    mtlPtr->setAmbient( Color3r( a,b,c ));
                             break;
                             case MTL_SPECULAR_ME:
                                 in >> a >> b >> c;
                                 if (!constSpecular)
-                                    mtlPtr->setSpecular( Color3f( a,b,c ));
+                                    mtlPtr->setSpecular( Color3r( a,b,c ));
                             break;
                             case MTL_SHININESS_ME:
                                 in >> a;
@@ -853,7 +874,8 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
                                 iI = imageMap.find(elem);
                                 if (iI == imageMap.end())
                                 {
-                                    std::string fullElemPath;
+#ifndef OSG_WINCE
+									std::string fullElemPath;
                                     if(pathHandler != NULL)
                                         fullElemPath = pathHandler->findFile(elem.c_str());
                                     else
@@ -867,7 +889,8 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
 
                                         imageMap[elem] = image;
                                     }
-                                }
+#endif
+								}
                                 else
                                 {
                                     image = iI->second;
@@ -879,15 +902,15 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
                                     {
                                         case MTL_MAP_KD_ME:
                                             constDiffuse = true;
-                                            mtlPtr->setDiffuse  ( Color3f( 1, 1, 1) );
+                                            mtlPtr->setDiffuse  ( Color3r( 1.f, 1.f, 1.f) );
                                         break;
                                         case MTL_MAP_KA_ME:
                                             constAmbient = true;
-                                            mtlPtr->setAmbient  ( Color3f( 1, 1, 1) );
+                                            mtlPtr->setAmbient  ( Color3r( 1.f, 1.f, 1.f) );
                                         break;
                                         case MTL_MAP_KS_ME:
                                             constSpecular = true;
-                                            mtlPtr->setSpecular ( Color3f( 1, 1, 1) );
+                                            mtlPtr->setSpecular ( Color3r( 1.f, 1.f, 1.f) );
                                         break;
                                         default:
                                         break;

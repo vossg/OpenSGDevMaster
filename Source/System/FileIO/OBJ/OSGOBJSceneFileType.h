@@ -157,11 +157,11 @@ class OSG_FILEIO_DLLMAPPING OBJSceneFileType : public SceneFileType
 
     void initElemMap(void);
 
-    class Mesh;
-    friend class Mesh;
+    struct Mesh;
+    friend struct Mesh;
 
-    class Face;
-    friend class Face;
+    struct Face;
+    friend struct Face;
 
     struct TiePoint
     {
