@@ -337,9 +337,7 @@ void ChunkMaterial::rebuildState(void)
     {
         _pState = State::create();
 
-        ChunkMaterialPtr tmpPtr = Inherited::constructPtr<ChunkMaterial>(this);
-
-        _pState->setDefaultSortKey(getContainerId(tmpPtr));
+        _pState->setDefaultSortKey(getContainerId(this));
 
         addRef(_pState);
     }

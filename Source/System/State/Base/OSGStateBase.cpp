@@ -475,6 +475,7 @@ StateBase::StateBase(const StateBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 StateBase::~StateBase(void)

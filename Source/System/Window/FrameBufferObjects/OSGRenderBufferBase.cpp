@@ -356,6 +356,7 @@ RenderBufferBase::RenderBufferBase(const RenderBufferBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 RenderBufferBase::~RenderBufferBase(void)

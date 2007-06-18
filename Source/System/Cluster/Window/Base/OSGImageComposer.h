@@ -172,13 +172,8 @@ class OSG_CLUSTER_DLLMAPPING ImageComposer : public ImageComposerBase
 
   private:
 
+    friend class FieldContainer;
     friend class ImageComposerBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ImageComposer &source);

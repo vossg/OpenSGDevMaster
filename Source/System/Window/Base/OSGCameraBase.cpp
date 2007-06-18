@@ -416,7 +416,7 @@ void CameraBase::copyFromBin(BinaryDataHandler &pMem,
 
 CameraBase::CameraBase(void) :
     Inherited(),
-    _sfBeacon                 (),
+    _sfBeacon                 (NullFC),
     _sfNear                   (),
     _sfFar                    ()
 {
@@ -424,11 +424,12 @@ CameraBase::CameraBase(void) :
 
 CameraBase::CameraBase(const CameraBase &source) :
     Inherited(source),
-    _sfBeacon                 (),
+    _sfBeacon                 (NullFC),
     _sfNear                   (source._sfNear                   ),
     _sfFar                    (source._sfFar                    )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

@@ -386,6 +386,7 @@ GeoPropertyBase::GeoPropertyBase(const GeoPropertyBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 GeoPropertyBase::~GeoPropertyBase(void)

@@ -172,6 +172,7 @@ GeoVectorPropertyBase::GeoVectorPropertyBase(const GeoVectorPropertyBase &source
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 GeoVectorPropertyBase::~GeoVectorPropertyBase(void)

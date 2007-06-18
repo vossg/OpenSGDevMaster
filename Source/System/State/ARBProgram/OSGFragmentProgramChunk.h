@@ -141,14 +141,8 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunk :
 
   private:
 
+    friend class FieldContainer;
     friend class FragmentProgramChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
 
     static StateChunkClass _class;
 

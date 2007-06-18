@@ -1358,11 +1358,11 @@ FieldContainerPtr ParticlesBase::shallowCopy(void) const
 ParticlesBase::ParticlesBase(void) :
     Inherited(),
     _sfMode                   (UInt32(2)),
-    _sfPositions              (),
+    _sfPositions              (NullFC),
     _mfSizes                  (),
-    _sfSecPositions           (),
-    _sfColors                 (),
-    _sfNormals                (),
+    _sfSecPositions           (NullFC),
+    _sfColors                 (NullFC),
+    _sfNormals                (NullFC),
     _mfIndices                (),
     _mfTextureZs              (),
     _sfDrawOrder              (UInt32(0)),
@@ -1376,11 +1376,11 @@ ParticlesBase::ParticlesBase(void) :
 ParticlesBase::ParticlesBase(const ParticlesBase &source) :
     Inherited(source),
     _sfMode                   (source._sfMode                   ),
-    _sfPositions              (),
+    _sfPositions              (NullFC),
     _mfSizes                  (source._mfSizes                  ),
-    _sfSecPositions           (),
-    _sfColors                 (),
-    _sfNormals                (),
+    _sfSecPositions           (NullFC),
+    _sfColors                 (NullFC),
+    _sfNormals                (NullFC),
     _mfIndices                (source._mfIndices                ),
     _mfTextureZs              (source._mfTextureZs              ),
     _sfDrawOrder              (source._sfDrawOrder              ),
@@ -1390,6 +1390,7 @@ ParticlesBase::ParticlesBase(const ParticlesBase &source) :
     _sfNumParticles           (source._sfNumParticles           )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

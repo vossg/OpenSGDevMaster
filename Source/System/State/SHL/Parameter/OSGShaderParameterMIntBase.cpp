@@ -359,6 +359,7 @@ ShaderParameterMIntBase::ShaderParameterMIntBase(const ShaderParameterMIntBase &
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ShaderParameterMIntBase::~ShaderParameterMIntBase(void)

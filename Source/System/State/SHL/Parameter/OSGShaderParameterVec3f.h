@@ -107,13 +107,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterVec3f :
 
   private:
 
+    friend class FieldContainer;
     friend class ShaderParameterVec3fBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
 
     // prohibit default functions (move to 'public' if you need one)

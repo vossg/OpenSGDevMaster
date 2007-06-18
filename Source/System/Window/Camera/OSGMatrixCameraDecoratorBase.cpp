@@ -664,6 +664,7 @@ MatrixCameraDecoratorBase::MatrixCameraDecoratorBase(const MatrixCameraDecorator
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 MatrixCameraDecoratorBase::~MatrixCameraDecoratorBase(void)

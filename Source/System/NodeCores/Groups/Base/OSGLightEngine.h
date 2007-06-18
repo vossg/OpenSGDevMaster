@@ -133,13 +133,8 @@ class OSG_SYSTEM_DLLMAPPING LightEngine : public LightEngineBase
 
   private:
 
+    friend class FieldContainer;
     friend class LightEngineBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
 

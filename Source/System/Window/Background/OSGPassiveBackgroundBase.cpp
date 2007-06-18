@@ -201,6 +201,7 @@ PassiveBackgroundBase::PassiveBackgroundBase(const PassiveBackgroundBase &source
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 PassiveBackgroundBase::~PassiveBackgroundBase(void)

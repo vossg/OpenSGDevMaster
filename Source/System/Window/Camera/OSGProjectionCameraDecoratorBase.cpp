@@ -821,7 +821,7 @@ FieldContainerPtr ProjectionCameraDecoratorBase::shallowCopy(void) const
 
 ProjectionCameraDecoratorBase::ProjectionCameraDecoratorBase(void) :
     Inherited(),
-    _sfUser                   (),
+    _sfUser                   (NullFC),
     _mfSurface                (),
     _sfLeft                   (),
     _sfBottom                 (),
@@ -833,7 +833,7 @@ ProjectionCameraDecoratorBase::ProjectionCameraDecoratorBase(void) :
 
 ProjectionCameraDecoratorBase::ProjectionCameraDecoratorBase(const ProjectionCameraDecoratorBase &source) :
     Inherited(source),
-    _sfUser                   (),
+    _sfUser                   (NullFC),
     _mfSurface                (source._mfSurface                ),
     _sfLeft                   (source._sfLeft                   ),
     _sfBottom                 (source._sfBottom                 ),
@@ -842,6 +842,7 @@ ProjectionCameraDecoratorBase::ProjectionCameraDecoratorBase(const ProjectionCam
     _sfHeight                 (source._sfHeight                 )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

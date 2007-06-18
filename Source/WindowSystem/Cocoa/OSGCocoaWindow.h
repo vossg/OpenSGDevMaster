@@ -130,13 +130,8 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindow : public CocoaWindowBase
 
   private:
 
+    friend class FieldContainer;
     friend class CocoaWindowBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CocoaWindow &source);

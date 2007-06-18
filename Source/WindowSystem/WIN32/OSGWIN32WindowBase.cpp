@@ -415,6 +415,7 @@ WIN32WindowBase::WIN32WindowBase(const WIN32WindowBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 WIN32WindowBase::~WIN32WindowBase(void)

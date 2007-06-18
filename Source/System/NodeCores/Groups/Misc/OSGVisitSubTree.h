@@ -118,13 +118,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTree : public VisitSubTreeBase
 
   private:
 
+    friend class FieldContainer;
     friend class VisitSubTreeBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   thread local                               */

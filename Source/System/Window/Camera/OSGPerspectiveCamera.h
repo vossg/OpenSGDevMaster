@@ -116,13 +116,8 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCamera : public PerspectiveCameraBase
 
     typedef PerspectiveCameraBase Inherited;
 
+    friend class FieldContainer;
     friend class PerspectiveCameraBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const PerspectiveCamera &source);

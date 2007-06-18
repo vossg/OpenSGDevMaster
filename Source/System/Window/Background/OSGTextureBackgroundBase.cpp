@@ -792,7 +792,7 @@ FieldContainerPtr TextureBackgroundBase::shallowCopy(void) const
 TextureBackgroundBase::TextureBackgroundBase(void) :
     Inherited(),
     _sfColor                  (),
-    _sfTexture                (),
+    _sfTexture                (NullFC),
     _mfTexCoords              (),
     _sfRadialDistortion       (Real32(0)),
     _sfCenterOfDistortion     (Vec2f(0.5, 0.5)),
@@ -804,7 +804,7 @@ TextureBackgroundBase::TextureBackgroundBase(void) :
 TextureBackgroundBase::TextureBackgroundBase(const TextureBackgroundBase &source) :
     Inherited(source),
     _sfColor                  (source._sfColor                  ),
-    _sfTexture                (),
+    _sfTexture                (NullFC),
     _mfTexCoords              (source._mfTexCoords              ),
     _sfRadialDistortion       (source._sfRadialDistortion       ),
     _sfCenterOfDistortion     (source._sfCenterOfDistortion     ),
@@ -812,6 +812,7 @@ TextureBackgroundBase::TextureBackgroundBase(const TextureBackgroundBase &source
     _sfVert                   (source._sfVert                   )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

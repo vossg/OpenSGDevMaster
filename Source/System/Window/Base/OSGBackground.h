@@ -115,14 +115,9 @@ class OSG_SYSTEM_DLLMAPPING Background : public BackgroundBase
   
     typedef BackgroundBase Inherited;
   
+    friend class FieldContainer;
     friend class BackgroundBase;
 
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
- 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const Background &source);
 };

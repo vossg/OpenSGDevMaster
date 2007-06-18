@@ -133,9 +133,6 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
     // Detail is copied into each terrain node here
     // BorderDetail is set to 1 here
 
-    TiledQuadTreeTerrainPtr thisPtr = 
-        Inherited::constructPtr<TiledQuadTreeTerrain>(this);
-
     // changed HeightData
     // * update HeightError and HeightQuad
     if((whichField & HeightTilesFieldMask) && getMFHeightTiles()->size() > 0) 
@@ -1141,10 +1138,6 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
           }
 
 
-          TiledQuadTreeTerrainPtr thisPtr = 
-              Inherited::constructPtr<TiledQuadTreeTerrain>(this);
-          
-          
           setCurrentX(x); 
           setCurrentY(y); 
           

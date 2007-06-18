@@ -115,13 +115,10 @@ void VertexProgramChunk::onCreate(const VertexProgramChunk *chunk)
     if(GlobalSystemState == Startup)
         return;
 
-    VertexProgramChunkPtr tmpPtr = 
-        Inherited::constructPtr<VertexProgramChunk>(this);
-        
     setGLId(Window::registerGLObject(
-                    boost::bind(&VertexProgramChunk::handleGL, tmpPtr, 
+                    boost::bind(&VertexProgramChunk::handleGL, this, 
                                     _1, _2, _3),
-                    boost::bind(&VertexProgramChunk::handleDestroyGL, tmpPtr, 
+                    boost::bind(&VertexProgramChunk::handleDestroyGL, this, 
                                     _1, _2, _3)
            ));
 }

@@ -549,10 +549,7 @@ void GeometryBase::pushToProperties(GeoVectorPropertyPtrConstArg value)
     if(value == NullFC)
         return;
 
-    GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-        static_cast<Geometry *>(this));
-
-    value->addParent(thisP, PropertiesFieldMask);
+    value->addParent(this, PropertiesFieldMask);
 }
 
 void GeometryBase::insertIntoProperties(UInt32                uiIndex,
@@ -571,10 +568,7 @@ void GeometryBase::insertIntoProperties(UInt32                uiIndex,
     if(value == NullFC)
         return;
 
-    GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-        static_cast<Geometry *>(this));
-
-    value->addParent(thisP, PropertiesFieldMask);
+    value->addParent(this, PropertiesFieldMask);
 }
 
 void GeometryBase::replaceInProperties(UInt32                uiIndex,
@@ -587,12 +581,9 @@ void GeometryBase::replaceInProperties(UInt32                uiIndex,
 
     addRef(value);
 
-    GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-        static_cast<Geometry *>(this));
-
     if(_mfProperties[uiIndex] != NullFC)
     {
-        _mfProperties[uiIndex]->subParent(thisP);
+        _mfProperties[uiIndex]->subParent(this);
     }
 
     subRef(_mfProperties[uiIndex]);
@@ -602,7 +593,7 @@ void GeometryBase::replaceInProperties(UInt32                uiIndex,
     if(value == NullFC)
         return;
 
-    value->addParent(thisP, PropertiesFieldMask);
+    value->addParent(this, PropertiesFieldMask);
 }
 
 void GeometryBase::replaceInProperties(GeoVectorPropertyPtrConstArg pOldElem,
@@ -618,17 +609,15 @@ void GeometryBase::replaceInProperties(GeoVectorPropertyPtrConstArg pOldElem,
 
         fieldIt += elemIdx;
 
-        GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-            static_cast<Geometry *>(this));
 
         if(pOldElem != NullFC)
         {
-            pOldElem->subParent(thisP);
+            pOldElem->subParent(this);
         }
 
         if(pNewElem != NullFC)
         {
-            pNewElem->addParent(thisP, PropertiesFieldMask);
+            pNewElem->addParent(this, PropertiesFieldMask);
         }
 
         addRef(pNewElem);
@@ -648,12 +637,10 @@ void GeometryBase::removeFromProperties(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-            static_cast<Geometry *>(this));
 
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
         subRef(*fieldIt);
@@ -674,12 +661,10 @@ void GeometryBase::removeFromProperties(GeoVectorPropertyPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-            static_cast<Geometry *>(this));
 
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
         subRef(*fieldIt);
@@ -696,12 +681,9 @@ void GeometryBase::clearProperties(void)
 
     while(fieldIt != fieldEnd)
     {
-        GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-            static_cast<Geometry *>(this));
-
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
         subRef(*fieldIt);
@@ -723,10 +705,7 @@ void GeometryBase::pushToPropIndices(GeoIntegralPropertyPtrConstArg value)
     if(value == NullFC)
         return;
 
-    GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-        static_cast<Geometry *>(this));
-
-    value->addParent(thisP, PropIndicesFieldMask);
+    value->addParent(this, PropIndicesFieldMask);
 }
 
 void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,
@@ -745,10 +724,7 @@ void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,
     if(value == NullFC)
         return;
 
-    GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-        static_cast<Geometry *>(this));
-
-    value->addParent(thisP, PropIndicesFieldMask);
+    value->addParent(this, PropIndicesFieldMask);
 }
 
 void GeometryBase::replaceInPropIndices(UInt32                uiIndex,
@@ -761,12 +737,9 @@ void GeometryBase::replaceInPropIndices(UInt32                uiIndex,
 
     addRef(value);
 
-    GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-        static_cast<Geometry *>(this));
-
     if(_mfPropIndices[uiIndex] != NullFC)
     {
-        _mfPropIndices[uiIndex]->subParent(thisP);
+        _mfPropIndices[uiIndex]->subParent(this);
     }
 
     subRef(_mfPropIndices[uiIndex]);
@@ -776,7 +749,7 @@ void GeometryBase::replaceInPropIndices(UInt32                uiIndex,
     if(value == NullFC)
         return;
 
-    value->addParent(thisP, PropIndicesFieldMask);
+    value->addParent(this, PropIndicesFieldMask);
 }
 
 void GeometryBase::replaceInPropIndices(GeoIntegralPropertyPtrConstArg pOldElem,
@@ -792,17 +765,15 @@ void GeometryBase::replaceInPropIndices(GeoIntegralPropertyPtrConstArg pOldElem,
 
         fieldIt += elemIdx;
 
-        GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-            static_cast<Geometry *>(this));
 
         if(pOldElem != NullFC)
         {
-            pOldElem->subParent(thisP);
+            pOldElem->subParent(this);
         }
 
         if(pNewElem != NullFC)
         {
-            pNewElem->addParent(thisP, PropIndicesFieldMask);
+            pNewElem->addParent(this, PropIndicesFieldMask);
         }
 
         addRef(pNewElem);
@@ -822,12 +793,10 @@ void GeometryBase::removeFromPropIndices(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-            static_cast<Geometry *>(this));
 
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
         subRef(*fieldIt);
@@ -848,12 +817,10 @@ void GeometryBase::removeFromPropIndices(GeoIntegralPropertyPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-            static_cast<Geometry *>(this));
 
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
         subRef(*fieldIt);
@@ -870,12 +837,9 @@ void GeometryBase::clearPropIndices(void)
 
     while(fieldIt != fieldEnd)
     {
-        GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-            static_cast<Geometry *>(this));
-
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
         subRef(*fieldIt);
@@ -1023,8 +987,8 @@ FieldContainerPtr GeometryBase::shallowCopy(void) const
 
 GeometryBase::GeometryBase(void) :
     Inherited(),
-    _sfTypes                  (),
-    _sfLengths                (),
+    _sfTypes                  (NullFC),
+    _sfLengths                (NullFC),
     _mfProperties             (),
     _mfPropIndices            (),
     _sfClassicGLId            (Int32(0)),
@@ -1034,14 +998,15 @@ GeometryBase::GeometryBase(void) :
 
 GeometryBase::GeometryBase(const GeometryBase &source) :
     Inherited(source),
-    _sfTypes                  (),
-    _sfLengths                (),
+    _sfTypes                  (NullFC),
+    _sfLengths                (NullFC),
     _mfProperties             (),
     _mfPropIndices            (),
     _sfClassicGLId            (source._sfClassicGLId            ),
     _sfAttGLId                (source._sfAttGLId                )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

@@ -185,13 +185,8 @@ class OSG_STATE_DLLMAPPING TextureSelectChunk : public TextureSelectChunkBase
 
     typedef TextureSelectChunkBase Inherited;
 
+    friend class FieldContainer;
     friend class TextureSelectChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TextureSelectChunk &source);

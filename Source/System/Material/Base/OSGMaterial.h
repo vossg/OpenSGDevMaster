@@ -193,13 +193,8 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
 
     typedef MaterialBase Inherited;
 
+    friend class FieldContainer;
     friend class MaterialBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const Material &source);

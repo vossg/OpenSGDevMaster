@@ -445,11 +445,12 @@ AlgorithmStageBase::AlgorithmStageBase(void) :
 
 AlgorithmStageBase::AlgorithmStageBase(const AlgorithmStageBase &source) :
     Inherited(source),
-    _sfAlgorithm              (),
+    _sfAlgorithm              (NullFC),
     _sfProjectionMode         (source._sfProjectionMode         ),
     _sfProjectionMatrix       (source._sfProjectionMatrix       )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

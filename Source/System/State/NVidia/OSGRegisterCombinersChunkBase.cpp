@@ -4592,6 +4592,7 @@ RegisterCombinersChunkBase::RegisterCombinersChunkBase(const RegisterCombinersCh
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 RegisterCombinersChunkBase::~RegisterCombinersChunkBase(void)

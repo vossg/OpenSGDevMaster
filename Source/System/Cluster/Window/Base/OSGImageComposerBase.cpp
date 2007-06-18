@@ -315,6 +315,7 @@ ImageComposerBase::ImageComposerBase(const ImageComposerBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ImageComposerBase::~ImageComposerBase(void)

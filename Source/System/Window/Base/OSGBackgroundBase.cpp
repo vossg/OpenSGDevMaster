@@ -350,6 +350,7 @@ BackgroundBase::BackgroundBase(const BackgroundBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 BackgroundBase::~BackgroundBase(void)

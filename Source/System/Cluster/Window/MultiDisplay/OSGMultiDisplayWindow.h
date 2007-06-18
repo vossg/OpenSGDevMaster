@@ -143,15 +143,8 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindow : public MultiDisplayWindowBase
 
   private:
 
+    friend class FieldContainer;
     friend class MultiDisplayWindowBase;
-
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-    
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const MultiDisplayWindow &source);

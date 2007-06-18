@@ -291,11 +291,7 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
 
   private:
 
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
+    friend class FieldContainer;
 
     friend class PointerFuncs;
     friend class CPointerFuncs;

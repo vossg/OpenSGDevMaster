@@ -311,6 +311,7 @@ FrameBufferAttachmentBase::FrameBufferAttachmentBase(const FrameBufferAttachment
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 FrameBufferAttachmentBase::~FrameBufferAttachmentBase(void)

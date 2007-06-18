@@ -120,13 +120,8 @@ class OSG_GROUP_DLLMAPPING Switch : public SwitchBase
 
   private:
 
+    friend class FieldContainer;
     friend class SwitchBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Specific                             */

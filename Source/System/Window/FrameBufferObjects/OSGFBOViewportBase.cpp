@@ -310,15 +310,16 @@ FieldContainerPtr FBOViewportBase::shallowCopy(void) const
 
 FBOViewportBase::FBOViewportBase(void) :
     Inherited(),
-    _sfFrameBufferObject      ()
+    _sfFrameBufferObject      (NullFC)
 {
 }
 
 FBOViewportBase::FBOViewportBase(const FBOViewportBase &source) :
     Inherited(source),
-    _sfFrameBufferObject      ()
+    _sfFrameBufferObject      (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

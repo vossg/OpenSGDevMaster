@@ -190,11 +190,9 @@ void GeoProperty::onCreate(const GeoProperty *)
     if(GlobalSystemState == Startup)
         return;
 
-    GeoPropertyPtr tmpPtr = Inherited::constructPtr<GeoProperty>(this);
-
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&GeoProperty::handleGL, tmpPtr, 
+            boost::bind(&GeoProperty::handleGL, this, 
                             _1, _2, _3),
             &GeoProperty::handleDestroyGL
             ));

@@ -1147,10 +1147,10 @@ ViewportBase::ViewportBase(void) :
     _sfRight                  (),
     _sfBottom                 (),
     _sfTop                    (),
-    _sfParent                 (),
-    _sfCamera                 (),
-    _sfRoot                   (),
-    _sfBackground             (),
+    _sfParent                 (NullFC),
+    _sfCamera                 (NullFC),
+    _sfRoot                   (NullFC),
+    _sfBackground             (NullFC),
     _mfForegrounds            (),
     _sfTravMask               (UInt32(TypeTraits<UInt32>::getMax())),
     _sfDrawTime               (Real32(0.0f))
@@ -1163,15 +1163,16 @@ ViewportBase::ViewportBase(const ViewportBase &source) :
     _sfRight                  (source._sfRight                  ),
     _sfBottom                 (source._sfBottom                 ),
     _sfTop                    (source._sfTop                    ),
-    _sfParent                 (),
-    _sfCamera                 (),
-    _sfRoot                   (),
-    _sfBackground             (),
+    _sfParent                 (NullFC),
+    _sfCamera                 (NullFC),
+    _sfRoot                   (NullFC),
+    _sfBackground             (NullFC),
     _mfForegrounds            (),
     _sfTravMask               (source._sfTravMask               ),
     _sfDrawTime               (source._sfDrawTime               )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

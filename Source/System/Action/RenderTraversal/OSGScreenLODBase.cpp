@@ -380,6 +380,7 @@ ScreenLODBase::ScreenLODBase(const ScreenLODBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ScreenLODBase::~ScreenLODBase(void)

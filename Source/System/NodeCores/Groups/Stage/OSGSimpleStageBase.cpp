@@ -857,8 +857,8 @@ SimpleStageBase::SimpleStageBase(void) :
     _sfRight                  (Real32(1.f)),
     _sfBottom                 (Real32(0.f)),
     _sfTop                    (Real32(1.f)),
-    _sfCamera                 (),
-    _sfBackground             (),
+    _sfCamera                 (NullFC),
+    _sfBackground             (NullFC),
     _mfForegrounds            ()
 {
 }
@@ -869,11 +869,12 @@ SimpleStageBase::SimpleStageBase(const SimpleStageBase &source) :
     _sfRight                  (source._sfRight                  ),
     _sfBottom                 (source._sfBottom                 ),
     _sfTop                    (source._sfTop                    ),
-    _sfCamera                 (),
-    _sfBackground             (),
+    _sfCamera                 (NullFC),
+    _sfBackground             (NullFC),
     _mfForegrounds            ()
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

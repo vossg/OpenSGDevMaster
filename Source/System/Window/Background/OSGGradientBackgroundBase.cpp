@@ -530,6 +530,7 @@ GradientBackgroundBase::GradientBackgroundBase(const GradientBackgroundBase &sou
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 GradientBackgroundBase::~GradientBackgroundBase(void)

@@ -428,6 +428,7 @@ GeoMultiPropertyDataBase::GeoMultiPropertyDataBase(const GeoMultiPropertyDataBas
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 GeoMultiPropertyDataBase::~GeoMultiPropertyDataBase(void)

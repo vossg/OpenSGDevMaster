@@ -148,13 +148,11 @@ void Node::setCore(NodeCorePtrConstArg core)
 {
     editSField(CoreFieldMask);
 
-    ObjPtr thisP = getPtr();
-
     addRef(core);
 
     if(_sfCore.getValue() != NullFC)
     {
-        _sfCore.getValue()->subParent(thisP);
+        _sfCore.getValue()->subParent(this);
 
         subRef(_sfCore.getValue());
     }
@@ -163,7 +161,7 @@ void Node::setCore(NodeCorePtrConstArg core)
 
     if(_sfCore.getValue() != NullFC)
     {
-        _sfCore.getValue()->addParent(thisP, CoreFieldId);
+        _sfCore.getValue()->addParent(this, CoreFieldId);
     }
 }
 
@@ -187,7 +185,7 @@ void Node::addChild(NodePtrConstArg childP)
 
         _mfChildren.push_back(childP);
 
-        childP->setParent(getPtr());
+        childP->setParent(this);
     }
 }
 
@@ -224,7 +222,7 @@ void Node::insertChild(UInt32 childIndex, NodePtrConstArg childP)
 
         _mfChildren.insert(childIt, childP);
 
-        childP->setParent(getPtr());
+        childP->setParent(this);
     }
 }
 
@@ -251,7 +249,7 @@ void Node::replaceChild(UInt32 childIndex, NodePtrConstArg childP)
         // set the new child
         _mfChildren[childIndex] = childP;
 
-        childP->setParent(getPtr());
+        childP->setParent(this);
     }
 }
 
@@ -285,7 +283,7 @@ bool Node::replaceChildBy(NodePtrConstArg childP,
 
             _mfChildren[childIdx] = newChildP;
 
-            newChildP->setParent(getPtr());
+            newChildP->setParent(this);
 
             return true;
         }
@@ -718,13 +716,11 @@ void Node::dump(      UInt32    uiIndent,
 {
     UInt32 i;
 
-    ObjConstPtr thisP = Inherited::constructPtr<Node>(this);
-
     indentLog(uiIndent, PLOG);
 
     PLOG << "Node"
          << "("
-         << getContainerId(thisP)
+         << getContainerId(this)
          << ") : "
          << _mfChildren.size()
          << " children | "
@@ -853,9 +849,7 @@ void Node::resolveLinks(void)
 
     if(_sfCore.getValue() != NullFC)
     {
-        NodePtr thisP = getPtr();
-
-        _sfCore.getValue()->subParent(thisP);
+        _sfCore.getValue()->subParent(this);
 
         subRef(_sfCore.getValue());
     }

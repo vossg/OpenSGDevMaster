@@ -1990,7 +1990,7 @@ FieldContainerPtr QuadTreeTerrainBase::shallowCopy(void) const
 
 QuadTreeTerrainBase::QuadTreeTerrainBase(void) :
     Inherited(),
-    _sfHeightData             (),
+    _sfHeightData             (NullFC),
     _sfHeightScale            (Real32(1.0f)),
     _mfHeightError            (),
     _mfHeightQuad             (),
@@ -1999,7 +1999,7 @@ QuadTreeTerrainBase::QuadTreeTerrainBase(void) :
     _sfDetail                 (Real32(22.0f)),
     _sfBorderDetail           (Int32(0)),
     _sfVertexSpacing          (Real32(0.1f)),
-    _sfHeightVertices         (),
+    _sfHeightVertices         (NullFC),
     _sfGeoMorphing            (bool(false)),
     _sfBoundMin               (),
     _sfBoundMax               (),
@@ -2019,7 +2019,7 @@ QuadTreeTerrainBase::QuadTreeTerrainBase(void) :
 
 QuadTreeTerrainBase::QuadTreeTerrainBase(const QuadTreeTerrainBase &source) :
     Inherited(source),
-    _sfHeightData             (),
+    _sfHeightData             (NullFC),
     _sfHeightScale            (source._sfHeightScale            ),
     _mfHeightError            (source._mfHeightError            ),
     _mfHeightQuad             (source._mfHeightQuad             ),
@@ -2028,7 +2028,7 @@ QuadTreeTerrainBase::QuadTreeTerrainBase(const QuadTreeTerrainBase &source) :
     _sfDetail                 (source._sfDetail                 ),
     _sfBorderDetail           (source._sfBorderDetail           ),
     _sfVertexSpacing          (source._sfVertexSpacing          ),
-    _sfHeightVertices         (),
+    _sfHeightVertices         (NullFC),
     _sfGeoMorphing            (source._sfGeoMorphing            ),
     _sfBoundMin               (source._sfBoundMin               ),
     _sfBoundMax               (source._sfBoundMax               ),
@@ -2045,6 +2045,7 @@ QuadTreeTerrainBase::QuadTreeTerrainBase(const QuadTreeTerrainBase &source) :
     _sfPerPixelLighting       (source._sfPerPixelLighting       )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

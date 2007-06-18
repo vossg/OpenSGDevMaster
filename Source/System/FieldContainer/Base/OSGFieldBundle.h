@@ -261,12 +261,6 @@ class FieldBundle : public ReflexiveContainer
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    template <class ObjectT>
-    static typename ObjectT::     ObjPtr constructPtr(      ObjectT *pObj);
-
-    template <class ObjectT>
-    static typename ObjectT::ObjConstPtr constructPtr(const ObjectT *pObj);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */

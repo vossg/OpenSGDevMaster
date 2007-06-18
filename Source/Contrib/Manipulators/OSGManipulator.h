@@ -155,13 +155,8 @@ class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
     ComponentTransformPtr _transHandleYC;
     ComponentTransformPtr _transHandleZC;
 
+    friend class FieldContainer;
     friend class ManipulatorBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const Manipulator &source);

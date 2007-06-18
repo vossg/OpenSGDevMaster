@@ -528,6 +528,7 @@ ContainerPoolBase::ContainerPoolBase(const ContainerPoolBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ContainerPoolBase::~ContainerPoolBase(void)

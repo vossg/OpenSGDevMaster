@@ -154,13 +154,8 @@ class OSG_SYSTEM_DLLMAPPING Light : public LightBase
 
   private:
 
+    friend class FieldContainer;
     friend class LightBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*! \brief prohibit default function (move to 'public' if needed) */
     void operator =(const Light &source);

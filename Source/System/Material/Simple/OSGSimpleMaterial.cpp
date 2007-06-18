@@ -214,12 +214,9 @@ void SimpleMaterial::rebuildState(void)
     }
     else
     {
-        SimpleMaterialPtr tmpPtr = 
-            Inherited::constructPtr<SimpleMaterial>(this);
-
         _pState = State::create();
 
-        _pState->setDefaultSortKey(getContainerId(tmpPtr));
+        _pState->setDefaultSortKey(getContainerId(this));
 
         addRef(_pState);
     }

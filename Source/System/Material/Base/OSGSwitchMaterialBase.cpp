@@ -534,6 +534,7 @@ SwitchMaterialBase::SwitchMaterialBase(const SwitchMaterialBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 SwitchMaterialBase::~SwitchMaterialBase(void)

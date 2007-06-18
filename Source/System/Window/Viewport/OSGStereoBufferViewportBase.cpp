@@ -365,6 +365,7 @@ StereoBufferViewportBase::StereoBufferViewportBase(const StereoBufferViewportBas
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 StereoBufferViewportBase::~StereoBufferViewportBase(void)

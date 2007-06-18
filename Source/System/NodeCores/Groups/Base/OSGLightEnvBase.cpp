@@ -199,6 +199,7 @@ LightEnvBase::LightEnvBase(const LightEnvBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 LightEnvBase::~LightEnvBase(void)

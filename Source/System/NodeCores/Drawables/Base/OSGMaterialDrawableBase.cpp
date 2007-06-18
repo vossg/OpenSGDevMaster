@@ -271,15 +271,16 @@ void MaterialDrawableBase::copyFromBin(BinaryDataHandler &pMem,
 
 MaterialDrawableBase::MaterialDrawableBase(void) :
     Inherited(),
-    _sfMaterial               ()
+    _sfMaterial               (NullFC)
 {
 }
 
 MaterialDrawableBase::MaterialDrawableBase(const MaterialDrawableBase &source) :
     Inherited(source),
-    _sfMaterial               ()
+    _sfMaterial               (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

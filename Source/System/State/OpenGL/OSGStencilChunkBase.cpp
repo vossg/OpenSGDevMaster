@@ -788,6 +788,7 @@ StencilChunkBase::StencilChunkBase(const StencilChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 StencilChunkBase::~StencilChunkBase(void)

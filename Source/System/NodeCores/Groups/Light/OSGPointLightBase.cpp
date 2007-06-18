@@ -288,6 +288,7 @@ PointLightBase::PointLightBase(const PointLightBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 PointLightBase::~PointLightBase(void)

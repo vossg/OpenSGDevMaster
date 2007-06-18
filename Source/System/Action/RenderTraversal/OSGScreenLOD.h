@@ -122,13 +122,8 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLOD : public ScreenLODBase
 
   private:
 
+    friend class FieldContainer;
     friend class ScreenLODBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ScreenLOD &source);

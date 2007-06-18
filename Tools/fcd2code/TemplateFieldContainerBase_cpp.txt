@@ -489,17 +489,11 @@ void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ConstArg value)
             @@endif // field.checkNilPtr
             @@if field.linkMParent
 
-    @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-        static_cast<@!Classname!@ *>(this));
-
-    value->addParent(thisP, @!field.Name!@FieldMask);
+    value->addParent(this, @!field.Name!@FieldMask);
             @@endif // field.linkMParent
             @@if field.linkSParent
 
-    @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-        static_cast<@!Classname!@ *>(this));
-
-    value->setParent(thisP, @!field.Name!@FieldMask);
+    value->setParent(this, @!field.Name!@FieldMask);
             @@endif // field.linkSParent
 }
 
@@ -529,17 +523,11 @@ void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32                uiIndex
             @@endif // !field.checkNilPtr
             @@if field.linkMParent
 
-    @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-        static_cast<@!Classname!@ *>(this));
-
-    value->addParent(thisP, @!field.Name!@FieldMask);
+    value->addParent(this, @!field.Name!@FieldMask);
             @@endif // field.linkMParent
             @@if field.linkSParent
 
-    @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-        static_cast<@!Classname!@ *>(this));
-
-    value->setParent(thisP, @!field.Name!@FieldMask);
+    value->setParent(this, @!field.Name!@FieldMask);
             @@endif // field.linkSParent
 }
 
@@ -561,22 +549,16 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32                uiI
     addRef(value);
             @@if field.linkMParent
 
-    @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-        static_cast<@!Classname!@ *>(this));
-
     if(_mf@!field.Name!@[uiIndex] != NullFC)
     {
-        _mf@!field.Name!@[uiIndex]->subParent(thisP);
+        _mf@!field.Name!@[uiIndex]->subParent(this);
     }
             @@endif // field.linkMParent
             @@if field.linkSParent
 
-    @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-        static_cast<@!Classname!@ *>(this));
-
     if(_mf@!field.Name!@[uiIndex] != NullFC)
     {
-        _mf@!field.Name!@[uiIndex]->setParent(thisP, @!field.Name!@FieldMask);
+        _mf@!field.Name!@[uiIndex]->setParent(this, @!field.Name!@FieldMask);
     }
             @@endif // field.linkSParent
 
@@ -590,11 +572,11 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32                uiI
             @@endif // !field.checkNilPtr
             @@if field.linkMParent
 
-    value->addParent(thisP, @!field.Name!@FieldMask);
+    value->addParent(this, @!field.Name!@FieldMask);
             @@endif // field.linkMParent
             @@if field.linkSParent
 
-    value->setParent(thisP, @!field.Name!@FieldMask);
+    value->setParent(this, @!field.Name!@FieldMask);
             @@endif // field.linkSParent
 }
 
@@ -619,28 +601,23 @@ void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(@!field.Type!@ConstArg p
         fieldIt += elemIdx;
 
             @@if field.linkMParent
-        @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-            static_cast<@!Classname!@ *>(this));
 
         if(pOldElem != NullFC)
         {
-            pOldElem->subParent(thisP);
+            pOldElem->subParent(this);
         }
 
                 @@if !field.checkNilPtr
         if(pNewElem != NullFC)
         {
-            pNewElem->addParent(thisP, @!field.Name!@FieldMask);
+            pNewElem->addParent(this, @!field.Name!@FieldMask);
         }
                 @@else // !field.checkNilPtr
-        pNewElem->addParent(thisP, @!field.Name!@FieldMask);
+        pNewElem->addParent(this, @!field.Name!@FieldMask);
                 @@endif
 
             @@endif // field.linkMParent
             @@if field.linkSParent
-        @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-            static_cast<@!Classname!@ *>(this));
-
         if(pOldElem != NullFC)
         {
             pOldElem->setParent(NullFC, @!field.Name!@FieldMask);
@@ -648,7 +625,7 @@ void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(@!field.Type!@ConstArg p
 
         if(pNewElem != NullFC)
         {
-            pNewElem->setParent(thisP, @!field.Name!@FieldMask);
+            pNewElem->setParent(this, @!field.Name!@FieldMask);
         }
 
             @@endif // field.linkSParent
@@ -672,12 +649,10 @@ void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
         fieldIt += uiIndex;
 
             @@if field.linkMParent
-        @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-            static_cast<@!Classname!@ *>(this));
 
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
             @@endif // field.linkMParent
@@ -713,12 +688,10 @@ void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(@!field.Type!@ConstArg 
         fieldIt += iElemIdx;
 
             @@if field.linkMParent
-        @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-            static_cast<@!Classname!@ *>(this));
 
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
             @@endif // field.linkMParent
@@ -750,12 +723,9 @@ void @!Classname!@Base::@!field.ClearField!@(void)
     while(fieldIt != fieldEnd)
     {
             @@if field.linkMParent
-        @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-            static_cast<@!Classname!@ *>(this));
-
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
             @@endif // field.linkMParent
@@ -1013,7 +983,11 @@ FieldContainerPtr @!Classname!@Base::shallowCopy(void) const
     @@else // isDecorator
         @@BeginFieldLoop@@
             @@if field.isPtrField
+              @@if field.isSField
+    _@!field.VarName:25!@(NullFC)@!field.Separator!@
+              @@else
     _@!field.VarName:25!@()@!field.Separator!@
+              @@endif // isSField
             @@else // field.isPtrField
     _@!field.VarName:25!@(source._@!field.VarName:25!@)@!field.Separator!@
             @@endif // field.isPtrField
@@ -1022,6 +996,7 @@ FieldContainerPtr @!Classname!@Base::shallowCopy(void) const
 @@endif // !hasFields
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

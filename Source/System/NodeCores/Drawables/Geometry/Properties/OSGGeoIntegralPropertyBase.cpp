@@ -172,6 +172,7 @@ GeoIntegralPropertyBase::GeoIntegralPropertyBase(const GeoIntegralPropertyBase &
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 GeoIntegralPropertyBase::~GeoIntegralPropertyBase(void)

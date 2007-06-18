@@ -147,13 +147,8 @@ class OSG_SYSTEM_DLLMAPPING LightChunk : public LightChunkBase
 
     typedef LightChunkBase Inherited;
 
+    friend class FieldContainer;
     friend class LightChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // class. Used for indexing in State
     static StateChunkClass _class;

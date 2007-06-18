@@ -231,15 +231,10 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
+    friend class FieldContainer;
     friend class ClusterWindowBase;
     friend class ClusterServer;
     friend class ClusterClient;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ClusterWindow &source);

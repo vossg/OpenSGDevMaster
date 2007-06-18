@@ -792,6 +792,7 @@ SimpleMaterialBase::SimpleMaterialBase(const SimpleMaterialBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 SimpleMaterialBase::~SimpleMaterialBase(void)

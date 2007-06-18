@@ -113,13 +113,6 @@ class OSG_WINDOW_DLLMAPPING PassiveBackground :
     friend class FieldContainer;
     friend class PassiveBackgroundBase;
 
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
-
     void operator =(const PassiveBackground &source);
 };
 

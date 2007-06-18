@@ -114,13 +114,8 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindow : public GLUTWindowBase
 
   private:
 
+    friend class FieldContainer;
     friend class GLUTWindowBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const GLUTWindow &source);

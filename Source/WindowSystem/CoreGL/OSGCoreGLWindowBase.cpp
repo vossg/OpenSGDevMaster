@@ -277,6 +277,7 @@ CoreGLWindowBase::CoreGLWindowBase(const CoreGLWindowBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 CoreGLWindowBase::~CoreGLWindowBase(void)

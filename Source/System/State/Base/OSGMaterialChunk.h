@@ -169,13 +169,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunk : public MaterialChunkBase
 
     typedef MaterialChunkBase Inherited;
 
+    friend class FieldContainer;
     friend class MaterialChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // class. Used for indexing in State
     static StateChunkClass _class;

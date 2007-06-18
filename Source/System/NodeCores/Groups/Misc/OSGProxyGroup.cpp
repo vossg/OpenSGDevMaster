@@ -252,8 +252,6 @@ void ProxyGroup::startLoading(void)
     }
     else
     {
-        ProxyGroupPtr ptr = Inherited::constructPtr<ProxyGroup>(this);
-
         if(_loadLock == NULL)
         {
             _loadLock = Lock::get("ProxyGroupLoadLock");
@@ -263,7 +261,7 @@ void ProxyGroup::startLoading(void)
         
         bool noThread = _loadQueue.empty();
         
-        _loadQueue.push(ptr);
+        _loadQueue.push(this);
 
         setState(LOAD_THREAD_RUNNING);
         

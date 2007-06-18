@@ -1364,6 +1364,7 @@ RenderOptionsBase::RenderOptionsBase(const RenderOptionsBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 RenderOptionsBase::~RenderOptionsBase(void)

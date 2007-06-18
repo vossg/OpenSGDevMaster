@@ -1931,6 +1931,7 @@ ImageBase::ImageBase(const ImageBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ImageBase::~ImageBase(void)

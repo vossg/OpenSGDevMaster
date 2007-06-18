@@ -486,6 +486,7 @@ ColorMaskChunkBase::ColorMaskChunkBase(const ColorMaskChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ColorMaskChunkBase::~ColorMaskChunkBase(void)

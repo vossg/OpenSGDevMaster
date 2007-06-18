@@ -462,6 +462,7 @@ MultiPassMaterialBase::MultiPassMaterialBase(const MultiPassMaterialBase &source
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 MultiPassMaterialBase::~MultiPassMaterialBase(void)

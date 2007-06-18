@@ -121,13 +121,8 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForeground :
 
   private:
 
+    friend class FieldContainer;
     friend class StatisticsForegroundBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const StatisticsForeground &source);

@@ -277,6 +277,7 @@ ShaderParameterBoolBase::ShaderParameterBoolBase(const ShaderParameterBoolBase &
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ShaderParameterBoolBase::~ShaderParameterBoolBase(void)

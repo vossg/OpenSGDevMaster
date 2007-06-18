@@ -166,13 +166,8 @@ class OSG_DRAWABLE_DLLMAPPING Particles : public ParticlesBase
 
   private:
 
+    friend class FieldContainer;
     friend class ParticlesBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const Particles &source);

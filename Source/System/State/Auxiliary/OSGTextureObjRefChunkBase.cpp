@@ -278,6 +278,7 @@ TextureObjRefChunkBase::TextureObjRefChunkBase(const TextureObjRefChunkBase &sou
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 TextureObjRefChunkBase::~TextureObjRefChunkBase(void)

@@ -191,11 +191,7 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     /*=========================  PROTECTED  ===============================*/    
   protected:
 
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
+    friend class FieldContainer;
 
     StoredFieldType _field;
 

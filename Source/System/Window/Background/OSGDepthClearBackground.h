@@ -124,14 +124,8 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackground :
 
     typedef DepthClearBackgroundBase Inherited;
 
+    friend class FieldContainer;
     friend class DepthClearBackgroundBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
 
     void operator =(const DepthClearBackground &source);
 };

@@ -547,6 +547,7 @@ TextureSelectChunkBase::TextureSelectChunkBase(const TextureSelectChunkBase &sou
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 TextureSelectChunkBase::~TextureSelectChunkBase(void)

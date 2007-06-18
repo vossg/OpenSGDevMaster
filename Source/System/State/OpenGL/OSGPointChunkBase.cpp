@@ -937,6 +937,7 @@ PointChunkBase::PointChunkBase(const PointChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 PointChunkBase::~PointChunkBase(void)

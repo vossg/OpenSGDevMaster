@@ -734,6 +734,7 @@ GeoStatsAttachmentBase::GeoStatsAttachmentBase(const GeoStatsAttachmentBase &sou
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 GeoStatsAttachmentBase::~GeoStatsAttachmentBase(void)

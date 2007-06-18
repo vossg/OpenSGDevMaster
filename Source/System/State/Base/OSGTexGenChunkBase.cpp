@@ -1043,10 +1043,10 @@ TexGenChunkBase::TexGenChunkBase(void) :
     _sfGenFuncTPlane          (Vec4f(0,1,0,0)),
     _sfGenFuncRPlane          (Vec4f(0,0,1,0)),
     _sfGenFuncQPlane          (Vec4f(0,0,0,1)),
-    _sfSBeacon                (),
-    _sfTBeacon                (),
-    _sfRBeacon                (),
-    _sfQBeacon                ()
+    _sfSBeacon                (NullFC),
+    _sfTBeacon                (NullFC),
+    _sfRBeacon                (NullFC),
+    _sfQBeacon                (NullFC)
 {
 }
 
@@ -1060,12 +1060,13 @@ TexGenChunkBase::TexGenChunkBase(const TexGenChunkBase &source) :
     _sfGenFuncTPlane          (source._sfGenFuncTPlane          ),
     _sfGenFuncRPlane          (source._sfGenFuncRPlane          ),
     _sfGenFuncQPlane          (source._sfGenFuncQPlane          ),
-    _sfSBeacon                (),
-    _sfTBeacon                (),
-    _sfRBeacon                (),
-    _sfQBeacon                ()
+    _sfSBeacon                (NullFC),
+    _sfTBeacon                (NullFC),
+    _sfRBeacon                (NullFC),
+    _sfQBeacon                (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

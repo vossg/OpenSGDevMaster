@@ -150,13 +150,8 @@ class OSG_STATE_DLLMAPPING PointChunk : public PointChunkBase
 
   private:
 
+    friend class FieldContainer;
     friend class PointChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     static StateChunkClass _class;
 

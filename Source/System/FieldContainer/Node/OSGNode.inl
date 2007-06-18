@@ -154,12 +154,6 @@ void Node::setParent(NodePtrConst &parent)
     _sfParent.setValue(parent);
 }
 
-inline
-NodePtr Node::getPtr(void)
-{
-    return Inherited::constructPtr<Node>(this);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

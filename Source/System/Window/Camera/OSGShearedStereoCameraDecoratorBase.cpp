@@ -356,6 +356,7 @@ ShearedStereoCameraDecoratorBase::ShearedStereoCameraDecoratorBase(const Sheared
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ShearedStereoCameraDecoratorBase::~ShearedStereoCameraDecoratorBase(void)

@@ -205,6 +205,7 @@ GroupBase::GroupBase(const GroupBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 GroupBase::~GroupBase(void)

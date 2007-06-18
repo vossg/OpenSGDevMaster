@@ -51,13 +51,17 @@
 #include "OSGSingletonHolder.ins"
 #include "OSGFieldContainerType.h"
 
-OSG_USING_NAMESPACE
-
 OSG_BEGIN_NAMESPACE
 
 OSG_SINGLETON_INST(FieldContainerFactoryBase)
 
 template class SingletonHolder<FieldContainerFactoryBase>;
+
+OSG_END_NAMESPACE
+
+#include "OSGFieldContainer.h"
+
+OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::FieldContainerFactoryBase
 
@@ -138,6 +142,39 @@ bool FieldContainerFactoryBase::terminate(void)
 bool FieldContainerFactoryBase::initializeFactoryPost(void)
 {
     return Inherited::initializeFactoryPost();
+}
+
+UInt32 FieldContainerFactoryBase::registerContainer(
+    const ContainerPtr &pContainer)
+{
+#ifdef OSG_ENABLE_VALGRIND_CHECKS
+    VALGRIND_CHECK_VALUE_IS_DEFINED(pContainer);
+#endif
+
+    UInt32 returnValue = 0;
+
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    ContainerHandlerP pHandler = NULL;
+
+    if(pContainer != NULL)
+        pHandler = pContainer->getAspectStore();
+
+    _vContainerStore.push_back(pHandler);
+#else
+    _vContainerStore.push_back(pContainer);
+#endif
+
+    returnValue = _vContainerStore.size() - 1;
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
 }
 
 /*-------------------------------------------------------------------------*/

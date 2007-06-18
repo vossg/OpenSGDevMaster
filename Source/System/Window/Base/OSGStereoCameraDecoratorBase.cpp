@@ -328,6 +328,7 @@ StereoCameraDecoratorBase::StereoCameraDecoratorBase(const StereoCameraDecorator
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 StereoCameraDecoratorBase::~StereoCameraDecoratorBase(void)

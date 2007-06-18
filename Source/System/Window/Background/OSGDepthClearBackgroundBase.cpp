@@ -286,6 +286,7 @@ DepthClearBackgroundBase::DepthClearBackgroundBase(const DepthClearBackgroundBas
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 DepthClearBackgroundBase::~DepthClearBackgroundBase(void)

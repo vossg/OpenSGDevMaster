@@ -381,6 +381,7 @@ ShaderChunkBase::ShaderChunkBase(const ShaderChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ShaderChunkBase::~ShaderChunkBase(void)

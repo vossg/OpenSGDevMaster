@@ -198,6 +198,7 @@ PassiveViewportBase::PassiveViewportBase(const PassiveViewportBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 PassiveViewportBase::~PassiveViewportBase(void)

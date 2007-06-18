@@ -355,7 +355,7 @@ void OSG::Window::onCreate(const Window *source)
         doInitRegisterGLObject(1, _glObjects.size() - 1);
     }
 
-    _allWindows.push_back(Inherited::constructPtr<Window>(this)); 
+    _allWindows.push_back(this); 
 
     _windowId = ++_currentWindowId;
 }
@@ -405,7 +405,7 @@ void OSG::Window::onDestroy(UInt32 uiContainerId)
 
     it = std::find(_allWindows.begin(), 
                    _allWindows.end  (), 
-                   Inherited::constructPtr<Window>(this));
+                   this);
     
     // prototype window are not added to the list, so they might not be found.
 
@@ -476,7 +476,7 @@ void OSG::Window::addPort(const ViewportPtr &portP)
 
         _mfPort.push_back(portP);
 
-        _mfPort.back()->setParent(Inherited::constructPtr<Window>(this));
+        _mfPort.back()->setParent(this);
     }
 }
 
@@ -491,7 +491,7 @@ void OSG::Window::insertPort(UInt32 portIndex, const ViewportPtr &portP)
         portIt += portIndex;
   
         (*(_mfPort.insert(portIt, portP)))->setParent(
-            Inherited::constructPtr<Window>(this));
+            this);
     }
 }
 
@@ -506,7 +506,7 @@ void OSG::Window::replacePort(UInt32 portIndex, const ViewportPtr &portP)
         _mfPort[portIndex] = portP;
 
         _mfPort[portIndex]->setParent(
-            Inherited::constructPtr<Window>(this));
+            this);
     }
 }
 
@@ -523,7 +523,7 @@ void OSG::Window::replacePortBy(const ViewportPtr &portP,
         {
             (*portIt)->setParent(NullFC);
             (*portIt) = newportP;
-            (*portIt)->setParent(Inherited::constructPtr<Window>(this));
+            (*portIt)->setParent(this);
         }
     }
 }

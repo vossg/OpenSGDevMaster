@@ -236,8 +236,6 @@ void NodeCore::dump(      UInt32    uiIndent,
 {
     UInt32 i;
 
-    ObjConstPtr thisP = Inherited::constructPtr<NodeCore>(this);
-
 //    thisP.dump(0, FCDumpFlags::RefCount);
 
     indentLog(uiIndent, PLOG);
@@ -245,7 +243,7 @@ void NodeCore::dump(      UInt32    uiIndent,
     PLOG << "Core"
          << "("
          << std::dec
-         << getContainerId(thisP)
+         << getContainerId(this)
          << ") : "
          << getType().getName()
          << " "

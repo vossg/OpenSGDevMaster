@@ -220,6 +220,7 @@ VertexProgramChunkBase::VertexProgramChunkBase(const VertexProgramChunkBase &sou
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 VertexProgramChunkBase::~VertexProgramChunkBase(void)

@@ -133,13 +133,8 @@ class OSG_WINDOW_DLLMAPPING SkyBackground : public SkyBackgroundBase
 
   private:
 
+    friend class FieldContainer;
     friend class SkyBackgroundBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SkyBackground &source);

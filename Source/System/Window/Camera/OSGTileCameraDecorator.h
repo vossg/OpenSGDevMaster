@@ -133,14 +133,8 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecorator :
 
  private:
 
+    friend class FieldContainer;
     friend class TileCameraDecoratorBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
 
     void operator =(const TileCameraDecorator &source);
 };

@@ -131,39 +131,6 @@ FieldContainerFactoryBase::ContainerPtr
     }
 }
 
-inline
-UInt32 FieldContainerFactoryBase::registerContainer(
-    const ContainerPtr &pContainer)
-{
-#ifdef OSG_ENABLE_VALGRIND_CHECKS
-    VALGRIND_CHECK_VALUE_IS_DEFINED(pContainer);
-#endif
-
-    UInt32 returnValue = 0;
-
-#ifndef OSG_WINCE
-    _pStoreLock->acquire();
-#endif
-
-#ifdef OSG_MT_CPTR_ASPECT
-    ContainerHandlerP pHandler = NULL;
-
-    if(pContainer != NULL)
-        pHandler = pContainer->getAspectStore();
-
-    _vContainerStore.push_back(pHandler);
-#else
-    _vContainerStore.push_back(pContainer);
-#endif
-
-    returnValue = _vContainerStore.size() - 1;
-
-#ifndef OSG_WINCE
-    _pStoreLock->release();
-#endif
-
-    return returnValue;
-}
 
 inline
 bool FieldContainerFactoryBase::deregisterContainer(const UInt32 uiContainerId)

@@ -413,6 +413,7 @@ XWindowBase::XWindowBase(const XWindowBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 XWindowBase::~XWindowBase(void)

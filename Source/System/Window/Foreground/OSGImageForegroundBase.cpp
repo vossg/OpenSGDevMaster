@@ -629,6 +629,7 @@ ImageForegroundBase::ImageForegroundBase(const ImageForegroundBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ImageForegroundBase::~ImageForegroundBase(void)

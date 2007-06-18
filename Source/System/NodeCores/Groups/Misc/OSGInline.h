@@ -95,13 +95,8 @@ class OSG_GROUP_DLLMAPPING Inline : public InlineBase
 
   private:
 
+    friend class FieldContainer;
     friend class InlineBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                     Init                                     */

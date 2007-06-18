@@ -1489,6 +1489,7 @@ TiledQuadTreeTerrainBase::TiledQuadTreeTerrainBase(const TiledQuadTreeTerrainBas
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 TiledQuadTreeTerrainBase::~TiledQuadTreeTerrainBase(void)

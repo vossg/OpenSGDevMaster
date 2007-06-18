@@ -316,9 +316,10 @@ StageBase::StageBase(void) :
 
 StageBase::StageBase(const StageBase &source) :
     Inherited(source),
-    _sfRenderTarget           ()
+    _sfRenderTarget           (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

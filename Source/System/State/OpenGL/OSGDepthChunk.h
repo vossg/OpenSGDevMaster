@@ -150,13 +150,8 @@ class OSG_STATE_DLLMAPPING DepthChunk : public DepthChunkBase
 
   private:
 
+    friend class FieldContainer;
     friend class DepthChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // class. Used for indexing in State
     static StateChunkClass _class;

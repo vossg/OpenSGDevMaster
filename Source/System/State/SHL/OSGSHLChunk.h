@@ -248,13 +248,8 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 
   private:
 
+    friend class FieldContainer;
     friend class SHLChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     typedef std::map<std::string, std::pair<parametercbfp, osgparametercbfp> >
         userParameterCallbacksMap;

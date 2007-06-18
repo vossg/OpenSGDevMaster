@@ -135,13 +135,8 @@ class OSG_GROUP_DLLMAPPING Billboard : public BillboardBase
 
     typedef BillboardBase Inherited;
 
+    friend class FieldContainer;
     friend class BillboardBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     static void initMethod(InitPhase ePhase);
 

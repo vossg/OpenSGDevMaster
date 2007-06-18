@@ -108,13 +108,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec2f : public ShaderParameterMVec2fB
 
   private:
 
+    friend class FieldContainer;
     friend class ShaderParameterMVec2fBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterMVec2f &source);

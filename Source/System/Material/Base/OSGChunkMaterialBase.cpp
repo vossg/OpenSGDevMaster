@@ -616,6 +616,7 @@ ChunkMaterialBase::ChunkMaterialBase(const ChunkMaterialBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ChunkMaterialBase::~ChunkMaterialBase(void)

@@ -150,13 +150,8 @@ class OSG_STATE_DLLMAPPING StencilChunk : public StencilChunkBase
 
   private:
 
+    friend class FieldContainer;
     friend class StencilChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
 
     static StateChunkClass _class;

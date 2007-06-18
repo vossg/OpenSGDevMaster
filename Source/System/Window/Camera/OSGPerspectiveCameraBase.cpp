@@ -358,6 +358,7 @@ PerspectiveCameraBase::PerspectiveCameraBase(const PerspectiveCameraBase &source
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 PerspectiveCameraBase::~PerspectiveCameraBase(void)

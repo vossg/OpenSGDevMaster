@@ -632,7 +632,7 @@ FieldContainerPtr SimpleTexturedMaterialBase::shallowCopy(void) const
 
 SimpleTexturedMaterialBase::SimpleTexturedMaterialBase(void) :
     Inherited(),
-    _sfImage                  (),
+    _sfImage                  (NullFC),
     _sfMinFilter              (GLenum(GL_LINEAR_MIPMAP_LINEAR)),
     _sfMagFilter              (GLenum(GL_LINEAR)),
     _sfEnvMode                (GLenum(GL_REPLACE)),
@@ -642,13 +642,14 @@ SimpleTexturedMaterialBase::SimpleTexturedMaterialBase(void) :
 
 SimpleTexturedMaterialBase::SimpleTexturedMaterialBase(const SimpleTexturedMaterialBase &source) :
     Inherited(source),
-    _sfImage                  (),
+    _sfImage                  (NullFC),
     _sfMinFilter              (source._sfMinFilter              ),
     _sfMagFilter              (source._sfMagFilter              ),
     _sfEnvMode                (source._sfEnvMode                ),
     _sfEnvMap                 (source._sfEnvMap                 )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

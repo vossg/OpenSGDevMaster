@@ -140,13 +140,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
     TextureObjChunkPtr _texchunk;
     TextureEnvChunkPtr _texenvchunk;
 
+    friend class FieldContainer;
     friend class SimpleStatisticsForegroundBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     void initText(const std::string &family, Real32 size);
 

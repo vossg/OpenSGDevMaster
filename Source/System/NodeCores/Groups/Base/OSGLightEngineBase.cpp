@@ -244,6 +244,7 @@ LightEngineBase::LightEngineBase(const LightEngineBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 LightEngineBase::~LightEngineBase(void)

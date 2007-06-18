@@ -338,6 +338,7 @@ ShaderParameterBase::ShaderParameterBase(const ShaderParameterBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ShaderParameterBase::~ShaderParameterBase(void)

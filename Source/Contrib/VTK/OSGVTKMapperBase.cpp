@@ -2102,7 +2102,7 @@ FieldContainerPtr VTKMapperBase::shallowCopy(void) const
 
 VTKMapperBase::VTKMapperBase(void) :
     Inherited(),
-    _sfRoot                   (),
+    _sfRoot                   (NullFC),
     _mfGeoRoots               (),
     _mfGeometries             (),
     _mfMaterials              (),
@@ -2117,7 +2117,7 @@ VTKMapperBase::VTKMapperBase(void) :
 
 VTKMapperBase::VTKMapperBase(const VTKMapperBase &source) :
     Inherited(source),
-    _sfRoot                   (),
+    _sfRoot                   (NullFC),
     _mfGeoRoots               (),
     _mfGeometries             (),
     _mfMaterials              (),
@@ -2129,6 +2129,7 @@ VTKMapperBase::VTKMapperBase(const VTKMapperBase &source) :
     _mfNormals                ()
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

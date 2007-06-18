@@ -1187,6 +1187,7 @@ MaterialChunkBase::MaterialChunkBase(const MaterialChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 MaterialChunkBase::~MaterialChunkBase(void)

@@ -199,6 +199,7 @@ ScaleManipulatorBase::ScaleManipulatorBase(const ScaleManipulatorBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ScaleManipulatorBase::~ScaleManipulatorBase(void)

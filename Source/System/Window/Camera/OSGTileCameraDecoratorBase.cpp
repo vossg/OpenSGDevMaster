@@ -646,6 +646,7 @@ TileCameraDecoratorBase::TileCameraDecoratorBase(const TileCameraDecoratorBase &
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 TileCameraDecoratorBase::~TileCameraDecoratorBase(void)

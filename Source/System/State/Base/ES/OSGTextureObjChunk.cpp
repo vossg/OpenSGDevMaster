@@ -344,10 +344,8 @@ void TextureObjChunk::onCreate(const TextureObjChunk *source)
     if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
     {
 #endif
-        TextureObjChunkPtr tmpPtr = Inherited::constructPtr<TextureObjChunk>(this);
-        
         setGLId(Window::registerGLObject(
-                    boost::bind(&TextureObjChunk::handleGL, tmpPtr, _1, _2),
+                    boost::bind(&TextureObjChunk::handleGL, this, _1, _2),
                     1));
 
 #ifdef GV_CHECK

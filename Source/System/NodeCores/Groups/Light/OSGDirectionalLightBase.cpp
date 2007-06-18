@@ -279,6 +279,7 @@ DirectionalLightBase::DirectionalLightBase(const DirectionalLightBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 DirectionalLightBase::~DirectionalLightBase(void)

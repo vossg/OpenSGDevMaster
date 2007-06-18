@@ -167,6 +167,7 @@ AlgorithmBase::AlgorithmBase(const AlgorithmBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 AlgorithmBase::~AlgorithmBase(void)

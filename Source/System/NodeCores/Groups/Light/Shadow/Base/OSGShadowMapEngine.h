@@ -140,13 +140,8 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngine : public ShadowMapEngineBase
 
   private:
 
+    friend class FieldContainer;
     friend class ShadowMapEngineBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
 

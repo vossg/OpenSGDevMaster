@@ -503,6 +503,7 @@ ColorBufferViewportBase::ColorBufferViewportBase(const ColorBufferViewportBase &
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ColorBufferViewportBase::~ColorBufferViewportBase(void)

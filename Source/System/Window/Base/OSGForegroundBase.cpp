@@ -278,6 +278,7 @@ ForegroundBase::ForegroundBase(const ForegroundBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ForegroundBase::~ForegroundBase(void)

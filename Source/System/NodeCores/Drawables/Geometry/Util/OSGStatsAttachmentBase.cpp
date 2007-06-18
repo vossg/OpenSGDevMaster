@@ -166,6 +166,7 @@ StatsAttachmentBase::StatsAttachmentBase(const StatsAttachmentBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 StatsAttachmentBase::~StatsAttachmentBase(void)

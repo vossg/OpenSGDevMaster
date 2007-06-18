@@ -114,13 +114,8 @@ class OSG_GROUP_DLLMAPPING Stage : public StageBase
 
   private:
 
+    friend class FieldContainer;
     friend class StageBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   thread local                               */

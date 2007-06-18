@@ -188,13 +188,8 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunk : public TextureBaseChunkBase
 
     typedef TextureBaseChunkBase Inherited;
 
+    friend class FieldContainer;
     friend class TextureBaseChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                         GL                                   */

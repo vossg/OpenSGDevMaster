@@ -276,6 +276,7 @@ SimpleShadowMapEngineBase::SimpleShadowMapEngineBase(const SimpleShadowMapEngine
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 SimpleShadowMapEngineBase::~SimpleShadowMapEngineBase(void)

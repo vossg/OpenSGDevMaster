@@ -169,13 +169,8 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapper : public VTKMapperBase
 
   private:
 
+    friend class FieldContainer;
     friend class VTKMapperBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
 

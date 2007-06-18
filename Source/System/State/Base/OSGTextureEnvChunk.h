@@ -206,13 +206,8 @@ class OSG_SYSTEM_DLLMAPPING TextureEnvChunk : public TextureEnvChunkBase
 
     typedef TextureEnvChunkBase Inherited;
 
+    friend class FieldContainer;
     friend class TextureEnvChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TextureEnvChunk &source);

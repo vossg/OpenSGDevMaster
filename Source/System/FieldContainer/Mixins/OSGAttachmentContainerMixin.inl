@@ -206,7 +206,7 @@ void AttachmentContainerMixin<ParentT>::addAttachment(
 
     addRef(pAttachment);
 
-    pAttachment->addParent(Inherited::getPtr());
+    pAttachment->addParent(this);
 
     Self::editSField(AttachmentsFieldMask);
 
@@ -214,7 +214,7 @@ void AttachmentContainerMixin<ParentT>::addAttachment(
 
     if(fcI != _sfAttachments.getValue().end())
     {
-        (*fcI).second->subParent(Inherited::getPtr());
+        (*fcI).second->subParent(this);
 
         subRef((*fcI).second);
 
@@ -256,7 +256,7 @@ void AttachmentContainerMixin<ParentT>::subAttachment(
 
     if(fcI != _sfAttachments.getValue().end())
     {
-        (*fcI).second->subParent(Inherited::getPtr());
+        (*fcI).second->subParent(this);
 
         subRef((*fcI).second);
 
@@ -388,7 +388,7 @@ void AttachmentContainerMixin<ParentT>::resolveLinks(void)
 
     while(fcI != fcE)
     {
-        (*fcI).second->subParent(Inherited::getPtr());
+        (*fcI).second->subParent(this);
 
         subRef((*fcI).second);
 

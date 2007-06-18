@@ -115,13 +115,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroup : public MaterialGroupBase
 
   private:
 
+    friend class FieldContainer;
     friend class MaterialGroupBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
 

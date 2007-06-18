@@ -130,13 +130,8 @@ class OSG_GROUP_DLLMAPPING ProxyGroup : public ProxyGroupBase
 
   private:
 
+    friend class FieldContainer;
     friend class ProxyGroupBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   thread local                               */

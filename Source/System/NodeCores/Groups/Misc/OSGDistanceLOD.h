@@ -106,12 +106,7 @@ class OSG_GROUP_DLLMAPPING DistanceLOD : public DistanceLODBase
 
   private:
 
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
+    friend class FieldContainer;
     friend class DistanceLODBase;
 
     /*---------------------------------------------------------------------*/

@@ -143,13 +143,8 @@ class OSG_GROUP_DLLMAPPING SpotLight : public SpotLightBase
 
   private:
 
+    friend class FieldContainer;
     friend class SpotLightBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*! \brief prohibit default function (move to 'public' if needed) */
     void operator =(const SpotLight &source);

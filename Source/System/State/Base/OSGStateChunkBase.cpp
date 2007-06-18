@@ -253,6 +253,7 @@ StateChunkBase::StateChunkBase(const StateChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 StateChunkBase::~StateChunkBase(void)

@@ -277,6 +277,7 @@ ShaderParameterVec3fBase::ShaderParameterVec3fBase(const ShaderParameterVec3fBas
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ShaderParameterVec3fBase::~ShaderParameterVec3fBase(void)

@@ -198,6 +198,7 @@ TwoSidedLightingChunkBase::TwoSidedLightingChunkBase(const TwoSidedLightingChunk
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 TwoSidedLightingChunkBase::~TwoSidedLightingChunkBase(void)

@@ -199,6 +199,7 @@ RotateManipulatorBase::RotateManipulatorBase(const RotateManipulatorBase &source
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 RotateManipulatorBase::~RotateManipulatorBase(void)

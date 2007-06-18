@@ -117,16 +117,10 @@ class OSG_WINDOW_DLLMAPPING PassiveViewport : public PassiveViewportBase
     /*==========================  PRIVATE  ================================*/
   private:
 
+    friend class FieldContainer;
     friend class PassiveViewportBase;
 
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions; 
-
     // prohibit default functions (move to 'public' if you need one)
-
     void operator =(const PassiveViewport &source);
 };
 

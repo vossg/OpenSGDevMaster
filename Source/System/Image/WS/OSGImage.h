@@ -435,13 +435,8 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
+    friend class FieldContainer;
     friend class ImageBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 };
 
 typedef Image *ImageP;

@@ -433,6 +433,7 @@ SpotLightBase::SpotLightBase(const SpotLightBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 SpotLightBase::~SpotLightBase(void)

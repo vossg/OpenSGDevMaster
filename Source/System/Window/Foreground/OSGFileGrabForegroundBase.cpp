@@ -443,6 +443,7 @@ FileGrabForegroundBase::FileGrabForegroundBase(const FileGrabForegroundBase &sou
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 FileGrabForegroundBase::~FileGrabForegroundBase(void)

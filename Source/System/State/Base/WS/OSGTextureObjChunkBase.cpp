@@ -2234,7 +2234,7 @@ FieldContainerPtr TextureObjChunkBase::shallowCopy(void) const
 
 TextureObjChunkBase::TextureObjChunkBase(void) :
     Inherited(),
-    _sfImage                  (),
+    _sfImage                  (NullFC),
     _sfInternalFormat         (GLenum(GL_NONE)),
     _sfExternalFormat         (GLenum(GL_NONE)),
     _sfScale                  (bool(true)),
@@ -2266,7 +2266,7 @@ TextureObjChunkBase::TextureObjChunkBase(void) :
 
 TextureObjChunkBase::TextureObjChunkBase(const TextureObjChunkBase &source) :
     Inherited(source),
-    _sfImage                  (),
+    _sfImage                  (NullFC),
     _sfInternalFormat         (source._sfInternalFormat         ),
     _sfExternalFormat         (source._sfExternalFormat         ),
     _sfScale                  (source._sfScale                  ),
@@ -2295,6 +2295,7 @@ TextureObjChunkBase::TextureObjChunkBase(const TextureObjChunkBase &source) :
     _sfNPOTMatrixScale        (source._sfNPOTMatrixScale        )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

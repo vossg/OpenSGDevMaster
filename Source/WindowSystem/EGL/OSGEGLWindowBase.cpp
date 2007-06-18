@@ -415,6 +415,7 @@ EGLWindowBase::EGLWindowBase(const EGLWindowBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 EGLWindowBase::~EGLWindowBase(void)

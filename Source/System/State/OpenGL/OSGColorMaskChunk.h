@@ -159,13 +159,8 @@ class OSG_STATE_DLLMAPPING ColorMaskChunk : public ColorMaskChunkBase
 
   private:
 
+    friend class FieldContainer;
     friend class ColorMaskChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // class. Used for indexing in State
     static StateChunkClass _class;

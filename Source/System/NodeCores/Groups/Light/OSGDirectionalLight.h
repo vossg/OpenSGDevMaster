@@ -139,13 +139,8 @@ class OSG_GROUP_DLLMAPPING DirectionalLight : public DirectionalLightBase
 
   private:
 
+    friend class FieldContainer;
     friend class DirectionalLightBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*! \brief prohibit default function (move to 'public' if needed) */
     void operator =(const DirectionalLight &source);

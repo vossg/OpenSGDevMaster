@@ -475,9 +475,10 @@ ClipPlaneChunkBase::ClipPlaneChunkBase(const ClipPlaneChunkBase &source) :
     Inherited(source),
     _sfEquation               (source._sfEquation               ),
     _sfEnable                 (source._sfEnable                 ),
-    _sfBeacon                 ()
+    _sfBeacon                 (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

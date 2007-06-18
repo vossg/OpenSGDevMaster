@@ -2282,6 +2282,7 @@ TextureEnvChunkBase::TextureEnvChunkBase(const TextureEnvChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 TextureEnvChunkBase::~TextureEnvChunkBase(void)

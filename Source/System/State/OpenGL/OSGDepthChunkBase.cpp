@@ -572,6 +572,7 @@ DepthChunkBase::DepthChunkBase(const DepthChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 DepthChunkBase::~DepthChunkBase(void)

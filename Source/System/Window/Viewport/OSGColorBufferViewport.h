@@ -129,15 +129,8 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewport :
 
   private:
 
+    friend class FieldContainer;
     friend class ColorBufferViewportBase;
-
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ColorBufferViewport &source);

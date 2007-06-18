@@ -548,6 +548,7 @@ BillboardBase::BillboardBase(const BillboardBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 BillboardBase::~BillboardBase(void)

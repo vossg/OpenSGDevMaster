@@ -225,7 +225,11 @@ class Field(FCDElement):
                 self["Type"] + "(" + \
                 self.getFCD("defaultValue") + ")";
         else:
-            self["TypedDefault"] = "";
+            if self["isPtrField"] == True and self["isSField"] == True:
+               self["TypedDefault"] = "NullFC";
+            else:
+               self["TypedDefault"] = "";
+            
         
         if self.getFCD("visibility") == "external":
             self["Visibility"] = "false";

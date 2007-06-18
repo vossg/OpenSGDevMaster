@@ -148,13 +148,8 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunk : public ClipPlaneChunkBase
 
     typedef ClipPlaneChunkBase Inherited;
 
+    friend class FieldContainer;
     friend class ClipPlaneChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // class. Used for indexing in State
     static StateChunkClass _class;

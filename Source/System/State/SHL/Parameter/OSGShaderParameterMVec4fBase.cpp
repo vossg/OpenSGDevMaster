@@ -359,6 +359,7 @@ ShaderParameterMVec4fBase::ShaderParameterMVec4fBase(const ShaderParameterMVec4f
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ShaderParameterMVec4fBase::~ShaderParameterMVec4fBase(void)

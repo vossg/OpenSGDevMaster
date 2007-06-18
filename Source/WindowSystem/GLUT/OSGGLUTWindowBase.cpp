@@ -277,6 +277,7 @@ GLUTWindowBase::GLUTWindowBase(const GLUTWindowBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 GLUTWindowBase::~GLUTWindowBase(void)

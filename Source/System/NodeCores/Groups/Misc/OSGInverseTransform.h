@@ -145,12 +145,7 @@ class OSG_GROUP_DLLMAPPING InverseTransform : public InverseTransformBase
 
   private:
 
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
+    friend class FieldContainer;
     friend class InverseTransformBase;
 
     Matrixr _invWorld;

@@ -1199,10 +1199,10 @@ ClusterWindowBase::ClusterWindowBase(void) :
     _sfConnectionParams       (),
     _sfServicePort            (UInt32(8437)),
     _sfServiceAddress         (std::string("224.245.211.234")),
-    _sfClientWindow           (),
+    _sfClientWindow           (NullFC),
     _sfInterleave             (UInt32(0)),
     _sfFrameCount             (UInt32(0)),
-    _sfComposer               (),
+    _sfComposer               (NullFC),
     _mfAutostart              ()
 {
 }
@@ -1216,13 +1216,14 @@ ClusterWindowBase::ClusterWindowBase(const ClusterWindowBase &source) :
     _sfConnectionParams       (source._sfConnectionParams       ),
     _sfServicePort            (source._sfServicePort            ),
     _sfServiceAddress         (source._sfServiceAddress         ),
-    _sfClientWindow           (),
+    _sfClientWindow           (NullFC),
     _sfInterleave             (source._sfInterleave             ),
     _sfFrameCount             (source._sfFrameCount             ),
-    _sfComposer               (),
+    _sfComposer               (NullFC),
     _mfAutostart              (source._mfAutostart              )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

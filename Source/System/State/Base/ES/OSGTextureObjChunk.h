@@ -263,13 +263,8 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
 
     typedef TextureObjChunkBase Inherited;
 
+    friend class FieldContainer;
     friend class TextureObjChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                         GL                                   */

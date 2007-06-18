@@ -165,6 +165,7 @@ DrawableBase::DrawableBase(const DrawableBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 DrawableBase::~DrawableBase(void)

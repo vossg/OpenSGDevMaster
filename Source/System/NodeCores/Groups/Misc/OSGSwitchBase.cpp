@@ -281,6 +281,7 @@ SwitchBase::SwitchBase(const SwitchBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 SwitchBase::~SwitchBase(void)

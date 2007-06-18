@@ -170,11 +170,9 @@ void RenderBuffer::initMethod(InitPhase ePhase)
 
 void RenderBuffer::onCreate(const RenderBuffer *source)
 {
-    RenderBufferPtr tmpPtr = Inherited::constructPtr<RenderBuffer>(this);
-
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&RenderBuffer::handleGL, tmpPtr, 
+            boost::bind(&RenderBuffer::handleGL, this, 
                             _1, _2, _3),
             &RenderBuffer::handleDestroyGL
             ));

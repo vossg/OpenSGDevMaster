@@ -43,7 +43,6 @@
 #include "OSGClusterException.h"
 #include "OSGFieldDescriptionBase.h"
 #include "OSGRemoteAspect.h"
-#include "OSGFieldContainer.h"
 #include "OSGLog.h"
 #include "OSGWindow.h"
 #include "OSGMaterial.h"

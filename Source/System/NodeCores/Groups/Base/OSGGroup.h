@@ -118,13 +118,8 @@ class OSG_SYSTEM_DLLMAPPING Group : public GroupBase
 
   private:
 
+    friend class FieldContainer;
     friend class GroupBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
 

@@ -328,9 +328,10 @@ VisitSubTreeBase::VisitSubTreeBase(void) :
 
 VisitSubTreeBase::VisitSubTreeBase(const VisitSubTreeBase &source) :
     Inherited(source),
-    _sfSubTreeRoot            ()
+    _sfSubTreeRoot            (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

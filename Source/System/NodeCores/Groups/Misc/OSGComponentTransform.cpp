@@ -63,9 +63,6 @@ OSG_USING_NAMESPACE
 
 void ComponentTransform::changed(ConstFieldMaskArg whichField, UInt32 origin)
 {
-    ComponentTransformPtr ptr = 
-        Inherited::constructPtr<ComponentTransform>(this);
-
     if((whichField & CenterFieldMask          ) ||
        (whichField & RotationFieldMask        ) ||
        (whichField & ScaleFieldMask           ) ||

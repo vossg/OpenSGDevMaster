@@ -553,6 +553,7 @@ MultiDisplayWindowBase::MultiDisplayWindowBase(const MultiDisplayWindowBase &sou
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 MultiDisplayWindowBase::~MultiDisplayWindowBase(void)

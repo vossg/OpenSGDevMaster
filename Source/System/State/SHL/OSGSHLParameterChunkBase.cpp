@@ -310,9 +310,10 @@ SHLParameterChunkBase::SHLParameterChunkBase(void) :
 
 SHLParameterChunkBase::SHLParameterChunkBase(const SHLParameterChunkBase &source) :
     Inherited(source),
-    _sfSHLChunk               ()
+    _sfSHLChunk               (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

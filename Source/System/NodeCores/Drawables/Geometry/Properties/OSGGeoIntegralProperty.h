@@ -202,13 +202,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
 
   private:
 
+    friend class FieldContainer;
     friend class GeoIntegralPropertyBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     static StateChunkClass _class;
 

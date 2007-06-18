@@ -218,14 +218,8 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunk :
 
   private:
 
+    friend class FieldContainer;
     friend class RegisterCombinersChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
 
     // class. Used for indexing in State
     static StateChunkClass _class;

@@ -87,19 +87,17 @@ void GeometryBase::setTypes(GeoIntegralPropertyPtrConstArg value)
 {
     editSField(TypesFieldMask);
 
-    GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-        static_cast<Geometry *>(this));
 
     if(_sfTypes.getValue() != NullFC)
     {
-        _sfTypes.getValue()->subParent(thisP);
+        _sfTypes.getValue()->subParent(this);
     }
 
     setRefd(_sfTypes.getValue(), value);
 
     if(_sfTypes.getValue() != NullFC)
     {
-        _sfTypes.getValue()->addParent(thisP, TypesFieldMask);
+        _sfTypes.getValue()->addParent(this, TypesFieldMask);
     }
 
 }
@@ -117,19 +115,17 @@ void GeometryBase::setLengths(GeoIntegralPropertyPtrConstArg value)
 {
     editSField(LengthsFieldMask);
 
-    GeometryPtr thisP = Inherited::constructPtr<Geometry>(
-        static_cast<Geometry *>(this));
 
     if(_sfLengths.getValue() != NullFC)
     {
-        _sfLengths.getValue()->subParent(thisP);
+        _sfLengths.getValue()->subParent(this);
     }
 
     setRefd(_sfLengths.getValue(), value);
 
     if(_sfLengths.getValue() != NullFC)
     {
-        _sfLengths.getValue()->addParent(thisP, LengthsFieldMask);
+        _sfLengths.getValue()->addParent(this, LengthsFieldMask);
     }
 
 }

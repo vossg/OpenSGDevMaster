@@ -631,10 +631,7 @@ void WindowBase::addPort(ViewportPtrConstArg value)
 
     _mfPort.push_back(value);
 
-    WindowPtr thisP = Inherited::constructPtr<Window>(
-        static_cast<Window *>(this));
-
-    value->setParent(thisP, PortFieldMask);
+    value->setParent(this, PortFieldMask);
 }
 
 void WindowBase::insertPort(UInt32                uiIndex,
@@ -653,10 +650,7 @@ void WindowBase::insertPort(UInt32                uiIndex,
 
     _mfPort.insert(fieldIt, value);
 
-    WindowPtr thisP = Inherited::constructPtr<Window>(
-        static_cast<Window *>(this));
-
-    value->setParent(thisP, PortFieldMask);
+    value->setParent(this, PortFieldMask);
 }
 
 void WindowBase::replacePort(UInt32                uiIndex,
@@ -672,19 +666,16 @@ void WindowBase::replacePort(UInt32                uiIndex,
 
     addRef(value);
 
-    WindowPtr thisP = Inherited::constructPtr<Window>(
-        static_cast<Window *>(this));
-
     if(_mfPort[uiIndex] != NullFC)
     {
-        _mfPort[uiIndex]->setParent(thisP, PortFieldMask);
+        _mfPort[uiIndex]->setParent(this, PortFieldMask);
     }
 
     subRef(_mfPort[uiIndex]);
 
     _mfPort[uiIndex] = value;
 
-    value->setParent(thisP, PortFieldMask);
+    value->setParent(this, PortFieldMask);
 }
 
 void WindowBase::replacePortyBy(ViewportPtrConstArg pOldElem,
@@ -703,9 +694,6 @@ void WindowBase::replacePortyBy(ViewportPtrConstArg pOldElem,
 
         fieldIt += elemIdx;
 
-        WindowPtr thisP = Inherited::constructPtr<Window>(
-            static_cast<Window *>(this));
-
         if(pOldElem != NullFC)
         {
             pOldElem->setParent(NullFC, PortFieldMask);
@@ -713,7 +701,7 @@ void WindowBase::replacePortyBy(ViewportPtrConstArg pOldElem,
 
         if(pNewElem != NullFC)
         {
-            pNewElem->setParent(thisP, PortFieldMask);
+            pNewElem->setParent(this, PortFieldMask);
         }
 
         addRef(pNewElem);
@@ -1090,6 +1078,7 @@ WindowBase::WindowBase(const WindowBase &source) :
     _mfGlObjectLastReinitialize(source._mfGlObjectLastReinitialize)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

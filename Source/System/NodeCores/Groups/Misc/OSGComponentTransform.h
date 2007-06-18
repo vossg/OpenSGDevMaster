@@ -97,13 +97,8 @@ class OSG_GROUP_DLLMAPPING ComponentTransform : public ComponentTransformBase
     /*==========================  PRIVATE  ================================*/
   private:
 
+    friend class FieldContainer;
     friend class ComponentTransformBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                     Init                                     */

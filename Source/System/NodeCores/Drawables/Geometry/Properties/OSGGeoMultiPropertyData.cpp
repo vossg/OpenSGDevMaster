@@ -128,12 +128,9 @@ void GeoMultiPropertyData::onCreate(const GeoMultiPropertyData *)
     if(GlobalSystemState == Startup)
         return;
 
-    GeoMultiPropertyDataPtr tmpPtr = 
-        Inherited::constructPtr<GeoMultiPropertyData>(this);
-
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&GeoMultiPropertyData::handleGL, tmpPtr, 
+            boost::bind(&GeoMultiPropertyData::handleGL, this, 
                             _1, _2, _3),
             &GeoMultiPropertyData::handleDestroyGL
             ));

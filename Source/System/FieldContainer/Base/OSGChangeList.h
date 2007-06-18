@@ -65,9 +65,6 @@ class WinThreadBase;
 class StatCollector;
 class FieldContainer;
 
-template<class ContainerFactoryT>
-struct PtrConstructionFunctions;
-
 /*! \ingroup GrpSystemMultithreading
  */
 
@@ -345,9 +342,6 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     friend class SprocBase;
     friend class WinThreadBase;
     friend class FieldContainer;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     typedef MemoryObject Inherited;
 

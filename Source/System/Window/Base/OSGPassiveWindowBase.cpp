@@ -203,6 +203,7 @@ PassiveWindowBase::PassiveWindowBase(const PassiveWindowBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 PassiveWindowBase::~PassiveWindowBase(void)

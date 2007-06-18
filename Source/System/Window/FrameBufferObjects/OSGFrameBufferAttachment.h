@@ -128,16 +128,9 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachment :
 
   private:
 
+    friend class FieldContainer;
     friend class FrameBufferAttachmentBase;
     friend class FrameBufferObject;
-
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const FrameBufferAttachment &source);

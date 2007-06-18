@@ -370,13 +370,11 @@ void SHLChunk::onCreate(const SHLChunk *source)
     if(GlobalSystemState == Startup)
         return;
 
-    SHLChunkPtr tmpPtr = Inherited::constructPtr<SHLChunk>(this);;
-
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&SHLChunk::handleGL, tmpPtr, 
+            boost::bind(&SHLChunk::handleGL, this, 
                             _1, _2, _3),
-            boost::bind(&SHLChunk::handleDestroyGL, tmpPtr, 
+            boost::bind(&SHLChunk::handleDestroyGL, this, 
                             _1, _2, _3)
             ));
 

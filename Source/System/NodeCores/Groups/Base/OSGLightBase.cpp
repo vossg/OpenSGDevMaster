@@ -813,12 +813,12 @@ LightBase::LightBase(void) :
     _sfAmbient                (Color4r(0.f,0.f,0.f,1.f)),
     _sfDiffuse                (Color4r(1.f,1.f,1.f,1.f)),
     _sfSpecular               (Color4r(1.f,1.f,1.f,1.f)),
-    _sfBeacon                 (),
+    _sfBeacon                 (NullFC),
     _sfOn                     (bool(true)),
     _sfConstantAttenuation    (Real(1.f)),
     _sfLinearAttenuation      (Real(0.f)),
     _sfQuadraticAttenuation   (Real(0.f)),
-    _sfLightEngine            ()
+    _sfLightEngine            (NullFC)
 {
 }
 
@@ -827,14 +827,15 @@ LightBase::LightBase(const LightBase &source) :
     _sfAmbient                (source._sfAmbient                ),
     _sfDiffuse                (source._sfDiffuse                ),
     _sfSpecular               (source._sfSpecular               ),
-    _sfBeacon                 (),
+    _sfBeacon                 (NullFC),
     _sfOn                     (source._sfOn                     ),
     _sfConstantAttenuation    (source._sfConstantAttenuation    ),
     _sfLinearAttenuation      (source._sfLinearAttenuation      ),
     _sfQuadraticAttenuation   (source._sfQuadraticAttenuation   ),
-    _sfLightEngine            ()
+    _sfLightEngine            (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

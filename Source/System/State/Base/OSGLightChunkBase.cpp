@@ -1029,9 +1029,10 @@ LightChunkBase::LightChunkBase(const LightChunkBase &source) :
     _sfConstantAttenuation    (source._sfConstantAttenuation    ),
     _sfLinearAttenuation      (source._sfLinearAttenuation      ),
     _sfQuadraticAttenuation   (source._sfQuadraticAttenuation   ),
-    _sfBeacon                 ()
+    _sfBeacon                 (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

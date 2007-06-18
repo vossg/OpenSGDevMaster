@@ -175,7 +175,7 @@ void Geometry::setTypes(GeoIntegralPropertyPtrConstArg value)
 
     fixParents(_sfTypes.getValue(), 
                value, 
-               Inherited::constructPtr<Geometry>(this), 
+               this, 
                TypesFieldId);
  
     editSField(TypesFieldMask);
@@ -190,7 +190,7 @@ void Geometry::setLengths(GeoIntegralPropertyPtrConstArg value)
 
     fixParents(_sfLengths.getValue(), 
                value, 
-               Inherited::constructPtr<Geometry>(this), 
+               this, 
                LengthsFieldId);
  
     editSField(LengthsFieldMask);
@@ -286,7 +286,7 @@ void Geometry::setProperty(GeoVectorPropertyPtrConstArg value, UInt16 index)
     
     fixParents(_mfProperties[index], 
                 value, 
-                Inherited::constructPtr<Geometry>(this), 
+                this, 
                 PropertiesFieldId);
    
     _mfProperties[index] = value;
@@ -315,7 +315,7 @@ void Geometry::setIndex(GeoIntegralPropertyPtrConstArg value, UInt16 index)
     
     fixParents(_mfPropIndices[index], 
                 value, 
-                Inherited::constructPtr<Geometry>(this),
+                this,
                 PropIndicesFieldId);
    
     _mfPropIndices[index] = value;

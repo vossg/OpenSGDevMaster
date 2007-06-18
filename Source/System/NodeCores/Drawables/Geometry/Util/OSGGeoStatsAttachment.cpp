@@ -284,8 +284,6 @@ GeoStatsAttachmentPtr GeoStatsAttachment::addTo(AttachmentContainerPtr obj)
 */
 void GeoStatsAttachment::attachTo(AttachmentContainerPtr obj)
 {
-    GeoStatsAttachmentPtr st = dynamic_cast<GeoStatsAttachmentPtr>(getPtr());
-
     if(getParents().size())
     {
         FNOTICE(("GeoStatsAttachment::attachTo: "
@@ -296,11 +294,11 @@ void GeoStatsAttachment::attachTo(AttachmentContainerPtr obj)
             AttachmentContainerPtr p =
                 dynamic_cast<AttachmentContainerPtr>(this->getParent(0));
 
-            p->subAttachment(st);
+            p->subAttachment(this);
         }
     }
 
-    obj->addAttachment(st);
+    obj->addAttachment(this);
 
     reset();
 

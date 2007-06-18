@@ -360,6 +360,7 @@ MatrixCameraBase::MatrixCameraBase(const MatrixCameraBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 MatrixCameraBase::~MatrixCameraBase(void)

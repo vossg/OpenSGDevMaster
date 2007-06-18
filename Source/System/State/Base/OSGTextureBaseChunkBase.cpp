@@ -264,6 +264,7 @@ TextureBaseChunkBase::TextureBaseChunkBase(const TextureBaseChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 TextureBaseChunkBase::~TextureBaseChunkBase(void)

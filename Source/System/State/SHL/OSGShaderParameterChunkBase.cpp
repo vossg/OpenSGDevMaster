@@ -275,10 +275,7 @@ void ShaderParameterChunkBase::addParameter(ShaderParameterPtrConstArg value)
 
     _mfParameters.push_back(value);
 
-    ShaderParameterChunkPtr thisP = Inherited::constructPtr<ShaderParameterChunk>(
-        static_cast<ShaderParameterChunk *>(this));
-
-    value->addParent(thisP, ParametersFieldMask);
+    value->addParent(this, ParametersFieldMask);
 }
 
 void ShaderParameterChunkBase::insertParameter(UInt32                uiIndex,
@@ -297,10 +294,7 @@ void ShaderParameterChunkBase::insertParameter(UInt32                uiIndex,
 
     _mfParameters.insert(fieldIt, value);
 
-    ShaderParameterChunkPtr thisP = Inherited::constructPtr<ShaderParameterChunk>(
-        static_cast<ShaderParameterChunk *>(this));
-
-    value->addParent(thisP, ParametersFieldMask);
+    value->addParent(this, ParametersFieldMask);
 }
 
 void ShaderParameterChunkBase::replaceParameter(UInt32                uiIndex,
@@ -316,19 +310,16 @@ void ShaderParameterChunkBase::replaceParameter(UInt32                uiIndex,
 
     addRef(value);
 
-    ShaderParameterChunkPtr thisP = Inherited::constructPtr<ShaderParameterChunk>(
-        static_cast<ShaderParameterChunk *>(this));
-
     if(_mfParameters[uiIndex] != NullFC)
     {
-        _mfParameters[uiIndex]->subParent(thisP);
+        _mfParameters[uiIndex]->subParent(this);
     }
 
     subRef(_mfParameters[uiIndex]);
 
     _mfParameters[uiIndex] = value;
 
-    value->addParent(thisP, ParametersFieldMask);
+    value->addParent(this, ParametersFieldMask);
 }
 
 void ShaderParameterChunkBase::replaceParameterBy(ShaderParameterPtrConstArg pOldElem,
@@ -347,15 +338,13 @@ void ShaderParameterChunkBase::replaceParameterBy(ShaderParameterPtrConstArg pOl
 
         fieldIt += elemIdx;
 
-        ShaderParameterChunkPtr thisP = Inherited::constructPtr<ShaderParameterChunk>(
-            static_cast<ShaderParameterChunk *>(this));
 
         if(pOldElem != NullFC)
         {
-            pOldElem->subParent(thisP);
+            pOldElem->subParent(this);
         }
 
-        pNewElem->addParent(thisP, ParametersFieldMask);
+        pNewElem->addParent(this, ParametersFieldMask);
 
         addRef(pNewElem);
         subRef(pOldElem);
@@ -374,12 +363,10 @@ void ShaderParameterChunkBase::subParameter(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        ShaderParameterChunkPtr thisP = Inherited::constructPtr<ShaderParameterChunk>(
-            static_cast<ShaderParameterChunk *>(this));
 
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
         subRef(*fieldIt);
@@ -400,12 +387,10 @@ void ShaderParameterChunkBase::subParameter(ShaderParameterPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        ShaderParameterChunkPtr thisP = Inherited::constructPtr<ShaderParameterChunk>(
-            static_cast<ShaderParameterChunk *>(this));
 
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
         subRef(*fieldIt);
@@ -422,12 +407,9 @@ void ShaderParameterChunkBase::clearParameters(void)
 
     while(fieldIt != fieldEnd)
     {
-        ShaderParameterChunkPtr thisP = Inherited::constructPtr<ShaderParameterChunk>(
-            static_cast<ShaderParameterChunk *>(this));
-
         if(*fieldIt != NullFC)
         {
-            (*fieldIt)->subParent(thisP);
+            (*fieldIt)->subParent(this);
         }
 
         subRef(*fieldIt);
@@ -492,6 +474,7 @@ ShaderParameterChunkBase::ShaderParameterChunkBase(const ShaderParameterChunkBas
     _mfParameters             ()
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

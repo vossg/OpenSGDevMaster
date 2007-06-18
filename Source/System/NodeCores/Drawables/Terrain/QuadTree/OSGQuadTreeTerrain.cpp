@@ -1757,9 +1757,6 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
         s_shlChunk = createSHLChunk();
     }
 
-    QuadTreeTerrainPtr thisPtr = 
-        Inherited::constructPtr<QuadTreeTerrain>(this);
-
     // changed HeightData
     // * update HeightError and HeightQuad
     if((whichField & HeightDataFieldMask) && getHeightData() != NullFC) 

@@ -176,16 +176,14 @@ void Geometry::onCreate(const Geometry *)
     if(GlobalSystemState == Startup)
         return;
 
-    GeometryPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
     setClassicGLId(
         Window::registerGLObject(
-            boost::bind(&Geometry::handleClassicGL, tmpPtr, _1, _2),
+            boost::bind(&Geometry::handleClassicGL, this, _1, _2),
             1));
 
     setAttGLId(
         Window::registerGLObject(
-            boost::bind(&Geometry::handleAttGL, tmpPtr, _1, _2),
+            boost::bind(&Geometry::handleAttGL, this, _1, _2),
             1));
 }
 
@@ -533,20 +531,18 @@ void Geometry::changed(ConstFieldMaskArg whichField, UInt32 origin)
     // invalidate the dlist cache
     if(getDlistCache())
     {
-        GeometryPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
         if(getClassicGLId() == 0)
         {
             setClassicGLId(
                 Window::registerGLObject(
-                    boost::bind(&Geometry::handleClassicGL, tmpPtr, _1, _2),
+                    boost::bind(&Geometry::handleClassicGL, this, _1, _2),
                     1));
         }
         if(getAttGLId() == 0)
         {
             setAttGLId(
                 Window::registerGLObject(
-                    boost::bind(&Geometry::handleAttGL, tmpPtr, _1, _2),
+                    boost::bind(&Geometry::handleAttGL, this, _1, _2),
                     1));
         }
 
@@ -586,9 +582,7 @@ void Geometry::dump(      UInt32    ,
 */
 PrimitiveIterator Geometry::beginPrimitives(void) const
 {
-    GeometryConstPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
-    PrimitiveIterator it(tmpPtr);
+    PrimitiveIterator it(this);
 
     it.setToBegin();
 
@@ -599,9 +593,7 @@ PrimitiveIterator Geometry::beginPrimitives(void) const
 */
 PrimitiveIterator Geometry::endPrimitives(void) const
 {
-    GeometryConstPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
-    PrimitiveIterator it(tmpPtr);
+    PrimitiveIterator it(this);
 
     it.setToEnd();
 
@@ -612,9 +604,7 @@ PrimitiveIterator Geometry::endPrimitives(void) const
 */
 TriangleIterator Geometry::beginTriangles(void) const
 {
-    GeometryConstPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
-    TriangleIterator it(tmpPtr);
+    TriangleIterator it(this);
 
     it.setToBegin();
 
@@ -625,9 +615,7 @@ TriangleIterator Geometry::beginTriangles(void) const
 */
 TriangleIterator Geometry::endTriangles(void) const
 {
-    GeometryConstPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
-    TriangleIterator it(tmpPtr);
+    TriangleIterator it(this);
 
     it.setToEnd();
 
@@ -638,9 +626,7 @@ TriangleIterator Geometry::endTriangles(void) const
 */
 FaceIterator Geometry::beginFaces(void) const
 {
-    GeometryConstPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
-    FaceIterator it(tmpPtr);
+    FaceIterator it(this);
 
     it.setToBegin();
 
@@ -651,9 +637,7 @@ FaceIterator Geometry::beginFaces(void) const
 */
 FaceIterator Geometry::endFaces(void) const
 {
-    GeometryConstPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
-    FaceIterator it(tmpPtr);
+    FaceIterator it(this);
 
     it.setToEnd();
 
@@ -664,9 +648,7 @@ FaceIterator Geometry::endFaces(void) const
 */
 LineIterator Geometry::beginLines(void) const
 {
-    GeometryConstPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
-    LineIterator it(tmpPtr);
+    LineIterator it(this);
 
     it.setToBegin();
 
@@ -677,9 +659,7 @@ LineIterator Geometry::beginLines(void) const
 */
 LineIterator Geometry::endLines(void) const
 {
-    GeometryConstPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
-    LineIterator it(tmpPtr);
+    LineIterator it(this);
 
     it.setToEnd();
 
@@ -690,9 +670,7 @@ LineIterator Geometry::endLines(void) const
 */
 EdgeIterator Geometry::beginEdges(void) const
 {
-    GeometryConstPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
-    EdgeIterator it(tmpPtr);
+    EdgeIterator it(this);
 
     it.setToBegin();
 
@@ -703,9 +681,7 @@ EdgeIterator Geometry::beginEdges(void) const
 */
 EdgeIterator Geometry::endEdges(void) const
 {
-    GeometryConstPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
-
-    EdgeIterator it(tmpPtr);
+    EdgeIterator it(this);
 
     it.setToEnd();
 

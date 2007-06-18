@@ -620,6 +620,7 @@ HDRStageBase::HDRStageBase(const HDRStageBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 HDRStageBase::~HDRStageBase(void)

@@ -1109,45 +1109,46 @@ void ManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 
 ManipulatorBase::ManipulatorBase(void) :
     Inherited(),
-    _sfTarget                 (),
-    _sfActiveSubHandle        (),
+    _sfTarget                 (NullFC),
+    _sfActiveSubHandle        (NullFC),
     _sfLastMousePos           (),
     _sfViewport               (ViewportPtr(NullFC)),
     _sfActive                 (),
     _sfLength                 (Vec3f(1,1,1)),
-    _sfHandleXNode            (),
-    _sfHandleYNode            (),
-    _sfHandleZNode            (),
-    _sfTransXNode             (),
-    _sfTransYNode             (),
-    _sfTransZNode             (),
-    _sfMaterialX              (),
-    _sfMaterialY              (),
-    _sfMaterialZ              (),
-    _sfAxisLinesN             ()
+    _sfHandleXNode            (NullFC),
+    _sfHandleYNode            (NullFC),
+    _sfHandleZNode            (NullFC),
+    _sfTransXNode             (NullFC),
+    _sfTransYNode             (NullFC),
+    _sfTransZNode             (NullFC),
+    _sfMaterialX              (NullFC),
+    _sfMaterialY              (NullFC),
+    _sfMaterialZ              (NullFC),
+    _sfAxisLinesN             (NullFC)
 {
 }
 
 ManipulatorBase::ManipulatorBase(const ManipulatorBase &source) :
     Inherited(source),
-    _sfTarget                 (),
-    _sfActiveSubHandle        (),
+    _sfTarget                 (NullFC),
+    _sfActiveSubHandle        (NullFC),
     _sfLastMousePos           (source._sfLastMousePos           ),
-    _sfViewport               (),
+    _sfViewport               (NullFC),
     _sfActive                 (source._sfActive                 ),
     _sfLength                 (source._sfLength                 ),
-    _sfHandleXNode            (),
-    _sfHandleYNode            (),
-    _sfHandleZNode            (),
-    _sfTransXNode             (),
-    _sfTransYNode             (),
-    _sfTransZNode             (),
-    _sfMaterialX              (),
-    _sfMaterialY              (),
-    _sfMaterialZ              (),
-    _sfAxisLinesN             ()
+    _sfHandleXNode            (NullFC),
+    _sfHandleYNode            (NullFC),
+    _sfHandleZNode            (NullFC),
+    _sfTransXNode             (NullFC),
+    _sfTransYNode             (NullFC),
+    _sfTransZNode             (NullFC),
+    _sfMaterialX              (NullFC),
+    _sfMaterialY              (NullFC),
+    _sfMaterialZ              (NullFC),
+    _sfAxisLinesN             (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

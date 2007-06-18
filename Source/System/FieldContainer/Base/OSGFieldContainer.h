@@ -55,9 +55,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-template <class ContainerFactoryT>    
-struct PtrConstructionFunctions;
-
 class FieldContainerFactoryBase;
 
 /*! \ingroup GrpSystemFieldContainer
@@ -240,9 +237,6 @@ class FieldContainer : public ReflexiveContainer
 
   protected:
 
-    typedef PtrConstructionFunctions <
-                FieldContainerFactory>  PtrConstructionFuncs;
-
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
@@ -294,8 +288,6 @@ class FieldContainer : public ReflexiveContainer
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
-
-    FieldContainerPtr getPtr          (void                 );
 
 #ifdef OSG_MT_CPTR_ASPECT
     FieldContainerPtr getAspectPtr    (UInt32 uiAspect      );
@@ -394,12 +386,6 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                MT Construction                               */
     /*! \{                                                                 */
 
-    template <class ObjectT>
-    static typename ObjectT::     ObjPtr constructPtr(      ObjectT *pObj);
-
-    template <class ObjectT>
-    static typename ObjectT::ObjConstPtr constructPtr(const ObjectT *pObj);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Local Edit                                */
@@ -424,12 +410,6 @@ class FieldContainer : public ReflexiveContainer
   private:
 
     friend class FieldContainerFactoryBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     friend struct PointerFuncs;
     friend struct CPointerFuncs;
@@ -504,32 +484,10 @@ template<class ContainerPtr> inline
 ContainerPtr convertToCurrentAspect(ContainerPtr pFC);
 #endif
 
-template <class ContainerFactoryT>    
-struct PtrConstructionFunctions
-{
-    template <class ObjectT>
-    static void newPtr       (      typename ObjectT::ObjPtr &result, 
-                              const          ObjectT         *prototypeP);
-
-    template <class ObjectT>
-    static void newPtr       (      typename ObjectT::ObjPtr &result);
-
-#ifdef OSG_MT_CPTR_ASPECT
-    template <class ObjectT>
-    static void newAspectCopy(      typename ObjectT::ObjPtr &result, 
-                              const          ObjectT         *prototypeP);
-#endif
-
-    template <class ObjectT>
-    static       ObjectT *constructPtr(      ObjectT *pObj);
-
-    template <class ObjectT>
-    static const ObjectT *constructPtr(const ObjectT *pObj);
-};
-
 OSG_END_NAMESPACE
 
 #include "OSGFieldContainerFactory.h"
 #include "OSGFieldContainer.inl"
 
 #endif /* _OSGFIELDCONTAINER_H_ */
+

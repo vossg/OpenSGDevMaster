@@ -106,13 +106,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterInt : public ShaderParameterIntBase
 
   private:
 
+    friend class FieldContainer;
     friend class ShaderParameterIntBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterInt &source);

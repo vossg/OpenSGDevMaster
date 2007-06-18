@@ -127,13 +127,8 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewport :
 
     typedef StereoBufferViewportBase Inherited;
 
+    friend class FieldContainer;
     friend class StereoBufferViewportBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const StereoBufferViewport &source);

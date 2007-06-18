@@ -277,6 +277,7 @@ CarbonWindowBase::CarbonWindowBase(const CarbonWindowBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 CarbonWindowBase::~CarbonWindowBase(void)

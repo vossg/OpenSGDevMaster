@@ -108,13 +108,8 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulator : public ScaleManipulatorBase
 
     typedef ScaleManipulatorBase Inherited;
 
+    friend class FieldContainer;
     friend class ScaleManipulatorBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     static void initMethod(InitPhase ePhase);
 

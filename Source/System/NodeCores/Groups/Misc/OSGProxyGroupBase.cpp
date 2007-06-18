@@ -1142,7 +1142,7 @@ ProxyGroupBase::ProxyGroupBase(const ProxyGroupBase &source) :
     Inherited(source),
     _sfEnabled                (source._sfEnabled                ),
     _sfUrl                    (source._sfUrl                    ),
-    _sfRoot                   (),
+    _sfRoot                   (NullFC),
     _sfState                  (source._sfState                  ),
     _sfConcurrentLoad         (source._sfConcurrentLoad         ),
     _sfVolume                 (source._sfVolume                 ),
@@ -1154,6 +1154,7 @@ ProxyGroupBase::ProxyGroupBase(const ProxyGroupBase &source) :
     _mfInline                 (source._mfInline                 )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

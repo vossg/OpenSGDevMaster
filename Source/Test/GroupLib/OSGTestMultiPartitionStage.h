@@ -109,13 +109,8 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStage : public TestMultiPartitionSt
 
   private:
 
+    friend class FieldContainer;
     friend class TestMultiPartitionStageBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TestMultiPartitionStage &source);

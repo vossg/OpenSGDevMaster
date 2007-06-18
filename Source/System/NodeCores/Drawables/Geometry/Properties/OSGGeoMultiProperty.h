@@ -184,13 +184,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
 
   private:
 
+    friend class FieldContainer;
     friend class GeoMultiPropertyBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     static void initMethod(InitPhase ePhase);
 

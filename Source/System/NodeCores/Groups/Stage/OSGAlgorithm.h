@@ -117,13 +117,8 @@ class OSG_GROUP_DLLMAPPING Algorithm : public AlgorithmBase
 
   private:
 
+    friend class FieldContainer;
     friend class AlgorithmBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   thread local                               */

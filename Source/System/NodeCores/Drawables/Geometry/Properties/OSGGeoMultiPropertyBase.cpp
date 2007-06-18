@@ -719,7 +719,7 @@ FieldContainerPtr GeoMultiPropertyBase::shallowCopy(void) const
 
 GeoMultiPropertyBase::GeoMultiPropertyBase(void) :
     Inherited(),
-    _sfContainer              (),
+    _sfContainer              (NullFC),
     _sfOffset                 (UInt32(0)),
     _sfIFormat                (GLenum(0)),
     _sfIDimension             (UInt32(0)),
@@ -731,7 +731,7 @@ GeoMultiPropertyBase::GeoMultiPropertyBase(void) :
 
 GeoMultiPropertyBase::GeoMultiPropertyBase(const GeoMultiPropertyBase &source) :
     Inherited(source),
-    _sfContainer              (),
+    _sfContainer              (NullFC),
     _sfOffset                 (source._sfOffset                 ),
     _sfIFormat                (source._sfIFormat                ),
     _sfIDimension             (source._sfIDimension             ),
@@ -740,6 +740,7 @@ GeoMultiPropertyBase::GeoMultiPropertyBase(const GeoMultiPropertyBase &source) :
     _sfIStride                (source._sfIStride                )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

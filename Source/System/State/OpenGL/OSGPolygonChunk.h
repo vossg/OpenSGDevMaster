@@ -147,13 +147,8 @@ class OSG_STATE_DLLMAPPING PolygonChunk : public PolygonChunkBase
 
     typedef PolygonChunkBase Inherited;
 
+    friend class FieldContainer;
     friend class PolygonChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
 

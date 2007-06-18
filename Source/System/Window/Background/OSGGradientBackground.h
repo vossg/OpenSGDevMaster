@@ -134,13 +134,8 @@ private:
 
     typedef GradientBackgroundBase Inherited;
 
+    friend class FieldContainer;
     friend class GradientBackgroundBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     void operator =(const GradientBackground &source);
 };

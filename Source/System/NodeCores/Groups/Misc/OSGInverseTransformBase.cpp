@@ -199,6 +199,7 @@ InverseTransformBase::InverseTransformBase(const InverseTransformBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 InverseTransformBase::~InverseTransformBase(void)

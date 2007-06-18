@@ -381,17 +381,18 @@ FieldContainerPtr GrabForegroundBase::shallowCopy(void) const
 
 GrabForegroundBase::GrabForegroundBase(void) :
     Inherited(),
-    _sfImage                  (),
+    _sfImage                  (NullFC),
     _sfAutoResize             (bool(false))
 {
 }
 
 GrabForegroundBase::GrabForegroundBase(const GrabForegroundBase &source) :
     Inherited(source),
-    _sfImage                  (),
+    _sfImage                  (NullFC),
     _sfAutoResize             (source._sfAutoResize             )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

@@ -150,13 +150,8 @@ class OSG_STATE_DLLMAPPING LineChunk : public LineChunkBase
 
   private:
 
+    friend class FieldContainer;
     friend class LineChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
 
     // class. Used for indexing in State

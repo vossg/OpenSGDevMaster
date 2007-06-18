@@ -163,13 +163,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunk :
 
   private:
 
+    friend class FieldContainer;
     friend class ShaderParameterChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
 
     // prohibit default functions (move to 'public' if you need one)

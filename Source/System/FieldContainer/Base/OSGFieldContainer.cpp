@@ -159,8 +159,6 @@ void FieldContainer::invalidateVolume(void)
 
 void FieldContainer::registerChangedContainer(void)
 {
-    FieldContainerPtr thisP = getPtr();
-
 #ifndef SILENT
     fprintf(stderr, "reg changed %p 0x%016llx\n",
             _pContainerChanges, _bvChanged);
@@ -172,7 +170,7 @@ void FieldContainer::registerChangedContainer(void)
 
         _pContainerChanges->uiEntryDesc   = ContainerChangeEntry::Change;
         _pContainerChanges->pFieldFlags   = _pFieldFlags;
-        _pContainerChanges->uiContainerId = getContainerId(thisP);
+        _pContainerChanges->uiContainerId = getContainerId(this);
         _pContainerChanges->bvUncommittedChanges = &_bvChanged;
     }
 

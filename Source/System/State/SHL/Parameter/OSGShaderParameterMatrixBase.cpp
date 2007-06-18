@@ -277,6 +277,7 @@ ShaderParameterMatrixBase::ShaderParameterMatrixBase(const ShaderParameterMatrix
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ShaderParameterMatrixBase::~ShaderParameterMatrixBase(void)

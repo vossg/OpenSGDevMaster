@@ -1109,6 +1109,7 @@ PolygonChunkBase::PolygonChunkBase(const PolygonChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 PolygonChunkBase::~PolygonChunkBase(void)

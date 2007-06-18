@@ -50,7 +50,7 @@
 #include "OSGAspectStore.h"
 #include "OSGContainerIdMapper.h"
 
-#include "OSGFieldContainer.h"
+//#include "OSGFieldContainer.h"
 
 #include <deque>
 

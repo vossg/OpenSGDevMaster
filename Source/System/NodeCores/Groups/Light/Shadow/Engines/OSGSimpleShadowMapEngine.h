@@ -200,13 +200,8 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngine :
 
   private:
 
+    friend class FieldContainer;
     friend class SimpleShadowMapEngineBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
 

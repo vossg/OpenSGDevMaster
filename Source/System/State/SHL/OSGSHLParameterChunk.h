@@ -172,14 +172,8 @@ class OSG_STATE_DLLMAPPING SHLParameterChunk : public SHLParameterChunkBase
 
   private:
 
+    friend class FieldContainer;
     friend class SHLParameterChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
 
     // class. Used for indexing in State
     static StateChunkClass _class;

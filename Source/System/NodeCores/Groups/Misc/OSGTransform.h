@@ -139,13 +139,8 @@ class OSG_GROUP_DLLMAPPING Transform : public TransformBase
 
   private:
 
+    friend class FieldContainer;
     friend class TransformBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
 

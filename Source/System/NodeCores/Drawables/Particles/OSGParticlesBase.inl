@@ -120,19 +120,17 @@ void ParticlesBase::setPositions(GeoVectorPropertyPtrConstArg value)
 {
     editSField(PositionsFieldMask);
 
-    ParticlesPtr thisP = Inherited::constructPtr<Particles>(
-        static_cast<Particles *>(this));
 
     if(_sfPositions.getValue() != NullFC)
     {
-        _sfPositions.getValue()->subParent(thisP);
+        _sfPositions.getValue()->subParent(this);
     }
 
     setRefd(_sfPositions.getValue(), value);
 
     if(_sfPositions.getValue() != NullFC)
     {
-        _sfPositions.getValue()->addParent(thisP, PositionsFieldMask);
+        _sfPositions.getValue()->addParent(this, PositionsFieldMask);
     }
 
 }
@@ -150,19 +148,17 @@ void ParticlesBase::setSecPositions(GeoVectorPropertyPtrConstArg value)
 {
     editSField(SecPositionsFieldMask);
 
-    ParticlesPtr thisP = Inherited::constructPtr<Particles>(
-        static_cast<Particles *>(this));
 
     if(_sfSecPositions.getValue() != NullFC)
     {
-        _sfSecPositions.getValue()->subParent(thisP);
+        _sfSecPositions.getValue()->subParent(this);
     }
 
     setRefd(_sfSecPositions.getValue(), value);
 
     if(_sfSecPositions.getValue() != NullFC)
     {
-        _sfSecPositions.getValue()->addParent(thisP, SecPositionsFieldMask);
+        _sfSecPositions.getValue()->addParent(this, SecPositionsFieldMask);
     }
 
 }
@@ -180,19 +176,17 @@ void ParticlesBase::setColors(GeoVectorPropertyPtrConstArg value)
 {
     editSField(ColorsFieldMask);
 
-    ParticlesPtr thisP = Inherited::constructPtr<Particles>(
-        static_cast<Particles *>(this));
 
     if(_sfColors.getValue() != NullFC)
     {
-        _sfColors.getValue()->subParent(thisP);
+        _sfColors.getValue()->subParent(this);
     }
 
     setRefd(_sfColors.getValue(), value);
 
     if(_sfColors.getValue() != NullFC)
     {
-        _sfColors.getValue()->addParent(thisP, ColorsFieldMask);
+        _sfColors.getValue()->addParent(this, ColorsFieldMask);
     }
 
 }
@@ -210,19 +204,17 @@ void ParticlesBase::setNormals(GeoVectorPropertyPtrConstArg value)
 {
     editSField(NormalsFieldMask);
 
-    ParticlesPtr thisP = Inherited::constructPtr<Particles>(
-        static_cast<Particles *>(this));
 
     if(_sfNormals.getValue() != NullFC)
     {
-        _sfNormals.getValue()->subParent(thisP);
+        _sfNormals.getValue()->subParent(this);
     }
 
     setRefd(_sfNormals.getValue(), value);
 
     if(_sfNormals.getValue() != NullFC)
     {
-        _sfNormals.getValue()->addParent(thisP, NormalsFieldMask);
+        _sfNormals.getValue()->addParent(this, NormalsFieldMask);
     }
 
 }

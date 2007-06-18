@@ -139,13 +139,8 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterial : public SwitchMaterialBase
 
   private:
 
+    friend class FieldContainer;
     friend class SwitchMaterialBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SwitchMaterial &source);

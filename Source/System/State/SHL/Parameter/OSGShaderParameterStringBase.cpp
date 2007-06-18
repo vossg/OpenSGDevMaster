@@ -277,6 +277,7 @@ ShaderParameterStringBase::ShaderParameterStringBase(const ShaderParameterString
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ShaderParameterStringBase::~ShaderParameterStringBase(void)

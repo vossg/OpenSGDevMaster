@@ -514,7 +514,7 @@ FieldContainerPtr TextureBufferBase::shallowCopy(void) const
 
 TextureBufferBase::TextureBufferBase(void) :
     Inherited(),
-    _sfTexture                (),
+    _sfTexture                (NullFC),
     _sfTexTarget              (GLenum(GL_NONE)),
     _sfLevel                  (UInt32(0)),
     _sfZoffset                (UInt32(0))
@@ -523,12 +523,13 @@ TextureBufferBase::TextureBufferBase(void) :
 
 TextureBufferBase::TextureBufferBase(const TextureBufferBase &source) :
     Inherited(source),
-    _sfTexture                (),
+    _sfTexture                (NullFC),
     _sfTexTarget              (source._sfTexTarget              ),
     _sfLevel                  (source._sfLevel                  ),
     _sfZoffset                (source._sfZoffset                )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

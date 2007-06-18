@@ -120,13 +120,10 @@ void FragmentProgramChunk::onCreate(const FragmentProgramChunk *chunk)
     if(GlobalSystemState == Startup)
         return;
 
-    FragmentProgramChunkPtr tmpPtr = 
-        Inherited::constructPtr<FragmentProgramChunk>(this);
-        
     setGLId(Window::registerGLObject(
-                    boost::bind(&FragmentProgramChunk::handleGL, tmpPtr, 
+                    boost::bind(&FragmentProgramChunk::handleGL, this, 
                                     _1, _2, _3),
-                    boost::bind(&FragmentProgramChunk::handleDestroyGL, tmpPtr, 
+                    boost::bind(&FragmentProgramChunk::handleDestroyGL, this, 
                                     _1, _2, _3)
            ));
 }

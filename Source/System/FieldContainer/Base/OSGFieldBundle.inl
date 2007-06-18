@@ -155,19 +155,5 @@ void FieldBundle::newPtr(typename ObjectT::ObjPtr &result)
     result->onCreate();
 }
 
-
-template <class ObjectT> inline
-typename ObjectT::ObjPtr FieldBundle::constructPtr(ObjectT *pObj)
-{
-    return pObj;
-}
-
-template <class ObjectT> inline
-typename ObjectT::ObjConstPtr FieldBundle::constructPtr(const ObjectT *pObj)
-{
-    return pObj;
-}
-
-
 OSG_END_NAMESPACE
 

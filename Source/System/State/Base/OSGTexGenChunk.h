@@ -148,13 +148,8 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunk : public TexGenChunkBase
 
     typedef TexGenChunkBase Inherited;
 
+    friend class FieldContainer;
     friend class TexGenChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // class. Used for indexing in State
     static StateChunkClass _class;

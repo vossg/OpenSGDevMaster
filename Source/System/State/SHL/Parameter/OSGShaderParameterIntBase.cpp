@@ -277,6 +277,7 @@ ShaderParameterIntBase::ShaderParameterIntBase(const ShaderParameterIntBase &sou
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ShaderParameterIntBase::~ShaderParameterIntBase(void)

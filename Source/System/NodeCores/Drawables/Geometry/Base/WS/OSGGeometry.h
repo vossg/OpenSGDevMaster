@@ -313,13 +313,8 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
   private:
 
+    friend class FieldContainer;
     friend class GeometryBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     static PumpGroupStorage _pumps;
     

@@ -516,8 +516,6 @@ void ClusterWindow::renderAllViewports(RenderTraversalActionBase *action)
 
 void ClusterWindow::frameInit(void)
 {
-    ClusterWindowPtr ptr = Inherited::constructPtr<ClusterWindow>(this);
-
     Connection   *connection   = getNetwork()->getMainConnection();
     RemoteAspect *remoteAspect = getNetwork()->getAspect();
 
@@ -1015,9 +1013,7 @@ ClusterNetwork *ClusterWindow::getNetwork(void)
 {
     if(!_network)
     {
-        ClusterWindowPtr ptr = Inherited::constructPtr<ClusterWindow>(this);
-
-        _network = ClusterNetwork::getInstance(getContainerId(ptr));
+        _network = ClusterNetwork::getInstance(getContainerId(this));
 
         addRef(_network);
     }

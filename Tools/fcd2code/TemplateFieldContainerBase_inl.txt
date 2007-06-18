@@ -98,12 +98,10 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ConstArg value)
     editSField(@!field.Name!@FieldMask);
 
             @@if field.linkMParent
-    @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-        static_cast<@!Classname!@ *>(this));
 
     if(_@!field.VarName!@.getValue() != NullFC)
     {
-        _@!field.VarName!@.getValue()->subParent(thisP);
+        _@!field.VarName!@.getValue()->subParent(this);
     }
 
             @@endif // field.linkMParent
@@ -123,17 +121,14 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ConstArg value)
 
     if(_@!field.VarName!@.getValue() != NullFC)
     {
-        _@!field.VarName!@.getValue()->addParent(thisP, @!field.Name!@FieldMask);
+        _@!field.VarName!@.getValue()->addParent(this, @!field.Name!@FieldMask);
     }
             @@endif // field.linkMParent
             @@if field.linkSParent
 
-    @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
-        static_cast<@!Classname!@ *>(this));
-
     if(_@!field.VarName!@.getValue() != NullFC)
     {
-        _@!field.VarName!@.getValue()->setParent(thisP, @!field.Name!@FieldMask);
+        _@!field.VarName!@.getValue()->setParent(this, @!field.Name!@FieldMask);
     }
             @@endif // field.linkSParent
             @@if field.PassFieldMask

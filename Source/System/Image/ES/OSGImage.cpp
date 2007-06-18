@@ -2656,7 +2656,7 @@ bool Image::scale(Int32    width,
     }
     else
     {
-        destImage = Inherited::constructPtr<Image>(this);
+        destImage = this;
     }
 
     // get pixel
@@ -3433,10 +3433,8 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
 
 bool Image::write(const Char8 *fileName)
 {
-    ImagePtr iPtr = Inherited::constructPtr<Image>(this);
-
 #if !defined(OSG_WINCE)
-    return ImageFileHandler::the()->write(iPtr, fileName);
+    return ImageFileHandler::the()->write(this, fileName);
 #else
     return false;
 #endif
@@ -3447,10 +3445,8 @@ bool Image::write(const Char8 *fileName)
 
 bool Image::read(const Char8 *fileName)
 {
-    ImagePtr iPtr = Inherited::constructPtr<Image>(this);
-
 #if !defined(OSG_WINCE)
-    return ImageFileHandler::the()->read(iPtr, fileName);
+    return ImageFileHandler::the()->read(this, fileName);
 #else
     return false;
 #endif
@@ -3465,10 +3461,8 @@ bool Image::read(const Char8 *fileName)
 
 UInt64 Image::store(const Char8 *mimeType, UChar8 *mem, Int32 memSize)
 {
-    ImagePtr iPtr = Inherited::constructPtr<Image>(this);
-
 #if !defined(OSG_WINCE)
-    return ImageFileHandler::the()->store(iPtr,
+    return ImageFileHandler::the()->store(this,
                                           mimeType, 
                                           mem, 
                                           memSize);
@@ -3483,10 +3477,8 @@ UInt64 Image::store(const Char8 *mimeType, UChar8 *mem, Int32 memSize)
 
 UInt64 Image::restore(const UChar8 *mem, Int32 memSize)
 {
-    ImagePtr iPtr = Inherited::constructPtr<Image>(this);
-
 #if !defined(OSG_WINCE)
-    return ImageFileHandler::the()->restore(iPtr, mem, memSize);;
+    return ImageFileHandler::the()->restore(this, mem, memSize);;
 #else
     return false;
 #endif

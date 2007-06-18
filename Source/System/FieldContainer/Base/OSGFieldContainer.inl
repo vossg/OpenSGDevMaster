@@ -74,12 +74,10 @@ void FieldContainer::callChangedFunctors(ConstFieldMaskArg whichField)
     MFChangedFunctorCallback::iterator       cfIt = _mfChangedFunctors.begin();
     MFChangedFunctorCallback::const_iterator cfEnd= _mfChangedFunctors.end();
 
-    ObjPtr thisP = Self::constructPtr<FieldContainer>(this);
-
     while(cfIt != cfEnd)
     {
         if(cfIt->_func)
-            (cfIt->_func)(thisP, whichField);
+            (cfIt->_func)(this, whichField);
 
         ++cfIt;
     }
@@ -286,12 +284,6 @@ const FieldFlags *FieldContainer::getFieldFlags(void)
     return _pFieldFlags;
 }
 
-inline
-FieldContainerPtr FieldContainer::getPtr(void)
-{
-    return Self::constructPtr<FieldContainer>(this);
-}
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 FieldContainerPtr FieldContainer::getAspectPtr(UInt32 uiAspect)
@@ -477,11 +469,10 @@ ContainerPtr convertToCurrentAspect(ContainerPtr pFC)
 }
 #endif
 
-template <class ContainerFactoryT>    
+
 template <class ObjectT> inline
-void PtrConstructionFunctions<ContainerFactoryT>::newPtr(      
-          typename ObjectT::ObjPtr &result, 
-    const          ObjectT        *pPrototype)
+void FieldContainer::newPtr(      typename ObjectT::ObjPtr &result, 
+                            const          ObjectT         *pPrototype)
 {
     result = new ObjectT(*pPrototype);
 
@@ -489,7 +480,7 @@ void PtrConstructionFunctions<ContainerFactoryT>::newPtr(
     result->setupAspectStore();
 #endif
 
-    result->setId(ContainerFactoryT::the()->registerContainer(result));
+    result->setId(FieldContainerFactory::the()->registerContainer(result));
     
     Thread::getCurrentChangeList()->addCreated(result->getId());
 
@@ -497,10 +488,8 @@ void PtrConstructionFunctions<ContainerFactoryT>::newPtr(
     result->onCreateAspect(result, pPrototype);
 }
 
-template <class ContainerFactoryT>    
 template <class ObjectT> inline
-void PtrConstructionFunctions<ContainerFactoryT>::newPtr(
-    typename ObjectT::ObjPtr &result)
+void FieldContainer::newPtr(typename ObjectT::ObjPtr &result)
 {
     result = new ObjectT;
 
@@ -508,7 +497,7 @@ void PtrConstructionFunctions<ContainerFactoryT>::newPtr(
     result->setupAspectStore();
 #endif
 
-    result->setId(ContainerFactoryT::the()->registerContainer(result));
+    result->setId(FieldContainerFactory::the()->registerContainer(result));
     
     Thread::getCurrentChangeList()->addCreated(result->getId());
 
@@ -516,13 +505,10 @@ void PtrConstructionFunctions<ContainerFactoryT>::newPtr(
     result->onCreateAspect(result);
 }
 
-
 #ifdef OSG_MT_CPTR_ASPECT
-template <class ContainerFactoryT>    
 template <class ObjectT> inline
-void PtrConstructionFunctions<ContainerFactoryT>::newAspectCopy(      
-          typename ObjectT::ObjPtr &result, 
-    const          ObjectT        *pPrototype)
+void FieldContainer::newAspectCopy(      typename ObjectT::ObjPtr &result, 
+                                   const          ObjectT         *pPrototype)
 {
     result = new ObjectT(*pPrototype);
 
@@ -530,59 +516,6 @@ void PtrConstructionFunctions<ContainerFactoryT>::newAspectCopy(
 }
 #endif
 
-template <class ContainerFactoryT>    
-template <class ObjectT          > inline
-ObjectT *PtrConstructionFunctions<ContainerFactoryT>::constructPtr(
-    ObjectT *pObj)
-{
-    return pObj;
-}
-
-template <class ContainerFactoryT>    
-template <class ObjectT          > inline
-const ObjectT *PtrConstructionFunctions<ContainerFactoryT>::constructPtr(
-    const ObjectT *pObj)
-{
-    return pObj;
-}
-
-
-
-template <class ObjectT> inline
-void FieldContainer::newPtr(      typename ObjectT::ObjPtr &result, 
-                            const          ObjectT         *pPrototype)
-{
-    PtrConstructionFuncs::template newPtr<ObjectT>(result, pPrototype);
-}
-
-template <class ObjectT> inline
-void FieldContainer::newPtr(typename ObjectT::ObjPtr &result)
-{
-    PtrConstructionFuncs::template newPtr<ObjectT>(result);
-}
-
-#ifdef OSG_MT_CPTR_ASPECT
-template <class ObjectT> inline
-void FieldContainer::newAspectCopy(      typename ObjectT::ObjPtr &result, 
-                                   const          ObjectT         *pPrototype)
-{
-    PtrConstructionFuncs::template newAspectCopy<ObjectT>(result, pPrototype);
-}
-#endif
-
-template <class ObjectT> inline
-typename ObjectT::ObjPtr FieldContainer::constructPtr(ObjectT *pObj)
-{
-    return PtrConstructionFuncs::template constructPtr<ObjectT>(pObj);
-}
-
-
-template <class ObjectT> inline
-typename ObjectT::ObjConstPtr FieldContainer::constructPtr(
-    const ObjectT *pObj)
-{
-    return PtrConstructionFuncs::template constructPtr<ObjectT>(pObj);
-}
 
 OSG_END_NAMESPACE
 

@@ -276,6 +276,7 @@ OffCenterPerspectiveCameraBase::OffCenterPerspectiveCameraBase(const OffCenterPe
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 OffCenterPerspectiveCameraBase::~OffCenterPerspectiveCameraBase(void)

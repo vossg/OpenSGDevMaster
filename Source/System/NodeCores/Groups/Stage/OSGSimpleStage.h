@@ -123,13 +123,8 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
 
   private:
 
+    friend class FieldContainer;
     friend class SimpleStageBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   thread local                               */

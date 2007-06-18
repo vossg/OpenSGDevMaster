@@ -1030,7 +1030,7 @@ FieldContainerPtr PolygonForegroundBase::shallowCopy(void) const
 
 PolygonForegroundBase::PolygonForegroundBase(void) :
     Inherited(),
-    _sfMaterial               (),
+    _sfMaterial               (NullFC),
     _mfPositions              (),
     _mfTexCoords              (),
     _sfNormalizedX            (bool(true)),
@@ -1044,7 +1044,7 @@ PolygonForegroundBase::PolygonForegroundBase(void) :
 
 PolygonForegroundBase::PolygonForegroundBase(const PolygonForegroundBase &source) :
     Inherited(source),
-    _sfMaterial               (),
+    _sfMaterial               (NullFC),
     _mfPositions              (source._mfPositions              ),
     _mfTexCoords              (source._mfTexCoords              ),
     _sfNormalizedX            (source._sfNormalizedX            ),
@@ -1055,6 +1055,7 @@ PolygonForegroundBase::PolygonForegroundBase(const PolygonForegroundBase &source
     _sfTile                   (source._sfTile                   )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

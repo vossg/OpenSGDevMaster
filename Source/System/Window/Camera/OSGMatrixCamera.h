@@ -124,13 +124,8 @@ class OSG_WINDOW_DLLMAPPING MatrixCamera : public MatrixCameraBase
    
   private:
 
+    friend class FieldContainer;
     friend class MatrixCameraBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const MatrixCamera &source);

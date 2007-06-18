@@ -124,14 +124,9 @@ class OSG_WINDOW_DLLMAPPING ImageForeground : public ImageForegroundBase
 
  private:
 
+    friend class FieldContainer;
     friend class ImageForegroundBase;
 
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-   
     void operator =(const ImageForeground &source);
 };
 

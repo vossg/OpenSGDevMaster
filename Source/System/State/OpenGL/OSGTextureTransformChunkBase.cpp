@@ -294,6 +294,7 @@ TextureTransformChunkBase::TextureTransformChunkBase(const TextureTransformChunk
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 TextureTransformChunkBase::~TextureTransformChunkBase(void)

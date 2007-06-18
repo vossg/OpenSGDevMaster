@@ -233,12 +233,9 @@ void FrameBufferObject::initMethod(InitPhase ePhase)
 
 void FrameBufferObject::onCreate(const FrameBufferObject *source)
 {
-    FrameBufferObjectPtr tmpPtr = 
-        Inherited::constructPtr<FrameBufferObject>(this);
-            
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&FrameBufferObject::handleGL, tmpPtr, 
+            boost::bind(&FrameBufferObject::handleGL, this, 
                             _1, _2, _3),
             &FrameBufferObject::handleDestroyGL
             ));

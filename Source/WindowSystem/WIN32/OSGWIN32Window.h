@@ -116,13 +116,8 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32Window : public WIN32WindowBase
 
   private:
 
+    friend class FieldContainer;
     friend class WIN32WindowBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const WIN32Window &source);

@@ -166,13 +166,8 @@ class OSG_GROUP_DLLMAPPING HDRStage : public HDRStageBase
 
   private:
 
+    friend class FieldContainer;
     friend class HDRStageBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   thread local                               */

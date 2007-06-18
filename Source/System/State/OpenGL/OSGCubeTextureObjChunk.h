@@ -164,13 +164,8 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunk : public CubeTextureObjChunkBase
 
   private:
 
+    friend class FieldContainer;
     friend class CubeTextureObjChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name                         GL                                   */

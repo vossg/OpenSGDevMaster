@@ -1174,6 +1174,7 @@ SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(const SimpleStati
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 SimpleStatisticsForegroundBase::~SimpleStatisticsForegroundBase(void)

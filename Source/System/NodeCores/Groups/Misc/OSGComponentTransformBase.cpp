@@ -538,6 +538,7 @@ ComponentTransformBase::ComponentTransformBase(const ComponentTransformBase &sou
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ComponentTransformBase::~ComponentTransformBase(void)

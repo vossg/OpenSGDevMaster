@@ -253,17 +253,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     /*==========================  PRIVATE  ================================*/
   private:
 
+    friend class FieldContainer;
     friend class GeoVectorPropertyBase;
 
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
-
     // prohibit default functions (move to 'public' if you need one)
-
     void operator =(const GeoVectorProperty &source);
 };
 

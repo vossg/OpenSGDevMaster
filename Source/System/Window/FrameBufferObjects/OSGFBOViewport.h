@@ -131,15 +131,8 @@ class OSG_SYSTEM_DLLMAPPING FBOViewport : public FBOViewportBase
 
   private:
 
+    friend class FieldContainer;
     friend class FBOViewportBase;
-
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const FBOViewport &source);

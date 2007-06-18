@@ -124,14 +124,8 @@ class OSG_WINDOW_DLLMAPPING PolygonForeground : public PolygonForegroundBase
 
   private:
 
+    friend class FieldContainer;
     friend class PolygonForegroundBase;
-
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const PolygonForeground &source);

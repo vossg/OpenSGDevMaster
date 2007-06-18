@@ -253,12 +253,6 @@ class SimpleAttachment : public FieldContainerAttachment
 
     friend class FieldContainer;
     
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
     /*! \brief prohibit default functions (move to 'public' if needed) */
     SimpleAttachment &operator =(const SimpleAttachment &source);
 };

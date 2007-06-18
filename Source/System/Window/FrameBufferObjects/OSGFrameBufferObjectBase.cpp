@@ -920,8 +920,8 @@ FrameBufferObjectBase::FrameBufferObjectBase(void) :
     _sfGLId                   (GLenum(0)),
     _mfColorAttachments       (),
     _mfDrawBuffers            (GLenum(0)),
-    _sfDepthAttachment        (),
-    _sfStencilAttachment      (),
+    _sfDepthAttachment        (NullFC),
+    _sfStencilAttachment      (NullFC),
     _sfWidth                  (),
     _sfHeight                 ()
 {
@@ -932,12 +932,13 @@ FrameBufferObjectBase::FrameBufferObjectBase(const FrameBufferObjectBase &source
     _sfGLId                   (source._sfGLId                   ),
     _mfColorAttachments       (),
     _mfDrawBuffers            (source._mfDrawBuffers            ),
-    _sfDepthAttachment        (),
-    _sfStencilAttachment      (),
+    _sfDepthAttachment        (NullFC),
+    _sfStencilAttachment      (NullFC),
     _sfWidth                  (source._sfWidth                  ),
     _sfHeight                 (source._sfHeight                 )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

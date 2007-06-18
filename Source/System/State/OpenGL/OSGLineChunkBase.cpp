@@ -516,6 +516,7 @@ LineChunkBase::LineChunkBase(const LineChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 LineChunkBase::~LineChunkBase(void)

@@ -140,13 +140,8 @@ class OSG_STATE_DLLMAPPING VertexProgramChunk : public VertexProgramChunkBase
 
   private:
 
+    friend class FieldContainer;
     friend class VertexProgramChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
 
     static StateChunkClass _class;

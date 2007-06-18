@@ -331,8 +331,6 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
-    NodePtr getPtr(void);
-
 #ifdef OSG_MT_CPTR_ASPECT
     virtual ObjPtr createAspectCopy(void) const;
 #endif
@@ -373,11 +371,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
 
   private:
 
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
+    friend class  FieldContainer;
 
     friend struct PointerFuncs;
     friend struct CPointerFuncs;

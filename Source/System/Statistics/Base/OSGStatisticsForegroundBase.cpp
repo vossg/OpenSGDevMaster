@@ -455,6 +455,7 @@ StatisticsForegroundBase::StatisticsForegroundBase(const StatisticsForegroundBas
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 StatisticsForegroundBase::~StatisticsForegroundBase(void)

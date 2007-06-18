@@ -526,7 +526,7 @@ FieldContainerPtr TextureGrabBackgroundBase::shallowCopy(void) const
 
 TextureGrabBackgroundBase::TextureGrabBackgroundBase(void) :
     Inherited(),
-    _sfTexture                (),
+    _sfTexture                (NullFC),
     _sfAutoResize             (bool(true)),
     _sfBindTarget             (GLenum(GL_NONE)),
     _sfCopyTarget             (GLenum(GL_NONE))
@@ -535,12 +535,13 @@ TextureGrabBackgroundBase::TextureGrabBackgroundBase(void) :
 
 TextureGrabBackgroundBase::TextureGrabBackgroundBase(const TextureGrabBackgroundBase &source) :
     Inherited(source),
-    _sfTexture                (),
+    _sfTexture                (NullFC),
     _sfAutoResize             (source._sfAutoResize             ),
     _sfBindTarget             (source._sfBindTarget             ),
     _sfCopyTarget             (source._sfCopyTarget             )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

@@ -359,6 +359,7 @@ ShaderParameterMRealBase::ShaderParameterMRealBase(const ShaderParameterMRealBas
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 ShaderParameterMRealBase::~ShaderParameterMRealBase(void)

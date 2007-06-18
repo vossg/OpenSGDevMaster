@@ -354,6 +354,7 @@ MaterialBase::MaterialBase(const MaterialBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 MaterialBase::~MaterialBase(void)

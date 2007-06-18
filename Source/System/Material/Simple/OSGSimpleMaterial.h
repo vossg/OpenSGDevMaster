@@ -141,14 +141,8 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterial : public SimpleMaterialBase
 
     typedef SimpleMaterialBase Inherited;
 
+    friend class FieldContainer;
     friend class SimpleMaterialBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SimpleMaterial &source);

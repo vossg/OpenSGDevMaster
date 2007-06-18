@@ -396,13 +396,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     typedef WindowBase Inherited;
 
+    friend class FieldContainer;
     friend class WindowBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     static std::vector<WindowPtr> _allWindows;
     static UInt32                 _currentWindowId;

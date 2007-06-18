@@ -120,13 +120,8 @@ class OSG_SYSTEM_DLLMAPPING LightEnv : public LightEnvBase
 
   private:
 
+    friend class FieldContainer;
     friend class LightEnvBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*! \brief prohibit default function (move to 'public' if needed) */
     void operator =(const LightEnv &source);

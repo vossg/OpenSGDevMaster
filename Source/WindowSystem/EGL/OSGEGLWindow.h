@@ -121,13 +121,8 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindow : public EGLWindowBase
 
   private:
 
+    friend class FieldContainer;
     friend class EGLWindowBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const EGLWindow &source);

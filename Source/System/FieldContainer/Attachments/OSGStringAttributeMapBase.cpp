@@ -514,6 +514,7 @@ StringAttributeMapBase::StringAttributeMapBase(const StringAttributeMapBase &sou
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 StringAttributeMapBase::~StringAttributeMapBase(void)

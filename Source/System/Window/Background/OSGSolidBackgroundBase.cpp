@@ -359,6 +359,7 @@ SolidBackgroundBase::SolidBackgroundBase(const SolidBackgroundBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 SolidBackgroundBase::~SolidBackgroundBase(void)

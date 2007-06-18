@@ -147,13 +147,8 @@ class OSG_STATE_DLLMAPPING TransformChunk : public TransformChunkBase
 
     typedef TransformChunkBase Inherited;
 
+    friend class FieldContainer;
     friend class TransformChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
 

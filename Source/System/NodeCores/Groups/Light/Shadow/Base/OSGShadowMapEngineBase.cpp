@@ -615,7 +615,7 @@ ShadowMapEngineBase::ShadowMapEngineBase(void) :
 
 ShadowMapEngineBase::ShadowMapEngineBase(const ShadowMapEngineBase &source) :
     Inherited(source),
-    _sfRenderTarget           (),
+    _sfRenderTarget           (NullFC),
     _sfWidth                  (source._sfWidth                  ),
     _sfHeight                 (source._sfHeight                 ),
     _sfShadowColor            (source._sfShadowColor            ),
@@ -623,6 +623,7 @@ ShadowMapEngineBase::ShadowMapEngineBase(const ShadowMapEngineBase &source) :
     _sfOffsetFactor           (source._sfOffsetFactor           )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

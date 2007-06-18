@@ -108,13 +108,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterMReal : public ShaderParameterMRealBas
 
   private:
 
+    friend class FieldContainer;
     friend class ShaderParameterMRealBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterMReal &source);

@@ -149,13 +149,8 @@ class OSG_STATE_DLLMAPPING TextureTransformChunk :
 
     typedef TextureTransformChunkBase Inherited;
 
+    friend class FieldContainer;
     friend class TextureTransformChunkBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     /*---------------------------------------------------------------------*/
 

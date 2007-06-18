@@ -2309,7 +2309,7 @@ SkyBackgroundBase::SkyBackgroundBase(void) :
     _mfLeftTexCoord           (),
     _mfFrontTexCoord          (),
     _mfBackTexCoord           (),
-    _sfBeacon                 ()
+    _sfBeacon                 (NullFC)
 {
 }
 
@@ -2320,12 +2320,12 @@ SkyBackgroundBase::SkyBackgroundBase(const SkyBackgroundBase &source) :
     _mfGroundColor            (source._mfGroundColor            ),
     _mfGroundAngle            (source._mfGroundAngle            ),
     _sfSphereRes              (source._sfSphereRes              ),
-    _sfBackTexture            (),
-    _sfBottomTexture          (),
-    _sfFrontTexture           (),
-    _sfLeftTexture            (),
-    _sfRightTexture           (),
-    _sfTopTexture             (),
+    _sfBackTexture            (NullFC),
+    _sfBottomTexture          (NullFC),
+    _sfFrontTexture           (NullFC),
+    _sfLeftTexture            (NullFC),
+    _sfRightTexture           (NullFC),
+    _sfTopTexture             (NullFC),
     _sfBoxInside              (source._sfBoxInside              ),
     _mfTopTexCoord            (source._mfTopTexCoord            ),
     _mfBottomTexCoord         (source._mfBottomTexCoord         ),
@@ -2333,9 +2333,10 @@ SkyBackgroundBase::SkyBackgroundBase(const SkyBackgroundBase &source) :
     _mfLeftTexCoord           (source._mfLeftTexCoord           ),
     _mfFrontTexCoord          (source._mfFrontTexCoord          ),
     _mfBackTexCoord           (source._mfBackTexCoord           ),
-    _sfBeacon                 ()
+    _sfBeacon                 (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

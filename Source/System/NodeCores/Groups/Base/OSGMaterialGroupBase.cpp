@@ -313,15 +313,16 @@ FieldContainerPtr MaterialGroupBase::shallowCopy(void) const
 
 MaterialGroupBase::MaterialGroupBase(void) :
     Inherited(),
-    _sfMaterial               ()
+    _sfMaterial               (NullFC)
 {
 }
 
 MaterialGroupBase::MaterialGroupBase(const MaterialGroupBase &source) :
     Inherited(source),
-    _sfMaterial               ()
+    _sfMaterial               (NullFC)
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 

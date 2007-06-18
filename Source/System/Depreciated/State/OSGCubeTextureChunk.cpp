@@ -116,12 +116,9 @@ void CubeTextureChunk::onCreate(const CubeTextureChunk *)
     if(GlobalSystemState == Startup)
         return;
 
-    CubeTextureChunkPtr tmpPtr = 
-        Inherited::constructPtr<CubeTextureChunk>(this);
-
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&CubeTextureChunk::handleGL, tmpPtr, 
+            boost::bind(&CubeTextureChunk::handleGL, this, 
                             _1, _2, _3),
             &CubeTextureChunk::handleDestroyGL
             ));

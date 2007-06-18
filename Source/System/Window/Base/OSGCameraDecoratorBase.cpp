@@ -380,6 +380,7 @@ CameraDecoratorBase::CameraDecoratorBase(const CameraDecoratorBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 CameraDecoratorBase::~CameraDecoratorBase(void)

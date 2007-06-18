@@ -425,6 +425,7 @@ InlineBase::InlineBase(const InlineBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 InlineBase::~InlineBase(void)

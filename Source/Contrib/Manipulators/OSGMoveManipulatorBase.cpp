@@ -199,6 +199,7 @@ MoveManipulatorBase::MoveManipulatorBase(const MoveManipulatorBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 MoveManipulatorBase::~MoveManipulatorBase(void)

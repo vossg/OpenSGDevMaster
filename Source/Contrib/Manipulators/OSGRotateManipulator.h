@@ -108,13 +108,8 @@ private:
 
     typedef RotateManipulatorBase Inherited;
 
+    friend class FieldContainer;
     friend class RotateManipulatorBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     static void initMethod(InitPhase ePhase);
 

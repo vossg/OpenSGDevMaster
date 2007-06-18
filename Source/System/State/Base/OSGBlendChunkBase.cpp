@@ -816,6 +816,7 @@ BlendChunkBase::BlendChunkBase(const BlendChunkBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 BlendChunkBase::~BlendChunkBase(void)

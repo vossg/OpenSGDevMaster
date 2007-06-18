@@ -615,25 +615,26 @@ FieldContainerPtr CubeTextureChunkBase::shallowCopy(void) const
 
 CubeTextureChunkBase::CubeTextureChunkBase(void) :
     Inherited(),
-    _sfPosZImage              (),
-    _sfPosXImage              (),
-    _sfNegXImage              (),
-    _sfPosYImage              (),
-    _sfNegYImage              (),
+    _sfPosZImage              (NullFC),
+    _sfPosXImage              (NullFC),
+    _sfNegXImage              (NullFC),
+    _sfPosYImage              (NullFC),
+    _sfNegYImage              (NullFC),
     _sfIsReflectionMap        (bool(true))
 {
 }
 
 CubeTextureChunkBase::CubeTextureChunkBase(const CubeTextureChunkBase &source) :
     Inherited(source),
-    _sfPosZImage              (),
-    _sfPosXImage              (),
-    _sfNegXImage              (),
-    _sfPosYImage              (),
-    _sfNegYImage              (),
+    _sfPosZImage              (NullFC),
+    _sfPosXImage              (NullFC),
+    _sfNegXImage              (NullFC),
+    _sfPosYImage              (NullFC),
+    _sfNegYImage              (NullFC),
     _sfIsReflectionMap        (source._sfIsReflectionMap        )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 
