@@ -73,7 +73,7 @@ class OSG_GROUP_DLLMAPPING DirectionalLight : public DirectionalLightBase
     void setDirection(      Real32  rX, 
                             Real32  rY, 
                             Real32  rZ);
-    void setDirection(const Vec3f  &direction);
+    void setDirection(const Vec3r  &direction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

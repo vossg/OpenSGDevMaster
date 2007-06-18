@@ -37,7 +37,7 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-void PointLight::setPosition(const Pnt3f &pos)
+void PointLight::setPosition(const Pnt3r &pos)
 {
     Inherited::setPosition(pos);
 }
