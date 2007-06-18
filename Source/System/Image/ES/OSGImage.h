@@ -63,12 +63,6 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
 
     typedef ImageBase                           Inherited;
 
-    typedef PointerBuilder<Image>::ObjPtr          ObjPtr;
-    typedef PointerBuilder<Image>::ObjConstPtr     ObjConstPtr;
-
-    typedef PointerBuilder<Image>::ObjPtrArg       ObjPtrArg;
-    typedef PointerBuilder<Image>::ObjConstPtrArg  ObjConstPtrArg;
-
     enum PixelFormat 
     {   
         OSG_INVALID_PF = 0,
@@ -430,12 +424,6 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
 };
 
 typedef Image *ImageP;
-
-typedef Image::ObjPtr         ImagePtr;
-typedef Image::ObjConstPtr    ImageConstPtr;
-
-typedef Image::ObjPtrArg      ImagePtrArg;
-typedef Image::ObjConstPtrArg ImageConstPtrArg;
 
 OSG_END_NAMESPACE
 

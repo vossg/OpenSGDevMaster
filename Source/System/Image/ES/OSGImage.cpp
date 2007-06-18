@@ -129,20 +129,37 @@ void Image::changed(ConstFieldMaskArg whichField, UInt32 origin)
         ++parentsIt;
     }
 
-    // Update internals
-    Int32 mapSizeType = sizeof(_typeDic) / sizeof(UInt32[2]);
-    UInt32 typeFormat  = 0;
-    Int32 i;
-
-    for(i = 0; i < mapSizeType; i++)
+    if(0x0000 != (whichField & DataTypeFieldMask))
     {
-        if(_typeDic[i][0] == getDataType())
-            typeFormat = _typeDic[i][1];
+        // Update internals
+        Int32 mapSizeType = sizeof(_typeDic) / sizeof(UInt32[2]);
+        UInt32 typeFormat  = 0;
+        Int32 i;
+        
+        for(i = 0; i < mapSizeType; i++)
+        {
+            if(_typeDic[i][0] == _sfDataType.getValue())
+            {
+                typeFormat = _typeDic[i][1];
+            }
+        }
+        
+        setComponentSize( typeFormat );
     }
 
-    setComponentSize( typeFormat );
-    setSideSize ( calcMipmapSumSize(getMipMapCount()) );
-    setFrameSize( getSideSize() * getSideCount() );
+    if(0x0000 != (whichField & (MipMapCountFieldMask |
+                                WidthFieldMask       |
+                                HeightFieldMask      |
+                                DepthFieldMask       |
+                                PixelFormatFieldMask )))
+    {
+        setSideSize(calcMipmapSumSize(_sfMipMapCount.getValue()));
+    }
+
+    if(0x0000 != (whichField & (SideSizeFieldMask | SideCountFieldMask)))
+    {
+        setFrameSize(_sfSideSize.getValue() * _sfSideCount.getValue());
+    }
 
     Inherited::changed(whichField, origin);
 }
@@ -2509,7 +2526,7 @@ bool Image::hasAttachment(void) const
 {
     Image *img=const_cast<Image*>(this);
 
-    ImageGenericAttPtr att = cast_dynamic<ImageGenericAttPtr>(
+    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
         img->Inherited::findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 
@@ -2526,7 +2543,7 @@ UInt32 Image::attachmentCount(void) const
 {
     Image *img=const_cast<Image*>(this);
 
-    ImageGenericAttPtr att = cast_dynamic<ImageGenericAttPtr>(
+    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
         img->Inherited::findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 
@@ -2546,7 +2563,7 @@ UInt32 Image::attachmentCount(void) const
 void Image::setAttachmentField(const std::string &key,
                                const std::string &data)
 {
-    ImageGenericAttPtr att = cast_dynamic<ImageGenericAttPtr>(
+    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
         findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 
@@ -2604,7 +2621,7 @@ const std::string *Image::findAttachmentField(const std::string &key) const
 {
     Image *img=const_cast<Image*>(this);
 
-    ImageGenericAttPtr att = cast_dynamic<ImageGenericAttPtr>(
+    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
         img->findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 

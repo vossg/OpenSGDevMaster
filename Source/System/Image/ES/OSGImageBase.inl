@@ -701,20 +701,6 @@ void ImageBase::setForceAlphaBinary(const bool &value)
     _sfForceAlphaBinary.setValue(value);
 }
 
-//! Get the value of the \a index element the Image::_mfParents field.
-inline
-ParentFieldContainerPtrConst ImageBase::getParents(const UInt32 index) const
-{
-    return _mfParents[index];
-}
-
-//! Get the Image::_mfParents field.
-inline
-const MFParentFieldContainerPtr &ImageBase::getParents(void) const
-{
-    return _mfParents;
-}
-
 //! Get the value of the \a index element the Image::_mfPixel field.
 inline
 const UInt8 &ImageBase::getPixel(const UInt32 index) const
