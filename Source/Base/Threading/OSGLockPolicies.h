@@ -45,7 +45,10 @@
 #include "OSGBaseTypes.h"
 #include "OSGBaseFunctions.h"
 #include "OSGBaseInitFunctions.h"
+
+#ifndef OSG_WINCE
 #include "OSGLock.h"
+#endif
 
 #include <boost/bind.hpp>
 
@@ -99,6 +102,7 @@ class NoLockPolicy
     void operator =(const NoLockPolicy &source);
 };
 
+#ifndef OSG_WINCE
 class SingleLockPolicy
 {
 
@@ -197,6 +201,7 @@ class SingleStaticInitLockPolicy
     SingleStaticInitLockPolicy(const  SingleStaticInitLockPolicy &source);
     void operator =(const SingleStaticInitLockPolicy &source);
 };
+#endif
 
 OSG_END_NAMESPACE
 

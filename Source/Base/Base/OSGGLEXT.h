@@ -1651,6 +1651,46 @@
 
 #else
 
+/*---------------------------------------------------------------------*/
+/*! \name GL_EXT_texture_env_combine                                   */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*  \{                                                                 */
+
+#ifndef GL_EXT_texture_env_combine 
+#define GL_EXT_texture_env_combine          1
+#define GL_PREVIOUS_EXT                     0x8578
+#define GL_CONSTANT_EXT                     0x8576
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_ARB_multitexture                                          */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*  \{                                                                 */
+
+#ifndef GL_ARB_multitexture
+#define GL_ARB_multitexture               1
+#define GL_MAX_TEXTURE_UNITS_ARB          0x84E2
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_ARB_fragment_program                                      */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*  \{                                                                 */
+
+#ifndef GL_ARB_fragment_program
+#define GL_ARB_fragment_program 1
+#define GL_MAX_TEXTURE_COORDS_ARB                          0x8871
+#define GL_MAX_TEXTURE_IMAGE_UNITS_ARB                     0x8872
+#endif 
+
+#define GL_QUADS      0x0007
+#define GL_QUAD_STRIP 0x0008
+#define GL_POLYGON    0x0009
+
+/*! \}                                                                 */
+
 #endif /* OSG_WINCE) */
 
 #endif /* _OSGGL_H_ */

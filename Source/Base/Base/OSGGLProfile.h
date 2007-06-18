@@ -49,6 +49,7 @@
 #include "OSGColor.h"
 
 #define osgFToFX(x) ((GLfixed)((x)*65536.0f))
+#define osgIToFX(x) ((x)*65536)
 #define osgONE_FX 0x00010000
 
 //---------------------------------------------------------------------------
@@ -141,6 +142,33 @@ namespace GLP
 
         ::glLoadMatrixx(mf);
     }
+
+    static inline
+    void glClearDepth(GLclampf d)
+    {
+        ::glClearDepthf(d);
+    }
+
+	static inline
+	void glTexEnvi(GLenum target, GLenum pname, GLint param)
+	{
+        GLfixed fixParam = osgFToFX(param);
+
+		::glTexEnvx(target, pname, fixParam);
+	}
+
+	static inline
+	void glTexEnvfv(GLenum target, GLenum pname, const GLfloat *params)
+	{
+        GLfixed fixParams[4];
+
+        fixParams[0] = osgFToFX(params[0]);
+        fixParams[1] = osgFToFX(params[1]);
+        fixParams[2] = osgFToFX(params[2]);
+        fixParams[3] = osgFToFX(params[3]);
+
+		::glTexEnvxv(target, pname, fixParams);
+	}
 };
 
 #else
@@ -200,6 +228,28 @@ namespace GLP
     {
         ::glLoadMatrixx(reinterpret_cast<const GLfixed *>(m));
     }
+
+    static inline
+    void glClearDepth(Fixed32 d)
+    {
+        ::glClearDepthx(d.getValue());
+    }
+
+	static inline
+	void glTexEnvi(GLenum target, GLenum pname, GLint param)
+	{
+        GLfixed fixParam = osgIToFX(param);
+
+		::glTexEnvx(target, pname, fixParam);
+	}
+
+	static inline
+	void glTexEnvfv(GLenum target, GLenum pname, const Fixed32 *params)
+	{
+		::glTexEnvxv(target, 
+                     pname, 
+                     reinterpret_cast<const GLfixed *>(params));
+	}
 };
 #endif
 
@@ -248,6 +298,24 @@ namespace GLP
     {
         ::glLoadMatrixf(m);
     }
+
+    static inline
+    void glClearDepth(GLclampf d)
+    {
+        ::glClearDepth(d);
+    }
+
+	static inline
+	void glTexEnvi(GLenum target, GLenum pname, GLint param)
+	{
+		::glTexEnvi(target, pname, param);
+	}
+
+	static inline
+	void glTexEnvfv(GLenum target, GLenum pname, const GLfloat *params)
+	{
+		::glTexEnvfv(target, pname, params);
+	}
 };
 
 #endif

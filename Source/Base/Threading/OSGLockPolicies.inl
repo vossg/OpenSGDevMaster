@@ -77,6 +77,7 @@ bool NoLockPolicy::request(void)
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
+#ifndef OSG_WINCE
 
 inline
 SingleLockPolicy::SingleLockPolicy(void) :
@@ -165,6 +166,7 @@ bool SingleStaticInitLockPolicy::request(void)
     return _pLock->request();
 }
 
+#endif
 
 OSG_END_NAMESPACE
 

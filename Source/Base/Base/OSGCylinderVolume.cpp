@@ -174,7 +174,7 @@ void CylinderVolume::transform(const Matrixr &mtx)
      // find perpendicular vector (to detect radius transformation)
     v2 = v;
     v2.normalize();
-    v3 = v2.x() > 0.9f ? Vec3f(0,1,0) : Vec3f(1,0,0);
+    v3 = v2.x() > 0.9f ? Vec3r(0.f,1.f,0.f) : Vec3r(1.f,0.f,0.f);
     v3.crossThis(v2);
     
     // transform

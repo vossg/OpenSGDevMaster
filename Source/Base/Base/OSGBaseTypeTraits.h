@@ -1085,17 +1085,17 @@ struct TypeTraits<Fixed32> : public TypeTraitsTemplateBase<Fixed32>
         return Fixed32(1.f);
     }
 
-#if 0
     static        Fixed32             getMax        (void)
     {
-        return FLT_MAX;
+        return Fixed32(REAL16_MAX);
     }
 
-    static        Real32             getMin        (void)
+    static        Fixed32             getMin        (void)
     {
-        return -FLT_MAX;
+        return Fixed32(-REAL16_MAX);
     }
 
+#if 0
 
     static Real32 getFraction     (Real32 rVal) { return rVal; };
     static Real32 getPortion      (Real32 rVal) { return rVal; };

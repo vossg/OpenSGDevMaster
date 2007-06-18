@@ -488,7 +488,7 @@ struct FieldTraits<DynamicVolume> :
             SphereVolume *pSVol = 
                     dynamic_cast<SphereVolume *>(&(outVal.getInstance()));
 
-            pSVol->setCenter(Pnt3f(valStore[0], valStore[1], valStore[2]));
+            pSVol->setCenter(Pnt3r(valStore[0], valStore[1], valStore[2]));
             pSVol->setRadius(valStore[3]);
             
             outVal.instanceChanged();
@@ -691,7 +691,7 @@ struct FieldTraits<DynamicVolume> :
                 BoxVolume *pBVol = 
                     dynamic_cast<BoxVolume *>(&(oObject.getInstance()));
 
-                Pnt3f min,max;
+                Pnt3r min,max;
                 UInt16 state;
 
                 pMem.getValue (state       );
@@ -708,7 +708,7 @@ struct FieldTraits<DynamicVolume> :
                 SphereVolume *pSVol = 
                     dynamic_cast<SphereVolume *>(&(oObject.getInstance()));
 
-                Pnt3f center;
+                Pnt3r center;
                 Real32 radius;
                 UInt16 state;
 

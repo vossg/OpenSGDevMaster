@@ -914,9 +914,7 @@
 #define OSGLL(ARG) ARG
 #endif
 
-#if !defined(_WIN32_WCE)
 #define OSG_FIELDBUNDLE 1
-#endif
 
 #include "OSGExportDefines.h"
 #include "OSGConfigured.h"
