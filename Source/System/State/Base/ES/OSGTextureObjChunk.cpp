@@ -154,7 +154,7 @@ void TextureObjChunk::initMethod(InitPhase ePhase)
         _extShadow =
             Window::registerExtension("GL_ARB_shadow"  );
         _extDepthTexture =
-            Window::registerExtension("GL_ARB_dept_texture"  );
+            Window::registerExtension("GL_ARB_depth_texture"  );
 
         _funcTexImage3D    =
             Window::registerFunction (GL_FUNC_TEXIMAGE3D, 
