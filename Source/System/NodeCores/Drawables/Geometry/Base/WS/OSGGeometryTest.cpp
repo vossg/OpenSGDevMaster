@@ -233,7 +233,7 @@ TEST(TestSettingVecAttribs)
 
     for(unsigned i = 0; i < num_vec_props;++i)
     {
-        att = OSG::cast_dynamic<OSG::GeoVectorPropertyPtr>(
+        att = dynamic_cast<OSG::GeoVectorPropertyPtr>(
                     OSG::FieldContainerFactory::the()->createContainer(
                         allowed_vec_prop_types[i]));
         unsigned prop_index = i % 16;
