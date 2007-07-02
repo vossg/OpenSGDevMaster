@@ -45,7 +45,7 @@ init(void), activate(void), deactivate(void) and swap(void).
                 pushToFieldAs="addPort"
                 insertIntoMFieldAs="insertPort"
                 replaceInMFieldIndexAs="replacePort"
-                replaceInMFieldObjectAs="replacePortyBy"
+                replaceInMFieldObjectAs="replacePortBy"
                 removeFromMFieldIndexAs="subPort"
                 removeFromMFieldObjectAs="subPort"
                 clearFieldAs="clearPorts"        

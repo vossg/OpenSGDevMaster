@@ -238,7 +238,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                                              ViewportPtrConstArg value   );
     void replacePort      (UInt32                uiIndex,
                                              ViewportPtrConstArg value   );
-    void replacePortyBy  (ViewportPtrConstArg pOldElem,
+    void replacePortBy   (ViewportPtrConstArg pOldElem,
                                              ViewportPtrConstArg pNewElem);
     void subPort         (UInt32                uiIndex );
     void subPort        (ViewportPtrConstArg value   );

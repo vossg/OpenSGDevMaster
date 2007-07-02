@@ -329,7 +329,7 @@ WindowBase::TypeObject WindowBase::_type(
     "                pushToFieldAs=\"addPort\"\n"
     "                insertIntoMFieldAs=\"insertPort\"\n"
     "                replaceInMFieldIndexAs=\"replacePort\"\n"
-    "                replaceInMFieldObjectAs=\"replacePortyBy\"\n"
+    "                replaceInMFieldObjectAs=\"replacePortBy\"\n"
     "                removeFromMFieldIndexAs=\"subPort\"\n"
     "                removeFromMFieldObjectAs=\"subPort\"\n"
     "                clearFieldAs=\"clearPorts\"        \n"
@@ -580,7 +580,7 @@ void WindowBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
 
     if(uiFieldId == PortFieldId)
     {
-        static_cast<Window *>(this)->replacePortyBy(
+        static_cast<Window *>(this)->replacePortBy(
             dynamic_cast<ViewportPtr>(pOldElement),
             dynamic_cast<ViewportPtr>(pNewElement));
     }
@@ -678,7 +678,7 @@ void WindowBase::replacePort(UInt32                uiIndex,
     value->setParent(this, PortFieldMask);
 }
 
-void WindowBase::replacePortyBy(ViewportPtrConstArg pOldElem,
+void WindowBase::replacePortBy(ViewportPtrConstArg pOldElem,
                                                         ViewportPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
