@@ -2,6 +2,7 @@
 from __future__ import generators
 
 import os, sys, traceback, re, imp, types
+import distutils.util
 import SConsAddons
 
 import SConsAddons.Options.VTK
