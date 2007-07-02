@@ -9,7 +9,8 @@ else:
       stop_traversal = True
    else:
       library = "OSGContribVTK"
-      osg_dep_libs = ['OSGBase', 'OSGSystem']
+      osg_dep_libs = ['OSGBase', 'OSGSystem', 
+                      'OSGDrawable', 'OSGRenderTraversal']
 
       for lib in vtk_option.library:
          libs.append(lib)

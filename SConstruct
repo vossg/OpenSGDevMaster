@@ -317,6 +317,8 @@ opensg_version_string = file("VERSION").readline().strip()
 
 print "Building OpenSG ", opensg_version_string
 
+OpenSG.AddOnHacks.apply()
+
 # Allow user to pass an options file on the command line, with the
 # option_file=myOptFile syntax
 
@@ -500,20 +502,24 @@ optional_libs_options["NVPerfSDK"] = sca_opts.StandardPackageOption(
     "NVPerfSDK", "Location of the NVPerfSDK library", library = "NVPerfSDK",
     header = "NVPerfSDK.h", required = False)
 
+vtk_libs = ['vtkRendering',
+            'vtkIO',
+            'vtkGraphics',
+            'vtkImaging',
+            'vtkFiltering',
+            'vtkCommon',
+            'vtkftgl',
+            'vtkDICOMParser',
+            'vtksys']
+
+if "win32" != platform:
+    vtk_libs.append('vtkMPEG2Encode')
+
 optional_libs_options['vtk'] = sca_opts.VTK.VTK(
    "vtk",
    "Location of the vtk libraries",
    required = False,
-   libList = ['vtkRendering',
-              'vtkIO',
-              'vtkGraphics',
-              'vtkImaging',
-              'vtkFiltering',
-              'vtkCommon',
-              'vtkftgl',
-              'vtkDICOMParser',
-              'vtksys',
-              'vtkMPEG2Encode'])
+   libList = vtk_libs)
 
 # Feature options - select library/interface features
 feature_options = {}

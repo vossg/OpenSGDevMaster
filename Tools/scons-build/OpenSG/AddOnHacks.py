@@ -101,6 +101,31 @@ def VTKValidate(self, env):
          self.available = True
          print "[OK]"
 
+def VTKGetSettings(self):
+
+    if self.vtkVersionNum:
+      return [(self.baseDirKey, self.baseDir),
+              ('VtkVersion', self.vtkVersionNum),]
+    else:
+      return [(self.baseDirKey, self.baseDir),]
+
+def VTKSetInitial(self, optDict):
+      " Set initial values from given dict "
+      if self.verbose:
+         print "   Applying initial VTK settings."
+      if optDict.has_key(self.baseDirKey):
+         self.baseDir = optDict[self.baseDirKey]
+         if self.verbose:
+            print "   %s specified or cached. [%s]."% \
+                     (self.baseDirKey, self.baseDir)
+                     
+      if optDict.has_key('VtkVersion'):
+         self.vtkVersion = 'vtk-%s' %(optDict['VtkVersion'])
+         self.vtkVersionNum = optDict['VtkVersion']
+      else:
+         self.vtkVersion = 'vtk'
+         self.vtkVersionNum = None
+
 def BoostFind(self, env):
       """ If base dir was not specified, attempt to find boost
           using some very basic searches.
@@ -366,7 +391,9 @@ def apply():
     setattr(SConsAddons.Options.VTK.VTK, "libDir",  None)
     setattr(SConsAddons.Options.VTK.VTK, "library", None)
 
-    SConsAddons.Options.VTK.VTK.validate = VTKValidate
+    SConsAddons.Options.VTK.VTK.validate    = VTKValidate
+    SConsAddons.Options.VTK.VTK.getSettings = VTKGetSettings
+    SConsAddons.Options.VTK.VTK.setInitial  = VTKSetInitial
 
     SConsAddons.Options.Boost.Boost.find = BoostFind
 
