@@ -509,7 +509,7 @@ optional_libs_options["collada"] = OpenSG.ColladaOption.ColladaOption(
      "collada_dom",
      "collada_stdErrPlugin",
      "collada_dae"],
-    header = "dae/daeIntegrationObject.h", required = True)
+    header = "dae/daeIntegrationObject.h", required = False)
 
 optional_libs_options["xml2"] = sca_opts.StandardPackageOption(
     "xml2", "Location of the xml2 library", library = "xml2",
