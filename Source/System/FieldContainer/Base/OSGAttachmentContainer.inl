@@ -44,6 +44,55 @@ Char8 *AttachmentContainer::getClassname(void)
     return "AttachmentContainer";
 }
 
+/**
+ * Find an attachment at the binding point.
+ *
+ * \param groupId  The Group id to search for
+ * \param binding  id that is combined with the groupId of the attachment
+ *                 to determine the slot in the attachment map.
+ *
+ * Attempt to find attachment in map using key (binding|groupId).
+ * If found, return it, else return NullFC
+ */
+inline
+AttachmentContainer::AttachmentObjPtr
+    AttachmentContainer::findAttachment(UInt32 groupId,
+                                        UInt16 binding)
+{
+    UInt32 key = (UInt32(groupId) << 16) | binding;
+
+    AttachmentObjPtrMapIt fcI = _sfAttachments.getValue().find(key);
+
+    if(fcI == _sfAttachments.getValue().end())
+    {
+        return NullFC;
+    }
+    else
+    {
+        return (*fcI).second;
+    }
+}
+
+/**
+ * Find an attachment at the binding point.
+ *
+ * \param type     FCType used to get groupId
+ * \param binding  id that is combined with the groupId of the attachment
+ *                 to determine the slot in the attachment map.
+ *
+ * Attempt to find attachment in map using key (binding|groupId).
+ * If found, return it, else return NullFC
+ */
+
+inline
+AttachmentContainer::AttachmentObjPtr
+    AttachmentContainer::findAttachment(
+        const FieldContainerType &type,
+              UInt16              binding)
+{
+    return findAttachment(type.getGroupId(), binding);
+}
+
 OSG_ABSTR_FIELD_CONTAINER_INL_DEF(AttachmentContainer)
 
 OSG_END_NAMESPACE

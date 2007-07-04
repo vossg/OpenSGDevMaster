@@ -52,7 +52,22 @@ OSG_USING_NAMESPACE
 
 void AttachmentContainer::classDescInserter(TypeObject &oType)
 {
-    Inherited::classDescInserter(oType);
+    FieldDescriptionBase *pDesc;
+
+    typedef SFAttachmentObjPtrMap::Description SFDesc;
+
+    pDesc = new SFDesc(
+        SFAttachmentObjPtrMap::getClassType(),
+        "attachments",
+        "List of attachments connected.",
+        OSG_RC_FIELD_DESC(Attachments),
+        false,
+        Field::SFDefaultFlags,
+        static_cast     <FieldEditMethodSig>(&Self::invalidEditField),
+        reinterpret_cast<FieldGetMethodSig >(&Self::getSFAttachments),
+        NULL);
+
+    oType.addInitialDesc(pDesc);
 }
 
 AttachmentContainer::TypeObject AttachmentContainer::_type(
@@ -70,12 +85,14 @@ AttachmentContainer::TypeObject AttachmentContainer::_type(
 /*                            Constructors                                 */
 
 AttachmentContainer::AttachmentContainer(void) :
-    Inherited()
+     Inherited    (),
+    _sfAttachments()
 {
 }
 
 AttachmentContainer::AttachmentContainer(const AttachmentContainer &source) :
-    Inherited(source)
+     Inherited    (source               ),
+    _sfAttachments(source._sfAttachments)
 {
 }
 /*-------------------------------------------------------------------------*/
@@ -89,6 +106,259 @@ AttachmentContainer::~AttachmentContainer(void)
 /*                             Assignment                                  */
 
 OSG_ABSTR_FIELD_CONTAINER_DEF(AttachmentContainer)
+
+
+void AttachmentContainer::pushToField(
+          FieldContainerPtrConstArg pNewElement,
+    const UInt32                    uiFieldId   )
+{
+    Inherited::pushToField(pNewElement, uiFieldId);
+
+    if(uiFieldId == AttachmentsFieldId)
+    {
+        addAttachment(dynamic_cast<AttachmentObjPtr>(pNewElement));
+    }
+}
+
+void AttachmentContainer::insertIntoMField(
+    const UInt32                    uiIndex,
+          FieldContainerPtrConstArg pNewElement,
+    const UInt32                    uiFieldId   )
+{
+    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
+    
+    FWARNING(("AttachmentContainerMixin::insertIntoMField: NIY\n"));
+}
+
+void AttachmentContainer::replaceInMField (
+    const UInt32                    uiIndex,
+          FieldContainerPtrConstArg pNewElement,
+    const UInt32                    uiFieldId   )
+{
+    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
+
+    FWARNING(("AttachmentContainerMixin::replaceInMField: NIY\n"));
+}
+
+void AttachmentContainer::replaceInMField (
+          FieldContainerPtrConstArg pOldElement,
+          FieldContainerPtrConstArg pNewElement,
+    const UInt32                    uiFieldId  )
+{
+    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
+    
+    FWARNING(("AttachmentContainerMixin::replaceInMField: NIY\n"));
+}
+
+void AttachmentContainer::removeFromMField(
+    const UInt32                    uiIndex,
+    const UInt32                    uiFieldId )
+{
+    Inherited::removeFromMField(uiIndex, uiFieldId);
+    
+    FWARNING(("AttachmentContainerMixin::removeFromMField: NIY\n"));
+}
+
+void AttachmentContainer::removeFromMField(
+          FieldContainerPtrConstArg pElement,
+    const UInt32                    uiFieldId )
+{
+    Inherited::removeFromMField(pElement, uiFieldId);
+    
+    FWARNING(("AttachmentContainerMixin::removeFromMField: NIY\n"));
+}
+
+void AttachmentContainer::clearField(const UInt32 uiFieldId)
+{
+    Inherited::clearField(uiFieldId);
+    
+    FWARNING(("AttachmentContainerMixin::clearField: NIY\n"));
+}
+
+/*-------------------------------------------------------------------------*/
+/* Binary access                                                           */
+
+UInt32 AttachmentContainer::getBinSize(ConstFieldMaskArg whichField)
+{
+    UInt32 returnValue = Inherited::getBinSize(whichField);
+
+    if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
+    {
+        returnValue += _sfAttachments.getBinSize();
+    }
+
+    return returnValue;
+}
+
+void AttachmentContainer::copyToBin(BinaryDataHandler  &pMem, 
+                                    ConstFieldMaskArg   whichField)
+{
+    Inherited::copyToBin(pMem, whichField);
+
+    if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
+    {
+        _sfAttachments.copyToBin(pMem);
+    }
+}
+
+void AttachmentContainer::copyFromBin(BinaryDataHandler &pMem, 
+                                      ConstFieldMaskArg  whichField)
+{
+    Inherited::copyFromBin(pMem, whichField);
+
+    if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
+    {
+        _sfAttachments.copyFromBin(pMem);
+    }
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Assignment                                  */
+
+/**
+ * Add an attachment at the binding point.
+ *
+ * \param pAttachment  The FCPtr to attach
+ * \param binding      id that is combined with the groupId of the attachment
+ *                     to determine the slot in the attachment map.
+ * If the derived key (binding | group) matches an existing key this will
+ * replace the old entry in the map.
+ * The attachment will have this node set as it's parent.
+ */
+
+void AttachmentContainer::addAttachment(
+    const AttachmentObjPtr pAttachment,
+          UInt16           binding)
+{
+    UInt32 key;
+
+    if(pAttachment == NullFC)
+        return;
+
+    key = (UInt32 (pAttachment->getGroupId()) << 16) | binding;
+
+    addRef(pAttachment);
+
+    pAttachment->addParent(this);
+
+    Self::editSField(AttachmentsFieldMask);
+
+    AttachmentObjPtrMapIt fcI = _sfAttachments.getValue().find(key);
+
+    if(fcI != _sfAttachments.getValue().end())
+    {
+        (*fcI).second->subParent(this);
+
+        subRef((*fcI).second);
+
+        (*fcI).second = pAttachment;
+    }
+    else
+    {
+        _sfAttachments.getValue()[key] = pAttachment;
+    }
+}
+
+/**
+ * Erase the attachment at the binding point.
+ *
+ * \param pAttachment  The FCPtr to detach (needed to get groupId())
+ * \param binding      id that is combined with the groupId of the attachment
+ *                     to determine the slot in the attachment map.
+ *
+ * Attempt to find attachment in map using key (binding|groupId).
+ * If found, remove it.
+ */
+
+void AttachmentContainer::subAttachment(
+    const AttachmentObjPtr pAttachment,
+          UInt16           binding)
+{
+    UInt32 key;
+
+    AttachmentObjPtrMapIt fcI;
+
+    if(pAttachment == NullFC)
+        return;
+
+    key = (UInt32(pAttachment->getGroupId()) << 16) | binding;
+
+    Self::editSField(AttachmentsFieldMask);
+
+    fcI = _sfAttachments.getValue().find(key);
+
+    if(fcI != _sfAttachments.getValue().end())
+    {
+        (*fcI).second->subParent(this);
+
+        subRef((*fcI).second);
+
+        _sfAttachments.getValue().erase(fcI);
+    }
+}
+
+
+const AttachmentContainer::SFAttachmentObjPtrMap *
+    AttachmentContainer::getSFAttachments(void) const
+{
+    return &_sfAttachments;
+}
+
+
+void AttachmentContainer::dump(      UInt32    uiIndent,
+                               const BitVector bvFlags ) const
+{
+    indentLog(uiIndent, PLOG);
+    PLOG << "attachments " << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "{" << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "}" << std::endl;
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+#ifdef OSG_MT_CPTR_ASPECT
+void AttachmentContainer::execSync(
+          AttachmentContainer *pFrom,
+          ConstFieldMaskArg    whichField,
+          AspectOffsetStore   &oOffsets,
+          ConstFieldMaskArg    syncMode  ,
+    const UInt32               uiSyncInfo)
+{
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
+    {
+        _sfAttachments.syncWith(pFrom->_sfAttachments);
+    }
+}
+#endif
+
+void AttachmentContainer::resolveLinks(void)
+{
+    Inherited::resolveLinks();
+
+    AttachmentObjPtrMapIt fcI = _sfAttachments.getValue().begin();
+    AttachmentObjPtrMapIt fcE = _sfAttachments.getValue().end  ();
+
+    while(fcI != fcE)
+    {
+        (*fcI).second->subParent(this);
+
+        subRef((*fcI).second);
+
+        ++fcI;
+    }
+}
+
+
+
+
 
 /*-------------------------------------------------------------------------*/
 /*                              Cloning                                    */

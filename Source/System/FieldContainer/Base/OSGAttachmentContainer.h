@@ -43,18 +43,17 @@
 #endif
 
 #include "OSGFieldContainer.h"
-#include "OSGAttachmentContainerParent.h"
 #include "OSGFieldContainerAttachment.h"
+#include "OSGAttachmentMapSFields.h"
 
 OSG_BEGIN_NAMESPACE
 
 /**
-* An AttachmentContainer is a field container that can store attachments to other
-* FieldContainers.
+* An AttachmentContainer is a field container that can store attachments to 
+  other FieldContainers.
 * \ingroup baselib
 */
-class OSG_SYSTEM_DLLMAPPING AttachmentContainer :
-    public ContainerAttachmentContainerParent
+class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -64,7 +63,16 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer :
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    typedef ContainerAttachmentContainerParent                  Inherited;
+    typedef FieldContainer                    Inherited;
+    typedef Inherited::TypeObject             TypeObject;
+    typedef AttachmentContainer               Self;
+
+    typedef FieldContainerAttachment          AttachmentObj;
+    typedef FieldContainerAttachmentPtr       AttachmentObjPtr;
+    typedef SFFieldContainerAttachmentPtrMap  SFAttachmentObjPtrMap;
+
+    typedef SFAttachmentObjPtrMap::StoredType AttachmentObjPtrMap;
+    typedef AttachmentObjPtrMap::iterator     AttachmentObjPtrMapIt;
 
     
     OSG_GEN_INTERNALPTR(AttachmentContainer);
@@ -81,6 +89,9 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer :
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    OSG_RC_FIRST_FIELD_DECL(Attachments);
+    OSG_RC_LAST_FIELD_DECL (Attachments);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
@@ -91,20 +102,63 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer :
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void replaceInMField (const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
+                                        FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void removeFromMField(const UInt32                    uiIndex,
+                                  const UInt32                    whichField );
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
+                                  const UInt32                    whichField );
+
+    virtual void clearField      (const UInt32                    whichField );
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
+
+    virtual UInt32 getBinSize (ConstFieldMaskArg   whichField);
+    virtual void   copyToBin  (BinaryDataHandler  &pMem,
+                               ConstFieldMaskArg   whichField);
+    virtual void   copyFromBin(BinaryDataHandler  &pMem,
+                               ConstFieldMaskArg   whichField);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
+    void             addAttachment (const AttachmentObjPtr   attachmentP,
+                                          UInt16             binding    = 0);
+
+    void             subAttachment (const AttachmentObjPtr   attachmentP,
+                                          UInt16             binding    = 0);
+
+    AttachmentObjPtr findAttachment(      UInt32             groupId,
+                                          UInt16             binding    = 0);
+
+    AttachmentObjPtr findAttachment(const FieldContainerType &type,
+                                          UInt16              binding    = 0);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
     /*! \{                                                                 */
+
+    const SFAttachmentObjPtrMap *getSFAttachments(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -136,6 +190,9 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer :
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
+    virtual void dump(      UInt32    uiIndent = 0,
+                      const BitVector bvFlags  = 0) const;
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -155,6 +212,8 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer :
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    SFAttachmentObjPtrMap _sfAttachments;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -170,10 +229,20 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer :
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
+    void execSync  (      AttachmentContainer *pFrom,
+                          ConstFieldMaskArg    whichField,
+                          AspectOffsetStore   &oOffsets,
+                          ConstFieldMaskArg    syncMode  ,
+                    const UInt32               uiSyncInfo);
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
