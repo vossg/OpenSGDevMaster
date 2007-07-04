@@ -67,10 +67,8 @@
 #include "OSGLightChunk.h"
 #include "OSGStage.h"
 #include "OSGSimpleStage.h"
-#ifdef OSG_GV_BETA
 #include "OSGHDRStage.h"
 #include "OSGAlgorithmStage.h"
-#endif
 #include "OSGRenderPartition.h"
 #include "OSGFrameBufferObject.h"
 #include "OSGVisitSubTree.h"
@@ -771,7 +769,6 @@ ActionBase::ResultE SimpleStageRenderLeave(const NodeCorePtr &pCore,
 }
 
 
-#ifdef OSG_GV_BETA
 ActionBase::ResultE HDRStageRenderEnter(const NodeCorePtr &pCore,
                                               Action      *action)
 {
@@ -1050,7 +1047,6 @@ ActionBase::ResultE AlgorithmStageRenderLeave(const NodeCorePtr &pCore,
 
     return Action::Skip;
 }
-#endif
 
 ActionBase::ResultE VisitSubTreeRender(const NodeCorePtr &pCore,
                                              Action      *action)
@@ -1242,7 +1238,6 @@ bool RenderTraversalActionInitialize(void)
               SimpleStageRenderLeave);
 
 
-#ifdef OSG_GV_BETA
     RenderTraversalAction::registerEnterDefault(
         HDRStage::getClassType(), 
               HDRStageRenderEnter);
@@ -1258,7 +1253,6 @@ bool RenderTraversalActionInitialize(void)
     RenderTraversalAction::registerLeaveDefault( 
         AlgorithmStage::getClassType(), 
               AlgorithmStageRenderLeave);
-#endif
 
 
     RenderTraversalAction::registerEnterDefault(
