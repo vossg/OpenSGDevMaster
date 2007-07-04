@@ -8,7 +8,7 @@ else:
     collada_option = opts.GetOption("collada")
     xml2_option    = opts.GetOption("xml2")
 
-    if not collada_option.isAvailable() and not xml2_option.isAvailable():
+    if not collada_option.isAvailable() or not xml2_option.isAvailable():
         stop_traversal = True
     else:
         library = "OSGFileIO"
