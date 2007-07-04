@@ -471,9 +471,11 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
             connection.putValue(typeId);
             connection.putValue((*changedI)->uiContainerId);
             
+#if 0
             fprintf(stderr, "Send Create %d %d\n",
                     typeId,
                     (*changedI)->uiContainerId);
+#endif
 
             // sent container to create
             _sentFC.insert((*changedI)->uiContainerId);
@@ -499,14 +501,14 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
             mask  = (*changedI)->whichField;
             mask &=  fcPtr->getFieldFlags()->_bClusterLocalFlags;
 
-            /*
-	     fprintf(stderr, "Send Changed %d %d %p %016llx %016llx\n",
+#if 0
+            fprintf(stderr, "Send Changed %d %d %p %016llx %016llx\n",
                     fcPtr->getTypeId(),
                     (*changedI)->uiContainerId,
                     fcPtr->getFieldFlags(),
                     (*changedI)->whichField,
                     fcPtr->getFieldFlags()->_bClusterLocalFlags);
-	    */
+#endif
 
             if(mask)
             {

@@ -24,6 +24,7 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
+        fieldFlags="FClusterLocal"
 	>
 	</Field>
 	<Field
@@ -32,6 +33,7 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
+        fieldFlags="FClusterLocal"
 	>
 	</Field>
 	<Field
@@ -40,6 +42,7 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
+        fieldFlags="FClusterLocal"
 	>
 	</Field>
 	<Field
@@ -48,6 +51,7 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
+        fieldFlags="FClusterLocal"
 	>
 	</Field>
 	<Field
@@ -56,6 +60,7 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
+        fieldFlags="FClusterLocal"
 	>
 	</Field>
 	<Field
@@ -64,6 +69,7 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
+        fieldFlags="FClusterLocal"
 	>
 	</Field>
 	<Field
@@ -72,6 +78,7 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
+        fieldFlags="FClusterLocal"
 	>
 	</Field>
 	<Field
@@ -80,6 +87,7 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
+        fieldFlags="FClusterLocal"
 	>
 	</Field>
 	<Field
@@ -88,6 +96,7 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
+        fieldFlags="FClusterLocal"
 	>
 	</Field>
 </FieldContainer>

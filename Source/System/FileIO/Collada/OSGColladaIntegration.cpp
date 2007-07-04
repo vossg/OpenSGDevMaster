@@ -40,6 +40,8 @@
     \ingroup GrpFoundationLoader
  */
 
+#include "OSGConfig.h"
+
 #ifdef OSG_WITH_COLLADA
 
 //---------------------------------------------------------------------------
@@ -49,7 +51,6 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGConfig.h"
 #include "OSGBaseTypes.h"
 
 #include <iostream>
@@ -133,7 +134,7 @@ daeMetaElement *ColladaIntegrationBase::registerElement(void)
 
     _pMeta->setName("ColladaIntegrationBase");
 
-	_pMeta->registerConstructor(ColladaIntegrationBase::create);
+	_pMeta->registerClass(ColladaIntegrationBase::create, &_pMeta);
 
 	_pMeta->setElementSize(sizeof(ColladaIntegrationBase));
 
@@ -190,7 +191,7 @@ daeMetaElement *VisualSceneIntegration::registerElement(void)
     _pMeta = new daeMetaElement;
 
     _pMeta->setName("VisualSceneIntegration");
-	_pMeta->registerConstructor(VisualSceneIntegration::create);
+	_pMeta->registerClass(VisualSceneIntegration::create, &_pMeta);
 
 	domVisual_scene::_Meta->setMetaIntegration(_pMeta);
 
@@ -433,7 +434,7 @@ daeMetaElement *NodeIntegration::registerElement(void)
     _pMeta = new daeMetaElement;
 
     _pMeta->setName("NodeIntegration");
-	_pMeta->registerConstructor(NodeIntegration::create);
+	_pMeta->registerClass(NodeIntegration::create, &_pMeta);
 
 	domNode::_Meta->setMetaIntegration(_pMeta);
 
@@ -574,7 +575,7 @@ daeMetaElement *GeometryInstanceIntegration::registerElement(void)
     _pMeta = new daeMetaElement;
 
     _pMeta->setName("GeometryInstanceIntegration");
-	_pMeta->registerConstructor(GeometryInstanceIntegration::create);
+	_pMeta->registerClass(GeometryInstanceIntegration::create, &_pMeta);
 
 	domInstance_geometry::_Meta->setMetaIntegration(_pMeta);
 
@@ -855,8 +856,8 @@ void GeometryIntegration::setupGeometry(
     {
         pGeo = iCurrGeo->second;
 
-        pLengthsOut = cast_static<GeoUInt32PropertyPtr>(pGeo->getLengths());
-        pTypesOut   = cast_static<GeoUInt8PropertyPtr >(pGeo->getTypes  ());
+        pLengthsOut = static_cast<GeoUInt32PropertyPtr>(pGeo->getLengths());
+        pTypesOut   = static_cast<GeoUInt8PropertyPtr >(pGeo->getTypes  ());
     }
 
     for(UInt32 i = 0; i < aInput.getCount(); ++i)
@@ -878,7 +879,7 @@ void GeometryIntegration::setupGeometry(
                 &(*(pGeo->getIndex(uiPropIdx))));
 
         vPropVecOut[aInput[i]->getOffset()] =
-            cast_static<GeoUInt32PropertyPtr>(pGeo->getIndex(uiPropIdx));
+            static_cast<GeoUInt32PropertyPtr>(pGeo->getIndex(uiPropIdx));
     }
 
     for(UInt32 i = 0; i < vPropVecOut.size(); i++)
@@ -1109,7 +1110,7 @@ daeMetaElement *GeometryIntegration::registerElement(void)
     _pMeta = new daeMetaElement;
 
     _pMeta->setName("GeometryIntegration");
-	_pMeta->registerConstructor(GeometryIntegration::create);
+	_pMeta->registerClass(GeometryIntegration::create, &_pMeta);
 
 	domGeometry::_Meta->setMetaIntegration(_pMeta);
 
@@ -1224,7 +1225,7 @@ daeMetaElement *SourceIntegration::registerElement(void)
     _pMeta = new daeMetaElement;
 
     _pMeta->setName("SourceIntegration");
-	_pMeta->registerConstructor(SourceIntegration::create);
+	_pMeta->registerClass(SourceIntegration::create, &_pMeta);
 
 	domSource::_Meta->setMetaIntegration(_pMeta);
 
@@ -1684,7 +1685,7 @@ daeMetaElement *EffectIntegration::registerElement(void)
     _pMeta = new daeMetaElement;
 
     _pMeta->setName("EffectIntegration");
-	_pMeta->registerConstructor(EffectIntegration::create);
+	_pMeta->registerClass(EffectIntegration::create, &_pMeta);
 
 	domEffect::_Meta->setMetaIntegration(_pMeta);
 

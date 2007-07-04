@@ -47,9 +47,7 @@
 
 #include "OSGOSGSceneFileType.h"
 
-#ifdef OSG_HAVE_OSGWRITER // CHECK
 #include "OSGOSGWriter.h"
-#endif
 
 #include "OSGOSGLoader.h"
 
@@ -138,10 +136,10 @@ bool OSGSceneFileType::write(const NodePtr      &root,
         return false;
     }
 
-#ifdef OSG_HAVE_OSGWRITER // CHECK
-    OSGWriter writer(os, 4);
+    IndentOutStreamMixin<OutStream> iOStream(os);
+
+    OSGWriter writer(iOStream, 4);
     writer.write(root);
-#endif
 
     return true;
 }

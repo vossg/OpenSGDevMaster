@@ -24,7 +24,7 @@ else:
       # Tests' dependencies
       osg_test_libs = [ 'OSGGroup','OSGDrawable', 'OSGState', 
                         'OSGFileIO', 'OSGText', 'OSGRenderTraversal',
-                        'OSGUtil', 'OSGWindowGLUT' ]   
+                        'OSGUtil', 'OSGWindowGLUT', 'OSGCluster' ]   
       test_cpppath = []
       test_libpath = []
  

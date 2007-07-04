@@ -1,5 +1,24 @@
 #!python
 #
 
-# For now, ignore the collada loader
-stop_traversal = True
+if option_pass:
+    print "Processing option pass"
+else:
+ 
+    collada_option = opts.GetOption("collada")
+    xml2_option    = opts.GetOption("xml2")
+
+    if not collada_option.isAvailable() and not xml2_option.isAvailable():
+        stop_traversal = True
+    else:
+        library = "OSGFileIO"
+        
+        libs.extend(collada_option.library)
+        libs.extend([xml2_option.library] )
+
+        if collada_option.incDir:
+            cpppath.extend(collada_option.incDir)
+
+        if collada_option.libDir:
+            libpath.append(collada_option.libDir)
+

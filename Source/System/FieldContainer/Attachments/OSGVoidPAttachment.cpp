@@ -115,11 +115,12 @@ void *getVoidP(AttachmentContainerPtrConstArg pContainer)
  */
 
 void setVoidP(AttachmentContainerPtrConstArg  pContainer, 
-              void                           *pData)
+              void                           *pData,
+              bool                            bInternal)
 {
     if(pContainer == NullFC)
     {
-        FFATAL(("setName: no container?!?"));
+        FFATAL(("setVoidP: no container?!?"));
         return;
     }
    
@@ -141,13 +142,13 @@ void setVoidP(AttachmentContainerPtrConstArg  pContainer,
 
         if(voidP == NullFC)
         {
-            FFATAL(("setName: Name Attachment is not castable to Name?!?"));
+            FFATAL(("setVoidP: VoidP Attachment is not castable to Name?!?"));
             return;
         }
     }
-    
-  
+     
     voidP->editFieldPtr()->setValue(pData);
+    voidP->setInternal(bInternal);
 }
 
 OSG_END_NAMESPACE

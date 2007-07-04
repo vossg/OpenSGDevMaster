@@ -120,7 +120,8 @@ void *getVoidP(AttachmentContainerPtrConstArg  container);
 
 OSG_SYSTEM_DLLMAPPING
 void  setVoidP(AttachmentContainerPtrConstArg  container, 
-               void                           *pData    );
+               void                           *pData,
+               bool                            bInternal = false);
 
 OSG_END_NAMESPACE
 

@@ -8,6 +8,13 @@ else:
 
    # Tests' dependencies
 
-   osg_test_libs = ['OSGState', 'OSGDrawable', 'OSGUtil', 'OSGWindowGLUT']
+   osg_test_libs = ['OSGState', 'OSGDrawable', 'OSGUtil', 'OSGWindowGLUT', 
+                    'OSGGroup', 'OSGText', 'OSGFileIO']
+
+   vtk_option = opts.GetOption("vtk")
+
+   if vtk_option.isAvailable():
+      osg_test_libs.append('OSGContribVTK')
+
    test_cpppath  = []
    test_libpath  = []

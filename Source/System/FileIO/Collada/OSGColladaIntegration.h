@@ -50,6 +50,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
+#include "OSGConfig.h"
+
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGFileIODef.h"

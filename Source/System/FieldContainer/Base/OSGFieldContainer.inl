@@ -389,7 +389,7 @@ void FieldContainer::onCreateAspect(const FieldContainer *,
 {
     if(source == NULL)
     {
-              BitVector           bCurrent = 0x0001;
+              BitVector           bCurrent = 0x0002;
         const FieldContainerType &pType    = this->getType();
 
         for(UInt32 i = 1; i <= pType.getNumFieldDescs(); ++i)

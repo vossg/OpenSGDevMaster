@@ -527,7 +527,7 @@ void VTKMapper::execute(void)
 
     this->_executeTime.Modified();
         
-    OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
 #endif
 }
 
@@ -566,6 +566,25 @@ void VTKMapper::dump(      UInt32    uiIndent,
                      const BitVector bvFlags ) const
 {
    Inherited::dump(uiIndent, bvFlags);
+
+   indentLog(uiIndent, PLOG);
+   PLOG << "{" << std::endl;
+
+   indentLog(uiIndent + 4, PLOG);
+   PLOG << "Root" << std::endl;
+
+   if(_sfRoot.getValue() != OSGNullFC)
+   {
+       _sfRoot.getValue()->dump(uiIndent + 8, bvFlags);
+   }
+   else
+   {
+       indentLog(uiIndent + 8, PLOG);
+       PLOG << "(NULL)" << std::endl;
+   }
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "}" << std::endl;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -614,22 +633,34 @@ void VTKMapper::resolveLinks(void)
 ActionBase::ResultE VTKMapper::renderEnter(Action *action)
 {
 #ifdef USE_RENDER_TRAVERSAL
-    RenderTraversalAction *pAction = 
+    RenderTraversalAction *pRTAction = 
         dynamic_cast<RenderTraversalAction *>(action);
-#else
-    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 #endif
+    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
     
     this->execute();
 
-    if(pAction == NULL)
+
+    if(pAction == NULL && pRTAction == NULL)
         return ActionBase::Skip;
 
-    pAction->useNodeList();
+    if(pAction!= NULL)
+    {
+        pAction->useNodeList();
 
 //    if(pAction->isVisible(getCPtr(_sfRoot.getValue())))
+        {
+            pAction->addNode(_sfRoot.getValue());
+        }
+    }
+    else if(pRTAction!= NULL)
     {
-        pAction->addNode(_sfRoot.getValue());
+        pRTAction->useNodeList();
+
+//    if(pAction->isVisible(getCPtr(_sfRoot.getValue())))
+        {
+            pRTAction->addNode(_sfRoot.getValue());
+        }
     }
 
     return ActionBase::Continue;

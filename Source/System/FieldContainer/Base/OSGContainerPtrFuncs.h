@@ -206,6 +206,12 @@ void setRefdCP(StoreT  &pTarget,
 {
     setRefd(pTarget, pSource);
 }
+
+template <class OutPtrT> inline
+OutPtrT dynamic_fcptr_cast(FieldContainerPtrConst pPtr)
+{
+    return dynamic_cast<OutPtrT>(pPtr);
+}
 #endif
 
 OSG_END_NAMESPACE

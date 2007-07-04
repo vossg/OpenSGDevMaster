@@ -32,7 +32,8 @@ void display()
     if(!winWidth || !winHeight)
         return;
     try
-    {
+    {                                                       
+        commitChanges();
         server->render(ract);
         // clear changelist from prototypes
         OSG::Thread::getCurrentChangeList()->clear();
@@ -220,6 +221,7 @@ int main(int argc,char **argv)
         glEnable( GL_DEPTH_TEST );
         glEnable( GL_NORMALIZE );
         ract=RenderAction::create();
+//        ract->setFrustumCulling(false);
         window     = GLUTWindow::create();
         window->setGlutId(winid);
         window->init();

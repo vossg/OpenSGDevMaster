@@ -42,6 +42,7 @@ from sets import Set
 from socket import gethostname
 
 import OpenSG.AddOnHacks
+import OpenSG.ColladaOption
 
 from BuildInfoScanner import BuildInfoScanner
 from RevisionTagWriter import RevisionTagWriter
@@ -342,8 +343,6 @@ else:
       if ARGUMENTS.has_key("cxxlib-icc"):
          use_cxxlib_icc = True
 
-      OpenSG.AddOnHacks.apply()
-      
       common_env = Environment(ENV = os.environ,
                                tools=['gnulink', 'intelicc', 'intelicpc', 'doxygen'],
                                cxxlib_icc=use_cxxlib_icc, 
@@ -501,6 +500,20 @@ optional_libs_options["zlib"] = sca_opts.StandardPackageOption(
 optional_libs_options["NVPerfSDK"] = sca_opts.StandardPackageOption(
     "NVPerfSDK", "Location of the NVPerfSDK library", library = "NVPerfSDK",
     header = "NVPerfSDK.h", required = False)
+
+optional_libs_options["collada"] = OpenSG.ColladaOption.ColladaOption(
+    "collada", "Location of the collada dom library", library =
+    ["collada_dae",
+     "collada_LIBXMLPlugin",
+     "collada_STLDatabase",
+     "collada_dom",
+     "collada_stdErrPlugin",
+     "collada_dae"],
+    header = "dae/daeIntegrationObject.h", required = True)
+
+optional_libs_options["xml2"] = sca_opts.StandardPackageOption(
+    "xml2", "Location of the xml2 library", library = "xml2",
+    required = False)
 
 vtk_libs = ['vtkRendering',
             'vtkIO',
@@ -775,6 +788,7 @@ if not SConsAddons.Util.hasHelpFlag():
                 "OSG_WITH_ZLIB"      : optional_libs_options["zlib"].isAvailable(),
                 "OSG_WITH_NVPERFSDK" : optional_libs_options["NVPerfSDK"].isAvailable(),
                 "OSG_WITH_VTK"       : optional_libs_options["vtk"].isAvailable(),
+                "OSG_WITH_COLLADA"   : optional_libs_options["collada"].isAvailable(),
                 "OSG_GV_BETA"        : common_env["enable_gv_beta"]
                }
    if "win32" == platform:   # Win32 specific defines

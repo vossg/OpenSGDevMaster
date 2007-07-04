@@ -23,6 +23,12 @@ else:
                            'OSGUtil']   
          test_cpppath = []
          test_libpath = []
+
+         vtk_option = opts.GetOption("vtk")
+
+         if vtk_option.isAvailable():
+             osg_test_libs.append('OSGContribVTK')
+
    else:
          library = "OSGWindowGLUT"
          osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGWindow']

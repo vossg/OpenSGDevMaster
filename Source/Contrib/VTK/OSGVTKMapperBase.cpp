@@ -153,7 +153,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         "",
         GeoRootsFieldId, GeoRootsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&VTKMapperBase::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getMFGeoRoots));
 
@@ -165,7 +165,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         "",
         GeometriesFieldId, GeometriesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&VTKMapperBase::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getMFGeometries));
 
@@ -177,7 +177,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         "",
         MaterialsFieldId, MaterialsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&VTKMapperBase::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getMFMaterials));
 
@@ -189,7 +189,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         "",
         MaterialChunksFieldId, MaterialChunksFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&VTKMapperBase::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getMFMaterialChunks));
 
@@ -201,7 +201,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         "",
         PositionsFieldId, PositionsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&VTKMapperBase::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getMFPositions));
 
@@ -213,7 +213,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         "",
         LengthFieldId, LengthFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&VTKMapperBase::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getMFLength));
 
@@ -225,7 +225,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         "",
         TypesFieldId, TypesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&VTKMapperBase::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getMFTypes));
 
@@ -237,7 +237,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         "",
         ColorsFieldId, ColorsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&VTKMapperBase::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getMFColors));
 
@@ -249,7 +249,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         "",
         NormalsFieldId, NormalsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&VTKMapperBase::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getMFNormals));
 
@@ -293,6 +293,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -301,6 +302,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -309,6 +311,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -317,6 +320,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -325,6 +329,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -333,6 +338,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -341,6 +347,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -349,6 +356,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -357,6 +365,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",

@@ -16,7 +16,7 @@
 #include <OSGThread.h>
 #include <OSGTransform.h>
 #include <OSGAction.h>
-#include <OSGRenderAction.h>
+#include <OSGRenderTraversalAction.h>
 #include <OSGSimpleGeometry.h>
 #include <OSGSceneFileHandler.h>
 
@@ -33,12 +33,15 @@
 #include "OSGOSGWriter.h"
 #include "OSGChangeList.h"
 #include "OSGIOStream.h"
+#include "OSGGeoFunctions.h"
+#include "OSGGraphOp.h"
+#include "OSGGraphOpFactory.h"
 
 #include "OSGTrackball.h"
 
 using namespace OSG;
 
-RenderAction *renact;
+RenderTraversalAction *rentravact;
 
 NodePtr  root;
 
@@ -99,11 +102,11 @@ display(void)
         cam_trans->editSFMatrix()->setValue( m1 );
     }
 
-    Thread::getCurrentChangeList()->commitChanges();
+    commitChanges();
 
-//    win->render(rentravact);
+    win->render(rentravact);
 
-    win->render(renact);
+//    win->render(renact);
 
 //    std::cerr << "------------- AR START --------------" << std::endl;
 
@@ -203,7 +206,7 @@ void key(unsigned char key, int x, int y)
     {
         case 27:    
             subRef(win);
-            delete renact;
+            delete rentravact;
             osgExit(); 
             exit(0);
         case 'a':   glDisable( GL_LIGHTING );
@@ -353,15 +356,36 @@ int main (int argc, char **argv)
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
 
-        file = makeTorus( .5, 2, 16, 16 );
+        file = makeSphere(4, 2.0);
+
     }
+
+#if 0
+    GeometryPtr pGeo = cast_dynamic<GeometryPtr>(file->getCore());
+    
+    if(pGeo == NullFC && file->getNChildren() != 0)
+    {
+        pGeo = cast_dynamic<GeometryPtr>(file->getChild(0)->getCore());
+    }
+
+    if(pGeo == NullFC)
+    {
+        fprintf(stderr, "no geo\n");
+    }
+#endif
+
+    GraphOp *op = GraphOpFactory::the().create("Stripe");
+
+    op->traverse(file);
+//   createOptimizedPrimitives(pGeo);
+//    createSharedIndex(pGeo);
     
     Thread::getCurrentChangeList()->commitChanges();
     file->updateVolume();
 
 //    file->dump();
 
-#if 0
+#if 1
     char *outFileName = "/tmp/foo.osg";
 
     OSG::IndentFileOutStream outFileStream(outFileName);
@@ -452,7 +476,7 @@ int main (int argc, char **argv)
 
     // Action
     
-    renact = RenderAction::create();
+    rentravact = RenderTraversalAction::create();
 //    renact->setFrustumCulling(false);
 
 
@@ -468,6 +492,8 @@ int main (int argc, char **argv)
     Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
                   min[1] + (max[1] - min[1]) / 2,
                   min[2] + (max[2] - min[2]) / 2);
+
+    fprintf(stderr, "Startpos : %f %f %f\n", pos[0], pos[1], pos[2]);
 
     tball.setMode( Trackball::OSGObject );
     tball.setStartPosition( pos, true );
