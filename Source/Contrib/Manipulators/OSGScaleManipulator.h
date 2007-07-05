@@ -42,9 +42,9 @@
 #pragma once
 #endif
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGScaleManipulatorBase.h>
+#include "OSGScaleManipulatorBase.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -121,7 +121,7 @@ typedef ScaleManipulator *ScaleManipulatorP;
 
 OSG_END_NAMESPACE
 
-#include <OSGScaleManipulatorBase.inl>
-#include <OSGScaleManipulator.inl>
+#include "OSGScaleManipulatorBase.inl"
+#include "OSGScaleManipulator.inl"
 
 #endif /* _OSGSCALEMANIPULATOR_H_ */

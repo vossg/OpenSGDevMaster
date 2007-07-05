@@ -39,9 +39,9 @@
 #ifndef _OSGMANIPULATORMANAGER_H_
 #define _OSGMANIPULATORMANAGER_H_
 
-#include <OSGConfig.h>
-#include <OSGBaseTypes.h>
-#include <OSGNodeFields.h>
+#include "OSGConfig.h"
+#include "OSGBaseTypes.h"
+#include "OSGNodeFields.h"
 
 #include "OSGManipulator.h"
 #include "OSGMoveManipulator.h"

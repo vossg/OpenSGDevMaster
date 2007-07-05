@@ -42,9 +42,9 @@
 #pragma once
 #endif
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGRotateManipulatorBase.h>
+#include "OSGRotateManipulatorBase.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -121,7 +121,7 @@ typedef RotateManipulator *RotateManipulatorP;
 
 OSG_END_NAMESPACE
 
-#include <OSGRotateManipulatorBase.inl>
-#include <OSGRotateManipulator.inl>
+#include "OSGRotateManipulatorBase.inl"
+#include "OSGRotateManipulator.inl"
 
 #endif /* _OSGROTATEMANIPULATOR_H_ */
