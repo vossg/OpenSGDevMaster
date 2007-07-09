@@ -171,37 +171,49 @@ NodePtr ColladaLoader::read(      std::istream  &is,
                 pInput->getDatabase()->getCollection(i)->getDomRoot());
         }
 
+#ifdef OSG_DEBUG_PRINT
         fprintf(stderr, "got dom %p\n", pDom);
+#endif
 
         if(pDom != NULL)
         {
             domCOLLADA::domSceneRef pScene = pDom->getScene();
 
+#ifdef OSG_DEBUG_PRINT
             fprintf(stderr, "got scene %p\n",
                     &*pScene);
+#endif
 
             if(pScene != NULL)
             {
                 daeURI oUri = pScene->getInstance_visual_scene()->getUrl();
 
-
-                fprintf(stderr, "uri %s %d\n", oUri.getURI(), oUri.getState());
+#ifdef OSG_DEBUG_PRINT
+                fprintf(stderr, "uri %s %d\n %s", 
+                        oUri.getURI(), 
+                        oUri.getState(),
+                        oUri.getFile());
+#endif
             
                 daeElementRef pElem = oUri.getElement();
                 
+#ifdef OSG_DEBUG_PRINT
                 fprintf(stderr, "elem %p %s %s\n", 
                         &*pElem, 
                         pElem->getTypeName(),
                         pElem->getElementName());
+#endif
             
                 daeIntegrationObject *pIntegrationObj = pElem->getIntObject();
             
                 VisualSceneIntegration *pSceneInt = 
                     dynamic_cast<VisualSceneIntegration *>(pIntegrationObj);
 
+#ifdef OSG_DEBUG_PRINT
                 fprintf(stderr, "Got int obj %p %p\n", 
                         pIntegrationObj,
                         pSceneInt);
+#endif
                 
                 if(pSceneInt != NULL)
                 {
@@ -211,7 +223,9 @@ NodePtr ColladaLoader::read(      std::istream  &is,
         }
     }
 
+#ifdef OSG_DEBUG_PRINT
     fprintf(stderr, "returnValue %p\n", &(*returnValue));
+#endif
 #endif
 
     return returnValue;
