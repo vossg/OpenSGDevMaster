@@ -633,12 +633,10 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 
         objPos = p[0];
 
-        for(UInt32 i = 1; i < 8; i++)
+        for(UInt32 i = 1; i < 8; ++i)
         {
-            if(p[0][2] < objPos[2])
-            {
-                objPos[2] = p[0][2];
-            }
+            if(p[i][2] < objPos[2])
+                objPos[2] = p[i][2];
         }
         
         //std::cout << objPos[2] << std::endl;
