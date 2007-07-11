@@ -108,6 +108,8 @@ void FieldContainer::subReference(void)
         Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
 #ifdef OSG_MT_CPTR_ASPECT
+        this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
+
         _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
 
         if(_pAspectStore->getRefCount() == 1)
@@ -118,8 +120,9 @@ void FieldContainer::subReference(void)
 
         OSG::subRef(_pAspectStore);
 #else
-        this->deregister(Inherited::getId());
-        this->onDestroy (Inherited::getId());
+        this->deregister     (Inherited::getId()   );
+        this->onDestroyAspect(Inherited::getId(), 0);
+        this->onDestroy      (Inherited::getId()   );
 #endif
 
         delete this;
@@ -150,6 +153,8 @@ void FieldContainer::subReferenceLocalVar(void)
                                                    true);
 
 #ifdef OSG_MT_CPTR_ASPECT
+        this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
+
         _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
 
         if(_pAspectStore->getRefCount() == 1)
@@ -160,8 +165,9 @@ void FieldContainer::subReferenceLocalVar(void)
 
         OSG::subRef(_pAspectStore);
 #else
-        this->deregister(Inherited::getId());
-        this->onDestroy (Inherited::getId());
+        this->deregister     (Inherited::getId()   );
+        this->onDestroyAspect(Inherited::getId(), 0);
+        this->onDestroy      (Inherited::getId()   );
 #endif
 
         delete this;
@@ -382,6 +388,42 @@ void FieldContainer::execSync(      FieldContainer    *pFrom,
     editSField(whichField);
 }
 #endif
+
+inline
+void FieldContainer::subReferenceUnresolved(void)
+{
+    --_iRefCount;
+
+    if(_iRefCount <= 0)
+    {
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+
+#ifdef OSG_MT_CPTR_ASPECT
+        this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
+
+        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
+
+        if(_pAspectStore->getRefCount() == 1)
+        {
+            this->deregister(Inherited::getId());
+            this->onDestroy (Inherited::getId());
+        }
+
+        OSG::subRef(_pAspectStore);
+#else
+        this->deregister     (Inherited::getId()   );
+        this->onDestroyAspect(Inherited::getId(), 0);
+        this->onDestroy      (Inherited::getId()   );
+#endif
+
+        delete this;
+    }
+    else
+    {
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+    }
+
+}
 
 inline
 void FieldContainer::onCreateAspect(const FieldContainer *,

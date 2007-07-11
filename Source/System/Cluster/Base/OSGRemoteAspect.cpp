@@ -101,9 +101,31 @@ RemoteAspect::RemoteAspect(UInt32 aspectId) :
  */
 RemoteAspect::~RemoteAspect(void)
 {
+    FieldContainerFactoryBase *pFactory = FieldContainerFactory::the();
+    IdSetT::iterator           i;
+
+    FieldContainerPtr       fcPtr;
+
+    // subRef received field container
+    for(i = _receivedFC.begin(); i != _receivedFC.end(); i++)
+    {
+        fcPtr = pFactory->getContainer(*i);
+
+        if(fcPtr != NullFC)
+        {
+            callDestroyed(fcPtr);
+
+            do
+            {
+
+                fcPtr->subReferenceUnresolved();
+                fcPtr = pFactory->getContainer(*i);
+
+            } while(fcPtr != NullFC);
+        }
+    }
+
 #if 0
-    FieldContainerFactory   *factory = FieldContainerFactory::the();
-    IdSetT::iterator        i;
     FieldContainerPtr       fcPtr;
     NodePtr                 node;
     WindowPtr               window;

@@ -56,6 +56,7 @@ void display()
         }
         else
         {
+            window->clearPorts();
             // try to restart server
             try
             {

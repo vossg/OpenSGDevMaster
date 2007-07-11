@@ -56,6 +56,7 @@
 OSG_BEGIN_NAMESPACE
 
 class FieldContainerFactoryBase;
+class RemoteAspect;
 
 /*! \ingroup GrpSystemFieldContainer
  */
@@ -322,6 +323,9 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                         Edit                                 */
     /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING
+    void  subReferenceUnresolved(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                MT Construction                               */
@@ -410,6 +414,7 @@ class FieldContainer : public ReflexiveContainer
   private:
 
     friend class FieldContainerFactoryBase;
+    friend class RemoteAspect;
 
     friend struct PointerFuncs;
     friend struct CPointerFuncs;
