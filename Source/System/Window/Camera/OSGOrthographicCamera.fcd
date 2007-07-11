@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="OrthographicCamera"
+	parent="Camera"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+A perspective camera with a symmetric frustum.
+	<Field
+		name="verticalSize"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+	>
+	The vertical size of the camera box, in world units.
+	</Field>
+	<Field
+		name="aspect"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+                defaultValue="1"
+	>
+	The aspect ratio (i.e. width / height) of a pixel.
+	</Field>
+</FieldContainer>
