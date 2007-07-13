@@ -271,6 +271,39 @@ void ClusterWindowBase::setServiceAddress(const std::string &value)
 
     _sfServiceAddress.setValue(value);
 }
+//! Get the value of the ClusterWindow::_sfServiceInterface field.
+
+inline
+std::string &ClusterWindowBase::editServiceInterface(void)
+{
+    editSField(ServiceInterfaceFieldMask);
+
+    return _sfServiceInterface.getValue();
+}
+
+//! Get the value of the ClusterWindow::_sfServiceInterface field.
+inline
+const std::string &ClusterWindowBase::getServiceInterface(void) const
+{
+    return _sfServiceInterface.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+std::string         &ClusterWindowBase::getServiceInterface(void)
+{
+    return this->editServiceInterface();
+}
+#endif
+
+//! Set the value of the ClusterWindow::_sfServiceInterface field.
+inline
+void ClusterWindowBase::setServiceInterface(const std::string &value)
+{
+    editSField(ServiceInterfaceFieldMask);
+
+    _sfServiceInterface.setValue(value);
+}
 
 //! Get the value of the ClusterWindow::_sfClientWindow field.
 inline
@@ -500,6 +533,9 @@ void ClusterWindowBase::execSync (      ClusterWindowBase *pFrom,
 
     if(FieldBits::NoField != (ServiceAddressFieldMask & whichField))
         _sfServiceAddress.syncWith(pFrom->_sfServiceAddress);
+
+    if(FieldBits::NoField != (ServiceInterfaceFieldMask & whichField))
+        _sfServiceInterface.syncWith(pFrom->_sfServiceInterface);
 
     if(FieldBits::NoField != (ClientWindowFieldMask & whichField))
         _sfClientWindow.syncWith(pFrom->_sfClientWindow);

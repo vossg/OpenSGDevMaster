@@ -189,6 +189,12 @@ void RenderOptions::activateOptions(RenderAction *action)
     if(_changed & OcclusionCullingFieldMask)
         action->setOcclusionCulling(getOcclusionCulling());
 
+    if(_changed & OcclusionCullingModeFieldMask)
+        action->setOcclusionCullingMode(getOcclusionCullingMode());
+
+    if(_changed & OcclusionCullingPixelsFieldMask)
+        action->setOcclusionCullingPixels(getOcclusionCullingPixels());
+
     if(_changed & SmallFeatureCullingFieldMask)
         action->setSmallFeatureCulling(getSmallFeatureCulling());
 
@@ -197,6 +203,9 @@ void RenderOptions::activateOptions(RenderAction *action)
 
     if(_changed & SmallFeatureThresholdFieldMask)
         action->setSmallFeatureThreshold(getSmallFeatureThreshold());
+
+    if(_changed & FrustumCullingFieldMask)
+        action->setFrustumCulling(getFrustumCulling());
 
     // we update the gl stuff each frame.
 #if !defined(OSG_WINCE) || OSG_GL_ES_VERSION > 100

@@ -91,6 +91,8 @@ class OSG_CLUSTER_DLLMAPPING ImageComposer : public ImageComposerBase
     /*! \{                                                                 */
 
     virtual void open           (void            );
+    virtual void startFrame     (void            );
+    virtual void startViewport  (ViewportPtr port);
     virtual void composeViewport(ViewportPtr port);
     virtual void composeWindow  (void            );
     virtual void close          (void            );

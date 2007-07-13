@@ -65,9 +65,6 @@ OSG_USING_NAMESPACE
  *
  **/
 
-RemoteAspect::FieldFilterT  RemoteAspect::_fieldFilter;
-std::map<UInt32, UInt32>    RemoteAspect::_clStore;
-
 StatElemDesc<StatTimeElem> RemoteAspect::statSyncTime
     ("remoteSyncTime", "time for scenegraph distribution");
 
@@ -124,57 +121,6 @@ RemoteAspect::~RemoteAspect(void)
             } while(fcPtr != NullFC);
         }
     }
-
-#if 0
-    FieldContainerPtr       fcPtr;
-    NodePtr                 node;
-    WindowPtr               window;
-
-    // subRef received field container
-    for(i = _receivedFC.begin(); i != _receivedFC.end(); i++)
-    {
-        fcPtr = factory->getContainer(*i);
-        if(fcPtr != NullFC)
-        {
-            callDestroyed(fcPtr);
-
-            // currently it is not save to subref all
-            // containers because we don't know whether
-            // they are referenced by other nodes.
-            // It's only save to remove nodes without parents
-            node = NodePtr::dcast(fcPtr);
-            if(node != NullFC)
-            {
-                if(node->getParent() == NullFC)
-                {
-                    do
-                    {
-                        subRefCP(fcPtr);
-                        fcPtr = factory->getContainer(*i);
-                    } while(fcPtr != NullFC);
-                }
-            }
-            window = WindowPtr::dcast(fcPtr);
-            if(window != NullFC)
-            {
-                do
-                {
-                    subRefCP(fcPtr);
-                    fcPtr = factory->getContainer(*i);
-                } while(fcPtr != NullFC);
-            }
-            /*
-            // subref twice because we have two addrefs on reate
-            // It is not possible to subref until the node is removed
-            // because if this node is referenced by another node
-            // then we will have a crash if we try to subref this
-            // other node.
-            subRefCP(fcPtr);
-            subRefCP(fcPtr);
-            */
-        }
-    }
-#endif
 }
 
 /*-------------------------------------------------------------------------*/
@@ -429,7 +375,6 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
 {
     ChangeList::ChangedStoreConstIt     changedI;
 
-    FieldFilterT::iterator              filterI;
     FieldContainerFactoryBase          *fcFactory = 
         FieldContainerFactory::the();
 
@@ -438,9 +383,6 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
     BitVector                           mask;
     UInt8                               cmd;
     std::string                         typeName;
-    FieldMaskMapT::iterator             sentFCI;
-    FieldMaskMapT                       changedMap;
-    FieldMaskMapT::iterator             changedMapI;
     UInt32                              len;
 
     if(_statistics)
@@ -642,109 +584,6 @@ void RemoteAspect::registerChanged(const FieldContainerType &type,
 
 /*! add a new field filter. The given fieldmaks will not be transfered
  */
-
-void RemoteAspect::addFieldFilter( UInt32 typeId,BitVector mask)
-{
-    _fieldFilter[typeId] |= mask;
-}
-
-/*! remove the filter for the given type and mask
- */
-
-void RemoteAspect::subFieldFilter( UInt32 typeId,BitVector mask)
-{
-    _fieldFilter[typeId] &= ~mask;
-}
-
-#if 0
-
-/*! creates a changelist from the store and merges this to the changelist. 
- */
-
-void RemoteAspect::restoreChangeList(ChangeList *tocl)
-{
-    for(clStoreIt i = _clStore.begin(); i != _clStore.end(); ++i)
-    {
-        UInt32 id = (*i).first;
-        FieldContainerPtr fc = FieldContainerFactory::the()->getContainer(id);
-        if(fc != NullFC)
-        {
-            tocl->addCreated(id);
-
-            for(UInt32 j=0;j<(*i).second;++j)
-                tocl->addAddRefd(fc);
-
-            tocl->addChanged(fc, FieldBits::AllFields);
-        }
-    }
-}
-
-/*! store all created, addRefd, subRefd, destroyed into the clStore.
- */
-
-void RemoteAspect::storeChangeList(ChangeList *cl)
-{
-    // created
-    for(ChangeList::idrefd_const_iterator i  = cl->beginCreated(); 
-                                          i != cl->endCreated(); 
-                                        ++i)
-    {
-        clStoreIt ci = _clStore.find(*i);
-
-        if(ci == _clStore.end())
-            _clStore.insert(std::pair<UInt32, UInt32>(*i, 0));
-    }
-
-    // addRef
-    for(ChangeList::idrefd_const_iterator i  = cl->beginAddRefd(); 
-                                          i != cl->endAddRefd(); 
-                                        ++i)
-    {
-        clStoreIt ci = _clStore.find(*i);
-
-        if(ci != _clStore.end())
-            (*ci).second++;
-
-        //else
-        //    FWARNING(("Called addRef on a not created fieldcontainer!\n"));
-    }
-    
-    // subRef
-    for(ChangeList::idrefd_const_iterator i  = cl->beginSubRefd(); 
-                                          i != cl->endSubRefd(); 
-                                        ++i)
-    {
-        clStoreIt ci = _clStore.find(*i);
-
-        if(ci != _clStore.end())
-            (*ci).second--;
-        //else
-        //    FWARNING(("Called subRef on a not created fieldcontainer!\n"));
-    }
-    
-    // destroyed
-    for(ChangeList::idrefd_const_iterator i  = cl->beginDestroyed(); 
-                                          i != cl->endDestroyed  (); 
-                                        ++i)
-    {
-        clStoreIt ci = _clStore.find(*i);
-
-        if(ci != _clStore.end())
-            _clStore.erase(ci);
-    }
-}
-
-#endif
-
-UInt32 RemoteAspect::getStoreSize(void)
-{
-    return _clStore.size();
-}
-
-RemoteAspect::clStoreMap &RemoteAspect::getStore(void)
-{
-    return _clStore;
-}
 
 /*-------------------------------------------------------------------------*/
 /*                          statistics                                     */

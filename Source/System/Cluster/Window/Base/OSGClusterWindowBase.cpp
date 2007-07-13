@@ -109,6 +109,10 @@ OSG_BEGIN_NAMESPACE
     Broadcast or Multicast address used for server search
 */
 
+/*! \var std::string     ClusterWindowBase::_sfServiceInterface
+    Ethernet interface to be used for server search
+*/
+
 /*! \var WindowPtr       ClusterWindowBase::_sfClientWindow
     Window for client rendering
 */
@@ -285,6 +289,28 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         reinterpret_cast<FieldGetMethodSig >(GetSFServiceAddress));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getSFServiceAddress));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_GET_COMPAT
+    typedef const SFString *(ClusterWindowBase::*GetSFServiceInterfaceF)(void) const;
+
+    GetSFServiceInterfaceF GetSFServiceInterface = &ClusterWindowBase::getSFServiceInterface;
+#endif
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "serviceInterface",
+        "Ethernet interface to be used for server search\n",
+        ServiceInterfaceFieldId, ServiceInterfaceFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&ClusterWindowBase::editSFServiceInterface),
+#ifdef OSG_1_GET_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFServiceInterface));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&ClusterWindowBase::getSFServiceInterface));
 #endif
 
     oType.addInitialDesc(pDesc);
@@ -471,6 +497,15 @@ ClusterWindowBase::TypeObject ClusterWindowBase::_type(
     "\tBroadcast or Multicast address used for server search\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t\tname=\"serviceInterface\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tEthernet interface to be used for server search\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t\tname=\"clientWindow\"\n"
     "\t\ttype=\"WindowPtr\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -521,6 +556,25 @@ ClusterWindowBase::TypeObject ClusterWindowBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"filter\"\n"
+    "\t\ttype=\"DisplayFilterForegroundPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDisplay filter foregrounds can be used instead of calibration\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"dirty\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tInternally set for forceing re-initialization of foregrounds\n"
     "\t</Field>\n"
     "-->\n"
     "</FieldContainer>\n",
@@ -677,6 +731,25 @@ const SFString *ClusterWindowBase::getSFServiceAddress(void) const
 SFString            *ClusterWindowBase::getSFServiceAddress (void)
 {
     return this->editSFServiceAddress ();
+}
+#endif
+
+SFString *ClusterWindowBase::editSFServiceInterface(void)
+{
+    editSField(ServiceInterfaceFieldMask);
+
+    return &_sfServiceInterface;
+}
+
+const SFString *ClusterWindowBase::getSFServiceInterface(void) const
+{
+    return &_sfServiceInterface;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFString            *ClusterWindowBase::getSFServiceInterface(void)
+{
+    return this->editSFServiceInterface();
 }
 #endif
 
@@ -1019,6 +1092,10 @@ UInt32 ClusterWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfServiceAddress.getBinSize();
     }
+    if(FieldBits::NoField != (ServiceInterfaceFieldMask & whichField))
+    {
+        returnValue += _sfServiceInterface.getBinSize();
+    }
     if(FieldBits::NoField != (ClientWindowFieldMask & whichField))
     {
         returnValue += _sfClientWindow.getBinSize();
@@ -1076,6 +1153,10 @@ void ClusterWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfServiceAddress.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ServiceInterfaceFieldMask & whichField))
+    {
+        _sfServiceInterface.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ClientWindowFieldMask & whichField))
     {
         _sfClientWindow.copyToBin(pMem);
@@ -1130,6 +1211,10 @@ void ClusterWindowBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ServiceAddressFieldMask & whichField))
     {
         _sfServiceAddress.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ServiceInterfaceFieldMask & whichField))
+    {
+        _sfServiceInterface.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ClientWindowFieldMask & whichField))
     {
@@ -1199,6 +1284,7 @@ ClusterWindowBase::ClusterWindowBase(void) :
     _sfConnectionParams       (),
     _sfServicePort            (UInt32(8437)),
     _sfServiceAddress         (std::string("224.245.211.234")),
+    _sfServiceInterface       (),
     _sfClientWindow           (NullFC),
     _sfInterleave             (UInt32(0)),
     _sfFrameCount             (UInt32(0)),
@@ -1216,6 +1302,7 @@ ClusterWindowBase::ClusterWindowBase(const ClusterWindowBase &source) :
     _sfConnectionParams       (source._sfConnectionParams       ),
     _sfServicePort            (source._sfServicePort            ),
     _sfServiceAddress         (source._sfServiceAddress         ),
+    _sfServiceInterface       (source._sfServiceInterface       ),
     _sfClientWindow           (NullFC),
     _sfInterleave             (source._sfInterleave             ),
     _sfFrameCount             (source._sfFrameCount             ),

@@ -78,6 +78,15 @@ The base class for all windows.
 	Broadcast or Multicast address used for server search
 	</Field>
 	<Field
+		name="serviceInterface"
+		type="std::string"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	Ethernet interface to be used for server search
+	</Field>
+	<Field
 		name="clientWindow"
 		type="WindowPtr"
 		cardinality="single"
@@ -128,6 +137,25 @@ The base class for all windows.
 		visibility="external"
 		access="public"
 	>
+	</Field>
+	<Field
+		name="filter"
+		type="DisplayFilterForegroundPtr"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	Display filter foregrounds can be used instead of calibration
+	</Field>
+	<Field
+		name="dirty"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="false"
+		access="protected"
+	>
+	Internally set for forceing re-initialization of foregrounds
 	</Field>
 -->
 </FieldContainer>

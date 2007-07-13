@@ -116,6 +116,14 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Int32           RenderOptionsBase::_sfOcclusionCullingMode
+    OcclusionStopAndWait (1) or OcclusionMultiFrame (2)
+*/
+
+/*! \var UInt32          RenderOptionsBase::_sfOcclusionCullingPixels
+    culls objects with this number of visible pixels default is zero.
+*/
+
 /*! \var bool            RenderOptionsBase::_sfAntialiasing
     
 */
@@ -132,6 +140,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            RenderOptionsBase::_sfFrustumCulling
+    
+*/
+
 /*! \var bool            RenderOptionsBase::_sfBackfaceCulling
     
 */
@@ -145,6 +157,10 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var UInt32          RenderOptionsBase::_sfSmallFeatureThreshold
+    
+*/
+
+/*! \var bool            RenderOptionsBase::_sfFirstFrame
     
 */
 
@@ -353,6 +369,50 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 #ifdef OSG_1_GET_COMPAT
+    typedef const SFInt32 *(RenderOptionsBase::*GetSFOcclusionCullingModeF)(void) const;
+
+    GetSFOcclusionCullingModeF GetSFOcclusionCullingMode = &RenderOptionsBase::getSFOcclusionCullingMode;
+#endif
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "occlusionCullingMode",
+        "OcclusionStopAndWait (1) or OcclusionMultiFrame (2)\n",
+        OcclusionCullingModeFieldId, OcclusionCullingModeFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFOcclusionCullingMode),
+#ifdef OSG_1_GET_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFOcclusionCullingMode));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFOcclusionCullingMode));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_GET_COMPAT
+    typedef const SFUInt32 *(RenderOptionsBase::*GetSFOcclusionCullingPixelsF)(void) const;
+
+    GetSFOcclusionCullingPixelsF GetSFOcclusionCullingPixels = &RenderOptionsBase::getSFOcclusionCullingPixels;
+#endif
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "occlusionCullingPixels",
+        "culls objects with this number of visible pixels default is zero.\n",
+        OcclusionCullingPixelsFieldId, OcclusionCullingPixelsFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFOcclusionCullingPixels),
+#ifdef OSG_1_GET_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFOcclusionCullingPixels));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFOcclusionCullingPixels));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFAntialiasingF)(void) const;
 
     GetSFAntialiasingF GetSFAntialiasing = &RenderOptionsBase::getSFAntialiasing;
@@ -441,6 +501,28 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 #ifdef OSG_1_GET_COMPAT
+    typedef const SFBool *(RenderOptionsBase::*GetSFFrustumCullingF)(void) const;
+
+    GetSFFrustumCullingF GetSFFrustumCulling = &RenderOptionsBase::getSFFrustumCulling;
+#endif
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "frustumCulling",
+        "",
+        FrustumCullingFieldId, FrustumCullingFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFFrustumCulling),
+#ifdef OSG_1_GET_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFFrustumCulling));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFFrustumCulling));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(RenderOptionsBase::*GetSFBackfaceCullingF)(void) const;
 
     GetSFBackfaceCullingF GetSFBackfaceCulling = &RenderOptionsBase::getSFBackfaceCulling;
@@ -524,6 +606,28 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         reinterpret_cast<FieldGetMethodSig >(GetSFSmallFeatureThreshold));
 #else
         reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFSmallFeatureThreshold));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_GET_COMPAT
+    typedef const SFBool *(RenderOptionsBase::*GetSFFirstFrameF)(void) const;
+
+    GetSFFirstFrameF GetSFFirstFrame = &RenderOptionsBase::getSFFirstFrame;
+#endif
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "firstFrame",
+        "",
+        FirstFrameFieldId, FirstFrameFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editSFFirstFrame),
+#ifdef OSG_1_GET_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFFirstFrame));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getSFFirstFrame));
 #endif
 
     oType.addInitialDesc(pDesc);
@@ -636,6 +740,26 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t\tname=\"occlusionCullingMode\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tOcclusionStopAndWait (1) or OcclusionMultiFrame (2)\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"occlusionCullingPixels\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tculls objects with this number of visible pixels default is zero.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t\tname=\"antialiasing\"\n"
     "\t\ttype=\"bool\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -672,6 +796,15 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t\tname=\"frustumCulling\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t\tname=\"backfaceCulling\"\n"
     "\t\ttype=\"bool\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -701,6 +834,15 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     "\t\ttype=\"UInt32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"firstFrame\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -899,6 +1041,44 @@ SFBool              *RenderOptionsBase::getSFOcclusionCulling(void)
 }
 #endif
 
+SFInt32 *RenderOptionsBase::editSFOcclusionCullingMode(void)
+{
+    editSField(OcclusionCullingModeFieldMask);
+
+    return &_sfOcclusionCullingMode;
+}
+
+const SFInt32 *RenderOptionsBase::getSFOcclusionCullingMode(void) const
+{
+    return &_sfOcclusionCullingMode;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFInt32             *RenderOptionsBase::getSFOcclusionCullingMode(void)
+{
+    return this->editSFOcclusionCullingMode();
+}
+#endif
+
+SFUInt32 *RenderOptionsBase::editSFOcclusionCullingPixels(void)
+{
+    editSField(OcclusionCullingPixelsFieldMask);
+
+    return &_sfOcclusionCullingPixels;
+}
+
+const SFUInt32 *RenderOptionsBase::getSFOcclusionCullingPixels(void) const
+{
+    return &_sfOcclusionCullingPixels;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFUInt32            *RenderOptionsBase::getSFOcclusionCullingPixels(void)
+{
+    return this->editSFOcclusionCullingPixels();
+}
+#endif
+
 SFBool *RenderOptionsBase::editSFAntialiasing(void)
 {
     editSField(AntialiasingFieldMask);
@@ -972,6 +1152,25 @@ const SFUInt32 *RenderOptionsBase::getSFAntialiasingTrigger(void) const
 SFUInt32            *RenderOptionsBase::getSFAntialiasingTrigger(void)
 {
     return this->editSFAntialiasingTrigger();
+}
+#endif
+
+SFBool *RenderOptionsBase::editSFFrustumCulling(void)
+{
+    editSField(FrustumCullingFieldMask);
+
+    return &_sfFrustumCulling;
+}
+
+const SFBool *RenderOptionsBase::getSFFrustumCulling(void) const
+{
+    return &_sfFrustumCulling;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFBool              *RenderOptionsBase::getSFFrustumCulling (void)
+{
+    return this->editSFFrustumCulling ();
 }
 #endif
 
@@ -1051,6 +1250,25 @@ SFUInt32            *RenderOptionsBase::getSFSmallFeatureThreshold(void)
 }
 #endif
 
+SFBool *RenderOptionsBase::editSFFirstFrame(void)
+{
+    editSField(FirstFrameFieldMask);
+
+    return &_sfFirstFrame;
+}
+
+const SFBool *RenderOptionsBase::getSFFirstFrame(void) const
+{
+    return &_sfFirstFrame;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFBool              *RenderOptionsBase::getSFFirstFrame     (void)
+{
+    return this->editSFFirstFrame     ();
+}
+#endif
+
 
 
 
@@ -1097,6 +1315,14 @@ UInt32 RenderOptionsBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfOcclusionCulling.getBinSize();
     }
+    if(FieldBits::NoField != (OcclusionCullingModeFieldMask & whichField))
+    {
+        returnValue += _sfOcclusionCullingMode.getBinSize();
+    }
+    if(FieldBits::NoField != (OcclusionCullingPixelsFieldMask & whichField))
+    {
+        returnValue += _sfOcclusionCullingPixels.getBinSize();
+    }
     if(FieldBits::NoField != (AntialiasingFieldMask & whichField))
     {
         returnValue += _sfAntialiasing.getBinSize();
@@ -1113,6 +1339,10 @@ UInt32 RenderOptionsBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfAntialiasingTrigger.getBinSize();
     }
+    if(FieldBits::NoField != (FrustumCullingFieldMask & whichField))
+    {
+        returnValue += _sfFrustumCulling.getBinSize();
+    }
     if(FieldBits::NoField != (BackfaceCullingFieldMask & whichField))
     {
         returnValue += _sfBackfaceCulling.getBinSize();
@@ -1128,6 +1358,10 @@ UInt32 RenderOptionsBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (SmallFeatureThresholdFieldMask & whichField))
     {
         returnValue += _sfSmallFeatureThreshold.getBinSize();
+    }
+    if(FieldBits::NoField != (FirstFrameFieldMask & whichField))
+    {
+        returnValue += _sfFirstFrame.getBinSize();
     }
 
     return returnValue;
@@ -1174,6 +1408,14 @@ void RenderOptionsBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfOcclusionCulling.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (OcclusionCullingModeFieldMask & whichField))
+    {
+        _sfOcclusionCullingMode.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (OcclusionCullingPixelsFieldMask & whichField))
+    {
+        _sfOcclusionCullingPixels.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (AntialiasingFieldMask & whichField))
     {
         _sfAntialiasing.copyToBin(pMem);
@@ -1190,6 +1432,10 @@ void RenderOptionsBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfAntialiasingTrigger.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (FrustumCullingFieldMask & whichField))
+    {
+        _sfFrustumCulling.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (BackfaceCullingFieldMask & whichField))
     {
         _sfBackfaceCulling.copyToBin(pMem);
@@ -1205,6 +1451,10 @@ void RenderOptionsBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (SmallFeatureThresholdFieldMask & whichField))
     {
         _sfSmallFeatureThreshold.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (FirstFrameFieldMask & whichField))
+    {
+        _sfFirstFrame.copyToBin(pMem);
     }
 }
 
@@ -1249,6 +1499,14 @@ void RenderOptionsBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfOcclusionCulling.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (OcclusionCullingModeFieldMask & whichField))
+    {
+        _sfOcclusionCullingMode.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (OcclusionCullingPixelsFieldMask & whichField))
+    {
+        _sfOcclusionCullingPixels.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (AntialiasingFieldMask & whichField))
     {
         _sfAntialiasing.copyFromBin(pMem);
@@ -1265,6 +1523,10 @@ void RenderOptionsBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfAntialiasingTrigger.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (FrustumCullingFieldMask & whichField))
+    {
+        _sfFrustumCulling.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (BackfaceCullingFieldMask & whichField))
     {
         _sfBackfaceCulling.copyFromBin(pMem);
@@ -1280,6 +1542,10 @@ void RenderOptionsBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (SmallFeatureThresholdFieldMask & whichField))
     {
         _sfSmallFeatureThreshold.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FirstFrameFieldMask & whichField))
+    {
+        _sfFirstFrame.copyFromBin(pMem);
     }
 }
 
@@ -1331,14 +1597,18 @@ RenderOptionsBase::RenderOptionsBase(void) :
     _sfLocalLights            (bool(true)),
     _sfCorrectTwoSidedLighting(bool(true)),
     _sfOcclusionCulling       (bool(false)),
+    _sfOcclusionCullingMode   (Int32(1)),
+    _sfOcclusionCullingPixels (UInt32(0)),
     _sfAntialiasing           (bool(false)),
     _sfAntialiasingDistance   (Real32(0.2)),
     _sfAntialiasingScale      (Real32(2.0)),
     _sfAntialiasingTrigger    (UInt32(0)),
+    _sfFrustumCulling         (bool(false)),
     _sfBackfaceCulling        (bool(false)),
     _sfSmallFeatureCulling    (),
     _sfSmallFeaturePixels     (),
-    _sfSmallFeatureThreshold  ()
+    _sfSmallFeatureThreshold  (),
+    _sfFirstFrame             (bool(true))
 {
 }
 
@@ -1353,14 +1623,18 @@ RenderOptionsBase::RenderOptionsBase(const RenderOptionsBase &source) :
     _sfLocalLights            (source._sfLocalLights            ),
     _sfCorrectTwoSidedLighting(source._sfCorrectTwoSidedLighting),
     _sfOcclusionCulling       (source._sfOcclusionCulling       ),
+    _sfOcclusionCullingMode   (source._sfOcclusionCullingMode   ),
+    _sfOcclusionCullingPixels (source._sfOcclusionCullingPixels ),
     _sfAntialiasing           (source._sfAntialiasing           ),
     _sfAntialiasingDistance   (source._sfAntialiasingDistance   ),
     _sfAntialiasingScale      (source._sfAntialiasingScale      ),
     _sfAntialiasingTrigger    (source._sfAntialiasingTrigger    ),
+    _sfFrustumCulling         (source._sfFrustumCulling         ),
     _sfBackfaceCulling        (source._sfBackfaceCulling        ),
     _sfSmallFeatureCulling    (source._sfSmallFeatureCulling    ),
     _sfSmallFeaturePixels     (source._sfSmallFeaturePixels     ),
-    _sfSmallFeatureThreshold  (source._sfSmallFeatureThreshold  )
+    _sfSmallFeatureThreshold  (source._sfSmallFeatureThreshold  ),
+    _sfFirstFrame             (source._sfFirstFrame             )
 {
 }
 

@@ -120,7 +120,7 @@ ClusterServer::ClusterServer(           WindowPtr  window,
     // default is hostname
     if(_serviceName.empty())
     {
-        gethostname(localhost,255);
+        osgGetHostname(localhost,255);
         _serviceName = localhost;
     }
     // if service contains ":" than treat as address

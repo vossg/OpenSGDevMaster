@@ -132,6 +132,19 @@ void ImageComposer::open(void)
 {
 }
 
+/*! called after sync, before rendering
+ */
+void ImageComposer::startFrame(void)
+{
+}
+
+/*! called before rendering to a viewport. This can be used to
+  synchronize some actions during rendering
+ */
+void ImageComposer::startViewport(ViewportPtr)
+{
+}
+
 /*! compose singel viewport
  */
 void ImageComposer::composeViewport(ViewportPtr port)

@@ -138,8 +138,13 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     /*! \name                   Calibration                                */
     /*! \{                                                                 */
 
+#if 0
     bool loadCalibration(std::istream &in);
     bool saveCalibration(std::ostream &out);
+
+    bool loadFilter(std::istream &in);
+    bool updateFilter(WindowPtr window, UInt32 id, RenderActionBase *action);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -226,7 +231,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     /*! \{                                                                 */
 
     connectioncbfp  _connectionFP;
-    ClusterNetwork*_network;
+    ClusterNetwork *_network;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

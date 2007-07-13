@@ -50,13 +50,6 @@
 #include "OSGStatElemTypes.h"
 #include "OSGFieldContainerFactory.h"
 
-/*
-#include "OSGConnection.h"
-#include "OSGFieldContainerPtr.h"
-#include "OSGChangeList.h"
-#include "OSGStatCollector.h"
- */
-
 OSG_BEGIN_NAMESPACE
 
 class Connection;
@@ -84,13 +77,6 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     };
 
     /** functor called for changed containers **/
-/*
-    typedef ArgsCollector<RemoteAspect *> FunctorArgs;
-    typedef TypedFunctor2Base<bool, 
-                              CPtrRefCallArg<FieldContainerPtr>, 
-                              FunctorArgs                      > Functor;
- */
-
     typedef boost::function<bool (FieldContainerPtrConstArg, 
                                   RemoteAspect             *)> Functor;
 
@@ -106,13 +92,6 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
 
     /** id set **/
     typedef std::set<UInt32>           IdSetT;
-
-    /** Field filter map **/
-    typedef std::map<UInt32,BitVector> FieldFilterT;
-    typedef std::map<UInt32,BitVector> FieldMaskMapT;
-
-    typedef std::map<UInt32, UInt32>   clStoreMap;
-    typedef clStoreMap::iterator       clStoreIt;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -141,18 +120,6 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     /*---------------------------------------------------------------------*/
     /*! \name               Static Remote aspect functionaliy              */
     /*! \{                                                                 */
-
-    static void addFieldFilter   (UInt32    typeId,
-                                  BitVector mask   );
-    static void subFieldFilter   (UInt32    typeId,
-                                  BitVector mask   );
-#if 0
-    static void restoreChangeList(ChangeList *tocl);
-    static void storeChangeList  (ChangeList *cl  );
-#endif
-    static UInt32 getStoreSize   (void            );
-
-    static clStoreMap &getStore  (void            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -192,20 +159,11 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
 
     UInt32                            _remoteAspectId;
 
-#if 0
-    /** mapped fieldcontainer with mask **/
-    std::map<UInt32,BitVector>        _sentFC;
-#endif
-
-    /** fild filter **/
-    static FieldFilterT               _fieldFilter;
     std::vector<Functor>              _createdFunctors;
     std::vector<Functor>              _destroyedFunctors;
     std::vector<Functor>              _changedFunctors;
     StatCollector                    *_statistics;
 
-    static std::map<UInt32, UInt32>   _clStore;
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 protected helper functions                   */

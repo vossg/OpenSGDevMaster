@@ -370,6 +370,72 @@ void RenderOptionsBase::setOcclusionCulling(const bool &value)
 
     _sfOcclusionCulling.setValue(value);
 }
+//! Get the value of the RenderOptions::_sfOcclusionCullingMode field.
+
+inline
+Int32 &RenderOptionsBase::editOcclusionCullingMode(void)
+{
+    editSField(OcclusionCullingModeFieldMask);
+
+    return _sfOcclusionCullingMode.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfOcclusionCullingMode field.
+inline
+const Int32 &RenderOptionsBase::getOcclusionCullingMode(void) const
+{
+    return _sfOcclusionCullingMode.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+Int32               &RenderOptionsBase::getOcclusionCullingMode(void)
+{
+    return this->editOcclusionCullingMode();
+}
+#endif
+
+//! Set the value of the RenderOptions::_sfOcclusionCullingMode field.
+inline
+void RenderOptionsBase::setOcclusionCullingMode(const Int32 &value)
+{
+    editSField(OcclusionCullingModeFieldMask);
+
+    _sfOcclusionCullingMode.setValue(value);
+}
+//! Get the value of the RenderOptions::_sfOcclusionCullingPixels field.
+
+inline
+UInt32 &RenderOptionsBase::editOcclusionCullingPixels(void)
+{
+    editSField(OcclusionCullingPixelsFieldMask);
+
+    return _sfOcclusionCullingPixels.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfOcclusionCullingPixels field.
+inline
+const UInt32 &RenderOptionsBase::getOcclusionCullingPixels(void) const
+{
+    return _sfOcclusionCullingPixels.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+UInt32              &RenderOptionsBase::getOcclusionCullingPixels(void)
+{
+    return this->editOcclusionCullingPixels();
+}
+#endif
+
+//! Set the value of the RenderOptions::_sfOcclusionCullingPixels field.
+inline
+void RenderOptionsBase::setOcclusionCullingPixels(const UInt32 &value)
+{
+    editSField(OcclusionCullingPixelsFieldMask);
+
+    _sfOcclusionCullingPixels.setValue(value);
+}
 //! Get the value of the RenderOptions::_sfAntialiasing field.
 
 inline
@@ -501,6 +567,39 @@ void RenderOptionsBase::setAntialiasingTrigger(const UInt32 &value)
     editSField(AntialiasingTriggerFieldMask);
 
     _sfAntialiasingTrigger.setValue(value);
+}
+//! Get the value of the RenderOptions::_sfFrustumCulling field.
+
+inline
+bool &RenderOptionsBase::editFrustumCulling(void)
+{
+    editSField(FrustumCullingFieldMask);
+
+    return _sfFrustumCulling.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfFrustumCulling field.
+inline
+const bool &RenderOptionsBase::getFrustumCulling(void) const
+{
+    return _sfFrustumCulling.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+bool                &RenderOptionsBase::getFrustumCulling (void)
+{
+    return this->editFrustumCulling ();
+}
+#endif
+
+//! Set the value of the RenderOptions::_sfFrustumCulling field.
+inline
+void RenderOptionsBase::setFrustumCulling(const bool &value)
+{
+    editSField(FrustumCullingFieldMask);
+
+    _sfFrustumCulling.setValue(value);
 }
 //! Get the value of the RenderOptions::_sfBackfaceCulling field.
 
@@ -634,6 +733,39 @@ void RenderOptionsBase::setSmallFeatureThreshold(const UInt32 &value)
 
     _sfSmallFeatureThreshold.setValue(value);
 }
+//! Get the value of the RenderOptions::_sfFirstFrame field.
+
+inline
+bool &RenderOptionsBase::editFirstFrame(void)
+{
+    editSField(FirstFrameFieldMask);
+
+    return _sfFirstFrame.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfFirstFrame field.
+inline
+const bool &RenderOptionsBase::getFirstFrame(void) const
+{
+    return _sfFirstFrame.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+bool                &RenderOptionsBase::getFirstFrame     (void)
+{
+    return this->editFirstFrame     ();
+}
+#endif
+
+//! Set the value of the RenderOptions::_sfFirstFrame field.
+inline
+void RenderOptionsBase::setFirstFrame(const bool &value)
+{
+    editSField(FirstFrameFieldMask);
+
+    _sfFirstFrame.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -673,6 +805,12 @@ void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
     if(FieldBits::NoField != (OcclusionCullingFieldMask & whichField))
         _sfOcclusionCulling.syncWith(pFrom->_sfOcclusionCulling);
 
+    if(FieldBits::NoField != (OcclusionCullingModeFieldMask & whichField))
+        _sfOcclusionCullingMode.syncWith(pFrom->_sfOcclusionCullingMode);
+
+    if(FieldBits::NoField != (OcclusionCullingPixelsFieldMask & whichField))
+        _sfOcclusionCullingPixels.syncWith(pFrom->_sfOcclusionCullingPixels);
+
     if(FieldBits::NoField != (AntialiasingFieldMask & whichField))
         _sfAntialiasing.syncWith(pFrom->_sfAntialiasing);
 
@@ -685,6 +823,9 @@ void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
     if(FieldBits::NoField != (AntialiasingTriggerFieldMask & whichField))
         _sfAntialiasingTrigger.syncWith(pFrom->_sfAntialiasingTrigger);
 
+    if(FieldBits::NoField != (FrustumCullingFieldMask & whichField))
+        _sfFrustumCulling.syncWith(pFrom->_sfFrustumCulling);
+
     if(FieldBits::NoField != (BackfaceCullingFieldMask & whichField))
         _sfBackfaceCulling.syncWith(pFrom->_sfBackfaceCulling);
 
@@ -696,6 +837,9 @@ void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
 
     if(FieldBits::NoField != (SmallFeatureThresholdFieldMask & whichField))
         _sfSmallFeatureThreshold.syncWith(pFrom->_sfSmallFeatureThreshold);
+
+    if(FieldBits::NoField != (FirstFrameFieldMask & whichField))
+        _sfFirstFrame.syncWith(pFrom->_sfFirstFrame);
 }
 #endif
 

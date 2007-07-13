@@ -74,14 +74,18 @@
 #include "OSGBoolFields.h" // LocalLights type
 #include "OSGBoolFields.h" // CorrectTwoSidedLighting type
 #include "OSGBoolFields.h" // OcclusionCulling type
+#include "OSGInt32Fields.h" // OcclusionCullingMode type
+#include "OSGUInt32Fields.h" // OcclusionCullingPixels type
 #include "OSGBoolFields.h" // Antialiasing type
 #include "OSGReal32Fields.h" // AntialiasingDistance type
 #include "OSGReal32Fields.h" // AntialiasingScale type
 #include "OSGUInt32Fields.h" // AntialiasingTrigger type
+#include "OSGBoolFields.h" // FrustumCulling type
 #include "OSGBoolFields.h" // BackfaceCulling type
 #include "OSGBoolFields.h" // SmallFeatureCulling type
 #include "OSGReal32Fields.h" // SmallFeaturePixels type
 #include "OSGUInt32Fields.h" // SmallFeatureThreshold type
+#include "OSGBoolFields.h" // FirstFrame type
 
 #include "OSGRenderOptionsFields.h"
 
@@ -118,15 +122,19 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
         LocalLightsFieldId = ZWriteTransFieldId + 1,
         CorrectTwoSidedLightingFieldId = LocalLightsFieldId + 1,
         OcclusionCullingFieldId = CorrectTwoSidedLightingFieldId + 1,
-        AntialiasingFieldId = OcclusionCullingFieldId + 1,
+        OcclusionCullingModeFieldId = OcclusionCullingFieldId + 1,
+        OcclusionCullingPixelsFieldId = OcclusionCullingModeFieldId + 1,
+        AntialiasingFieldId = OcclusionCullingPixelsFieldId + 1,
         AntialiasingDistanceFieldId = AntialiasingFieldId + 1,
         AntialiasingScaleFieldId = AntialiasingDistanceFieldId + 1,
         AntialiasingTriggerFieldId = AntialiasingScaleFieldId + 1,
-        BackfaceCullingFieldId = AntialiasingTriggerFieldId + 1,
+        FrustumCullingFieldId = AntialiasingTriggerFieldId + 1,
+        BackfaceCullingFieldId = FrustumCullingFieldId + 1,
         SmallFeatureCullingFieldId = BackfaceCullingFieldId + 1,
         SmallFeaturePixelsFieldId = SmallFeatureCullingFieldId + 1,
         SmallFeatureThresholdFieldId = SmallFeaturePixelsFieldId + 1,
-        NextFieldId = SmallFeatureThresholdFieldId + 1
+        FirstFrameFieldId = SmallFeatureThresholdFieldId + 1,
+        NextFieldId = FirstFrameFieldId + 1
     };
 
     static const OSG::BitVector StatisticFieldMask =
@@ -147,6 +155,10 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
         (TypeTraits<BitVector>::One << CorrectTwoSidedLightingFieldId);
     static const OSG::BitVector OcclusionCullingFieldMask =
         (TypeTraits<BitVector>::One << OcclusionCullingFieldId);
+    static const OSG::BitVector OcclusionCullingModeFieldMask =
+        (TypeTraits<BitVector>::One << OcclusionCullingModeFieldId);
+    static const OSG::BitVector OcclusionCullingPixelsFieldMask =
+        (TypeTraits<BitVector>::One << OcclusionCullingPixelsFieldId);
     static const OSG::BitVector AntialiasingFieldMask =
         (TypeTraits<BitVector>::One << AntialiasingFieldId);
     static const OSG::BitVector AntialiasingDistanceFieldMask =
@@ -155,6 +167,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
         (TypeTraits<BitVector>::One << AntialiasingScaleFieldId);
     static const OSG::BitVector AntialiasingTriggerFieldMask =
         (TypeTraits<BitVector>::One << AntialiasingTriggerFieldId);
+    static const OSG::BitVector FrustumCullingFieldMask =
+        (TypeTraits<BitVector>::One << FrustumCullingFieldId);
     static const OSG::BitVector BackfaceCullingFieldMask =
         (TypeTraits<BitVector>::One << BackfaceCullingFieldId);
     static const OSG::BitVector SmallFeatureCullingFieldMask =
@@ -163,6 +177,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
         (TypeTraits<BitVector>::One << SmallFeaturePixelsFieldId);
     static const OSG::BitVector SmallFeatureThresholdFieldMask =
         (TypeTraits<BitVector>::One << SmallFeatureThresholdFieldId);
+    static const OSG::BitVector FirstFrameFieldMask =
+        (TypeTraits<BitVector>::One << FirstFrameFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -245,6 +261,18 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
             const SFBool              *getSFOcclusionCulling (void) const;
 
 #ifdef OSG_1_GET_COMPAT
+                  SFInt32             *getSFOcclusionCullingMode (void);
+#endif
+                  SFInt32             *editSFOcclusionCullingMode(void);
+            const SFInt32             *getSFOcclusionCullingMode (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFUInt32            *getSFOcclusionCullingPixels (void);
+#endif
+                  SFUInt32            *editSFOcclusionCullingPixels(void);
+            const SFUInt32            *getSFOcclusionCullingPixels (void) const;
+
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFAntialiasing    (void);
 #endif
                   SFBool              *editSFAntialiasing   (void);
@@ -269,6 +297,12 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
             const SFUInt32            *getSFAntialiasingTrigger (void) const;
 
 #ifdef OSG_1_GET_COMPAT
+                  SFBool              *getSFFrustumCulling  (void);
+#endif
+                  SFBool              *editSFFrustumCulling (void);
+            const SFBool              *getSFFrustumCulling  (void) const;
+
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFBackfaceCulling (void);
 #endif
                   SFBool              *editSFBackfaceCulling(void);
@@ -291,6 +325,12 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
 #endif
                   SFUInt32            *editSFSmallFeatureThreshold(void);
             const SFUInt32            *getSFSmallFeatureThreshold (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFBool              *getSFFirstFrame      (void);
+#endif
+                  SFBool              *editSFFirstFrame     (void);
+            const SFBool              *getSFFirstFrame      (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -348,6 +388,18 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
             const bool                &getOcclusionCulling (void) const;
 
 #ifdef OSG_1_GET_COMPAT
+                  Int32               &getOcclusionCullingMode (void);
+#endif
+                  Int32               &editOcclusionCullingMode(void);
+            const Int32               &getOcclusionCullingMode (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  UInt32              &getOcclusionCullingPixels (void);
+#endif
+                  UInt32              &editOcclusionCullingPixels(void);
+            const UInt32              &getOcclusionCullingPixels (void) const;
+
+#ifdef OSG_1_GET_COMPAT
                   bool                &getAntialiasing    (void);
 #endif
                   bool                &editAntialiasing   (void);
@@ -370,6 +422,12 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
 #endif
                   UInt32              &editAntialiasingTrigger(void);
             const UInt32              &getAntialiasingTrigger (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  bool                &getFrustumCulling  (void);
+#endif
+                  bool                &editFrustumCulling (void);
+            const bool                &getFrustumCulling  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getBackfaceCulling (void);
@@ -395,6 +453,12 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
                   UInt32              &editSmallFeatureThreshold(void);
             const UInt32              &getSmallFeatureThreshold (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  bool                &getFirstFrame      (void);
+#endif
+                  bool                &editFirstFrame     (void);
+            const bool                &getFirstFrame      (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -409,14 +473,18 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
             void setLocalLights    (const bool &value);
             void setCorrectTwoSidedLighting(const bool &value);
             void setOcclusionCulling(const bool &value);
+            void setOcclusionCullingMode(const Int32 &value);
+            void setOcclusionCullingPixels(const UInt32 &value);
             void setAntialiasing   (const bool &value);
             void setAntialiasingDistance(const Real32 &value);
             void setAntialiasingScale(const Real32 &value);
             void setAntialiasingTrigger(const UInt32 &value);
+            void setFrustumCulling (const bool &value);
             void setBackfaceCulling(const bool &value);
             void setSmallFeatureCulling(const bool &value);
             void setSmallFeaturePixels(const Real32 &value);
             void setSmallFeatureThreshold(const UInt32 &value);
+            void setFirstFrame     (const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -473,14 +541,18 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     SFBool            _sfLocalLights;
     SFBool            _sfCorrectTwoSidedLighting;
     SFBool            _sfOcclusionCulling;
+    SFInt32           _sfOcclusionCullingMode;
+    SFUInt32          _sfOcclusionCullingPixels;
     SFBool            _sfAntialiasing;
     SFReal32          _sfAntialiasingDistance;
     SFReal32          _sfAntialiasingScale;
     SFUInt32          _sfAntialiasingTrigger;
+    SFBool            _sfFrustumCulling;
     SFBool            _sfBackfaceCulling;
     SFBool            _sfSmallFeatureCulling;
     SFReal32          _sfSmallFeaturePixels;
     SFUInt32          _sfSmallFeatureThreshold;
+    SFBool            _sfFirstFrame;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

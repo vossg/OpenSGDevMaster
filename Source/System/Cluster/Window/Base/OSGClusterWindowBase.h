@@ -72,6 +72,7 @@
 #include "OSGStringFields.h" // ConnectionParams type
 #include "OSGUInt32Fields.h" // ServicePort type
 #include "OSGStringFields.h" // ServiceAddress type
+#include "OSGStringFields.h" // ServiceInterface type
 #include "OSGWindowFields.h" // ClientWindow type
 #include "OSGUInt32Fields.h" // Interleave type
 #include "OSGUInt32Fields.h" // FrameCount type
@@ -111,7 +112,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
         ConnectionParamsFieldId = ConnectionDestinationFieldId + 1,
         ServicePortFieldId = ConnectionParamsFieldId + 1,
         ServiceAddressFieldId = ServicePortFieldId + 1,
-        ClientWindowFieldId = ServiceAddressFieldId + 1,
+        ServiceInterfaceFieldId = ServiceAddressFieldId + 1,
+        ClientWindowFieldId = ServiceInterfaceFieldId + 1,
         InterleaveFieldId = ClientWindowFieldId + 1,
         FrameCountFieldId = InterleaveFieldId + 1,
         ComposerFieldId = FrameCountFieldId + 1,
@@ -133,6 +135,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
         (TypeTraits<BitVector>::One << ServicePortFieldId);
     static const OSG::BitVector ServiceAddressFieldMask =
         (TypeTraits<BitVector>::One << ServiceAddressFieldId);
+    static const OSG::BitVector ServiceInterfaceFieldMask =
+        (TypeTraits<BitVector>::One << ServiceInterfaceFieldId);
     static const OSG::BitVector ClientWindowFieldMask =
         (TypeTraits<BitVector>::One << ClientWindowFieldId);
     static const OSG::BitVector InterleaveFieldMask =
@@ -211,6 +215,12 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
 #endif
                   SFString            *editSFServiceAddress (void);
             const SFString            *getSFServiceAddress  (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFString            *getSFServiceInterface (void);
+#endif
+                  SFString            *editSFServiceInterface(void);
+            const SFString            *getSFServiceInterface (void) const;
             const SFWindowPtr         *getSFClientWindow    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
@@ -278,6 +288,12 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
                   std::string         &editServiceAddress (void);
             const std::string         &getServiceAddress  (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  std::string         &getServiceInterface (void);
+#endif
+                  std::string         &editServiceInterface(void);
+            const std::string         &getServiceInterface (void) const;
+
                   WindowPtrConst getClientWindow   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
@@ -314,6 +330,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
             void setConnectionParams(const std::string &value);
             void setServicePort    (const UInt32 &value);
             void setServiceAddress (const std::string &value);
+            void setServiceInterface(const std::string &value);
             void setClientWindow   (WindowPtrConstArg value);
             void setInterleave     (const UInt32 &value);
             void setFrameCount     (const UInt32 &value);
@@ -426,6 +443,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     SFString          _sfConnectionParams;
     SFUInt32          _sfServicePort;
     SFString          _sfServiceAddress;
+    SFString          _sfServiceInterface;
     SFWindowPtr       _sfClientWindow;
     SFUInt32          _sfInterleave;
     SFUInt32          _sfFrameCount;
