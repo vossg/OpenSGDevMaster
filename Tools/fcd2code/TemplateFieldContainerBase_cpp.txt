@@ -498,6 +498,23 @@ void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ConstArg value)
 }
 
         @@endif // field.writePushToField
+        @@if field.writeAssignMField
+void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:15!@ &value)
+{
+    @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:15!@::const_iterator elemIt  =
+        value.begin();
+    @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:15!@::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->@!field.PushToField!@(*elemIt);
+
+        ++elemIt;
+    }
+}
+
+        @@endif // field.writeAssignMField
         @@if field.writeInsertIntoMField
 void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32                uiIndex,
                                                    @!field.Type!@ConstArg value   )

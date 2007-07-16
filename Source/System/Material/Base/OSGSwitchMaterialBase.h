@@ -188,6 +188,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*! \{                                                                 */
 
     void pushToMaterials           (MaterialPtrConstArg value   );
+    void assignMaterials           (const MFMaterialPtr     &value);
     void insertIntoMaterials      (UInt32                uiIndex,
                                              MaterialPtrConstArg value   );
     void replaceInMaterials  (UInt32                uiIndex,

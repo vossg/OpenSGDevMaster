@@ -858,6 +858,21 @@ void VTKMapperBase::pushToGeoRoots(NodePtrConstArg value)
     _mfGeoRoots.push_back(value);
 }
 
+void VTKMapperBase::assignGeoRoots (const MFNodePtr         &value)
+{
+    MFNodePtr        ::const_iterator elemIt  =
+        value.begin();
+    MFNodePtr        ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToGeoRoots(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void VTKMapperBase::insertIntoGeoRoots(UInt32                uiIndex,
                                                    NodePtrConstArg value   )
 {
@@ -976,6 +991,21 @@ void VTKMapperBase::pushToGeometries(GeometryPtrConstArg value)
     addRef(value);
 
     _mfGeometries.push_back(value);
+}
+
+void VTKMapperBase::assignGeometries(const MFGeometryPtr     &value)
+{
+    MFGeometryPtr    ::const_iterator elemIt  =
+        value.begin();
+    MFGeometryPtr    ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToGeometries(*elemIt);
+
+        ++elemIt;
+    }
 }
 
 void VTKMapperBase::insertIntoGeometries(UInt32                uiIndex,
@@ -1098,6 +1128,21 @@ void VTKMapperBase::pushToMaterials(ChunkMaterialPtrConstArg value)
     _mfMaterials.push_back(value);
 }
 
+void VTKMapperBase::assignMaterials(const MFChunkMaterialPtr &value)
+{
+    MFChunkMaterialPtr::const_iterator elemIt  =
+        value.begin();
+    MFChunkMaterialPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToMaterials(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void VTKMapperBase::insertIntoMaterials(UInt32                uiIndex,
                                                    ChunkMaterialPtrConstArg value   )
 {
@@ -1216,6 +1261,21 @@ void VTKMapperBase::pushToMaterialChunks(MaterialChunkPtrConstArg value)
     addRef(value);
 
     _mfMaterialChunks.push_back(value);
+}
+
+void VTKMapperBase::assignMaterialChunks(const MFMaterialChunkPtr &value)
+{
+    MFMaterialChunkPtr::const_iterator elemIt  =
+        value.begin();
+    MFMaterialChunkPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToMaterialChunks(*elemIt);
+
+        ++elemIt;
+    }
 }
 
 void VTKMapperBase::insertIntoMaterialChunks(UInt32                uiIndex,
@@ -1338,6 +1398,21 @@ void VTKMapperBase::pushToPositions(GeoPnt3fPropertyPtrConstArg value)
     _mfPositions.push_back(value);
 }
 
+void VTKMapperBase::assignPositions(const MFGeoPnt3fPropertyPtr &value)
+{
+    MFGeoPnt3fPropertyPtr::const_iterator elemIt  =
+        value.begin();
+    MFGeoPnt3fPropertyPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToPositions(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void VTKMapperBase::insertIntoPositions(UInt32                uiIndex,
                                                    GeoPnt3fPropertyPtrConstArg value   )
 {
@@ -1456,6 +1531,21 @@ void VTKMapperBase::pushToLength(GeoUInt32PropertyPtrConstArg value)
     addRef(value);
 
     _mfLength.push_back(value);
+}
+
+void VTKMapperBase::assignLength   (const MFGeoUInt32PropertyPtr &value)
+{
+    MFGeoUInt32PropertyPtr::const_iterator elemIt  =
+        value.begin();
+    MFGeoUInt32PropertyPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToLength(*elemIt);
+
+        ++elemIt;
+    }
 }
 
 void VTKMapperBase::insertIntoLength(UInt32                uiIndex,
@@ -1578,6 +1668,21 @@ void VTKMapperBase::pushToTypes(GeoUInt8PropertyPtrConstArg value)
     _mfTypes.push_back(value);
 }
 
+void VTKMapperBase::assignTypes    (const MFGeoUInt8PropertyPtr &value)
+{
+    MFGeoUInt8PropertyPtr::const_iterator elemIt  =
+        value.begin();
+    MFGeoUInt8PropertyPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToTypes(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void VTKMapperBase::insertIntoTypes(UInt32                uiIndex,
                                                    GeoUInt8PropertyPtrConstArg value   )
 {
@@ -1698,6 +1803,21 @@ void VTKMapperBase::pushToColors(GeoColor4fPropertyPtrConstArg value)
     _mfColors.push_back(value);
 }
 
+void VTKMapperBase::assignColors   (const MFGeoColor4fPropertyPtr &value)
+{
+    MFGeoColor4fPropertyPtr::const_iterator elemIt  =
+        value.begin();
+    MFGeoColor4fPropertyPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToColors(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void VTKMapperBase::insertIntoColors(UInt32                uiIndex,
                                                    GeoColor4fPropertyPtrConstArg value   )
 {
@@ -1816,6 +1936,21 @@ void VTKMapperBase::pushToNormals(GeoVec3fPropertyPtrConstArg value)
     addRef(value);
 
     _mfNormals.push_back(value);
+}
+
+void VTKMapperBase::assignNormals  (const MFGeoVec3fPropertyPtr &value)
+{
+    MFGeoVec3fPropertyPtr::const_iterator elemIt  =
+        value.begin();
+    MFGeoVec3fPropertyPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToNormals(*elemIt);
+
+        ++elemIt;
+    }
 }
 
 void VTKMapperBase::insertIntoNormals(UInt32                uiIndex,

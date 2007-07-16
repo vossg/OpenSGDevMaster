@@ -65,6 +65,8 @@ OSG_USING_NAMESPACE
  *
  **/
 
+RemoteAspect::FieldFilter  RemoteAspect::_fieldFilter;
+
 StatElemDesc<StatTimeElem> RemoteAspect::statSyncTime
     ("remoteSyncTime", "time for scenegraph distribution");
 
@@ -465,6 +467,16 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
             mask  = (*changedI)->whichField;
             mask &=  fcPtr->getFieldFlags()->_bClusterLocalFlags;
 
+            // apply field filter
+            FieldFilter::iterator filterI = 
+                _fieldFilter.find(fcPtr->getType().getId());
+
+            if(filterI != _fieldFilter.end())
+            {
+                mask &= TypeTraits<BitVector>::BitsSet ^ filterI->second;
+            }
+
+
 #if 0
             fprintf(stderr, "Send Changed %d %d %p %016llx %016llx\n",
                     fcPtr->getTypeId(),
@@ -587,6 +599,20 @@ void RemoteAspect::registerChanged(const FieldContainerType &type,
 
 /*-------------------------------------------------------------------------*/
 /*                          statistics                                     */
+
+/*! add a new field filter. The given fieldmaks will not be transfered
+ */
+void RemoteAspect::addFieldFilter(UInt32 typeId, BitVector mask)
+{
+    _fieldFilter[typeId] |= mask;
+}
+
+/*! remove the filter for the given type and mask
+ */
+void RemoteAspect::subFieldFilter(UInt32 typeId, BitVector mask)
+{
+    _fieldFilter[typeId] &= ~mask;
+}
 
 /*! Set statistics collector
  */

@@ -220,6 +220,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \{                                                                 */
 
     void pushToProperties           (GeoVectorPropertyPtrConstArg value   );
+    void assignProperties           (const MFGeoVectorPropertyPtr &value);
     void insertIntoProperties      (UInt32                uiIndex,
                                              GeoVectorPropertyPtrConstArg value   );
     void replaceInProperties  (UInt32                uiIndex,
@@ -232,6 +233,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
 
     void pushToPropIndices           (GeoIntegralPropertyPtrConstArg value   );
+    void assignPropIndices           (const MFGeoIntegralPropertyPtr &value);
     void insertIntoPropIndices      (UInt32                uiIndex,
                                              GeoIntegralPropertyPtrConstArg value   );
     void replaceInPropIndices  (UInt32                uiIndex,

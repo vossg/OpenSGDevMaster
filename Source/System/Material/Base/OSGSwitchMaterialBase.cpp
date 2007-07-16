@@ -325,6 +325,21 @@ void SwitchMaterialBase::pushToMaterials(MaterialPtrConstArg value)
     _mfMaterials.push_back(value);
 }
 
+void SwitchMaterialBase::assignMaterials(const MFMaterialPtr     &value)
+{
+    MFMaterialPtr    ::const_iterator elemIt  =
+        value.begin();
+    MFMaterialPtr    ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToMaterials(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void SwitchMaterialBase::insertIntoMaterials(UInt32                uiIndex,
                                                    MaterialPtrConstArg value   )
 {

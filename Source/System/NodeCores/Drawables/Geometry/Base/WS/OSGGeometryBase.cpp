@@ -607,6 +607,21 @@ void GeometryBase::pushToProperties(GeoVectorPropertyPtrConstArg value)
     value->addParent(this, PropertiesFieldMask);
 }
 
+void GeometryBase::assignProperties(const MFGeoVectorPropertyPtr &value)
+{
+    MFGeoVectorPropertyPtr::const_iterator elemIt  =
+        value.begin();
+    MFGeoVectorPropertyPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToProperties(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void GeometryBase::insertIntoProperties(UInt32                uiIndex,
                                                    GeoVectorPropertyPtrConstArg value   )
 {
@@ -761,6 +776,21 @@ void GeometryBase::pushToPropIndices(GeoIntegralPropertyPtrConstArg value)
         return;
 
     value->addParent(this, PropIndicesFieldMask);
+}
+
+void GeometryBase::assignPropIndices(const MFGeoIntegralPropertyPtr &value)
+{
+    MFGeoIntegralPropertyPtr::const_iterator elemIt  =
+        value.begin();
+    MFGeoIntegralPropertyPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToPropIndices(*elemIt);
+
+        ++elemIt;
+    }
 }
 
 void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,

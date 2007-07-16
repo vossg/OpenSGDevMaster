@@ -190,6 +190,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \{                                                                 */
 
     void pushToImages              (ImagePtrConstArg value   );
+    void assignImages              (const MFImagePtr        &value);
     void insertIntoImages      (UInt32                uiIndex,
                                              ImagePtrConstArg value   );
     void replaceInImages  (UInt32                uiIndex,

@@ -838,6 +838,21 @@ void ViewportBase::addForeground(ForegroundPtrConstArg value)
     _mfForegrounds.push_back(value);
 }
 
+void ViewportBase::assignForegrounds(const MFForegroundPtr   &value)
+{
+    MFForegroundPtr  ::const_iterator elemIt  =
+        value.begin();
+    MFForegroundPtr  ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->addForeground(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void ViewportBase::insertIntoForegrounds(UInt32                uiIndex,
                                                    ForegroundPtrConstArg value   )
 {

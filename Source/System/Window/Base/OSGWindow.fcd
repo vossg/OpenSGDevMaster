@@ -93,4 +93,15 @@ init(void), activate(void), deactivate(void) and swap(void).
 	>
 	Indicates the last reinit for the GL object.
 	</Field>
+	<Field
+		name="drawerId"
+		type="UInt32"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        fieldFlags="FClusterLocal"
+	>
+    DrawerId to select window dependent elements (e.g. Distortion filter).
+    For cluster window this values equals the clusterId (shl chunk)
+	</Field>
 </FieldContainer>

@@ -578,6 +578,21 @@ void FrameBufferObjectBase::pushToColorAttachments(FrameBufferAttachmentPtrConst
     _mfColorAttachments.push_back(value);
 }
 
+void FrameBufferObjectBase::assignColorAttachments(const MFFrameBufferAttachmentPtr &value)
+{
+    MFFrameBufferAttachmentPtr::const_iterator elemIt  =
+        value.begin();
+    MFFrameBufferAttachmentPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToColorAttachments(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void FrameBufferObjectBase::insertIntoColorAttachments(UInt32                uiIndex,
                                                    FrameBufferAttachmentPtrConstArg value   )
 {

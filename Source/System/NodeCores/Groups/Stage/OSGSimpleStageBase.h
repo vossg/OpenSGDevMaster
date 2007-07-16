@@ -255,6 +255,7 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \{                                                                 */
 
     void pushToForegrounds           (ForegroundPtrConstArg value   );
+    void assignForegrounds           (const MFForegroundPtr   &value);
     void insertIntoForegrounds      (UInt32                uiIndex,
                                              ForegroundPtrConstArg value   );
     void replaceInForegrounds  (UInt32                uiIndex,

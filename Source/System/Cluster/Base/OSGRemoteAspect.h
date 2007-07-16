@@ -121,6 +121,9 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     /*! \name               Static Remote aspect functionaliy              */
     /*! \{                                                                 */
 
+    static void addFieldFilter(UInt32 typeId,BitVector mask);
+    static void subFieldFilter(UInt32 typeId,BitVector mask);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Statistics                                 */
@@ -132,6 +135,8 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    typedef std::map<UInt32, BitVector> FieldFilter;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   member                                     */
@@ -163,6 +168,8 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     std::vector<Functor>              _destroyedFunctors;
     std::vector<Functor>              _changedFunctors;
     StatCollector                    *_statistics;
+
+    static FieldFilter                _fieldFilter;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

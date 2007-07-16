@@ -257,6 +257,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void pushToColorAttachments           (FrameBufferAttachmentPtrConstArg value   );
+    void assignColorAttachments           (const MFFrameBufferAttachmentPtr &value);
     void insertIntoColorAttachments      (UInt32                uiIndex,
                                              FrameBufferAttachmentPtrConstArg value   );
     void replaceInColorAttachments  (UInt32                uiIndex,

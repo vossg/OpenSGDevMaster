@@ -1539,7 +1539,7 @@ PROTO Sound [
 
 #if 0
 PROTO Sphere [
-  field SFFloat radius  1
+  field SFFloat radius     1
 ] { }
 #endif
 
@@ -1547,6 +1547,10 @@ PROTO Sphere [
  {
      beginFieldDecl("SFFloat", Self::OSGsfFloat, "radius");
      addFieldValue ("1");
+     endFieldDecl  ();
+
+     beginFieldDecl("SFInt", Self::OSGsfInt32, "resolution");
+     addFieldValue ("2");
      endFieldDecl  ();
  }
  endProtoInterface();

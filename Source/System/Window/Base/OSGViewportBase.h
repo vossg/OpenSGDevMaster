@@ -301,6 +301,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void addForeground             (ForegroundPtrConstArg value   );
+    void assignForegrounds           (const MFForegroundPtr   &value);
     void insertIntoForegrounds      (UInt32                uiIndex,
                                              ForegroundPtrConstArg value   );
     void replaceInForegrounds  (UInt32                uiIndex,

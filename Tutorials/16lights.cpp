@@ -92,7 +92,7 @@ int main(int argc, char **argv)
     
     // the connection between GLUT and OpenSG
     GLUTWindowPtr gwin= GLUTWindow::create();
-    gwin->setId(winid);
+    gwin->setGlutId(winid);
     gwin->init();
 
     /*
@@ -207,7 +207,7 @@ int main(int argc, char **argv)
                  // a little sphere to show where the light is
                 geo_node = makeLatLongSphere(8, 8, 0.1);
 
-                GeometryPtr geo = cast_dynamic<GeometryPtr>(geo_node->getCore());
+                GeometryPtr geo = dynamic_cast<GeometryPtr>(geo_node->getCore());
 
                 SimpleMaterialPtr sm = SimpleMaterial::create();
 
@@ -242,7 +242,7 @@ int main(int argc, char **argv)
                  // a little cylinder to show where the light is
                 geo_node = makeCylinder(.1, .03, 8, true, true, true);
 
-                GeometryPtr geo = cast_dynamic<GeometryPtr>(geo_node->getCore());
+                GeometryPtr geo = dynamic_cast<GeometryPtr>(geo_node->getCore());
 
                 SimpleMaterialPtr sm = SimpleMaterial::create();
 
@@ -280,7 +280,7 @@ int main(int argc, char **argv)
                  // a little cone to show where the light is
                 geo_node = makeCone(.2, .2, 8, true, true);
 
-                GeometryPtr geo = cast_dynamic<GeometryPtr>(geo_node->getCore());
+                GeometryPtr geo = dynamic_cast<GeometryPtr>(geo_node->getCore());
 
                 SimpleMaterialPtr sm = SimpleMaterial::create();
 

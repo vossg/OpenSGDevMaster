@@ -233,7 +233,6 @@ WindowPtrConst Viewport::getParent(void) const
   
  */
 
-#if 0 // Have to check GV
 void Viewport::activateSize(void)
 {
     GLint pl = getPixelLeft();
@@ -265,7 +264,6 @@ void Viewport::activate(void)
 void Viewport::deactivate(void)
 {
 }
-#endif
 
 #ifdef OSG_OLD_RENDER_ACTION
 void Viewport::render(DrawActionBase *action)

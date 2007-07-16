@@ -72,6 +72,7 @@
 #include "OSGUInt32Fields.h" // GlObjectEventCounter type
 #include "OSGUInt32Fields.h" // GlObjectLastRefresh type
 #include "OSGUInt32Fields.h" // GlObjectLastReinitialize type
+#include "OSGUInt32Fields.h" // DrawerId type
 
 #include "OSGWindowFields.h"
 
@@ -106,7 +107,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         GlObjectEventCounterFieldId = ResizePendingFieldId + 1,
         GlObjectLastRefreshFieldId = GlObjectEventCounterFieldId + 1,
         GlObjectLastReinitializeFieldId = GlObjectLastRefreshFieldId + 1,
-        NextFieldId = GlObjectLastReinitializeFieldId + 1
+        DrawerIdFieldId = GlObjectLastReinitializeFieldId + 1,
+        NextFieldId = DrawerIdFieldId + 1
     };
 
     static const OSG::BitVector WidthFieldMask =
@@ -123,6 +125,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << GlObjectLastRefreshFieldId);
     static const OSG::BitVector GlObjectLastReinitializeFieldMask =
         (TypeTraits<BitVector>::One << GlObjectLastReinitializeFieldId);
+    static const OSG::BitVector DrawerIdFieldMask =
+        (TypeTraits<BitVector>::One << DrawerIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -169,6 +173,12 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   SFBool              *editSFResizePending  (void);
             const SFBool              *getSFResizePending   (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  SFUInt32            *getSFDrawerId        (void);
+#endif
+                  SFUInt32            *editSFDrawerId       (void);
+            const SFUInt32            *getSFDrawerId        (void) const;
+
 
 #ifdef OSG_1_GET_COMPAT
                   UInt16              &getWidth           (void);
@@ -191,6 +201,12 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   bool                &editResizePending  (void);
             const bool                &getResizePending   (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  UInt32              &getDrawerId        (void);
+#endif
+                  UInt32              &editDrawerId       (void);
+            const UInt32              &getDrawerId        (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -199,6 +215,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
             void setWidth          (const UInt16 &value);
             void setHeight         (const UInt16 &value);
             void setResizePending  (const bool &value);
+            void setDrawerId       (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -234,6 +251,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void addPort                   (ViewportPtrConstArg value   );
+    void assignPort                (const MFViewportPtr     &value);
     void insertPort           (UInt32                uiIndex,
                                              ViewportPtrConstArg value   );
     void replacePort      (UInt32                uiIndex,
@@ -280,6 +298,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     SFUInt32          _sfGlObjectEventCounter;
     MFUInt32          _mfGlObjectLastRefresh;
     MFUInt32          _mfGlObjectLastReinitialize;
+    SFUInt32          _sfDrawerId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

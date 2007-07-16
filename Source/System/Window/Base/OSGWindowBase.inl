@@ -205,6 +205,39 @@ void WindowBase::setGlObjectEventCounter(const UInt32 &value)
 
     _sfGlObjectEventCounter.setValue(value);
 }
+//! Get the value of the Window::_sfDrawerId field.
+
+inline
+UInt32 &WindowBase::editDrawerId(void)
+{
+    editSField(DrawerIdFieldMask);
+
+    return _sfDrawerId.getValue();
+}
+
+//! Get the value of the Window::_sfDrawerId field.
+inline
+const UInt32 &WindowBase::getDrawerId(void) const
+{
+    return _sfDrawerId.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+UInt32              &WindowBase::getDrawerId       (void)
+{
+    return this->editDrawerId       ();
+}
+#endif
+
+//! Set the value of the Window::_sfDrawerId field.
+inline
+void WindowBase::setDrawerId(const UInt32 &value)
+{
+    editSField(DrawerIdFieldMask);
+
+    _sfDrawerId.setValue(value);
+}
 
 //! Get the value of the \a index element the Window::_mfPort field.
 inline
@@ -354,6 +387,9 @@ void WindowBase::execSync (      WindowBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (DrawerIdFieldMask & whichField))
+        _sfDrawerId.syncWith(pFrom->_sfDrawerId);
 }
 #endif
 

@@ -188,6 +188,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \{                                                                 */
 
     void pushToContainers           (FieldContainerPtrConstArg value   );
+    void assignContainers           (const MFFieldContainerPtr &value);
     void insertIntoContainers      (UInt32                uiIndex,
                                              FieldContainerPtrConstArg value   );
     void replaceInContainers  (UInt32                uiIndex,

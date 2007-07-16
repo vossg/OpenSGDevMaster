@@ -162,6 +162,18 @@ ChangeList::ChangedStoreConstIt ChangeList::endCreated(void) const
 }
 
 inline
+UInt32 ChangeList::getNumCreated(void) const
+{
+    return _changedStore.size();
+}
+
+inline
+UInt32 ChangeList::getNumDestroyed(void) const
+{
+    return 0;
+}
+
+inline
 void ChangeList::incSubRefLevel(void)
 {
     ++_iSubRefLevel;

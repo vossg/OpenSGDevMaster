@@ -38,6 +38,7 @@ class Field(FCDElement):
         self.setFCD("removeToSet",              "false");
         self.setFCD("clearMField",              "true");
         self.setFCD("pushToField",              "");
+        self.setFCD("assignMField",             "");
         self.setFCD("insertIntoMField",         "");
         self.setFCD("replaceInMFieldIndex",     "");
         self.setFCD("replaceInMFieldObject",    "");
@@ -45,6 +46,7 @@ class Field(FCDElement):
         self.setFCD("removeFromMFieldObject",   "");
         self.setFCD("clearField",               "");
         self.setFCD("pushToFieldAs",            "");
+        self.setFCD("assignMFieldAs",           "");
         self.setFCD("insertIntoMFieldAs",       "");
         self.setFCD("replaceInMFieldIndexAs",   "");
         self.setFCD("replaceInMFieldObjectAs",  "");
@@ -284,6 +286,7 @@ class Field(FCDElement):
         self["Flags"] = flags;
         
         self["writePushToField"]            = False;
+        self["writeAssignMField"]           = False;
         self["writeInsertIntoMField"]       = False;
         self["writeReplaceInMFieldIndex"]   = False;
         self["writeReplaceInMFieldObject"]  = False;
@@ -299,7 +302,16 @@ class Field(FCDElement):
                 self["PushToField"] = self.getFCD("pushToFieldAs");
         else:
             self["PushToField"] = self.getFCD("pushToField");
-        
+
+        if self.getFCD("assignMField") == "":
+            self["writeAssignMField"] = True;
+            if self.getFCD("assignMFieldAs") == "":
+                self["AssignMField"] = "assign" + self["Name"];
+            else:
+                self["AssignMField"] = self.getFCD("assignMFieldAs");
+        else:
+            self["AssignMField"] = self.getFCD("assignMField");
+
         if self.getFCD("insertIntoMField") == "":
             self["writeInsertIntoMField"] = True;
             if self.getFCD("insertIntoMFieldAs") == "":

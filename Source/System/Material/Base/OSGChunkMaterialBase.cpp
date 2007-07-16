@@ -341,6 +341,21 @@ void ChunkMaterialBase::pushToChunks(StateChunkPtrConstArg value)
     _mfChunks.push_back(value);
 }
 
+void ChunkMaterialBase::assignChunks   (const MFStateChunkPtr   &value)
+{
+    MFStateChunkPtr  ::const_iterator elemIt  =
+        value.begin();
+    MFStateChunkPtr  ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToChunks(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void ChunkMaterialBase::insertIntoChunks(UInt32                uiIndex,
                                                    StateChunkPtrConstArg value   )
 {

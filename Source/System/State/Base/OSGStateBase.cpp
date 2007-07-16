@@ -281,6 +281,21 @@ void StateBase::pushToChunks(StateChunkPtrConstArg value)
         return;
 }
 
+void StateBase::assignChunks   (const MFStateChunkPtr   &value)
+{
+    MFStateChunkPtr  ::const_iterator elemIt  =
+        value.begin();
+    MFStateChunkPtr  ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToChunks(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void StateBase::insertIntoChunks(UInt32                uiIndex,
                                                    StateChunkPtrConstArg value   )
 {

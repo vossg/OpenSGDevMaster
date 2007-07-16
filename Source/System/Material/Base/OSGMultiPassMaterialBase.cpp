@@ -267,6 +267,21 @@ void MultiPassMaterialBase::addMaterial(MaterialPtrConstArg value)
     _mfMaterials.push_back(value);
 }
 
+void MultiPassMaterialBase::assignMaterials(const MFMaterialPtr     &value)
+{
+    MFMaterialPtr    ::const_iterator elemIt  =
+        value.begin();
+    MFMaterialPtr    ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->addMaterial(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void MultiPassMaterialBase::insertIntoMaterials(UInt32                uiIndex,
                                                    MaterialPtrConstArg value   )
 {

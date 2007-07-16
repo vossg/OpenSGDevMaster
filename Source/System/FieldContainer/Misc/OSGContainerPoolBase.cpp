@@ -319,6 +319,21 @@ void ContainerPoolBase::pushToContainers(FieldContainerPtrConstArg value)
     _mfContainers.push_back(value);
 }
 
+void ContainerPoolBase::assignContainers(const MFFieldContainerPtr &value)
+{
+    MFFieldContainerPtr::const_iterator elemIt  =
+        value.begin();
+    MFFieldContainerPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToContainers(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void ContainerPoolBase::insertIntoContainers(UInt32                uiIndex,
                                                    FieldContainerPtrConstArg value   )
 {

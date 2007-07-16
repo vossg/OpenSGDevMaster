@@ -188,6 +188,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
     void pushToTextures            (TextureBaseChunkPtrConstArg value   );
+    void assignTextures            (const MFTextureBaseChunkPtr &value);
     void insertIntoTextures      (UInt32                uiIndex,
                                              TextureBaseChunkPtrConstArg value   );
     void replaceInTextures  (UInt32                uiIndex,

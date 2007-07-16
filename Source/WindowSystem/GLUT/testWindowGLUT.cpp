@@ -381,11 +381,10 @@ int main (int argc, char **argv)
 //    createSharedIndex(pGeo);
     
     Thread::getCurrentChangeList()->commitChanges();
-    file->updateVolume();
 
 //    file->dump();
 
-#if 1
+#if 0
     char *outFileName = "/tmp/foo.osg";
 
     OSG::IndentFileOutStream outFileStream(outFileName);
@@ -406,6 +405,8 @@ int main (int argc, char **argv)
 
     OSG::SceneFileHandler::the()->write(file, "/tmp/foo.osb");
 #endif    
+
+    file->updateVolume();
 
 //    subRefCP(file);
 
@@ -510,6 +511,34 @@ int main (int argc, char **argv)
 
     // run...
     
+
+#if 0
+    GroupNodePtr pGr = GroupNodePtr::create();
+
+    NodePtr  pN;
+    GroupPtr pG;
+
+    fprintf(stderr, "A\n");
+
+    if(pGr == NULL)
+    {
+    }
+
+    fprintf(stderr, "B\n");
+
+    if(pGr == pN)
+    {
+    }
+
+    fprintf(stderr, "C\n");
+
+    if(pGr == pG)
+    {
+    }
+
+    pGr = NULL;
+#endif
+
     glutMainLoop();
     
     return 0;

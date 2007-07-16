@@ -278,6 +278,21 @@ void ShaderParameterChunkBase::addParameter(ShaderParameterPtrConstArg value)
     value->addParent(this, ParametersFieldMask);
 }
 
+void ShaderParameterChunkBase::assignParameters(const MFShaderParameterPtr &value)
+{
+    MFShaderParameterPtr::const_iterator elemIt  =
+        value.begin();
+    MFShaderParameterPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->addParameter(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void ShaderParameterChunkBase::insertParameter(UInt32                uiIndex,
                                                    ShaderParameterPtrConstArg value   )
 {

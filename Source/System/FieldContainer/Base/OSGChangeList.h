@@ -200,6 +200,14 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   your_operators                             */
+    /*! \{                                                                 */
+
+    UInt32 getNumCreated  (void) const;
+    UInt32 getNumDestroyed(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 

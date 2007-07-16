@@ -50,7 +50,6 @@
 #include "OSGClusterWindow.h"
 #include "OSGBinaryMessage.h"
 #include "OSGClusterNetwork.h"
-#include "OSGSHLChunk.h"
 #include "OSGRemoteAspect.h"
 #include "OSGTypeFactory.h"
 
@@ -316,8 +315,7 @@ void ClusterServer::doSync(bool applyToChangelist)
         _connection = NULL;
         _aspect     = NULL;
 
-        SHLChunk::setClusterId(Int32(_serverId));
-
+        _clusterWindow->setDrawerId(_serverId);
         _clusterWindow->serverInit(_window,_serverId);
     }
 

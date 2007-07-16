@@ -119,6 +119,11 @@ OSG_BEGIN_NAMESPACE
     Indicates the last reinit for the GL object.
 */
 
+/*! \var UInt32          WindowBase::_sfDrawerId
+    DrawerId to select window dependent elements (e.g. Distortion filter).
+    For cluster window this values equals the clusterId (shl chunk)
+*/
+
 
 void WindowBase::classDescInserter(TypeObject &oType)
 {
@@ -269,6 +274,29 @@ void WindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_GET_COMPAT
+    typedef const SFUInt32 *(WindowBase::*GetSFDrawerIdF)(void) const;
+
+    GetSFDrawerIdF GetSFDrawerId = &WindowBase::getSFDrawerId;
+#endif
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "drawerId",
+        "DrawerId to select window dependent elements (e.g. Distortion filter).\n"
+        "For cluster window this values equals the clusterId (shl chunk)\n",
+        DrawerIdFieldId, DrawerIdFieldMask,
+        true,
+        (Field::FClusterLocal),
+        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editSFDrawerId),
+#ifdef OSG_1_GET_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFDrawerId));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getSFDrawerId));
+#endif
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -376,6 +404,17 @@ WindowBase::TypeObject WindowBase::_type(
     "                fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\tIndicates the last reinit for the GL object.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"drawerId\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
+    "\t>\n"
+    "    DrawerId to select window dependent elements (e.g. Distortion filter).\n"
+    "    For cluster window this values equals the clusterId (shl chunk)\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindow\n"
@@ -531,6 +570,25 @@ MFUInt32            *WindowBase::getMFGlObjectLastReinitialize(void)
 }
 #endif
 
+SFUInt32 *WindowBase::editSFDrawerId(void)
+{
+    editSField(DrawerIdFieldMask);
+
+    return &_sfDrawerId;
+}
+
+const SFUInt32 *WindowBase::getSFDrawerId(void) const
+{
+    return &_sfDrawerId;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFUInt32            *WindowBase::getSFDrawerId       (void)
+{
+    return this->editSFDrawerId       ();
+}
+#endif
+
 
 void WindowBase::pushToField(      FieldContainerPtrConstArg pNewElement,
                                     const UInt32                    uiFieldId  )
@@ -632,6 +690,21 @@ void WindowBase::addPort(ViewportPtrConstArg value)
     _mfPort.push_back(value);
 
     value->setParent(this, PortFieldMask);
+}
+
+void WindowBase::assignPort     (const MFViewportPtr     &value)
+{
+    MFViewportPtr    ::const_iterator elemIt  =
+        value.begin();
+    MFViewportPtr    ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->addPort(*elemIt);
+
+        ++elemIt;
+    }
 }
 
 void WindowBase::insertPort(UInt32                uiIndex,
@@ -976,6 +1049,10 @@ UInt32 WindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfGlObjectLastReinitialize.getBinSize();
     }
+    if(FieldBits::NoField != (DrawerIdFieldMask & whichField))
+    {
+        returnValue += _sfDrawerId.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1013,6 +1090,10 @@ void WindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfGlObjectLastReinitialize.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (DrawerIdFieldMask & whichField))
+    {
+        _sfDrawerId.copyToBin(pMem);
+    }
 }
 
 void WindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -1048,6 +1129,10 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _mfGlObjectLastReinitialize.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (DrawerIdFieldMask & whichField))
+    {
+        _sfDrawerId.copyFromBin(pMem);
+    }
 }
 
 
@@ -1063,7 +1148,8 @@ WindowBase::WindowBase(void) :
     _sfResizePending          (),
     _sfGlObjectEventCounter   (UInt32(1)),
     _mfGlObjectLastRefresh    (),
-    _mfGlObjectLastReinitialize()
+    _mfGlObjectLastReinitialize(),
+    _sfDrawerId               ()
 {
 }
 
@@ -1075,7 +1161,8 @@ WindowBase::WindowBase(const WindowBase &source) :
     _sfResizePending          (source._sfResizePending          ),
     _sfGlObjectEventCounter   (source._sfGlObjectEventCounter   ),
     _mfGlObjectLastRefresh    (source._mfGlObjectLastRefresh    ),
-    _mfGlObjectLastReinitialize(source._mfGlObjectLastReinitialize)
+    _mfGlObjectLastReinitialize(source._mfGlObjectLastReinitialize),
+    _sfDrawerId               (source._sfDrawerId               )
 {
 }
 

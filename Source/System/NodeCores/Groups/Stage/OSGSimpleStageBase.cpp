@@ -596,6 +596,21 @@ void SimpleStageBase::pushToForegrounds(ForegroundPtrConstArg value)
     _mfForegrounds.push_back(value);
 }
 
+void SimpleStageBase::assignForegrounds(const MFForegroundPtr   &value)
+{
+    MFForegroundPtr  ::const_iterator elemIt  =
+        value.begin();
+    MFForegroundPtr  ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToForegrounds(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void SimpleStageBase::insertIntoForegrounds(UInt32                uiIndex,
                                                    ForegroundPtrConstArg value   )
 {

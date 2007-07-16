@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 
     // the connection between GLUT and OpenSG
     GLUTWindowPtr gwin= GLUTWindow::create();
-    gwin->setId(winid);
+    gwin->setGlutId(winid);
     gwin->init();
 
     // create the scene

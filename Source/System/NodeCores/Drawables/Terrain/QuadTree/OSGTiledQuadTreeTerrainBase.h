@@ -383,6 +383,7 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \{                                                                 */
 
     void pushToHeightTiles           (ImagePtrConstArg value   );
+    void assignHeightTiles           (const MFImagePtr        &value);
     void insertIntoHeightTiles      (UInt32                uiIndex,
                                              ImagePtrConstArg value   );
     void replaceInHeightTiles  (UInt32                uiIndex,
@@ -395,6 +396,7 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
 
 
     void pushToHeightTextures           (MaterialPtrConstArg value   );
+    void assignHeightTextures           (const MFMaterialPtr     &value);
     void insertIntoHeightTextures      (UInt32                uiIndex,
                                              MaterialPtrConstArg value   );
     void replaceInHeightTextures  (UInt32                uiIndex,

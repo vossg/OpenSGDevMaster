@@ -992,6 +992,21 @@ void TiledQuadTreeTerrainBase::pushToHeightTiles(ImagePtrConstArg value)
     _mfHeightTiles.push_back(value);
 }
 
+void TiledQuadTreeTerrainBase::assignHeightTiles(const MFImagePtr        &value)
+{
+    MFImagePtr       ::const_iterator elemIt  =
+        value.begin();
+    MFImagePtr       ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToHeightTiles(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void TiledQuadTreeTerrainBase::insertIntoHeightTiles(UInt32                uiIndex,
                                                    ImagePtrConstArg value   )
 {
@@ -1110,6 +1125,21 @@ void TiledQuadTreeTerrainBase::pushToHeightTextures(MaterialPtrConstArg value)
     addRef(value);
 
     _mfHeightTextures.push_back(value);
+}
+
+void TiledQuadTreeTerrainBase::assignHeightTextures(const MFMaterialPtr     &value)
+{
+    MFMaterialPtr    ::const_iterator elemIt  =
+        value.begin();
+    MFMaterialPtr    ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToHeightTextures(*elemIt);
+
+        ++elemIt;
+    }
 }
 
 void TiledQuadTreeTerrainBase::insertIntoHeightTextures(UInt32                uiIndex,

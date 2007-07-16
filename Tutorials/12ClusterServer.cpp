@@ -109,7 +109,7 @@ int main(int argc,char **argv)
 
         // setup the OpenSG Glut window
         window     = GLUTWindow::create();
-        window->setId(winid);
+        window->setGlutId(winid);
         window->init();
 
         // create the cluster server
@@ -142,6 +142,9 @@ void display()
     catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
     {
         SLOG << e.what() << endLog;
+        
+        window->clearPorts();
+
         // try to restart server
         server->stop();
         // start server, wait for client to connect

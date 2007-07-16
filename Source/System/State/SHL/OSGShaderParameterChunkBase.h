@@ -171,6 +171,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
     /*! \{                                                                 */
 
     void addParameter              (ShaderParameterPtrConstArg value   );
+    void assignParameters           (const MFShaderParameterPtr &value);
     void insertParameter      (UInt32                uiIndex,
                                              ShaderParameterPtrConstArg value   );
     void replaceParameter  (UInt32                uiIndex,

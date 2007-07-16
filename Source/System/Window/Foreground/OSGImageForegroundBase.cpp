@@ -338,6 +338,21 @@ void ImageForegroundBase::pushToImages(ImagePtrConstArg value)
     _mfImages.push_back(value);
 }
 
+void ImageForegroundBase::assignImages   (const MFImagePtr        &value)
+{
+    MFImagePtr       ::const_iterator elemIt  =
+        value.begin();
+    MFImagePtr       ::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToImages(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void ImageForegroundBase::insertIntoImages(UInt32                uiIndex,
                                                    ImagePtrConstArg value   )
 {

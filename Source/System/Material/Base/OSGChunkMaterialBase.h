@@ -190,6 +190,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \{                                                                 */
 
     void pushToChunks              (StateChunkPtrConstArg value   );
+    void assignChunks              (const MFStateChunkPtr   &value);
     void insertIntoChunks      (UInt32                uiIndex,
                                              StateChunkPtrConstArg value   );
     void replaceInChunks  (UInt32                uiIndex,

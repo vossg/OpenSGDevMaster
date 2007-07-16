@@ -135,7 +135,8 @@ if not sca_util.hasHelpFlag():
 
    # Add OpenSG libs.
    libs=['State', 'System', 'Window', 'FileIO', 'Text', 'WIN32', 'GLUT',
-         'Group', 'Util', 'ImageFileIO', 'Base', 'RenderTraversal', 'Drawable']
+         'Group', 'Util', 'ImageFileIO', 'Base', 'RenderTraversal',
+         'Drawable', 'Cluster' ]
    opensg2_options.apply(base_env, libs=libs)
    boost_options.apply(base_env, useDebug=('debug' == combo['type']))
 

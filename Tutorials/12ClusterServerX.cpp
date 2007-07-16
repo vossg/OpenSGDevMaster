@@ -382,6 +382,8 @@ void display()
         }
         else
         {
+            window->clearPorts();
+
             SLOG << e.what() << endLog;
             // try to restart server
             server->stop();

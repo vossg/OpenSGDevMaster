@@ -243,6 +243,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
     /*! \{                                                                 */
 
     void pushToGeoRoots            (NodePtrConstArg value   );
+    void assignGeoRoots            (const MFNodePtr         &value);
     void insertIntoGeoRoots      (UInt32                uiIndex,
                                              NodePtrConstArg value   );
     void replaceInGeoRoots  (UInt32                uiIndex,
@@ -255,6 +256,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 
 
     void pushToGeometries           (GeometryPtrConstArg value   );
+    void assignGeometries           (const MFGeometryPtr     &value);
     void insertIntoGeometries      (UInt32                uiIndex,
                                              GeometryPtrConstArg value   );
     void replaceInGeometries  (UInt32                uiIndex,
@@ -267,6 +269,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 
 
     void pushToMaterials           (ChunkMaterialPtrConstArg value   );
+    void assignMaterials           (const MFChunkMaterialPtr &value);
     void insertIntoMaterials      (UInt32                uiIndex,
                                              ChunkMaterialPtrConstArg value   );
     void replaceInMaterials  (UInt32                uiIndex,
@@ -279,6 +282,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 
 
     void pushToMaterialChunks           (MaterialChunkPtrConstArg value   );
+    void assignMaterialChunks           (const MFMaterialChunkPtr &value);
     void insertIntoMaterialChunks      (UInt32                uiIndex,
                                              MaterialChunkPtrConstArg value   );
     void replaceInMaterialChunks  (UInt32                uiIndex,
@@ -291,6 +295,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 
 
     void pushToPositions           (GeoPnt3fPropertyPtrConstArg value   );
+    void assignPositions           (const MFGeoPnt3fPropertyPtr &value);
     void insertIntoPositions      (UInt32                uiIndex,
                                              GeoPnt3fPropertyPtrConstArg value   );
     void replaceInPositions  (UInt32                uiIndex,
@@ -303,6 +308,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 
 
     void pushToLength              (GeoUInt32PropertyPtrConstArg value   );
+    void assignLength              (const MFGeoUInt32PropertyPtr &value);
     void insertIntoLength      (UInt32                uiIndex,
                                              GeoUInt32PropertyPtrConstArg value   );
     void replaceInLength  (UInt32                uiIndex,
@@ -315,6 +321,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 
 
     void pushToTypes               (GeoUInt8PropertyPtrConstArg value   );
+    void assignTypes               (const MFGeoUInt8PropertyPtr &value);
     void insertIntoTypes      (UInt32                uiIndex,
                                              GeoUInt8PropertyPtrConstArg value   );
     void replaceInTypes   (UInt32                uiIndex,
@@ -327,6 +334,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 
 
     void pushToColors              (GeoColor4fPropertyPtrConstArg value   );
+    void assignColors              (const MFGeoColor4fPropertyPtr &value);
     void insertIntoColors      (UInt32                uiIndex,
                                              GeoColor4fPropertyPtrConstArg value   );
     void replaceInColors  (UInt32                uiIndex,
@@ -339,6 +347,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 
 
     void pushToNormals             (GeoVec3fPropertyPtrConstArg value   );
+    void assignNormals             (const MFGeoVec3fPropertyPtr &value);
     void insertIntoNormals      (UInt32                uiIndex,
                                              GeoVec3fPropertyPtrConstArg value   );
     void replaceInNormals  (UInt32                uiIndex,

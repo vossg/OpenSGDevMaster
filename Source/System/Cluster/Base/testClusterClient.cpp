@@ -15,52 +15,56 @@
 #include <OSGViewport.h>
 #include <OSGPerspectiveCamera.h>
 #include <OSGSolidBackground.h>
-//#include <OSGGradientBackground.h>
+#include <OSGGradientBackground.h>
 #include <OSGTrackball.h>
 #include <OSGVolumeDraw.h>
 #include <OSGGLUTWindow.h>
 #include <OSGRenderAction.h>
-//#include <OSGDrawAction.h>
 #include <OSGMultiDisplayWindow.h>
-//#include <OSGSortFirstWindow.h>
+#include <OSGBalancedMultiWindow.h>
+#include <OSGSortFirstWindow.h>
 #include <OSGChunkMaterial.h>
+#include <OSGSimpleMaterial.h>
 #include <OSGPolygonChunk.h>
-#include <OSGTriangleIterator.h>
+#include <OSGGeoFunctions.h>
 #include <OSGMaterialGroup.h>
-//#include <OSGSortLastWindow.h>
+#include <OSGSortLastWindow.h>
 #include <OSGImageComposer.h>
 #include <OSGProxyGroup.h>
 #ifdef FRAMEINTERLEAVE
 #include <OSGFrameInterleaveWindow.h>
 #endif
 #include <OSGShearedStereoCameraDecorator.h>
-#include <OSGNameAttachment.h>
+#include <OSGSimpleAttachments.h>
 #include <OSGColorBufferViewport.h>
+
+#include <OSGPipelineComposer.h>
+#include <OSGBinarySwapComposer.h>
 
 OSG_USING_NAMESPACE
 
+int                      winid;
 Trackball                tball;
 int                      mouseb = 0;
 int                      lastx=0, lasty=0;
 int                      winwidth=300, winheight=300;
-NodePtr		             root;
+int                      winx=-1, winy=-1;
+NodePtr		            root;
 TransformPtr             cam_trans;
 PerspectiveCameraPtr     cam;
 ClusterWindowPtr         clusterWindow;
 RenderAction            *ract;
 GLUTWindowPtr            clientWindow;
-
-#ifdef HAVE_SORT
 SortFirstWindowPtr       sortfirst;
 SortLastWindowPtr        sortlast;
-#endif
-
 #ifdef FRAMEINTERLEAVE
 FrameInterleaveWindowPtr frameinterleave;
 #endif
 MultiDisplayWindowPtr    multidisplay;
+BalancedMultiWindowPtr   balancedmultidisplay;
 bool                     animate=false;
 int                      animLoops=-1;
+int                      frameCount=0;
 int                      animLength=30;
 bool                     multiport=false;
 float                    ca=-1,cb=-1,cc=-1;
@@ -71,6 +75,8 @@ std::vector<Quaternion>  animOri;
 std::vector<Vec3f     >  animPos;
 std::string              animName="animation.txt";
 Real32                   animTime=0;
+std::string              serviceInterface;
+bool                     serviceInterfaceValid = false;
 std::string              serviceAddress;
 bool                     serviceAddressValid = false;
 UInt32                   interleave=0;
@@ -87,7 +93,9 @@ bool                     info = false;
 std::string              connectionDestination="";
 std::string              connectionInterface="";
 OSG::SolidBackgroundPtr  bkgnd;
-UInt32                   subtilesize=32;
+Int32                    subtilesize=-1;
+bool                     pipelinedBufferRead = false;
+
 
 /*! Simple show text function
  */
@@ -165,10 +173,8 @@ void displayInfo(int x, int y)
   glPopAttrib();
 }
 
-void prepareSceneGraph(const NodePtr &node)
+void prepareSceneGraph(NodePtrConstArg &node)
 {
-    TriangleIterator f;
-
     if(!prepared)
     {
         polygonChunk = PolygonChunk::create();
@@ -196,8 +202,11 @@ void prepareSceneGraph(const NodePtr &node)
             if(positionsPtr != NullFC)
                 sum_positions += positionsPtr->getSize();
             // get num triangles
-            for(f=geo->beginTriangles() ; f!=geo->endTriangles() ; ++f)
-                ++sum_triangles;
+            UInt32 triangle=0;
+            UInt32 line=0;
+            UInt32 point=0;
+            calcPrimitiveCount(geo,triangle,line,point);
+            sum_triangles += triangle;
             // sum of geometry nodes
             ++sum_geometries;
         }
@@ -209,9 +218,7 @@ void prepareSceneGraph(const NodePtr &node)
                 MaterialPtr mat = matGrp->getMaterial();
                 if(mat != NullFC)
                 {
-                    ChunkMaterialPtr cmat = 
-                        dynamic_cast<ChunkMaterialPtr>(mat);
-
+                    ChunkMaterialPtr cmat = dynamic_cast<ChunkMaterialPtr>(mat);
                     if(cmat->getChunks().find(polygonChunk) == cmat->getChunks().end())
                     {
                         cmat->addChunk(polygonChunk);
@@ -259,19 +266,32 @@ void display(void)
 {
     Time t;
 
+//    std::cout << glutGet(GLUT_WINDOW_WIDTH) << std::endl;
+
     t=-getSystemTime();
 
     if(animate && animPos.size()>1)
     {
+        if(animLength>0)
+            animTime = frameCount * (animPos.size())/(float)(animLength);
+
         UInt32 i=(UInt32)animTime;
         Real32 a=animTime-i;
 
-        printf("%d %d\n",i,animPos.size());
-        Vec3f v=animPos[i] + (animPos[i+1] - animPos[i]) * a; 
-
+        Vec3f v;
+        Quaternion q;
+        if(i+1 < animPos.size())
+        {
+            v = animPos[i] + (animPos[i+1] - animPos[i]) * a; 
+            q = Quaternion::slerp(animOri[i],animOri[i+1],a);
+        }
+        else
+        {
+            v = animPos[i];
+            q = animOri[i];
+        }
         cam_trans->editMatrix().setTranslate(v[0],v[1],v[2]);
-        cam_trans->editMatrix().setRotate(
-            Quaternion::slerp(animOri[i],animOri[i+1],a));
+        cam_trans->editMatrix().setRotate(q);
     }
     else
     {
@@ -313,7 +333,7 @@ void display(void)
     t+=getSystemTime();
     frame_time = t;
 
-    if(animate)
+    if(animate && animPos.size()>1)
     {
         Real32 a;
         Vec3f v;
@@ -322,10 +342,11 @@ void display(void)
                animTime,
                t,1/t);
 
-        animTime += (animPos.size()/(float)animLength);
-        if(int(animTime)+1 >= animPos.size())
+        frameCount++;
+        if(frameCount == animLength)
         {
             animTime = 0;
+            frameCount = 0;
 
             if(animLoops > 0)
             {
@@ -338,6 +359,7 @@ void display(void)
                 }
             }
         }
+
     }
 }
 
@@ -345,7 +367,9 @@ void reshape( int width, int height )
 {
     printf("reshape %d %d\n",width,height);
     glViewport(0, 0, width, height);
+
 	clientWindow->resize( width, height );
+
 	glutPostRedisplay();
 }
 
@@ -438,6 +462,8 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             fclose(file);
             animOri.clear();
             animPos.clear();
+            frameCount = 0;
+            animTime = 0;
             break;
         }
         case 's':
@@ -456,6 +482,8 @@ void key(unsigned char key, int /*x*/, int /*y*/)
                     m[3][1],
                     m[3][2]);
             fclose(file);
+            frameCount = 0;
+            animTime = 0;
             break;
         }
         case 'S':
@@ -464,7 +492,7 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             std::vector<Quaternion>::iterator qit;
             
             fprintf(file,"DEF OriInter OrientationInterpolator {\n\tkey [");
-            for(int i = 0; i < animOri.size(); ++i)
+            for(size_t i = 0; i < animOri.size(); ++i)
             {               
                 fprintf(file, "%f", i / (Real32)(animOri.size() - 1) );
                 if(i < animOri.size() - 1)
@@ -485,7 +513,7 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             std::vector<Vec3f>::iterator vit;
             
             fprintf(file,"DEF PosInter PositionInterpolator {\n\tkey [");
-            for(int i = 0; i < animPos.size(); ++i)
+            for(size_t i = 0; i < animPos.size(); ++i)
             {               
                 fprintf(file, "%f", i / (Real32)(animPos.size() - 1) );
                 if(i < animPos.size() - 1)
@@ -503,7 +531,6 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             fclose(file);
             break;
         }
-#ifdef HAVE_SORT
         case 'j':
             if(sortfirst!=NullFC)
             {
@@ -519,10 +546,9 @@ void key(unsigned char key, int /*x*/, int /*y*/)
         case 'n':
             if(sortfirst!=NullFC)
             {
-                sortfirst->getCompression().erase();
+                sortfirst->editCompression().erase();
             }
             break;
-#endif
         case 'i':
             showInfo = !showInfo;
             break;
@@ -536,7 +562,6 @@ void key(unsigned char key, int /*x*/, int /*y*/)
                 polygonChunk->setBackMode(GL_LINE);
             else
                 polygonChunk->setBackMode(GL_FILL);
-
             break;
         case 'a':
             if(animate)
@@ -549,6 +574,8 @@ void key(unsigned char key, int /*x*/, int /*y*/)
                 glutIdleFunc(display);       
                 animate=true;
             }
+            frameCount = 0;
+            animTime = 0;
             break;
         case 'd':
             // remove tree
@@ -584,7 +611,7 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             break;
         case 27:	// should kill the clients here
             // exit
-//            subRef(clusterWindow);
+//            subRefCP(clusterWindow);
             osgExit(); 
             exit(0);
 	}
@@ -594,7 +621,7 @@ void key(unsigned char key, int /*x*/, int /*y*/)
 
 void init(std::vector<std::string> &filenames)
 {
-    int i;
+    size_t i;
     OSG::DirectionalLightPtr dl;
     Real32 x,y,z;
     DynamicVolume volume;
@@ -604,6 +631,8 @@ void init(std::vector<std::string> &filenames)
     glEnable( GL_DEPTH_TEST );
     glEnable( GL_LIGHTING );
     glEnable( GL_LIGHT0 );
+    GLint twoSide = 1;
+//    glLightModeliv(GL_LIGHT_MODEL_TWO_SIDE,&twoSide);
     glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 
     // create the graph
@@ -611,13 +640,11 @@ void init(std::vector<std::string> &filenames)
     // beacon for camera and light
     OSG::NodePtr b1n = OSG::Node::create();
     OSG::GroupPtr b1 = OSG::Group::create();
-
     b1n->setCore( b1 );
 
     // transformation
     OSG::NodePtr t1n = OSG::Node::create();
     OSG::TransformPtr t1 = OSG::Transform::create();
-
     t1n->setCore( t1 );
     t1n->addChild( b1n );
 
@@ -629,9 +656,7 @@ void init(std::vector<std::string> &filenames)
     OSG::NodePtr dlight = OSG::Node::create();
     dl = OSG::DirectionalLight::create();
 
-
     dlight->setCore( dl );
-
 
     dl->setAmbient( .3, .3, .3, 1 );
     dl->setDiffuse( 1, 1, 1, 1 );
@@ -642,7 +667,6 @@ void init(std::vector<std::string> &filenames)
     root = OSG::Node::create();
     addRef(root);
     OSG::GroupPtr gr1 = OSG::Group::create();
-
     root->setCore( gr1 );
     root->addChild( t1n );
     root->addChild( dlight );
@@ -650,11 +674,9 @@ void init(std::vector<std::string> &filenames)
     // Load the file
     OSG::NodePtr scene = OSG::Node::create();
     addRef(scene);
-
     scene->setCore(OSG::Group::create());
 
     NodePtr file;
-
     for(i=0;i<filenames.size();i++)
     {
         file = SceneFileHandler::the()->read(filenames[i].c_str(),0);
@@ -670,7 +692,7 @@ void init(std::vector<std::string> &filenames)
     }
 
     prepareSceneGraph(scene);
-    
+
     OSG::Thread::getCurrentChangeList()->commitChanges();
 
     scene->invalidateVolume();
@@ -701,7 +723,10 @@ void init(std::vector<std::string> &filenames)
                         x*size[0]*1.1,
                         y*size[1]*1.1,
                         z*size[2]*1.1);
-                    node->addChild( OSG::cloneTree(scene) );
+                    geoNode = OSG::cloneTree(scene);
+                    *geoNode->editSFVolume() = *scene->getSFVolume();
+                    geoNode->editVolume(false).setValid(true);
+                    node->addChild( geoNode );
                     dlight->addChild(node);
                 }
     }
@@ -718,8 +743,9 @@ void init(std::vector<std::string> &filenames)
         sum_positions *=(UInt32)(ca*cb*cc);
     }
 //    dlight->invalidateVolume();
-
+    printf("update Volume\n");
     dlight->updateVolume();
+    printf("update Volume OK\n");
 
     // should check first. ok for now.
     const OSG::BoxVolume *vol = (OSG::BoxVolume *)&dlight->getVolume();
@@ -732,11 +758,11 @@ void init(std::vector<std::string> &filenames)
     size = max - min;
 
     std::cout << "Volume: from " << min << " to " << max << std::endl;
+    std::cout << "Center: " << center << std::endl;
 
     // Camera
 
     OSG::PerspectiveCameraPtr cam = OSG::PerspectiveCamera::create();
-
     cam->setBeacon( b1n );
     cam->setFov( OSG::osgDegree2Rad( 60 ) );
     cam->setNear( 10 );
@@ -744,7 +770,6 @@ void init(std::vector<std::string> &filenames)
 
     // Solid Background
     bkgnd = OSG::SolidBackground::create();
-
     bkgnd->setColor( OSG::Color3f(0,0,0) );
 //    bkgnd->setColor( OSG::Color3f(.1,.1,.6) );
 //    bkgnd->setColor( OSG::Color3f(1,1,1) );
@@ -755,7 +780,6 @@ void init(std::vector<std::string> &filenames)
     if(stereoMode == 0)
     {
         vp1 = OSG::Viewport::create();
-
         vp1->setCamera    ( cam );
         vp1->setBackground( bkgnd );
         vp1->setRoot      ( root );
@@ -764,7 +788,6 @@ void init(std::vector<std::string> &filenames)
         if(multiport)
         {
             vp2 = OSG::Viewport::create();
-
             vp2->setCamera    ( cam );
             vp2->setBackground( bkgnd );
             vp2->setRoot      ( root );
@@ -776,27 +799,22 @@ void init(std::vector<std::string> &filenames)
         OSG::ShearedStereoCameraDecoratorPtr deco;
         // left
         deco=OSG::ShearedStereoCameraDecorator::create();
-
         deco->setLeftEye(true);
         deco->setEyeSeparation(eyedistance);
         deco->setDecoratee(cam);
         deco->setZeroParallaxDistance(zeroparallax);
         vp1 = OSG::Viewport::create();
-
         vp1->setCamera    ( deco );
         vp1->setBackground( bkgnd );
         vp1->setRoot      ( root );
         vp1->setSize      ( 0,0, .5,1 );
-
         // right
         deco=OSG::ShearedStereoCameraDecorator::create();
-
         deco->setLeftEye(false);
         deco->setEyeSeparation(eyedistance);
         deco->setDecoratee(cam);
         deco->setZeroParallaxDistance(zeroparallax);
         vp2 = OSG::Viewport::create();
-
         vp2->setCamera    ( deco );
         vp2->setBackground( bkgnd );
         vp2->setRoot      ( root );
@@ -807,51 +825,44 @@ void init(std::vector<std::string> &filenames)
         OSG::ShearedStereoCameraDecoratorPtr deco;
         // left
         deco=OSG::ShearedStereoCameraDecorator::create();
-
-            deco->setLeftEye(true);
-            deco->setEyeSeparation(eyedistance);
-            deco->setDecoratee(cam);
-            deco->setZeroParallaxDistance(zeroparallax);
+        deco->setLeftEye(true);
+        deco->setEyeSeparation(eyedistance);
+        deco->setDecoratee(cam);
+        deco->setZeroParallaxDistance(zeroparallax);
         
         ColorBufferViewportPtr cvp1 = ColorBufferViewport::create();
-
-            cvp1->setCamera    ( deco );
-            cvp1->setBackground( bkgnd );
-            cvp1->setRoot      ( root );
-            cvp1->setSize      ( 0,0, 1,1 );
-            cvp1->setRed(GL_FALSE);
-            cvp1->setGreen(GL_TRUE);
-            cvp1->setBlue(GL_TRUE);
-            cvp1->setAlpha(GL_TRUE);
-
+        cvp1->setCamera    ( deco );
+        cvp1->setBackground( bkgnd );
+        cvp1->setRoot      ( root );
+        cvp1->setSize      ( 0,0, 1,1 );
+        cvp1->setRed(GL_FALSE);
+        cvp1->setGreen(GL_TRUE);
+        cvp1->setBlue(GL_TRUE);
+        cvp1->setAlpha(GL_TRUE);
         vp1 = cvp1;
         
         // right
         deco=OSG::ShearedStereoCameraDecorator::create();
-
-            deco->setLeftEye(false);
-            deco->setEyeSeparation(eyedistance);
-            deco->setDecoratee(cam);
-            deco->setZeroParallaxDistance(zeroparallax);
+        deco->setLeftEye(false);
+        deco->setEyeSeparation(eyedistance);
+        deco->setDecoratee(cam);
+        deco->setZeroParallaxDistance(zeroparallax);
         
         ColorBufferViewportPtr cvp2 = ColorBufferViewport::create();
-
-            cvp2->setCamera    ( deco );
-            cvp2->setBackground( bkgnd );
-            cvp2->setRoot      ( root );
-            cvp2->setSize      ( 0,0,1,1 );
-            cvp2->setRed(GL_TRUE);
-            cvp2->setGreen(GL_FALSE);
-            cvp2->setBlue(GL_FALSE);
-            cvp2->setAlpha(GL_FALSE);
-
+        cvp2->setCamera    ( deco );
+        cvp2->setBackground( bkgnd );
+        cvp2->setRoot      ( root );
+        cvp2->setSize      ( 0,0,1,1 );
+        cvp2->setRed(GL_TRUE);
+        cvp2->setGreen(GL_FALSE);
+        cvp2->setBlue(GL_FALSE);
+        cvp2->setAlpha(GL_FALSE);
         vp2 = cvp2;
     }
 
     GLint glvp[4];
     glGetIntegerv( GL_VIEWPORT, glvp );
     
-
     if(serverx>0 && servery>0)
         clusterWindow->setSize( serverx, servery );
     else
@@ -860,6 +871,13 @@ void init(std::vector<std::string> &filenames)
 
     if(multiport || stereoMode > 0)
         clusterWindow->addPort( vp2 );
+
+    if(serviceInterfaceValid == true)
+    {
+        clusterWindow->setServiceInterface(serviceInterface);
+
+        fprintf(stderr, "tcclient use if %s\n", serviceInterface.c_str());
+    }
 
     if(serviceAddressValid == true)
     {
@@ -887,19 +905,19 @@ void init(std::vector<std::string> &filenames)
     // run...
     std::cout << size.length() << std::endl;
     cam->setFar (size.length() * 100.0);
-    cam->setNear(size.length() * 100.0 / 10000.0);
+    cam->setNear(size.length() * 100.0 / 100000.0);
 }
 
 int main(int argc,char **argv)
 {
-    int                      i,winid;
+    int                      i;
     char                    *opt;
     std::vector<std::string> filenames;
     std::vector<std::string> servers;
-    std::string              connectionType = "Multicast";
-//    std::string              connectionType = "StreamSock";
+    std::string              connectionType = "StreamSock";
     std::string              connectionParameters;
     int                      rows=1;
+    int                      cols=-1;
     char                     type='M';
     bool                     clientRendering=true;
     bool                     compose=false;
@@ -915,16 +933,16 @@ int main(int argc,char **argv)
             switch(argv[i][1])
             {
                 case 'o':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     connectionParameters = opt;
                     printf("connectionParameters: '%s'\n", connectionParameters.c_str());
                     break;
                 case 'A':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     autostart = opt;
                     break;
                 case 'D':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     if(sscanf(opt,"%f,%f,%f",&ca,&cb,&cc)!=3)
                     {
                         std::cout << "Copy opton -D x,y,z" << std::endl;
@@ -932,12 +950,17 @@ int main(int argc,char **argv)
                     }
                     break;
                 case 'b':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
+                    serviceInterface.assign(opt);
+                    serviceInterfaceValid = true;
+                    break;
+                case 'B':
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     serviceAddress.assign(opt);
                     serviceAddressValid = true;
                     break;
                 case 'f':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     filenames.push_back(opt);
                     printf("<%s>\n",opt);
                     break;
@@ -945,16 +968,17 @@ int main(int argc,char **argv)
                     connectionType="Multicast";
                     break;
                 case 'r':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
-                    rows=atoi(opt);
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
+                    if(sscanf(opt,"%d,%d",&rows,&cols) != 2)
+                        sscanf(opt,"%d",&rows);
                     break;
                 case 't':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     subtilesize=atoi(opt);
                     break;
 #ifdef FRAMEINTERLEAVE
                 case 'i':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     interleave=atoi(opt);
                     break;
 #endif
@@ -963,6 +987,9 @@ int main(int argc,char **argv)
                     break;
                 case 'F':
                     type='F';
+                    break;
+                case 'X':
+                    type='X';
                     break;
                 case 'P':
                     type='P';
@@ -979,6 +1006,8 @@ int main(int argc,char **argv)
                             composerType = "PipelineComposer";
                         if(argv[i][lpos] == 'S')
                             composerType = "SepiaComposer";
+                        if(argv[i][lpos] == 'p')
+                            pipelinedBufferRead = true;
                         ++lpos;
                     }
                     break;
@@ -995,15 +1024,15 @@ int main(int argc,char **argv)
                 case 'c':
                     stereoMode=2;
                     break;
-                case 'p':
+                case 'S':
                     info=true;
                     break;
                 case 'e':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     sscanf(opt,"%f",&eyedistance);
                     break;
                 case 'z':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     sscanf(opt,"%f",&zeroparallax);
                     break;
                 case 'd':
@@ -1013,22 +1042,21 @@ int main(int argc,char **argv)
                     multiport=true;
                     break;
                 case 'x':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     sscanf(opt,"%d",&serverx);
                     break;
                 case 'y':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     sscanf(opt,"%d",&servery);
                     break;
                 case 'a':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     animName=opt;
                     loadAnim();
-                    glutIdleFunc(display);       
                     animate=true;
                     break;
                 case 'l':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     if(sscanf(opt,"%d,%d",&animLoops,&animLength) != 2)
                     {
                         animLength = 30;
@@ -1039,24 +1067,27 @@ int main(int argc,char **argv)
                     }
                     break;
                 case 'g':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
-                    sscanf(opt,"%d,%d",&winwidth,&winheight);
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
+                    if(sscanf(opt,"%d,%d,%d,%d",
+                              &winwidth,&winheight,&winx,&winy) != 4)
+                        sscanf(opt,"%d,%d",&winwidth,&winheight);
                     break;
                 case 'G':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     connectionDestination = opt;
                     break;
                 case 'i':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    opt = argv[i][2] ? argv[i]+2 : argv[++i];
                     connectionInterface = opt;
                     break;
-                case 'h':
+                default:
                     std::cout << argv[0] 
-                              << "-ffile -m -rrows -C -M"
+                              << "-ffile -m -rrows[,cols] -C -M"
                               << std::endl;
                     std::cout << "-m  use multicast" << std::endl
                               << "-G  multicast group" << std::endl
                               << "-i  interface" << std::endl
+                              << "-b  service interface" << std::endl
                               << "-M  multi display" << std::endl
 #ifdef FRAMEINTERLEAVE
                               << "-I  frame interleave" << std::endl
@@ -1086,30 +1117,30 @@ int main(int argc,char **argv)
             servers.push_back(argv[i]);
         }
     }
-
-    if(servers.size() == 0)
-    {
-        servers.push_back("foo");
-    }
-
     try
     {
         osgInit(argc, argv);
         glutInit(&argc, argv);
         glutInitDisplayMode( GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE );
+        if(winx >=0 && winy >=0)
+            glutInitWindowPosition(winx,winy);
         glutInitWindowSize(winwidth,winheight);
         winid = glutCreateWindow("OpenSG Cluster Client");
         glutKeyboardFunc(key);
         glutReshapeFunc(reshape);
-        glutDisplayFunc(display);       
+        glutDisplayFunc(display);     
+        if(animate)
+            glutIdleFunc(display);       
         glutMouseFunc(mouse);   
         glutMotionFunc(motion); 
         ract = RenderAction::create();
+        ract->setSortTrans(true);
+        ract->setZWriteTrans(true);
+        ract->setLocalLights(true);
+        ract->setCorrectTwoSidedLighting(true);
 
         // clear changelist from prototypes
         OSG::Thread::getCurrentChangeList()->clear();
-
-        OSG::Thread::getCurrentChangeList()->dump();
         
         // create cluster window
         switch(type)
@@ -1118,36 +1149,39 @@ int main(int argc,char **argv)
                 multidisplay=MultiDisplayWindow::create();
                 clusterWindow=multidisplay;
                 break;
-#ifdef HAVE_SORT
+            case 'X': 
+                balancedmultidisplay=BalancedMultiWindow::create();
+                clusterWindow=balancedmultidisplay;
+                break;
             case 'F':
                 sortfirst=SortFirstWindow::create();
-
                 if(compose)
                     sortfirst->setCompose(true);
                 else
                     sortfirst->setCompose(false);
-
                 clusterWindow=sortfirst;
                 break;
             case 'L':
                 sortlast=SortLastWindow::create();
-
                 if(!composerType.empty())
                 {
                     FieldContainerPtr fcPtr = 
                         FieldContainerFactory::the()->
-                        createFieldContainer(composerType.c_str());
-                    ImageComposerPtr icPtr = cast
-                        _dynamic<ImageComposerPtr>(fcPtr);
-
+                            createContainer(composerType.c_str());
+                    ImageComposerPtr icPtr = dynamic_cast<ImageComposerPtr>(fcPtr);
                     if(icPtr != NullFC)
                     {
-/*
-                        if(PipelineComposerPtr::dcast(icPtr) != NullFC)
-                            PipelineComposerPtr::dcast(icPtr)->setTileSize(subtilesize);
-                        if(BinarySwapComposerPtr::dcast(icPtr) != NullFC)
-                            BinarySwapComposerPtr::dcast(icPtr)->setTileSize(subtilesize);
-*/
+                        if(dynamic_cast<PipelineComposerPtr>(icPtr) != NullFC)
+                        {
+                            if(subtilesize>0)
+                                dynamic_cast<PipelineComposerPtr>(icPtr)->setTileSize(subtilesize);
+                            dynamic_cast<PipelineComposerPtr>(icPtr)->setPipelined(pipelinedBufferRead);
+                        }
+                        if(dynamic_cast<BinarySwapComposerPtr>(icPtr) != NullFC)
+                        {
+                            if(subtilesize>0)
+                                dynamic_cast<BinarySwapComposerPtr>(icPtr)->setTileSize(subtilesize);
+                        }
                         icPtr->setStatistics(info);
 //                        icPtr->setShort(false);
                         sortlast->setComposer(icPtr);
@@ -1155,7 +1189,6 @@ int main(int argc,char **argv)
                 }
                 clusterWindow=sortlast;
                 break;
-#endif
 #ifdef FRAMEINTERLEAVE
             case 'I':
                 frameinterleave=FrameInterleaveWindow::create();
@@ -1166,33 +1199,37 @@ int main(int argc,char **argv)
                     frameinterleave->setCompose(false);
                 break;
 #endif
-#ifdef HAVE_SORT
             case 'P':
                 sortfirst=SortFirstWindow::create();
                 sortfirst->setCompose(false);
                 clusterWindow=sortfirst;
                 break;
-#endif
         }
 
-            if(!autostart.empty())
-                clusterWindow->editAutostart().push_back(autostart);
-
-            for(i=0 ; i<servers.size() ; ++i)
-                clusterWindow->editServers().push_back(servers[i]);
-            switch(type)
-            {
-                case 'M': 
-                    multidisplay->setHServers(
-                        clusterWindow->getServers().size()/rows);
-                    multidisplay->setVServers(
-                        rows);
-                    break;
-            }
+        if(!autostart.empty())
+            clusterWindow->editAutostart().push_back(autostart);
+        
+        for(i=0 ; i<servers.size() ; ++i)
+            clusterWindow->editServers().push_back(servers[i]);
+        if(cols < 0)
+            cols = clusterWindow->getServers().size() / rows;
+        switch(type)
+        {
+            case 'M': 
+                multidisplay->setHServers(cols);
+                multidisplay->setVServers(rows);
+                break;
+            case 'X': 
+                balancedmultidisplay->setHServers(cols);
+                balancedmultidisplay->setVServers(rows);
+//                    balancedmultidisplay->setShowBalancing(true);
+                balancedmultidisplay->setShowBalancing(info);
+                break;
+        }
 #ifdef FRAMEINTERLEAVE
-            clusterWindow->setInterleave(interleave);
+        clusterWindow->setInterleave(interleave);
 #endif
-
+        
         // create client window
         clientWindow=GLUTWindow::create();
 //        glutReshapeWindow(800,600);
@@ -1211,11 +1248,14 @@ int main(int argc,char **argv)
         {
             clusterWindow->setClientWindow(clientWindow);
         }
-        clusterWindow->init();
-        clusterWindow->resize(winwidth,winheight);
-        clientWindow->resize(winwidth,winheight);
         clusterWindow->setConnectionDestination(connectionDestination);
         clusterWindow->setConnectionInterface(connectionInterface);
+        clusterWindow->init();
+        if(serverx > 0)
+            clusterWindow->resize(serverx,servery);
+        else
+            clusterWindow->resize(winwidth,winheight);
+        clientWindow->resize(winwidth,winheight);
         glutMainLoop();
     }
     catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)

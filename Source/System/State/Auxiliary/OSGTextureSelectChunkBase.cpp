@@ -338,6 +338,21 @@ void TextureSelectChunkBase::pushToTextures(TextureBaseChunkPtrConstArg value)
     _mfTextures.push_back(value);
 }
 
+void TextureSelectChunkBase::assignTextures (const MFTextureBaseChunkPtr &value)
+{
+    MFTextureBaseChunkPtr::const_iterator elemIt  =
+        value.begin();
+    MFTextureBaseChunkPtr::const_iterator elemEnd =
+        value.end  ();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToTextures(*elemIt);
+
+        ++elemIt;
+    }
+}
+
 void TextureSelectChunkBase::insertIntoTextures(UInt32                uiIndex,
                                                    TextureBaseChunkPtrConstArg value   )
 {
