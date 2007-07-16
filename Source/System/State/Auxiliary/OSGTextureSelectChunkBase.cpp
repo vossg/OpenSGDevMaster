@@ -345,6 +345,8 @@ void TextureSelectChunkBase::assignTextures (const MFTextureBaseChunkPtr &value)
     MFTextureBaseChunkPtr::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<TextureSelectChunk *>(this)->clearTextures();
+
     while(elemIt != elemEnd)
     {
         this->pushToTextures(*elemIt);

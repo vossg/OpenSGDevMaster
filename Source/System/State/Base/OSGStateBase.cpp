@@ -288,6 +288,8 @@ void StateBase::assignChunks   (const MFStateChunkPtr   &value)
     MFStateChunkPtr  ::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<State *>(this)->clearChunks();
+
     while(elemIt != elemEnd)
     {
         this->pushToChunks(*elemIt);

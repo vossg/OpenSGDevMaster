@@ -845,6 +845,8 @@ void ViewportBase::assignForegrounds(const MFForegroundPtr   &value)
     MFForegroundPtr  ::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<Viewport *>(this)->clearForegrounds();
+
     while(elemIt != elemEnd)
     {
         this->addForeground(*elemIt);

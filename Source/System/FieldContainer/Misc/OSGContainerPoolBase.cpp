@@ -326,6 +326,8 @@ void ContainerPoolBase::assignContainers(const MFFieldContainerPtr &value)
     MFFieldContainerPtr::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<ContainerPool *>(this)->clearContainers();
+
     while(elemIt != elemEnd)
     {
         this->pushToContainers(*elemIt);

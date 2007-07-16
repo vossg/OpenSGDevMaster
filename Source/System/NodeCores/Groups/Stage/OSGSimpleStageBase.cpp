@@ -603,6 +603,8 @@ void SimpleStageBase::assignForegrounds(const MFForegroundPtr   &value)
     MFForegroundPtr  ::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<SimpleStage *>(this)->clearForegrounds();
+
     while(elemIt != elemEnd)
     {
         this->pushToForegrounds(*elemIt);

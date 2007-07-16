@@ -506,6 +506,8 @@ void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.TypeNamespace!@@
     @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:15!@::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<@!Classname!@ *>(this)->@!field.ClearField!@();
+
     while(elemIt != elemEnd)
     {
         this->@!field.PushToField!@(*elemIt);

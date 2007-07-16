@@ -285,6 +285,8 @@ void ShaderParameterChunkBase::assignParameters(const MFShaderParameterPtr &valu
     MFShaderParameterPtr::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<ShaderParameterChunk *>(this)->clearParameters();
+
     while(elemIt != elemEnd)
     {
         this->addParameter(*elemIt);

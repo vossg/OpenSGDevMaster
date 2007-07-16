@@ -345,6 +345,8 @@ void ImageForegroundBase::assignImages   (const MFImagePtr        &value)
     MFImagePtr       ::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<ImageForeground *>(this)->clearImages();
+
     while(elemIt != elemEnd)
     {
         this->pushToImages(*elemIt);

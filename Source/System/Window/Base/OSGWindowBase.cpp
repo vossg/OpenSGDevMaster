@@ -699,6 +699,8 @@ void WindowBase::assignPort     (const MFViewportPtr     &value)
     MFViewportPtr    ::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<Window *>(this)->clearPorts();
+
     while(elemIt != elemEnd)
     {
         this->addPort(*elemIt);

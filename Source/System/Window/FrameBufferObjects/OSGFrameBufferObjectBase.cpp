@@ -585,6 +585,8 @@ void FrameBufferObjectBase::assignColorAttachments(const MFFrameBufferAttachment
     MFFrameBufferAttachmentPtr::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<FrameBufferObject *>(this)->clearColorAttachments();
+
     while(elemIt != elemEnd)
     {
         this->pushToColorAttachments(*elemIt);

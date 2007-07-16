@@ -380,6 +380,8 @@ void SortLastWindowBase::assignGroupNodes(const MFNodePtr         &value)
     MFNodePtr        ::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<SortLastWindow *>(this)->clearGroupNodes();
+
     while(elemIt != elemEnd)
     {
         this->pushToGroupNodes(*elemIt);

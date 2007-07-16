@@ -865,6 +865,8 @@ void VTKMapperBase::assignGeoRoots (const MFNodePtr         &value)
     MFNodePtr        ::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<VTKMapper *>(this)->clearGeoRoots();
+
     while(elemIt != elemEnd)
     {
         this->pushToGeoRoots(*elemIt);
@@ -999,6 +1001,8 @@ void VTKMapperBase::assignGeometries(const MFGeometryPtr     &value)
         value.begin();
     MFGeometryPtr    ::const_iterator elemEnd =
         value.end  ();
+
+    static_cast<VTKMapper *>(this)->clearGeometries();
 
     while(elemIt != elemEnd)
     {
@@ -1135,6 +1139,8 @@ void VTKMapperBase::assignMaterials(const MFChunkMaterialPtr &value)
     MFChunkMaterialPtr::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<VTKMapper *>(this)->clearMaterials();
+
     while(elemIt != elemEnd)
     {
         this->pushToMaterials(*elemIt);
@@ -1269,6 +1275,8 @@ void VTKMapperBase::assignMaterialChunks(const MFMaterialChunkPtr &value)
         value.begin();
     MFMaterialChunkPtr::const_iterator elemEnd =
         value.end  ();
+
+    static_cast<VTKMapper *>(this)->clearMaterialChunks();
 
     while(elemIt != elemEnd)
     {
@@ -1405,6 +1413,8 @@ void VTKMapperBase::assignPositions(const MFGeoPnt3fPropertyPtr &value)
     MFGeoPnt3fPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<VTKMapper *>(this)->clearPositions();
+
     while(elemIt != elemEnd)
     {
         this->pushToPositions(*elemIt);
@@ -1539,6 +1549,8 @@ void VTKMapperBase::assignLength   (const MFGeoUInt32PropertyPtr &value)
         value.begin();
     MFGeoUInt32PropertyPtr::const_iterator elemEnd =
         value.end  ();
+
+    static_cast<VTKMapper *>(this)->clearLength();
 
     while(elemIt != elemEnd)
     {
@@ -1675,6 +1687,8 @@ void VTKMapperBase::assignTypes    (const MFGeoUInt8PropertyPtr &value)
     MFGeoUInt8PropertyPtr::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<VTKMapper *>(this)->clearTypes();
+
     while(elemIt != elemEnd)
     {
         this->pushToTypes(*elemIt);
@@ -1810,6 +1824,8 @@ void VTKMapperBase::assignColors   (const MFGeoColor4fPropertyPtr &value)
     MFGeoColor4fPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<VTKMapper *>(this)->clearColors();
+
     while(elemIt != elemEnd)
     {
         this->pushToColors(*elemIt);
@@ -1944,6 +1960,8 @@ void VTKMapperBase::assignNormals  (const MFGeoVec3fPropertyPtr &value)
         value.begin();
     MFGeoVec3fPropertyPtr::const_iterator elemEnd =
         value.end  ();
+
+    static_cast<VTKMapper *>(this)->clearNormals();
 
     while(elemIt != elemEnd)
     {

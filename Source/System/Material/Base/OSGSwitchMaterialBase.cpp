@@ -332,6 +332,8 @@ void SwitchMaterialBase::assignMaterials(const MFMaterialPtr     &value)
     MFMaterialPtr    ::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<SwitchMaterial *>(this)->clearMaterials();
+
     while(elemIt != elemEnd)
     {
         this->pushToMaterials(*elemIt);

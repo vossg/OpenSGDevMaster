@@ -999,6 +999,8 @@ void TiledQuadTreeTerrainBase::assignHeightTiles(const MFImagePtr        &value)
     MFImagePtr       ::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<TiledQuadTreeTerrain *>(this)->clearHeightTiles();
+
     while(elemIt != elemEnd)
     {
         this->pushToHeightTiles(*elemIt);
@@ -1133,6 +1135,8 @@ void TiledQuadTreeTerrainBase::assignHeightTextures(const MFMaterialPtr     &val
         value.begin();
     MFMaterialPtr    ::const_iterator elemEnd =
         value.end  ();
+
+    static_cast<TiledQuadTreeTerrain *>(this)->clearHeightTextures();
 
     while(elemIt != elemEnd)
     {

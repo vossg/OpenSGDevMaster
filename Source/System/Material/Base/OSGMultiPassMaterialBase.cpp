@@ -274,6 +274,8 @@ void MultiPassMaterialBase::assignMaterials(const MFMaterialPtr     &value)
     MFMaterialPtr    ::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<MultiPassMaterial *>(this)->clearMaterials();
+
     while(elemIt != elemEnd)
     {
         this->addMaterial(*elemIt);

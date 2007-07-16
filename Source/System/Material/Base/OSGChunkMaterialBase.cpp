@@ -348,6 +348,8 @@ void ChunkMaterialBase::assignChunks   (const MFStateChunkPtr   &value)
     MFStateChunkPtr  ::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<ChunkMaterial *>(this)->clearChunks();
+
     while(elemIt != elemEnd)
     {
         this->pushToChunks(*elemIt);

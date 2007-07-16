@@ -559,6 +559,8 @@ void GeometryBase::assignProperties(const MFGeoVectorPropertyPtr &value)
     MFGeoVectorPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
+    static_cast<Geometry *>(this)->clearProperties();
+
     while(elemIt != elemEnd)
     {
         this->pushToProperties(*elemIt);
@@ -729,6 +731,8 @@ void GeometryBase::assignPropIndices(const MFGeoIntegralPropertyPtr &value)
         value.begin();
     MFGeoIntegralPropertyPtr::const_iterator elemEnd =
         value.end  ();
+
+    static_cast<Geometry *>(this)->clearPropIndices();
 
     while(elemIt != elemEnd)
     {
