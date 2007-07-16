@@ -4,11 +4,12 @@ if option_pass:
    print "Processing option pass"
 else:
    library = "OSGCluster"
-   osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGState', 'OSGWindow']
+   osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGState', 'OSGDrawable', 
+                   'OSGWindow']
 
    # Tests' dependencies
 
-   osg_test_libs = ['OSGState', 'OSGDrawable', 'OSGUtil', 'OSGWindowGLUT', 
+   osg_test_libs = ['OSGState', 'OSGUtil', 'OSGWindowGLUT', 
                     'OSGGroup', 'OSGText', 'OSGFileIO']
 
    vtk_option = opts.GetOption("vtk")

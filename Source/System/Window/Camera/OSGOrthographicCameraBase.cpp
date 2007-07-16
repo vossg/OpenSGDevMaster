@@ -154,7 +154,7 @@ OrthographicCameraBase::TypeObject OrthographicCameraBase::_type(
     "<FieldContainer\n"
     "\tname=\"OrthographicCamera\"\n"
     "\tparent=\"Camera\"\n"
-    "\tlibrary=\"System\"\n"
+    "\tlibrary=\"Window\"\n"
     "\tstructure=\"concrete\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tsystemcomponent=\"true\"\n"

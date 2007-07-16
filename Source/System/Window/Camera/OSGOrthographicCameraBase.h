@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGWindowDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class OrthographicCamera;
 
 //! \brief OrthographicCamera Base Class.
 
-class OSG_SYSTEM_DLLMAPPING OrthographicCameraBase : public Camera
+class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
 {
   public:
 

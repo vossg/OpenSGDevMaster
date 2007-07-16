@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGWindowDef.h"
 
 #include "OSGCameraFields.h"
 
@@ -75,7 +75,7 @@ OSG_GEN_CONTAINERPTR(OrthographicCamera);
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpWindowFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -95,7 +95,7 @@ struct FieldTraits<OrthographicCameraPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
+    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFOrthographicCameraPtr"; }
     static const char *getMName(void) { return "MFOrthographicCameraPtr"; }
@@ -111,23 +111,23 @@ struct FieldTraits<OrthographicCameraPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
+/*! \ingroup GrpWindowFieldSingle */
 
 typedef SFieldAdaptor<OrthographicCameraPtr, SFFieldContainerPtr> SFOrthographicCameraPtr;
 #endif
 
 #ifndef OSG_COMPILEORTHOGRAPHICCAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, OrthographicCameraPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(SField, OrthographicCameraPtr, OSG_WINDOW_DLLTMPLMAPPING)
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
+/*! \ingroup GrpWindowFieldMulti */
 
 typedef MFieldAdaptor<OrthographicCameraPtr, MFFieldContainerPtr> MFOrthographicCameraPtr;
 #endif
 
 #ifndef OSG_COMPILEORTHOGRAPHICCAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, OrthographicCameraPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(MField, OrthographicCameraPtr, OSG_WINDOW_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE

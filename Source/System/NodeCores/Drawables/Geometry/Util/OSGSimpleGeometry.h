@@ -161,13 +161,13 @@ NodePtr                   makeConicalFrustum    (Real32 height,
                                                  bool   doBottom);
 OSG_DRAWABLE_DLLMAPPING
 NodePtr                   makeCoordAxis(Real32 length,
-                                        Real32 lineWidth,
-                                        bool showAxisName);
+                                        Real32 lineWidth    = 2.0f,
+                                        bool   showAxisName = true);
 
 OSG_DRAWABLE_DLLMAPPING
 GeometryPtr               makeCoordAxisGeo(Real32 length,
-                                           Real32 lineWidth,
-                                           bool showAxisName);
+                                           Real32 lineWidth    = 2.0f,
+                                           bool   showAxisName = true);
 
 OSG_DRAWABLE_DLLMAPPING
 GeometryPtr               makeTeapotGeo(UInt16 depth);

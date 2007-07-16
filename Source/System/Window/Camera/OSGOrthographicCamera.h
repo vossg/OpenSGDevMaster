@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemOrthographicCamera for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING OrthographicCamera : public OrthographicCameraBase
+class OSG_WINDOW_DLLMAPPING OrthographicCamera : public OrthographicCameraBase
 {
   protected:
 

@@ -88,16 +88,6 @@ OSG_CONTRIBGUI_DLLMAPPING GeometryPtr makeSelectionGeo(NodePtr);
  *  \ingroup SimpleGeometry
  */
 
-OSG_CONTRIBGUI_DLLMAPPING GeometryPtr makeCoordAxisGeo(
-    const Real32 length, 
-    const Real32 lineWidth = 2.0,
-    const bool   showAxisName = true);
-
-OSG_CONTRIBGUI_DLLMAPPING NodePtr makeCoordAxis(
-    const Real32 length,
-    const Real32 lineWidth = 2.0,
-    const bool   showAxisName = true);
-
 PolygonChunkPtr getPolygonChunk(const UInt16 faces = GL_FRONT_AND_BACK, 
                                 const UInt16 mode = GL_LINE);
 

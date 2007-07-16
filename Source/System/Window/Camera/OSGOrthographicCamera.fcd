@@ -3,7 +3,7 @@
 <FieldContainer
 	name="OrthographicCamera"
 	parent="Camera"
-	library="System"
+	library="Window"
 	structure="concrete"
 	pointerfieldtypes="both"
 	systemcomponent="true"

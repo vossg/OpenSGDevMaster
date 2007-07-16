@@ -62,6 +62,7 @@
 #include <OSGSolidBackground.h>
 
 #include <OSGGLU.h>
+#include <OSGGLEXT.h>
 
 OSG_USING_NAMESPACE
 
