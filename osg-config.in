@@ -122,8 +122,8 @@ def main():
 
    lib_suffix = ""
 
-   if options.dbg:
-       lib_suffix = ""
+   if options.dbg and sys.platform == "win32":
+       lib_suffix = "_d"
    elif "win32" == sys.platform and options.hybrid:
        lib_suffix = "_h"
 
