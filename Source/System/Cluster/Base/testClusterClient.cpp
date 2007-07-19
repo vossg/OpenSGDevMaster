@@ -35,7 +35,7 @@
 #include <OSGFrameInterleaveWindow.h>
 #endif
 #include <OSGShearedStereoCameraDecorator.h>
-#include <OSGSimpleAttachments.h>
+#include <OSGNameAttachment.h>
 #include <OSGColorBufferViewport.h>
 
 #include <OSGPipelineComposer.h>

@@ -171,6 +171,7 @@ Navigator::Navigator() :
 
 Navigator::~Navigator()
 {
+    OSG::subRef(_cartN);
 }
 
 /*-------------------------- Notificators ---------------------------------*/
@@ -728,7 +729,7 @@ void Navigator::setCameraTransformation(const NodePtr & new_cartn)
         FWARNING (("Set _cartN in Navigator to NullFC\n"));
     }
 
-    _cartN = new_cartn;
+    OSG::setRefd(_cartN, new_cartn);
 }
 
 /*------------------------------ get --------------------------------------*/
