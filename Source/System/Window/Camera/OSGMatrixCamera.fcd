@@ -32,4 +32,13 @@ _sfProjectionMatrix Fields.
 		access="public"
 	>
 	</Field>
+    <Field
+        name="useBeacon"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+    >
+    Use beacon if set to get the modelview matrix
+    </Field>
 </FieldContainer>

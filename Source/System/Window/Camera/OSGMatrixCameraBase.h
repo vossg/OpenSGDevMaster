@@ -67,6 +67,7 @@
 
 #include "OSGMatrixFields.h" // ProjectionMatrix type
 #include "OSGMatrixFields.h" // ModelviewMatrix type
+#include "OSGBoolFields.h" // UseBeacon type
 
 #include "OSGMatrixCameraFields.h"
 
@@ -96,13 +97,16 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraBase : public Camera
     {
         ProjectionMatrixFieldId = Inherited::NextFieldId,
         ModelviewMatrixFieldId = ProjectionMatrixFieldId + 1,
-        NextFieldId = ModelviewMatrixFieldId + 1
+        UseBeaconFieldId = ModelviewMatrixFieldId + 1,
+        NextFieldId = UseBeaconFieldId + 1
     };
 
     static const OSG::BitVector ProjectionMatrixFieldMask =
         (TypeTraits<BitVector>::One << ProjectionMatrixFieldId);
     static const OSG::BitVector ModelviewMatrixFieldMask =
         (TypeTraits<BitVector>::One << ModelviewMatrixFieldId);
+    static const OSG::BitVector UseBeaconFieldMask =
+        (TypeTraits<BitVector>::One << UseBeaconFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -142,6 +146,12 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraBase : public Camera
                   SFMatrix            *editSFModelviewMatrix(void);
             const SFMatrix            *getSFModelviewMatrix (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  SFBool              *getSFUseBeacon       (void);
+#endif
+                  SFBool              *editSFUseBeacon      (void);
+            const SFBool              *getSFUseBeacon       (void) const;
+
 
 #ifdef OSG_1_GET_COMPAT
                   Matrix              &getProjectionMatrix (void);
@@ -155,6 +165,12 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraBase : public Camera
                   Matrix              &editModelviewMatrix(void);
             const Matrix              &getModelviewMatrix (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  bool                &getUseBeacon       (void);
+#endif
+                  bool                &editUseBeacon      (void);
+            const bool                &getUseBeacon       (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -162,6 +178,7 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraBase : public Camera
 
             void setProjectionMatrix(const Matrix &value);
             void setModelviewMatrix(const Matrix &value);
+            void setUseBeacon      (const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -211,6 +228,7 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraBase : public Camera
 
     SFMatrix          _sfProjectionMatrix;
     SFMatrix          _sfModelviewMatrix;
+    SFBool            _sfUseBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

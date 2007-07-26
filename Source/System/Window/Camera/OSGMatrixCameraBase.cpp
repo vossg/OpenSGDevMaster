@@ -93,6 +93,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            MatrixCameraBase::_sfUseBeacon
+    Use beacon if set to get the modelview matrix
+*/
+
 
 void MatrixCameraBase::classDescInserter(TypeObject &oType)
 {
@@ -139,6 +143,28 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         reinterpret_cast<FieldGetMethodSig >(GetSFModelviewMatrix));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MatrixCameraBase::getSFModelviewMatrix));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_GET_COMPAT
+    typedef const SFBool *(MatrixCameraBase::*GetSFUseBeaconF)(void) const;
+
+    GetSFUseBeaconF GetSFUseBeacon = &MatrixCameraBase::getSFUseBeacon;
+#endif
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "useBeacon",
+        "Use beacon if set to get the modelview matrix\n",
+        UseBeaconFieldId, UseBeaconFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&MatrixCameraBase::editSFUseBeacon),
+#ifdef OSG_1_GET_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFUseBeacon));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&MatrixCameraBase::getSFUseBeacon));
 #endif
 
     oType.addInitialDesc(pDesc);
@@ -189,6 +215,15 @@ MatrixCameraBase::TypeObject MatrixCameraBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "        name=\"useBeacon\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    Use beacon if set to get the modelview matrix\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowCameras\n"
     "\n"
@@ -257,6 +292,25 @@ SFMatrix            *MatrixCameraBase::getSFModelviewMatrix(void)
 }
 #endif
 
+SFBool *MatrixCameraBase::editSFUseBeacon(void)
+{
+    editSField(UseBeaconFieldMask);
+
+    return &_sfUseBeacon;
+}
+
+const SFBool *MatrixCameraBase::getSFUseBeacon(void) const
+{
+    return &_sfUseBeacon;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFBool              *MatrixCameraBase::getSFUseBeacon      (void)
+{
+    return this->editSFUseBeacon      ();
+}
+#endif
+
 
 
 
@@ -275,6 +329,10 @@ UInt32 MatrixCameraBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfModelviewMatrix.getBinSize();
     }
+    if(FieldBits::NoField != (UseBeaconFieldMask & whichField))
+    {
+        returnValue += _sfUseBeacon.getBinSize();
+    }
 
     return returnValue;
 }
@@ -292,6 +350,10 @@ void MatrixCameraBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfModelviewMatrix.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (UseBeaconFieldMask & whichField))
+    {
+        _sfUseBeacon.copyToBin(pMem);
+    }
 }
 
 void MatrixCameraBase::copyFromBin(BinaryDataHandler &pMem,
@@ -306,6 +368,10 @@ void MatrixCameraBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ModelviewMatrixFieldMask & whichField))
     {
         _sfModelviewMatrix.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (UseBeaconFieldMask & whichField))
+    {
+        _sfUseBeacon.copyFromBin(pMem);
     }
 }
 
@@ -349,14 +415,16 @@ FieldContainerPtr MatrixCameraBase::shallowCopy(void) const
 MatrixCameraBase::MatrixCameraBase(void) :
     Inherited(),
     _sfProjectionMatrix       (),
-    _sfModelviewMatrix        ()
+    _sfModelviewMatrix        (),
+    _sfUseBeacon              ()
 {
 }
 
 MatrixCameraBase::MatrixCameraBase(const MatrixCameraBase &source) :
     Inherited(source),
     _sfProjectionMatrix       (source._sfProjectionMatrix       ),
-    _sfModelviewMatrix        (source._sfModelviewMatrix        )
+    _sfModelviewMatrix        (source._sfModelviewMatrix        ),
+    _sfUseBeacon              (source._sfUseBeacon              )
 {
 }
 

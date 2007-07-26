@@ -82,8 +82,8 @@ class OSG_SYSTEM_DLLMAPPING RenderBuffer :
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
-    virtual void bind  (DrawEnv *pEnv, UInt32 index = 0);
-//    virtual void deactivate(DrawActionBase *action, UInt32 index = 0);
+    virtual void bind    (DrawEnv *pEnv, UInt32 index = 0);
+    virtual void validate(DrawEnv *pEnv                  );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -114,12 +114,18 @@ class OSG_SYSTEM_DLLMAPPING RenderBuffer :
     static UInt32 _uiFramebuffer_object_extension;
 
     static UInt32 _uiFuncFramebufferRenderbuffer;
+    static UInt32 _uiFuncGenRenderbuffers;
     static UInt32 _uiFuncDeleteRenderbuffers;
     static UInt32 _uiFuncBindRenderbuffer;
     static UInt32 _uiFuncRenderbufferStorage;
 
-    void handleGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
-    static void handleDestroyGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+           void handleGL       (DrawEnv                 *pEnv, 
+                                UInt32                   id, 
+                                Window::GLObjectStatusE  mode);
+
+    static void handleDestroyGL(DrawEnv                 *pEnv, 
+                                UInt32                   id, 
+                                Window::GLObjectStatusE  mode);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

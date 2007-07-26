@@ -61,6 +61,9 @@ UInt32 RenderBuffer::_uiFramebuffer_object_extension =
 UInt32 RenderBuffer::_uiFuncFramebufferRenderbuffer  = 
     Window::invalidFunctionID;
 
+UInt32  RenderBuffer::_uiFuncGenRenderbuffers        =
+    Window::invalidFunctionID;
+
 UInt32 RenderBuffer::_uiFuncDeleteRenderbuffers      =
     Window::invalidFunctionID;
 
@@ -75,6 +78,10 @@ typedef void (OSG_APIENTRY *GLFramebufferRenderbufferEXTProcT)(
     GLenum attachment, 
     GLenum renderbuffertarget, 
     GLuint renderbuffer);
+
+typedef void (OSG_APIENTRY *GLGenRenderbuffersEXTProcT)(
+    GLsizei  n, 
+    GLuint  *renderbuffers);
 
 typedef void (OSG_APIENTRY *GLDeleteRenderbuffersEXTProcT    )(
           GLsizei  n, 
@@ -108,15 +115,16 @@ void RenderBuffer::bind(DrawEnv *pEnv, UInt32 index)
     glFramebufferRenderbufferEXTProc(GL_FRAMEBUFFER_EXT,
                                      index,
                                      GL_RENDERBUFFER_EXT, 
-                                     getGLId()          );
+                                     pWindow->getGLObjectId(getGLId()));
 }
 
-/*
-void RenderBuffer::deactivate(DrawActionBase *action, UInt32 index)
+void RenderBuffer::validate(DrawEnv *pEnv)
 {
-    fprintf(stderr, "RenderBuffer DeActivate %p\n", this);
+    Window *pWindow = pEnv->getWindow();
+
+    pWindow->validateGLObject(getGLId(), pEnv);
 }
-*/
+
 
 /*----------------------- constructors & destructors ----------------------*/
 
@@ -148,6 +156,11 @@ void RenderBuffer::initMethod(InitPhase ePhase)
         _uiFuncFramebufferRenderbuffer  =
             Window::registerFunction (
                 OSG_DLSYM_UNDERSCORE"glFramebufferRenderbufferEXT", 
+                _uiFramebuffer_object_extension);
+
+        _uiFuncGenRenderbuffers      =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glGenRenderbuffersEXT", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncDeleteRenderbuffers      =
@@ -195,14 +208,31 @@ void RenderBuffer::dump(      UInt32    ,
 }
 
 void RenderBuffer::handleGL(DrawEnv                 *pEnv, 
-                               UInt32                   id, 
-                               Window::GLObjectStatusE  mode)
+                            UInt32                   osgid, 
+                            Window::GLObjectStatusE  mode)
 {
     Window *pWindow = pEnv->getWindow();
     
     if(mode == Window::initialize || mode == Window::reinitialize ||
-            mode == Window::needrefresh )
+       mode == Window::needrefresh )
     {
+        GLuint uiBufferId = 0;
+
+        if(mode == Window::initialize)
+        {
+            GLGenRenderbuffersEXTProcT glGenRenderbuffersEXTProc =
+                (GLGenRenderbuffersEXTProcT) pWindow->getFunction(
+                    _uiFuncGenRenderbuffers);
+
+            glGenRenderbuffersEXTProc(1, &uiBufferId);
+
+            pWindow->setGLObjectId(osgid, uiBufferId);
+        }
+        else
+        {
+            uiBufferId = pWindow->getGLObjectId(osgid);
+        }
+
         GLBindRenderbufferEXTProcT glBindRenderbufferEXTProc =
             (GLBindRenderbufferEXTProcT) pWindow->getFunction(
                 _uiFuncBindRenderbuffer);
@@ -213,7 +243,7 @@ void RenderBuffer::handleGL(DrawEnv                 *pEnv,
                 _uiFuncRenderbufferStorage);
 
 
-        glBindRenderbufferEXTProc(GL_RENDERBUFFER_EXT, id);
+        glBindRenderbufferEXTProc(GL_RENDERBUFFER_EXT, uiBufferId);
 
         glRenderbufferStorageEXTProc(GL_RENDERBUFFER_EXT,
                                      getInternalFormat(), 
@@ -224,20 +254,20 @@ void RenderBuffer::handleGL(DrawEnv                 *pEnv,
  
 
 void RenderBuffer::handleDestroyGL(DrawEnv                 *pEnv, 
-                               UInt32                   id, 
-                               Window::GLObjectStatusE  mode)
+                                   UInt32                   osgid, 
+                                   Window::GLObjectStatusE  mode)
 {
     Window *pWindow = pEnv->getWindow();
     
     if(mode == Window::destroy)
     {
-        GLuint tex = id;
+        GLuint uiBufferId =  pWindow->getGLObjectId(osgid);
 
         GLDeleteRenderbuffersEXTProcT glDeleteRenderbuffersEXTProc =
             (GLDeleteRenderbuffersEXTProcT) pWindow->getFunction(
                 _uiFuncDeleteRenderbuffers);
 
-        glDeleteRenderbuffersEXTProc(1, &tex);
+        glDeleteRenderbuffersEXTProc(1, &uiBufferId);
     }
     else if(mode == Window::finaldestroy)
     {

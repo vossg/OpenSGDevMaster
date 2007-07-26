@@ -158,12 +158,15 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
     }
 }
 
-/*
-void TextureBuffer::deactivate(DrawActionBase *action, UInt32 index)
+void TextureBuffer::validate(DrawEnv *pEnv)
 {
-    fprintf(stderr, "TextureBuffer DeActivate %p\n", this);
+    Window *pWindow = pEnv->getWindow();
+
+    if(_sfTexture.getValue() != NullFC)
+    {
+        pWindow->validateGLObject(_sfTexture.getValue()->getGLId(), pEnv);
+    }
 }
-*/
 
 /*----------------------- constructors & destructors ----------------------*/
 

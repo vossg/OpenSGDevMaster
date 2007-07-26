@@ -139,6 +139,39 @@ void MatrixCameraBase::setModelviewMatrix(const Matrix &value)
 
     _sfModelviewMatrix.setValue(value);
 }
+//! Get the value of the MatrixCamera::_sfUseBeacon field.
+
+inline
+bool &MatrixCameraBase::editUseBeacon(void)
+{
+    editSField(UseBeaconFieldMask);
+
+    return _sfUseBeacon.getValue();
+}
+
+//! Get the value of the MatrixCamera::_sfUseBeacon field.
+inline
+const bool &MatrixCameraBase::getUseBeacon(void) const
+{
+    return _sfUseBeacon.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+bool                &MatrixCameraBase::getUseBeacon      (void)
+{
+    return this->editUseBeacon      ();
+}
+#endif
+
+//! Set the value of the MatrixCamera::_sfUseBeacon field.
+inline
+void MatrixCameraBase::setUseBeacon(const bool &value)
+{
+    editSField(UseBeaconFieldMask);
+
+    _sfUseBeacon.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -156,6 +189,9 @@ void MatrixCameraBase::execSync (      MatrixCameraBase *pFrom,
 
     if(FieldBits::NoField != (ModelviewMatrixFieldMask & whichField))
         _sfModelviewMatrix.syncWith(pFrom->_sfModelviewMatrix);
+
+    if(FieldBits::NoField != (UseBeaconFieldMask & whichField))
+        _sfUseBeacon.syncWith(pFrom->_sfUseBeacon);
 }
 #endif
 

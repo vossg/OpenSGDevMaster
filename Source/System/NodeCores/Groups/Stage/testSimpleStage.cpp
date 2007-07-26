@@ -59,7 +59,7 @@ TextureEnvChunkPtr tx1e;       // Texture environment to share
 TextureObjChunkPtr txDepth;    // Depth texture
 #endif
 
-
+FrameBufferObjectPtr pFBO;
 
 // ----- Scene structure --- //
 /*
@@ -175,6 +175,34 @@ void key(unsigned char key, int x, int y)
             std::cerr << "Wrote out scene file." << std::endl;
             OSG::SceneFileHandler::the()->write(planeRoot, "simple_stage_dump.osb");
             break;
+
+        case 'B':
+        {
+            ImagePtr pImg = tx1o->getImage();
+
+            pImg->set(Image::OSG_RGB_PF, 512, 512);
+
+//            tx1o->imageContentChanged();
+
+            Window::reinitializeGLObject(tx1o->getGLId());
+
+            pFBO->setSize(512, 512);
+        }
+        break;
+
+        case 'S':
+        {
+            ImagePtr pImg = tx1o->getImage();
+            
+            pImg->set(Image::OSG_RGB_PF, 256, 256);
+
+//            tx1o->imageContentChanged();
+
+            Window::reinitializeGLObject(tx1o->getGLId());
+
+            pFBO->setSize(256, 256);
+        }
+        break;
     }
 }
 
@@ -248,7 +276,7 @@ void initAnimSetup(int argc, char **argv)
     bkgnd->setColor(Color3f(0,1,0));
 
     // FBO setup
-    FrameBufferObjectPtr pFBO         = FrameBufferObject::create();
+                         pFBO         = FrameBufferObject::create();
     TextureBufferPtr     pTexBuffer   = TextureBuffer::create();
 
 #ifdef USE_DEPTH_TEXTURE
@@ -379,7 +407,7 @@ int main (int argc, char **argv)
     //glutVisibilityFunc(vis);
     glutReshapeFunc(reshape);
     glutDisplayFunc(display);
-    glutIdleFunc(display);
+//    glutIdleFunc(display);
     glutMouseFunc(mouse);
     glutMotionFunc(motion);
 

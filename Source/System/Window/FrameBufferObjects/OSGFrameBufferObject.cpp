@@ -252,6 +252,8 @@ void FrameBufferObject::changed(ConstFieldMaskArg whichField, UInt32 origin)
             _sfDepthAttachment.getValue()->resize(getWidth (),
                                                   getHeight());
         }
+
+        Window::refreshGLObject(getGLId());
     }
 
     if(0x0000 != (whichField & DepthAttachmentFieldMask))
@@ -262,12 +264,12 @@ void FrameBufferObject::changed(ConstFieldMaskArg whichField, UInt32 origin)
                                                   getHeight());
         }
 
-        Window::refreshGLObject(getGLId());
+        Window::reinitializeGLObject(getGLId());
     }
 
     if(0x0000 != (whichField & ColorAttachmentsFieldMask))
     {
-        Window::refreshGLObject(getGLId());
+        Window::reinitializeGLObject(getGLId());
     }
 }
 
@@ -339,21 +341,32 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
                                UInt32                   osgid, 
                                Window::GLObjectStatusE  mode)
 {
-    Window *win = pEnv->getWindow();
+    Window *win     = pEnv->getWindow();
+    GLuint  uiFBOId = 0;
 
     if(mode == Window::initialize || mode == Window::reinitialize ||
-            mode == Window::needrefresh )
+       mode == Window::needrefresh )
     {
-        GLuint uiFBOId;
+        if(mode == Window::initialize)
+        {
+            GLGenFramebuffersEXTProcT glGenFramebuffersEXTProc = 
+                (GLGenFramebuffersEXTProcT) win->getFunction(
+                    _uiFuncGenFramebuffers);
 
-        GLGenFramebuffersEXTProcT glGenFramebuffersEXTProc = 
-            (GLGenFramebuffersEXTProcT) win->getFunction(
-                _uiFuncGenFramebuffers);
+            glGenFramebuffersEXTProc(1, &uiFBOId);
 
-        glGenFramebuffersEXTProc(1, &uiFBOId);
+            win->setGLObjectId(osgid, uiFBOId);
+        }
+        else
+        {
+            // already has an GLid
+            uiFBOId = win->getGLObjectId(osgid);
+        }
+    }
 
-        win->setGLObjectId(osgid, uiFBOId);
-
+    
+    if(mode == Window::initialize || mode == Window::reinitialize)
+    {
         GLBindFramebufferEXTProcT glBindFramebufferEXTProc =
             (GLBindFramebufferEXTProcT) win->getFunction(
                 _uiFuncBindFramebuffer);
@@ -438,6 +451,35 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
         }
 
         glErr("FrameBufferObject::stencil");
+    }
+    else if(mode == Window::needrefresh)
+    {
+        MFFrameBufferAttachmentPtr::iterator attIt  = 
+            _mfColorAttachments.begin();
+        MFFrameBufferAttachmentPtr::iterator attEnd = 
+            _mfColorAttachments.end  ();
+
+        while(attIt != attEnd)
+        {
+            if(*attIt != NullFC)
+            {
+                (*attIt)->validate(pEnv);
+            }
+
+            glErr("FrameBufferObject::refresh");
+
+            ++attIt;
+        }
+
+        if(_sfDepthAttachment.getValue() != NullFC)
+        {
+            _sfDepthAttachment.getValue()->validate(pEnv);
+        }
+
+        if(_sfStencilAttachment.getValue() != NullFC)
+        {
+            _sfStencilAttachment.getValue()->validate(pEnv);
+        }
     }
 }
 

@@ -85,8 +85,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachment :
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
-    virtual void bind(DrawEnv *pEnv, UInt32 index = 0) = 0;
-//    virtual void deactivate(DrawActionBase *action, UInt32 index = 0);
+    virtual void bind    (DrawEnv *pEnv, UInt32 index = 0) = 0;
+    virtual void validate(DrawEnv *pEnv                  ) = 0;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

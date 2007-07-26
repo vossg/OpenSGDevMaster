@@ -397,11 +397,13 @@ void TextureObjChunk::handleTexture(Window *win,
             return;
         }
 
+#if 0 // ????? GV
         if(mode == Window::reinitialize)
         {
             GLuint tex = id;
             glDeleteTextures(1, &tex);
         }
+#endif
 
         // 3D texture functions
         void (OSG_APIENTRY *TexImage3D)(GLenum target,
