@@ -65,9 +65,11 @@ ChunkMaterialPtr ShadowMapEngine::_pLightPassMat = NullFC;
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
 
-void ShadowMapEngine::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ShadowMapEngine::changed(ConstFieldMaskArg whichField, 
+                              UInt32            origin,
+                              BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -131,7 +133,8 @@ void ShadowMapEngine::initMethod(InitPhase ePhase)
             _pLightPassMat->addChunk(pMatChunk);
 
             _pLightPassMat->changed(FieldBits::AllFields,
-                                    ChangedOrigin::Commit);
+                                    ChangedOrigin::Commit,
+                                    0);
         }
     }
 }

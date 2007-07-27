@@ -67,7 +67,8 @@ void FieldBundle::editMField(ConstFieldMaskArg  whichField,
 
 inline
 void FieldBundle::changed(ConstFieldMaskArg, 
-                          UInt32           )
+                          UInt32,
+                          BitVector        )
 {
 }
 

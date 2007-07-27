@@ -60,8 +60,9 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterial : public MultiPassMaterialBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg  whichField, 
-                         UInt32             origin    );
+    virtual void changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

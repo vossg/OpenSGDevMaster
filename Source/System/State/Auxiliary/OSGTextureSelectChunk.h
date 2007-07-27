@@ -80,7 +80,8 @@ class OSG_STATE_DLLMAPPING TextureSelectChunk : public TextureSelectChunkBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

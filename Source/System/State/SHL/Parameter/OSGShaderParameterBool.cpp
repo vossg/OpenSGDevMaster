@@ -95,12 +95,14 @@ ShaderParameterBool::~ShaderParameterBool(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ShaderParameterBool::changed(BitVector whichField, UInt32 origin)
+void ShaderParameterBool::changed(ConstFieldMaskArg whichField, 
+                                  UInt32            origin,
+                                  BitVector         details)
 {
     if(whichField & ShaderParameterBool::ValueFieldMask)
         setChanged();
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ShaderParameterBool::dump(      UInt32    , 

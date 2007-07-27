@@ -145,13 +145,15 @@ UInt16 SHLParameterChunk::getChunkId(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void SHLParameterChunk::changed(BitVector whichField, UInt32 origin)
+void SHLParameterChunk::changed(ConstFieldMaskArg whichField, 
+                                UInt32            origin,
+                                BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void SHLParameterChunk::dump(      UInt32    ,
-                         const BitVector ) const
+                             const BitVector ) const
 {
     SLOG << "Dump SHLParameterChunk NI" << std::endl;
 }

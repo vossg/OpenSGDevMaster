@@ -79,9 +79,11 @@ void FileGrabForeground::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
-void FileGrabForeground::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void FileGrabForeground::changed(ConstFieldMaskArg whichField, 
+                                 UInt32            origin,
+                                 BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void FileGrabForeground::dump(      UInt32    , 

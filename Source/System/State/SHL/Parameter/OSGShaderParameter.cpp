@@ -128,7 +128,9 @@ void ShaderParameter::subParent(FieldContainerPtrConst &parent)
     }
 }
 
-void ShaderParameter::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ShaderParameter::changed(ConstFieldMaskArg whichField, 
+                              UInt32            origin,
+                              BitVector         details)
 {
     MFParentFieldContainerPtr::iterator parentsIt  = _mfParents.begin();
     MFParentFieldContainerPtr::iterator parentsEnd = _mfParents.end();
@@ -136,12 +138,13 @@ void ShaderParameter::changed(ConstFieldMaskArg whichField, UInt32 origin)
     while(parentsIt != parentsEnd)
     {
         (*parentsIt)->changed(parentsIt->getParentFieldPos(),
-                              ChangedOrigin::Child);
+                              ChangedOrigin::Child,
+                              0);
         
         ++parentsIt;
     }
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ShaderParameter::dump(      UInt32    , 

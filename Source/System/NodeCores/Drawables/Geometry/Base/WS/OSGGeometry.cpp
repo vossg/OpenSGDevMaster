@@ -485,7 +485,9 @@ Action::ResultE Geometry::intersect(Action * action)
 
 /*----------------------------- class specific ----------------------------*/
 
-void Geometry::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void Geometry::changed(ConstFieldMaskArg whichField, 
+                       UInt32            origin,
+                       BitVector         details)
 {
 
     // invalidate the dlist cache
@@ -529,7 +531,7 @@ void Geometry::changed(ConstFieldMaskArg whichField, UInt32 origin)
         }
     }
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void Geometry::dump(      UInt32    ,

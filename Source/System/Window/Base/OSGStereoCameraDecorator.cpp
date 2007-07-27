@@ -79,9 +79,11 @@ void StereoCameraDecorator::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
-void StereoCameraDecorator::changed(BitVector whichField, UInt32 origin)
+void StereoCameraDecorator::changed(ConstFieldMaskArg whichField, 
+                                    UInt32            origin,
+                                    BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void StereoCameraDecorator::dump(      UInt32    , 

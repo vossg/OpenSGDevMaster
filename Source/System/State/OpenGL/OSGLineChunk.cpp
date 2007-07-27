@@ -108,9 +108,11 @@ const StateChunkClass *LineChunk::getClass(void) const
 
 /*------------------------------- Sync -----------------------------------*/
 
-void LineChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void LineChunk::changed(ConstFieldMaskArg whichField, 
+                        UInt32            origin,
+                        BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*------------------------------ Output ----------------------------------*/

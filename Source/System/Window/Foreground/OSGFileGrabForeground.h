@@ -65,7 +65,8 @@ class OSG_WINDOW_DLLMAPPING FileGrabForeground : public FileGrabForegroundBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

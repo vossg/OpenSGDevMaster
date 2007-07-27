@@ -124,7 +124,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyData : public GeoMultiPropertyData
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

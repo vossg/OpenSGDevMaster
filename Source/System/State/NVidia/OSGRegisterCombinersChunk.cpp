@@ -157,12 +157,13 @@ const StateChunkClass *RegisterCombinersChunk::getClass(void) const
 /*------------------------------- Sync -----------------------------------*/
 
 void RegisterCombinersChunk::changed(ConstFieldMaskArg whichField, 
-                                     UInt32            origin    )
+                                     UInt32            origin,
+                                     BitVector         details)
 {
     // does it make sense to put the combiner settings into a dlist?
     // if yes we would need to invalidate it here
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*------------------------------ Output ----------------------------------*/

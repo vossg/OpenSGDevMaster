@@ -88,9 +88,11 @@ typedef void   (OSG_APIENTRY *GLDrawBuffersEXTProcT)(
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
 
-void HDRStage::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void HDRStage::changed(ConstFieldMaskArg whichField, 
+                       UInt32            origin,
+                       BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*-------------------------------------------------------------------------*/

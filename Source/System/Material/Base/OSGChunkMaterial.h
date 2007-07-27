@@ -62,7 +62,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

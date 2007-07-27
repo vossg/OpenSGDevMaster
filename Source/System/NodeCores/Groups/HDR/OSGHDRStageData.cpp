@@ -101,9 +101,11 @@ HDRStageData::~HDRStageData(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void HDRStageData::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void HDRStageData::changed(ConstFieldMaskArg whichField, 
+                           UInt32            origin,
+                           BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void HDRStageData::dump(      UInt32    ,

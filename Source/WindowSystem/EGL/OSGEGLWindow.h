@@ -65,7 +65,8 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindow : public EGLWindowBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

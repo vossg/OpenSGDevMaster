@@ -83,9 +83,10 @@ void ShearedStereoCameraDecorator::initMethod(InitPhase ePhase)
 }
 
 void ShearedStereoCameraDecorator::changed(ConstFieldMaskArg whichField, 
-                                           UInt32            origin)
+                                           UInt32            origin,
+                                           BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ShearedStereoCameraDecorator::dump(      UInt32    , 

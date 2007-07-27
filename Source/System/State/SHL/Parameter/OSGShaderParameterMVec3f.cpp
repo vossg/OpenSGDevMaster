@@ -98,16 +98,18 @@ ShaderParameterMVec3f::~ShaderParameterMVec3f(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ShaderParameterMVec3f::changed(BitVector whichField, UInt32 origin)
+void ShaderParameterMVec3f::changed(ConstFieldMaskArg whichField, 
+                                    UInt32            origin,
+                                    BitVector         details)
 {
     if(whichField & ShaderParameterMVec3f::ValueFieldMask)
         setChanged();
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ShaderParameterMVec3f::dump(      UInt32    , 
-                         const BitVector ) const
+                                 const BitVector ) const
 {
     SLOG << "Dump ShaderParameterMVec3f NI" << std::endl;
 }

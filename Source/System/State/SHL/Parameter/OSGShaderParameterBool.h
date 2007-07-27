@@ -65,8 +65,9 @@ class OSG_STATE_DLLMAPPING ShaderParameterBool :
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg  whichField, 
-                         UInt32             origin    );
+    virtual void changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

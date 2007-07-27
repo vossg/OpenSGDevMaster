@@ -103,9 +103,11 @@ const StateChunkClass *ClipPlaneChunk::getClass(void) const
 
 /*------------------------------- Sync -----------------------------------*/
 
-void ClipPlaneChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ClipPlaneChunk::changed(ConstFieldMaskArg whichField, 
+                             UInt32            origin,
+                             BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*------------------------------ Output ----------------------------------*/

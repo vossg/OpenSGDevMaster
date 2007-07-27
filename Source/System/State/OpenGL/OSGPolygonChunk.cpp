@@ -105,9 +105,11 @@ const StateChunkClass *PolygonChunk::getClass(void) const
 
 /*------------------------------- Sync -----------------------------------*/
 
-void PolygonChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void PolygonChunk::changed(ConstFieldMaskArg whichField, 
+                           UInt32            origin,
+                           BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*------------------------------ Output ----------------------------------*/

@@ -66,7 +66,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterVec3f :
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

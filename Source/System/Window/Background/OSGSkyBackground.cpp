@@ -86,12 +86,14 @@ void SkyBackground::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
-void SkyBackground::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void SkyBackground::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
-void SkyBackground::dump(     UInt32    , 
+void SkyBackground::dump(      UInt32   , 
                          const BitVector) const
 {
     SLOG << "Dump SkyBackground NI" << std::endl;

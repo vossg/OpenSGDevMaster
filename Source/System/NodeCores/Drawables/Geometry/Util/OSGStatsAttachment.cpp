@@ -99,13 +99,15 @@ StatsAttachment::~StatsAttachment(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void StatsAttachment::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void StatsAttachment::changed(ConstFieldMaskArg whichField, 
+                              UInt32            origin,
+                              BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void StatsAttachment::dump(      UInt32    , 
-                         const BitVector ) const
+                           const BitVector ) const
 {
     SLOG << "Dump StatsAttachment NI" << std::endl;
 }

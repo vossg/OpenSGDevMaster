@@ -63,7 +63,8 @@ UInt16 FieldContainer::getClassGroupId(void)
 
 inline
 void FieldContainer::changed(ConstFieldMaskArg whichField, 
-                             UInt32            OSG_CHECK_ARG(origin))
+                             UInt32            ,
+                             BitVector         )
 {
     callChangedFunctors(whichField);
 }

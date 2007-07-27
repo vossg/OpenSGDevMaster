@@ -191,9 +191,11 @@ void RenderBuffer::onCreate(const RenderBuffer *source)
             ));
 }
 
-void RenderBuffer::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void RenderBuffer::changed(ConstFieldMaskArg whichField, 
+                           UInt32            origin,
+                           BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 
     if(0x0000 != (whichField & (WidthFieldMask | HeightFieldMask)))
     {

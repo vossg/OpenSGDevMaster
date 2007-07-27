@@ -76,8 +76,9 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     /*! \name                   transformation                             */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg  whichField,
-                         UInt32             origin    );
+    virtual void changed(ConstFieldMaskArg whichField,
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

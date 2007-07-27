@@ -121,7 +121,9 @@ Particles::~Particles(void)
 
 /*------------------------------- Sync -----------------------------------*/
 
-void Particles::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void Particles::changed(ConstFieldMaskArg whichField, 
+                        UInt32            origin,
+                        BitVector         details)
 {
     if(whichField & PositionsFieldMask)
     {
@@ -133,7 +135,7 @@ void Particles::changed(ConstFieldMaskArg whichField, UInt32 origin)
         editBsp().destroy();
     }
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*------------------------------ Output ----------------------------------*/

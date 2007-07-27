@@ -133,9 +133,11 @@ const StateChunkClass *VertexProgramChunk::getClass(void) const
 
 /*----------------------------- class specific ----------------------------*/
 
-void VertexProgramChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void VertexProgramChunk::changed(ConstFieldMaskArg whichField, 
+                                 UInt32            origin,
+                                 BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void VertexProgramChunk::dump(      UInt32    , 

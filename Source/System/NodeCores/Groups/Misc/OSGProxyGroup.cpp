@@ -62,7 +62,9 @@ OSG_USING_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
 
-void ProxyGroup::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ProxyGroup::changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details)
 {
     if(whichField & (UrlFieldMask))
     {
@@ -93,7 +95,7 @@ void ProxyGroup::changed(ConstFieldMaskArg whichField, UInt32 origin)
         }
     }
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*-------------------------------------------------------------------------*/

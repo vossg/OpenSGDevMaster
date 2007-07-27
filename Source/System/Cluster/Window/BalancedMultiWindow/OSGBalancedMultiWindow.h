@@ -85,7 +85,8 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

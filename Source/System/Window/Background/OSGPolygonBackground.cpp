@@ -284,13 +284,15 @@ void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
     glPopAttrib();
 }
 
-void PolygonBackground::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void PolygonBackground::changed(ConstFieldMaskArg whichField, 
+                                UInt32            origin,
+                                BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void PolygonBackground::dump(      UInt32    , 
-                         const BitVector ) const
+                             const BitVector ) const
 {
     SLOG << "Dump PolygonBackground NI" << std::endl;
 }

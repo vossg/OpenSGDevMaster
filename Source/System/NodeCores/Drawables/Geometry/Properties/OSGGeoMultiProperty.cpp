@@ -382,13 +382,15 @@ bool GeoMultiProperty::operator != (const StateChunk &other) const
 
 /*----------------------------- class specific ----------------------------*/
 
-void GeoMultiProperty::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void GeoMultiProperty::changed(ConstFieldMaskArg whichField, 
+                               UInt32            origin,
+                               BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void GeoMultiProperty::dump(      UInt32    , 
-                         const BitVector ) const
+                            const BitVector ) const
 {
     SLOG << "Dump GeoMultiProperty NI" << std::endl;
 }

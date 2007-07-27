@@ -75,8 +75,9 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunk : public TexGenChunkBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg  whichField, 
-                         UInt32             from);
+    virtual void changed(ConstFieldMaskArg whichField, 
+                         UInt32            from,
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

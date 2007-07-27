@@ -98,12 +98,14 @@ ShaderParameterMVec4f::~ShaderParameterMVec4f(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ShaderParameterMVec4f::changed(BitVector whichField, UInt32 origin)
+void ShaderParameterMVec4f::changed(ConstFieldMaskArg whichField, 
+                                    UInt32            origin,
+                                    BitVector         details)
 {
     if(whichField & ShaderParameterMVec4f::ValueFieldMask)
         setChanged();
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ShaderParameterMVec4f::dump(      UInt32    , 

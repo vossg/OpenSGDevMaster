@@ -96,9 +96,11 @@ ImageComposer::~ImageComposer(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ImageComposer::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ImageComposer::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ImageComposer::dump(      UInt32    , 

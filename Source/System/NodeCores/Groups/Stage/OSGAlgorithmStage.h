@@ -78,7 +78,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmStage : public AlgorithmStageBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

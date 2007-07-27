@@ -118,9 +118,10 @@ OffCenterPerspectiveCamera::~OffCenterPerspectiveCamera(void)
 }
 
 void OffCenterPerspectiveCamera::changed(ConstFieldMaskArg whichField, 
-                                         UInt32            origin    )
+                                         UInt32            origin,
+                                         BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*-------------------------- your_category---------------------------------*/

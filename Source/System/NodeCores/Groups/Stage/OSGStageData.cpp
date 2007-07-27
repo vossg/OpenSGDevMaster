@@ -98,9 +98,11 @@ StageData::~StageData(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void StageData::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void StageData::changed(ConstFieldMaskArg whichField, 
+                        UInt32            origin,
+                        BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void StageData::dump(      UInt32    ,

@@ -90,7 +90,8 @@ class OSG_STATE_DLLMAPPING SHLParameterChunk : public SHLParameterChunkBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -132,9 +132,11 @@ const StateChunkClass *PointChunk::getClass(void) const
 
 /*----------------------------- class specific ----------------------------*/
 
-void PointChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void PointChunk::changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void PointChunk::dump(      UInt32    , 

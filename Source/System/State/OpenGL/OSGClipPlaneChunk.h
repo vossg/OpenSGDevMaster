@@ -76,7 +76,8 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunk : public ClipPlaneChunkBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

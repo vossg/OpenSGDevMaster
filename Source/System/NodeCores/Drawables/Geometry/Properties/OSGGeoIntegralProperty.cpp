@@ -247,13 +247,15 @@ bool GeoIntegralProperty::isInVBO(DrawEnv *pEnv)
 
 /*----------------------------- class specific ----------------------------*/
 
-void GeoIntegralProperty::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void GeoIntegralProperty::changed(ConstFieldMaskArg whichField, 
+                                  UInt32            origin,
+                                  BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
-void GeoIntegralProperty::dump(      UInt32 i, 
-                         const BitVector v) const
+void GeoIntegralProperty::dump(      UInt32    i, 
+                               const BitVector v) const
 {
     Inherited::dump(i,v);
 }

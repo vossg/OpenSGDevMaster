@@ -66,8 +66,9 @@ class OSG_WINDOW_DLLMAPPING TextureBackground : public TextureBackgroundBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg  whichField,
-                         UInt32             origin    );
+    virtual void changed(ConstFieldMaskArg whichField,
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

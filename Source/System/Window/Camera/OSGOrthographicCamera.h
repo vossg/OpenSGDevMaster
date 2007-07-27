@@ -64,8 +64,9 @@ class OSG_WINDOW_DLLMAPPING OrthographicCamera : public OrthographicCameraBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg  whichField, 
-                         UInt32     origin    );
+    virtual void changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

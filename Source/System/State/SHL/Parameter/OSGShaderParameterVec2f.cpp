@@ -97,12 +97,14 @@ ShaderParameterVec2f::~ShaderParameterVec2f(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ShaderParameterVec2f::changed(BitVector whichField, UInt32 origin)
+void ShaderParameterVec2f::changed(ConstFieldMaskArg whichField, 
+                                   UInt32            origin,
+                                   BitVector         details)
 {
     if(whichField & ShaderParameterVec2f::ValueFieldMask)
         setChanged();
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ShaderParameterVec2f::dump(      UInt32    , 

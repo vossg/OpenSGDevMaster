@@ -134,9 +134,11 @@ void ShaderParameterChunk::onDestroy(UInt32 uiId)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ShaderParameterChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ShaderParameterChunk::changed(ConstFieldMaskArg whichField, 
+                                   UInt32            origin,
+                                   BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ShaderParameterChunk::dump(      UInt32    , 

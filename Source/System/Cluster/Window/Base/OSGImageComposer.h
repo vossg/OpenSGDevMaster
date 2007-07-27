@@ -65,7 +65,8 @@ class OSG_CLUSTER_DLLMAPPING ImageComposer : public ImageComposerBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

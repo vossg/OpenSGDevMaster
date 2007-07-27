@@ -154,9 +154,11 @@ const StateChunkClass *GeoMultiPropertyData::getClass(void) const
 
 /*----------------------------- class specific ----------------------------*/
 
-void GeoMultiPropertyData::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void GeoMultiPropertyData::changed(ConstFieldMaskArg whichField, 
+                                   UInt32            origin,
+                                   BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 

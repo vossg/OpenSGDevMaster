@@ -139,9 +139,11 @@ SimpleMaterial::~SimpleMaterial(void)
 {
 }
 
-void SimpleMaterial::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void SimpleMaterial::changed(ConstFieldMaskArg whichField, 
+                             UInt32            origin,
+                             BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*-------------------------- your_category---------------------------------*/

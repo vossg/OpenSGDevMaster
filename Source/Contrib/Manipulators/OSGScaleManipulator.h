@@ -62,7 +62,8 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulator : public ScaleManipulatorBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

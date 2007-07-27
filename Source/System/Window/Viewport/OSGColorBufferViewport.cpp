@@ -81,9 +81,11 @@ void ColorBufferViewport::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
-void ColorBufferViewport::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ColorBufferViewport::changed(ConstFieldMaskArg whichField, 
+                                  UInt32            origin,
+                                  BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ColorBufferViewport::dump(      UInt32    , 

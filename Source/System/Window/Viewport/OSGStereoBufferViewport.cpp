@@ -83,9 +83,11 @@ void StereoBufferViewport::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
-void StereoBufferViewport::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void StereoBufferViewport::changed(ConstFieldMaskArg whichField, 
+                                   UInt32            origin,
+                                   BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void StereoBufferViewport::dump(      UInt32    , 

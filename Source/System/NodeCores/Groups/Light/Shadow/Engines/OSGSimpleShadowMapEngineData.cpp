@@ -98,9 +98,11 @@ SimpleShadowMapEngineData::~SimpleShadowMapEngineData(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void SimpleShadowMapEngineData::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void SimpleShadowMapEngineData::changed(ConstFieldMaskArg whichField, 
+                                        UInt32            origin,
+                                        BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void SimpleShadowMapEngineData::dump(      UInt32    ,

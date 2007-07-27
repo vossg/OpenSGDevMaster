@@ -69,7 +69,8 @@ class OSG_CLUSTER_DLLMAPPING SepiaComposer : public SepiaComposerBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

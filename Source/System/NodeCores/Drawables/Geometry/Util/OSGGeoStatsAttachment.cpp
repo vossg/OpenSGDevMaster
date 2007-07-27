@@ -99,13 +99,15 @@ GeoStatsAttachment::~GeoStatsAttachment(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void GeoStatsAttachment::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void GeoStatsAttachment::changed(ConstFieldMaskArg whichField, 
+                                 UInt32            origin,
+                                 BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void GeoStatsAttachment::dump(      UInt32    ,
-                         const BitVector ) const
+                              const BitVector ) const
 {
     SLOG << "Dump GeoStatsAttachment NI" << std::endl;
 }

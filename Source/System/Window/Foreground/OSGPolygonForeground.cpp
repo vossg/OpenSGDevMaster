@@ -101,9 +101,11 @@ PolygonForeground::~PolygonForeground(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void PolygonForeground::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void PolygonForeground::changed(ConstFieldMaskArg whichField, 
+                                UInt32            origin,
+                                BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void PolygonForeground::dump(      UInt32    , 

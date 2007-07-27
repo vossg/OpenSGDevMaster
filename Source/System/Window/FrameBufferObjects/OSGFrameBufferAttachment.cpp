@@ -106,9 +106,10 @@ void FrameBufferAttachment::initMethod(InitPhase ePhase)
 }
 
 void FrameBufferAttachment::changed(ConstFieldMaskArg whichField, 
-                                    UInt32            origin    )
+                                    UInt32            origin,
+                                    BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void FrameBufferAttachment::dump(      UInt32    , 

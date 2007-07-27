@@ -86,9 +86,11 @@ void GrabForeground::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
-void GrabForeground::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void GrabForeground::changed(ConstFieldMaskArg whichField, 
+                             UInt32            origin,
+                             BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void GrabForeground::dump(      UInt32    , 

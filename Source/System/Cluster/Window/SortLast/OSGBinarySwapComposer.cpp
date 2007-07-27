@@ -89,9 +89,11 @@ BinarySwapComposer::~BinarySwapComposer(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void BinarySwapComposer::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void BinarySwapComposer::changed(ConstFieldMaskArg whichField, 
+                                 UInt32            origin,
+                                 BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void BinarySwapComposer::dump(      UInt32    , 

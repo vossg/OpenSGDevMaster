@@ -69,7 +69,8 @@ class OSG_WINDOW_DLLMAPPING ImageForeground : public ImageForegroundBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
  
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

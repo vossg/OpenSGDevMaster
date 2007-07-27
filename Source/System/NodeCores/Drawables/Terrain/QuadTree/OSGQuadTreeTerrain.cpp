@@ -1748,7 +1748,9 @@ void QuadTreeTerrain::adjustVolume (Volume& volume)
 
 /*----------------------------- class specific ----------------------------*/
 
-void QuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void QuadTreeTerrain::changed(ConstFieldMaskArg whichField, 
+                              UInt32            origin,
+                              BitVector         details)
 {
     // create single SHL chunk, parameters are changed in separate SHL 
     // parameter chunks
@@ -1953,7 +1955,7 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
        }
        
     }
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void QuadTreeTerrain::dump(      UInt32    , 

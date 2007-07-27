@@ -98,9 +98,11 @@ ContainerPool::~ContainerPool(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ContainerPool::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ContainerPool::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ContainerPool::dump(      UInt32    ,

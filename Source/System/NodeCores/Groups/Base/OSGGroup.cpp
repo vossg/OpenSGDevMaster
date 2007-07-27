@@ -58,9 +58,11 @@ OSG_USING_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
 
-void Group::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void Group::changed(ConstFieldMaskArg whichField, 
+                    UInt32            origin,
+                    BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*-------------------------------------------------------------------------*/

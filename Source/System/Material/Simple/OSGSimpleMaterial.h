@@ -65,7 +65,8 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterial : public SimpleMaterialBase
 
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -157,9 +157,11 @@ const StateChunkClass *ProgramChunk::getClass(void) const
 
 /*----------------------------- class specific ----------------------------*/
 
-void ProgramChunk::changed(BitVector whichField, UInt32 origin)
+void ProgramChunk::changed(ConstFieldMaskArg whichField, 
+                           UInt32            origin,
+                           BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
     
     if(whichField & ProgramFieldMask)
     {

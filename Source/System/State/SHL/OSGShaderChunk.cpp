@@ -93,9 +93,11 @@ ShaderChunk::~ShaderChunk(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ShaderChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ShaderChunk::changed(ConstFieldMaskArg whichField, 
+                          UInt32            origin,
+                          BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ShaderChunk::dump(      UInt32    , 

@@ -65,7 +65,9 @@ OSG_USING_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
 
-void Algorithm::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void Algorithm::changed(ConstFieldMaskArg whichField, 
+                        UInt32            origin,
+                        BitVector         details)
 {
 #if 0
     if(whichField & (UrlFieldMask))
@@ -98,7 +100,7 @@ void Algorithm::changed(ConstFieldMaskArg whichField, UInt32 origin)
     }
 #endif
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*-------------------------------------------------------------------------*/

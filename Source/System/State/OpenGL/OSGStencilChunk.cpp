@@ -105,9 +105,11 @@ const StateChunkClass *StencilChunk::getClass(void) const
     return &_class;
 }
 
-void StencilChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void StencilChunk::changed(ConstFieldMaskArg whichField, 
+                           UInt32            origin,
+                           BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void StencilChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),

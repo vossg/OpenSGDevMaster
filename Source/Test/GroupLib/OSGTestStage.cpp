@@ -98,9 +98,11 @@ TestStage::~TestStage(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void TestStage::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void TestStage::changed(ConstFieldMaskArg whichField, 
+                        UInt32            origin,
+                        BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void TestStage::enterCB(DrawEnv *pEnv)

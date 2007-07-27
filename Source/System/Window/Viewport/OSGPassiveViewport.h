@@ -66,8 +66,9 @@ class OSG_WINDOW_DLLMAPPING PassiveViewport : public PassiveViewportBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(BitVector whichField, 
-                         UInt32    origin    );
+    virtual void changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

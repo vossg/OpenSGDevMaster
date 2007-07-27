@@ -65,7 +65,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec2f : public ShaderParameterMVec2fB
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

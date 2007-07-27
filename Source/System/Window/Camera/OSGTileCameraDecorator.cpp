@@ -83,9 +83,11 @@ TileCameraDecorator::~TileCameraDecorator(void)
 {
 }
 
-void TileCameraDecorator::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void TileCameraDecorator::changed(ConstFieldMaskArg whichField, 
+                                  UInt32            origin,
+                                  BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*! Set all the size-related Fields at once. 

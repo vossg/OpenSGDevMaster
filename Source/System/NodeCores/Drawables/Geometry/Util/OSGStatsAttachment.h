@@ -66,7 +66,8 @@ class OSG_DRAWABLE_DLLMAPPING StatsAttachment : public StatsAttachmentBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -105,7 +105,9 @@ void SimpleTexturedMaterial::resolveLinks(void)
 #pragma warning (disable : 383)
 #endif
 
-void SimpleTexturedMaterial::changed(BitVector whichField, UInt32 origin)
+void SimpleTexturedMaterial::changed(ConstFieldMaskArg whichField, 
+                                     UInt32            origin,
+                                     BitVector         detail)
 {
     prepareLocalChunks();
 
@@ -142,7 +144,7 @@ void SimpleTexturedMaterial::changed(BitVector whichField, UInt32 origin)
         }
     }
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, detail);
 }
 
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)

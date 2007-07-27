@@ -471,12 +471,14 @@ void SortLastWindow::initMethod(InitPhase ePhase)
 /*! changed field. Handle new groups
  */
 
-void SortLastWindow::changed(BitVector whichField, UInt32 origin)
+void SortLastWindow::changed(ConstFieldMaskArg whichField, 
+                             UInt32            origin,
+                             BitVector         details)
 {
     if(whichField & GroupNodesFieldMask)
         setGroupsChanged(true);
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void SortLastWindow::dump(      UInt32    , 

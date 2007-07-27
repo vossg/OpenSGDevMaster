@@ -74,8 +74,9 @@ class OSG_WINDOW_DLLMAPPING PassiveBackground :
     /*! \name                     transformation                           */
     /*! \{                                                                 */
 
-    virtual void changed(BitVector whichField, 
-                         UInt32    origin    );
+    virtual void changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         detail);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   dump                                       */

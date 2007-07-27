@@ -62,7 +62,8 @@ class OSG_GROUP_DLLMAPPING ComponentTransform : public ComponentTransformBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

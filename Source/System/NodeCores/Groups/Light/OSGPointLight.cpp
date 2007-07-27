@@ -104,9 +104,11 @@ void PointLight::makeChunk(void)
 /*-------------------------------------------------------------------------*/
 /*                             Changed                                     */
 
-void PointLight::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void PointLight::changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*-------------------------------------------------------------------------*/

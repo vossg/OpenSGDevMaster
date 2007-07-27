@@ -93,7 +93,8 @@ class OSG_SYSTEM_DLLMAPPING TextureChunk : public TextureChunkBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -230,7 +230,8 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

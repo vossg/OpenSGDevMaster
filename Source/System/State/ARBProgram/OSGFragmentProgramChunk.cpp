@@ -138,9 +138,11 @@ const StateChunkClass *FragmentProgramChunk::getClass(void) const
 
 /*----------------------------- class specific ----------------------------*/
 
-void FragmentProgramChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void FragmentProgramChunk::changed(ConstFieldMaskArg whichField, 
+                                   UInt32            origin,
+                                   BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void FragmentProgramChunk::dump(      UInt32    , 

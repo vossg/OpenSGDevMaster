@@ -75,7 +75,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

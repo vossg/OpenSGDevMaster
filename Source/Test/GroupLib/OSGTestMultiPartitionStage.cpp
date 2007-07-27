@@ -98,13 +98,15 @@ TestMultiPartitionStage::~TestMultiPartitionStage(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void TestMultiPartitionStage::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void TestMultiPartitionStage::changed(ConstFieldMaskArg whichField, 
+                                      UInt32            origin,
+                                      BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void TestMultiPartitionStage::dump(      UInt32    ,
-                         const BitVector ) const
+                                   const BitVector ) const
 {
     SLOG << "Dump TestMultiPartitionStage NI" << std::endl;
 }

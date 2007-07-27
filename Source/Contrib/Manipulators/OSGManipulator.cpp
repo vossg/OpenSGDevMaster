@@ -127,9 +127,10 @@ void Manipulator::callExternalUpdateHandler()
 //! react to field changes
 
 void Manipulator::changed(ConstFieldMaskArg whichField,
-                          UInt32            origin    )
+                          UInt32            origin,
+                          BitVector         details    )
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 
     if ( (whichField & TargetFieldMask) == TargetFieldMask )
     {

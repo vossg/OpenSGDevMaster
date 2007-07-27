@@ -409,7 +409,9 @@ UInt16 SHLChunk::getChunkId(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void SHLChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void SHLChunk::changed(ConstFieldMaskArg whichField, 
+                       UInt32            origin,
+                       BitVector         details)
 {
     typedef SHLChunk Self;
 
@@ -441,7 +443,7 @@ void SHLChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
         }
     }
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void SHLChunk::dump(      UInt32    ,

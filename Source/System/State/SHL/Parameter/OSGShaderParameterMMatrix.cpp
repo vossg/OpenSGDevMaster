@@ -98,16 +98,18 @@ ShaderParameterMMatrix::~ShaderParameterMMatrix(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ShaderParameterMMatrix::changed(BitVector whichField, UInt32 origin)
+void ShaderParameterMMatrix::changed(ConstFieldMaskArg whichField, 
+                                     UInt32            origin,
+                                     BitVector         details)
 {
     if(whichField & ShaderParameterMMatrix::ValueFieldMask)
         setChanged();
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ShaderParameterMMatrix::dump(      UInt32    , 
-                         const BitVector ) const
+                                  const BitVector ) const
 {
     SLOG << "Dump ShaderParameterMMatrix NI" << std::endl;
 }

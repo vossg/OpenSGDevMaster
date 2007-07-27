@@ -67,8 +67,9 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrain :
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg  whichField, 
-                         UInt32             origin    );
+    virtual void changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         detail);
 
     Action::ResultE renderEnter (Action* action);
 

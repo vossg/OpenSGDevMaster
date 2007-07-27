@@ -111,11 +111,13 @@ void RenderOptions::initMethod(InitPhase ePhase)
  * \param
  * \return
  */
-void RenderOptions::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void RenderOptions::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
     _changed |= whichField;
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void RenderOptions::setWireframe(bool value)

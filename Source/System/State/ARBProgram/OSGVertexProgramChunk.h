@@ -81,7 +81,8 @@ class OSG_STATE_DLLMAPPING VertexProgramChunk : public VertexProgramChunkBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

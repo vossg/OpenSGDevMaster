@@ -59,7 +59,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroup : public MaterialGroupBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

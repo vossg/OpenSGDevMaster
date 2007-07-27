@@ -195,7 +195,9 @@ class ReflexiveContainer
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, UInt32 origin) = 0;
+    virtual void changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

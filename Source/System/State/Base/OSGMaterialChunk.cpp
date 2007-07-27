@@ -126,9 +126,11 @@ const StateChunkClass *MaterialChunk::getClass(void) const
 
 /*------------------------------- Sync -----------------------------------*/
 
-void MaterialChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void MaterialChunk::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 UInt16 MaterialChunk::getChunkId(void)

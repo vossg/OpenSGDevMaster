@@ -105,9 +105,11 @@ CoreGLWindow::~CoreGLWindow(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void CoreGLWindow::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void CoreGLWindow::changed(ConstFieldMaskArg whichField, 
+                           UInt32            origin,
+                           BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void CoreGLWindow::dump(      UInt32    , 

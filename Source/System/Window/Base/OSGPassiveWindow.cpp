@@ -93,9 +93,11 @@ PassiveWindow::~PassiveWindow(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void PassiveWindow::changed(BitVector whichField, UInt32 origin)
+void PassiveWindow::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void PassiveWindow::dump(      UInt32    , 

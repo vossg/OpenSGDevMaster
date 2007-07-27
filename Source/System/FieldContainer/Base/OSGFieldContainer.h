@@ -133,9 +133,10 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     virtual void changed            (ConstFieldMaskArg whichField,
-                                     UInt32            origin    );
+                                     UInt32            origin,
+                                     BitVector         details);
 
-            void callChangedFunctors(ConstFieldMaskArg whichField);
+            void callChangedFunctors(ConstFieldMaskArg whichField );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

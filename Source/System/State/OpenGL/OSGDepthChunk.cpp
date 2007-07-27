@@ -108,9 +108,11 @@ const StateChunkClass *DepthChunk::getClass(void) const
 
 /*----------------------------- class specific ----------------------------*/
 
-void DepthChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void DepthChunk::changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void DepthChunk::dump(      UInt32    , 

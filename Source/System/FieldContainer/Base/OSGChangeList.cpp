@@ -163,7 +163,7 @@ void ContainerChangeEntry::commitChanges(void)
            whichField            |= *bvUncommittedChanges;
            *bvUncommittedChanges  = TypeTraits<BitVector>::BitsClear;
 
-           pTmp->changed      (tmpChanges, ChangedOrigin::Commit);
+           pTmp->changed      (tmpChanges, ChangedOrigin::Commit, 0);
         }
     }
 }

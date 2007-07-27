@@ -80,7 +80,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawable : public MaterialDrawableBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

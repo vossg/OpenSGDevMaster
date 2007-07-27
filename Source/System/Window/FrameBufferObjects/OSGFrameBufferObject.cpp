@@ -241,9 +241,11 @@ void FrameBufferObject::onCreate(const FrameBufferObject *source)
             ));
 }
 
-void FrameBufferObject::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void FrameBufferObject::changed(ConstFieldMaskArg whichField, 
+                                UInt32            origin,
+                                BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 
     if(0x0000 != (whichField & (WidthFieldMask | HeightFieldMask)))
     {

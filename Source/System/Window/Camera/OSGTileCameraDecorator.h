@@ -70,7 +70,8 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecorator :
     /*! \{                                                                 */
     
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

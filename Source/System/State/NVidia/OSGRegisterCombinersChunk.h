@@ -83,7 +83,8 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunk :
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            from      );
+                         UInt32            from,
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

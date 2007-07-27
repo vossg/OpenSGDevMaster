@@ -127,9 +127,11 @@ InverseTransform::~InverseTransform(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void InverseTransform::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void InverseTransform::changed(ConstFieldMaskArg whichField, 
+                               UInt32            origin,
+                               BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void InverseTransform::dump(      UInt32    uiIndent,

@@ -123,7 +123,9 @@ inline MaterialPtr cloneMaterial(const MaterialPtr &mat)
 }
 
 
-void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField, 
+                                   UInt32            origin,
+                                   BitVector         details)
 {
     // GeoMorphing is copied into each terrain node here
     // EyePointValid is set true here
@@ -292,7 +294,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
             terrain->setDetail(getDetail());
         }
     }
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 inline void reorderChilds (const NodePtr& parent, NodePtr order[], Int32 num)

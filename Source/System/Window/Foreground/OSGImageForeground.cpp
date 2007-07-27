@@ -98,9 +98,11 @@ ImageForeground::~ImageForeground(void)
 {
 }
 
-void ImageForeground::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ImageForeground::changed(ConstFieldMaskArg whichField, 
+                              UInt32            origin,
+                              BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*------------------------------- dump ----------------------------------*/

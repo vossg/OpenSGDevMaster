@@ -64,7 +64,9 @@ class OSG_GROUP_DLLMAPPING Algorithm : public AlgorithmBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Execute                                 */
     /*! \{                                                                 */

@@ -113,9 +113,11 @@ const StateChunkClass *LightChunk::getClass(void) const
 
 /*------------------------------- Sync -----------------------------------*/
 
-void LightChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void LightChunk::changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*------------------------------ Output ----------------------------------*/

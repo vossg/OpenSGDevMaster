@@ -95,12 +95,14 @@ ShaderParameterInt::~ShaderParameterInt(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ShaderParameterInt::changed(BitVector whichField, UInt32 origin)
+void ShaderParameterInt::changed(ConstFieldMaskArg whichField, 
+                                 UInt32            origin,
+                                 BitVector         details)
 {
     if(whichField & ShaderParameterInt::ValueFieldMask)
         setChanged();
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ShaderParameterInt::dump(      UInt32    , 

@@ -272,9 +272,11 @@ ScreenLOD::~ScreenLOD(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ScreenLOD::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ScreenLOD::changed(ConstFieldMaskArg whichField, 
+                        UInt32            origin,
+                        BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ScreenLOD::dump(      UInt32    , 

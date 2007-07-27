@@ -120,7 +120,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

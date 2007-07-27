@@ -65,7 +65,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterInt : public ShaderParameterIntBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

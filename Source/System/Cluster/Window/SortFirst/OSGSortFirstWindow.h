@@ -68,7 +68,8 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindow : public SortFirstWindowBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

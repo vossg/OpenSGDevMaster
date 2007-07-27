@@ -106,9 +106,10 @@ TextureGrabBackground::~TextureGrabBackground(void)
 /*----------------------------- class specific ----------------------------*/
 
 void TextureGrabBackground::changed(ConstFieldMaskArg whichField, 
-                                    UInt32            origin    )
+                                    UInt32            origin,
+                                    BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*-------------------------- your_category---------------------------------*/

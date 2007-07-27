@@ -119,9 +119,11 @@ TextureObjRefChunk::~TextureObjRefChunk(void)
     it consistent with the cubeTexture specifics
 */
 
-void TextureObjRefChunk::changed(BitVector whichField, UInt32 origin)
+void TextureObjRefChunk::changed(ConstFieldMaskArg whichField, 
+                                 UInt32            origin,
+                                 BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 bool TextureObjRefChunk::isTransparent(void) const

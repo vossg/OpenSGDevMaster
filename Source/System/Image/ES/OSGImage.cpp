@@ -115,7 +115,9 @@ void Image::initMethod(InitPhase ePhase)
 /*! Inform parents, when image was changed
  */
 
-void Image::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void Image::changed(ConstFieldMaskArg whichField, 
+                    UInt32            origin,
+                    BitVector         details)
 {
     MFParentFieldContainerPtr::iterator parentsIt  = _mfParents.begin();
     MFParentFieldContainerPtr::iterator parentsEnd = _mfParents.end();
@@ -161,7 +163,7 @@ void Image::changed(ConstFieldMaskArg whichField, UInt32 origin)
         setFrameSize(_sfSideSize.getValue() * _sfSideCount.getValue());
     }
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*----------------------------- output ------------------------------------*/

@@ -103,9 +103,11 @@ const StateChunkClass *ColorMaskChunk::getClass(void) const
 
 /*----------------------------- class specific ----------------------------*/
 
-void ColorMaskChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ColorMaskChunk::changed(ConstFieldMaskArg whichField, 
+                             UInt32            origin,
+                             BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ColorMaskChunk::dump(      UInt32    ,

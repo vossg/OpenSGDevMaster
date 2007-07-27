@@ -106,9 +106,11 @@ bool CubeTextureObjChunk::isCubeTexture(void)
 
 
 
-void CubeTextureObjChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void CubeTextureObjChunk::changed(ConstFieldMaskArg whichField, 
+                                  UInt32            origin,
+                                  BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*----------------------------- onCreate --------------------------------*/

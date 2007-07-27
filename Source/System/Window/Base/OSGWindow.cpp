@@ -460,9 +460,11 @@ void OSG::Window::staticRelease(void)
 /*! react to field changes
 */
 
-void OSG::Window::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void OSG::Window::changed(ConstFieldMaskArg whichField, 
+                          UInt32            origin,
+                          BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*------------------------------ access -----------------------------------*/

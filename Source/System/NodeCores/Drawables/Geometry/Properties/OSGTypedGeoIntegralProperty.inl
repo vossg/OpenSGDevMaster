@@ -120,7 +120,8 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::resolveLinks(void)
 template <class GeoPropertyDesc> inline 
 void TypedGeoIntegralProperty<GeoPropertyDesc>::changed(
     ConstFieldMaskArg whichField, 
-    UInt32    origin    )
+    UInt32            origin,
+    BitVector         details)
 {
     typedef typename Inherited::ParentField PFieldT;
 
@@ -131,11 +132,13 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::changed(
     {
         (*parentsIt)->changed(
                 TypeTraits<BitVector>::One << parentsIt->getParentFieldPos(),
-                ChangedOrigin::Child);
+                ChangedOrigin::Child,
+                0);
+
         ++parentsIt;
     }
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 template <class GeoPropertyDesc> inline 

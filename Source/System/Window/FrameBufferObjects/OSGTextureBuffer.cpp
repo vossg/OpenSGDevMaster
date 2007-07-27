@@ -213,9 +213,11 @@ void TextureBuffer::initMethod(InitPhase ePhase)
 
 }
 
-void TextureBuffer::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void TextureBuffer::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void TextureBuffer::dump(      UInt32    , 

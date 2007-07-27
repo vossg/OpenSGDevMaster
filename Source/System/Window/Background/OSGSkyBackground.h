@@ -66,7 +66,8 @@ class OSG_WINDOW_DLLMAPPING SkyBackground : public SkyBackgroundBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

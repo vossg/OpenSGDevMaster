@@ -215,9 +215,11 @@ const StateChunkClass *GeoProperty::getClass(void) const
 
 /*----------------------------- class specific ----------------------------*/
 
-void GeoProperty::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void GeoProperty::changed(ConstFieldMaskArg whichField, 
+                          UInt32            origin,
+                          BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
     
     if(getGLId() > 0)
     {

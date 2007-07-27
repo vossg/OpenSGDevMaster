@@ -227,7 +227,9 @@ bool TextureObjChunk::isCubeTexture(void)
     it consistent with the cubeTexture specifics
 */
 
-void TextureObjChunk::changed(BitVector whichField, UInt32 origin)
+void TextureObjChunk::changed(ConstFieldMaskArg whichField, 
+                              UInt32            origin,
+                              BitVector         details)
 {
     GLenum id = _sfGLId.getValue();
 #ifdef GV_CHECK
@@ -300,7 +302,7 @@ void TextureObjChunk::changed(BitVector whichField, UInt32 origin)
 #endif
     }
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 bool TextureObjChunk::isTransparent(void) const

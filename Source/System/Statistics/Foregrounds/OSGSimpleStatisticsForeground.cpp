@@ -107,9 +107,10 @@ void SimpleStatisticsForeground::initMethod(InitPhase ePhase)
 
 /* */
 void SimpleStatisticsForeground::changed(ConstFieldMaskArg whichField,
-                                         UInt32            origin    )
+                                         UInt32            origin,
+                                         BitVector         details    )
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /* */

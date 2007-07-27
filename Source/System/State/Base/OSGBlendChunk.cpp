@@ -150,9 +150,11 @@ const StateChunkClass *BlendChunk::getClass(void) const
 
 /*------------------------------- Sync -----------------------------------*/
 
-void BlendChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void BlendChunk::changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*------------------------------ Output ----------------------------------*/

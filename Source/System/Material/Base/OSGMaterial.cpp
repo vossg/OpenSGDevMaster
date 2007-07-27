@@ -151,9 +151,11 @@ UInt32 Material::getNPasses(void)
     return 1;
 }
 
-void Material::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void Material::changed(ConstFieldMaskArg whichField, 
+                       UInt32            origin,
+                       BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 
     rebuildState();
 }

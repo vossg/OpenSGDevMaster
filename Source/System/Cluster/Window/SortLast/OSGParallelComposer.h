@@ -75,7 +75,8 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposer : public ParallelComposerBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

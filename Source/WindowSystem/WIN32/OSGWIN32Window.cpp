@@ -92,9 +92,11 @@ void WIN32Window::initMethod(InitPhase ePhase)
 
 //! react to field changes
 
-void WIN32Window::changed(BitVector whichField, UInt32 origin)
+void WIN32Window::changed(BitVector whichField, 
+                          UInt32    origin,
+                          BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 //! output the instance for debug purposes

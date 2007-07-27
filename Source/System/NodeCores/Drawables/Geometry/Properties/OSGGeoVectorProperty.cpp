@@ -392,13 +392,15 @@ void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
 
 /*----------------------------- class specific ----------------------------*/
 
-void GeoVectorProperty::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void GeoVectorProperty::changed(ConstFieldMaskArg whichField, 
+                                UInt32            origin,
+                                BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void GeoVectorProperty::dump(      UInt32    ,
-                         const BitVector ) const
+                             const BitVector ) const
 {
     SLOG << "Dump GeoVectorProperty NI" << std::endl;
 }

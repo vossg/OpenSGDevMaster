@@ -86,7 +86,8 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunk : public CubeTextureChunkBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/ 

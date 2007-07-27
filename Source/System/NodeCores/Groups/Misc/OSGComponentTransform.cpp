@@ -61,7 +61,9 @@ OSG_USING_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                               Changed                                   */
 
-void ComponentTransform::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void ComponentTransform::changed(ConstFieldMaskArg whichField, 
+                                 UInt32            origin,
+                                 BitVector         details)
 {
     if((whichField & CenterFieldMask          ) ||
        (whichField & RotationFieldMask        ) ||
@@ -76,7 +78,7 @@ void ComponentTransform::changed(ConstFieldMaskArg whichField, UInt32 origin)
                                   getCenter          ());
     }
 
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ComponentTransform::dump(      UInt32    uiIndent,

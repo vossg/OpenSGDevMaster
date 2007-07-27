@@ -117,9 +117,11 @@ void Billboard::initMethod(InitPhase ePhase)
 
 //! react to field changes
 
-void Billboard::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void Billboard::changed(ConstFieldMaskArg whichField, 
+                        UInt32            origin,
+                        BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 //! output the instance for debug purposes

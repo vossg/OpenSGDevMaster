@@ -73,7 +73,8 @@ class OSG_SYSTEM_DLLMAPPING LightEngine : public LightEngineBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

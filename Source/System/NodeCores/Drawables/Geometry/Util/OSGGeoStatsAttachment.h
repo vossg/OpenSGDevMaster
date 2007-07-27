@@ -67,7 +67,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachment : public GeoStatsAttachmentBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

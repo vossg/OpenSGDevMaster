@@ -102,9 +102,11 @@ SwitchMaterial::~SwitchMaterial(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void SwitchMaterial::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void SwitchMaterial::changed(ConstFieldMaskArg whichField, 
+                             UInt32            origin,
+                             BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void SwitchMaterial::addMaterial(MaterialPtr mat)

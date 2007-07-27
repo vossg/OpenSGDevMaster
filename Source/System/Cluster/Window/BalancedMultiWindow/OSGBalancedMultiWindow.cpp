@@ -482,9 +482,11 @@ BalancedMultiWindow::~BalancedMultiWindow(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void BalancedMultiWindow::changed(BitVector whichField, UInt32 origin)
+void BalancedMultiWindow::changed(ConstFieldMaskArg whichField, 
+                                  UInt32            origin,
+                                  BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void BalancedMultiWindow::dump(      UInt32    , 

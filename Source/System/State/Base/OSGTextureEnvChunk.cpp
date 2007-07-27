@@ -279,9 +279,11 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
     it consistent with the cubeTexture specifics
 */
 
-void TextureEnvChunk::changed(BitVector whichField, UInt32 origin)
+void TextureEnvChunk::changed(ConstFieldMaskArg whichField, 
+                              UInt32            origin,
+                              BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 bool TextureEnvChunk::isTransparent(void) const

@@ -140,9 +140,11 @@ Viewport::~Viewport(void)
 {
 }
 
-void Viewport::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void Viewport::changed(ConstFieldMaskArg whichField, 
+                       UInt32            origin,
+                       BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*---------------------------- properties ---------------------------------*/

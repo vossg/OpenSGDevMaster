@@ -263,9 +263,11 @@ UInt16 StateChunk::getChunkId(void)
 
 /*------------------------------- Sync -----------------------------------*/
 
-void StateChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void StateChunk::changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*------------------------------ Output ----------------------------------*/

@@ -122,9 +122,10 @@ ScaleManipulator::~ScaleManipulator(void)
 /*----------------------------- class specific ----------------------------*/
 
 void ScaleManipulator::changed(ConstFieldMaskArg whichField,
-                               UInt32            origin    )
+                               UInt32            origin,
+                               BitVector         details   )
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void ScaleManipulator::dump(      UInt32    uiIndent,

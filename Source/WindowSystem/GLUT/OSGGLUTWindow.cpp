@@ -94,9 +94,11 @@ void GLUTWindow::initMethod(InitPhase ePhase)
 }
 
 //! react to field changes
-void GLUTWindow::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void GLUTWindow::changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 //! output the instance for debug purposes

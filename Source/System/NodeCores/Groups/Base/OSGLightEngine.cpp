@@ -55,9 +55,11 @@ OSG_USING_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
 
-void LightEngine::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void LightEngine::changed(ConstFieldMaskArg whichField, 
+                          UInt32            origin,
+                          BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 /*-------------------------------------------------------------------------*/

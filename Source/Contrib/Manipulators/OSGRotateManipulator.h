@@ -62,7 +62,8 @@ class OSG_CONTRIBGUI_DLLMAPPING RotateManipulator : public RotateManipulatorBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin    );
+                         UInt32            origin,
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
