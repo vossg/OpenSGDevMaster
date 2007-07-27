@@ -296,7 +296,27 @@ void TextureObjChunk::changed(ConstFieldMaskArg whichField,
         if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
         {
 #endif
-            Window::reinitializeGLObject(id);
+            if(origin  == ChangedOrigin::Child       && 
+               0x0000 != (whichField & ImageFieldMask))
+            {
+                if((details & ~(Image::PixelFieldMask)) == 0)
+                {
+                    Window::refreshGLObject(id);
+                }
+                else
+                {
+                    if(0x0000 != (whichField & (Image::WidthFieldMask  |
+                                                Image::HeightFieldMask |
+                                                Image::DepthFieldMask)))
+                    {
+                        Window::reinitializeGLObject(id);
+                    }
+                }
+            }
+            else
+            {
+                Window::reinitializeGLObject(id);
+            }
 #ifdef GV_CHECK
         }
 #endif

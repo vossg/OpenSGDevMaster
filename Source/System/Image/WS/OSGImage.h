@@ -380,6 +380,17 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     UInt32 calcMipmapSumSize  (UInt32 mipmapNum) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    void addParent(
+              FieldContainerPtrConst &parent, 
+        const UInt16                  uiStoredInFieldId = InvalidParentEPos);
+
+    void subParent(FieldContainerPtrConst &parent);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:

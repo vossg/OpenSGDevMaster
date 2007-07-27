@@ -184,7 +184,7 @@ void key(unsigned char key, int x, int y)
 
 //            tx1o->imageContentChanged();
 
-            Window::reinitializeGLObject(tx1o->getGLId());
+//            Window::reinitializeGLObject(tx1o->getGLId());
 
             pFBO->setSize(512, 512);
         }
@@ -198,7 +198,7 @@ void key(unsigned char key, int x, int y)
 
 //            tx1o->imageContentChanged();
 
-            Window::reinitializeGLObject(tx1o->getGLId());
+//            Window::reinitializeGLObject(tx1o->getGLId());
 
             pFBO->setSize(256, 256);
         }

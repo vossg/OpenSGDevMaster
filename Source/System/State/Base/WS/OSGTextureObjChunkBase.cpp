@@ -926,6 +926,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        linkMParent=\"true\"\n"
     "\t>\n"
     "\tThe texture image.\n"
     "\t</Field>\n"

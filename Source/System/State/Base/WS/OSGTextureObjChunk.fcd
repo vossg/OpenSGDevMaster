@@ -49,6 +49,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		access="public"
+        linkMParent="true"
 	>
 	The texture image.
 	</Field>
