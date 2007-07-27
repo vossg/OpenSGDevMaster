@@ -704,11 +704,12 @@ ActionBase::ResultE SimpleStageRenderEnter(const NodeCorePtr &pCore,
     Camera            *pCam    = getCPtr(pStage->getCamera      ());
     Background        *pBack   = getCPtr(pStage->getBackground  ());
     Viewport          *pPort   = a->getViewport();
+    Window            *pWin    = a->getWindow  ();
 
     pPart->setRenderTarget(pTarget);
 
-    pPart->setViewport(pPort           );
-    pPart->setWindow  (a->getWindow  ());
+    pPart->setViewport(pPort);
+    pPart->setWindow  (pWin );
     
     if(pTarget != NULL)
     {
@@ -720,15 +721,15 @@ ActionBase::ResultE SimpleStageRenderEnter(const NodeCorePtr &pCore,
                                      pTarget->getWidth    (),
                                      pTarget->getHeight   ());
     }
-    else if(pPort != NULL)
+    else if(pWin != NULL)
     {
         pPart->calcViewportDimension(pStage->getLeft  (),
                                      pStage->getBottom(),
                                      pStage->getRight (),
                                      pStage->getTop   (),
                                          
-                                     pPort->getPixelWidth (),
-                                     pPort->getPixelHeight());
+                                     pWin->getWidth   (),
+                                     pWin->getHeight  ());
     }
 
     if(pCam != NULL)
