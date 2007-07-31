@@ -45,6 +45,8 @@
 #include "OSGSField.h"
 #include "OSGFieldContainerFieldTraits.h"
 
+#include <boost/function.hpp>  
+
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
@@ -58,7 +60,7 @@ typedef SField<FieldContainerPtr> SFFieldContainerPtr;
 //                          FieldContainerPtr,
 //                          OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
-
+#if 0
 template <>
 OSG_SYSTEM_DLLMAPPING
 void
@@ -84,6 +86,7 @@ FieldDescription<FieldTraits<FieldContainerPtr>,
     const std::vector<const FieldContainerType*> &ignoreTypes,
     const std::vector<UInt16>                    &cloneGroupIds,
     const std::vector<UInt16>                    &ignoreGroupIds) const;
+#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 template<> inline
@@ -97,9 +100,7 @@ void SField<FieldContainerPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef SField<
-    ParentFieldContainerPtr,
-    1                     > SFParentFieldContainerPtr;
+typedef SField<ParentFieldContainerPtr> SFParentFieldContainerPtr;
 
 #endif
 
@@ -110,6 +111,307 @@ typedef SField<
 //                          OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
+template<>
+class OSG_SYSTEM_DLLMAPPING EditSFieldHandle<SFFieldContainerPtr> : 
+    public EditFieldHandle
+{
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef EditFieldHandle Inherited;
+
+    /*==========================  PUBLIC  =================================*/
+
+    FieldContainerPtr _pContainer;
+
+  public:
+
+    typedef boost::shared_ptr<EditSFieldHandle> Ptr;
+
+    /*---------------------------------------------------------------------*/
+
+    EditSFieldHandle(const EditSFieldHandle     &source);
+    EditSFieldHandle(      SFFieldContainerPtr  *pField, 
+                     const FieldDescriptionBase *pDescription);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual const FieldType &getType       (void) const;
+    virtual       bool       isPointerField(void) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void setValue(FieldContainerPtrConstArg rhs);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueToStream(OutStream &str) const;
+    virtual void pushSizeToStream (OutStream &str) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool equal(Inherited::Ptr rhs);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueFromCString(const Char8             *str   );
+
+    virtual void copyValues          (      GetFieldHandlePtr  source);
+    virtual void shareValues         (      GetFieldHandlePtr  source);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void cloneValues(
+              GetFieldHandlePtr  pSrc,
+        const TypePtrVector     &shareTypes     = TypePtrVector(),
+        const TypePtrVector     &ignoreTypes    = TypePtrVector(),
+        const TypeIdVector      &shareGroupIds  = TypeIdVector (),
+        const TypeIdVector      &ignoreGroupIds = TypeIdVector ()) const;
+
+};
+
+template<>
+class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFFieldContainerPtr> : 
+    public GetFieldHandle
+{
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef GetFieldHandle Inherited;
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef boost::shared_ptr<GetSFieldHandle> Ptr;
+
+    /*---------------------------------------------------------------------*/
+
+    GetSFieldHandle(const GetSFieldHandle      &source);
+    GetSFieldHandle(const SFFieldContainerPtr  *pField, 
+                    const FieldDescriptionBase *pDescription);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual const FieldType &getType       (void) const;
+    virtual       bool       isPointerField(void) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueToStream(OutStream &str) const;
+    virtual void pushSizeToStream (OutStream &str) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool equal(Inherited::Ptr rhs);
+
+    /*---------------------------------------------------------------------*/
+
+    SFFieldContainerPtr const * operator ->(void);
+    SFFieldContainerPtr const & operator * (void);
+};
+
+
+template<class FieldT>
+class GetFCPtrSFieldHandle : public  GetSFieldHandle<SFFieldContainerPtr>
+{
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef GetSFieldHandle<SFFieldContainerPtr> Inherited;
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    GetFCPtrSFieldHandle(const GetFCPtrSFieldHandle &source);
+    GetFCPtrSFieldHandle(const FieldT               *pField, 
+                         const FieldDescriptionBase *pDescription);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual const FieldType &getType(void) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueToStream(OutStream &str) const;
+    virtual void pushSizeToStream (OutStream &str) const;
+
+    /*---------------------------------------------------------------------*/
+
+//    virtual bool equal(Ptr rhs);
+
+    /*---------------------------------------------------------------------*/
+
+    FieldT const * operator ->(void);
+    FieldT const & operator * (void);
+};
+
+class Node;
+
+template<class FieldT>
+class EditFCPtrSFieldHandle : public EditSFieldHandle<SFFieldContainerPtr>
+{
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef EditSFieldHandle<SFFieldContainerPtr> Inherited;
+
+    /*==========================  PUBLIC  =================================*/
+
+    typedef boost::function<void (typename FieldT::ArgumentType)> SetMethod;
+
+    SetMethod _fSetMethod;
+
+  public:
+
+    EditFCPtrSFieldHandle(const EditFCPtrSFieldHandle &source);
+    EditFCPtrSFieldHandle(      FieldT                *pField, 
+                          const FieldDescriptionBase  *pDescription);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual const FieldType &getType(void) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void setValue(FieldContainerPtrConstArg rhs);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueToStream(OutStream &str) const;
+    virtual void pushSizeToStream (OutStream &str) const;
+
+    /*---------------------------------------------------------------------*/
+
+    void setSetMethod(SetMethod fMethod);
+
+//    virtual bool equal(Ptr rhs);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueFromCString(const Char8             *str   );
+
+    virtual void copyValues          (      GetFieldHandlePtr  source);
+    virtual void shareValues         (      GetFieldHandlePtr  source);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void cloneValues(
+              GetFieldHandlePtr  pSrc,
+        const TypePtrVector     &shareTypes     = TypePtrVector(),
+        const TypePtrVector     &ignoreTypes    = TypePtrVector(),
+        const TypeIdVector      &shareGroupIds  = TypeIdVector (),
+        const TypeIdVector      &ignoreGroupIds = TypeIdVector ()) const;
+};
+
+template<>
+class OSG_SYSTEM_DLLMAPPING EditSFieldHandle<SFParentFieldContainerPtr> : 
+    public EditFieldHandle
+{
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef EditFieldHandle Inherited;
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef boost::shared_ptr<EditSFieldHandle> Ptr;
+
+    /*---------------------------------------------------------------------*/
+
+    EditSFieldHandle(const EditSFieldHandle           &source);
+    EditSFieldHandle(      SFParentFieldContainerPtr  *pField, 
+                     const FieldDescriptionBase       *pDescription);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual const FieldType &getType       (void) const;
+    virtual       bool       isPointerField(void) const;
+
+    /*---------------------------------------------------------------------*/
+
+//    virtual void setValue(ParentFieldContainerPtrConstArg rhs);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueToStream(OutStream &str) const;
+    virtual void pushSizeToStream (OutStream &str) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool equal(Inherited::Ptr rhs);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueFromCString(const Char8             *str   );
+
+    virtual void copyValues          (      GetFieldHandlePtr  source);
+    virtual void shareValues         (      GetFieldHandlePtr  source);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void cloneValues(
+              GetFieldHandlePtr  pSrc,
+        const TypePtrVector     &shareTypes     = TypePtrVector(),
+        const TypePtrVector     &ignoreTypes    = TypePtrVector(),
+        const TypeIdVector      &shareGroupIds  = TypeIdVector (),
+        const TypeIdVector      &ignoreGroupIds = TypeIdVector ()) const;
+};
+
+template<>
+class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFParentFieldContainerPtr> : 
+    public GetFieldHandle
+{
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef GetFieldHandle Inherited;
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef boost::shared_ptr<GetSFieldHandle> Ptr;
+
+    /*---------------------------------------------------------------------*/
+
+    GetSFieldHandle(const GetSFieldHandle            &source);
+    GetSFieldHandle(const SFParentFieldContainerPtr  *pField, 
+                    const FieldDescriptionBase       *pDescription);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual const FieldType &getType       (void) const;
+    virtual       bool       isPointerField(void) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueToStream(OutStream &str) const;
+    virtual void pushSizeToStream (OutStream &str) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool equal(Inherited::Ptr rhs);
+
+    /*---------------------------------------------------------------------*/
+
+    SFParentFieldContainerPtr const * operator ->(void);
+    SFParentFieldContainerPtr const & operator * (void);
+};
+
 OSG_END_NAMESPACE
+
+#ifndef OSG_COMPILECONTAINERFIELDINST
+#include "OSGFieldContainerSFields.inl"
+#endif
 
 #endif /* _OSGFIELDCONTAINERSFIELDS_H_ */

@@ -168,6 +168,12 @@ class OSG_STATE_DLLMAPPING TwoSidedLightingChunkBase : public StateChunk
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

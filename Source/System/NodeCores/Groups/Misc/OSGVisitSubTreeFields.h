@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(VisitSubTree);
 
 template <>
 struct FieldTraits<VisitSubTreePtr> :
-    public FieldTraitsTemplateBase<VisitSubTreePtr>
+    public FieldTraitsFCPtrBase<VisitSubTreePtr>
 {
   private:
 

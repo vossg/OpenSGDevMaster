@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ClipPlaneChunk);
 
 template <>
 struct FieldTraits<ClipPlaneChunkPtr> :
-    public FieldTraitsTemplateBase<ClipPlaneChunkPtr>
+    public FieldTraitsFCPtrBase<ClipPlaneChunkPtr>
 {
   private:
 

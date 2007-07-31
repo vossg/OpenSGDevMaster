@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ClusterWindow);
 
 template <>
 struct FieldTraits<ClusterWindowPtr> :
-    public FieldTraitsTemplateBase<ClusterWindowPtr>
+    public FieldTraitsFCPtrBase<ClusterWindowPtr>
 {
   private:
 

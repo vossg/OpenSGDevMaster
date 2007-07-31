@@ -228,29 +228,6 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -352,6 +329,26 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void onCreate(const FrameBufferObject *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFGLenum::GetHandlePtr  getHandleGLId            (void);
+    SFGLenum::EditHandlePtr editHandleGLId           (void);
+    MFFrameBufferAttachmentPtr::GetHandlePtr  getHandleColorAttachments (void);
+    MFFrameBufferAttachmentPtr::EditHandlePtr editHandleColorAttachments(void);
+    MFGLenum::GetHandlePtr  getHandleDrawBuffers     (void);
+    MFGLenum::EditHandlePtr editHandleDrawBuffers    (void);
+    SFFrameBufferAttachmentPtr::GetHandlePtr  getHandleDepthAttachment (void);
+    SFFrameBufferAttachmentPtr::EditHandlePtr editHandleDepthAttachment(void);
+    SFFrameBufferAttachmentPtr::GetHandlePtr  getHandleStencilAttachment (void);
+    SFFrameBufferAttachmentPtr::EditHandlePtr editHandleStencilAttachment(void);
+    SFUInt16::GetHandlePtr  getHandleWidth           (void);
+    SFUInt16::EditHandlePtr editHandleWidth          (void);
+    SFUInt16::GetHandlePtr  getHandleHeight          (void);
+    SFUInt16::EditHandlePtr editHandleHeight         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

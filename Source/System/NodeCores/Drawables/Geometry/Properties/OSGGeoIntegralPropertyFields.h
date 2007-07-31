@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(GeoIntegralProperty);
 
 template <>
 struct FieldTraits<GeoIntegralPropertyPtr> :
-    public FieldTraitsTemplateBase<GeoIntegralPropertyPtr>
+    public FieldTraitsFCPtrBase<GeoIntegralPropertyPtr>
 {
   private:
 

@@ -168,6 +168,12 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

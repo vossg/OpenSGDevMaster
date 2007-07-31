@@ -45,6 +45,8 @@
 
 #include "OSGFieldForwards.h"
 
+#include "boost/shared_ptr.hpp"
+
 #include <map>
 
 //---------------------------------------------------------------------------
@@ -90,6 +92,7 @@ OSG_BEGIN_NAMESPACE
 
 class TypeBase;
 
+class ReflexiveContainerType;
 class FieldBundleType;
 class FieldContainerType;
 
@@ -142,6 +145,19 @@ struct ChangedFunctorCallback
 
     typedef std::allocator<void> Alloc;
 };
+
+class GetFieldHandle;
+class EditFieldHandle;
+
+typedef boost::shared_ptr<GetFieldHandle > GetFieldHandlePtr;
+typedef boost::shared_ptr<EditFieldHandle> EditFieldHandlePtr;
+
+typedef EditFieldHandlePtr(ReflexiveContainer::*FieldEditMethod)(void  );
+typedef GetFieldHandlePtr (ReflexiveContainer::*FieldGetMethod )(void) const;
+
+typedef EditFieldHandlePtr(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
+typedef GetFieldHandlePtr (ReflexiveContainer::*FieldIndexGetMethod )(
+    UInt32) const;
 
 OSG_END_NAMESPACE
 

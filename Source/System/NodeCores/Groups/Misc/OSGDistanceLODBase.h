@@ -250,6 +250,16 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFPnt3f::GetHandlePtr  getHandleCenter          (void);
+    SFPnt3f::EditHandlePtr editHandleCenter         (void);
+    MFReal32::GetHandlePtr  getHandleRange           (void);
+    MFReal32::EditHandlePtr editHandleRange          (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ImageComposer);
 
 template <>
 struct FieldTraits<ImageComposerPtr> :
-    public FieldTraitsTemplateBase<ImageComposerPtr>
+    public FieldTraitsFCPtrBase<ImageComposerPtr>
 {
   private:
 

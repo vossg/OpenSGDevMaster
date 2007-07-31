@@ -65,6 +65,8 @@
 #include "OSGWIN32WindowBase.h"
 #include "OSGWIN32Window.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -97,12 +99,6 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFHWND *(WIN32WindowBase::*GetSFHwndF)(void) const;
-
-    GetSFHwndF GetSFHwnd = &WIN32WindowBase::getSFHwnd;
-#endif
-
     pDesc = new SFHWND::Description(
         SFHWND::getClassType(),
         "hwnd",
@@ -110,20 +106,10 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         HwndFieldId, HwndFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editSFHwnd),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFHwnd));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getSFHwnd));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHwnd),
+        reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHwnd));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFHDC *(WIN32WindowBase::*GetSFHdcF)(void) const;
-
-    GetSFHdcF GetSFHdc = &WIN32WindowBase::getSFHdc;
-#endif
 
     pDesc = new SFHDC::Description(
         SFHDC::getClassType(),
@@ -132,20 +118,10 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         HdcFieldId, HdcFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editSFHdc),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFHdc));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getSFHdc));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHdc),
+        reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHdc));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFHGLRC *(WIN32WindowBase::*GetSFHglrcF)(void) const;
-
-    GetSFHglrcF GetSFHglrc = &WIN32WindowBase::getSFHglrc;
-#endif
 
     pDesc = new SFHGLRC::Description(
         SFHGLRC::getClassType(),
@@ -154,12 +130,8 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         HglrcFieldId, HglrcFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editSFHglrc),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFHglrc));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getSFHglrc));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHglrc),
+        reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHglrc));
 
     oType.addInitialDesc(pDesc);
 }
@@ -420,6 +392,73 @@ WIN32WindowBase::WIN32WindowBase(const WIN32WindowBase &source) :
 
 WIN32WindowBase::~WIN32WindowBase(void)
 {
+}
+
+
+SFHWND::GetHandlePtr WIN32WindowBase::getHandleHwnd            (void)
+{
+    SFHWND::GetHandlePtr returnValue(
+        new  SFHWND::GetHandle(
+             &_sfHwnd, 
+             this->getType().getFieldDesc(HwndFieldId)));
+
+    return returnValue;
+}
+
+SFHWND::EditHandlePtr WIN32WindowBase::editHandleHwnd           (void)
+{
+    SFHWND::EditHandlePtr returnValue(
+        new  SFHWND::EditHandle(
+             &_sfHwnd, 
+             this->getType().getFieldDesc(HwndFieldId)));
+
+    editSField(HwndFieldMask);
+
+    return returnValue;
+}
+
+SFHDC::GetHandlePtr WIN32WindowBase::getHandleHdc             (void)
+{
+    SFHDC::GetHandlePtr returnValue(
+        new  SFHDC::GetHandle(
+             &_sfHdc, 
+             this->getType().getFieldDesc(HdcFieldId)));
+
+    return returnValue;
+}
+
+SFHDC::EditHandlePtr WIN32WindowBase::editHandleHdc            (void)
+{
+    SFHDC::EditHandlePtr returnValue(
+        new  SFHDC::EditHandle(
+             &_sfHdc, 
+             this->getType().getFieldDesc(HdcFieldId)));
+
+    editSField(HdcFieldMask);
+
+    return returnValue;
+}
+
+SFHGLRC::GetHandlePtr WIN32WindowBase::getHandleHglrc           (void)
+{
+    SFHGLRC::GetHandlePtr returnValue(
+        new  SFHGLRC::GetHandle(
+             &_sfHglrc, 
+             this->getType().getFieldDesc(HglrcFieldId)));
+
+    return returnValue;
+}
+
+SFHGLRC::EditHandlePtr WIN32WindowBase::editHandleHglrc          (void)
+{
+    SFHGLRC::EditHandlePtr returnValue(
+        new  SFHGLRC::EditHandle(
+             &_sfHglrc, 
+             this->getType().getFieldDesc(HglrcFieldId)));
+
+    editSField(HglrcFieldMask);
+
+    return returnValue;
 }
 
 

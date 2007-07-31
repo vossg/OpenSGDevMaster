@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(SHLChunk);
 
 template <>
 struct FieldTraits<SHLChunkPtr> :
-    public FieldTraitsTemplateBase<SHLChunkPtr>
+    public FieldTraitsFCPtrBase<SHLChunkPtr>
 {
   private:
 

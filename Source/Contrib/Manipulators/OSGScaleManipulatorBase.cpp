@@ -65,6 +65,8 @@
 #include "OSGScaleManipulatorBase.h"
 #include "OSGScaleManipulator.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -205,6 +207,7 @@ ScaleManipulatorBase::ScaleManipulatorBase(const ScaleManipulatorBase &source) :
 ScaleManipulatorBase::~ScaleManipulatorBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

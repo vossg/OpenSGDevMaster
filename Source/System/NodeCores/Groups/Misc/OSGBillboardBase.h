@@ -289,6 +289,22 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFVec3f::GetHandlePtr  getHandleAxisOfRotation  (void);
+    SFVec3f::EditHandlePtr editHandleAxisOfRotation (void);
+    SFBool::GetHandlePtr  getHandleFocusOnCamera   (void);
+    SFBool::EditHandlePtr editHandleFocusOnCamera  (void);
+    SFBool::GetHandlePtr  getHandleAlignToScreen   (void);
+    SFBool::EditHandlePtr editHandleAlignToScreen  (void);
+    SFReal32::GetHandlePtr  getHandleMinAngle        (void);
+    SFReal32::EditHandlePtr editHandleMinAngle       (void);
+    SFReal32::GetHandlePtr  getHandleMaxAngle        (void);
+    SFReal32::EditHandlePtr editHandleMaxAngle       (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

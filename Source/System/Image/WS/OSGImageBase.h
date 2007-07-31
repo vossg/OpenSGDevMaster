@@ -518,29 +518,6 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -647,6 +624,60 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void onCreate(const Image *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFParentFieldContainerPtr::GetHandlePtr  getHandleParents         (void);
+    MFParentFieldContainerPtr::EditHandlePtr editHandleParents        (void);
+    SFInt32::GetHandlePtr  getHandleDimension       (void);
+    SFInt32::EditHandlePtr editHandleDimension      (void);
+    SFInt32::GetHandlePtr  getHandleWidth           (void);
+    SFInt32::EditHandlePtr editHandleWidth          (void);
+    SFInt32::GetHandlePtr  getHandleHeight          (void);
+    SFInt32::EditHandlePtr editHandleHeight         (void);
+    SFInt32::GetHandlePtr  getHandleDepth           (void);
+    SFInt32::EditHandlePtr editHandleDepth          (void);
+    SFInt32::GetHandlePtr  getHandleBpp             (void);
+    SFInt32::EditHandlePtr editHandleBpp            (void);
+    SFInt32::GetHandlePtr  getHandleMipMapCount     (void);
+    SFInt32::EditHandlePtr editHandleMipMapCount    (void);
+    SFInt32::GetHandlePtr  getHandleFrameCount      (void);
+    SFInt32::EditHandlePtr editHandleFrameCount     (void);
+    SFTime::GetHandlePtr  getHandleFrameDelay      (void);
+    SFTime::EditHandlePtr editHandleFrameDelay     (void);
+    SFUInt32::GetHandlePtr  getHandlePixelFormat     (void);
+    SFUInt32::EditHandlePtr editHandlePixelFormat    (void);
+    MFUInt8::GetHandlePtr  getHandlePixel           (void);
+    MFUInt8::EditHandlePtr editHandlePixel          (void);
+    SFInt32::GetHandlePtr  getHandleFrameSize       (void);
+    SFInt32::EditHandlePtr editHandleFrameSize      (void);
+    SFString::GetHandlePtr  getHandleName            (void);
+    SFString::EditHandlePtr editHandleName           (void);
+    SFInt32::GetHandlePtr  getHandleDataType        (void);
+    SFInt32::EditHandlePtr editHandleDataType       (void);
+    SFInt32::GetHandlePtr  getHandleComponentSize   (void);
+    SFInt32::EditHandlePtr editHandleComponentSize  (void);
+    SFInt32::GetHandlePtr  getHandleSideCount       (void);
+    SFInt32::EditHandlePtr editHandleSideCount      (void);
+    SFInt32::GetHandlePtr  getHandleSideSize        (void);
+    SFInt32::EditHandlePtr editHandleSideSize       (void);
+    SFBool::GetHandlePtr  getHandleForceCompressedData (void);
+    SFBool::EditHandlePtr editHandleForceCompressedData(void);
+    SFBool::GetHandlePtr  getHandleForceAlphaChannel (void);
+    SFBool::EditHandlePtr editHandleForceAlphaChannel(void);
+    SFBool::GetHandlePtr  getHandleForceColorChannel (void);
+    SFBool::EditHandlePtr editHandleForceColorChannel(void);
+    SFBool::GetHandlePtr  getHandleForceAlphaBinary (void);
+    SFBool::EditHandlePtr editHandleForceAlphaBinary(void);
+    SFReal32::GetHandlePtr  getHandleResX            (void);
+    SFReal32::EditHandlePtr editHandleResX           (void);
+    SFReal32::GetHandlePtr  getHandleResY            (void);
+    SFReal32::EditHandlePtr editHandleResY           (void);
+    SFUInt16::GetHandlePtr  getHandleResUnit         (void);
+    SFUInt16::EditHandlePtr editHandleResUnit        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

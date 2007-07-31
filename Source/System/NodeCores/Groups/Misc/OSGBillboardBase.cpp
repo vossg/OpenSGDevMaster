@@ -65,6 +65,8 @@
 #include "OSGBillboardBase.h"
 #include "OSGBillboard.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -105,12 +107,6 @@ void BillboardBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFVec3f *(BillboardBase::*GetSFAxisOfRotationF)(void) const;
-
-    GetSFAxisOfRotationF GetSFAxisOfRotation = &BillboardBase::getSFAxisOfRotation;
-#endif
-
     pDesc = new SFVec3f::Description(
         SFVec3f::getClassType(),
         "axisOfRotation",
@@ -118,20 +114,10 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         AxisOfRotationFieldId, AxisOfRotationFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editSFAxisOfRotation),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAxisOfRotation));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getSFAxisOfRotation));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editHandleAxisOfRotation),
+        reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getHandleAxisOfRotation));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(BillboardBase::*GetSFFocusOnCameraF)(void) const;
-
-    GetSFFocusOnCameraF GetSFFocusOnCamera = &BillboardBase::getSFFocusOnCamera;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -140,20 +126,10 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         FocusOnCameraFieldId, FocusOnCameraFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editSFFocusOnCamera),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFFocusOnCamera));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getSFFocusOnCamera));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editHandleFocusOnCamera),
+        reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getHandleFocusOnCamera));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(BillboardBase::*GetSFAlignToScreenF)(void) const;
-
-    GetSFAlignToScreenF GetSFAlignToScreen = &BillboardBase::getSFAlignToScreen;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -162,20 +138,10 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         AlignToScreenFieldId, AlignToScreenFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editSFAlignToScreen),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAlignToScreen));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getSFAlignToScreen));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editHandleAlignToScreen),
+        reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getHandleAlignToScreen));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(BillboardBase::*GetSFMinAngleF)(void) const;
-
-    GetSFMinAngleF GetSFMinAngle = &BillboardBase::getSFMinAngle;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -184,20 +150,10 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         MinAngleFieldId, MinAngleFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editSFMinAngle),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMinAngle));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getSFMinAngle));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editHandleMinAngle),
+        reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getHandleMinAngle));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(BillboardBase::*GetSFMaxAngleF)(void) const;
-
-    GetSFMaxAngleF GetSFMaxAngle = &BillboardBase::getSFMaxAngle;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -206,12 +162,8 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         MaxAngleFieldId, MaxAngleFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editSFMaxAngle),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMaxAngle));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getSFMaxAngle));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BillboardBase::editHandleMaxAngle),
+        reinterpret_cast<FieldGetMethodSig >(&BillboardBase::getHandleMaxAngle));
 
     oType.addInitialDesc(pDesc);
 }
@@ -553,6 +505,117 @@ BillboardBase::BillboardBase(const BillboardBase &source) :
 
 BillboardBase::~BillboardBase(void)
 {
+}
+
+
+SFVec3f::GetHandlePtr BillboardBase::getHandleAxisOfRotation  (void)
+{
+    SFVec3f::GetHandlePtr returnValue(
+        new  SFVec3f::GetHandle(
+             &_sfAxisOfRotation, 
+             this->getType().getFieldDesc(AxisOfRotationFieldId)));
+
+    return returnValue;
+}
+
+SFVec3f::EditHandlePtr BillboardBase::editHandleAxisOfRotation (void)
+{
+    SFVec3f::EditHandlePtr returnValue(
+        new  SFVec3f::EditHandle(
+             &_sfAxisOfRotation, 
+             this->getType().getFieldDesc(AxisOfRotationFieldId)));
+
+    editSField(AxisOfRotationFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr BillboardBase::getHandleFocusOnCamera   (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfFocusOnCamera, 
+             this->getType().getFieldDesc(FocusOnCameraFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr BillboardBase::editHandleFocusOnCamera  (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfFocusOnCamera, 
+             this->getType().getFieldDesc(FocusOnCameraFieldId)));
+
+    editSField(FocusOnCameraFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr BillboardBase::getHandleAlignToScreen   (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfAlignToScreen, 
+             this->getType().getFieldDesc(AlignToScreenFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr BillboardBase::editHandleAlignToScreen  (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfAlignToScreen, 
+             this->getType().getFieldDesc(AlignToScreenFieldId)));
+
+    editSField(AlignToScreenFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr BillboardBase::getHandleMinAngle        (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfMinAngle, 
+             this->getType().getFieldDesc(MinAngleFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr BillboardBase::editHandleMinAngle       (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfMinAngle, 
+             this->getType().getFieldDesc(MinAngleFieldId)));
+
+    editSField(MinAngleFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr BillboardBase::getHandleMaxAngle        (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfMaxAngle, 
+             this->getType().getFieldDesc(MaxAngleFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr BillboardBase::editHandleMaxAngle       (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfMaxAngle, 
+             this->getType().getFieldDesc(MaxAngleFieldId)));
+
+    editSField(MaxAngleFieldMask);
+
+    return returnValue;
 }
 
 

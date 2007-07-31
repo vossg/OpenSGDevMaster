@@ -100,11 +100,11 @@ class DynFieldAttachment : public AttachmentDescT::Parent
     /*! \name              Dynamic Field Access                            */
     /*! \{                                                                 */
 
-    const Field *getDynamicField      (       UInt32  index ) const;
-          Field *editDynamicField     (       UInt32  index );
+    GetFieldHandlePtr  getDynamicField      (       UInt32  index ) const;
+    EditFieldHandlePtr editDynamicField     (       UInt32  index );
 
-    const Field *getDynamicFieldByName (const Char8  *szName) const;
-          Field *editDynamicFieldByName(const Char8  *szName);
+    GetFieldHandlePtr  getDynamicFieldByName (const Char8  *szName) const;
+    EditFieldHandlePtr editDynamicFieldByName(const Char8  *szName);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

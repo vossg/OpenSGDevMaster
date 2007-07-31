@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(StringAttributeMap);
 
 template <>
 struct FieldTraits<StringAttributeMapPtr> :
-    public FieldTraitsTemplateBase<StringAttributeMapPtr>
+    public FieldTraitsFCPtrBase<StringAttributeMapPtr>
 {
   private:
 

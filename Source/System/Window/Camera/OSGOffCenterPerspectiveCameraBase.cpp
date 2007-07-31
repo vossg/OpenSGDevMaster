@@ -65,6 +65,8 @@
 #include "OSGOffCenterPerspectiveCameraBase.h"
 #include "OSGOffCenterPerspectiveCamera.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void OffCenterPerspectiveCameraBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFVec2f *(OffCenterPerspectiveCameraBase::*GetSFPrincipalPointF)(void) const;
-
-    GetSFPrincipalPointF GetSFPrincipalPoint = &OffCenterPerspectiveCameraBase::getSFPrincipalPoint;
-#endif
-
     pDesc = new SFVec2f::Description(
         SFVec2f::getClassType(),
         "principalPoint",
@@ -102,12 +98,8 @@ void OffCenterPerspectiveCameraBase::classDescInserter(TypeObject &oType)
         PrincipalPointFieldId, PrincipalPointFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&OffCenterPerspectiveCameraBase::editSFPrincipalPoint),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFPrincipalPoint));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&OffCenterPerspectiveCameraBase::getSFPrincipalPoint));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&OffCenterPerspectiveCameraBase::editHandlePrincipalPoint),
+        reinterpret_cast<FieldGetMethodSig >(&OffCenterPerspectiveCameraBase::getHandlePrincipalPoint));
 
     oType.addInitialDesc(pDesc);
 }
@@ -281,6 +273,29 @@ OffCenterPerspectiveCameraBase::OffCenterPerspectiveCameraBase(const OffCenterPe
 
 OffCenterPerspectiveCameraBase::~OffCenterPerspectiveCameraBase(void)
 {
+}
+
+
+SFVec2f::GetHandlePtr OffCenterPerspectiveCameraBase::getHandlePrincipalPoint  (void)
+{
+    SFVec2f::GetHandlePtr returnValue(
+        new  SFVec2f::GetHandle(
+             &_sfPrincipalPoint, 
+             this->getType().getFieldDesc(PrincipalPointFieldId)));
+
+    return returnValue;
+}
+
+SFVec2f::EditHandlePtr OffCenterPerspectiveCameraBase::editHandlePrincipalPoint (void)
+{
+    SFVec2f::EditHandlePtr returnValue(
+        new  SFVec2f::EditHandle(
+             &_sfPrincipalPoint, 
+             this->getType().getFieldDesc(PrincipalPointFieldId)));
+
+    editSField(PrincipalPointFieldMask);
+
+    return returnValue;
 }
 
 

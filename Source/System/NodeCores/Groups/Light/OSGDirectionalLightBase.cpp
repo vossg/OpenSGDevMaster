@@ -65,6 +65,8 @@
 #include "OSGDirectionalLightBase.h"
 #include "OSGDirectionalLight.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -90,12 +92,6 @@ void DirectionalLightBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFVec3r *(DirectionalLightBase::*GetSFDirectionF)(void) const;
-
-    GetSFDirectionF GetSFDirection = &DirectionalLightBase::getSFDirection;
-#endif
-
     pDesc = new SFVec3r::Description(
         SFVec3r::getClassType(),
         "direction",
@@ -103,12 +99,8 @@ void DirectionalLightBase::classDescInserter(TypeObject &oType)
         DirectionFieldId, DirectionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DirectionalLightBase::editSFDirection),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFDirection));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&DirectionalLightBase::getSFDirection));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&DirectionalLightBase::editHandleDirection),
+        reinterpret_cast<FieldGetMethodSig >(&DirectionalLightBase::getHandleDirection));
 
     oType.addInitialDesc(pDesc);
 }
@@ -284,6 +276,29 @@ DirectionalLightBase::DirectionalLightBase(const DirectionalLightBase &source) :
 
 DirectionalLightBase::~DirectionalLightBase(void)
 {
+}
+
+
+SFVec3r::GetHandlePtr DirectionalLightBase::getHandleDirection       (void)
+{
+    SFVec3r::GetHandlePtr returnValue(
+        new  SFVec3r::GetHandle(
+             &_sfDirection, 
+             this->getType().getFieldDesc(DirectionFieldId)));
+
+    return returnValue;
+}
+
+SFVec3r::EditHandlePtr DirectionalLightBase::editHandleDirection      (void)
+{
+    SFVec3r::EditHandlePtr returnValue(
+        new  SFVec3r::EditHandle(
+             &_sfDirection, 
+             this->getType().getFieldDesc(DirectionFieldId)));
+
+    editSField(DirectionFieldMask);
+
+    return returnValue;
 }
 
 

@@ -232,6 +232,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterMMatrixBase : public ShaderParameter
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFMatrix::GetHandlePtr  getHandleValue           (void);
+    MFMatrix::EditHandlePtr editHandleValue          (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

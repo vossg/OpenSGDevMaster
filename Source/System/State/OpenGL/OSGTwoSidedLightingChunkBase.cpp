@@ -65,6 +65,8 @@
 #include "OSGTwoSidedLightingChunkBase.h"
 #include "OSGTwoSidedLightingChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -204,6 +206,7 @@ TwoSidedLightingChunkBase::TwoSidedLightingChunkBase(const TwoSidedLightingChunk
 TwoSidedLightingChunkBase::~TwoSidedLightingChunkBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ContainerPool);
 
 template <>
 struct FieldTraits<ContainerPoolPtr> :
-    public FieldTraitsTemplateBase<ContainerPoolPtr>
+    public FieldTraitsFCPtrBase<ContainerPoolPtr>
 {
   private:
 

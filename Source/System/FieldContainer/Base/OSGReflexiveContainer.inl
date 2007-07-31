@@ -38,97 +38,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline
-FieldHandle::FieldHandle(const FieldHandle &source) :
-    _pField      (source._pField      ),
-    _pDescription(source._pDescription)
-{
-}
-
-inline
-FieldHandle::FieldHandle(const Field                *pField,
-                         const FieldDescriptionBase *pDescription) :
-    _pField      (const_cast<Field *>(pField)),
-    _pDescription(pDescription               )
-{
-}
-
-inline
-FieldHandle::~FieldHandle(void)
-{
-}
-
-
-inline
-bool FieldHandle::isInternal(void) const
-{
-    return _pDescription->isInternal();
-}
-
-inline
-bool FieldHandle::isValid(void) const
-{
-    return (_pField != NULL && _pDescription != NULL);
-}
-
-inline
-const FieldType &FieldHandle::getType(void) const
-{
-    return _pDescription->getFieldType();
-}
-
-inline
-FieldType::Cardinality FieldHandle::getCardinality(void) const
-{
-    return getType().getCardinality();
-}
-
-
-
-inline
-const Field *FieldHandle::getField(void) const
-{
-    return _pField;
-}
-
-inline
-const IDString &FieldHandle::getName(void) const
-{
-    return _pDescription->getName();
-}
-
-
-inline
-void FieldHandle::pushValueToStream(OutStream &str) const
-{
-    _pDescription->pushValueToStream(_pField, str);
-}
-
-inline
-void FieldHandle::pushSizeToStream(OutStream &str) const
-{
-    _pDescription->pushSizeToStream(_pField, str);
-}
-
-
-inline
-EditFieldHandle::EditFieldHandle(const EditFieldHandle &source) :
-    Inherited(source)
-{
-}
-
-inline
-EditFieldHandle::EditFieldHandle(      Field                *pField,
-                                 const FieldDescriptionBase *pDescription) :
-    Inherited(pField, pDescription)
-{
-}
-
-inline
-EditFieldHandle::~EditFieldHandle(void)
-{
-}
-
 /*-------------------------------------------------------------------------*/
 /*                                Get                                      */
 
@@ -253,7 +162,7 @@ UInt32 ReflexiveContainer::getNumFields(void) const
 }
 
 inline
-Field *ReflexiveContainer::editField(UInt32 fieldId)
+EditFieldHandlePtr ReflexiveContainer::editField(UInt32 fieldId)
 {
     const FieldDescriptionBase *desc = getType().getFieldDesc(fieldId);
 
@@ -269,11 +178,11 @@ Field *ReflexiveContainer::editField(UInt32 fieldId)
         return desc->editField(*this);
     }
 
-    return NULL;
+    return EditFieldHandlePtr();
 }
 
 inline
-Field *ReflexiveContainer::editField(const Char8 *fieldName)
+EditFieldHandlePtr ReflexiveContainer::editField(const Char8 *fieldName)
 {
     const FieldDescriptionBase *desc = getType().getFieldDesc(fieldName);
 
@@ -289,26 +198,26 @@ Field *ReflexiveContainer::editField(const Char8 *fieldName)
         return desc->editField(*this);
     }
 
-    return NULL;
+    return EditFieldHandlePtr();
 }
 
 inline
-const Field *ReflexiveContainer::getField(UInt32 fieldId) const
+GetFieldHandlePtr ReflexiveContainer::getField(UInt32 fieldId) const
 {
     const FieldDescriptionBase *desc = getType().getFieldDesc(fieldId);
 
-    return (desc != NULL) ? desc->getField(*this) : NULL;
+    return (desc != NULL) ? desc->getField(*this) : GetFieldHandlePtr();
 }
 
 inline
-const Field *ReflexiveContainer::getField(const Char8 *fieldName) const
+GetFieldHandlePtr ReflexiveContainer::getField(const Char8 *fieldName) const
 {
     const FieldDescriptionBase *desc = getType().getFieldDesc(fieldName);
 
-    return (desc != NULL) ? desc->getField(*this) : NULL;
+    return (desc != NULL) ? desc->getField(*this) : GetFieldHandlePtr();
 }
 
-
+#if 0
 inline
 EditFieldHandle ReflexiveContainer::editHandledField(UInt32 fieldId)
 {
@@ -366,6 +275,7 @@ FieldHandle ReflexiveContainer::getHandledField(const Char8 *fieldName) const
     return FieldHandle((desc != NULL) ? desc->getField(*this) : NULL,
                        desc);
 }
+#endif
 
 
 inline

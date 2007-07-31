@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ProjectionCameraDecorator);
 
 template <>
 struct FieldTraits<ProjectionCameraDecoratorPtr> :
-    public FieldTraitsTemplateBase<ProjectionCameraDecoratorPtr>
+    public FieldTraitsFCPtrBase<ProjectionCameraDecoratorPtr>
 {
   private:
 

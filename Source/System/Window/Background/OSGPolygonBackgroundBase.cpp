@@ -66,6 +66,8 @@
 #include "OSGPolygonBackgroundBase.h"
 #include "OSGPolygonBackground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -133,16 +135,10 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&PolygonBackgroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getSFMaterial));
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleMaterial),
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleMaterial));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFVec3f *(PolygonBackgroundBase::*GetMFTexCoordsF)(void) const;
-
-    GetMFTexCoordsF GetMFTexCoords = &PolygonBackgroundBase::getMFTexCoords;
-#endif
 
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(),
@@ -151,20 +147,10 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editMFTexCoords),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFTexCoords));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getMFTexCoords));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleTexCoords),
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleTexCoords));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFPnt2f *(PolygonBackgroundBase::*GetMFPositionsF)(void) const;
-
-    GetMFPositionsF GetMFPositions = &PolygonBackgroundBase::getMFPositions;
-#endif
 
     pDesc = new MFPnt2f::Description(
         MFPnt2f::getClassType(),
@@ -173,20 +159,10 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editMFPositions),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFPositions));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getMFPositions));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandlePositions),
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(PolygonBackgroundBase::*GetSFNormalizedXF)(void) const;
-
-    GetSFNormalizedXF GetSFNormalizedX = &PolygonBackgroundBase::getSFNormalizedX;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -195,20 +171,10 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         NormalizedXFieldId, NormalizedXFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editSFNormalizedX),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFNormalizedX));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getSFNormalizedX));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleNormalizedX),
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleNormalizedX));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(PolygonBackgroundBase::*GetSFNormalizedYF)(void) const;
-
-    GetSFNormalizedYF GetSFNormalizedY = &PolygonBackgroundBase::getSFNormalizedY;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -217,20 +183,10 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         NormalizedYFieldId, NormalizedYFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editSFNormalizedY),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFNormalizedY));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getSFNormalizedY));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleNormalizedY),
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleNormalizedY));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt16 *(PolygonBackgroundBase::*GetSFAspectHeightF)(void) const;
-
-    GetSFAspectHeightF GetSFAspectHeight = &PolygonBackgroundBase::getSFAspectHeight;
-#endif
 
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(),
@@ -239,20 +195,10 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         AspectHeightFieldId, AspectHeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editSFAspectHeight),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAspectHeight));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getSFAspectHeight));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleAspectHeight),
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleAspectHeight));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt16 *(PolygonBackgroundBase::*GetSFAspectWidthF)(void) const;
-
-    GetSFAspectWidthF GetSFAspectWidth = &PolygonBackgroundBase::getSFAspectWidth;
-#endif
 
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(),
@@ -261,20 +207,10 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         AspectWidthFieldId, AspectWidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editSFAspectWidth),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAspectWidth));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getSFAspectWidth));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleAspectWidth),
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleAspectWidth));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(PolygonBackgroundBase::*GetSFScaleF)(void) const;
-
-    GetSFScaleF GetSFScale = &PolygonBackgroundBase::getSFScale;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -283,20 +219,10 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         ScaleFieldId, ScaleFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editSFScale),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFScale));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getSFScale));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleScale),
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleScale));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(PolygonBackgroundBase::*GetSFCleanupF)(void) const;
-
-    GetSFCleanupF GetSFCleanup = &PolygonBackgroundBase::getSFCleanup;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -305,20 +231,10 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         CleanupFieldId, CleanupFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editSFCleanup),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFCleanup));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getSFCleanup));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleCleanup),
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleCleanup));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(PolygonBackgroundBase::*GetSFTileF)(void) const;
-
-    GetSFTileF GetSFTile = &PolygonBackgroundBase::getSFTile;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -327,12 +243,8 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         TileFieldId, TileFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editSFTile),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTile));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getSFTile));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleTile),
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleTile));
 
     oType.addInitialDesc(pDesc);
 }
@@ -661,65 +573,6 @@ SFBool              *PolygonBackgroundBase::getSFTile           (void)
 #endif
 
 
-void PolygonBackgroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == MaterialFieldId)
-    {
-        static_cast<PolygonBackground *>(this)->setMaterial(
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void PolygonBackgroundBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void PolygonBackgroundBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void PolygonBackgroundBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void PolygonBackgroundBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void PolygonBackgroundBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void PolygonBackgroundBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == MaterialFieldId)
-    {
-        static_cast<PolygonBackground *>(this)->setMaterial(NullFC);
-    }
-}
 
 /*********************************** Non-ptr code ********************************/
 void PolygonBackgroundBase::pushToTexCoords(const Vec3f& value)
@@ -1115,6 +968,229 @@ void PolygonBackgroundBase::onCreate(const PolygonBackground *source)
         this->setMaterial(source->getMaterial());
     }
 }
+
+SFMaterialPtr::GetHandlePtr PolygonBackgroundBase::getHandleMaterial        (void)
+{
+    SFMaterialPtr::GetHandlePtr returnValue(
+        new  SFMaterialPtr::GetHandle(
+             &_sfMaterial, 
+             this->getType().getFieldDesc(MaterialFieldId)));
+
+    return returnValue;
+}
+
+SFMaterialPtr::EditHandlePtr PolygonBackgroundBase::editHandleMaterial       (void)
+{
+    SFMaterialPtr::EditHandlePtr returnValue(
+        new  SFMaterialPtr::EditHandle(
+             &_sfMaterial, 
+             this->getType().getFieldDesc(MaterialFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&PolygonBackground::setMaterial, this, _1));
+
+    editSField(MaterialFieldMask);
+
+    return returnValue;
+}
+
+MFVec3f::GetHandlePtr PolygonBackgroundBase::getHandleTexCoords       (void)
+{
+    MFVec3f::GetHandlePtr returnValue(
+        new  MFVec3f::GetHandle(
+             &_mfTexCoords, 
+             this->getType().getFieldDesc(TexCoordsFieldId)));
+
+    return returnValue;
+}
+
+MFVec3f::EditHandlePtr PolygonBackgroundBase::editHandleTexCoords      (void)
+{
+    MFVec3f::EditHandlePtr returnValue(
+        new  MFVec3f::EditHandle(
+             &_mfTexCoords, 
+             this->getType().getFieldDesc(TexCoordsFieldId)));
+
+    editMField(TexCoordsFieldMask, _mfTexCoords);
+
+    return returnValue;
+}
+
+MFPnt2f::GetHandlePtr PolygonBackgroundBase::getHandlePositions       (void)
+{
+    MFPnt2f::GetHandlePtr returnValue(
+        new  MFPnt2f::GetHandle(
+             &_mfPositions, 
+             this->getType().getFieldDesc(PositionsFieldId)));
+
+    return returnValue;
+}
+
+MFPnt2f::EditHandlePtr PolygonBackgroundBase::editHandlePositions      (void)
+{
+    MFPnt2f::EditHandlePtr returnValue(
+        new  MFPnt2f::EditHandle(
+             &_mfPositions, 
+             this->getType().getFieldDesc(PositionsFieldId)));
+
+    editMField(PositionsFieldMask, _mfPositions);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr PolygonBackgroundBase::getHandleNormalizedX     (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfNormalizedX, 
+             this->getType().getFieldDesc(NormalizedXFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr PolygonBackgroundBase::editHandleNormalizedX    (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfNormalizedX, 
+             this->getType().getFieldDesc(NormalizedXFieldId)));
+
+    editSField(NormalizedXFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr PolygonBackgroundBase::getHandleNormalizedY     (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfNormalizedY, 
+             this->getType().getFieldDesc(NormalizedYFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr PolygonBackgroundBase::editHandleNormalizedY    (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfNormalizedY, 
+             this->getType().getFieldDesc(NormalizedYFieldId)));
+
+    editSField(NormalizedYFieldMask);
+
+    return returnValue;
+}
+
+SFUInt16::GetHandlePtr PolygonBackgroundBase::getHandleAspectHeight    (void)
+{
+    SFUInt16::GetHandlePtr returnValue(
+        new  SFUInt16::GetHandle(
+             &_sfAspectHeight, 
+             this->getType().getFieldDesc(AspectHeightFieldId)));
+
+    return returnValue;
+}
+
+SFUInt16::EditHandlePtr PolygonBackgroundBase::editHandleAspectHeight   (void)
+{
+    SFUInt16::EditHandlePtr returnValue(
+        new  SFUInt16::EditHandle(
+             &_sfAspectHeight, 
+             this->getType().getFieldDesc(AspectHeightFieldId)));
+
+    editSField(AspectHeightFieldMask);
+
+    return returnValue;
+}
+
+SFUInt16::GetHandlePtr PolygonBackgroundBase::getHandleAspectWidth     (void)
+{
+    SFUInt16::GetHandlePtr returnValue(
+        new  SFUInt16::GetHandle(
+             &_sfAspectWidth, 
+             this->getType().getFieldDesc(AspectWidthFieldId)));
+
+    return returnValue;
+}
+
+SFUInt16::EditHandlePtr PolygonBackgroundBase::editHandleAspectWidth    (void)
+{
+    SFUInt16::EditHandlePtr returnValue(
+        new  SFUInt16::EditHandle(
+             &_sfAspectWidth, 
+             this->getType().getFieldDesc(AspectWidthFieldId)));
+
+    editSField(AspectWidthFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr PolygonBackgroundBase::getHandleScale           (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfScale, 
+             this->getType().getFieldDesc(ScaleFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr PolygonBackgroundBase::editHandleScale          (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfScale, 
+             this->getType().getFieldDesc(ScaleFieldId)));
+
+    editSField(ScaleFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr PolygonBackgroundBase::getHandleCleanup         (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfCleanup, 
+             this->getType().getFieldDesc(CleanupFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr PolygonBackgroundBase::editHandleCleanup        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfCleanup, 
+             this->getType().getFieldDesc(CleanupFieldId)));
+
+    editSField(CleanupFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr PolygonBackgroundBase::getHandleTile            (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfTile, 
+             this->getType().getFieldDesc(TileFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr PolygonBackgroundBase::editHandleTile           (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfTile, 
+             this->getType().getFieldDesc(TileFieldId)));
+
+    editSField(TileFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void PolygonBackgroundBase::execSyncV(      FieldContainer    &oFrom,

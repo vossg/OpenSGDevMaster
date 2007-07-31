@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(Image);
 
 template <>
 struct FieldTraits<ImagePtr> :
-    public FieldTraitsTemplateBase<ImagePtr>
+    public FieldTraitsFCPtrBase<ImagePtr>
 {
   private:
 

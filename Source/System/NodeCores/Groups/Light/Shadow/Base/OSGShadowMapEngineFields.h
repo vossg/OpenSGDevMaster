@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ShadowMapEngine);
 
 template <>
 struct FieldTraits<ShadowMapEnginePtr> :
-    public FieldTraitsTemplateBase<ShadowMapEnginePtr>
+    public FieldTraitsFCPtrBase<ShadowMapEnginePtr>
 {
   private:
 

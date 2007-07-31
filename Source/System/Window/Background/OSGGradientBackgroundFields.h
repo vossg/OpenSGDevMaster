@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(GradientBackground);
 
 template <>
 struct FieldTraits<GradientBackgroundPtr> :
-    public FieldTraitsTemplateBase<GradientBackgroundPtr>
+    public FieldTraitsFCPtrBase<GradientBackgroundPtr>
 {
   private:
 

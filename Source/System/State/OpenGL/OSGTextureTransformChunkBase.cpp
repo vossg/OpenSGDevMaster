@@ -65,6 +65,8 @@
 #include "OSGTextureTransformChunkBase.h"
 #include "OSGTextureTransformChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -94,12 +96,6 @@ void TextureTransformChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(TextureTransformChunkBase::*GetSFUseCameraBeaconF)(void) const;
-
-    GetSFUseCameraBeaconF GetSFUseCameraBeacon = &TextureTransformChunkBase::getSFUseCameraBeacon;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "useCameraBeacon",
@@ -107,12 +103,8 @@ void TextureTransformChunkBase::classDescInserter(TypeObject &oType)
         UseCameraBeaconFieldId, UseCameraBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureTransformChunkBase::editSFUseCameraBeacon),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFUseCameraBeacon));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureTransformChunkBase::getSFUseCameraBeacon));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureTransformChunkBase::editHandleUseCameraBeacon),
+        reinterpret_cast<FieldGetMethodSig >(&TextureTransformChunkBase::getHandleUseCameraBeacon));
 
     oType.addInitialDesc(pDesc);
 }
@@ -299,6 +291,29 @@ TextureTransformChunkBase::TextureTransformChunkBase(const TextureTransformChunk
 
 TextureTransformChunkBase::~TextureTransformChunkBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr TextureTransformChunkBase::getHandleUseCameraBeacon (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUseCameraBeacon, 
+             this->getType().getFieldDesc(UseCameraBeaconFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr TextureTransformChunkBase::editHandleUseCameraBeacon(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUseCameraBeacon, 
+             this->getType().getFieldDesc(UseCameraBeaconFieldId)));
+
+    editSField(UseCameraBeaconFieldMask);
+
+    return returnValue;
 }
 
 

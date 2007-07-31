@@ -65,6 +65,8 @@
 #include "OSGTransformBase.h"
 #include "OSGTransform.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -90,12 +92,6 @@ void TransformBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFMatrixr *(TransformBase::*GetSFMatrixF)(void) const;
-
-    GetSFMatrixF GetSFMatrix = &TransformBase::getSFMatrix;
-#endif
-
     pDesc = new SFMatrixr::Description(
         SFMatrixr::getClassType(),
         "matrix",
@@ -103,12 +99,8 @@ void TransformBase::classDescInserter(TypeObject &oType)
         MatrixFieldId, MatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TransformBase::editSFMatrix),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMatrix));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TransformBase::getSFMatrix));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TransformBase::editHandleMatrix),
+        reinterpret_cast<FieldGetMethodSig >(&TransformBase::getHandleMatrix));
 
     oType.addInitialDesc(pDesc);
 }
@@ -284,6 +276,29 @@ TransformBase::TransformBase(const TransformBase &source) :
 
 TransformBase::~TransformBase(void)
 {
+}
+
+
+SFMatrixr::GetHandlePtr TransformBase::getHandleMatrix          (void)
+{
+    SFMatrixr::GetHandlePtr returnValue(
+        new  SFMatrixr::GetHandle(
+             &_sfMatrix, 
+             this->getType().getFieldDesc(MatrixFieldId)));
+
+    return returnValue;
+}
+
+SFMatrixr::EditHandlePtr TransformBase::editHandleMatrix         (void)
+{
+    SFMatrixr::EditHandlePtr returnValue(
+        new  SFMatrixr::EditHandle(
+             &_sfMatrix, 
+             this->getType().getFieldDesc(MatrixFieldId)));
+
+    editSField(MatrixFieldMask);
+
+    return returnValue;
 }
 
 

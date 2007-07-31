@@ -253,6 +253,18 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFEGLDisplay::GetHandlePtr  getHandleDisplay         (void);
+    SFEGLDisplay::EditHandlePtr editHandleDisplay        (void);
+    SFEGLSurface::GetHandlePtr  getHandleWindow          (void);
+    SFEGLSurface::EditHandlePtr editHandleWindow         (void);
+    SFEGLContext::GetHandlePtr  getHandleContext         (void);
+    SFEGLContext::EditHandlePtr editHandleContext        (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

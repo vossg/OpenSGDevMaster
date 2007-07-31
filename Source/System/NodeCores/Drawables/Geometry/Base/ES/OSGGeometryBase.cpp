@@ -69,6 +69,8 @@
 #include "OSGGeometryBase.h"
 #include "OSGGeometry.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -127,8 +129,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         TypesFieldId, TypesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&GeometryBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getSFTypes));
+        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandleTypes),
+        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandleTypes));
 
     oType.addInitialDesc(pDesc);
 
@@ -140,8 +142,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         LengthsFieldId, LengthsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&GeometryBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getSFLengths));
+        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandleLengths),
+        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandleLengths));
 
     oType.addInitialDesc(pDesc);
 
@@ -153,8 +155,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         PropertiesFieldId, PropertiesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&GeometryBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getMFProperties));
+        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandleProperties),
+        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandleProperties));
 
     oType.addInitialDesc(pDesc);
 
@@ -166,16 +168,10 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         PropIndicesFieldId, PropIndicesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&GeometryBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getMFPropIndices));
+        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandlePropIndices),
+        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandlePropIndices));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(GeometryBase::*GetSFClassicGLIdF)(void) const;
-
-    GetSFClassicGLIdF GetSFClassicGLId = &GeometryBase::getSFClassicGLId;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -184,20 +180,10 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         ClassicGLIdFieldId, ClassicGLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editSFClassicGLId),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFClassicGLId));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getSFClassicGLId));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandleClassicGLId),
+        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandleClassicGLId));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(GeometryBase::*GetSFAttGLIdF)(void) const;
-
-    GetSFAttGLIdF GetSFAttGLId = &GeometryBase::getSFAttGLId;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -206,12 +192,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         AttGLIdFieldId, AttGLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editSFAttGLId),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAttGLId));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getSFAttGLId));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandleAttGLId),
+        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandleAttGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -395,148 +377,6 @@ SFInt32             *GeometryBase::getSFAttGLId        (void)
 #endif
 
 
-void GeometryBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == TypesFieldId)
-    {
-        static_cast<Geometry *>(this)->setTypes(
-            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
-    }
-    if(uiFieldId == LengthsFieldId)
-    {
-        static_cast<Geometry *>(this)->setLengths(
-            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
-    }
-    if(uiFieldId == PropertiesFieldId)
-    {
-        static_cast<Geometry *>(this)->pushToProperties(
-            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
-    }
-    if(uiFieldId == PropIndicesFieldId)
-    {
-        static_cast<Geometry *>(this)->pushToPropIndices(
-            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
-    }
-}
-
-void GeometryBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == PropertiesFieldId)
-    {
-        static_cast<Geometry *>(this)->insertIntoProperties(
-            uiIndex,
-            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
-    }
-    if(uiFieldId == PropIndicesFieldId)
-    {
-        static_cast<Geometry *>(this)->insertIntoPropIndices(
-            uiIndex,
-            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
-    }
-}
-
-void GeometryBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == PropertiesFieldId)
-    {
-        static_cast<Geometry *>(this)->replaceInProperties(
-            uiIndex,
-            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
-    }
-    if(uiFieldId == PropIndicesFieldId)
-    {
-        static_cast<Geometry *>(this)->replaceInPropIndices(
-            uiIndex,
-            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
-    }
-}
-
-void GeometryBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == PropertiesFieldId)
-    {
-        static_cast<Geometry *>(this)->replaceInProperties(
-            dynamic_cast<GeoVectorPropertyPtr>(pOldElement),
-            dynamic_cast<GeoVectorPropertyPtr>(pNewElement));
-    }
-    if(uiFieldId == PropIndicesFieldId)
-    {
-        static_cast<Geometry *>(this)->replaceInPropIndices(
-            dynamic_cast<GeoIntegralPropertyPtr>(pOldElement),
-            dynamic_cast<GeoIntegralPropertyPtr>(pNewElement));
-    }
-}
-
-void GeometryBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == PropertiesFieldId)
-    {
-        static_cast<Geometry *>(this)->removeFromProperties(
-            uiIndex);
-    }
-    if(uiFieldId == PropIndicesFieldId)
-    {
-        static_cast<Geometry *>(this)->removeFromPropIndices(
-            uiIndex);
-    }
-}
-
-void GeometryBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == PropertiesFieldId)
-    {
-        static_cast<Geometry *>(this)->removeFromProperties(
-            dynamic_cast<GeoVectorPropertyPtr>(pElement));
-    }
-    if(uiFieldId == PropIndicesFieldId)
-    {
-        static_cast<Geometry *>(this)->removeFromPropIndices(
-            dynamic_cast<GeoIntegralPropertyPtr>(pElement));
-    }
-}
-
-void GeometryBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == TypesFieldId)
-    {
-        static_cast<Geometry *>(this)->setTypes(NullFC);
-    }
-    if(uiFieldId == LengthsFieldId)
-    {
-        static_cast<Geometry *>(this)->setLengths(NullFC);
-    }
-    if(uiFieldId == PropertiesFieldId)
-    {
-        static_cast<Geometry *>(this)->clearProperties();
-    }
-    if(uiFieldId == PropIndicesFieldId)
-    {
-        static_cast<Geometry *>(this)->clearPropIndices();
-    }
-}
 
 void GeometryBase::pushToProperties(GeoVectorPropertyPtrConstArg value)
 {
@@ -1084,6 +924,147 @@ void GeometryBase::onCreate(const Geometry *source)
         }
     }
 }
+
+SFGeoIntegralPropertyPtr::GetHandlePtr GeometryBase::getHandleTypes           (void)
+{
+    SFGeoIntegralPropertyPtr::GetHandlePtr returnValue(
+        new  SFGeoIntegralPropertyPtr::GetHandle(
+             &_sfTypes, 
+             this->getType().getFieldDesc(TypesFieldId)));
+
+    return returnValue;
+}
+
+SFGeoIntegralPropertyPtr::EditHandlePtr GeometryBase::editHandleTypes          (void)
+{
+    SFGeoIntegralPropertyPtr::EditHandlePtr returnValue(
+        new  SFGeoIntegralPropertyPtr::EditHandle(
+             &_sfTypes, 
+             this->getType().getFieldDesc(TypesFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&Geometry::setTypes, this, _1));
+
+    editSField(TypesFieldMask);
+
+    return returnValue;
+}
+
+SFGeoIntegralPropertyPtr::GetHandlePtr GeometryBase::getHandleLengths         (void)
+{
+    SFGeoIntegralPropertyPtr::GetHandlePtr returnValue(
+        new  SFGeoIntegralPropertyPtr::GetHandle(
+             &_sfLengths, 
+             this->getType().getFieldDesc(LengthsFieldId)));
+
+    return returnValue;
+}
+
+SFGeoIntegralPropertyPtr::EditHandlePtr GeometryBase::editHandleLengths        (void)
+{
+    SFGeoIntegralPropertyPtr::EditHandlePtr returnValue(
+        new  SFGeoIntegralPropertyPtr::EditHandle(
+             &_sfLengths, 
+             this->getType().getFieldDesc(LengthsFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&Geometry::setLengths, this, _1));
+
+    editSField(LengthsFieldMask);
+
+    return returnValue;
+}
+
+MFGeoVectorPropertyPtr::GetHandlePtr GeometryBase::getHandleProperties      (void)
+{
+    MFGeoVectorPropertyPtr::GetHandlePtr returnValue(
+        new  MFGeoVectorPropertyPtr::GetHandle(
+             &_mfProperties, 
+             this->getType().getFieldDesc(PropertiesFieldId)));
+
+    return returnValue;
+}
+
+MFGeoVectorPropertyPtr::EditHandlePtr GeometryBase::editHandleProperties     (void)
+{
+    MFGeoVectorPropertyPtr::EditHandlePtr returnValue(
+        new  MFGeoVectorPropertyPtr::EditHandle(
+             &_mfProperties, 
+             this->getType().getFieldDesc(PropertiesFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&Geometry::pushToProperties, this, _1));
+
+    editMField(PropertiesFieldMask, _mfProperties);
+
+    return returnValue;
+}
+
+MFGeoIntegralPropertyPtr::GetHandlePtr GeometryBase::getHandlePropIndices     (void)
+{
+    MFGeoIntegralPropertyPtr::GetHandlePtr returnValue(
+        new  MFGeoIntegralPropertyPtr::GetHandle(
+             &_mfPropIndices, 
+             this->getType().getFieldDesc(PropIndicesFieldId)));
+
+    return returnValue;
+}
+
+MFGeoIntegralPropertyPtr::EditHandlePtr GeometryBase::editHandlePropIndices    (void)
+{
+    MFGeoIntegralPropertyPtr::EditHandlePtr returnValue(
+        new  MFGeoIntegralPropertyPtr::EditHandle(
+             &_mfPropIndices, 
+             this->getType().getFieldDesc(PropIndicesFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&Geometry::pushToPropIndices, this, _1));
+
+    editMField(PropIndicesFieldMask, _mfPropIndices);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr GeometryBase::getHandleClassicGLId     (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfClassicGLId, 
+             this->getType().getFieldDesc(ClassicGLIdFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr GeometryBase::editHandleClassicGLId    (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfClassicGLId, 
+             this->getType().getFieldDesc(ClassicGLIdFieldId)));
+
+    editSField(ClassicGLIdFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr GeometryBase::getHandleAttGLId         (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfAttGLId, 
+             this->getType().getFieldDesc(AttGLIdFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr GeometryBase::editHandleAttGLId        (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfAttGLId, 
+             this->getType().getFieldDesc(AttGLIdFieldId)));
+
+    editSField(AttGLIdFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void GeometryBase::execSyncV(      FieldContainer    &oFrom,

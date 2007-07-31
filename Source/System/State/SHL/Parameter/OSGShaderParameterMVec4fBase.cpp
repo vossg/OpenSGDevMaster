@@ -65,6 +65,8 @@
 #include "OSGShaderParameterMVec4fBase.h"
 #include "OSGShaderParameterMVec4f.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void ShaderParameterMVec4fBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFVec4f *(ShaderParameterMVec4fBase::*GetMFValueF)(void) const;
-
-    GetMFValueF GetMFValue = &ShaderParameterMVec4fBase::getMFValue;
-#endif
-
     pDesc = new MFVec4f::Description(
         MFVec4f::getClassType(),
         "value",
@@ -102,12 +98,8 @@ void ShaderParameterMVec4fBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMVec4fBase::editMFValue),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFValue));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMVec4fBase::getMFValue));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMVec4fBase::editHandleValue),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMVec4fBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -364,6 +356,29 @@ ShaderParameterMVec4fBase::ShaderParameterMVec4fBase(const ShaderParameterMVec4f
 
 ShaderParameterMVec4fBase::~ShaderParameterMVec4fBase(void)
 {
+}
+
+
+MFVec4f::GetHandlePtr ShaderParameterMVec4fBase::getHandleValue           (void)
+{
+    MFVec4f::GetHandlePtr returnValue(
+        new  MFVec4f::GetHandle(
+             &_mfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    return returnValue;
+}
+
+MFVec4f::EditHandlePtr ShaderParameterMVec4fBase::editHandleValue          (void)
+{
+    MFVec4f::EditHandlePtr returnValue(
+        new  MFVec4f::EditHandle(
+             &_mfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    editMField(ValueFieldMask, _mfValue);
+
+    return returnValue;
 }
 
 

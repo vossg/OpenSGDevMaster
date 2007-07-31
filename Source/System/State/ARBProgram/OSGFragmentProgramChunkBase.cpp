@@ -65,6 +65,8 @@
 #include "OSGFragmentProgramChunkBase.h"
 #include "OSGFragmentProgramChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -218,6 +220,7 @@ FragmentProgramChunkBase::FragmentProgramChunkBase(const FragmentProgramChunkBas
 FragmentProgramChunkBase::~FragmentProgramChunkBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

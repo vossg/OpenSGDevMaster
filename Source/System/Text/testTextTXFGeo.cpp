@@ -611,7 +611,7 @@ void updateScene()
 
     geo->setMaterial(m);
 
-    scene->clearField(Node::ChildrenFieldId);
+    scene->clearChildren();
     scene->addChild(createCoordinateCross());
     scene->addChild(createMetrics(face, scale, layoutParam, layoutResult));
     scene->addChild(transNodePtr);

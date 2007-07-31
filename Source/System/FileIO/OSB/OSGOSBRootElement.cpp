@@ -43,6 +43,7 @@
 
 #include "OSGAttachmentContainer.h"
 #include "OSGFieldContainerAttachment.h"
+#include "OSGFieldContainerSFields.h"
 
 OSG_USING_NAMESPACE
 
@@ -368,9 +369,19 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
     }
     else
     {
-        FieldContainerPtr fc       = NullFC;
-        FieldContainerPtr fieldCon = ptrField.getContainer();
-        UInt32            fieldId  = ptrField.getFieldId();
+        FieldContainerPtr  fc       = NullFC;
+        FieldContainerPtr  fieldCon = ptrField.getContainer();
+        UInt32             fieldId  = ptrField.getFieldId();
+
+        EditFieldHandlePtr fHandle  = fieldCon->editField(fieldId);
+
+        SFFieldContainerPtr::EditHandlePtr pSFHandle = 
+            boost::dynamic_pointer_cast<SFFieldContainerPtr::EditHandle>(
+                fHandle);
+
+        MFFieldContainerPtr::EditHandlePtr pMFHandle = 
+            boost::dynamic_pointer_cast<MFFieldContainerPtr::EditHandle>(
+                fHandle);
 
         for(; idIt != idEnd; ++idIt)
         {
@@ -395,7 +406,14 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
                 fc = NullFC;
             }
 
-            fieldCon->pushToField(fc, fieldId);
+            if(pSFHandle != NULL && pSFHandle->isValid())
+            {
+                pSFHandle->setValue(fc);
+            }
+            else if(pMFHandle != NULL && pMFHandle->isValid())
+            {
+                pMFHandle->add(fc);
+            }
         }
     }
 }

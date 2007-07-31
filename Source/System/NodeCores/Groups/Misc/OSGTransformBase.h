@@ -217,6 +217,14 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFMatrixr::GetHandlePtr  getHandleMatrix          (void);
+    SFMatrixr::EditHandlePtr editHandleMatrix         (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

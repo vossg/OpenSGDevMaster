@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(OrthographicCamera);
 
 template <>
 struct FieldTraits<OrthographicCameraPtr> :
-    public FieldTraitsTemplateBase<OrthographicCameraPtr>
+    public FieldTraitsFCPtrBase<OrthographicCameraPtr>
 {
   private:
 

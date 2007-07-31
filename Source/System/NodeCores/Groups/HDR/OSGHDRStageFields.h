@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(HDRStage);
 
 template <>
 struct FieldTraits<HDRStagePtr> :
-    public FieldTraitsTemplateBase<HDRStagePtr>
+    public FieldTraitsFCPtrBase<HDRStagePtr>
 {
   private:
 

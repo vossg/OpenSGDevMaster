@@ -65,6 +65,8 @@
 #include "OSGParallelComposerBase.h"
 #include "OSGParallelComposer.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -97,12 +99,6 @@ void ParallelComposerBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ParallelComposerBase::*GetSFShortF)(void) const;
-
-    GetSFShortF GetSFShort = &ParallelComposerBase::getSFShort;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "short",
@@ -110,20 +106,10 @@ void ParallelComposerBase::classDescInserter(TypeObject &oType)
         ShortFieldId, ShortFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ParallelComposerBase::editSFShort),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFShort));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ParallelComposerBase::getSFShort));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ParallelComposerBase::editHandleShort),
+        reinterpret_cast<FieldGetMethodSig >(&ParallelComposerBase::getHandleShort));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ParallelComposerBase::*GetSFAlphaF)(void) const;
-
-    GetSFAlphaF GetSFAlpha = &ParallelComposerBase::getSFAlpha;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -132,20 +118,10 @@ void ParallelComposerBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ParallelComposerBase::editSFAlpha),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAlpha));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ParallelComposerBase::getSFAlpha));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ParallelComposerBase::editHandleAlpha),
+        reinterpret_cast<FieldGetMethodSig >(&ParallelComposerBase::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(ParallelComposerBase::*GetSFPcLibPathF)(void) const;
-
-    GetSFPcLibPathF GetSFPcLibPath = &ParallelComposerBase::getSFPcLibPath;
-#endif
 
     pDesc = new SFString::Description(
         SFString::getClassType(),
@@ -154,12 +130,8 @@ void ParallelComposerBase::classDescInserter(TypeObject &oType)
         PcLibPathFieldId, PcLibPathFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ParallelComposerBase::editSFPcLibPath),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFPcLibPath));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ParallelComposerBase::getSFPcLibPath));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ParallelComposerBase::editHandlePcLibPath),
+        reinterpret_cast<FieldGetMethodSig >(&ParallelComposerBase::getHandlePcLibPath));
 
     oType.addInitialDesc(pDesc);
 }
@@ -418,6 +390,73 @@ ParallelComposerBase::ParallelComposerBase(const ParallelComposerBase &source) :
 
 ParallelComposerBase::~ParallelComposerBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr ParallelComposerBase::getHandleShort           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfShort, 
+             this->getType().getFieldDesc(ShortFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ParallelComposerBase::editHandleShort          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfShort, 
+             this->getType().getFieldDesc(ShortFieldId)));
+
+    editSField(ShortFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr ParallelComposerBase::getHandleAlpha           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfAlpha, 
+             this->getType().getFieldDesc(AlphaFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ParallelComposerBase::editHandleAlpha          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfAlpha, 
+             this->getType().getFieldDesc(AlphaFieldId)));
+
+    editSField(AlphaFieldMask);
+
+    return returnValue;
+}
+
+SFString::GetHandlePtr ParallelComposerBase::getHandlePcLibPath       (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfPcLibPath, 
+             this->getType().getFieldDesc(PcLibPathFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr ParallelComposerBase::editHandlePcLibPath      (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfPcLibPath, 
+             this->getType().getFieldDesc(PcLibPathFieldId)));
+
+    editSField(PcLibPathFieldMask);
+
+    return returnValue;
 }
 
 

@@ -291,10 +291,14 @@ void testNode(void)
     const OSG::Field *pF1 = pNode->getSFVolume();
           OSG::Field *pF2 = pNode->editSFVolume();
 
-    const OSG::Field *pRF1 = pNode->getField("volume");
-          OSG::Field *pRF2 = pNode->editField("volume");
+    OSG::GetFieldHandlePtr  pRF1 = pNode->getField("volume");
+    OSG::EditFieldHandlePtr pRF2 = pNode->editField("volume");
 
-    fprintf(stderr, "#### Field %p %p | %p %p\n", pF1, pF2, pRF1, pRF2);
+    fprintf(stderr, "#### Field %p %p | %p %p\n", 
+            pF1, 
+            pF2, 
+            pRF1.get(), 
+            pRF2.get());
 
 //    fprintf(stderr, "%p %p %p\n", pNode1, sfNode.getValue(), mfNode[1]);
 

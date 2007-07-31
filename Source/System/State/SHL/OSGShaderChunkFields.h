@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ShaderChunk);
 
 template <>
 struct FieldTraits<ShaderChunkPtr> :
-    public FieldTraitsTemplateBase<ShaderChunkPtr>
+    public FieldTraitsFCPtrBase<ShaderChunkPtr>
 {
   private:
 

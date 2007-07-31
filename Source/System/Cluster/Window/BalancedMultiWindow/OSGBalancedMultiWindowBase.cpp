@@ -65,6 +65,8 @@
 #include "OSGBalancedMultiWindowBase.h"
 #include "OSGBalancedMultiWindow.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -105,12 +107,6 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(BalancedMultiWindowBase::*GetSFBalanceF)(void) const;
-
-    GetSFBalanceF GetSFBalance = &BalancedMultiWindowBase::getSFBalance;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "balance",
@@ -118,20 +114,10 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         BalanceFieldId, BalanceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editSFBalance),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFBalance));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getSFBalance));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleBalance),
+        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleBalance));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(BalancedMultiWindowBase::*GetSFBestCutF)(void) const;
-
-    GetSFBestCutF GetSFBestCut = &BalancedMultiWindowBase::getSFBestCut;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -140,20 +126,10 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         BestCutFieldId, BestCutFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editSFBestCut),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFBestCut));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getSFBestCut));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleBestCut),
+        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleBestCut));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(BalancedMultiWindowBase::*GetSFShowBalancingF)(void) const;
-
-    GetSFShowBalancingF GetSFShowBalancing = &BalancedMultiWindowBase::getSFShowBalancing;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -162,20 +138,10 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         ShowBalancingFieldId, ShowBalancingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editSFShowBalancing),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFShowBalancing));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getSFShowBalancing));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleShowBalancing),
+        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleShowBalancing));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(BalancedMultiWindowBase::*GetSFTileSizeF)(void) const;
-
-    GetSFTileSizeF GetSFTileSize = &BalancedMultiWindowBase::getSFTileSize;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -184,20 +150,10 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         TileSizeFieldId, TileSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editSFTileSize),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTileSize));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getSFTileSize));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleTileSize),
+        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleTileSize));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(BalancedMultiWindowBase::*GetSFShortF)(void) const;
-
-    GetSFShortF GetSFShort = &BalancedMultiWindowBase::getSFShort;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -206,12 +162,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         ShortFieldId, ShortFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editSFShort),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFShort));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getSFShort));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleShort),
+        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleShort));
 
     oType.addInitialDesc(pDesc);
 }
@@ -558,6 +510,117 @@ BalancedMultiWindowBase::BalancedMultiWindowBase(const BalancedMultiWindowBase &
 
 BalancedMultiWindowBase::~BalancedMultiWindowBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleBalance         (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfBalance, 
+             this->getType().getFieldDesc(BalanceFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr BalancedMultiWindowBase::editHandleBalance        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfBalance, 
+             this->getType().getFieldDesc(BalanceFieldId)));
+
+    editSField(BalanceFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleBestCut         (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfBestCut, 
+             this->getType().getFieldDesc(BestCutFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr BalancedMultiWindowBase::editHandleBestCut        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfBestCut, 
+             this->getType().getFieldDesc(BestCutFieldId)));
+
+    editSField(BestCutFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleShowBalancing   (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfShowBalancing, 
+             this->getType().getFieldDesc(ShowBalancingFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr BalancedMultiWindowBase::editHandleShowBalancing  (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfShowBalancing, 
+             this->getType().getFieldDesc(ShowBalancingFieldId)));
+
+    editSField(ShowBalancingFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr BalancedMultiWindowBase::getHandleTileSize        (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfTileSize, 
+             this->getType().getFieldDesc(TileSizeFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr BalancedMultiWindowBase::editHandleTileSize       (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfTileSize, 
+             this->getType().getFieldDesc(TileSizeFieldId)));
+
+    editSField(TileSizeFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleShort           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfShort, 
+             this->getType().getFieldDesc(ShortFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr BalancedMultiWindowBase::editHandleShort          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfShort, 
+             this->getType().getFieldDesc(ShortFieldId)));
+
+    editSField(ShortFieldMask);
+
+    return returnValue;
 }
 
 

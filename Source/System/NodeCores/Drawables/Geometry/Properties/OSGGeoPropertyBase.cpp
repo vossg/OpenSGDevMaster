@@ -66,6 +66,8 @@
 #include "OSGGeoPropertyBase.h"
 #include "OSGGeoProperty.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -98,12 +100,6 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(GeoPropertyBase::*GetSFUseVBOF)(void) const;
-
-    GetSFUseVBOF GetSFUseVBO = &GeoPropertyBase::getSFUseVBO;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "useVBO",
@@ -111,20 +107,10 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         UseVBOFieldId, UseVBOFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editSFUseVBO),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFUseVBO));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getSFUseVBO));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleUseVBO),
+        reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleUseVBO));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoPropertyBase::*GetSFGLIdF)(void) const;
-
-    GetSFGLIdF GetSFGLId = &GeoPropertyBase::getSFGLId;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -133,20 +119,10 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editSFGLId),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getSFGLId));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleGLId),
+        reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(GeoPropertyBase::*GetSFUsageF)(void) const;
-
-    GetSFUsageF GetSFUsage = &GeoPropertyBase::getSFUsage;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -155,12 +131,8 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         UsageFieldId, UsageFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editSFUsage),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFUsage));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getSFUsage));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleUsage),
+        reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleUsage));
 
     oType.addInitialDesc(pDesc);
 }
@@ -391,6 +363,73 @@ GeoPropertyBase::GeoPropertyBase(const GeoPropertyBase &source) :
 
 GeoPropertyBase::~GeoPropertyBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr GeoPropertyBase::getHandleUseVBO          (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUseVBO, 
+             this->getType().getFieldDesc(UseVBOFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr GeoPropertyBase::editHandleUseVBO         (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUseVBO, 
+             this->getType().getFieldDesc(UseVBOFieldId)));
+
+    editSField(UseVBOFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr GeoPropertyBase::getHandleGLId            (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoPropertyBase::editHandleGLId           (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    editSField(GLIdFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr GeoPropertyBase::getHandleUsage           (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfUsage, 
+             this->getType().getFieldDesc(UsageFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr GeoPropertyBase::editHandleUsage          (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfUsage, 
+             this->getType().getFieldDesc(UsageFieldId)));
+
+    editSField(UsageFieldMask);
+
+    return returnValue;
 }
 
 

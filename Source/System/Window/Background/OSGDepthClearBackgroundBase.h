@@ -217,6 +217,14 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFBool::GetHandlePtr  getHandleClearDepth      (void);
+    SFBool::EditHandlePtr editHandleClearDepth     (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

@@ -65,6 +65,8 @@
 #include "OSGStatisticsForegroundBase.h"
 #include "OSGStatisticsForeground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -113,12 +115,6 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFInt32 *(StatisticsForegroundBase::*GetMFElementIDsF)(void) const;
-
-    GetMFElementIDsF GetMFElementIDs = &StatisticsForegroundBase::getMFElementIDs;
-#endif
-
     pDesc = new MFInt32::Description(
         MFInt32::getClassType(),
         "elementIDs",
@@ -126,20 +122,10 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
         ElementIDsFieldId, ElementIDsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editMFElementIDs),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFElementIDs));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getMFElementIDs));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editHandleElementIDs),
+        reinterpret_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getHandleElementIDs));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFStatCollectorP *(StatisticsForegroundBase::*GetSFCollectorF)(void) const;
-
-    GetSFCollectorF GetSFCollector = &StatisticsForegroundBase::getSFCollector;
-#endif
 
     pDesc = new SFStatCollectorP::Description(
         SFStatCollectorP::getClassType(),
@@ -148,12 +134,8 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
         CollectorFieldId, CollectorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editSFCollector),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFCollector));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getSFCollector));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editHandleCollector),
+        reinterpret_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getHandleCollector));
 
     oType.addInitialDesc(pDesc);
 }
@@ -460,6 +442,51 @@ StatisticsForegroundBase::StatisticsForegroundBase(const StatisticsForegroundBas
 
 StatisticsForegroundBase::~StatisticsForegroundBase(void)
 {
+}
+
+
+MFInt32::GetHandlePtr StatisticsForegroundBase::getHandleElementIDs      (void)
+{
+    MFInt32::GetHandlePtr returnValue(
+        new  MFInt32::GetHandle(
+             &_mfElementIDs, 
+             this->getType().getFieldDesc(ElementIDsFieldId)));
+
+    return returnValue;
+}
+
+MFInt32::EditHandlePtr StatisticsForegroundBase::editHandleElementIDs     (void)
+{
+    MFInt32::EditHandlePtr returnValue(
+        new  MFInt32::EditHandle(
+             &_mfElementIDs, 
+             this->getType().getFieldDesc(ElementIDsFieldId)));
+
+    editMField(ElementIDsFieldMask, _mfElementIDs);
+
+    return returnValue;
+}
+
+SFStatCollectorP::GetHandlePtr StatisticsForegroundBase::getHandleCollector       (void)
+{
+    SFStatCollectorP::GetHandlePtr returnValue(
+        new  SFStatCollectorP::GetHandle(
+             &_sfCollector, 
+             this->getType().getFieldDesc(CollectorFieldId)));
+
+    return returnValue;
+}
+
+SFStatCollectorP::EditHandlePtr StatisticsForegroundBase::editHandleCollector      (void)
+{
+    SFStatCollectorP::EditHandlePtr returnValue(
+        new  SFStatCollectorP::EditHandle(
+             &_sfCollector, 
+             this->getType().getFieldDesc(CollectorFieldId)));
+
+    editSField(CollectorFieldMask);
+
+    return returnValue;
 }
 
 

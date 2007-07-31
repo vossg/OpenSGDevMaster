@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(SortFirstWindow);
 
 template <>
 struct FieldTraits<SortFirstWindowPtr> :
-    public FieldTraitsTemplateBase<SortFirstWindowPtr>
+    public FieldTraitsFCPtrBase<SortFirstWindowPtr>
 {
   private:
 

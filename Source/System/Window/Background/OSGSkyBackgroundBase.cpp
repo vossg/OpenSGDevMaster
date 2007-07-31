@@ -72,6 +72,8 @@
 #include "OSGSkyBackgroundBase.h"
 #include "OSGSkyBackground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -184,12 +186,6 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFColor4f *(SkyBackgroundBase::*GetMFSkyColorF)(void) const;
-
-    GetMFSkyColorF GetMFSkyColor = &SkyBackgroundBase::getMFSkyColor;
-#endif
-
     pDesc = new MFColor4f::Description(
         MFColor4f::getClassType(),
         "skyColor",
@@ -201,20 +197,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         SkyColorFieldId, SkyColorFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFSkyColor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFSkyColor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFSkyColor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleSkyColor),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleSkyColor));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFReal32 *(SkyBackgroundBase::*GetMFSkyAngleF)(void) const;
-
-    GetMFSkyAngleF GetMFSkyAngle = &SkyBackgroundBase::getMFSkyAngle;
-#endif
 
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(),
@@ -224,20 +210,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         SkyAngleFieldId, SkyAngleFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFSkyAngle),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFSkyAngle));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFSkyAngle));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleSkyAngle),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleSkyAngle));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFColor4f *(SkyBackgroundBase::*GetMFGroundColorF)(void) const;
-
-    GetMFGroundColorF GetMFGroundColor = &SkyBackgroundBase::getMFGroundColor;
-#endif
 
     pDesc = new MFColor4f::Description(
         MFColor4f::getClassType(),
@@ -246,20 +222,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         GroundColorFieldId, GroundColorFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFGroundColor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFGroundColor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFGroundColor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleGroundColor),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleGroundColor));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFReal32 *(SkyBackgroundBase::*GetMFGroundAngleF)(void) const;
-
-    GetMFGroundAngleF GetMFGroundAngle = &SkyBackgroundBase::getMFGroundAngle;
-#endif
 
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(),
@@ -269,20 +235,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         GroundAngleFieldId, GroundAngleFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFGroundAngle),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFGroundAngle));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFGroundAngle));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleGroundAngle),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleGroundAngle));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(SkyBackgroundBase::*GetSFSphereResF)(void) const;
-
-    GetSFSphereResF GetSFSphereRes = &SkyBackgroundBase::getSFSphereRes;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -291,12 +247,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         SphereResFieldId, SphereResFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editSFSphereRes),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFSphereRes));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getSFSphereRes));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleSphereRes),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleSphereRes));
 
     oType.addInitialDesc(pDesc);
 
@@ -307,8 +259,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BackTextureFieldId, BackTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SkyBackgroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getSFBackTexture));
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBackTexture),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBackTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -319,8 +271,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BottomTextureFieldId, BottomTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SkyBackgroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getSFBottomTexture));
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBottomTexture),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBottomTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -331,8 +283,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         FrontTextureFieldId, FrontTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SkyBackgroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getSFFrontTexture));
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleFrontTexture),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleFrontTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -343,8 +295,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         LeftTextureFieldId, LeftTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SkyBackgroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getSFLeftTexture));
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleLeftTexture),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleLeftTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -355,8 +307,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         RightTextureFieldId, RightTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SkyBackgroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getSFRightTexture));
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleRightTexture),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleRightTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -367,16 +319,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         TopTextureFieldId, TopTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SkyBackgroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getSFTopTexture));
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleTopTexture),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleTopTexture));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(SkyBackgroundBase::*GetSFBoxInsideF)(void) const;
-
-    GetSFBoxInsideF GetSFBoxInside = &SkyBackgroundBase::getSFBoxInside;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -385,20 +331,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BoxInsideFieldId, BoxInsideFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editSFBoxInside),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFBoxInside));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getSFBoxInside));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBoxInside),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBoxInside));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFVec3f *(SkyBackgroundBase::*GetMFTopTexCoordF)(void) const;
-
-    GetMFTopTexCoordF GetMFTopTexCoord = &SkyBackgroundBase::getMFTopTexCoord;
-#endif
 
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(),
@@ -407,20 +343,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         TopTexCoordFieldId, TopTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFTopTexCoord),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFTopTexCoord));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFTopTexCoord));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleTopTexCoord),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleTopTexCoord));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFVec3f *(SkyBackgroundBase::*GetMFBottomTexCoordF)(void) const;
-
-    GetMFBottomTexCoordF GetMFBottomTexCoord = &SkyBackgroundBase::getMFBottomTexCoord;
-#endif
 
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(),
@@ -429,20 +355,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BottomTexCoordFieldId, BottomTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFBottomTexCoord),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFBottomTexCoord));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFBottomTexCoord));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBottomTexCoord),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBottomTexCoord));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFVec3f *(SkyBackgroundBase::*GetMFRightTexCoordF)(void) const;
-
-    GetMFRightTexCoordF GetMFRightTexCoord = &SkyBackgroundBase::getMFRightTexCoord;
-#endif
 
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(),
@@ -451,20 +367,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         RightTexCoordFieldId, RightTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFRightTexCoord),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFRightTexCoord));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFRightTexCoord));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleRightTexCoord),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleRightTexCoord));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFVec3f *(SkyBackgroundBase::*GetMFLeftTexCoordF)(void) const;
-
-    GetMFLeftTexCoordF GetMFLeftTexCoord = &SkyBackgroundBase::getMFLeftTexCoord;
-#endif
 
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(),
@@ -473,20 +379,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         LeftTexCoordFieldId, LeftTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFLeftTexCoord),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFLeftTexCoord));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFLeftTexCoord));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleLeftTexCoord),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleLeftTexCoord));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFVec3f *(SkyBackgroundBase::*GetMFFrontTexCoordF)(void) const;
-
-    GetMFFrontTexCoordF GetMFFrontTexCoord = &SkyBackgroundBase::getMFFrontTexCoord;
-#endif
 
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(),
@@ -495,20 +391,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         FrontTexCoordFieldId, FrontTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFFrontTexCoord),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFFrontTexCoord));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFFrontTexCoord));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleFrontTexCoord),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleFrontTexCoord));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFVec3f *(SkyBackgroundBase::*GetMFBackTexCoordF)(void) const;
-
-    GetMFBackTexCoordF GetMFBackTexCoord = &SkyBackgroundBase::getMFBackTexCoord;
-#endif
 
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(),
@@ -517,12 +403,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BackTexCoordFieldId, BackTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editMFBackTexCoord),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFBackTexCoord));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getMFBackTexCoord));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBackTexCoord),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBackTexCoord));
 
     oType.addInitialDesc(pDesc);
 
@@ -534,8 +416,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SkyBackgroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getSFBeacon));
+        reinterpret_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBeacon),
+        reinterpret_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 }
@@ -1064,119 +946,6 @@ const SFNodePtr *SkyBackgroundBase::getSFBeacon(void) const
 }
 
 
-void SkyBackgroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == BackTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setBackTexture(
-            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
-    }
-    if(uiFieldId == BottomTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setBottomTexture(
-            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
-    }
-    if(uiFieldId == FrontTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setFrontTexture(
-            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
-    }
-    if(uiFieldId == LeftTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setLeftTexture(
-            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
-    }
-    if(uiFieldId == RightTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setRightTexture(
-            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
-    }
-    if(uiFieldId == TopTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setTopTexture(
-            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
-    }
-    if(uiFieldId == BeaconFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setBeacon(
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-}
-
-void SkyBackgroundBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void SkyBackgroundBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void SkyBackgroundBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void SkyBackgroundBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void SkyBackgroundBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void SkyBackgroundBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == BackTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setBackTexture(NullFC);
-    }
-    if(uiFieldId == BottomTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setBottomTexture(NullFC);
-    }
-    if(uiFieldId == FrontTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setFrontTexture(NullFC);
-    }
-    if(uiFieldId == LeftTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setLeftTexture(NullFC);
-    }
-    if(uiFieldId == RightTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setRightTexture(NullFC);
-    }
-    if(uiFieldId == TopTextureFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setTopTexture(NullFC);
-    }
-    if(uiFieldId == BeaconFieldId)
-    {
-        static_cast<SkyBackground *>(this)->setBeacon(NullFC);
-    }
-}
 
 /*********************************** Non-ptr code ********************************/
 void SkyBackgroundBase::pushToSkyColor(const Color4f& value)
@@ -2366,6 +2135,439 @@ void SkyBackgroundBase::onCreate(const SkyBackground *source)
         this->setBeacon(source->getBeacon());
     }
 }
+
+MFColor4f::GetHandlePtr SkyBackgroundBase::getHandleSkyColor        (void)
+{
+    MFColor4f::GetHandlePtr returnValue(
+        new  MFColor4f::GetHandle(
+             &_mfSkyColor, 
+             this->getType().getFieldDesc(SkyColorFieldId)));
+
+    return returnValue;
+}
+
+MFColor4f::EditHandlePtr SkyBackgroundBase::editHandleSkyColor       (void)
+{
+    MFColor4f::EditHandlePtr returnValue(
+        new  MFColor4f::EditHandle(
+             &_mfSkyColor, 
+             this->getType().getFieldDesc(SkyColorFieldId)));
+
+    editMField(SkyColorFieldMask, _mfSkyColor);
+
+    return returnValue;
+}
+
+MFReal32::GetHandlePtr SkyBackgroundBase::getHandleSkyAngle        (void)
+{
+    MFReal32::GetHandlePtr returnValue(
+        new  MFReal32::GetHandle(
+             &_mfSkyAngle, 
+             this->getType().getFieldDesc(SkyAngleFieldId)));
+
+    return returnValue;
+}
+
+MFReal32::EditHandlePtr SkyBackgroundBase::editHandleSkyAngle       (void)
+{
+    MFReal32::EditHandlePtr returnValue(
+        new  MFReal32::EditHandle(
+             &_mfSkyAngle, 
+             this->getType().getFieldDesc(SkyAngleFieldId)));
+
+    editMField(SkyAngleFieldMask, _mfSkyAngle);
+
+    return returnValue;
+}
+
+MFColor4f::GetHandlePtr SkyBackgroundBase::getHandleGroundColor     (void)
+{
+    MFColor4f::GetHandlePtr returnValue(
+        new  MFColor4f::GetHandle(
+             &_mfGroundColor, 
+             this->getType().getFieldDesc(GroundColorFieldId)));
+
+    return returnValue;
+}
+
+MFColor4f::EditHandlePtr SkyBackgroundBase::editHandleGroundColor    (void)
+{
+    MFColor4f::EditHandlePtr returnValue(
+        new  MFColor4f::EditHandle(
+             &_mfGroundColor, 
+             this->getType().getFieldDesc(GroundColorFieldId)));
+
+    editMField(GroundColorFieldMask, _mfGroundColor);
+
+    return returnValue;
+}
+
+MFReal32::GetHandlePtr SkyBackgroundBase::getHandleGroundAngle     (void)
+{
+    MFReal32::GetHandlePtr returnValue(
+        new  MFReal32::GetHandle(
+             &_mfGroundAngle, 
+             this->getType().getFieldDesc(GroundAngleFieldId)));
+
+    return returnValue;
+}
+
+MFReal32::EditHandlePtr SkyBackgroundBase::editHandleGroundAngle    (void)
+{
+    MFReal32::EditHandlePtr returnValue(
+        new  MFReal32::EditHandle(
+             &_mfGroundAngle, 
+             this->getType().getFieldDesc(GroundAngleFieldId)));
+
+    editMField(GroundAngleFieldMask, _mfGroundAngle);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr SkyBackgroundBase::getHandleSphereRes       (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfSphereRes, 
+             this->getType().getFieldDesc(SphereResFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr SkyBackgroundBase::editHandleSphereRes      (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfSphereRes, 
+             this->getType().getFieldDesc(SphereResFieldId)));
+
+    editSField(SphereResFieldMask);
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::GetHandlePtr SkyBackgroundBase::getHandleBackTexture     (void)
+{
+    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::GetHandle(
+             &_sfBackTexture, 
+             this->getType().getFieldDesc(BackTextureFieldId)));
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::EditHandlePtr SkyBackgroundBase::editHandleBackTexture    (void)
+{
+    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::EditHandle(
+             &_sfBackTexture, 
+             this->getType().getFieldDesc(BackTextureFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setBackTexture, this, _1));
+
+    editSField(BackTextureFieldMask);
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::GetHandlePtr SkyBackgroundBase::getHandleBottomTexture   (void)
+{
+    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::GetHandle(
+             &_sfBottomTexture, 
+             this->getType().getFieldDesc(BottomTextureFieldId)));
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::EditHandlePtr SkyBackgroundBase::editHandleBottomTexture  (void)
+{
+    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::EditHandle(
+             &_sfBottomTexture, 
+             this->getType().getFieldDesc(BottomTextureFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setBottomTexture, this, _1));
+
+    editSField(BottomTextureFieldMask);
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::GetHandlePtr SkyBackgroundBase::getHandleFrontTexture    (void)
+{
+    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::GetHandle(
+             &_sfFrontTexture, 
+             this->getType().getFieldDesc(FrontTextureFieldId)));
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::EditHandlePtr SkyBackgroundBase::editHandleFrontTexture   (void)
+{
+    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::EditHandle(
+             &_sfFrontTexture, 
+             this->getType().getFieldDesc(FrontTextureFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setFrontTexture, this, _1));
+
+    editSField(FrontTextureFieldMask);
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::GetHandlePtr SkyBackgroundBase::getHandleLeftTexture     (void)
+{
+    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::GetHandle(
+             &_sfLeftTexture, 
+             this->getType().getFieldDesc(LeftTextureFieldId)));
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::EditHandlePtr SkyBackgroundBase::editHandleLeftTexture    (void)
+{
+    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::EditHandle(
+             &_sfLeftTexture, 
+             this->getType().getFieldDesc(LeftTextureFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setLeftTexture, this, _1));
+
+    editSField(LeftTextureFieldMask);
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::GetHandlePtr SkyBackgroundBase::getHandleRightTexture    (void)
+{
+    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::GetHandle(
+             &_sfRightTexture, 
+             this->getType().getFieldDesc(RightTextureFieldId)));
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::EditHandlePtr SkyBackgroundBase::editHandleRightTexture   (void)
+{
+    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::EditHandle(
+             &_sfRightTexture, 
+             this->getType().getFieldDesc(RightTextureFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setRightTexture, this, _1));
+
+    editSField(RightTextureFieldMask);
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::GetHandlePtr SkyBackgroundBase::getHandleTopTexture      (void)
+{
+    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::GetHandle(
+             &_sfTopTexture, 
+             this->getType().getFieldDesc(TopTextureFieldId)));
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::EditHandlePtr SkyBackgroundBase::editHandleTopTexture     (void)
+{
+    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::EditHandle(
+             &_sfTopTexture, 
+             this->getType().getFieldDesc(TopTextureFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setTopTexture, this, _1));
+
+    editSField(TopTextureFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr SkyBackgroundBase::getHandleBoxInside       (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfBoxInside, 
+             this->getType().getFieldDesc(BoxInsideFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr SkyBackgroundBase::editHandleBoxInside      (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfBoxInside, 
+             this->getType().getFieldDesc(BoxInsideFieldId)));
+
+    editSField(BoxInsideFieldMask);
+
+    return returnValue;
+}
+
+MFVec3f::GetHandlePtr SkyBackgroundBase::getHandleTopTexCoord     (void)
+{
+    MFVec3f::GetHandlePtr returnValue(
+        new  MFVec3f::GetHandle(
+             &_mfTopTexCoord, 
+             this->getType().getFieldDesc(TopTexCoordFieldId)));
+
+    return returnValue;
+}
+
+MFVec3f::EditHandlePtr SkyBackgroundBase::editHandleTopTexCoord    (void)
+{
+    MFVec3f::EditHandlePtr returnValue(
+        new  MFVec3f::EditHandle(
+             &_mfTopTexCoord, 
+             this->getType().getFieldDesc(TopTexCoordFieldId)));
+
+    editMField(TopTexCoordFieldMask, _mfTopTexCoord);
+
+    return returnValue;
+}
+
+MFVec3f::GetHandlePtr SkyBackgroundBase::getHandleBottomTexCoord  (void)
+{
+    MFVec3f::GetHandlePtr returnValue(
+        new  MFVec3f::GetHandle(
+             &_mfBottomTexCoord, 
+             this->getType().getFieldDesc(BottomTexCoordFieldId)));
+
+    return returnValue;
+}
+
+MFVec3f::EditHandlePtr SkyBackgroundBase::editHandleBottomTexCoord (void)
+{
+    MFVec3f::EditHandlePtr returnValue(
+        new  MFVec3f::EditHandle(
+             &_mfBottomTexCoord, 
+             this->getType().getFieldDesc(BottomTexCoordFieldId)));
+
+    editMField(BottomTexCoordFieldMask, _mfBottomTexCoord);
+
+    return returnValue;
+}
+
+MFVec3f::GetHandlePtr SkyBackgroundBase::getHandleRightTexCoord   (void)
+{
+    MFVec3f::GetHandlePtr returnValue(
+        new  MFVec3f::GetHandle(
+             &_mfRightTexCoord, 
+             this->getType().getFieldDesc(RightTexCoordFieldId)));
+
+    return returnValue;
+}
+
+MFVec3f::EditHandlePtr SkyBackgroundBase::editHandleRightTexCoord  (void)
+{
+    MFVec3f::EditHandlePtr returnValue(
+        new  MFVec3f::EditHandle(
+             &_mfRightTexCoord, 
+             this->getType().getFieldDesc(RightTexCoordFieldId)));
+
+    editMField(RightTexCoordFieldMask, _mfRightTexCoord);
+
+    return returnValue;
+}
+
+MFVec3f::GetHandlePtr SkyBackgroundBase::getHandleLeftTexCoord    (void)
+{
+    MFVec3f::GetHandlePtr returnValue(
+        new  MFVec3f::GetHandle(
+             &_mfLeftTexCoord, 
+             this->getType().getFieldDesc(LeftTexCoordFieldId)));
+
+    return returnValue;
+}
+
+MFVec3f::EditHandlePtr SkyBackgroundBase::editHandleLeftTexCoord   (void)
+{
+    MFVec3f::EditHandlePtr returnValue(
+        new  MFVec3f::EditHandle(
+             &_mfLeftTexCoord, 
+             this->getType().getFieldDesc(LeftTexCoordFieldId)));
+
+    editMField(LeftTexCoordFieldMask, _mfLeftTexCoord);
+
+    return returnValue;
+}
+
+MFVec3f::GetHandlePtr SkyBackgroundBase::getHandleFrontTexCoord   (void)
+{
+    MFVec3f::GetHandlePtr returnValue(
+        new  MFVec3f::GetHandle(
+             &_mfFrontTexCoord, 
+             this->getType().getFieldDesc(FrontTexCoordFieldId)));
+
+    return returnValue;
+}
+
+MFVec3f::EditHandlePtr SkyBackgroundBase::editHandleFrontTexCoord  (void)
+{
+    MFVec3f::EditHandlePtr returnValue(
+        new  MFVec3f::EditHandle(
+             &_mfFrontTexCoord, 
+             this->getType().getFieldDesc(FrontTexCoordFieldId)));
+
+    editMField(FrontTexCoordFieldMask, _mfFrontTexCoord);
+
+    return returnValue;
+}
+
+MFVec3f::GetHandlePtr SkyBackgroundBase::getHandleBackTexCoord    (void)
+{
+    MFVec3f::GetHandlePtr returnValue(
+        new  MFVec3f::GetHandle(
+             &_mfBackTexCoord, 
+             this->getType().getFieldDesc(BackTexCoordFieldId)));
+
+    return returnValue;
+}
+
+MFVec3f::EditHandlePtr SkyBackgroundBase::editHandleBackTexCoord   (void)
+{
+    MFVec3f::EditHandlePtr returnValue(
+        new  MFVec3f::EditHandle(
+             &_mfBackTexCoord, 
+             this->getType().getFieldDesc(BackTexCoordFieldId)));
+
+    editMField(BackTexCoordFieldMask, _mfBackTexCoord);
+
+    return returnValue;
+}
+
+SFNodePtr::GetHandlePtr SkyBackgroundBase::getHandleBeacon          (void)
+{
+    SFNodePtr::GetHandlePtr returnValue(
+        new  SFNodePtr::GetHandle(
+             &_sfBeacon, 
+             this->getType().getFieldDesc(BeaconFieldId)));
+
+    return returnValue;
+}
+
+SFNodePtr::EditHandlePtr SkyBackgroundBase::editHandleBeacon         (void)
+{
+    SFNodePtr::EditHandlePtr returnValue(
+        new  SFNodePtr::EditHandle(
+             &_sfBeacon, 
+             this->getType().getFieldDesc(BeaconFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setBeacon, this, _1));
+
+    editSField(BeaconFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void SkyBackgroundBase::execSyncV(      FieldContainer    &oFrom,

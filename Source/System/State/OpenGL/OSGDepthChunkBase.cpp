@@ -66,6 +66,8 @@
 #include "OSGDepthChunkBase.h"
 #include "OSGDepthChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -111,12 +113,6 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(DepthChunkBase::*GetSFEnableF)(void) const;
-
-    GetSFEnableF GetSFEnable = &DepthChunkBase::getSFEnable;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "enable",
@@ -124,20 +120,10 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         EnableFieldId, EnableFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editSFEnable),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFEnable));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getSFEnable));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editHandleEnable),
+        reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getHandleEnable));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(DepthChunkBase::*GetSFFuncF)(void) const;
-
-    GetSFFuncF GetSFFunc = &DepthChunkBase::getSFFunc;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -146,20 +132,10 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         FuncFieldId, FuncFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editSFFunc),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFFunc));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getSFFunc));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editHandleFunc),
+        reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getHandleFunc));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(DepthChunkBase::*GetSFNearF)(void) const;
-
-    GetSFNearF GetSFNear = &DepthChunkBase::getSFNear;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -168,20 +144,10 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         NearFieldId, NearFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editSFNear),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFNear));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getSFNear));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editHandleNear),
+        reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getHandleNear));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(DepthChunkBase::*GetSFFarF)(void) const;
-
-    GetSFFarF GetSFFar = &DepthChunkBase::getSFFar;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -190,20 +156,10 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         FarFieldId, FarFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editSFFar),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFFar));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getSFFar));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editHandleFar),
+        reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getHandleFar));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(DepthChunkBase::*GetSFReadOnlyF)(void) const;
-
-    GetSFReadOnlyF GetSFReadOnly = &DepthChunkBase::getSFReadOnly;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -212,12 +168,8 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         ReadOnlyFieldId, ReadOnlyFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editSFReadOnly),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFReadOnly));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getSFReadOnly));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&DepthChunkBase::editHandleReadOnly),
+        reinterpret_cast<FieldGetMethodSig >(&DepthChunkBase::getHandleReadOnly));
 
     oType.addInitialDesc(pDesc);
 }
@@ -577,6 +529,117 @@ DepthChunkBase::DepthChunkBase(const DepthChunkBase &source) :
 
 DepthChunkBase::~DepthChunkBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr DepthChunkBase::getHandleEnable          (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnable, 
+             this->getType().getFieldDesc(EnableFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr DepthChunkBase::editHandleEnable         (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnable, 
+             this->getType().getFieldDesc(EnableFieldId)));
+
+    editSField(EnableFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr DepthChunkBase::getHandleFunc            (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfFunc, 
+             this->getType().getFieldDesc(FuncFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr DepthChunkBase::editHandleFunc           (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfFunc, 
+             this->getType().getFieldDesc(FuncFieldId)));
+
+    editSField(FuncFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr DepthChunkBase::getHandleNear            (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfNear, 
+             this->getType().getFieldDesc(NearFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr DepthChunkBase::editHandleNear           (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfNear, 
+             this->getType().getFieldDesc(NearFieldId)));
+
+    editSField(NearFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr DepthChunkBase::getHandleFar             (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfFar, 
+             this->getType().getFieldDesc(FarFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr DepthChunkBase::editHandleFar            (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfFar, 
+             this->getType().getFieldDesc(FarFieldId)));
+
+    editSField(FarFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr DepthChunkBase::getHandleReadOnly        (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfReadOnly, 
+             this->getType().getFieldDesc(ReadOnlyFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr DepthChunkBase::editHandleReadOnly       (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfReadOnly, 
+             this->getType().getFieldDesc(ReadOnlyFieldId)));
+
+    editSField(ReadOnlyFieldMask);
+
+    return returnValue;
 }
 
 

@@ -65,6 +65,8 @@
 #include "OSGStringAttributeMapBase.h"
 #include "OSGStringAttributeMap.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -95,12 +97,6 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFString *(StringAttributeMapBase::*GetMFKeysF)(void) const;
-
-    GetMFKeysF GetMFKeys = &StringAttributeMapBase::getMFKeys;
-#endif
-
     pDesc = new MFString::Description(
         MFString::getClassType(),
         "keys",
@@ -108,20 +104,10 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
         KeysFieldId, KeysFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StringAttributeMapBase::editMFKeys),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFKeys));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StringAttributeMapBase::getMFKeys));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StringAttributeMapBase::editHandleKeys),
+        reinterpret_cast<FieldGetMethodSig >(&StringAttributeMapBase::getHandleKeys));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFString *(StringAttributeMapBase::*GetMFValuesF)(void) const;
-
-    GetMFValuesF GetMFValues = &StringAttributeMapBase::getMFValues;
-#endif
 
     pDesc = new MFString::Description(
         MFString::getClassType(),
@@ -130,12 +116,8 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
         ValuesFieldId, ValuesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StringAttributeMapBase::editMFValues),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFValues));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StringAttributeMapBase::getMFValues));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StringAttributeMapBase::editHandleValues),
+        reinterpret_cast<FieldGetMethodSig >(&StringAttributeMapBase::getHandleValues));
 
     oType.addInitialDesc(pDesc);
 }
@@ -519,6 +501,51 @@ StringAttributeMapBase::StringAttributeMapBase(const StringAttributeMapBase &sou
 
 StringAttributeMapBase::~StringAttributeMapBase(void)
 {
+}
+
+
+MFString::GetHandlePtr StringAttributeMapBase::getHandleKeys            (void)
+{
+    MFString::GetHandlePtr returnValue(
+        new  MFString::GetHandle(
+             &_mfKeys, 
+             this->getType().getFieldDesc(KeysFieldId)));
+
+    return returnValue;
+}
+
+MFString::EditHandlePtr StringAttributeMapBase::editHandleKeys           (void)
+{
+    MFString::EditHandlePtr returnValue(
+        new  MFString::EditHandle(
+             &_mfKeys, 
+             this->getType().getFieldDesc(KeysFieldId)));
+
+    editMField(KeysFieldMask, _mfKeys);
+
+    return returnValue;
+}
+
+MFString::GetHandlePtr StringAttributeMapBase::getHandleValues          (void)
+{
+    MFString::GetHandlePtr returnValue(
+        new  MFString::GetHandle(
+             &_mfValues, 
+             this->getType().getFieldDesc(ValuesFieldId)));
+
+    return returnValue;
+}
+
+MFString::EditHandlePtr StringAttributeMapBase::editHandleValues         (void)
+{
+    MFString::EditHandlePtr returnValue(
+        new  MFString::EditHandle(
+             &_mfValues, 
+             this->getType().getFieldDesc(ValuesFieldId)));
+
+    editMField(ValuesFieldMask, _mfValues);
+
+    return returnValue;
 }
 
 

@@ -67,7 +67,23 @@ class SFieldAdaptor : public ParentT
 
     typedef          FieldTraits      <ValueT, 
                                        iNamespace>  SFieldTraits;
-    typedef typename SFieldTraits::ArgumentType     ArgumentType;
+
+    typedef typename SFieldTraits::ArgumentType        ArgumentType;
+    typedef typename SFieldTraits::ParentContainerPtr  ParentContainerPtr;
+
+    typedef typename
+    boost::mpl::if_<boost::mpl::bool_<SFieldTraits::bIsPointerField>,
+                    EditFCPtrSFieldHandle<Self>,
+                    EditSFieldHandle     <Self>  >::type  EditHandle;
+
+    typedef boost::shared_ptr<EditHandle> EditHandlePtr;
+
+    typedef typename
+    boost::mpl::if_<boost::mpl::bool_<SFieldTraits::bIsPointerField>,
+                    GetFCPtrSFieldHandle<Self> ,
+                    GetSFieldHandle     <Self> >::type  GetHandle;
+
+    typedef boost::shared_ptr<GetHandle> GetHandlePtr;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */

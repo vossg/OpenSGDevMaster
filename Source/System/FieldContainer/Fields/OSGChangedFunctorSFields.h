@@ -62,6 +62,7 @@ bool SField<ChangedFunctorCallback, 0>::operator ==(
     return false;
 }
 
+#if 0
 template <>
 OSG_SYSTEM_DLLMAPPING
 void FieldDescription<FieldTraits<ChangedFunctorCallback>,
@@ -85,6 +86,7 @@ void FieldDescription<FieldTraits<ChangedFunctorCallback>,
     const std::vector<const FieldContainerType*> &ignoreTypes,
     const std::vector<UInt16>                    &cloneGroupIds,
     const std::vector<UInt16>                    &ignoreGroupIds) const;
+#endif
 
 OSG_END_NAMESPACE
 

@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(BalancedMultiWindow);
 
 template <>
 struct FieldTraits<BalancedMultiWindowPtr> :
-    public FieldTraitsTemplateBase<BalancedMultiWindowPtr>
+    public FieldTraitsFCPtrBase<BalancedMultiWindowPtr>
 {
   private:
 

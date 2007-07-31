@@ -126,7 +126,9 @@ struct FieldTraitsTemplateBase : public FieldTraitsBase
 
     typedef      ValueT                ValueType;
     typedef      FieldDescriptionBase  FieldDescParent;
-    static const Int32                 iNamespace = NamespaceI;
+
+    static const Int32                 iNamespace      = NamespaceI;
+    static const bool                  bIsPointerField = false;
 };
 
 template<class ValueT, Int32 iNamespace = 0>
@@ -457,6 +459,79 @@ struct FieldTraitsVec4TemplateBase :
     }
 };
 
+#if 1
+struct FieldDescBase
+{
+    static  const Int32                iNamespace = 0;
+
+    typedef       FieldDescriptionBase Parent;
+};
+
+template<class DescT, enum FieldCardinality eFieldCard>
+class FieldDescription : public DescT::FieldDescParent
+{
+  protected:
+
+    typedef          FieldDescription<DescT,
+                                      eFieldCard> Self;
+
+
+    typedef typename DescT::FieldDescParent       Inherited;
+
+    typedef typename
+      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
+                      SField<typename DescT::ValueType,
+                                      DescT::iNamespace>,
+                      MField<typename DescT::ValueType,
+                                      DescT::iNamespace> >::type HandledField;
+
+    typedef typename HandledField::GetHandle    GetHandle;
+    typedef typename HandledField::GetHandlePtr GetHandlePtr;
+
+    typedef typename HandledField::EditHandle    EditHandle;
+    typedef typename HandledField::EditHandlePtr EditHandlePtr;
+
+  public:
+
+    FieldDescription(const FieldType        &elementType,
+                     const Char8            *szName,
+                     std::string             documentation,
+                     const UInt32            uiFieldId,
+                     const BitVector         vFieldMask,
+                     const bool              bInternal,
+                     const UInt32            uiFieldFlags,
+                           FieldEditMethod   fEditMethod,
+                           FieldGetMethod    fGetMethod,
+                     const Char8            *defaultValue = NULL );
+
+    FieldDescription(const FieldType            &elementType,
+                     const Char8                *szName,
+                           std::string           documentation,
+                     const UInt32                uiFieldId,
+                     const BitVector             vFieldMask,
+                     const bool                  bInternal,
+                     const UInt32                uiFieldFlags,
+                           FieldIndexEditMethod  fIndexedEditMethod,
+                           FieldIndexGetMethod   fIndexedGetMethod,
+                     const Char8                *defaultValue = NULL );
+
+    FieldDescription(const FieldDescription &source);
+
+    virtual ~FieldDescription(void);
+
+    const   HandledField         *dcast_const (const Field *pField) const;
+            HandledField         *dcast       (      Field *pField) const;
+
+    virtual Field                *createField (void         ) const;
+    virtual void                  destroyField(Field *pField) const;
+
+    virtual FieldDescriptionBase *clone       (void         ) const;
+
+    virtual GetFieldHandlePtr   createGetHandler (const Field *pField);
+    virtual EditFieldHandlePtr  createEditHandler(      Field *pField);
+};
+
+#else
 struct FieldDescBase
 {
     static  const Int32                iNamespace = 0;
@@ -654,6 +729,8 @@ class FieldDescription : public DescT::FieldDescParent
 
     virtual FieldDescriptionBase *clone       (void         ) const;
 };
+#endif
+
 
 template <class T, Int32 iNamespace = 0>
 struct StreamConversionError

@@ -343,6 +343,28 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFGLenum::GetHandlePtr  getHandleStencilFunc     (void);
+    SFGLenum::EditHandlePtr editHandleStencilFunc    (void);
+    SFInt32::GetHandlePtr  getHandleStencilValue    (void);
+    SFInt32::EditHandlePtr editHandleStencilValue   (void);
+    SFUInt32::GetHandlePtr  getHandleStencilMask     (void);
+    SFUInt32::EditHandlePtr editHandleStencilMask    (void);
+    SFGLenum::GetHandlePtr  getHandleStencilOpFail   (void);
+    SFGLenum::EditHandlePtr editHandleStencilOpFail  (void);
+    SFGLenum::GetHandlePtr  getHandleStencilOpZFail  (void);
+    SFGLenum::EditHandlePtr editHandleStencilOpZFail (void);
+    SFGLenum::GetHandlePtr  getHandleStencilOpZPass  (void);
+    SFGLenum::EditHandlePtr editHandleStencilOpZPass (void);
+    SFInt32::GetHandlePtr  getHandleClearBuffer     (void);
+    SFInt32::EditHandlePtr editHandleClearBuffer    (void);
+    SFUInt32::GetHandlePtr  getHandleBitMask         (void);
+    SFUInt32::EditHandlePtr editHandleBitMask        (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

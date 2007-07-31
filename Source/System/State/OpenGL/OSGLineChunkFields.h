@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(LineChunk);
 
 template <>
 struct FieldTraits<LineChunkPtr> :
-    public FieldTraitsTemplateBase<LineChunkPtr>
+    public FieldTraitsFCPtrBase<LineChunkPtr>
 {
   private:
 

@@ -604,10 +604,9 @@ void MultiDisplayWindow::updateViewport(ViewportPtr &serverPort,
         const FieldDescriptionBase *src_desc = 
             clientPort->getType().getFieldDesc(i);
 
-              Field *dst_field = serverPort->editField(i);
 
-        const Field *cdst_field = serverPort->getField(i);
-        const Field *src_field  = clientPort->getField(i);
+        GetFieldHandlePtr cdst_field = serverPort->getField(i);
+        GetFieldHandlePtr src_field  = clientPort->getField(i);
     
         const FieldType &dst_ftype = dst_desc->getFieldType();
         const FieldType &src_ftype = src_desc->getFieldType();
@@ -617,71 +616,23 @@ void MultiDisplayWindow::updateViewport(ViewportPtr &serverPort,
     
         equal = true;
 
-        if(strstr(dst_ftype.getCName(), "Ptr") == NULL)
+//        if(strstr(dst_ftype.getCName(), "Ptr") == NULL)
+        if(src_field->isPointerField() == true)
         {
-/*
-            if(dst_ftype.getCardinality() == FieldType::MULTI_FIELD)
+            if(src_field->equal(cdst_field) == true)
             {
-                std::string av, bv;
+                EditFieldHandlePtr dst_field = serverPort->editField(i);
 
-                dst_desc->pushValueToString(dst_field, av);
-                src_desc->pushValueToString(src_field, bv);
-
-                if(av != bv)
-                    equal = false;
-            }
-            else
-            {
-                // This is very slow with multi fields!!!!
-                std::string av, bv;
-
-                dst_desc->pushValueToString(dst_field, av);
-                src_desc->pushValueToString(src_field, bv);
-
-                if(av != bv)
-                    equal = false;
-            }
-
-            if(equal == false)
- */
-            if(dst_desc->equal(src_field, dst_field) == false)
-            {
-                dst_desc->copyValues(src_field, dst_field);
+                dst_field->copyValues(src_field);
             }
         }
         else
         {
-/*
-            if(dst_ftype.getCardinality() == FieldType::SINGLE_FIELD)
+            if(src_field->equal(cdst_field) == true)
             {
-                if((((SFFieldContainerPtr *) cdst_field)->getValue() !=
-                    ((SFFieldContainerPtr *)  src_field)->getValue()))
-                {
-                    equal = false;
-                }
-            }
-            else if(dst_ftype.getCardinality() == FieldType::MULTI_FIELD)
-            {
-                if(((MFFieldContainerPtr *) cdst_field)->size() !=
-                   ((MFFieldContainerPtr *)  src_field)->size())
-                {
-                    equal = false;
-                }
-                for(UInt32 j = 0;
-                           j < ((MFFieldContainerPtr*) cdst_field)->size();
-                         ++j)
-                {
-                    if(((*(((MFFieldContainerPtr *) cdst_field)))[j] !=
-                        (*(((MFFieldContainerPtr *)  src_field)))[j]))
-                    {
-                        equal = false;
-                    }
-                }
-            }
- */
-            if(dst_desc->equal(src_field, cdst_field) == false)
-            {
-                dst_desc->shareValuesV(src_field, mask, serverPort);
+                EditFieldHandlePtr dst_field = serverPort->editField(i);
+
+                dst_field->shareValues(src_field);
             }
         }
     }

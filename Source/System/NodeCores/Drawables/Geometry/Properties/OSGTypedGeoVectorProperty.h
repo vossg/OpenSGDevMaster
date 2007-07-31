@@ -79,12 +79,16 @@ class TypedGeoVectorProperty : public GeoVectorProperty
 
     OSG_GEN_INTERNALPTR(Self);
 
-    typedef typename GeoPropertyDesc::StoredType             StoredType;
-    typedef typename GeoPropertyDesc::StoredFieldType        StoredFieldType;
-    typedef typename GeoPropertyDesc::Converter              Converter;
+    typedef typename GeoPropertyDesc::StoredType      StoredType;
+    typedef typename GeoPropertyDesc::StoredFieldType StoredFieldType;
+    typedef typename StoredFieldType::EditHandle      StoredEditHandle;
+    typedef typename StoredFieldType::EditHandlePtr   StoredEditHandlePtr;
+    typedef typename StoredFieldType::GetHandle       StoredGetHandle;
+    typedef typename StoredFieldType::GetHandlePtr    StoredGetHandlePtr;
+    typedef typename GeoPropertyDesc::Converter       Converter;
 
-    typedef typename StoredFieldType::reference              reference;
-    typedef typename StoredFieldType::const_reference        const_reference;
+    typedef typename StoredFieldType::reference       reference;
+    typedef typename StoredFieldType::const_reference const_reference;
 
     enum
     {
@@ -350,6 +354,9 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
+
+    StoredEditHandlePtr editHandleField(void);
+    StoredGetHandlePtr  getHandleField (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

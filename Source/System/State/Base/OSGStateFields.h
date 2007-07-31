@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(State);
 
 template <>
 struct FieldTraits<StatePtr> :
-    public FieldTraitsTemplateBase<StatePtr>
+    public FieldTraitsFCPtrBase<StatePtr>
 {
   private:
 

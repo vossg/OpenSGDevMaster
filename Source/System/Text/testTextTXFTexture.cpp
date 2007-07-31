@@ -255,7 +255,7 @@ void updateScene()
 
     geo->setMaterial(m);
 
-    scene->clearField(Node::ChildrenFieldId);
+    scene->clearChildren();
     scene->addChild(createMetrics(face, imagePtr->getWidth(), imagePtr->getHeight()));
     scene->addChild(transNodePtr);
 }

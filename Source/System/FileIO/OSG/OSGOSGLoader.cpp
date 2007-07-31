@@ -276,11 +276,24 @@ void OSGLoader::initFieldTypeMapper(void)
 
 void OSGLoader::setFieldContainerValue(FieldContainerPtr pNewNode)
 {
-    if((_pCurrentFieldDesc != NULL  ) && 
-       (_pCurrentFC        != NullFC)   )
+    if(_pCurrentField != NullFC)
     {
-        _pCurrentFC->pushToField( pNewNode, 
-                                 _pCurrentFieldDesc->getFieldId());
+        SFFieldContainerPtr::EditHandlePtr pSFHandle = 
+            boost::dynamic_pointer_cast<SFFieldContainerPtr::EditHandle>(
+                _pCurrentField);
+
+        MFFieldContainerPtr::EditHandlePtr pMFHandle = 
+            boost::dynamic_pointer_cast<MFFieldContainerPtr::EditHandle>(
+                _pCurrentField);
+
+        if(pSFHandle != NULL && pSFHandle->isValid())
+        {
+            pSFHandle->setValue(pNewNode);
+        }
+        else if(pMFHandle != NULL && pMFHandle->isValid())
+        {
+            pMFHandle->add(pNewNode);
+        }
     }
 }
 
@@ -297,7 +310,7 @@ OSGLoader::OSGLoader(void) :
      Inherited        (      ),
     _pCurrentFC       (NullFC),
     _pRootNode        (NullFC),
-    _pCurrentField    (NULL  ),
+    _pCurrentField    (      ),
     _pCurrentFieldDesc(NULL  ),
     _defMap           (      ),
     _fcStack          (      ),
@@ -325,7 +338,9 @@ void OSGLoader::scanStream(std::istream &is)
     {
         _pRootNode         = NullFC;
         _pCurrentFC        = NullFC;
-        _pCurrentField     = NULL;
+
+        _pCurrentField.reset();
+
         _pCurrentFieldDesc = NULL;
 
         _defMap .clear();
@@ -505,6 +520,7 @@ std::vector<FieldContainerPtr> OSGLoader::getRootNodes(void)
     {
         fcVec.push_back(_pRootNode->getChild(i));
     }
+
     return fcVec;
 }
 
@@ -512,10 +528,12 @@ void OSGLoader::addFieldValue(const Char8 *szFieldVal)
 {
     PINFO << "\t\tFV : " << szFieldVal << std::endl;
 
-    if(_pCurrentFieldDesc != NULL)
+    if(_pCurrentField != NULL)
     {
-        _pCurrentFieldDesc->pushValueFromCString( szFieldVal,
-                                                 _pCurrentField);
+//        _pCurrentFieldDesc->pushValueFromCString( szFieldVal,
+//                                                 _pCurrentField);
+
+        _pCurrentField->pushValueFromCString(szFieldVal);
     }
 }
 
@@ -598,7 +616,7 @@ void OSGLoader::beginField(const Char8 *szFieldname,
     if(szFieldname == NULL)
         return;
 
-    _pCurrentField = NULL;
+    _pCurrentField.reset();
 
     if(_pCurrentFC != NullFC)
     {
@@ -634,7 +652,7 @@ void OSGLoader::endField(void)
     }
     else
     {
-        _pCurrentField = NULL;
+        _pCurrentField.reset();
     }
 
     _fdStack.pop();

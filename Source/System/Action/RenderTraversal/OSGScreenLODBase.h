@@ -232,6 +232,14 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFReal32::GetHandlePtr  getHandleCoverageOverride (void);
+    MFReal32::EditHandlePtr editHandleCoverageOverride(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

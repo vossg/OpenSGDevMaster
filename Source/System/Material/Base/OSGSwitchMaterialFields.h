@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(SwitchMaterial);
 
 template <>
 struct FieldTraits<SwitchMaterialPtr> :
-    public FieldTraitsTemplateBase<SwitchMaterialPtr>
+    public FieldTraitsFCPtrBase<SwitchMaterialPtr>
 {
   private:
 

@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(GeoStatsAttachment);
 
 template <>
 struct FieldTraits<GeoStatsAttachmentPtr> :
-    public FieldTraitsTemplateBase<GeoStatsAttachmentPtr>
+    public FieldTraitsFCPtrBase<GeoStatsAttachmentPtr>
 {
   private:
 

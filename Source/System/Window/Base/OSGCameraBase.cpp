@@ -66,6 +66,8 @@
 #include "OSGCameraBase.h"
 #include "OSGCamera.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -111,16 +113,10 @@ void CameraBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&CameraBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&CameraBase::getSFBeacon));
+        reinterpret_cast<FieldEditMethodSig>(&CameraBase::editHandleBeacon),
+        reinterpret_cast<FieldGetMethodSig >(&CameraBase::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(CameraBase::*GetSFNearF)(void) const;
-
-    GetSFNearF GetSFNear = &CameraBase::getSFNear;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -129,20 +125,10 @@ void CameraBase::classDescInserter(TypeObject &oType)
         NearFieldId, NearFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&CameraBase::editSFNear),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFNear));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&CameraBase::getSFNear));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&CameraBase::editHandleNear),
+        reinterpret_cast<FieldGetMethodSig >(&CameraBase::getHandleNear));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(CameraBase::*GetSFFarF)(void) const;
-
-    GetSFFarF GetSFFar = &CameraBase::getSFFar;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -151,12 +137,8 @@ void CameraBase::classDescInserter(TypeObject &oType)
         FarFieldId, FarFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&CameraBase::editSFFar),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFFar));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&CameraBase::getSFFar));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&CameraBase::editHandleFar),
+        reinterpret_cast<FieldGetMethodSig >(&CameraBase::getHandleFar));
 
     oType.addInitialDesc(pDesc);
 }
@@ -287,65 +269,6 @@ SFReal32            *CameraBase::getSFFar            (void)
 #endif
 
 
-void CameraBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == BeaconFieldId)
-    {
-        static_cast<Camera *>(this)->setBeacon(
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-}
-
-void CameraBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void CameraBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void CameraBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void CameraBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void CameraBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void CameraBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == BeaconFieldId)
-    {
-        static_cast<Camera *>(this)->setBeacon(NullFC);
-    }
-}
 
 
 
@@ -447,6 +370,75 @@ void CameraBase::onCreate(const Camera *source)
         this->setBeacon(source->getBeacon());
     }
 }
+
+SFNodePtr::GetHandlePtr CameraBase::getHandleBeacon          (void)
+{
+    SFNodePtr::GetHandlePtr returnValue(
+        new  SFNodePtr::GetHandle(
+             &_sfBeacon, 
+             this->getType().getFieldDesc(BeaconFieldId)));
+
+    return returnValue;
+}
+
+SFNodePtr::EditHandlePtr CameraBase::editHandleBeacon         (void)
+{
+    SFNodePtr::EditHandlePtr returnValue(
+        new  SFNodePtr::EditHandle(
+             &_sfBeacon, 
+             this->getType().getFieldDesc(BeaconFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&Camera::setBeacon, this, _1));
+
+    editSField(BeaconFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr CameraBase::getHandleNear            (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfNear, 
+             this->getType().getFieldDesc(NearFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr CameraBase::editHandleNear           (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfNear, 
+             this->getType().getFieldDesc(NearFieldId)));
+
+    editSField(NearFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr CameraBase::getHandleFar             (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfFar, 
+             this->getType().getFieldDesc(FarFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr CameraBase::editHandleFar            (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfFar, 
+             this->getType().getFieldDesc(FarFieldId)));
+
+    editSField(FarFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void CameraBase::execSyncV(      FieldContainer    &oFrom,

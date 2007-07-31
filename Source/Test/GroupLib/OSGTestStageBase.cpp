@@ -65,6 +65,8 @@
 #include "OSGTestStageBase.h"
 #include "OSGTestStage.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void TestStageBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(TestStageBase::*GetSFMessageF)(void) const;
-
-    GetSFMessageF GetSFMessage = &TestStageBase::getSFMessage;
-#endif
-
     pDesc = new SFString::Description(
         SFString::getClassType(),
         "message",
@@ -102,12 +98,8 @@ void TestStageBase::classDescInserter(TypeObject &oType)
         MessageFieldId, MessageFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestStageBase::editSFMessage),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMessage));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TestStageBase::getSFMessage));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TestStageBase::editHandleMessage),
+        reinterpret_cast<FieldGetMethodSig >(&TestStageBase::getHandleMessage));
 
     oType.addInitialDesc(pDesc);
 }
@@ -283,6 +275,29 @@ TestStageBase::TestStageBase(const TestStageBase &source) :
 
 TestStageBase::~TestStageBase(void)
 {
+}
+
+
+SFString::GetHandlePtr TestStageBase::getHandleMessage         (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfMessage, 
+             this->getType().getFieldDesc(MessageFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr TestStageBase::editHandleMessage        (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfMessage, 
+             this->getType().getFieldDesc(MessageFieldId)));
+
+    editSField(MessageFieldMask);
+
+    return returnValue;
 }
 
 

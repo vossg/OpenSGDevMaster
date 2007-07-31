@@ -235,6 +235,16 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFReal32::GetHandlePtr  getHandleZeroParallaxDistance (void);
+    SFReal32::EditHandlePtr editHandleZeroParallaxDistance(void);
+    SFReal32::GetHandlePtr  getHandleOverlap         (void);
+    SFReal32::EditHandlePtr editHandleOverlap        (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

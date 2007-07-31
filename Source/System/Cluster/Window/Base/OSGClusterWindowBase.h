@@ -341,29 +341,6 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -471,6 +448,38 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     /*! \{                                                                 */
 
     void onCreate(const ClusterWindow *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFString::GetHandlePtr  getHandleServers         (void);
+    MFString::EditHandlePtr editHandleServers        (void);
+    SFString::GetHandlePtr  getHandleConnectionType  (void);
+    SFString::EditHandlePtr editHandleConnectionType (void);
+    SFString::GetHandlePtr  getHandleConnectionInterface (void);
+    SFString::EditHandlePtr editHandleConnectionInterface(void);
+    SFString::GetHandlePtr  getHandleConnectionDestination (void);
+    SFString::EditHandlePtr editHandleConnectionDestination(void);
+    SFString::GetHandlePtr  getHandleConnectionParams (void);
+    SFString::EditHandlePtr editHandleConnectionParams(void);
+    SFUInt32::GetHandlePtr  getHandleServicePort     (void);
+    SFUInt32::EditHandlePtr editHandleServicePort    (void);
+    SFString::GetHandlePtr  getHandleServiceAddress  (void);
+    SFString::EditHandlePtr editHandleServiceAddress (void);
+    SFString::GetHandlePtr  getHandleServiceInterface (void);
+    SFString::EditHandlePtr editHandleServiceInterface(void);
+    SFWindowPtr::GetHandlePtr  getHandleClientWindow    (void);
+    SFWindowPtr::EditHandlePtr editHandleClientWindow   (void);
+    SFUInt32::GetHandlePtr  getHandleInterleave      (void);
+    SFUInt32::EditHandlePtr editHandleInterleave     (void);
+    SFUInt32::GetHandlePtr  getHandleFrameCount      (void);
+    SFUInt32::EditHandlePtr editHandleFrameCount     (void);
+    SFImageComposerPtr::GetHandlePtr  getHandleComposer        (void);
+    SFImageComposerPtr::EditHandlePtr editHandleComposer       (void);
+    MFString::GetHandlePtr  getHandleAutostart       (void);
+    MFString::EditHandlePtr editHandleAutostart      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

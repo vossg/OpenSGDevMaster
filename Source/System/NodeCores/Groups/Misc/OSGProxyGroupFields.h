@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ProxyGroup);
 
 template <>
 struct FieldTraits<ProxyGroupPtr> :
-    public FieldTraitsTemplateBase<ProxyGroupPtr>
+    public FieldTraitsFCPtrBase<ProxyGroupPtr>
 {
   private:
 

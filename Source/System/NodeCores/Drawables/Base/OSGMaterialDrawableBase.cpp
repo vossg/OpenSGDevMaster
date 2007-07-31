@@ -66,6 +66,8 @@
 #include "OSGMaterialDrawableBase.h"
 #include "OSGMaterialDrawable.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -97,8 +99,8 @@ void MaterialDrawableBase::classDescInserter(TypeObject &oType)
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&MaterialDrawableBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialDrawableBase::getSFMaterial));
+        reinterpret_cast<FieldEditMethodSig>(&MaterialDrawableBase::editHandleMaterial),
+        reinterpret_cast<FieldGetMethodSig >(&MaterialDrawableBase::getHandleMaterial));
 
     oType.addInitialDesc(pDesc);
 }
@@ -166,65 +168,6 @@ const SFMaterialPtr *MaterialDrawableBase::getSFMaterial(void) const
 }
 
 
-void MaterialDrawableBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == MaterialFieldId)
-    {
-        static_cast<MaterialDrawable *>(this)->setMaterial(
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void MaterialDrawableBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void MaterialDrawableBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void MaterialDrawableBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void MaterialDrawableBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void MaterialDrawableBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void MaterialDrawableBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == MaterialFieldId)
-    {
-        static_cast<MaterialDrawable *>(this)->setMaterial(NullFC);
-    }
-}
 
 
 
@@ -298,6 +241,31 @@ void MaterialDrawableBase::onCreate(const MaterialDrawable *source)
         this->setMaterial(source->getMaterial());
     }
 }
+
+SFMaterialPtr::GetHandlePtr MaterialDrawableBase::getHandleMaterial        (void)
+{
+    SFMaterialPtr::GetHandlePtr returnValue(
+        new  SFMaterialPtr::GetHandle(
+             &_sfMaterial, 
+             this->getType().getFieldDesc(MaterialFieldId)));
+
+    return returnValue;
+}
+
+SFMaterialPtr::EditHandlePtr MaterialDrawableBase::editHandleMaterial       (void)
+{
+    SFMaterialPtr::EditHandlePtr returnValue(
+        new  SFMaterialPtr::EditHandle(
+             &_sfMaterial, 
+             this->getType().getFieldDesc(MaterialFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&MaterialDrawable::setMaterial, this, _1));
+
+    editSField(MaterialFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void MaterialDrawableBase::execSyncV(      FieldContainer    &oFrom,

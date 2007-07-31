@@ -65,6 +65,8 @@
 #include "OSGTestMultiPartitionStageBase.h"
 #include "OSGTestMultiPartitionStage.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -101,12 +103,6 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(TestMultiPartitionStageBase::*GetSFMessageF)(void) const;
-
-    GetSFMessageF GetSFMessage = &TestMultiPartitionStageBase::getSFMessage;
-#endif
-
     pDesc = new SFString::Description(
         SFString::getClassType(),
         "message",
@@ -114,20 +110,10 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         MessageFieldId, MessageFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editSFMessage),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMessage));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getSFMessage));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleMessage),
+        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleMessage));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(TestMultiPartitionStageBase::*GetSFNumPartitionsF)(void) const;
-
-    GetSFNumPartitionsF GetSFNumPartitions = &TestMultiPartitionStageBase::getSFNumPartitions;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -136,20 +122,10 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         NumPartitionsFieldId, NumPartitionsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editSFNumPartitions),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFNumPartitions));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getSFNumPartitions));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleNumPartitions),
+        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleNumPartitions));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFInt32 *(TestMultiPartitionStageBase::*GetMFOrderF)(void) const;
-
-    GetMFOrderF GetMFOrder = &TestMultiPartitionStageBase::getMFOrder;
-#endif
 
     pDesc = new MFInt32::Description(
         MFInt32::getClassType(),
@@ -158,20 +134,10 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         OrderFieldId, OrderFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editMFOrder),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFOrder));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getMFOrder));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleOrder),
+        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleOrder));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(TestMultiPartitionStageBase::*GetSFUseGroupF)(void) const;
-
-    GetSFUseGroupF GetSFUseGroup = &TestMultiPartitionStageBase::getSFUseGroup;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -180,12 +146,8 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         UseGroupFieldId, UseGroupFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editSFUseGroup),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFUseGroup));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getSFUseGroup));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleUseGroup),
+        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleUseGroup));
 
     oType.addInitialDesc(pDesc);
 }
@@ -567,6 +529,95 @@ TestMultiPartitionStageBase::TestMultiPartitionStageBase(const TestMultiPartitio
 
 TestMultiPartitionStageBase::~TestMultiPartitionStageBase(void)
 {
+}
+
+
+SFString::GetHandlePtr TestMultiPartitionStageBase::getHandleMessage         (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfMessage, 
+             this->getType().getFieldDesc(MessageFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr TestMultiPartitionStageBase::editHandleMessage        (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfMessage, 
+             this->getType().getFieldDesc(MessageFieldId)));
+
+    editSField(MessageFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr TestMultiPartitionStageBase::getHandleNumPartitions   (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfNumPartitions, 
+             this->getType().getFieldDesc(NumPartitionsFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr TestMultiPartitionStageBase::editHandleNumPartitions  (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfNumPartitions, 
+             this->getType().getFieldDesc(NumPartitionsFieldId)));
+
+    editSField(NumPartitionsFieldMask);
+
+    return returnValue;
+}
+
+MFInt32::GetHandlePtr TestMultiPartitionStageBase::getHandleOrder           (void)
+{
+    MFInt32::GetHandlePtr returnValue(
+        new  MFInt32::GetHandle(
+             &_mfOrder, 
+             this->getType().getFieldDesc(OrderFieldId)));
+
+    return returnValue;
+}
+
+MFInt32::EditHandlePtr TestMultiPartitionStageBase::editHandleOrder          (void)
+{
+    MFInt32::EditHandlePtr returnValue(
+        new  MFInt32::EditHandle(
+             &_mfOrder, 
+             this->getType().getFieldDesc(OrderFieldId)));
+
+    editMField(OrderFieldMask, _mfOrder);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr TestMultiPartitionStageBase::getHandleUseGroup        (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUseGroup, 
+             this->getType().getFieldDesc(UseGroupFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr TestMultiPartitionStageBase::editHandleUseGroup       (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUseGroup, 
+             this->getType().getFieldDesc(UseGroupFieldId)));
+
+    editSField(UseGroupFieldMask);
+
+    return returnValue;
 }
 
 

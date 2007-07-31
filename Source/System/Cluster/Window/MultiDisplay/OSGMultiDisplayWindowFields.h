@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(MultiDisplayWindow);
 
 template <>
 struct FieldTraits<MultiDisplayWindowPtr> :
-    public FieldTraitsTemplateBase<MultiDisplayWindowPtr>
+    public FieldTraitsFCPtrBase<MultiDisplayWindowPtr>
 {
   private:
 

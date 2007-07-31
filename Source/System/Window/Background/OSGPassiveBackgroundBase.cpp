@@ -65,6 +65,8 @@
 #include "OSGPassiveBackgroundBase.h"
 #include "OSGPassiveBackground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -207,6 +209,7 @@ PassiveBackgroundBase::PassiveBackgroundBase(const PassiveBackgroundBase &source
 PassiveBackgroundBase::~PassiveBackgroundBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

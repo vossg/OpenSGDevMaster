@@ -65,6 +65,8 @@
 #include "OSGGeoIntegralPropertyBase.h"
 #include "OSGGeoIntegralProperty.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -178,6 +180,7 @@ GeoIntegralPropertyBase::GeoIntegralPropertyBase(const GeoIntegralPropertyBase &
 GeoIntegralPropertyBase::~GeoIntegralPropertyBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

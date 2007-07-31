@@ -66,6 +66,8 @@
 #include "OSGStageBase.h"
 #include "OSGStage.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -103,16 +105,10 @@ void StageBase::classDescInserter(TypeObject &oType)
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&StageBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&StageBase::getSFRenderTarget));
+        reinterpret_cast<FieldEditMethodSig>(&StageBase::editHandleRenderTarget),
+        reinterpret_cast<FieldGetMethodSig >(&StageBase::getHandleRenderTarget));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(StageBase::*GetSFInheritedTargetF)(void) const;
-
-    GetSFInheritedTargetF GetSFInheritedTarget = &StageBase::getSFInheritedTarget;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -121,12 +117,8 @@ void StageBase::classDescInserter(TypeObject &oType)
         InheritedTargetFieldId, InheritedTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StageBase::editSFInheritedTarget),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFInheritedTarget));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StageBase::getSFInheritedTarget));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StageBase::editHandleInheritedTarget),
+        reinterpret_cast<FieldGetMethodSig >(&StageBase::getHandleInheritedTarget));
 
     oType.addInitialDesc(pDesc);
 }
@@ -228,65 +220,6 @@ SFBool              *StageBase::getSFInheritedTarget(void)
 #endif
 
 
-void StageBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == RenderTargetFieldId)
-    {
-        static_cast<Stage *>(this)->setRenderTarget(
-            dynamic_cast<FrameBufferObjectPtr>(pNewElement));
-    }
-}
-
-void StageBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void StageBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void StageBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void StageBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void StageBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void StageBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == RenderTargetFieldId)
-    {
-        static_cast<Stage *>(this)->setRenderTarget(NullFC);
-    }
-}
 
 
 
@@ -406,6 +339,53 @@ void StageBase::onCreate(const Stage *source)
         this->setRenderTarget(source->getRenderTarget());
     }
 }
+
+SFFrameBufferObjectPtr::GetHandlePtr StageBase::getHandleRenderTarget    (void)
+{
+    SFFrameBufferObjectPtr::GetHandlePtr returnValue(
+        new  SFFrameBufferObjectPtr::GetHandle(
+             &_sfRenderTarget, 
+             this->getType().getFieldDesc(RenderTargetFieldId)));
+
+    return returnValue;
+}
+
+SFFrameBufferObjectPtr::EditHandlePtr StageBase::editHandleRenderTarget   (void)
+{
+    SFFrameBufferObjectPtr::EditHandlePtr returnValue(
+        new  SFFrameBufferObjectPtr::EditHandle(
+             &_sfRenderTarget, 
+             this->getType().getFieldDesc(RenderTargetFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&Stage::setRenderTarget, this, _1));
+
+    editSField(RenderTargetFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr StageBase::getHandleInheritedTarget (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfInheritedTarget, 
+             this->getType().getFieldDesc(InheritedTargetFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr StageBase::editHandleInheritedTarget(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfInheritedTarget, 
+             this->getType().getFieldDesc(InheritedTargetFieldId)));
+
+    editSField(InheritedTargetFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void StageBase::execSyncV(      FieldContainer    &oFrom,

@@ -37,7 +37,129 @@
 \*---------------------------------------------------------------------------*/
 
 OSG_BEGIN_NAMESPACE
+#if 1
+template<class DescT, enum FieldCardinality eFieldCard> inline
+FieldDescription<DescT, eFieldCard>::FieldDescription(
+    const FieldType       &elementType,
+    const Char8           *szName,
+          std::string      documentation,
+    const UInt32           uiFieldId,
+    const BitVector        vFieldMask,
+    const bool             bInternal,
+    const UInt32           uiFieldFlags,
+          FieldEditMethod  fEditMethod,
+          FieldGetMethod   fGetMethod,
+    const Char8           *defaultValue) :
 
+    Inherited(elementType,
+              szName,
+              documentation,
+              uiFieldId,
+              vFieldMask,
+              bInternal,
+              uiFieldFlags,
+              fEditMethod,
+              fGetMethod,
+              defaultValue)
+{
+}
+
+template<class DescT, enum FieldCardinality eFieldCard> inline
+FieldDescription<DescT, eFieldCard>::FieldDescription(
+    const FieldType            &elementType,
+    const Char8                *szName,
+    std::string                 documentation,
+    const UInt32                uiFieldId,
+    const BitVector             vFieldMask,
+    const bool                  bInternal,
+    const UInt32                uiFieldFlags,
+          FieldIndexEditMethod  fIndexedEditMethod,
+          FieldIndexGetMethod   fIndexedGetMethod,
+    const Char8                *defaultValue      ) :
+
+    Inherited(elementType,
+              szName,
+              documentation,
+              uiFieldId,
+              vFieldMask,
+              bInternal,
+              uiFieldFlags,
+              fIndexedEditMethod,
+              fIndexedGetMethod,
+              defaultValue)
+{
+}
+
+template<class DescT, enum FieldCardinality eFieldCard> inline
+FieldDescription<DescT, eFieldCard>::FieldDescription(
+    const FieldDescription &source) :
+
+    Inherited(source)
+{
+}
+
+template<class DescT, enum FieldCardinality eFieldCard> inline
+FieldDescription<DescT, eFieldCard>::~FieldDescription(void)
+{
+}
+
+template<class DescT, enum FieldCardinality eFieldCard> inline
+const typename FieldDescription<DescT, eFieldCard>::HandledField *
+    FieldDescription<DescT, eFieldCard>::dcast_const(const Field *pField) const
+{
+    return static_cast<const HandledField *>(pField);
+}
+
+template<class DescT, enum FieldCardinality eFieldCard> inline
+typename FieldDescription<DescT, eFieldCard>::HandledField *
+    FieldDescription<DescT, eFieldCard>::dcast(Field *pField) const
+{
+    return static_cast<HandledField *>(pField);
+}
+
+template<class DescT, enum FieldCardinality eFieldCard> inline
+Field *FieldDescription<DescT, eFieldCard>::createField(void) const
+{
+    return new HandledField();
+}
+
+template<class DescT, enum FieldCardinality eFieldCard> inline
+void FieldDescription<DescT, eFieldCard>::destroyField(Field *pField) const
+{
+    HandledField *pDelField = dcast(pField);
+
+    delete pDelField;
+}
+
+template<class DescT, enum FieldCardinality eFieldCard> inline
+FieldDescriptionBase *FieldDescription<DescT, eFieldCard>::clone(void) const
+{
+    return new Self(*this);
+}
+
+template<class DescT, enum FieldCardinality eFieldCard> inline
+GetFieldHandlePtr 
+    FieldDescription<DescT, eFieldCard>::createGetHandler(const Field *pField)
+{
+    const HandledField *pTypedField = dcast_const(pField);
+
+    GetHandlePtr returnValue(new GetHandle(pTypedField, this));
+
+    return returnValue;
+}
+
+template<class DescT, enum FieldCardinality eFieldCard> inline
+EditFieldHandlePtr 
+    FieldDescription<DescT, eFieldCard>::createEditHandler(Field *pField)
+{
+    HandledField *pTypedField = dcast(pField);
+
+    EditHandlePtr returnValue(new EditHandle(pTypedField, this));
+
+    return returnValue;
+}
+
+#else
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT,
                       eFieldCard>::SFieldFunctions::pushValueFromCString(
@@ -223,77 +345,7 @@ FieldDescription<DescT, eFieldCard>::shareValues(
     OSG_ASSERT(false);
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-FieldDescription<DescT, eFieldCard>::FieldDescription(
-    const FieldType       &elementType,
-    const Char8           *szName,
-    std::string            documentation,
-    const UInt32           uiFieldId,
-    const BitVector        vFieldMask,
-    const bool             bInternal,
-    const UInt32           uiFieldFlags,
-          FieldEditMethod  fEditMethod,
-          FieldGetMethod   fGetMethod,
-    const Char8           *defaultValue) :
 
-    Inherited(elementType,
-              szName,
-              documentation,
-              uiFieldId,
-              vFieldMask,
-              bInternal,
-              uiFieldFlags,
-              fEditMethod,
-              fGetMethod,
-              defaultValue)
-{
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-FieldDescription<DescT, eFieldCard>::FieldDescription(
-    const FieldType            &elementType,
-    const Char8                *szName,
-    std::string                 documentation,
-    const UInt32                uiFieldId,
-    const BitVector             vFieldMask,
-    const bool                  bInternal,
-    const UInt32                uiFieldFlags,
-          FieldIndexEditMethod  fIndexedEditMethod,
-          FieldIndexGetMethod   fIndexedGetMethod,
-    const Char8                *defaultValue      ) :
-
-    Inherited(elementType,
-              szName,
-              documentation,
-              uiFieldId,
-              vFieldMask,
-              bInternal,
-              uiFieldFlags,
-              fIndexedEditMethod,
-              fIndexedGetMethod,
-              defaultValue)
-{
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-FieldDescription<DescT, eFieldCard>::FieldDescription(
-    const FieldDescription &source) :
-
-    Inherited(source)
-{
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-FieldDescription<DescT, eFieldCard>::~FieldDescription(void)
-{
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-typename FieldDescription<DescT, eFieldCard>::HandledField *
-    FieldDescription<DescT, eFieldCard>::dcast(Field *pField) const
-{
-    return static_cast<HandledField *>(pField);
-}
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 const typename FieldDescription<DescT, eFieldCard>::HandledField *
@@ -448,26 +500,8 @@ bool FieldDescription<DescT, eFieldCard>::equal(const Field *lhs,
     return (*lhsField) == (*rhsField);
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-Field *FieldDescription<DescT, eFieldCard>::createField(void) const
-{
-    return new HandledField();
-}
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::destroyField(Field *pField) const
-{
-    HandledField *pDelField = dcast(pField);
-
-    delete pDelField;
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-FieldDescriptionBase *FieldDescription<DescT, eFieldCard>::clone(void) const
-{
-    return new Self(*this);
-}
-
+#endif
 
 OSG_END_NAMESPACE
 

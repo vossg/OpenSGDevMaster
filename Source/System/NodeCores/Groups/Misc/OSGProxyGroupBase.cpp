@@ -66,6 +66,8 @@
 #include "OSGProxyGroupBase.h"
 #include "OSGProxyGroup.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -139,12 +141,6 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ProxyGroupBase::*GetSFEnabledF)(void) const;
-
-    GetSFEnabledF GetSFEnabled = &ProxyGroupBase::getSFEnabled;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "enabled",
@@ -152,20 +148,10 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         EnabledFieldId, EnabledFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFEnabled),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFEnabled));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFEnabled));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleEnabled),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleEnabled));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(ProxyGroupBase::*GetSFUrlF)(void) const;
-
-    GetSFUrlF GetSFUrl = &ProxyGroupBase::getSFUrl;
-#endif
 
     pDesc = new SFString::Description(
         SFString::getClassType(),
@@ -174,12 +160,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         UrlFieldId, UrlFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFUrl),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFUrl));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFUrl));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleUrl),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleUrl));
 
     oType.addInitialDesc(pDesc);
 
@@ -190,16 +172,10 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         RootFieldId, RootFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ProxyGroupBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFRoot));
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleRoot),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(ProxyGroupBase::*GetSFStateF)(void) const;
-
-    GetSFStateF GetSFState = &ProxyGroupBase::getSFState;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -208,20 +184,10 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         StateFieldId, StateFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFState),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFState));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFState));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleState),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleState));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ProxyGroupBase::*GetSFConcurrentLoadF)(void) const;
-
-    GetSFConcurrentLoadF GetSFConcurrentLoad = &ProxyGroupBase::getSFConcurrentLoad;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -230,20 +196,10 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         ConcurrentLoadFieldId, ConcurrentLoadFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFConcurrentLoad),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFConcurrentLoad));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFConcurrentLoad));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleConcurrentLoad),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleConcurrentLoad));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFDynamicVolume *(ProxyGroupBase::*GetSFVolumeF)(void) const;
-
-    GetSFVolumeF GetSFVolume = &ProxyGroupBase::getSFVolume;
-#endif
 
     pDesc = new SFDynamicVolume::Description(
         SFDynamicVolume::getClassType(),
@@ -252,20 +208,10 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         VolumeFieldId, VolumeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFVolume),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFVolume));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFVolume));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleVolume),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleVolume));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(ProxyGroupBase::*GetSFIndicesF)(void) const;
-
-    GetSFIndicesF GetSFIndices = &ProxyGroupBase::getSFIndices;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -274,20 +220,10 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         IndicesFieldId, IndicesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFIndices),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFIndices));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFIndices));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleIndices),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleIndices));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(ProxyGroupBase::*GetSFTrianglesF)(void) const;
-
-    GetSFTrianglesF GetSFTriangles = &ProxyGroupBase::getSFTriangles;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -296,20 +232,10 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         TrianglesFieldId, TrianglesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFTriangles),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTriangles));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFTriangles));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleTriangles),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleTriangles));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(ProxyGroupBase::*GetSFPositionsF)(void) const;
-
-    GetSFPositionsF GetSFPositions = &ProxyGroupBase::getSFPositions;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -318,20 +244,10 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFPositions),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFPositions));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFPositions));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandlePositions),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(ProxyGroupBase::*GetSFGeometriesF)(void) const;
-
-    GetSFGeometriesF GetSFGeometries = &ProxyGroupBase::getSFGeometries;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -340,20 +256,10 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         GeometriesFieldId, GeometriesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFGeometries),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGeometries));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFGeometries));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleGeometries),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleGeometries));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(ProxyGroupBase::*GetSFAbsoluteUrlF)(void) const;
-
-    GetSFAbsoluteUrlF GetSFAbsoluteUrl = &ProxyGroupBase::getSFAbsoluteUrl;
-#endif
 
     pDesc = new SFString::Description(
         SFString::getClassType(),
@@ -362,20 +268,10 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         AbsoluteUrlFieldId, AbsoluteUrlFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editSFAbsoluteUrl),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAbsoluteUrl));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getSFAbsoluteUrl));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleAbsoluteUrl),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleAbsoluteUrl));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFUInt8 *(ProxyGroupBase::*GetMFInlineF)(void) const;
-
-    GetMFInlineF GetMFInline = &ProxyGroupBase::getMFInline;
-#endif
 
     pDesc = new MFUInt8::Description(
         MFUInt8::getClassType(),
@@ -384,12 +280,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         InlineFieldId, InlineFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editMFInline),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFInline));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getMFInline));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleInline),
+        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleInline));
 
     oType.addInitialDesc(pDesc);
 }
@@ -772,65 +664,6 @@ MFUInt8             *ProxyGroupBase::getMFInline         (void)
 #endif
 
 
-void ProxyGroupBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == RootFieldId)
-    {
-        static_cast<ProxyGroup *>(this)->setRoot(
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-}
-
-void ProxyGroupBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void ProxyGroupBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void ProxyGroupBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void ProxyGroupBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void ProxyGroupBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void ProxyGroupBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == RootFieldId)
-    {
-        static_cast<ProxyGroup *>(this)->setRoot(NullFC);
-    }
-}
 
 /*********************************** Non-ptr code ********************************/
 void ProxyGroupBase::pushToInline(const UInt8& value)
@@ -1172,6 +1005,273 @@ void ProxyGroupBase::onCreate(const ProxyGroup *source)
         this->setRoot(source->getRoot());
     }
 }
+
+SFBool::GetHandlePtr ProxyGroupBase::getHandleEnabled         (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnabled, 
+             this->getType().getFieldDesc(EnabledFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ProxyGroupBase::editHandleEnabled        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnabled, 
+             this->getType().getFieldDesc(EnabledFieldId)));
+
+    editSField(EnabledFieldMask);
+
+    return returnValue;
+}
+
+SFString::GetHandlePtr ProxyGroupBase::getHandleUrl             (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfUrl, 
+             this->getType().getFieldDesc(UrlFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr ProxyGroupBase::editHandleUrl            (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfUrl, 
+             this->getType().getFieldDesc(UrlFieldId)));
+
+    editSField(UrlFieldMask);
+
+    return returnValue;
+}
+
+SFNodePtr::GetHandlePtr ProxyGroupBase::getHandleRoot            (void)
+{
+    SFNodePtr::GetHandlePtr returnValue(
+        new  SFNodePtr::GetHandle(
+             &_sfRoot, 
+             this->getType().getFieldDesc(RootFieldId)));
+
+    return returnValue;
+}
+
+SFNodePtr::EditHandlePtr ProxyGroupBase::editHandleRoot           (void)
+{
+    SFNodePtr::EditHandlePtr returnValue(
+        new  SFNodePtr::EditHandle(
+             &_sfRoot, 
+             this->getType().getFieldDesc(RootFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&ProxyGroup::setRoot, this, _1));
+
+    editSField(RootFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr ProxyGroupBase::getHandleState           (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfState, 
+             this->getType().getFieldDesc(StateFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr ProxyGroupBase::editHandleState          (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfState, 
+             this->getType().getFieldDesc(StateFieldId)));
+
+    editSField(StateFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr ProxyGroupBase::getHandleConcurrentLoad  (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfConcurrentLoad, 
+             this->getType().getFieldDesc(ConcurrentLoadFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ProxyGroupBase::editHandleConcurrentLoad (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfConcurrentLoad, 
+             this->getType().getFieldDesc(ConcurrentLoadFieldId)));
+
+    editSField(ConcurrentLoadFieldMask);
+
+    return returnValue;
+}
+
+SFDynamicVolume::GetHandlePtr ProxyGroupBase::getHandleVolume          (void)
+{
+    SFDynamicVolume::GetHandlePtr returnValue(
+        new  SFDynamicVolume::GetHandle(
+             &_sfVolume, 
+             this->getType().getFieldDesc(VolumeFieldId)));
+
+    return returnValue;
+}
+
+SFDynamicVolume::EditHandlePtr ProxyGroupBase::editHandleVolume         (void)
+{
+    SFDynamicVolume::EditHandlePtr returnValue(
+        new  SFDynamicVolume::EditHandle(
+             &_sfVolume, 
+             this->getType().getFieldDesc(VolumeFieldId)));
+
+    editSField(VolumeFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr ProxyGroupBase::getHandleIndices         (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfIndices, 
+             this->getType().getFieldDesc(IndicesFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr ProxyGroupBase::editHandleIndices        (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfIndices, 
+             this->getType().getFieldDesc(IndicesFieldId)));
+
+    editSField(IndicesFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr ProxyGroupBase::getHandleTriangles       (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfTriangles, 
+             this->getType().getFieldDesc(TrianglesFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr ProxyGroupBase::editHandleTriangles      (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfTriangles, 
+             this->getType().getFieldDesc(TrianglesFieldId)));
+
+    editSField(TrianglesFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr ProxyGroupBase::getHandlePositions       (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfPositions, 
+             this->getType().getFieldDesc(PositionsFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr ProxyGroupBase::editHandlePositions      (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfPositions, 
+             this->getType().getFieldDesc(PositionsFieldId)));
+
+    editSField(PositionsFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr ProxyGroupBase::getHandleGeometries      (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfGeometries, 
+             this->getType().getFieldDesc(GeometriesFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr ProxyGroupBase::editHandleGeometries     (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfGeometries, 
+             this->getType().getFieldDesc(GeometriesFieldId)));
+
+    editSField(GeometriesFieldMask);
+
+    return returnValue;
+}
+
+SFString::GetHandlePtr ProxyGroupBase::getHandleAbsoluteUrl     (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfAbsoluteUrl, 
+             this->getType().getFieldDesc(AbsoluteUrlFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr ProxyGroupBase::editHandleAbsoluteUrl    (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfAbsoluteUrl, 
+             this->getType().getFieldDesc(AbsoluteUrlFieldId)));
+
+    editSField(AbsoluteUrlFieldMask);
+
+    return returnValue;
+}
+
+MFUInt8::GetHandlePtr ProxyGroupBase::getHandleInline          (void)
+{
+    MFUInt8::GetHandlePtr returnValue(
+        new  MFUInt8::GetHandle(
+             &_mfInline, 
+             this->getType().getFieldDesc(InlineFieldId)));
+
+    return returnValue;
+}
+
+MFUInt8::EditHandlePtr ProxyGroupBase::editHandleInline         (void)
+{
+    MFUInt8::EditHandlePtr returnValue(
+        new  MFUInt8::EditHandle(
+             &_mfInline, 
+             this->getType().getFieldDesc(InlineFieldId)));
+
+    editMField(InlineFieldMask, _mfInline);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ProxyGroupBase::execSyncV(      FieldContainer    &oFrom,

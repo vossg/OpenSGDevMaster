@@ -66,6 +66,8 @@
 #include "OSGHDRStageBase.h"
 #include "OSGHDRStage.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -110,12 +112,6 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(HDRStageBase::*GetSFExposureF)(void) const;
-
-    GetSFExposureF GetSFExposure = &HDRStageBase::getSFExposure;
-#endif
-
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "exposure",
@@ -123,20 +119,10 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         ExposureFieldId, ExposureFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFExposure),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFExposure));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFExposure));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editHandleExposure),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getHandleExposure));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(HDRStageBase::*GetSFBlurWidthF)(void) const;
-
-    GetSFBlurWidthF GetSFBlurWidth = &HDRStageBase::getSFBlurWidth;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -145,20 +131,10 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         BlurWidthFieldId, BlurWidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFBlurWidth),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFBlurWidth));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFBlurWidth));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editHandleBlurWidth),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getHandleBlurWidth));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(HDRStageBase::*GetSFBlurAmountF)(void) const;
-
-    GetSFBlurAmountF GetSFBlurAmount = &HDRStageBase::getSFBlurAmount;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -167,20 +143,10 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         BlurAmountFieldId, BlurAmountFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFBlurAmount),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFBlurAmount));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFBlurAmount));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editHandleBlurAmount),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getHandleBlurAmount));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(HDRStageBase::*GetSFEffectAmountF)(void) const;
-
-    GetSFEffectAmountF GetSFEffectAmount = &HDRStageBase::getSFEffectAmount;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -189,20 +155,10 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         EffectAmountFieldId, EffectAmountFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFEffectAmount),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFEffectAmount));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFEffectAmount));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editHandleEffectAmount),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getHandleEffectAmount));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(HDRStageBase::*GetSFGammaF)(void) const;
-
-    GetSFGammaF GetSFGamma = &HDRStageBase::getSFGamma;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -211,20 +167,10 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         GammaFieldId, GammaFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFGamma),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGamma));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFGamma));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editHandleGamma),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getHandleGamma));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(HDRStageBase::*GetSFBufferFormatF)(void) const;
-
-    GetSFBufferFormatF GetSFBufferFormat = &HDRStageBase::getSFBufferFormat;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -233,12 +179,8 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         BufferFormatFieldId, BufferFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editSFBufferFormat),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFBufferFormat));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getSFBufferFormat));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageBase::editHandleBufferFormat),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageBase::getHandleBufferFormat));
 
     oType.addInitialDesc(pDesc);
 }
@@ -625,6 +567,139 @@ HDRStageBase::HDRStageBase(const HDRStageBase &source) :
 
 HDRStageBase::~HDRStageBase(void)
 {
+}
+
+
+SFReal32::GetHandlePtr HDRStageBase::getHandleExposure        (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfExposure, 
+             this->getType().getFieldDesc(ExposureFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr HDRStageBase::editHandleExposure       (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfExposure, 
+             this->getType().getFieldDesc(ExposureFieldId)));
+
+    editSField(ExposureFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr HDRStageBase::getHandleBlurWidth       (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfBlurWidth, 
+             this->getType().getFieldDesc(BlurWidthFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr HDRStageBase::editHandleBlurWidth      (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfBlurWidth, 
+             this->getType().getFieldDesc(BlurWidthFieldId)));
+
+    editSField(BlurWidthFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr HDRStageBase::getHandleBlurAmount      (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfBlurAmount, 
+             this->getType().getFieldDesc(BlurAmountFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr HDRStageBase::editHandleBlurAmount     (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfBlurAmount, 
+             this->getType().getFieldDesc(BlurAmountFieldId)));
+
+    editSField(BlurAmountFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr HDRStageBase::getHandleEffectAmount    (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfEffectAmount, 
+             this->getType().getFieldDesc(EffectAmountFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr HDRStageBase::editHandleEffectAmount   (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfEffectAmount, 
+             this->getType().getFieldDesc(EffectAmountFieldId)));
+
+    editSField(EffectAmountFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr HDRStageBase::getHandleGamma           (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfGamma, 
+             this->getType().getFieldDesc(GammaFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr HDRStageBase::editHandleGamma          (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfGamma, 
+             this->getType().getFieldDesc(GammaFieldId)));
+
+    editSField(GammaFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr HDRStageBase::getHandleBufferFormat    (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfBufferFormat, 
+             this->getType().getFieldDesc(BufferFormatFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr HDRStageBase::editHandleBufferFormat   (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfBufferFormat, 
+             this->getType().getFieldDesc(BufferFormatFieldId)));
+
+    editSField(BufferFormatFieldMask);
+
+    return returnValue;
 }
 
 

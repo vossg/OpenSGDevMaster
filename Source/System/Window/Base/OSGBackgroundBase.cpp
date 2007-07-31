@@ -65,6 +65,8 @@
 #include "OSGBackgroundBase.h"
 #include "OSGBackground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -105,12 +107,6 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(BackgroundBase::*GetSFClearStencilBitF)(void) const;
-
-    GetSFClearStencilBitF GetSFClearStencilBit = &BackgroundBase::getSFClearStencilBit;
-#endif
-
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
         "clearStencilBit",
@@ -119,20 +115,10 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         ClearStencilBitFieldId, ClearStencilBitFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BackgroundBase::editSFClearStencilBit),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFClearStencilBit));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BackgroundBase::getSFClearStencilBit));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BackgroundBase::editHandleClearStencilBit),
+        reinterpret_cast<FieldGetMethodSig >(&BackgroundBase::getHandleClearStencilBit));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(BackgroundBase::*GetSFDepthF)(void) const;
-
-    GetSFDepthF GetSFDepth = &BackgroundBase::getSFDepth;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -141,12 +127,8 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         DepthFieldId, DepthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BackgroundBase::editSFDepth),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFDepth));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BackgroundBase::getSFDepth));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BackgroundBase::editHandleDepth),
+        reinterpret_cast<FieldGetMethodSig >(&BackgroundBase::getHandleDepth));
 
     oType.addInitialDesc(pDesc);
 }
@@ -355,6 +337,51 @@ BackgroundBase::BackgroundBase(const BackgroundBase &source) :
 
 BackgroundBase::~BackgroundBase(void)
 {
+}
+
+
+SFInt32::GetHandlePtr BackgroundBase::getHandleClearStencilBit (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfClearStencilBit, 
+             this->getType().getFieldDesc(ClearStencilBitFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr BackgroundBase::editHandleClearStencilBit(void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfClearStencilBit, 
+             this->getType().getFieldDesc(ClearStencilBitFieldId)));
+
+    editSField(ClearStencilBitFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr BackgroundBase::getHandleDepth           (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfDepth, 
+             this->getType().getFieldDesc(DepthFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr BackgroundBase::editHandleDepth          (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfDepth, 
+             this->getType().getFieldDesc(DepthFieldId)));
+
+    editSField(DepthFieldMask);
+
+    return returnValue;
 }
 
 

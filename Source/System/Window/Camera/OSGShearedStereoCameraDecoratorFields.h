@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ShearedStereoCameraDecorator);
 
 template <>
 struct FieldTraits<ShearedStereoCameraDecoratorPtr> :
-    public FieldTraitsTemplateBase<ShearedStereoCameraDecoratorPtr>
+    public FieldTraitsFCPtrBase<ShearedStereoCameraDecoratorPtr>
 {
   private:
 

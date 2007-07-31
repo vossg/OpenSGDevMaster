@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ColorBufferViewport);
 
 template <>
 struct FieldTraits<ColorBufferViewportPtr> :
-    public FieldTraitsTemplateBase<ColorBufferViewportPtr>
+    public FieldTraitsFCPtrBase<ColorBufferViewportPtr>
 {
   private:
 

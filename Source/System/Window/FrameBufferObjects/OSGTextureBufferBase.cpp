@@ -66,6 +66,8 @@
 #include "OSGTextureBufferBase.h"
 #include "OSGTextureBuffer.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -112,16 +114,10 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&TextureBufferBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getSFTexture));
+        reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleTexture),
+        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleTexture));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(TextureBufferBase::*GetSFTexTargetF)(void) const;
-
-    GetSFTexTargetF GetSFTexTarget = &TextureBufferBase::getSFTexTarget;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -131,20 +127,10 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         TexTargetFieldId, TexTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editSFTexTarget),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTexTarget));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getSFTexTarget));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleTexTarget),
+        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleTexTarget));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(TextureBufferBase::*GetSFLevelF)(void) const;
-
-    GetSFLevelF GetSFLevel = &TextureBufferBase::getSFLevel;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -153,20 +139,10 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         LevelFieldId, LevelFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editSFLevel),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFLevel));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getSFLevel));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleLevel),
+        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleLevel));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(TextureBufferBase::*GetSFZoffsetF)(void) const;
-
-    GetSFZoffsetF GetSFZoffset = &TextureBufferBase::getSFZoffset;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -175,12 +151,8 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         ZoffsetFieldId, ZoffsetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editSFZoffset),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFZoffset));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getSFZoffset));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleZoffset),
+        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleZoffset));
 
     oType.addInitialDesc(pDesc);
 }
@@ -341,65 +313,6 @@ SFUInt32            *TextureBufferBase::getSFZoffset        (void)
 #endif
 
 
-void TextureBufferBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == TextureFieldId)
-    {
-        static_cast<TextureBuffer *>(this)->setTexture(
-            dynamic_cast<TextureObjChunkPtr>(pNewElement));
-    }
-}
-
-void TextureBufferBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void TextureBufferBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void TextureBufferBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void TextureBufferBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void TextureBufferBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void TextureBufferBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == TextureFieldId)
-    {
-        static_cast<TextureBuffer *>(this)->setTexture(NullFC);
-    }
-}
 
 
 
@@ -547,6 +460,97 @@ void TextureBufferBase::onCreate(const TextureBuffer *source)
         this->setTexture(source->getTexture());
     }
 }
+
+SFTextureObjChunkPtr::GetHandlePtr TextureBufferBase::getHandleTexture         (void)
+{
+    SFTextureObjChunkPtr::GetHandlePtr returnValue(
+        new  SFTextureObjChunkPtr::GetHandle(
+             &_sfTexture, 
+             this->getType().getFieldDesc(TextureFieldId)));
+
+    return returnValue;
+}
+
+SFTextureObjChunkPtr::EditHandlePtr TextureBufferBase::editHandleTexture        (void)
+{
+    SFTextureObjChunkPtr::EditHandlePtr returnValue(
+        new  SFTextureObjChunkPtr::EditHandle(
+             &_sfTexture, 
+             this->getType().getFieldDesc(TextureFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&TextureBuffer::setTexture, this, _1));
+
+    editSField(TextureFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr TextureBufferBase::getHandleTexTarget       (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfTexTarget, 
+             this->getType().getFieldDesc(TexTargetFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr TextureBufferBase::editHandleTexTarget      (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfTexTarget, 
+             this->getType().getFieldDesc(TexTargetFieldId)));
+
+    editSField(TexTargetFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr TextureBufferBase::getHandleLevel           (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfLevel, 
+             this->getType().getFieldDesc(LevelFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr TextureBufferBase::editHandleLevel          (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfLevel, 
+             this->getType().getFieldDesc(LevelFieldId)));
+
+    editSField(LevelFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr TextureBufferBase::getHandleZoffset         (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfZoffset, 
+             this->getType().getFieldDesc(ZoffsetFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr TextureBufferBase::editHandleZoffset        (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfZoffset, 
+             this->getType().getFieldDesc(ZoffsetFieldId)));
+
+    editSField(ZoffsetFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void TextureBufferBase::execSyncV(      FieldContainer    &oFrom,

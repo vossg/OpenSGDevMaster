@@ -163,14 +163,23 @@ class Field(FCDElement):
             self["doRefCount"] = True;
         else:
             self["doRefCount"] = False;
+
+        if self["isMField"] == True:
+            self["GenFieldFlags"] = "(Field::MFDefaultFlags"
+        else:
+            self["GenFieldFlags"] = "(Field::SFDefaultFlags"
         
         if self.getFCD("linkSParent") == "true":
             self["linkSParent"] = True;
+            self["GenFieldFlags"] = \
+                self["GenFieldFlags"] + " | Field::FLinkParents"
         else:
             self["linkSParent"] = False;
         
         if self.getFCD("linkMParent") == "true":
             self["linkMParent"] = True;
+            self["GenFieldFlags"] = \
+                self["GenFieldFlags"] + " | Field::FLinkParents"
         else:
             self["linkMParent"] = False;
         
@@ -237,9 +246,13 @@ class Field(FCDElement):
             self["Visibility"] = "false";
         elif self.getFCD("visibility") == "internal":
             self["Visibility"] = "true";
+            self["GenFieldFlags"] = \
+                self["GenFieldFlags"] + " | Field::FInternal"
         else:
             self.m_log.warning("finalize: \"visibility\" has invalid value: %s",
                 self.getFCD("visibility"));
+
+        self["GenFieldFlags"] = self["GenFieldFlags"] + ")"
         
         fieldFlagsOverride = False;
         flags              = None,

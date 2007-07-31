@@ -256,6 +256,14 @@ class StageHandlerMixin  : public ParentT
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                       Edit                                   */
+    /*! \{                                                                 */
+
+    SFUInt32::EditHandlePtr editHandleUpdateMode(void);
+    SFUInt32::GetHandlePtr  getHandleUpdateMode (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

@@ -65,6 +65,8 @@
 #include "OSGSwitchBase.h"
 #include "OSGSwitch.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -90,12 +92,6 @@ void SwitchBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(SwitchBase::*GetSFChoiceF)(void) const;
-
-    GetSFChoiceF GetSFChoice = &SwitchBase::getSFChoice;
-#endif
-
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
         "choice",
@@ -103,12 +99,8 @@ void SwitchBase::classDescInserter(TypeObject &oType)
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SwitchBase::editSFChoice),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFChoice));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SwitchBase::getSFChoice));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SwitchBase::editHandleChoice),
+        reinterpret_cast<FieldGetMethodSig >(&SwitchBase::getHandleChoice));
 
     oType.addInitialDesc(pDesc);
 }
@@ -286,6 +278,29 @@ SwitchBase::SwitchBase(const SwitchBase &source) :
 
 SwitchBase::~SwitchBase(void)
 {
+}
+
+
+SFInt32::GetHandlePtr SwitchBase::getHandleChoice          (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfChoice, 
+             this->getType().getFieldDesc(ChoiceFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr SwitchBase::editHandleChoice         (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfChoice, 
+             this->getType().getFieldDesc(ChoiceFieldId)));
+
+    editSField(ChoiceFieldMask);
+
+    return returnValue;
 }
 
 

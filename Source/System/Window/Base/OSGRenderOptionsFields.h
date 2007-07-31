@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(RenderOptions);
 
 template <>
 struct FieldTraits<RenderOptionsPtr> :
-    public FieldTraitsTemplateBase<RenderOptionsPtr>
+    public FieldTraitsFCPtrBase<RenderOptionsPtr>
 {
   private:
 

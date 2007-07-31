@@ -65,6 +65,8 @@
 #include "OSGGeoStatsAttachmentBase.h"
 #include "OSGGeoStatsAttachment.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -129,12 +131,6 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoStatsAttachmentBase::*GetSFVerticesF)(void) const;
-
-    GetSFVerticesF GetSFVertices = &GeoStatsAttachmentBase::getSFVertices;
-#endif
-
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
         "vertices",
@@ -142,20 +138,10 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         VerticesFieldId, VerticesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editSFVertices),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFVertices));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getSFVertices));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleVertices),
+        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleVertices));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoStatsAttachmentBase::*GetSFPointsF)(void) const;
-
-    GetSFPointsF GetSFPoints = &GeoStatsAttachmentBase::getSFPoints;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -164,20 +150,10 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         PointsFieldId, PointsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editSFPoints),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFPoints));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getSFPoints));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandlePoints),
+        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandlePoints));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoStatsAttachmentBase::*GetSFLinesF)(void) const;
-
-    GetSFLinesF GetSFLines = &GeoStatsAttachmentBase::getSFLines;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -186,20 +162,10 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         LinesFieldId, LinesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editSFLines),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFLines));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getSFLines));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleLines),
+        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleLines));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoStatsAttachmentBase::*GetSFTrianglesF)(void) const;
-
-    GetSFTrianglesF GetSFTriangles = &GeoStatsAttachmentBase::getSFTriangles;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -208,20 +174,10 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         TrianglesFieldId, TrianglesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editSFTriangles),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTriangles));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getSFTriangles));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleTriangles),
+        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleTriangles));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoStatsAttachmentBase::*GetSFProcessedAttributeBytesF)(void) const;
-
-    GetSFProcessedAttributeBytesF GetSFProcessedAttributeBytes = &GeoStatsAttachmentBase::getSFProcessedAttributeBytes;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -230,20 +186,10 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         ProcessedAttributeBytesFieldId, ProcessedAttributeBytesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editSFProcessedAttributeBytes),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFProcessedAttributeBytes));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getSFProcessedAttributeBytes));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleProcessedAttributeBytes),
+        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleProcessedAttributeBytes));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoStatsAttachmentBase::*GetSFStoredAttributeBytesF)(void) const;
-
-    GetSFStoredAttributeBytesF GetSFStoredAttributeBytes = &GeoStatsAttachmentBase::getSFStoredAttributeBytes;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -252,20 +198,10 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         StoredAttributeBytesFieldId, StoredAttributeBytesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editSFStoredAttributeBytes),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFStoredAttributeBytes));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getSFStoredAttributeBytes));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleStoredAttributeBytes),
+        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleStoredAttributeBytes));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(GeoStatsAttachmentBase::*GetSFValidF)(void) const;
-
-    GetSFValidF GetSFValid = &GeoStatsAttachmentBase::getSFValid;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -274,12 +210,8 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         ValidFieldId, ValidFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editSFValid),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFValid));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getSFValid));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleValid),
+        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleValid));
 
     oType.addInitialDesc(pDesc);
 }
@@ -739,6 +671,161 @@ GeoStatsAttachmentBase::GeoStatsAttachmentBase(const GeoStatsAttachmentBase &sou
 
 GeoStatsAttachmentBase::~GeoStatsAttachmentBase(void)
 {
+}
+
+
+SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleVertices        (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfVertices, 
+             this->getType().getFieldDesc(VerticesFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleVertices       (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfVertices, 
+             this->getType().getFieldDesc(VerticesFieldId)));
+
+    editSField(VerticesFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandlePoints          (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfPoints, 
+             this->getType().getFieldDesc(PointsFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandlePoints         (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfPoints, 
+             this->getType().getFieldDesc(PointsFieldId)));
+
+    editSField(PointsFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleLines           (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfLines, 
+             this->getType().getFieldDesc(LinesFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleLines          (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfLines, 
+             this->getType().getFieldDesc(LinesFieldId)));
+
+    editSField(LinesFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleTriangles       (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfTriangles, 
+             this->getType().getFieldDesc(TrianglesFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleTriangles      (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfTriangles, 
+             this->getType().getFieldDesc(TrianglesFieldId)));
+
+    editSField(TrianglesFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleProcessedAttributeBytes (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfProcessedAttributeBytes, 
+             this->getType().getFieldDesc(ProcessedAttributeBytesFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleProcessedAttributeBytes(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfProcessedAttributeBytes, 
+             this->getType().getFieldDesc(ProcessedAttributeBytesFieldId)));
+
+    editSField(ProcessedAttributeBytesFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleStoredAttributeBytes (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfStoredAttributeBytes, 
+             this->getType().getFieldDesc(StoredAttributeBytesFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleStoredAttributeBytes(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfStoredAttributeBytes, 
+             this->getType().getFieldDesc(StoredAttributeBytesFieldId)));
+
+    editSField(StoredAttributeBytesFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr GeoStatsAttachmentBase::getHandleValid           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfValid, 
+             this->getType().getFieldDesc(ValidFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr GeoStatsAttachmentBase::editHandleValid          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfValid, 
+             this->getType().getFieldDesc(ValidFieldId)));
+
+    editSField(ValidFieldMask);
+
+    return returnValue;
 }
 
 

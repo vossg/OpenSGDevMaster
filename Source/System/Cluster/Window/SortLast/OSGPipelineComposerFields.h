@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(PipelineComposer);
 
 template <>
 struct FieldTraits<PipelineComposerPtr> :
-    public FieldTraitsTemplateBase<PipelineComposerPtr>
+    public FieldTraitsFCPtrBase<PipelineComposerPtr>
 {
   private:
 

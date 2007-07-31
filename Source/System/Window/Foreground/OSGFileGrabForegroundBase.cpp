@@ -65,6 +65,8 @@
 #include "OSGFileGrabForegroundBase.h"
 #include "OSGFileGrabForeground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -106,12 +108,6 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(FileGrabForegroundBase::*GetSFNameF)(void) const;
-
-    GetSFNameF GetSFName = &FileGrabForegroundBase::getSFName;
-#endif
-
     pDesc = new SFString::Description(
         SFString::getClassType(),
         "name",
@@ -119,20 +115,10 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editSFName),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFName));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getSFName));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleName),
+        reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleName));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(FileGrabForegroundBase::*GetSFFrameF)(void) const;
-
-    GetSFFrameF GetSFFrame = &FileGrabForegroundBase::getSFFrame;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -141,20 +127,10 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         FrameFieldId, FrameFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editSFFrame),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFFrame));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getSFFrame));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleFrame),
+        reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleFrame));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(FileGrabForegroundBase::*GetSFIncrementF)(void) const;
-
-    GetSFIncrementF GetSFIncrement = &FileGrabForegroundBase::getSFIncrement;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -163,12 +139,8 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         IncrementFieldId, IncrementFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editSFIncrement),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFIncrement));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getSFIncrement));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleIncrement),
+        reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleIncrement));
 
     oType.addInitialDesc(pDesc);
 }
@@ -448,6 +420,73 @@ FileGrabForegroundBase::FileGrabForegroundBase(const FileGrabForegroundBase &sou
 
 FileGrabForegroundBase::~FileGrabForegroundBase(void)
 {
+}
+
+
+SFString::GetHandlePtr FileGrabForegroundBase::getHandleName            (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfName, 
+             this->getType().getFieldDesc(NameFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr FileGrabForegroundBase::editHandleName           (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfName, 
+             this->getType().getFieldDesc(NameFieldId)));
+
+    editSField(NameFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr FileGrabForegroundBase::getHandleFrame           (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfFrame, 
+             this->getType().getFieldDesc(FrameFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr FileGrabForegroundBase::editHandleFrame          (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfFrame, 
+             this->getType().getFieldDesc(FrameFieldId)));
+
+    editSField(FrameFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr FileGrabForegroundBase::getHandleIncrement       (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfIncrement, 
+             this->getType().getFieldDesc(IncrementFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr FileGrabForegroundBase::editHandleIncrement      (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfIncrement, 
+             this->getType().getFieldDesc(IncrementFieldId)));
+
+    editSField(IncrementFieldMask);
+
+    return returnValue;
 }
 
 

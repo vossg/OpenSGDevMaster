@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(InverseTransform);
 
 template <>
 struct FieldTraits<InverseTransformPtr> :
-    public FieldTraitsTemplateBase<InverseTransformPtr>
+    public FieldTraitsFCPtrBase<InverseTransformPtr>
 {
   private:
 

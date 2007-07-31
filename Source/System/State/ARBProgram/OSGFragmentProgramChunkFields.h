@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(FragmentProgramChunk);
 
 template <>
 struct FieldTraits<FragmentProgramChunkPtr> :
-    public FieldTraitsTemplateBase<FragmentProgramChunkPtr>
+    public FieldTraitsFCPtrBase<FragmentProgramChunkPtr>
 {
   private:
 

@@ -65,6 +65,8 @@
 #include "OSGStereoBufferViewportBase.h"
 #include "OSGStereoBufferViewport.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -99,12 +101,6 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(StereoBufferViewportBase::*GetSFLeftBufferF)(void) const;
-
-    GetSFLeftBufferF GetSFLeftBuffer = &StereoBufferViewportBase::getSFLeftBuffer;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "leftBuffer",
@@ -112,20 +108,10 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
         LeftBufferFieldId, LeftBufferFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editSFLeftBuffer),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFLeftBuffer));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getSFLeftBuffer));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editHandleLeftBuffer),
+        reinterpret_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getHandleLeftBuffer));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(StereoBufferViewportBase::*GetSFRightBufferF)(void) const;
-
-    GetSFRightBufferF GetSFRightBuffer = &StereoBufferViewportBase::getSFRightBuffer;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -134,12 +120,8 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
         RightBufferFieldId, RightBufferFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editSFRightBuffer),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFRightBuffer));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getSFRightBuffer));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editHandleRightBuffer),
+        reinterpret_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getHandleRightBuffer));
 
     oType.addInitialDesc(pDesc);
 }
@@ -370,6 +352,51 @@ StereoBufferViewportBase::StereoBufferViewportBase(const StereoBufferViewportBas
 
 StereoBufferViewportBase::~StereoBufferViewportBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr StereoBufferViewportBase::getHandleLeftBuffer      (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfLeftBuffer, 
+             this->getType().getFieldDesc(LeftBufferFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr StereoBufferViewportBase::editHandleLeftBuffer     (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfLeftBuffer, 
+             this->getType().getFieldDesc(LeftBufferFieldId)));
+
+    editSField(LeftBufferFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr StereoBufferViewportBase::getHandleRightBuffer     (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfRightBuffer, 
+             this->getType().getFieldDesc(RightBufferFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr StereoBufferViewportBase::editHandleRightBuffer    (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfRightBuffer, 
+             this->getType().getFieldDesc(RightBufferFieldId)));
+
+    editSField(RightBufferFieldMask);
+
+    return returnValue;
 }
 
 

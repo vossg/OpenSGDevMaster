@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ScreenLOD);
 
 template <>
 struct FieldTraits<ScreenLODPtr> :
-    public FieldTraitsTemplateBase<ScreenLODPtr>
+    public FieldTraitsFCPtrBase<ScreenLODPtr>
 {
   private:
 

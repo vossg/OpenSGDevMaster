@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(PolygonBackground);
 
 template <>
 struct FieldTraits<PolygonBackgroundPtr> :
-    public FieldTraitsTemplateBase<PolygonBackgroundPtr>
+    public FieldTraitsFCPtrBase<PolygonBackgroundPtr>
 {
   private:
 

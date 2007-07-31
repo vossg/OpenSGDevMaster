@@ -176,6 +176,16 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFUInt16::GetHandlePtr  getHandleWidth           (void);
+    SFUInt16::EditHandlePtr editHandleWidth          (void);
+    SFUInt16::GetHandlePtr  getHandleHeight          (void);
+    SFUInt16::EditHandlePtr editHandleHeight         (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 

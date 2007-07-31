@@ -250,6 +250,16 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFString::GetHandlePtr  getHandleUrl             (void);
+    MFString::EditHandlePtr editHandleUrl            (void);
+    SFBool::GetHandlePtr  getHandleLoaded          (void);
+    SFBool::EditHandlePtr editHandleLoaded         (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

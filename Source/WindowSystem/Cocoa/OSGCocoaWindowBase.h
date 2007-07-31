@@ -217,6 +217,14 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindowBase : public Window
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFNSOpenGLContextP::GetHandlePtr  getHandleContext         (void);
+    SFNSOpenGLContextP::EditHandlePtr editHandleContext        (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

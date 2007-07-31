@@ -53,7 +53,7 @@
 
 #define SILENT
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 void FieldContainer::classDescInserter(TypeObject &oType)
 {
@@ -104,6 +104,7 @@ void FieldContainer::dump(      UInt32    uiIndent,
          << std::endl;
 }
 
+#if 0
 void FieldContainer::pushToField(      FieldContainerPtrConstArg pNewElement,
                                  const UInt32                    uiFieldId  )
 {
@@ -145,6 +146,7 @@ void FieldContainer::removeFromMField(
 void FieldContainer::clearField(const UInt32 uiFieldId)
 {
 }
+#endif
 
 void FieldContainer::copyFromBin(BinaryDataHandler  &,
                                  ConstFieldMaskArg   whichField)
@@ -205,9 +207,10 @@ void FieldContainer::resolveLinks(void)
     \param[in] typeNames FieldContainer type names.
     \param[out] types Type objects corresponding to \a typeNames.
  */
-void
-OSG::appendTypesVector(const std::vector<std::string>                &typeNames,
-                             std::vector<const FieldContainerType *> &types     )
+
+void appendTypesVector(
+    const std::vector<std::string>                    &typeNames,
+          std::vector<const ReflexiveContainerType *> &types     )
 {
     const FieldContainerType *pType;
 
@@ -232,8 +235,8 @@ OSG::appendTypesVector(const std::vector<std::string>                &typeNames,
     \param[in] groupNames Names of groups.
     \param[out] groupIds Ids of the groups in \a groupNames.
  */
-void
-OSG::appendGroupsVector(const std::vector<std::string> &groupNames,
+
+void appendGroupsVector(const std::vector<std::string> &groupNames,
                               std::vector<UInt16>      &groupIds   )
 {
     UInt16 groupId;
@@ -257,11 +260,13 @@ OSG::appendGroupsVector(const std::vector<std::string> &groupNames,
     \param[in] typesString String of comma separated FieldContainer type names.
     \param[out] types Type objects corresponding to elements of \a typesString.
  */
-void
-OSG::appendTypesString(const std::string                             &typesString,
-                             std::vector<const FieldContainerType *> &types       )
+
+void appendTypesString(
+    const std::string                                 &typesString,
+          std::vector<const ReflexiveContainerType *> &types       )
 {
     const FieldContainerType *pType;
+
     string_token_iterator     tokenIt(typesString, ", ");
     string_token_iterator     tokenEnd;
 
@@ -288,26 +293,26 @@ OSG::appendTypesString(const std::string                             &typesStrin
     \param[in] ignoreGroupNames Names of type groups that should be ignored.
     \return deep copy of \a src.
  */
-OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr
-OSG::deepClone(      FieldContainerPtrConstArg  src,
-               const std::vector<std::string>  &shareTypeNames,
-               const std::vector<std::string>  &ignoreTypeNames,
-               const std::vector<std::string>  &shareGroupNames,
-               const std::vector<std::string>  &ignoreGroupNames)
+
+FieldContainerPtr deepClone(
+          FieldContainerPtrConstArg  src,
+    const std::vector<std::string>  &shareTypeNames,
+    const std::vector<std::string>  &ignoreTypeNames,
+    const std::vector<std::string>  &shareGroupNames,
+    const std::vector<std::string>  &ignoreGroupNames)
 {
-    std::vector<const FieldContainerType *> shareTypes;
-    std::vector<const FieldContainerType *> ignoreTypes;
-    std::vector<UInt16>                     shareGroupIds;
-    std::vector<UInt16>                     ignoreGroupIds;
+    std::vector<const ReflexiveContainerType *> shareTypes;
+    std::vector<const ReflexiveContainerType *> ignoreTypes;
+    std::vector<UInt16>                         shareGroupIds;
+    std::vector<UInt16>                         ignoreGroupIds;
 
     appendTypesVector (shareTypeNames,   shareTypes    );
     appendTypesVector (ignoreTypeNames,  ignoreTypes   );
     appendGroupsVector(shareGroupNames,  shareGroupIds );
     appendGroupsVector(ignoreGroupNames, ignoreGroupIds);
 
-    return OSG::deepClone(src, shareTypes,    ignoreTypes,
-                               shareGroupIds, ignoreGroupIds);
+    return deepClone(src, shareTypes,    ignoreTypes,
+                          shareGroupIds, ignoreGroupIds);
 }
 
 /*! Creates a deep copy of \a src, i.e. all fields of \a src are copied, if
@@ -321,16 +326,17 @@ OSG::deepClone(      FieldContainerPtrConstArg  src,
     \param[in] ignoreGroupIds Type groups that should be ignored.
     \return deep copy of \a src.
  */
-FieldContainerPtr
-OSG::deepClone(      FieldContainerPtrConstArg  src,
-               const std::vector<UInt16>       &shareGroupIds,
-               const std::vector<UInt16>       &ignoreGroupIds)
-{
-    std::vector<const FieldContainerType *> shareTypes;
-    std::vector<const FieldContainerType *> ignoreTypes;
 
-    return OSG::deepClone(src, shareTypes,    ignoreTypes,
-                               shareGroupIds, ignoreGroupIds);
+FieldContainerPtr deepClone(
+          FieldContainerPtrConstArg  src,
+    const std::vector<UInt16>       &shareGroupIds,
+    const std::vector<UInt16>       &ignoreGroupIds)
+{
+    std::vector<const ReflexiveContainerType *> shareTypes;
+    std::vector<const ReflexiveContainerType *> ignoreTypes;
+
+    return deepClone(src, shareTypes,    ignoreTypes,
+                          shareGroupIds, ignoreGroupIds);
 }
 
 /*! Creates a deep copy of \a src, i.e. all fields of \a src are copied, if
@@ -345,21 +351,22 @@ OSG::deepClone(      FieldContainerPtrConstArg  src,
         should be ignored.
     \return deep copy of \a src.
  */
-FieldContainerPtr
-OSG::deepClone(      FieldContainerPtrConstArg  src,
-               const std::string               &shareTypesString,
-               const std::string               &ignoreTypesString)
+
+FieldContainerPtr deepClone(      
+          FieldContainerPtrConstArg  src,
+    const std::string               &shareTypesString,
+    const std::string               &ignoreTypesString)
 {
-    std::vector<const FieldContainerType *> shareTypes;
-    std::vector<const FieldContainerType *> ignoreTypes;
-    std::vector<UInt16>                     shareGroupIds;
-    std::vector<UInt16>                     ignoreGroupIds;
+    std::vector<const ReflexiveContainerType *> shareTypes;
+    std::vector<const ReflexiveContainerType *> ignoreTypes;
+    std::vector<UInt16>                         shareGroupIds;
+    std::vector<UInt16>                         ignoreGroupIds;
 
     appendTypesString(shareTypesString,  shareTypes);
     appendTypesString(ignoreTypesString, ignoreTypes);
 
-    return OSG::deepClone(src, shareTypes,    ignoreTypes,
-                               shareGroupIds, ignoreGroupIds);
+    return deepClone(src, shareTypes,    ignoreTypes,
+                          shareGroupIds, ignoreGroupIds);
 }
 
 /*! Creates a deep copy of \a src, i.e. all fields of \a src are copied, if
@@ -375,13 +382,13 @@ OSG::deepClone(      FieldContainerPtrConstArg  src,
     \param[in] ignoreGroupIds Type groups that should be ignored.
     \return deep copy of \a src.
  */
-FieldContainerPtr
-OSG::deepClone(
-               FieldContainerPtrConstArg                src,
-         const std::vector<const FieldContainerType *> &shareTypes,
-         const std::vector<const FieldContainerType *> &ignoreTypes,
-         const std::vector<UInt16>                     &shareGroupIds,
-         const std::vector<UInt16>                     &ignoreGroupIds)
+
+FieldContainerPtr deepClone(
+          FieldContainerPtrConstArg                    src,
+    const std::vector<const ReflexiveContainerType *> &shareTypes,
+    const std::vector<const ReflexiveContainerType *> &ignoreTypes,
+    const std::vector<UInt16>                         &shareGroupIds,
+    const std::vector<UInt16>                         &ignoreGroupIds)
 {
     if(src == NullFC)
         return NullFC;
@@ -400,20 +407,33 @@ OSG::deepClone(
             continue;
 
         const UInt32  fieldId  = fDesc  ->getFieldId();
-        const Field  *srcField = src    ->getField (i);
-              Field  *dstField = fcClone->editField(i);
+//        const Field  *srcField = src    ->getField (i);
+//              Field  *dstField = fcClone->editField(i);
 
-        if(dstField != NULL)
+        GetFieldHandlePtr  srcField = src    ->getField (i);
+        EditFieldHandlePtr dstField = fcClone->editField(i);
+
+        if(dstField->isValid() == false || srcField->isValid() == false)
+            continue;
+
+//        if(dstField != NULL)
+        if(srcField->isPointerField() == false)
         {
-            fDesc->copyValues(srcField, dstField);
+            dstField->copyValues(srcField);
         }
         else
         {
-            fDesc->cloneValuesV(srcField, fieldId, fcClone,
-                                shareTypes,    ignoreTypes,
-                                shareGroupIds, ignoreGroupIds);
+            dstField->cloneValues(srcField, 
+//                                  fieldId, 
+//                                  fcClone,
+                                  shareTypes,    
+                                  ignoreTypes,
+                                  shareGroupIds, 
+                                  ignoreGroupIds);
         }
     }
 
     return fcClone;
 }
+
+OSG_END_NAMESPACE

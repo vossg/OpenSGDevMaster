@@ -65,6 +65,8 @@
 #include "OSGProgramChunkBase.h"
 #include "OSGProgramChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -112,12 +114,6 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(ProgramChunkBase::*GetSFProgramF)(void) const;
-
-    GetSFProgramF GetSFProgram = &ProgramChunkBase::getSFProgram;
-#endif
-
     pDesc = new SFString::Description(
         SFString::getClassType(),
         "program",
@@ -125,20 +121,10 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         ProgramFieldId, ProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editSFProgram),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFProgram));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getSFProgram));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleProgram),
+        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleProgram));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFVec4f *(ProgramChunkBase::*GetMFParamValuesF)(void) const;
-
-    GetMFParamValuesF GetMFParamValues = &ProgramChunkBase::getMFParamValues;
-#endif
 
     pDesc = new MFVec4f::Description(
         MFVec4f::getClassType(),
@@ -147,20 +133,10 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         ParamValuesFieldId, ParamValuesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editMFParamValues),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFParamValues));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getMFParamValues));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleParamValues),
+        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleParamValues));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFString *(ProgramChunkBase::*GetMFParamNamesF)(void) const;
-
-    GetMFParamNamesF GetMFParamNames = &ProgramChunkBase::getMFParamNames;
-#endif
 
     pDesc = new MFString::Description(
         MFString::getClassType(),
@@ -169,20 +145,10 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         ParamNamesFieldId, ParamNamesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editMFParamNames),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFParamNames));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getMFParamNames));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleParamNames),
+        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleParamNames));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(ProgramChunkBase::*GetSFGLIdF)(void) const;
-
-    GetSFGLIdF GetSFGLId = &ProgramChunkBase::getSFGLId;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -191,12 +157,8 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editSFGLId),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getSFGLId));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleGLId),
+        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -653,6 +615,95 @@ ProgramChunkBase::ProgramChunkBase(const ProgramChunkBase &source) :
 
 ProgramChunkBase::~ProgramChunkBase(void)
 {
+}
+
+
+SFString::GetHandlePtr ProgramChunkBase::getHandleProgram         (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfProgram, 
+             this->getType().getFieldDesc(ProgramFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr ProgramChunkBase::editHandleProgram        (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfProgram, 
+             this->getType().getFieldDesc(ProgramFieldId)));
+
+    editSField(ProgramFieldMask);
+
+    return returnValue;
+}
+
+MFVec4f::GetHandlePtr ProgramChunkBase::getHandleParamValues     (void)
+{
+    MFVec4f::GetHandlePtr returnValue(
+        new  MFVec4f::GetHandle(
+             &_mfParamValues, 
+             this->getType().getFieldDesc(ParamValuesFieldId)));
+
+    return returnValue;
+}
+
+MFVec4f::EditHandlePtr ProgramChunkBase::editHandleParamValues    (void)
+{
+    MFVec4f::EditHandlePtr returnValue(
+        new  MFVec4f::EditHandle(
+             &_mfParamValues, 
+             this->getType().getFieldDesc(ParamValuesFieldId)));
+
+    editMField(ParamValuesFieldMask, _mfParamValues);
+
+    return returnValue;
+}
+
+MFString::GetHandlePtr ProgramChunkBase::getHandleParamNames      (void)
+{
+    MFString::GetHandlePtr returnValue(
+        new  MFString::GetHandle(
+             &_mfParamNames, 
+             this->getType().getFieldDesc(ParamNamesFieldId)));
+
+    return returnValue;
+}
+
+MFString::EditHandlePtr ProgramChunkBase::editHandleParamNames     (void)
+{
+    MFString::EditHandlePtr returnValue(
+        new  MFString::EditHandle(
+             &_mfParamNames, 
+             this->getType().getFieldDesc(ParamNamesFieldId)));
+
+    editMField(ParamNamesFieldMask, _mfParamNames);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr ProgramChunkBase::getHandleGLId            (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr ProgramChunkBase::editHandleGLId           (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    editSField(GLIdFieldMask);
+
+    return returnValue;
 }
 
 

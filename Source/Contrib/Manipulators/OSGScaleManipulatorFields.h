@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ScaleManipulator);
 
 template <>
 struct FieldTraits<ScaleManipulatorPtr> :
-    public FieldTraitsTemplateBase<ScaleManipulatorPtr>
+    public FieldTraitsFCPtrBase<ScaleManipulatorPtr>
 {
   private:
 

@@ -66,6 +66,8 @@
 #include "OSGLightChunkBase.h"
 #include "OSGLightChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -143,12 +145,6 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFColor4r *(LightChunkBase::*GetSFDiffuseF)(void) const;
-
-    GetSFDiffuseF GetSFDiffuse = &LightChunkBase::getSFDiffuse;
-#endif
-
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(),
         "diffuse",
@@ -156,20 +152,10 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFDiffuse),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFDiffuse));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFDiffuse));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleDiffuse),
+        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleDiffuse));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFColor4r *(LightChunkBase::*GetSFAmbientF)(void) const;
-
-    GetSFAmbientF GetSFAmbient = &LightChunkBase::getSFAmbient;
-#endif
 
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(),
@@ -178,20 +164,10 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFAmbient),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAmbient));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFAmbient));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleAmbient),
+        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleAmbient));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFColor4r *(LightChunkBase::*GetSFSpecularF)(void) const;
-
-    GetSFSpecularF GetSFSpecular = &LightChunkBase::getSFSpecular;
-#endif
 
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(),
@@ -200,20 +176,10 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFSpecular),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFSpecular));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFSpecular));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleSpecular),
+        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleSpecular));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFVec4r *(LightChunkBase::*GetSFPositionF)(void) const;
-
-    GetSFPositionF GetSFPosition = &LightChunkBase::getSFPosition;
-#endif
 
     pDesc = new SFVec4r::Description(
         SFVec4r::getClassType(),
@@ -222,20 +188,10 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         PositionFieldId, PositionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFPosition),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFPosition));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFPosition));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandlePosition),
+        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandlePosition));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFVec3r *(LightChunkBase::*GetSFDirectionF)(void) const;
-
-    GetSFDirectionF GetSFDirection = &LightChunkBase::getSFDirection;
-#endif
 
     pDesc = new SFVec3r::Description(
         SFVec3r::getClassType(),
@@ -244,20 +200,10 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         DirectionFieldId, DirectionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFDirection),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFDirection));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFDirection));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleDirection),
+        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleDirection));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal *(LightChunkBase::*GetSFExponentF)(void) const;
-
-    GetSFExponentF GetSFExponent = &LightChunkBase::getSFExponent;
-#endif
 
     pDesc = new SFReal::Description(
         SFReal::getClassType(),
@@ -266,20 +212,10 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         ExponentFieldId, ExponentFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFExponent),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFExponent));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFExponent));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleExponent),
+        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleExponent));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal *(LightChunkBase::*GetSFCutoffF)(void) const;
-
-    GetSFCutoffF GetSFCutoff = &LightChunkBase::getSFCutoff;
-#endif
 
     pDesc = new SFReal::Description(
         SFReal::getClassType(),
@@ -288,20 +224,10 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         CutoffFieldId, CutoffFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFCutoff),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFCutoff));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFCutoff));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleCutoff),
+        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleCutoff));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal *(LightChunkBase::*GetSFConstantAttenuationF)(void) const;
-
-    GetSFConstantAttenuationF GetSFConstantAttenuation = &LightChunkBase::getSFConstantAttenuation;
-#endif
 
     pDesc = new SFReal::Description(
         SFReal::getClassType(),
@@ -310,20 +236,10 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFConstantAttenuation),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFConstantAttenuation));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFConstantAttenuation));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleConstantAttenuation),
+        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleConstantAttenuation));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal *(LightChunkBase::*GetSFLinearAttenuationF)(void) const;
-
-    GetSFLinearAttenuationF GetSFLinearAttenuation = &LightChunkBase::getSFLinearAttenuation;
-#endif
 
     pDesc = new SFReal::Description(
         SFReal::getClassType(),
@@ -332,20 +248,10 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFLinearAttenuation),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFLinearAttenuation));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFLinearAttenuation));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleLinearAttenuation),
+        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleLinearAttenuation));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal *(LightChunkBase::*GetSFQuadraticAttenuationF)(void) const;
-
-    GetSFQuadraticAttenuationF GetSFQuadraticAttenuation = &LightChunkBase::getSFQuadraticAttenuation;
-#endif
 
     pDesc = new SFReal::Description(
         SFReal::getClassType(),
@@ -354,12 +260,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editSFQuadraticAttenuation),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFQuadraticAttenuation));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFQuadraticAttenuation));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleQuadraticAttenuation),
+        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleQuadraticAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -370,8 +272,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&LightChunkBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getSFBeacon));
+        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleBeacon),
+        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 }
@@ -746,65 +648,6 @@ const SFNodePtr *LightChunkBase::getSFBeacon(void) const
 }
 
 
-void LightChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == BeaconFieldId)
-    {
-        static_cast<LightChunk *>(this)->setBeacon(
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-}
-
-void LightChunkBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void LightChunkBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void LightChunkBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void LightChunkBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void LightChunkBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void LightChunkBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == BeaconFieldId)
-    {
-        static_cast<LightChunk *>(this)->setBeacon(NullFC);
-    }
-}
 
 
 
@@ -1050,6 +893,251 @@ void LightChunkBase::onCreate(const LightChunk *source)
         this->setBeacon(source->getBeacon());
     }
 }
+
+SFColor4r::GetHandlePtr LightChunkBase::getHandleDiffuse         (void)
+{
+    SFColor4r::GetHandlePtr returnValue(
+        new  SFColor4r::GetHandle(
+             &_sfDiffuse, 
+             this->getType().getFieldDesc(DiffuseFieldId)));
+
+    return returnValue;
+}
+
+SFColor4r::EditHandlePtr LightChunkBase::editHandleDiffuse        (void)
+{
+    SFColor4r::EditHandlePtr returnValue(
+        new  SFColor4r::EditHandle(
+             &_sfDiffuse, 
+             this->getType().getFieldDesc(DiffuseFieldId)));
+
+    editSField(DiffuseFieldMask);
+
+    return returnValue;
+}
+
+SFColor4r::GetHandlePtr LightChunkBase::getHandleAmbient         (void)
+{
+    SFColor4r::GetHandlePtr returnValue(
+        new  SFColor4r::GetHandle(
+             &_sfAmbient, 
+             this->getType().getFieldDesc(AmbientFieldId)));
+
+    return returnValue;
+}
+
+SFColor4r::EditHandlePtr LightChunkBase::editHandleAmbient        (void)
+{
+    SFColor4r::EditHandlePtr returnValue(
+        new  SFColor4r::EditHandle(
+             &_sfAmbient, 
+             this->getType().getFieldDesc(AmbientFieldId)));
+
+    editSField(AmbientFieldMask);
+
+    return returnValue;
+}
+
+SFColor4r::GetHandlePtr LightChunkBase::getHandleSpecular        (void)
+{
+    SFColor4r::GetHandlePtr returnValue(
+        new  SFColor4r::GetHandle(
+             &_sfSpecular, 
+             this->getType().getFieldDesc(SpecularFieldId)));
+
+    return returnValue;
+}
+
+SFColor4r::EditHandlePtr LightChunkBase::editHandleSpecular       (void)
+{
+    SFColor4r::EditHandlePtr returnValue(
+        new  SFColor4r::EditHandle(
+             &_sfSpecular, 
+             this->getType().getFieldDesc(SpecularFieldId)));
+
+    editSField(SpecularFieldMask);
+
+    return returnValue;
+}
+
+SFVec4r::GetHandlePtr LightChunkBase::getHandlePosition        (void)
+{
+    SFVec4r::GetHandlePtr returnValue(
+        new  SFVec4r::GetHandle(
+             &_sfPosition, 
+             this->getType().getFieldDesc(PositionFieldId)));
+
+    return returnValue;
+}
+
+SFVec4r::EditHandlePtr LightChunkBase::editHandlePosition       (void)
+{
+    SFVec4r::EditHandlePtr returnValue(
+        new  SFVec4r::EditHandle(
+             &_sfPosition, 
+             this->getType().getFieldDesc(PositionFieldId)));
+
+    editSField(PositionFieldMask);
+
+    return returnValue;
+}
+
+SFVec3r::GetHandlePtr LightChunkBase::getHandleDirection       (void)
+{
+    SFVec3r::GetHandlePtr returnValue(
+        new  SFVec3r::GetHandle(
+             &_sfDirection, 
+             this->getType().getFieldDesc(DirectionFieldId)));
+
+    return returnValue;
+}
+
+SFVec3r::EditHandlePtr LightChunkBase::editHandleDirection      (void)
+{
+    SFVec3r::EditHandlePtr returnValue(
+        new  SFVec3r::EditHandle(
+             &_sfDirection, 
+             this->getType().getFieldDesc(DirectionFieldId)));
+
+    editSField(DirectionFieldMask);
+
+    return returnValue;
+}
+
+SFReal::GetHandlePtr LightChunkBase::getHandleExponent        (void)
+{
+    SFReal::GetHandlePtr returnValue(
+        new  SFReal::GetHandle(
+             &_sfExponent, 
+             this->getType().getFieldDesc(ExponentFieldId)));
+
+    return returnValue;
+}
+
+SFReal::EditHandlePtr LightChunkBase::editHandleExponent       (void)
+{
+    SFReal::EditHandlePtr returnValue(
+        new  SFReal::EditHandle(
+             &_sfExponent, 
+             this->getType().getFieldDesc(ExponentFieldId)));
+
+    editSField(ExponentFieldMask);
+
+    return returnValue;
+}
+
+SFReal::GetHandlePtr LightChunkBase::getHandleCutoff          (void)
+{
+    SFReal::GetHandlePtr returnValue(
+        new  SFReal::GetHandle(
+             &_sfCutoff, 
+             this->getType().getFieldDesc(CutoffFieldId)));
+
+    return returnValue;
+}
+
+SFReal::EditHandlePtr LightChunkBase::editHandleCutoff         (void)
+{
+    SFReal::EditHandlePtr returnValue(
+        new  SFReal::EditHandle(
+             &_sfCutoff, 
+             this->getType().getFieldDesc(CutoffFieldId)));
+
+    editSField(CutoffFieldMask);
+
+    return returnValue;
+}
+
+SFReal::GetHandlePtr LightChunkBase::getHandleConstantAttenuation (void)
+{
+    SFReal::GetHandlePtr returnValue(
+        new  SFReal::GetHandle(
+             &_sfConstantAttenuation, 
+             this->getType().getFieldDesc(ConstantAttenuationFieldId)));
+
+    return returnValue;
+}
+
+SFReal::EditHandlePtr LightChunkBase::editHandleConstantAttenuation(void)
+{
+    SFReal::EditHandlePtr returnValue(
+        new  SFReal::EditHandle(
+             &_sfConstantAttenuation, 
+             this->getType().getFieldDesc(ConstantAttenuationFieldId)));
+
+    editSField(ConstantAttenuationFieldMask);
+
+    return returnValue;
+}
+
+SFReal::GetHandlePtr LightChunkBase::getHandleLinearAttenuation (void)
+{
+    SFReal::GetHandlePtr returnValue(
+        new  SFReal::GetHandle(
+             &_sfLinearAttenuation, 
+             this->getType().getFieldDesc(LinearAttenuationFieldId)));
+
+    return returnValue;
+}
+
+SFReal::EditHandlePtr LightChunkBase::editHandleLinearAttenuation(void)
+{
+    SFReal::EditHandlePtr returnValue(
+        new  SFReal::EditHandle(
+             &_sfLinearAttenuation, 
+             this->getType().getFieldDesc(LinearAttenuationFieldId)));
+
+    editSField(LinearAttenuationFieldMask);
+
+    return returnValue;
+}
+
+SFReal::GetHandlePtr LightChunkBase::getHandleQuadraticAttenuation (void)
+{
+    SFReal::GetHandlePtr returnValue(
+        new  SFReal::GetHandle(
+             &_sfQuadraticAttenuation, 
+             this->getType().getFieldDesc(QuadraticAttenuationFieldId)));
+
+    return returnValue;
+}
+
+SFReal::EditHandlePtr LightChunkBase::editHandleQuadraticAttenuation(void)
+{
+    SFReal::EditHandlePtr returnValue(
+        new  SFReal::EditHandle(
+             &_sfQuadraticAttenuation, 
+             this->getType().getFieldDesc(QuadraticAttenuationFieldId)));
+
+    editSField(QuadraticAttenuationFieldMask);
+
+    return returnValue;
+}
+
+SFNodePtr::GetHandlePtr LightChunkBase::getHandleBeacon          (void)
+{
+    SFNodePtr::GetHandlePtr returnValue(
+        new  SFNodePtr::GetHandle(
+             &_sfBeacon, 
+             this->getType().getFieldDesc(BeaconFieldId)));
+
+    return returnValue;
+}
+
+SFNodePtr::EditHandlePtr LightChunkBase::editHandleBeacon         (void)
+{
+    SFNodePtr::EditHandlePtr returnValue(
+        new  SFNodePtr::EditHandle(
+             &_sfBeacon, 
+             this->getType().getFieldDesc(BeaconFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&LightChunk::setBeacon, this, _1));
+
+    editSField(BeaconFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void LightChunkBase::execSyncV(      FieldContainer    &oFrom,

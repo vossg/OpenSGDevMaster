@@ -97,8 +97,8 @@ VRMLFile::VRMLFile(void) :
 
     _pCurrentFC       (NullFC),
     _pCurrentFieldFC  (NullFC),
-    _pCurrentField    (NULL),
-    _pCurrentFieldDesc(NULL),
+    _pCurrentField    (      ),
+    _pCurrentFieldDesc(NULL  ),
 
     _fcStack  (),
     _fStack   (),
@@ -366,7 +366,7 @@ void VRMLFile::endField(void)
     }
     else
     {
-        _pCurrentField = NULL;
+        _pCurrentField.reset();
     }
 
 
@@ -453,7 +453,7 @@ UInt32 VRMLFile::getFieldType(const Char8 *szFieldname)
         return returnValue;
 
     _pCurrentFieldFC   = NullFC;
-    _pCurrentField     = NULL;
+    _pCurrentField.reset();
     _pCurrentFieldDesc = NULL;
 
     _pCurrNodeHelper->getFieldAndDesc(_pCurrentFC,

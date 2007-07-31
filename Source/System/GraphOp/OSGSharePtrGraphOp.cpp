@@ -253,12 +253,12 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr &fc)
     if(fc == NullFC)
         return fc;
 
-    const FieldContainerType &type = fc->getType();
-    UInt32 fcount = type.getNumFieldDescs();
+    const FieldContainerType &type   = fc->getType();
+          UInt32              fcount = type.getNumFieldDescs();
 
-    for(UInt32 i=1;i <= fcount;++i)
+    for(UInt32 i = 1; i <= fcount; ++i)
     {
-        const FieldDescriptionBase* fdesc = fc->getFieldDescription(i);
+        const FieldDescriptionBase *fdesc = fc->getFieldDescription(i);
     
         if(fdesc->isInternal())
             continue;
@@ -267,27 +267,38 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr &fc)
         if(strcmp(fdesc->getCName(), "attachments") == 0)
             continue;
 
-        BitVector mask = fdesc->getFieldMask();
+        const FieldType   &ftype    = fdesc->getFieldType();
 
-        const Field *fc_field = fc->getField(i);
-        const FieldType &ftype = fdesc->getFieldType();
-        std::string fieldType = ftype.getName().str();
+        SFFieldContainerPtr::GetHandlePtr sfPtrHandle =
+            boost::dynamic_pointer_cast<
+                SFFieldContainerPtr::GetHandle>(fc->getField(i));
+
+        MFFieldContainerPtr::GetHandlePtr mfPtrHandle =
+            boost::dynamic_pointer_cast<
+                MFFieldContainerPtr::GetHandle>(fc->getField(i));
         
+
         // field
-        if(strstr(ftype.getCName(), "Ptr") != NULL)
+        if(sfPtrHandle != NULL || mfPtrHandle != NULL)
         {
-            if(ftype.getCardinality() == FieldType::SINGLE_FIELD)
+//            if(ftype.getCardinality() == FieldType::SINGLE_FIELD)
+
+            if(sfPtrHandle != NULL && sfPtrHandle->isValid() == true)
             {
-                FieldContainerPtr ffc = ((SFFieldContainerPtr *) fc_field)
-                                        ->getValue();
+                FieldContainerPtr ffc  = (*sfPtrHandle)->getValue();
                 
                 FieldContainerPtr nffc = compareFCs(ffc);
                 
                 if(nffc != ffc)
                 {
+                    SFFieldContainerPtr::EditHandlePtr sfPtrEditHandle =
+                        boost::dynamic_pointer_cast<
+                           SFFieldContainerPtr::EditHandle>(fc->getField(i));
+                    
+                    sfPtrEditHandle->setValue(nffc);
+#if 0
                     addRef(nffc);
                     ((SFFieldContainerPtr *) fc_field)->setValue(nffc);
-#if 0
                     // for attachments we need to update the parents field!
                     AttachmentPtr attachment = AttachmentPtr::dcast(nffc);
                     if(attachment != NullFC)
@@ -300,23 +311,32 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr &fc)
                         attachment->addParent(fc);
                         //attachment->getParents().clear();
                     }
-#endif
                     subRef(ffc);
+#endif
                 }
             }
-            else if(ftype.getCardinality() == FieldType::MULTI_FIELD)
+//            else if(ftype.getCardinality() == FieldType::MULTI_FIELD)
+            else if(mfPtrHandle != NULL && mfPtrHandle->isValid() == true)
             {
-                for(UInt32 j=0;j < ((MFFieldContainerPtr*)fc_field)->size();++j)
+                for(UInt32 j = 0; j < (*mfPtrHandle)->size(); ++j)
                 {
-                    FieldContainerPtr ffc = (*(((MFFieldContainerPtr *)fc_field)))[j];
+                    FieldContainerPtr ffc = (*(*mfPtrHandle))[j];
                     
                     FieldContainerPtr nffc = compareFCs(ffc);
                     
                     if(nffc != ffc)
                     {
+
+                        MFFieldContainerPtr::EditHandlePtr mfPtrEditHandle =
+                            boost::dynamic_pointer_cast<
+                                MFFieldContainerPtr::EditHandle>(
+                                    fc->getField(i));
+
+                        mfPtrEditHandle->replace(j, nffc);
+
+#if 0
                         addRef(nffc);
                         (*(((MFFieldContainerPtr *)fc_field)))[j] = nffc;
-#if 0
                         // for attachments we need to update the parents field!
                         AttachmentPtr attachment = AttachmentPtr::dcast(nffc);
                         if(attachment != NullFC)
@@ -328,8 +348,8 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr &fc)
                             fcb.setParentFieldPos(fdesc->getFieldId());
                             attachment->addParent(fc);
                         }
-#endif
                         subRef(ffc);
+#endif
                     }
                 }
             }
@@ -420,6 +440,7 @@ static bool compareMField(Field *a, Field *b)
 bool SharePtrGraphOp::isEqual(const OSG::FieldContainerPtr &a,
                               const OSG::FieldContainerPtr &b)
 {
+#if 0
     // Compare the pointers.
     if(a == b)
         return true;
@@ -564,6 +585,132 @@ bool SharePtrGraphOp::isEqual(const OSG::FieldContainerPtr &a,
             }
         }
     }
+#else
+    // Compare the pointers.
+    if(a == b)
+        return true;
+
+    if(a == NullFC || b == NullFC)
+        return false;
+
+    if(a->getType() != b->getType())
+        return false;
+    
+    //printf("comparing: %s\n", a->getType().getName().str());
+
+    const FieldContainerType &type = a->getType();
+    UInt32 fcount = type.getNumFieldDescs();
+    
+    for(UInt32 i=1;i <= fcount;++i)
+    {
+        GetFieldHandlePtr fhandlea = a->getField(i);
+        GetFieldHandlePtr fhandleb = b->getField(i);
+        
+        if(fhandlea == NULL || fhandleb == NULL || (fhandlea != NULL &&
+                                                    fhandlea->isInternal()))
+        {
+            continue;
+        }
+
+        const FieldType &a_ftype = fhandlea->getType();
+        const FieldType &b_ftype = fhandleb->getType();
+
+        if(a_ftype != b_ftype)
+            return false;
+
+
+        // ignore attachments
+        if(strcmp(fhandlea->getName().c_str(), "attachments") == 0)
+            continue;
+        
+
+        SFFieldContainerPtr::GetHandlePtr sfPtrHandleA =
+            boost::dynamic_pointer_cast<
+                SFFieldContainerPtr::GetHandle>(fhandlea);
+
+        MFFieldContainerPtr::GetHandlePtr mfPtrHandleA =
+            boost::dynamic_pointer_cast<
+                MFFieldContainerPtr::GetHandle>(fhandlea);
+
+        if(sfPtrHandleA == NULL || mfPtrHandleA == NULL)
+        {
+            if(fhandlea->equal(fhandleb) == false)
+                return false;
+
+#if 0
+            // This is very slow with multi fields!!!!
+            std::ostringstream as;
+            OutStream outAS(as);
+            fhandlea.pushValueToStream(outAS);
+
+            std::ostringstream bs;
+            OutStream outBS(bs);
+            fhandleb.pushValueToStream(outBS);
+            if(as != bs)
+                return false;
+#endif
+        }
+        else
+        {
+            if(sfPtrHandleA != NULL && sfPtrHandleA->isValid() == true)
+            {
+                SFFieldContainerPtr::GetHandlePtr sfPtrHandleB =
+                    boost::dynamic_pointer_cast<
+                        SFFieldContainerPtr::GetHandle>(fhandleb);
+
+                if(isEqual((*sfPtrHandleA)->getValue(),
+                           (*sfPtrHandleB)->getValue()) == false)
+                {
+                    return false;
+                }
+            }
+            else if(mfPtrHandleA != NULL && mfPtrHandleA->isValid() == true)
+            {
+                MFFieldContainerPtr::GetHandlePtr mfPtrHandleB =
+                    boost::dynamic_pointer_cast<
+                        MFFieldContainerPtr::GetHandle>(fhandleb);
+
+                if((*mfPtrHandleA)->size() !=
+                   (*mfPtrHandleB)->size())
+                {
+                    return false;
+                }
+
+                for(UInt32 j = 0; j < (*mfPtrHandleA)->size(); ++j)
+                {
+                    if(isEqual((*(*mfPtrHandleA))[j],
+                               (*(*mfPtrHandleB))[j]) == false)
+                    {
+                        return false;
+                    }
+                }
+
+           }
+#if 0
+            if(fhandlea.getCardinality() == FieldType::SINGLE_FIELD)
+            {
+                if(!isEqual(((SFFieldContainerPtr *) fhandlea.getField())->getValue(),
+                            ((SFFieldContainerPtr *) fhandleb.getField())->getValue()))
+                    return false;
+            }
+            else if(fhandlea.getCardinality() == FieldType::MULTI_FIELD)
+            {
+                if(((MFFieldContainerPtr*)fhandlea.getField())->size() !=
+                   ((MFFieldContainerPtr*)fhandleb.getField())->size())
+                    return false;
+    
+                for(UInt32 j=0;j < ((MFFieldContainerPtr*)fhandlea.getField())->size();++j)
+                {
+                    if(!isEqual((*(((MFFieldContainerPtr *)fhandlea.getField())))[j],
+                                (*(((MFFieldContainerPtr *)fhandleb.getField())))[j]))
+                        return false;
+                }
+            }
+#endif
+        }
+    }
+#endif
+
     return true;
 }
 

@@ -65,6 +65,8 @@
 #include "OSGForegroundBase.h"
 #include "OSGForeground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -100,12 +102,6 @@ void ForegroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ForegroundBase::*GetSFActiveF)(void) const;
-
-    GetSFActiveF GetSFActive = &ForegroundBase::getSFActive;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "active",
@@ -113,12 +109,8 @@ void ForegroundBase::classDescInserter(TypeObject &oType)
         ActiveFieldId, ActiveFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ForegroundBase::editSFActive),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFActive));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ForegroundBase::getSFActive));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ForegroundBase::editHandleActive),
+        reinterpret_cast<FieldGetMethodSig >(&ForegroundBase::getHandleActive));
 
     oType.addInitialDesc(pDesc);
 }
@@ -283,6 +275,29 @@ ForegroundBase::ForegroundBase(const ForegroundBase &source) :
 
 ForegroundBase::~ForegroundBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr ForegroundBase::getHandleActive          (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfActive, 
+             this->getType().getFieldDesc(ActiveFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ForegroundBase::editHandleActive         (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfActive, 
+             this->getType().getFieldDesc(ActiveFieldId)));
+
+    editSField(ActiveFieldMask);
+
+    return returnValue;
 }
 
 

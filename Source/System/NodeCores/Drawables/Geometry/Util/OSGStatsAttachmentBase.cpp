@@ -65,6 +65,8 @@
 #include "OSGStatsAttachmentBase.h"
 #include "OSGStatsAttachment.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -172,6 +174,7 @@ StatsAttachmentBase::StatsAttachmentBase(const StatsAttachmentBase &source) :
 StatsAttachmentBase::~StatsAttachmentBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

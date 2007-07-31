@@ -66,6 +66,8 @@
 #include "OSGSortLastWindowBase.h"
 #include "OSGSortLastWindow.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -105,16 +107,10 @@ void SortLastWindowBase::classDescInserter(TypeObject &oType)
         GroupNodesFieldId, GroupNodesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SortLastWindowBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SortLastWindowBase::getMFGroupNodes));
+        reinterpret_cast<FieldEditMethodSig>(&SortLastWindowBase::editHandleGroupNodes),
+        reinterpret_cast<FieldGetMethodSig >(&SortLastWindowBase::getHandleGroupNodes));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFUInt32 *(SortLastWindowBase::*GetMFGroupLengthsF)(void) const;
-
-    GetMFGroupLengthsF GetMFGroupLengths = &SortLastWindowBase::getMFGroupLengths;
-#endif
 
     pDesc = new MFUInt32::Description(
         MFUInt32::getClassType(),
@@ -123,20 +119,10 @@ void SortLastWindowBase::classDescInserter(TypeObject &oType)
         GroupLengthsFieldId, GroupLengthsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortLastWindowBase::editMFGroupLengths),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFGroupLengths));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SortLastWindowBase::getMFGroupLengths));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SortLastWindowBase::editHandleGroupLengths),
+        reinterpret_cast<FieldGetMethodSig >(&SortLastWindowBase::getHandleGroupLengths));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(SortLastWindowBase::*GetSFGroupsChangedF)(void) const;
-
-    GetSFGroupsChangedF GetSFGroupsChanged = &SortLastWindowBase::getSFGroupsChanged;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -145,12 +131,8 @@ void SortLastWindowBase::classDescInserter(TypeObject &oType)
         GroupsChangedFieldId, GroupsChangedFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortLastWindowBase::editSFGroupsChanged),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGroupsChanged));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SortLastWindowBase::getSFGroupsChanged));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SortLastWindowBase::editHandleGroupsChanged),
+        reinterpret_cast<FieldGetMethodSig >(&SortLastWindowBase::getHandleGroupsChanged));
 
     oType.addInitialDesc(pDesc);
 }
@@ -273,93 +255,6 @@ SFBool              *SortLastWindowBase::getSFGroupsChanged  (void)
 #endif
 
 
-void SortLastWindowBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == GroupNodesFieldId)
-    {
-        static_cast<SortLastWindow *>(this)->pushToGroupNodes(
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-}
-
-void SortLastWindowBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == GroupNodesFieldId)
-    {
-        static_cast<SortLastWindow *>(this)->insertIntoGroupNodes(
-            uiIndex,
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-}
-
-void SortLastWindowBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == GroupNodesFieldId)
-    {
-        static_cast<SortLastWindow *>(this)->replaceInGroupNodes(
-            uiIndex,
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-}
-
-void SortLastWindowBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == GroupNodesFieldId)
-    {
-        static_cast<SortLastWindow *>(this)->replaceInGroupNodes(
-            dynamic_cast<NodePtr>(pOldElement),
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-}
-
-void SortLastWindowBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == GroupNodesFieldId)
-    {
-        static_cast<SortLastWindow *>(this)->removeFromGroupNodes(
-            uiIndex);
-    }
-}
-
-void SortLastWindowBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == GroupNodesFieldId)
-    {
-        static_cast<SortLastWindow *>(this)->removeFromGroupNodes(
-            dynamic_cast<NodePtr>(pElement));
-    }
-}
-
-void SortLastWindowBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == GroupNodesFieldId)
-    {
-        static_cast<SortLastWindow *>(this)->clearGroupNodes();
-    }
-}
 
 void SortLastWindowBase::pushToGroupNodes(NodePtrConstArg value)
 {
@@ -722,6 +617,75 @@ void SortLastWindowBase::onCreate(const SortLastWindow *source)
         }
     }
 }
+
+MFNodePtr::GetHandlePtr SortLastWindowBase::getHandleGroupNodes      (void)
+{
+    MFNodePtr::GetHandlePtr returnValue(
+        new  MFNodePtr::GetHandle(
+             &_mfGroupNodes, 
+             this->getType().getFieldDesc(GroupNodesFieldId)));
+
+    return returnValue;
+}
+
+MFNodePtr::EditHandlePtr SortLastWindowBase::editHandleGroupNodes     (void)
+{
+    MFNodePtr::EditHandlePtr returnValue(
+        new  MFNodePtr::EditHandle(
+             &_mfGroupNodes, 
+             this->getType().getFieldDesc(GroupNodesFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&SortLastWindow::pushToGroupNodes, this, _1));
+
+    editMField(GroupNodesFieldMask, _mfGroupNodes);
+
+    return returnValue;
+}
+
+MFUInt32::GetHandlePtr SortLastWindowBase::getHandleGroupLengths    (void)
+{
+    MFUInt32::GetHandlePtr returnValue(
+        new  MFUInt32::GetHandle(
+             &_mfGroupLengths, 
+             this->getType().getFieldDesc(GroupLengthsFieldId)));
+
+    return returnValue;
+}
+
+MFUInt32::EditHandlePtr SortLastWindowBase::editHandleGroupLengths   (void)
+{
+    MFUInt32::EditHandlePtr returnValue(
+        new  MFUInt32::EditHandle(
+             &_mfGroupLengths, 
+             this->getType().getFieldDesc(GroupLengthsFieldId)));
+
+    editMField(GroupLengthsFieldMask, _mfGroupLengths);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr SortLastWindowBase::getHandleGroupsChanged   (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfGroupsChanged, 
+             this->getType().getFieldDesc(GroupsChangedFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr SortLastWindowBase::editHandleGroupsChanged  (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfGroupsChanged, 
+             this->getType().getFieldDesc(GroupsChangedFieldId)));
+
+    editSField(GroupsChangedFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void SortLastWindowBase::execSyncV(      FieldContainer    &oFrom,

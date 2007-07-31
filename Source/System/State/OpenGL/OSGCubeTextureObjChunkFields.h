@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(CubeTextureObjChunk);
 
 template <>
 struct FieldTraits<CubeTextureObjChunkPtr> :
-    public FieldTraitsTemplateBase<CubeTextureObjChunkPtr>
+    public FieldTraitsFCPtrBase<CubeTextureObjChunkPtr>
 {
   private:
 

@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(SepiaComposer);
 
 template <>
 struct FieldTraits<SepiaComposerPtr> :
-    public FieldTraitsTemplateBase<SepiaComposerPtr>
+    public FieldTraitsFCPtrBase<SepiaComposerPtr>
 {
   private:
 

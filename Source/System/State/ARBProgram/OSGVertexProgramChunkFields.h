@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(VertexProgramChunk);
 
 template <>
 struct FieldTraits<VertexProgramChunkPtr> :
-    public FieldTraitsTemplateBase<VertexProgramChunkPtr>
+    public FieldTraitsFCPtrBase<VertexProgramChunkPtr>
 {
   private:
 

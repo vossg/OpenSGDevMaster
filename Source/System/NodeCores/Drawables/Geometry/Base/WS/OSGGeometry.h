@@ -128,8 +128,6 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     inline GeoVectorPropertyPtr   getTexCoords7     (void) const;
 
 
-    inline void setTypes          (GeoIntegralPropertyPtrConstArg value);
-    inline void setLengths        (GeoIntegralPropertyPtrConstArg value);
     inline void setPositions      (GeoVectorPropertyPtrConstArg   value);
     inline void setNormals        (GeoVectorPropertyPtrConstArg   value);
     inline void setColors         (GeoVectorPropertyPtrConstArg   value);

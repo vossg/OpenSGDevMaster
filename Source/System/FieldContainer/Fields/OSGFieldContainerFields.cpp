@@ -47,7 +47,7 @@
 #include <OSGReflexiveContainerTypePredicates.h>
 
 OSG_BEGIN_NAMESPACE
-
+#if 0
 template<>
 void
 FieldDescription<FieldTraits<FieldContainerPtr>,
@@ -239,5 +239,6 @@ FieldDescription<FieldTraits<FieldContainerPtr>,
         pDst->pushToField(fc, fieldId);
     }
 }
+#endif
 
 OSG_END_NAMESPACE

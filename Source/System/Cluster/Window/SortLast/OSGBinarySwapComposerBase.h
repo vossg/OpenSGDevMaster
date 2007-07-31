@@ -253,6 +253,18 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFBool::GetHandlePtr  getHandleShort           (void);
+    SFBool::EditHandlePtr editHandleShort          (void);
+    SFBool::GetHandlePtr  getHandleAlpha           (void);
+    SFBool::EditHandlePtr editHandleAlpha          (void);
+    SFUInt32::GetHandlePtr  getHandleTileSize        (void);
+    SFUInt32::EditHandlePtr editHandleTileSize       (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

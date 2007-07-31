@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(WIN32Window);
 
 template <>
 struct FieldTraits<WIN32WindowPtr> :
-    public FieldTraitsTemplateBase<WIN32WindowPtr>
+    public FieldTraitsFCPtrBase<WIN32WindowPtr>
 {
   private:
 

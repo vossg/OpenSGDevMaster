@@ -75,6 +75,12 @@ class SimpleAttachment : public FieldContainerAttachment
 
     typedef          SimpleAttachment<AttachmentDescT> Self;
 
+    typedef typename StoredFieldType::GetHandle        GetHandle;
+    typedef typename StoredFieldType::GetHandlePtr     GetHandlePtr;
+    
+    typedef typename StoredFieldType::EditHandle       EditHandle;
+    typedef typename StoredFieldType::EditHandlePtr    EditHandlePtr;
+    
     OSG_GEN_INTERNALPTR(Self);
 
     enum 
@@ -136,7 +142,7 @@ class SimpleAttachment : public FieldContainerAttachment
         {
         }
 #endif
-
+    
    
 
     /*---------------------------------------------------------------------*/
@@ -180,7 +186,7 @@ class SimpleAttachment : public FieldContainerAttachment
     /*==========================  PRIVATE  ================================*/
 
   protected:
-
+    
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
@@ -220,7 +226,7 @@ class SimpleAttachment : public FieldContainerAttachment
 #ifdef OSG_MT_CPTR_ASPECT
     virtual ObjPtr createAspectCopy(void) const;
 #endif
-
+    
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -240,12 +246,15 @@ class SimpleAttachment : public FieldContainerAttachment
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 #endif
-
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
+    GetHandlePtr  getHandleField (void) const;
+    EditHandlePtr editHandleField(void);
+    
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 

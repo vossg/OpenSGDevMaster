@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(MaterialChunk);
 
 template <>
 struct FieldTraits<MaterialChunkPtr> :
-    public FieldTraitsTemplateBase<MaterialChunkPtr>
+    public FieldTraitsFCPtrBase<MaterialChunkPtr>
 {
   private:
 

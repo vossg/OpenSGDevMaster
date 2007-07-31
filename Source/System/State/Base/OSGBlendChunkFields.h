@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(BlendChunk);
 
 template <>
 struct FieldTraits<BlendChunkPtr> :
-    public FieldTraitsTemplateBase<BlendChunkPtr>
+    public FieldTraitsFCPtrBase<BlendChunkPtr>
 {
   private:
 

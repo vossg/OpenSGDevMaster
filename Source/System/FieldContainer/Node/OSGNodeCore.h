@@ -123,6 +123,7 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
+#if 0
     virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
                                   const UInt32                    uiFieldId  );
 
@@ -145,6 +146,7 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -287,6 +289,8 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
+
+    MFParentFieldContainerPtr::GetHandlePtr getHandleParents(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

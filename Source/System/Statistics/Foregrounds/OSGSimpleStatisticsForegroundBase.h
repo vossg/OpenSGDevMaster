@@ -430,6 +430,36 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFString::GetHandlePtr  getHandleFormats         (void);
+    MFString::EditHandlePtr editHandleFormats        (void);
+    SFReal32::GetHandlePtr  getHandleSize            (void);
+    SFReal32::EditHandlePtr editHandleSize           (void);
+    SFColor4f::GetHandlePtr  getHandleColor           (void);
+    SFColor4f::EditHandlePtr editHandleColor          (void);
+    SFColor4f::GetHandlePtr  getHandleShadowColor     (void);
+    SFColor4f::EditHandlePtr editHandleShadowColor    (void);
+    SFColor4f::GetHandlePtr  getHandleBgColor         (void);
+    SFColor4f::EditHandlePtr editHandleBgColor        (void);
+    SFString::GetHandlePtr  getHandleFamily          (void);
+    SFString::EditHandlePtr editHandleFamily         (void);
+    SFVec2f::GetHandlePtr  getHandleShadowOffset    (void);
+    SFVec2f::EditHandlePtr editHandleShadowOffset   (void);
+    SFUInt8::GetHandlePtr  getHandleHorizontalAlign (void);
+    SFUInt8::EditHandlePtr editHandleHorizontalAlign(void);
+    SFUInt8::GetHandlePtr  getHandleVerticalAlign   (void);
+    SFUInt8::EditHandlePtr editHandleVerticalAlign  (void);
+    SFColor4f::GetHandlePtr  getHandleBorderColor     (void);
+    SFColor4f::EditHandlePtr editHandleBorderColor    (void);
+    SFVec2f::GetHandlePtr  getHandleBorderOffset    (void);
+    SFVec2f::EditHandlePtr editHandleBorderOffset   (void);
+    SFVec2f::GetHandlePtr  getHandleTextMargin      (void);
+    SFVec2f::EditHandlePtr editHandleTextMargin     (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

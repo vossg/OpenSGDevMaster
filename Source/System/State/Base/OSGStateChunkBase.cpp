@@ -65,6 +65,8 @@
 #include "OSGStateChunkBase.h"
 #include "OSGStateChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -91,12 +93,6 @@ void StateChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(StateChunkBase::*GetSFIgnoreF)(void) const;
-
-    GetSFIgnoreF GetSFIgnore = &StateChunkBase::getSFIgnore;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "ignore",
@@ -104,12 +100,8 @@ void StateChunkBase::classDescInserter(TypeObject &oType)
         IgnoreFieldId, IgnoreFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StateChunkBase::editSFIgnore),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFIgnore));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StateChunkBase::getSFIgnore));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StateChunkBase::editHandleIgnore),
+        reinterpret_cast<FieldGetMethodSig >(&StateChunkBase::getHandleIgnore));
 
     oType.addInitialDesc(pDesc);
 }
@@ -258,6 +250,29 @@ StateChunkBase::StateChunkBase(const StateChunkBase &source) :
 
 StateChunkBase::~StateChunkBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr StateChunkBase::getHandleIgnore          (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfIgnore, 
+             this->getType().getFieldDesc(IgnoreFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr StateChunkBase::editHandleIgnore         (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfIgnore, 
+             this->getType().getFieldDesc(IgnoreFieldId)));
+
+    editSField(IgnoreFieldMask);
+
+    return returnValue;
 }
 
 

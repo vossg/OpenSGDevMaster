@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ShaderParameterMReal);
 
 template <>
 struct FieldTraits<ShaderParameterMRealPtr> :
-    public FieldTraitsTemplateBase<ShaderParameterMRealPtr>
+    public FieldTraitsFCPtrBase<ShaderParameterMRealPtr>
 {
   private:
 

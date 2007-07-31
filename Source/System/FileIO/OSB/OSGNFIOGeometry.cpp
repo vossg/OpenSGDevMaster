@@ -135,7 +135,7 @@ FieldContainerPtr NFIOGeometry::readFC(const std::string &/*typeName*/)
    
         std::vector<UInt16> index_mapping;
 
-        const Field *prop_field = geo->getField("properties");
+        GetFieldHandlePtr prop_field = geo->getField("properties");
         FieldDescriptionBase *fDesc = geo->getFieldDescription("properties");
         UInt32 prop_fieldId = fDesc->getFieldId();
 
@@ -169,7 +169,7 @@ FieldContainerPtr NFIOGeometry::readFC(const std::string &/*typeName*/)
                 {
                     //printf("NFIOGeometry::readFC : reading %s size: %u  type: '%s' id: %u\n", fieldName.c_str(), size, fieldType.c_str(), id);
                 
-                    const Field *field = geo->getField(fieldName.c_str());
+                    GetFieldHandlePtr field = geo->getField(fieldName.c_str());
                     FieldDescriptionBase *fDesc = geo->getFieldDescription(fieldName.c_str());
                     UInt32 fieldId = fDesc->getFieldId();
                 
@@ -195,7 +195,7 @@ FieldContainerPtr NFIOGeometry::readFC(const std::string &/*typeName*/)
                 {
                     //printf("NFIOGeometry::readFC : reading %s size: %u  type: '%s' id: %u\n", fieldName.c_str(), size, fieldType.c_str(), id);
                     
-                    const Field *field = geo->getField("propIndices");
+                    GetFieldHandlePtr field = geo->getField("propIndices");
                     FieldDescriptionBase *fDesc = geo->getFieldDescription("propIndices");
                     UInt32 fieldId = fDesc->getFieldId();
                     
@@ -298,7 +298,7 @@ FieldContainerPtr NFIOGeometry::readFC(const std::string &/*typeName*/)
             else
             {
                 // ok handle the compatible fields.
-                const Field *field = geo->getField(fieldName.c_str());
+                GetFieldHandlePtr field = geo->getField(fieldName.c_str());
                 FieldDescriptionBase *fDesc = geo->getFieldDescription(fieldName.c_str());
         
                 BitVector mask;
@@ -316,14 +316,27 @@ FieldContainerPtr NFIOGeometry::readFC(const std::string &/*typeName*/)
                     _in->skip(size);
                     continue;
                 }
+
+                SFFieldContainerPtr::GetHandlePtr sfPtrHandle =
+                    boost::dynamic_pointer_cast<
+                        SFFieldContainerPtr::GetHandle>(field);
+
+                MFFieldContainerPtr::GetHandlePtr mfPtrHandle =
+                    boost::dynamic_pointer_cast<
+                        MFFieldContainerPtr::GetHandle>(field);
+
         
-                if(strstr(fieldType.c_str(), "Ptr") != NULL)
+//                if(strstr(fieldType.c_str(), "Ptr") != NULL)
+                if(sfPtrHandle != NULL || mfPtrHandle != NULL)
                 {
-                    if(fieldType[0] == 'S' && fieldType[1] == 'F') // single field
+//                    if(fieldType[0] == 'S' && fieldType[1] == 'F') 
+                    if(sfPtrHandle != NULL && sfPtrHandle->isValid() == true)
                     {
                         readSFFieldContainerPtr(geo, fieldId, field);
                     }
-                    else if(fieldType[0] == 'M' && fieldType[1] == 'F') // multi field
+//                    else if(fieldType[0] == 'M' && fieldType[1] == 'F') 
+                    else if(mfPtrHandle            != NULL && 
+                            mfPtrHandle->isValid() == true)
                     {
                         readMFFieldContainerPtr(geo, fieldId, field);
                     }

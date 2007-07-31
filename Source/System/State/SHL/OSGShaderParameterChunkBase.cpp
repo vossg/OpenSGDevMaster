@@ -66,6 +66,8 @@
 #include "OSGShaderParameterChunkBase.h"
 #include "OSGShaderParameterChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -97,8 +99,8 @@ void ShaderParameterChunkBase::classDescInserter(TypeObject &oType)
         ParametersFieldId, ParametersFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ShaderParameterChunkBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterChunkBase::getMFParameters));
+        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterChunkBase::editHandleParameters),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterChunkBase::getHandleParameters));
 
     oType.addInitialDesc(pDesc);
 }
@@ -176,93 +178,6 @@ const MFShaderParameterPtr *ShaderParameterChunkBase::getMFParameters(void) cons
 }
 
 
-void ShaderParameterChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == ParametersFieldId)
-    {
-        static_cast<ShaderParameterChunk *>(this)->addParameter(
-            dynamic_cast<ShaderParameterPtr>(pNewElement));
-    }
-}
-
-void ShaderParameterChunkBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ParametersFieldId)
-    {
-        static_cast<ShaderParameterChunk *>(this)->insertParameter(
-            uiIndex,
-            dynamic_cast<ShaderParameterPtr>(pNewElement));
-    }
-}
-
-void ShaderParameterChunkBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ParametersFieldId)
-    {
-        static_cast<ShaderParameterChunk *>(this)->replaceParameter(
-            uiIndex,
-            dynamic_cast<ShaderParameterPtr>(pNewElement));
-    }
-}
-
-void ShaderParameterChunkBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == ParametersFieldId)
-    {
-        static_cast<ShaderParameterChunk *>(this)->replaceParameterBy(
-            dynamic_cast<ShaderParameterPtr>(pOldElement),
-            dynamic_cast<ShaderParameterPtr>(pNewElement));
-    }
-}
-
-void ShaderParameterChunkBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == ParametersFieldId)
-    {
-        static_cast<ShaderParameterChunk *>(this)->subParameter(
-            uiIndex);
-    }
-}
-
-void ShaderParameterChunkBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == ParametersFieldId)
-    {
-        static_cast<ShaderParameterChunk *>(this)->subParameter(
-            dynamic_cast<ShaderParameterPtr>(pElement));
-    }
-}
-
-void ShaderParameterChunkBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == ParametersFieldId)
-    {
-        static_cast<ShaderParameterChunk *>(this)->clearParameters();
-    }
-}
 
 void ShaderParameterChunkBase::addParameter(ShaderParameterPtrConstArg value)
 {
@@ -519,6 +434,31 @@ void ShaderParameterChunkBase::onCreate(const ShaderParameterChunk *source)
         }
     }
 }
+
+MFShaderParameterPtr::GetHandlePtr ShaderParameterChunkBase::getHandleParameters      (void)
+{
+    MFShaderParameterPtr::GetHandlePtr returnValue(
+        new  MFShaderParameterPtr::GetHandle(
+             &_mfParameters, 
+             this->getType().getFieldDesc(ParametersFieldId)));
+
+    return returnValue;
+}
+
+MFShaderParameterPtr::EditHandlePtr ShaderParameterChunkBase::editHandleParameters     (void)
+{
+    MFShaderParameterPtr::EditHandlePtr returnValue(
+        new  MFShaderParameterPtr::EditHandle(
+             &_mfParameters, 
+             this->getType().getFieldDesc(ParametersFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&ShaderParameterChunk::addParameter, this, _1));
+
+    editMField(ParametersFieldMask, _mfParameters);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ShaderParameterChunkBase::execSyncV(      FieldContainer    &oFrom,

@@ -153,6 +153,12 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralPropertyBase : public GeoProperty
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

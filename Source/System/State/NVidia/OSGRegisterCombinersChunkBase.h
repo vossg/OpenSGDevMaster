@@ -1162,6 +1162,74 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFColor4f::GetHandlePtr  getHandleColor0          (void);
+    SFColor4f::EditHandlePtr editHandleColor0         (void);
+    SFColor4f::GetHandlePtr  getHandleColor1          (void);
+    SFColor4f::EditHandlePtr editHandleColor1         (void);
+    SFBool::GetHandlePtr  getHandleColorSumClamp   (void);
+    SFBool::EditHandlePtr editHandleColorSumClamp  (void);
+    MFGLenum::GetHandlePtr  getHandleVariableArgb    (void);
+    MFGLenum::EditHandlePtr editHandleVariableArgb   (void);
+    MFGLenum::GetHandlePtr  getHandleVariableBrgb    (void);
+    MFGLenum::EditHandlePtr editHandleVariableBrgb   (void);
+    MFGLenum::GetHandlePtr  getHandleVariableCrgb    (void);
+    MFGLenum::EditHandlePtr editHandleVariableCrgb   (void);
+    MFGLenum::GetHandlePtr  getHandleVariableDrgb    (void);
+    MFGLenum::EditHandlePtr editHandleVariableDrgb   (void);
+    MFGLenum::GetHandlePtr  getHandleVariableAalpha  (void);
+    MFGLenum::EditHandlePtr editHandleVariableAalpha (void);
+    MFGLenum::GetHandlePtr  getHandleVariableBalpha  (void);
+    MFGLenum::EditHandlePtr editHandleVariableBalpha (void);
+    MFGLenum::GetHandlePtr  getHandleVariableCalpha  (void);
+    MFGLenum::EditHandlePtr editHandleVariableCalpha (void);
+    MFGLenum::GetHandlePtr  getHandleVariableDalpha  (void);
+    MFGLenum::EditHandlePtr editHandleVariableDalpha (void);
+    MFGLenum::GetHandlePtr  getHandleOutputABrgb     (void);
+    MFGLenum::EditHandlePtr editHandleOutputABrgb    (void);
+    MFGLenum::GetHandlePtr  getHandleOutputCDrgb     (void);
+    MFGLenum::EditHandlePtr editHandleOutputCDrgb    (void);
+    MFGLenum::GetHandlePtr  getHandleOutputSumrgb    (void);
+    MFGLenum::EditHandlePtr editHandleOutputSumrgb   (void);
+    MFGLenum::GetHandlePtr  getHandleScalergb        (void);
+    MFGLenum::EditHandlePtr editHandleScalergb       (void);
+    MFGLenum::GetHandlePtr  getHandleBiasrgb         (void);
+    MFGLenum::EditHandlePtr editHandleBiasrgb        (void);
+    MFGLenum::GetHandlePtr  getHandleOutputABalpha   (void);
+    MFGLenum::EditHandlePtr editHandleOutputABalpha  (void);
+    MFGLenum::GetHandlePtr  getHandleOutputCDalpha   (void);
+    MFGLenum::EditHandlePtr editHandleOutputCDalpha  (void);
+    MFGLenum::GetHandlePtr  getHandleOutputSumalpha  (void);
+    MFGLenum::EditHandlePtr editHandleOutputSumalpha (void);
+    MFUInt8::GetHandlePtr  getHandleDotABrgb        (void);
+    MFUInt8::EditHandlePtr editHandleDotABrgb       (void);
+    MFUInt8::GetHandlePtr  getHandleDotCDrgb        (void);
+    MFUInt8::EditHandlePtr editHandleDotCDrgb       (void);
+    MFUInt8::GetHandlePtr  getHandleMuxSumrgb       (void);
+    MFUInt8::EditHandlePtr editHandleMuxSumrgb      (void);
+    MFGLenum::GetHandlePtr  getHandleScalealpha      (void);
+    MFGLenum::EditHandlePtr editHandleScalealpha     (void);
+    MFGLenum::GetHandlePtr  getHandleBiasalpha       (void);
+    MFGLenum::EditHandlePtr editHandleBiasalpha      (void);
+    MFUInt8::GetHandlePtr  getHandleMuxSumalpha     (void);
+    MFUInt8::EditHandlePtr editHandleMuxSumalpha    (void);
+    MFGLenum::GetHandlePtr  getHandleVariableE       (void);
+    MFGLenum::EditHandlePtr editHandleVariableE      (void);
+    MFGLenum::GetHandlePtr  getHandleVariableF       (void);
+    MFGLenum::EditHandlePtr editHandleVariableF      (void);
+    MFGLenum::GetHandlePtr  getHandleVariableG       (void);
+    MFGLenum::EditHandlePtr editHandleVariableG      (void);
+    MFColor4f::GetHandlePtr  getHandleCombinerColor0  (void);
+    MFColor4f::EditHandlePtr editHandleCombinerColor0 (void);
+    MFColor4f::GetHandlePtr  getHandleCombinerColor1  (void);
+    MFColor4f::EditHandlePtr editHandleCombinerColor1 (void);
+    SFUInt8::GetHandlePtr  getHandlePerStageConstants (void);
+    SFUInt8::EditHandlePtr editHandlePerStageConstants(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

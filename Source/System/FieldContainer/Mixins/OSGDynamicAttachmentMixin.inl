@@ -114,44 +114,78 @@ void DynFieldAttachment<AttachmentDescT>::subField(UInt32 fieldId)
 }
 
 template <class AttachmentDescT> inline
-const Field *DynFieldAttachment<AttachmentDescT>::getDynamicField(
+GetFieldHandlePtr DynFieldAttachment<AttachmentDescT>::getDynamicField(
     UInt32 index) const
 {
-    return _dynFieldsV[index - Inherited::NextFieldId];
+          FieldDescriptionBase *pDesc  = _localType.getFieldDesc(index);
+    const Field                *pField = NULL;
+
+    GetFieldHandlePtr returnValue;
+
+    if(pDesc != NULL)
+    {
+        pField = _dynFieldsV[index - Inherited::NextFieldId];
+
+        returnValue = pDesc->createGetHandler(pField);
+    }
+
+    return returnValue;
 }
 
 template <class AttachmentDescT> inline
-Field *DynFieldAttachment<AttachmentDescT>::editDynamicField(
-    UInt32 index) 
+EditFieldHandlePtr DynFieldAttachment<AttachmentDescT>::editDynamicField(
+    UInt32 index)
 {
-    return _dynFieldsV[index - Inherited::NextFieldId];
+    FieldDescriptionBase *pDesc  = _localType.getFieldDesc(index);
+    Field                *pField = NULL;
+
+    EditFieldHandlePtr returnValue;
+
+    if(pDesc != NULL)
+    {
+        pField = _dynFieldsV[index - Inherited::NextFieldId];
+
+        returnValue = pDesc->createEditHandler(pField);
+    }
+
+    return returnValue;
 }
 
 template <class AttachmentDescT> inline
-const Field *DynFieldAttachment<AttachmentDescT>::getDynamicFieldByName(
-    const Char8  *szName) const
+GetFieldHandlePtr DynFieldAttachment<AttachmentDescT>::getDynamicFieldByName(
+    const Char8 *szName) const
 {
-    
+          GetFieldHandlePtr     returnValue;
     const FieldDescriptionBase *descP = NULL;
 
     descP = _localType.getFieldDesc(szName);
 
     if(descP != NULL)
     {
-        return descP->getField(*this);
+        returnValue = descP->getField(*this);
     }
-    else
-    {
-        return NULL;
-    }
+
+    return returnValue;
 }
 
+
 template <class AttachmentDescT> inline
-Field *DynFieldAttachment<AttachmentDescT>::editDynamicFieldByName(
-    const Char8  *szName) 
+EditFieldHandlePtr DynFieldAttachment<AttachmentDescT>::editDynamicFieldByName(
+    const Char8 *szName)
 {
-    return NULL;
+          EditFieldHandlePtr    returnValue;
+    const FieldDescriptionBase *descP = NULL;
+
+    descP = _localType.getFieldDesc(szName);
+
+    if(descP != NULL)
+    {
+        returnValue = descP->editField(*this);
+    }
+
+    return returnValue;
 }
+
 
 template <class AttachmentDescT> inline
 FieldContainerPtr DynFieldAttachment<AttachmentDescT>::emptyCopy(void)
@@ -184,11 +218,12 @@ FieldContainerPtr DynFieldAttachment<AttachmentDescT>::clone(void)
                i <= _localType.getNumFieldDescs();
              ++i)
     {
-        FieldDescriptionBase *pDesc =
-            returnValue->getFieldDescription(i);
+        EditFieldHandlePtr fTarget = returnValue->editDynamicField(i);
 
-        pDesc->copyValues(_dynFieldsV[i - Inherited::NextFieldId],
-                           returnValue->editDynamicField(i));
+        if(fTarget != NULL && fTarget->isValid() == true)
+        {
+            fTarget->copyValues(this->getDynamicField(i));
+        }
     }
 
     return returnValue;

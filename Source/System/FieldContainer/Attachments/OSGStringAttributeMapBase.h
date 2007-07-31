@@ -191,6 +191,16 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFString::GetHandlePtr  getHandleKeys            (void);
+    MFString::EditHandlePtr editHandleKeys           (void);
+    MFString::GetHandlePtr  getHandleValues          (void);
+    MFString::EditHandlePtr editHandleValues         (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 

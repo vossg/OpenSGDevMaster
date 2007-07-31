@@ -69,6 +69,8 @@
 #include "OSGBlendChunkBase.h"
 #include "OSGBlendChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -137,12 +139,6 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(BlendChunkBase::*GetSFSrcFactorF)(void) const;
-
-    GetSFSrcFactorF GetSFSrcFactor = &BlendChunkBase::getSFSrcFactor;
-#endif
-
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "srcFactor",
@@ -150,20 +146,10 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         SrcFactorFieldId, SrcFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFSrcFactor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFSrcFactor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFSrcFactor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleSrcFactor),
+        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleSrcFactor));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(BlendChunkBase::*GetSFDestFactorF)(void) const;
-
-    GetSFDestFactorF GetSFDestFactor = &BlendChunkBase::getSFDestFactor;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -172,20 +158,10 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         DestFactorFieldId, DestFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFDestFactor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFDestFactor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFDestFactor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleDestFactor),
+        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleDestFactor));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(BlendChunkBase::*GetSFEquationF)(void) const;
-
-    GetSFEquationF GetSFEquation = &BlendChunkBase::getSFEquation;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -194,20 +170,10 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         EquationFieldId, EquationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFEquation),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFEquation));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFEquation));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleEquation),
+        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleEquation));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFColor4f *(BlendChunkBase::*GetSFColorF)(void) const;
-
-    GetSFColorF GetSFColor = &BlendChunkBase::getSFColor;
-#endif
 
     pDesc = new SFColor4f::Description(
         SFColor4f::getClassType(),
@@ -216,20 +182,10 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFColor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFColor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFColor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleColor),
+        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleColor));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(BlendChunkBase::*GetSFAlphaFuncF)(void) const;
-
-    GetSFAlphaFuncF GetSFAlphaFunc = &BlendChunkBase::getSFAlphaFunc;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -239,20 +195,10 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaFuncFieldId, AlphaFuncFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFAlphaFunc),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAlphaFunc));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFAlphaFunc));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaFunc),
+        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaFunc));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(BlendChunkBase::*GetSFAlphaValueF)(void) const;
-
-    GetSFAlphaValueF GetSFAlphaValue = &BlendChunkBase::getSFAlphaValue;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -261,20 +207,10 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaValueFieldId, AlphaValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFAlphaValue),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAlphaValue));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFAlphaValue));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaValue),
+        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaValue));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(BlendChunkBase::*GetSFAlphaSrcFactorF)(void) const;
-
-    GetSFAlphaSrcFactorF GetSFAlphaSrcFactor = &BlendChunkBase::getSFAlphaSrcFactor;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -285,20 +221,10 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaSrcFactorFieldId, AlphaSrcFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFAlphaSrcFactor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAlphaSrcFactor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFAlphaSrcFactor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaSrcFactor),
+        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaSrcFactor));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(BlendChunkBase::*GetSFAlphaDestFactorF)(void) const;
-
-    GetSFAlphaDestFactorF GetSFAlphaDestFactor = &BlendChunkBase::getSFAlphaDestFactor;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -309,12 +235,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaDestFactorFieldId, AlphaDestFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editSFAlphaDestFactor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAlphaDestFactor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getSFAlphaDestFactor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaDestFactor),
+        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaDestFactor));
 
     oType.addInitialDesc(pDesc);
 }
@@ -821,6 +743,183 @@ BlendChunkBase::BlendChunkBase(const BlendChunkBase &source) :
 
 BlendChunkBase::~BlendChunkBase(void)
 {
+}
+
+
+SFGLenum::GetHandlePtr BlendChunkBase::getHandleSrcFactor       (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfSrcFactor, 
+             this->getType().getFieldDesc(SrcFactorFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr BlendChunkBase::editHandleSrcFactor      (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfSrcFactor, 
+             this->getType().getFieldDesc(SrcFactorFieldId)));
+
+    editSField(SrcFactorFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr BlendChunkBase::getHandleDestFactor      (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfDestFactor, 
+             this->getType().getFieldDesc(DestFactorFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr BlendChunkBase::editHandleDestFactor     (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfDestFactor, 
+             this->getType().getFieldDesc(DestFactorFieldId)));
+
+    editSField(DestFactorFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr BlendChunkBase::getHandleEquation        (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfEquation, 
+             this->getType().getFieldDesc(EquationFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr BlendChunkBase::editHandleEquation       (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfEquation, 
+             this->getType().getFieldDesc(EquationFieldId)));
+
+    editSField(EquationFieldMask);
+
+    return returnValue;
+}
+
+SFColor4f::GetHandlePtr BlendChunkBase::getHandleColor           (void)
+{
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
+             &_sfColor, 
+             this->getType().getFieldDesc(ColorFieldId)));
+
+    return returnValue;
+}
+
+SFColor4f::EditHandlePtr BlendChunkBase::editHandleColor          (void)
+{
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
+             &_sfColor, 
+             this->getType().getFieldDesc(ColorFieldId)));
+
+    editSField(ColorFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr BlendChunkBase::getHandleAlphaFunc       (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfAlphaFunc, 
+             this->getType().getFieldDesc(AlphaFuncFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr BlendChunkBase::editHandleAlphaFunc      (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfAlphaFunc, 
+             this->getType().getFieldDesc(AlphaFuncFieldId)));
+
+    editSField(AlphaFuncFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr BlendChunkBase::getHandleAlphaValue      (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfAlphaValue, 
+             this->getType().getFieldDesc(AlphaValueFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr BlendChunkBase::editHandleAlphaValue     (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfAlphaValue, 
+             this->getType().getFieldDesc(AlphaValueFieldId)));
+
+    editSField(AlphaValueFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr BlendChunkBase::getHandleAlphaSrcFactor  (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfAlphaSrcFactor, 
+             this->getType().getFieldDesc(AlphaSrcFactorFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr BlendChunkBase::editHandleAlphaSrcFactor (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfAlphaSrcFactor, 
+             this->getType().getFieldDesc(AlphaSrcFactorFieldId)));
+
+    editSField(AlphaSrcFactorFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr BlendChunkBase::getHandleAlphaDestFactor (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfAlphaDestFactor, 
+             this->getType().getFieldDesc(AlphaDestFactorFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr BlendChunkBase::editHandleAlphaDestFactor(void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfAlphaDestFactor, 
+             this->getType().getFieldDesc(AlphaDestFactorFieldId)));
+
+    editSField(AlphaDestFactorFieldMask);
+
+    return returnValue;
 }
 
 

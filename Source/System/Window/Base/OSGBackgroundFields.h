@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(Background);
 
 template <>
 struct FieldTraits<BackgroundPtr> :
-    public FieldTraitsTemplateBase<BackgroundPtr>
+    public FieldTraitsFCPtrBase<BackgroundPtr>
 {
   private:
 

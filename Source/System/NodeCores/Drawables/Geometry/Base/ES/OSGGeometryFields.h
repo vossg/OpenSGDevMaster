@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(Geometry);
 
 template <>
 struct FieldTraits<GeometryPtr> :
-    public FieldTraitsTemplateBase<GeometryPtr>
+    public FieldTraitsFCPtrBase<GeometryPtr>
 {
   private:
 

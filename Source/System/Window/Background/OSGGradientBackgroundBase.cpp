@@ -65,6 +65,8 @@
 #include "OSGGradientBackgroundBase.h"
 #include "OSGGradientBackground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -100,12 +102,6 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFColor3f *(GradientBackgroundBase::*GetMFColorF)(void) const;
-
-    GetMFColorF GetMFColor = &GradientBackgroundBase::getMFColor;
-#endif
-
     pDesc = new MFColor3f::Description(
         MFColor3f::getClassType(),
         "color",
@@ -113,20 +109,10 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GradientBackgroundBase::editMFColor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFColor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GradientBackgroundBase::getMFColor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GradientBackgroundBase::editHandleColor),
+        reinterpret_cast<FieldGetMethodSig >(&GradientBackgroundBase::getHandleColor));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFReal32 *(GradientBackgroundBase::*GetMFPositionF)(void) const;
-
-    GetMFPositionF GetMFPosition = &GradientBackgroundBase::getMFPosition;
-#endif
 
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(),
@@ -135,12 +121,8 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
         PositionFieldId, PositionFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GradientBackgroundBase::editMFPosition),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFPosition));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GradientBackgroundBase::getMFPosition));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GradientBackgroundBase::editHandlePosition),
+        reinterpret_cast<FieldGetMethodSig >(&GradientBackgroundBase::getHandlePosition));
 
     oType.addInitialDesc(pDesc);
 }
@@ -535,6 +517,51 @@ GradientBackgroundBase::GradientBackgroundBase(const GradientBackgroundBase &sou
 
 GradientBackgroundBase::~GradientBackgroundBase(void)
 {
+}
+
+
+MFColor3f::GetHandlePtr GradientBackgroundBase::getHandleColor           (void)
+{
+    MFColor3f::GetHandlePtr returnValue(
+        new  MFColor3f::GetHandle(
+             &_mfColor, 
+             this->getType().getFieldDesc(ColorFieldId)));
+
+    return returnValue;
+}
+
+MFColor3f::EditHandlePtr GradientBackgroundBase::editHandleColor          (void)
+{
+    MFColor3f::EditHandlePtr returnValue(
+        new  MFColor3f::EditHandle(
+             &_mfColor, 
+             this->getType().getFieldDesc(ColorFieldId)));
+
+    editMField(ColorFieldMask, _mfColor);
+
+    return returnValue;
+}
+
+MFReal32::GetHandlePtr GradientBackgroundBase::getHandlePosition        (void)
+{
+    MFReal32::GetHandlePtr returnValue(
+        new  MFReal32::GetHandle(
+             &_mfPosition, 
+             this->getType().getFieldDesc(PositionFieldId)));
+
+    return returnValue;
+}
+
+MFReal32::EditHandlePtr GradientBackgroundBase::editHandlePosition       (void)
+{
+    MFReal32::EditHandlePtr returnValue(
+        new  MFReal32::EditHandle(
+             &_mfPosition, 
+             this->getType().getFieldDesc(PositionFieldId)));
+
+    editMField(PositionFieldMask, _mfPosition);
+
+    return returnValue;
 }
 
 

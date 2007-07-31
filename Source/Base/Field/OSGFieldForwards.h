@@ -62,6 +62,7 @@ class FieldDescriptionBase;
 class ReflexiveContainer;
 
 
+#if 0
 #ifdef FDESC_USE_BOOST
 typedef boost::function<Field *(ReflexiveContainer *)> FieldEditMethod;
 typedef boost::function<const Field *(const ReflexiveContainer *)> FieldGetMethod;
@@ -81,6 +82,7 @@ typedef const Field *(ReflexiveContainer::*FieldIndexGetMethod )(UInt32) const;
 #endif
 
 typedef Field * (ReflexiveContainer::*FieldIndexAccessMethod)(UInt32);
+#endif
 
 enum FieldCardinality
 {

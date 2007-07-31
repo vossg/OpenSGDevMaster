@@ -120,36 +120,6 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    virtual 
-    void pushToField     (       FieldContainerPtrConstArg pNewElement, 
-                           const UInt32                    uiFieldId );
-
-    virtual 
-    void insertIntoMField(const UInt32                    uiIndex, 
-                                FieldContainerPtrConstArg pNewElement, 
-                          const UInt32                    uiFieldId  );
-
-    virtual 
-    void replaceInMField (const UInt32                    uiIndex,
-                                FieldContainerPtrConstArg pNewElement, 
-                          const UInt32                    uiFieldId  );
-
-    virtual 
-    void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                FieldContainerPtrConstArg pNewElement, 
-                          const UInt32                    uiFieldId  );
-
-    virtual 
-    void removeFromMField(const UInt32                    uiIndex, 
-                          const UInt32                    uiFieldId  );
-    
-    virtual 
-    void removeFromMField(      FieldContainerPtrConstArg pElement, 
-                          const UInt32                    uiFieldId  );
-
-    virtual 
-    void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
@@ -279,6 +249,15 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
+
+    MFUInt32::EditHandlePtr editHandleField1(void);
+    MFUInt32::GetHandlePtr  getHandleField1 (void) const;
+
+    SFUInt32::EditHandlePtr editHandleField2(void);
+    SFUInt32::GetHandlePtr  getHandleField2 (void) const;
+
+    MFUInt32::EditHandlePtr editHandleField3(void);
+    MFUInt32::GetHandlePtr  getHandleField3 (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

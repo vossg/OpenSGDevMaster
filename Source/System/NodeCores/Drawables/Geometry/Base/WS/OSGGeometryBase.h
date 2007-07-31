@@ -191,29 +191,6 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -315,6 +292,26 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \{                                                                 */
 
     void onCreate(const Geometry *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFGeoIntegralPropertyPtr::GetHandlePtr  getHandleTypes           (void);
+    SFGeoIntegralPropertyPtr::EditHandlePtr editHandleTypes          (void);
+    SFGeoIntegralPropertyPtr::GetHandlePtr  getHandleLengths         (void);
+    SFGeoIntegralPropertyPtr::EditHandlePtr editHandleLengths        (void);
+    MFGeoVectorPropertyPtr::GetHandlePtr  getHandleProperties      (void);
+    MFGeoVectorPropertyPtr::EditHandlePtr editHandleProperties     (void);
+    MFGeoIntegralPropertyPtr::GetHandlePtr  getHandlePropIndices     (void);
+    MFGeoIntegralPropertyPtr::EditHandlePtr editHandlePropIndices    (void);
+    SFBool::GetHandlePtr  getHandleDlistCache      (void);
+    SFBool::EditHandlePtr editHandleDlistCache     (void);
+    SFInt32::GetHandlePtr  getHandleClassicGLId     (void);
+    SFInt32::EditHandlePtr editHandleClassicGLId    (void);
+    SFInt32::GetHandlePtr  getHandleAttGLId         (void);
+    SFInt32::EditHandlePtr editHandleAttGLId        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -210,29 +210,6 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -306,6 +283,22 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \{                                                                 */
 
     void onCreate(const SimpleTexturedMaterial *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFImagePtr::GetHandlePtr  getHandleImage           (void);
+    SFImagePtr::EditHandlePtr editHandleImage          (void);
+    SFGLenum::GetHandlePtr  getHandleMinFilter       (void);
+    SFGLenum::EditHandlePtr editHandleMinFilter      (void);
+    SFGLenum::GetHandlePtr  getHandleMagFilter       (void);
+    SFGLenum::EditHandlePtr editHandleMagFilter      (void);
+    SFGLenum::GetHandlePtr  getHandleEnvMode         (void);
+    SFGLenum::EditHandlePtr editHandleEnvMode        (void);
+    SFBool::GetHandlePtr  getHandleEnvMap          (void);
+    SFBool::EditHandlePtr editHandleEnvMap         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

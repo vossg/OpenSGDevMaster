@@ -192,4 +192,30 @@ void SimpleAttachment<AttachmentDescT>::dump(
 {
 }
 
+template <class AttachmentDescT> inline
+typename SimpleAttachment<AttachmentDescT>::GetHandlePtr  
+    SimpleAttachment<AttachmentDescT>::getHandleField(void) const
+{
+    GetHandlePtr returnValue(
+        new  GetHandle(
+             &_field, 
+             this->getType().getFieldDesc(SimpleFieldId)));
+
+    return returnValue;
+}
+
+template <class AttachmentDescT> inline
+typename SimpleAttachment<AttachmentDescT>::EditHandlePtr 
+    SimpleAttachment<AttachmentDescT>::editHandleField(void)
+{
+    EditHandlePtr returnValue(
+        new  EditHandle(
+             &_field, 
+             this->getType().getFieldDesc(SimpleFieldId)));
+
+//    editSField(TravMaskFieldMask);
+
+    return returnValue;
+}
+
 OSG_END_NAMESPACE

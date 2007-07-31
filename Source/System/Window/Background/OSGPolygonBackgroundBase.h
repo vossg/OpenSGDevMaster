@@ -299,29 +299,6 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -426,6 +403,32 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \{                                                                 */
 
     void onCreate(const PolygonBackground *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFMaterialPtr::GetHandlePtr  getHandleMaterial        (void);
+    SFMaterialPtr::EditHandlePtr editHandleMaterial       (void);
+    MFVec3f::GetHandlePtr  getHandleTexCoords       (void);
+    MFVec3f::EditHandlePtr editHandleTexCoords      (void);
+    MFPnt2f::GetHandlePtr  getHandlePositions       (void);
+    MFPnt2f::EditHandlePtr editHandlePositions      (void);
+    SFBool::GetHandlePtr  getHandleNormalizedX     (void);
+    SFBool::EditHandlePtr editHandleNormalizedX    (void);
+    SFBool::GetHandlePtr  getHandleNormalizedY     (void);
+    SFBool::EditHandlePtr editHandleNormalizedY    (void);
+    SFUInt16::GetHandlePtr  getHandleAspectHeight    (void);
+    SFUInt16::EditHandlePtr editHandleAspectHeight   (void);
+    SFUInt16::GetHandlePtr  getHandleAspectWidth     (void);
+    SFUInt16::EditHandlePtr editHandleAspectWidth    (void);
+    SFReal32::GetHandlePtr  getHandleScale           (void);
+    SFReal32::EditHandlePtr editHandleScale          (void);
+    SFBool::GetHandlePtr  getHandleCleanup         (void);
+    SFBool::EditHandlePtr editHandleCleanup        (void);
+    SFBool::GetHandlePtr  getHandleTile            (void);
+    SFBool::EditHandlePtr editHandleTile           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

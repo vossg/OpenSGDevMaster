@@ -217,6 +217,14 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFPnt3r::GetHandlePtr  getHandlePosition        (void);
+    SFPnt3r::EditHandlePtr editHandlePosition       (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

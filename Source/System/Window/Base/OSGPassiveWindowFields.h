@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(PassiveWindow);
 
 template <>
 struct FieldTraits<PassiveWindowPtr> :
-    public FieldTraitsTemplateBase<PassiveWindowPtr>
+    public FieldTraitsFCPtrBase<PassiveWindowPtr>
 {
   private:
 

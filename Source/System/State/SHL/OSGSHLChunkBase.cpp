@@ -66,6 +66,8 @@
 #include "OSGSHLChunkBase.h"
 #include "OSGSHLChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -137,12 +139,6 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(SHLChunkBase::*GetSFCgFrontEndF)(void) const;
-
-    GetSFCgFrontEndF GetSFCgFrontEnd = &SHLChunkBase::getSFCgFrontEnd;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "cgFrontEnd",
@@ -150,20 +146,10 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         CgFrontEndFieldId, CgFrontEndFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editSFCgFrontEnd),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFCgFrontEnd));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getSFCgFrontEnd));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleCgFrontEnd),
+        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleCgFrontEnd));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(SHLChunkBase::*GetSFPointSizeF)(void) const;
-
-    GetSFPointSizeF GetSFPointSize = &SHLChunkBase::getSFPointSize;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -172,20 +158,10 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         PointSizeFieldId, PointSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editSFPointSize),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFPointSize));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getSFPointSize));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editHandlePointSize),
+        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getHandlePointSize));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFGLenum *(SHLChunkBase::*GetMFProgramParameterNamesF)(void) const;
-
-    GetMFProgramParameterNamesF GetMFProgramParameterNames = &SHLChunkBase::getMFProgramParameterNames;
-#endif
 
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(),
@@ -194,20 +170,10 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         ProgramParameterNamesFieldId, ProgramParameterNamesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editMFProgramParameterNames),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFProgramParameterNames));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getMFProgramParameterNames));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleProgramParameterNames),
+        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleProgramParameterNames));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFUInt32 *(SHLChunkBase::*GetMFProgramParameterValuesF)(void) const;
-
-    GetMFProgramParameterValuesF GetMFProgramParameterValues = &SHLChunkBase::getMFProgramParameterValues;
-#endif
 
     pDesc = new MFUInt32::Description(
         MFUInt32::getClassType(),
@@ -216,20 +182,10 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         ProgramParameterValuesFieldId, ProgramParameterValuesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editMFProgramParameterValues),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFProgramParameterValues));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getMFProgramParameterValues));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleProgramParameterValues),
+        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleProgramParameterValues));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(SHLChunkBase::*GetSFGLIdF)(void) const;
-
-    GetSFGLIdF GetSFGLId = &SHLChunkBase::getSFGLId;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -238,12 +194,8 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editSFGLId),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getSFGLId));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleGLId),
+        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -814,6 +766,117 @@ SHLChunkBase::SHLChunkBase(const SHLChunkBase &source) :
 
 SHLChunkBase::~SHLChunkBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr SHLChunkBase::getHandleCgFrontEnd      (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfCgFrontEnd, 
+             this->getType().getFieldDesc(CgFrontEndFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr SHLChunkBase::editHandleCgFrontEnd     (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfCgFrontEnd, 
+             this->getType().getFieldDesc(CgFrontEndFieldId)));
+
+    editSField(CgFrontEndFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr SHLChunkBase::getHandlePointSize       (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfPointSize, 
+             this->getType().getFieldDesc(PointSizeFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr SHLChunkBase::editHandlePointSize      (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfPointSize, 
+             this->getType().getFieldDesc(PointSizeFieldId)));
+
+    editSField(PointSizeFieldMask);
+
+    return returnValue;
+}
+
+MFGLenum::GetHandlePtr SHLChunkBase::getHandleProgramParameterNames (void)
+{
+    MFGLenum::GetHandlePtr returnValue(
+        new  MFGLenum::GetHandle(
+             &_mfProgramParameterNames, 
+             this->getType().getFieldDesc(ProgramParameterNamesFieldId)));
+
+    return returnValue;
+}
+
+MFGLenum::EditHandlePtr SHLChunkBase::editHandleProgramParameterNames(void)
+{
+    MFGLenum::EditHandlePtr returnValue(
+        new  MFGLenum::EditHandle(
+             &_mfProgramParameterNames, 
+             this->getType().getFieldDesc(ProgramParameterNamesFieldId)));
+
+    editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
+
+    return returnValue;
+}
+
+MFUInt32::GetHandlePtr SHLChunkBase::getHandleProgramParameterValues (void)
+{
+    MFUInt32::GetHandlePtr returnValue(
+        new  MFUInt32::GetHandle(
+             &_mfProgramParameterValues, 
+             this->getType().getFieldDesc(ProgramParameterValuesFieldId)));
+
+    return returnValue;
+}
+
+MFUInt32::EditHandlePtr SHLChunkBase::editHandleProgramParameterValues(void)
+{
+    MFUInt32::EditHandlePtr returnValue(
+        new  MFUInt32::EditHandle(
+             &_mfProgramParameterValues, 
+             this->getType().getFieldDesc(ProgramParameterValuesFieldId)));
+
+    editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr SHLChunkBase::getHandleGLId            (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr SHLChunkBase::editHandleGLId           (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    editSField(GLIdFieldMask);
+
+    return returnValue;
 }
 
 

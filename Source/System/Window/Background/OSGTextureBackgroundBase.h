@@ -246,29 +246,6 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -357,6 +334,26 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \{                                                                 */
 
     void onCreate(const TextureBackground *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFColor4f::GetHandlePtr  getHandleColor           (void);
+    SFColor4f::EditHandlePtr editHandleColor          (void);
+    SFTextureBaseChunkPtr::GetHandlePtr  getHandleTexture         (void);
+    SFTextureBaseChunkPtr::EditHandlePtr editHandleTexture        (void);
+    MFPnt2f::GetHandlePtr  getHandleTexCoords       (void);
+    MFPnt2f::EditHandlePtr editHandleTexCoords      (void);
+    SFReal32::GetHandlePtr  getHandleRadialDistortion (void);
+    SFReal32::EditHandlePtr editHandleRadialDistortion(void);
+    SFVec2f::GetHandlePtr  getHandleCenterOfDistortion (void);
+    SFVec2f::EditHandlePtr editHandleCenterOfDistortion(void);
+    SFUInt16::GetHandlePtr  getHandleHor             (void);
+    SFUInt16::EditHandlePtr editHandleHor            (void);
+    SFUInt16::GetHandlePtr  getHandleVert            (void);
+    SFUInt16::EditHandlePtr editHandleVert           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

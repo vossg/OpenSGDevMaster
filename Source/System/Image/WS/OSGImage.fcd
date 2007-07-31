@@ -18,7 +18,7 @@ mipMap and simple multi-frame data.
 		name="parents"
 		type="ParentFieldContainerPtr"
 		cardinality="multi"
-		visibility="external"
+		visibility="internal"
 		access="none"
 	>
 	</Field>

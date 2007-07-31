@@ -217,6 +217,14 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindowBase : public Window
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFAGLContext::GetHandlePtr  getHandleContext         (void);
+    SFAGLContext::EditHandlePtr editHandleContext        (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(TextureSelectChunk);
 
 template <>
 struct FieldTraits<TextureSelectChunkPtr> :
-    public FieldTraitsTemplateBase<TextureSelectChunkPtr>
+    public FieldTraitsFCPtrBase<TextureSelectChunkPtr>
 {
   private:
 

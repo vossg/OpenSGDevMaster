@@ -530,4 +530,30 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
+template <class GeoPropertyDesc> inline
+typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredEditHandlePtr  
+    TypedGeoVectorProperty<GeoPropertyDesc>::editHandleField(void)
+{
+    StoredEditHandlePtr returnValue(
+        new  StoredEditHandle(
+             &_field, 
+             this->getType().getFieldDesc(GeoPropDataFieldId)));
+
+    editMField(GeoPropDataFieldMask, _field);
+
+    return returnValue;
+}
+
+template <class GeoPropertyDesc> inline
+typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredGetHandlePtr
+    TypedGeoVectorProperty<GeoPropertyDesc>::getHandleField(void) const
+{
+    StoredGetHandlePtr returnValue(
+        new  StoredGetHandle(
+             &_field, 
+             this->getType().getFieldDesc(GeoPropDataFieldId)));
+
+    return returnValue;
+}
+
 OSG_END_NAMESPACE

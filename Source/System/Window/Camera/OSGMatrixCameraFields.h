@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(MatrixCamera);
 
 template <>
 struct FieldTraits<MatrixCameraPtr> :
-    public FieldTraitsTemplateBase<MatrixCameraPtr>
+    public FieldTraitsFCPtrBase<MatrixCameraPtr>
 {
   private:
 

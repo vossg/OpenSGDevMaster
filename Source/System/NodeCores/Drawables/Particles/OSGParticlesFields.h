@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(Particles);
 
 template <>
 struct FieldTraits<ParticlesPtr> :
-    public FieldTraitsTemplateBase<ParticlesPtr>
+    public FieldTraitsFCPtrBase<ParticlesPtr>
 {
   private:
 

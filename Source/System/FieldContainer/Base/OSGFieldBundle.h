@@ -140,6 +140,7 @@ class FieldBundle : public ReflexiveContainer
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
+#if 0
     OSG_SYSTEM_DLLMAPPING
     virtual void pushToField     (      FieldBundlePConstArg pNewElement,
                                   const UInt32               uiFieldId  );
@@ -169,6 +170,7 @@ class FieldBundle : public ReflexiveContainer
 
     OSG_SYSTEM_DLLMAPPING
     virtual void clearField      (const UInt32               uiFieldId  );
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

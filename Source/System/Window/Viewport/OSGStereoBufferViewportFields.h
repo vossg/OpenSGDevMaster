@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(StereoBufferViewport);
 
 template <>
 struct FieldTraits<StereoBufferViewportPtr> :
-    public FieldTraitsTemplateBase<StereoBufferViewportPtr>
+    public FieldTraitsFCPtrBase<StereoBufferViewportPtr>
 {
   private:
 

@@ -253,6 +253,18 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraBase : public Camera
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFMatrix::GetHandlePtr  getHandleProjectionMatrix (void);
+    SFMatrix::EditHandlePtr editHandleProjectionMatrix(void);
+    SFMatrix::GetHandlePtr  getHandleModelviewMatrix (void);
+    SFMatrix::EditHandlePtr editHandleModelviewMatrix(void);
+    SFBool::GetHandlePtr  getHandleUseBeacon       (void);
+    SFBool::EditHandlePtr editHandleUseBeacon      (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

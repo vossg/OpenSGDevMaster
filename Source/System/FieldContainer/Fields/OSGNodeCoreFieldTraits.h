@@ -66,7 +66,7 @@ OSG_BEGIN_NAMESPACE
 
 template <>
 struct FieldTraits<NodeCorePtr> : 
-    public FieldTraitsTemplateBase<NodeCorePtr>
+    public FieldTraitsFCPtrBase<NodeCorePtr>
 {
   private:
 

@@ -55,10 +55,6 @@ OSG_BEGIN_NAMESPACE
 typedef SFieldAdaptor   <NodePtr, 
                          SFFieldContainerPtr> SFNodePtr;
 
-#ifdef FDFOO
-typedef FieldDescription<NodePtrFieldDesc,
-                         SingleField        > SNodePtrFieldDescription;
-#endif
 #endif
 
 #ifndef OSG_COMPILECONTAINERFIELDINST
@@ -69,12 +65,8 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, NodePtr, OSG_SYSTEM_DLLTMPLMAPPING)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef SField          <ParentNodePtr, 
-                         1                    > SFParentNodePtr;
-#ifdef FDFOO
-typedef FieldDescription<ParentNodePtrFieldDesc,
-                         SingleField          > SParentNodePtrFieldDescription;
-#endif
+typedef SField          <ParentNodePtr> SFParentNodePtr;
+
 #endif
 
 #ifndef OSG_COMPILECONTAINERFIELDINST

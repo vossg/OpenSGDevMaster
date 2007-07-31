@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(TransformChunk);
 
 template <>
 struct FieldTraits<TransformChunkPtr> :
-    public FieldTraitsTemplateBase<TransformChunkPtr>
+    public FieldTraitsFCPtrBase<TransformChunkPtr>
 {
   private:
 

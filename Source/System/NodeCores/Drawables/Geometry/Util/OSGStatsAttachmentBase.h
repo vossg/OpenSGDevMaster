@@ -153,6 +153,12 @@ class OSG_DRAWABLE_DLLMAPPING StatsAttachmentBase : public FieldContainerAttachm
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

@@ -67,6 +67,8 @@
 #include "OSGTiledQuadTreeTerrainBase.h"
 #include "OSGTiledQuadTreeTerrain.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -150,8 +152,8 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         HeightTilesFieldId, HeightTilesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&TiledQuadTreeTerrainBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getMFHeightTiles));
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleHeightTiles),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleHeightTiles));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,16 +164,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         HeightTexturesFieldId, HeightTexturesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&TiledQuadTreeTerrainBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getMFHeightTextures));
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleHeightTextures),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleHeightTextures));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(TiledQuadTreeTerrainBase::*GetSFSizeXF)(void) const;
-
-    GetSFSizeXF GetSFSizeX = &TiledQuadTreeTerrainBase::getSFSizeX;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -180,20 +176,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         SizeXFieldId, SizeXFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFSizeX),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFSizeX));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFSizeX));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleSizeX),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleSizeX));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(TiledQuadTreeTerrainBase::*GetSFSizeYF)(void) const;
-
-    GetSFSizeYF GetSFSizeY = &TiledQuadTreeTerrainBase::getSFSizeY;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -202,20 +188,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         SizeYFieldId, SizeYFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFSizeY),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFSizeY));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFSizeY));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleSizeY),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleSizeY));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(TiledQuadTreeTerrainBase::*GetSFHeightScaleF)(void) const;
-
-    GetSFHeightScaleF GetSFHeightScale = &TiledQuadTreeTerrainBase::getSFHeightScale;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -224,20 +200,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         HeightScaleFieldId, HeightScaleFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFHeightScale),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFHeightScale));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFHeightScale));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleHeightScale),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleHeightScale));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(TiledQuadTreeTerrainBase::*GetSFVertexSpacingF)(void) const;
-
-    GetSFVertexSpacingF GetSFVertexSpacing = &TiledQuadTreeTerrainBase::getSFVertexSpacing;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -246,20 +212,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         VertexSpacingFieldId, VertexSpacingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFVertexSpacing),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFVertexSpacing));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFVertexSpacing));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleVertexSpacing),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleVertexSpacing));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(TiledQuadTreeTerrainBase::*GetSFGeoMorphingF)(void) const;
-
-    GetSFGeoMorphingF GetSFGeoMorphing = &TiledQuadTreeTerrainBase::getSFGeoMorphing;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -268,20 +224,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         GeoMorphingFieldId, GeoMorphingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFGeoMorphing),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGeoMorphing));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFGeoMorphing));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleGeoMorphing),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleGeoMorphing));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(TiledQuadTreeTerrainBase::*GetSFDetailF)(void) const;
-
-    GetSFDetailF GetSFDetail = &TiledQuadTreeTerrainBase::getSFDetail;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -290,20 +236,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         DetailFieldId, DetailFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFDetail),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFDetail));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFDetail));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleDetail),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleDetail));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(TiledQuadTreeTerrainBase::*GetSFCurrentXF)(void) const;
-
-    GetSFCurrentXF GetSFCurrentX = &TiledQuadTreeTerrainBase::getSFCurrentX;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -312,20 +248,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         CurrentXFieldId, CurrentXFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFCurrentX),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFCurrentX));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFCurrentX));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleCurrentX),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleCurrentX));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(TiledQuadTreeTerrainBase::*GetSFCurrentYF)(void) const;
-
-    GetSFCurrentYF GetSFCurrentY = &TiledQuadTreeTerrainBase::getSFCurrentY;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -334,20 +260,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         CurrentYFieldId, CurrentYFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFCurrentY),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFCurrentY));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFCurrentY));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleCurrentY),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleCurrentY));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(TiledQuadTreeTerrainBase::*GetSFSizeROIF)(void) const;
-
-    GetSFSizeROIF GetSFSizeROI = &TiledQuadTreeTerrainBase::getSFSizeROI;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -356,20 +272,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         SizeROIFieldId, SizeROIFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFSizeROI),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFSizeROI));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFSizeROI));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleSizeROI),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleSizeROI));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(TiledQuadTreeTerrainBase::*GetSFUpdateF)(void) const;
-
-    GetSFUpdateF GetSFUpdate = &TiledQuadTreeTerrainBase::getSFUpdate;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -378,20 +284,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         UpdateFieldId, UpdateFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFUpdate),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFUpdate));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFUpdate));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleUpdate),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleUpdate));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(TiledQuadTreeTerrainBase::*GetSFUpdateTerrainF)(void) const;
-
-    GetSFUpdateTerrainF GetSFUpdateTerrain = &TiledQuadTreeTerrainBase::getSFUpdateTerrain;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -400,20 +296,10 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         UpdateTerrainFieldId, UpdateTerrainFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFUpdateTerrain),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFUpdateTerrain));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFUpdateTerrain));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandleUpdateTerrain),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandleUpdateTerrain));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(TiledQuadTreeTerrainBase::*GetSFPerPixelLightingF)(void) const;
-
-    GetSFPerPixelLightingF GetSFPerPixelLighting = &TiledQuadTreeTerrainBase::getSFPerPixelLighting;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -422,12 +308,8 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         PerPixelLightingFieldId, PerPixelLightingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editSFPerPixelLighting),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFPerPixelLighting));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getSFPerPixelLighting));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TiledQuadTreeTerrainBase::editHandlePerPixelLighting),
+        reinterpret_cast<FieldGetMethodSig >(&TiledQuadTreeTerrainBase::getHandlePerPixelLighting));
 
     oType.addInitialDesc(pDesc);
 }
@@ -855,130 +737,6 @@ SFBool              *TiledQuadTreeTerrainBase::getSFPerPixelLighting(void)
 #endif
 
 
-void TiledQuadTreeTerrainBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == HeightTilesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->pushToHeightTiles(
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-    if(uiFieldId == HeightTexturesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->pushToHeightTextures(
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void TiledQuadTreeTerrainBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == HeightTilesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->insertIntoHeightTiles(
-            uiIndex,
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-    if(uiFieldId == HeightTexturesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->insertIntoHeightTextures(
-            uiIndex,
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void TiledQuadTreeTerrainBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == HeightTilesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->replaceInHeightTiles(
-            uiIndex,
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-    if(uiFieldId == HeightTexturesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->replaceInHeightTextures(
-            uiIndex,
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void TiledQuadTreeTerrainBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == HeightTilesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->replaceInHeightTiles(
-            dynamic_cast<ImagePtr>(pOldElement),
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-    if(uiFieldId == HeightTexturesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->replaceInHeightTextures(
-            dynamic_cast<MaterialPtr>(pOldElement),
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void TiledQuadTreeTerrainBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == HeightTilesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->removeFromHeightTiles(
-            uiIndex);
-    }
-    if(uiFieldId == HeightTexturesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->removeFromHeightTextures(
-            uiIndex);
-    }
-}
-
-void TiledQuadTreeTerrainBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == HeightTilesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->removeFromHeightTiles(
-            dynamic_cast<ImagePtr>(pElement));
-    }
-    if(uiFieldId == HeightTexturesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->removeFromHeightTextures(
-            dynamic_cast<MaterialPtr>(pElement));
-    }
-}
-
-void TiledQuadTreeTerrainBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == HeightTilesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->clearHeightTiles();
-    }
-    if(uiFieldId == HeightTexturesFieldId)
-    {
-        static_cast<TiledQuadTreeTerrain *>(this)->clearHeightTextures();
-    }
-}
 
 void TiledQuadTreeTerrainBase::pushToHeightTiles(ImagePtrConstArg value)
 {
@@ -1562,6 +1320,319 @@ void TiledQuadTreeTerrainBase::onCreate(const TiledQuadTreeTerrain *source)
         }
     }
 }
+
+MFImagePtr::GetHandlePtr TiledQuadTreeTerrainBase::getHandleHeightTiles     (void)
+{
+    MFImagePtr::GetHandlePtr returnValue(
+        new  MFImagePtr::GetHandle(
+             &_mfHeightTiles, 
+             this->getType().getFieldDesc(HeightTilesFieldId)));
+
+    return returnValue;
+}
+
+MFImagePtr::EditHandlePtr TiledQuadTreeTerrainBase::editHandleHeightTiles    (void)
+{
+    MFImagePtr::EditHandlePtr returnValue(
+        new  MFImagePtr::EditHandle(
+             &_mfHeightTiles, 
+             this->getType().getFieldDesc(HeightTilesFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&TiledQuadTreeTerrain::pushToHeightTiles, this, _1));
+
+    editMField(HeightTilesFieldMask, _mfHeightTiles);
+
+    return returnValue;
+}
+
+MFMaterialPtr::GetHandlePtr TiledQuadTreeTerrainBase::getHandleHeightTextures  (void)
+{
+    MFMaterialPtr::GetHandlePtr returnValue(
+        new  MFMaterialPtr::GetHandle(
+             &_mfHeightTextures, 
+             this->getType().getFieldDesc(HeightTexturesFieldId)));
+
+    return returnValue;
+}
+
+MFMaterialPtr::EditHandlePtr TiledQuadTreeTerrainBase::editHandleHeightTextures (void)
+{
+    MFMaterialPtr::EditHandlePtr returnValue(
+        new  MFMaterialPtr::EditHandle(
+             &_mfHeightTextures, 
+             this->getType().getFieldDesc(HeightTexturesFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&TiledQuadTreeTerrain::pushToHeightTextures, this, _1));
+
+    editMField(HeightTexturesFieldMask, _mfHeightTextures);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr TiledQuadTreeTerrainBase::getHandleSizeX           (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfSizeX, 
+             this->getType().getFieldDesc(SizeXFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr TiledQuadTreeTerrainBase::editHandleSizeX          (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfSizeX, 
+             this->getType().getFieldDesc(SizeXFieldId)));
+
+    editSField(SizeXFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr TiledQuadTreeTerrainBase::getHandleSizeY           (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfSizeY, 
+             this->getType().getFieldDesc(SizeYFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr TiledQuadTreeTerrainBase::editHandleSizeY          (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfSizeY, 
+             this->getType().getFieldDesc(SizeYFieldId)));
+
+    editSField(SizeYFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr TiledQuadTreeTerrainBase::getHandleHeightScale     (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfHeightScale, 
+             this->getType().getFieldDesc(HeightScaleFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr TiledQuadTreeTerrainBase::editHandleHeightScale    (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfHeightScale, 
+             this->getType().getFieldDesc(HeightScaleFieldId)));
+
+    editSField(HeightScaleFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr TiledQuadTreeTerrainBase::getHandleVertexSpacing   (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfVertexSpacing, 
+             this->getType().getFieldDesc(VertexSpacingFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr TiledQuadTreeTerrainBase::editHandleVertexSpacing  (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfVertexSpacing, 
+             this->getType().getFieldDesc(VertexSpacingFieldId)));
+
+    editSField(VertexSpacingFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr TiledQuadTreeTerrainBase::getHandleGeoMorphing     (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfGeoMorphing, 
+             this->getType().getFieldDesc(GeoMorphingFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr TiledQuadTreeTerrainBase::editHandleGeoMorphing    (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfGeoMorphing, 
+             this->getType().getFieldDesc(GeoMorphingFieldId)));
+
+    editSField(GeoMorphingFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr TiledQuadTreeTerrainBase::getHandleDetail          (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfDetail, 
+             this->getType().getFieldDesc(DetailFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr TiledQuadTreeTerrainBase::editHandleDetail         (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfDetail, 
+             this->getType().getFieldDesc(DetailFieldId)));
+
+    editSField(DetailFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr TiledQuadTreeTerrainBase::getHandleCurrentX        (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfCurrentX, 
+             this->getType().getFieldDesc(CurrentXFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr TiledQuadTreeTerrainBase::editHandleCurrentX       (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfCurrentX, 
+             this->getType().getFieldDesc(CurrentXFieldId)));
+
+    editSField(CurrentXFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr TiledQuadTreeTerrainBase::getHandleCurrentY        (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfCurrentY, 
+             this->getType().getFieldDesc(CurrentYFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr TiledQuadTreeTerrainBase::editHandleCurrentY       (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfCurrentY, 
+             this->getType().getFieldDesc(CurrentYFieldId)));
+
+    editSField(CurrentYFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr TiledQuadTreeTerrainBase::getHandleSizeROI         (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfSizeROI, 
+             this->getType().getFieldDesc(SizeROIFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr TiledQuadTreeTerrainBase::editHandleSizeROI        (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfSizeROI, 
+             this->getType().getFieldDesc(SizeROIFieldId)));
+
+    editSField(SizeROIFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr TiledQuadTreeTerrainBase::getHandleUpdate          (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUpdate, 
+             this->getType().getFieldDesc(UpdateFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr TiledQuadTreeTerrainBase::editHandleUpdate         (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUpdate, 
+             this->getType().getFieldDesc(UpdateFieldId)));
+
+    editSField(UpdateFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr TiledQuadTreeTerrainBase::getHandleUpdateTerrain   (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUpdateTerrain, 
+             this->getType().getFieldDesc(UpdateTerrainFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr TiledQuadTreeTerrainBase::editHandleUpdateTerrain  (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUpdateTerrain, 
+             this->getType().getFieldDesc(UpdateTerrainFieldId)));
+
+    editSField(UpdateTerrainFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr TiledQuadTreeTerrainBase::getHandlePerPixelLighting (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfPerPixelLighting, 
+             this->getType().getFieldDesc(PerPixelLightingFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr TiledQuadTreeTerrainBase::editHandlePerPixelLighting(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfPerPixelLighting, 
+             this->getType().getFieldDesc(PerPixelLightingFieldId)));
+
+    editSField(PerPixelLightingFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void TiledQuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,

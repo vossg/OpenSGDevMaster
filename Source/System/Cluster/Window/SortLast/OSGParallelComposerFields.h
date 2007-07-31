@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ParallelComposer);
 
 template <>
 struct FieldTraits<ParallelComposerPtr> :
-    public FieldTraitsTemplateBase<ParallelComposerPtr>
+    public FieldTraitsFCPtrBase<ParallelComposerPtr>
 {
   private:
 

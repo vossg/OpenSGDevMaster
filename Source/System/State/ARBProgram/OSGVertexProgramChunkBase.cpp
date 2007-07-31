@@ -65,6 +65,8 @@
 #include "OSGVertexProgramChunkBase.h"
 #include "OSGVertexProgramChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -226,6 +228,7 @@ VertexProgramChunkBase::VertexProgramChunkBase(const VertexProgramChunkBase &sou
 VertexProgramChunkBase::~VertexProgramChunkBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

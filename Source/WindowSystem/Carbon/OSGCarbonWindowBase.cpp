@@ -65,6 +65,8 @@
 #include "OSGCarbonWindowBase.h"
 #include "OSGCarbonWindow.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void CarbonWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFAGLContext *(CarbonWindowBase::*GetSFContextF)(void) const;
-
-    GetSFContextF GetSFContext = &CarbonWindowBase::getSFContext;
-#endif
-
     pDesc = new SFAGLContext::Description(
         SFAGLContext::getClassType(),
         "context",
@@ -102,12 +98,8 @@ void CarbonWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&CarbonWindowBase::editSFContext),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFContext));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&CarbonWindowBase::getSFContext));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&CarbonWindowBase::editHandleContext),
+        reinterpret_cast<FieldGetMethodSig >(&CarbonWindowBase::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }
@@ -282,6 +274,29 @@ CarbonWindowBase::CarbonWindowBase(const CarbonWindowBase &source) :
 
 CarbonWindowBase::~CarbonWindowBase(void)
 {
+}
+
+
+SFAGLContext::GetHandlePtr CarbonWindowBase::getHandleContext         (void)
+{
+    SFAGLContext::GetHandlePtr returnValue(
+        new  SFAGLContext::GetHandle(
+             &_sfContext, 
+             this->getType().getFieldDesc(ContextFieldId)));
+
+    return returnValue;
+}
+
+SFAGLContext::EditHandlePtr CarbonWindowBase::editHandleContext        (void)
+{
+    SFAGLContext::EditHandlePtr returnValue(
+        new  SFAGLContext::EditHandle(
+             &_sfContext, 
+             this->getType().getFieldDesc(ContextFieldId)));
+
+    editSField(ContextFieldMask);
+
+    return returnValue;
 }
 
 

@@ -59,11 +59,11 @@ int main(int argc, char **argv)
 
 //    CHECK(fIndex != 0);
 
-    const OSG::Field *pFI = tp->getDynamicField(fIndex);
+    OSG::GetFieldHandlePtr pFI = tp->getDynamicField(fIndex);
 
 //    CHECK(pFI != NULL);
 
-    const OSG::Field *pFN = tp->getDynamicFieldByName("foo");
+    OSG::GetFieldHandlePtr pFN = tp->getDynamicFieldByName("foo");
 
 //    CHECK(pFI != NULL);
 

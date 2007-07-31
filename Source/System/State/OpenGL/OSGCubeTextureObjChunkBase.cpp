@@ -70,6 +70,8 @@
 #include "OSGCubeTextureObjChunkBase.h"
 #include "OSGCubeTextureObjChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -130,8 +132,8 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
         PosZImageFieldId, PosZImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&CubeTextureObjChunkBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getSFPosZImage));
+        reinterpret_cast<FieldEditMethodSig>(&CubeTextureObjChunkBase::editHandlePosZImage),
+        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getHandlePosZImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -142,8 +144,8 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
         PosXImageFieldId, PosXImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&CubeTextureObjChunkBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getSFPosXImage));
+        reinterpret_cast<FieldEditMethodSig>(&CubeTextureObjChunkBase::editHandlePosXImage),
+        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getHandlePosXImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -154,8 +156,8 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
         NegXImageFieldId, NegXImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&CubeTextureObjChunkBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getSFNegXImage));
+        reinterpret_cast<FieldEditMethodSig>(&CubeTextureObjChunkBase::editHandleNegXImage),
+        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getHandleNegXImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -166,8 +168,8 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
         PosYImageFieldId, PosYImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&CubeTextureObjChunkBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getSFPosYImage));
+        reinterpret_cast<FieldEditMethodSig>(&CubeTextureObjChunkBase::editHandlePosYImage),
+        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getHandlePosYImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -178,16 +180,10 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
         NegYImageFieldId, NegYImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&CubeTextureObjChunkBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getSFNegYImage));
+        reinterpret_cast<FieldEditMethodSig>(&CubeTextureObjChunkBase::editHandleNegYImage),
+        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getHandleNegYImage));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(CubeTextureObjChunkBase::*GetSFIsReflectionMapF)(void) const;
-
-    GetSFIsReflectionMapF GetSFIsReflectionMap = &CubeTextureObjChunkBase::getSFIsReflectionMap;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -196,12 +192,8 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
         IsReflectionMapFieldId, IsReflectionMapFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&CubeTextureObjChunkBase::editSFIsReflectionMap),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFIsReflectionMap));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getSFIsReflectionMap));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&CubeTextureObjChunkBase::editHandleIsReflectionMap),
+        reinterpret_cast<FieldGetMethodSig >(&CubeTextureObjChunkBase::getHandleIsReflectionMap));
 
     oType.addInitialDesc(pDesc);
 }
@@ -376,101 +368,6 @@ SFBool              *CubeTextureObjChunkBase::getSFIsReflectionMap(void)
 #endif
 
 
-void CubeTextureObjChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == PosZImageFieldId)
-    {
-        static_cast<CubeTextureObjChunk *>(this)->setPosZImage(
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-    if(uiFieldId == PosXImageFieldId)
-    {
-        static_cast<CubeTextureObjChunk *>(this)->setPosXImage(
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-    if(uiFieldId == NegXImageFieldId)
-    {
-        static_cast<CubeTextureObjChunk *>(this)->setNegXImage(
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-    if(uiFieldId == PosYImageFieldId)
-    {
-        static_cast<CubeTextureObjChunk *>(this)->setPosYImage(
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-    if(uiFieldId == NegYImageFieldId)
-    {
-        static_cast<CubeTextureObjChunk *>(this)->setNegYImage(
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-}
-
-void CubeTextureObjChunkBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void CubeTextureObjChunkBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void CubeTextureObjChunkBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void CubeTextureObjChunkBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void CubeTextureObjChunkBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void CubeTextureObjChunkBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == PosZImageFieldId)
-    {
-        static_cast<CubeTextureObjChunk *>(this)->setPosZImage(NullFC);
-    }
-    if(uiFieldId == PosXImageFieldId)
-    {
-        static_cast<CubeTextureObjChunk *>(this)->setPosXImage(NullFC);
-    }
-    if(uiFieldId == NegXImageFieldId)
-    {
-        static_cast<CubeTextureObjChunk *>(this)->setNegXImage(NullFC);
-    }
-    if(uiFieldId == PosYImageFieldId)
-    {
-        static_cast<CubeTextureObjChunk *>(this)->setPosYImage(NullFC);
-    }
-    if(uiFieldId == NegYImageFieldId)
-    {
-        static_cast<CubeTextureObjChunk *>(this)->setNegYImage(NullFC);
-    }
-}
 
 
 
@@ -654,6 +551,149 @@ void CubeTextureObjChunkBase::onCreate(const CubeTextureObjChunk *source)
         this->setNegYImage(source->getNegYImage());
     }
 }
+
+SFImagePtr::GetHandlePtr CubeTextureObjChunkBase::getHandlePosZImage       (void)
+{
+    SFImagePtr::GetHandlePtr returnValue(
+        new  SFImagePtr::GetHandle(
+             &_sfPosZImage, 
+             this->getType().getFieldDesc(PosZImageFieldId)));
+
+    return returnValue;
+}
+
+SFImagePtr::EditHandlePtr CubeTextureObjChunkBase::editHandlePosZImage      (void)
+{
+    SFImagePtr::EditHandlePtr returnValue(
+        new  SFImagePtr::EditHandle(
+             &_sfPosZImage, 
+             this->getType().getFieldDesc(PosZImageFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&CubeTextureObjChunk::setPosZImage, this, _1));
+
+    editSField(PosZImageFieldMask);
+
+    return returnValue;
+}
+
+SFImagePtr::GetHandlePtr CubeTextureObjChunkBase::getHandlePosXImage       (void)
+{
+    SFImagePtr::GetHandlePtr returnValue(
+        new  SFImagePtr::GetHandle(
+             &_sfPosXImage, 
+             this->getType().getFieldDesc(PosXImageFieldId)));
+
+    return returnValue;
+}
+
+SFImagePtr::EditHandlePtr CubeTextureObjChunkBase::editHandlePosXImage      (void)
+{
+    SFImagePtr::EditHandlePtr returnValue(
+        new  SFImagePtr::EditHandle(
+             &_sfPosXImage, 
+             this->getType().getFieldDesc(PosXImageFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&CubeTextureObjChunk::setPosXImage, this, _1));
+
+    editSField(PosXImageFieldMask);
+
+    return returnValue;
+}
+
+SFImagePtr::GetHandlePtr CubeTextureObjChunkBase::getHandleNegXImage       (void)
+{
+    SFImagePtr::GetHandlePtr returnValue(
+        new  SFImagePtr::GetHandle(
+             &_sfNegXImage, 
+             this->getType().getFieldDesc(NegXImageFieldId)));
+
+    return returnValue;
+}
+
+SFImagePtr::EditHandlePtr CubeTextureObjChunkBase::editHandleNegXImage      (void)
+{
+    SFImagePtr::EditHandlePtr returnValue(
+        new  SFImagePtr::EditHandle(
+             &_sfNegXImage, 
+             this->getType().getFieldDesc(NegXImageFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&CubeTextureObjChunk::setNegXImage, this, _1));
+
+    editSField(NegXImageFieldMask);
+
+    return returnValue;
+}
+
+SFImagePtr::GetHandlePtr CubeTextureObjChunkBase::getHandlePosYImage       (void)
+{
+    SFImagePtr::GetHandlePtr returnValue(
+        new  SFImagePtr::GetHandle(
+             &_sfPosYImage, 
+             this->getType().getFieldDesc(PosYImageFieldId)));
+
+    return returnValue;
+}
+
+SFImagePtr::EditHandlePtr CubeTextureObjChunkBase::editHandlePosYImage      (void)
+{
+    SFImagePtr::EditHandlePtr returnValue(
+        new  SFImagePtr::EditHandle(
+             &_sfPosYImage, 
+             this->getType().getFieldDesc(PosYImageFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&CubeTextureObjChunk::setPosYImage, this, _1));
+
+    editSField(PosYImageFieldMask);
+
+    return returnValue;
+}
+
+SFImagePtr::GetHandlePtr CubeTextureObjChunkBase::getHandleNegYImage       (void)
+{
+    SFImagePtr::GetHandlePtr returnValue(
+        new  SFImagePtr::GetHandle(
+             &_sfNegYImage, 
+             this->getType().getFieldDesc(NegYImageFieldId)));
+
+    return returnValue;
+}
+
+SFImagePtr::EditHandlePtr CubeTextureObjChunkBase::editHandleNegYImage      (void)
+{
+    SFImagePtr::EditHandlePtr returnValue(
+        new  SFImagePtr::EditHandle(
+             &_sfNegYImage, 
+             this->getType().getFieldDesc(NegYImageFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&CubeTextureObjChunk::setNegYImage, this, _1));
+
+    editSField(NegYImageFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr CubeTextureObjChunkBase::getHandleIsReflectionMap (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfIsReflectionMap, 
+             this->getType().getFieldDesc(IsReflectionMapFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr CubeTextureObjChunkBase::editHandleIsReflectionMap(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfIsReflectionMap, 
+             this->getType().getFieldDesc(IsReflectionMapFieldId)));
+
+    editSField(IsReflectionMapFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void CubeTextureObjChunkBase::execSyncV(      FieldContainer    &oFrom,

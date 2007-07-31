@@ -66,6 +66,8 @@
 #include "OSGWindowBase.h"
 #include "OSGWindow.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -130,12 +132,6 @@ void WindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt16 *(WindowBase::*GetSFWidthF)(void) const;
-
-    GetSFWidthF GetSFWidth = &WindowBase::getSFWidth;
-#endif
-
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(),
         "width",
@@ -143,20 +139,10 @@ void WindowBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editSFWidth),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getSFWidth));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleWidth),
+        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt16 *(WindowBase::*GetSFHeightF)(void) const;
-
-    GetSFHeightF GetSFHeight = &WindowBase::getSFHeight;
-#endif
 
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(),
@@ -165,12 +151,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editSFHeight),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFHeight));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getSFHeight));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleHeight),
+        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 
@@ -181,16 +163,10 @@ void WindowBase::classDescInserter(TypeObject &oType)
         PortFieldId, PortFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&WindowBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getMFPort));
+        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandlePort),
+        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandlePort));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(WindowBase::*GetSFResizePendingF)(void) const;
-
-    GetSFResizePendingF GetSFResizePending = &WindowBase::getSFResizePending;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -199,20 +175,10 @@ void WindowBase::classDescInserter(TypeObject &oType)
         ResizePendingFieldId, ResizePendingFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editSFResizePending),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFResizePending));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getSFResizePending));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleResizePending),
+        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleResizePending));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(WindowBase::*GetSFGlObjectEventCounterF)(void) const;
-
-    GetSFGlObjectEventCounterF GetSFGlObjectEventCounter = &WindowBase::getSFGlObjectEventCounter;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -222,20 +188,10 @@ void WindowBase::classDescInserter(TypeObject &oType)
         GlObjectEventCounterFieldId, GlObjectEventCounterFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editSFGlObjectEventCounter),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGlObjectEventCounter));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getSFGlObjectEventCounter));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectEventCounter),
+        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectEventCounter));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFUInt32 *(WindowBase::*GetMFGlObjectLastRefreshF)(void) const;
-
-    GetMFGlObjectLastRefreshF GetMFGlObjectLastRefresh = &WindowBase::getMFGlObjectLastRefresh;
-#endif
 
     pDesc = new MFUInt32::Description(
         MFUInt32::getClassType(),
@@ -244,20 +200,10 @@ void WindowBase::classDescInserter(TypeObject &oType)
         GlObjectLastRefreshFieldId, GlObjectLastRefreshFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editMFGlObjectLastRefresh),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFGlObjectLastRefresh));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getMFGlObjectLastRefresh));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectLastRefresh),
+        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectLastRefresh));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFUInt32 *(WindowBase::*GetMFGlObjectLastReinitializeF)(void) const;
-
-    GetMFGlObjectLastReinitializeF GetMFGlObjectLastReinitialize = &WindowBase::getMFGlObjectLastReinitialize;
-#endif
 
     pDesc = new MFUInt32::Description(
         MFUInt32::getClassType(),
@@ -266,20 +212,10 @@ void WindowBase::classDescInserter(TypeObject &oType)
         GlObjectLastReinitializeFieldId, GlObjectLastReinitializeFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editMFGlObjectLastReinitialize),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFGlObjectLastReinitialize));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getMFGlObjectLastReinitialize));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectLastReinitialize),
+        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectLastReinitialize));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(WindowBase::*GetSFDrawerIdF)(void) const;
-
-    GetSFDrawerIdF GetSFDrawerId = &WindowBase::getSFDrawerId;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -289,12 +225,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         DrawerIdFieldId, DrawerIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editSFDrawerId),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFDrawerId));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getSFDrawerId));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleDrawerId),
+        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleDrawerId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -590,93 +522,6 @@ SFUInt32            *WindowBase::getSFDrawerId       (void)
 #endif
 
 
-void WindowBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == PortFieldId)
-    {
-        static_cast<Window *>(this)->addPort(
-            dynamic_cast<ViewportPtr>(pNewElement));
-    }
-}
-
-void WindowBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == PortFieldId)
-    {
-        static_cast<Window *>(this)->insertPort(
-            uiIndex,
-            dynamic_cast<ViewportPtr>(pNewElement));
-    }
-}
-
-void WindowBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == PortFieldId)
-    {
-        static_cast<Window *>(this)->replacePort(
-            uiIndex,
-            dynamic_cast<ViewportPtr>(pNewElement));
-    }
-}
-
-void WindowBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == PortFieldId)
-    {
-        static_cast<Window *>(this)->replacePortBy(
-            dynamic_cast<ViewportPtr>(pOldElement),
-            dynamic_cast<ViewportPtr>(pNewElement));
-    }
-}
-
-void WindowBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == PortFieldId)
-    {
-        static_cast<Window *>(this)->subPort(
-            uiIndex);
-    }
-}
-
-void WindowBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == PortFieldId)
-    {
-        static_cast<Window *>(this)->subPort(
-            dynamic_cast<ViewportPtr>(pElement));
-    }
-}
-
-void WindowBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == PortFieldId)
-    {
-        static_cast<Window *>(this)->clearPorts();
-    }
-}
 
 void WindowBase::addPort(ViewportPtrConstArg value)
 {
@@ -1195,6 +1040,185 @@ void WindowBase::onCreate(const Window *source)
         }
     }
 }
+
+SFUInt16::GetHandlePtr WindowBase::getHandleWidth           (void)
+{
+    SFUInt16::GetHandlePtr returnValue(
+        new  SFUInt16::GetHandle(
+             &_sfWidth, 
+             this->getType().getFieldDesc(WidthFieldId)));
+
+    return returnValue;
+}
+
+SFUInt16::EditHandlePtr WindowBase::editHandleWidth          (void)
+{
+    SFUInt16::EditHandlePtr returnValue(
+        new  SFUInt16::EditHandle(
+             &_sfWidth, 
+             this->getType().getFieldDesc(WidthFieldId)));
+
+    editSField(WidthFieldMask);
+
+    return returnValue;
+}
+
+SFUInt16::GetHandlePtr WindowBase::getHandleHeight          (void)
+{
+    SFUInt16::GetHandlePtr returnValue(
+        new  SFUInt16::GetHandle(
+             &_sfHeight, 
+             this->getType().getFieldDesc(HeightFieldId)));
+
+    return returnValue;
+}
+
+SFUInt16::EditHandlePtr WindowBase::editHandleHeight         (void)
+{
+    SFUInt16::EditHandlePtr returnValue(
+        new  SFUInt16::EditHandle(
+             &_sfHeight, 
+             this->getType().getFieldDesc(HeightFieldId)));
+
+    editSField(HeightFieldMask);
+
+    return returnValue;
+}
+
+MFViewportPtr::GetHandlePtr WindowBase::getHandlePort            (void)
+{
+    MFViewportPtr::GetHandlePtr returnValue(
+        new  MFViewportPtr::GetHandle(
+             &_mfPort, 
+             this->getType().getFieldDesc(PortFieldId)));
+
+    return returnValue;
+}
+
+MFViewportPtr::EditHandlePtr WindowBase::editHandlePort           (void)
+{
+    MFViewportPtr::EditHandlePtr returnValue(
+        new  MFViewportPtr::EditHandle(
+             &_mfPort, 
+             this->getType().getFieldDesc(PortFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&Window::addPort, this, _1));
+
+    editMField(PortFieldMask, _mfPort);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr WindowBase::getHandleResizePending   (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfResizePending, 
+             this->getType().getFieldDesc(ResizePendingFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr WindowBase::editHandleResizePending  (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfResizePending, 
+             this->getType().getFieldDesc(ResizePendingFieldId)));
+
+    editSField(ResizePendingFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr WindowBase::getHandleGlObjectEventCounter (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfGlObjectEventCounter, 
+             this->getType().getFieldDesc(GlObjectEventCounterFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr WindowBase::editHandleGlObjectEventCounter(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfGlObjectEventCounter, 
+             this->getType().getFieldDesc(GlObjectEventCounterFieldId)));
+
+    editSField(GlObjectEventCounterFieldMask);
+
+    return returnValue;
+}
+
+MFUInt32::GetHandlePtr WindowBase::getHandleGlObjectLastRefresh (void)
+{
+    MFUInt32::GetHandlePtr returnValue(
+        new  MFUInt32::GetHandle(
+             &_mfGlObjectLastRefresh, 
+             this->getType().getFieldDesc(GlObjectLastRefreshFieldId)));
+
+    return returnValue;
+}
+
+MFUInt32::EditHandlePtr WindowBase::editHandleGlObjectLastRefresh(void)
+{
+    MFUInt32::EditHandlePtr returnValue(
+        new  MFUInt32::EditHandle(
+             &_mfGlObjectLastRefresh, 
+             this->getType().getFieldDesc(GlObjectLastRefreshFieldId)));
+
+    editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
+
+    return returnValue;
+}
+
+MFUInt32::GetHandlePtr WindowBase::getHandleGlObjectLastReinitialize (void)
+{
+    MFUInt32::GetHandlePtr returnValue(
+        new  MFUInt32::GetHandle(
+             &_mfGlObjectLastReinitialize, 
+             this->getType().getFieldDesc(GlObjectLastReinitializeFieldId)));
+
+    return returnValue;
+}
+
+MFUInt32::EditHandlePtr WindowBase::editHandleGlObjectLastReinitialize(void)
+{
+    MFUInt32::EditHandlePtr returnValue(
+        new  MFUInt32::EditHandle(
+             &_mfGlObjectLastReinitialize, 
+             this->getType().getFieldDesc(GlObjectLastReinitializeFieldId)));
+
+    editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr WindowBase::getHandleDrawerId        (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfDrawerId, 
+             this->getType().getFieldDesc(DrawerIdFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr WindowBase::editHandleDrawerId       (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfDrawerId, 
+             this->getType().getFieldDesc(DrawerIdFieldId)));
+
+    editSField(DrawerIdFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void WindowBase::execSyncV(      FieldContainer    &oFrom,

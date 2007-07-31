@@ -276,29 +276,6 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -368,6 +345,44 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*! \{                                                                 */
 
     void onCreate(const Manipulator *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFNodePtr::GetHandlePtr  getHandleTarget          (void);
+    SFNodePtr::EditHandlePtr editHandleTarget         (void);
+    SFNodePtr::GetHandlePtr  getHandleActiveSubHandle (void);
+    SFNodePtr::EditHandlePtr editHandleActiveSubHandle(void);
+    SFPnt2f::GetHandlePtr  getHandleLastMousePos    (void);
+    SFPnt2f::EditHandlePtr editHandleLastMousePos   (void);
+    SFViewportPtr::GetHandlePtr  getHandleViewport        (void);
+    SFViewportPtr::EditHandlePtr editHandleViewport       (void);
+    SFBool::GetHandlePtr  getHandleActive          (void);
+    SFBool::EditHandlePtr editHandleActive         (void);
+    SFVec3f::GetHandlePtr  getHandleLength          (void);
+    SFVec3f::EditHandlePtr editHandleLength         (void);
+    SFNodePtr::GetHandlePtr  getHandleHandleXNode     (void);
+    SFNodePtr::EditHandlePtr editHandleHandleXNode    (void);
+    SFNodePtr::GetHandlePtr  getHandleHandleYNode     (void);
+    SFNodePtr::EditHandlePtr editHandleHandleYNode    (void);
+    SFNodePtr::GetHandlePtr  getHandleHandleZNode     (void);
+    SFNodePtr::EditHandlePtr editHandleHandleZNode    (void);
+    SFNodePtr::GetHandlePtr  getHandleTransXNode      (void);
+    SFNodePtr::EditHandlePtr editHandleTransXNode     (void);
+    SFNodePtr::GetHandlePtr  getHandleTransYNode      (void);
+    SFNodePtr::EditHandlePtr editHandleTransYNode     (void);
+    SFNodePtr::GetHandlePtr  getHandleTransZNode      (void);
+    SFNodePtr::EditHandlePtr editHandleTransZNode     (void);
+    SFMaterialPtr::GetHandlePtr  getHandleMaterialX       (void);
+    SFMaterialPtr::EditHandlePtr editHandleMaterialX      (void);
+    SFMaterialPtr::GetHandlePtr  getHandleMaterialY       (void);
+    SFMaterialPtr::EditHandlePtr editHandleMaterialY      (void);
+    SFMaterialPtr::GetHandlePtr  getHandleMaterialZ       (void);
+    SFMaterialPtr::EditHandlePtr editHandleMaterialZ      (void);
+    SFNodePtr::GetHandlePtr  getHandleAxisLinesN      (void);
+    SFNodePtr::EditHandlePtr editHandleAxisLinesN     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

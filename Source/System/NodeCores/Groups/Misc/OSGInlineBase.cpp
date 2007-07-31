@@ -65,6 +65,8 @@
 #include "OSGInlineBase.h"
 #include "OSGInline.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -93,12 +95,6 @@ void InlineBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFString *(InlineBase::*GetMFUrlF)(void) const;
-
-    GetMFUrlF GetMFUrl = &InlineBase::getMFUrl;
-#endif
-
     pDesc = new MFString::Description(
         MFString::getClassType(),
         "url",
@@ -106,20 +102,10 @@ void InlineBase::classDescInserter(TypeObject &oType)
         UrlFieldId, UrlFieldMask,
         true,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&InlineBase::editMFUrl),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFUrl));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&InlineBase::getMFUrl));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&InlineBase::editHandleUrl),
+        reinterpret_cast<FieldGetMethodSig >(&InlineBase::getHandleUrl));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(InlineBase::*GetSFLoadedF)(void) const;
-
-    GetSFLoadedF GetSFLoaded = &InlineBase::getSFLoaded;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -128,12 +114,8 @@ void InlineBase::classDescInserter(TypeObject &oType)
         LoadedFieldId, LoadedFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&InlineBase::editSFLoaded),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFLoaded));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&InlineBase::getSFLoaded));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&InlineBase::editHandleLoaded),
+        reinterpret_cast<FieldGetMethodSig >(&InlineBase::getHandleLoaded));
 
     oType.addInitialDesc(pDesc);
 }
@@ -430,6 +412,51 @@ InlineBase::InlineBase(const InlineBase &source) :
 
 InlineBase::~InlineBase(void)
 {
+}
+
+
+MFString::GetHandlePtr InlineBase::getHandleUrl             (void)
+{
+    MFString::GetHandlePtr returnValue(
+        new  MFString::GetHandle(
+             &_mfUrl, 
+             this->getType().getFieldDesc(UrlFieldId)));
+
+    return returnValue;
+}
+
+MFString::EditHandlePtr InlineBase::editHandleUrl            (void)
+{
+    MFString::EditHandlePtr returnValue(
+        new  MFString::EditHandle(
+             &_mfUrl, 
+             this->getType().getFieldDesc(UrlFieldId)));
+
+    editMField(UrlFieldMask, _mfUrl);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr InlineBase::getHandleLoaded          (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfLoaded, 
+             this->getType().getFieldDesc(LoadedFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr InlineBase::editHandleLoaded         (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfLoaded, 
+             this->getType().getFieldDesc(LoadedFieldId)));
+
+    editSField(LoadedFieldMask);
+
+    return returnValue;
 }
 
 

@@ -235,6 +235,16 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFBool::GetHandlePtr  getHandleLeftBuffer      (void);
+    SFBool::EditHandlePtr editHandleLeftBuffer     (void);
+    SFBool::GetHandlePtr  getHandleRightBuffer     (void);
+    SFBool::EditHandlePtr editHandleRightBuffer    (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

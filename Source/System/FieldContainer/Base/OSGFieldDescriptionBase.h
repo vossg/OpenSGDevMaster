@@ -48,19 +48,32 @@
 #include "OSGBaseTypes.h"
 #include "OSGSystemDef.h"
 #include "OSGFieldType.h"
-#include "OSGIDString.h"
 #include "OSGContainerForwards.h"
+#include "OSGField.h"
 
 OSG_BEGIN_NAMESPACE
 
 class Field;
 
+#if 0
 typedef       Field *(ReflexiveContainer::*FieldEditMethodSig)(void);
 typedef const Field *(ReflexiveContainer::*FieldGetMethodSig )(void) const;
 
 typedef       Field *(ReflexiveContainer::*FieldIndexEditMethodSig)(UInt32);
 typedef const Field *(
     ReflexiveContainer::*FieldIndexGetMethodSig )(UInt32) const;
+#endif
+
+typedef 
+    EditFieldHandlePtr(ReflexiveContainer::*FieldEditMethodSig)(void);
+typedef 
+    GetFieldHandlePtr (ReflexiveContainer::*FieldGetMethodSig )(void) const;
+
+
+typedef EditFieldHandlePtr (ReflexiveContainer::*FieldIndexEditMethodSig)(
+    UInt32);
+typedef GetFieldHandlePtr  (ReflexiveContainer::*FieldIndexGetMethodSig )(
+    UInt32) const;
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
@@ -68,7 +81,10 @@ typedef const Field *(
 #ifdef FDESC_USE_BOOST
 typedef boost::function<Field *(ReflexiveContainer *)> FieldEditMethod;
 #else
-typedef       Field *(ReflexiveContainer::*FieldEditMethod     )(void  );
+#if 0
+typedef Field              *(ReflexiveContainer::*FieldEditMethod  )(void  );
+#endif
+typedef EditFieldHandlePtr (ReflexiveContainer::*FieldEditMethod)(void  );
 #endif
 
 /*! \ingroup GrpSystemFieldContainerFuncs
@@ -78,7 +94,11 @@ typedef       Field *(ReflexiveContainer::*FieldEditMethod     )(void  );
 typedef boost::function<
           const Field *(const ReflexiveContainer *)> FieldGetMethod;
 #else
-typedef const Field *(ReflexiveContainer::*FieldGetMethod      )(void  ) const;
+#if 0
+typedef 
+    const Field      *(ReflexiveContainer::*FieldGetMethod  )(void  ) const;
+#endif
+typedef GetFieldHandlePtr (ReflexiveContainer::*FieldGetMethod)(void) const;
 #endif
 
 /*! \ingroup GrpSystemFieldContainerFuncs
@@ -88,7 +108,11 @@ typedef const Field *(ReflexiveContainer::*FieldGetMethod      )(void  ) const;
 typedef boost::function<
           Field *(ReflexiveContainer *, int)>             FieldIndexEditMethod;
 #else
-typedef       Field *(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
+#if 0
+typedef 
+    Field              *(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
+#endif
+typedef EditFieldHandlePtr (ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
 #endif
 
 /*! \ingroup GrpSystemFieldContainerFuncs
@@ -98,7 +122,12 @@ typedef       Field *(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
 typedef boost::function<
           const Field *(const ReflexiveContainer *, int)> FieldIndexGetMethod;
 #else
-typedef const Field *(ReflexiveContainer::*FieldIndexGetMethod )(UInt32) const;
+#if 0
+typedef const Field       *(ReflexiveContainer::*FieldIndexGetMethod  )(
+    UInt32) const;
+#endif
+typedef GetFieldHandlePtr (ReflexiveContainer::*FieldIndexGetMethod)(
+    UInt32) const;
 #endif
 
 /*! \ingroup GrpSystemFieldContainerFuncs
@@ -139,18 +168,18 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
                          const UInt32           uiFieldFlags,
                                FieldEditMethod  fEditMethod,
                                FieldGetMethod   fGetMethod,
-                         const Char8           *defaultValue);
+                         const Char8           *defaultValue = NULL);
 
-    FieldDescriptionBase(const FieldType           &elementType,
-                         const Char8               *szName,
-                         const std::string          fieldDocumentation,
-                         const UInt32               uiFieldId,
-                         const BitVector            vFieldMask,
-                         const bool                 bInternal,
-                         const UInt32               uiFieldFlags,
-                               FieldIndexEditMethod fIndexedEditMethod,
-                               FieldIndexGetMethod  fIndexedGetMethod,
-                         const Char8               *defaultValue);
+    FieldDescriptionBase(const FieldType            &elementType,
+                         const Char8                *szName,
+                         const std::string           fieldDocumentation,
+                         const UInt32                uiFieldId,
+                         const BitVector             vFieldMask,
+                         const bool                  bInternal,
+                         const UInt32                uiFieldFlags,
+                               FieldIndexEditMethod  fIndexedEditMethod,
+                               FieldIndexGetMethod   fIndexedGetMethod,
+                         const Char8                *defaultValue = NULL);
 
     FieldDescriptionBase(const FieldDescriptionBase &source);
 
@@ -166,43 +195,48 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
-    const Char8     *getCName       (void                        ) const;
-    const IDString  &getName        (void                        ) const;
+    const Char8       *getCName       (void                        ) const;
+          std::string  getName        (void                        ) const;
 
-        std::string  getDocumentation (void                      ) const;
+          std::string  getDocumentation (void                      ) const;
 
-          UInt32     getTypeId      (void                        ) const;
+          UInt32       getTypeId      (void                        ) const;
 
-          BitVector  getFieldMask   (void                        ) const;
-          void       setFieldMask   (ConstFieldMaskArg vFieldMask);
+          BitVector    getFieldMask   (void                        ) const;
+          void         setFieldMask   (ConstFieldMaskArg vFieldMask);
 
-          UInt32     getFieldId     (void                        ) const;
-          void       setFieldId     (UInt32 uiFieldId            );
+          UInt32       getFieldId     (void                        ) const;
+          void         setFieldId     (UInt32 uiFieldId            );
 
-    const Char8     *getDefaultValue(void                        ) const;
+    const Char8       *getDefaultValue(void                        ) const;
 
-    const FieldType &getFieldType   (void                        ) const;
+    const FieldType   &getFieldType   (void                        ) const;
 
-          bool       isInternal     (void                        ) const;
-          UInt32     getFlags       (void                        ) const;
+          bool         isInternal     (void                        ) const;
 
-          bool       isValid        (void                        ) const;
+          UInt32       getFlags       (void                        ) const;
 
-          bool       isSField       (void                        ) const;
-          bool       isMField       (void                        ) const;
+          bool         isValid        (void                        ) const;
+
+          bool         isSField       (void                        ) const;
+          bool         isMField       (void                        ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-          Field *editField(      ReflexiveContainer &oContainer) const;
-    const Field *getField (const ReflexiveContainer &oContainer) const;
+    EditFieldHandlePtr editField(      ReflexiveContainer &oContainer) const;
+    GetFieldHandlePtr  getField (const ReflexiveContainer &oContainer) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Set from String                             */
     /*! \{                                                                 */
+
+#if 0
+    virtual void pushValueFromCString(const Char8        *str,
+                                            Field        *pField) const;
 
     virtual void pushValueFromCString(const Char8        *str,
                                             Field        *pField) const = 0;
@@ -226,12 +260,16 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
 
     virtual void pushSizeToStream    (const Field        *pField,
                                             OutStream    &str   ) const = 0;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Set from Field                           */
     /*! \{                                                                 */
 
+#if 0
+    virtual void copyValues  (const Field *pSrc,
+                                    Field *pDst  ) const;
     virtual void copyValues  (const Field *pSrc,
                                     Field *pDst  ) const = 0;
 
@@ -257,6 +295,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
     /*! \{                                                                 */
+#endif
 
     virtual Field *createField(void          ) const = 0;
     virtual void   destroyField(Field *pField) const = 0;
@@ -270,11 +309,22 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                 Container Access                             */
+    /*! \{                                                                 */
+
+    virtual GetFieldHandlePtr  createGetHandler (const Field *pField) = 0;
+    virtual EditFieldHandlePtr createEditHandler(      Field *pField) = 0;
+
+#if 0
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
     virtual bool equal(const Field *lhs,
                        const Field *rhs) const = 0;
+
+#endif
 
 
     /*! \}                                                                 */
@@ -316,8 +366,8 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-          IDString              _szName;
-          std::string           _documentation;  /*!< Documentation for this field. */
+          std::string           _szName;
+          std::string           _documentation; 
 
     const FieldType            &_fieldType;
 

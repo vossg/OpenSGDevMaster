@@ -65,6 +65,8 @@
 #include "OSGShaderParameterMIntBase.h"
 #include "OSGShaderParameterMInt.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void ShaderParameterMIntBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFInt32 *(ShaderParameterMIntBase::*GetMFValueF)(void) const;
-
-    GetMFValueF GetMFValue = &ShaderParameterMIntBase::getMFValue;
-#endif
-
     pDesc = new MFInt32::Description(
         MFInt32::getClassType(),
         "value",
@@ -102,12 +98,8 @@ void ShaderParameterMIntBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMIntBase::editMFValue),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFValue));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMIntBase::getMFValue));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMIntBase::editHandleValue),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMIntBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -364,6 +356,29 @@ ShaderParameterMIntBase::ShaderParameterMIntBase(const ShaderParameterMIntBase &
 
 ShaderParameterMIntBase::~ShaderParameterMIntBase(void)
 {
+}
+
+
+MFInt32::GetHandlePtr ShaderParameterMIntBase::getHandleValue           (void)
+{
+    MFInt32::GetHandlePtr returnValue(
+        new  MFInt32::GetHandle(
+             &_mfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    return returnValue;
+}
+
+MFInt32::EditHandlePtr ShaderParameterMIntBase::editHandleValue          (void)
+{
+    MFInt32::EditHandlePtr returnValue(
+        new  MFInt32::EditHandle(
+             &_mfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    editMField(ValueFieldMask, _mfValue);
+
+    return returnValue;
 }
 
 

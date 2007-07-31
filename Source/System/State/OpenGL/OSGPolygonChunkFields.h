@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(PolygonChunk);
 
 template <>
 struct FieldTraits<PolygonChunkPtr> :
-    public FieldTraitsTemplateBase<PolygonChunkPtr>
+    public FieldTraitsFCPtrBase<PolygonChunkPtr>
 {
   private:
 

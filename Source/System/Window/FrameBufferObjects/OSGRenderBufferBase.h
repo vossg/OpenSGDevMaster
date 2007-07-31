@@ -235,6 +235,16 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFGLenum::GetHandlePtr  getHandleGLId            (void);
+    SFGLenum::EditHandlePtr editHandleGLId           (void);
+    SFGLenum::GetHandlePtr  getHandleInternalFormat  (void);
+    SFGLenum::EditHandlePtr editHandleInternalFormat (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

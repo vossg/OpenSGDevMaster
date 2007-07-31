@@ -65,6 +65,8 @@
 #include "OSGShaderParameterIntBase.h"
 #include "OSGShaderParameterInt.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void ShaderParameterIntBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(ShaderParameterIntBase::*GetSFValueF)(void) const;
-
-    GetSFValueF GetSFValue = &ShaderParameterIntBase::getSFValue;
-#endif
-
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
         "value",
@@ -102,12 +98,8 @@ void ShaderParameterIntBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterIntBase::editSFValue),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFValue));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterIntBase::getSFValue));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterIntBase::editHandleValue),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterIntBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -282,6 +274,29 @@ ShaderParameterIntBase::ShaderParameterIntBase(const ShaderParameterIntBase &sou
 
 ShaderParameterIntBase::~ShaderParameterIntBase(void)
 {
+}
+
+
+SFInt32::GetHandlePtr ShaderParameterIntBase::getHandleValue           (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr ShaderParameterIntBase::editHandleValue          (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    editSField(ValueFieldMask);
+
+    return returnValue;
 }
 
 

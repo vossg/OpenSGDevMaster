@@ -66,6 +66,8 @@
 #include "OSGTextureGrabForegroundBase.h"
 #include "OSGTextureGrabForeground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -113,16 +115,10 @@ void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&TextureGrabForegroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getSFTexture));
+        reinterpret_cast<FieldEditMethodSig>(&TextureGrabForegroundBase::editHandleTexture),
+        reinterpret_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getHandleTexture));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(TextureGrabForegroundBase::*GetSFAutoResizeF)(void) const;
-
-    GetSFAutoResizeF GetSFAutoResize = &TextureGrabForegroundBase::getSFAutoResize;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -131,20 +127,10 @@ void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
         AutoResizeFieldId, AutoResizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureGrabForegroundBase::editSFAutoResize),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAutoResize));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getSFAutoResize));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureGrabForegroundBase::editHandleAutoResize),
+        reinterpret_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getHandleAutoResize));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(TextureGrabForegroundBase::*GetSFBindTargetF)(void) const;
-
-    GetSFBindTargetF GetSFBindTarget = &TextureGrabForegroundBase::getSFBindTarget;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -153,20 +139,10 @@ void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
         BindTargetFieldId, BindTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureGrabForegroundBase::editSFBindTarget),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFBindTarget));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getSFBindTarget));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureGrabForegroundBase::editHandleBindTarget),
+        reinterpret_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getHandleBindTarget));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(TextureGrabForegroundBase::*GetSFCopyTargetF)(void) const;
-
-    GetSFCopyTargetF GetSFCopyTarget = &TextureGrabForegroundBase::getSFCopyTarget;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -176,12 +152,8 @@ void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
         CopyTargetFieldId, CopyTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureGrabForegroundBase::editSFCopyTarget),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFCopyTarget));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getSFCopyTarget));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureGrabForegroundBase::editHandleCopyTarget),
+        reinterpret_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getHandleCopyTarget));
 
     oType.addInitialDesc(pDesc);
 }
@@ -344,65 +316,6 @@ SFGLenum            *TextureGrabForegroundBase::getSFCopyTarget     (void)
 #endif
 
 
-void TextureGrabForegroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == TextureFieldId)
-    {
-        static_cast<TextureGrabForeground *>(this)->setTexture(
-            dynamic_cast<TextureObjChunkPtr>(pNewElement));
-    }
-}
-
-void TextureGrabForegroundBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void TextureGrabForegroundBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void TextureGrabForegroundBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void TextureGrabForegroundBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void TextureGrabForegroundBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void TextureGrabForegroundBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == TextureFieldId)
-    {
-        static_cast<TextureGrabForeground *>(this)->setTexture(NullFC);
-    }
-}
 
 
 
@@ -550,6 +463,97 @@ void TextureGrabForegroundBase::onCreate(const TextureGrabForeground *source)
         this->setTexture(source->getTexture());
     }
 }
+
+SFTextureObjChunkPtr::GetHandlePtr TextureGrabForegroundBase::getHandleTexture         (void)
+{
+    SFTextureObjChunkPtr::GetHandlePtr returnValue(
+        new  SFTextureObjChunkPtr::GetHandle(
+             &_sfTexture, 
+             this->getType().getFieldDesc(TextureFieldId)));
+
+    return returnValue;
+}
+
+SFTextureObjChunkPtr::EditHandlePtr TextureGrabForegroundBase::editHandleTexture        (void)
+{
+    SFTextureObjChunkPtr::EditHandlePtr returnValue(
+        new  SFTextureObjChunkPtr::EditHandle(
+             &_sfTexture, 
+             this->getType().getFieldDesc(TextureFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&TextureGrabForeground::setTexture, this, _1));
+
+    editSField(TextureFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr TextureGrabForegroundBase::getHandleAutoResize      (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfAutoResize, 
+             this->getType().getFieldDesc(AutoResizeFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr TextureGrabForegroundBase::editHandleAutoResize     (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfAutoResize, 
+             this->getType().getFieldDesc(AutoResizeFieldId)));
+
+    editSField(AutoResizeFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr TextureGrabForegroundBase::getHandleBindTarget      (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfBindTarget, 
+             this->getType().getFieldDesc(BindTargetFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr TextureGrabForegroundBase::editHandleBindTarget     (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfBindTarget, 
+             this->getType().getFieldDesc(BindTargetFieldId)));
+
+    editSField(BindTargetFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr TextureGrabForegroundBase::getHandleCopyTarget      (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfCopyTarget, 
+             this->getType().getFieldDesc(CopyTargetFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr TextureGrabForegroundBase::editHandleCopyTarget     (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfCopyTarget, 
+             this->getType().getFieldDesc(CopyTargetFieldId)));
+
+    editSField(CopyTargetFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void TextureGrabForegroundBase::execSyncV(      FieldContainer    &oFrom,

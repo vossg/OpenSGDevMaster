@@ -518,4 +518,30 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
+template <class GeoPropertyDesc> inline
+typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredEditHandlePtr  
+    TypedGeoIntegralProperty<GeoPropertyDesc>::editHandleField(void)
+{
+    StoredEditHandlePtr returnValue(
+        new  StoredEditHandle(
+             &_field, 
+             this->getType().getFieldDesc(GeoPropDataFieldId)));
+
+    editMField(GeoPropDataFieldMask, _field);
+
+    return returnValue;
+}
+
+template <class GeoPropertyDesc> inline
+typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredGetHandlePtr
+    TypedGeoIntegralProperty<GeoPropertyDesc>::getHandleField(void) const
+{
+    StoredGetHandlePtr returnValue(
+        new  StoredGetHandle(
+             &_field, 
+             this->getType().getFieldDesc(GeoPropDataFieldId)));
+
+    return returnValue;
+}
+
 OSG_END_NAMESPACE

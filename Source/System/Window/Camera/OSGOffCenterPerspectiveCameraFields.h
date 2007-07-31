@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(OffCenterPerspectiveCamera);
 
 template <>
 struct FieldTraits<OffCenterPerspectiveCameraPtr> :
-    public FieldTraitsTemplateBase<OffCenterPerspectiveCameraPtr>
+    public FieldTraitsFCPtrBase<OffCenterPerspectiveCameraPtr>
 {
   private:
 

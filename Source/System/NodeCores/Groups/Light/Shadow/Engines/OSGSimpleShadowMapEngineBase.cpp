@@ -65,6 +65,8 @@
 #include "OSGSimpleShadowMapEngineBase.h"
 #include "OSGSimpleShadowMapEngine.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(SimpleShadowMapEngineBase::*GetSFForceTextureUnitF)(void) const;
-
-    GetSFForceTextureUnitF GetSFForceTextureUnit = &SimpleShadowMapEngineBase::getSFForceTextureUnit;
-#endif
-
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
         "forceTextureUnit",
@@ -102,12 +98,8 @@ void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
         ForceTextureUnitFieldId, ForceTextureUnitFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleShadowMapEngineBase::editSFForceTextureUnit),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFForceTextureUnit));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SimpleShadowMapEngineBase::getSFForceTextureUnit));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SimpleShadowMapEngineBase::editHandleForceTextureUnit),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleShadowMapEngineBase::getHandleForceTextureUnit));
 
     oType.addInitialDesc(pDesc);
 }
@@ -281,6 +273,29 @@ SimpleShadowMapEngineBase::SimpleShadowMapEngineBase(const SimpleShadowMapEngine
 
 SimpleShadowMapEngineBase::~SimpleShadowMapEngineBase(void)
 {
+}
+
+
+SFInt32::GetHandlePtr SimpleShadowMapEngineBase::getHandleForceTextureUnit (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfForceTextureUnit, 
+             this->getType().getFieldDesc(ForceTextureUnitFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr SimpleShadowMapEngineBase::editHandleForceTextureUnit(void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfForceTextureUnit, 
+             this->getType().getFieldDesc(ForceTextureUnitFieldId)));
+
+    editSField(ForceTextureUnitFieldMask);
+
+    return returnValue;
 }
 
 

@@ -46,7 +46,7 @@
 #include<OSGChangedFunctorMFields.h>
 
 OSG_BEGIN_NAMESPACE
-
+#if 0
 template <>
 OSG_DLL_EXPORT
 void FieldDescription<FieldTraits<ChangedFunctorCallback>,
@@ -106,5 +106,6 @@ void FieldDescription<FieldTraits<ChangedFunctorCallback>,
 {
     FWARNING(("FieldDescription::shareValues called for mf changed functors.\n"));
 }
+#endif
 
 OSG_END_NAMESPACE

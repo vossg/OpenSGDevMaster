@@ -414,29 +414,6 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -654,6 +631,50 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \{                                                                 */
 
     void onCreate(const SkyBackground *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFColor4f::GetHandlePtr  getHandleSkyColor        (void);
+    MFColor4f::EditHandlePtr editHandleSkyColor       (void);
+    MFReal32::GetHandlePtr  getHandleSkyAngle        (void);
+    MFReal32::EditHandlePtr editHandleSkyAngle       (void);
+    MFColor4f::GetHandlePtr  getHandleGroundColor     (void);
+    MFColor4f::EditHandlePtr editHandleGroundColor    (void);
+    MFReal32::GetHandlePtr  getHandleGroundAngle     (void);
+    MFReal32::EditHandlePtr editHandleGroundAngle    (void);
+    SFUInt32::GetHandlePtr  getHandleSphereRes       (void);
+    SFUInt32::EditHandlePtr editHandleSphereRes      (void);
+    SFTextureBaseChunkPtr::GetHandlePtr  getHandleBackTexture     (void);
+    SFTextureBaseChunkPtr::EditHandlePtr editHandleBackTexture    (void);
+    SFTextureBaseChunkPtr::GetHandlePtr  getHandleBottomTexture   (void);
+    SFTextureBaseChunkPtr::EditHandlePtr editHandleBottomTexture  (void);
+    SFTextureBaseChunkPtr::GetHandlePtr  getHandleFrontTexture    (void);
+    SFTextureBaseChunkPtr::EditHandlePtr editHandleFrontTexture   (void);
+    SFTextureBaseChunkPtr::GetHandlePtr  getHandleLeftTexture     (void);
+    SFTextureBaseChunkPtr::EditHandlePtr editHandleLeftTexture    (void);
+    SFTextureBaseChunkPtr::GetHandlePtr  getHandleRightTexture    (void);
+    SFTextureBaseChunkPtr::EditHandlePtr editHandleRightTexture   (void);
+    SFTextureBaseChunkPtr::GetHandlePtr  getHandleTopTexture      (void);
+    SFTextureBaseChunkPtr::EditHandlePtr editHandleTopTexture     (void);
+    SFBool::GetHandlePtr  getHandleBoxInside       (void);
+    SFBool::EditHandlePtr editHandleBoxInside      (void);
+    MFVec3f::GetHandlePtr  getHandleTopTexCoord     (void);
+    MFVec3f::EditHandlePtr editHandleTopTexCoord    (void);
+    MFVec3f::GetHandlePtr  getHandleBottomTexCoord  (void);
+    MFVec3f::EditHandlePtr editHandleBottomTexCoord (void);
+    MFVec3f::GetHandlePtr  getHandleRightTexCoord   (void);
+    MFVec3f::EditHandlePtr editHandleRightTexCoord  (void);
+    MFVec3f::GetHandlePtr  getHandleLeftTexCoord    (void);
+    MFVec3f::EditHandlePtr editHandleLeftTexCoord   (void);
+    MFVec3f::GetHandlePtr  getHandleFrontTexCoord   (void);
+    MFVec3f::EditHandlePtr editHandleFrontTexCoord  (void);
+    MFVec3f::GetHandlePtr  getHandleBackTexCoord    (void);
+    MFVec3f::EditHandlePtr editHandleBackTexCoord   (void);
+    SFNodePtr::GetHandlePtr  getHandleBeacon          (void);
+    SFNodePtr::EditHandlePtr editHandleBeacon         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

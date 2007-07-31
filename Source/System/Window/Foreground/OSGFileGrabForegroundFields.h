@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(FileGrabForeground);
 
 template <>
 struct FieldTraits<FileGrabForegroundPtr> :
-    public FieldTraitsTemplateBase<FileGrabForegroundPtr>
+    public FieldTraitsFCPtrBase<FileGrabForegroundPtr>
 {
   private:
 

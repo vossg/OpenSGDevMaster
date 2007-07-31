@@ -136,12 +136,12 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
 
           FieldContainerPtr                     _pCurrentFC;
           NodePtr                               _pRootNode;
-          Field                                *_pCurrentField;
+          EditFieldHandlePtr                    _pCurrentField;
     const FieldDescriptionBase                 *_pCurrentFieldDesc;
           NamedFCMap                            _defMap;
 
           std::stack<      FieldContainerPtr     >  _fcStack;
-          std::stack<      Field                *>  _fStack;
+          std::stack<      EditFieldHandlePtr    >  _fStack;
           std::stack<const FieldDescriptionBase *>  _fdStack;
     
           BitVector                                _bvChanged;

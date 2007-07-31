@@ -191,29 +191,6 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -288,6 +265,24 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     /*! \{                                                                 */
 
     void onCreate(const CubeTextureObjChunk *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFImagePtr::GetHandlePtr  getHandlePosZImage       (void);
+    SFImagePtr::EditHandlePtr editHandlePosZImage      (void);
+    SFImagePtr::GetHandlePtr  getHandlePosXImage       (void);
+    SFImagePtr::EditHandlePtr editHandlePosXImage      (void);
+    SFImagePtr::GetHandlePtr  getHandleNegXImage       (void);
+    SFImagePtr::EditHandlePtr editHandleNegXImage      (void);
+    SFImagePtr::GetHandlePtr  getHandlePosYImage       (void);
+    SFImagePtr::EditHandlePtr editHandlePosYImage      (void);
+    SFImagePtr::GetHandlePtr  getHandleNegYImage       (void);
+    SFImagePtr::EditHandlePtr editHandleNegYImage      (void);
+    SFBool::GetHandlePtr  getHandleIsReflectionMap (void);
+    SFBool::EditHandlePtr editHandleIsReflectionMap(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

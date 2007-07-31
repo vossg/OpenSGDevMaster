@@ -66,21 +66,21 @@ FieldDescriptionBase::FieldDescriptionBase(
           FieldGetMethod   fGetMethod,
     const Char8           *defaultValue) :
 
-    _szName            (szName      ),
+    _szName            (szName            ),
     _documentation     (fieldDocumentation),
 
-    _fieldType         (elementType ),
-    _uiFieldId         (uiFieldId   ),
-    _vFieldMask        (vFieldMask  ),
+    _fieldType         (elementType       ),
+    _uiFieldId         (uiFieldId         ),
+    _vFieldMask        (vFieldMask        ),
 
-    _bInternal         (bInternal   ),
-    _uiFieldFlags      (uiFieldFlags),
+    _bInternal         (bInternal         ),
+    _uiFieldFlags      (uiFieldFlags      ),
 
-    _fEditMethod       (fEditMethod ),
-    _fGetMethod        (fGetMethod  ),
-    _fIndexedEditMethod(NULL        ),
-    _fIndexedGetMethod (NULL        ),
-    _defaultValue      (defaultValue)
+    _fEditMethod       (fEditMethod       ),
+    _fGetMethod        (fGetMethod        ),
+    _fIndexedEditMethod(NULL              ),
+    _fIndexedGetMethod (NULL              ),
+    _defaultValue      (defaultValue      )
 {
 }
 
@@ -150,6 +150,7 @@ FieldDescriptionBase::~FieldDescriptionBase(void)
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
 
+#if 0
 void FieldDescriptionBase::cloneValuesV(
      const Field         *pSrc,
      const UInt32         fieldId,
@@ -173,3 +174,4 @@ void FieldDescriptionBase::shareValuesV(
 {
    OSG_ASSERT(false && "Must define shareValuesV");
 }
+#endif

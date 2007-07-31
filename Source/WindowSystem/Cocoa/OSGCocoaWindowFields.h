@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(CocoaWindow);
 
 template <>
 struct FieldTraits<CocoaWindowPtr> :
-    public FieldTraitsTemplateBase<CocoaWindowPtr>
+    public FieldTraitsFCPtrBase<CocoaWindowPtr>
 {
   private:
 

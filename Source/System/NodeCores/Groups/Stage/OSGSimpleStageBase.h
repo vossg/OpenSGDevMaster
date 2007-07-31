@@ -226,29 +226,6 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -337,6 +314,26 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \{                                                                 */
 
     void onCreate(const SimpleStage *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFReal32::GetHandlePtr  getHandleLeft            (void);
+    SFReal32::EditHandlePtr editHandleLeft           (void);
+    SFReal32::GetHandlePtr  getHandleRight           (void);
+    SFReal32::EditHandlePtr editHandleRight          (void);
+    SFReal32::GetHandlePtr  getHandleBottom          (void);
+    SFReal32::EditHandlePtr editHandleBottom         (void);
+    SFReal32::GetHandlePtr  getHandleTop             (void);
+    SFReal32::EditHandlePtr editHandleTop            (void);
+    SFCameraPtr::GetHandlePtr  getHandleCamera          (void);
+    SFCameraPtr::EditHandlePtr editHandleCamera         (void);
+    SFBackgroundPtr::GetHandlePtr  getHandleBackground      (void);
+    SFBackgroundPtr::EditHandlePtr editHandleBackground     (void);
+    MFForegroundPtr::GetHandlePtr  getHandleForegrounds     (void);
+    MFForegroundPtr::EditHandlePtr editHandleForegrounds    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

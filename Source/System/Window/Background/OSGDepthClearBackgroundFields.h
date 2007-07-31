@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(DepthClearBackground);
 
 template <>
 struct FieldTraits<DepthClearBackgroundPtr> :
-    public FieldTraitsTemplateBase<DepthClearBackgroundPtr>
+    public FieldTraitsFCPtrBase<DepthClearBackgroundPtr>
 {
   private:
 

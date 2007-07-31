@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(FBOViewport);
 
 template <>
 struct FieldTraits<FBOViewportPtr> :
-    public FieldTraitsTemplateBase<FBOViewportPtr>
+    public FieldTraitsFCPtrBase<FBOViewportPtr>
 {
   private:
 

@@ -459,29 +459,6 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -600,6 +577,60 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \{                                                                 */
 
     void onCreate(const QuadTreeTerrain *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFImagePtr::GetHandlePtr  getHandleHeightData      (void);
+    SFImagePtr::EditHandlePtr editHandleHeightData     (void);
+    SFReal32::GetHandlePtr  getHandleHeightScale     (void);
+    SFReal32::EditHandlePtr editHandleHeightScale    (void);
+    MFReal32::GetHandlePtr  getHandleHeightError     (void);
+    MFReal32::EditHandlePtr editHandleHeightError    (void);
+    MFReal32::GetHandlePtr  getHandleHeightQuad      (void);
+    MFReal32::EditHandlePtr editHandleHeightQuad     (void);
+    SFUInt32::GetHandlePtr  getHandleWidth           (void);
+    SFUInt32::EditHandlePtr editHandleWidth          (void);
+    SFUInt32::GetHandlePtr  getHandleLevel           (void);
+    SFUInt32::EditHandlePtr editHandleLevel          (void);
+    SFReal32::GetHandlePtr  getHandleDetail          (void);
+    SFReal32::EditHandlePtr editHandleDetail         (void);
+    SFInt32::GetHandlePtr  getHandleBorderDetail    (void);
+    SFInt32::EditHandlePtr editHandleBorderDetail   (void);
+    SFReal32::GetHandlePtr  getHandleVertexSpacing   (void);
+    SFReal32::EditHandlePtr editHandleVertexSpacing  (void);
+    SFGeoVectorPropertyPtr::GetHandlePtr  getHandleHeightVertices  (void);
+    SFGeoVectorPropertyPtr::EditHandlePtr editHandleHeightVertices (void);
+    SFBool::GetHandlePtr  getHandleGeoMorphing     (void);
+    SFBool::EditHandlePtr editHandleGeoMorphing    (void);
+    SFPnt3f::GetHandlePtr  getHandleBoundMin        (void);
+    SFPnt3f::EditHandlePtr editHandleBoundMin       (void);
+    SFPnt3f::GetHandlePtr  getHandleBoundMax        (void);
+    SFPnt3f::EditHandlePtr editHandleBoundMax       (void);
+    SFPnt3f::GetHandlePtr  getHandleEyePoint        (void);
+    SFPnt3f::EditHandlePtr editHandleEyePoint       (void);
+    SFReal32::GetHandlePtr  getHandleEyeHeight       (void);
+    SFReal32::EditHandlePtr editHandleEyeHeight      (void);
+    SFBool::GetHandlePtr  getHandleEyePointValid   (void);
+    SFBool::EditHandlePtr editHandleEyePointValid  (void);
+    SFReal32::GetHandlePtr  getHandleOriginX         (void);
+    SFReal32::EditHandlePtr editHandleOriginX        (void);
+    SFReal32::GetHandlePtr  getHandleOriginY         (void);
+    SFReal32::EditHandlePtr editHandleOriginY        (void);
+    SFReal32::GetHandlePtr  getHandleOriginTexX      (void);
+    SFReal32::EditHandlePtr editHandleOriginTexX     (void);
+    SFReal32::GetHandlePtr  getHandleOriginTexY      (void);
+    SFReal32::EditHandlePtr editHandleOriginTexY     (void);
+    SFReal32::GetHandlePtr  getHandleTexSpacing      (void);
+    SFReal32::EditHandlePtr editHandleTexSpacing     (void);
+    SFReal32::GetHandlePtr  getHandleTexYSpacing     (void);
+    SFReal32::EditHandlePtr editHandleTexYSpacing    (void);
+    SFBool::GetHandlePtr  getHandleUpdateTerrain   (void);
+    SFBool::EditHandlePtr editHandleUpdateTerrain  (void);
+    SFBool::GetHandlePtr  getHandlePerPixelLighting (void);
+    SFBool::EditHandlePtr editHandlePerPixelLighting(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -69,6 +69,8 @@
 #include "OSGStencilChunkBase.h"
 #include "OSGStencilChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -127,12 +129,6 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(StencilChunkBase::*GetSFStencilFuncF)(void) const;
-
-    GetSFStencilFuncF GetSFStencilFunc = &StencilChunkBase::getSFStencilFunc;
-#endif
-
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "stencilFunc",
@@ -141,20 +137,10 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilFuncFieldId, StencilFuncFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilFunc),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFStencilFunc));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilFunc));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilFunc),
+        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilFunc));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(StencilChunkBase::*GetSFStencilValueF)(void) const;
-
-    GetSFStencilValueF GetSFStencilValue = &StencilChunkBase::getSFStencilValue;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -164,20 +150,10 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilValueFieldId, StencilValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilValue),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFStencilValue));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilValue));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilValue),
+        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilValue));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(StencilChunkBase::*GetSFStencilMaskF)(void) const;
-
-    GetSFStencilMaskF GetSFStencilMask = &StencilChunkBase::getSFStencilMask;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -187,20 +163,10 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilMaskFieldId, StencilMaskFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilMask),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFStencilMask));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilMask));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilMask),
+        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilMask));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(StencilChunkBase::*GetSFStencilOpFailF)(void) const;
-
-    GetSFStencilOpFailF GetSFStencilOpFail = &StencilChunkBase::getSFStencilOpFail;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -210,20 +176,10 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilOpFailFieldId, StencilOpFailFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilOpFail),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFStencilOpFail));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilOpFail));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilOpFail),
+        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilOpFail));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(StencilChunkBase::*GetSFStencilOpZFailF)(void) const;
-
-    GetSFStencilOpZFailF GetSFStencilOpZFail = &StencilChunkBase::getSFStencilOpZFail;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -233,20 +189,10 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilOpZFailFieldId, StencilOpZFailFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilOpZFail),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFStencilOpZFail));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilOpZFail));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilOpZFail),
+        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilOpZFail));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(StencilChunkBase::*GetSFStencilOpZPassF)(void) const;
-
-    GetSFStencilOpZPassF GetSFStencilOpZPass = &StencilChunkBase::getSFStencilOpZPass;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -256,20 +202,10 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilOpZPassFieldId, StencilOpZPassFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFStencilOpZPass),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFStencilOpZPass));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFStencilOpZPass));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilOpZPass),
+        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilOpZPass));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(StencilChunkBase::*GetSFClearBufferF)(void) const;
-
-    GetSFClearBufferF GetSFClearBuffer = &StencilChunkBase::getSFClearBuffer;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -278,20 +214,10 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         ClearBufferFieldId, ClearBufferFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFClearBuffer),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFClearBuffer));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFClearBuffer));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleClearBuffer),
+        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleClearBuffer));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(StencilChunkBase::*GetSFBitMaskF)(void) const;
-
-    GetSFBitMaskF GetSFBitMask = &StencilChunkBase::getSFBitMask;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -300,12 +226,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         BitMaskFieldId, BitMaskFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFBitMask),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFBitMask));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFBitMask));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleBitMask),
+        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleBitMask));
 
     oType.addInitialDesc(pDesc);
 }
@@ -793,6 +715,183 @@ StencilChunkBase::StencilChunkBase(const StencilChunkBase &source) :
 
 StencilChunkBase::~StencilChunkBase(void)
 {
+}
+
+
+SFGLenum::GetHandlePtr StencilChunkBase::getHandleStencilFunc     (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfStencilFunc, 
+             this->getType().getFieldDesc(StencilFuncFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr StencilChunkBase::editHandleStencilFunc    (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfStencilFunc, 
+             this->getType().getFieldDesc(StencilFuncFieldId)));
+
+    editSField(StencilFuncFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr StencilChunkBase::getHandleStencilValue    (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfStencilValue, 
+             this->getType().getFieldDesc(StencilValueFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr StencilChunkBase::editHandleStencilValue   (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfStencilValue, 
+             this->getType().getFieldDesc(StencilValueFieldId)));
+
+    editSField(StencilValueFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr StencilChunkBase::getHandleStencilMask     (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfStencilMask, 
+             this->getType().getFieldDesc(StencilMaskFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr StencilChunkBase::editHandleStencilMask    (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfStencilMask, 
+             this->getType().getFieldDesc(StencilMaskFieldId)));
+
+    editSField(StencilMaskFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr StencilChunkBase::getHandleStencilOpFail   (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfStencilOpFail, 
+             this->getType().getFieldDesc(StencilOpFailFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr StencilChunkBase::editHandleStencilOpFail  (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfStencilOpFail, 
+             this->getType().getFieldDesc(StencilOpFailFieldId)));
+
+    editSField(StencilOpFailFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr StencilChunkBase::getHandleStencilOpZFail  (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfStencilOpZFail, 
+             this->getType().getFieldDesc(StencilOpZFailFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr StencilChunkBase::editHandleStencilOpZFail (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfStencilOpZFail, 
+             this->getType().getFieldDesc(StencilOpZFailFieldId)));
+
+    editSField(StencilOpZFailFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr StencilChunkBase::getHandleStencilOpZPass  (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfStencilOpZPass, 
+             this->getType().getFieldDesc(StencilOpZPassFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr StencilChunkBase::editHandleStencilOpZPass (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfStencilOpZPass, 
+             this->getType().getFieldDesc(StencilOpZPassFieldId)));
+
+    editSField(StencilOpZPassFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr StencilChunkBase::getHandleClearBuffer     (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfClearBuffer, 
+             this->getType().getFieldDesc(ClearBufferFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr StencilChunkBase::editHandleClearBuffer    (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfClearBuffer, 
+             this->getType().getFieldDesc(ClearBufferFieldId)));
+
+    editSField(ClearBufferFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr StencilChunkBase::getHandleBitMask         (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfBitMask, 
+             this->getType().getFieldDesc(BitMaskFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr StencilChunkBase::editHandleBitMask        (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfBitMask, 
+             this->getType().getFieldDesc(BitMaskFieldId)));
+
+    editSField(BitMaskFieldMask);
+
+    return returnValue;
 }
 
 

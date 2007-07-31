@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(SimpleMaterial);
 
 template <>
 struct FieldTraits<SimpleMaterialPtr> :
-    public FieldTraitsTemplateBase<SimpleMaterialPtr>
+    public FieldTraitsFCPtrBase<SimpleMaterialPtr>
 {
   private:
 

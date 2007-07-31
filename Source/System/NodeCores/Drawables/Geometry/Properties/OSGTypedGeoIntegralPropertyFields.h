@@ -63,7 +63,7 @@ OSG_GEN_CONTAINERPTR(GeoUInt8Property);
 
 template <>
 struct FieldTraits<GeoUInt8PropertyPtr> : 
-    public FieldTraitsTemplateBase<GeoUInt8PropertyPtr>
+    public FieldTraitsFCPtrBase<GeoUInt8PropertyPtr>
 {
   private:
 
@@ -135,7 +135,7 @@ OSG_GEN_CONTAINERPTR(GeoUInt32Property);
 
 template <>
 struct FieldTraits<GeoUInt32PropertyPtr> : 
-    public FieldTraitsTemplateBase<GeoUInt32PropertyPtr>
+    public FieldTraitsFCPtrBase<GeoUInt32PropertyPtr>
 {
   private:
 

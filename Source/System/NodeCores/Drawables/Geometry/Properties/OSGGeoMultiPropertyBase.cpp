@@ -66,6 +66,8 @@
 #include "OSGGeoMultiPropertyBase.h"
 #include "OSGGeoMultiProperty.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -121,16 +123,10 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         ContainerFieldId, ContainerFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&GeoMultiPropertyBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFContainer));
+        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleContainer),
+        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleContainer));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoMultiPropertyBase::*GetSFOffsetF)(void) const;
-
-    GetSFOffsetF GetSFOffset = &GeoMultiPropertyBase::getSFOffset;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -139,20 +135,10 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         OffsetFieldId, OffsetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFOffset),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFOffset));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFOffset));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleOffset),
+        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleOffset));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(GeoMultiPropertyBase::*GetSFIFormatF)(void) const;
-
-    GetSFIFormatF GetSFIFormat = &GeoMultiPropertyBase::getSFIFormat;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -161,20 +147,10 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         IFormatFieldId, IFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFIFormat),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFIFormat));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFIFormat));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleIFormat),
+        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleIFormat));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoMultiPropertyBase::*GetSFIDimensionF)(void) const;
-
-    GetSFIDimensionF GetSFIDimension = &GeoMultiPropertyBase::getSFIDimension;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -183,20 +159,10 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         IDimensionFieldId, IDimensionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFIDimension),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFIDimension));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFIDimension));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleIDimension),
+        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleIDimension));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoMultiPropertyBase::*GetSFISizeF)(void) const;
-
-    GetSFISizeF GetSFISize = &GeoMultiPropertyBase::getSFISize;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -205,20 +171,10 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         ISizeFieldId, ISizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFISize),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFISize));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFISize));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleISize),
+        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleISize));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(GeoMultiPropertyBase::*GetSFINormalizeF)(void) const;
-
-    GetSFINormalizeF GetSFINormalize = &GeoMultiPropertyBase::getSFINormalize;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -227,20 +183,10 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         INormalizeFieldId, INormalizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFINormalize),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFINormalize));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFINormalize));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleINormalize),
+        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleINormalize));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoMultiPropertyBase::*GetSFIStrideF)(void) const;
-
-    GetSFIStrideF GetSFIStride = &GeoMultiPropertyBase::getSFIStride;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -249,12 +195,8 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         IStrideFieldId, IStrideFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFIStride),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFIStride));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFIStride));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleIStride),
+        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleIStride));
 
     oType.addInitialDesc(pDesc);
 }
@@ -510,65 +452,6 @@ SFUInt32            *GeoMultiPropertyBase::getSFIStride        (void)
 #endif
 
 
-void GeoMultiPropertyBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == ContainerFieldId)
-    {
-        static_cast<GeoMultiProperty *>(this)->setContainer(
-            dynamic_cast<GeoMultiPropertyDataPtr>(pNewElement));
-    }
-}
-
-void GeoMultiPropertyBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void GeoMultiPropertyBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void GeoMultiPropertyBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void GeoMultiPropertyBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void GeoMultiPropertyBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void GeoMultiPropertyBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == ContainerFieldId)
-    {
-        static_cast<GeoMultiProperty *>(this)->setContainer(NullFC);
-    }
-}
 
 
 
@@ -758,6 +641,163 @@ void GeoMultiPropertyBase::onCreate(const GeoMultiProperty *source)
         this->setContainer(source->getContainer());
     }
 }
+
+SFGeoMultiPropertyDataPtr::GetHandlePtr GeoMultiPropertyBase::getHandleContainer       (void)
+{
+    SFGeoMultiPropertyDataPtr::GetHandlePtr returnValue(
+        new  SFGeoMultiPropertyDataPtr::GetHandle(
+             &_sfContainer, 
+             this->getType().getFieldDesc(ContainerFieldId)));
+
+    return returnValue;
+}
+
+SFGeoMultiPropertyDataPtr::EditHandlePtr GeoMultiPropertyBase::editHandleContainer      (void)
+{
+    SFGeoMultiPropertyDataPtr::EditHandlePtr returnValue(
+        new  SFGeoMultiPropertyDataPtr::EditHandle(
+             &_sfContainer, 
+             this->getType().getFieldDesc(ContainerFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&GeoMultiProperty::setContainer, this, _1));
+
+    editSField(ContainerFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr GeoMultiPropertyBase::getHandleOffset          (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfOffset, 
+             this->getType().getFieldDesc(OffsetFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoMultiPropertyBase::editHandleOffset         (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfOffset, 
+             this->getType().getFieldDesc(OffsetFieldId)));
+
+    editSField(OffsetFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr GeoMultiPropertyBase::getHandleIFormat         (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfIFormat, 
+             this->getType().getFieldDesc(IFormatFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr GeoMultiPropertyBase::editHandleIFormat        (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfIFormat, 
+             this->getType().getFieldDesc(IFormatFieldId)));
+
+    editSField(IFormatFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr GeoMultiPropertyBase::getHandleIDimension      (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfIDimension, 
+             this->getType().getFieldDesc(IDimensionFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoMultiPropertyBase::editHandleIDimension     (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfIDimension, 
+             this->getType().getFieldDesc(IDimensionFieldId)));
+
+    editSField(IDimensionFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr GeoMultiPropertyBase::getHandleISize           (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfISize, 
+             this->getType().getFieldDesc(ISizeFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoMultiPropertyBase::editHandleISize          (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfISize, 
+             this->getType().getFieldDesc(ISizeFieldId)));
+
+    editSField(ISizeFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr GeoMultiPropertyBase::getHandleINormalize      (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfINormalize, 
+             this->getType().getFieldDesc(INormalizeFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr GeoMultiPropertyBase::editHandleINormalize     (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfINormalize, 
+             this->getType().getFieldDesc(INormalizeFieldId)));
+
+    editSField(INormalizeFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr GeoMultiPropertyBase::getHandleIStride         (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfIStride, 
+             this->getType().getFieldDesc(IStrideFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoMultiPropertyBase::editHandleIStride        (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfIStride, 
+             this->getType().getFieldDesc(IStrideFieldId)));
+
+    editSField(IStrideFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void GeoMultiPropertyBase::execSyncV(      FieldContainer    &oFrom,

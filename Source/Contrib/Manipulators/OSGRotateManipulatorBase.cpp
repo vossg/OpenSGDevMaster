@@ -65,6 +65,8 @@
 #include "OSGRotateManipulatorBase.h"
 #include "OSGRotateManipulator.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -205,6 +207,7 @@ RotateManipulatorBase::RotateManipulatorBase(const RotateManipulatorBase &source
 RotateManipulatorBase::~RotateManipulatorBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

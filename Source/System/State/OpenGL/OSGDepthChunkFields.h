@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(DepthChunk);
 
 template <>
 struct FieldTraits<DepthChunkPtr> :
-    public FieldTraitsTemplateBase<DepthChunkPtr>
+    public FieldTraitsFCPtrBase<DepthChunkPtr>
 {
   private:
 

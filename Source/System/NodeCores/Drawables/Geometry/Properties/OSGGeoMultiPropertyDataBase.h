@@ -250,6 +250,16 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFUInt8::GetHandlePtr  getHandleIData           (void);
+    MFUInt8::EditHandlePtr editHandleIData          (void);
+    SFUInt32::GetHandlePtr  getHandleGLId            (void);
+    SFUInt32::EditHandlePtr editHandleGLId           (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

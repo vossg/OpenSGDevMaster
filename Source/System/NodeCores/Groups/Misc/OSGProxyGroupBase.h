@@ -318,29 +318,6 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -434,6 +411,36 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \{                                                                 */
 
     void onCreate(const ProxyGroup *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFBool::GetHandlePtr  getHandleEnabled         (void);
+    SFBool::EditHandlePtr editHandleEnabled        (void);
+    SFString::GetHandlePtr  getHandleUrl             (void);
+    SFString::EditHandlePtr editHandleUrl            (void);
+    SFNodePtr::GetHandlePtr  getHandleRoot            (void);
+    SFNodePtr::EditHandlePtr editHandleRoot           (void);
+    SFUInt32::GetHandlePtr  getHandleState           (void);
+    SFUInt32::EditHandlePtr editHandleState          (void);
+    SFBool::GetHandlePtr  getHandleConcurrentLoad  (void);
+    SFBool::EditHandlePtr editHandleConcurrentLoad (void);
+    SFDynamicVolume::GetHandlePtr  getHandleVolume          (void);
+    SFDynamicVolume::EditHandlePtr editHandleVolume         (void);
+    SFUInt32::GetHandlePtr  getHandleIndices         (void);
+    SFUInt32::EditHandlePtr editHandleIndices        (void);
+    SFUInt32::GetHandlePtr  getHandleTriangles       (void);
+    SFUInt32::EditHandlePtr editHandleTriangles      (void);
+    SFUInt32::GetHandlePtr  getHandlePositions       (void);
+    SFUInt32::EditHandlePtr editHandlePositions      (void);
+    SFUInt32::GetHandlePtr  getHandleGeometries      (void);
+    SFUInt32::EditHandlePtr editHandleGeometries     (void);
+    SFString::GetHandlePtr  getHandleAbsoluteUrl     (void);
+    SFString::EditHandlePtr editHandleAbsoluteUrl    (void);
+    MFUInt8::GetHandlePtr  getHandleInline          (void);
+    MFUInt8::EditHandlePtr editHandleInline         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

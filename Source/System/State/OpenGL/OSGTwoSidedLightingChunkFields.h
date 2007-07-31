@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(TwoSidedLightingChunk);
 
 template <>
 struct FieldTraits<TwoSidedLightingChunkPtr> :
-    public FieldTraitsTemplateBase<TwoSidedLightingChunkPtr>
+    public FieldTraitsFCPtrBase<TwoSidedLightingChunkPtr>
 {
   private:
 

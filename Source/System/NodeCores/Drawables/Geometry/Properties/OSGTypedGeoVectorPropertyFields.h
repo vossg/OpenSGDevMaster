@@ -63,7 +63,7 @@ OSG_GEN_CONTAINERPTR(GeoPnt3fProperty);
 
 template <>
 struct FieldTraits<GeoPnt3fPropertyPtr> : 
-    public FieldTraitsTemplateBase<GeoPnt3fPropertyPtr>
+    public FieldTraitsFCPtrBase<GeoPnt3fPropertyPtr>
 {
   private:
 
@@ -135,7 +135,7 @@ OSG_GEN_CONTAINERPTR(GeoVec3fProperty);
 
 template <>
 struct FieldTraits<GeoVec3fPropertyPtr> : 
-    public FieldTraitsTemplateBase<GeoVec3fPropertyPtr>
+    public FieldTraitsFCPtrBase<GeoVec3fPropertyPtr>
 {
   private:
 
@@ -209,7 +209,7 @@ OSG_GEN_CONTAINERPTR(GeoColor4fProperty);
 
 template <>
 struct FieldTraits<GeoColor4fPropertyPtr> : 
-    public FieldTraitsTemplateBase<GeoColor4fPropertyPtr>
+    public FieldTraitsFCPtrBase<GeoColor4fPropertyPtr>
 {
   private:
 

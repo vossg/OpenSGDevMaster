@@ -69,6 +69,8 @@
 #include "OSGSimpleTexturedMaterialBase.h"
 #include "OSGSimpleTexturedMaterial.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -133,16 +135,10 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         ImageFieldId, ImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SimpleTexturedMaterialBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getSFImage));
+        reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editHandleImage),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getHandleImage));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(SimpleTexturedMaterialBase::*GetSFMinFilterF)(void) const;
-
-    GetSFMinFilterF GetSFMinFilter = &SimpleTexturedMaterialBase::getSFMinFilter;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -152,20 +148,10 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         MinFilterFieldId, MinFilterFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editSFMinFilter),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMinFilter));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getSFMinFilter));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editHandleMinFilter),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getHandleMinFilter));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(SimpleTexturedMaterialBase::*GetSFMagFilterF)(void) const;
-
-    GetSFMagFilterF GetSFMagFilter = &SimpleTexturedMaterialBase::getSFMagFilter;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -175,20 +161,10 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         MagFilterFieldId, MagFilterFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editSFMagFilter),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMagFilter));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getSFMagFilter));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editHandleMagFilter),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getHandleMagFilter));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(SimpleTexturedMaterialBase::*GetSFEnvModeF)(void) const;
-
-    GetSFEnvModeF GetSFEnvMode = &SimpleTexturedMaterialBase::getSFEnvMode;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -198,20 +174,10 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         EnvModeFieldId, EnvModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editSFEnvMode),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFEnvMode));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getSFEnvMode));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editHandleEnvMode),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getHandleEnvMode));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(SimpleTexturedMaterialBase::*GetSFEnvMapF)(void) const;
-
-    GetSFEnvMapF GetSFEnvMap = &SimpleTexturedMaterialBase::getSFEnvMap;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -220,12 +186,8 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         EnvMapFieldId, EnvMapFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editSFEnvMap),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFEnvMap));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getSFEnvMap));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editHandleEnvMap),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getHandleEnvMap));
 
     oType.addInitialDesc(pDesc);
 }
@@ -447,65 +409,6 @@ SFBool              *SimpleTexturedMaterialBase::getSFEnvMap         (void)
 #endif
 
 
-void SimpleTexturedMaterialBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == ImageFieldId)
-    {
-        static_cast<SimpleTexturedMaterial *>(this)->setImage(
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-}
-
-void SimpleTexturedMaterialBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void SimpleTexturedMaterialBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void SimpleTexturedMaterialBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void SimpleTexturedMaterialBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void SimpleTexturedMaterialBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void SimpleTexturedMaterialBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == ImageFieldId)
-    {
-        static_cast<SimpleTexturedMaterial *>(this)->setImage(NullFC);
-    }
-}
 
 
 
@@ -667,6 +570,119 @@ void SimpleTexturedMaterialBase::onCreate(const SimpleTexturedMaterial *source)
         this->setImage(source->getImage());
     }
 }
+
+SFImagePtr::GetHandlePtr SimpleTexturedMaterialBase::getHandleImage           (void)
+{
+    SFImagePtr::GetHandlePtr returnValue(
+        new  SFImagePtr::GetHandle(
+             &_sfImage, 
+             this->getType().getFieldDesc(ImageFieldId)));
+
+    return returnValue;
+}
+
+SFImagePtr::EditHandlePtr SimpleTexturedMaterialBase::editHandleImage          (void)
+{
+    SFImagePtr::EditHandlePtr returnValue(
+        new  SFImagePtr::EditHandle(
+             &_sfImage, 
+             this->getType().getFieldDesc(ImageFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&SimpleTexturedMaterial::setImage, this, _1));
+
+    editSField(ImageFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr SimpleTexturedMaterialBase::getHandleMinFilter       (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfMinFilter, 
+             this->getType().getFieldDesc(MinFilterFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr SimpleTexturedMaterialBase::editHandleMinFilter      (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfMinFilter, 
+             this->getType().getFieldDesc(MinFilterFieldId)));
+
+    editSField(MinFilterFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr SimpleTexturedMaterialBase::getHandleMagFilter       (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfMagFilter, 
+             this->getType().getFieldDesc(MagFilterFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr SimpleTexturedMaterialBase::editHandleMagFilter      (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfMagFilter, 
+             this->getType().getFieldDesc(MagFilterFieldId)));
+
+    editSField(MagFilterFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr SimpleTexturedMaterialBase::getHandleEnvMode         (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfEnvMode, 
+             this->getType().getFieldDesc(EnvModeFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr SimpleTexturedMaterialBase::editHandleEnvMode        (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfEnvMode, 
+             this->getType().getFieldDesc(EnvModeFieldId)));
+
+    editSField(EnvModeFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr SimpleTexturedMaterialBase::getHandleEnvMap          (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnvMap, 
+             this->getType().getFieldDesc(EnvMapFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr SimpleTexturedMaterialBase::editHandleEnvMap         (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnvMap, 
+             this->getType().getFieldDesc(EnvMapFieldId)));
+
+    editSField(EnvMapFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void SimpleTexturedMaterialBase::execSyncV(      FieldContainer    &oFrom,

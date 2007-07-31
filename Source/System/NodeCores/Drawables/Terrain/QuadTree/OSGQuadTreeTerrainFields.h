@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(QuadTreeTerrain);
 
 template <>
 struct FieldTraits<QuadTreeTerrainPtr> :
-    public FieldTraitsTemplateBase<QuadTreeTerrainPtr>
+    public FieldTraitsFCPtrBase<QuadTreeTerrainPtr>
 {
   private:
 

@@ -65,6 +65,8 @@
 #include "OSGAlgorithmBase.h"
 #include "OSGAlgorithm.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -173,6 +175,7 @@ AlgorithmBase::AlgorithmBase(const AlgorithmBase &source) :
 AlgorithmBase::~AlgorithmBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

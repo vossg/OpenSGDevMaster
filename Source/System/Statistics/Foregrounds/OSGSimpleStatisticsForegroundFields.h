@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(SimpleStatisticsForeground);
 
 template <>
 struct FieldTraits<SimpleStatisticsForegroundPtr> :
-    public FieldTraitsTemplateBase<SimpleStatisticsForegroundPtr>
+    public FieldTraitsFCPtrBase<SimpleStatisticsForegroundPtr>
 {
   private:
 

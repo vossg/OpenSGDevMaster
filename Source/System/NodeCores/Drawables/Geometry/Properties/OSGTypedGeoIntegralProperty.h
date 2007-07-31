@@ -78,11 +78,16 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
 
     OSG_GEN_INTERNALPTR(Self);
 
-    typedef typename GeoPropertyDesc::StoredType               StoredType;
-    typedef typename GeoPropertyDesc::StoredFieldType          StoredFieldType;
+    typedef typename GeoPropertyDesc::StoredType      StoredType;
+    typedef typename GeoPropertyDesc::StoredFieldType StoredFieldType;
 
-    typedef typename StoredFieldType::reference                reference;
-    typedef typename StoredFieldType::const_reference          const_reference;
+    typedef typename StoredFieldType::EditHandle      StoredEditHandle;
+    typedef typename StoredFieldType::EditHandlePtr   StoredEditHandlePtr;
+    typedef typename StoredFieldType::GetHandle       StoredGetHandle;
+    typedef typename StoredFieldType::GetHandlePtr    StoredGetHandlePtr;
+
+    typedef typename StoredFieldType::reference       reference;
+    typedef typename StoredFieldType::const_reference const_reference;
 
     enum
     {
@@ -255,6 +260,9 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
+
+    StoredEditHandlePtr editHandleField(void);
+    StoredGetHandlePtr  getHandleField (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -65,6 +65,8 @@
 #include "OSGPerspectiveCameraBase.h"
 #include "OSGPerspectiveCamera.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -98,12 +100,6 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(PerspectiveCameraBase::*GetSFFovF)(void) const;
-
-    GetSFFovF GetSFFov = &PerspectiveCameraBase::getSFFov;
-#endif
-
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "fov",
@@ -111,20 +107,10 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
         FovFieldId, FovFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editSFFov),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFFov));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getSFFov));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editHandleFov),
+        reinterpret_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getHandleFov));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(PerspectiveCameraBase::*GetSFAspectF)(void) const;
-
-    GetSFAspectF GetSFAspect = &PerspectiveCameraBase::getSFAspect;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -133,12 +119,8 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
         AspectFieldId, AspectFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editSFAspect),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAspect));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getSFAspect));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editHandleAspect),
+        reinterpret_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getHandleAspect));
 
     oType.addInitialDesc(pDesc);
 }
@@ -363,6 +345,51 @@ PerspectiveCameraBase::PerspectiveCameraBase(const PerspectiveCameraBase &source
 
 PerspectiveCameraBase::~PerspectiveCameraBase(void)
 {
+}
+
+
+SFReal32::GetHandlePtr PerspectiveCameraBase::getHandleFov             (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfFov, 
+             this->getType().getFieldDesc(FovFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr PerspectiveCameraBase::editHandleFov            (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfFov, 
+             this->getType().getFieldDesc(FovFieldId)));
+
+    editSField(FovFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr PerspectiveCameraBase::getHandleAspect          (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfAspect, 
+             this->getType().getFieldDesc(AspectFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr PerspectiveCameraBase::editHandleAspect         (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfAspect, 
+             this->getType().getFieldDesc(AspectFieldId)));
+
+    editSField(AspectFieldMask);
+
+    return returnValue;
 }
 
 

@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(RegisterCombinersChunk);
 
 template <>
 struct FieldTraits<RegisterCombinersChunkPtr> :
-    public FieldTraitsTemplateBase<RegisterCombinersChunkPtr>
+    public FieldTraitsFCPtrBase<RegisterCombinersChunkPtr>
 {
   private:
 

@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(SkyBackground);
 
 template <>
 struct FieldTraits<SkyBackgroundPtr> :
-    public FieldTraitsTemplateBase<SkyBackgroundPtr>
+    public FieldTraitsFCPtrBase<SkyBackgroundPtr>
 {
   private:
 

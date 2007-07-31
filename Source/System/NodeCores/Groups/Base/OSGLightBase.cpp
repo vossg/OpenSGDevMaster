@@ -67,6 +67,8 @@
 #include "OSGLightBase.h"
 #include "OSGLight.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -129,12 +131,6 @@ void LightBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFColor4r *(LightBase::*GetSFAmbientF)(void) const;
-
-    GetSFAmbientF GetSFAmbient = &LightBase::getSFAmbient;
-#endif
-
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(),
         "ambient",
@@ -142,20 +138,10 @@ void LightBase::classDescInserter(TypeObject &oType)
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFAmbient),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAmbient));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFAmbient));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightBase::editHandleAmbient),
+        reinterpret_cast<FieldGetMethodSig >(&LightBase::getHandleAmbient));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFColor4r *(LightBase::*GetSFDiffuseF)(void) const;
-
-    GetSFDiffuseF GetSFDiffuse = &LightBase::getSFDiffuse;
-#endif
 
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(),
@@ -164,20 +150,10 @@ void LightBase::classDescInserter(TypeObject &oType)
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFDiffuse),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFDiffuse));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFDiffuse));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightBase::editHandleDiffuse),
+        reinterpret_cast<FieldGetMethodSig >(&LightBase::getHandleDiffuse));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFColor4r *(LightBase::*GetSFSpecularF)(void) const;
-
-    GetSFSpecularF GetSFSpecular = &LightBase::getSFSpecular;
-#endif
 
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(),
@@ -186,12 +162,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFSpecular),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFSpecular));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFSpecular));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightBase::editHandleSpecular),
+        reinterpret_cast<FieldGetMethodSig >(&LightBase::getHandleSpecular));
 
     oType.addInitialDesc(pDesc);
 
@@ -202,16 +174,10 @@ void LightBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&LightBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFBeacon));
+        reinterpret_cast<FieldEditMethodSig>(&LightBase::editHandleBeacon),
+        reinterpret_cast<FieldGetMethodSig >(&LightBase::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(LightBase::*GetSFOnF)(void) const;
-
-    GetSFOnF GetSFOn = &LightBase::getSFOn;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -220,20 +186,10 @@ void LightBase::classDescInserter(TypeObject &oType)
         OnFieldId, OnFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFOn),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFOn));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFOn));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightBase::editHandleOn),
+        reinterpret_cast<FieldGetMethodSig >(&LightBase::getHandleOn));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal *(LightBase::*GetSFConstantAttenuationF)(void) const;
-
-    GetSFConstantAttenuationF GetSFConstantAttenuation = &LightBase::getSFConstantAttenuation;
-#endif
 
     pDesc = new SFReal::Description(
         SFReal::getClassType(),
@@ -242,20 +198,10 @@ void LightBase::classDescInserter(TypeObject &oType)
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFConstantAttenuation),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFConstantAttenuation));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFConstantAttenuation));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightBase::editHandleConstantAttenuation),
+        reinterpret_cast<FieldGetMethodSig >(&LightBase::getHandleConstantAttenuation));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal *(LightBase::*GetSFLinearAttenuationF)(void) const;
-
-    GetSFLinearAttenuationF GetSFLinearAttenuation = &LightBase::getSFLinearAttenuation;
-#endif
 
     pDesc = new SFReal::Description(
         SFReal::getClassType(),
@@ -264,20 +210,10 @@ void LightBase::classDescInserter(TypeObject &oType)
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFLinearAttenuation),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFLinearAttenuation));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFLinearAttenuation));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightBase::editHandleLinearAttenuation),
+        reinterpret_cast<FieldGetMethodSig >(&LightBase::getHandleLinearAttenuation));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal *(LightBase::*GetSFQuadraticAttenuationF)(void) const;
-
-    GetSFQuadraticAttenuationF GetSFQuadraticAttenuation = &LightBase::getSFQuadraticAttenuation;
-#endif
 
     pDesc = new SFReal::Description(
         SFReal::getClassType(),
@@ -286,12 +222,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFQuadraticAttenuation),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFQuadraticAttenuation));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFQuadraticAttenuation));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightBase::editHandleQuadraticAttenuation),
+        reinterpret_cast<FieldGetMethodSig >(&LightBase::getHandleQuadraticAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -302,8 +234,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         LightEngineFieldId, LightEngineFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&LightBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFLightEngine));
+        reinterpret_cast<FieldEditMethodSig>(&LightBase::editHandleLightEngine),
+        reinterpret_cast<FieldGetMethodSig >(&LightBase::getHandleLightEngine));
 
     oType.addInitialDesc(pDesc);
 }
@@ -600,74 +532,6 @@ const SFLightEnginePtr *LightBase::getSFLightEngine(void) const
 }
 
 
-void LightBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == BeaconFieldId)
-    {
-        static_cast<Light *>(this)->setBeacon(
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-    if(uiFieldId == LightEngineFieldId)
-    {
-        static_cast<Light *>(this)->setLightEngine(
-            dynamic_cast<LightEnginePtr>(pNewElement));
-    }
-}
-
-void LightBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void LightBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void LightBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void LightBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void LightBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void LightBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == BeaconFieldId)
-    {
-        static_cast<Light *>(this)->setBeacon(NullFC);
-    }
-    if(uiFieldId == LightEngineFieldId)
-    {
-        static_cast<Light *>(this)->setLightEngine(NullFC);
-    }
-}
 
 
 
@@ -855,6 +719,209 @@ void LightBase::onCreate(const Light *source)
         this->setLightEngine(source->getLightEngine());
     }
 }
+
+SFColor4r::GetHandlePtr LightBase::getHandleAmbient         (void)
+{
+    SFColor4r::GetHandlePtr returnValue(
+        new  SFColor4r::GetHandle(
+             &_sfAmbient, 
+             this->getType().getFieldDesc(AmbientFieldId)));
+
+    return returnValue;
+}
+
+SFColor4r::EditHandlePtr LightBase::editHandleAmbient        (void)
+{
+    SFColor4r::EditHandlePtr returnValue(
+        new  SFColor4r::EditHandle(
+             &_sfAmbient, 
+             this->getType().getFieldDesc(AmbientFieldId)));
+
+    editSField(AmbientFieldMask);
+
+    return returnValue;
+}
+
+SFColor4r::GetHandlePtr LightBase::getHandleDiffuse         (void)
+{
+    SFColor4r::GetHandlePtr returnValue(
+        new  SFColor4r::GetHandle(
+             &_sfDiffuse, 
+             this->getType().getFieldDesc(DiffuseFieldId)));
+
+    return returnValue;
+}
+
+SFColor4r::EditHandlePtr LightBase::editHandleDiffuse        (void)
+{
+    SFColor4r::EditHandlePtr returnValue(
+        new  SFColor4r::EditHandle(
+             &_sfDiffuse, 
+             this->getType().getFieldDesc(DiffuseFieldId)));
+
+    editSField(DiffuseFieldMask);
+
+    return returnValue;
+}
+
+SFColor4r::GetHandlePtr LightBase::getHandleSpecular        (void)
+{
+    SFColor4r::GetHandlePtr returnValue(
+        new  SFColor4r::GetHandle(
+             &_sfSpecular, 
+             this->getType().getFieldDesc(SpecularFieldId)));
+
+    return returnValue;
+}
+
+SFColor4r::EditHandlePtr LightBase::editHandleSpecular       (void)
+{
+    SFColor4r::EditHandlePtr returnValue(
+        new  SFColor4r::EditHandle(
+             &_sfSpecular, 
+             this->getType().getFieldDesc(SpecularFieldId)));
+
+    editSField(SpecularFieldMask);
+
+    return returnValue;
+}
+
+SFNodePtr::GetHandlePtr LightBase::getHandleBeacon          (void)
+{
+    SFNodePtr::GetHandlePtr returnValue(
+        new  SFNodePtr::GetHandle(
+             &_sfBeacon, 
+             this->getType().getFieldDesc(BeaconFieldId)));
+
+    return returnValue;
+}
+
+SFNodePtr::EditHandlePtr LightBase::editHandleBeacon         (void)
+{
+    SFNodePtr::EditHandlePtr returnValue(
+        new  SFNodePtr::EditHandle(
+             &_sfBeacon, 
+             this->getType().getFieldDesc(BeaconFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&Light::setBeacon, this, _1));
+
+    editSField(BeaconFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr LightBase::getHandleOn              (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfOn, 
+             this->getType().getFieldDesc(OnFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr LightBase::editHandleOn             (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfOn, 
+             this->getType().getFieldDesc(OnFieldId)));
+
+    editSField(OnFieldMask);
+
+    return returnValue;
+}
+
+SFReal::GetHandlePtr LightBase::getHandleConstantAttenuation (void)
+{
+    SFReal::GetHandlePtr returnValue(
+        new  SFReal::GetHandle(
+             &_sfConstantAttenuation, 
+             this->getType().getFieldDesc(ConstantAttenuationFieldId)));
+
+    return returnValue;
+}
+
+SFReal::EditHandlePtr LightBase::editHandleConstantAttenuation(void)
+{
+    SFReal::EditHandlePtr returnValue(
+        new  SFReal::EditHandle(
+             &_sfConstantAttenuation, 
+             this->getType().getFieldDesc(ConstantAttenuationFieldId)));
+
+    editSField(ConstantAttenuationFieldMask);
+
+    return returnValue;
+}
+
+SFReal::GetHandlePtr LightBase::getHandleLinearAttenuation (void)
+{
+    SFReal::GetHandlePtr returnValue(
+        new  SFReal::GetHandle(
+             &_sfLinearAttenuation, 
+             this->getType().getFieldDesc(LinearAttenuationFieldId)));
+
+    return returnValue;
+}
+
+SFReal::EditHandlePtr LightBase::editHandleLinearAttenuation(void)
+{
+    SFReal::EditHandlePtr returnValue(
+        new  SFReal::EditHandle(
+             &_sfLinearAttenuation, 
+             this->getType().getFieldDesc(LinearAttenuationFieldId)));
+
+    editSField(LinearAttenuationFieldMask);
+
+    return returnValue;
+}
+
+SFReal::GetHandlePtr LightBase::getHandleQuadraticAttenuation (void)
+{
+    SFReal::GetHandlePtr returnValue(
+        new  SFReal::GetHandle(
+             &_sfQuadraticAttenuation, 
+             this->getType().getFieldDesc(QuadraticAttenuationFieldId)));
+
+    return returnValue;
+}
+
+SFReal::EditHandlePtr LightBase::editHandleQuadraticAttenuation(void)
+{
+    SFReal::EditHandlePtr returnValue(
+        new  SFReal::EditHandle(
+             &_sfQuadraticAttenuation, 
+             this->getType().getFieldDesc(QuadraticAttenuationFieldId)));
+
+    editSField(QuadraticAttenuationFieldMask);
+
+    return returnValue;
+}
+
+SFLightEnginePtr::GetHandlePtr LightBase::getHandleLightEngine     (void)
+{
+    SFLightEnginePtr::GetHandlePtr returnValue(
+        new  SFLightEnginePtr::GetHandle(
+             &_sfLightEngine, 
+             this->getType().getFieldDesc(LightEngineFieldId)));
+
+    return returnValue;
+}
+
+SFLightEnginePtr::EditHandlePtr LightBase::editHandleLightEngine    (void)
+{
+    SFLightEnginePtr::EditHandlePtr returnValue(
+        new  SFLightEnginePtr::EditHandle(
+             &_sfLightEngine, 
+             this->getType().getFieldDesc(LightEngineFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&Light::setLightEngine, this, _1));
+
+    editSField(LightEngineFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void LightBase::execSyncV(      FieldContainer    &oFrom,

@@ -217,6 +217,14 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFInt32::GetHandlePtr  getHandleChoice          (void);
+    SFInt32::EditHandlePtr editHandleChoice         (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

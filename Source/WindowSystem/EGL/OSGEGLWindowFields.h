@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(EGLWindow);
 
 template <>
 struct FieldTraits<EGLWindowPtr> :
-    public FieldTraitsTemplateBase<EGLWindowPtr>
+    public FieldTraitsFCPtrBase<EGLWindowPtr>
 {
   private:
 

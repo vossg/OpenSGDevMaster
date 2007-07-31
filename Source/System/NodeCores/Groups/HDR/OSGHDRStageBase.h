@@ -307,6 +307,24 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFReal32::GetHandlePtr  getHandleExposure        (void);
+    SFReal32::EditHandlePtr editHandleExposure       (void);
+    SFReal32::GetHandlePtr  getHandleBlurWidth       (void);
+    SFReal32::EditHandlePtr editHandleBlurWidth      (void);
+    SFReal32::GetHandlePtr  getHandleBlurAmount      (void);
+    SFReal32::EditHandlePtr editHandleBlurAmount     (void);
+    SFReal32::GetHandlePtr  getHandleEffectAmount    (void);
+    SFReal32::EditHandlePtr editHandleEffectAmount   (void);
+    SFReal32::GetHandlePtr  getHandleGamma           (void);
+    SFReal32::EditHandlePtr editHandleGamma          (void);
+    SFGLenum::GetHandlePtr  getHandleBufferFormat    (void);
+    SFGLenum::EditHandlePtr editHandleBufferFormat   (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

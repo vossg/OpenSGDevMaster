@@ -127,7 +127,7 @@ struct TypeTraitsTemplateBase : public TypeTraitsBase
 template <class LookupTypeT>
 struct TypeTraits : public TypeTraitsTemplateBase<LookupTypeT>
 {
-    static const bool IsPOD = false;
+    static const bool IsPOD = true;
 
 #ifdef OSG_MICROSOFT_DOTNET_COMPILER_HACKS
     typedef LookupTypeT RealReturnType;

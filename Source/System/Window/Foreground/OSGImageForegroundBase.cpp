@@ -66,6 +66,8 @@
 #include "OSGImageForegroundBase.h"
 #include "OSGImageForeground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -107,16 +109,10 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
         ImagesFieldId, ImagesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ImageForegroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ImageForegroundBase::getMFImages));
+        reinterpret_cast<FieldEditMethodSig>(&ImageForegroundBase::editHandleImages),
+        reinterpret_cast<FieldGetMethodSig >(&ImageForegroundBase::getHandleImages));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFPnt2f *(ImageForegroundBase::*GetMFPositionsF)(void) const;
-
-    GetMFPositionsF GetMFPositions = &ImageForegroundBase::getMFPositions;
-#endif
 
     pDesc = new MFPnt2f::Description(
         MFPnt2f::getClassType(),
@@ -125,12 +121,8 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageForegroundBase::editMFPositions),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFPositions));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ImageForegroundBase::getMFPositions));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ImageForegroundBase::editHandlePositions),
+        reinterpret_cast<FieldGetMethodSig >(&ImageForegroundBase::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
 }
@@ -238,93 +230,6 @@ MFPnt2f             *ImageForegroundBase::getMFPositions      (void)
 #endif
 
 
-void ImageForegroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == ImagesFieldId)
-    {
-        static_cast<ImageForeground *>(this)->pushToImages(
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-}
-
-void ImageForegroundBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ImagesFieldId)
-    {
-        static_cast<ImageForeground *>(this)->insertIntoImages(
-            uiIndex,
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-}
-
-void ImageForegroundBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ImagesFieldId)
-    {
-        static_cast<ImageForeground *>(this)->replaceInImages(
-            uiIndex,
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-}
-
-void ImageForegroundBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == ImagesFieldId)
-    {
-        static_cast<ImageForeground *>(this)->replaceInImages(
-            dynamic_cast<ImagePtr>(pOldElement),
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-}
-
-void ImageForegroundBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == ImagesFieldId)
-    {
-        static_cast<ImageForeground *>(this)->removeFromImages(
-            uiIndex);
-    }
-}
-
-void ImageForegroundBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == ImagesFieldId)
-    {
-        static_cast<ImageForeground *>(this)->removeFromImages(
-            dynamic_cast<ImagePtr>(pElement));
-    }
-}
-
-void ImageForegroundBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == ImagesFieldId)
-    {
-        static_cast<ImageForeground *>(this)->clearImages();
-    }
-}
 
 void ImageForegroundBase::pushToImages(ImagePtrConstArg value)
 {
@@ -673,6 +578,53 @@ void ImageForegroundBase::onCreate(const ImageForeground *source)
         }
     }
 }
+
+MFImagePtr::GetHandlePtr ImageForegroundBase::getHandleImages          (void)
+{
+    MFImagePtr::GetHandlePtr returnValue(
+        new  MFImagePtr::GetHandle(
+             &_mfImages, 
+             this->getType().getFieldDesc(ImagesFieldId)));
+
+    return returnValue;
+}
+
+MFImagePtr::EditHandlePtr ImageForegroundBase::editHandleImages         (void)
+{
+    MFImagePtr::EditHandlePtr returnValue(
+        new  MFImagePtr::EditHandle(
+             &_mfImages, 
+             this->getType().getFieldDesc(ImagesFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&ImageForeground::pushToImages, this, _1));
+
+    editMField(ImagesFieldMask, _mfImages);
+
+    return returnValue;
+}
+
+MFPnt2f::GetHandlePtr ImageForegroundBase::getHandlePositions       (void)
+{
+    MFPnt2f::GetHandlePtr returnValue(
+        new  MFPnt2f::GetHandle(
+             &_mfPositions, 
+             this->getType().getFieldDesc(PositionsFieldId)));
+
+    return returnValue;
+}
+
+MFPnt2f::EditHandlePtr ImageForegroundBase::editHandlePositions      (void)
+{
+    MFPnt2f::EditHandlePtr returnValue(
+        new  MFPnt2f::EditHandle(
+             &_mfPositions, 
+             this->getType().getFieldDesc(PositionsFieldId)));
+
+    editMField(PositionsFieldMask, _mfPositions);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ImageForegroundBase::execSyncV(      FieldContainer    &oFrom,

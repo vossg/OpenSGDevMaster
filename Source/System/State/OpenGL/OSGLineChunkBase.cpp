@@ -66,6 +66,8 @@
 #include "OSGLineChunkBase.h"
 #include "OSGLineChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -112,12 +114,6 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(LineChunkBase::*GetSFWidthF)(void) const;
-
-    GetSFWidthF GetSFWidth = &LineChunkBase::getSFWidth;
-#endif
-
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "width",
@@ -125,20 +121,10 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editSFWidth),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getSFWidth));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editHandleWidth),
+        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(LineChunkBase::*GetSFStippleRepeatF)(void) const;
-
-    GetSFStippleRepeatF GetSFStippleRepeat = &LineChunkBase::getSFStippleRepeat;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -147,20 +133,10 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         StippleRepeatFieldId, StippleRepeatFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editSFStippleRepeat),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFStippleRepeat));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getSFStippleRepeat));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editHandleStippleRepeat),
+        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getHandleStippleRepeat));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt16 *(LineChunkBase::*GetSFStipplePatternF)(void) const;
-
-    GetSFStipplePatternF GetSFStipplePattern = &LineChunkBase::getSFStipplePattern;
-#endif
 
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(),
@@ -170,20 +146,10 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         StipplePatternFieldId, StipplePatternFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editSFStipplePattern),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFStipplePattern));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getSFStipplePattern));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editHandleStipplePattern),
+        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getHandleStipplePattern));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(LineChunkBase::*GetSFSmoothF)(void) const;
-
-    GetSFSmoothF GetSFSmooth = &LineChunkBase::getSFSmooth;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -192,12 +158,8 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editSFSmooth),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFSmooth));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getSFSmooth));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editHandleSmooth),
+        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getHandleSmooth));
 
     oType.addInitialDesc(pDesc);
 }
@@ -521,6 +483,95 @@ LineChunkBase::LineChunkBase(const LineChunkBase &source) :
 
 LineChunkBase::~LineChunkBase(void)
 {
+}
+
+
+SFReal32::GetHandlePtr LineChunkBase::getHandleWidth           (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfWidth, 
+             this->getType().getFieldDesc(WidthFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr LineChunkBase::editHandleWidth          (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfWidth, 
+             this->getType().getFieldDesc(WidthFieldId)));
+
+    editSField(WidthFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr LineChunkBase::getHandleStippleRepeat   (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfStippleRepeat, 
+             this->getType().getFieldDesc(StippleRepeatFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr LineChunkBase::editHandleStippleRepeat  (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfStippleRepeat, 
+             this->getType().getFieldDesc(StippleRepeatFieldId)));
+
+    editSField(StippleRepeatFieldMask);
+
+    return returnValue;
+}
+
+SFUInt16::GetHandlePtr LineChunkBase::getHandleStipplePattern  (void)
+{
+    SFUInt16::GetHandlePtr returnValue(
+        new  SFUInt16::GetHandle(
+             &_sfStipplePattern, 
+             this->getType().getFieldDesc(StipplePatternFieldId)));
+
+    return returnValue;
+}
+
+SFUInt16::EditHandlePtr LineChunkBase::editHandleStipplePattern (void)
+{
+    SFUInt16::EditHandlePtr returnValue(
+        new  SFUInt16::EditHandle(
+             &_sfStipplePattern, 
+             this->getType().getFieldDesc(StipplePatternFieldId)));
+
+    editSField(StipplePatternFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr LineChunkBase::getHandleSmooth          (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfSmooth, 
+             this->getType().getFieldDesc(SmoothFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr LineChunkBase::editHandleSmooth         (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfSmooth, 
+             this->getType().getFieldDesc(SmoothFieldId)));
+
+    editSField(SmoothFieldMask);
+
+    return returnValue;
 }
 
 

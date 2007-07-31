@@ -220,6 +220,16 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFBool::GetHandlePtr  getHandleLeftEye         (void);
+    SFBool::EditHandlePtr editHandleLeftEye        (void);
+    SFReal32::GetHandlePtr  getHandleEyeSeparation   (void);
+    SFReal32::EditHandlePtr editHandleEyeSeparation  (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

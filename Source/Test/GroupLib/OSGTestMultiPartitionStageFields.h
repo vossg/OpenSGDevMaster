@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(TestMultiPartitionStage);
 
 template <>
 struct FieldTraits<TestMultiPartitionStagePtr> :
-    public FieldTraitsTemplateBase<TestMultiPartitionStagePtr>
+    public FieldTraitsFCPtrBase<TestMultiPartitionStagePtr>
 {
   private:
 

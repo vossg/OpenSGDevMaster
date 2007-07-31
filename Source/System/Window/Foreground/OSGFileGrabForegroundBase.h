@@ -253,6 +253,18 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFString::GetHandlePtr  getHandleName            (void);
+    SFString::EditHandlePtr editHandleName           (void);
+    SFUInt32::GetHandlePtr  getHandleFrame           (void);
+    SFUInt32::EditHandlePtr editHandleFrame          (void);
+    SFBool::GetHandlePtr  getHandleIncrement       (void);
+    SFBool::EditHandlePtr editHandleIncrement      (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

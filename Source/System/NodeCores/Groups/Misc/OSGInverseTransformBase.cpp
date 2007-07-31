@@ -65,6 +65,8 @@
 #include "OSGInverseTransformBase.h"
 #include "OSGInverseTransform.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -205,6 +207,7 @@ InverseTransformBase::InverseTransformBase(const InverseTransformBase &source) :
 InverseTransformBase::~InverseTransformBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -66,6 +66,8 @@
 #include "OSGFBOViewportBase.h"
 #include "OSGFBOViewport.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -99,8 +101,8 @@ void FBOViewportBase::classDescInserter(TypeObject &oType)
         FrameBufferObjectFieldId, FrameBufferObjectFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FBOViewportBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&FBOViewportBase::getSFFrameBufferObject));
+        reinterpret_cast<FieldEditMethodSig>(&FBOViewportBase::editHandleFrameBufferObject),
+        reinterpret_cast<FieldGetMethodSig >(&FBOViewportBase::getHandleFrameBufferObject));
 
     oType.addInitialDesc(pDesc);
 }
@@ -173,65 +175,6 @@ const SFFrameBufferObjectPtr *FBOViewportBase::getSFFrameBufferObject(void) cons
 }
 
 
-void FBOViewportBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == FrameBufferObjectFieldId)
-    {
-        static_cast<FBOViewport *>(this)->setFrameBufferObject(
-            dynamic_cast<FrameBufferObjectPtr>(pNewElement));
-    }
-}
-
-void FBOViewportBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void FBOViewportBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void FBOViewportBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void FBOViewportBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void FBOViewportBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void FBOViewportBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == FrameBufferObjectFieldId)
-    {
-        static_cast<FBOViewport *>(this)->setFrameBufferObject(NullFC);
-    }
-}
 
 
 
@@ -337,6 +280,31 @@ void FBOViewportBase::onCreate(const FBOViewport *source)
         this->setFrameBufferObject(source->getFrameBufferObject());
     }
 }
+
+SFFrameBufferObjectPtr::GetHandlePtr FBOViewportBase::getHandleFrameBufferObject (void)
+{
+    SFFrameBufferObjectPtr::GetHandlePtr returnValue(
+        new  SFFrameBufferObjectPtr::GetHandle(
+             &_sfFrameBufferObject, 
+             this->getType().getFieldDesc(FrameBufferObjectFieldId)));
+
+    return returnValue;
+}
+
+SFFrameBufferObjectPtr::EditHandlePtr FBOViewportBase::editHandleFrameBufferObject(void)
+{
+    SFFrameBufferObjectPtr::EditHandlePtr returnValue(
+        new  SFFrameBufferObjectPtr::EditHandle(
+             &_sfFrameBufferObject, 
+             this->getType().getFieldDesc(FrameBufferObjectFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&FBOViewport::setFrameBufferObject, this, _1));
+
+    editSField(FrameBufferObjectFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void FBOViewportBase::execSyncV(      FieldContainer    &oFrom,

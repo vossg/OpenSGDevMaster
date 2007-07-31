@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(GLUTWindow);
 
 template <>
 struct FieldTraits<GLUTWindowPtr> :
-    public FieldTraitsTemplateBase<GLUTWindowPtr>
+    public FieldTraitsFCPtrBase<GLUTWindowPtr>
 {
   private:
 

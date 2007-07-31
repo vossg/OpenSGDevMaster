@@ -272,29 +272,6 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -387,6 +364,34 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void onCreate(const Viewport *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFReal32::GetHandlePtr  getHandleLeft            (void);
+    SFReal32::EditHandlePtr editHandleLeft           (void);
+    SFReal32::GetHandlePtr  getHandleRight           (void);
+    SFReal32::EditHandlePtr editHandleRight          (void);
+    SFReal32::GetHandlePtr  getHandleBottom          (void);
+    SFReal32::EditHandlePtr editHandleBottom         (void);
+    SFReal32::GetHandlePtr  getHandleTop             (void);
+    SFReal32::EditHandlePtr editHandleTop            (void);
+    SFParentFieldContainerPtr::GetHandlePtr  getHandleParent          (void);
+    SFParentFieldContainerPtr::EditHandlePtr editHandleParent         (void);
+    SFCameraPtr::GetHandlePtr  getHandleCamera          (void);
+    SFCameraPtr::EditHandlePtr editHandleCamera         (void);
+    SFNodePtr::GetHandlePtr  getHandleRoot            (void);
+    SFNodePtr::EditHandlePtr editHandleRoot           (void);
+    SFBackgroundPtr::GetHandlePtr  getHandleBackground      (void);
+    SFBackgroundPtr::EditHandlePtr editHandleBackground     (void);
+    MFForegroundPtr::GetHandlePtr  getHandleForegrounds     (void);
+    MFForegroundPtr::EditHandlePtr editHandleForegrounds    (void);
+    SFUInt32::GetHandlePtr  getHandleTravMask        (void);
+    SFUInt32::EditHandlePtr editHandleTravMask       (void);
+    SFReal32::GetHandlePtr  getHandleDrawTime        (void);
+    SFReal32::EditHandlePtr editHandleDrawTime       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

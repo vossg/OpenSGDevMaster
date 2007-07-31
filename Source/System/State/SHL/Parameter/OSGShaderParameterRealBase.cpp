@@ -65,6 +65,8 @@
 #include "OSGShaderParameterRealBase.h"
 #include "OSGShaderParameterReal.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void ShaderParameterRealBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(ShaderParameterRealBase::*GetSFValueF)(void) const;
-
-    GetSFValueF GetSFValue = &ShaderParameterRealBase::getSFValue;
-#endif
-
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "value",
@@ -102,12 +98,8 @@ void ShaderParameterRealBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterRealBase::editSFValue),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFValue));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterRealBase::getSFValue));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterRealBase::editHandleValue),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterRealBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -282,6 +274,29 @@ ShaderParameterRealBase::ShaderParameterRealBase(const ShaderParameterRealBase &
 
 ShaderParameterRealBase::~ShaderParameterRealBase(void)
 {
+}
+
+
+SFReal32::GetHandlePtr ShaderParameterRealBase::getHandleValue           (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr ShaderParameterRealBase::editHandleValue          (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    editSField(ValueFieldMask);
+
+    return returnValue;
 }
 
 

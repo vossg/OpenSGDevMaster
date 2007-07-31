@@ -343,10 +343,10 @@ bool VRMLNodeHelper::prototypeAddField(const Char8  *szFieldType,
     bool returnValue = false;
 
 
-    const Field *pField = getField(_pNodeProto,
-                                   _pNodeCoreProto,
-                                   _pGenAttProto,
-                                    szFieldName);
+    GetFieldHandlePtr pField = getField(_pNodeProto,
+                                        _pNodeCoreProto,
+                                        _pGenAttProto,
+                                         szFieldName);
 
 #ifdef OSG_DEBUG_VRML
     indentLog(getIndent(), PINFO);
@@ -357,7 +357,7 @@ bool VRMLNodeHelper::prototypeAddField(const Char8  *szFieldType,
           << std::endl;
 #endif
 
-    if(pField == NULL)
+    if(pField == NULL || pField->isValid() == false)
     {
         FieldDescriptionBase *pDesc = getFieldDescription(szFieldName,
                                                           uiFieldTypeId);
@@ -387,7 +387,7 @@ bool VRMLNodeHelper::prototypeAddField(const Char8  *szFieldType,
               << std::endl;
 #endif
 
-        returnValue = (pField != NULL);
+        returnValue = (pField != NULL && pField->isValid());
     }
     else
     {
@@ -420,7 +420,7 @@ void VRMLNodeHelper::endProtoInterface(void)
 void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
                                      const Char8                * szFieldname,
                                            FieldContainerPtr     &pFieldFC,
-                                           Field                *&pField,
+                                           EditFieldHandlePtr    &pField,
                                      const FieldDescriptionBase *&pDesc)
 {
     FieldContainerPtr pTmpFC    = NullFC;
@@ -428,7 +428,7 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
     NodeCorePtr       pNodeCore = NullFC;
 
     pFieldFC = NullFC;
-    pField   = NULL;
+    pField.reset();
     pDesc    = NULL;
 
     if(pFC == NullFC)
@@ -553,12 +553,12 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
 #endif
 }
 
-const Field *VRMLNodeHelper::getField(      FieldContainerPtr  pFC1,
-                                            FieldContainerPtr  pFC2,
-                                            VRMLGenericAttPtr  pGenAtt,
-                                      const Char8             *szFieldname)
+GetFieldHandlePtr VRMLNodeHelper::getField(      FieldContainerPtr pFC1,
+                                                 FieldContainerPtr pFC2,
+                                                 VRMLGenericAttPtr pGenAtt,
+                                           const Char8            *szFieldname)
 {
-    const Field *returnValue = NULL;
+    GetFieldHandlePtr returnValue;
 
     if(szFieldname == NULL)
     {
@@ -633,11 +633,11 @@ const Field *VRMLNodeHelper::getField(      FieldContainerPtr  pFC1,
 
 void VRMLNodeHelper::getField(const Char8                * szFieldname,
                                     FieldContainerPtr     &pFieldFC,
-                                    Field                *&pField,
+                                    EditFieldHandlePtr    &pField,
                               const FieldDescriptionBase *&pDesc      )
 {
     pFieldFC = NullFC;
-    pField   = NULL;
+    pField.reset();
     pDesc    = NULL;
 
     if(szFieldname == NULL)
@@ -782,13 +782,13 @@ FieldDescriptionBase *VRMLNodeHelper::getFieldDescription(
     return returnValue;
 }
 
-void VRMLNodeHelper::addFieldValue(      Field                *pField,
+void VRMLNodeHelper::addFieldValue(      EditFieldHandlePtr    pField,
                                    const FieldDescriptionBase *pFieldDesc,
                                    const Char8                *szFieldVal)
 {
-    if(pFieldDesc != NULL && pField != NULL)
+    if(pField != NULL && pField->isValid() == true)
     {
-        pFieldDesc->pushValueFromCString(szFieldVal, pField);
+        pField->pushValueFromCString(szFieldVal);
     }
 }
 
@@ -800,8 +800,26 @@ void VRMLNodeHelper::setContainerFieldValue(
     if((pFieldDesc != NULL  ) && 
        (pFieldFC   != NullFC)   )
     {
-        pFieldFC->pushToField(pFC, 
+         SFFieldContainerPtr::EditHandlePtr pSFHandle = 
+            boost::dynamic_pointer_cast<SFFieldContainerPtr::EditHandle>(
+                pFieldFC->editField(pFieldDesc->getFieldId()));
+
+        MFFieldContainerPtr::EditHandlePtr pMFHandle = 
+            boost::dynamic_pointer_cast<MFFieldContainerPtr::EditHandle>(
+                pFieldFC->editField(pFieldDesc->getFieldId()));
+
+        if(pSFHandle != NULL && pSFHandle->isValid())
+        {
+            pSFHandle->setValue(pFC);
+        }
+        else if(pMFHandle != NULL && pMFHandle->isValid())
+        {
+            pMFHandle->add(pFC);
+        }
+/*
+       pFieldFC->pushToField(pFC, 
                               pFieldDesc->getFieldId());
+ */
     }
 }
 
@@ -897,13 +915,7 @@ VRMLNodeHelper *VRMLGroupHelper::create(void)
 /*                            Constructors                                 */
 
 VRMLGroupHelper::VRMLGroupHelper(void) :
-    Inherited(),
-
-    _defaultBoxCenter(),
-    _defaultBoxSize  (),
-
-    _boxCenter       (),
-    _boxSize         ()
+    Inherited()
 {
 }
 
@@ -943,38 +955,16 @@ bool VRMLGroupHelper::prototypeAddField(const Char8  *szFieldType,
                                         const UInt32  uiFieldTypeId,
                                         const Char8  *szFieldname)
 {
-    bool bFound = false;
-
-    if(osgStringCaseCmp("bboxCenter", szFieldname) == 0)
-    {
-        bFound = true;
-    }
-    else if(osgStringCaseCmp("bboxSize", szFieldname) == 0)
-    {
-        bFound = true;
-    }
-    else if(osgStringCaseCmp("children", szFieldname) == 0)
-    {
-        bFound = true;
-    }
-
-    if(bFound == true)
-    {
-        return true;
-    }
-    else
-    {
-        return Inherited::prototypeAddField(szFieldType,
-                                            uiFieldTypeId,
-                                            szFieldname);
-    }
+    return Inherited::prototypeAddField(szFieldType,
+                                        uiFieldTypeId,
+                                        szFieldname);
 }
 
 void VRMLGroupHelper::getFieldAndDesc(
           FieldContainerPtr      pFC,
     const Char8                * szFieldname,
           FieldContainerPtr     &pFieldFC,
-          Field                *&pField,
+          EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
     if(szFieldname == NULL)
@@ -990,96 +980,15 @@ void VRMLGroupHelper::getFieldAndDesc(
         return;
     }
 
-    NodePtr pNode = dynamic_cast<NodePtr>(pFC);
-
 #ifdef OSG_DEBUG_VRML
-    indentLog(getIndent(), PINFO);
-    PINFO << "VRMLGroupDesc::getFieldAndDesc : looking for "
-          << szFieldname
-          << std::endl;
-#endif
-
-    if(pNode == NullFC)
-    {
-        PWARNING << "VRMLGroupDesc::getFieldAndDesc : No Node" << std::endl;
-        return;
-    }
-
-    NodeCorePtr pNodeCore = pNode->getCore();
-
-    GroupPtr pGroup       = dynamic_cast<GroupPtr>(pNodeCore);
-
-    if(pGroup == NullFC)
-    {
-        PWARNING << "VRMLGroupDesc::getFieldAndDesc : No Group" << std::endl;
-        return;
-    }
-
     incIndent();
-
-    if(osgStringCaseCmp("bboxCenter", szFieldname) == 0)
-    {
-#ifdef OSG_DEBUG_VRML
-        indentLog(getIndent(), PINFO);
-        PINFO << "VRMLGroupDesc::getFieldAndDesc :  : request internal "
-              << szFieldname
-              << std::endl;
-#endif
-        pFieldFC = NullFC;
-
-        if(_bProtoInterfaceDone == false)
-        {
-            pField = &_defaultBoxCenter;
-        }
-        else
-        {
-            pField = &_boxCenter;
-        }
-
-        pDesc    = &_sfVec3fDesc;
-    }
-    else if(osgStringCaseCmp("bboxSize", szFieldname) == 0)
-    {
-#ifdef OSG_DEBUG_VRML
-        indentLog(getIndent(), PINFO);
-        PINFO << "VRMLGroupDesc::getFieldAndDesc :  : request internal "
-              << szFieldname
-              << std::endl;
 #endif
 
-        pFieldFC = NullFC;
-
-        if(_bProtoInterfaceDone == false)
-        {
-            pField = &_defaultBoxSize;
-        }
-        else
-        {
-            pField = &_boxSize;
-        }
-
-        pDesc    = &_sfVec3fDesc;
-    }
-    else if(osgStringCaseCmp("children", szFieldname) == 0)
-    {
-#ifdef OSG_DEBUG_VRML
-        indentLog(getIndent(), PINFO);
-        PINFO << "VRMLGroupDesc::getFieldAndDesc :  : request internal "
-              << szFieldname
-              << std::endl;
-#endif
-        pFieldFC = pNode;
-        pField   = NULL;
-        pDesc    = pNode->getFieldDescription("children");
-    }
-    else
-    {
-        Inherited::getFieldAndDesc(pGroup,
-                                   szFieldname,
-                                   pFieldFC,
-                                   pField,
-                                   pDesc);
-    }
+    Inherited::getFieldAndDesc(pFC,
+                               szFieldname,
+                               pFieldFC,
+                               pField,
+                               pDesc);
 
 #ifdef OSG_DEBUG_VRML
     decIndent();
@@ -1119,7 +1028,7 @@ VRMLNodeHelper *VRMLMaterialHelper::create(void)
 /*                            Constructors                                 */
 
 VRMLMaterialHelper::VRMLMaterialHelper(void) :
-    Inherited(),
+     Inherited              (      ),
 
     _defaultAmbientIntensity(),
     _defaultDiffuseColor    (),
@@ -1157,18 +1066,19 @@ void VRMLMaterialHelper::init(const Char8 *OSG_VRML_ARG(szName))
     indentLog(getIndent(), PINFO);
     PINFO << "MaterialDesc::init : " << szName << std::endl;
 #endif
+
 }
 
 void VRMLMaterialHelper::reset(void)
 {
-    _pMat = NullFC;
-
     _ambientIntensity.setValue(_defaultAmbientIntensity);
     _diffuseColor    .setValue(_defaultDiffuseColor);
     _emissiveColor   .setValue(_defaultEmissiveColor);
     _shininess       .setValue(_defaultShininess);
     _specularColor   .setValue(_defaultSpecularColor);
     _transparency    .setValue(_defaultTransparency);
+
+    _pMat = NullFC;
 }
 
 MaterialPtr VRMLMaterialHelper::getDefaultMaterial(void)
@@ -1272,15 +1182,16 @@ void VRMLMaterialHelper::endProtoInterface(void)
     Inherited::endProtoInterface();
 }
 
+
 void VRMLMaterialHelper::getFieldAndDesc(
           FieldContainerPtr,
     const Char8                * szFieldname,
           FieldContainerPtr     &pFieldFC,
-          Field                *&pField,
+          EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
     pFieldFC = NullFC;
-    pField   = NULL;
+    pField.reset();
     pDesc    = NULL;
 
     if(osgStringCaseCmp("ambientIntensity", szFieldname) == 0)
@@ -1289,11 +1200,12 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
         if(_bProtoInterfaceDone == false)
         {
-            pField = &_defaultAmbientIntensity;
+            pField = 
+                _sfReal32Desc.createEditHandler(&_defaultAmbientIntensity);
         }
         else
         {
-            pField = &_ambientIntensity;
+            pField = _sfReal32Desc.createEditHandler(&_ambientIntensity);
         }
 
         pDesc = &_sfReal32Desc;
@@ -1304,11 +1216,11 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
         if(_bProtoInterfaceDone == false)
         {
-            pField = &_defaultDiffuseColor;
+            pField = _sfColor3fDesc.createEditHandler(&_defaultDiffuseColor);
         }
         else
         {
-            pField = &_diffuseColor;
+            pField = _sfColor3fDesc.createEditHandler(&_diffuseColor);
         }
 
         pDesc = &_sfColor3fDesc;
@@ -1319,11 +1231,11 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
         if(_bProtoInterfaceDone == false)
         {
-            pField = &_defaultEmissiveColor;
+            pField = _sfColor3fDesc.createEditHandler(&_defaultEmissiveColor);
         }
         else
         {
-            pField = &_emissiveColor;
+            pField = _sfColor3fDesc.createEditHandler(&_emissiveColor);
         }
 
         pDesc = &_sfColor3fDesc;
@@ -1334,11 +1246,11 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
         if(_bProtoInterfaceDone == false)
         {
-            pField = &_defaultShininess;
+            pField = _sfReal32Desc.createEditHandler(&_defaultShininess);
         }
         else
         {
-            pField = &_shininess;
+            pField = _sfReal32Desc.createEditHandler(&_shininess);
         }
 
         pDesc = &_sfReal32Desc;
@@ -1349,11 +1261,11 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
         if(_bProtoInterfaceDone == false)
         {
-            pField = &_defaultSpecularColor;
+            pField = _sfColor3fDesc.createEditHandler(&_defaultSpecularColor);
         }
         else
         {
-            pField = &_specularColor;
+            pField = _sfColor3fDesc.createEditHandler(&_specularColor);
         }
 
         pDesc = &_sfColor3fDesc;
@@ -1364,11 +1276,11 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
         if(_bProtoInterfaceDone == false)
         {
-            pField = &_defaultTransparency;
+            pField = _sfReal32Desc.createEditHandler(&_defaultTransparency);
         }
         else
         {
-            pField = &_transparency;
+            pField = _sfReal32Desc.createEditHandler(&_transparency);
         }
 
         pDesc = &_sfReal32Desc;
@@ -1569,7 +1481,7 @@ void VRMLShapeHelper::getFieldAndDesc(
           FieldContainerPtr      pFC,
     const Char8                * szFieldname,
           FieldContainerPtr     &pFieldFC,
-          Field                *&pField,
+          EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
     if(szFieldname == NULL)
@@ -1603,7 +1515,7 @@ void VRMLShapeHelper::getFieldAndDesc(
               << std::endl;
 #endif
         pFieldFC = pFC;
-        pField   = NULL;
+        pField   = pFC->editField("children");
         pDesc    = pFC->getFieldDescription("children");
     }
     else if(osgStringCaseCmp("appearance", szFieldname) == 0)
@@ -1622,7 +1534,7 @@ void VRMLShapeHelper::getFieldAndDesc(
             if(pNode->getCore() != NullFC)
             {
                 pFieldFC = pNode->getCore();
-                pField   = NULL;
+                pField   = pNode->getCore()->editField("material");
                 pDesc    = pNode->getCore()->getFieldDescription("material");
             }
         }
@@ -1799,7 +1711,7 @@ void VRMLAppearanceHelper::getFieldAndDesc(
           FieldContainerPtr      pFC,
     const Char8                * szFieldname,
           FieldContainerPtr     &pFieldFC,
-          Field                *&pField,
+          EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
 
@@ -1834,7 +1746,7 @@ void VRMLAppearanceHelper::getFieldAndDesc(
               << std::endl;
 #endif
         pFieldFC = pFC;
-        pField   = NULL;
+        pField   = pFC->editField("chunks");
         pDesc    = pFC->getFieldDescription("chunks");
     }
     else if(osgStringCaseCmp("texture", szFieldname) == 0)
@@ -1847,7 +1759,7 @@ void VRMLAppearanceHelper::getFieldAndDesc(
 #endif
 
         pFieldFC = pFC;
-        pField   = NULL;
+        pField   = pFC->editField("chunks");
         pDesc    = pFC->getFieldDescription("chunks");
     }
     else if(osgStringCaseCmp("textureTransform", szFieldname) == 0)
@@ -1860,7 +1772,7 @@ void VRMLAppearanceHelper::getFieldAndDesc(
 #endif
 
         pFieldFC = pFC;
-        pField   = NULL;
+        pField   = pFC->editField("chunks");
         pDesc    = pFC->getFieldDescription("chunks");
     }
     else
@@ -2085,7 +1997,7 @@ void VRMLIndexedGeometryHelper::getFieldAndDesc(
           FieldContainerPtr      pFC,
     const Char8                * szFieldname,
           FieldContainerPtr     &pFieldFC,
-          Field                *&pField,
+          EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
 #ifdef OSG_DEBUG_VRML
@@ -2135,7 +2047,7 @@ void VRMLIndexedGeometryHelper::getFieldAndDesc(
 #endif
 
         pFieldFC = pGeo;
-        pField   = NULL;
+        pField.reset();
         pDesc    = &_sfFCPtrDesc;
 
         _uiPropertyIndex = Geometry::PositionsIndex;
@@ -2149,7 +2061,7 @@ void VRMLIndexedGeometryHelper::getFieldAndDesc(
 #endif
 
         pFieldFC = pGeo;
-        pField   = NULL;
+        pField.reset();
         pDesc    = &_sfFCPtrDesc;
 
         _uiPropertyIndex = Geometry::NormalsIndex;
@@ -2163,7 +2075,7 @@ void VRMLIndexedGeometryHelper::getFieldAndDesc(
 #endif
 
         pFieldFC = pGeo;
-        pField   = NULL;
+        pField.reset();
         pDesc    = &_sfFCPtrDesc;
 
         _uiPropertyIndex = Geometry::ColorsIndex;
@@ -2177,7 +2089,7 @@ void VRMLIndexedGeometryHelper::getFieldAndDesc(
 #endif
 
         pFieldFC = pGeo;
-        pField   = NULL;
+        pField.reset();
         pDesc    = &_sfFCPtrDesc;
 
         _uiPropertyIndex = Geometry::TexCoordsIndex;
@@ -2221,7 +2133,7 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
         return;
     }
 
-          Field                *pField   = NULL;
+          EditFieldHandlePtr    pField;
     const FieldDescriptionBase *pDesc    = NULL;
           FieldContainerPtr     pDummyFC = NullFC;
 
@@ -2244,7 +2156,13 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
     if(pField != NULL)
     {
-        pCoordIndex = static_cast<MFInt32 *>(pField);
+        MFInt32::EditHandlePtr pValField = 
+            boost::dynamic_pointer_cast<MFInt32::EditHandle>(pField);
+
+        if(pValField != NULL && pValField->isValid())
+        {
+            pCoordIndex = pValField->getField();
+        }
     }
 
     Inherited::getFieldAndDesc(pFC,
@@ -2255,7 +2173,13 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
     if(pField != NULL)
     {
-        pNormalIndex = static_cast<MFInt32 *>(pField);
+        MFInt32::EditHandlePtr pValField = 
+            boost::dynamic_pointer_cast<MFInt32::EditHandle>(pField);
+
+        if(pValField != NULL && pValField->isValid())
+        {
+            pNormalIndex = pValField->getField();
+        }
     }
 
     Inherited::getFieldAndDesc(pFC,
@@ -2266,7 +2190,13 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
     if(pField != NULL)
     {
-        pColorIndex = static_cast<MFInt32 *>(pField);
+        MFInt32::EditHandlePtr pValField = 
+            boost::dynamic_pointer_cast<MFInt32::EditHandle>(pField);
+
+        if(pValField != NULL && pValField->isValid())
+        {
+            pColorIndex = pValField->getField();
+        }
     }
 
     Inherited::getFieldAndDesc(pFC,
@@ -2277,7 +2207,13 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
     if(pField != NULL)
     {
-        pTexCoordIndex = static_cast<MFInt32 *>(pField);
+        MFInt32::EditHandlePtr pValField = 
+            boost::dynamic_pointer_cast<MFInt32::EditHandle>(pField);
+
+        if(pValField != NULL && pValField->isValid())
+        {
+            pTexCoordIndex = pValField->getField();
+        }
     }
 
 
@@ -2290,7 +2226,13 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
     if(pField != NULL)
     {
-        pConvex = static_cast<SFBool *>(pField);
+        SFBool::EditHandlePtr pValField = 
+            boost::dynamic_pointer_cast<SFBool::EditHandle>(pField);
+
+        if(pValField != NULL && pValField->isValid())
+        {
+            pConvex = pValField->getField();
+        }
     }
 
     Inherited::getFieldAndDesc(pFC,
@@ -2301,7 +2243,15 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
     if(pField != NULL)
     {
-        pCcw = static_cast<SFBool *>(pField);
+        SFBool::EditHandlePtr pValField = 
+            boost::dynamic_pointer_cast<SFBool::EditHandle>(pField);
+
+        if(pValField != NULL && pValField->isValid())
+        {
+            pCcw = pValField->getField();
+
+            fprintf(stderr, "FFOOO %d\n", pCcw->getValue());
+        }
     }
 
     Inherited::getFieldAndDesc(pFC,
@@ -2312,7 +2262,13 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
     if(pField != NULL)
     {
-        pNormalPerVertex = static_cast<SFBool *>(pField);
+        SFBool::EditHandlePtr pValField = 
+            boost::dynamic_pointer_cast<SFBool::EditHandle>(pField);
+
+        if(pValField != NULL && pValField->isValid())
+        {
+            pNormalPerVertex = pValField->getField();
+        }
     }
 
     Inherited::getFieldAndDesc(pFC,
@@ -2323,7 +2279,13 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
     if(pField != NULL)
     {
-        pColorPerVertex = static_cast<SFBool *>(pField);
+        SFBool::EditHandlePtr pValField = 
+            boost::dynamic_pointer_cast<SFBool::EditHandle>(pField);
+
+        if(pValField != NULL && pValField->isValid())
+        {
+            pColorPerVertex = pValField->getField();
+        }
     }
 
     Inherited::getFieldAndDesc(pFC,
@@ -2334,7 +2296,13 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
     if(pField != NULL)
     {
-        pCreaseAngle = static_cast<SFReal32 *>(pField);
+        SFReal32::EditHandlePtr pValField = 
+            boost::dynamic_pointer_cast<SFReal32::EditHandle>(pField);
+
+        if(pValField != NULL && pValField->isValid())
+        {
+            pCreaseAngle = pValField->getField();
+        }
     }
 
     if(_bIsFaceSet == true)
@@ -2509,7 +2477,6 @@ VRMLNodeHelperFactoryBase::RegisterHelper
 
 
 
-
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
@@ -2638,7 +2605,7 @@ void VRMLGeometryPartHelper::getFieldAndDesc(
           FieldContainerPtr      pFC,
     const Char8                * szFieldname,
           FieldContainerPtr     &pFieldFC,
-          Field                *&pField,
+          EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
 #ifdef OSG_DEBUG_VRML
@@ -2820,22 +2787,22 @@ void VRMLImageTextureHelper::getFieldAndDesc(
           FieldContainerPtr,
     const Char8                * szFieldname,
           FieldContainerPtr     &pFieldFC,
-          Field                *&pField,
+          EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
     pFieldFC = NullFC;
-    pField   = NULL;
+    pField.reset();
     pDesc    = NULL;
 
     if(osgStringCaseCmp("url", szFieldname) == 0)
     {
         if(_bProtoInterfaceDone == false)
         {
-            pField = &_defaultURL;
+            pField = _mfStringDesc.createEditHandler(&_defaultURL);
         }
         else
         {
-            pField = &_url;
+            pField = _mfStringDesc.createEditHandler(&_url);
         }
 
         pDesc = &_mfStringDesc;
@@ -2844,11 +2811,11 @@ void VRMLImageTextureHelper::getFieldAndDesc(
     {
         if(_bProtoInterfaceDone == false)
         {
-            pField = &_defaultRepeatS;
+            pField = _sfBoolDesc.createEditHandler(&_defaultRepeatS);
         }
         else
         {
-            pField = &_repeatS;
+            pField = _sfBoolDesc.createEditHandler(&_repeatS);
         }
 
         pDesc = &_sfBoolDesc;
@@ -2857,11 +2824,11 @@ void VRMLImageTextureHelper::getFieldAndDesc(
     {
         if(_bProtoInterfaceDone == false)
         {
-            pField = &_defaultRepeatT;
+            pField = _sfBoolDesc.createEditHandler(&_defaultRepeatT);
         }
         else
         {
-            pField = &_repeatT;
+            pField = _sfBoolDesc.createEditHandler(&_repeatT);
         }
         
         pDesc = &_sfBoolDesc;

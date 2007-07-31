@@ -66,6 +66,8 @@
 #include "OSGShadowMapEngineBase.h"
 #include "OSGShadowMapEngine.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -119,16 +121,10 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ShadowMapEngineBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getSFRenderTarget));
+        reinterpret_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleRenderTarget),
+        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleRenderTarget));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(ShadowMapEngineBase::*GetSFWidthF)(void) const;
-
-    GetSFWidthF GetSFWidth = &ShadowMapEngineBase::getSFWidth;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -137,20 +133,10 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editSFWidth),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getSFWidth));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleWidth),
+        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(ShadowMapEngineBase::*GetSFHeightF)(void) const;
-
-    GetSFHeightF GetSFHeight = &ShadowMapEngineBase::getSFHeight;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -159,20 +145,10 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editSFHeight),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFHeight));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getSFHeight));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleHeight),
+        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFColor4f *(ShadowMapEngineBase::*GetSFShadowColorF)(void) const;
-
-    GetSFShadowColorF GetSFShadowColor = &ShadowMapEngineBase::getSFShadowColor;
-#endif
 
     pDesc = new SFColor4f::Description(
         SFColor4f::getClassType(),
@@ -181,20 +157,10 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         ShadowColorFieldId, ShadowColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editSFShadowColor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFShadowColor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getSFShadowColor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleShadowColor),
+        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleShadowColor));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(ShadowMapEngineBase::*GetSFOffsetBiasF)(void) const;
-
-    GetSFOffsetBiasF GetSFOffsetBias = &ShadowMapEngineBase::getSFOffsetBias;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -203,20 +169,10 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         OffsetBiasFieldId, OffsetBiasFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editSFOffsetBias),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFOffsetBias));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getSFOffsetBias));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleOffsetBias),
+        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleOffsetBias));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(ShadowMapEngineBase::*GetSFOffsetFactorF)(void) const;
-
-    GetSFOffsetFactorF GetSFOffsetFactor = &ShadowMapEngineBase::getSFOffsetFactor;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -225,12 +181,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         OffsetFactorFieldId, OffsetFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editSFOffsetFactor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFOffsetFactor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getSFOffsetFactor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleOffsetFactor),
+        reinterpret_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleOffsetFactor));
 
     oType.addInitialDesc(pDesc);
 }
@@ -439,65 +391,6 @@ SFReal32            *ShadowMapEngineBase::getSFOffsetFactor   (void)
 #endif
 
 
-void ShadowMapEngineBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == RenderTargetFieldId)
-    {
-        static_cast<ShadowMapEngine *>(this)->setRenderTarget(
-            dynamic_cast<FrameBufferObjectPtr>(pNewElement));
-    }
-}
-
-void ShadowMapEngineBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void ShadowMapEngineBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void ShadowMapEngineBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void ShadowMapEngineBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void ShadowMapEngineBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void ShadowMapEngineBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == RenderTargetFieldId)
-    {
-        static_cast<ShadowMapEngine *>(this)->setRenderTarget(NullFC);
-    }
-}
 
 
 
@@ -641,6 +534,141 @@ void ShadowMapEngineBase::onCreate(const ShadowMapEngine *source)
         this->setRenderTarget(source->getRenderTarget());
     }
 }
+
+SFFrameBufferObjectPtr::GetHandlePtr ShadowMapEngineBase::getHandleRenderTarget    (void)
+{
+    SFFrameBufferObjectPtr::GetHandlePtr returnValue(
+        new  SFFrameBufferObjectPtr::GetHandle(
+             &_sfRenderTarget, 
+             this->getType().getFieldDesc(RenderTargetFieldId)));
+
+    return returnValue;
+}
+
+SFFrameBufferObjectPtr::EditHandlePtr ShadowMapEngineBase::editHandleRenderTarget   (void)
+{
+    SFFrameBufferObjectPtr::EditHandlePtr returnValue(
+        new  SFFrameBufferObjectPtr::EditHandle(
+             &_sfRenderTarget, 
+             this->getType().getFieldDesc(RenderTargetFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&ShadowMapEngine::setRenderTarget, this, _1));
+
+    editSField(RenderTargetFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr ShadowMapEngineBase::getHandleWidth           (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfWidth, 
+             this->getType().getFieldDesc(WidthFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr ShadowMapEngineBase::editHandleWidth          (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfWidth, 
+             this->getType().getFieldDesc(WidthFieldId)));
+
+    editSField(WidthFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr ShadowMapEngineBase::getHandleHeight          (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfHeight, 
+             this->getType().getFieldDesc(HeightFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr ShadowMapEngineBase::editHandleHeight         (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfHeight, 
+             this->getType().getFieldDesc(HeightFieldId)));
+
+    editSField(HeightFieldMask);
+
+    return returnValue;
+}
+
+SFColor4f::GetHandlePtr ShadowMapEngineBase::getHandleShadowColor     (void)
+{
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
+             &_sfShadowColor, 
+             this->getType().getFieldDesc(ShadowColorFieldId)));
+
+    return returnValue;
+}
+
+SFColor4f::EditHandlePtr ShadowMapEngineBase::editHandleShadowColor    (void)
+{
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
+             &_sfShadowColor, 
+             this->getType().getFieldDesc(ShadowColorFieldId)));
+
+    editSField(ShadowColorFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr ShadowMapEngineBase::getHandleOffsetBias      (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfOffsetBias, 
+             this->getType().getFieldDesc(OffsetBiasFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr ShadowMapEngineBase::editHandleOffsetBias     (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfOffsetBias, 
+             this->getType().getFieldDesc(OffsetBiasFieldId)));
+
+    editSField(OffsetBiasFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr ShadowMapEngineBase::getHandleOffsetFactor    (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfOffsetFactor, 
+             this->getType().getFieldDesc(OffsetFactorFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr ShadowMapEngineBase::editHandleOffsetFactor   (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfOffsetFactor, 
+             this->getType().getFieldDesc(OffsetFactorFieldId)));
+
+    editSField(OffsetFactorFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ShadowMapEngineBase::execSyncV(      FieldContainer    &oFrom,

@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(FrameBufferObject);
 
 template <>
 struct FieldTraits<FrameBufferObjectPtr> :
-    public FieldTraitsTemplateBase<FrameBufferObjectPtr>
+    public FieldTraitsFCPtrBase<FrameBufferObjectPtr>
 {
   private:
 

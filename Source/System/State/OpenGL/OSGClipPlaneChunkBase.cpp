@@ -67,6 +67,8 @@
 #include "OSGClipPlaneChunkBase.h"
 #include "OSGClipPlaneChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -107,12 +109,6 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFVec4f *(ClipPlaneChunkBase::*GetSFEquationF)(void) const;
-
-    GetSFEquationF GetSFEquation = &ClipPlaneChunkBase::getSFEquation;
-#endif
-
     pDesc = new SFVec4f::Description(
         SFVec4f::getClassType(),
         "equation",
@@ -121,20 +117,10 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         EquationFieldId, EquationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editSFEquation),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFEquation));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getSFEquation));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleEquation),
+        reinterpret_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleEquation));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ClipPlaneChunkBase::*GetSFEnableF)(void) const;
-
-    GetSFEnableF GetSFEnable = &ClipPlaneChunkBase::getSFEnable;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -143,12 +129,8 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         EnableFieldId, EnableFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editSFEnable),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFEnable));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getSFEnable));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleEnable),
+        reinterpret_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleEnable));
 
     oType.addInitialDesc(pDesc);
 
@@ -160,8 +142,8 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ClipPlaneChunkBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getSFBeacon));
+        reinterpret_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleBeacon),
+        reinterpret_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 }
@@ -304,65 +286,6 @@ const SFNodePtr *ClipPlaneChunkBase::getSFBeacon(void) const
 }
 
 
-void ClipPlaneChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == BeaconFieldId)
-    {
-        static_cast<ClipPlaneChunk *>(this)->setBeacon(
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-}
-
-void ClipPlaneChunkBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void ClipPlaneChunkBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void ClipPlaneChunkBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void ClipPlaneChunkBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void ClipPlaneChunkBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void ClipPlaneChunkBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == BeaconFieldId)
-    {
-        static_cast<ClipPlaneChunk *>(this)->setBeacon(NullFC);
-    }
-}
 
 
 
@@ -496,6 +419,75 @@ void ClipPlaneChunkBase::onCreate(const ClipPlaneChunk *source)
         this->setBeacon(source->getBeacon());
     }
 }
+
+SFVec4f::GetHandlePtr ClipPlaneChunkBase::getHandleEquation        (void)
+{
+    SFVec4f::GetHandlePtr returnValue(
+        new  SFVec4f::GetHandle(
+             &_sfEquation, 
+             this->getType().getFieldDesc(EquationFieldId)));
+
+    return returnValue;
+}
+
+SFVec4f::EditHandlePtr ClipPlaneChunkBase::editHandleEquation       (void)
+{
+    SFVec4f::EditHandlePtr returnValue(
+        new  SFVec4f::EditHandle(
+             &_sfEquation, 
+             this->getType().getFieldDesc(EquationFieldId)));
+
+    editSField(EquationFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr ClipPlaneChunkBase::getHandleEnable          (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnable, 
+             this->getType().getFieldDesc(EnableFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ClipPlaneChunkBase::editHandleEnable         (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnable, 
+             this->getType().getFieldDesc(EnableFieldId)));
+
+    editSField(EnableFieldMask);
+
+    return returnValue;
+}
+
+SFNodePtr::GetHandlePtr ClipPlaneChunkBase::getHandleBeacon          (void)
+{
+    SFNodePtr::GetHandlePtr returnValue(
+        new  SFNodePtr::GetHandle(
+             &_sfBeacon, 
+             this->getType().getFieldDesc(BeaconFieldId)));
+
+    return returnValue;
+}
+
+SFNodePtr::EditHandlePtr ClipPlaneChunkBase::editHandleBeacon         (void)
+{
+    SFNodePtr::EditHandlePtr returnValue(
+        new  SFNodePtr::EditHandle(
+             &_sfBeacon, 
+             this->getType().getFieldDesc(BeaconFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&ClipPlaneChunk::setBeacon, this, _1));
+
+    editSField(BeaconFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ClipPlaneChunkBase::execSyncV(      FieldContainer    &oFrom,

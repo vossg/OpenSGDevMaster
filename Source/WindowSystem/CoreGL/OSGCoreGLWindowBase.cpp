@@ -65,6 +65,8 @@
 #include "OSGCoreGLWindowBase.h"
 #include "OSGCoreGLWindow.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void CoreGLWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFCGLContextObj *(CoreGLWindowBase::*GetSFContextF)(void) const;
-
-    GetSFContextF GetSFContext = &CoreGLWindowBase::getSFContext;
-#endif
-
     pDesc = new SFCGLContextObj::Description(
         SFCGLContextObj::getClassType(),
         "context",
@@ -102,12 +98,8 @@ void CoreGLWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&CoreGLWindowBase::editSFContext),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFContext));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&CoreGLWindowBase::getSFContext));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&CoreGLWindowBase::editHandleContext),
+        reinterpret_cast<FieldGetMethodSig >(&CoreGLWindowBase::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }
@@ -282,6 +274,29 @@ CoreGLWindowBase::CoreGLWindowBase(const CoreGLWindowBase &source) :
 
 CoreGLWindowBase::~CoreGLWindowBase(void)
 {
+}
+
+
+SFCGLContextObj::GetHandlePtr CoreGLWindowBase::getHandleContext         (void)
+{
+    SFCGLContextObj::GetHandlePtr returnValue(
+        new  SFCGLContextObj::GetHandle(
+             &_sfContext, 
+             this->getType().getFieldDesc(ContextFieldId)));
+
+    return returnValue;
+}
+
+SFCGLContextObj::EditHandlePtr CoreGLWindowBase::editHandleContext        (void)
+{
+    SFCGLContextObj::EditHandlePtr returnValue(
+        new  SFCGLContextObj::EditHandle(
+             &_sfContext, 
+             this->getType().getFieldDesc(ContextFieldId)));
+
+    editSField(ContextFieldMask);
+
+    return returnValue;
 }
 
 

@@ -66,6 +66,8 @@
 #include "OSGSwitchMaterialBase.h"
 #include "OSGSwitchMaterial.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -102,16 +104,10 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
         MaterialsFieldId, MaterialsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SwitchMaterialBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SwitchMaterialBase::getMFMaterials));
+        reinterpret_cast<FieldEditMethodSig>(&SwitchMaterialBase::editHandleMaterials),
+        reinterpret_cast<FieldGetMethodSig >(&SwitchMaterialBase::getHandleMaterials));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(SwitchMaterialBase::*GetSFChoiceF)(void) const;
-
-    GetSFChoiceF GetSFChoice = &SwitchMaterialBase::getSFChoice;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -120,12 +116,8 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SwitchMaterialBase::editSFChoice),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFChoice));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SwitchMaterialBase::getSFChoice));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SwitchMaterialBase::editHandleChoice),
+        reinterpret_cast<FieldGetMethodSig >(&SwitchMaterialBase::getHandleChoice));
 
     oType.addInitialDesc(pDesc);
 }
@@ -225,93 +217,6 @@ SFUInt32            *SwitchMaterialBase::getSFChoice         (void)
 #endif
 
 
-void SwitchMaterialBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<SwitchMaterial *>(this)->pushToMaterials(
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void SwitchMaterialBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<SwitchMaterial *>(this)->insertIntoMaterials(
-            uiIndex,
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void SwitchMaterialBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<SwitchMaterial *>(this)->replaceInMaterials(
-            uiIndex,
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void SwitchMaterialBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<SwitchMaterial *>(this)->replaceInMaterials(
-            dynamic_cast<MaterialPtr>(pOldElement),
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void SwitchMaterialBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<SwitchMaterial *>(this)->removeFromMaterials(
-            uiIndex);
-    }
-}
-
-void SwitchMaterialBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<SwitchMaterial *>(this)->removeFromMaterials(
-            dynamic_cast<MaterialPtr>(pElement));
-    }
-}
-
-void SwitchMaterialBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<SwitchMaterial *>(this)->clearMaterials();
-    }
-}
 
 void SwitchMaterialBase::pushToMaterials(MaterialPtrConstArg value)
 {
@@ -578,6 +483,53 @@ void SwitchMaterialBase::onCreate(const SwitchMaterial *source)
         }
     }
 }
+
+MFMaterialPtr::GetHandlePtr SwitchMaterialBase::getHandleMaterials       (void)
+{
+    MFMaterialPtr::GetHandlePtr returnValue(
+        new  MFMaterialPtr::GetHandle(
+             &_mfMaterials, 
+             this->getType().getFieldDesc(MaterialsFieldId)));
+
+    return returnValue;
+}
+
+MFMaterialPtr::EditHandlePtr SwitchMaterialBase::editHandleMaterials      (void)
+{
+    MFMaterialPtr::EditHandlePtr returnValue(
+        new  MFMaterialPtr::EditHandle(
+             &_mfMaterials, 
+             this->getType().getFieldDesc(MaterialsFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&SwitchMaterial::pushToMaterials, this, _1));
+
+    editMField(MaterialsFieldMask, _mfMaterials);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr SwitchMaterialBase::getHandleChoice          (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfChoice, 
+             this->getType().getFieldDesc(ChoiceFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr SwitchMaterialBase::editHandleChoice         (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfChoice, 
+             this->getType().getFieldDesc(ChoiceFieldId)));
+
+    editSField(ChoiceFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void SwitchMaterialBase::execSyncV(      FieldContainer    &oFrom,

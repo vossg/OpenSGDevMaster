@@ -66,6 +66,8 @@
 #include "OSGMultiPassMaterialBase.h"
 #include "OSGMultiPassMaterial.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -97,8 +99,8 @@ void MultiPassMaterialBase::classDescInserter(TypeObject &oType)
         MaterialsFieldId, MaterialsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&MultiPassMaterialBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&MultiPassMaterialBase::getMFMaterials));
+        reinterpret_cast<FieldEditMethodSig>(&MultiPassMaterialBase::editHandleMaterials),
+        reinterpret_cast<FieldGetMethodSig >(&MultiPassMaterialBase::getHandleMaterials));
 
     oType.addInitialDesc(pDesc);
 }
@@ -133,7 +135,7 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
-    "                pushToFieldAs=\"addMaterial\"\n"
+    "        pushToFieldAs=\"addMaterial\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -167,93 +169,6 @@ const MFMaterialPtr *MultiPassMaterialBase::getMFMaterials(void) const
 }
 
 
-void MultiPassMaterialBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<MultiPassMaterial *>(this)->addMaterial(
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void MultiPassMaterialBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<MultiPassMaterial *>(this)->insertIntoMaterials(
-            uiIndex,
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void MultiPassMaterialBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<MultiPassMaterial *>(this)->replaceInMaterials(
-            uiIndex,
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void MultiPassMaterialBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<MultiPassMaterial *>(this)->replaceInMaterials(
-            dynamic_cast<MaterialPtr>(pOldElement),
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void MultiPassMaterialBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<MultiPassMaterial *>(this)->removeFromMaterials(
-            uiIndex);
-    }
-}
-
-void MultiPassMaterialBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<MultiPassMaterial *>(this)->removeFromMaterials(
-            dynamic_cast<MaterialPtr>(pElement));
-    }
-}
-
-void MultiPassMaterialBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == MaterialsFieldId)
-    {
-        static_cast<MultiPassMaterial *>(this)->clearMaterials();
-    }
-}
 
 void MultiPassMaterialBase::addMaterial(MaterialPtrConstArg value)
 {
@@ -506,6 +421,31 @@ void MultiPassMaterialBase::onCreate(const MultiPassMaterial *source)
         }
     }
 }
+
+MFMaterialPtr::GetHandlePtr MultiPassMaterialBase::getHandleMaterials       (void)
+{
+    MFMaterialPtr::GetHandlePtr returnValue(
+        new  MFMaterialPtr::GetHandle(
+             &_mfMaterials, 
+             this->getType().getFieldDesc(MaterialsFieldId)));
+
+    return returnValue;
+}
+
+MFMaterialPtr::EditHandlePtr MultiPassMaterialBase::editHandleMaterials      (void)
+{
+    MFMaterialPtr::EditHandlePtr returnValue(
+        new  MFMaterialPtr::EditHandle(
+             &_mfMaterials, 
+             this->getType().getFieldDesc(MaterialsFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&MultiPassMaterial::addMaterial, this, _1));
+
+    editMField(MaterialsFieldMask, _mfMaterials);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void MultiPassMaterialBase::execSyncV(      FieldContainer    &oFrom,

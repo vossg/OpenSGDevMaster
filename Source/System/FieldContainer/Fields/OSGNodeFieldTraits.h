@@ -74,7 +74,7 @@ struct FieldTraits<NodePtr> : public FieldTraitsFCPtrBase<NodePtr>
   public:
 
     typedef FieldTraits<NodePtr>  Self;
-
+    typedef NodePtr               ParentContainerPtr;
 
     enum             { Convertible = Self::NotConvertible              };
 
@@ -98,8 +98,8 @@ struct FieldTraits<NodePtr> : public FieldTraitsFCPtrBase<NodePtr>
 #endif
 
 template <>
-struct FieldTraits<ParentNodePtr, 1> : 
-    public FieldTraitsFCPtrBase<ParentNodePtr, 1>
+struct FieldTraits<ParentNodePtr> : 
+    public FieldTraitsFCPtrBase<ParentNodePtr>
 {
   private:
 
@@ -107,7 +107,7 @@ struct FieldTraits<ParentNodePtr, 1> :
 
   public:
 
-    typedef FieldTraits<ParentNodePtr, 1>  Self;
+    typedef FieldTraits<ParentNodePtr>     Self;
 
     enum             { Convertible = Self::NotConvertible                  };
 

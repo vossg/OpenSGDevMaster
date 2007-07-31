@@ -65,6 +65,8 @@
 #include "OSGScreenLODBase.h"
 #include "OSGScreenLOD.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -96,12 +98,6 @@ void ScreenLODBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFReal32 *(ScreenLODBase::*GetMFCoverageOverrideF)(void) const;
-
-    GetMFCoverageOverrideF GetMFCoverageOverride = &ScreenLODBase::getMFCoverageOverride;
-#endif
-
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(),
         "coverageOverride",
@@ -113,12 +109,8 @@ void ScreenLODBase::classDescInserter(TypeObject &oType)
         CoverageOverrideFieldId, CoverageOverrideFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ScreenLODBase::editMFCoverageOverride),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFCoverageOverride));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ScreenLODBase::getMFCoverageOverride));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ScreenLODBase::editHandleCoverageOverride),
+        reinterpret_cast<FieldGetMethodSig >(&ScreenLODBase::getHandleCoverageOverride));
 
     oType.addInitialDesc(pDesc);
 }
@@ -385,6 +377,29 @@ ScreenLODBase::ScreenLODBase(const ScreenLODBase &source) :
 
 ScreenLODBase::~ScreenLODBase(void)
 {
+}
+
+
+MFReal32::GetHandlePtr ScreenLODBase::getHandleCoverageOverride (void)
+{
+    MFReal32::GetHandlePtr returnValue(
+        new  MFReal32::GetHandle(
+             &_mfCoverageOverride, 
+             this->getType().getFieldDesc(CoverageOverrideFieldId)));
+
+    return returnValue;
+}
+
+MFReal32::EditHandlePtr ScreenLODBase::editHandleCoverageOverride(void)
+{
+    MFReal32::EditHandlePtr returnValue(
+        new  MFReal32::EditHandle(
+             &_mfCoverageOverride, 
+             this->getType().getFieldDesc(CoverageOverrideFieldId)));
+
+    editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
+
+    return returnValue;
 }
 
 

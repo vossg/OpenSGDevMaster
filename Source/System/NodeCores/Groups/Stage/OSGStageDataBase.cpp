@@ -56,6 +56,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
+#include "boost/bind.hpp"
 
 #include <OSGConfig.h>
 
@@ -97,12 +98,6 @@ void StageDataBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(StageDataBase::*GetSFPartitionRangeBeginF)(void) const;
-
-    GetSFPartitionRangeBeginF GetSFPartitionRangeBegin = &StageDataBase::getSFPartitionRangeBegin;
-#endif
-
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
         "partitionRangeBegin",
@@ -110,20 +105,10 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         PartitionRangeBeginFieldId, PartitionRangeBeginFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editSFPartitionRangeBegin),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFPartitionRangeBegin));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getSFPartitionRangeBegin));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editHandlePartitionRangeBegin),
+        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getHandlePartitionRangeBegin));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(StageDataBase::*GetSFPartitionRangeEndF)(void) const;
-
-    GetSFPartitionRangeEndF GetSFPartitionRangeEnd = &StageDataBase::getSFPartitionRangeEnd;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -132,20 +117,10 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         PartitionRangeEndFieldId, PartitionRangeEndFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editSFPartitionRangeEnd),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFPartitionRangeEnd));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getSFPartitionRangeEnd));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editHandlePartitionRangeEnd),
+        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getHandlePartitionRangeEnd));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(StageDataBase::*GetSFGroupModeF)(void) const;
-
-    GetSFGroupModeF GetSFGroupMode = &StageDataBase::getSFGroupMode;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -154,12 +129,8 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         GroupModeFieldId, GroupModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editSFGroupMode),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGroupMode));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getSFGroupMode));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editHandleGroupMode),
+        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getHandleGroupMode));
 
     oType.addInitialDesc(pDesc);
 }
@@ -412,6 +383,73 @@ void StageDataBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 }
+
+SFInt32::GetHandlePtr StageDataBase::getHandlePartitionRangeBegin (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfPartitionRangeBegin, 
+             this->getType().getFieldDesc(PartitionRangeBeginFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr StageDataBase::editHandlePartitionRangeBegin(void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfPartitionRangeBegin, 
+             this->getType().getFieldDesc(PartitionRangeBeginFieldId)));
+
+    editSField(PartitionRangeBeginFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr StageDataBase::getHandlePartitionRangeEnd (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfPartitionRangeEnd, 
+             this->getType().getFieldDesc(PartitionRangeEndFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr StageDataBase::editHandlePartitionRangeEnd(void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfPartitionRangeEnd, 
+             this->getType().getFieldDesc(PartitionRangeEndFieldId)));
+
+    editSField(PartitionRangeEndFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr StageDataBase::getHandleGroupMode       (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfGroupMode, 
+             this->getType().getFieldDesc(GroupModeFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr StageDataBase::editHandleGroupMode      (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfGroupMode, 
+             this->getType().getFieldDesc(GroupModeFieldId)));
+
+    editSField(GroupModeFieldMask);
+
+    return returnValue;
+}
+
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)

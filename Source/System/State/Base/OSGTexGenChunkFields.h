@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(TexGenChunk);
 
 template <>
 struct FieldTraits<TexGenChunkPtr> :
-    public FieldTraitsTemplateBase<TexGenChunkPtr>
+    public FieldTraitsFCPtrBase<TexGenChunkPtr>
 {
   private:
 

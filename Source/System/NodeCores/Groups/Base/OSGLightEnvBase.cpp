@@ -65,6 +65,8 @@
 #include "OSGLightEnvBase.h"
 #include "OSGLightEnv.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -205,6 +207,7 @@ LightEnvBase::LightEnvBase(const LightEnvBase &source) :
 LightEnvBase::~LightEnvBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

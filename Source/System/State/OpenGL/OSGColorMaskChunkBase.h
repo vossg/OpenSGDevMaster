@@ -271,6 +271,20 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFBool::GetHandlePtr  getHandleMaskR           (void);
+    SFBool::EditHandlePtr editHandleMaskR          (void);
+    SFBool::GetHandlePtr  getHandleMaskG           (void);
+    SFBool::EditHandlePtr editHandleMaskG          (void);
+    SFBool::GetHandlePtr  getHandleMaskB           (void);
+    SFBool::EditHandlePtr editHandleMaskB          (void);
+    SFBool::GetHandlePtr  getHandleMaskA           (void);
+    SFBool::EditHandlePtr editHandleMaskA          (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

@@ -224,29 +224,6 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32               uiIndex,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void replaceInMField (const UInt32               uiIndex,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void replaceInMField (      FieldBundlePConstArg pOldElement,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void removeFromMField(const UInt32               uiIndex,
-                                  const UInt32               uiFieldId  );
-
-    virtual void removeFromMField(      FieldBundlePConstArg pElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void clearField      (const UInt32               uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -324,6 +301,30 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*! \{                                                                 */
 
     void onCreate(const HDRStageData *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFChunkMaterialPtr::GetHandlePtr  getHandleToneMappingMaterial (void);
+    SFChunkMaterialPtr::EditHandlePtr editHandleToneMappingMaterial(void);
+    SFFrameBufferObjectPtr::GetHandlePtr  getHandleBlurRenderTarget (void);
+    SFFrameBufferObjectPtr::EditHandlePtr editHandleBlurRenderTarget(void);
+    SFChunkMaterialPtr::GetHandlePtr  getHandleBlurMaterial    (void);
+    SFChunkMaterialPtr::EditHandlePtr editHandleBlurMaterial   (void);
+    SFSHLChunkPtr::GetHandlePtr  getHandleHBlurShader     (void);
+    SFSHLChunkPtr::EditHandlePtr editHandleHBlurShader    (void);
+    SFSHLChunkPtr::GetHandlePtr  getHandleVBlurShader     (void);
+    SFSHLChunkPtr::EditHandlePtr editHandleVBlurShader    (void);
+    SFUInt32::GetHandlePtr  getHandleWidth           (void);
+    SFUInt32::EditHandlePtr editHandleWidth          (void);
+    SFUInt32::GetHandlePtr  getHandleHeight          (void);
+    SFUInt32::EditHandlePtr editHandleHeight         (void);
+    SFFrameBufferObjectPtr::GetHandlePtr  getHandleShrinkRenderTarget (void);
+    SFFrameBufferObjectPtr::EditHandlePtr editHandleShrinkRenderTarget(void);
+    SFChunkMaterialPtr::GetHandlePtr  getHandleShrinkMaterial  (void);
+    SFChunkMaterialPtr::EditHandlePtr editHandleShrinkMaterial (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

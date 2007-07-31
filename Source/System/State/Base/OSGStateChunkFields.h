@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(StateChunk);
 
 template <>
 struct FieldTraits<StateChunkPtr> :
-    public FieldTraitsTemplateBase<StateChunkPtr>
+    public FieldTraitsFCPtrBase<StateChunkPtr>
 {
   private:
 

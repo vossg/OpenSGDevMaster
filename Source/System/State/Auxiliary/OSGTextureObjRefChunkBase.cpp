@@ -65,6 +65,8 @@
 #include "OSGTextureObjRefChunkBase.h"
 #include "OSGTextureObjRefChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(TextureObjRefChunkBase::*GetSFGLIdF)(void) const;
-
-    GetSFGLIdF GetSFGLId = &TextureObjRefChunkBase::getSFGLId;
-#endif
-
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "GLId",
@@ -102,12 +98,8 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         false,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&TextureObjRefChunkBase::editSFGLId),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureObjRefChunkBase::getSFGLId));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureObjRefChunkBase::editHandleGLId),
+        reinterpret_cast<FieldGetMethodSig >(&TextureObjRefChunkBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -283,6 +275,29 @@ TextureObjRefChunkBase::TextureObjRefChunkBase(const TextureObjRefChunkBase &sou
 
 TextureObjRefChunkBase::~TextureObjRefChunkBase(void)
 {
+}
+
+
+SFGLenum::GetHandlePtr TextureObjRefChunkBase::getHandleGLId            (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr TextureObjRefChunkBase::editHandleGLId           (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    editSField(GLIdFieldMask);
+
+    return returnValue;
 }
 
 

@@ -66,6 +66,8 @@
 #include "OSGVisitSubTreeBase.h"
 #include "OSGVisitSubTree.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -104,8 +106,8 @@ void VisitSubTreeBase::classDescInserter(TypeObject &oType)
         SubTreeRootFieldId, SubTreeRootFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&VisitSubTreeBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&VisitSubTreeBase::getSFSubTreeRoot));
+        reinterpret_cast<FieldEditMethodSig>(&VisitSubTreeBase::editHandleSubTreeRoot),
+        reinterpret_cast<FieldGetMethodSig >(&VisitSubTreeBase::getHandleSubTreeRoot));
 
     oType.addInitialDesc(pDesc);
 }
@@ -185,65 +187,6 @@ const SFNodePtr *VisitSubTreeBase::getSFSubTreeRoot(void) const
 }
 
 
-void VisitSubTreeBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == SubTreeRootFieldId)
-    {
-        static_cast<VisitSubTree *>(this)->setSubTreeRoot(
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-}
-
-void VisitSubTreeBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void VisitSubTreeBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void VisitSubTreeBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void VisitSubTreeBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void VisitSubTreeBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void VisitSubTreeBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == SubTreeRootFieldId)
-    {
-        static_cast<VisitSubTree *>(this)->setSubTreeRoot(NullFC);
-    }
-}
 
 
 
@@ -349,6 +292,31 @@ void VisitSubTreeBase::onCreate(const VisitSubTree *source)
         this->setSubTreeRoot(source->getSubTreeRoot());
     }
 }
+
+SFNodePtr::GetHandlePtr VisitSubTreeBase::getHandleSubTreeRoot     (void)
+{
+    SFNodePtr::GetHandlePtr returnValue(
+        new  SFNodePtr::GetHandle(
+             &_sfSubTreeRoot, 
+             this->getType().getFieldDesc(SubTreeRootFieldId)));
+
+    return returnValue;
+}
+
+SFNodePtr::EditHandlePtr VisitSubTreeBase::editHandleSubTreeRoot    (void)
+{
+    SFNodePtr::EditHandlePtr returnValue(
+        new  SFNodePtr::EditHandle(
+             &_sfSubTreeRoot, 
+             this->getType().getFieldDesc(SubTreeRootFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&VisitSubTree::setSubTreeRoot, this, _1));
+
+    editSField(SubTreeRootFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void VisitSubTreeBase::execSyncV(      FieldContainer    &oFrom,

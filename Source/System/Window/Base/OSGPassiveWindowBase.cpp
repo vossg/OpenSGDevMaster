@@ -65,6 +65,8 @@
 #include "OSGPassiveWindowBase.h"
 #include "OSGPassiveWindow.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -209,6 +211,7 @@ PassiveWindowBase::PassiveWindowBase(const PassiveWindowBase &source) :
 PassiveWindowBase::~PassiveWindowBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

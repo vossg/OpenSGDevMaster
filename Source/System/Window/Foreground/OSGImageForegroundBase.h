@@ -161,29 +161,6 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -280,6 +257,16 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \{                                                                 */
 
     void onCreate(const ImageForeground *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFImagePtr::GetHandlePtr  getHandleImages          (void);
+    MFImagePtr::EditHandlePtr editHandleImages         (void);
+    MFPnt2f::GetHandlePtr  getHandlePositions       (void);
+    MFPnt2f::EditHandlePtr editHandlePositions      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

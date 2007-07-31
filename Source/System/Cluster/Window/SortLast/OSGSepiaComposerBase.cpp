@@ -65,6 +65,8 @@
 #include "OSGSepiaComposerBase.h"
 #include "OSGSepiaComposer.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -204,6 +206,7 @@ SepiaComposerBase::SepiaComposerBase(const SepiaComposerBase &source) :
 SepiaComposerBase::~SepiaComposerBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

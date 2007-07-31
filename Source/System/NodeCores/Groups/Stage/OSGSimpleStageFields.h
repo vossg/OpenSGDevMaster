@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(SimpleStage);
 
 template <>
 struct FieldTraits<SimpleStagePtr> :
-    public FieldTraitsTemplateBase<SimpleStagePtr>
+    public FieldTraitsFCPtrBase<SimpleStagePtr>
 {
   private:
 

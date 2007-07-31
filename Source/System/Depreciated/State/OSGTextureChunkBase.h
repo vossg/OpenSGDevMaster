@@ -1062,29 +1062,6 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -1221,6 +1198,122 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
     void onCreate(const TextureChunk *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFImagePtr::GetHandlePtr  getHandleImage           (void);
+    SFImagePtr::EditHandlePtr editHandleImage          (void);
+    SFGLenum::GetHandlePtr  getHandleInternalFormat  (void);
+    SFGLenum::EditHandlePtr editHandleInternalFormat (void);
+    SFGLenum::GetHandlePtr  getHandleExternalFormat  (void);
+    SFGLenum::EditHandlePtr editHandleExternalFormat (void);
+    SFBool::GetHandlePtr  getHandleScale           (void);
+    SFBool::EditHandlePtr editHandleScale          (void);
+    SFUInt32::GetHandlePtr  getHandleFrame           (void);
+    SFUInt32::EditHandlePtr editHandleFrame          (void);
+    SFGLenum::GetHandlePtr  getHandleMinFilter       (void);
+    SFGLenum::EditHandlePtr editHandleMinFilter      (void);
+    SFGLenum::GetHandlePtr  getHandleMagFilter       (void);
+    SFGLenum::EditHandlePtr editHandleMagFilter      (void);
+    SFGLenum::GetHandlePtr  getHandleWrapS           (void);
+    SFGLenum::EditHandlePtr editHandleWrapS          (void);
+    SFGLenum::GetHandlePtr  getHandleWrapT           (void);
+    SFGLenum::EditHandlePtr editHandleWrapT          (void);
+    SFGLenum::GetHandlePtr  getHandleWrapR           (void);
+    SFGLenum::EditHandlePtr editHandleWrapR          (void);
+    SFGLenum::GetHandlePtr  getHandleEnvMode         (void);
+    SFGLenum::EditHandlePtr editHandleEnvMode        (void);
+    SFColor4f::GetHandlePtr  getHandleEnvColor        (void);
+    SFColor4f::EditHandlePtr editHandleEnvColor       (void);
+    SFGLenum::GetHandlePtr  getHandleEnvCombineRGB   (void);
+    SFGLenum::EditHandlePtr editHandleEnvCombineRGB  (void);
+    SFGLenum::GetHandlePtr  getHandleEnvCombineAlpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvCombineAlpha(void);
+    SFReal32::GetHandlePtr  getHandleEnvScaleRGB     (void);
+    SFReal32::EditHandlePtr editHandleEnvScaleRGB    (void);
+    SFReal32::GetHandlePtr  getHandleEnvScaleAlpha   (void);
+    SFReal32::EditHandlePtr editHandleEnvScaleAlpha  (void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource0RGB   (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource0RGB  (void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource1RGB   (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource1RGB  (void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource2RGB   (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource2RGB  (void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource0Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource0Alpha(void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource1Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource1Alpha(void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource2Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource2Alpha(void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand0RGB  (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand0RGB (void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand1RGB  (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand1RGB (void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand2RGB  (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand2RGB (void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand0Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand0Alpha(void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand1Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand1Alpha(void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand2Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand2Alpha(void);
+    SFGLenum::GetHandlePtr  getHandleGLId            (void);
+    SFGLenum::EditHandlePtr editHandleGLId           (void);
+    SFInt32::GetHandlePtr  getHandleIgnoreGLForAspect (void);
+    SFInt32::EditHandlePtr editHandleIgnoreGLForAspect(void);
+    SFBool::GetHandlePtr  getHandlePointSprite     (void);
+    SFBool::EditHandlePtr editHandlePointSprite    (void);
+    SFReal32::GetHandlePtr  getHandlePriority        (void);
+    SFReal32::EditHandlePtr editHandlePriority       (void);
+    SFGLenum::GetHandlePtr  getHandleShaderOperation (void);
+    SFGLenum::EditHandlePtr editHandleShaderOperation(void);
+    SFGLenum::GetHandlePtr  getHandleShaderInput     (void);
+    SFGLenum::EditHandlePtr editHandleShaderInput    (void);
+    MFReal32::GetHandlePtr  getHandleShaderOffsetMatrix (void);
+    MFReal32::EditHandlePtr editHandleShaderOffsetMatrix(void);
+    SFReal32::GetHandlePtr  getHandleShaderOffsetScale (void);
+    SFReal32::EditHandlePtr editHandleShaderOffsetScale(void);
+    SFReal32::GetHandlePtr  getHandleShaderOffsetBias (void);
+    SFReal32::EditHandlePtr editHandleShaderOffsetBias(void);
+    SFGLenum::GetHandlePtr  getHandleShaderRGBADotProduct (void);
+    SFGLenum::EditHandlePtr editHandleShaderRGBADotProduct(void);
+    SFUInt8::GetHandlePtr  getHandleShaderCullModes (void);
+    SFUInt8::EditHandlePtr editHandleShaderCullModes(void);
+    SFVec3f::GetHandlePtr  getHandleShaderConstEye  (void);
+    SFVec3f::EditHandlePtr editHandleShaderConstEye (void);
+    SFReal32::GetHandlePtr  getHandleLodBias         (void);
+    SFReal32::EditHandlePtr editHandleLodBias        (void);
+    SFInt32::GetHandlePtr  getHandleDirtyLeft       (void);
+    SFInt32::EditHandlePtr editHandleDirtyLeft      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMinX       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMinX      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMaxX       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMaxX      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMinY       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMinY      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMaxY       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMaxY      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMinZ       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMinZ      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMaxZ       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMaxZ      (void);
+    SFReal32::GetHandlePtr  getHandleAnisotropy      (void);
+    SFReal32::EditHandlePtr editHandleAnisotropy     (void);
+    SFColor4f::GetHandlePtr  getHandleBorderColor     (void);
+    SFColor4f::EditHandlePtr editHandleBorderColor    (void);
+    SFGLenum::GetHandlePtr  getHandleCompareMode     (void);
+    SFGLenum::EditHandlePtr editHandleCompareMode    (void);
+    SFGLenum::GetHandlePtr  getHandleCompareFunc     (void);
+    SFGLenum::EditHandlePtr editHandleCompareFunc    (void);
+    SFGLenum::GetHandlePtr  getHandleDepthMode       (void);
+    SFGLenum::EditHandlePtr editHandleDepthMode      (void);
+    SFUInt32::GetHandlePtr  getHandleBorderWidth     (void);
+    SFUInt32::EditHandlePtr editHandleBorderWidth    (void);
+    SFUInt32::GetHandlePtr  getHandleNPOTMatrixScale (void);
+    SFUInt32::EditHandlePtr editHandleNPOTMatrixScale(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

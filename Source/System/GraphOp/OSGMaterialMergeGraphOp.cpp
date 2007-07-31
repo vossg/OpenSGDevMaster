@@ -89,8 +89,6 @@ T next(T t) { // Iterator passed by value.
 
 bool isEqual(const OSG::FieldContainerPtr& a, const OSG::FieldContainerPtr& b)
 {
-    using std::string;
-
     // Compare the pointers.
     if(a == b)
         return true;
@@ -108,24 +106,41 @@ bool isEqual(const OSG::FieldContainerPtr& a, const OSG::FieldContainerPtr& b)
     
     for(UInt32 i=1;i <= fcount;++i)
     {
-        FieldHandle fhandlea = a->getHandledField(i);
-        FieldHandle fhandleb = b->getHandledField(i);
+        GetFieldHandlePtr fhandlea = a->getField(i);
+        GetFieldHandlePtr fhandleb = b->getField(i);
         
-        if(fhandlea.isInternal())
+        if(fhandlea == NULL || fhandleb == NULL || (fhandlea != NULL &&
+                                                    fhandlea->isInternal()))
+        {
             continue;
+        }
 
-        // ignore attachments
-        if(strcmp(fhandlea.getName().str(), "attachments") == 0)
-            continue;
-        
-        const FieldType &a_ftype = fhandlea.getType();
-        const FieldType &b_ftype = fhandleb.getType();
+        const FieldType &a_ftype = fhandlea->getType();
+        const FieldType &b_ftype = fhandleb->getType();
 
         if(a_ftype != b_ftype)
             return false;
 
-        if(strstr(a_ftype.getCName(), "Ptr") == NULL)
+
+        // ignore attachments
+        if(strcmp(fhandlea->getName().c_str(), "attachments") == 0)
+            continue;
+        
+
+        SFFieldContainerPtr::GetHandlePtr sfPtrHandleA =
+            boost::dynamic_pointer_cast<
+                SFFieldContainerPtr::GetHandle>(fhandlea);
+
+        MFFieldContainerPtr::GetHandlePtr mfPtrHandleA =
+            boost::dynamic_pointer_cast<
+                MFFieldContainerPtr::GetHandle>(fhandlea);
+
+        if(sfPtrHandleA == NULL || mfPtrHandleA == NULL)
         {
+            if(fhandlea->equal(fhandleb) == false)
+                return false;
+
+#if 0
             // This is very slow with multi fields!!!!
             std::ostringstream as;
             OutStream outAS(as);
@@ -136,9 +151,45 @@ bool isEqual(const OSG::FieldContainerPtr& a, const OSG::FieldContainerPtr& b)
             fhandleb.pushValueToStream(outBS);
             if(as != bs)
                 return false;
+#endif
         }
         else
         {
+            if(sfPtrHandleA != NULL && sfPtrHandleA->isValid() == true)
+            {
+                SFFieldContainerPtr::GetHandlePtr sfPtrHandleB =
+                    boost::dynamic_pointer_cast<
+                        SFFieldContainerPtr::GetHandle>(fhandleb);
+
+                if(isEqual((*sfPtrHandleA)->getValue(),
+                           (*sfPtrHandleB)->getValue()) == false)
+                {
+                    return false;
+                }
+            }
+            else if(mfPtrHandleA != NULL && mfPtrHandleA->isValid() == true)
+            {
+                MFFieldContainerPtr::GetHandlePtr mfPtrHandleB =
+                    boost::dynamic_pointer_cast<
+                        MFFieldContainerPtr::GetHandle>(fhandleb);
+
+                if((*mfPtrHandleA)->size() !=
+                   (*mfPtrHandleB)->size())
+                {
+                    return false;
+                }
+
+                for(UInt32 j = 0; j < (*mfPtrHandleA)->size(); ++j)
+                {
+                    if(isEqual((*(*mfPtrHandleA))[j],
+                               (*(*mfPtrHandleB))[j]) == false)
+                    {
+                        return false;
+                    }
+                }
+
+           }
+#if 0
             if(fhandlea.getCardinality() == FieldType::SINGLE_FIELD)
             {
                 if(!isEqual(((SFFieldContainerPtr *) fhandlea.getField())->getValue(),
@@ -158,9 +209,9 @@ bool isEqual(const OSG::FieldContainerPtr& a, const OSG::FieldContainerPtr& b)
                         return false;
                 }
             }
+#endif
         }
     }
-    return true;
 }
 
 
@@ -178,7 +229,8 @@ bool MaterialMergeGraphOp::traverse(NodePtr& node)
         return false;
     }
 
-    SINFO << "Number of materials before merge: " << _materialObjects.size() << std::endl;
+    SINFO << "Number of materials before merge: " 
+          << _materialObjects.size() << std::endl;
 
     // Now do the merge.
     MaterialObjectMap::iterator itr = _materialObjects.begin();

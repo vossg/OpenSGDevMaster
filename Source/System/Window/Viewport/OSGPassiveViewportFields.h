@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(PassiveViewport);
 
 template <>
 struct FieldTraits<PassiveViewportPtr> :
-    public FieldTraitsTemplateBase<PassiveViewportPtr>
+    public FieldTraitsFCPtrBase<PassiveViewportPtr>
 {
   private:
 

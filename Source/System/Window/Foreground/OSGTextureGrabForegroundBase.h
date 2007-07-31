@@ -193,29 +193,6 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -288,6 +265,20 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \{                                                                 */
 
     void onCreate(const TextureGrabForeground *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFTextureObjChunkPtr::GetHandlePtr  getHandleTexture         (void);
+    SFTextureObjChunkPtr::EditHandlePtr editHandleTexture        (void);
+    SFBool::GetHandlePtr  getHandleAutoResize      (void);
+    SFBool::EditHandlePtr editHandleAutoResize     (void);
+    SFGLenum::GetHandlePtr  getHandleBindTarget      (void);
+    SFGLenum::EditHandlePtr editHandleBindTarget     (void);
+    SFGLenum::GetHandlePtr  getHandleCopyTarget      (void);
+    SFGLenum::EditHandlePtr editHandleCopyTarget     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

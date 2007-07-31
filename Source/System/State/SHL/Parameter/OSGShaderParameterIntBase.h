@@ -217,6 +217,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterIntBase : public ShaderParameter
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFInt32::GetHandlePtr  getHandleValue           (void);
+    SFInt32::EditHandlePtr editHandleValue          (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

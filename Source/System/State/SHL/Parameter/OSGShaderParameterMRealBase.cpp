@@ -65,6 +65,8 @@
 #include "OSGShaderParameterMRealBase.h"
 #include "OSGShaderParameterMReal.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void ShaderParameterMRealBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFReal32 *(ShaderParameterMRealBase::*GetMFValueF)(void) const;
-
-    GetMFValueF GetMFValue = &ShaderParameterMRealBase::getMFValue;
-#endif
-
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(),
         "value",
@@ -102,12 +98,8 @@ void ShaderParameterMRealBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMRealBase::editMFValue),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFValue));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMRealBase::getMFValue));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMRealBase::editHandleValue),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMRealBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -364,6 +356,29 @@ ShaderParameterMRealBase::ShaderParameterMRealBase(const ShaderParameterMRealBas
 
 ShaderParameterMRealBase::~ShaderParameterMRealBase(void)
 {
+}
+
+
+MFReal32::GetHandlePtr ShaderParameterMRealBase::getHandleValue           (void)
+{
+    MFReal32::GetHandlePtr returnValue(
+        new  MFReal32::GetHandle(
+             &_mfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    return returnValue;
+}
+
+MFReal32::EditHandlePtr ShaderParameterMRealBase::editHandleValue          (void)
+{
+    MFReal32::EditHandlePtr returnValue(
+        new  MFReal32::EditHandle(
+             &_mfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    editMField(ValueFieldMask, _mfValue);
+
+    return returnValue;
 }
 
 

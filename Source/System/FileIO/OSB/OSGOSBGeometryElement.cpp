@@ -194,12 +194,15 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
         if(fieldName == "properties")
         {
             // "properties" might be quantized
-            const MFGeoVectorPropertyPtr *field =
-                static_cast<const MFGeoVectorPropertyPtr *>(
+            MFGeoVectorPropertyPtr::GetHandlePtr fP =
+                boost::dynamic_pointer_cast<MFGeoVectorPropertyPtr::GetHandle>(
                     getContainer()->getField(fieldId));
 
-            MFGeoVectorPropertyPtr::const_iterator fieldIt  = field->begin();
-            MFGeoVectorPropertyPtr::const_iterator fieldEnd = field->end  ();
+            if(fP == NULL || fP->isValid() == false)
+                continue;
+
+            MFGeoVectorPropertyPtr::const_iterator fieldIt  = (*fP)->begin();
+            MFGeoVectorPropertyPtr::const_iterator fieldEnd = (*fP)->end  ();
 
             for(UInt32 i = 0; fieldIt != fieldEnd; ++fieldIt, ++i)
             {
@@ -243,12 +246,16 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
         else if(fieldName == "propIndices")
         {
             // "propIndices" might be packed
-            const MFGeoIntegralPropertyPtr *field =
-                static_cast<const MFGeoIntegralPropertyPtr *>(
-                    getContainer()->getField(fieldId));
+            MFGeoIntegralPropertyPtr::GetHandlePtr fP =
+                boost::dynamic_pointer_cast<
+                    MFGeoIntegralPropertyPtr::GetHandle>(
+                        getContainer()->getField(fieldId));
 
-            MFGeoIntegralPropertyPtr::const_iterator fieldIt  = field->begin();
-            MFGeoIntegralPropertyPtr::const_iterator fieldEnd = field->end  ();
+            if(fP == NULL || fP->isValid() == false)
+                continue;
+
+            MFGeoIntegralPropertyPtr::const_iterator fieldIt  = (*fP)->begin();
+            MFGeoIntegralPropertyPtr::const_iterator fieldEnd = (*fP)->end  ();
 
             for(UInt32 i = 0; fieldIt != fieldEnd; ++fieldIt, ++i)
             {

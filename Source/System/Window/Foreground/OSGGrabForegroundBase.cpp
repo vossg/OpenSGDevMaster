@@ -66,6 +66,8 @@
 #include "OSGGrabForegroundBase.h"
 #include "OSGGrabForeground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -104,16 +106,10 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
         ImageFieldId, ImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&GrabForegroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&GrabForegroundBase::getSFImage));
+        reinterpret_cast<FieldEditMethodSig>(&GrabForegroundBase::editHandleImage),
+        reinterpret_cast<FieldGetMethodSig >(&GrabForegroundBase::getHandleImage));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(GrabForegroundBase::*GetSFAutoResizeF)(void) const;
-
-    GetSFAutoResizeF GetSFAutoResize = &GrabForegroundBase::getSFAutoResize;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -122,12 +118,8 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
         AutoResizeFieldId, AutoResizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GrabForegroundBase::editSFAutoResize),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAutoResize));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GrabForegroundBase::getSFAutoResize));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GrabForegroundBase::editHandleAutoResize),
+        reinterpret_cast<FieldGetMethodSig >(&GrabForegroundBase::getHandleAutoResize));
 
     oType.addInitialDesc(pDesc);
 }
@@ -232,65 +224,6 @@ SFBool              *GrabForegroundBase::getSFAutoResize     (void)
 #endif
 
 
-void GrabForegroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == ImageFieldId)
-    {
-        static_cast<GrabForeground *>(this)->setImage(
-            dynamic_cast<ImagePtr>(pNewElement));
-    }
-}
-
-void GrabForegroundBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void GrabForegroundBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void GrabForegroundBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void GrabForegroundBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void GrabForegroundBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void GrabForegroundBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == ImageFieldId)
-    {
-        static_cast<GrabForeground *>(this)->setImage(NullFC);
-    }
-}
 
 
 
@@ -410,6 +343,53 @@ void GrabForegroundBase::onCreate(const GrabForeground *source)
         this->setImage(source->getImage());
     }
 }
+
+SFImagePtr::GetHandlePtr GrabForegroundBase::getHandleImage           (void)
+{
+    SFImagePtr::GetHandlePtr returnValue(
+        new  SFImagePtr::GetHandle(
+             &_sfImage, 
+             this->getType().getFieldDesc(ImageFieldId)));
+
+    return returnValue;
+}
+
+SFImagePtr::EditHandlePtr GrabForegroundBase::editHandleImage          (void)
+{
+    SFImagePtr::EditHandlePtr returnValue(
+        new  SFImagePtr::EditHandle(
+             &_sfImage, 
+             this->getType().getFieldDesc(ImageFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&GrabForeground::setImage, this, _1));
+
+    editSField(ImageFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr GrabForegroundBase::getHandleAutoResize      (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfAutoResize, 
+             this->getType().getFieldDesc(AutoResizeFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr GrabForegroundBase::editHandleAutoResize     (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfAutoResize, 
+             this->getType().getFieldDesc(AutoResizeFieldId)));
+
+    editSField(AutoResizeFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void GrabForegroundBase::execSyncV(      FieldContainer    &oFrom,

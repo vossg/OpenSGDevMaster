@@ -65,6 +65,8 @@
 #include "OSGColorMaskChunkBase.h"
 #include "OSGColorMaskChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -101,12 +103,6 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ColorMaskChunkBase::*GetSFMaskRF)(void) const;
-
-    GetSFMaskRF GetSFMaskR = &ColorMaskChunkBase::getSFMaskR;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "maskR",
@@ -114,20 +110,10 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskRFieldId, MaskRFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editSFMaskR),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMaskR));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getSFMaskR));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskR),
+        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskR));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ColorMaskChunkBase::*GetSFMaskGF)(void) const;
-
-    GetSFMaskGF GetSFMaskG = &ColorMaskChunkBase::getSFMaskG;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -136,20 +122,10 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskGFieldId, MaskGFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editSFMaskG),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMaskG));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getSFMaskG));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskG),
+        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskG));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ColorMaskChunkBase::*GetSFMaskBF)(void) const;
-
-    GetSFMaskBF GetSFMaskB = &ColorMaskChunkBase::getSFMaskB;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -158,20 +134,10 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskBFieldId, MaskBFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editSFMaskB),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMaskB));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getSFMaskB));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskB),
+        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskB));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ColorMaskChunkBase::*GetSFMaskAF)(void) const;
-
-    GetSFMaskAF GetSFMaskA = &ColorMaskChunkBase::getSFMaskA;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -180,12 +146,8 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskAFieldId, MaskAFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editSFMaskA),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMaskA));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getSFMaskA));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskA),
+        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskA));
 
     oType.addInitialDesc(pDesc);
 }
@@ -491,6 +453,95 @@ ColorMaskChunkBase::ColorMaskChunkBase(const ColorMaskChunkBase &source) :
 
 ColorMaskChunkBase::~ColorMaskChunkBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskR           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfMaskR, 
+             this->getType().getFieldDesc(MaskRFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ColorMaskChunkBase::editHandleMaskR          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfMaskR, 
+             this->getType().getFieldDesc(MaskRFieldId)));
+
+    editSField(MaskRFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskG           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfMaskG, 
+             this->getType().getFieldDesc(MaskGFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ColorMaskChunkBase::editHandleMaskG          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfMaskG, 
+             this->getType().getFieldDesc(MaskGFieldId)));
+
+    editSField(MaskGFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskB           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfMaskB, 
+             this->getType().getFieldDesc(MaskBFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ColorMaskChunkBase::editHandleMaskB          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfMaskB, 
+             this->getType().getFieldDesc(MaskBFieldId)));
+
+    editSField(MaskBFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskA           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfMaskA, 
+             this->getType().getFieldDesc(MaskAFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ColorMaskChunkBase::editHandleMaskA          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfMaskA, 
+             this->getType().getFieldDesc(MaskAFieldId)));
+
+    editSField(MaskAFieldMask);
+
+    return returnValue;
 }
 
 

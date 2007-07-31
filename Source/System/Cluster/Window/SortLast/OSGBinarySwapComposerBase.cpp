@@ -65,6 +65,8 @@
 #include "OSGBinarySwapComposerBase.h"
 #include "OSGBinarySwapComposer.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -97,12 +99,6 @@ void BinarySwapComposerBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(BinarySwapComposerBase::*GetSFShortF)(void) const;
-
-    GetSFShortF GetSFShort = &BinarySwapComposerBase::getSFShort;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "short",
@@ -110,20 +106,10 @@ void BinarySwapComposerBase::classDescInserter(TypeObject &oType)
         ShortFieldId, ShortFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BinarySwapComposerBase::editSFShort),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFShort));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BinarySwapComposerBase::getSFShort));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BinarySwapComposerBase::editHandleShort),
+        reinterpret_cast<FieldGetMethodSig >(&BinarySwapComposerBase::getHandleShort));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(BinarySwapComposerBase::*GetSFAlphaF)(void) const;
-
-    GetSFAlphaF GetSFAlpha = &BinarySwapComposerBase::getSFAlpha;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -132,20 +118,10 @@ void BinarySwapComposerBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BinarySwapComposerBase::editSFAlpha),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAlpha));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BinarySwapComposerBase::getSFAlpha));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BinarySwapComposerBase::editHandleAlpha),
+        reinterpret_cast<FieldGetMethodSig >(&BinarySwapComposerBase::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(BinarySwapComposerBase::*GetSFTileSizeF)(void) const;
-
-    GetSFTileSizeF GetSFTileSize = &BinarySwapComposerBase::getSFTileSize;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -154,12 +130,8 @@ void BinarySwapComposerBase::classDescInserter(TypeObject &oType)
         TileSizeFieldId, TileSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BinarySwapComposerBase::editSFTileSize),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTileSize));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&BinarySwapComposerBase::getSFTileSize));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&BinarySwapComposerBase::editHandleTileSize),
+        reinterpret_cast<FieldGetMethodSig >(&BinarySwapComposerBase::getHandleTileSize));
 
     oType.addInitialDesc(pDesc);
 }
@@ -418,6 +390,73 @@ BinarySwapComposerBase::BinarySwapComposerBase(const BinarySwapComposerBase &sou
 
 BinarySwapComposerBase::~BinarySwapComposerBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr BinarySwapComposerBase::getHandleShort           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfShort, 
+             this->getType().getFieldDesc(ShortFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr BinarySwapComposerBase::editHandleShort          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfShort, 
+             this->getType().getFieldDesc(ShortFieldId)));
+
+    editSField(ShortFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr BinarySwapComposerBase::getHandleAlpha           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfAlpha, 
+             this->getType().getFieldDesc(AlphaFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr BinarySwapComposerBase::editHandleAlpha          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfAlpha, 
+             this->getType().getFieldDesc(AlphaFieldId)));
+
+    editSField(AlphaFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr BinarySwapComposerBase::getHandleTileSize        (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfTileSize, 
+             this->getType().getFieldDesc(TileSizeFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr BinarySwapComposerBase::editHandleTileSize       (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfTileSize, 
+             this->getType().getFieldDesc(TileSizeFieldId)));
+
+    editSField(TileSizeFieldMask);
+
+    return returnValue;
 }
 
 

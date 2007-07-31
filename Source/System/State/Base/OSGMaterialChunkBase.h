@@ -451,6 +451,40 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFColor4r::GetHandlePtr  getHandleDiffuse         (void);
+    SFColor4r::EditHandlePtr editHandleDiffuse        (void);
+    SFColor4r::GetHandlePtr  getHandleAmbient         (void);
+    SFColor4r::EditHandlePtr editHandleAmbient        (void);
+    SFColor4r::GetHandlePtr  getHandleSpecular        (void);
+    SFColor4r::EditHandlePtr editHandleSpecular       (void);
+    SFColor4r::GetHandlePtr  getHandleEmission        (void);
+    SFColor4r::EditHandlePtr editHandleEmission       (void);
+    SFReal::GetHandlePtr  getHandleShininess       (void);
+    SFReal::EditHandlePtr editHandleShininess      (void);
+    SFBool::GetHandlePtr  getHandleLit             (void);
+    SFBool::EditHandlePtr editHandleLit            (void);
+    SFGLenum::GetHandlePtr  getHandleColorMaterial   (void);
+    SFGLenum::EditHandlePtr editHandleColorMaterial  (void);
+    SFBool::GetHandlePtr  getHandleBackMaterial    (void);
+    SFBool::EditHandlePtr editHandleBackMaterial   (void);
+    SFColor4r::GetHandlePtr  getHandleBackDiffuse     (void);
+    SFColor4r::EditHandlePtr editHandleBackDiffuse    (void);
+    SFColor4r::GetHandlePtr  getHandleBackAmbient     (void);
+    SFColor4r::EditHandlePtr editHandleBackAmbient    (void);
+    SFColor4r::GetHandlePtr  getHandleBackSpecular    (void);
+    SFColor4r::EditHandlePtr editHandleBackSpecular   (void);
+    SFColor4r::GetHandlePtr  getHandleBackEmission    (void);
+    SFColor4r::EditHandlePtr editHandleBackEmission   (void);
+    SFReal::GetHandlePtr  getHandleBackShininess   (void);
+    SFReal::EditHandlePtr editHandleBackShininess  (void);
+    SFGLenum::GetHandlePtr  getHandleBackColorMaterial (void);
+    SFGLenum::EditHandlePtr editHandleBackColorMaterial(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

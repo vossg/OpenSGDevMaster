@@ -148,18 +148,6 @@ GeoVectorPropertyPtr Geometry::getTexCoords7(void) const
 
 
 inline
-void Geometry::setTypes(GeoIntegralPropertyPtrConstArg value)
-{
-    Inherited::setTypes(value);
-}
-
-inline
-void Geometry::setLengths(GeoIntegralPropertyPtrConstArg value)
-{
-    Inherited::setLengths(value);
-}
-
-inline
 void Geometry::setPositions(GeoVectorPropertyPtrConstArg value)
 {
     setProperty(value, PositionsIndex);

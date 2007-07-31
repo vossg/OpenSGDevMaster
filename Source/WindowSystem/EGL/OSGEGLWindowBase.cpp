@@ -65,6 +65,8 @@
 #include "OSGEGLWindowBase.h"
 #include "OSGEGLWindow.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -97,12 +99,6 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFEGLDisplay *(EGLWindowBase::*GetSFDisplayF)(void) const;
-
-    GetSFDisplayF GetSFDisplay = &EGLWindowBase::getSFDisplay;
-#endif
-
     pDesc = new SFEGLDisplay::Description(
         SFEGLDisplay::getClassType(),
         "display",
@@ -110,20 +106,10 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         DisplayFieldId, DisplayFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editSFDisplay),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFDisplay));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getSFDisplay));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleDisplay),
+        reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleDisplay));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFEGLSurface *(EGLWindowBase::*GetSFWindowF)(void) const;
-
-    GetSFWindowF GetSFWindow = &EGLWindowBase::getSFWindow;
-#endif
 
     pDesc = new SFEGLSurface::Description(
         SFEGLSurface::getClassType(),
@@ -132,20 +118,10 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         WindowFieldId, WindowFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editSFWindow),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFWindow));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getSFWindow));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleWindow),
+        reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleWindow));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFEGLContext *(EGLWindowBase::*GetSFContextF)(void) const;
-
-    GetSFContextF GetSFContext = &EGLWindowBase::getSFContext;
-#endif
 
     pDesc = new SFEGLContext::Description(
         SFEGLContext::getClassType(),
@@ -154,12 +130,8 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editSFContext),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFContext));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getSFContext));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleContext),
+        reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }
@@ -420,6 +392,73 @@ EGLWindowBase::EGLWindowBase(const EGLWindowBase &source) :
 
 EGLWindowBase::~EGLWindowBase(void)
 {
+}
+
+
+SFEGLDisplay::GetHandlePtr EGLWindowBase::getHandleDisplay         (void)
+{
+    SFEGLDisplay::GetHandlePtr returnValue(
+        new  SFEGLDisplay::GetHandle(
+             &_sfDisplay, 
+             this->getType().getFieldDesc(DisplayFieldId)));
+
+    return returnValue;
+}
+
+SFEGLDisplay::EditHandlePtr EGLWindowBase::editHandleDisplay        (void)
+{
+    SFEGLDisplay::EditHandlePtr returnValue(
+        new  SFEGLDisplay::EditHandle(
+             &_sfDisplay, 
+             this->getType().getFieldDesc(DisplayFieldId)));
+
+    editSField(DisplayFieldMask);
+
+    return returnValue;
+}
+
+SFEGLSurface::GetHandlePtr EGLWindowBase::getHandleWindow          (void)
+{
+    SFEGLSurface::GetHandlePtr returnValue(
+        new  SFEGLSurface::GetHandle(
+             &_sfWindow, 
+             this->getType().getFieldDesc(WindowFieldId)));
+
+    return returnValue;
+}
+
+SFEGLSurface::EditHandlePtr EGLWindowBase::editHandleWindow         (void)
+{
+    SFEGLSurface::EditHandlePtr returnValue(
+        new  SFEGLSurface::EditHandle(
+             &_sfWindow, 
+             this->getType().getFieldDesc(WindowFieldId)));
+
+    editSField(WindowFieldMask);
+
+    return returnValue;
+}
+
+SFEGLContext::GetHandlePtr EGLWindowBase::getHandleContext         (void)
+{
+    SFEGLContext::GetHandlePtr returnValue(
+        new  SFEGLContext::GetHandle(
+             &_sfContext, 
+             this->getType().getFieldDesc(ContextFieldId)));
+
+    return returnValue;
+}
+
+SFEGLContext::EditHandlePtr EGLWindowBase::editHandleContext        (void)
+{
+    SFEGLContext::EditHandlePtr returnValue(
+        new  SFEGLContext::EditHandle(
+             &_sfContext, 
+             this->getType().getFieldDesc(ContextFieldId)));
+
+    editSField(ContextFieldMask);
+
+    return returnValue;
 }
 
 

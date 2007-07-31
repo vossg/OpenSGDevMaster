@@ -232,6 +232,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec2fBase : public ShaderParameter
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFVec2f::GetHandlePtr  getHandleValue           (void);
+    MFVec2f::EditHandlePtr editHandleValue          (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

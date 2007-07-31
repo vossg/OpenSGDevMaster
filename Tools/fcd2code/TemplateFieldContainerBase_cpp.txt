@@ -78,6 +78,8 @@
 #include "OSG@!Classname!@Base.h"
 #include "OSG@!Classname!@.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -130,16 +132,6 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
     @@else // isDecorator
         @@BeginFieldLoop@@
-            @@if CompatOneSix
-                @@if !field.isPtrField
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const @!field.CARD!@@!field.TypeCaps!@ *(@!Classname!@Base::*Get@!field.CARD!@@!field.Name!@F)(void) const;
-
-    Get@!field.CARD!@@!field.Name!@F Get@!field.CARD!@@!field.Name!@ = &@!Classname!@Base::get@!field.CARD!@@!field.Name!@;
-#endif
-                @@endif // !field.isPtrField
-            @@endif // CompatOneSix
 
     pDesc = new @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@::Description(
         @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@::getClassType(),
@@ -148,29 +140,13 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
         @!field.Name!@FieldId, @!field.Name!@FieldMask,
         @!field.Visibility!@,
         @!field.Flags!@,
-        @@if !field.noAccess
-            @@if field.isPtrField
+    @@if !field.noAccess
+        reinterpret_cast<FieldEditMethodSig>(&@!Classname!@Base::editHandle@!field.Name!@),
+        reinterpret_cast<FieldGetMethodSig >(&@!Classname!@Base::getHandle@!field.Name!@));
+    @@else  //!field.noAccess
         static_cast     <FieldEditMethodSig>(&@!Classname!@Base::invalidEditField),
-            @@else
-        reinterpret_cast<FieldEditMethodSig>(&@!Classname!@Base::edit@!field.CARD!@@!field.Name!@),
-            @@endif // field.isPtrField
-            @@if !field.isPtrField
-                @@if CompatOneSix
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(Get@!field.CARD!@@!field.Name!@));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&@!Classname!@Base::get@!field.CARD!@@!field.Name!@));
-#endif
-                @@else // CompatOneSix
-        reinterpret_cast<FieldGetMethodSig >(&@!Classname!@Base::get@!field.CARD!@@!field.Name!@));
-                @@endif // CompatOneSix
-            @@else // !field.isPtrField
-        reinterpret_cast<FieldGetMethodSig >(&@!Classname!@Base::get@!field.CARD!@@!field.Name!@));
-            @@endif // !field.isPtrField
-        @@else  //!field.noAccess
-        static_cast     <FieldEditMethodSig>(&@!Classname!@Base::invalidEditField),
-        static_cast     <FieldGetMethodSig>(&@!Classname!@Base::invalidGetField));
-        @@endif //!field.noAccess
+        static_cast     <FieldGetMethodSig >(&@!Classname!@Base::invalidGetField));
+    @@endif //!field.noAccess
 
     oType.addInitialDesc(pDesc);
         @@EndFieldLoop@@
@@ -319,152 +295,6 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base
     @@EndFieldLoop@@
 @@endif // !isDecorator
 
-@@if hasPtrFields
-void @!Classname!@Base::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    @@BeginFieldLoop@@
-        @@if field.isPtrField
-        @@if !field.noAccess
-            @@if field.isSField
-    if(uiFieldId == @!field.Name!@FieldId)
-    {
-        static_cast<@!Classname!@ *>(this)->set@!field.Name!@(
-            dynamic_cast<@!field.Type!@>(pNewElement));
-    }
-            @@else // field.isSField
-    if(uiFieldId == @!field.Name!@FieldId)
-    {
-        static_cast<@!Classname!@ *>(this)->@!field.PushToField!@(
-            dynamic_cast<@!field.Type!@>(pNewElement));
-    }
-            @@endif // field.isSField
-        @@endif // !field.noAccess
-        @@endif // field.isPtrField
-    @@EndFieldLoop@@
-}
-
-void @!Classname!@Base::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    @@BeginMFFieldLoop@@
-        @@if field.isPtrField
-        @@if !field.noAccess
-    if(uiFieldId == @!field.Name!@FieldId)
-    {
-        static_cast<@!Classname!@ *>(this)->@!field.InsertIntoMField!@(
-            uiIndex,
-            dynamic_cast<@!field.Type!@>(pNewElement));
-    }
-        @@endif //!field.noAccess       
-        @@endif // field.isPtrField
-    @@EndMFFieldLoop@@
-}
-
-void @!Classname!@Base::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    @@BeginMFFieldLoop@@
-        @@if field.isPtrField
-        @@if !field.noAccess
-    if(uiFieldId == @!field.Name!@FieldId)
-    {
-        static_cast<@!Classname!@ *>(this)->@!field.ReplaceInMFieldIndex!@(
-            uiIndex,
-            dynamic_cast<@!field.Type!@>(pNewElement));
-    }
-        @@endif //!field.noAccess
-        @@endif // field.isPtrField
-    @@EndMFFieldLoop@@
-}
-
-void @!Classname!@Base::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    @@BeginMFFieldLoop@@
-        @@if field.isPtrField
-        @@if !field.noAccess
-    if(uiFieldId == @!field.Name!@FieldId)
-    {
-        static_cast<@!Classname!@ *>(this)->@!field.ReplaceInMFieldObject!@(
-            dynamic_cast<@!field.Type!@>(pOldElement),
-            dynamic_cast<@!field.Type!@>(pNewElement));
-    }
-        @@endif //!field.noAccess
-        @@endif // field.isPtrField
-    @@EndMFFieldLoop@@
-}
-
-void @!Classname!@Base::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    @@BeginMFFieldLoop@@
-        @@if field.isPtrField
-        @@if !field.noAccess
-    if(uiFieldId == @!field.Name!@FieldId)
-    {
-        static_cast<@!Classname!@ *>(this)->@!field.RemoveFromMFieldIndex!@(
-            uiIndex);
-    }
-        @@endif //!field.noAccess
-        @@endif // field.isPtrField
-    @@EndMFFieldLoop@@
-}
-
-void @!Classname!@Base::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    @@BeginMFFieldLoop@@
-        @@if field.isPtrField
-        @@if !field.noAccess
-    if(uiFieldId == @!field.Name!@FieldId)
-    {
-        static_cast<@!Classname!@ *>(this)->@!field.RemoveFromMFieldObject!@(
-            dynamic_cast<@!field.Type!@>(pElement));
-    }
-        @@endif //!field.noAccess
-        @@endif // field.isPtrField
-    @@EndMFFieldLoop@@
-}
-
-void @!Classname!@Base::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    @@BeginFieldLoop@@
-        @@if field.isPtrField
-        @@if !field.noAccess
-            @@if field.isSField
-    if(uiFieldId == @!field.Name!@FieldId)
-    {
-        static_cast<@!Classname!@ *>(this)->set@!field.Name!@(NullFC);
-    }
-            @@else // field.isSField
-    if(uiFieldId == @!field.Name!@FieldId)
-    {
-        static_cast<@!Classname!@ *>(this)->@!field.ClearField!@();
-    }
-            @@endif // field.isSField
-        @@endif //!field.noAccess
-        @@endif // field.isPtrField
-    @@EndFieldLoop@@
-}
-@@endif // hasPtrFields
 
 @@BeginMFFieldLoop@@
     @@if field.isPtrField
@@ -1056,6 +886,48 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
     }
 }
 @@endif // hasPtrFields
+
+@@BeginFieldLoop@@
+@!field.CARD!@@!field.TypeCaps!@::GetHandlePtr @!Classname!@Base::getHandle@!field.Name:15!@ (void)
+{
+    @!field.CARD!@@!field.TypeCaps!@::GetHandlePtr returnValue(
+        new  @!field.CARD!@@!field.TypeCaps!@::GetHandle(
+             &_@!field.VarName!@, 
+             this->getType().getFieldDesc(@!field.Name!@FieldId)));
+
+    return returnValue;
+}
+
+@!field.CARD!@@!field.TypeCaps!@::EditHandlePtr @!Classname!@Base::editHandle@!field.Name:15!@(void)
+{
+@@if !field.noAccess
+    @!field.CARD!@@!field.TypeCaps!@::EditHandlePtr returnValue(
+        new  @!field.CARD!@@!field.TypeCaps!@::EditHandle(
+             &_@!field.VarName!@, 
+             this->getType().getFieldDesc(@!field.Name!@FieldId)));
+@@if field.isMField
+  @@if field.isPtrField
+
+    returnValue->setAddMethod(boost::bind(&@!Classname!@::@!field.PushToField!@, this, _1));
+  @@endif
+
+    editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
+@@else // field.isMField
+  @@if field.isPtrField
+
+    returnValue->setSetMethod(boost::bind(&@!Classname!@::set@!field.Name!@, this, _1));
+  @@endif
+
+    editSField(@!field.Name!@FieldMask);
+@@endif // field.isMField
+@@else
+    @!field.CARD!@@!field.TypeCaps!@::EditHandlePtr returnValue;
+@@endif
+
+    return returnValue;
+}
+
+@@EndFieldLoop@@
 
 #ifdef OSG_MT_CPTR_ASPECT
 void @!Classname!@Base::execSyncV(      FieldContainer    &oFrom,

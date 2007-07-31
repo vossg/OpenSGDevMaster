@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(VTKMapper);
 
 template <>
 struct FieldTraits<VTKMapperPtr> :
-    public FieldTraitsTemplateBase<VTKMapperPtr>
+    public FieldTraitsFCPtrBase<VTKMapperPtr>
 {
   private:
 

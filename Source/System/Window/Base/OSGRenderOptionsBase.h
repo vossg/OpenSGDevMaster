@@ -577,6 +577,54 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFBool::GetHandlePtr  getHandleStatistic       (void);
+    SFBool::EditHandlePtr editHandleStatistic      (void);
+    SFGLenum::GetHandlePtr  getHandlePolygonMode     (void);
+    SFGLenum::EditHandlePtr editHandlePolygonMode    (void);
+    SFBool::GetHandlePtr  getHandleTwoSidedLighting (void);
+    SFBool::EditHandlePtr editHandleTwoSidedLighting(void);
+    SFBool::GetHandlePtr  getHandleSpecTexLighting (void);
+    SFBool::EditHandlePtr editHandleSpecTexLighting(void);
+    SFBool::GetHandlePtr  getHandleSortTrans       (void);
+    SFBool::EditHandlePtr editHandleSortTrans      (void);
+    SFBool::GetHandlePtr  getHandleZWriteTrans     (void);
+    SFBool::EditHandlePtr editHandleZWriteTrans    (void);
+    SFBool::GetHandlePtr  getHandleLocalLights     (void);
+    SFBool::EditHandlePtr editHandleLocalLights    (void);
+    SFBool::GetHandlePtr  getHandleCorrectTwoSidedLighting (void);
+    SFBool::EditHandlePtr editHandleCorrectTwoSidedLighting(void);
+    SFBool::GetHandlePtr  getHandleOcclusionCulling (void);
+    SFBool::EditHandlePtr editHandleOcclusionCulling(void);
+    SFInt32::GetHandlePtr  getHandleOcclusionCullingMode (void);
+    SFInt32::EditHandlePtr editHandleOcclusionCullingMode(void);
+    SFUInt32::GetHandlePtr  getHandleOcclusionCullingPixels (void);
+    SFUInt32::EditHandlePtr editHandleOcclusionCullingPixels(void);
+    SFBool::GetHandlePtr  getHandleAntialiasing    (void);
+    SFBool::EditHandlePtr editHandleAntialiasing   (void);
+    SFReal32::GetHandlePtr  getHandleAntialiasingDistance (void);
+    SFReal32::EditHandlePtr editHandleAntialiasingDistance(void);
+    SFReal32::GetHandlePtr  getHandleAntialiasingScale (void);
+    SFReal32::EditHandlePtr editHandleAntialiasingScale(void);
+    SFUInt32::GetHandlePtr  getHandleAntialiasingTrigger (void);
+    SFUInt32::EditHandlePtr editHandleAntialiasingTrigger(void);
+    SFBool::GetHandlePtr  getHandleFrustumCulling  (void);
+    SFBool::EditHandlePtr editHandleFrustumCulling (void);
+    SFBool::GetHandlePtr  getHandleBackfaceCulling (void);
+    SFBool::EditHandlePtr editHandleBackfaceCulling(void);
+    SFBool::GetHandlePtr  getHandleSmallFeatureCulling (void);
+    SFBool::EditHandlePtr editHandleSmallFeatureCulling(void);
+    SFReal32::GetHandlePtr  getHandleSmallFeaturePixels (void);
+    SFReal32::EditHandlePtr editHandleSmallFeaturePixels(void);
+    SFUInt32::GetHandlePtr  getHandleSmallFeatureThreshold (void);
+    SFUInt32::EditHandlePtr editHandleSmallFeatureThreshold(void);
+    SFBool::GetHandlePtr  getHandleFirstFrame      (void);
+    SFBool::EditHandlePtr editHandleFirstFrame     (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

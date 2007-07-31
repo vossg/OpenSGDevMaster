@@ -65,6 +65,8 @@
 #include "OSGTransformChunkBase.h"
 #include "OSGTransformChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -93,12 +95,6 @@ void TransformChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFMatrix *(TransformChunkBase::*GetSFMatrixF)(void) const;
-
-    GetSFMatrixF GetSFMatrix = &TransformChunkBase::getSFMatrix;
-#endif
-
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(),
         "matrix",
@@ -106,12 +102,8 @@ void TransformChunkBase::classDescInserter(TypeObject &oType)
         MatrixFieldId, MatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TransformChunkBase::editSFMatrix),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFMatrix));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TransformChunkBase::getSFMatrix));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TransformChunkBase::editHandleMatrix),
+        reinterpret_cast<FieldGetMethodSig >(&TransformChunkBase::getHandleMatrix));
 
     oType.addInitialDesc(pDesc);
 }
@@ -291,6 +283,29 @@ TransformChunkBase::TransformChunkBase(const TransformChunkBase &source) :
 
 TransformChunkBase::~TransformChunkBase(void)
 {
+}
+
+
+SFMatrix::GetHandlePtr TransformChunkBase::getHandleMatrix          (void)
+{
+    SFMatrix::GetHandlePtr returnValue(
+        new  SFMatrix::GetHandle(
+             &_sfMatrix, 
+             this->getType().getFieldDesc(MatrixFieldId)));
+
+    return returnValue;
+}
+
+SFMatrix::EditHandlePtr TransformChunkBase::editHandleMatrix         (void)
+{
+    SFMatrix::EditHandlePtr returnValue(
+        new  SFMatrix::EditHandle(
+             &_sfMatrix, 
+             this->getType().getFieldDesc(MatrixFieldId)));
+
+    editSField(MatrixFieldMask);
+
+    return returnValue;
 }
 
 

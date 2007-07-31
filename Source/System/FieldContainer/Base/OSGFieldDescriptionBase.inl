@@ -44,11 +44,11 @@ OSG_BEGIN_NAMESPACE
 inline
 const Char8 *FieldDescriptionBase::getCName(void) const
 {
-    return _szName.str();
+    return _szName.c_str();
 }
 
 inline
-const IDString &FieldDescriptionBase::getName(void) const
+std::string FieldDescriptionBase::getName(void) const
 {
     return _szName;
 }
@@ -131,13 +131,14 @@ UInt32 FieldDescriptionBase::getFlags(void) const
 inline
 bool FieldDescriptionBase::isValid(void)  const
 {
-    return (this != NULL && _szName.getLength()) ? true : false;
+    return (this != NULL && _szName.size()) ? true : false;
 }
 
 inline
-Field *FieldDescriptionBase::editField(ReflexiveContainer &oContainer) const
+EditFieldHandlePtr FieldDescriptionBase::editField(
+    ReflexiveContainer &oContainer) const
 {
-    Field *pField = NULL;
+    EditFieldHandlePtr pFieldHandle;
 
 #ifdef FDESC_USE_BOOST
     if(_fEditMethod.empty() == false)
@@ -151,22 +152,22 @@ Field *FieldDescriptionBase::editField(ReflexiveContainer &oContainer) const
 #else
     if(_fEditMethod != 0)
     {
-        pField = ( (&oContainer)->*_fEditMethod) ();
+        pFieldHandle = ( (&oContainer)->*_fEditMethod) ();
     }
     else if(_fIndexedEditMethod != 0)
     {
-        pField = ( (&oContainer)->*_fIndexedEditMethod)(_uiFieldId);
+        pFieldHandle = ( (&oContainer)->*_fIndexedEditMethod)(_uiFieldId);
     }
 #endif
 
-    return pField;
+    return pFieldHandle;
 }
 
 inline
-const Field *FieldDescriptionBase::getField(
+GetFieldHandlePtr FieldDescriptionBase::getField(
     const ReflexiveContainer &oContainer) const
 {
-    const Field *pField = NULL;
+    GetFieldHandlePtr pFieldHandle;
     
 #ifdef FDESC_USE_BOOST
     if(_fGetMethod.empty() == false)
@@ -180,16 +181,24 @@ const Field *FieldDescriptionBase::getField(
 #else
     if(_fGetMethod != 0)
     {
-        pField = ( (&oContainer)->*_fGetMethod) ();
+        pFieldHandle = ( (&oContainer)->*_fGetMethod) ();
     }
     else if(_fIndexedGetMethod != 0)
     {
-        pField = ( (&oContainer)->*_fIndexedGetMethod)(_uiFieldId);
+        pFieldHandle = ( (&oContainer)->*_fIndexedGetMethod)(_uiFieldId);
     }
 #endif
 
-    return pField;
+    return pFieldHandle;
 }
+
+#if 0
+inline
+FieldDescriptionBase *FieldDescriptionBase::clone(void) const
+{
+    return new FieldDescriptionBase(*this);
+}
+#endif
 
 inline
 bool FieldDescriptionBasePLT::operator()(

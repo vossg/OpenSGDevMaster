@@ -65,6 +65,8 @@
 #include "OSGShearedStereoCameraDecoratorBase.h"
 #include "OSGShearedStereoCameraDecorator.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -96,12 +98,6 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(ShearedStereoCameraDecoratorBase::*GetSFZeroParallaxDistanceF)(void) const;
-
-    GetSFZeroParallaxDistanceF GetSFZeroParallaxDistance = &ShearedStereoCameraDecoratorBase::getSFZeroParallaxDistance;
-#endif
-
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "zeroParallaxDistance",
@@ -109,20 +105,10 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         ZeroParallaxDistanceFieldId, ZeroParallaxDistanceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editSFZeroParallaxDistance),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFZeroParallaxDistance));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getSFZeroParallaxDistance));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editHandleZeroParallaxDistance),
+        reinterpret_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getHandleZeroParallaxDistance));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(ShearedStereoCameraDecoratorBase::*GetSFOverlapF)(void) const;
-
-    GetSFOverlapF GetSFOverlap = &ShearedStereoCameraDecoratorBase::getSFOverlap;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -131,12 +117,8 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         OverlapFieldId, OverlapFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editSFOverlap),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFOverlap));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getSFOverlap));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editHandleOverlap),
+        reinterpret_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getHandleOverlap));
 
     oType.addInitialDesc(pDesc);
 }
@@ -361,6 +343,51 @@ ShearedStereoCameraDecoratorBase::ShearedStereoCameraDecoratorBase(const Sheared
 
 ShearedStereoCameraDecoratorBase::~ShearedStereoCameraDecoratorBase(void)
 {
+}
+
+
+SFReal32::GetHandlePtr ShearedStereoCameraDecoratorBase::getHandleZeroParallaxDistance (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfZeroParallaxDistance, 
+             this->getType().getFieldDesc(ZeroParallaxDistanceFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr ShearedStereoCameraDecoratorBase::editHandleZeroParallaxDistance(void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfZeroParallaxDistance, 
+             this->getType().getFieldDesc(ZeroParallaxDistanceFieldId)));
+
+    editSField(ZeroParallaxDistanceFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr ShearedStereoCameraDecoratorBase::getHandleOverlap         (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfOverlap, 
+             this->getType().getFieldDesc(OverlapFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr ShearedStereoCameraDecoratorBase::editHandleOverlap        (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfOverlap, 
+             this->getType().getFieldDesc(OverlapFieldId)));
+
+    editSField(OverlapFieldMask);
+
+    return returnValue;
 }
 
 

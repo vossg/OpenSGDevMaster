@@ -343,6 +343,28 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFColor3r::GetHandlePtr  getHandleAmbient         (void);
+    SFColor3r::EditHandlePtr editHandleAmbient        (void);
+    SFColor3r::GetHandlePtr  getHandleDiffuse         (void);
+    SFColor3r::EditHandlePtr editHandleDiffuse        (void);
+    SFColor3r::GetHandlePtr  getHandleSpecular        (void);
+    SFColor3r::EditHandlePtr editHandleSpecular       (void);
+    SFReal::GetHandlePtr  getHandleShininess       (void);
+    SFReal::EditHandlePtr editHandleShininess      (void);
+    SFColor3r::GetHandlePtr  getHandleEmission        (void);
+    SFColor3r::EditHandlePtr editHandleEmission       (void);
+    SFReal::GetHandlePtr  getHandleTransparency    (void);
+    SFReal::EditHandlePtr editHandleTransparency   (void);
+    SFBool::GetHandlePtr  getHandleLit             (void);
+    SFBool::EditHandlePtr editHandleLit            (void);
+    SFGLenum::GetHandlePtr  getHandleColorMaterial   (void);
+    SFGLenum::EditHandlePtr editHandleColorMaterial  (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

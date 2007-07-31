@@ -65,6 +65,8 @@
 #include "OSGGroupBase.h"
 #include "OSGGroup.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -211,6 +213,7 @@ GroupBase::GroupBase(const GroupBase &source) :
 GroupBase::~GroupBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

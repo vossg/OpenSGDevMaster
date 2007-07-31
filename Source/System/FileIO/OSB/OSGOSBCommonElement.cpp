@@ -629,12 +629,16 @@ OSBCommonElement::preWritePtrSingleField(const UInt32 fieldId)
     FDEBUG(("OSBCommonElement::preWritePtrSingleField: "
             "fieldId: [%u]\n", fieldId));
 
-          OSBRootElement     *root       = editRoot();
-    const SFFieldContainerPtr *sfPtrField =
-        static_cast<const SFFieldContainerPtr *>(
+    OSBRootElement     *root       = editRoot();
+
+    SFFieldContainerPtr::GetHandlePtr sfPtrField =
+        boost::dynamic_pointer_cast<SFFieldContainerPtr::GetHandle>(
             getContainer()->getField(fieldId));
 
-    FieldContainerPtr refedFC = sfPtrField->getValue();
+    if(sfPtrField == NULL || sfPtrField->isValid() == false)
+        return;
+
+    FieldContainerPtr refedFC = (*sfPtrField)->getValue();
 
     if(refedFC == NullFC)
         return;
@@ -669,12 +673,16 @@ OSBCommonElement::preWritePtrMultiField(const UInt32 fieldId)
             "fieldId: [%u]\n", fieldId));
 
     OSBRootElement           *root       = editRoot();
-    const MFFieldContainerPtr *mfPtrField =
-        static_cast<const MFFieldContainerPtr *>(
+
+    MFFieldContainerPtr::GetHandlePtr mfPtrField =
+        boost::dynamic_pointer_cast<MFFieldContainerPtr::GetHandle>(
             getContainer()->getField(fieldId));
 
-    MFFieldContainerPtr::const_iterator fieldIt  = mfPtrField->begin();
-    MFFieldContainerPtr::const_iterator fieldEnd = mfPtrField->end  ();
+    if(mfPtrField == NULL || mfPtrField->isValid() == false)
+        return;
+
+    MFFieldContainerPtr::const_iterator fieldIt  = (*mfPtrField)->begin();
+    MFFieldContainerPtr::const_iterator fieldEnd = (*mfPtrField)->end  ();
 
     for(; fieldIt != fieldEnd; ++fieldIt)
     {
@@ -715,14 +723,19 @@ OSBCommonElement::preWriteAttachmentMapField(const UInt32 fieldId)
             "fieldId: [%u]\n", fieldId));
 
     OSBRootElement                        *root        = editRoot();
-    const SFFieldContainerAttachmentPtrMap *sfAMapField =
-        static_cast<const SFFieldContainerAttachmentPtrMap *>(
-            getContainer()->getField(fieldId));
+
+    SFFieldContainerAttachmentPtrMap::GetHandlePtr sfAMapField =
+        boost::dynamic_pointer_cast<
+            SFFieldContainerAttachmentPtrMap::GetHandle>(
+                getContainer()->getField(fieldId));
+
+    if(sfAMapField == NULL || sfAMapField->isValid() == false)
+        return;
 
     FieldContainerAttachmentMap::const_iterator mapIt  =
-        sfAMapField->getValue().begin();
+        (*sfAMapField)->getValue().begin();
     FieldContainerAttachmentMap::const_iterator mapEnd =
-        sfAMapField->getValue().end();
+        (*sfAMapField)->getValue().end();
 
     for(; mapIt != mapEnd; ++mapIt)
     {

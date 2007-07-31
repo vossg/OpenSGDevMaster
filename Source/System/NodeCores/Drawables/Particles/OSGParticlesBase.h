@@ -312,29 +312,6 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -454,6 +431,38 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \{                                                                 */
 
     void onCreate(const Particles *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFUInt32::GetHandlePtr  getHandleMode            (void);
+    SFUInt32::EditHandlePtr editHandleMode           (void);
+    SFGeoVectorPropertyPtr::GetHandlePtr  getHandlePositions       (void);
+    SFGeoVectorPropertyPtr::EditHandlePtr editHandlePositions      (void);
+    MFVec3f::GetHandlePtr  getHandleSizes           (void);
+    MFVec3f::EditHandlePtr editHandleSizes          (void);
+    SFGeoVectorPropertyPtr::GetHandlePtr  getHandleSecPositions    (void);
+    SFGeoVectorPropertyPtr::EditHandlePtr editHandleSecPositions   (void);
+    SFGeoVectorPropertyPtr::GetHandlePtr  getHandleColors          (void);
+    SFGeoVectorPropertyPtr::EditHandlePtr editHandleColors         (void);
+    SFGeoVectorPropertyPtr::GetHandlePtr  getHandleNormals         (void);
+    SFGeoVectorPropertyPtr::EditHandlePtr editHandleNormals        (void);
+    MFInt32::GetHandlePtr  getHandleIndices         (void);
+    MFInt32::EditHandlePtr editHandleIndices        (void);
+    MFReal32::GetHandlePtr  getHandleTextureZs       (void);
+    MFReal32::EditHandlePtr editHandleTextureZs      (void);
+    SFUInt32::GetHandlePtr  getHandleDrawOrder       (void);
+    SFUInt32::EditHandlePtr editHandleDrawOrder      (void);
+    SFBool::GetHandlePtr  getHandleDynamic         (void);
+    SFBool::EditHandlePtr editHandleDynamic        (void);
+    SFUInt32::GetHandlePtr  getHandlePump            (void);
+    SFUInt32::EditHandlePtr editHandlePump           (void);
+    SFParticleBSPTree::GetHandlePtr  getHandleBsp             (void);
+    SFParticleBSPTree::EditHandlePtr editHandleBsp            (void);
+    SFInt32::GetHandlePtr  getHandleNumParticles    (void);
+    SFInt32::EditHandlePtr editHandleNumParticles   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -65,6 +65,8 @@
 #include "OSGShaderParameterVec2fBase.h"
 #include "OSGShaderParameterVec2f.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void ShaderParameterVec2fBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFVec2f *(ShaderParameterVec2fBase::*GetSFValueF)(void) const;
-
-    GetSFValueF GetSFValue = &ShaderParameterVec2fBase::getSFValue;
-#endif
-
     pDesc = new SFVec2f::Description(
         SFVec2f::getClassType(),
         "value",
@@ -102,12 +98,8 @@ void ShaderParameterVec2fBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterVec2fBase::editSFValue),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFValue));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterVec2fBase::getSFValue));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterVec2fBase::editHandleValue),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterVec2fBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -282,6 +274,29 @@ ShaderParameterVec2fBase::ShaderParameterVec2fBase(const ShaderParameterVec2fBas
 
 ShaderParameterVec2fBase::~ShaderParameterVec2fBase(void)
 {
+}
+
+
+SFVec2f::GetHandlePtr ShaderParameterVec2fBase::getHandleValue           (void)
+{
+    SFVec2f::GetHandlePtr returnValue(
+        new  SFVec2f::GetHandle(
+             &_sfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    return returnValue;
+}
+
+SFVec2f::EditHandlePtr ShaderParameterVec2fBase::editHandleValue          (void)
+{
+    SFVec2f::EditHandlePtr returnValue(
+        new  SFVec2f::EditHandle(
+             &_sfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    editSField(ValueFieldMask);
+
+    return returnValue;
 }
 
 

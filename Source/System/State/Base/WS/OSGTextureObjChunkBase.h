@@ -584,29 +584,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -702,6 +679,66 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
     void onCreate(const TextureObjChunk *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFImagePtr::GetHandlePtr  getHandleImage           (void);
+    SFImagePtr::EditHandlePtr editHandleImage          (void);
+    SFGLenum::GetHandlePtr  getHandleInternalFormat  (void);
+    SFGLenum::EditHandlePtr editHandleInternalFormat (void);
+    SFGLenum::GetHandlePtr  getHandleExternalFormat  (void);
+    SFGLenum::EditHandlePtr editHandleExternalFormat (void);
+    SFBool::GetHandlePtr  getHandleScale           (void);
+    SFBool::EditHandlePtr editHandleScale          (void);
+    SFUInt32::GetHandlePtr  getHandleFrame           (void);
+    SFUInt32::EditHandlePtr editHandleFrame          (void);
+    SFGLenum::GetHandlePtr  getHandleMinFilter       (void);
+    SFGLenum::EditHandlePtr editHandleMinFilter      (void);
+    SFGLenum::GetHandlePtr  getHandleMagFilter       (void);
+    SFGLenum::EditHandlePtr editHandleMagFilter      (void);
+    SFGLenum::GetHandlePtr  getHandleWrapS           (void);
+    SFGLenum::EditHandlePtr editHandleWrapS          (void);
+    SFGLenum::GetHandlePtr  getHandleWrapT           (void);
+    SFGLenum::EditHandlePtr editHandleWrapT          (void);
+    SFGLenum::GetHandlePtr  getHandleWrapR           (void);
+    SFGLenum::EditHandlePtr editHandleWrapR          (void);
+    SFGLenum::GetHandlePtr  getHandleGLId            (void);
+    SFGLenum::EditHandlePtr editHandleGLId           (void);
+    SFInt32::GetHandlePtr  getHandleIgnoreGLForAspect (void);
+    SFInt32::EditHandlePtr editHandleIgnoreGLForAspect(void);
+    SFReal32::GetHandlePtr  getHandlePriority        (void);
+    SFReal32::EditHandlePtr editHandlePriority       (void);
+    SFInt32::GetHandlePtr  getHandleDirtyLeft       (void);
+    SFInt32::EditHandlePtr editHandleDirtyLeft      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMinX       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMinX      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMaxX       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMaxX      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMinY       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMinY      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMaxY       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMaxY      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMinZ       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMinZ      (void);
+    SFInt32::GetHandlePtr  getHandleDirtyMaxZ       (void);
+    SFInt32::EditHandlePtr editHandleDirtyMaxZ      (void);
+    SFReal32::GetHandlePtr  getHandleAnisotropy      (void);
+    SFReal32::EditHandlePtr editHandleAnisotropy     (void);
+    SFColor4f::GetHandlePtr  getHandleBorderColor     (void);
+    SFColor4f::EditHandlePtr editHandleBorderColor    (void);
+    SFGLenum::GetHandlePtr  getHandleCompareMode     (void);
+    SFGLenum::EditHandlePtr editHandleCompareMode    (void);
+    SFGLenum::GetHandlePtr  getHandleCompareFunc     (void);
+    SFGLenum::EditHandlePtr editHandleCompareFunc    (void);
+    SFGLenum::GetHandlePtr  getHandleDepthMode       (void);
+    SFGLenum::EditHandlePtr editHandleDepthMode      (void);
+    SFUInt32::GetHandlePtr  getHandleBorderWidth     (void);
+    SFUInt32::EditHandlePtr editHandleBorderWidth    (void);
+    SFUInt32::GetHandlePtr  getHandleNPOTMatrixScale (void);
+    SFUInt32::EditHandlePtr editHandleNPOTMatrixScale(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

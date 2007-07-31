@@ -65,6 +65,8 @@
 #include "OSGOrthographicCameraBase.h"
 #include "OSGOrthographicCamera.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -93,12 +95,6 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(OrthographicCameraBase::*GetSFVerticalSizeF)(void) const;
-
-    GetSFVerticalSizeF GetSFVerticalSize = &OrthographicCameraBase::getSFVerticalSize;
-#endif
-
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "verticalSize",
@@ -106,20 +102,10 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
         VerticalSizeFieldId, VerticalSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&OrthographicCameraBase::editSFVerticalSize),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFVerticalSize));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&OrthographicCameraBase::getSFVerticalSize));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&OrthographicCameraBase::editHandleVerticalSize),
+        reinterpret_cast<FieldGetMethodSig >(&OrthographicCameraBase::getHandleVerticalSize));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(OrthographicCameraBase::*GetSFAspectF)(void) const;
-
-    GetSFAspectF GetSFAspect = &OrthographicCameraBase::getSFAspect;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -128,12 +114,8 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
         AspectFieldId, AspectFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&OrthographicCameraBase::editSFAspect),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAspect));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&OrthographicCameraBase::getSFAspect));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&OrthographicCameraBase::editHandleAspect),
+        reinterpret_cast<FieldGetMethodSig >(&OrthographicCameraBase::getHandleAspect));
 
     oType.addInitialDesc(pDesc);
 }
@@ -348,6 +330,51 @@ OrthographicCameraBase::OrthographicCameraBase(const OrthographicCameraBase &sou
 
 OrthographicCameraBase::~OrthographicCameraBase(void)
 {
+}
+
+
+SFReal32::GetHandlePtr OrthographicCameraBase::getHandleVerticalSize    (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfVerticalSize, 
+             this->getType().getFieldDesc(VerticalSizeFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr OrthographicCameraBase::editHandleVerticalSize   (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfVerticalSize, 
+             this->getType().getFieldDesc(VerticalSizeFieldId)));
+
+    editSField(VerticalSizeFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr OrthographicCameraBase::getHandleAspect          (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfAspect, 
+             this->getType().getFieldDesc(AspectFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr OrthographicCameraBase::editHandleAspect         (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfAspect, 
+             this->getType().getFieldDesc(AspectFieldId)));
+
+    editSField(AspectFieldMask);
+
+    return returnValue;
 }
 
 

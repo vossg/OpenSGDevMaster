@@ -52,8 +52,8 @@ void StageHandlerMixin<ParentT>::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Self::UpdateMode),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Self::editSFUpdateMode),
-        reinterpret_cast<FieldGetMethodSig >(&Self::getSFUpdateMode ),
+        reinterpret_cast<FieldEditMethodSig>(&Self::editHandleUpdateMode),
+        reinterpret_cast<FieldGetMethodSig >(&Self::getHandleUpdateMode ),
         NULL);
 
     oType.addInitialDesc(pDesc);
@@ -364,6 +364,32 @@ void StageHandlerMixin<ParentT>::dump(      UInt32    uiIndent,
                                       const BitVector bvFlags ) const
 {
 }
+
+template <class ParentT> inline
+SFUInt32::EditHandlePtr StageHandlerMixin<ParentT>::editHandleUpdateMode(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfUpdateMode, 
+             this->getType().getFieldDesc(UpdateModeFieldId)));
+
+    Self::editSField(UpdateModeFieldMask);
+
+    return returnValue;
+}
+
+template <class ParentT> inline
+SFUInt32::GetHandlePtr  StageHandlerMixin<ParentT>::getHandleUpdateMode(
+    void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfUpdateMode, 
+             this->getType().getFieldDesc(UpdateModeFieldId)));
+
+    return returnValue;
+}
+
 
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */

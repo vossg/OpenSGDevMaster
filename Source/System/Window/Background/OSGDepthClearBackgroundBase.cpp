@@ -65,6 +65,8 @@
 #include "OSGDepthClearBackgroundBase.h"
 #include "OSGDepthClearBackground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -92,12 +94,6 @@ void DepthClearBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(DepthClearBackgroundBase::*GetSFClearDepthF)(void) const;
-
-    GetSFClearDepthF GetSFClearDepth = &DepthClearBackgroundBase::getSFClearDepth;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "clearDepth",
@@ -105,12 +101,8 @@ void DepthClearBackgroundBase::classDescInserter(TypeObject &oType)
         ClearDepthFieldId, ClearDepthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DepthClearBackgroundBase::editSFClearDepth),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFClearDepth));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&DepthClearBackgroundBase::getSFClearDepth));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&DepthClearBackgroundBase::editHandleClearDepth),
+        reinterpret_cast<FieldGetMethodSig >(&DepthClearBackgroundBase::getHandleClearDepth));
 
     oType.addInitialDesc(pDesc);
 }
@@ -291,6 +283,29 @@ DepthClearBackgroundBase::DepthClearBackgroundBase(const DepthClearBackgroundBas
 
 DepthClearBackgroundBase::~DepthClearBackgroundBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr DepthClearBackgroundBase::getHandleClearDepth      (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfClearDepth, 
+             this->getType().getFieldDesc(ClearDepthFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr DepthClearBackgroundBase::editHandleClearDepth     (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfClearDepth, 
+             this->getType().getFieldDesc(ClearDepthFieldId)));
+
+    editSField(ClearDepthFieldMask);
+
+    return returnValue;
 }
 
 

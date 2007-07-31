@@ -87,7 +87,7 @@ OSG_GEN_CONTAINERPTR(@!Classname!@);
 
 template <>
 struct FieldTraits<@!Classname!@Ptr> :
-    public FieldTraitsTemplateBase<@!Classname!@Ptr>
+    public FieldTraitsFCPtrBase<@!Classname!@Ptr>
 {
   private:
 

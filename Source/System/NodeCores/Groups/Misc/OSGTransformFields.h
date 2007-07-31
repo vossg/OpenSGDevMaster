@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(Transform);
 
 template <>
 struct FieldTraits<TransformPtr> :
-    public FieldTraitsTemplateBase<TransformPtr>
+    public FieldTraitsFCPtrBase<TransformPtr>
 {
   private:
 

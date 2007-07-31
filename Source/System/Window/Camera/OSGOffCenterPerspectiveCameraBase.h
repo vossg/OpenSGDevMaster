@@ -217,6 +217,14 @@ class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveC
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFVec2f::GetHandlePtr  getHandlePrincipalPoint  (void);
+    SFVec2f::EditHandlePtr editHandlePrincipalPoint (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(Inline);
 
 template <>
 struct FieldTraits<InlinePtr> :
-    public FieldTraitsTemplateBase<InlinePtr>
+    public FieldTraitsFCPtrBase<InlinePtr>
 {
   private:
 

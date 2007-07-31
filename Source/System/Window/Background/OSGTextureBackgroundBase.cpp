@@ -66,6 +66,8 @@
 #include "OSGTextureBackgroundBase.h"
 #include "OSGTextureBackground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -117,12 +119,6 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFColor4f *(TextureBackgroundBase::*GetSFColorF)(void) const;
-
-    GetSFColorF GetSFColor = &TextureBackgroundBase::getSFColor;
-#endif
-
     pDesc = new SFColor4f::Description(
         SFColor4f::getClassType(),
         "color",
@@ -130,12 +126,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editSFColor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFColor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getSFColor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleColor),
+        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,16 +138,10 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&TextureBackgroundBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getSFTexture));
+        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleTexture),
+        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleTexture));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFPnt2f *(TextureBackgroundBase::*GetMFTexCoordsF)(void) const;
-
-    GetMFTexCoordsF GetMFTexCoords = &TextureBackgroundBase::getMFTexCoords;
-#endif
 
     pDesc = new MFPnt2f::Description(
         MFPnt2f::getClassType(),
@@ -164,20 +150,10 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editMFTexCoords),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFTexCoords));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getMFTexCoords));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleTexCoords),
+        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleTexCoords));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(TextureBackgroundBase::*GetSFRadialDistortionF)(void) const;
-
-    GetSFRadialDistortionF GetSFRadialDistortion = &TextureBackgroundBase::getSFRadialDistortion;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -186,20 +162,10 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         RadialDistortionFieldId, RadialDistortionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editSFRadialDistortion),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFRadialDistortion));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getSFRadialDistortion));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleRadialDistortion),
+        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleRadialDistortion));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFVec2f *(TextureBackgroundBase::*GetSFCenterOfDistortionF)(void) const;
-
-    GetSFCenterOfDistortionF GetSFCenterOfDistortion = &TextureBackgroundBase::getSFCenterOfDistortion;
-#endif
 
     pDesc = new SFVec2f::Description(
         SFVec2f::getClassType(),
@@ -208,20 +174,10 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         CenterOfDistortionFieldId, CenterOfDistortionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editSFCenterOfDistortion),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFCenterOfDistortion));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getSFCenterOfDistortion));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleCenterOfDistortion),
+        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleCenterOfDistortion));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt16 *(TextureBackgroundBase::*GetSFHorF)(void) const;
-
-    GetSFHorF GetSFHor = &TextureBackgroundBase::getSFHor;
-#endif
 
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(),
@@ -230,20 +186,10 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         HorFieldId, HorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editSFHor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFHor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getSFHor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleHor),
+        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleHor));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt16 *(TextureBackgroundBase::*GetSFVertF)(void) const;
-
-    GetSFVertF GetSFVert = &TextureBackgroundBase::getSFVert;
-#endif
 
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(),
@@ -252,12 +198,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         VertFieldId, VertFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editSFVert),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFVert));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getSFVert));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleVert),
+        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleVert));
 
     oType.addInitialDesc(pDesc);
 }
@@ -500,65 +442,6 @@ SFUInt16            *TextureBackgroundBase::getSFVert           (void)
 #endif
 
 
-void TextureBackgroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == TextureFieldId)
-    {
-        static_cast<TextureBackground *>(this)->setTexture(
-            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
-    }
-}
-
-void TextureBackgroundBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void TextureBackgroundBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void TextureBackgroundBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void TextureBackgroundBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void TextureBackgroundBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void TextureBackgroundBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == TextureFieldId)
-    {
-        static_cast<TextureBackground *>(this)->setTexture(NullFC);
-    }
-}
 
 /*********************************** Non-ptr code ********************************/
 void TextureBackgroundBase::pushToTexCoords(const Pnt2f& value)
@@ -830,6 +713,163 @@ void TextureBackgroundBase::onCreate(const TextureBackground *source)
         this->setTexture(source->getTexture());
     }
 }
+
+SFColor4f::GetHandlePtr TextureBackgroundBase::getHandleColor           (void)
+{
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
+             &_sfColor, 
+             this->getType().getFieldDesc(ColorFieldId)));
+
+    return returnValue;
+}
+
+SFColor4f::EditHandlePtr TextureBackgroundBase::editHandleColor          (void)
+{
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
+             &_sfColor, 
+             this->getType().getFieldDesc(ColorFieldId)));
+
+    editSField(ColorFieldMask);
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::GetHandlePtr TextureBackgroundBase::getHandleTexture         (void)
+{
+    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::GetHandle(
+             &_sfTexture, 
+             this->getType().getFieldDesc(TextureFieldId)));
+
+    return returnValue;
+}
+
+SFTextureBaseChunkPtr::EditHandlePtr TextureBackgroundBase::editHandleTexture        (void)
+{
+    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFTextureBaseChunkPtr::EditHandle(
+             &_sfTexture, 
+             this->getType().getFieldDesc(TextureFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&TextureBackground::setTexture, this, _1));
+
+    editSField(TextureFieldMask);
+
+    return returnValue;
+}
+
+MFPnt2f::GetHandlePtr TextureBackgroundBase::getHandleTexCoords       (void)
+{
+    MFPnt2f::GetHandlePtr returnValue(
+        new  MFPnt2f::GetHandle(
+             &_mfTexCoords, 
+             this->getType().getFieldDesc(TexCoordsFieldId)));
+
+    return returnValue;
+}
+
+MFPnt2f::EditHandlePtr TextureBackgroundBase::editHandleTexCoords      (void)
+{
+    MFPnt2f::EditHandlePtr returnValue(
+        new  MFPnt2f::EditHandle(
+             &_mfTexCoords, 
+             this->getType().getFieldDesc(TexCoordsFieldId)));
+
+    editMField(TexCoordsFieldMask, _mfTexCoords);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr TextureBackgroundBase::getHandleRadialDistortion (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfRadialDistortion, 
+             this->getType().getFieldDesc(RadialDistortionFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr TextureBackgroundBase::editHandleRadialDistortion(void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfRadialDistortion, 
+             this->getType().getFieldDesc(RadialDistortionFieldId)));
+
+    editSField(RadialDistortionFieldMask);
+
+    return returnValue;
+}
+
+SFVec2f::GetHandlePtr TextureBackgroundBase::getHandleCenterOfDistortion (void)
+{
+    SFVec2f::GetHandlePtr returnValue(
+        new  SFVec2f::GetHandle(
+             &_sfCenterOfDistortion, 
+             this->getType().getFieldDesc(CenterOfDistortionFieldId)));
+
+    return returnValue;
+}
+
+SFVec2f::EditHandlePtr TextureBackgroundBase::editHandleCenterOfDistortion(void)
+{
+    SFVec2f::EditHandlePtr returnValue(
+        new  SFVec2f::EditHandle(
+             &_sfCenterOfDistortion, 
+             this->getType().getFieldDesc(CenterOfDistortionFieldId)));
+
+    editSField(CenterOfDistortionFieldMask);
+
+    return returnValue;
+}
+
+SFUInt16::GetHandlePtr TextureBackgroundBase::getHandleHor             (void)
+{
+    SFUInt16::GetHandlePtr returnValue(
+        new  SFUInt16::GetHandle(
+             &_sfHor, 
+             this->getType().getFieldDesc(HorFieldId)));
+
+    return returnValue;
+}
+
+SFUInt16::EditHandlePtr TextureBackgroundBase::editHandleHor            (void)
+{
+    SFUInt16::EditHandlePtr returnValue(
+        new  SFUInt16::EditHandle(
+             &_sfHor, 
+             this->getType().getFieldDesc(HorFieldId)));
+
+    editSField(HorFieldMask);
+
+    return returnValue;
+}
+
+SFUInt16::GetHandlePtr TextureBackgroundBase::getHandleVert            (void)
+{
+    SFUInt16::GetHandlePtr returnValue(
+        new  SFUInt16::GetHandle(
+             &_sfVert, 
+             this->getType().getFieldDesc(VertFieldId)));
+
+    return returnValue;
+}
+
+SFUInt16::EditHandlePtr TextureBackgroundBase::editHandleVert           (void)
+{
+    SFUInt16::EditHandlePtr returnValue(
+        new  SFUInt16::EditHandle(
+             &_sfVert, 
+             this->getType().getFieldDesc(VertFieldId)));
+
+    editSField(VertFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void TextureBackgroundBase::execSyncV(      FieldContainer    &oFrom,

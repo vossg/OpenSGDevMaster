@@ -65,6 +65,8 @@
 #include "OSGLightEngineBase.h"
 #include "OSGLightEngine.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void LightEngineBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(LightEngineBase::*GetSFEnabledF)(void) const;
-
-    GetSFEnabledF GetSFEnabled = &LightEngineBase::getSFEnabled;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "enabled",
@@ -102,12 +98,8 @@ void LightEngineBase::classDescInserter(TypeObject &oType)
         EnabledFieldId, EnabledFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightEngineBase::editSFEnabled),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFEnabled));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&LightEngineBase::getSFEnabled));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&LightEngineBase::editHandleEnabled),
+        reinterpret_cast<FieldGetMethodSig >(&LightEngineBase::getHandleEnabled));
 
     oType.addInitialDesc(pDesc);
 }
@@ -249,6 +241,29 @@ LightEngineBase::LightEngineBase(const LightEngineBase &source) :
 
 LightEngineBase::~LightEngineBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr LightEngineBase::getHandleEnabled         (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnabled, 
+             this->getType().getFieldDesc(EnabledFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr LightEngineBase::editHandleEnabled        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnabled, 
+             this->getType().getFieldDesc(EnabledFieldId)));
+
+    editSField(EnabledFieldMask);
+
+    return returnValue;
 }
 
 

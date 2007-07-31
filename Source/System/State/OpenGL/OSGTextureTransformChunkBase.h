@@ -217,6 +217,14 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFBool::GetHandlePtr  getHandleUseCameraBeacon (void);
+    SFBool::EditHandlePtr editHandleUseCameraBeacon(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

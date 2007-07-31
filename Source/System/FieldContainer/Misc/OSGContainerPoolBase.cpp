@@ -66,6 +66,8 @@
 #include "OSGContainerPoolBase.h"
 #include "OSGContainerPool.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -94,12 +96,6 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(ContainerPoolBase::*GetSFNameF)(void) const;
-
-    GetSFNameF GetSFName = &ContainerPoolBase::getSFName;
-#endif
-
     pDesc = new SFString::Description(
         SFString::getClassType(),
         "name",
@@ -107,12 +103,8 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ContainerPoolBase::editSFName),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFName));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ContainerPoolBase::getSFName));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ContainerPoolBase::editHandleName),
+        reinterpret_cast<FieldGetMethodSig >(&ContainerPoolBase::getHandleName));
 
     oType.addInitialDesc(pDesc);
 
@@ -123,8 +115,8 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
         ContainersFieldId, ContainersFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ContainerPoolBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ContainerPoolBase::getMFContainers));
+        reinterpret_cast<FieldEditMethodSig>(&ContainerPoolBase::editHandleContainers),
+        reinterpret_cast<FieldGetMethodSig >(&ContainerPoolBase::getHandleContainers));
 
     oType.addInitialDesc(pDesc);
 }
@@ -219,93 +211,6 @@ const MFFieldContainerPtr *ContainerPoolBase::getMFContainers(void) const
 }
 
 
-void ContainerPoolBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == ContainersFieldId)
-    {
-        static_cast<ContainerPool *>(this)->pushToContainers(
-            dynamic_cast<FieldContainerPtr>(pNewElement));
-    }
-}
-
-void ContainerPoolBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ContainersFieldId)
-    {
-        static_cast<ContainerPool *>(this)->insertIntoContainers(
-            uiIndex,
-            dynamic_cast<FieldContainerPtr>(pNewElement));
-    }
-}
-
-void ContainerPoolBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ContainersFieldId)
-    {
-        static_cast<ContainerPool *>(this)->replaceInContainers(
-            uiIndex,
-            dynamic_cast<FieldContainerPtr>(pNewElement));
-    }
-}
-
-void ContainerPoolBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == ContainersFieldId)
-    {
-        static_cast<ContainerPool *>(this)->replaceInContainers(
-            dynamic_cast<FieldContainerPtr>(pOldElement),
-            dynamic_cast<FieldContainerPtr>(pNewElement));
-    }
-}
-
-void ContainerPoolBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == ContainersFieldId)
-    {
-        static_cast<ContainerPool *>(this)->removeFromContainers(
-            uiIndex);
-    }
-}
-
-void ContainerPoolBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == ContainersFieldId)
-    {
-        static_cast<ContainerPool *>(this)->removeFromContainers(
-            dynamic_cast<FieldContainerPtr>(pElement));
-    }
-}
-
-void ContainerPoolBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == ContainersFieldId)
-    {
-        static_cast<ContainerPool *>(this)->clearContainers();
-    }
-}
 
 void ContainerPoolBase::pushToContainers(FieldContainerPtrConstArg value)
 {
@@ -572,6 +477,53 @@ void ContainerPoolBase::onCreate(const ContainerPool *source)
         }
     }
 }
+
+SFString::GetHandlePtr ContainerPoolBase::getHandleName            (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfName, 
+             this->getType().getFieldDesc(NameFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr ContainerPoolBase::editHandleName           (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfName, 
+             this->getType().getFieldDesc(NameFieldId)));
+
+    editSField(NameFieldMask);
+
+    return returnValue;
+}
+
+MFFieldContainerPtr::GetHandlePtr ContainerPoolBase::getHandleContainers      (void)
+{
+    MFFieldContainerPtr::GetHandlePtr returnValue(
+        new  MFFieldContainerPtr::GetHandle(
+             &_mfContainers, 
+             this->getType().getFieldDesc(ContainersFieldId)));
+
+    return returnValue;
+}
+
+MFFieldContainerPtr::EditHandlePtr ContainerPoolBase::editHandleContainers     (void)
+{
+    MFFieldContainerPtr::EditHandlePtr returnValue(
+        new  MFFieldContainerPtr::EditHandle(
+             &_mfContainers, 
+             this->getType().getFieldDesc(ContainersFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&ContainerPool::pushToContainers, this, _1));
+
+    editMField(ContainersFieldMask, _mfContainers);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ContainerPoolBase::execSyncV(      FieldContainer    &oFrom,

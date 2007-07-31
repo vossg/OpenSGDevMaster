@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(RenderBuffer);
 
 template <>
 struct FieldTraits<RenderBufferPtr> :
-    public FieldTraitsTemplateBase<RenderBufferPtr>
+    public FieldTraitsFCPtrBase<RenderBufferPtr>
 {
   private:
 

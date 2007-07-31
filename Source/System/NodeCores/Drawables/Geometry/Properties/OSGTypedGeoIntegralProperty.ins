@@ -44,12 +44,6 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::classDescInserter(
 
     typedef typename StoredFieldType::Description SFDesc;
 
-#ifdef OSG_1_COMPAT
-    typedef const StoredFieldType *(Self::*GetMFFieldF)(void) const;
-
-    GetMFFieldF GetMFField = &Self::getFieldPtr;
-#endif
-
     pDesc = new SFDesc(
         StoredFieldType::getClassType(),
         "values",
@@ -57,12 +51,8 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::classDescInserter(
         OSG_RC_FIELD_DESC(Self::GeoPropData),
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Self::editFieldPtr),
-#ifdef OSG_1_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFField));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&Self::getFieldPtr ));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&Self::editHandleField),
+        reinterpret_cast<FieldGetMethodSig >(&Self::getHandleField ));
 
     oType.addInitialDesc(pDesc);
 }

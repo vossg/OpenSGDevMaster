@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(DirectionalLight);
 
 template <>
 struct FieldTraits<DirectionalLightPtr> :
-    public FieldTraitsTemplateBase<DirectionalLightPtr>
+    public FieldTraitsFCPtrBase<DirectionalLightPtr>
 {
   private:
 

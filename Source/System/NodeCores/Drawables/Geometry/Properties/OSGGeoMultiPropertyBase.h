@@ -244,29 +244,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -342,6 +319,26 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \{                                                                 */
 
     void onCreate(const GeoMultiProperty *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFGeoMultiPropertyDataPtr::GetHandlePtr  getHandleContainer       (void);
+    SFGeoMultiPropertyDataPtr::EditHandlePtr editHandleContainer      (void);
+    SFUInt32::GetHandlePtr  getHandleOffset          (void);
+    SFUInt32::EditHandlePtr editHandleOffset         (void);
+    SFGLenum::GetHandlePtr  getHandleIFormat         (void);
+    SFGLenum::EditHandlePtr editHandleIFormat        (void);
+    SFUInt32::GetHandlePtr  getHandleIDimension      (void);
+    SFUInt32::EditHandlePtr editHandleIDimension     (void);
+    SFUInt32::GetHandlePtr  getHandleISize           (void);
+    SFUInt32::EditHandlePtr editHandleISize          (void);
+    SFBool::GetHandlePtr  getHandleINormalize      (void);
+    SFBool::EditHandlePtr editHandleINormalize     (void);
+    SFUInt32::GetHandlePtr  getHandleIStride         (void);
+    SFUInt32::EditHandlePtr editHandleIStride        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

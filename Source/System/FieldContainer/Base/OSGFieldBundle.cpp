@@ -74,6 +74,7 @@ const FieldBundle::TypeObject &FieldBundle::getType(void) const
     return _type;
 }
 
+#if 0
 void FieldBundle::pushToField(      FieldBundlePConstArg pNewElement,
                               const UInt32               uiFieldId  )
 {
@@ -110,6 +111,7 @@ void FieldBundle::removeFromMField(      FieldBundlePConstArg pElement,
 void FieldBundle::clearField(const UInt32 uiFieldId)
 {
 }
+#endif
 
 bool FieldBundle::deregister(UInt32 uiBundleId)
 {

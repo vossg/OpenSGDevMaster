@@ -123,10 +123,10 @@ protected:
                                         const std::string &endMarkers = "");
     static void readSFFieldContainerPtr(const FieldContainerPtr &fc,
                                         UInt32 fieldId,
-                                        const Field *field                );
+                                        GetFieldHandlePtr field           );
     static void readMFFieldContainerPtr(const FieldContainerPtr &fc,
                                         UInt32 fieldId,
-                                        const Field *field                );
+                                        GetFieldHandlePtr field           );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -138,9 +138,16 @@ protected:
     static void writeFCFields           (const FieldContainerPtr &fc,
                                          const std::string &exclude = "",
                                          bool endMarker = true);
-    static void writeSFFieldContainerPtr(SFFieldContainerPtr *field  );
-    static void writeMFFieldContainerPtr(MFFieldContainerPtr *field  );
-    static void writeSFAttachmentMap    (SFFieldContainerAttachmentPtrMap *amap);
+    static 
+    void writeSFFieldContainerPtr(SFFieldContainerPtr::GetHandlePtr field  );
+
+    static 
+    void writeMFFieldContainerPtr(MFFieldContainerPtr::GetHandlePtr field  );
+
+    static 
+    void writeSFAttachmentMap    (
+        SFFieldContainerAttachmentPtrMap::GetHandlePtr amap);
+
     //static void writeSFAttachmentMap    (SFAttachmentMap *amap       );
 
     static void readEndMarker           (void                        );
@@ -232,16 +239,16 @@ protected:
     struct fcInfo
     {
         fcInfo(const FieldContainerPtr &fc,
-               UInt32 fieldId, UInt32 id, const Field *field            );
+               UInt32 fieldId, UInt32 id, GetFieldHandlePtr field            );
         fcInfo(const FieldContainerPtr &fc,
-               UInt32 fieldId, const Field *field                       );
+               UInt32 fieldId, GetFieldHandlePtr field                       );
 
         bool isMultiField(void) const;
 
         FieldContainerPtr   _fc;          /*!< The fc we reference. */
         UInt32              _fieldId;     /*!< Id of the field that needs patched. */
         UInt32              _id;          /*!< fcptr id, if 0, we wrap a mfield. */
-        const Field        *_field;       /*!< ptr to the field in the fc. */
+        GetFieldHandlePtr     _field;       /*!< ptr to the field in the fc. */
         std::vector<UInt32>   _ids;       /*!< If mfield, list of ids to replace. */
     };
 

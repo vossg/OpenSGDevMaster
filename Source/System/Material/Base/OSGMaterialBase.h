@@ -220,6 +220,16 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFInt32::GetHandlePtr  getHandleSortKey         (void);
+    SFInt32::EditHandlePtr editHandleSortKey        (void);
+    SFInt32::GetHandlePtr  getHandleTransparencyMode (void);
+    SFInt32::EditHandlePtr editHandleTransparencyMode(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

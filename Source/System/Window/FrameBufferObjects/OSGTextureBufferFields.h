@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(TextureBuffer);
 
 template <>
 struct FieldTraits<TextureBufferPtr> :
-    public FieldTraitsTemplateBase<TextureBufferPtr>
+    public FieldTraitsFCPtrBase<TextureBufferPtr>
 {
   private:
 

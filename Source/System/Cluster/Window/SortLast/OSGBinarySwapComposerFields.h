@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(BinarySwapComposer);
 
 template <>
 struct FieldTraits<BinarySwapComposerPtr> :
-    public FieldTraitsTemplateBase<BinarySwapComposerPtr>
+    public FieldTraitsFCPtrBase<BinarySwapComposerPtr>
 {
   private:
 

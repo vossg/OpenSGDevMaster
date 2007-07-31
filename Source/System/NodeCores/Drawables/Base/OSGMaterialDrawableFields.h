@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(MaterialDrawable);
 
 template <>
 struct FieldTraits<MaterialDrawablePtr> :
-    public FieldTraitsTemplateBase<MaterialDrawablePtr>
+    public FieldTraitsFCPtrBase<MaterialDrawablePtr>
 {
   private:
 

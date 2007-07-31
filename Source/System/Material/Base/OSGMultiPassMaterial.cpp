@@ -101,41 +101,6 @@ void MultiPassMaterial::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
-void MultiPassMaterial::addMaterial(MaterialPtr pMat)
-{
-    if(pMat == NullFC)
-        return;
-
-    _mfMaterials.push_back(pMat);
-
-    addRef(pMat);
-}
-
-void MultiPassMaterial::subMaterial(MaterialPtr pMat)
-{
-    if(pMat == NullFC)
-        return;
-
-    UInt32 i;
-    
-    for(i = 0; i < _mfMaterials.size(); ++i)
-    {
-        if(_mfMaterials[i] == pMat)
-        {
-            subRef(pMat);
-
-            _mfMaterials.erase(_mfMaterials.begin() + i);
-
-            return;
-        }
-    }
-
-    SWARNING << "MultiPassMaterial::subMaterial(" 
-             << this 
-             << ") has no material "
-             << pMat << std::endl;
-}
-
 bool MultiPassMaterial::hasMaterial(MaterialPtr pMat)
 {
     UInt32 i;

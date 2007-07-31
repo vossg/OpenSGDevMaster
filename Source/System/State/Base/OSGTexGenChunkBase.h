@@ -302,29 +302,6 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -405,6 +382,36 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \{                                                                 */
 
     void onCreate(const TexGenChunk *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFGLenum::GetHandlePtr  getHandleGenFuncS        (void);
+    SFGLenum::EditHandlePtr editHandleGenFuncS       (void);
+    SFGLenum::GetHandlePtr  getHandleGenFuncT        (void);
+    SFGLenum::EditHandlePtr editHandleGenFuncT       (void);
+    SFGLenum::GetHandlePtr  getHandleGenFuncR        (void);
+    SFGLenum::EditHandlePtr editHandleGenFuncR       (void);
+    SFGLenum::GetHandlePtr  getHandleGenFuncQ        (void);
+    SFGLenum::EditHandlePtr editHandleGenFuncQ       (void);
+    SFVec4f::GetHandlePtr  getHandleGenFuncSPlane   (void);
+    SFVec4f::EditHandlePtr editHandleGenFuncSPlane  (void);
+    SFVec4f::GetHandlePtr  getHandleGenFuncTPlane   (void);
+    SFVec4f::EditHandlePtr editHandleGenFuncTPlane  (void);
+    SFVec4f::GetHandlePtr  getHandleGenFuncRPlane   (void);
+    SFVec4f::EditHandlePtr editHandleGenFuncRPlane  (void);
+    SFVec4f::GetHandlePtr  getHandleGenFuncQPlane   (void);
+    SFVec4f::EditHandlePtr editHandleGenFuncQPlane  (void);
+    SFNodePtr::GetHandlePtr  getHandleSBeacon         (void);
+    SFNodePtr::EditHandlePtr editHandleSBeacon        (void);
+    SFNodePtr::GetHandlePtr  getHandleTBeacon         (void);
+    SFNodePtr::EditHandlePtr editHandleTBeacon        (void);
+    SFNodePtr::GetHandlePtr  getHandleRBeacon         (void);
+    SFNodePtr::EditHandlePtr editHandleRBeacon        (void);
+    SFNodePtr::GetHandlePtr  getHandleQBeacon         (void);
+    SFNodePtr::EditHandlePtr editHandleQBeacon        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

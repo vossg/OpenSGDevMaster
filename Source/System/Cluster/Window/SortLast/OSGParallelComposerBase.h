@@ -253,6 +253,18 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFBool::GetHandlePtr  getHandleShort           (void);
+    SFBool::EditHandlePtr editHandleShort          (void);
+    SFBool::GetHandlePtr  getHandleAlpha           (void);
+    SFBool::EditHandlePtr editHandleAlpha          (void);
+    SFString::GetHandlePtr  getHandlePcLibPath       (void);
+    SFString::EditHandlePtr editHandlePcLibPath      (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

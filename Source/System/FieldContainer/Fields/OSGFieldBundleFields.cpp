@@ -80,6 +80,7 @@ OSG_FIELD_DLLEXPORT_DEF2(MField,   ParentFieldBundleP, 1)
 OSG_FIELD_DLLEXPORT_DEF1(SField,   FieldBundleP         )
 OSG_FIELD_DLLEXPORT_DEF2(SField,   ParentFieldBundleP, 1)
 
+#if 0
 template<>
 void
 FieldDescription<FieldTraits<FieldBundleP>,
@@ -139,5 +140,6 @@ FieldDescription<FieldTraits<FieldBundleP>,
 {
     FWARNING(("FieldDescription<FieldTraits<FieldBundleP>, SingleField>::shareValues NIY\n"));
 }
+#endif
 
 OSG_END_NAMESPACE

@@ -65,6 +65,8 @@
 #include "OSGRenderBufferBase.h"
 #include "OSGRenderBuffer.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -96,12 +98,6 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(RenderBufferBase::*GetSFGLIdF)(void) const;
-
-    GetSFGLIdF GetSFGLId = &RenderBufferBase::getSFGLId;
-#endif
-
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "GLId",
@@ -109,20 +105,10 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&RenderBufferBase::editSFGLId),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&RenderBufferBase::getSFGLId));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&RenderBufferBase::editHandleGLId),
+        reinterpret_cast<FieldGetMethodSig >(&RenderBufferBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFGLenum *(RenderBufferBase::*GetSFInternalFormatF)(void) const;
-
-    GetSFInternalFormatF GetSFInternalFormat = &RenderBufferBase::getSFInternalFormat;
-#endif
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -131,12 +117,8 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
         InternalFormatFieldId, InternalFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderBufferBase::editSFInternalFormat),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFInternalFormat));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&RenderBufferBase::getSFInternalFormat));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&RenderBufferBase::editHandleInternalFormat),
+        reinterpret_cast<FieldGetMethodSig >(&RenderBufferBase::getHandleInternalFormat));
 
     oType.addInitialDesc(pDesc);
 }
@@ -361,6 +343,51 @@ RenderBufferBase::RenderBufferBase(const RenderBufferBase &source) :
 
 RenderBufferBase::~RenderBufferBase(void)
 {
+}
+
+
+SFGLenum::GetHandlePtr RenderBufferBase::getHandleGLId            (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr RenderBufferBase::editHandleGLId           (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    editSField(GLIdFieldMask);
+
+    return returnValue;
+}
+
+SFGLenum::GetHandlePtr RenderBufferBase::getHandleInternalFormat  (void)
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfInternalFormat, 
+             this->getType().getFieldDesc(InternalFormatFieldId)));
+
+    return returnValue;
+}
+
+SFGLenum::EditHandlePtr RenderBufferBase::editHandleInternalFormat (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfInternalFormat, 
+             this->getType().getFieldDesc(InternalFormatFieldId)));
+
+    editSField(InternalFormatFieldMask);
+
+    return returnValue;
 }
 
 

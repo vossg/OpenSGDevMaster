@@ -61,7 +61,7 @@ void NodeCore::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         static_cast     <FieldEditMethodSig>(&NodeCore::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&NodeCore::getMFParents    ));
+        reinterpret_cast<FieldGetMethodSig >(&NodeCore::getHandleParents));
 
     oType.addInitialDesc(pDesc);
 }
@@ -101,6 +101,7 @@ NodeCore::~NodeCore(void)
 {
 }
 
+#if 0
 void NodeCore::pushToField(      FieldContainerPtrConstArg pNewElement,
                            const UInt32                    uiFieldId  )
 {
@@ -144,6 +145,7 @@ void NodeCore::clearField(const UInt32 uiFieldId)
 {
     Inherited::clearField(uiFieldId);
 }
+#endif
 
 
 /*------------------------------ access -----------------------------------*/
@@ -274,6 +276,16 @@ void NodeCore::dump(      UInt32    uiIndent,
 
     indentLog(uiIndent, PLOG);
     PLOG << "}" << std::endl;
+}
+
+MFParentFieldContainerPtr::GetHandlePtr NodeCore::getHandleParents(void)
+{
+    MFParentFieldContainerPtr::GetHandlePtr returnValue(
+        new  MFParentFieldContainerPtr::GetHandle(
+             &_mfParents, 
+             this->getType().getFieldDesc(ParentsFieldId)));
+
+    return returnValue;
 }
 
 #ifdef OSG_WINCE

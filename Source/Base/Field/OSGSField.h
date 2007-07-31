@@ -45,6 +45,9 @@
 #include "OSGField.h"
 #include "OSGFieldTraits.h"
 #include "OSGFieldType.h"
+#include "OSGFieldHandle.h"
+
+#include <boost/shared_ptr.hpp>
 
 OSG_BEGIN_NAMESPACE
 
@@ -76,8 +79,32 @@ class SField : public Field
 
     typedef typename SFieldTraits::ArgumentType             ArgumentType;
 
+#if 1
     typedef          FieldDescription<SFieldTraits,
                                       SingleField        > Description;
+#else
+    typedef FieldDescriptionBase Description;
+#endif
+
+#if 0
+    typedef typename
+    boost::mpl::if_<boost::mpl::bool_<SFieldTraits::bIsPointerField>,
+                    EditFCPtrSFieldHandle<Self>,
+                    EditSFieldHandle     <Self>  >::type  EditHandle;
+#endif
+
+    typedef EditSFieldHandle <Self      > EditHandle;
+    typedef boost::shared_ptr<EditHandle> EditHandlePtr;
+
+#if 0
+    typedef typename
+    boost::mpl::if_<boost::mpl::bool_<SFieldTraits::bIsPointerField>,
+                    GetFCPtrSFieldHandle<Self> ,
+                    GetSFieldHandle     <Self> >::type  GetHandle;
+#endif
+
+    typedef GetSFieldHandle  <Self     > GetHandle;
+    typedef boost::shared_ptr<GetHandle> GetHandlePtr;
 
     static const Int32 Namespace = iNamespace;
 

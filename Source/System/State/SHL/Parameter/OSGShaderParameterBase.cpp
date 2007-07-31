@@ -66,6 +66,8 @@
 #include "OSGShaderParameterBase.h"
 #include "OSGShaderParameter.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -94,12 +96,6 @@ void ShaderParameterBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(ShaderParameterBase::*GetSFNameF)(void) const;
-
-    GetSFNameF GetSFName = &ShaderParameterBase::getSFName;
-#endif
-
     pDesc = new SFString::Description(
         SFString::getClassType(),
         "name",
@@ -107,12 +103,8 @@ void ShaderParameterBase::classDescInserter(TypeObject &oType)
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterBase::editSFName),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFName));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterBase::getSFName));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterBase::editHandleName),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterBase::getHandleName));
 
     oType.addInitialDesc(pDesc);
 
@@ -124,7 +116,7 @@ void ShaderParameterBase::classDescInserter(TypeObject &oType)
         true,
         Field::MFDefaultFlags,
         static_cast     <FieldEditMethodSig>(&ShaderParameterBase::invalidEditField),
-        static_cast     <FieldGetMethodSig>(&ShaderParameterBase::invalidGetField));
+        static_cast     <FieldGetMethodSig >(&ShaderParameterBase::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }
@@ -218,56 +210,6 @@ SFString            *ShaderParameterBase::getSFName           (void)
 
 
 
-void ShaderParameterBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-}
-
-void ShaderParameterBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void ShaderParameterBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void ShaderParameterBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void ShaderParameterBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void ShaderParameterBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void ShaderParameterBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-}
 
 
 
@@ -353,6 +295,46 @@ void ShaderParameterBase::onCreate(const ShaderParameter *source)
     {
     }
 }
+
+SFString::GetHandlePtr ShaderParameterBase::getHandleName            (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfName, 
+             this->getType().getFieldDesc(NameFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr ShaderParameterBase::editHandleName           (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfName, 
+             this->getType().getFieldDesc(NameFieldId)));
+
+    editSField(NameFieldMask);
+
+    return returnValue;
+}
+
+MFParentFieldContainerPtr::GetHandlePtr ShaderParameterBase::getHandleParents         (void)
+{
+    MFParentFieldContainerPtr::GetHandlePtr returnValue(
+        new  MFParentFieldContainerPtr::GetHandle(
+             &_mfParents, 
+             this->getType().getFieldDesc(ParentsFieldId)));
+
+    return returnValue;
+}
+
+MFParentFieldContainerPtr::EditHandlePtr ShaderParameterBase::editHandleParents        (void)
+{
+    MFParentFieldContainerPtr::EditHandlePtr returnValue;
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ShaderParameterBase::execSyncV(      FieldContainer    &oFrom,

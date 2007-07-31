@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(TextureGrabForeground);
 
 template <>
 struct FieldTraits<TextureGrabForegroundPtr> :
-    public FieldTraitsTemplateBase<TextureGrabForegroundPtr>
+    public FieldTraitsFCPtrBase<TextureGrabForegroundPtr>
 {
   private:
 

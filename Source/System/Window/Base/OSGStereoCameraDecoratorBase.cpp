@@ -65,6 +65,8 @@
 #include "OSGStereoCameraDecoratorBase.h"
 #include "OSGStereoCameraDecorator.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -98,12 +100,6 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(StereoCameraDecoratorBase::*GetSFLeftEyeF)(void) const;
-
-    GetSFLeftEyeF GetSFLeftEye = &StereoCameraDecoratorBase::getSFLeftEye;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "leftEye",
@@ -111,20 +107,10 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         LeftEyeFieldId, LeftEyeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editSFLeftEye),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFLeftEye));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getSFLeftEye));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editHandleLeftEye),
+        reinterpret_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getHandleLeftEye));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(StereoCameraDecoratorBase::*GetSFEyeSeparationF)(void) const;
-
-    GetSFEyeSeparationF GetSFEyeSeparation = &StereoCameraDecoratorBase::getSFEyeSeparation;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -133,12 +119,8 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         EyeSeparationFieldId, EyeSeparationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editSFEyeSeparation),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFEyeSeparation));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getSFEyeSeparation));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editHandleEyeSeparation),
+        reinterpret_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getHandleEyeSeparation));
 
     oType.addInitialDesc(pDesc);
 }
@@ -333,6 +315,51 @@ StereoCameraDecoratorBase::StereoCameraDecoratorBase(const StereoCameraDecorator
 
 StereoCameraDecoratorBase::~StereoCameraDecoratorBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr StereoCameraDecoratorBase::getHandleLeftEye         (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfLeftEye, 
+             this->getType().getFieldDesc(LeftEyeFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr StereoCameraDecoratorBase::editHandleLeftEye        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfLeftEye, 
+             this->getType().getFieldDesc(LeftEyeFieldId)));
+
+    editSField(LeftEyeFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr StereoCameraDecoratorBase::getHandleEyeSeparation   (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfEyeSeparation, 
+             this->getType().getFieldDesc(EyeSeparationFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr StereoCameraDecoratorBase::editHandleEyeSeparation  (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfEyeSeparation, 
+             this->getType().getFieldDesc(EyeSeparationFieldId)));
+
+    editSField(EyeSeparationFieldMask);
+
+    return returnValue;
 }
 
 

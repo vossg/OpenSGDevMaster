@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(MultiPassMaterial);
 
 template <>
 struct FieldTraits<MultiPassMaterialPtr> :
-    public FieldTraitsTemplateBase<MultiPassMaterialPtr>
+    public FieldTraitsFCPtrBase<MultiPassMaterialPtr>
 {
   private:
 

@@ -68,6 +68,7 @@ typedef SField<
 
 #endif
 
+#if 0
 template <>
 OSG_SYSTEM_DLLMAPPING
 void
@@ -93,6 +94,7 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
         const std::vector<const FieldContainerType*> &ignoreTypes,
         const std::vector<UInt16>                    &cloneGroupIds,
         const std::vector<UInt16>                    &ignoreGroupIds) const;
+#endif
 
 #ifndef OSG_COMPILECONTAINERFIELDINST
 //OSG_FIELD_DLLEXPORT_DECL1(SField, 

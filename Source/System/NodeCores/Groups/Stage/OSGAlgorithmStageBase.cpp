@@ -66,6 +66,8 @@
 #include "OSGAlgorithmStageBase.h"
 #include "OSGAlgorithmStage.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -105,16 +107,10 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         AlgorithmFieldId, AlgorithmFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&AlgorithmStageBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getSFAlgorithm));
+        reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleAlgorithm),
+        reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleAlgorithm));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(AlgorithmStageBase::*GetSFProjectionModeF)(void) const;
-
-    GetSFProjectionModeF GetSFProjectionMode = &AlgorithmStageBase::getSFProjectionMode;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -123,20 +119,10 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         ProjectionModeFieldId, ProjectionModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editSFProjectionMode),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFProjectionMode));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getSFProjectionMode));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleProjectionMode),
+        reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleProjectionMode));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFMatrix *(AlgorithmStageBase::*GetSFProjectionMatrixF)(void) const;
-
-    GetSFProjectionMatrixF GetSFProjectionMatrix = &AlgorithmStageBase::getSFProjectionMatrix;
-#endif
 
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(),
@@ -145,12 +131,8 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         ProjectionMatrixFieldId, ProjectionMatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editSFProjectionMatrix),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFProjectionMatrix));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getSFProjectionMatrix));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleProjectionMatrix),
+        reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleProjectionMatrix));
 
     oType.addInitialDesc(pDesc);
 }
@@ -276,65 +258,6 @@ SFMatrix            *AlgorithmStageBase::getSFProjectionMatrix(void)
 #endif
 
 
-void AlgorithmStageBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == AlgorithmFieldId)
-    {
-        static_cast<AlgorithmStage *>(this)->setAlgorithm(
-            dynamic_cast<AlgorithmPtr>(pNewElement));
-    }
-}
-
-void AlgorithmStageBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void AlgorithmStageBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void AlgorithmStageBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void AlgorithmStageBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void AlgorithmStageBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void AlgorithmStageBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == AlgorithmFieldId)
-    {
-        static_cast<AlgorithmStage *>(this)->setAlgorithm(NullFC);
-    }
-}
 
 
 
@@ -468,6 +391,75 @@ void AlgorithmStageBase::onCreate(const AlgorithmStage *source)
         this->setAlgorithm(source->getAlgorithm());
     }
 }
+
+SFAlgorithmPtr::GetHandlePtr AlgorithmStageBase::getHandleAlgorithm       (void)
+{
+    SFAlgorithmPtr::GetHandlePtr returnValue(
+        new  SFAlgorithmPtr::GetHandle(
+             &_sfAlgorithm, 
+             this->getType().getFieldDesc(AlgorithmFieldId)));
+
+    return returnValue;
+}
+
+SFAlgorithmPtr::EditHandlePtr AlgorithmStageBase::editHandleAlgorithm      (void)
+{
+    SFAlgorithmPtr::EditHandlePtr returnValue(
+        new  SFAlgorithmPtr::EditHandle(
+             &_sfAlgorithm, 
+             this->getType().getFieldDesc(AlgorithmFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&AlgorithmStage::setAlgorithm, this, _1));
+
+    editSField(AlgorithmFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr AlgorithmStageBase::getHandleProjectionMode  (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfProjectionMode, 
+             this->getType().getFieldDesc(ProjectionModeFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr AlgorithmStageBase::editHandleProjectionMode (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfProjectionMode, 
+             this->getType().getFieldDesc(ProjectionModeFieldId)));
+
+    editSField(ProjectionModeFieldMask);
+
+    return returnValue;
+}
+
+SFMatrix::GetHandlePtr AlgorithmStageBase::getHandleProjectionMatrix (void)
+{
+    SFMatrix::GetHandlePtr returnValue(
+        new  SFMatrix::GetHandle(
+             &_sfProjectionMatrix, 
+             this->getType().getFieldDesc(ProjectionMatrixFieldId)));
+
+    return returnValue;
+}
+
+SFMatrix::EditHandlePtr AlgorithmStageBase::editHandleProjectionMatrix(void)
+{
+    SFMatrix::EditHandlePtr returnValue(
+        new  SFMatrix::EditHandle(
+             &_sfProjectionMatrix, 
+             this->getType().getFieldDesc(ProjectionMatrixFieldId)));
+
+    editSField(ProjectionMatrixFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void AlgorithmStageBase::execSyncV(      FieldContainer    &oFrom,

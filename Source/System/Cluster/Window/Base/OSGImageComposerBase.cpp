@@ -65,6 +65,8 @@
 #include "OSGImageComposerBase.h"
 #include "OSGImageComposer.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -93,12 +95,6 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ImageComposerBase::*GetSFEnabledF)(void) const;
-
-    GetSFEnabledF GetSFEnabled = &ImageComposerBase::getSFEnabled;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "enabled",
@@ -106,20 +102,10 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
         EnabledFieldId, EnabledFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageComposerBase::editSFEnabled),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFEnabled));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ImageComposerBase::getSFEnabled));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ImageComposerBase::editHandleEnabled),
+        reinterpret_cast<FieldGetMethodSig >(&ImageComposerBase::getHandleEnabled));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ImageComposerBase::*GetSFStatisticsF)(void) const;
-
-    GetSFStatisticsF GetSFStatistics = &ImageComposerBase::getSFStatistics;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -128,12 +114,8 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
         StatisticsFieldId, StatisticsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageComposerBase::editSFStatistics),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFStatistics));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ImageComposerBase::getSFStatistics));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ImageComposerBase::editHandleStatistics),
+        reinterpret_cast<FieldGetMethodSig >(&ImageComposerBase::getHandleStatistics));
 
     oType.addInitialDesc(pDesc);
 }
@@ -320,6 +302,51 @@ ImageComposerBase::ImageComposerBase(const ImageComposerBase &source) :
 
 ImageComposerBase::~ImageComposerBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr ImageComposerBase::getHandleEnabled         (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnabled, 
+             this->getType().getFieldDesc(EnabledFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ImageComposerBase::editHandleEnabled        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnabled, 
+             this->getType().getFieldDesc(EnabledFieldId)));
+
+    editSField(EnabledFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr ImageComposerBase::getHandleStatistics      (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfStatistics, 
+             this->getType().getFieldDesc(StatisticsFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ImageComposerBase::editHandleStatistics     (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfStatistics, 
+             this->getType().getFieldDesc(StatisticsFieldId)));
+
+    editSField(StatisticsFieldMask);
+
+    return returnValue;
 }
 
 

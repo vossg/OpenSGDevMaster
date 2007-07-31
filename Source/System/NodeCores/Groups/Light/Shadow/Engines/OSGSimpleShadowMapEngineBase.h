@@ -217,6 +217,14 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngi
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFInt32::GetHandlePtr  getHandleForceTextureUnit (void);
+    SFInt32::EditHandlePtr editHandleForceTextureUnit(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

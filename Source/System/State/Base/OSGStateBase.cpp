@@ -66,6 +66,8 @@
 #include "OSGStateBase.h"
 #include "OSGState.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -99,8 +101,8 @@ void StateBase::classDescInserter(TypeObject &oType)
         ChunksFieldId, ChunksFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&StateBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&StateBase::getMFChunks));
+        reinterpret_cast<FieldEditMethodSig>(&StateBase::editHandleChunks),
+        reinterpret_cast<FieldGetMethodSig >(&StateBase::getHandleChunks));
 
     oType.addInitialDesc(pDesc);
 }
@@ -181,93 +183,6 @@ const MFStateChunkPtr *StateBase::getMFChunks(void) const
 }
 
 
-void StateBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<State *>(this)->pushToChunks(
-            dynamic_cast<StateChunkPtr>(pNewElement));
-    }
-}
-
-void StateBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<State *>(this)->insertIntoChunks(
-            uiIndex,
-            dynamic_cast<StateChunkPtr>(pNewElement));
-    }
-}
-
-void StateBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<State *>(this)->replaceInChunks(
-            uiIndex,
-            dynamic_cast<StateChunkPtr>(pNewElement));
-    }
-}
-
-void StateBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<State *>(this)->replaceInChunks(
-            dynamic_cast<StateChunkPtr>(pOldElement),
-            dynamic_cast<StateChunkPtr>(pNewElement));
-    }
-}
-
-void StateBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<State *>(this)->removeFromChunks(
-            uiIndex);
-    }
-}
-
-void StateBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<State *>(this)->removeFromChunks(
-            dynamic_cast<StateChunkPtr>(pElement));
-    }
-}
-
-void StateBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<State *>(this)->clearChunks();
-    }
-}
 
 void StateBase::pushToChunks(StateChunkPtrConstArg value)
 {
@@ -519,6 +434,31 @@ void StateBase::onCreate(const State *source)
         }
     }
 }
+
+MFStateChunkPtr::GetHandlePtr StateBase::getHandleChunks          (void)
+{
+    MFStateChunkPtr::GetHandlePtr returnValue(
+        new  MFStateChunkPtr::GetHandle(
+             &_mfChunks, 
+             this->getType().getFieldDesc(ChunksFieldId)));
+
+    return returnValue;
+}
+
+MFStateChunkPtr::EditHandlePtr StateBase::editHandleChunks         (void)
+{
+    MFStateChunkPtr::EditHandlePtr returnValue(
+        new  MFStateChunkPtr::EditHandle(
+             &_mfChunks, 
+             this->getType().getFieldDesc(ChunksFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&State::pushToChunks, this, _1));
+
+    editMField(ChunksFieldMask, _mfChunks);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void StateBase::execSyncV(      FieldContainer    &oFrom,

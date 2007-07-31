@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(CarbonWindow);
 
 template <>
 struct FieldTraits<CarbonWindowPtr> :
-    public FieldTraitsTemplateBase<CarbonWindowPtr>
+    public FieldTraitsFCPtrBase<CarbonWindowPtr>
 {
   private:
 

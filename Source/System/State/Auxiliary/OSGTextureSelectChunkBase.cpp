@@ -66,6 +66,8 @@
 #include "OSGTextureSelectChunkBase.h"
 #include "OSGTextureSelectChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -99,12 +101,6 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(TextureSelectChunkBase::*GetSFChoiceF)(void) const;
-
-    GetSFChoiceF GetSFChoice = &TextureSelectChunkBase::getSFChoice;
-#endif
-
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
         "choice",
@@ -112,12 +108,8 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureSelectChunkBase::editSFChoice),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFChoice));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureSelectChunkBase::getSFChoice));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&TextureSelectChunkBase::editHandleChoice),
+        reinterpret_cast<FieldGetMethodSig >(&TextureSelectChunkBase::getHandleChoice));
 
     oType.addInitialDesc(pDesc);
 
@@ -128,8 +120,8 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
         TexturesFieldId, TexturesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&TextureSelectChunkBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&TextureSelectChunkBase::getMFTextures));
+        reinterpret_cast<FieldEditMethodSig>(&TextureSelectChunkBase::editHandleTextures),
+        reinterpret_cast<FieldGetMethodSig >(&TextureSelectChunkBase::getHandleTextures));
 
     oType.addInitialDesc(pDesc);
 }
@@ -238,93 +230,6 @@ const MFTextureBaseChunkPtr *TextureSelectChunkBase::getMFTextures(void) const
 }
 
 
-void TextureSelectChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == TexturesFieldId)
-    {
-        static_cast<TextureSelectChunk *>(this)->pushToTextures(
-            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
-    }
-}
-
-void TextureSelectChunkBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == TexturesFieldId)
-    {
-        static_cast<TextureSelectChunk *>(this)->insertIntoTextures(
-            uiIndex,
-            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
-    }
-}
-
-void TextureSelectChunkBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == TexturesFieldId)
-    {
-        static_cast<TextureSelectChunk *>(this)->replaceInTextures(
-            uiIndex,
-            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
-    }
-}
-
-void TextureSelectChunkBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == TexturesFieldId)
-    {
-        static_cast<TextureSelectChunk *>(this)->replaceInTextures(
-            dynamic_cast<TextureBaseChunkPtr>(pOldElement),
-            dynamic_cast<TextureBaseChunkPtr>(pNewElement));
-    }
-}
-
-void TextureSelectChunkBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == TexturesFieldId)
-    {
-        static_cast<TextureSelectChunk *>(this)->removeFromTextures(
-            uiIndex);
-    }
-}
-
-void TextureSelectChunkBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == TexturesFieldId)
-    {
-        static_cast<TextureSelectChunk *>(this)->removeFromTextures(
-            dynamic_cast<TextureBaseChunkPtr>(pElement));
-    }
-}
-
-void TextureSelectChunkBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == TexturesFieldId)
-    {
-        static_cast<TextureSelectChunk *>(this)->clearTextures();
-    }
-}
 
 void TextureSelectChunkBase::pushToTextures(TextureBaseChunkPtrConstArg value)
 {
@@ -591,6 +496,53 @@ void TextureSelectChunkBase::onCreate(const TextureSelectChunk *source)
         }
     }
 }
+
+SFUInt32::GetHandlePtr TextureSelectChunkBase::getHandleChoice          (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfChoice, 
+             this->getType().getFieldDesc(ChoiceFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr TextureSelectChunkBase::editHandleChoice         (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfChoice, 
+             this->getType().getFieldDesc(ChoiceFieldId)));
+
+    editSField(ChoiceFieldMask);
+
+    return returnValue;
+}
+
+MFTextureBaseChunkPtr::GetHandlePtr TextureSelectChunkBase::getHandleTextures        (void)
+{
+    MFTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  MFTextureBaseChunkPtr::GetHandle(
+             &_mfTextures, 
+             this->getType().getFieldDesc(TexturesFieldId)));
+
+    return returnValue;
+}
+
+MFTextureBaseChunkPtr::EditHandlePtr TextureSelectChunkBase::editHandleTextures       (void)
+{
+    MFTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  MFTextureBaseChunkPtr::EditHandle(
+             &_mfTextures, 
+             this->getType().getFieldDesc(TexturesFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&TextureSelectChunk::pushToTextures, this, _1));
+
+    editMField(TexturesFieldMask, _mfTextures);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void TextureSelectChunkBase::execSyncV(      FieldContainer    &oFrom,

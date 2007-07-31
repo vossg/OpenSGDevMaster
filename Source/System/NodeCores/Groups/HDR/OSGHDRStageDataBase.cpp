@@ -56,6 +56,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
+#include "boost/bind.hpp"
 
 #include <OSGConfig.h>
 
@@ -135,8 +136,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         ToneMappingMaterialFieldId, ToneMappingMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&HDRStageDataBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getSFToneMappingMaterial));
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleToneMappingMaterial),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleToneMappingMaterial));
 
     oType.addInitialDesc(pDesc);
 
@@ -147,8 +148,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         BlurRenderTargetFieldId, BlurRenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&HDRStageDataBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getSFBlurRenderTarget));
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleBlurRenderTarget),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleBlurRenderTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -159,8 +160,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         BlurMaterialFieldId, BlurMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&HDRStageDataBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getSFBlurMaterial));
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleBlurMaterial),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleBlurMaterial));
 
     oType.addInitialDesc(pDesc);
 
@@ -171,8 +172,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         HBlurShaderFieldId, HBlurShaderFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&HDRStageDataBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getSFHBlurShader));
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleHBlurShader),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleHBlurShader));
 
     oType.addInitialDesc(pDesc);
 
@@ -183,16 +184,10 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         VBlurShaderFieldId, VBlurShaderFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&HDRStageDataBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getSFVBlurShader));
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleVBlurShader),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleVBlurShader));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(HDRStageDataBase::*GetSFWidthF)(void) const;
-
-    GetSFWidthF GetSFWidth = &HDRStageDataBase::getSFWidth;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -201,20 +196,10 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editSFWidth),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getSFWidth));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleWidth),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(HDRStageDataBase::*GetSFHeightF)(void) const;
-
-    GetSFHeightF GetSFHeight = &HDRStageDataBase::getSFHeight;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -223,12 +208,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editSFHeight),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFHeight));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getSFHeight));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleHeight),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 
@@ -239,8 +220,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         ShrinkRenderTargetFieldId, ShrinkRenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&HDRStageDataBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getSFShrinkRenderTarget));
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleShrinkRenderTarget),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleShrinkRenderTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -251,8 +232,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         ShrinkMaterialFieldId, ShrinkMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&HDRStageDataBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getSFShrinkMaterial));
+        reinterpret_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleShrinkMaterial),
+        reinterpret_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleShrinkMaterial));
 
     oType.addInitialDesc(pDesc);
 }
@@ -469,131 +450,6 @@ const SFChunkMaterialPtr *HDRStageDataBase::getSFShrinkMaterial(void) const
 }
 
 
-void HDRStageDataBase::pushToField(      FieldBundlePConstArg pNewElement,
-                                    const UInt32               uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-#if 0
-    if(uiFieldId == ToneMappingMaterialFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setToneMappingMaterial(
-            dynamic_cast<ChunkMaterialPtr>(pNewElement));
-    }
-    if(uiFieldId == BlurRenderTargetFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setBlurRenderTarget(
-            dynamic_cast<FrameBufferObjectPtr>(pNewElement));
-    }
-    if(uiFieldId == BlurMaterialFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setBlurMaterial(
-            dynamic_cast<ChunkMaterialPtr>(pNewElement));
-    }
-    if(uiFieldId == HBlurShaderFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setHBlurShader(
-            dynamic_cast<SHLChunkPtr>(pNewElement));
-    }
-    if(uiFieldId == VBlurShaderFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setVBlurShader(
-            dynamic_cast<SHLChunkPtr>(pNewElement));
-    }
-    if(uiFieldId == ShrinkRenderTargetFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setShrinkRenderTarget(
-            dynamic_cast<FrameBufferObjectPtr>(pNewElement));
-    }
-    if(uiFieldId == ShrinkMaterialFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setShrinkMaterial(
-            dynamic_cast<ChunkMaterialPtr>(pNewElement));
-    }
-#endif
-}
-
-void HDRStageDataBase::insertIntoMField(const UInt32               uiIndex,
-                                               FieldBundlePConstArg pNewElement,
-                                         const UInt32               uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-#if 0
-#endif
-}
-
-void HDRStageDataBase::replaceInMField (const UInt32               uiIndex,
-                                               FieldBundlePConstArg pNewElement,
-                                         const UInt32               uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-#if 0
-#endif
-}
-
-void HDRStageDataBase::replaceInMField (      FieldBundlePConstArg pOldElement,
-                                               FieldBundlePConstArg pNewElement,
-                                         const UInt32               uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-#if 0
-#endif
-}
-
-void HDRStageDataBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-#if 0
-#endif
-}
-
-void HDRStageDataBase::removeFromMField(      FieldBundlePConstArg pElement,
-                                         const UInt32               uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-#if 0
-#endif
-}
-
-void HDRStageDataBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-#if 0 
-    if(uiFieldId == ToneMappingMaterialFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setToneMappingMaterial(NullFC);
-    }
-    if(uiFieldId == BlurRenderTargetFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setBlurRenderTarget(NullFC);
-    }
-    if(uiFieldId == BlurMaterialFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setBlurMaterial(NullFC);
-    }
-    if(uiFieldId == HBlurShaderFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setHBlurShader(NullFC);
-    }
-    if(uiFieldId == VBlurShaderFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setVBlurShader(NullFC);
-    }
-    if(uiFieldId == ShrinkRenderTargetFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setShrinkRenderTarget(NullFC);
-    }
-    if(uiFieldId == ShrinkMaterialFieldId)
-    {
-        static_cast<HDRStageData *>(this)->setShrinkMaterial(NullFC);
-    }
-#endif
-}
 
 
 
@@ -827,6 +683,219 @@ void HDRStageDataBase::resolveLinks(void)
 
     static_cast<HDRStageData *>(this)->setShrinkMaterial(NullFC);
 }
+
+SFChunkMaterialPtr::GetHandlePtr HDRStageDataBase::getHandleToneMappingMaterial (void)
+{
+    SFChunkMaterialPtr::GetHandlePtr returnValue(
+        new  SFChunkMaterialPtr::GetHandle(
+             &_sfToneMappingMaterial, 
+             this->getType().getFieldDesc(ToneMappingMaterialFieldId)));
+
+    return returnValue;
+}
+
+SFChunkMaterialPtr::EditHandlePtr HDRStageDataBase::editHandleToneMappingMaterial(void)
+{
+    SFChunkMaterialPtr::EditHandlePtr returnValue(
+        new  SFChunkMaterialPtr::EditHandle(
+             &_sfToneMappingMaterial, 
+             this->getType().getFieldDesc(ToneMappingMaterialFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setToneMappingMaterial, this, _1));
+
+    editSField(ToneMappingMaterialFieldMask);
+
+    return returnValue;
+}
+
+SFFrameBufferObjectPtr::GetHandlePtr HDRStageDataBase::getHandleBlurRenderTarget (void)
+{
+    SFFrameBufferObjectPtr::GetHandlePtr returnValue(
+        new  SFFrameBufferObjectPtr::GetHandle(
+             &_sfBlurRenderTarget, 
+             this->getType().getFieldDesc(BlurRenderTargetFieldId)));
+
+    return returnValue;
+}
+
+SFFrameBufferObjectPtr::EditHandlePtr HDRStageDataBase::editHandleBlurRenderTarget(void)
+{
+    SFFrameBufferObjectPtr::EditHandlePtr returnValue(
+        new  SFFrameBufferObjectPtr::EditHandle(
+             &_sfBlurRenderTarget, 
+             this->getType().getFieldDesc(BlurRenderTargetFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setBlurRenderTarget, this, _1));
+
+    editSField(BlurRenderTargetFieldMask);
+
+    return returnValue;
+}
+
+SFChunkMaterialPtr::GetHandlePtr HDRStageDataBase::getHandleBlurMaterial    (void)
+{
+    SFChunkMaterialPtr::GetHandlePtr returnValue(
+        new  SFChunkMaterialPtr::GetHandle(
+             &_sfBlurMaterial, 
+             this->getType().getFieldDesc(BlurMaterialFieldId)));
+
+    return returnValue;
+}
+
+SFChunkMaterialPtr::EditHandlePtr HDRStageDataBase::editHandleBlurMaterial   (void)
+{
+    SFChunkMaterialPtr::EditHandlePtr returnValue(
+        new  SFChunkMaterialPtr::EditHandle(
+             &_sfBlurMaterial, 
+             this->getType().getFieldDesc(BlurMaterialFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setBlurMaterial, this, _1));
+
+    editSField(BlurMaterialFieldMask);
+
+    return returnValue;
+}
+
+SFSHLChunkPtr::GetHandlePtr HDRStageDataBase::getHandleHBlurShader     (void)
+{
+    SFSHLChunkPtr::GetHandlePtr returnValue(
+        new  SFSHLChunkPtr::GetHandle(
+             &_sfHBlurShader, 
+             this->getType().getFieldDesc(HBlurShaderFieldId)));
+
+    return returnValue;
+}
+
+SFSHLChunkPtr::EditHandlePtr HDRStageDataBase::editHandleHBlurShader    (void)
+{
+    SFSHLChunkPtr::EditHandlePtr returnValue(
+        new  SFSHLChunkPtr::EditHandle(
+             &_sfHBlurShader, 
+             this->getType().getFieldDesc(HBlurShaderFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setHBlurShader, this, _1));
+
+    editSField(HBlurShaderFieldMask);
+
+    return returnValue;
+}
+
+SFSHLChunkPtr::GetHandlePtr HDRStageDataBase::getHandleVBlurShader     (void)
+{
+    SFSHLChunkPtr::GetHandlePtr returnValue(
+        new  SFSHLChunkPtr::GetHandle(
+             &_sfVBlurShader, 
+             this->getType().getFieldDesc(VBlurShaderFieldId)));
+
+    return returnValue;
+}
+
+SFSHLChunkPtr::EditHandlePtr HDRStageDataBase::editHandleVBlurShader    (void)
+{
+    SFSHLChunkPtr::EditHandlePtr returnValue(
+        new  SFSHLChunkPtr::EditHandle(
+             &_sfVBlurShader, 
+             this->getType().getFieldDesc(VBlurShaderFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setVBlurShader, this, _1));
+
+    editSField(VBlurShaderFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr HDRStageDataBase::getHandleWidth           (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfWidth, 
+             this->getType().getFieldDesc(WidthFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr HDRStageDataBase::editHandleWidth          (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfWidth, 
+             this->getType().getFieldDesc(WidthFieldId)));
+
+    editSField(WidthFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr HDRStageDataBase::getHandleHeight          (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfHeight, 
+             this->getType().getFieldDesc(HeightFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr HDRStageDataBase::editHandleHeight         (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfHeight, 
+             this->getType().getFieldDesc(HeightFieldId)));
+
+    editSField(HeightFieldMask);
+
+    return returnValue;
+}
+
+SFFrameBufferObjectPtr::GetHandlePtr HDRStageDataBase::getHandleShrinkRenderTarget (void)
+{
+    SFFrameBufferObjectPtr::GetHandlePtr returnValue(
+        new  SFFrameBufferObjectPtr::GetHandle(
+             &_sfShrinkRenderTarget, 
+             this->getType().getFieldDesc(ShrinkRenderTargetFieldId)));
+
+    return returnValue;
+}
+
+SFFrameBufferObjectPtr::EditHandlePtr HDRStageDataBase::editHandleShrinkRenderTarget(void)
+{
+    SFFrameBufferObjectPtr::EditHandlePtr returnValue(
+        new  SFFrameBufferObjectPtr::EditHandle(
+             &_sfShrinkRenderTarget, 
+             this->getType().getFieldDesc(ShrinkRenderTargetFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setShrinkRenderTarget, this, _1));
+
+    editSField(ShrinkRenderTargetFieldMask);
+
+    return returnValue;
+}
+
+SFChunkMaterialPtr::GetHandlePtr HDRStageDataBase::getHandleShrinkMaterial  (void)
+{
+    SFChunkMaterialPtr::GetHandlePtr returnValue(
+        new  SFChunkMaterialPtr::GetHandle(
+             &_sfShrinkMaterial, 
+             this->getType().getFieldDesc(ShrinkMaterialFieldId)));
+
+    return returnValue;
+}
+
+SFChunkMaterialPtr::EditHandlePtr HDRStageDataBase::editHandleShrinkMaterial (void)
+{
+    SFChunkMaterialPtr::EditHandlePtr returnValue(
+        new  SFChunkMaterialPtr::EditHandle(
+             &_sfShrinkMaterial, 
+             this->getType().getFieldDesc(ShrinkMaterialFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setShrinkMaterial, this, _1));
+
+    editSField(ShrinkMaterialFieldMask);
+
+    return returnValue;
+}
+
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)

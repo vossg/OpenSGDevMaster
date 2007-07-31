@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(Group);
 
 template <>
 struct FieldTraits<GroupPtr> :
-    public FieldTraitsTemplateBase<GroupPtr>
+    public FieldTraitsFCPtrBase<GroupPtr>
 {
   private:
 

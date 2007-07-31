@@ -65,6 +65,8 @@
 #include "OSGDrawableBase.h"
 #include "OSGDrawable.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -171,6 +173,7 @@ DrawableBase::DrawableBase(const DrawableBase &source) :
 DrawableBase::~DrawableBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

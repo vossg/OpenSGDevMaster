@@ -62,7 +62,7 @@
 
 
 OSG_BEGIN_NAMESPACE
-
+#if 0
 template <>
 void
 FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
@@ -176,6 +176,7 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
         pDstAC->addAttachment(att, uiBinding);
     }
 }
+#endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 

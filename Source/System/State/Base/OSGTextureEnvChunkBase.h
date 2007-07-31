@@ -718,6 +718,68 @@ class OSG_SYSTEM_DLLMAPPING TextureEnvChunkBase : public StateChunk
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFGLenum::GetHandlePtr  getHandleEnvMode         (void);
+    SFGLenum::EditHandlePtr editHandleEnvMode        (void);
+    SFColor4r::GetHandlePtr  getHandleEnvColor        (void);
+    SFColor4r::EditHandlePtr editHandleEnvColor       (void);
+    SFGLenum::GetHandlePtr  getHandleEnvCombineRGB   (void);
+    SFGLenum::EditHandlePtr editHandleEnvCombineRGB  (void);
+    SFGLenum::GetHandlePtr  getHandleEnvCombineAlpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvCombineAlpha(void);
+    SFReal32::GetHandlePtr  getHandleEnvScaleRGB     (void);
+    SFReal32::EditHandlePtr editHandleEnvScaleRGB    (void);
+    SFReal32::GetHandlePtr  getHandleEnvScaleAlpha   (void);
+    SFReal32::EditHandlePtr editHandleEnvScaleAlpha  (void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource0RGB   (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource0RGB  (void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource1RGB   (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource1RGB  (void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource2RGB   (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource2RGB  (void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource0Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource0Alpha(void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource1Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource1Alpha(void);
+    SFGLenum::GetHandlePtr  getHandleEnvSource2Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvSource2Alpha(void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand0RGB  (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand0RGB (void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand1RGB  (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand1RGB (void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand2RGB  (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand2RGB (void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand0Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand0Alpha(void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand1Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand1Alpha(void);
+    SFGLenum::GetHandlePtr  getHandleEnvOperand2Alpha (void);
+    SFGLenum::EditHandlePtr editHandleEnvOperand2Alpha(void);
+    SFBool::GetHandlePtr  getHandlePointSprite     (void);
+    SFBool::EditHandlePtr editHandlePointSprite    (void);
+    SFGLenum::GetHandlePtr  getHandleShaderOperation (void);
+    SFGLenum::EditHandlePtr editHandleShaderOperation(void);
+    SFGLenum::GetHandlePtr  getHandleShaderInput     (void);
+    SFGLenum::EditHandlePtr editHandleShaderInput    (void);
+    MFReal32::GetHandlePtr  getHandleShaderOffsetMatrix (void);
+    MFReal32::EditHandlePtr editHandleShaderOffsetMatrix(void);
+    SFReal32::GetHandlePtr  getHandleShaderOffsetScale (void);
+    SFReal32::EditHandlePtr editHandleShaderOffsetScale(void);
+    SFReal32::GetHandlePtr  getHandleShaderOffsetBias (void);
+    SFReal32::EditHandlePtr editHandleShaderOffsetBias(void);
+    SFGLenum::GetHandlePtr  getHandleShaderRGBADotProduct (void);
+    SFGLenum::EditHandlePtr editHandleShaderRGBADotProduct(void);
+    SFUInt8::GetHandlePtr  getHandleShaderCullModes (void);
+    SFUInt8::EditHandlePtr editHandleShaderCullModes(void);
+    SFVec3r::GetHandlePtr  getHandleShaderConstEye  (void);
+    SFVec3r::EditHandlePtr editHandleShaderConstEye (void);
+    SFReal32::GetHandlePtr  getHandleLodBias         (void);
+    SFReal32::EditHandlePtr editHandleLodBias        (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

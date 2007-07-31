@@ -65,6 +65,8 @@
 #include "OSGGeoVectorPropertyBase.h"
 #include "OSGGeoVectorProperty.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -178,6 +180,7 @@ GeoVectorPropertyBase::GeoVectorPropertyBase(const GeoVectorPropertyBase &source
 GeoVectorPropertyBase::~GeoVectorPropertyBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

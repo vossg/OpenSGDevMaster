@@ -65,6 +65,8 @@
 #include "OSGPipelineComposerBase.h"
 #include "OSGPipelineComposer.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -101,12 +103,6 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(PipelineComposerBase::*GetSFShortF)(void) const;
-
-    GetSFShortF GetSFShort = &PipelineComposerBase::getSFShort;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "short",
@@ -114,20 +110,10 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         ShortFieldId, ShortFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editSFShort),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFShort));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getSFShort));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleShort),
+        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleShort));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(PipelineComposerBase::*GetSFAlphaF)(void) const;
-
-    GetSFAlphaF GetSFAlpha = &PipelineComposerBase::getSFAlpha;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -136,20 +122,10 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editSFAlpha),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAlpha));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getSFAlpha));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleAlpha),
+        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(PipelineComposerBase::*GetSFTileSizeF)(void) const;
-
-    GetSFTileSizeF GetSFTileSize = &PipelineComposerBase::getSFTileSize;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -158,20 +134,10 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         TileSizeFieldId, TileSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editSFTileSize),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTileSize));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getSFTileSize));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleTileSize),
+        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleTileSize));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(PipelineComposerBase::*GetSFPipelinedF)(void) const;
-
-    GetSFPipelinedF GetSFPipelined = &PipelineComposerBase::getSFPipelined;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -180,12 +146,8 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         PipelinedFieldId, PipelinedFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editSFPipelined),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFPipelined));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getSFPipelined));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandlePipelined),
+        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandlePipelined));
 
     oType.addInitialDesc(pDesc);
 }
@@ -486,6 +448,95 @@ PipelineComposerBase::PipelineComposerBase(const PipelineComposerBase &source) :
 
 PipelineComposerBase::~PipelineComposerBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr PipelineComposerBase::getHandleShort           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfShort, 
+             this->getType().getFieldDesc(ShortFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr PipelineComposerBase::editHandleShort          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfShort, 
+             this->getType().getFieldDesc(ShortFieldId)));
+
+    editSField(ShortFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr PipelineComposerBase::getHandleAlpha           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfAlpha, 
+             this->getType().getFieldDesc(AlphaFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr PipelineComposerBase::editHandleAlpha          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfAlpha, 
+             this->getType().getFieldDesc(AlphaFieldId)));
+
+    editSField(AlphaFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr PipelineComposerBase::getHandleTileSize        (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfTileSize, 
+             this->getType().getFieldDesc(TileSizeFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr PipelineComposerBase::editHandleTileSize       (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfTileSize, 
+             this->getType().getFieldDesc(TileSizeFieldId)));
+
+    editSField(TileSizeFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr PipelineComposerBase::getHandlePipelined       (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfPipelined, 
+             this->getType().getFieldDesc(PipelinedFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr PipelineComposerBase::editHandlePipelined      (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfPipelined, 
+             this->getType().getFieldDesc(PipelinedFieldId)));
+
+    editSField(PipelinedFieldMask);
+
+    return returnValue;
 }
 
 

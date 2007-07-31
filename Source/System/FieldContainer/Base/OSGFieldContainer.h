@@ -143,6 +143,7 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
+#if 0
     OSG_SYSTEM_DLLMAPPING
     virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
@@ -172,6 +173,7 @@ class FieldContainer : public ReflexiveContainer
 
     OSG_SYSTEM_DLLMAPPING
     virtual void clearField      (const UInt32                    uiFieldId  );
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -434,61 +436,71 @@ class FieldContainer : public ReflexiveContainer
 };
 
 OSG_SYSTEM_DLLMAPPING
-void
-appendTypesVector (const std::vector<std::string>                &typeNames,
-                         std::vector<const FieldContainerType *> &types       );
+void appendTypesVector(
+    const std::vector<std::string                   > &typeNames,
+          std::vector<const ReflexiveContainerType *> &types      );
 
 OSG_SYSTEM_DLLMAPPING
-void
-appendGroupsVector(const std::vector<std::string>                &groupNames,
-                         std::vector<UInt16>                     &groupIds    );
+void appendGroupsVector(
+    const std::vector<std::string>                    &groupNames,
+          std::vector<UInt16     >                    &groupIds   );
 
 OSG_SYSTEM_DLLMAPPING
-void
-appendTypesString (const std::string                             &typesString,
-                         std::vector<const FieldContainerType *> &types       );
+void appendTypesString(
+    const std::string                                 &typesString,
+          std::vector<const ReflexiveContainerType *> &types      );
 
 OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr
-deepClone(      FieldContainerPtrConstArg                src,
-          const std::vector<std::string>                &shareTypeNames,
-          const std::vector<std::string>                &ignoreTypeNames   =
+FieldContainerPtr deepClone(      
+          FieldContainerPtrConstArg                    src,
+    const std::vector<std::string>                    &shareTypeNames,
+
+    const std::vector<std::string>                    &ignoreTypeNames   =
               std::vector<std::string>(),
-          const std::vector<std::string>                &shareGroupNames   =
+
+    const std::vector<std::string>                    &shareGroupNames   =
               std::vector<std::string>(),
-          const std::vector<std::string>                &ignoreGroupNames  =
-              std::vector<std::string>()                                    );
+
+    const std::vector<std::string>                    &ignoreGroupNames  =
+              std::vector<std::string>()                                  );
 
 OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr
-deepClone(      FieldContainerPtrConstArg                src,
-          const std::vector<UInt16>                     &shareGroupIds,
-          const std::vector<UInt16>                     &ignoreGroupIds    =
-              std::vector<UInt16>()                                         );
+FieldContainerPtr deepClone(
+          FieldContainerPtrConstArg                    src,
+    const std::vector<UInt16>                         &shareGroupIds,
+
+    const std::vector<UInt16>                         &ignoreGroupIds    =
+              std::vector<UInt16>()                                       );
 
 OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr
-deepClone(      FieldContainerPtrConstArg                src,
-          const std::string                             &shareTypesString,
-          const std::string                             &ignoreTypesString =
-              std::string()                                                 );
+FieldContainerPtr deepClone(      
+          FieldContainerPtrConstArg                    src,
+    const std::string                                 &shareTypesString,
+
+    const std::string                                 &ignoreTypesString =
+              std::string()                                               );
 
 OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr
-deepClone(      FieldContainerPtrConstArg                src,
-          const std::vector<const FieldContainerType *> &shareTypes        =
-              std::vector<const FieldContainerType *>(),
-          const std::vector<const FieldContainerType *> &ignoreTypes       =
-              std::vector<const FieldContainerType *>(),
-          const std::vector<UInt16>                     &shareGroupIds     =
+FieldContainerPtr deepClone(
+          FieldContainerPtrConstArg                    src,
+
+    const std::vector<const ReflexiveContainerType *> &shareTypes        =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<const ReflexiveContainerType *> &ignoreTypes       =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<UInt16>                         &shareGroupIds     =
               std::vector<UInt16>(),
-          const std::vector<UInt16>                     &ignoreGroupIds    =
-              std::vector<UInt16>()                                         );
+
+    const std::vector<UInt16>                         &ignoreGroupIds    =
+              std::vector<UInt16>()                                       );
 
 #ifdef OSG_MT_CPTR_ASPECT
 template<class ContainerPtr> inline
 ContainerPtr convertToCurrentAspect(ContainerPtr pFC);
 #endif
+
 
 OSG_END_NAMESPACE
 

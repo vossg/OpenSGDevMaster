@@ -53,7 +53,9 @@
 #include "OSGTypeBasePredicates.h"
 #include "OSGReflexiveContainerTypePredicates.h"
 
-OSG_USING_NAMESPACE
+#include "boost/bind.hpp"
+
+OSG_BEGIN_NAMESPACE
 
 void Node::classDescInserter(TypeObject &oType)
 {
@@ -66,8 +68,8 @@ void Node::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Node::Volume),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Node::editSFVolume),
-        reinterpret_cast<FieldGetMethodSig >(&Node::getSFVolume ));
+        reinterpret_cast<FieldEditMethodSig>(&Node::editHandleVolume),
+        reinterpret_cast<FieldGetMethodSig >(&Node::getHandleVolume ));
 
     oType.addInitialDesc(pDesc);
 
@@ -79,8 +81,8 @@ void Node::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Node::TravMask),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Node::editSFTravMask),
-        reinterpret_cast<FieldGetMethodSig >(&Node::getSFTravMask ));
+        reinterpret_cast<FieldEditMethodSig>(&Node::editHandleTravMask),
+        reinterpret_cast<FieldGetMethodSig >(&Node::getHandleTravMask ));
 
     oType.addInitialDesc(pDesc);
 
@@ -93,7 +95,7 @@ void Node::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         static_cast     <FieldEditMethodSig>(&Node::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&Node::getSFParent    ));
+        reinterpret_cast<FieldGetMethodSig >(&Node::getHandleParent ));
 
     oType.addInitialDesc(pDesc);
 
@@ -105,8 +107,8 @@ void Node::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Node::Core),
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&Node::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&Node::getSFCore      ));
+        reinterpret_cast<FieldEditMethodSig>(&Node::editHandleCore),
+        reinterpret_cast<FieldGetMethodSig >(&Node::getHandleCore ));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +120,8 @@ void Node::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Node::Children),
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&Node::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&Node::getMFChildren  ));
+        reinterpret_cast<FieldEditMethodSig>(&Node::editHandleChildren),
+        reinterpret_cast<FieldGetMethodSig >(&Node::getHandleChildren));
 
     oType.addInitialDesc(pDesc);
 }
@@ -355,6 +357,15 @@ void Node::subChild(UInt32 childIndex)
     }
 }
 
+void Node::clearChildren(void)
+{
+    while(getNChildren() != 0)
+    {
+        subChild(0u);
+    }
+}
+
+#if 0
 void Node::pushToField(      FieldContainerPtrConstArg pNewElement,
                        const UInt32                    uiFieldId  )
 {
@@ -447,6 +458,7 @@ void Node::clearField(const UInt32 uiFieldId)
         }
     }
 }
+#endif
 
 UInt32 Node::getBinSize(ConstFieldMaskArg whichField)
 {
@@ -844,6 +856,108 @@ void Node::execSyncV(      FieldContainer     &oFrom,
 }
 #endif
 
+SFDynamicVolume::EditHandlePtr Node::editHandleVolume(void)
+{
+    SFDynamicVolume::EditHandlePtr returnValue(
+        new  SFDynamicVolume::EditHandle(
+             &_sfVolume, 
+             this->getType().getFieldDesc(VolumeFieldId)));
+
+    editSField(VolumeFieldMask);
+
+    return returnValue;
+}
+
+SFDynamicVolume::GetHandlePtr  Node::getHandleVolume(void) const
+{
+    SFDynamicVolume::GetHandlePtr returnValue(
+        new  SFDynamicVolume::GetHandle(
+             &_sfVolume, 
+             this->getType().getFieldDesc(VolumeFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr Node::editHandleTravMask(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfTravMask, 
+             this->getType().getFieldDesc(TravMaskFieldId)));
+
+    editSField(TravMaskFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr Node::getHandleTravMask(void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfTravMask, 
+             this->getType().getFieldDesc(TravMaskFieldId)));
+
+    return returnValue;
+}
+
+SFNodePtr::GetHandlePtr Node::getHandleParent(void) const
+{
+    SFNodePtr::GetHandlePtr returnValue(
+        new  SFNodePtr::GetHandle(
+             &_sfParent, 
+             this->getType().getFieldDesc(ParentFieldId)));
+
+    return returnValue;
+}
+
+SFNodeCorePtr::EditHandlePtr Node::editHandleCore(void)
+{
+    SFNodeCorePtr::EditHandlePtr returnValue(
+        new  SFNodeCorePtr::EditHandle(
+             &_sfCore, 
+             this->getType().getFieldDesc(CoreFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&Node::setCore, this, _1));
+
+    editSField(CoreFieldMask);
+
+    return returnValue;
+}
+
+SFNodeCorePtr::GetHandlePtr Node::getHandleCore(void) const
+{
+    SFNodeCorePtr::GetHandlePtr returnValue(
+        new  SFNodeCorePtr::GetHandle(
+             &_sfCore, 
+             this->getType().getFieldDesc(CoreFieldId)));
+
+    return returnValue;
+}
+
+MFNodePtr::EditHandlePtr Node::editHandleChildren(void)
+{
+    MFNodePtr::EditHandlePtr returnValue(
+        new  MFNodePtr::EditHandle(
+             &_mfChildren, 
+             this->getType().getFieldDesc(ChildrenFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&Node::addChild, this, _1));
+
+    editMField(ChildrenFieldMask, _mfChildren);
+
+    return returnValue;
+}
+
+MFNodePtr::GetHandlePtr  Node::getHandleChildren(void) const
+{
+    MFNodePtr::GetHandlePtr returnValue(
+        new  MFNodePtr::GetHandle(
+             &_mfChildren, 
+             this->getType().getFieldDesc(ChildrenFieldId)));
+
+    return returnValue;
+}
+
 void Node::resolveLinks(void)
 {
     Inherited::resolveLinks();
@@ -884,25 +998,25 @@ void Node::resolveLinks(void)
     \param[in] ignoreGroupNames LIst of group names that are ignored.
     \return The root Node of the cloned scene.
  */
-NodePtr
-OSG::cloneTree(      NodePtrConstArg           rootNode,
-               const std::vector<std::string> &cloneTypeNames,
-               const std::vector<std::string> &ignoreTypeNames,
-               const std::vector<std::string> &cloneGroupNames,
-               const std::vector<std::string> &ignoreGroupNames)
+
+NodePtr cloneTree(      NodePtrConstArg           rootNode,
+                  const std::vector<std::string> &cloneTypeNames,
+                  const std::vector<std::string> &ignoreTypeNames,
+                  const std::vector<std::string> &cloneGroupNames,
+                  const std::vector<std::string> &ignoreGroupNames)
 {
-    std::vector<const FieldContainerType *> cloneTypes;
-    std::vector<const FieldContainerType *> ignoreTypes;
-    std::vector<UInt16>                     cloneGroupIds;
-    std::vector<UInt16>                     ignoreGroupIds;
+    std::vector<const ReflexiveContainerType *> cloneTypes;
+    std::vector<const ReflexiveContainerType *> ignoreTypes;
+    std::vector<UInt16>                         cloneGroupIds;
+    std::vector<UInt16>                         ignoreGroupIds;
 
     appendTypesVector (cloneTypeNames,   cloneTypes    );
     appendTypesVector (ignoreTypeNames,  ignoreTypes   );
     appendGroupsVector(cloneGroupNames,  cloneGroupIds );
     appendGroupsVector(ignoreGroupNames, ignoreGroupIds);
 
-    return OSG::cloneTree(rootNode, cloneTypes,    ignoreTypes,
-                                    cloneGroupIds, ignoreGroupIds);
+    return cloneTree(rootNode, cloneTypes,    ignoreTypes,
+                               cloneGroupIds, ignoreGroupIds);
 }
 
 /*! Clones the scene starting at \a rootNode. By default FieldContainers,
@@ -915,16 +1029,16 @@ OSG::cloneTree(      NodePtrConstArg           rootNode,
     \param[in] ignoreGroupIds List of group ids, whose members are ignored.
     \return The root Node of the cloned scene.
  */
-NodePtr
-OSG::cloneTree(      NodePtrConstArg      rootNode,
-               const std::vector<UInt16> &cloneGroupIds,
-               const std::vector<UInt16> &ignoreGroupIds)
-{
-    std::vector<const FieldContainerType *> cloneTypes;
-    std::vector<const FieldContainerType *> ignoreTypes;
 
-    return OSG::cloneTree(rootNode, cloneTypes,    ignoreTypes,
-                                    cloneGroupIds, ignoreGroupIds);
+NodePtr cloneTree(      NodePtrConstArg      rootNode,
+                  const std::vector<UInt16> &cloneGroupIds,
+                  const std::vector<UInt16> &ignoreGroupIds)
+{
+    std::vector<const ReflexiveContainerType *> cloneTypes;
+    std::vector<const ReflexiveContainerType *> ignoreTypes;
+
+    return cloneTree(rootNode, cloneTypes,    ignoreTypes,
+                               cloneGroupIds, ignoreGroupIds);
 }
 
 /*! Clones the scene starting at \a rootNode. By default FieldContainers,
@@ -939,21 +1053,21 @@ OSG::cloneTree(      NodePtrConstArg      rootNode,
         ignored.
     \return The root Node of the cloned scene.
  */
-NodePtr
-OSG::cloneTree(      NodePtrConstArg  rootNode,
-               const std::string     &cloneTypesString,
-               const std::string     &ignoreTypesString)
+
+NodePtr cloneTree(      NodePtrConstArg  rootNode,
+                  const std::string     &cloneTypesString,
+                  const std::string     &ignoreTypesString)
 {
-    std::vector<const FieldContainerType *> cloneTypes;
-    std::vector<const FieldContainerType *> ignoreTypes;
-    std::vector<UInt16>                     cloneGroupIds;
-    std::vector<UInt16>                     ignoreGroupIds;
+    std::vector<const ReflexiveContainerType *> cloneTypes;
+    std::vector<const ReflexiveContainerType *> ignoreTypes;
+    std::vector<UInt16>                         cloneGroupIds;
+    std::vector<UInt16>                         ignoreGroupIds;
 
     appendTypesString(cloneTypesString,  cloneTypes);
     appendTypesString(ignoreTypesString, ignoreTypes);
 
-    return OSG::cloneTree(rootNode, cloneTypes,    ignoreTypes,
-                                    cloneGroupIds, ignoreGroupIds);
+    return cloneTree(rootNode, cloneTypes,    ignoreTypes,
+                               cloneGroupIds, ignoreGroupIds);
 }
 
 /*! Clones the scene starting at \a rootNode. By default FieldContainers,
@@ -969,12 +1083,13 @@ OSG::cloneTree(      NodePtrConstArg  rootNode,
     \param[in] ignoreGroupIds List of group ids, whose members are ignored.
     \return The root Node of the cloned scene.
  */
-NodePtr
-OSG::cloneTree(      NodePtrConstArg                          rootNode,
-               const std::vector<const FieldContainerType *> &cloneTypes,
-               const std::vector<const FieldContainerType *> &ignoreTypes,
-               const std::vector<UInt16>                     &cloneGroupIds,
-               const std::vector<UInt16>                     &ignoreGroupIds)
+
+NodePtr cloneTree(      
+          NodePtrConstArg                              rootNode,
+    const std::vector<const ReflexiveContainerType *> &cloneTypes,
+    const std::vector<const ReflexiveContainerType *> &ignoreTypes,
+    const std::vector<UInt16>                         &cloneGroupIds,
+    const std::vector<UInt16>                         &ignoreGroupIds)
 {
     NodePtr rootClone = NullFC;
 
@@ -986,9 +1101,9 @@ OSG::cloneTree(      NodePtrConstArg                          rootNode,
         rootClone = Node::create();
         rootClone->setTravMask(rootNode->getTravMask());
 
-        OSG::cloneAttachments(rootNode,      rootClone,
-                              cloneTypes,    ignoreTypes,
-                              cloneGroupIds, ignoreGroupIds);
+        cloneAttachments(rootNode,      rootClone,
+                         cloneTypes,    ignoreTypes,
+                         cloneGroupIds, ignoreGroupIds);
 
         if(core != NullFC)
         {
@@ -1012,10 +1127,11 @@ OSG::cloneTree(      NodePtrConstArg                          rootNode,
                        cloneTypes.end(),    coreType)   )
                 {
                     // clone core
-                    coreClone = dynamic_cast<NodeCorePtr>(
-                                    OSG::deepClone(core,
-                                                   cloneTypes,    ignoreTypes,
-                                                   cloneGroupIds, ignoreGroupIds));
+                    coreClone = 
+                        dynamic_cast<NodeCorePtr>(
+                            deepClone(core,
+                                      cloneTypes,    ignoreTypes,
+                                      cloneGroupIds, ignoreGroupIds));
                 }
                 else
                 {
@@ -1029,9 +1145,9 @@ OSG::cloneTree(      NodePtrConstArg                          rootNode,
 
         for(UInt32 i = 0; i < rootNode->getNChildren(); ++i)
         {
-            childClone = OSG::cloneTree(rootNode->getChild(i),
-                                        cloneTypes,    ignoreTypes,
-                                        cloneGroupIds, ignoreGroupIds);
+            childClone = cloneTree(rootNode->getChild(i),
+                                   cloneTypes,    ignoreTypes,
+                                   cloneGroupIds, ignoreGroupIds);
 
             rootClone->addChild(childClone);
         }
@@ -1053,25 +1169,25 @@ OSG::cloneTree(      NodePtrConstArg                          rootNode,
     \param[in] ignoreGroupNames LIst of group names that are ignored.
     \return The root Node of the cloned scene.
  */
-NodePtr
-OSG::deepCloneTree(      NodePtrConstArg           rootNode,
-                   const std::vector<std::string> &shareTypeNames,
-                   const std::vector<std::string> &ignoreTypeNames,
-                   const std::vector<std::string> &shareGroupNames,
-                   const std::vector<std::string> &ignoreGroupNames)
+
+NodePtr deepCloneTree(      NodePtrConstArg           rootNode,
+                      const std::vector<std::string> &shareTypeNames,
+                      const std::vector<std::string> &ignoreTypeNames,
+                      const std::vector<std::string> &shareGroupNames,
+                      const std::vector<std::string> &ignoreGroupNames)
 {
-    std::vector<const FieldContainerType *> shareTypes;
-    std::vector<const FieldContainerType *> ignoreTypes;
-    std::vector<UInt16>                     shareGroupIds;
-    std::vector<UInt16>                     ignoreGroupIds;
+    std::vector<const ReflexiveContainerType *> shareTypes;
+    std::vector<const ReflexiveContainerType *> ignoreTypes;
+    std::vector<UInt16>                         shareGroupIds;
+    std::vector<UInt16>                         ignoreGroupIds;
 
     appendTypesVector (shareTypeNames,   shareTypes    );
     appendTypesVector (ignoreTypeNames,  ignoreTypes   );
     appendGroupsVector(shareGroupNames,  shareGroupIds );
     appendGroupsVector(ignoreGroupNames, ignoreGroupIds);
 
-    return OSG::deepCloneTree(rootNode, shareTypes,    ignoreTypes,
-                                        shareGroupIds, ignoreGroupIds);
+    return deepCloneTree(rootNode, shareTypes,    ignoreTypes,
+                                   shareGroupIds, ignoreGroupIds);
 }
 
 /*! Clones the scene starting at \a rootNode. By default FieldContainers,
@@ -1084,16 +1200,16 @@ OSG::deepCloneTree(      NodePtrConstArg           rootNode,
     \param[in] ignoreGroupIds List of group ids, whose members are ignored.
     \return The root Node of the cloned scene.
  */
-NodePtr
-OSG::deepCloneTree(      NodePtrConstArg      rootNode,
-                   const std::vector<UInt16> &shareGroupIds,
-                   const std::vector<UInt16> &ignoreGroupIds)
-{
-    std::vector<const FieldContainerType *> shareTypes;
-    std::vector<const FieldContainerType *> ignoreTypes;
 
-    return OSG::deepCloneTree(rootNode, shareTypes,    ignoreTypes,
-                                        shareGroupIds, ignoreGroupIds);
+NodePtr deepCloneTree(      NodePtrConstArg      rootNode,
+                      const std::vector<UInt16> &shareGroupIds,
+                      const std::vector<UInt16> &ignoreGroupIds)
+{
+    std::vector<const ReflexiveContainerType *> shareTypes;
+    std::vector<const ReflexiveContainerType *> ignoreTypes;
+
+    return deepCloneTree(rootNode, shareTypes,    ignoreTypes,
+                                   shareGroupIds, ignoreGroupIds);
 }
 
 /*! Clones the scene starting at \a rootNode. By default FieldContainers,
@@ -1108,21 +1224,21 @@ OSG::deepCloneTree(      NodePtrConstArg      rootNode,
         ignored.
     \return The root Node of the cloned scene.
  */
-NodePtr
-OSG::deepCloneTree(      NodePtrConstArg  rootNode,
-                   const std::string     &shareTypesString,
-                   const std::string     &ignoreTypesString)
+
+NodePtr deepCloneTree(      NodePtrConstArg  rootNode,
+                      const std::string     &shareTypesString,
+                      const std::string     &ignoreTypesString)
 {
-    std::vector<const FieldContainerType *> shareTypes;
-    std::vector<const FieldContainerType *> ignoreTypes;
-    std::vector<UInt16>                     shareGroupIds;
-    std::vector<UInt16>                     ignoreGroupIds;
+    std::vector<const ReflexiveContainerType *> shareTypes;
+    std::vector<const ReflexiveContainerType *> ignoreTypes;
+    std::vector<UInt16>                         shareGroupIds;
+    std::vector<UInt16>                         ignoreGroupIds;
 
     appendTypesString(shareTypesString,  shareTypes);
     appendTypesString(ignoreTypesString, ignoreTypes);
 
-    return OSG::deepCloneTree(rootNode, shareTypes,    ignoreTypes,
-                                        shareGroupIds, ignoreGroupIds);
+    return deepCloneTree(rootNode, shareTypes,    ignoreTypes,
+                                   shareGroupIds, ignoreGroupIds);
 }
 
 /*! Clones the scene starting at \a rootNode. By default FieldContainers,
@@ -1138,12 +1254,13 @@ OSG::deepCloneTree(      NodePtrConstArg  rootNode,
     \param[in] ignoreGroupIds List of group ids, whose members are ignored.
     \return The root Node of the cloned scene.
  */
-NodePtr
-OSG::deepCloneTree(      NodePtrConstArg                          rootNode,
-                   const std::vector<const FieldContainerType *> &shareTypes,
-                   const std::vector<const FieldContainerType *> &ignoreTypes,
-                   const std::vector<UInt16>                     &shareGroupIds,
-                   const std::vector<UInt16>                     &ignoreGroupIds)
+
+NodePtr deepCloneTree(      
+          NodePtrConstArg                              rootNode,
+    const std::vector<const ReflexiveContainerType *> &shareTypes,
+    const std::vector<const ReflexiveContainerType *> &ignoreTypes,
+    const std::vector<UInt16>                         &shareGroupIds,
+    const std::vector<UInt16>                         &ignoreGroupIds)
 {
     NodePtr rootClone = NullFC;
 
@@ -1155,9 +1272,9 @@ OSG::deepCloneTree(      NodePtrConstArg                          rootNode,
         rootClone = Node::create();
         rootClone->setTravMask(rootNode->getTravMask());
 
-        OSG::deepCloneAttachments(rootNode,      rootClone,
-                                  shareTypes,    ignoreTypes,
-                                  shareGroupIds, ignoreGroupIds);
+        deepCloneAttachments(rootNode,      rootClone,
+                             shareTypes,    ignoreTypes,
+                             shareGroupIds, ignoreGroupIds);
 
         if(core != NullFC)
         {
@@ -1186,10 +1303,11 @@ OSG::deepCloneTree(      NodePtrConstArg                          rootNode,
                 else
                 {
                     // clone core
-                    coreClone = dynamic_cast<NodeCorePtr>(
-                                    OSG::deepClone(core,
-                                                   shareTypes,    ignoreTypes,
-                                                   shareGroupIds, ignoreGroupIds));
+                    coreClone = 
+                        dynamic_cast<NodeCorePtr>(
+                            deepClone(core,
+                                      shareTypes,    ignoreTypes,
+                                      shareGroupIds, ignoreGroupIds));
                 }
             }
 
@@ -1198,9 +1316,9 @@ OSG::deepCloneTree(      NodePtrConstArg                          rootNode,
 
         for(UInt32 i = 0; i < rootNode->getNChildren(); ++i)
         {
-            childClone = OSG::deepCloneTree(rootNode->getChild(i),
-                                            shareTypes,    ignoreTypes,
-                                            shareGroupIds, ignoreGroupIds);
+            childClone = deepCloneTree(rootNode->getChild(i),
+                                       shareTypes,    ignoreTypes,
+                                       shareGroupIds, ignoreGroupIds);
 
             rootClone->addChild(childClone);
         }
@@ -1208,3 +1326,5 @@ OSG::deepCloneTree(      NodePtrConstArg                          rootNode,
 
     return rootClone;
 }
+
+OSG_END_NAMESPACE

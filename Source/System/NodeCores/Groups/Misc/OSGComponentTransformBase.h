@@ -289,6 +289,22 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFVec3r::GetHandlePtr  getHandleCenter          (void);
+    SFVec3r::EditHandlePtr editHandleCenter         (void);
+    SFQuaternionr::GetHandlePtr  getHandleRotation        (void);
+    SFQuaternionr::EditHandlePtr editHandleRotation       (void);
+    SFVec3r::GetHandlePtr  getHandleScale           (void);
+    SFVec3r::EditHandlePtr editHandleScale          (void);
+    SFQuaternionr::GetHandlePtr  getHandleScaleOrientation (void);
+    SFQuaternionr::EditHandlePtr editHandleScaleOrientation(void);
+    SFVec3r::GetHandlePtr  getHandleTranslation     (void);
+    SFVec3r::EditHandlePtr editHandleTranslation    (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

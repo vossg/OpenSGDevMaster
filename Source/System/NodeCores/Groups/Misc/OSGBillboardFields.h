@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(Billboard);
 
 template <>
 struct FieldTraits<BillboardPtr> :
-    public FieldTraitsTemplateBase<BillboardPtr>
+    public FieldTraitsFCPtrBase<BillboardPtr>
 {
   private:
 

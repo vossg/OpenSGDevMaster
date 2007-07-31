@@ -112,11 +112,11 @@ class OSG_SYSTEM_DLLMAPPING OSGWriter
     OutStream                     &_outStream;
 
     void visitContainer(const FieldContainerPtr     pFC      );
-    void visitField    (const FieldHandle          &hF       );
+    void visitField    (      GetFieldHandlePtr     hF       );
 
     void writeContainer(const FieldContainerPtr     pFC      ,
                               bool                  bIndent  );
-    void writeField    (const FieldHandle          &hF       );
+    void writeField    (      GetFieldHandlePtr     hF       );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

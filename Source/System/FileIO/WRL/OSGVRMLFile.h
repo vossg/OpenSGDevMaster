@@ -175,11 +175,11 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
 
                FieldContainerPtr              _pCurrentFC;
                FieldContainerPtr              _pCurrentFieldFC;
-               Field                         *_pCurrentField;
+               EditFieldHandlePtr             _pCurrentField;
     const      FieldDescriptionBase          *_pCurrentFieldDesc;
 
     std::stack<      FieldContainerPtr     >  _fcStack;
-    std::stack<      Field                *>  _fStack;
+    std::stack<      EditFieldHandlePtr    >  _fStack;
     std::stack<const FieldDescriptionBase *>  _fdStack;
 
     NameContainerMap                          _nameFCMap;

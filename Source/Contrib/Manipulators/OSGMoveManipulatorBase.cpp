@@ -65,6 +65,8 @@
 #include "OSGMoveManipulatorBase.h"
 #include "OSGMoveManipulator.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -205,6 +207,7 @@ MoveManipulatorBase::MoveManipulatorBase(const MoveManipulatorBase &source) :
 MoveManipulatorBase::~MoveManipulatorBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

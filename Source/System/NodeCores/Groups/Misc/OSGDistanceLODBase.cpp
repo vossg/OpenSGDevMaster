@@ -65,6 +65,8 @@
 #include "OSGDistanceLODBase.h"
 #include "OSGDistanceLOD.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -128,12 +130,6 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFPnt3f *(DistanceLODBase::*GetSFCenterF)(void) const;
-
-    GetSFCenterF GetSFCenter = &DistanceLODBase::getSFCenter;
-#endif
-
     pDesc = new SFPnt3f::Description(
         SFPnt3f::getClassType(),
         "center",
@@ -141,20 +137,10 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
         CenterFieldId, CenterFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DistanceLODBase::editSFCenter),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFCenter));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&DistanceLODBase::getSFCenter));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&DistanceLODBase::editHandleCenter),
+        reinterpret_cast<FieldGetMethodSig >(&DistanceLODBase::getHandleCenter));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFReal32 *(DistanceLODBase::*GetMFRangeF)(void) const;
-
-    GetMFRangeF GetMFRange = &DistanceLODBase::getMFRange;
-#endif
 
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(),
@@ -163,12 +149,8 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
         RangeFieldId, RangeFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DistanceLODBase::editMFRange),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFRange));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&DistanceLODBase::getMFRange));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&DistanceLODBase::editHandleRange),
+        reinterpret_cast<FieldGetMethodSig >(&DistanceLODBase::getHandleRange));
 
     oType.addInitialDesc(pDesc);
 }
@@ -537,6 +519,51 @@ DistanceLODBase::DistanceLODBase(const DistanceLODBase &source) :
 
 DistanceLODBase::~DistanceLODBase(void)
 {
+}
+
+
+SFPnt3f::GetHandlePtr DistanceLODBase::getHandleCenter          (void)
+{
+    SFPnt3f::GetHandlePtr returnValue(
+        new  SFPnt3f::GetHandle(
+             &_sfCenter, 
+             this->getType().getFieldDesc(CenterFieldId)));
+
+    return returnValue;
+}
+
+SFPnt3f::EditHandlePtr DistanceLODBase::editHandleCenter         (void)
+{
+    SFPnt3f::EditHandlePtr returnValue(
+        new  SFPnt3f::EditHandle(
+             &_sfCenter, 
+             this->getType().getFieldDesc(CenterFieldId)));
+
+    editSField(CenterFieldMask);
+
+    return returnValue;
+}
+
+MFReal32::GetHandlePtr DistanceLODBase::getHandleRange           (void)
+{
+    MFReal32::GetHandlePtr returnValue(
+        new  MFReal32::GetHandle(
+             &_mfRange, 
+             this->getType().getFieldDesc(RangeFieldId)));
+
+    return returnValue;
+}
+
+MFReal32::EditHandlePtr DistanceLODBase::editHandleRange          (void)
+{
+    MFReal32::EditHandlePtr returnValue(
+        new  MFReal32::EditHandle(
+             &_mfRange, 
+             this->getType().getFieldDesc(RangeFieldId)));
+
+    editMField(RangeFieldMask, _mfRange);
+
+    return returnValue;
 }
 
 

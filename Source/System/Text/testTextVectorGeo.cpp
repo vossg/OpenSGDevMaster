@@ -549,7 +549,7 @@ void updateScene()
     geo->setMaterial(matPtr);
 
     // put the geometry core into a node
-    scene->clearField(Node::ChildrenFieldId);
+    scene->clearChildren();
     scene->addChild(createCoordinateCross());
     scene->addChild(createMetrics(face, scale, layoutParam, layoutResult));
     scene->addChild(textNode);

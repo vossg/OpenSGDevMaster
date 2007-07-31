@@ -235,6 +235,16 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFInt32::GetHandlePtr  getHandleElementIDs      (void);
+    MFInt32::EditHandlePtr editHandleElementIDs     (void);
+    SFStatCollectorP::GetHandlePtr  getHandleCollector       (void);
+    SFStatCollectorP::EditHandlePtr editHandleCollector      (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

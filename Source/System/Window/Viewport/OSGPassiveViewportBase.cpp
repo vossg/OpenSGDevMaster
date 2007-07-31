@@ -65,6 +65,8 @@
 #include "OSGPassiveViewportBase.h"
 #include "OSGPassiveViewport.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -204,6 +206,7 @@ PassiveViewportBase::PassiveViewportBase(const PassiveViewportBase &source) :
 PassiveViewportBase::~PassiveViewportBase(void)
 {
 }
+
 
 
 #ifdef OSG_MT_CPTR_ASPECT

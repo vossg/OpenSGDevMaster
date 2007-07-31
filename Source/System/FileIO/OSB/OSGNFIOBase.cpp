@@ -304,7 +304,7 @@ FieldContainerPtr NFIOBase::readFieldContainer(void)
 void NFIOBase::chargeFieldPtr(const fcInfo &info)
 {
     FieldContainerType  &fcType = info._fc->getType();
-    const Field *field = info._field;
+//    const Field *field = info._field;
 
     if(!info.isMultiField())
     {
@@ -329,13 +329,26 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
                 return;
         }
 
-        // adds pointer fc to fieldcontainer info._fc in field info._fieldId
-        info._fc->pushToField(fc, info._fieldId);
+        SFFieldContainerPtr::EditHandlePtr pHandle = 
+            boost::dynamic_pointer_cast<SFFieldContainerPtr::EditHandle>(
+                info._fc->editField(info._fieldId));
+
+        if(pHandle != NULL && pHandle->isValid())
+        {
+            // adds pointer fc to fieldcontainer info._fc in 
+            // field info._fieldId
+
+            pHandle->setValue(fc);
+        }
     }
     else    // MField case
     {
         if(info._ids.empty())
             return;
+
+        MFFieldContainerPtr::EditHandlePtr pHandle = 
+            boost::dynamic_pointer_cast<MFFieldContainerPtr::EditHandle>(
+                info._fc->editField(info._fieldId));
 
         for(std::vector<UInt32>::const_iterator i = info._ids.begin();
             i != info._ids.end(); ++i)
@@ -356,8 +369,13 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
                     continue;
             }
 
-            // adds pointer fc to fieldcontainer info._fc in field info._fieldId
-            info._fc->pushToField(fc, info._fieldId);
+            // adds pointer fc to fieldcontainer info._fc in field 
+            // info._fieldId
+            
+            if(pHandle != NULL && pHandle->isValid())
+            {
+                pHandle->add(fc);
+            }
         }
     }
 }
@@ -411,7 +429,7 @@ std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
                 fieldName.c_str(), fieldType.c_str(), size));
 
         // Get field and field description
-        const Field *field = fc->getField(fieldName.c_str());
+        GetFieldHandlePtr field = fc->getField(fieldName.c_str());
         FieldDescriptionBase *fDesc = fc->getFieldDescription(fieldName.c_str());
 
         // Lookup the mask and id for the field
@@ -481,7 +499,7 @@ std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
 /*! Read entry for an SFField with a fc ptr. */
 void NFIOBase::readSFFieldContainerPtr(const FieldContainerPtr &fc,
                                        UInt32 fieldId,
-                                       const Field *field)
+                                       GetFieldHandlePtr field)
 {
     UInt32 id;
     _in->getValue(id);
@@ -491,7 +509,7 @@ void NFIOBase::readSFFieldContainerPtr(const FieldContainerPtr &fc,
 /*! Read entry for an MFField with fc ptrs. */
 void NFIOBase::readMFFieldContainerPtr(const FieldContainerPtr &fc,
                                        UInt32 fieldId,
-                                       const Field *field)
+                                       GetFieldHandlePtr field)
 {
     UInt32 noe;            // number of entries
     _in->getValue(noe);
@@ -528,7 +546,7 @@ void NFIOBase::getFCCount(const FieldContainerPtr &fc, UInt32 &count)
     for(UInt32 i = 1; i <= fcType.getNumFieldDescs(); ++i)
     {
         FieldDescriptionBase *fDesc     = fc->getFieldDescription(i);
-        const Field          *fieldPtr  = fc->getField(i);
+//        GetFieldHandlePtr     fieldPtr  = fc->getField(i);
         const FieldType      &fType     = fDesc->getFieldType();
 
         if(!fDesc->isInternal())
@@ -546,33 +564,47 @@ void NFIOBase::getFCCount(const FieldContainerPtr &fc, UInt32 &count)
             if(fType.getContentType().isDerivedFrom(
                FieldTraits<FieldContainerPtr>::getType()) == true)
             {
-                if(fType.getCardinality() == FieldType::SINGLE_FIELD)
+                SFFieldContainerPtr::GetHandlePtr sfPtrHandle =
+                    boost::dynamic_pointer_cast<
+                        SFFieldContainerPtr::GetHandle>(fc->getField(i));
+
+                MFFieldContainerPtr::GetHandlePtr mfPtrHandle =
+                    boost::dynamic_pointer_cast<
+                        MFFieldContainerPtr::GetHandle>(fc->getField(i));
+
+                if(sfPtrHandle != NULL && sfPtrHandle->isValid() == true)
                 {
-                    getFCCount(((SFFieldContainerPtr *) fieldPtr)->getValue(), count);
+                    getFCCount((*sfPtrHandle)->getValue(), count);
                 }
-                else
+                else if(mfPtrHandle != NULL && mfPtrHandle->isValid() == true)
                 {
-                    MFFieldContainerPtr *mfield = (MFFieldContainerPtr *) fieldPtr;
-                    UInt32 noe = mfield->size();
+                    UInt32 noe = (*mfPtrHandle)->size();
                     for(UInt32 i = 0; i < noe; ++i)
                     {
-                        getFCCount((*(mfield))[i], count);
+                        getFCCount((*(*mfPtrHandle))[i], count);
                     }
                 }
 
             }
             else if(!strcmp(fDesc->getCName(), "attachments"))
             {
-                SFFieldContainerAttachmentPtrMap *amap = (SFFieldContainerAttachmentPtrMap *) fieldPtr;
+                SFFieldContainerAttachmentPtrMap::GetHandlePtr amap = 
+                    boost::dynamic_pointer_cast<
+                        SFFieldContainerAttachmentPtrMap::GetHandle>(
+                            fc->getField(i));
 
-                FieldContainerAttachmentMap::const_iterator   mapIt = amap->getValue().begin();
-                FieldContainerAttachmentMap::const_iterator   mapEnd = amap->getValue().end();
-
-                UInt32 noe = amap->getValue().size();
-
-                for(; mapIt != mapEnd; ++mapIt)
+                if(amap != NULL && amap->isValid() == true)
                 {
-                    getFCCount(mapIt->second, count);
+                    FieldContainerAttachmentMap::const_iterator   mapIt  = 
+                        (*amap)->getValue().begin();
+
+                    FieldContainerAttachmentMap::const_iterator   mapEnd = 
+                        (*amap)->getValue().end();
+
+                    for(; mapIt != mapEnd; ++mapIt)
+                    {
+                        getFCCount(mapIt->second, count);
+                    }
                 }
             }
         }
@@ -670,7 +702,7 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
     for(UInt32 i = 1; i <= fcType.getNumFieldDescs(); ++i)
     {
         FieldDescriptionBase *fDesc = fc->getFieldDescription(i);
-        const Field               *fieldPtr = fc->getField(i);
+//        GetFieldHandlePtr      fieldPtr = fc->getField(i);
         const FieldType     &fType = fDesc->getFieldType();
         BitVector           mask = fDesc->getFieldMask();
 
@@ -698,40 +730,61 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
             if(fType.getContentType().isDerivedFrom(
                FieldTraits<FieldContainerPtr>::getType()) == true)
             {
+
+                SFFieldContainerPtr::GetHandlePtr sfPtrHandle =
+                    boost::dynamic_pointer_cast<
+                        SFFieldContainerPtr::GetHandle>(fc->getField(i));
+
+                MFFieldContainerPtr::GetHandlePtr mfPtrHandle =
+                    boost::dynamic_pointer_cast<
+                        MFFieldContainerPtr::GetHandle>(fc->getField(i));
+ 
                 //if(fieldPtr->getCardinality() == FieldType::SINGLE_FIELD)
-                if(fType.getCardinality() == FieldType::SINGLE_FIELD)
+                if(sfPtrHandle != NULL && sfPtrHandle->isValid() == true)
                 {
                     _out->putValue(fieldName);
                     _out->putValue(fieldType);
                     _out->putValue(fc->getBinSize(mask));
-                    writeSFFieldContainerPtr((SFFieldContainerPtr *) fieldPtr);
+                    writeSFFieldContainerPtr(sfPtrHandle);
                 }
-                else
+                else if(mfPtrHandle != NULL && mfPtrHandle->isValid() == true)
                 {
-                    MFFieldContainerPtr *mfield = (MFFieldContainerPtr *) fieldPtr;
-                    if(!mfield->empty())
+                    if(!(*mfPtrHandle)->empty())
                     {
-                        UInt32 size = sizeof(UInt32) + sizeof(UInt32) * mfield->size();
+                        UInt32 size = 
+                            sizeof(UInt32) + 
+                            sizeof(UInt32) * (*mfPtrHandle)->size();
+
                         _out->putValue(fieldName);
                         _out->putValue(fieldType);
                         _out->putValue(size);
 
-                        writeMFFieldContainerPtr(mfield);
+                        writeMFFieldContainerPtr(mfPtrHandle);
                     }
                 }
 
             }
             else if(!strcmp(fDesc->getCName(), "attachments"))
             {
-                SFFieldContainerAttachmentPtrMap *amap = (SFFieldContainerAttachmentPtrMap *) fieldPtr;
+                SFFieldContainerAttachmentPtrMap::GetHandlePtr amap = 
+                    boost::dynamic_pointer_cast<
+                        SFFieldContainerAttachmentPtrMap::GetHandle>(
+                            fc->getField(i));
 
-                if(!amap->getValue().empty())
+                if(amap != NULL && amap->isValid() == true)
                 {
-                    UInt32 size = sizeof(UInt32) + sizeof(UInt32) * amap->getValue().size();
-                    _out->putValue(fieldName);
-                    _out->putValue(fieldType);
-                    _out->putValue(size);
-                    writeSFAttachmentMap(amap);
+                    if(!(*amap)->getValue().empty())
+                    {
+                        UInt32 size = 
+                            sizeof(UInt32) + 
+                            sizeof(UInt32) * (*amap)->getValue().size();
+
+                        _out->putValue(fieldName);
+                        _out->putValue(fieldType);
+                        _out->putValue(size);
+                        
+                        writeSFAttachmentMap(amap);
+                    }
                 }
             }
             else
@@ -757,31 +810,38 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
 }
 
 /*! Write the information for a single field ptr. */
-void NFIOBase::writeSFFieldContainerPtr(SFFieldContainerPtr *field)
+void NFIOBase::writeSFFieldContainerPtr(
+    SFFieldContainerPtr::GetHandlePtr field)
 {
-    writeFCId(field->getValue());
+    writeFCId((*field)->getValue());
 }
 
 /*! Write the information for a mffield ptr. */
-void NFIOBase::writeMFFieldContainerPtr(MFFieldContainerPtr *field)
+void NFIOBase::writeMFFieldContainerPtr(
+    MFFieldContainerPtr::GetHandlePtr field)
 {
-    UInt32 noe = field->size();
+    UInt32 noe = (*field)->size();
     _out->putValue(noe);
+
     for(UInt32 i = 0; i < noe; ++i)
     {
-        writeFCId((*(field))[i]);
+        writeFCId((*(*field))[i]);
     }
 }
 
 /*! Write the pointers for an attachment map. */
-void NFIOBase::writeSFAttachmentMap(SFFieldContainerAttachmentPtrMap *amap)
+void NFIOBase::writeSFAttachmentMap(
+    SFFieldContainerAttachmentPtrMap::GetHandlePtr amap)
 {
     //AttachmentMap::const_iterator   mapIt = amap->getValue().begin();
     //AttachmentMap::const_iterator   mapEnd = amap->getValue().end();
-    FieldContainerAttachmentMap::const_iterator   mapIt = amap->getValue().begin();
-    FieldContainerAttachmentMap::const_iterator   mapEnd = amap->getValue().end();
+    FieldContainerAttachmentMap::const_iterator   mapIt = 
+        (*amap)->getValue().begin();
 
-    UInt32 noe = amap->getValue().size();
+    FieldContainerAttachmentMap::const_iterator   mapEnd = 
+        (*amap)->getValue().end();
+
+    UInt32 noe = (*amap)->getValue().size();
     _out->putValue(noe);
     for(; mapIt != mapEnd; ++mapIt)
     {
@@ -857,7 +917,7 @@ void NFIOBase::skipFCFields(void)
 
 /*! Constructor for sfield. */
 NFIOBase::fcInfo::fcInfo(const FieldContainerPtr &fc,
-                         UInt32 fieldId, UInt32 id, const Field *field) :
+                         UInt32 fieldId, UInt32 id, GetFieldHandlePtr field) :
     _fc(fc),
     _fieldId(fieldId),
     _id(id),
@@ -868,7 +928,7 @@ NFIOBase::fcInfo::fcInfo(const FieldContainerPtr &fc,
 
 /*! Constructor for mfield. */
 NFIOBase::fcInfo::fcInfo(const FieldContainerPtr &fc,
-                         UInt32 fieldId, const Field *field) :
+                         UInt32 fieldId, GetFieldHandlePtr field) :
     _fc(fc),
     _fieldId(fieldId),
     _id(0),

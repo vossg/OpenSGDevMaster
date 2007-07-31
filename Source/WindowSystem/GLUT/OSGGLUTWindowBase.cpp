@@ -65,6 +65,8 @@
 #include "OSGGLUTWindowBase.h"
 #include "OSGGLUTWindow.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(GLUTWindowBase::*GetSFGlutIdF)(void) const;
-
-    GetSFGlutIdF GetSFGlutId = &GLUTWindowBase::getSFGlutId;
-#endif
-
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
         "glutId",
@@ -102,12 +98,8 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
         GlutIdFieldId, GlutIdFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GLUTWindowBase::editSFGlutId),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGlutId));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GLUTWindowBase::getSFGlutId));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GLUTWindowBase::editHandleGlutId),
+        reinterpret_cast<FieldGetMethodSig >(&GLUTWindowBase::getHandleGlutId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -282,6 +274,29 @@ GLUTWindowBase::GLUTWindowBase(const GLUTWindowBase &source) :
 
 GLUTWindowBase::~GLUTWindowBase(void)
 {
+}
+
+
+SFInt32::GetHandlePtr GLUTWindowBase::getHandleGlutId          (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfGlutId, 
+             this->getType().getFieldDesc(GlutIdFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr GLUTWindowBase::editHandleGlutId         (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfGlutId, 
+             this->getType().getFieldDesc(GlutIdFieldId)));
+
+    editSField(GlutIdFieldMask);
+
+    return returnValue;
 }
 
 

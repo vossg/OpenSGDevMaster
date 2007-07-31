@@ -307,6 +307,24 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFMatrix::GetHandlePtr  getHandlePreViewing      (void);
+    SFMatrix::EditHandlePtr editHandlePreViewing     (void);
+    SFMatrix::GetHandlePtr  getHandlePostViewing     (void);
+    SFMatrix::EditHandlePtr editHandlePostViewing    (void);
+    SFMatrix::GetHandlePtr  getHandlePreProjectionTranslation (void);
+    SFMatrix::EditHandlePtr editHandlePreProjectionTranslation(void);
+    SFMatrix::GetHandlePtr  getHandlePostProjectionTranslation (void);
+    SFMatrix::EditHandlePtr editHandlePostProjectionTranslation(void);
+    SFMatrix::GetHandlePtr  getHandlePreProjection   (void);
+    SFMatrix::EditHandlePtr editHandlePreProjection  (void);
+    SFMatrix::GetHandlePtr  getHandlePostProjection  (void);
+    SFMatrix::EditHandlePtr editHandlePostProjection (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

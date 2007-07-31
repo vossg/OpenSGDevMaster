@@ -64,6 +64,10 @@ template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsFCPtrBase : 
     public FieldTraitsTemplateBase<ValueT, iNamespace>
 {
+    static const bool bIsPointerField = true;
+
+    typedef FieldContainerPtr ParentContainerPtr;
+
     static UInt32 getBinSize(const FieldContainerPtr &)
     {
         return sizeof(UInt32);
@@ -132,9 +136,11 @@ struct FieldTraitsFCPtrBase :
 };
 
 template<>
-struct FieldTraitsFCPtrBase<ParentFieldContainerPtr, 1> : 
-    public FieldTraitsTemplateBase<ParentFieldContainerPtr, 1>
+struct FieldTraitsFCPtrBase<ParentFieldContainerPtr> : 
+    public FieldTraitsTemplateBase<ParentFieldContainerPtr>
 {
+    static const bool bIsPointerField = true;
+
     static UInt32 getBinSize(const ParentFieldContainerPtr &)
     {
         return sizeof(UInt32);
@@ -216,6 +222,8 @@ struct FieldTraits<FieldContainerPtr> :
 
   public:
 
+    static const bool bIsPointerField = true;
+
     typedef FieldTraits<FieldContainerPtr>  Self;
 
 
@@ -242,8 +250,8 @@ struct FieldTraits<FieldContainerPtr> :
 #endif
 
 template <>
-struct FieldTraits<ParentFieldContainerPtr, 1> : 
-    public FieldTraitsFCPtrBase<ParentFieldContainerPtr, 1>
+struct FieldTraits<ParentFieldContainerPtr> : 
+    public FieldTraitsFCPtrBase<ParentFieldContainerPtr>
 {
   private:
 
@@ -251,7 +259,9 @@ struct FieldTraits<ParentFieldContainerPtr, 1> :
 
   public:
 
-    typedef FieldTraits<ParentFieldContainerPtr, 1>  Self;
+    static const bool bIsPointerField = true;
+
+    typedef FieldTraits<ParentFieldContainerPtr>     Self;
 
 
     enum             { Convertible = Self::NotConvertible };

@@ -50,81 +50,15 @@
 #include "OSGBinaryDataHandler.h"
 #include "OSGThread.h"
 #include "OSGChangeList.h"
+#include "OSGFieldHandle.h"
 
 #include "OSGSystemDef.h"
 
 OSG_BEGIN_NAMESPACE
 
-class FieldContainerPtrBase;
-class FieldDesciptionBase;
-
 //---------------------------------------------------------------------------
 //   Class         
 //---------------------------------------------------------------------------
-
-/*! FieldDescriptionBase point less than
-    \ingroup GrpSystemFieldContainerFuncs
-    \hideinhierarchy
- */
-
-class OSG_SYSTEM_DLLMAPPING FieldHandle
-{
-  private:
-
-    void operator =(const FieldHandle &source);
-
-  protected:
-
-          Field                *_pField;
-    const FieldDescriptionBase *_pDescription;
-
-  public:
-
-    FieldHandle(const FieldHandle          &source);
-
-    FieldHandle(const Field                *pField, 
-                const FieldDescriptionBase *pDescription);
-
-
-    ~FieldHandle(void);
-
-
-    bool                   isInternal    (void) const;
-    bool                   isValid       (void) const;
-
-    FieldType::Cardinality getCardinality(void) const;
-
-
-    const FieldType &getType (void) const;
-    const Field     *getField(void) const;
-
-    const IDString  &getName (void) const;
-
-
-
-    void pushValueToStream(OutStream &str) const;
-    void pushSizeToStream (OutStream &str) const;
-};
-
-class OSG_SYSTEM_DLLMAPPING EditFieldHandle : public FieldHandle
-{
-  private:
-    
-    void operator =(const EditFieldHandle &source);
-
-  protected:
-
-    typedef FieldHandle Inherited;
-
-  public:
-
-    EditFieldHandle(const EditFieldHandle      &source);
-    EditFieldHandle(      Field                *pField, 
-                    const FieldDescriptionBase *pDescription);
-
-
-    ~EditFieldHandle(void);
-};
 
 /*! \ingroup GrpSystemFieldContainer
  */
@@ -209,22 +143,23 @@ class ReflexiveContainer
           UInt32  getNumFields(      void            ) const;
 
     OSG_SYSTEM_DLLMAPPING 
-          Field  *editField   (      UInt32 fieldId  );
+    EditFieldHandlePtr editField(      UInt32 fieldId  );
     
     OSG_SYSTEM_DLLMAPPING 
-          Field  *editField   (const Char8 *fieldName);
+    EditFieldHandlePtr editField(const Char8 *fieldName);
 
     OSG_SYSTEM_DLLMAPPING 
-    const Field  *getField    (      UInt32 fieldId  ) const;
+    GetFieldHandlePtr  getField (      UInt32 fieldId  ) const;
     
     OSG_SYSTEM_DLLMAPPING 
-    const Field  *getField    (const Char8 *fieldName) const;
+    GetFieldHandlePtr  getField (const Char8 *fieldName) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Get Field                                   */
     /*! \{                                                                 */
 
+#if 0
     OSG_SYSTEM_DLLMAPPING 
     EditFieldHandle editHandledField(      UInt32 fieldId  );
     
@@ -236,6 +171,7 @@ class ReflexiveContainer
     
     OSG_SYSTEM_DLLMAPPING 
     FieldHandle     getHandledField (const Char8 *fieldName) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -301,10 +237,10 @@ class ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING 
-          Field *invalidEditField(void);
+    EditFieldHandlePtr invalidEditField(void);
 
     OSG_SYSTEM_DLLMAPPING 
-    const Field *invalidGetField (void) const;
+    GetFieldHandlePtr invalidGetField (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

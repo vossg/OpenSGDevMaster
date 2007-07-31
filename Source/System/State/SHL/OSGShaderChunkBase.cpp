@@ -65,6 +65,8 @@
 #include "OSGShaderChunkBase.h"
 #include "OSGShaderChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -97,12 +99,6 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(ShaderChunkBase::*GetSFVertexProgramF)(void) const;
-
-    GetSFVertexProgramF GetSFVertexProgram = &ShaderChunkBase::getSFVertexProgram;
-#endif
-
     pDesc = new SFString::Description(
         SFString::getClassType(),
         "vertexProgram",
@@ -110,20 +106,10 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
         VertexProgramFieldId, VertexProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editSFVertexProgram),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFVertexProgram));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getSFVertexProgram));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleVertexProgram),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleVertexProgram));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(ShaderChunkBase::*GetSFFragmentProgramF)(void) const;
-
-    GetSFFragmentProgramF GetSFFragmentProgram = &ShaderChunkBase::getSFFragmentProgram;
-#endif
 
     pDesc = new SFString::Description(
         SFString::getClassType(),
@@ -132,20 +118,10 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
         FragmentProgramFieldId, FragmentProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editSFFragmentProgram),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFFragmentProgram));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getSFFragmentProgram));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleFragmentProgram),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleFragmentProgram));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(ShaderChunkBase::*GetSFGeometryProgramF)(void) const;
-
-    GetSFGeometryProgramF GetSFGeometryProgram = &ShaderChunkBase::getSFGeometryProgram;
-#endif
 
     pDesc = new SFString::Description(
         SFString::getClassType(),
@@ -154,12 +130,8 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
         GeometryProgramFieldId, GeometryProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editSFGeometryProgram),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGeometryProgram));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getSFGeometryProgram));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleGeometryProgram),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleGeometryProgram));
 
     oType.addInitialDesc(pDesc);
 }
@@ -386,6 +358,73 @@ ShaderChunkBase::ShaderChunkBase(const ShaderChunkBase &source) :
 
 ShaderChunkBase::~ShaderChunkBase(void)
 {
+}
+
+
+SFString::GetHandlePtr ShaderChunkBase::getHandleVertexProgram   (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfVertexProgram, 
+             this->getType().getFieldDesc(VertexProgramFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr ShaderChunkBase::editHandleVertexProgram  (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfVertexProgram, 
+             this->getType().getFieldDesc(VertexProgramFieldId)));
+
+    editSField(VertexProgramFieldMask);
+
+    return returnValue;
+}
+
+SFString::GetHandlePtr ShaderChunkBase::getHandleFragmentProgram (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfFragmentProgram, 
+             this->getType().getFieldDesc(FragmentProgramFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr ShaderChunkBase::editHandleFragmentProgram(void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfFragmentProgram, 
+             this->getType().getFieldDesc(FragmentProgramFieldId)));
+
+    editSField(FragmentProgramFieldMask);
+
+    return returnValue;
+}
+
+SFString::GetHandlePtr ShaderChunkBase::getHandleGeometryProgram (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfGeometryProgram, 
+             this->getType().getFieldDesc(GeometryProgramFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr ShaderChunkBase::editHandleGeometryProgram(void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfGeometryProgram, 
+             this->getType().getFieldDesc(GeometryProgramFieldId)));
+
+    editSField(GeometryProgramFieldMask);
+
+    return returnValue;
 }
 
 

@@ -65,6 +65,8 @@
 #include "OSGGeoMultiPropertyDataBase.h"
 #include "OSGGeoMultiPropertyData.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -93,12 +95,6 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFUInt8 *(GeoMultiPropertyDataBase::*GetMFIDataF)(void) const;
-
-    GetMFIDataF GetMFIData = &GeoMultiPropertyDataBase::getMFIData;
-#endif
-
     pDesc = new MFUInt8::Description(
         MFUInt8::getClassType(),
         "iData",
@@ -106,20 +102,10 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
         IDataFieldId, IDataFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editMFIData),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFIData));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getMFIData));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editHandleIData),
+        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getHandleIData));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(GeoMultiPropertyDataBase::*GetSFGLIdF)(void) const;
-
-    GetSFGLIdF GetSFGLId = &GeoMultiPropertyDataBase::getSFGLId;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -128,12 +114,8 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editSFGLId),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getSFGLId));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editHandleGLId),
+        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -433,6 +415,51 @@ GeoMultiPropertyDataBase::GeoMultiPropertyDataBase(const GeoMultiPropertyDataBas
 
 GeoMultiPropertyDataBase::~GeoMultiPropertyDataBase(void)
 {
+}
+
+
+MFUInt8::GetHandlePtr GeoMultiPropertyDataBase::getHandleIData           (void)
+{
+    MFUInt8::GetHandlePtr returnValue(
+        new  MFUInt8::GetHandle(
+             &_mfIData, 
+             this->getType().getFieldDesc(IDataFieldId)));
+
+    return returnValue;
+}
+
+MFUInt8::EditHandlePtr GeoMultiPropertyDataBase::editHandleIData          (void)
+{
+    MFUInt8::EditHandlePtr returnValue(
+        new  MFUInt8::EditHandle(
+             &_mfIData, 
+             this->getType().getFieldDesc(IDataFieldId)));
+
+    editMField(IDataFieldMask, _mfIData);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr GeoMultiPropertyDataBase::getHandleGLId            (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr GeoMultiPropertyDataBase::editHandleGLId           (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfGLId, 
+             this->getType().getFieldDesc(GLIdFieldId)));
+
+    editSField(GLIdFieldMask);
+
+    return returnValue;
 }
 
 

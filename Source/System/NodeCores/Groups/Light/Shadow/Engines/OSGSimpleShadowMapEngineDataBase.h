@@ -190,29 +190,6 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32               uiIndex,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void replaceInMField (const UInt32               uiIndex,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void replaceInMField (      FieldBundlePConstArg pOldElement,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void removeFromMField(const UInt32               uiIndex,
-                                  const UInt32               uiFieldId  );
-
-    virtual void removeFromMField(      FieldBundlePConstArg pElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void clearField      (const UInt32               uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -288,6 +265,26 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \{                                                                 */
 
     void onCreate(const SimpleShadowMapEngineData *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFCameraPtr::GetHandlePtr  getHandleCamera          (void);
+    SFCameraPtr::EditHandlePtr editHandleCamera         (void);
+    SFTextureObjChunkPtr::GetHandlePtr  getHandleTexChunk        (void);
+    SFTextureObjChunkPtr::EditHandlePtr editHandleTexChunk       (void);
+    SFTextureBufferPtr::GetHandlePtr  getHandleTexBuffer       (void);
+    SFTextureBufferPtr::EditHandlePtr editHandleTexBuffer      (void);
+    SFLightChunkPtr::GetHandlePtr  getHandleLightChunk      (void);
+    SFLightChunkPtr::EditHandlePtr editHandleLightChunk     (void);
+    SFBlendChunkPtr::GetHandlePtr  getHandleBlendChunk      (void);
+    SFBlendChunkPtr::EditHandlePtr editHandleBlendChunk     (void);
+    SFTexGenChunkPtr::GetHandlePtr  getHandleTexGenChunk     (void);
+    SFTexGenChunkPtr::EditHandlePtr editHandleTexGenChunk    (void);
+    SFPolygonChunkPtr::GetHandlePtr  getHandlePolyChunk       (void);
+    SFPolygonChunkPtr::EditHandlePtr editHandlePolyChunk      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

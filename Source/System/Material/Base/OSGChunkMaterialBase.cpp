@@ -66,6 +66,8 @@
 #include "OSGChunkMaterialBase.h"
 #include "OSGChunkMaterial.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -109,16 +111,10 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
         ChunksFieldId, ChunksFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ChunkMaterialBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ChunkMaterialBase::getMFChunks));
+        reinterpret_cast<FieldEditMethodSig>(&ChunkMaterialBase::editHandleChunks),
+        reinterpret_cast<FieldGetMethodSig >(&ChunkMaterialBase::getHandleChunks));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFInt32 *(ChunkMaterialBase::*GetMFSlotsF)(void) const;
-
-    GetMFSlotsF GetMFSlots = &ChunkMaterialBase::getMFSlots;
-#endif
 
     pDesc = new MFInt32::Description(
         MFInt32::getClassType(),
@@ -127,12 +123,8 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
         SlotsFieldId, SlotsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ChunkMaterialBase::editMFSlots),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFSlots));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ChunkMaterialBase::getMFSlots));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ChunkMaterialBase::editHandleSlots),
+        reinterpret_cast<FieldGetMethodSig >(&ChunkMaterialBase::getHandleSlots));
 
     oType.addInitialDesc(pDesc);
 }
@@ -241,93 +233,6 @@ MFInt32             *ChunkMaterialBase::getMFSlots          (void)
 #endif
 
 
-void ChunkMaterialBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<ChunkMaterial *>(this)->pushToChunks(
-            dynamic_cast<StateChunkPtr>(pNewElement));
-    }
-}
-
-void ChunkMaterialBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<ChunkMaterial *>(this)->insertIntoChunks(
-            uiIndex,
-            dynamic_cast<StateChunkPtr>(pNewElement));
-    }
-}
-
-void ChunkMaterialBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<ChunkMaterial *>(this)->replaceInChunks(
-            uiIndex,
-            dynamic_cast<StateChunkPtr>(pNewElement));
-    }
-}
-
-void ChunkMaterialBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<ChunkMaterial *>(this)->replaceInChunks(
-            dynamic_cast<StateChunkPtr>(pOldElement),
-            dynamic_cast<StateChunkPtr>(pNewElement));
-    }
-}
-
-void ChunkMaterialBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<ChunkMaterial *>(this)->removeFromChunks(
-            uiIndex);
-    }
-}
-
-void ChunkMaterialBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<ChunkMaterial *>(this)->removeFromChunks(
-            dynamic_cast<StateChunkPtr>(pElement));
-    }
-}
-
-void ChunkMaterialBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == ChunksFieldId)
-    {
-        static_cast<ChunkMaterial *>(this)->clearChunks();
-    }
-}
 
 void ChunkMaterialBase::pushToChunks(StateChunkPtrConstArg value)
 {
@@ -660,6 +565,53 @@ void ChunkMaterialBase::onCreate(const ChunkMaterial *source)
         }
     }
 }
+
+MFStateChunkPtr::GetHandlePtr ChunkMaterialBase::getHandleChunks          (void)
+{
+    MFStateChunkPtr::GetHandlePtr returnValue(
+        new  MFStateChunkPtr::GetHandle(
+             &_mfChunks, 
+             this->getType().getFieldDesc(ChunksFieldId)));
+
+    return returnValue;
+}
+
+MFStateChunkPtr::EditHandlePtr ChunkMaterialBase::editHandleChunks         (void)
+{
+    MFStateChunkPtr::EditHandlePtr returnValue(
+        new  MFStateChunkPtr::EditHandle(
+             &_mfChunks, 
+             this->getType().getFieldDesc(ChunksFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&ChunkMaterial::pushToChunks, this, _1));
+
+    editMField(ChunksFieldMask, _mfChunks);
+
+    return returnValue;
+}
+
+MFInt32::GetHandlePtr ChunkMaterialBase::getHandleSlots           (void)
+{
+    MFInt32::GetHandlePtr returnValue(
+        new  MFInt32::GetHandle(
+             &_mfSlots, 
+             this->getType().getFieldDesc(SlotsFieldId)));
+
+    return returnValue;
+}
+
+MFInt32::EditHandlePtr ChunkMaterialBase::editHandleSlots          (void)
+{
+    MFInt32::EditHandlePtr returnValue(
+        new  MFInt32::EditHandle(
+             &_mfSlots, 
+             this->getType().getFieldDesc(SlotsFieldId)));
+
+    editMField(SlotsFieldMask, _mfSlots);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ChunkMaterialBase::execSyncV(      FieldContainer    &oFrom,

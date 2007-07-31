@@ -65,6 +65,8 @@
 #include "OSGShaderParameterMMatrixBase.h"
 #include "OSGShaderParameterMMatrix.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void ShaderParameterMMatrixBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFMatrix *(ShaderParameterMMatrixBase::*GetMFValueF)(void) const;
-
-    GetMFValueF GetMFValue = &ShaderParameterMMatrixBase::getMFValue;
-#endif
-
     pDesc = new MFMatrix::Description(
         MFMatrix::getClassType(),
         "value",
@@ -102,12 +98,8 @@ void ShaderParameterMMatrixBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMMatrixBase::editMFValue),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFValue));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMMatrixBase::getMFValue));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMMatrixBase::editHandleValue),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMMatrixBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -364,6 +356,29 @@ ShaderParameterMMatrixBase::ShaderParameterMMatrixBase(const ShaderParameterMMat
 
 ShaderParameterMMatrixBase::~ShaderParameterMMatrixBase(void)
 {
+}
+
+
+MFMatrix::GetHandlePtr ShaderParameterMMatrixBase::getHandleValue           (void)
+{
+    MFMatrix::GetHandlePtr returnValue(
+        new  MFMatrix::GetHandle(
+             &_mfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    return returnValue;
+}
+
+MFMatrix::EditHandlePtr ShaderParameterMMatrixBase::editHandleValue          (void)
+{
+    MFMatrix::EditHandlePtr returnValue(
+        new  MFMatrix::EditHandle(
+             &_mfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    editMField(ValueFieldMask, _mfValue);
+
+    return returnValue;
 }
 
 

@@ -65,6 +65,8 @@
 #include "OSGSolidBackgroundBase.h"
 #include "OSGSolidBackground.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -98,12 +100,6 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFColor3r *(SolidBackgroundBase::*GetSFColorF)(void) const;
-
-    GetSFColorF GetSFColor = &SolidBackgroundBase::getSFColor;
-#endif
-
     pDesc = new SFColor3r::Description(
         SFColor3r::getClassType(),
         "color",
@@ -111,20 +107,10 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SolidBackgroundBase::editSFColor),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFColor));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SolidBackgroundBase::getSFColor));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SolidBackgroundBase::editHandleColor),
+        reinterpret_cast<FieldGetMethodSig >(&SolidBackgroundBase::getHandleColor));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(SolidBackgroundBase::*GetSFAlphaF)(void) const;
-
-    GetSFAlphaF GetSFAlpha = &SolidBackgroundBase::getSFAlpha;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -133,12 +119,8 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SolidBackgroundBase::editSFAlpha),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFAlpha));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SolidBackgroundBase::getSFAlpha));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SolidBackgroundBase::editHandleAlpha),
+        reinterpret_cast<FieldGetMethodSig >(&SolidBackgroundBase::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
 }
@@ -364,6 +346,51 @@ SolidBackgroundBase::SolidBackgroundBase(const SolidBackgroundBase &source) :
 
 SolidBackgroundBase::~SolidBackgroundBase(void)
 {
+}
+
+
+SFColor3r::GetHandlePtr SolidBackgroundBase::getHandleColor           (void)
+{
+    SFColor3r::GetHandlePtr returnValue(
+        new  SFColor3r::GetHandle(
+             &_sfColor, 
+             this->getType().getFieldDesc(ColorFieldId)));
+
+    return returnValue;
+}
+
+SFColor3r::EditHandlePtr SolidBackgroundBase::editHandleColor          (void)
+{
+    SFColor3r::EditHandlePtr returnValue(
+        new  SFColor3r::EditHandle(
+             &_sfColor, 
+             this->getType().getFieldDesc(ColorFieldId)));
+
+    editSField(ColorFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr SolidBackgroundBase::getHandleAlpha           (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfAlpha, 
+             this->getType().getFieldDesc(AlphaFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr SolidBackgroundBase::editHandleAlpha          (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfAlpha, 
+             this->getType().getFieldDesc(AlphaFieldId)));
+
+    editSField(AlphaFieldMask);
+
+    return returnValue;
 }
 
 

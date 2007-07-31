@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(CoreGLWindow);
 
 template <>
 struct FieldTraits<CoreGLWindowPtr> :
-    public FieldTraitsTemplateBase<CoreGLWindowPtr>
+    public FieldTraitsFCPtrBase<CoreGLWindowPtr>
 {
   private:
 

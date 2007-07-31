@@ -65,6 +65,8 @@
 #include "OSGShaderParameterBoolBase.h"
 #include "OSGShaderParameterBool.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void ShaderParameterBoolBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(ShaderParameterBoolBase::*GetSFValueF)(void) const;
-
-    GetSFValueF GetSFValue = &ShaderParameterBoolBase::getSFValue;
-#endif
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "value",
@@ -102,12 +98,8 @@ void ShaderParameterBoolBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterBoolBase::editSFValue),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFValue));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterBoolBase::getSFValue));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterBoolBase::editHandleValue),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterBoolBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -282,6 +274,29 @@ ShaderParameterBoolBase::ShaderParameterBoolBase(const ShaderParameterBoolBase &
 
 ShaderParameterBoolBase::~ShaderParameterBoolBase(void)
 {
+}
+
+
+SFBool::GetHandlePtr ShaderParameterBoolBase::getHandleValue           (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr ShaderParameterBoolBase::editHandleValue          (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    editSField(ValueFieldMask);
+
+    return returnValue;
 }
 
 

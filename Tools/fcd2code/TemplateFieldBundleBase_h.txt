@@ -251,29 +251,6 @@ class @!Classname!@Base : public @!Parent!@
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32               uiIndex,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void replaceInMField (const UInt32               uiIndex,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void replaceInMField (      FieldBundlePConstArg pOldElement,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void removeFromMField(const UInt32               uiIndex,
-                                  const UInt32               uiFieldId  );
-
-    virtual void removeFromMField(      FieldBundlePConstArg pElement,
-                                  const UInt32               uiFieldId  );
-
-    virtual void clearField      (const UInt32               uiFieldId  );
-
     /*! \}                                                                 */
     @@endif // hasPtrFields
     /*---------------------------------------------------------------------*/
@@ -418,6 +395,16 @@ class @!Classname!@Base : public @!Parent!@
 @@if hasPtrFields
     void onCreate(const @!Classname!@ *source = NULL);
 @@endif // hasPtrFields
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    @@BeginFieldLoop@@
+    @!field.CARD!@@!field.TypeCaps!@::GetHandlePtr  getHandle@!field.Name:15!@ (void);
+    @!field.CARD!@@!field.TypeCaps!@::EditHandlePtr editHandle@!field.Name:15!@(void);
+    @@EndFieldLoop@@
 
     /*! \}                                                                 */
 @@if hasProtectedFields

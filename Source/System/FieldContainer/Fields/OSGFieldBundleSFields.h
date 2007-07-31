@@ -59,6 +59,7 @@ typedef SField<FieldBundleP> SFFieldBundleP;
 //                          OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
+#if 0
 template <>
 OSG_SYSTEM_DLLMAPPING
 void
@@ -84,6 +85,7 @@ FieldDescription<FieldTraits<FieldBundleP>,
     const std::vector<const FieldContainerType*> &ignoreTypes,
     const std::vector<UInt16>                    &cloneGroupIds,
     const std::vector<UInt16>                    &ignoreGroupIds) const;
+#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */

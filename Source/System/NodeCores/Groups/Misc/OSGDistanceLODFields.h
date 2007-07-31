@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(DistanceLOD);
 
 template <>
 struct FieldTraits<DistanceLODPtr> :
-    public FieldTraitsTemplateBase<DistanceLODPtr>
+    public FieldTraitsFCPtrBase<DistanceLODPtr>
 {
   private:
 

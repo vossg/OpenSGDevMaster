@@ -66,6 +66,8 @@
 #include "OSGSHLParameterChunkBase.h"
 #include "OSGSHLParameterChunk.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -97,8 +99,8 @@ void SHLParameterChunkBase::classDescInserter(TypeObject &oType)
         SHLChunkFieldId, SHLChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SHLParameterChunkBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SHLParameterChunkBase::getSFSHLChunk));
+        reinterpret_cast<FieldEditMethodSig>(&SHLParameterChunkBase::editHandleSHLChunk),
+        reinterpret_cast<FieldGetMethodSig >(&SHLParameterChunkBase::getHandleSHLChunk));
 
     oType.addInitialDesc(pDesc);
 }
@@ -167,65 +169,6 @@ const SFSHLChunkPtr *SHLParameterChunkBase::getSFSHLChunk(void) const
 }
 
 
-void SHLParameterChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == SHLChunkFieldId)
-    {
-        static_cast<SHLParameterChunk *>(this)->setSHLChunk(
-            dynamic_cast<SHLChunkPtr>(pNewElement));
-    }
-}
-
-void SHLParameterChunkBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void SHLParameterChunkBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void SHLParameterChunkBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void SHLParameterChunkBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void SHLParameterChunkBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void SHLParameterChunkBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == SHLChunkFieldId)
-    {
-        static_cast<SHLParameterChunk *>(this)->setSHLChunk(NullFC);
-    }
-}
 
 
 
@@ -331,6 +274,31 @@ void SHLParameterChunkBase::onCreate(const SHLParameterChunk *source)
         this->setSHLChunk(source->getSHLChunk());
     }
 }
+
+SFSHLChunkPtr::GetHandlePtr SHLParameterChunkBase::getHandleSHLChunk        (void)
+{
+    SFSHLChunkPtr::GetHandlePtr returnValue(
+        new  SFSHLChunkPtr::GetHandle(
+             &_sfSHLChunk, 
+             this->getType().getFieldDesc(SHLChunkFieldId)));
+
+    return returnValue;
+}
+
+SFSHLChunkPtr::EditHandlePtr SHLParameterChunkBase::editHandleSHLChunk       (void)
+{
+    SFSHLChunkPtr::EditHandlePtr returnValue(
+        new  SFSHLChunkPtr::EditHandle(
+             &_sfSHLChunk, 
+             this->getType().getFieldDesc(SHLChunkFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&SHLParameterChunk::setSHLChunk, this, _1));
+
+    editSField(SHLChunkFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void SHLParameterChunkBase::execSyncV(      FieldContainer    &oFrom,

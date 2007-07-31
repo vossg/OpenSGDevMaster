@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ColorMaskChunk);
 
 template <>
 struct FieldTraits<ColorMaskChunkPtr> :
-    public FieldTraitsTemplateBase<ColorMaskChunkPtr>
+    public FieldTraitsFCPtrBase<ColorMaskChunkPtr>
 {
   private:
 

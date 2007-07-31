@@ -85,14 +85,14 @@ void ReflexiveContainer::copyFromBin(BinaryDataHandler  &,
 {
 }
 
-Field *ReflexiveContainer::invalidEditField(void)
+EditFieldHandlePtr ReflexiveContainer::invalidEditField(void)
 {
-    return NULL;
+    return EditFieldHandlePtr();
 }
 
-const Field *ReflexiveContainer::invalidGetField(void) const
+GetFieldHandlePtr ReflexiveContainer::invalidGetField(void) const
 {
-    return NULL;
+    return GetFieldHandlePtr();
 }
 
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING

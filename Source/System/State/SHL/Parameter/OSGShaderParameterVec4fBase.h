@@ -217,6 +217,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterVec4fBase : public ShaderParameter
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFVec4f::GetHandlePtr  getHandleValue           (void);
+    SFVec4f::EditHandlePtr editHandleValue          (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

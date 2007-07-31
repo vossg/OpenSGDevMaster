@@ -65,6 +65,8 @@
 #include "OSGPointLightBase.h"
 #include "OSGPointLight.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -93,12 +95,6 @@ void PointLightBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFPnt3r *(PointLightBase::*GetSFPositionF)(void) const;
-
-    GetSFPositionF GetSFPosition = &PointLightBase::getSFPosition;
-#endif
-
     pDesc = new SFPnt3r::Description(
         SFPnt3r::getClassType(),
         "position",
@@ -106,12 +102,8 @@ void PointLightBase::classDescInserter(TypeObject &oType)
         PositionFieldId, PositionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PointLightBase::editSFPosition),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFPosition));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&PointLightBase::getSFPosition));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&PointLightBase::editHandlePosition),
+        reinterpret_cast<FieldGetMethodSig >(&PointLightBase::getHandlePosition));
 
     oType.addInitialDesc(pDesc);
 }
@@ -293,6 +285,29 @@ PointLightBase::PointLightBase(const PointLightBase &source) :
 
 PointLightBase::~PointLightBase(void)
 {
+}
+
+
+SFPnt3r::GetHandlePtr PointLightBase::getHandlePosition        (void)
+{
+    SFPnt3r::GetHandlePtr returnValue(
+        new  SFPnt3r::GetHandle(
+             &_sfPosition, 
+             this->getType().getFieldDesc(PositionFieldId)));
+
+    return returnValue;
+}
+
+SFPnt3r::EditHandlePtr PointLightBase::editHandlePosition       (void)
+{
+    SFPnt3r::EditHandlePtr returnValue(
+        new  SFPnt3r::EditHandle(
+             &_sfPosition, 
+             this->getType().getFieldDesc(PositionFieldId)));
+
+    editSField(PositionFieldMask);
+
+    return returnValue;
 }
 
 

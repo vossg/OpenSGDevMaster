@@ -220,6 +220,16 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFInt32::GetHandlePtr  getHandleClearStencilBit (void);
+    SFInt32::EditHandlePtr editHandleClearStencilBit(void);
+    SFReal32::GetHandlePtr  getHandleDepth           (void);
+    SFReal32::EditHandlePtr editHandleDepth          (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

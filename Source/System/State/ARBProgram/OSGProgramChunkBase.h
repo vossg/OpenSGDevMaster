@@ -273,6 +273,20 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFString::GetHandlePtr  getHandleProgram         (void);
+    SFString::EditHandlePtr editHandleProgram        (void);
+    MFVec4f::GetHandlePtr  getHandleParamValues     (void);
+    MFVec4f::EditHandlePtr editHandleParamValues    (void);
+    MFString::GetHandlePtr  getHandleParamNames      (void);
+    MFString::EditHandlePtr editHandleParamNames     (void);
+    SFUInt32::GetHandlePtr  getHandleGLId            (void);
+    SFUInt32::EditHandlePtr editHandleGLId           (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 

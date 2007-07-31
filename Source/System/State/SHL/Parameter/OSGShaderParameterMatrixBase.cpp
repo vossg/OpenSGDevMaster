@@ -65,6 +65,8 @@
 #include "OSGShaderParameterMatrixBase.h"
 #include "OSGShaderParameterMatrix.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void ShaderParameterMatrixBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFMatrix *(ShaderParameterMatrixBase::*GetSFValueF)(void) const;
-
-    GetSFValueF GetSFValue = &ShaderParameterMatrixBase::getSFValue;
-#endif
-
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(),
         "value",
@@ -102,12 +98,8 @@ void ShaderParameterMatrixBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMatrixBase::editSFValue),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFValue));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMatrixBase::getSFValue));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMatrixBase::editHandleValue),
+        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMatrixBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -282,6 +274,29 @@ ShaderParameterMatrixBase::ShaderParameterMatrixBase(const ShaderParameterMatrix
 
 ShaderParameterMatrixBase::~ShaderParameterMatrixBase(void)
 {
+}
+
+
+SFMatrix::GetHandlePtr ShaderParameterMatrixBase::getHandleValue           (void)
+{
+    SFMatrix::GetHandlePtr returnValue(
+        new  SFMatrix::GetHandle(
+             &_sfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    return returnValue;
+}
+
+SFMatrix::EditHandlePtr ShaderParameterMatrixBase::editHandleValue          (void)
+{
+    SFMatrix::EditHandlePtr returnValue(
+        new  SFMatrix::EditHandle(
+             &_sfValue, 
+             this->getType().getFieldDesc(ValueFieldId)));
+
+    editSField(ValueFieldMask);
+
+    return returnValue;
 }
 
 

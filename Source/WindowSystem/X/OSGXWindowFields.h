@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(XWindow);
 
 template <>
 struct FieldTraits<XWindowPtr> :
-    public FieldTraitsTemplateBase<XWindowPtr>
+    public FieldTraitsFCPtrBase<XWindowPtr>
 {
   private:
 

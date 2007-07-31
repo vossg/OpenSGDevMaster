@@ -68,6 +68,8 @@
 #include "OSGSimpleStageBase.h"
 #include "OSGSimpleStage.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -124,12 +126,6 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(SimpleStageBase::*GetSFLeftF)(void) const;
-
-    GetSFLeftF GetSFLeft = &SimpleStageBase::getSFLeft;
-#endif
-
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "left",
@@ -139,20 +135,10 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editSFLeft),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFLeft));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getSFLeft));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleLeft),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleLeft));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(SimpleStageBase::*GetSFRightF)(void) const;
-
-    GetSFRightF GetSFRight = &SimpleStageBase::getSFRight;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -163,20 +149,10 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editSFRight),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFRight));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getSFRight));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleRight),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleRight));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(SimpleStageBase::*GetSFBottomF)(void) const;
-
-    GetSFBottomF GetSFBottom = &SimpleStageBase::getSFBottom;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -187,20 +163,10 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editSFBottom),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFBottom));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getSFBottom));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleBottom),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleBottom));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(SimpleStageBase::*GetSFTopF)(void) const;
-
-    GetSFTopF GetSFTop = &SimpleStageBase::getSFTop;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -211,12 +177,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         TopFieldId, TopFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editSFTop),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTop));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getSFTop));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleTop),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleTop));
 
     oType.addInitialDesc(pDesc);
 
@@ -227,8 +189,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SimpleStageBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getSFCamera));
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleCamera),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleCamera));
 
     oType.addInitialDesc(pDesc);
 
@@ -239,8 +201,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         BackgroundFieldId, BackgroundFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SimpleStageBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getSFBackground));
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleBackground),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleBackground));
 
     oType.addInitialDesc(pDesc);
 
@@ -251,8 +213,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         ForegroundsFieldId, ForegroundsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SimpleStageBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getMFForegrounds));
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleForegrounds),
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleForegrounds));
 
     oType.addInitialDesc(pDesc);
 }
@@ -478,111 +440,6 @@ const MFForegroundPtr *SimpleStageBase::getMFForegrounds(void) const
 }
 
 
-void SimpleStageBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == CameraFieldId)
-    {
-        static_cast<SimpleStage *>(this)->setCamera(
-            dynamic_cast<CameraPtr>(pNewElement));
-    }
-    if(uiFieldId == BackgroundFieldId)
-    {
-        static_cast<SimpleStage *>(this)->setBackground(
-            dynamic_cast<BackgroundPtr>(pNewElement));
-    }
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<SimpleStage *>(this)->pushToForegrounds(
-            dynamic_cast<ForegroundPtr>(pNewElement));
-    }
-}
-
-void SimpleStageBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<SimpleStage *>(this)->insertIntoForegrounds(
-            uiIndex,
-            dynamic_cast<ForegroundPtr>(pNewElement));
-    }
-}
-
-void SimpleStageBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<SimpleStage *>(this)->replaceInForegrounds(
-            uiIndex,
-            dynamic_cast<ForegroundPtr>(pNewElement));
-    }
-}
-
-void SimpleStageBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<SimpleStage *>(this)->replaceInForegrounds(
-            dynamic_cast<ForegroundPtr>(pOldElement),
-            dynamic_cast<ForegroundPtr>(pNewElement));
-    }
-}
-
-void SimpleStageBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<SimpleStage *>(this)->removeFromForegrounds(
-            uiIndex);
-    }
-}
-
-void SimpleStageBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<SimpleStage *>(this)->removeFromForegrounds(
-            dynamic_cast<ForegroundPtr>(pElement));
-    }
-}
-
-void SimpleStageBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == CameraFieldId)
-    {
-        static_cast<SimpleStage *>(this)->setCamera(NullFC);
-    }
-    if(uiFieldId == BackgroundFieldId)
-    {
-        static_cast<SimpleStage *>(this)->setBackground(NullFC);
-    }
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<SimpleStage *>(this)->clearForegrounds();
-    }
-}
 
 void SimpleStageBase::pushToForegrounds(ForegroundPtrConstArg value)
 {
@@ -923,6 +780,167 @@ void SimpleStageBase::onCreate(const SimpleStage *source)
         }
     }
 }
+
+SFReal32::GetHandlePtr SimpleStageBase::getHandleLeft            (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfLeft, 
+             this->getType().getFieldDesc(LeftFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr SimpleStageBase::editHandleLeft           (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfLeft, 
+             this->getType().getFieldDesc(LeftFieldId)));
+
+    editSField(LeftFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr SimpleStageBase::getHandleRight           (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfRight, 
+             this->getType().getFieldDesc(RightFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr SimpleStageBase::editHandleRight          (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfRight, 
+             this->getType().getFieldDesc(RightFieldId)));
+
+    editSField(RightFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr SimpleStageBase::getHandleBottom          (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfBottom, 
+             this->getType().getFieldDesc(BottomFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr SimpleStageBase::editHandleBottom         (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfBottom, 
+             this->getType().getFieldDesc(BottomFieldId)));
+
+    editSField(BottomFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr SimpleStageBase::getHandleTop             (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfTop, 
+             this->getType().getFieldDesc(TopFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr SimpleStageBase::editHandleTop            (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfTop, 
+             this->getType().getFieldDesc(TopFieldId)));
+
+    editSField(TopFieldMask);
+
+    return returnValue;
+}
+
+SFCameraPtr::GetHandlePtr SimpleStageBase::getHandleCamera          (void)
+{
+    SFCameraPtr::GetHandlePtr returnValue(
+        new  SFCameraPtr::GetHandle(
+             &_sfCamera, 
+             this->getType().getFieldDesc(CameraFieldId)));
+
+    return returnValue;
+}
+
+SFCameraPtr::EditHandlePtr SimpleStageBase::editHandleCamera         (void)
+{
+    SFCameraPtr::EditHandlePtr returnValue(
+        new  SFCameraPtr::EditHandle(
+             &_sfCamera, 
+             this->getType().getFieldDesc(CameraFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&SimpleStage::setCamera, this, _1));
+
+    editSField(CameraFieldMask);
+
+    return returnValue;
+}
+
+SFBackgroundPtr::GetHandlePtr SimpleStageBase::getHandleBackground      (void)
+{
+    SFBackgroundPtr::GetHandlePtr returnValue(
+        new  SFBackgroundPtr::GetHandle(
+             &_sfBackground, 
+             this->getType().getFieldDesc(BackgroundFieldId)));
+
+    return returnValue;
+}
+
+SFBackgroundPtr::EditHandlePtr SimpleStageBase::editHandleBackground     (void)
+{
+    SFBackgroundPtr::EditHandlePtr returnValue(
+        new  SFBackgroundPtr::EditHandle(
+             &_sfBackground, 
+             this->getType().getFieldDesc(BackgroundFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&SimpleStage::setBackground, this, _1));
+
+    editSField(BackgroundFieldMask);
+
+    return returnValue;
+}
+
+MFForegroundPtr::GetHandlePtr SimpleStageBase::getHandleForegrounds     (void)
+{
+    MFForegroundPtr::GetHandlePtr returnValue(
+        new  MFForegroundPtr::GetHandle(
+             &_mfForegrounds, 
+             this->getType().getFieldDesc(ForegroundsFieldId)));
+
+    return returnValue;
+}
+
+MFForegroundPtr::EditHandlePtr SimpleStageBase::editHandleForegrounds    (void)
+{
+    MFForegroundPtr::EditHandlePtr returnValue(
+        new  MFForegroundPtr::EditHandle(
+             &_mfForegrounds, 
+             this->getType().getFieldDesc(ForegroundsFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&SimpleStage::pushToForegrounds, this, _1));
+
+    editMField(ForegroundsFieldMask, _mfForegrounds);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void SimpleStageBase::execSyncV(      FieldContainer    &oFrom,

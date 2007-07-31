@@ -62,8 +62,8 @@ void TestFC::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(TestFC::Field1),
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestFC::editMFField1),
-        reinterpret_cast<FieldGetMethodSig >(&TestFC::getMFField1 ));
+        reinterpret_cast<FieldEditMethodSig>(&TestFC::editHandleField1),
+        reinterpret_cast<FieldGetMethodSig >(&TestFC::getHandleField1 ));
 
     oType.addInitialDesc(pDesc);
 
@@ -74,8 +74,8 @@ void TestFC::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(TestFC::Field2),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestFC::editSFField2),
-        reinterpret_cast<FieldGetMethodSig >(&TestFC::getSFField2 ));
+        reinterpret_cast<FieldEditMethodSig>(&TestFC::editHandleField2),
+        reinterpret_cast<FieldGetMethodSig >(&TestFC::getHandleField2 ));
 
     oType.addInitialDesc(pDesc);
 
@@ -86,8 +86,8 @@ void TestFC::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(TestFC::Field3),
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestFC::editMFField3),
-        reinterpret_cast<FieldGetMethodSig >(&TestFC::getMFField3 ));
+        reinterpret_cast<FieldEditMethodSig>(&TestFC::editHandleField3),
+        reinterpret_cast<FieldGetMethodSig >(&TestFC::getHandleField3 ));
 
     oType.addInitialDesc(pDesc);
 }
@@ -254,40 +254,69 @@ void TestFC::resolveLinks(void)
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
 
-void TestFC::pushToField(const FieldContainerPtrConstArg pNewElement,
-                         const UInt32                    whichField )
+MFUInt32::EditHandlePtr TestFC::editHandleField1(void)
 {
+    MFUInt32::EditHandlePtr returnValue(
+        new  MFUInt32::EditHandle(
+             &_mfField1, 
+             this->getType().getFieldDesc(Field1FieldId)));
+
+    editMField(Field1FieldMask, _mfField1);
+
+    return returnValue;
 }
 
-void TestFC::insertIntoMField(const UInt32                    uiIndex, 
-                                    FieldContainerPtrConstArg pNewElement,
-                              const UInt32                    whichField )
+MFUInt32::GetHandlePtr  TestFC::getHandleField1 (void) const
 {
+    MFUInt32::GetHandlePtr returnValue(
+        new  MFUInt32::GetHandle(
+             &_mfField1, 
+             this->getType().getFieldDesc(Field1FieldId)));
+
+    return returnValue;
 }
 
-void TestFC::replaceInMField(const UInt32                    uiIndex,
-                                   FieldContainerPtrConstArg pNewElement, 
-                             const UInt32                    whichField )
+SFUInt32::EditHandlePtr TestFC::editHandleField2(void)
 {
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfField2, 
+             this->getType().getFieldDesc(Field2FieldId)));
+
+    editSField(Field2FieldMask);
+
+    return returnValue;
 }
 
-void TestFC::replaceInMField(      FieldContainerPtrConstArg pOldElement,
-                                   FieldContainerPtrConstArg pNewElement, 
-                             const UInt32                    whichField )
+SFUInt32::GetHandlePtr  TestFC::getHandleField2 (void) const
 {
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfField2, 
+             this->getType().getFieldDesc(Field2FieldId)));
+
+    return returnValue;
 }
 
 
-void TestFC::removeFromMField(const UInt32 uiIndex, 
-                              const UInt32 whichField)
+MFUInt32::EditHandlePtr TestFC::editHandleField3(void)
 {
-}
-    
-void TestFC::removeFromMField(      FieldContainerPtrConstArg pElement, 
-                              const UInt32                    whichField)
-{
+    MFUInt32::EditHandlePtr returnValue(
+        new  MFUInt32::EditHandle(
+             &_mfField3, 
+             this->getType().getFieldDesc(Field3FieldId)));
+
+    editMField(Field3FieldMask, _mfField3);
+
+    return returnValue;
 }
 
-void TestFC::clearField(const UInt32 whichField)
+MFUInt32::GetHandlePtr  TestFC::getHandleField3 (void) const
 {
+    MFUInt32::GetHandlePtr returnValue(
+        new  MFUInt32::GetHandle(
+             &_mfField3, 
+             this->getType().getFieldDesc(Field3FieldId)));
+
+    return returnValue;
 }

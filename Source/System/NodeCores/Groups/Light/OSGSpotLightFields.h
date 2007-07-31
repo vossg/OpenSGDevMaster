@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(SpotLight);
 
 template <>
 struct FieldTraits<SpotLightPtr> :
-    public FieldTraitsTemplateBase<SpotLightPtr>
+    public FieldTraitsFCPtrBase<SpotLightPtr>
 {
   private:
 

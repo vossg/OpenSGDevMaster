@@ -232,6 +232,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterMRealBase : public ShaderParameter
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFReal32::GetHandlePtr  getHandleValue           (void);
+    MFReal32::EditHandlePtr editHandleValue          (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

@@ -61,7 +61,7 @@ void FieldBundleAttachment::classDescInserter(TypeObject &oType)
         true,
         Field::MFDefaultFlags,
         static_cast     <FieldEditMethodSig>(&Self::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&Self::getMFParents),
+        reinterpret_cast<FieldGetMethodSig >(&Self::getHandleParents),
         NULL);
 
     oType.addInitialDesc(pDesc);
@@ -74,8 +74,8 @@ void FieldBundleAttachment::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Self::Internal),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Self::editSFInternal),
-        reinterpret_cast<FieldGetMethodSig >(&Self::getSFInternal),
+        reinterpret_cast<FieldEditMethodSig>(&Self::editInternalHandler),
+        reinterpret_cast<FieldGetMethodSig >(&Self::getInternalHandler ),
         NULL);
 
     oType.addInitialDesc(pDesc);
@@ -172,6 +172,39 @@ void FieldBundleAttachment::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfInternal.copyFromBin(pMem);
     }
+}
+
+SFBool::EditHandlePtr FieldBundleAttachment::editInternalHandler(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfInternal, 
+             this->getType().getFieldDesc(InternalFieldId)));
+
+    editSField(InternalFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr FieldBundleAttachment::getInternalHandler(void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfInternal, 
+             this->getType().getFieldDesc(InternalFieldId)));
+
+    return returnValue;
+}
+
+MFParentFieldBundleP::GetHandlePtr  
+    FieldBundleAttachment::getHandleParents(void)
+{
+    MFParentFieldBundleP::GetHandlePtr returnValue(
+        new  MFParentFieldBundleP::GetHandle(
+             &_mfParents, 
+             this->getType().getFieldDesc(ParentsFieldId)));
+
+    return returnValue;
 }
 
 /*-------------------------------------------------------------------------*/

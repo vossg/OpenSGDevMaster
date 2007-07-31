@@ -65,6 +65,8 @@
 #include "OSGMaterialBase.h"
 #include "OSGMaterial.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -106,12 +108,6 @@ void MaterialBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(MaterialBase::*GetSFSortKeyF)(void) const;
-
-    GetSFSortKeyF GetSFSortKey = &MaterialBase::getSFSortKey;
-#endif
-
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
         "sortKey",
@@ -119,20 +115,10 @@ void MaterialBase::classDescInserter(TypeObject &oType)
         SortKeyFieldId, SortKeyFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialBase::editSFSortKey),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFSortKey));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&MaterialBase::getSFSortKey));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&MaterialBase::editHandleSortKey),
+        reinterpret_cast<FieldGetMethodSig >(&MaterialBase::getHandleSortKey));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFInt32 *(MaterialBase::*GetSFTransparencyModeF)(void) const;
-
-    GetSFTransparencyModeF GetSFTransparencyMode = &MaterialBase::getSFTransparencyMode;
-#endif
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
@@ -141,12 +127,8 @@ void MaterialBase::classDescInserter(TypeObject &oType)
         TransparencyModeFieldId, TransparencyModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialBase::editSFTransparencyMode),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTransparencyMode));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&MaterialBase::getSFTransparencyMode));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&MaterialBase::editHandleTransparencyMode),
+        reinterpret_cast<FieldGetMethodSig >(&MaterialBase::getHandleTransparencyMode));
 
     oType.addInitialDesc(pDesc);
 }
@@ -359,6 +341,51 @@ MaterialBase::MaterialBase(const MaterialBase &source) :
 
 MaterialBase::~MaterialBase(void)
 {
+}
+
+
+SFInt32::GetHandlePtr MaterialBase::getHandleSortKey         (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfSortKey, 
+             this->getType().getFieldDesc(SortKeyFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr MaterialBase::editHandleSortKey        (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfSortKey, 
+             this->getType().getFieldDesc(SortKeyFieldId)));
+
+    editSField(SortKeyFieldMask);
+
+    return returnValue;
+}
+
+SFInt32::GetHandlePtr MaterialBase::getHandleTransparencyMode (void)
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfTransparencyMode, 
+             this->getType().getFieldDesc(TransparencyModeFieldId)));
+
+    return returnValue;
+}
+
+SFInt32::EditHandlePtr MaterialBase::editHandleTransparencyMode(void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfTransparencyMode, 
+             this->getType().getFieldDesc(TransparencyModeFieldId)));
+
+    editSField(TransparencyModeFieldMask);
+
+    return returnValue;
 }
 
 

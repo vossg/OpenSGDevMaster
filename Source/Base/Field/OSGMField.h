@@ -48,6 +48,9 @@
 #include "OSGFieldType.h"
 #include "OSGMFieldVector.h"
 #include "OSGBinaryDataHandler.h"
+#include "OSGFieldHandle.h"
+
+#include <boost/shared_ptr.hpp>
 
 #include <algorithm>
 
@@ -97,8 +100,32 @@ class MField : public Field
 
     typedef typename MFieldTraits::ArgumentType         ArgumentType;
 
+#if 1
     typedef          FieldDescription<MFieldTraits,
                                       MultiField     >  Description;
+#else
+    typedef FieldDescriptionBase Description;
+#endif
+
+#if 0
+    typedef typename
+    boost::mpl::if_<boost::mpl::bool_<MFieldTraits::bIsPointerField>,
+                    EditFCPtrMFieldHandle<Self>,
+                    EditMFieldHandle     <Self>  >::type  EditHandle;
+#endif
+
+    typedef EditMFieldHandle <Self      > EditHandle;
+    typedef boost::shared_ptr<EditHandle> EditHandlePtr;
+
+#if 0
+    typedef typename
+    boost::mpl::if_<boost::mpl::bool_<MFieldTraits::bIsPointerField>,
+                    GetFCPtrMFieldHandle<Self> ,
+                    GetMFieldHandle     <Self> >::type  GetHandle;
+#endif
+
+    typedef GetMFieldHandle  <Self     > GetHandle;
+    typedef boost::shared_ptr<GetHandle> GetHandlePtr;
 
     static const Int32 Namespace = iNamespace;
 

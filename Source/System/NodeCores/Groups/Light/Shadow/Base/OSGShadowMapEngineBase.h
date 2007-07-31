@@ -229,29 +229,6 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public ShadowMapEnginePare
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -311,6 +288,24 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public ShadowMapEnginePare
     /*! \{                                                                 */
 
     void onCreate(const ShadowMapEngine *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFFrameBufferObjectPtr::GetHandlePtr  getHandleRenderTarget    (void);
+    SFFrameBufferObjectPtr::EditHandlePtr editHandleRenderTarget   (void);
+    SFInt32::GetHandlePtr  getHandleWidth           (void);
+    SFInt32::EditHandlePtr editHandleWidth          (void);
+    SFInt32::GetHandlePtr  getHandleHeight          (void);
+    SFInt32::EditHandlePtr editHandleHeight         (void);
+    SFColor4f::GetHandlePtr  getHandleShadowColor     (void);
+    SFColor4f::EditHandlePtr editHandleShadowColor    (void);
+    SFReal32::GetHandlePtr  getHandleOffsetBias      (void);
+    SFReal32::EditHandlePtr editHandleOffsetBias     (void);
+    SFReal32::GetHandlePtr  getHandleOffsetFactor    (void);
+    SFReal32::EditHandlePtr editHandleOffsetFactor   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

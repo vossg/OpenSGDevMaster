@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(Algorithm);
 
 template <>
 struct FieldTraits<AlgorithmPtr> :
-    public FieldTraitsTemplateBase<AlgorithmPtr>
+    public FieldTraitsFCPtrBase<AlgorithmPtr>
 {
   private:
 

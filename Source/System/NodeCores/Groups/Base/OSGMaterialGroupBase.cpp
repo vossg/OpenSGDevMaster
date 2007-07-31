@@ -66,6 +66,8 @@
 #include "OSGMaterialGroupBase.h"
 #include "OSGMaterialGroup.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -100,8 +102,8 @@ void MaterialGroupBase::classDescInserter(TypeObject &oType)
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&MaterialGroupBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialGroupBase::getSFMaterial));
+        reinterpret_cast<FieldEditMethodSig>(&MaterialGroupBase::editHandleMaterial),
+        reinterpret_cast<FieldGetMethodSig >(&MaterialGroupBase::getHandleMaterial));
 
     oType.addInitialDesc(pDesc);
 }
@@ -176,65 +178,6 @@ const SFMaterialPtr *MaterialGroupBase::getSFMaterial(void) const
 }
 
 
-void MaterialGroupBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == MaterialFieldId)
-    {
-        static_cast<MaterialGroup *>(this)->setMaterial(
-            dynamic_cast<MaterialPtr>(pNewElement));
-    }
-}
-
-void MaterialGroupBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void MaterialGroupBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-}
-
-void MaterialGroupBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-}
-
-void MaterialGroupBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-}
-
-void MaterialGroupBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-}
-
-void MaterialGroupBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == MaterialFieldId)
-    {
-        static_cast<MaterialGroup *>(this)->setMaterial(NullFC);
-    }
-}
 
 
 
@@ -340,6 +283,31 @@ void MaterialGroupBase::onCreate(const MaterialGroup *source)
         this->setMaterial(source->getMaterial());
     }
 }
+
+SFMaterialPtr::GetHandlePtr MaterialGroupBase::getHandleMaterial        (void)
+{
+    SFMaterialPtr::GetHandlePtr returnValue(
+        new  SFMaterialPtr::GetHandle(
+             &_sfMaterial, 
+             this->getType().getFieldDesc(MaterialFieldId)));
+
+    return returnValue;
+}
+
+SFMaterialPtr::EditHandlePtr MaterialGroupBase::editHandleMaterial       (void)
+{
+    SFMaterialPtr::EditHandlePtr returnValue(
+        new  SFMaterialPtr::EditHandle(
+             &_sfMaterial, 
+             this->getType().getFieldDesc(MaterialFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&MaterialGroup::setMaterial, this, _1));
+
+    editSField(MaterialFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void MaterialGroupBase::execSyncV(      FieldContainer    &oFrom,

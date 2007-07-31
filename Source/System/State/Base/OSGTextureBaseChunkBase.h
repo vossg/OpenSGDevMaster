@@ -202,6 +202,14 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFGLenum::GetHandlePtr  getHandleTarget          (void);
+    SFGLenum::EditHandlePtr editHandleTarget         (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

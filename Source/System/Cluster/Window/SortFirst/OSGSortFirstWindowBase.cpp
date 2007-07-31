@@ -65,6 +65,8 @@
 #include "OSGSortFirstWindowBase.h"
 #include "OSGSortFirstWindow.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -105,12 +107,6 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFString *(SortFirstWindowBase::*GetSFCompressionF)(void) const;
-
-    GetSFCompressionF GetSFCompression = &SortFirstWindowBase::getSFCompression;
-#endif
-
     pDesc = new SFString::Description(
         SFString::getClassType(),
         "compression",
@@ -118,20 +114,10 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         CompressionFieldId, CompressionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editSFCompression),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFCompression));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getSFCompression));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleCompression),
+        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleCompression));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(SortFirstWindowBase::*GetSFSubtileSizeF)(void) const;
-
-    GetSFSubtileSizeF GetSFSubtileSize = &SortFirstWindowBase::getSFSubtileSize;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -140,20 +126,10 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         SubtileSizeFieldId, SubtileSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editSFSubtileSize),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFSubtileSize));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getSFSubtileSize));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleSubtileSize),
+        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleSubtileSize));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(SortFirstWindowBase::*GetSFComposeF)(void) const;
-
-    GetSFComposeF GetSFCompose = &SortFirstWindowBase::getSFCompose;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -162,20 +138,10 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         ComposeFieldId, ComposeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editSFCompose),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFCompose));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getSFCompose));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleCompose),
+        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleCompose));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const MFUInt32 *(SortFirstWindowBase::*GetMFRegionF)(void) const;
-
-    GetMFRegionF GetMFRegion = &SortFirstWindowBase::getMFRegion;
-#endif
 
     pDesc = new MFUInt32::Description(
         MFUInt32::getClassType(),
@@ -184,20 +150,10 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         RegionFieldId, RegionFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editMFRegion),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetMFRegion));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getMFRegion));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleRegion),
+        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleRegion));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFBool *(SortFirstWindowBase::*GetSFUseFaceDistributionF)(void) const;
-
-    GetSFUseFaceDistributionF GetSFUseFaceDistribution = &SortFirstWindowBase::getSFUseFaceDistribution;
-#endif
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -206,12 +162,8 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         UseFaceDistributionFieldId, UseFaceDistributionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editSFUseFaceDistribution),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFUseFaceDistribution));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getSFUseFaceDistribution));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleUseFaceDistribution),
+        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleUseFaceDistribution));
 
     oType.addInitialDesc(pDesc);
 }
@@ -637,6 +589,117 @@ SortFirstWindowBase::SortFirstWindowBase(const SortFirstWindowBase &source) :
 
 SortFirstWindowBase::~SortFirstWindowBase(void)
 {
+}
+
+
+SFString::GetHandlePtr SortFirstWindowBase::getHandleCompression     (void)
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfCompression, 
+             this->getType().getFieldDesc(CompressionFieldId)));
+
+    return returnValue;
+}
+
+SFString::EditHandlePtr SortFirstWindowBase::editHandleCompression    (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfCompression, 
+             this->getType().getFieldDesc(CompressionFieldId)));
+
+    editSField(CompressionFieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr SortFirstWindowBase::getHandleSubtileSize     (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfSubtileSize, 
+             this->getType().getFieldDesc(SubtileSizeFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr SortFirstWindowBase::editHandleSubtileSize    (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfSubtileSize, 
+             this->getType().getFieldDesc(SubtileSizeFieldId)));
+
+    editSField(SubtileSizeFieldMask);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr SortFirstWindowBase::getHandleCompose         (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfCompose, 
+             this->getType().getFieldDesc(ComposeFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr SortFirstWindowBase::editHandleCompose        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfCompose, 
+             this->getType().getFieldDesc(ComposeFieldId)));
+
+    editSField(ComposeFieldMask);
+
+    return returnValue;
+}
+
+MFUInt32::GetHandlePtr SortFirstWindowBase::getHandleRegion          (void)
+{
+    MFUInt32::GetHandlePtr returnValue(
+        new  MFUInt32::GetHandle(
+             &_mfRegion, 
+             this->getType().getFieldDesc(RegionFieldId)));
+
+    return returnValue;
+}
+
+MFUInt32::EditHandlePtr SortFirstWindowBase::editHandleRegion         (void)
+{
+    MFUInt32::EditHandlePtr returnValue(
+        new  MFUInt32::EditHandle(
+             &_mfRegion, 
+             this->getType().getFieldDesc(RegionFieldId)));
+
+    editMField(RegionFieldMask, _mfRegion);
+
+    return returnValue;
+}
+
+SFBool::GetHandlePtr SortFirstWindowBase::getHandleUseFaceDistribution (void)
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUseFaceDistribution, 
+             this->getType().getFieldDesc(UseFaceDistributionFieldId)));
+
+    return returnValue;
+}
+
+SFBool::EditHandlePtr SortFirstWindowBase::editHandleUseFaceDistribution(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUseFaceDistribution, 
+             this->getType().getFieldDesc(UseFaceDistributionFieldId)));
+
+    editSField(UseFaceDistributionFieldMask);
+
+    return returnValue;
 }
 
 

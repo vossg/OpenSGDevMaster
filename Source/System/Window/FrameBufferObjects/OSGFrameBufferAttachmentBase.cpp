@@ -65,6 +65,8 @@
 #include "OSGFrameBufferAttachmentBase.h"
 #include "OSGFrameBufferAttachment.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -93,12 +95,6 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt16 *(FrameBufferAttachmentBase::*GetSFWidthF)(void) const;
-
-    GetSFWidthF GetSFWidth = &FrameBufferAttachmentBase::getSFWidth;
-#endif
-
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(),
         "width",
@@ -106,20 +102,10 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editSFWidth),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFWidth));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getSFWidth));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editHandleWidth),
+        reinterpret_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt16 *(FrameBufferAttachmentBase::*GetSFHeightF)(void) const;
-
-    GetSFHeightF GetSFHeight = &FrameBufferAttachmentBase::getSFHeight;
-#endif
 
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(),
@@ -128,12 +114,8 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editSFHeight),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFHeight));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getSFHeight));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editHandleHeight),
+        reinterpret_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 }
@@ -316,6 +298,51 @@ FrameBufferAttachmentBase::FrameBufferAttachmentBase(const FrameBufferAttachment
 
 FrameBufferAttachmentBase::~FrameBufferAttachmentBase(void)
 {
+}
+
+
+SFUInt16::GetHandlePtr FrameBufferAttachmentBase::getHandleWidth           (void)
+{
+    SFUInt16::GetHandlePtr returnValue(
+        new  SFUInt16::GetHandle(
+             &_sfWidth, 
+             this->getType().getFieldDesc(WidthFieldId)));
+
+    return returnValue;
+}
+
+SFUInt16::EditHandlePtr FrameBufferAttachmentBase::editHandleWidth          (void)
+{
+    SFUInt16::EditHandlePtr returnValue(
+        new  SFUInt16::EditHandle(
+             &_sfWidth, 
+             this->getType().getFieldDesc(WidthFieldId)));
+
+    editSField(WidthFieldMask);
+
+    return returnValue;
+}
+
+SFUInt16::GetHandlePtr FrameBufferAttachmentBase::getHandleHeight          (void)
+{
+    SFUInt16::GetHandlePtr returnValue(
+        new  SFUInt16::GetHandle(
+             &_sfHeight, 
+             this->getType().getFieldDesc(HeightFieldId)));
+
+    return returnValue;
+}
+
+SFUInt16::EditHandlePtr FrameBufferAttachmentBase::editHandleHeight         (void)
+{
+    SFUInt16::EditHandlePtr returnValue(
+        new  SFUInt16::EditHandle(
+             &_sfHeight, 
+             this->getType().getFieldDesc(HeightFieldId)));
+
+    editSField(HeightFieldMask);
+
+    return returnValue;
 }
 
 

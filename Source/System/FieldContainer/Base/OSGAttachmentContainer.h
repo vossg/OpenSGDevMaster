@@ -102,6 +102,7 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
+#if 0
     virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
@@ -124,6 +125,7 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
                                   const UInt32                    whichField );
 
     virtual void clearField      (const UInt32                    whichField );
+#endif
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -249,6 +251,9 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
+    SFAttachmentObjPtrMap::EditHandlePtr editHandleAttachments(void);
+    SFAttachmentObjPtrMap::GetHandlePtr  getHandleAttachments (void) const;
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
@@ -263,94 +268,104 @@ OSG_GEN_CONTAINERPTR(AttachmentContainer);
 typedef RefPtr<AttachmentContainerPtr>      AttachmentContainerRefPtr;
 
 OSG_SYSTEM_DLLMAPPING
-void
-cloneAttachments(
+void cloneAttachments(
           AttachmentContainerPtrConstArg           src,
           AttachmentContainerPtrArg                dst,
     const std::vector<std::string>                &cloneTypeNames,
+
     const std::vector<std::string>                &ignoreTypeNames   =
-        std::vector<std::string>(),
+              std::vector<std::string>(),
+
     const std::vector<std::string>                &cloneGroupNames   =
-        std::vector<std::string>(),
+              std::vector<std::string>(),
+
     const std::vector<std::string>                &ignoreGroupNames  =
-        std::vector<std::string>()                                    );
+              std::vector<std::string>()                              );
 
 OSG_SYSTEM_DLLMAPPING
-void
-cloneAttachments(
+void cloneAttachments(
           AttachmentContainerPtrConstArg           src,
           AttachmentContainerPtrArg                dst,
     const std::vector<UInt16>                     &cloneGroupIds,
+
     const std::vector<UInt16>                     &ignoreGroupIds    =
-        std::vector<UInt16>()                                         );
+              std::vector<UInt16>()                                   );
 
 OSG_SYSTEM_DLLMAPPING
-void
-cloneAttachments(
+void cloneAttachments(
           AttachmentContainerPtrConstArg           src,
           AttachmentContainerPtrArg                dst,
     const std::string                             &cloneTypesString,
+
     const std::string                             &ignoreTypesString =
-        std::string()                                                 );
+              std::string()                                           );
 
 OSG_SYSTEM_DLLMAPPING
-void
-cloneAttachments(
+void cloneAttachments(
           AttachmentContainerPtrConstArg           src,
           AttachmentContainerPtrArg                dst,
-    const std::vector<const FieldContainerType *> &cloneTypes        =
-        std::vector<const FieldContainerType *>(),
-    const std::vector<const FieldContainerType *> &ignoreTypes       =
-        std::vector<const FieldContainerType *>(),
+
+    const std::vector<const ReflexiveContainerType *> &cloneTypes    =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<const ReflexiveContainerType *> &ignoreTypes       =
+              std::vector<const ReflexiveContainerType *>(),
+
     const std::vector<UInt16>                     &cloneGroupIds     =
-        std::vector<UInt16>(),
+              std::vector<UInt16>(),
+
     const std::vector<UInt16>                     &ignoreGroupIds    =
-        std::vector<UInt16>()                                         );
+              std::vector<UInt16>()                                   );
 
 OSG_SYSTEM_DLLMAPPING
-void
-deepCloneAttachments(
+void deepCloneAttachments(
           AttachmentContainerPtrConstArg           src,
           AttachmentContainerPtrArg                dst,
     const std::vector<std::string>                &cloneTypeNames,
+
     const std::vector<std::string>                &ignoreTypeNames   =
-        std::vector<std::string>(),
+              std::vector<std::string>(),
+
     const std::vector<std::string>                &cloneGroupNames   =
-        std::vector<std::string>(),
+              std::vector<std::string>(),
+
     const std::vector<std::string>                &ignoreGroupNames  =
-        std::vector<std::string>()                                    );
+              std::vector<std::string>()                              );
 
 OSG_SYSTEM_DLLMAPPING
-void
-deepCloneAttachments(
+void deepCloneAttachments(
           AttachmentContainerPtrConstArg           src,
           AttachmentContainerPtrArg                dst,
     const std::vector<UInt16>                     &cloneGroupIds,
+
     const std::vector<UInt16>                     &ignoreGroupIds    =
-        std::vector<UInt16>()                                         );
+              std::vector<UInt16>()                                    );
 
 OSG_SYSTEM_DLLMAPPING
-void
-deepCloneAttachments(
+void deepCloneAttachments(
           AttachmentContainerPtrConstArg           src,
           AttachmentContainerPtrArg                dst,
     const std::string                             &cloneTypesString,
+
     const std::string                             &ignoreTypesString =
-        std::string()                                                 );
+              std::string()                                           );
 
 OSG_SYSTEM_DLLMAPPING
-void
-deepCloneAttachments(
+void deepCloneAttachments(
           AttachmentContainerPtrConstArg           src,
           AttachmentContainerPtrArg                dst,
-    const std::vector<const FieldContainerType *> &shareTypes        =
-        std::vector<const FieldContainerType *>(),
-    const std::vector<const FieldContainerType *> &ignoreTypes       =
-        std::vector<const FieldContainerType *>(),
+
+    const std::vector<const ReflexiveContainerType *> &shareTypes    =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<const ReflexiveContainerType *> &ignoreTypes   =
+              std::vector<const ReflexiveContainerType *>(),
+
     const std::vector<UInt16>                     &shareGroupIds     =
-        std::vector<UInt16>(),
+              std::vector<UInt16>(),
+
     const std::vector<UInt16>                     &ignoreGroupIds    =
-        std::vector<UInt16>()                                         );
+              std::vector<UInt16>()                                         );
 
 OSG_END_NAMESPACE
 

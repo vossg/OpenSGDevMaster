@@ -286,6 +286,20 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFString::GetHandlePtr  getHandleMessage         (void);
+    SFString::EditHandlePtr editHandleMessage        (void);
+    SFInt32::GetHandlePtr  getHandleNumPartitions   (void);
+    SFInt32::EditHandlePtr editHandleNumPartitions  (void);
+    MFInt32::GetHandlePtr  getHandleOrder           (void);
+    MFInt32::EditHandlePtr editHandleOrder          (void);
+    SFBool::GetHandlePtr  getHandleUseGroup        (void);
+    SFBool::EditHandlePtr editHandleUseGroup       (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

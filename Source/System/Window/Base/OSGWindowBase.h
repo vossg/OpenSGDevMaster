@@ -222,29 +222,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -321,6 +298,28 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void onCreate(const Window *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFUInt16::GetHandlePtr  getHandleWidth           (void);
+    SFUInt16::EditHandlePtr editHandleWidth          (void);
+    SFUInt16::GetHandlePtr  getHandleHeight          (void);
+    SFUInt16::EditHandlePtr editHandleHeight         (void);
+    MFViewportPtr::GetHandlePtr  getHandlePort            (void);
+    MFViewportPtr::EditHandlePtr editHandlePort           (void);
+    SFBool::GetHandlePtr  getHandleResizePending   (void);
+    SFBool::EditHandlePtr editHandleResizePending  (void);
+    SFUInt32::GetHandlePtr  getHandleGlObjectEventCounter (void);
+    SFUInt32::EditHandlePtr editHandleGlObjectEventCounter(void);
+    MFUInt32::GetHandlePtr  getHandleGlObjectLastRefresh (void);
+    MFUInt32::EditHandlePtr editHandleGlObjectLastRefresh(void);
+    MFUInt32::GetHandlePtr  getHandleGlObjectLastReinitialize (void);
+    MFUInt32::EditHandlePtr editHandleGlObjectLastReinitialize(void);
+    SFUInt32::GetHandlePtr  getHandleDrawerId        (void);
+    SFUInt32::EditHandlePtr editHandleDrawerId       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

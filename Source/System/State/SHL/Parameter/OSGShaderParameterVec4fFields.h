@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(ShaderParameterVec4f);
 
 template <>
 struct FieldTraits<ShaderParameterVec4fPtr> :
-    public FieldTraitsTemplateBase<ShaderParameterVec4fPtr>
+    public FieldTraitsFCPtrBase<ShaderParameterVec4fPtr>
 {
   private:
 

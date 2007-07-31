@@ -214,29 +214,6 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -432,6 +409,32 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
     /*! \{                                                                 */
 
     void onCreate(const VTKMapper *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFNodePtr::GetHandlePtr  getHandleRoot            (void);
+    SFNodePtr::EditHandlePtr editHandleRoot           (void);
+    MFNodePtr::GetHandlePtr  getHandleGeoRoots        (void);
+    MFNodePtr::EditHandlePtr editHandleGeoRoots       (void);
+    MFGeometryPtr::GetHandlePtr  getHandleGeometries      (void);
+    MFGeometryPtr::EditHandlePtr editHandleGeometries     (void);
+    MFChunkMaterialPtr::GetHandlePtr  getHandleMaterials       (void);
+    MFChunkMaterialPtr::EditHandlePtr editHandleMaterials      (void);
+    MFMaterialChunkPtr::GetHandlePtr  getHandleMaterialChunks  (void);
+    MFMaterialChunkPtr::EditHandlePtr editHandleMaterialChunks (void);
+    MFGeoPnt3fPropertyPtr::GetHandlePtr  getHandlePositions       (void);
+    MFGeoPnt3fPropertyPtr::EditHandlePtr editHandlePositions      (void);
+    MFGeoUInt32PropertyPtr::GetHandlePtr  getHandleLength          (void);
+    MFGeoUInt32PropertyPtr::EditHandlePtr editHandleLength         (void);
+    MFGeoUInt8PropertyPtr::GetHandlePtr  getHandleTypes           (void);
+    MFGeoUInt8PropertyPtr::EditHandlePtr editHandleTypes          (void);
+    MFGeoColor4fPropertyPtr::GetHandlePtr  getHandleColors          (void);
+    MFGeoColor4fPropertyPtr::EditHandlePtr editHandleColors         (void);
+    MFGeoVec3fPropertyPtr::GetHandlePtr  getHandleNormals         (void);
+    MFGeoVec3fPropertyPtr::EditHandlePtr editHandleNormals        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -2524,7 +2524,7 @@ void Image::setAttachmentField(const std::string &key,
         return;
     }
 
-    Field *field = att->editDynamicFieldByName(key.c_str());
+    EditFieldHandlePtr field = att->editDynamicFieldByName(key.c_str());
 
     if(field == NULL)
     {
@@ -2549,10 +2549,11 @@ void Image::setAttachmentField(const std::string &key,
         field = att->editDynamicField(fieldId);
     }
 
-    SFString *strField = static_cast<SFString *>(field);
+    SFString::EditHandlePtr strField = 
+        boost::static_pointer_cast<SFString::EditHandle>(field);
 
-    if(strField != NULL)
-        strField->setValue(data);
+    if(strField != NULL && strField->isValid() == true)
+        (*strField)->setValue(data);
 }
 
 /*! returns the string attachment for the given key or Null
@@ -2568,14 +2569,15 @@ const std::string *Image::findAttachmentField(const std::string &key) const
 
     if(att != NullFC)
     {
-        const Field *field = att->getDynamicFieldByName(key.c_str());
+        GetFieldHandlePtr field = att->getDynamicFieldByName(key.c_str());
 
         if(field != NULL)
         {
-            const SFString *strField = static_cast<const SFString *>(field);
+            SFString::GetHandlePtr strField = 
+                boost::static_pointer_cast<SFString::GetHandle>(field);
 
-            if(strField != NULL)
-                return &strField->getValue();
+            if(strField != NULL && strField->isValid() == true)
+                return &((*strField)->getValue());
         }
     }
 

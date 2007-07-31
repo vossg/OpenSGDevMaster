@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(RotateManipulator);
 
 template <>
 struct FieldTraits<RotateManipulatorPtr> :
-    public FieldTraitsTemplateBase<RotateManipulatorPtr>
+    public FieldTraitsFCPtrBase<RotateManipulatorPtr>
 {
   private:
 

@@ -178,29 +178,6 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
@@ -298,6 +275,18 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     /*! \{                                                                 */
 
     void onCreate(const SortLastWindow *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    MFNodePtr::GetHandlePtr  getHandleGroupNodes      (void);
+    MFNodePtr::EditHandlePtr editHandleGroupNodes     (void);
+    MFUInt32::GetHandlePtr  getHandleGroupLengths    (void);
+    MFUInt32::EditHandlePtr editHandleGroupLengths   (void);
+    SFBool::GetHandlePtr  getHandleGroupsChanged   (void);
+    SFBool::EditHandlePtr editHandleGroupsChanged  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

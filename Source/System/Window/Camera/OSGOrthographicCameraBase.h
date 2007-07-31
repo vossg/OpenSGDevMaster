@@ -235,6 +235,16 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Field Access                      */
+    /*! \{                                                                 */
+
+    SFReal32::GetHandlePtr  getHandleVerticalSize    (void);
+    SFReal32::EditHandlePtr editHandleVerticalSize   (void);
+    SFReal32::GetHandlePtr  getHandleAspect          (void);
+    SFReal32::EditHandlePtr editHandleAspect         (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 

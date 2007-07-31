@@ -70,6 +70,8 @@
 #include "OSGViewportBase.h"
 #include "OSGViewport.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -165,12 +167,6 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(ViewportBase::*GetSFLeftF)(void) const;
-
-    GetSFLeftF GetSFLeft = &ViewportBase::getSFLeft;
-#endif
-
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "left",
@@ -180,20 +176,10 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFLeft),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFLeft));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFLeft));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleLeft),
+        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleLeft));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(ViewportBase::*GetSFRightF)(void) const;
-
-    GetSFRightF GetSFRight = &ViewportBase::getSFRight;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -204,20 +190,10 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFRight),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFRight));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFRight));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleRight),
+        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleRight));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(ViewportBase::*GetSFBottomF)(void) const;
-
-    GetSFBottomF GetSFBottom = &ViewportBase::getSFBottom;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -228,20 +204,10 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFBottom),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFBottom));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFBottom));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleBottom),
+        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleBottom));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(ViewportBase::*GetSFTopF)(void) const;
-
-    GetSFTopF GetSFTop = &ViewportBase::getSFTop;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -252,12 +218,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         TopFieldId, TopFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFTop),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTop));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFTop));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleTop),
+        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleTop));
 
     oType.addInitialDesc(pDesc);
 
@@ -269,7 +231,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         static_cast     <FieldEditMethodSig>(&ViewportBase::invalidEditField),
-        static_cast     <FieldGetMethodSig>(&ViewportBase::invalidGetField));
+        static_cast     <FieldGetMethodSig >(&ViewportBase::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -280,8 +242,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ViewportBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFCamera));
+        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleCamera),
+        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleCamera));
 
     oType.addInitialDesc(pDesc);
 
@@ -292,8 +254,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         RootFieldId, RootFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ViewportBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFRoot));
+        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleRoot),
+        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
 
@@ -304,8 +266,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         BackgroundFieldId, BackgroundFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ViewportBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFBackground));
+        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleBackground),
+        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleBackground));
 
     oType.addInitialDesc(pDesc);
 
@@ -316,16 +278,10 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         ForegroundsFieldId, ForegroundsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ViewportBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getMFForegrounds));
+        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleForegrounds),
+        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleForegrounds));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFUInt32 *(ViewportBase::*GetSFTravMaskF)(void) const;
-
-    GetSFTravMaskF GetSFTravMask = &ViewportBase::getSFTravMask;
-#endif
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
@@ -334,20 +290,10 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         TravMaskFieldId, TravMaskFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFTravMask),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTravMask));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFTravMask));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleTravMask),
+        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleTravMask));
 
     oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_GET_COMPAT
-    typedef const SFReal32 *(ViewportBase::*GetSFDrawTimeF)(void) const;
-
-    GetSFDrawTimeF GetSFDrawTime = &ViewportBase::getSFDrawTime;
-#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -356,12 +302,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         DrawTimeFieldId, DrawTimeFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editSFDrawTime),
-#ifdef OSG_1_GET_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFDrawTime));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getSFDrawTime));
-#endif
+        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleDrawTime),
+        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleDrawTime));
 
     oType.addInitialDesc(pDesc);
 }
@@ -711,120 +653,6 @@ SFReal32            *ViewportBase::getSFDrawTime       (void)
 #endif
 
 
-void ViewportBase::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                    const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-
-    if(uiFieldId == CameraFieldId)
-    {
-        static_cast<Viewport *>(this)->setCamera(
-            dynamic_cast<CameraPtr>(pNewElement));
-    }
-    if(uiFieldId == RootFieldId)
-    {
-        static_cast<Viewport *>(this)->setRoot(
-            dynamic_cast<NodePtr>(pNewElement));
-    }
-    if(uiFieldId == BackgroundFieldId)
-    {
-        static_cast<Viewport *>(this)->setBackground(
-            dynamic_cast<BackgroundPtr>(pNewElement));
-    }
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<Viewport *>(this)->addForeground(
-            dynamic_cast<ForegroundPtr>(pNewElement));
-    }
-}
-
-void ViewportBase::insertIntoMField(const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<Viewport *>(this)->insertIntoForegrounds(
-            uiIndex,
-            dynamic_cast<ForegroundPtr>(pNewElement));
-    }
-}
-
-void ViewportBase::replaceInMField (const UInt32                    uiIndex,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<Viewport *>(this)->replaceInForegrounds(
-            uiIndex,
-            dynamic_cast<ForegroundPtr>(pNewElement));
-    }
-}
-
-void ViewportBase::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                               FieldContainerPtrConstArg pNewElement,
-                                         const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<Viewport *>(this)->replaceInForegrounds(
-            dynamic_cast<ForegroundPtr>(pOldElement),
-            dynamic_cast<ForegroundPtr>(pNewElement));
-    }
-}
-
-void ViewportBase::removeFromMField(const UInt32 uiIndex,
-                                         const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<Viewport *>(this)->removeFromForegrounds(
-            uiIndex);
-    }
-}
-
-void ViewportBase::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                         const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<Viewport *>(this)->removeFromForegrounds(
-            dynamic_cast<ForegroundPtr>(pElement));
-    }
-}
-
-void ViewportBase::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-
-    if(uiFieldId == CameraFieldId)
-    {
-        static_cast<Viewport *>(this)->setCamera(NullFC);
-    }
-    if(uiFieldId == RootFieldId)
-    {
-        static_cast<Viewport *>(this)->setRoot(NullFC);
-    }
-    if(uiFieldId == BackgroundFieldId)
-    {
-        static_cast<Viewport *>(this)->setBackground(NullFC);
-    }
-    if(uiFieldId == ForegroundsFieldId)
-    {
-        static_cast<Viewport *>(this)->clearForegrounds();
-    }
-}
 
 void ViewportBase::addForeground(ForegroundPtrConstArg value)
 {
@@ -1223,6 +1051,252 @@ void ViewportBase::onCreate(const Viewport *source)
         }
     }
 }
+
+SFReal32::GetHandlePtr ViewportBase::getHandleLeft            (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfLeft, 
+             this->getType().getFieldDesc(LeftFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr ViewportBase::editHandleLeft           (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfLeft, 
+             this->getType().getFieldDesc(LeftFieldId)));
+
+    editSField(LeftFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr ViewportBase::getHandleRight           (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfRight, 
+             this->getType().getFieldDesc(RightFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr ViewportBase::editHandleRight          (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfRight, 
+             this->getType().getFieldDesc(RightFieldId)));
+
+    editSField(RightFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr ViewportBase::getHandleBottom          (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfBottom, 
+             this->getType().getFieldDesc(BottomFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr ViewportBase::editHandleBottom         (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfBottom, 
+             this->getType().getFieldDesc(BottomFieldId)));
+
+    editSField(BottomFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr ViewportBase::getHandleTop             (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfTop, 
+             this->getType().getFieldDesc(TopFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr ViewportBase::editHandleTop            (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfTop, 
+             this->getType().getFieldDesc(TopFieldId)));
+
+    editSField(TopFieldMask);
+
+    return returnValue;
+}
+
+SFParentFieldContainerPtr::GetHandlePtr ViewportBase::getHandleParent          (void)
+{
+    SFParentFieldContainerPtr::GetHandlePtr returnValue(
+        new  SFParentFieldContainerPtr::GetHandle(
+             &_sfParent, 
+             this->getType().getFieldDesc(ParentFieldId)));
+
+    return returnValue;
+}
+
+SFParentFieldContainerPtr::EditHandlePtr ViewportBase::editHandleParent         (void)
+{
+    SFParentFieldContainerPtr::EditHandlePtr returnValue;
+
+    return returnValue;
+}
+
+SFCameraPtr::GetHandlePtr ViewportBase::getHandleCamera          (void)
+{
+    SFCameraPtr::GetHandlePtr returnValue(
+        new  SFCameraPtr::GetHandle(
+             &_sfCamera, 
+             this->getType().getFieldDesc(CameraFieldId)));
+
+    return returnValue;
+}
+
+SFCameraPtr::EditHandlePtr ViewportBase::editHandleCamera         (void)
+{
+    SFCameraPtr::EditHandlePtr returnValue(
+        new  SFCameraPtr::EditHandle(
+             &_sfCamera, 
+             this->getType().getFieldDesc(CameraFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&Viewport::setCamera, this, _1));
+
+    editSField(CameraFieldMask);
+
+    return returnValue;
+}
+
+SFNodePtr::GetHandlePtr ViewportBase::getHandleRoot            (void)
+{
+    SFNodePtr::GetHandlePtr returnValue(
+        new  SFNodePtr::GetHandle(
+             &_sfRoot, 
+             this->getType().getFieldDesc(RootFieldId)));
+
+    return returnValue;
+}
+
+SFNodePtr::EditHandlePtr ViewportBase::editHandleRoot           (void)
+{
+    SFNodePtr::EditHandlePtr returnValue(
+        new  SFNodePtr::EditHandle(
+             &_sfRoot, 
+             this->getType().getFieldDesc(RootFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&Viewport::setRoot, this, _1));
+
+    editSField(RootFieldMask);
+
+    return returnValue;
+}
+
+SFBackgroundPtr::GetHandlePtr ViewportBase::getHandleBackground      (void)
+{
+    SFBackgroundPtr::GetHandlePtr returnValue(
+        new  SFBackgroundPtr::GetHandle(
+             &_sfBackground, 
+             this->getType().getFieldDesc(BackgroundFieldId)));
+
+    return returnValue;
+}
+
+SFBackgroundPtr::EditHandlePtr ViewportBase::editHandleBackground     (void)
+{
+    SFBackgroundPtr::EditHandlePtr returnValue(
+        new  SFBackgroundPtr::EditHandle(
+             &_sfBackground, 
+             this->getType().getFieldDesc(BackgroundFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&Viewport::setBackground, this, _1));
+
+    editSField(BackgroundFieldMask);
+
+    return returnValue;
+}
+
+MFForegroundPtr::GetHandlePtr ViewportBase::getHandleForegrounds     (void)
+{
+    MFForegroundPtr::GetHandlePtr returnValue(
+        new  MFForegroundPtr::GetHandle(
+             &_mfForegrounds, 
+             this->getType().getFieldDesc(ForegroundsFieldId)));
+
+    return returnValue;
+}
+
+MFForegroundPtr::EditHandlePtr ViewportBase::editHandleForegrounds    (void)
+{
+    MFForegroundPtr::EditHandlePtr returnValue(
+        new  MFForegroundPtr::EditHandle(
+             &_mfForegrounds, 
+             this->getType().getFieldDesc(ForegroundsFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&Viewport::addForeground, this, _1));
+
+    editMField(ForegroundsFieldMask, _mfForegrounds);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr ViewportBase::getHandleTravMask        (void)
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfTravMask, 
+             this->getType().getFieldDesc(TravMaskFieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr ViewportBase::editHandleTravMask       (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfTravMask, 
+             this->getType().getFieldDesc(TravMaskFieldId)));
+
+    editSField(TravMaskFieldMask);
+
+    return returnValue;
+}
+
+SFReal32::GetHandlePtr ViewportBase::getHandleDrawTime        (void)
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfDrawTime, 
+             this->getType().getFieldDesc(DrawTimeFieldId)));
+
+    return returnValue;
+}
+
+SFReal32::EditHandlePtr ViewportBase::editHandleDrawTime       (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfDrawTime, 
+             this->getType().getFieldDesc(DrawTimeFieldId)));
+
+    editSField(DrawTimeFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ViewportBase::execSyncV(      FieldContainer    &oFrom,

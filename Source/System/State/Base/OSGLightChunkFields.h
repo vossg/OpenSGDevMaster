@@ -83,7 +83,7 @@ OSG_GEN_CONTAINERPTR(LightChunk);
 
 template <>
 struct FieldTraits<LightChunkPtr> :
-    public FieldTraitsTemplateBase<LightChunkPtr>
+    public FieldTraitsFCPtrBase<LightChunkPtr>
 {
   private:
 
