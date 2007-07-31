@@ -293,7 +293,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*-------------------------- comparison ---------------------------------*/
 
-    void setRenderTarget(FrameBufferObject *pTarget);
+    void               setRenderTarget(FrameBufferObject *pTarget);
+    FrameBufferObject *getRenderTarget(void                      );
 
     /*-------------------------- comparison ---------------------------------*/
 

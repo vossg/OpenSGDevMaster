@@ -84,6 +84,10 @@ OSG_BEGIN_NAMESPACE
     The FBO to target for rendering this subtree.
 */
 
+/*! \var bool            StageBase::_sfInheritedTarget
+    Inherited the parent target if none is set  
+*/
+
 
 void StageBase::classDescInserter(TypeObject &oType)
 {
@@ -101,6 +105,28 @@ void StageBase::classDescInserter(TypeObject &oType)
         Field::SFDefaultFlags,
         static_cast     <FieldEditMethodSig>(&StageBase::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&StageBase::getSFRenderTarget));
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_GET_COMPAT
+    typedef const SFBool *(StageBase::*GetSFInheritedTargetF)(void) const;
+
+    GetSFInheritedTargetF GetSFInheritedTarget = &StageBase::getSFInheritedTarget;
+#endif
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "inheritedTarget",
+        "Inherited the parent target if none is set  \n",
+        InheritedTargetFieldId, InheritedTargetFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&StageBase::editSFInheritedTarget),
+#ifdef OSG_1_GET_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFInheritedTarget));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&StageBase::getSFInheritedTarget));
+#endif
 
     oType.addInitialDesc(pDesc);
 }
@@ -142,6 +168,16 @@ StageBase::TypeObject StageBase::_type(
     "        >\n"
     "        The FBO to target for rendering this subtree.\n"
     "        </Field>\n"
+    "        <Field\n"
+    "                name=\"inheritedTarget\"\n"
+    "                type=\"bool\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "                defaultValue=\"false\"\n"
+    "        >\n"
+    "        Inherited the parent target if none is set  \n"
+    "        </Field>\n"
     "</FieldContainer>\n",
     "Base of a staged rendering.  Tells the renderer to target an FBO for this subtree.\n"
     );
@@ -171,6 +207,25 @@ const SFFrameBufferObjectPtr *StageBase::getSFRenderTarget(void) const
 {
     return &_sfRenderTarget;
 }
+
+SFBool *StageBase::editSFInheritedTarget(void)
+{
+    editSField(InheritedTargetFieldMask);
+
+    return &_sfInheritedTarget;
+}
+
+const SFBool *StageBase::getSFInheritedTarget(void) const
+{
+    return &_sfInheritedTarget;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFBool              *StageBase::getSFInheritedTarget(void)
+{
+    return this->editSFInheritedTarget();
+}
+#endif
 
 
 void StageBase::pushToField(      FieldContainerPtrConstArg pNewElement,
@@ -245,6 +300,10 @@ UInt32 StageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRenderTarget.getBinSize();
     }
+    if(FieldBits::NoField != (InheritedTargetFieldMask & whichField))
+    {
+        returnValue += _sfInheritedTarget.getBinSize();
+    }
 
     return returnValue;
 }
@@ -258,6 +317,10 @@ void StageBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfRenderTarget.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (InheritedTargetFieldMask & whichField))
+    {
+        _sfInheritedTarget.copyToBin(pMem);
+    }
 }
 
 void StageBase::copyFromBin(BinaryDataHandler &pMem,
@@ -268,6 +331,10 @@ void StageBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
     {
         _sfRenderTarget.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (InheritedTargetFieldMask & whichField))
+    {
+        _sfInheritedTarget.copyFromBin(pMem);
     }
 }
 
@@ -310,13 +377,15 @@ FieldContainerPtr StageBase::shallowCopy(void) const
 
 StageBase::StageBase(void) :
     Inherited(),
-    _sfRenderTarget           (FrameBufferObjectPtr(NullFC))
+    _sfRenderTarget           (FrameBufferObjectPtr(NullFC)),
+    _sfInheritedTarget        (bool(false))
 {
 }
 
 StageBase::StageBase(const StageBase &source) :
     Inherited(source),
-    _sfRenderTarget           (NullFC)
+    _sfRenderTarget           (NullFC),
+    _sfInheritedTarget        (source._sfInheritedTarget        )
 {
 }
 

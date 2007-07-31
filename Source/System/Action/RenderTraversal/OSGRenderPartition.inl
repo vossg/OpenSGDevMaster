@@ -327,6 +327,12 @@ void RenderPartition::setRenderTarget(FrameBufferObject *pTarget)
 }
 
 inline
+FrameBufferObject *RenderPartition::getRenderTarget(void)
+{
+    return _pRenderTarget;
+}
+
+inline
 bool RenderPartition::getFrustumCulling(void) const
 {
     return _bFrustumCulling;

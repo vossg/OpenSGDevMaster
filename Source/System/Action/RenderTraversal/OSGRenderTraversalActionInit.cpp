@@ -597,22 +597,28 @@ ActionBase::ResultE StageRenderEnter(const NodeCorePtr &pCore,
     if(a == NULL || pStage == NullFC)
         return ActionBase::Continue;
 
+    RenderPartition   *pParentPart = a->getActivePartition();
+    FrameBufferObject *pTarget     = pStage->getRenderTarget();
+
+    if(pTarget == NULL && pStage->getInheritedTarget() == true)
+    {
+        pTarget = pParentPart->getRenderTarget();
+    }
+
     a->pushPartition();
 
-    RenderPartition *pPart = a->getActivePartition();
-
-    FrameBufferObject *pTarget  = getCPtr(pStage->getRenderTarget());
+    RenderPartition   *pPart    = a->getActivePartition();
     Viewport          *pPort    = a->getViewport();
     Camera            *pCam     = a->getCamera  ();
     Background        *pBack    = a->getBackground();
-
+    
     pPart->setRenderTarget(pTarget);
 
     if(pPort != NULL)
     {
         pPart->setViewport(pPort         );
         pPart->setWindow  (a->getWindow());
-
+            
         if(pTarget != NULL)
         {
             pPart->calcViewportDimension(pPort->getLeft  (),
@@ -633,37 +639,37 @@ ActionBase::ResultE StageRenderEnter(const NodeCorePtr &pCore,
                                          a->getWindow()->getWidth (),
                                          a->getWindow()->getHeight());
         }
-
+        
         if(pCam != NULL)
         {
             Matrix m, t;
-
+            
             // set the projection
             pCam->getProjection          (m, 
                                           pPart->getViewportWidth (), 
                                           pPart->getViewportHeight());
-
+            
             pCam->getProjectionTranslation(t, 
                                            pPart->getViewportWidth (), 
                                            pPart->getViewportHeight());
-
+                
             pPart->setupProjection(m, t);
-
+            
             pCam->getViewing(m, 
                              pPart->getViewportWidth (),
                              pPart->getViewportHeight());
-
-
+            
+            
             pPart->setupViewing(m);
-
+            
             pPart->setNear     (pCam->getNear());
             pPart->setFar      (pCam->getFar ());
-
+            
             pPart->calcFrustum();
         }
-
-        pPart->setBackground(pBack);
     }
+
+    pPart->setBackground(pBack);
 
     return ActionBase::Continue;
 }
@@ -696,18 +702,25 @@ ActionBase::ResultE SimpleStageRenderEnter(const NodeCorePtr &pCore,
     if(a == NULL || pStage == NullFC)
         return ActionBase::Continue;
 
-    a->pushPartition();
+    RenderPartition   *pParentPart = a->getActivePartition();
+    FrameBufferObject *pTarget     = pStage->getRenderTarget();
 
-    RenderPartition   *pPart   = a->getActivePartition();
-
-    FrameBufferObject *pTarget = getCPtr(pStage->getRenderTarget());
-    Camera            *pCam    = getCPtr(pStage->getCamera      ());
-    Background        *pBack   = getCPtr(pStage->getBackground  ());
+    Background        *pBack   = pStage->getBackground();
     Viewport          *pPort   = a->getViewport();
     Window            *pWin    = a->getWindow  ();
 
-    pPart->setRenderTarget(pTarget);
+    if(pTarget == NULL && pStage->getInheritedTarget() == true)
+    {
+        pTarget = pParentPart->getRenderTarget();
+    }
 
+    a->pushPartition();
+    
+    RenderPartition   *pPart   = a->getActivePartition();
+    Camera            *pCam    = pStage->getCamera();
+    
+    pPart->setRenderTarget(pTarget);
+    
     pPart->setViewport(pPort);
     pPart->setWindow  (pWin );
     
@@ -727,11 +740,11 @@ ActionBase::ResultE SimpleStageRenderEnter(const NodeCorePtr &pCore,
                                      pStage->getBottom(),
                                      pStage->getRight (),
                                      pStage->getTop   (),
-                                         
+                                     
                                      pWin->getWidth   (),
                                      pWin->getHeight  ());
     }
-
+    
     if(pCam != NULL)
     {
         Matrix m, t;
@@ -753,14 +766,14 @@ ActionBase::ResultE SimpleStageRenderEnter(const NodeCorePtr &pCore,
         
         
         pPart->setupViewing(m              );
-
+        
         pPart->setNear     (pCam->getNear());
         pPart->setFar      (pCam->getFar ());
-
+        
         pPart->calcFrustum (               );
-
+        
     }
-
+    
     pPart->setBackground(pBack);
 
     return ActionBase::Continue;

@@ -90,6 +90,39 @@ void StageBase::setRenderTarget(FrameBufferObjectPtrConstArg value)
     setRefd(_sfRenderTarget.getValue(), value);
 
 }
+//! Get the value of the Stage::_sfInheritedTarget field.
+
+inline
+bool &StageBase::editInheritedTarget(void)
+{
+    editSField(InheritedTargetFieldMask);
+
+    return _sfInheritedTarget.getValue();
+}
+
+//! Get the value of the Stage::_sfInheritedTarget field.
+inline
+const bool &StageBase::getInheritedTarget(void) const
+{
+    return _sfInheritedTarget.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+bool                &StageBase::getInheritedTarget(void)
+{
+    return this->editInheritedTarget();
+}
+#endif
+
+//! Set the value of the Stage::_sfInheritedTarget field.
+inline
+void StageBase::setInheritedTarget(const bool &value)
+{
+    editSField(InheritedTargetFieldMask);
+
+    _sfInheritedTarget.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -104,6 +137,9 @@ void StageBase::execSync (      StageBase *pFrom,
 
     if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
         _sfRenderTarget.syncWith(pFrom->_sfRenderTarget);
+
+    if(FieldBits::NoField != (InheritedTargetFieldMask & whichField))
+        _sfInheritedTarget.syncWith(pFrom->_sfInheritedTarget);
 }
 #endif
 

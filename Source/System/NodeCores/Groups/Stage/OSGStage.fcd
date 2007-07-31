@@ -24,4 +24,14 @@ Base of a staged rendering.  Tells the renderer to target an FBO for this subtre
         >
         The FBO to target for rendering this subtree.
         </Field>
+        <Field
+                name="inheritedTarget"
+                type="bool"
+                cardinality="single"
+                visibility="external"
+                access="public"
+                defaultValue="false"
+        >
+        Inherited the parent target if none is set  
+        </Field>
 </FieldContainer>

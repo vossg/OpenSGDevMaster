@@ -66,6 +66,7 @@
 #include "OSGGroup.h" // Parent
 
 #include "OSGFrameBufferObjectFields.h" // RenderTarget type
+#include "OSGBoolFields.h" // InheritedTarget type
 
 #include "OSGStageFields.h"
 
@@ -96,11 +97,14 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     enum
     {
         RenderTargetFieldId = Inherited::NextFieldId,
-        NextFieldId = RenderTargetFieldId + 1
+        InheritedTargetFieldId = RenderTargetFieldId + 1,
+        NextFieldId = InheritedTargetFieldId + 1
     };
 
     static const OSG::BitVector RenderTargetFieldMask =
         (TypeTraits<BitVector>::One << RenderTargetFieldId);
+    static const OSG::BitVector InheritedTargetFieldMask =
+        (TypeTraits<BitVector>::One << InheritedTargetFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -129,8 +133,20 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
 
             const SFFrameBufferObjectPtr *getSFRenderTarget    (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  SFBool              *getSFInheritedTarget (void);
+#endif
+                  SFBool              *editSFInheritedTarget(void);
+            const SFBool              *getSFInheritedTarget (void) const;
+
 
                   FrameBufferObjectPtrConst getRenderTarget   (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  bool                &getInheritedTarget (void);
+#endif
+                  bool                &editInheritedTarget(void);
+            const bool                &getInheritedTarget (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -138,6 +154,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*! \{                                                                 */
 
             void setRenderTarget   (FrameBufferObjectPtrConstArg value);
+            void setInheritedTarget(const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,6 +231,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*! \{                                                                 */
 
     SFFrameBufferObjectPtr _sfRenderTarget;
+    SFBool            _sfInheritedTarget;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
