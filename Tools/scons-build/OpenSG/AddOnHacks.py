@@ -1,7 +1,7 @@
 
 from __future__ import generators
 
-import os, sys, traceback, re, imp, types
+import os, sys, traceback, re, imp, types, string
 import distutils.util
 import SConsAddons
 
@@ -371,8 +371,8 @@ def BoolOptionTextToBool(self, val):
 
 
         lval = string.lower(val)
-        if lval in BoolOption.true_strings: return True
-        if lval in BoolOption.false_strings: return False
+        if lval in SConsAddons.Options.BoolOption.true_strings: return True
+        if lval in SConsAddons.Options.BoolOption.false_strings: return False
         raise ValueError("Invalid value for boolean option: %s" % val)
 
 
