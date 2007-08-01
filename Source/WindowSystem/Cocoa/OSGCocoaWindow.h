@@ -122,6 +122,7 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindow : public CocoaWindowBase
 
   private:
 
+    friend class FieldContainer;
     friend class CocoaWindowBase;
 
     template<class ContainerFactoryT>

@@ -78,19 +78,19 @@ struct FieldTraitsFBPtrBase :
     static void copyToBin(      BinaryDataHandler &pMem, 
                           const FieldBundleP      &pObject)
     {
-        UInt32 id = 0;
+        UInt32 bundleId = 0;
 
         if(pObject == NilP)
         {
-            // id=0 indicates an Null Ptr
-            id = 0;
+            // bundleId=0 indicates an Null Ptr
+            bundleId = 0;
         }
         else
         {
-//            id = getBundleId(pObject);
+//            bundleId = getBundleId(pObject);
         }
 
-        pMem.putValue(id);
+        pMem.putValue(bundleId);
     }
 
     static void copyToBin(      BinaryDataHandler &pMem, 
@@ -106,13 +106,13 @@ struct FieldTraitsFBPtrBase :
     static void copyFromBin(BinaryDataHandler &pMem, 
                             FieldBundleP      &pObject)
     {
-        UInt32 id;
+        UInt32 bundleId;
 
-        pMem.getValue(id);
+        pMem.getValue(bundleId);
 
-        if(0 != id)
+        if(0 != bundleId)
         {
-            pObject = FieldBundleFactory::the()->getMappedContainer(id);
+            pObject = FieldBundleFactory::the()->getMappedContainer(bundleId);
         }
         else
         {
