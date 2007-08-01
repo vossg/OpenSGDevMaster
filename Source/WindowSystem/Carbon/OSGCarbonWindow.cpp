@@ -52,14 +52,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class osg::CarbonWindow
-The class for MacOS X Carbon windows.
-
-*/
+// Documentation for this class is emitted in the
+// OSGCarbonWindowBase.cpp file.
+// To modify it, please change the .fcd file (OSGCarbonWindow.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -106,13 +102,13 @@ CarbonWindow::~CarbonWindow(void)
 /*----------------------------- class specific ----------------------------*/
 
 void CarbonWindow::changed(ConstFieldMaskArg whichField, 
-                           UInt32            origin,
-                           BitVector         details)
+                            UInt32            origin,
+                            BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void CarbonWindow::dump(      UInt32    , 
+void CarbonWindow::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump CarbonWindow NI" << std::endl;

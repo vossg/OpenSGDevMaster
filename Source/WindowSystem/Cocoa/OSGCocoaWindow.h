@@ -48,7 +48,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief CocoaWindow class. See \ref 
+/*! \brief CocoaWindow class. See \ref
            PageWindowCocoaCocoaWindow for a description.
 */
 
@@ -63,29 +63,20 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindow : public CocoaWindowBase
     typedef CocoaWindowBase Inherited;
     typedef CocoaWindow     Self;
 
-    typedef PointerBuilder<CocoaWindow>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<CocoaWindow>::ObjPtrConst      ObjPtrConst;
-
-    typedef PointerBuilder<CocoaWindow>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<CocoaWindow>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<CocoaWindow>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<CocoaWindow>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         detail);
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -117,7 +108,7 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindow : public CocoaWindowBase
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CocoaWindow(void); 
+    virtual ~CocoaWindow(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -131,23 +122,19 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindow : public CocoaWindowBase
 
   private:
 
-    friend class FieldContainer;
     friend class CocoaWindowBase;
+
+    template<class ContainerFactoryT>
+    friend struct CPtrConstructionFunctions;
+
+    template<class ContainerFactoryT>
+    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CocoaWindow &source);
 };
 
 typedef CocoaWindow *CocoaWindowP;
-
-typedef CocoaWindow::ObjPtr           CocoaWindowPtr;
-typedef CocoaWindow::ObjPtrConst      CocoaWindowPtrConst;
-
-typedef CocoaWindow::ObjConstPtr      CocoaWindowConstPtr;
-typedef CocoaWindow::ObjConstPtrConst CocoaWindowConstPtrConst;
-
-typedef CocoaWindow::ObjPtrArg        CocoaWindowPtrArg;
-typedef CocoaWindow::ObjPtrConstArg   CocoaWindowPtrConstArg;
 
 OSG_END_NAMESPACE
 

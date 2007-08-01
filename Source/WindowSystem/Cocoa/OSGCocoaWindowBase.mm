@@ -65,6 +65,8 @@
 #include "OSGCocoaWindowBase.h"
 #include "OSGCocoaWindow.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
@@ -89,12 +91,6 @@ void CocoaWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
-    typedef const SFNSOpenGLContextP *(CocoaWindowBase::*GetSFContextF)(void) const;
-
-    GetSFContextF GetSFContext = &CocoaWindowBase::getSFContext;
-#endif
-
     pDesc = new SFNSOpenGLContextP::Description(
         SFNSOpenGLContextP::getClassType(),
         "context",
@@ -102,12 +98,8 @@ void CocoaWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&CocoaWindowBase::editSFContext),
-#ifdef OSG_1_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFContext));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&CocoaWindowBase::getSFContext));
-#endif
+        static_cast<FieldEditMethodSig>(&CocoaWindowBase::editHandleContext),
+        static_cast<FieldGetMethodSig >(&CocoaWindowBase::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }
@@ -181,7 +173,7 @@ const SFNSOpenGLContextP *CocoaWindowBase::getSFContext(void) const
     return &_sfContext;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFNSOpenGLContextP  *CocoaWindowBase::getSFContext        (void)
 {
     return this->editSFContext        ();
@@ -228,6 +220,20 @@ void CocoaWindowBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+//! create a new instance of the class
+CocoaWindowPtr CocoaWindowBase::create(void)
+{
+    CocoaWindowPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        fc = dynamic_cast<CocoaWindow::ObjPtr>(
+            getClassType().getPrototype()-> shallowCopy());
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 CocoaWindowPtr CocoaWindowBase::createEmpty(void)
 {
@@ -263,10 +269,34 @@ CocoaWindowBase::CocoaWindowBase(const CocoaWindowBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 CocoaWindowBase::~CocoaWindowBase(void)
 {
+}
+
+
+GetFieldHandlePtr CocoaWindowBase::getHandleContext         (void) const
+{
+    SFNSOpenGLContextP::GetHandlePtr returnValue(
+        new  SFNSOpenGLContextP::GetHandle(
+             &_sfContext, 
+             this->getType().getFieldDesc(ContextFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CocoaWindowBase::editHandleContext        (void)
+{
+    SFNSOpenGLContextP::EditHandlePtr returnValue(
+        new  SFNSOpenGLContextP::EditHandle(
+             &_sfContext, 
+             this->getType().getFieldDesc(ContextFieldId)));
+
+    editSField(ContextFieldMask);
+
+    return returnValue;
 }
 
 
@@ -301,6 +331,8 @@ FieldContainerPtr CocoaWindowBase::createAspectCopy(void) const
 void CocoaWindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 

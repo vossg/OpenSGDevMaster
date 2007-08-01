@@ -40,8 +40,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include <OSGConfig.h>
 
@@ -52,14 +52,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class osg::CocoaWindow
-The class for MacOS X Cocoa windows.
-
-*/
+// Documentation for this class is emitted in the
+// OSGCocoaWindowBase.cpp file.
+// To modify it, please change the .fcd file (OSGCocoaWindow.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -105,12 +101,14 @@ CocoaWindow::~CocoaWindow(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void CocoaWindow::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void CocoaWindow::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
-void CocoaWindow::dump(      UInt32    , 
+void CocoaWindow::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump CocoaWindow NI" << std::endl;

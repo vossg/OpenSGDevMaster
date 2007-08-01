@@ -52,14 +52,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class osg::CoreGLWindow
-The class for MacOS X CoreGL windows.
-
-*/
+// Documentation for this class is emitted in the
+// OSGCoreGLWindowBase.cpp file.
+// To modify it, please change the .fcd file (OSGCoreGLWindow.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -106,13 +102,13 @@ CoreGLWindow::~CoreGLWindow(void)
 /*----------------------------- class specific ----------------------------*/
 
 void CoreGLWindow::changed(ConstFieldMaskArg whichField, 
-                           UInt32            origin,
-                           BitVector         details)
+                            UInt32            origin,
+                            BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void CoreGLWindow::dump(      UInt32    , 
+void CoreGLWindow::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump CoreGLWindow NI" << std::endl;

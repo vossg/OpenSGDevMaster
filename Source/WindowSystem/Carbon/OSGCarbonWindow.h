@@ -48,7 +48,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief CarbonWindow class. See \ref 
+/*! \brief CarbonWindow class. See \ref
            PageWindowCarbonCarbonWindow for a description.
 */
 
@@ -63,29 +63,20 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindow : public CarbonWindowBase
     typedef CarbonWindowBase Inherited;
     typedef CarbonWindow     Self;
 
-    typedef PointerBuilder<CarbonWindow>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<CarbonWindow>::ObjPtrConst      ObjPtrConst;
-
-    typedef PointerBuilder<CarbonWindow>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<CarbonWindow>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<CarbonWindow>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<CarbonWindow>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         detail);
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -117,7 +108,7 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindow : public CarbonWindowBase
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CarbonWindow(void); 
+    virtual ~CarbonWindow(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -134,20 +125,17 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindow : public CarbonWindowBase
     friend class FieldContainer;
     friend class CarbonWindowBase;
 
+    template<class ContainerFactoryT>
+    friend struct CPtrConstructionFunctions;
+
+    template<class ContainerFactoryT>
+    friend struct PtrConstructionFunctions;
+
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CarbonWindow &source);
 };
 
 typedef CarbonWindow *CarbonWindowP;
-
-typedef CarbonWindow::ObjPtr           CarbonWindowPtr;
-typedef CarbonWindow::ObjPtrConst      CarbonWindowPtrConst;
-
-typedef CarbonWindow::ObjConstPtr      CarbonWindowConstPtr;
-typedef CarbonWindow::ObjConstPtrConst CarbonWindowConstPtrConst;
-
-typedef CarbonWindow::ObjPtrArg        CarbonWindowPtrArg;
-typedef CarbonWindow::ObjPtrConstArg   CarbonWindowPtrConstArg;
 
 OSG_END_NAMESPACE
 

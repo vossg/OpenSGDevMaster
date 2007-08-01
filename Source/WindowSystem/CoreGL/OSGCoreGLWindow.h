@@ -48,7 +48,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief CoreGLWindow class. See \ref 
+/*! \brief CoreGLWindow class. See \ref
            PageWindowCoreGLCoreGLWindow for a description.
 */
 
@@ -63,29 +63,20 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindow : public CoreGLWindowBase
     typedef CoreGLWindowBase Inherited;
     typedef CoreGLWindow     Self;
 
-    typedef PointerBuilder<CoreGLWindow>::ObjPtr           ObjPtr;
-    typedef PointerBuilder<CoreGLWindow>::ObjPtrConst      ObjPtrConst;
-
-    typedef PointerBuilder<CoreGLWindow>::ObjConstPtr      ObjConstPtr;
-    typedef PointerBuilder<CoreGLWindow>::ObjConstPtrConst ObjConstPtrConst;
-
-    typedef PointerBuilder<CoreGLWindow>::ObjPtrArg        ObjPtrArg;
-    typedef PointerBuilder<CoreGLWindow>::ObjPtrConstArg   ObjPtrConstArg;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         detail);
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -117,7 +108,7 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindow : public CoreGLWindowBase
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CoreGLWindow(void); 
+    virtual ~CoreGLWindow(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -134,20 +125,17 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindow : public CoreGLWindowBase
     friend class FieldContainer;
     friend class CoreGLWindowBase;
 
+    template<class ContainerFactoryT>
+    friend struct CPtrConstructionFunctions;
+
+    template<class ContainerFactoryT>
+    friend struct PtrConstructionFunctions;
+
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CoreGLWindow &source);
 };
 
 typedef CoreGLWindow *CoreGLWindowP;
-
-typedef CoreGLWindow::ObjPtr           CoreGLWindowPtr;
-typedef CoreGLWindow::ObjPtrConst      CoreGLWindowPtrConst;
-
-typedef CoreGLWindow::ObjConstPtr      CoreGLWindowConstPtr;
-typedef CoreGLWindow::ObjConstPtrConst CoreGLWindowConstPtrConst;
-
-typedef CoreGLWindow::ObjPtrArg        CoreGLWindowPtrArg;
-typedef CoreGLWindow::ObjPtrConstArg   CoreGLWindowPtrConstArg;
 
 OSG_END_NAMESPACE
 
