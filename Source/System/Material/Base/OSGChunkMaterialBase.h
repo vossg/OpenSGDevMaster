@@ -262,10 +262,10 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    MFStateChunkPtr::GetHandlePtr  getHandleChunks          (void);
-    MFStateChunkPtr::EditHandlePtr editHandleChunks         (void);
-    MFInt32::GetHandlePtr  getHandleSlots           (void);
-    MFInt32::EditHandlePtr editHandleSlots          (void);
+    GetFieldHandlePtr  getHandleChunks          (void) const;
+    EditFieldHandlePtr editHandleChunks         (void);
+    GetFieldHandlePtr  getHandleSlots           (void) const;
+    EditFieldHandlePtr editHandleSlots          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

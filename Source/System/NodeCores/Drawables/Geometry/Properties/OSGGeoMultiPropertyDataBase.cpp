@@ -102,8 +102,8 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
         IDataFieldId, IDataFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editHandleIData),
-        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getHandleIData));
+        static_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editHandleIData),
+        static_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getHandleIData));
 
     oType.addInitialDesc(pDesc);
 
@@ -114,8 +114,8 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editHandleGLId),
-        reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -418,7 +418,7 @@ GeoMultiPropertyDataBase::~GeoMultiPropertyDataBase(void)
 }
 
 
-MFUInt8::GetHandlePtr GeoMultiPropertyDataBase::getHandleIData           (void)
+GetFieldHandlePtr GeoMultiPropertyDataBase::getHandleIData           (void) const
 {
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
@@ -428,7 +428,7 @@ MFUInt8::GetHandlePtr GeoMultiPropertyDataBase::getHandleIData           (void)
     return returnValue;
 }
 
-MFUInt8::EditHandlePtr GeoMultiPropertyDataBase::editHandleIData          (void)
+EditFieldHandlePtr GeoMultiPropertyDataBase::editHandleIData          (void)
 {
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(
@@ -440,7 +440,7 @@ MFUInt8::EditHandlePtr GeoMultiPropertyDataBase::editHandleIData          (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr GeoMultiPropertyDataBase::getHandleGLId            (void)
+GetFieldHandlePtr GeoMultiPropertyDataBase::getHandleGLId            (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -450,7 +450,7 @@ SFUInt32::GetHandlePtr GeoMultiPropertyDataBase::getHandleGLId            (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr GeoMultiPropertyDataBase::editHandleGLId           (void)
+EditFieldHandlePtr GeoMultiPropertyDataBase::editHandleGLId           (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(

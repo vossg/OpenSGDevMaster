@@ -248,10 +248,10 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    MFMaterialPtr::GetHandlePtr  getHandleMaterials       (void);
-    MFMaterialPtr::EditHandlePtr editHandleMaterials      (void);
-    SFUInt32::GetHandlePtr  getHandleChoice          (void);
-    SFUInt32::EditHandlePtr editHandleChoice         (void);
+    GetFieldHandlePtr  getHandleMaterials       (void) const;
+    EditFieldHandlePtr editHandleMaterials      (void);
+    GetFieldHandlePtr  getHandleChoice          (void) const;
+    EditFieldHandlePtr editHandleChoice         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

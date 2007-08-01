@@ -274,14 +274,14 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFBool::GetHandlePtr  getHandleRed             (void);
-    SFBool::EditHandlePtr editHandleRed            (void);
-    SFBool::GetHandlePtr  getHandleBlue            (void);
-    SFBool::EditHandlePtr editHandleBlue           (void);
-    SFBool::GetHandlePtr  getHandleGreen           (void);
-    SFBool::EditHandlePtr editHandleGreen          (void);
-    SFBool::GetHandlePtr  getHandleAlpha           (void);
-    SFBool::EditHandlePtr editHandleAlpha          (void);
+    GetFieldHandlePtr  getHandleRed             (void) const;
+    EditFieldHandlePtr editHandleRed            (void);
+    GetFieldHandlePtr  getHandleBlue            (void) const;
+    EditFieldHandlePtr editHandleBlue           (void);
+    GetFieldHandlePtr  getHandleGreen           (void) const;
+    EditFieldHandlePtr editHandleGreen          (void);
+    GetFieldHandlePtr  getHandleAlpha           (void) const;
+    EditFieldHandlePtr editHandleAlpha          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

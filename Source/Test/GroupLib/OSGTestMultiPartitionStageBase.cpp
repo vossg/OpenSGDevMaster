@@ -110,8 +110,8 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         MessageFieldId, MessageFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleMessage),
-        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleMessage));
+        static_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleMessage),
+        static_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleMessage));
 
     oType.addInitialDesc(pDesc);
 
@@ -122,8 +122,8 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         NumPartitionsFieldId, NumPartitionsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleNumPartitions),
-        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleNumPartitions));
+        static_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleNumPartitions),
+        static_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleNumPartitions));
 
     oType.addInitialDesc(pDesc);
 
@@ -134,8 +134,8 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         OrderFieldId, OrderFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleOrder),
-        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleOrder));
+        static_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleOrder),
+        static_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleOrder));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         UseGroupFieldId, UseGroupFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleUseGroup),
-        reinterpret_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleUseGroup));
+        static_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleUseGroup),
+        static_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleUseGroup));
 
     oType.addInitialDesc(pDesc);
 }
@@ -532,7 +532,7 @@ TestMultiPartitionStageBase::~TestMultiPartitionStageBase(void)
 }
 
 
-SFString::GetHandlePtr TestMultiPartitionStageBase::getHandleMessage         (void)
+GetFieldHandlePtr TestMultiPartitionStageBase::getHandleMessage         (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -542,7 +542,7 @@ SFString::GetHandlePtr TestMultiPartitionStageBase::getHandleMessage         (vo
     return returnValue;
 }
 
-SFString::EditHandlePtr TestMultiPartitionStageBase::editHandleMessage        (void)
+EditFieldHandlePtr TestMultiPartitionStageBase::editHandleMessage        (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -554,7 +554,7 @@ SFString::EditHandlePtr TestMultiPartitionStageBase::editHandleMessage        (v
     return returnValue;
 }
 
-SFInt32::GetHandlePtr TestMultiPartitionStageBase::getHandleNumPartitions   (void)
+GetFieldHandlePtr TestMultiPartitionStageBase::getHandleNumPartitions   (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -564,7 +564,7 @@ SFInt32::GetHandlePtr TestMultiPartitionStageBase::getHandleNumPartitions   (voi
     return returnValue;
 }
 
-SFInt32::EditHandlePtr TestMultiPartitionStageBase::editHandleNumPartitions  (void)
+EditFieldHandlePtr TestMultiPartitionStageBase::editHandleNumPartitions  (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -576,7 +576,7 @@ SFInt32::EditHandlePtr TestMultiPartitionStageBase::editHandleNumPartitions  (vo
     return returnValue;
 }
 
-MFInt32::GetHandlePtr TestMultiPartitionStageBase::getHandleOrder           (void)
+GetFieldHandlePtr TestMultiPartitionStageBase::getHandleOrder           (void) const
 {
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
@@ -586,7 +586,7 @@ MFInt32::GetHandlePtr TestMultiPartitionStageBase::getHandleOrder           (voi
     return returnValue;
 }
 
-MFInt32::EditHandlePtr TestMultiPartitionStageBase::editHandleOrder          (void)
+EditFieldHandlePtr TestMultiPartitionStageBase::editHandleOrder          (void)
 {
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
@@ -598,7 +598,7 @@ MFInt32::EditHandlePtr TestMultiPartitionStageBase::editHandleOrder          (vo
     return returnValue;
 }
 
-SFBool::GetHandlePtr TestMultiPartitionStageBase::getHandleUseGroup        (void)
+GetFieldHandlePtr TestMultiPartitionStageBase::getHandleUseGroup        (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -608,7 +608,7 @@ SFBool::GetHandlePtr TestMultiPartitionStageBase::getHandleUseGroup        (void
     return returnValue;
 }
 
-SFBool::EditHandlePtr TestMultiPartitionStageBase::editHandleUseGroup       (void)
+EditFieldHandlePtr TestMultiPartitionStageBase::editHandleUseGroup       (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

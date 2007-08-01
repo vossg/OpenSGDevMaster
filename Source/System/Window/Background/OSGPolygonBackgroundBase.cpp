@@ -135,8 +135,8 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleMaterial),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleMaterial));
+        static_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleMaterial),
+        static_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleMaterial));
 
     oType.addInitialDesc(pDesc);
 
@@ -147,8 +147,8 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleTexCoords),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleTexCoords));
+        static_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleTexCoords),
+        static_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleTexCoords));
 
     oType.addInitialDesc(pDesc);
 
@@ -159,8 +159,8 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandlePositions),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandlePositions));
+        static_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandlePositions),
+        static_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
 
@@ -171,8 +171,8 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         NormalizedXFieldId, NormalizedXFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleNormalizedX),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleNormalizedX));
+        static_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleNormalizedX),
+        static_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleNormalizedX));
 
     oType.addInitialDesc(pDesc);
 
@@ -183,8 +183,8 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         NormalizedYFieldId, NormalizedYFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleNormalizedY),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleNormalizedY));
+        static_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleNormalizedY),
+        static_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleNormalizedY));
 
     oType.addInitialDesc(pDesc);
 
@@ -195,8 +195,8 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         AspectHeightFieldId, AspectHeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleAspectHeight),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleAspectHeight));
+        static_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleAspectHeight),
+        static_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleAspectHeight));
 
     oType.addInitialDesc(pDesc);
 
@@ -207,8 +207,8 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         AspectWidthFieldId, AspectWidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleAspectWidth),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleAspectWidth));
+        static_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleAspectWidth),
+        static_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleAspectWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -219,8 +219,8 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         ScaleFieldId, ScaleFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleScale),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleScale));
+        static_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleScale),
+        static_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleScale));
 
     oType.addInitialDesc(pDesc);
 
@@ -231,8 +231,8 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         CleanupFieldId, CleanupFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleCleanup),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleCleanup));
+        static_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleCleanup),
+        static_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleCleanup));
 
     oType.addInitialDesc(pDesc);
 
@@ -243,8 +243,8 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         TileFieldId, TileFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleTile),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleTile));
+        static_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editHandleTile),
+        static_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getHandleTile));
 
     oType.addInitialDesc(pDesc);
 }
@@ -969,7 +969,7 @@ void PolygonBackgroundBase::onCreate(const PolygonBackground *source)
     }
 }
 
-SFMaterialPtr::GetHandlePtr PolygonBackgroundBase::getHandleMaterial        (void)
+GetFieldHandlePtr PolygonBackgroundBase::getHandleMaterial        (void) const
 {
     SFMaterialPtr::GetHandlePtr returnValue(
         new  SFMaterialPtr::GetHandle(
@@ -979,7 +979,7 @@ SFMaterialPtr::GetHandlePtr PolygonBackgroundBase::getHandleMaterial        (voi
     return returnValue;
 }
 
-SFMaterialPtr::EditHandlePtr PolygonBackgroundBase::editHandleMaterial       (void)
+EditFieldHandlePtr PolygonBackgroundBase::editHandleMaterial       (void)
 {
     SFMaterialPtr::EditHandlePtr returnValue(
         new  SFMaterialPtr::EditHandle(
@@ -993,7 +993,7 @@ SFMaterialPtr::EditHandlePtr PolygonBackgroundBase::editHandleMaterial       (vo
     return returnValue;
 }
 
-MFVec3f::GetHandlePtr PolygonBackgroundBase::getHandleTexCoords       (void)
+GetFieldHandlePtr PolygonBackgroundBase::getHandleTexCoords       (void) const
 {
     MFVec3f::GetHandlePtr returnValue(
         new  MFVec3f::GetHandle(
@@ -1003,7 +1003,7 @@ MFVec3f::GetHandlePtr PolygonBackgroundBase::getHandleTexCoords       (void)
     return returnValue;
 }
 
-MFVec3f::EditHandlePtr PolygonBackgroundBase::editHandleTexCoords      (void)
+EditFieldHandlePtr PolygonBackgroundBase::editHandleTexCoords      (void)
 {
     MFVec3f::EditHandlePtr returnValue(
         new  MFVec3f::EditHandle(
@@ -1015,7 +1015,7 @@ MFVec3f::EditHandlePtr PolygonBackgroundBase::editHandleTexCoords      (void)
     return returnValue;
 }
 
-MFPnt2f::GetHandlePtr PolygonBackgroundBase::getHandlePositions       (void)
+GetFieldHandlePtr PolygonBackgroundBase::getHandlePositions       (void) const
 {
     MFPnt2f::GetHandlePtr returnValue(
         new  MFPnt2f::GetHandle(
@@ -1025,7 +1025,7 @@ MFPnt2f::GetHandlePtr PolygonBackgroundBase::getHandlePositions       (void)
     return returnValue;
 }
 
-MFPnt2f::EditHandlePtr PolygonBackgroundBase::editHandlePositions      (void)
+EditFieldHandlePtr PolygonBackgroundBase::editHandlePositions      (void)
 {
     MFPnt2f::EditHandlePtr returnValue(
         new  MFPnt2f::EditHandle(
@@ -1037,7 +1037,7 @@ MFPnt2f::EditHandlePtr PolygonBackgroundBase::editHandlePositions      (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr PolygonBackgroundBase::getHandleNormalizedX     (void)
+GetFieldHandlePtr PolygonBackgroundBase::getHandleNormalizedX     (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1047,7 +1047,7 @@ SFBool::GetHandlePtr PolygonBackgroundBase::getHandleNormalizedX     (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr PolygonBackgroundBase::editHandleNormalizedX    (void)
+EditFieldHandlePtr PolygonBackgroundBase::editHandleNormalizedX    (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1059,7 +1059,7 @@ SFBool::EditHandlePtr PolygonBackgroundBase::editHandleNormalizedX    (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr PolygonBackgroundBase::getHandleNormalizedY     (void)
+GetFieldHandlePtr PolygonBackgroundBase::getHandleNormalizedY     (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1069,7 +1069,7 @@ SFBool::GetHandlePtr PolygonBackgroundBase::getHandleNormalizedY     (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr PolygonBackgroundBase::editHandleNormalizedY    (void)
+EditFieldHandlePtr PolygonBackgroundBase::editHandleNormalizedY    (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1081,7 +1081,7 @@ SFBool::EditHandlePtr PolygonBackgroundBase::editHandleNormalizedY    (void)
     return returnValue;
 }
 
-SFUInt16::GetHandlePtr PolygonBackgroundBase::getHandleAspectHeight    (void)
+GetFieldHandlePtr PolygonBackgroundBase::getHandleAspectHeight    (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -1091,7 +1091,7 @@ SFUInt16::GetHandlePtr PolygonBackgroundBase::getHandleAspectHeight    (void)
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr PolygonBackgroundBase::editHandleAspectHeight   (void)
+EditFieldHandlePtr PolygonBackgroundBase::editHandleAspectHeight   (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
@@ -1103,7 +1103,7 @@ SFUInt16::EditHandlePtr PolygonBackgroundBase::editHandleAspectHeight   (void)
     return returnValue;
 }
 
-SFUInt16::GetHandlePtr PolygonBackgroundBase::getHandleAspectWidth     (void)
+GetFieldHandlePtr PolygonBackgroundBase::getHandleAspectWidth     (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -1113,7 +1113,7 @@ SFUInt16::GetHandlePtr PolygonBackgroundBase::getHandleAspectWidth     (void)
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr PolygonBackgroundBase::editHandleAspectWidth    (void)
+EditFieldHandlePtr PolygonBackgroundBase::editHandleAspectWidth    (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
@@ -1125,7 +1125,7 @@ SFUInt16::EditHandlePtr PolygonBackgroundBase::editHandleAspectWidth    (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr PolygonBackgroundBase::getHandleScale           (void)
+GetFieldHandlePtr PolygonBackgroundBase::getHandleScale           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1135,7 +1135,7 @@ SFReal32::GetHandlePtr PolygonBackgroundBase::getHandleScale           (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr PolygonBackgroundBase::editHandleScale          (void)
+EditFieldHandlePtr PolygonBackgroundBase::editHandleScale          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -1147,7 +1147,7 @@ SFReal32::EditHandlePtr PolygonBackgroundBase::editHandleScale          (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr PolygonBackgroundBase::getHandleCleanup         (void)
+GetFieldHandlePtr PolygonBackgroundBase::getHandleCleanup         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1157,7 +1157,7 @@ SFBool::GetHandlePtr PolygonBackgroundBase::getHandleCleanup         (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr PolygonBackgroundBase::editHandleCleanup        (void)
+EditFieldHandlePtr PolygonBackgroundBase::editHandleCleanup        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1169,7 +1169,7 @@ SFBool::EditHandlePtr PolygonBackgroundBase::editHandleCleanup        (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr PolygonBackgroundBase::getHandleTile            (void)
+GetFieldHandlePtr PolygonBackgroundBase::getHandleTile            (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1179,7 +1179,7 @@ SFBool::GetHandlePtr PolygonBackgroundBase::getHandleTile            (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr PolygonBackgroundBase::editHandleTile           (void)
+EditFieldHandlePtr PolygonBackgroundBase::editHandleTile           (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

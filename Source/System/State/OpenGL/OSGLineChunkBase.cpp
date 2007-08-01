@@ -121,8 +121,8 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editHandleWidth),
-        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&LineChunkBase::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&LineChunkBase::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -133,8 +133,8 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         StippleRepeatFieldId, StippleRepeatFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editHandleStippleRepeat),
-        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getHandleStippleRepeat));
+        static_cast<FieldEditMethodSig>(&LineChunkBase::editHandleStippleRepeat),
+        static_cast<FieldGetMethodSig >(&LineChunkBase::getHandleStippleRepeat));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         StipplePatternFieldId, StipplePatternFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editHandleStipplePattern),
-        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getHandleStipplePattern));
+        static_cast<FieldEditMethodSig>(&LineChunkBase::editHandleStipplePattern),
+        static_cast<FieldGetMethodSig >(&LineChunkBase::getHandleStipplePattern));
 
     oType.addInitialDesc(pDesc);
 
@@ -158,8 +158,8 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LineChunkBase::editHandleSmooth),
-        reinterpret_cast<FieldGetMethodSig >(&LineChunkBase::getHandleSmooth));
+        static_cast<FieldEditMethodSig>(&LineChunkBase::editHandleSmooth),
+        static_cast<FieldGetMethodSig >(&LineChunkBase::getHandleSmooth));
 
     oType.addInitialDesc(pDesc);
 }
@@ -486,7 +486,7 @@ LineChunkBase::~LineChunkBase(void)
 }
 
 
-SFReal32::GetHandlePtr LineChunkBase::getHandleWidth           (void)
+GetFieldHandlePtr LineChunkBase::getHandleWidth           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -496,7 +496,7 @@ SFReal32::GetHandlePtr LineChunkBase::getHandleWidth           (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr LineChunkBase::editHandleWidth          (void)
+EditFieldHandlePtr LineChunkBase::editHandleWidth          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -508,7 +508,7 @@ SFReal32::EditHandlePtr LineChunkBase::editHandleWidth          (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr LineChunkBase::getHandleStippleRepeat   (void)
+GetFieldHandlePtr LineChunkBase::getHandleStippleRepeat   (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -518,7 +518,7 @@ SFInt32::GetHandlePtr LineChunkBase::getHandleStippleRepeat   (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr LineChunkBase::editHandleStippleRepeat  (void)
+EditFieldHandlePtr LineChunkBase::editHandleStippleRepeat  (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -530,7 +530,7 @@ SFInt32::EditHandlePtr LineChunkBase::editHandleStippleRepeat  (void)
     return returnValue;
 }
 
-SFUInt16::GetHandlePtr LineChunkBase::getHandleStipplePattern  (void)
+GetFieldHandlePtr LineChunkBase::getHandleStipplePattern  (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -540,7 +540,7 @@ SFUInt16::GetHandlePtr LineChunkBase::getHandleStipplePattern  (void)
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr LineChunkBase::editHandleStipplePattern (void)
+EditFieldHandlePtr LineChunkBase::editHandleStipplePattern (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
@@ -552,7 +552,7 @@ SFUInt16::EditHandlePtr LineChunkBase::editHandleStipplePattern (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr LineChunkBase::getHandleSmooth          (void)
+GetFieldHandlePtr LineChunkBase::getHandleSmooth          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -562,7 +562,7 @@ SFBool::GetHandlePtr LineChunkBase::getHandleSmooth          (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr LineChunkBase::editHandleSmooth         (void)
+EditFieldHandlePtr LineChunkBase::editHandleSmooth         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

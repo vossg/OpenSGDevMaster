@@ -98,8 +98,8 @@ void ShaderParameterMMatrixBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMMatrixBase::editHandleValue),
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMMatrixBase::getHandleValue));
+        static_cast<FieldEditMethodSig>(&ShaderParameterMMatrixBase::editHandleValue),
+        static_cast<FieldGetMethodSig >(&ShaderParameterMMatrixBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -359,7 +359,7 @@ ShaderParameterMMatrixBase::~ShaderParameterMMatrixBase(void)
 }
 
 
-MFMatrix::GetHandlePtr ShaderParameterMMatrixBase::getHandleValue           (void)
+GetFieldHandlePtr ShaderParameterMMatrixBase::getHandleValue           (void) const
 {
     MFMatrix::GetHandlePtr returnValue(
         new  MFMatrix::GetHandle(
@@ -369,7 +369,7 @@ MFMatrix::GetHandlePtr ShaderParameterMMatrixBase::getHandleValue           (voi
     return returnValue;
 }
 
-MFMatrix::EditHandlePtr ShaderParameterMMatrixBase::editHandleValue          (void)
+EditFieldHandlePtr ShaderParameterMMatrixBase::editHandleValue          (void)
 {
     MFMatrix::EditHandlePtr returnValue(
         new  MFMatrix::EditHandle(

@@ -105,8 +105,8 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&RenderBufferBase::editHandleGLId),
-        reinterpret_cast<FieldGetMethodSig >(&RenderBufferBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&RenderBufferBase::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&RenderBufferBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 
@@ -117,8 +117,8 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
         InternalFormatFieldId, InternalFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderBufferBase::editHandleInternalFormat),
-        reinterpret_cast<FieldGetMethodSig >(&RenderBufferBase::getHandleInternalFormat));
+        static_cast<FieldEditMethodSig>(&RenderBufferBase::editHandleInternalFormat),
+        static_cast<FieldGetMethodSig >(&RenderBufferBase::getHandleInternalFormat));
 
     oType.addInitialDesc(pDesc);
 }
@@ -346,7 +346,7 @@ RenderBufferBase::~RenderBufferBase(void)
 }
 
 
-SFGLenum::GetHandlePtr RenderBufferBase::getHandleGLId            (void)
+GetFieldHandlePtr RenderBufferBase::getHandleGLId            (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -356,7 +356,7 @@ SFGLenum::GetHandlePtr RenderBufferBase::getHandleGLId            (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr RenderBufferBase::editHandleGLId           (void)
+EditFieldHandlePtr RenderBufferBase::editHandleGLId           (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -368,7 +368,7 @@ SFGLenum::EditHandlePtr RenderBufferBase::editHandleGLId           (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr RenderBufferBase::getHandleInternalFormat  (void)
+GetFieldHandlePtr RenderBufferBase::getHandleInternalFormat  (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -378,7 +378,7 @@ SFGLenum::GetHandlePtr RenderBufferBase::getHandleInternalFormat  (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr RenderBufferBase::editHandleInternalFormat (void)
+EditFieldHandlePtr RenderBufferBase::editHandleInternalFormat (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(

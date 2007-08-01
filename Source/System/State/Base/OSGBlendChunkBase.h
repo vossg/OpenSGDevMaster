@@ -346,22 +346,22 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFGLenum::GetHandlePtr  getHandleSrcFactor       (void);
-    SFGLenum::EditHandlePtr editHandleSrcFactor      (void);
-    SFGLenum::GetHandlePtr  getHandleDestFactor      (void);
-    SFGLenum::EditHandlePtr editHandleDestFactor     (void);
-    SFGLenum::GetHandlePtr  getHandleEquation        (void);
-    SFGLenum::EditHandlePtr editHandleEquation       (void);
-    SFColor4f::GetHandlePtr  getHandleColor           (void);
-    SFColor4f::EditHandlePtr editHandleColor          (void);
-    SFGLenum::GetHandlePtr  getHandleAlphaFunc       (void);
-    SFGLenum::EditHandlePtr editHandleAlphaFunc      (void);
-    SFReal32::GetHandlePtr  getHandleAlphaValue      (void);
-    SFReal32::EditHandlePtr editHandleAlphaValue     (void);
-    SFGLenum::GetHandlePtr  getHandleAlphaSrcFactor  (void);
-    SFGLenum::EditHandlePtr editHandleAlphaSrcFactor (void);
-    SFGLenum::GetHandlePtr  getHandleAlphaDestFactor (void);
-    SFGLenum::EditHandlePtr editHandleAlphaDestFactor(void);
+    GetFieldHandlePtr  getHandleSrcFactor       (void) const;
+    EditFieldHandlePtr editHandleSrcFactor      (void);
+    GetFieldHandlePtr  getHandleDestFactor      (void) const;
+    EditFieldHandlePtr editHandleDestFactor     (void);
+    GetFieldHandlePtr  getHandleEquation        (void) const;
+    EditFieldHandlePtr editHandleEquation       (void);
+    GetFieldHandlePtr  getHandleColor           (void) const;
+    EditFieldHandlePtr editHandleColor          (void);
+    GetFieldHandlePtr  getHandleAlphaFunc       (void) const;
+    EditFieldHandlePtr editHandleAlphaFunc      (void);
+    GetFieldHandlePtr  getHandleAlphaValue      (void) const;
+    EditFieldHandlePtr editHandleAlphaValue     (void);
+    GetFieldHandlePtr  getHandleAlphaSrcFactor  (void) const;
+    EditFieldHandlePtr editHandleAlphaSrcFactor (void);
+    GetFieldHandlePtr  getHandleAlphaDestFactor (void) const;
+    EditFieldHandlePtr editHandleAlphaDestFactor(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

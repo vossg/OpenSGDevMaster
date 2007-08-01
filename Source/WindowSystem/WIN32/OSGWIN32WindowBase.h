@@ -256,12 +256,12 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFHWND::GetHandlePtr  getHandleHwnd            (void);
-    SFHWND::EditHandlePtr editHandleHwnd           (void);
-    SFHDC::GetHandlePtr  getHandleHdc             (void);
-    SFHDC::EditHandlePtr editHandleHdc            (void);
-    SFHGLRC::GetHandlePtr  getHandleHglrc           (void);
-    SFHGLRC::EditHandlePtr editHandleHglrc          (void);
+    GetFieldHandlePtr  getHandleHwnd            (void) const;
+    EditFieldHandlePtr editHandleHwnd           (void);
+    GetFieldHandlePtr  getHandleHdc             (void) const;
+    EditFieldHandlePtr editHandleHdc            (void);
+    GetFieldHandlePtr  getHandleHglrc           (void) const;
+    EditFieldHandlePtr editHandleHglrc          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

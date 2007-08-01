@@ -256,12 +256,12 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFVec3r::GetHandlePtr  getHandleDirection       (void);
-    SFVec3r::EditHandlePtr editHandleDirection      (void);
-    SFReal::GetHandlePtr  getHandleSpotExponent    (void);
-    SFReal::EditHandlePtr editHandleSpotExponent   (void);
-    SFReal::GetHandlePtr  getHandleSpotCutOff      (void);
-    SFReal::EditHandlePtr editHandleSpotCutOff     (void);
+    GetFieldHandlePtr  getHandleDirection       (void) const;
+    EditFieldHandlePtr editHandleDirection      (void);
+    GetFieldHandlePtr  getHandleSpotExponent    (void) const;
+    EditFieldHandlePtr editHandleSpotExponent   (void);
+    GetFieldHandlePtr  getHandleSpotCutOff      (void) const;
+    EditFieldHandlePtr editHandleSpotCutOff     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -114,8 +114,8 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleTexture),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleTexture));
+        static_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleTexture),
+        static_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -127,8 +127,8 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         TexTargetFieldId, TexTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleTexTarget),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleTexTarget));
+        static_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleTexTarget),
+        static_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleTexTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -139,8 +139,8 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         LevelFieldId, LevelFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleLevel),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleLevel));
+        static_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleLevel),
+        static_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleLevel));
 
     oType.addInitialDesc(pDesc);
 
@@ -151,8 +151,8 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         ZoffsetFieldId, ZoffsetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleZoffset),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleZoffset));
+        static_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleZoffset),
+        static_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleZoffset));
 
     oType.addInitialDesc(pDesc);
 }
@@ -461,7 +461,7 @@ void TextureBufferBase::onCreate(const TextureBuffer *source)
     }
 }
 
-SFTextureObjChunkPtr::GetHandlePtr TextureBufferBase::getHandleTexture         (void)
+GetFieldHandlePtr TextureBufferBase::getHandleTexture         (void) const
 {
     SFTextureObjChunkPtr::GetHandlePtr returnValue(
         new  SFTextureObjChunkPtr::GetHandle(
@@ -471,7 +471,7 @@ SFTextureObjChunkPtr::GetHandlePtr TextureBufferBase::getHandleTexture         (
     return returnValue;
 }
 
-SFTextureObjChunkPtr::EditHandlePtr TextureBufferBase::editHandleTexture        (void)
+EditFieldHandlePtr TextureBufferBase::editHandleTexture        (void)
 {
     SFTextureObjChunkPtr::EditHandlePtr returnValue(
         new  SFTextureObjChunkPtr::EditHandle(
@@ -485,7 +485,7 @@ SFTextureObjChunkPtr::EditHandlePtr TextureBufferBase::editHandleTexture        
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr TextureBufferBase::getHandleTexTarget       (void)
+GetFieldHandlePtr TextureBufferBase::getHandleTexTarget       (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -495,7 +495,7 @@ SFGLenum::GetHandlePtr TextureBufferBase::getHandleTexTarget       (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr TextureBufferBase::editHandleTexTarget      (void)
+EditFieldHandlePtr TextureBufferBase::editHandleTexTarget      (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -507,7 +507,7 @@ SFGLenum::EditHandlePtr TextureBufferBase::editHandleTexTarget      (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr TextureBufferBase::getHandleLevel           (void)
+GetFieldHandlePtr TextureBufferBase::getHandleLevel           (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -517,7 +517,7 @@ SFUInt32::GetHandlePtr TextureBufferBase::getHandleLevel           (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr TextureBufferBase::editHandleLevel          (void)
+EditFieldHandlePtr TextureBufferBase::editHandleLevel          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -529,7 +529,7 @@ SFUInt32::EditHandlePtr TextureBufferBase::editHandleLevel          (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr TextureBufferBase::getHandleZoffset         (void)
+GetFieldHandlePtr TextureBufferBase::getHandleZoffset         (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -539,7 +539,7 @@ SFUInt32::GetHandlePtr TextureBufferBase::getHandleZoffset         (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr TextureBufferBase::editHandleZoffset        (void)
+EditFieldHandlePtr TextureBufferBase::editHandleZoffset        (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(

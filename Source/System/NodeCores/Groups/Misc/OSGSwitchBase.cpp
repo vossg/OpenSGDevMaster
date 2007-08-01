@@ -99,8 +99,8 @@ void SwitchBase::classDescInserter(TypeObject &oType)
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SwitchBase::editHandleChoice),
-        reinterpret_cast<FieldGetMethodSig >(&SwitchBase::getHandleChoice));
+        static_cast<FieldEditMethodSig>(&SwitchBase::editHandleChoice),
+        static_cast<FieldGetMethodSig >(&SwitchBase::getHandleChoice));
 
     oType.addInitialDesc(pDesc);
 }
@@ -281,7 +281,7 @@ SwitchBase::~SwitchBase(void)
 }
 
 
-SFInt32::GetHandlePtr SwitchBase::getHandleChoice          (void)
+GetFieldHandlePtr SwitchBase::getHandleChoice          (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -291,7 +291,7 @@ SFInt32::GetHandlePtr SwitchBase::getHandleChoice          (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr SwitchBase::editHandleChoice         (void)
+EditFieldHandlePtr SwitchBase::editHandleChoice         (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(

@@ -202,8 +202,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawableBase : public Drawable
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFMaterialPtr::GetHandlePtr  getHandleMaterial        (void);
-    SFMaterialPtr::EditHandlePtr editHandleMaterial       (void);
+    GetFieldHandlePtr  getHandleMaterial        (void) const;
+    EditFieldHandlePtr editHandleMaterial       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

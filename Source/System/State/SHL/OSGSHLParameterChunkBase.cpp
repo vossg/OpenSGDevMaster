@@ -99,8 +99,8 @@ void SHLParameterChunkBase::classDescInserter(TypeObject &oType)
         SHLChunkFieldId, SHLChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SHLParameterChunkBase::editHandleSHLChunk),
-        reinterpret_cast<FieldGetMethodSig >(&SHLParameterChunkBase::getHandleSHLChunk));
+        static_cast<FieldEditMethodSig>(&SHLParameterChunkBase::editHandleSHLChunk),
+        static_cast<FieldGetMethodSig >(&SHLParameterChunkBase::getHandleSHLChunk));
 
     oType.addInitialDesc(pDesc);
 }
@@ -275,7 +275,7 @@ void SHLParameterChunkBase::onCreate(const SHLParameterChunk *source)
     }
 }
 
-SFSHLChunkPtr::GetHandlePtr SHLParameterChunkBase::getHandleSHLChunk        (void)
+GetFieldHandlePtr SHLParameterChunkBase::getHandleSHLChunk        (void) const
 {
     SFSHLChunkPtr::GetHandlePtr returnValue(
         new  SFSHLChunkPtr::GetHandle(
@@ -285,7 +285,7 @@ SFSHLChunkPtr::GetHandlePtr SHLParameterChunkBase::getHandleSHLChunk        (voi
     return returnValue;
 }
 
-SFSHLChunkPtr::EditHandlePtr SHLParameterChunkBase::editHandleSHLChunk       (void)
+EditFieldHandlePtr SHLParameterChunkBase::editHandleSHLChunk       (void)
 {
     SFSHLChunkPtr::EditHandlePtr returnValue(
         new  SFSHLChunkPtr::EditHandle(

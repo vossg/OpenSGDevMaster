@@ -105,8 +105,8 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         PartitionRangeBeginFieldId, PartitionRangeBeginFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editHandlePartitionRangeBegin),
-        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getHandlePartitionRangeBegin));
+        static_cast<FieldEditMethodSig>(&StageDataBase::editHandlePartitionRangeBegin),
+        static_cast<FieldGetMethodSig >(&StageDataBase::getHandlePartitionRangeBegin));
 
     oType.addInitialDesc(pDesc);
 
@@ -117,8 +117,8 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         PartitionRangeEndFieldId, PartitionRangeEndFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editHandlePartitionRangeEnd),
-        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getHandlePartitionRangeEnd));
+        static_cast<FieldEditMethodSig>(&StageDataBase::editHandlePartitionRangeEnd),
+        static_cast<FieldGetMethodSig >(&StageDataBase::getHandlePartitionRangeEnd));
 
     oType.addInitialDesc(pDesc);
 
@@ -129,8 +129,8 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         GroupModeFieldId, GroupModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editHandleGroupMode),
-        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getHandleGroupMode));
+        static_cast<FieldEditMethodSig>(&StageDataBase::editHandleGroupMode),
+        static_cast<FieldGetMethodSig >(&StageDataBase::getHandleGroupMode));
 
     oType.addInitialDesc(pDesc);
 }
@@ -384,7 +384,7 @@ void StageDataBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
-SFInt32::GetHandlePtr StageDataBase::getHandlePartitionRangeBegin (void)
+GetFieldHandlePtr StageDataBase::getHandlePartitionRangeBegin (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -394,7 +394,7 @@ SFInt32::GetHandlePtr StageDataBase::getHandlePartitionRangeBegin (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr StageDataBase::editHandlePartitionRangeBegin(void)
+EditFieldHandlePtr StageDataBase::editHandlePartitionRangeBegin(void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -406,7 +406,7 @@ SFInt32::EditHandlePtr StageDataBase::editHandlePartitionRangeBegin(void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr StageDataBase::getHandlePartitionRangeEnd (void)
+GetFieldHandlePtr StageDataBase::getHandlePartitionRangeEnd (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -416,7 +416,7 @@ SFInt32::GetHandlePtr StageDataBase::getHandlePartitionRangeEnd (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr StageDataBase::editHandlePartitionRangeEnd(void)
+EditFieldHandlePtr StageDataBase::editHandlePartitionRangeEnd(void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -428,7 +428,7 @@ SFInt32::EditHandlePtr StageDataBase::editHandlePartitionRangeEnd(void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr StageDataBase::getHandleGroupMode       (void)
+GetFieldHandlePtr StageDataBase::getHandleGroupMode       (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -438,7 +438,7 @@ SFInt32::GetHandlePtr StageDataBase::getHandleGroupMode       (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr StageDataBase::editHandleGroupMode      (void)
+EditFieldHandlePtr StageDataBase::editHandleGroupMode      (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(

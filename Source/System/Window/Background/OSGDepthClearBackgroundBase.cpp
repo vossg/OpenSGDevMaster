@@ -101,8 +101,8 @@ void DepthClearBackgroundBase::classDescInserter(TypeObject &oType)
         ClearDepthFieldId, ClearDepthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DepthClearBackgroundBase::editHandleClearDepth),
-        reinterpret_cast<FieldGetMethodSig >(&DepthClearBackgroundBase::getHandleClearDepth));
+        static_cast<FieldEditMethodSig>(&DepthClearBackgroundBase::editHandleClearDepth),
+        static_cast<FieldGetMethodSig >(&DepthClearBackgroundBase::getHandleClearDepth));
 
     oType.addInitialDesc(pDesc);
 }
@@ -286,7 +286,7 @@ DepthClearBackgroundBase::~DepthClearBackgroundBase(void)
 }
 
 
-SFBool::GetHandlePtr DepthClearBackgroundBase::getHandleClearDepth      (void)
+GetFieldHandlePtr DepthClearBackgroundBase::getHandleClearDepth      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -296,7 +296,7 @@ SFBool::GetHandlePtr DepthClearBackgroundBase::getHandleClearDepth      (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr DepthClearBackgroundBase::editHandleClearDepth     (void)
+EditFieldHandlePtr DepthClearBackgroundBase::editHandleClearDepth     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

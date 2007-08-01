@@ -307,24 +307,24 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFChunkMaterialPtr::GetHandlePtr  getHandleToneMappingMaterial (void);
-    SFChunkMaterialPtr::EditHandlePtr editHandleToneMappingMaterial(void);
-    SFFrameBufferObjectPtr::GetHandlePtr  getHandleBlurRenderTarget (void);
-    SFFrameBufferObjectPtr::EditHandlePtr editHandleBlurRenderTarget(void);
-    SFChunkMaterialPtr::GetHandlePtr  getHandleBlurMaterial    (void);
-    SFChunkMaterialPtr::EditHandlePtr editHandleBlurMaterial   (void);
-    SFSHLChunkPtr::GetHandlePtr  getHandleHBlurShader     (void);
-    SFSHLChunkPtr::EditHandlePtr editHandleHBlurShader    (void);
-    SFSHLChunkPtr::GetHandlePtr  getHandleVBlurShader     (void);
-    SFSHLChunkPtr::EditHandlePtr editHandleVBlurShader    (void);
-    SFUInt32::GetHandlePtr  getHandleWidth           (void);
-    SFUInt32::EditHandlePtr editHandleWidth          (void);
-    SFUInt32::GetHandlePtr  getHandleHeight          (void);
-    SFUInt32::EditHandlePtr editHandleHeight         (void);
-    SFFrameBufferObjectPtr::GetHandlePtr  getHandleShrinkRenderTarget (void);
-    SFFrameBufferObjectPtr::EditHandlePtr editHandleShrinkRenderTarget(void);
-    SFChunkMaterialPtr::GetHandlePtr  getHandleShrinkMaterial  (void);
-    SFChunkMaterialPtr::EditHandlePtr editHandleShrinkMaterial (void);
+    GetFieldHandlePtr  getHandleToneMappingMaterial (void) const;
+    EditFieldHandlePtr editHandleToneMappingMaterial(void);
+    GetFieldHandlePtr  getHandleBlurRenderTarget (void) const;
+    EditFieldHandlePtr editHandleBlurRenderTarget(void);
+    GetFieldHandlePtr  getHandleBlurMaterial    (void) const;
+    EditFieldHandlePtr editHandleBlurMaterial   (void);
+    GetFieldHandlePtr  getHandleHBlurShader     (void) const;
+    EditFieldHandlePtr editHandleHBlurShader    (void);
+    GetFieldHandlePtr  getHandleVBlurShader     (void) const;
+    EditFieldHandlePtr editHandleVBlurShader    (void);
+    GetFieldHandlePtr  getHandleWidth           (void) const;
+    EditFieldHandlePtr editHandleWidth          (void);
+    GetFieldHandlePtr  getHandleHeight          (void) const;
+    EditFieldHandlePtr editHandleHeight         (void);
+    GetFieldHandlePtr  getHandleShrinkRenderTarget (void) const;
+    EditFieldHandlePtr editHandleShrinkRenderTarget(void);
+    GetFieldHandlePtr  getHandleShrinkMaterial  (void) const;
+    EditFieldHandlePtr editHandleShrinkMaterial (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

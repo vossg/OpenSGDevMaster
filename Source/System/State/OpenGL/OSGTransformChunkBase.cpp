@@ -102,8 +102,8 @@ void TransformChunkBase::classDescInserter(TypeObject &oType)
         MatrixFieldId, MatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TransformChunkBase::editHandleMatrix),
-        reinterpret_cast<FieldGetMethodSig >(&TransformChunkBase::getHandleMatrix));
+        static_cast<FieldEditMethodSig>(&TransformChunkBase::editHandleMatrix),
+        static_cast<FieldGetMethodSig >(&TransformChunkBase::getHandleMatrix));
 
     oType.addInitialDesc(pDesc);
 }
@@ -286,7 +286,7 @@ TransformChunkBase::~TransformChunkBase(void)
 }
 
 
-SFMatrix::GetHandlePtr TransformChunkBase::getHandleMatrix          (void)
+GetFieldHandlePtr TransformChunkBase::getHandleMatrix          (void) const
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
@@ -296,7 +296,7 @@ SFMatrix::GetHandlePtr TransformChunkBase::getHandleMatrix          (void)
     return returnValue;
 }
 
-SFMatrix::EditHandlePtr TransformChunkBase::editHandleMatrix         (void)
+EditFieldHandlePtr TransformChunkBase::editHandleMatrix         (void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(

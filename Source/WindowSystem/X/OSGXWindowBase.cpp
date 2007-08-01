@@ -106,8 +106,8 @@ void XWindowBase::classDescInserter(TypeObject &oType)
         DisplayFieldId, DisplayFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&XWindowBase::editHandleDisplay),
-        reinterpret_cast<FieldGetMethodSig >(&XWindowBase::getHandleDisplay));
+        static_cast<FieldEditMethodSig>(&XWindowBase::editHandleDisplay),
+        static_cast<FieldGetMethodSig >(&XWindowBase::getHandleDisplay));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void XWindowBase::classDescInserter(TypeObject &oType)
         WindowFieldId, WindowFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&XWindowBase::editHandleWindow),
-        reinterpret_cast<FieldGetMethodSig >(&XWindowBase::getHandleWindow));
+        static_cast<FieldEditMethodSig>(&XWindowBase::editHandleWindow),
+        static_cast<FieldGetMethodSig >(&XWindowBase::getHandleWindow));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void XWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&XWindowBase::editHandleContext),
-        reinterpret_cast<FieldGetMethodSig >(&XWindowBase::getHandleContext));
+        static_cast<FieldEditMethodSig>(&XWindowBase::editHandleContext),
+        static_cast<FieldGetMethodSig >(&XWindowBase::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }
@@ -393,7 +393,7 @@ XWindowBase::~XWindowBase(void)
 }
 
 
-SFDisplayP::GetHandlePtr XWindowBase::getHandleDisplay         (void)
+GetFieldHandlePtr XWindowBase::getHandleDisplay         (void) const
 {
     SFDisplayP::GetHandlePtr returnValue(
         new  SFDisplayP::GetHandle(
@@ -403,7 +403,7 @@ SFDisplayP::GetHandlePtr XWindowBase::getHandleDisplay         (void)
     return returnValue;
 }
 
-SFDisplayP::EditHandlePtr XWindowBase::editHandleDisplay        (void)
+EditFieldHandlePtr XWindowBase::editHandleDisplay        (void)
 {
     SFDisplayP::EditHandlePtr returnValue(
         new  SFDisplayP::EditHandle(
@@ -415,7 +415,7 @@ SFDisplayP::EditHandlePtr XWindowBase::editHandleDisplay        (void)
     return returnValue;
 }
 
-SFX11Window::GetHandlePtr XWindowBase::getHandleWindow          (void)
+GetFieldHandlePtr XWindowBase::getHandleWindow          (void) const
 {
     SFX11Window::GetHandlePtr returnValue(
         new  SFX11Window::GetHandle(
@@ -425,7 +425,7 @@ SFX11Window::GetHandlePtr XWindowBase::getHandleWindow          (void)
     return returnValue;
 }
 
-SFX11Window::EditHandlePtr XWindowBase::editHandleWindow         (void)
+EditFieldHandlePtr XWindowBase::editHandleWindow         (void)
 {
     SFX11Window::EditHandlePtr returnValue(
         new  SFX11Window::EditHandle(
@@ -437,7 +437,7 @@ SFX11Window::EditHandlePtr XWindowBase::editHandleWindow         (void)
     return returnValue;
 }
 
-SFGLXContext::GetHandlePtr XWindowBase::getHandleContext         (void)
+GetFieldHandlePtr XWindowBase::getHandleContext         (void) const
 {
     SFGLXContext::GetHandlePtr returnValue(
         new  SFGLXContext::GetHandle(
@@ -447,7 +447,7 @@ SFGLXContext::GetHandlePtr XWindowBase::getHandleContext         (void)
     return returnValue;
 }
 
-SFGLXContext::EditHandlePtr XWindowBase::editHandleContext        (void)
+EditFieldHandlePtr XWindowBase::editHandleContext        (void)
 {
     SFGLXContext::EditHandlePtr returnValue(
         new  SFGLXContext::EditHandle(

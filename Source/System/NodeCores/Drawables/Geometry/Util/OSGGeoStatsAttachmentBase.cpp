@@ -138,8 +138,8 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         VerticesFieldId, VerticesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleVertices),
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleVertices));
+        static_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleVertices),
+        static_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleVertices));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         PointsFieldId, PointsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandlePoints),
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandlePoints));
+        static_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandlePoints),
+        static_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandlePoints));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         LinesFieldId, LinesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleLines),
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleLines));
+        static_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleLines),
+        static_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleLines));
 
     oType.addInitialDesc(pDesc);
 
@@ -174,8 +174,8 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         TrianglesFieldId, TrianglesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleTriangles),
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleTriangles));
+        static_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleTriangles),
+        static_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleTriangles));
 
     oType.addInitialDesc(pDesc);
 
@@ -186,8 +186,8 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         ProcessedAttributeBytesFieldId, ProcessedAttributeBytesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleProcessedAttributeBytes),
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleProcessedAttributeBytes));
+        static_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleProcessedAttributeBytes),
+        static_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleProcessedAttributeBytes));
 
     oType.addInitialDesc(pDesc);
 
@@ -198,8 +198,8 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         StoredAttributeBytesFieldId, StoredAttributeBytesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleStoredAttributeBytes),
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleStoredAttributeBytes));
+        static_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleStoredAttributeBytes),
+        static_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleStoredAttributeBytes));
 
     oType.addInitialDesc(pDesc);
 
@@ -210,8 +210,8 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
         ValidFieldId, ValidFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleValid),
-        reinterpret_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleValid));
+        static_cast<FieldEditMethodSig>(&GeoStatsAttachmentBase::editHandleValid),
+        static_cast<FieldGetMethodSig >(&GeoStatsAttachmentBase::getHandleValid));
 
     oType.addInitialDesc(pDesc);
 }
@@ -674,7 +674,7 @@ GeoStatsAttachmentBase::~GeoStatsAttachmentBase(void)
 }
 
 
-SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleVertices        (void)
+GetFieldHandlePtr GeoStatsAttachmentBase::getHandleVertices        (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -684,7 +684,7 @@ SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleVertices        (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleVertices       (void)
+EditFieldHandlePtr GeoStatsAttachmentBase::editHandleVertices       (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -696,7 +696,7 @@ SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleVertices       (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandlePoints          (void)
+GetFieldHandlePtr GeoStatsAttachmentBase::getHandlePoints          (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -706,7 +706,7 @@ SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandlePoints          (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandlePoints         (void)
+EditFieldHandlePtr GeoStatsAttachmentBase::editHandlePoints         (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -718,7 +718,7 @@ SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandlePoints         (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleLines           (void)
+GetFieldHandlePtr GeoStatsAttachmentBase::getHandleLines           (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -728,7 +728,7 @@ SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleLines           (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleLines          (void)
+EditFieldHandlePtr GeoStatsAttachmentBase::editHandleLines          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -740,7 +740,7 @@ SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleLines          (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleTriangles       (void)
+GetFieldHandlePtr GeoStatsAttachmentBase::getHandleTriangles       (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -750,7 +750,7 @@ SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleTriangles       (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleTriangles      (void)
+EditFieldHandlePtr GeoStatsAttachmentBase::editHandleTriangles      (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -762,7 +762,7 @@ SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleTriangles      (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleProcessedAttributeBytes (void)
+GetFieldHandlePtr GeoStatsAttachmentBase::getHandleProcessedAttributeBytes (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -772,7 +772,7 @@ SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleProcessedAttributeBytes 
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleProcessedAttributeBytes(void)
+EditFieldHandlePtr GeoStatsAttachmentBase::editHandleProcessedAttributeBytes(void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -784,7 +784,7 @@ SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleProcessedAttributeByte
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleStoredAttributeBytes (void)
+GetFieldHandlePtr GeoStatsAttachmentBase::getHandleStoredAttributeBytes (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -794,7 +794,7 @@ SFUInt32::GetHandlePtr GeoStatsAttachmentBase::getHandleStoredAttributeBytes (vo
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleStoredAttributeBytes(void)
+EditFieldHandlePtr GeoStatsAttachmentBase::editHandleStoredAttributeBytes(void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -806,7 +806,7 @@ SFUInt32::EditHandlePtr GeoStatsAttachmentBase::editHandleStoredAttributeBytes(v
     return returnValue;
 }
 
-SFBool::GetHandlePtr GeoStatsAttachmentBase::getHandleValid           (void)
+GetFieldHandlePtr GeoStatsAttachmentBase::getHandleValid           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -816,7 +816,7 @@ SFBool::GetHandlePtr GeoStatsAttachmentBase::getHandleValid           (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr GeoStatsAttachmentBase::editHandleValid          (void)
+EditFieldHandlePtr GeoStatsAttachmentBase::editHandleValid          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

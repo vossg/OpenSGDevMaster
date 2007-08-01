@@ -135,8 +135,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleLeft),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleLeft));
+        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleLeft),
+        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleLeft));
 
     oType.addInitialDesc(pDesc);
 
@@ -149,8 +149,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleRight),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleRight));
+        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleRight),
+        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleRight));
 
     oType.addInitialDesc(pDesc);
 
@@ -163,8 +163,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleBottom),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleBottom));
+        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleBottom),
+        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleBottom));
 
     oType.addInitialDesc(pDesc);
 
@@ -177,8 +177,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         TopFieldId, TopFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleTop),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleTop));
+        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleTop),
+        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleTop));
 
     oType.addInitialDesc(pDesc);
 
@@ -189,8 +189,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleCamera),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleCamera));
+        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleCamera),
+        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleCamera));
 
     oType.addInitialDesc(pDesc);
 
@@ -201,8 +201,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         BackgroundFieldId, BackgroundFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleBackground),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleBackground));
+        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleBackground),
+        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleBackground));
 
     oType.addInitialDesc(pDesc);
 
@@ -213,8 +213,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         ForegroundsFieldId, ForegroundsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleForegrounds),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleForegrounds));
+        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleForegrounds),
+        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleForegrounds));
 
     oType.addInitialDesc(pDesc);
 }
@@ -781,7 +781,7 @@ void SimpleStageBase::onCreate(const SimpleStage *source)
     }
 }
 
-SFReal32::GetHandlePtr SimpleStageBase::getHandleLeft            (void)
+GetFieldHandlePtr SimpleStageBase::getHandleLeft            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -791,7 +791,7 @@ SFReal32::GetHandlePtr SimpleStageBase::getHandleLeft            (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr SimpleStageBase::editHandleLeft           (void)
+EditFieldHandlePtr SimpleStageBase::editHandleLeft           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -803,7 +803,7 @@ SFReal32::EditHandlePtr SimpleStageBase::editHandleLeft           (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr SimpleStageBase::getHandleRight           (void)
+GetFieldHandlePtr SimpleStageBase::getHandleRight           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -813,7 +813,7 @@ SFReal32::GetHandlePtr SimpleStageBase::getHandleRight           (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr SimpleStageBase::editHandleRight          (void)
+EditFieldHandlePtr SimpleStageBase::editHandleRight          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -825,7 +825,7 @@ SFReal32::EditHandlePtr SimpleStageBase::editHandleRight          (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr SimpleStageBase::getHandleBottom          (void)
+GetFieldHandlePtr SimpleStageBase::getHandleBottom          (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -835,7 +835,7 @@ SFReal32::GetHandlePtr SimpleStageBase::getHandleBottom          (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr SimpleStageBase::editHandleBottom         (void)
+EditFieldHandlePtr SimpleStageBase::editHandleBottom         (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -847,7 +847,7 @@ SFReal32::EditHandlePtr SimpleStageBase::editHandleBottom         (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr SimpleStageBase::getHandleTop             (void)
+GetFieldHandlePtr SimpleStageBase::getHandleTop             (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -857,7 +857,7 @@ SFReal32::GetHandlePtr SimpleStageBase::getHandleTop             (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr SimpleStageBase::editHandleTop            (void)
+EditFieldHandlePtr SimpleStageBase::editHandleTop            (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -869,7 +869,7 @@ SFReal32::EditHandlePtr SimpleStageBase::editHandleTop            (void)
     return returnValue;
 }
 
-SFCameraPtr::GetHandlePtr SimpleStageBase::getHandleCamera          (void)
+GetFieldHandlePtr SimpleStageBase::getHandleCamera          (void) const
 {
     SFCameraPtr::GetHandlePtr returnValue(
         new  SFCameraPtr::GetHandle(
@@ -879,7 +879,7 @@ SFCameraPtr::GetHandlePtr SimpleStageBase::getHandleCamera          (void)
     return returnValue;
 }
 
-SFCameraPtr::EditHandlePtr SimpleStageBase::editHandleCamera         (void)
+EditFieldHandlePtr SimpleStageBase::editHandleCamera         (void)
 {
     SFCameraPtr::EditHandlePtr returnValue(
         new  SFCameraPtr::EditHandle(
@@ -893,7 +893,7 @@ SFCameraPtr::EditHandlePtr SimpleStageBase::editHandleCamera         (void)
     return returnValue;
 }
 
-SFBackgroundPtr::GetHandlePtr SimpleStageBase::getHandleBackground      (void)
+GetFieldHandlePtr SimpleStageBase::getHandleBackground      (void) const
 {
     SFBackgroundPtr::GetHandlePtr returnValue(
         new  SFBackgroundPtr::GetHandle(
@@ -903,7 +903,7 @@ SFBackgroundPtr::GetHandlePtr SimpleStageBase::getHandleBackground      (void)
     return returnValue;
 }
 
-SFBackgroundPtr::EditHandlePtr SimpleStageBase::editHandleBackground     (void)
+EditFieldHandlePtr SimpleStageBase::editHandleBackground     (void)
 {
     SFBackgroundPtr::EditHandlePtr returnValue(
         new  SFBackgroundPtr::EditHandle(
@@ -917,7 +917,7 @@ SFBackgroundPtr::EditHandlePtr SimpleStageBase::editHandleBackground     (void)
     return returnValue;
 }
 
-MFForegroundPtr::GetHandlePtr SimpleStageBase::getHandleForegrounds     (void)
+GetFieldHandlePtr SimpleStageBase::getHandleForegrounds     (void) const
 {
     MFForegroundPtr::GetHandlePtr returnValue(
         new  MFForegroundPtr::GetHandle(
@@ -927,7 +927,7 @@ MFForegroundPtr::GetHandlePtr SimpleStageBase::getHandleForegrounds     (void)
     return returnValue;
 }
 
-MFForegroundPtr::EditHandlePtr SimpleStageBase::editHandleForegrounds    (void)
+EditFieldHandlePtr SimpleStageBase::editHandleForegrounds    (void)
 {
     MFForegroundPtr::EditHandlePtr returnValue(
         new  MFForegroundPtr::EditHandle(

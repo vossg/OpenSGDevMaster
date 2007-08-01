@@ -113,8 +113,8 @@ void CameraBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&CameraBase::editHandleBeacon),
-        reinterpret_cast<FieldGetMethodSig >(&CameraBase::getHandleBeacon));
+        static_cast<FieldEditMethodSig>(&CameraBase::editHandleBeacon),
+        static_cast<FieldGetMethodSig >(&CameraBase::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 
@@ -125,8 +125,8 @@ void CameraBase::classDescInserter(TypeObject &oType)
         NearFieldId, NearFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&CameraBase::editHandleNear),
-        reinterpret_cast<FieldGetMethodSig >(&CameraBase::getHandleNear));
+        static_cast<FieldEditMethodSig>(&CameraBase::editHandleNear),
+        static_cast<FieldGetMethodSig >(&CameraBase::getHandleNear));
 
     oType.addInitialDesc(pDesc);
 
@@ -137,8 +137,8 @@ void CameraBase::classDescInserter(TypeObject &oType)
         FarFieldId, FarFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&CameraBase::editHandleFar),
-        reinterpret_cast<FieldGetMethodSig >(&CameraBase::getHandleFar));
+        static_cast<FieldEditMethodSig>(&CameraBase::editHandleFar),
+        static_cast<FieldGetMethodSig >(&CameraBase::getHandleFar));
 
     oType.addInitialDesc(pDesc);
 }
@@ -371,7 +371,7 @@ void CameraBase::onCreate(const Camera *source)
     }
 }
 
-SFNodePtr::GetHandlePtr CameraBase::getHandleBeacon          (void)
+GetFieldHandlePtr CameraBase::getHandleBeacon          (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -381,7 +381,7 @@ SFNodePtr::GetHandlePtr CameraBase::getHandleBeacon          (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr CameraBase::editHandleBeacon         (void)
+EditFieldHandlePtr CameraBase::editHandleBeacon         (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -395,7 +395,7 @@ SFNodePtr::EditHandlePtr CameraBase::editHandleBeacon         (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr CameraBase::getHandleNear            (void)
+GetFieldHandlePtr CameraBase::getHandleNear            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -405,7 +405,7 @@ SFReal32::GetHandlePtr CameraBase::getHandleNear            (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr CameraBase::editHandleNear           (void)
+EditFieldHandlePtr CameraBase::editHandleNear           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -417,7 +417,7 @@ SFReal32::EditHandlePtr CameraBase::editHandleNear           (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr CameraBase::getHandleFar             (void)
+GetFieldHandlePtr CameraBase::getHandleFar             (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -427,7 +427,7 @@ SFReal32::GetHandlePtr CameraBase::getHandleFar             (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr CameraBase::editHandleFar            (void)
+EditFieldHandlePtr CameraBase::editHandleFar            (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(

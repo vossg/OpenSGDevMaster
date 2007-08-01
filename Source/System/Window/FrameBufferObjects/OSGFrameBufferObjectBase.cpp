@@ -129,8 +129,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleGLId),
-        reinterpret_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 
@@ -142,8 +142,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         ColorAttachmentsFieldId, ColorAttachmentsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleColorAttachments),
-        reinterpret_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleColorAttachments));
+        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleColorAttachments),
+        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleColorAttachments));
 
     oType.addInitialDesc(pDesc);
 
@@ -156,8 +156,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         DrawBuffersFieldId, DrawBuffersFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleDrawBuffers),
-        reinterpret_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleDrawBuffers));
+        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleDrawBuffers),
+        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleDrawBuffers));
 
     oType.addInitialDesc(pDesc);
 
@@ -168,8 +168,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         DepthAttachmentFieldId, DepthAttachmentFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleDepthAttachment),
-        reinterpret_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleDepthAttachment));
+        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleDepthAttachment),
+        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleDepthAttachment));
 
     oType.addInitialDesc(pDesc);
 
@@ -180,8 +180,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         StencilAttachmentFieldId, StencilAttachmentFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleStencilAttachment),
-        reinterpret_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleStencilAttachment));
+        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleStencilAttachment),
+        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleStencilAttachment));
 
     oType.addInitialDesc(pDesc);
 
@@ -192,8 +192,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleWidth),
-        reinterpret_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -204,8 +204,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleHeight),
-        reinterpret_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 }
@@ -845,7 +845,7 @@ void FrameBufferObjectBase::onCreate(const FrameBufferObject *source)
     }
 }
 
-SFGLenum::GetHandlePtr FrameBufferObjectBase::getHandleGLId            (void)
+GetFieldHandlePtr FrameBufferObjectBase::getHandleGLId            (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -855,7 +855,7 @@ SFGLenum::GetHandlePtr FrameBufferObjectBase::getHandleGLId            (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr FrameBufferObjectBase::editHandleGLId           (void)
+EditFieldHandlePtr FrameBufferObjectBase::editHandleGLId           (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -867,7 +867,7 @@ SFGLenum::EditHandlePtr FrameBufferObjectBase::editHandleGLId           (void)
     return returnValue;
 }
 
-MFFrameBufferAttachmentPtr::GetHandlePtr FrameBufferObjectBase::getHandleColorAttachments (void)
+GetFieldHandlePtr FrameBufferObjectBase::getHandleColorAttachments (void) const
 {
     MFFrameBufferAttachmentPtr::GetHandlePtr returnValue(
         new  MFFrameBufferAttachmentPtr::GetHandle(
@@ -877,7 +877,7 @@ MFFrameBufferAttachmentPtr::GetHandlePtr FrameBufferObjectBase::getHandleColorAt
     return returnValue;
 }
 
-MFFrameBufferAttachmentPtr::EditHandlePtr FrameBufferObjectBase::editHandleColorAttachments(void)
+EditFieldHandlePtr FrameBufferObjectBase::editHandleColorAttachments(void)
 {
     MFFrameBufferAttachmentPtr::EditHandlePtr returnValue(
         new  MFFrameBufferAttachmentPtr::EditHandle(
@@ -891,7 +891,7 @@ MFFrameBufferAttachmentPtr::EditHandlePtr FrameBufferObjectBase::editHandleColor
     return returnValue;
 }
 
-MFGLenum::GetHandlePtr FrameBufferObjectBase::getHandleDrawBuffers     (void)
+GetFieldHandlePtr FrameBufferObjectBase::getHandleDrawBuffers     (void) const
 {
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
@@ -901,7 +901,7 @@ MFGLenum::GetHandlePtr FrameBufferObjectBase::getHandleDrawBuffers     (void)
     return returnValue;
 }
 
-MFGLenum::EditHandlePtr FrameBufferObjectBase::editHandleDrawBuffers    (void)
+EditFieldHandlePtr FrameBufferObjectBase::editHandleDrawBuffers    (void)
 {
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
@@ -913,7 +913,7 @@ MFGLenum::EditHandlePtr FrameBufferObjectBase::editHandleDrawBuffers    (void)
     return returnValue;
 }
 
-SFFrameBufferAttachmentPtr::GetHandlePtr FrameBufferObjectBase::getHandleDepthAttachment (void)
+GetFieldHandlePtr FrameBufferObjectBase::getHandleDepthAttachment (void) const
 {
     SFFrameBufferAttachmentPtr::GetHandlePtr returnValue(
         new  SFFrameBufferAttachmentPtr::GetHandle(
@@ -923,7 +923,7 @@ SFFrameBufferAttachmentPtr::GetHandlePtr FrameBufferObjectBase::getHandleDepthAt
     return returnValue;
 }
 
-SFFrameBufferAttachmentPtr::EditHandlePtr FrameBufferObjectBase::editHandleDepthAttachment(void)
+EditFieldHandlePtr FrameBufferObjectBase::editHandleDepthAttachment(void)
 {
     SFFrameBufferAttachmentPtr::EditHandlePtr returnValue(
         new  SFFrameBufferAttachmentPtr::EditHandle(
@@ -937,7 +937,7 @@ SFFrameBufferAttachmentPtr::EditHandlePtr FrameBufferObjectBase::editHandleDepth
     return returnValue;
 }
 
-SFFrameBufferAttachmentPtr::GetHandlePtr FrameBufferObjectBase::getHandleStencilAttachment (void)
+GetFieldHandlePtr FrameBufferObjectBase::getHandleStencilAttachment (void) const
 {
     SFFrameBufferAttachmentPtr::GetHandlePtr returnValue(
         new  SFFrameBufferAttachmentPtr::GetHandle(
@@ -947,7 +947,7 @@ SFFrameBufferAttachmentPtr::GetHandlePtr FrameBufferObjectBase::getHandleStencil
     return returnValue;
 }
 
-SFFrameBufferAttachmentPtr::EditHandlePtr FrameBufferObjectBase::editHandleStencilAttachment(void)
+EditFieldHandlePtr FrameBufferObjectBase::editHandleStencilAttachment(void)
 {
     SFFrameBufferAttachmentPtr::EditHandlePtr returnValue(
         new  SFFrameBufferAttachmentPtr::EditHandle(
@@ -961,7 +961,7 @@ SFFrameBufferAttachmentPtr::EditHandlePtr FrameBufferObjectBase::editHandleStenc
     return returnValue;
 }
 
-SFUInt16::GetHandlePtr FrameBufferObjectBase::getHandleWidth           (void)
+GetFieldHandlePtr FrameBufferObjectBase::getHandleWidth           (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -971,7 +971,7 @@ SFUInt16::GetHandlePtr FrameBufferObjectBase::getHandleWidth           (void)
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr FrameBufferObjectBase::editHandleWidth          (void)
+EditFieldHandlePtr FrameBufferObjectBase::editHandleWidth          (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
@@ -983,7 +983,7 @@ SFUInt16::EditHandlePtr FrameBufferObjectBase::editHandleWidth          (void)
     return returnValue;
 }
 
-SFUInt16::GetHandlePtr FrameBufferObjectBase::getHandleHeight          (void)
+GetFieldHandlePtr FrameBufferObjectBase::getHandleHeight          (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -993,7 +993,7 @@ SFUInt16::GetHandlePtr FrameBufferObjectBase::getHandleHeight          (void)
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr FrameBufferObjectBase::editHandleHeight         (void)
+EditFieldHandlePtr FrameBufferObjectBase::editHandleHeight         (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(

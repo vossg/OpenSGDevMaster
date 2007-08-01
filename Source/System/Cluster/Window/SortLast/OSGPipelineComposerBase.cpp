@@ -110,8 +110,8 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         ShortFieldId, ShortFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleShort),
-        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleShort));
+        static_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleShort),
+        static_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleShort));
 
     oType.addInitialDesc(pDesc);
 
@@ -122,8 +122,8 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleAlpha),
-        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleAlpha));
+        static_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleAlpha),
+        static_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -134,8 +134,8 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         TileSizeFieldId, TileSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleTileSize),
-        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleTileSize));
+        static_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleTileSize),
+        static_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleTileSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         PipelinedFieldId, PipelinedFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandlePipelined),
-        reinterpret_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandlePipelined));
+        static_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandlePipelined),
+        static_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandlePipelined));
 
     oType.addInitialDesc(pDesc);
 }
@@ -451,7 +451,7 @@ PipelineComposerBase::~PipelineComposerBase(void)
 }
 
 
-SFBool::GetHandlePtr PipelineComposerBase::getHandleShort           (void)
+GetFieldHandlePtr PipelineComposerBase::getHandleShort           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -461,7 +461,7 @@ SFBool::GetHandlePtr PipelineComposerBase::getHandleShort           (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr PipelineComposerBase::editHandleShort          (void)
+EditFieldHandlePtr PipelineComposerBase::editHandleShort          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -473,7 +473,7 @@ SFBool::EditHandlePtr PipelineComposerBase::editHandleShort          (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr PipelineComposerBase::getHandleAlpha           (void)
+GetFieldHandlePtr PipelineComposerBase::getHandleAlpha           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -483,7 +483,7 @@ SFBool::GetHandlePtr PipelineComposerBase::getHandleAlpha           (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr PipelineComposerBase::editHandleAlpha          (void)
+EditFieldHandlePtr PipelineComposerBase::editHandleAlpha          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -495,7 +495,7 @@ SFBool::EditHandlePtr PipelineComposerBase::editHandleAlpha          (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr PipelineComposerBase::getHandleTileSize        (void)
+GetFieldHandlePtr PipelineComposerBase::getHandleTileSize        (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -505,7 +505,7 @@ SFUInt32::GetHandlePtr PipelineComposerBase::getHandleTileSize        (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr PipelineComposerBase::editHandleTileSize       (void)
+EditFieldHandlePtr PipelineComposerBase::editHandleTileSize       (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -517,7 +517,7 @@ SFUInt32::EditHandlePtr PipelineComposerBase::editHandleTileSize       (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr PipelineComposerBase::getHandlePipelined       (void)
+GetFieldHandlePtr PipelineComposerBase::getHandlePipelined       (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -527,7 +527,7 @@ SFBool::GetHandlePtr PipelineComposerBase::getHandlePipelined       (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr PipelineComposerBase::editHandlePipelined      (void)
+EditFieldHandlePtr PipelineComposerBase::editHandlePipelined      (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

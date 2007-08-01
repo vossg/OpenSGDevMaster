@@ -102,8 +102,8 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
         EnabledFieldId, EnabledFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageComposerBase::editHandleEnabled),
-        reinterpret_cast<FieldGetMethodSig >(&ImageComposerBase::getHandleEnabled));
+        static_cast<FieldEditMethodSig>(&ImageComposerBase::editHandleEnabled),
+        static_cast<FieldGetMethodSig >(&ImageComposerBase::getHandleEnabled));
 
     oType.addInitialDesc(pDesc);
 
@@ -114,8 +114,8 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
         StatisticsFieldId, StatisticsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageComposerBase::editHandleStatistics),
-        reinterpret_cast<FieldGetMethodSig >(&ImageComposerBase::getHandleStatistics));
+        static_cast<FieldEditMethodSig>(&ImageComposerBase::editHandleStatistics),
+        static_cast<FieldGetMethodSig >(&ImageComposerBase::getHandleStatistics));
 
     oType.addInitialDesc(pDesc);
 }
@@ -305,7 +305,7 @@ ImageComposerBase::~ImageComposerBase(void)
 }
 
 
-SFBool::GetHandlePtr ImageComposerBase::getHandleEnabled         (void)
+GetFieldHandlePtr ImageComposerBase::getHandleEnabled         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -315,7 +315,7 @@ SFBool::GetHandlePtr ImageComposerBase::getHandleEnabled         (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ImageComposerBase::editHandleEnabled        (void)
+EditFieldHandlePtr ImageComposerBase::editHandleEnabled        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -327,7 +327,7 @@ SFBool::EditHandlePtr ImageComposerBase::editHandleEnabled        (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ImageComposerBase::getHandleStatistics      (void)
+GetFieldHandlePtr ImageComposerBase::getHandleStatistics      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -337,7 +337,7 @@ SFBool::GetHandlePtr ImageComposerBase::getHandleStatistics      (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ImageComposerBase::editHandleStatistics     (void)
+EditFieldHandlePtr ImageComposerBase::editHandleStatistics     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

@@ -220,8 +220,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFMatrix::GetHandlePtr  getHandleValue           (void);
-    SFMatrix::EditHandlePtr editHandleValue          (void);
+    GetFieldHandlePtr  getHandleValue           (void) const;
+    EditFieldHandlePtr editHandleValue          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

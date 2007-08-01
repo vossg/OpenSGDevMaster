@@ -106,8 +106,8 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         DisplayFieldId, DisplayFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleDisplay),
-        reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleDisplay));
+        static_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleDisplay),
+        static_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleDisplay));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         WindowFieldId, WindowFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleWindow),
-        reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleWindow));
+        static_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleWindow),
+        static_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleWindow));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleContext),
-        reinterpret_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleContext));
+        static_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleContext),
+        static_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }
@@ -395,7 +395,7 @@ EGLWindowBase::~EGLWindowBase(void)
 }
 
 
-SFEGLDisplay::GetHandlePtr EGLWindowBase::getHandleDisplay         (void)
+GetFieldHandlePtr EGLWindowBase::getHandleDisplay         (void) const
 {
     SFEGLDisplay::GetHandlePtr returnValue(
         new  SFEGLDisplay::GetHandle(
@@ -405,7 +405,7 @@ SFEGLDisplay::GetHandlePtr EGLWindowBase::getHandleDisplay         (void)
     return returnValue;
 }
 
-SFEGLDisplay::EditHandlePtr EGLWindowBase::editHandleDisplay        (void)
+EditFieldHandlePtr EGLWindowBase::editHandleDisplay        (void)
 {
     SFEGLDisplay::EditHandlePtr returnValue(
         new  SFEGLDisplay::EditHandle(
@@ -417,7 +417,7 @@ SFEGLDisplay::EditHandlePtr EGLWindowBase::editHandleDisplay        (void)
     return returnValue;
 }
 
-SFEGLSurface::GetHandlePtr EGLWindowBase::getHandleWindow          (void)
+GetFieldHandlePtr EGLWindowBase::getHandleWindow          (void) const
 {
     SFEGLSurface::GetHandlePtr returnValue(
         new  SFEGLSurface::GetHandle(
@@ -427,7 +427,7 @@ SFEGLSurface::GetHandlePtr EGLWindowBase::getHandleWindow          (void)
     return returnValue;
 }
 
-SFEGLSurface::EditHandlePtr EGLWindowBase::editHandleWindow         (void)
+EditFieldHandlePtr EGLWindowBase::editHandleWindow         (void)
 {
     SFEGLSurface::EditHandlePtr returnValue(
         new  SFEGLSurface::EditHandle(
@@ -439,7 +439,7 @@ SFEGLSurface::EditHandlePtr EGLWindowBase::editHandleWindow         (void)
     return returnValue;
 }
 
-SFEGLContext::GetHandlePtr EGLWindowBase::getHandleContext         (void)
+GetFieldHandlePtr EGLWindowBase::getHandleContext         (void) const
 {
     SFEGLContext::GetHandlePtr returnValue(
         new  SFEGLContext::GetHandle(
@@ -449,7 +449,7 @@ SFEGLContext::GetHandlePtr EGLWindowBase::getHandleContext         (void)
     return returnValue;
 }
 
-SFEGLContext::EditHandlePtr EGLWindowBase::editHandleContext        (void)
+EditFieldHandlePtr EGLWindowBase::editHandleContext        (void)
 {
     SFEGLContext::EditHandlePtr returnValue(
         new  SFEGLContext::EditHandle(

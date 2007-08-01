@@ -415,26 +415,26 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFNodePtr::GetHandlePtr  getHandleRoot            (void);
-    SFNodePtr::EditHandlePtr editHandleRoot           (void);
-    MFNodePtr::GetHandlePtr  getHandleGeoRoots        (void);
-    MFNodePtr::EditHandlePtr editHandleGeoRoots       (void);
-    MFGeometryPtr::GetHandlePtr  getHandleGeometries      (void);
-    MFGeometryPtr::EditHandlePtr editHandleGeometries     (void);
-    MFChunkMaterialPtr::GetHandlePtr  getHandleMaterials       (void);
-    MFChunkMaterialPtr::EditHandlePtr editHandleMaterials      (void);
-    MFMaterialChunkPtr::GetHandlePtr  getHandleMaterialChunks  (void);
-    MFMaterialChunkPtr::EditHandlePtr editHandleMaterialChunks (void);
-    MFGeoPnt3fPropertyPtr::GetHandlePtr  getHandlePositions       (void);
-    MFGeoPnt3fPropertyPtr::EditHandlePtr editHandlePositions      (void);
-    MFGeoUInt32PropertyPtr::GetHandlePtr  getHandleLength          (void);
-    MFGeoUInt32PropertyPtr::EditHandlePtr editHandleLength         (void);
-    MFGeoUInt8PropertyPtr::GetHandlePtr  getHandleTypes           (void);
-    MFGeoUInt8PropertyPtr::EditHandlePtr editHandleTypes          (void);
-    MFGeoColor4fPropertyPtr::GetHandlePtr  getHandleColors          (void);
-    MFGeoColor4fPropertyPtr::EditHandlePtr editHandleColors         (void);
-    MFGeoVec3fPropertyPtr::GetHandlePtr  getHandleNormals         (void);
-    MFGeoVec3fPropertyPtr::EditHandlePtr editHandleNormals        (void);
+    GetFieldHandlePtr  getHandleRoot            (void) const;
+    EditFieldHandlePtr editHandleRoot           (void);
+    GetFieldHandlePtr  getHandleGeoRoots        (void) const;
+    EditFieldHandlePtr editHandleGeoRoots       (void);
+    GetFieldHandlePtr  getHandleGeometries      (void) const;
+    EditFieldHandlePtr editHandleGeometries     (void);
+    GetFieldHandlePtr  getHandleMaterials       (void) const;
+    EditFieldHandlePtr editHandleMaterials      (void);
+    GetFieldHandlePtr  getHandleMaterialChunks  (void) const;
+    EditFieldHandlePtr editHandleMaterialChunks (void);
+    GetFieldHandlePtr  getHandlePositions       (void) const;
+    EditFieldHandlePtr editHandlePositions      (void);
+    GetFieldHandlePtr  getHandleLength          (void) const;
+    EditFieldHandlePtr editHandleLength         (void);
+    GetFieldHandlePtr  getHandleTypes           (void) const;
+    EditFieldHandlePtr editHandleTypes          (void);
+    GetFieldHandlePtr  getHandleColors          (void) const;
+    EditFieldHandlePtr editHandleColors         (void);
+    GetFieldHandlePtr  getHandleNormals         (void) const;
+    EditFieldHandlePtr editHandleNormals        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

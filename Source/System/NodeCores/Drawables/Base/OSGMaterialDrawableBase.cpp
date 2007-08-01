@@ -99,8 +99,8 @@ void MaterialDrawableBase::classDescInserter(TypeObject &oType)
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialDrawableBase::editHandleMaterial),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialDrawableBase::getHandleMaterial));
+        static_cast<FieldEditMethodSig>(&MaterialDrawableBase::editHandleMaterial),
+        static_cast<FieldGetMethodSig >(&MaterialDrawableBase::getHandleMaterial));
 
     oType.addInitialDesc(pDesc);
 }
@@ -242,7 +242,7 @@ void MaterialDrawableBase::onCreate(const MaterialDrawable *source)
     }
 }
 
-SFMaterialPtr::GetHandlePtr MaterialDrawableBase::getHandleMaterial        (void)
+GetFieldHandlePtr MaterialDrawableBase::getHandleMaterial        (void) const
 {
     SFMaterialPtr::GetHandlePtr returnValue(
         new  SFMaterialPtr::GetHandle(
@@ -252,7 +252,7 @@ SFMaterialPtr::GetHandlePtr MaterialDrawableBase::getHandleMaterial        (void
     return returnValue;
 }
 
-SFMaterialPtr::EditHandlePtr MaterialDrawableBase::editHandleMaterial       (void)
+EditFieldHandlePtr MaterialDrawableBase::editHandleMaterial       (void)
 {
     SFMaterialPtr::EditHandlePtr returnValue(
         new  SFMaterialPtr::EditHandle(

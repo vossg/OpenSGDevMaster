@@ -304,22 +304,22 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFUInt16::GetHandlePtr  getHandleWidth           (void);
-    SFUInt16::EditHandlePtr editHandleWidth          (void);
-    SFUInt16::GetHandlePtr  getHandleHeight          (void);
-    SFUInt16::EditHandlePtr editHandleHeight         (void);
-    MFViewportPtr::GetHandlePtr  getHandlePort            (void);
-    MFViewportPtr::EditHandlePtr editHandlePort           (void);
-    SFBool::GetHandlePtr  getHandleResizePending   (void);
-    SFBool::EditHandlePtr editHandleResizePending  (void);
-    SFUInt32::GetHandlePtr  getHandleGlObjectEventCounter (void);
-    SFUInt32::EditHandlePtr editHandleGlObjectEventCounter(void);
-    MFUInt32::GetHandlePtr  getHandleGlObjectLastRefresh (void);
-    MFUInt32::EditHandlePtr editHandleGlObjectLastRefresh(void);
-    MFUInt32::GetHandlePtr  getHandleGlObjectLastReinitialize (void);
-    MFUInt32::EditHandlePtr editHandleGlObjectLastReinitialize(void);
-    SFUInt32::GetHandlePtr  getHandleDrawerId        (void);
-    SFUInt32::EditHandlePtr editHandleDrawerId       (void);
+    GetFieldHandlePtr  getHandleWidth           (void) const;
+    EditFieldHandlePtr editHandleWidth          (void);
+    GetFieldHandlePtr  getHandleHeight          (void) const;
+    EditFieldHandlePtr editHandleHeight         (void);
+    GetFieldHandlePtr  getHandlePort            (void) const;
+    EditFieldHandlePtr editHandlePort           (void);
+    GetFieldHandlePtr  getHandleResizePending   (void) const;
+    EditFieldHandlePtr editHandleResizePending  (void);
+    GetFieldHandlePtr  getHandleGlObjectEventCounter (void) const;
+    EditFieldHandlePtr editHandleGlObjectEventCounter(void);
+    GetFieldHandlePtr  getHandleGlObjectLastRefresh (void) const;
+    EditFieldHandlePtr editHandleGlObjectLastRefresh(void);
+    GetFieldHandlePtr  getHandleGlObjectLastReinitialize (void) const;
+    EditFieldHandlePtr editHandleGlObjectLastReinitialize(void);
+    GetFieldHandlePtr  getHandleDrawerId        (void) const;
+    EditFieldHandlePtr editHandleDrawerId       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

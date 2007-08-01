@@ -176,8 +176,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleLeft),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleLeft));
+        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleLeft),
+        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleLeft));
 
     oType.addInitialDesc(pDesc);
 
@@ -190,8 +190,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleRight),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleRight));
+        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleRight),
+        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleRight));
 
     oType.addInitialDesc(pDesc);
 
@@ -204,8 +204,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleBottom),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleBottom));
+        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleBottom),
+        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleBottom));
 
     oType.addInitialDesc(pDesc);
 
@@ -218,8 +218,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         TopFieldId, TopFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleTop),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleTop));
+        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleTop),
+        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleTop));
 
     oType.addInitialDesc(pDesc);
 
@@ -242,8 +242,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleCamera),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleCamera));
+        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleCamera),
+        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleCamera));
 
     oType.addInitialDesc(pDesc);
 
@@ -254,8 +254,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         RootFieldId, RootFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleRoot),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleRoot));
+        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleRoot),
+        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
 
@@ -266,8 +266,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         BackgroundFieldId, BackgroundFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleBackground),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleBackground));
+        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleBackground),
+        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleBackground));
 
     oType.addInitialDesc(pDesc);
 
@@ -278,8 +278,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         ForegroundsFieldId, ForegroundsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleForegrounds),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleForegrounds));
+        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleForegrounds),
+        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleForegrounds));
 
     oType.addInitialDesc(pDesc);
 
@@ -290,8 +290,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         TravMaskFieldId, TravMaskFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleTravMask),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleTravMask));
+        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleTravMask),
+        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleTravMask));
 
     oType.addInitialDesc(pDesc);
 
@@ -302,8 +302,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         DrawTimeFieldId, DrawTimeFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ViewportBase::editHandleDrawTime),
-        reinterpret_cast<FieldGetMethodSig >(&ViewportBase::getHandleDrawTime));
+        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleDrawTime),
+        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleDrawTime));
 
     oType.addInitialDesc(pDesc);
 }
@@ -1052,7 +1052,7 @@ void ViewportBase::onCreate(const Viewport *source)
     }
 }
 
-SFReal32::GetHandlePtr ViewportBase::getHandleLeft            (void)
+GetFieldHandlePtr ViewportBase::getHandleLeft            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1062,7 +1062,7 @@ SFReal32::GetHandlePtr ViewportBase::getHandleLeft            (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr ViewportBase::editHandleLeft           (void)
+EditFieldHandlePtr ViewportBase::editHandleLeft           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -1074,7 +1074,7 @@ SFReal32::EditHandlePtr ViewportBase::editHandleLeft           (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr ViewportBase::getHandleRight           (void)
+GetFieldHandlePtr ViewportBase::getHandleRight           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1084,7 +1084,7 @@ SFReal32::GetHandlePtr ViewportBase::getHandleRight           (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr ViewportBase::editHandleRight          (void)
+EditFieldHandlePtr ViewportBase::editHandleRight          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -1096,7 +1096,7 @@ SFReal32::EditHandlePtr ViewportBase::editHandleRight          (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr ViewportBase::getHandleBottom          (void)
+GetFieldHandlePtr ViewportBase::getHandleBottom          (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1106,7 +1106,7 @@ SFReal32::GetHandlePtr ViewportBase::getHandleBottom          (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr ViewportBase::editHandleBottom         (void)
+EditFieldHandlePtr ViewportBase::editHandleBottom         (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -1118,7 +1118,7 @@ SFReal32::EditHandlePtr ViewportBase::editHandleBottom         (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr ViewportBase::getHandleTop             (void)
+GetFieldHandlePtr ViewportBase::getHandleTop             (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1128,7 +1128,7 @@ SFReal32::GetHandlePtr ViewportBase::getHandleTop             (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr ViewportBase::editHandleTop            (void)
+EditFieldHandlePtr ViewportBase::editHandleTop            (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -1140,7 +1140,7 @@ SFReal32::EditHandlePtr ViewportBase::editHandleTop            (void)
     return returnValue;
 }
 
-SFParentFieldContainerPtr::GetHandlePtr ViewportBase::getHandleParent          (void)
+GetFieldHandlePtr ViewportBase::getHandleParent          (void) const
 {
     SFParentFieldContainerPtr::GetHandlePtr returnValue(
         new  SFParentFieldContainerPtr::GetHandle(
@@ -1150,14 +1150,14 @@ SFParentFieldContainerPtr::GetHandlePtr ViewportBase::getHandleParent          (
     return returnValue;
 }
 
-SFParentFieldContainerPtr::EditHandlePtr ViewportBase::editHandleParent         (void)
+EditFieldHandlePtr ViewportBase::editHandleParent         (void)
 {
     SFParentFieldContainerPtr::EditHandlePtr returnValue;
 
     return returnValue;
 }
 
-SFCameraPtr::GetHandlePtr ViewportBase::getHandleCamera          (void)
+GetFieldHandlePtr ViewportBase::getHandleCamera          (void) const
 {
     SFCameraPtr::GetHandlePtr returnValue(
         new  SFCameraPtr::GetHandle(
@@ -1167,7 +1167,7 @@ SFCameraPtr::GetHandlePtr ViewportBase::getHandleCamera          (void)
     return returnValue;
 }
 
-SFCameraPtr::EditHandlePtr ViewportBase::editHandleCamera         (void)
+EditFieldHandlePtr ViewportBase::editHandleCamera         (void)
 {
     SFCameraPtr::EditHandlePtr returnValue(
         new  SFCameraPtr::EditHandle(
@@ -1181,7 +1181,7 @@ SFCameraPtr::EditHandlePtr ViewportBase::editHandleCamera         (void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr ViewportBase::getHandleRoot            (void)
+GetFieldHandlePtr ViewportBase::getHandleRoot            (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1191,7 +1191,7 @@ SFNodePtr::GetHandlePtr ViewportBase::getHandleRoot            (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ViewportBase::editHandleRoot           (void)
+EditFieldHandlePtr ViewportBase::editHandleRoot           (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -1205,7 +1205,7 @@ SFNodePtr::EditHandlePtr ViewportBase::editHandleRoot           (void)
     return returnValue;
 }
 
-SFBackgroundPtr::GetHandlePtr ViewportBase::getHandleBackground      (void)
+GetFieldHandlePtr ViewportBase::getHandleBackground      (void) const
 {
     SFBackgroundPtr::GetHandlePtr returnValue(
         new  SFBackgroundPtr::GetHandle(
@@ -1215,7 +1215,7 @@ SFBackgroundPtr::GetHandlePtr ViewportBase::getHandleBackground      (void)
     return returnValue;
 }
 
-SFBackgroundPtr::EditHandlePtr ViewportBase::editHandleBackground     (void)
+EditFieldHandlePtr ViewportBase::editHandleBackground     (void)
 {
     SFBackgroundPtr::EditHandlePtr returnValue(
         new  SFBackgroundPtr::EditHandle(
@@ -1229,7 +1229,7 @@ SFBackgroundPtr::EditHandlePtr ViewportBase::editHandleBackground     (void)
     return returnValue;
 }
 
-MFForegroundPtr::GetHandlePtr ViewportBase::getHandleForegrounds     (void)
+GetFieldHandlePtr ViewportBase::getHandleForegrounds     (void) const
 {
     MFForegroundPtr::GetHandlePtr returnValue(
         new  MFForegroundPtr::GetHandle(
@@ -1239,7 +1239,7 @@ MFForegroundPtr::GetHandlePtr ViewportBase::getHandleForegrounds     (void)
     return returnValue;
 }
 
-MFForegroundPtr::EditHandlePtr ViewportBase::editHandleForegrounds    (void)
+EditFieldHandlePtr ViewportBase::editHandleForegrounds    (void)
 {
     MFForegroundPtr::EditHandlePtr returnValue(
         new  MFForegroundPtr::EditHandle(
@@ -1253,7 +1253,7 @@ MFForegroundPtr::EditHandlePtr ViewportBase::editHandleForegrounds    (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr ViewportBase::getHandleTravMask        (void)
+GetFieldHandlePtr ViewportBase::getHandleTravMask        (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1263,7 +1263,7 @@ SFUInt32::GetHandlePtr ViewportBase::getHandleTravMask        (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr ViewportBase::editHandleTravMask       (void)
+EditFieldHandlePtr ViewportBase::editHandleTravMask       (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -1275,7 +1275,7 @@ SFUInt32::EditHandlePtr ViewportBase::editHandleTravMask       (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr ViewportBase::getHandleDrawTime        (void)
+GetFieldHandlePtr ViewportBase::getHandleDrawTime        (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1285,7 +1285,7 @@ SFReal32::GetHandlePtr ViewportBase::getHandleDrawTime        (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr ViewportBase::editHandleDrawTime       (void)
+EditFieldHandlePtr ViewportBase::editHandleDrawTime       (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(

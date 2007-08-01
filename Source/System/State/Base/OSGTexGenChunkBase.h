@@ -388,30 +388,30 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFGLenum::GetHandlePtr  getHandleGenFuncS        (void);
-    SFGLenum::EditHandlePtr editHandleGenFuncS       (void);
-    SFGLenum::GetHandlePtr  getHandleGenFuncT        (void);
-    SFGLenum::EditHandlePtr editHandleGenFuncT       (void);
-    SFGLenum::GetHandlePtr  getHandleGenFuncR        (void);
-    SFGLenum::EditHandlePtr editHandleGenFuncR       (void);
-    SFGLenum::GetHandlePtr  getHandleGenFuncQ        (void);
-    SFGLenum::EditHandlePtr editHandleGenFuncQ       (void);
-    SFVec4f::GetHandlePtr  getHandleGenFuncSPlane   (void);
-    SFVec4f::EditHandlePtr editHandleGenFuncSPlane  (void);
-    SFVec4f::GetHandlePtr  getHandleGenFuncTPlane   (void);
-    SFVec4f::EditHandlePtr editHandleGenFuncTPlane  (void);
-    SFVec4f::GetHandlePtr  getHandleGenFuncRPlane   (void);
-    SFVec4f::EditHandlePtr editHandleGenFuncRPlane  (void);
-    SFVec4f::GetHandlePtr  getHandleGenFuncQPlane   (void);
-    SFVec4f::EditHandlePtr editHandleGenFuncQPlane  (void);
-    SFNodePtr::GetHandlePtr  getHandleSBeacon         (void);
-    SFNodePtr::EditHandlePtr editHandleSBeacon        (void);
-    SFNodePtr::GetHandlePtr  getHandleTBeacon         (void);
-    SFNodePtr::EditHandlePtr editHandleTBeacon        (void);
-    SFNodePtr::GetHandlePtr  getHandleRBeacon         (void);
-    SFNodePtr::EditHandlePtr editHandleRBeacon        (void);
-    SFNodePtr::GetHandlePtr  getHandleQBeacon         (void);
-    SFNodePtr::EditHandlePtr editHandleQBeacon        (void);
+    GetFieldHandlePtr  getHandleGenFuncS        (void) const;
+    EditFieldHandlePtr editHandleGenFuncS       (void);
+    GetFieldHandlePtr  getHandleGenFuncT        (void) const;
+    EditFieldHandlePtr editHandleGenFuncT       (void);
+    GetFieldHandlePtr  getHandleGenFuncR        (void) const;
+    EditFieldHandlePtr editHandleGenFuncR       (void);
+    GetFieldHandlePtr  getHandleGenFuncQ        (void) const;
+    EditFieldHandlePtr editHandleGenFuncQ       (void);
+    GetFieldHandlePtr  getHandleGenFuncSPlane   (void) const;
+    EditFieldHandlePtr editHandleGenFuncSPlane  (void);
+    GetFieldHandlePtr  getHandleGenFuncTPlane   (void) const;
+    EditFieldHandlePtr editHandleGenFuncTPlane  (void);
+    GetFieldHandlePtr  getHandleGenFuncRPlane   (void) const;
+    EditFieldHandlePtr editHandleGenFuncRPlane  (void);
+    GetFieldHandlePtr  getHandleGenFuncQPlane   (void) const;
+    EditFieldHandlePtr editHandleGenFuncQPlane  (void);
+    GetFieldHandlePtr  getHandleSBeacon         (void) const;
+    EditFieldHandlePtr editHandleSBeacon        (void);
+    GetFieldHandlePtr  getHandleTBeacon         (void) const;
+    EditFieldHandlePtr editHandleTBeacon        (void);
+    GetFieldHandlePtr  getHandleRBeacon         (void) const;
+    EditFieldHandlePtr editHandleRBeacon        (void);
+    GetFieldHandlePtr  getHandleQBeacon         (void) const;
+    EditFieldHandlePtr editHandleQBeacon        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

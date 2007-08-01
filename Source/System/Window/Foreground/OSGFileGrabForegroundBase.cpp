@@ -115,8 +115,8 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleName),
-        reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleName));
+        static_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleName),
+        static_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleName));
 
     oType.addInitialDesc(pDesc);
 
@@ -127,8 +127,8 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         FrameFieldId, FrameFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleFrame),
-        reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleFrame));
+        static_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleFrame),
+        static_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleFrame));
 
     oType.addInitialDesc(pDesc);
 
@@ -139,8 +139,8 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         IncrementFieldId, IncrementFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleIncrement),
-        reinterpret_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleIncrement));
+        static_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleIncrement),
+        static_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleIncrement));
 
     oType.addInitialDesc(pDesc);
 }
@@ -423,7 +423,7 @@ FileGrabForegroundBase::~FileGrabForegroundBase(void)
 }
 
 
-SFString::GetHandlePtr FileGrabForegroundBase::getHandleName            (void)
+GetFieldHandlePtr FileGrabForegroundBase::getHandleName            (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -433,7 +433,7 @@ SFString::GetHandlePtr FileGrabForegroundBase::getHandleName            (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr FileGrabForegroundBase::editHandleName           (void)
+EditFieldHandlePtr FileGrabForegroundBase::editHandleName           (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -445,7 +445,7 @@ SFString::EditHandlePtr FileGrabForegroundBase::editHandleName           (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr FileGrabForegroundBase::getHandleFrame           (void)
+GetFieldHandlePtr FileGrabForegroundBase::getHandleFrame           (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -455,7 +455,7 @@ SFUInt32::GetHandlePtr FileGrabForegroundBase::getHandleFrame           (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr FileGrabForegroundBase::editHandleFrame          (void)
+EditFieldHandlePtr FileGrabForegroundBase::editHandleFrame          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -467,7 +467,7 @@ SFUInt32::EditHandlePtr FileGrabForegroundBase::editHandleFrame          (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr FileGrabForegroundBase::getHandleIncrement       (void)
+GetFieldHandlePtr FileGrabForegroundBase::getHandleIncrement       (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -477,7 +477,7 @@ SFBool::GetHandlePtr FileGrabForegroundBase::getHandleIncrement       (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr FileGrabForegroundBase::editHandleIncrement      (void)
+EditFieldHandlePtr FileGrabForegroundBase::editHandleIncrement      (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

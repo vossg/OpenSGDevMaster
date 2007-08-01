@@ -103,8 +103,8 @@ void TextureTransformChunkBase::classDescInserter(TypeObject &oType)
         UseCameraBeaconFieldId, UseCameraBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureTransformChunkBase::editHandleUseCameraBeacon),
-        reinterpret_cast<FieldGetMethodSig >(&TextureTransformChunkBase::getHandleUseCameraBeacon));
+        static_cast<FieldEditMethodSig>(&TextureTransformChunkBase::editHandleUseCameraBeacon),
+        static_cast<FieldGetMethodSig >(&TextureTransformChunkBase::getHandleUseCameraBeacon));
 
     oType.addInitialDesc(pDesc);
 }
@@ -294,7 +294,7 @@ TextureTransformChunkBase::~TextureTransformChunkBase(void)
 }
 
 
-SFBool::GetHandlePtr TextureTransformChunkBase::getHandleUseCameraBeacon (void)
+GetFieldHandlePtr TextureTransformChunkBase::getHandleUseCameraBeacon (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -304,7 +304,7 @@ SFBool::GetHandlePtr TextureTransformChunkBase::getHandleUseCameraBeacon (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr TextureTransformChunkBase::editHandleUseCameraBeacon(void)
+EditFieldHandlePtr TextureTransformChunkBase::editHandleUseCameraBeacon(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

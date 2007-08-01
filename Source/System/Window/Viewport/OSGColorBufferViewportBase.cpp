@@ -116,8 +116,8 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         RedFieldId, RedFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleRed),
-        reinterpret_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleRed));
+        static_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleRed),
+        static_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleRed));
 
     oType.addInitialDesc(pDesc);
 
@@ -128,8 +128,8 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         BlueFieldId, BlueFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleBlue),
-        reinterpret_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleBlue));
+        static_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleBlue),
+        static_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleBlue));
 
     oType.addInitialDesc(pDesc);
 
@@ -140,8 +140,8 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         GreenFieldId, GreenFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleGreen),
-        reinterpret_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleGreen));
+        static_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleGreen),
+        static_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleGreen));
 
     oType.addInitialDesc(pDesc);
 
@@ -152,8 +152,8 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleAlpha),
-        reinterpret_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleAlpha));
+        static_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleAlpha),
+        static_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
 }
@@ -473,7 +473,7 @@ ColorBufferViewportBase::~ColorBufferViewportBase(void)
 }
 
 
-SFBool::GetHandlePtr ColorBufferViewportBase::getHandleRed             (void)
+GetFieldHandlePtr ColorBufferViewportBase::getHandleRed             (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -483,7 +483,7 @@ SFBool::GetHandlePtr ColorBufferViewportBase::getHandleRed             (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ColorBufferViewportBase::editHandleRed            (void)
+EditFieldHandlePtr ColorBufferViewportBase::editHandleRed            (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -495,7 +495,7 @@ SFBool::EditHandlePtr ColorBufferViewportBase::editHandleRed            (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ColorBufferViewportBase::getHandleBlue            (void)
+GetFieldHandlePtr ColorBufferViewportBase::getHandleBlue            (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -505,7 +505,7 @@ SFBool::GetHandlePtr ColorBufferViewportBase::getHandleBlue            (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ColorBufferViewportBase::editHandleBlue           (void)
+EditFieldHandlePtr ColorBufferViewportBase::editHandleBlue           (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -517,7 +517,7 @@ SFBool::EditHandlePtr ColorBufferViewportBase::editHandleBlue           (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ColorBufferViewportBase::getHandleGreen           (void)
+GetFieldHandlePtr ColorBufferViewportBase::getHandleGreen           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -527,7 +527,7 @@ SFBool::GetHandlePtr ColorBufferViewportBase::getHandleGreen           (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ColorBufferViewportBase::editHandleGreen          (void)
+EditFieldHandlePtr ColorBufferViewportBase::editHandleGreen          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -539,7 +539,7 @@ SFBool::EditHandlePtr ColorBufferViewportBase::editHandleGreen          (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ColorBufferViewportBase::getHandleAlpha           (void)
+GetFieldHandlePtr ColorBufferViewportBase::getHandleAlpha           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -549,7 +549,7 @@ SFBool::GetHandlePtr ColorBufferViewportBase::getHandleAlpha           (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ColorBufferViewportBase::editHandleAlpha          (void)
+EditFieldHandlePtr ColorBufferViewportBase::editHandleAlpha          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

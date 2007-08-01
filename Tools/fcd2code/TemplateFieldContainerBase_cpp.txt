@@ -141,8 +141,8 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
         @!field.Visibility!@,
         @!field.Flags!@,
     @@if !field.noAccess
-        reinterpret_cast<FieldEditMethodSig>(&@!Classname!@Base::editHandle@!field.Name!@),
-        reinterpret_cast<FieldGetMethodSig >(&@!Classname!@Base::getHandle@!field.Name!@));
+        static_cast<FieldEditMethodSig>(&@!Classname!@Base::editHandle@!field.Name!@),
+        static_cast<FieldGetMethodSig >(&@!Classname!@Base::getHandle@!field.Name!@));
     @@else  //!field.noAccess
         static_cast     <FieldEditMethodSig>(&@!Classname!@Base::invalidEditField),
         static_cast     <FieldGetMethodSig >(&@!Classname!@Base::invalidGetField));
@@ -888,7 +888,7 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
 @@endif // hasPtrFields
 
 @@BeginFieldLoop@@
-@!field.CARD!@@!field.TypeCaps!@::GetHandlePtr @!Classname!@Base::getHandle@!field.Name:15!@ (void)
+GetFieldHandlePtr @!Classname!@Base::getHandle@!field.Name:15!@ (void) const
 {
     @!field.CARD!@@!field.TypeCaps!@::GetHandlePtr returnValue(
         new  @!field.CARD!@@!field.TypeCaps!@::GetHandle(
@@ -898,7 +898,7 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
     return returnValue;
 }
 
-@!field.CARD!@@!field.TypeCaps!@::EditHandlePtr @!Classname!@Base::editHandle@!field.Name:15!@(void)
+EditFieldHandlePtr @!Classname!@Base::editHandle@!field.Name:15!@(void)
 {
 @@if !field.noAccess
     @!field.CARD!@@!field.TypeCaps!@::EditHandlePtr returnValue(

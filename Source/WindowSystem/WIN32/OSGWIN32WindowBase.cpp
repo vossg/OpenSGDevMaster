@@ -106,8 +106,8 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         HwndFieldId, HwndFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHwnd),
-        reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHwnd));
+        static_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHwnd),
+        static_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHwnd));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         HdcFieldId, HdcFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHdc),
-        reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHdc));
+        static_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHdc),
+        static_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHdc));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         HglrcFieldId, HglrcFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHglrc),
-        reinterpret_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHglrc));
+        static_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHglrc),
+        static_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHglrc));
 
     oType.addInitialDesc(pDesc);
 }
@@ -395,7 +395,7 @@ WIN32WindowBase::~WIN32WindowBase(void)
 }
 
 
-SFHWND::GetHandlePtr WIN32WindowBase::getHandleHwnd            (void)
+GetFieldHandlePtr WIN32WindowBase::getHandleHwnd            (void) const
 {
     SFHWND::GetHandlePtr returnValue(
         new  SFHWND::GetHandle(
@@ -405,7 +405,7 @@ SFHWND::GetHandlePtr WIN32WindowBase::getHandleHwnd            (void)
     return returnValue;
 }
 
-SFHWND::EditHandlePtr WIN32WindowBase::editHandleHwnd           (void)
+EditFieldHandlePtr WIN32WindowBase::editHandleHwnd           (void)
 {
     SFHWND::EditHandlePtr returnValue(
         new  SFHWND::EditHandle(
@@ -417,7 +417,7 @@ SFHWND::EditHandlePtr WIN32WindowBase::editHandleHwnd           (void)
     return returnValue;
 }
 
-SFHDC::GetHandlePtr WIN32WindowBase::getHandleHdc             (void)
+GetFieldHandlePtr WIN32WindowBase::getHandleHdc             (void) const
 {
     SFHDC::GetHandlePtr returnValue(
         new  SFHDC::GetHandle(
@@ -427,7 +427,7 @@ SFHDC::GetHandlePtr WIN32WindowBase::getHandleHdc             (void)
     return returnValue;
 }
 
-SFHDC::EditHandlePtr WIN32WindowBase::editHandleHdc            (void)
+EditFieldHandlePtr WIN32WindowBase::editHandleHdc            (void)
 {
     SFHDC::EditHandlePtr returnValue(
         new  SFHDC::EditHandle(
@@ -439,7 +439,7 @@ SFHDC::EditHandlePtr WIN32WindowBase::editHandleHdc            (void)
     return returnValue;
 }
 
-SFHGLRC::GetHandlePtr WIN32WindowBase::getHandleHglrc           (void)
+GetFieldHandlePtr WIN32WindowBase::getHandleHglrc           (void) const
 {
     SFHGLRC::GetHandlePtr returnValue(
         new  SFHGLRC::GetHandle(
@@ -449,7 +449,7 @@ SFHGLRC::GetHandlePtr WIN32WindowBase::getHandleHglrc           (void)
     return returnValue;
 }
 
-SFHGLRC::EditHandlePtr WIN32WindowBase::editHandleHglrc          (void)
+EditFieldHandlePtr WIN32WindowBase::editHandleHglrc          (void)
 {
     SFHGLRC::EditHandlePtr returnValue(
         new  SFHGLRC::EditHandle(

@@ -118,8 +118,8 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureGrabBackgroundBase::editHandleTexture),
-        reinterpret_cast<FieldGetMethodSig >(&TextureGrabBackgroundBase::getHandleTexture));
+        static_cast<FieldEditMethodSig>(&TextureGrabBackgroundBase::editHandleTexture),
+        static_cast<FieldGetMethodSig >(&TextureGrabBackgroundBase::getHandleTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
         AutoResizeFieldId, AutoResizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureGrabBackgroundBase::editHandleAutoResize),
-        reinterpret_cast<FieldGetMethodSig >(&TextureGrabBackgroundBase::getHandleAutoResize));
+        static_cast<FieldEditMethodSig>(&TextureGrabBackgroundBase::editHandleAutoResize),
+        static_cast<FieldGetMethodSig >(&TextureGrabBackgroundBase::getHandleAutoResize));
 
     oType.addInitialDesc(pDesc);
 
@@ -142,8 +142,8 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
         BindTargetFieldId, BindTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureGrabBackgroundBase::editHandleBindTarget),
-        reinterpret_cast<FieldGetMethodSig >(&TextureGrabBackgroundBase::getHandleBindTarget));
+        static_cast<FieldEditMethodSig>(&TextureGrabBackgroundBase::editHandleBindTarget),
+        static_cast<FieldGetMethodSig >(&TextureGrabBackgroundBase::getHandleBindTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -155,8 +155,8 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
         CopyTargetFieldId, CopyTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureGrabBackgroundBase::editHandleCopyTarget),
-        reinterpret_cast<FieldGetMethodSig >(&TextureGrabBackgroundBase::getHandleCopyTarget));
+        static_cast<FieldEditMethodSig>(&TextureGrabBackgroundBase::editHandleCopyTarget),
+        static_cast<FieldGetMethodSig >(&TextureGrabBackgroundBase::getHandleCopyTarget));
 
     oType.addInitialDesc(pDesc);
 }
@@ -473,7 +473,7 @@ void TextureGrabBackgroundBase::onCreate(const TextureGrabBackground *source)
     }
 }
 
-SFTextureObjChunkPtr::GetHandlePtr TextureGrabBackgroundBase::getHandleTexture         (void)
+GetFieldHandlePtr TextureGrabBackgroundBase::getHandleTexture         (void) const
 {
     SFTextureObjChunkPtr::GetHandlePtr returnValue(
         new  SFTextureObjChunkPtr::GetHandle(
@@ -483,7 +483,7 @@ SFTextureObjChunkPtr::GetHandlePtr TextureGrabBackgroundBase::getHandleTexture  
     return returnValue;
 }
 
-SFTextureObjChunkPtr::EditHandlePtr TextureGrabBackgroundBase::editHandleTexture        (void)
+EditFieldHandlePtr TextureGrabBackgroundBase::editHandleTexture        (void)
 {
     SFTextureObjChunkPtr::EditHandlePtr returnValue(
         new  SFTextureObjChunkPtr::EditHandle(
@@ -497,7 +497,7 @@ SFTextureObjChunkPtr::EditHandlePtr TextureGrabBackgroundBase::editHandleTexture
     return returnValue;
 }
 
-SFBool::GetHandlePtr TextureGrabBackgroundBase::getHandleAutoResize      (void)
+GetFieldHandlePtr TextureGrabBackgroundBase::getHandleAutoResize      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -507,7 +507,7 @@ SFBool::GetHandlePtr TextureGrabBackgroundBase::getHandleAutoResize      (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr TextureGrabBackgroundBase::editHandleAutoResize     (void)
+EditFieldHandlePtr TextureGrabBackgroundBase::editHandleAutoResize     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -519,7 +519,7 @@ SFBool::EditHandlePtr TextureGrabBackgroundBase::editHandleAutoResize     (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr TextureGrabBackgroundBase::getHandleBindTarget      (void)
+GetFieldHandlePtr TextureGrabBackgroundBase::getHandleBindTarget      (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -529,7 +529,7 @@ SFGLenum::GetHandlePtr TextureGrabBackgroundBase::getHandleBindTarget      (void
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr TextureGrabBackgroundBase::editHandleBindTarget     (void)
+EditFieldHandlePtr TextureGrabBackgroundBase::editHandleBindTarget     (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -541,7 +541,7 @@ SFGLenum::EditHandlePtr TextureGrabBackgroundBase::editHandleBindTarget     (voi
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr TextureGrabBackgroundBase::getHandleCopyTarget      (void)
+GetFieldHandlePtr TextureGrabBackgroundBase::getHandleCopyTarget      (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -551,7 +551,7 @@ SFGLenum::GetHandlePtr TextureGrabBackgroundBase::getHandleCopyTarget      (void
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr TextureGrabBackgroundBase::editHandleCopyTarget     (void)
+EditFieldHandlePtr TextureGrabBackgroundBase::editHandleCopyTarget     (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(

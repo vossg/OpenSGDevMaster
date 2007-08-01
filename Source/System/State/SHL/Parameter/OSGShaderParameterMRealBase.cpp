@@ -98,8 +98,8 @@ void ShaderParameterMRealBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMRealBase::editHandleValue),
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMRealBase::getHandleValue));
+        static_cast<FieldEditMethodSig>(&ShaderParameterMRealBase::editHandleValue),
+        static_cast<FieldGetMethodSig >(&ShaderParameterMRealBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -359,7 +359,7 @@ ShaderParameterMRealBase::~ShaderParameterMRealBase(void)
 }
 
 
-MFReal32::GetHandlePtr ShaderParameterMRealBase::getHandleValue           (void)
+GetFieldHandlePtr ShaderParameterMRealBase::getHandleValue           (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
@@ -369,7 +369,7 @@ MFReal32::GetHandlePtr ShaderParameterMRealBase::getHandleValue           (void)
     return returnValue;
 }
 
-MFReal32::EditHandlePtr ShaderParameterMRealBase::editHandleValue          (void)
+EditFieldHandlePtr ShaderParameterMRealBase::editHandleValue          (void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(

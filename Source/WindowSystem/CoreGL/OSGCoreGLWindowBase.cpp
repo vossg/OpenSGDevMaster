@@ -98,8 +98,8 @@ void CoreGLWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&CoreGLWindowBase::editHandleContext),
-        reinterpret_cast<FieldGetMethodSig >(&CoreGLWindowBase::getHandleContext));
+        static_cast<FieldEditMethodSig>(&CoreGLWindowBase::editHandleContext),
+        static_cast<FieldGetMethodSig >(&CoreGLWindowBase::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }
@@ -277,7 +277,7 @@ CoreGLWindowBase::~CoreGLWindowBase(void)
 }
 
 
-SFCGLContextObj::GetHandlePtr CoreGLWindowBase::getHandleContext         (void)
+GetFieldHandlePtr CoreGLWindowBase::getHandleContext         (void) const
 {
     SFCGLContextObj::GetHandlePtr returnValue(
         new  SFCGLContextObj::GetHandle(
@@ -287,7 +287,7 @@ SFCGLContextObj::GetHandlePtr CoreGLWindowBase::getHandleContext         (void)
     return returnValue;
 }
 
-SFCGLContextObj::EditHandlePtr CoreGLWindowBase::editHandleContext        (void)
+EditFieldHandlePtr CoreGLWindowBase::editHandleContext        (void)
 {
     SFCGLContextObj::EditHandlePtr returnValue(
         new  SFCGLContextObj::EditHandle(

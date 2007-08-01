@@ -109,8 +109,8 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
         ImagesFieldId, ImagesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageForegroundBase::editHandleImages),
-        reinterpret_cast<FieldGetMethodSig >(&ImageForegroundBase::getHandleImages));
+        static_cast<FieldEditMethodSig>(&ImageForegroundBase::editHandleImages),
+        static_cast<FieldGetMethodSig >(&ImageForegroundBase::getHandleImages));
 
     oType.addInitialDesc(pDesc);
 
@@ -121,8 +121,8 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageForegroundBase::editHandlePositions),
-        reinterpret_cast<FieldGetMethodSig >(&ImageForegroundBase::getHandlePositions));
+        static_cast<FieldEditMethodSig>(&ImageForegroundBase::editHandlePositions),
+        static_cast<FieldGetMethodSig >(&ImageForegroundBase::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
 }
@@ -579,7 +579,7 @@ void ImageForegroundBase::onCreate(const ImageForeground *source)
     }
 }
 
-MFImagePtr::GetHandlePtr ImageForegroundBase::getHandleImages          (void)
+GetFieldHandlePtr ImageForegroundBase::getHandleImages          (void) const
 {
     MFImagePtr::GetHandlePtr returnValue(
         new  MFImagePtr::GetHandle(
@@ -589,7 +589,7 @@ MFImagePtr::GetHandlePtr ImageForegroundBase::getHandleImages          (void)
     return returnValue;
 }
 
-MFImagePtr::EditHandlePtr ImageForegroundBase::editHandleImages         (void)
+EditFieldHandlePtr ImageForegroundBase::editHandleImages         (void)
 {
     MFImagePtr::EditHandlePtr returnValue(
         new  MFImagePtr::EditHandle(
@@ -603,7 +603,7 @@ MFImagePtr::EditHandlePtr ImageForegroundBase::editHandleImages         (void)
     return returnValue;
 }
 
-MFPnt2f::GetHandlePtr ImageForegroundBase::getHandlePositions       (void)
+GetFieldHandlePtr ImageForegroundBase::getHandlePositions       (void) const
 {
     MFPnt2f::GetHandlePtr returnValue(
         new  MFPnt2f::GetHandle(
@@ -613,7 +613,7 @@ MFPnt2f::GetHandlePtr ImageForegroundBase::getHandlePositions       (void)
     return returnValue;
 }
 
-MFPnt2f::EditHandlePtr ImageForegroundBase::editHandlePositions      (void)
+EditFieldHandlePtr ImageForegroundBase::editHandlePositions      (void)
 {
     MFPnt2f::EditHandlePtr returnValue(
         new  MFPnt2f::EditHandle(

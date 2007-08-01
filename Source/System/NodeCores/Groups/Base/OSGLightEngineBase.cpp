@@ -98,8 +98,8 @@ void LightEngineBase::classDescInserter(TypeObject &oType)
         EnabledFieldId, EnabledFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightEngineBase::editHandleEnabled),
-        reinterpret_cast<FieldGetMethodSig >(&LightEngineBase::getHandleEnabled));
+        static_cast<FieldEditMethodSig>(&LightEngineBase::editHandleEnabled),
+        static_cast<FieldGetMethodSig >(&LightEngineBase::getHandleEnabled));
 
     oType.addInitialDesc(pDesc);
 }
@@ -244,7 +244,7 @@ LightEngineBase::~LightEngineBase(void)
 }
 
 
-SFBool::GetHandlePtr LightEngineBase::getHandleEnabled         (void)
+GetFieldHandlePtr LightEngineBase::getHandleEnabled         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -254,7 +254,7 @@ SFBool::GetHandlePtr LightEngineBase::getHandleEnabled         (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr LightEngineBase::editHandleEnabled        (void)
+EditFieldHandlePtr LightEngineBase::editHandleEnabled        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

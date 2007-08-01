@@ -101,8 +101,8 @@ void StateBase::classDescInserter(TypeObject &oType)
         ChunksFieldId, ChunksFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StateBase::editHandleChunks),
-        reinterpret_cast<FieldGetMethodSig >(&StateBase::getHandleChunks));
+        static_cast<FieldEditMethodSig>(&StateBase::editHandleChunks),
+        static_cast<FieldGetMethodSig >(&StateBase::getHandleChunks));
 
     oType.addInitialDesc(pDesc);
 }
@@ -435,7 +435,7 @@ void StateBase::onCreate(const State *source)
     }
 }
 
-MFStateChunkPtr::GetHandlePtr StateBase::getHandleChunks          (void)
+GetFieldHandlePtr StateBase::getHandleChunks          (void) const
 {
     MFStateChunkPtr::GetHandlePtr returnValue(
         new  MFStateChunkPtr::GetHandle(
@@ -445,7 +445,7 @@ MFStateChunkPtr::GetHandlePtr StateBase::getHandleChunks          (void)
     return returnValue;
 }
 
-MFStateChunkPtr::EditHandlePtr StateBase::editHandleChunks         (void)
+EditFieldHandlePtr StateBase::editHandleChunks         (void)
 {
     MFStateChunkPtr::EditHandlePtr returnValue(
         new  MFStateChunkPtr::EditHandle(

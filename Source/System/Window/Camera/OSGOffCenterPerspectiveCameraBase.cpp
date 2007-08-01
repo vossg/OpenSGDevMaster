@@ -98,8 +98,8 @@ void OffCenterPerspectiveCameraBase::classDescInserter(TypeObject &oType)
         PrincipalPointFieldId, PrincipalPointFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&OffCenterPerspectiveCameraBase::editHandlePrincipalPoint),
-        reinterpret_cast<FieldGetMethodSig >(&OffCenterPerspectiveCameraBase::getHandlePrincipalPoint));
+        static_cast<FieldEditMethodSig>(&OffCenterPerspectiveCameraBase::editHandlePrincipalPoint),
+        static_cast<FieldGetMethodSig >(&OffCenterPerspectiveCameraBase::getHandlePrincipalPoint));
 
     oType.addInitialDesc(pDesc);
 }
@@ -276,7 +276,7 @@ OffCenterPerspectiveCameraBase::~OffCenterPerspectiveCameraBase(void)
 }
 
 
-SFVec2f::GetHandlePtr OffCenterPerspectiveCameraBase::getHandlePrincipalPoint  (void)
+GetFieldHandlePtr OffCenterPerspectiveCameraBase::getHandlePrincipalPoint  (void) const
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
@@ -286,7 +286,7 @@ SFVec2f::GetHandlePtr OffCenterPerspectiveCameraBase::getHandlePrincipalPoint  (
     return returnValue;
 }
 
-SFVec2f::EditHandlePtr OffCenterPerspectiveCameraBase::editHandlePrincipalPoint (void)
+EditFieldHandlePtr OffCenterPerspectiveCameraBase::editHandlePrincipalPoint (void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(

@@ -112,8 +112,8 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         ProjectionMatrixFieldId, ProjectionMatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MatrixCameraBase::editHandleProjectionMatrix),
-        reinterpret_cast<FieldGetMethodSig >(&MatrixCameraBase::getHandleProjectionMatrix));
+        static_cast<FieldEditMethodSig>(&MatrixCameraBase::editHandleProjectionMatrix),
+        static_cast<FieldGetMethodSig >(&MatrixCameraBase::getHandleProjectionMatrix));
 
     oType.addInitialDesc(pDesc);
 
@@ -124,8 +124,8 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         ModelviewMatrixFieldId, ModelviewMatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MatrixCameraBase::editHandleModelviewMatrix),
-        reinterpret_cast<FieldGetMethodSig >(&MatrixCameraBase::getHandleModelviewMatrix));
+        static_cast<FieldEditMethodSig>(&MatrixCameraBase::editHandleModelviewMatrix),
+        static_cast<FieldGetMethodSig >(&MatrixCameraBase::getHandleModelviewMatrix));
 
     oType.addInitialDesc(pDesc);
 
@@ -136,8 +136,8 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         UseBeaconFieldId, UseBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MatrixCameraBase::editHandleUseBeacon),
-        reinterpret_cast<FieldGetMethodSig >(&MatrixCameraBase::getHandleUseBeacon));
+        static_cast<FieldEditMethodSig>(&MatrixCameraBase::editHandleUseBeacon),
+        static_cast<FieldGetMethodSig >(&MatrixCameraBase::getHandleUseBeacon));
 
     oType.addInitialDesc(pDesc);
 }
@@ -408,7 +408,7 @@ MatrixCameraBase::~MatrixCameraBase(void)
 }
 
 
-SFMatrix::GetHandlePtr MatrixCameraBase::getHandleProjectionMatrix (void)
+GetFieldHandlePtr MatrixCameraBase::getHandleProjectionMatrix (void) const
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
@@ -418,7 +418,7 @@ SFMatrix::GetHandlePtr MatrixCameraBase::getHandleProjectionMatrix (void)
     return returnValue;
 }
 
-SFMatrix::EditHandlePtr MatrixCameraBase::editHandleProjectionMatrix(void)
+EditFieldHandlePtr MatrixCameraBase::editHandleProjectionMatrix(void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
@@ -430,7 +430,7 @@ SFMatrix::EditHandlePtr MatrixCameraBase::editHandleProjectionMatrix(void)
     return returnValue;
 }
 
-SFMatrix::GetHandlePtr MatrixCameraBase::getHandleModelviewMatrix (void)
+GetFieldHandlePtr MatrixCameraBase::getHandleModelviewMatrix (void) const
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
@@ -440,7 +440,7 @@ SFMatrix::GetHandlePtr MatrixCameraBase::getHandleModelviewMatrix (void)
     return returnValue;
 }
 
-SFMatrix::EditHandlePtr MatrixCameraBase::editHandleModelviewMatrix(void)
+EditFieldHandlePtr MatrixCameraBase::editHandleModelviewMatrix(void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
@@ -452,7 +452,7 @@ SFMatrix::EditHandlePtr MatrixCameraBase::editHandleModelviewMatrix(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr MatrixCameraBase::getHandleUseBeacon       (void)
+GetFieldHandlePtr MatrixCameraBase::getHandleUseBeacon       (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -462,7 +462,7 @@ SFBool::GetHandlePtr MatrixCameraBase::getHandleUseBeacon       (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr MatrixCameraBase::editHandleUseBeacon      (void)
+EditFieldHandlePtr MatrixCameraBase::editHandleUseBeacon      (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

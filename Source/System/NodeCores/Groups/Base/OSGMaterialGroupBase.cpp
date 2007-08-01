@@ -102,8 +102,8 @@ void MaterialGroupBase::classDescInserter(TypeObject &oType)
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialGroupBase::editHandleMaterial),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialGroupBase::getHandleMaterial));
+        static_cast<FieldEditMethodSig>(&MaterialGroupBase::editHandleMaterial),
+        static_cast<FieldGetMethodSig >(&MaterialGroupBase::getHandleMaterial));
 
     oType.addInitialDesc(pDesc);
 }
@@ -284,7 +284,7 @@ void MaterialGroupBase::onCreate(const MaterialGroup *source)
     }
 }
 
-SFMaterialPtr::GetHandlePtr MaterialGroupBase::getHandleMaterial        (void)
+GetFieldHandlePtr MaterialGroupBase::getHandleMaterial        (void) const
 {
     SFMaterialPtr::GetHandlePtr returnValue(
         new  SFMaterialPtr::GetHandle(
@@ -294,7 +294,7 @@ SFMaterialPtr::GetHandlePtr MaterialGroupBase::getHandleMaterial        (void)
     return returnValue;
 }
 
-SFMaterialPtr::EditHandlePtr MaterialGroupBase::editHandleMaterial       (void)
+EditFieldHandlePtr MaterialGroupBase::editHandleMaterial       (void)
 {
     SFMaterialPtr::EditHandlePtr returnValue(
         new  SFMaterialPtr::EditHandle(

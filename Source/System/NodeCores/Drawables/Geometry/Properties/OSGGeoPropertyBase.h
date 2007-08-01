@@ -215,12 +215,12 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFBool::GetHandlePtr  getHandleUseVBO          (void);
-    SFBool::EditHandlePtr editHandleUseVBO         (void);
-    SFUInt32::GetHandlePtr  getHandleGLId            (void);
-    SFUInt32::EditHandlePtr editHandleGLId           (void);
-    SFInt32::GetHandlePtr  getHandleUsage           (void);
-    SFInt32::EditHandlePtr editHandleUsage          (void);
+    GetFieldHandlePtr  getHandleUseVBO          (void) const;
+    EditFieldHandlePtr editHandleUseVBO         (void);
+    GetFieldHandlePtr  getHandleGLId            (void) const;
+    EditFieldHandlePtr editHandleGLId           (void);
+    GetFieldHandlePtr  getHandleUsage           (void) const;
+    EditFieldHandlePtr editHandleUsage          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

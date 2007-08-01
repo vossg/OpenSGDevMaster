@@ -117,8 +117,8 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         EquationFieldId, EquationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleEquation),
-        reinterpret_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleEquation));
+        static_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleEquation),
+        static_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleEquation));
 
     oType.addInitialDesc(pDesc);
 
@@ -129,8 +129,8 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         EnableFieldId, EnableFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleEnable),
-        reinterpret_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleEnable));
+        static_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleEnable),
+        static_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleEnable));
 
     oType.addInitialDesc(pDesc);
 
@@ -142,8 +142,8 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleBeacon),
-        reinterpret_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleBeacon));
+        static_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleBeacon),
+        static_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 }
@@ -420,7 +420,7 @@ void ClipPlaneChunkBase::onCreate(const ClipPlaneChunk *source)
     }
 }
 
-SFVec4f::GetHandlePtr ClipPlaneChunkBase::getHandleEquation        (void)
+GetFieldHandlePtr ClipPlaneChunkBase::getHandleEquation        (void) const
 {
     SFVec4f::GetHandlePtr returnValue(
         new  SFVec4f::GetHandle(
@@ -430,7 +430,7 @@ SFVec4f::GetHandlePtr ClipPlaneChunkBase::getHandleEquation        (void)
     return returnValue;
 }
 
-SFVec4f::EditHandlePtr ClipPlaneChunkBase::editHandleEquation       (void)
+EditFieldHandlePtr ClipPlaneChunkBase::editHandleEquation       (void)
 {
     SFVec4f::EditHandlePtr returnValue(
         new  SFVec4f::EditHandle(
@@ -442,7 +442,7 @@ SFVec4f::EditHandlePtr ClipPlaneChunkBase::editHandleEquation       (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ClipPlaneChunkBase::getHandleEnable          (void)
+GetFieldHandlePtr ClipPlaneChunkBase::getHandleEnable          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -452,7 +452,7 @@ SFBool::GetHandlePtr ClipPlaneChunkBase::getHandleEnable          (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ClipPlaneChunkBase::editHandleEnable         (void)
+EditFieldHandlePtr ClipPlaneChunkBase::editHandleEnable         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -464,7 +464,7 @@ SFBool::EditHandlePtr ClipPlaneChunkBase::editHandleEnable         (void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr ClipPlaneChunkBase::getHandleBeacon          (void)
+GetFieldHandlePtr ClipPlaneChunkBase::getHandleBeacon          (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -474,7 +474,7 @@ SFNodePtr::GetHandlePtr ClipPlaneChunkBase::getHandleBeacon          (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ClipPlaneChunkBase::editHandleBeacon         (void)
+EditFieldHandlePtr ClipPlaneChunkBase::editHandleBeacon         (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(

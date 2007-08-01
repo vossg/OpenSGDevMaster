@@ -328,20 +328,20 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFUInt32::GetHandlePtr  getHandleVertices        (void);
-    SFUInt32::EditHandlePtr editHandleVertices       (void);
-    SFUInt32::GetHandlePtr  getHandlePoints          (void);
-    SFUInt32::EditHandlePtr editHandlePoints         (void);
-    SFUInt32::GetHandlePtr  getHandleLines           (void);
-    SFUInt32::EditHandlePtr editHandleLines          (void);
-    SFUInt32::GetHandlePtr  getHandleTriangles       (void);
-    SFUInt32::EditHandlePtr editHandleTriangles      (void);
-    SFUInt32::GetHandlePtr  getHandleProcessedAttributeBytes (void);
-    SFUInt32::EditHandlePtr editHandleProcessedAttributeBytes(void);
-    SFUInt32::GetHandlePtr  getHandleStoredAttributeBytes (void);
-    SFUInt32::EditHandlePtr editHandleStoredAttributeBytes(void);
-    SFBool::GetHandlePtr  getHandleValid           (void);
-    SFBool::EditHandlePtr editHandleValid          (void);
+    GetFieldHandlePtr  getHandleVertices        (void) const;
+    EditFieldHandlePtr editHandleVertices       (void);
+    GetFieldHandlePtr  getHandlePoints          (void) const;
+    EditFieldHandlePtr editHandlePoints         (void);
+    GetFieldHandlePtr  getHandleLines           (void) const;
+    EditFieldHandlePtr editHandleLines          (void);
+    GetFieldHandlePtr  getHandleTriangles       (void) const;
+    EditFieldHandlePtr editHandleTriangles      (void);
+    GetFieldHandlePtr  getHandleProcessedAttributeBytes (void) const;
+    EditFieldHandlePtr editHandleProcessedAttributeBytes(void);
+    GetFieldHandlePtr  getHandleStoredAttributeBytes (void) const;
+    EditFieldHandlePtr editHandleStoredAttributeBytes(void);
+    GetFieldHandlePtr  getHandleValid           (void) const;
+    EditFieldHandlePtr editHandleValid          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -105,8 +105,8 @@ void StageBase::classDescInserter(TypeObject &oType)
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StageBase::editHandleRenderTarget),
-        reinterpret_cast<FieldGetMethodSig >(&StageBase::getHandleRenderTarget));
+        static_cast<FieldEditMethodSig>(&StageBase::editHandleRenderTarget),
+        static_cast<FieldGetMethodSig >(&StageBase::getHandleRenderTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -117,8 +117,8 @@ void StageBase::classDescInserter(TypeObject &oType)
         InheritedTargetFieldId, InheritedTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StageBase::editHandleInheritedTarget),
-        reinterpret_cast<FieldGetMethodSig >(&StageBase::getHandleInheritedTarget));
+        static_cast<FieldEditMethodSig>(&StageBase::editHandleInheritedTarget),
+        static_cast<FieldGetMethodSig >(&StageBase::getHandleInheritedTarget));
 
     oType.addInitialDesc(pDesc);
 }
@@ -340,7 +340,7 @@ void StageBase::onCreate(const Stage *source)
     }
 }
 
-SFFrameBufferObjectPtr::GetHandlePtr StageBase::getHandleRenderTarget    (void)
+GetFieldHandlePtr StageBase::getHandleRenderTarget    (void) const
 {
     SFFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFFrameBufferObjectPtr::GetHandle(
@@ -350,7 +350,7 @@ SFFrameBufferObjectPtr::GetHandlePtr StageBase::getHandleRenderTarget    (void)
     return returnValue;
 }
 
-SFFrameBufferObjectPtr::EditHandlePtr StageBase::editHandleRenderTarget   (void)
+EditFieldHandlePtr StageBase::editHandleRenderTarget   (void)
 {
     SFFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFFrameBufferObjectPtr::EditHandle(
@@ -364,7 +364,7 @@ SFFrameBufferObjectPtr::EditHandlePtr StageBase::editHandleRenderTarget   (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr StageBase::getHandleInheritedTarget (void)
+GetFieldHandlePtr StageBase::getHandleInheritedTarget (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -374,7 +374,7 @@ SFBool::GetHandlePtr StageBase::getHandleInheritedTarget (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr StageBase::editHandleInheritedTarget(void)
+EditFieldHandlePtr StageBase::editHandleInheritedTarget(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

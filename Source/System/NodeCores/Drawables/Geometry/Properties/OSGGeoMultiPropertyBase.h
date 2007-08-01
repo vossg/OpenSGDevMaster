@@ -325,20 +325,20 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFGeoMultiPropertyDataPtr::GetHandlePtr  getHandleContainer       (void);
-    SFGeoMultiPropertyDataPtr::EditHandlePtr editHandleContainer      (void);
-    SFUInt32::GetHandlePtr  getHandleOffset          (void);
-    SFUInt32::EditHandlePtr editHandleOffset         (void);
-    SFGLenum::GetHandlePtr  getHandleIFormat         (void);
-    SFGLenum::EditHandlePtr editHandleIFormat        (void);
-    SFUInt32::GetHandlePtr  getHandleIDimension      (void);
-    SFUInt32::EditHandlePtr editHandleIDimension     (void);
-    SFUInt32::GetHandlePtr  getHandleISize           (void);
-    SFUInt32::EditHandlePtr editHandleISize          (void);
-    SFBool::GetHandlePtr  getHandleINormalize      (void);
-    SFBool::EditHandlePtr editHandleINormalize     (void);
-    SFUInt32::GetHandlePtr  getHandleIStride         (void);
-    SFUInt32::EditHandlePtr editHandleIStride        (void);
+    GetFieldHandlePtr  getHandleContainer       (void) const;
+    EditFieldHandlePtr editHandleContainer      (void);
+    GetFieldHandlePtr  getHandleOffset          (void) const;
+    EditFieldHandlePtr editHandleOffset         (void);
+    GetFieldHandlePtr  getHandleIFormat         (void) const;
+    EditFieldHandlePtr editHandleIFormat        (void);
+    GetFieldHandlePtr  getHandleIDimension      (void) const;
+    EditFieldHandlePtr editHandleIDimension     (void);
+    GetFieldHandlePtr  getHandleISize           (void) const;
+    EditFieldHandlePtr editHandleISize          (void);
+    GetFieldHandlePtr  getHandleINormalize      (void) const;
+    EditFieldHandlePtr editHandleINormalize     (void);
+    GetFieldHandlePtr  getHandleIStride         (void) const;
+    EditFieldHandlePtr editHandleIStride        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

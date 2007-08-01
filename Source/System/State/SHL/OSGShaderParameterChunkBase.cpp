@@ -99,8 +99,8 @@ void ShaderParameterChunkBase::classDescInserter(TypeObject &oType)
         ParametersFieldId, ParametersFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterChunkBase::editHandleParameters),
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterChunkBase::getHandleParameters));
+        static_cast<FieldEditMethodSig>(&ShaderParameterChunkBase::editHandleParameters),
+        static_cast<FieldGetMethodSig >(&ShaderParameterChunkBase::getHandleParameters));
 
     oType.addInitialDesc(pDesc);
 }
@@ -435,7 +435,7 @@ void ShaderParameterChunkBase::onCreate(const ShaderParameterChunk *source)
     }
 }
 
-MFShaderParameterPtr::GetHandlePtr ShaderParameterChunkBase::getHandleParameters      (void)
+GetFieldHandlePtr ShaderParameterChunkBase::getHandleParameters      (void) const
 {
     MFShaderParameterPtr::GetHandlePtr returnValue(
         new  MFShaderParameterPtr::GetHandle(
@@ -445,7 +445,7 @@ MFShaderParameterPtr::GetHandlePtr ShaderParameterChunkBase::getHandleParameters
     return returnValue;
 }
 
-MFShaderParameterPtr::EditHandlePtr ShaderParameterChunkBase::editHandleParameters     (void)
+EditFieldHandlePtr ShaderParameterChunkBase::editHandleParameters     (void)
 {
     MFShaderParameterPtr::EditHandlePtr returnValue(
         new  MFShaderParameterPtr::EditHandle(

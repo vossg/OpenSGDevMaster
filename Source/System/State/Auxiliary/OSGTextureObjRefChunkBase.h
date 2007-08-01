@@ -220,8 +220,8 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFGLenum::GetHandlePtr  getHandleGLId            (void);
-    SFGLenum::EditHandlePtr editHandleGLId           (void);
+    GetFieldHandlePtr  getHandleGLId            (void) const;
+    EditFieldHandlePtr editHandleGLId           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

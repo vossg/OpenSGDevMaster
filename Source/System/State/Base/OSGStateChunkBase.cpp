@@ -100,8 +100,8 @@ void StateChunkBase::classDescInserter(TypeObject &oType)
         IgnoreFieldId, IgnoreFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StateChunkBase::editHandleIgnore),
-        reinterpret_cast<FieldGetMethodSig >(&StateChunkBase::getHandleIgnore));
+        static_cast<FieldEditMethodSig>(&StateChunkBase::editHandleIgnore),
+        static_cast<FieldGetMethodSig >(&StateChunkBase::getHandleIgnore));
 
     oType.addInitialDesc(pDesc);
 }
@@ -253,7 +253,7 @@ StateChunkBase::~StateChunkBase(void)
 }
 
 
-SFBool::GetHandlePtr StateChunkBase::getHandleIgnore          (void)
+GetFieldHandlePtr StateChunkBase::getHandleIgnore          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -263,7 +263,7 @@ SFBool::GetHandlePtr StateChunkBase::getHandleIgnore          (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr StateChunkBase::editHandleIgnore         (void)
+EditFieldHandlePtr StateChunkBase::editHandleIgnore         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

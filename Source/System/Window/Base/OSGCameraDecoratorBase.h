@@ -229,12 +229,12 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFNodePtr::GetHandlePtr  getHandleBeacon          (void);
-    SFNodePtr::EditHandlePtr editHandleBeacon         (void);
-    SFReal32::GetHandlePtr  getHandleNear            (void);
-    SFReal32::EditHandlePtr editHandleNear           (void);
-    SFReal32::GetHandlePtr  getHandleFar             (void);
-    SFReal32::EditHandlePtr editHandleFar            (void);
+    GetFieldHandlePtr  getHandleBeacon          (void) const;
+    EditFieldHandlePtr editHandleBeacon         (void);
+    GetFieldHandlePtr  getHandleNear            (void) const;
+    EditFieldHandlePtr editHandleNear           (void);
+    GetFieldHandlePtr  getHandleFar             (void) const;
+    EditFieldHandlePtr editHandleFar            (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -163,8 +163,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         CullFaceFieldId, CullFaceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleCullFace),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleCullFace));
+        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleCullFace),
+        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleCullFace));
 
     oType.addInitialDesc(pDesc);
 
@@ -176,8 +176,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         FrontFaceFieldId, FrontFaceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleFrontFace),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleFrontFace));
+        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleFrontFace),
+        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleFrontFace));
 
     oType.addInitialDesc(pDesc);
 
@@ -188,8 +188,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         FrontModeFieldId, FrontModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleFrontMode),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleFrontMode));
+        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleFrontMode),
+        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleFrontMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -200,8 +200,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         BackModeFieldId, BackModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleBackMode),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleBackMode));
+        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleBackMode),
+        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleBackMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -212,8 +212,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleSmooth),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleSmooth));
+        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleSmooth),
+        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleSmooth));
 
     oType.addInitialDesc(pDesc);
 
@@ -224,8 +224,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         OffsetFactorFieldId, OffsetFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetFactor),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetFactor));
+        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetFactor),
+        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetFactor));
 
     oType.addInitialDesc(pDesc);
 
@@ -236,8 +236,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         OffsetBiasFieldId, OffsetBiasFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetBias),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetBias));
+        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetBias),
+        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetBias));
 
     oType.addInitialDesc(pDesc);
 
@@ -248,8 +248,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         OffsetPointFieldId, OffsetPointFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetPoint),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetPoint));
+        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetPoint),
+        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetPoint));
 
     oType.addInitialDesc(pDesc);
 
@@ -260,8 +260,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         OffsetLineFieldId, OffsetLineFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetLine),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetLine));
+        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetLine),
+        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetLine));
 
     oType.addInitialDesc(pDesc);
 
@@ -272,8 +272,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         OffsetFillFieldId, OffsetFillFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetFill),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetFill));
+        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetFill),
+        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetFill));
 
     oType.addInitialDesc(pDesc);
 
@@ -285,8 +285,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         StippleFieldId, StippleFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleStipple),
-        reinterpret_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleStipple));
+        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleStipple),
+        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleStipple));
 
     oType.addInitialDesc(pDesc);
 }
@@ -1009,7 +1009,7 @@ PolygonChunkBase::~PolygonChunkBase(void)
 }
 
 
-SFGLenum::GetHandlePtr PolygonChunkBase::getHandleCullFace        (void)
+GetFieldHandlePtr PolygonChunkBase::getHandleCullFace        (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -1019,7 +1019,7 @@ SFGLenum::GetHandlePtr PolygonChunkBase::getHandleCullFace        (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr PolygonChunkBase::editHandleCullFace       (void)
+EditFieldHandlePtr PolygonChunkBase::editHandleCullFace       (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -1031,7 +1031,7 @@ SFGLenum::EditHandlePtr PolygonChunkBase::editHandleCullFace       (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr PolygonChunkBase::getHandleFrontFace       (void)
+GetFieldHandlePtr PolygonChunkBase::getHandleFrontFace       (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -1041,7 +1041,7 @@ SFGLenum::GetHandlePtr PolygonChunkBase::getHandleFrontFace       (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr PolygonChunkBase::editHandleFrontFace      (void)
+EditFieldHandlePtr PolygonChunkBase::editHandleFrontFace      (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -1053,7 +1053,7 @@ SFGLenum::EditHandlePtr PolygonChunkBase::editHandleFrontFace      (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr PolygonChunkBase::getHandleFrontMode       (void)
+GetFieldHandlePtr PolygonChunkBase::getHandleFrontMode       (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -1063,7 +1063,7 @@ SFGLenum::GetHandlePtr PolygonChunkBase::getHandleFrontMode       (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr PolygonChunkBase::editHandleFrontMode      (void)
+EditFieldHandlePtr PolygonChunkBase::editHandleFrontMode      (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -1075,7 +1075,7 @@ SFGLenum::EditHandlePtr PolygonChunkBase::editHandleFrontMode      (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr PolygonChunkBase::getHandleBackMode        (void)
+GetFieldHandlePtr PolygonChunkBase::getHandleBackMode        (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -1085,7 +1085,7 @@ SFGLenum::GetHandlePtr PolygonChunkBase::getHandleBackMode        (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr PolygonChunkBase::editHandleBackMode       (void)
+EditFieldHandlePtr PolygonChunkBase::editHandleBackMode       (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -1097,7 +1097,7 @@ SFGLenum::EditHandlePtr PolygonChunkBase::editHandleBackMode       (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr PolygonChunkBase::getHandleSmooth          (void)
+GetFieldHandlePtr PolygonChunkBase::getHandleSmooth          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1107,7 +1107,7 @@ SFBool::GetHandlePtr PolygonChunkBase::getHandleSmooth          (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr PolygonChunkBase::editHandleSmooth         (void)
+EditFieldHandlePtr PolygonChunkBase::editHandleSmooth         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1119,7 +1119,7 @@ SFBool::EditHandlePtr PolygonChunkBase::editHandleSmooth         (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr PolygonChunkBase::getHandleOffsetFactor    (void)
+GetFieldHandlePtr PolygonChunkBase::getHandleOffsetFactor    (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1129,7 +1129,7 @@ SFReal32::GetHandlePtr PolygonChunkBase::getHandleOffsetFactor    (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr PolygonChunkBase::editHandleOffsetFactor   (void)
+EditFieldHandlePtr PolygonChunkBase::editHandleOffsetFactor   (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -1141,7 +1141,7 @@ SFReal32::EditHandlePtr PolygonChunkBase::editHandleOffsetFactor   (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr PolygonChunkBase::getHandleOffsetBias      (void)
+GetFieldHandlePtr PolygonChunkBase::getHandleOffsetBias      (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1151,7 +1151,7 @@ SFReal32::GetHandlePtr PolygonChunkBase::getHandleOffsetBias      (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr PolygonChunkBase::editHandleOffsetBias     (void)
+EditFieldHandlePtr PolygonChunkBase::editHandleOffsetBias     (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -1163,7 +1163,7 @@ SFReal32::EditHandlePtr PolygonChunkBase::editHandleOffsetBias     (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr PolygonChunkBase::getHandleOffsetPoint     (void)
+GetFieldHandlePtr PolygonChunkBase::getHandleOffsetPoint     (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1173,7 +1173,7 @@ SFBool::GetHandlePtr PolygonChunkBase::getHandleOffsetPoint     (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr PolygonChunkBase::editHandleOffsetPoint    (void)
+EditFieldHandlePtr PolygonChunkBase::editHandleOffsetPoint    (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1185,7 +1185,7 @@ SFBool::EditHandlePtr PolygonChunkBase::editHandleOffsetPoint    (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr PolygonChunkBase::getHandleOffsetLine      (void)
+GetFieldHandlePtr PolygonChunkBase::getHandleOffsetLine      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1195,7 +1195,7 @@ SFBool::GetHandlePtr PolygonChunkBase::getHandleOffsetLine      (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr PolygonChunkBase::editHandleOffsetLine     (void)
+EditFieldHandlePtr PolygonChunkBase::editHandleOffsetLine     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1207,7 +1207,7 @@ SFBool::EditHandlePtr PolygonChunkBase::editHandleOffsetLine     (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr PolygonChunkBase::getHandleOffsetFill      (void)
+GetFieldHandlePtr PolygonChunkBase::getHandleOffsetFill      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1217,7 +1217,7 @@ SFBool::GetHandlePtr PolygonChunkBase::getHandleOffsetFill      (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr PolygonChunkBase::editHandleOffsetFill     (void)
+EditFieldHandlePtr PolygonChunkBase::editHandleOffsetFill     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1229,7 +1229,7 @@ SFBool::EditHandlePtr PolygonChunkBase::editHandleOffsetFill     (void)
     return returnValue;
 }
 
-MFInt32::GetHandlePtr PolygonChunkBase::getHandleStipple         (void)
+GetFieldHandlePtr PolygonChunkBase::getHandleStipple         (void) const
 {
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
@@ -1239,7 +1239,7 @@ MFInt32::GetHandlePtr PolygonChunkBase::getHandleStipple         (void)
     return returnValue;
 }
 
-MFInt32::EditHandlePtr PolygonChunkBase::editHandleStipple        (void)
+EditFieldHandlePtr PolygonChunkBase::editHandleStipple        (void)
 {
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(

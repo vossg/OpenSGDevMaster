@@ -139,8 +139,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleWidth),
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&WindowBase::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&WindowBase::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -151,8 +151,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleHeight),
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&WindowBase::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&WindowBase::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 
@@ -163,8 +163,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         PortFieldId, PortFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandlePort),
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandlePort));
+        static_cast<FieldEditMethodSig>(&WindowBase::editHandlePort),
+        static_cast<FieldGetMethodSig >(&WindowBase::getHandlePort));
 
     oType.addInitialDesc(pDesc);
 
@@ -175,8 +175,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         ResizePendingFieldId, ResizePendingFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleResizePending),
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleResizePending));
+        static_cast<FieldEditMethodSig>(&WindowBase::editHandleResizePending),
+        static_cast<FieldGetMethodSig >(&WindowBase::getHandleResizePending));
 
     oType.addInitialDesc(pDesc);
 
@@ -188,8 +188,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         GlObjectEventCounterFieldId, GlObjectEventCounterFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectEventCounter),
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectEventCounter));
+        static_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectEventCounter),
+        static_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectEventCounter));
 
     oType.addInitialDesc(pDesc);
 
@@ -200,8 +200,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         GlObjectLastRefreshFieldId, GlObjectLastRefreshFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectLastRefresh),
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectLastRefresh));
+        static_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectLastRefresh),
+        static_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectLastRefresh));
 
     oType.addInitialDesc(pDesc);
 
@@ -212,8 +212,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         GlObjectLastReinitializeFieldId, GlObjectLastReinitializeFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectLastReinitialize),
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectLastReinitialize));
+        static_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectLastReinitialize),
+        static_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectLastReinitialize));
 
     oType.addInitialDesc(pDesc);
 
@@ -225,8 +225,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         DrawerIdFieldId, DrawerIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&WindowBase::editHandleDrawerId),
-        reinterpret_cast<FieldGetMethodSig >(&WindowBase::getHandleDrawerId));
+        static_cast<FieldEditMethodSig>(&WindowBase::editHandleDrawerId),
+        static_cast<FieldGetMethodSig >(&WindowBase::getHandleDrawerId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -1041,7 +1041,7 @@ void WindowBase::onCreate(const Window *source)
     }
 }
 
-SFUInt16::GetHandlePtr WindowBase::getHandleWidth           (void)
+GetFieldHandlePtr WindowBase::getHandleWidth           (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -1051,7 +1051,7 @@ SFUInt16::GetHandlePtr WindowBase::getHandleWidth           (void)
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr WindowBase::editHandleWidth          (void)
+EditFieldHandlePtr WindowBase::editHandleWidth          (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
@@ -1063,7 +1063,7 @@ SFUInt16::EditHandlePtr WindowBase::editHandleWidth          (void)
     return returnValue;
 }
 
-SFUInt16::GetHandlePtr WindowBase::getHandleHeight          (void)
+GetFieldHandlePtr WindowBase::getHandleHeight          (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -1073,7 +1073,7 @@ SFUInt16::GetHandlePtr WindowBase::getHandleHeight          (void)
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr WindowBase::editHandleHeight         (void)
+EditFieldHandlePtr WindowBase::editHandleHeight         (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
@@ -1085,7 +1085,7 @@ SFUInt16::EditHandlePtr WindowBase::editHandleHeight         (void)
     return returnValue;
 }
 
-MFViewportPtr::GetHandlePtr WindowBase::getHandlePort            (void)
+GetFieldHandlePtr WindowBase::getHandlePort            (void) const
 {
     MFViewportPtr::GetHandlePtr returnValue(
         new  MFViewportPtr::GetHandle(
@@ -1095,7 +1095,7 @@ MFViewportPtr::GetHandlePtr WindowBase::getHandlePort            (void)
     return returnValue;
 }
 
-MFViewportPtr::EditHandlePtr WindowBase::editHandlePort           (void)
+EditFieldHandlePtr WindowBase::editHandlePort           (void)
 {
     MFViewportPtr::EditHandlePtr returnValue(
         new  MFViewportPtr::EditHandle(
@@ -1109,7 +1109,7 @@ MFViewportPtr::EditHandlePtr WindowBase::editHandlePort           (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr WindowBase::getHandleResizePending   (void)
+GetFieldHandlePtr WindowBase::getHandleResizePending   (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1119,7 +1119,7 @@ SFBool::GetHandlePtr WindowBase::getHandleResizePending   (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr WindowBase::editHandleResizePending  (void)
+EditFieldHandlePtr WindowBase::editHandleResizePending  (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1131,7 +1131,7 @@ SFBool::EditHandlePtr WindowBase::editHandleResizePending  (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr WindowBase::getHandleGlObjectEventCounter (void)
+GetFieldHandlePtr WindowBase::getHandleGlObjectEventCounter (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1141,7 +1141,7 @@ SFUInt32::GetHandlePtr WindowBase::getHandleGlObjectEventCounter (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr WindowBase::editHandleGlObjectEventCounter(void)
+EditFieldHandlePtr WindowBase::editHandleGlObjectEventCounter(void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -1153,7 +1153,7 @@ SFUInt32::EditHandlePtr WindowBase::editHandleGlObjectEventCounter(void)
     return returnValue;
 }
 
-MFUInt32::GetHandlePtr WindowBase::getHandleGlObjectLastRefresh (void)
+GetFieldHandlePtr WindowBase::getHandleGlObjectLastRefresh (void) const
 {
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
@@ -1163,7 +1163,7 @@ MFUInt32::GetHandlePtr WindowBase::getHandleGlObjectLastRefresh (void)
     return returnValue;
 }
 
-MFUInt32::EditHandlePtr WindowBase::editHandleGlObjectLastRefresh(void)
+EditFieldHandlePtr WindowBase::editHandleGlObjectLastRefresh(void)
 {
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
@@ -1175,7 +1175,7 @@ MFUInt32::EditHandlePtr WindowBase::editHandleGlObjectLastRefresh(void)
     return returnValue;
 }
 
-MFUInt32::GetHandlePtr WindowBase::getHandleGlObjectLastReinitialize (void)
+GetFieldHandlePtr WindowBase::getHandleGlObjectLastReinitialize (void) const
 {
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
@@ -1185,7 +1185,7 @@ MFUInt32::GetHandlePtr WindowBase::getHandleGlObjectLastReinitialize (void)
     return returnValue;
 }
 
-MFUInt32::EditHandlePtr WindowBase::editHandleGlObjectLastReinitialize(void)
+EditFieldHandlePtr WindowBase::editHandleGlObjectLastReinitialize(void)
 {
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
@@ -1197,7 +1197,7 @@ MFUInt32::EditHandlePtr WindowBase::editHandleGlObjectLastReinitialize(void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr WindowBase::getHandleDrawerId        (void)
+GetFieldHandlePtr WindowBase::getHandleDrawerId        (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1207,7 +1207,7 @@ SFUInt32::GetHandlePtr WindowBase::getHandleDrawerId        (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr WindowBase::editHandleDrawerId       (void)
+EditFieldHandlePtr WindowBase::editHandleDrawerId       (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(

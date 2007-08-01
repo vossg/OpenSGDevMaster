@@ -108,8 +108,8 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureSelectChunkBase::editHandleChoice),
-        reinterpret_cast<FieldGetMethodSig >(&TextureSelectChunkBase::getHandleChoice));
+        static_cast<FieldEditMethodSig>(&TextureSelectChunkBase::editHandleChoice),
+        static_cast<FieldGetMethodSig >(&TextureSelectChunkBase::getHandleChoice));
 
     oType.addInitialDesc(pDesc);
 
@@ -120,8 +120,8 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
         TexturesFieldId, TexturesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureSelectChunkBase::editHandleTextures),
-        reinterpret_cast<FieldGetMethodSig >(&TextureSelectChunkBase::getHandleTextures));
+        static_cast<FieldEditMethodSig>(&TextureSelectChunkBase::editHandleTextures),
+        static_cast<FieldGetMethodSig >(&TextureSelectChunkBase::getHandleTextures));
 
     oType.addInitialDesc(pDesc);
 }
@@ -497,7 +497,7 @@ void TextureSelectChunkBase::onCreate(const TextureSelectChunk *source)
     }
 }
 
-SFUInt32::GetHandlePtr TextureSelectChunkBase::getHandleChoice          (void)
+GetFieldHandlePtr TextureSelectChunkBase::getHandleChoice          (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -507,7 +507,7 @@ SFUInt32::GetHandlePtr TextureSelectChunkBase::getHandleChoice          (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr TextureSelectChunkBase::editHandleChoice         (void)
+EditFieldHandlePtr TextureSelectChunkBase::editHandleChoice         (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -519,7 +519,7 @@ SFUInt32::EditHandlePtr TextureSelectChunkBase::editHandleChoice         (void)
     return returnValue;
 }
 
-MFTextureBaseChunkPtr::GetHandlePtr TextureSelectChunkBase::getHandleTextures        (void)
+GetFieldHandlePtr TextureSelectChunkBase::getHandleTextures        (void) const
 {
     MFTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  MFTextureBaseChunkPtr::GetHandle(
@@ -529,7 +529,7 @@ MFTextureBaseChunkPtr::GetHandlePtr TextureSelectChunkBase::getHandleTextures   
     return returnValue;
 }
 
-MFTextureBaseChunkPtr::EditHandlePtr TextureSelectChunkBase::editHandleTextures       (void)
+EditFieldHandlePtr TextureSelectChunkBase::editHandleTextures       (void)
 {
     MFTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  MFTextureBaseChunkPtr::EditHandle(

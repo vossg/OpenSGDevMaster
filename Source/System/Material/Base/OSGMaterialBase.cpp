@@ -115,8 +115,8 @@ void MaterialBase::classDescInserter(TypeObject &oType)
         SortKeyFieldId, SortKeyFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialBase::editHandleSortKey),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialBase::getHandleSortKey));
+        static_cast<FieldEditMethodSig>(&MaterialBase::editHandleSortKey),
+        static_cast<FieldGetMethodSig >(&MaterialBase::getHandleSortKey));
 
     oType.addInitialDesc(pDesc);
 
@@ -127,8 +127,8 @@ void MaterialBase::classDescInserter(TypeObject &oType)
         TransparencyModeFieldId, TransparencyModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialBase::editHandleTransparencyMode),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialBase::getHandleTransparencyMode));
+        static_cast<FieldEditMethodSig>(&MaterialBase::editHandleTransparencyMode),
+        static_cast<FieldGetMethodSig >(&MaterialBase::getHandleTransparencyMode));
 
     oType.addInitialDesc(pDesc);
 }
@@ -344,7 +344,7 @@ MaterialBase::~MaterialBase(void)
 }
 
 
-SFInt32::GetHandlePtr MaterialBase::getHandleSortKey         (void)
+GetFieldHandlePtr MaterialBase::getHandleSortKey         (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -354,7 +354,7 @@ SFInt32::GetHandlePtr MaterialBase::getHandleSortKey         (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr MaterialBase::editHandleSortKey        (void)
+EditFieldHandlePtr MaterialBase::editHandleSortKey        (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -366,7 +366,7 @@ SFInt32::EditHandlePtr MaterialBase::editHandleSortKey        (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr MaterialBase::getHandleTransparencyMode (void)
+GetFieldHandlePtr MaterialBase::getHandleTransparencyMode (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -376,7 +376,7 @@ SFInt32::GetHandlePtr MaterialBase::getHandleTransparencyMode (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr MaterialBase::editHandleTransparencyMode(void)
+EditFieldHandlePtr MaterialBase::editHandleTransparencyMode(void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(

@@ -415,28 +415,28 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFGLenum::GetHandlePtr  getHandleCullFace        (void);
-    SFGLenum::EditHandlePtr editHandleCullFace       (void);
-    SFGLenum::GetHandlePtr  getHandleFrontFace       (void);
-    SFGLenum::EditHandlePtr editHandleFrontFace      (void);
-    SFGLenum::GetHandlePtr  getHandleFrontMode       (void);
-    SFGLenum::EditHandlePtr editHandleFrontMode      (void);
-    SFGLenum::GetHandlePtr  getHandleBackMode        (void);
-    SFGLenum::EditHandlePtr editHandleBackMode       (void);
-    SFBool::GetHandlePtr  getHandleSmooth          (void);
-    SFBool::EditHandlePtr editHandleSmooth         (void);
-    SFReal32::GetHandlePtr  getHandleOffsetFactor    (void);
-    SFReal32::EditHandlePtr editHandleOffsetFactor   (void);
-    SFReal32::GetHandlePtr  getHandleOffsetBias      (void);
-    SFReal32::EditHandlePtr editHandleOffsetBias     (void);
-    SFBool::GetHandlePtr  getHandleOffsetPoint     (void);
-    SFBool::EditHandlePtr editHandleOffsetPoint    (void);
-    SFBool::GetHandlePtr  getHandleOffsetLine      (void);
-    SFBool::EditHandlePtr editHandleOffsetLine     (void);
-    SFBool::GetHandlePtr  getHandleOffsetFill      (void);
-    SFBool::EditHandlePtr editHandleOffsetFill     (void);
-    MFInt32::GetHandlePtr  getHandleStipple         (void);
-    MFInt32::EditHandlePtr editHandleStipple        (void);
+    GetFieldHandlePtr  getHandleCullFace        (void) const;
+    EditFieldHandlePtr editHandleCullFace       (void);
+    GetFieldHandlePtr  getHandleFrontFace       (void) const;
+    EditFieldHandlePtr editHandleFrontFace      (void);
+    GetFieldHandlePtr  getHandleFrontMode       (void) const;
+    EditFieldHandlePtr editHandleFrontMode      (void);
+    GetFieldHandlePtr  getHandleBackMode        (void) const;
+    EditFieldHandlePtr editHandleBackMode       (void);
+    GetFieldHandlePtr  getHandleSmooth          (void) const;
+    EditFieldHandlePtr editHandleSmooth         (void);
+    GetFieldHandlePtr  getHandleOffsetFactor    (void) const;
+    EditFieldHandlePtr editHandleOffsetFactor   (void);
+    GetFieldHandlePtr  getHandleOffsetBias      (void) const;
+    EditFieldHandlePtr editHandleOffsetBias     (void);
+    GetFieldHandlePtr  getHandleOffsetPoint     (void) const;
+    EditFieldHandlePtr editHandleOffsetPoint    (void);
+    GetFieldHandlePtr  getHandleOffsetLine      (void) const;
+    EditFieldHandlePtr editHandleOffsetLine     (void);
+    GetFieldHandlePtr  getHandleOffsetFill      (void) const;
+    EditFieldHandlePtr editHandleOffsetFill     (void);
+    GetFieldHandlePtr  getHandleStipple         (void) const;
+    EditFieldHandlePtr editHandleStipple        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

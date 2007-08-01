@@ -402,8 +402,8 @@ class @!Classname!@Base : public @!Parent!@
     /*! \{                                                                 */
 
     @@BeginFieldLoop@@
-    @!field.CARD!@@!field.TypeCaps!@::GetHandlePtr  getHandle@!field.Name:15!@ (void);
-    @!field.CARD!@@!field.TypeCaps!@::EditHandlePtr editHandle@!field.Name:15!@(void);
+    GetFieldHandlePtr  getHandle@!field.Name:15!@ (void) const;
+    EditFieldHandlePtr editHandle@!field.Name:15!@(void);
     @@EndFieldLoop@@
 
     /*! \}                                                                 */

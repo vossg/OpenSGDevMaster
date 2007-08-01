@@ -341,7 +341,7 @@ void CameraDecoratorBase::onCreate(const CameraDecorator *source)
     }
 }
 
-SFNodePtr::GetHandlePtr CameraDecoratorBase::getHandleBeacon          (void)
+GetFieldHandlePtr CameraDecoratorBase::getHandleBeacon          (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -351,7 +351,7 @@ SFNodePtr::GetHandlePtr CameraDecoratorBase::getHandleBeacon          (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr CameraDecoratorBase::editHandleBeacon         (void)
+EditFieldHandlePtr CameraDecoratorBase::editHandleBeacon         (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -365,7 +365,7 @@ SFNodePtr::EditHandlePtr CameraDecoratorBase::editHandleBeacon         (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr CameraDecoratorBase::getHandleNear            (void)
+GetFieldHandlePtr CameraDecoratorBase::getHandleNear            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -375,7 +375,7 @@ SFReal32::GetHandlePtr CameraDecoratorBase::getHandleNear            (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr CameraDecoratorBase::editHandleNear           (void)
+EditFieldHandlePtr CameraDecoratorBase::editHandleNear           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -387,7 +387,7 @@ SFReal32::EditHandlePtr CameraDecoratorBase::editHandleNear           (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr CameraDecoratorBase::getHandleFar             (void)
+GetFieldHandlePtr CameraDecoratorBase::getHandleFar             (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -397,7 +397,7 @@ SFReal32::GetHandlePtr CameraDecoratorBase::getHandleFar             (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr CameraDecoratorBase::editHandleFar            (void)
+EditFieldHandlePtr CameraDecoratorBase::editHandleFar            (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(

@@ -237,10 +237,10 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFFrameBufferObjectPtr::GetHandlePtr  getHandleRenderTarget    (void);
-    SFFrameBufferObjectPtr::EditHandlePtr editHandleRenderTarget   (void);
-    SFBool::GetHandlePtr  getHandleInheritedTarget (void);
-    SFBool::EditHandlePtr editHandleInheritedTarget(void);
+    GetFieldHandlePtr  getHandleRenderTarget    (void) const;
+    EditFieldHandlePtr editHandleRenderTarget   (void);
+    GetFieldHandlePtr  getHandleInheritedTarget (void) const;
+    EditFieldHandlePtr editHandleInheritedTarget(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

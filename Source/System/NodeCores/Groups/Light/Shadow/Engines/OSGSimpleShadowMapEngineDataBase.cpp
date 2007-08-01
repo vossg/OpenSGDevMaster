@@ -128,8 +128,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleCamera),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleCamera));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleCamera),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleCamera));
 
     oType.addInitialDesc(pDesc);
 
@@ -140,8 +140,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         TexChunkFieldId, TexChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleTexChunk),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleTexChunk));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleTexChunk),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleTexChunk));
 
     oType.addInitialDesc(pDesc);
 
@@ -152,8 +152,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         TexBufferFieldId, TexBufferFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleTexBuffer),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleTexBuffer));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleTexBuffer),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleTexBuffer));
 
     oType.addInitialDesc(pDesc);
 
@@ -164,8 +164,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         LightChunkFieldId, LightChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleLightChunk),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleLightChunk));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleLightChunk),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleLightChunk));
 
     oType.addInitialDesc(pDesc);
 
@@ -176,8 +176,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         BlendChunkFieldId, BlendChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleBlendChunk),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleBlendChunk));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleBlendChunk),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleBlendChunk));
 
     oType.addInitialDesc(pDesc);
 
@@ -188,8 +188,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         TexGenChunkFieldId, TexGenChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleTexGenChunk),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleTexGenChunk));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleTexGenChunk),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleTexGenChunk));
 
     oType.addInitialDesc(pDesc);
 
@@ -200,8 +200,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         PolyChunkFieldId, PolyChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandlePolyChunk),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandlePolyChunk));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandlePolyChunk),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandlePolyChunk));
 
     oType.addInitialDesc(pDesc);
 }
@@ -568,7 +568,7 @@ void SimpleShadowMapEngineDataBase::resolveLinks(void)
     static_cast<SimpleShadowMapEngineData *>(this)->setPolyChunk(NullFC);
 }
 
-SFCameraPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleCamera          (void)
+GetFieldHandlePtr SimpleShadowMapEngineDataBase::getHandleCamera          (void) const
 {
     SFCameraPtr::GetHandlePtr returnValue(
         new  SFCameraPtr::GetHandle(
@@ -578,7 +578,7 @@ SFCameraPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleCamera        
     return returnValue;
 }
 
-SFCameraPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleCamera         (void)
+EditFieldHandlePtr SimpleShadowMapEngineDataBase::editHandleCamera         (void)
 {
     SFCameraPtr::EditHandlePtr returnValue(
         new  SFCameraPtr::EditHandle(
@@ -592,7 +592,7 @@ SFCameraPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleCamera      
     return returnValue;
 }
 
-SFTextureObjChunkPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleTexChunk        (void)
+GetFieldHandlePtr SimpleShadowMapEngineDataBase::getHandleTexChunk        (void) const
 {
     SFTextureObjChunkPtr::GetHandlePtr returnValue(
         new  SFTextureObjChunkPtr::GetHandle(
@@ -602,7 +602,7 @@ SFTextureObjChunkPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleTexCh
     return returnValue;
 }
 
-SFTextureObjChunkPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleTexChunk       (void)
+EditFieldHandlePtr SimpleShadowMapEngineDataBase::editHandleTexChunk       (void)
 {
     SFTextureObjChunkPtr::EditHandlePtr returnValue(
         new  SFTextureObjChunkPtr::EditHandle(
@@ -616,7 +616,7 @@ SFTextureObjChunkPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleTex
     return returnValue;
 }
 
-SFTextureBufferPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleTexBuffer       (void)
+GetFieldHandlePtr SimpleShadowMapEngineDataBase::getHandleTexBuffer       (void) const
 {
     SFTextureBufferPtr::GetHandlePtr returnValue(
         new  SFTextureBufferPtr::GetHandle(
@@ -626,7 +626,7 @@ SFTextureBufferPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleTexBuff
     return returnValue;
 }
 
-SFTextureBufferPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleTexBuffer      (void)
+EditFieldHandlePtr SimpleShadowMapEngineDataBase::editHandleTexBuffer      (void)
 {
     SFTextureBufferPtr::EditHandlePtr returnValue(
         new  SFTextureBufferPtr::EditHandle(
@@ -640,7 +640,7 @@ SFTextureBufferPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleTexBu
     return returnValue;
 }
 
-SFLightChunkPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleLightChunk      (void)
+GetFieldHandlePtr SimpleShadowMapEngineDataBase::getHandleLightChunk      (void) const
 {
     SFLightChunkPtr::GetHandlePtr returnValue(
         new  SFLightChunkPtr::GetHandle(
@@ -650,7 +650,7 @@ SFLightChunkPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleLightChunk
     return returnValue;
 }
 
-SFLightChunkPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleLightChunk     (void)
+EditFieldHandlePtr SimpleShadowMapEngineDataBase::editHandleLightChunk     (void)
 {
     SFLightChunkPtr::EditHandlePtr returnValue(
         new  SFLightChunkPtr::EditHandle(
@@ -664,7 +664,7 @@ SFLightChunkPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleLightChu
     return returnValue;
 }
 
-SFBlendChunkPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleBlendChunk      (void)
+GetFieldHandlePtr SimpleShadowMapEngineDataBase::getHandleBlendChunk      (void) const
 {
     SFBlendChunkPtr::GetHandlePtr returnValue(
         new  SFBlendChunkPtr::GetHandle(
@@ -674,7 +674,7 @@ SFBlendChunkPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleBlendChunk
     return returnValue;
 }
 
-SFBlendChunkPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleBlendChunk     (void)
+EditFieldHandlePtr SimpleShadowMapEngineDataBase::editHandleBlendChunk     (void)
 {
     SFBlendChunkPtr::EditHandlePtr returnValue(
         new  SFBlendChunkPtr::EditHandle(
@@ -688,7 +688,7 @@ SFBlendChunkPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleBlendChu
     return returnValue;
 }
 
-SFTexGenChunkPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleTexGenChunk     (void)
+GetFieldHandlePtr SimpleShadowMapEngineDataBase::getHandleTexGenChunk     (void) const
 {
     SFTexGenChunkPtr::GetHandlePtr returnValue(
         new  SFTexGenChunkPtr::GetHandle(
@@ -698,7 +698,7 @@ SFTexGenChunkPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandleTexGenChu
     return returnValue;
 }
 
-SFTexGenChunkPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleTexGenChunk    (void)
+EditFieldHandlePtr SimpleShadowMapEngineDataBase::editHandleTexGenChunk    (void)
 {
     SFTexGenChunkPtr::EditHandlePtr returnValue(
         new  SFTexGenChunkPtr::EditHandle(
@@ -712,7 +712,7 @@ SFTexGenChunkPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandleTexGenC
     return returnValue;
 }
 
-SFPolygonChunkPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandlePolyChunk       (void)
+GetFieldHandlePtr SimpleShadowMapEngineDataBase::getHandlePolyChunk       (void) const
 {
     SFPolygonChunkPtr::GetHandlePtr returnValue(
         new  SFPolygonChunkPtr::GetHandle(
@@ -722,7 +722,7 @@ SFPolygonChunkPtr::GetHandlePtr SimpleShadowMapEngineDataBase::getHandlePolyChun
     return returnValue;
 }
 
-SFPolygonChunkPtr::EditHandlePtr SimpleShadowMapEngineDataBase::editHandlePolyChunk      (void)
+EditFieldHandlePtr SimpleShadowMapEngineDataBase::editHandlePolyChunk      (void)
 {
     SFPolygonChunkPtr::EditHandlePtr returnValue(
         new  SFPolygonChunkPtr::EditHandle(

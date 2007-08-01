@@ -217,8 +217,8 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFSHLChunkPtr::GetHandlePtr  getHandleSHLChunk        (void);
-    SFSHLChunkPtr::EditHandlePtr editHandleSHLChunk       (void);
+    GetFieldHandlePtr  getHandleSHLChunk        (void) const;
+    EditFieldHandlePtr editHandleSHLChunk       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

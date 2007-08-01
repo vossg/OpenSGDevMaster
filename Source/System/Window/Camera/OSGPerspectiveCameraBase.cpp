@@ -107,8 +107,8 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
         FovFieldId, FovFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editHandleFov),
-        reinterpret_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getHandleFov));
+        static_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editHandleFov),
+        static_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getHandleFov));
 
     oType.addInitialDesc(pDesc);
 
@@ -119,8 +119,8 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
         AspectFieldId, AspectFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editHandleAspect),
-        reinterpret_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getHandleAspect));
+        static_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editHandleAspect),
+        static_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getHandleAspect));
 
     oType.addInitialDesc(pDesc);
 }
@@ -348,7 +348,7 @@ PerspectiveCameraBase::~PerspectiveCameraBase(void)
 }
 
 
-SFReal32::GetHandlePtr PerspectiveCameraBase::getHandleFov             (void)
+GetFieldHandlePtr PerspectiveCameraBase::getHandleFov             (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -358,7 +358,7 @@ SFReal32::GetHandlePtr PerspectiveCameraBase::getHandleFov             (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr PerspectiveCameraBase::editHandleFov            (void)
+EditFieldHandlePtr PerspectiveCameraBase::editHandleFov            (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -370,7 +370,7 @@ SFReal32::EditHandlePtr PerspectiveCameraBase::editHandleFov            (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr PerspectiveCameraBase::getHandleAspect          (void)
+GetFieldHandlePtr PerspectiveCameraBase::getHandleAspect          (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -380,7 +380,7 @@ SFReal32::GetHandlePtr PerspectiveCameraBase::getHandleAspect          (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr PerspectiveCameraBase::editHandleAspect         (void)
+EditFieldHandlePtr PerspectiveCameraBase::editHandleAspect         (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(

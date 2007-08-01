@@ -107,8 +107,8 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         AlgorithmFieldId, AlgorithmFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleAlgorithm),
-        reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleAlgorithm));
+        static_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleAlgorithm),
+        static_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleAlgorithm));
 
     oType.addInitialDesc(pDesc);
 
@@ -119,8 +119,8 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         ProjectionModeFieldId, ProjectionModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleProjectionMode),
-        reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleProjectionMode));
+        static_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleProjectionMode),
+        static_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleProjectionMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -131,8 +131,8 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         ProjectionMatrixFieldId, ProjectionMatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleProjectionMatrix),
-        reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleProjectionMatrix));
+        static_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleProjectionMatrix),
+        static_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleProjectionMatrix));
 
     oType.addInitialDesc(pDesc);
 }
@@ -392,7 +392,7 @@ void AlgorithmStageBase::onCreate(const AlgorithmStage *source)
     }
 }
 
-SFAlgorithmPtr::GetHandlePtr AlgorithmStageBase::getHandleAlgorithm       (void)
+GetFieldHandlePtr AlgorithmStageBase::getHandleAlgorithm       (void) const
 {
     SFAlgorithmPtr::GetHandlePtr returnValue(
         new  SFAlgorithmPtr::GetHandle(
@@ -402,7 +402,7 @@ SFAlgorithmPtr::GetHandlePtr AlgorithmStageBase::getHandleAlgorithm       (void)
     return returnValue;
 }
 
-SFAlgorithmPtr::EditHandlePtr AlgorithmStageBase::editHandleAlgorithm      (void)
+EditFieldHandlePtr AlgorithmStageBase::editHandleAlgorithm      (void)
 {
     SFAlgorithmPtr::EditHandlePtr returnValue(
         new  SFAlgorithmPtr::EditHandle(
@@ -416,7 +416,7 @@ SFAlgorithmPtr::EditHandlePtr AlgorithmStageBase::editHandleAlgorithm      (void
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr AlgorithmStageBase::getHandleProjectionMode  (void)
+GetFieldHandlePtr AlgorithmStageBase::getHandleProjectionMode  (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -426,7 +426,7 @@ SFUInt32::GetHandlePtr AlgorithmStageBase::getHandleProjectionMode  (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr AlgorithmStageBase::editHandleProjectionMode (void)
+EditFieldHandlePtr AlgorithmStageBase::editHandleProjectionMode (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -438,7 +438,7 @@ SFUInt32::EditHandlePtr AlgorithmStageBase::editHandleProjectionMode (void)
     return returnValue;
 }
 
-SFMatrix::GetHandlePtr AlgorithmStageBase::getHandleProjectionMatrix (void)
+GetFieldHandlePtr AlgorithmStageBase::getHandleProjectionMatrix (void) const
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
@@ -448,7 +448,7 @@ SFMatrix::GetHandlePtr AlgorithmStageBase::getHandleProjectionMatrix (void)
     return returnValue;
 }
 
-SFMatrix::EditHandlePtr AlgorithmStageBase::editHandleProjectionMatrix(void)
+EditFieldHandlePtr AlgorithmStageBase::editHandleProjectionMatrix(void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(

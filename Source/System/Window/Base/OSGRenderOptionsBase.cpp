@@ -179,8 +179,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         StatisticFieldId, StatisticFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleStatistic),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleStatistic));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleStatistic),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleStatistic));
 
     oType.addInitialDesc(pDesc);
 
@@ -191,8 +191,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         PolygonModeFieldId, PolygonModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandlePolygonMode),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandlePolygonMode));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandlePolygonMode),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandlePolygonMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -203,8 +203,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         TwoSidedLightingFieldId, TwoSidedLightingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleTwoSidedLighting),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleTwoSidedLighting));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleTwoSidedLighting),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleTwoSidedLighting));
 
     oType.addInitialDesc(pDesc);
 
@@ -215,8 +215,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         SpecTexLightingFieldId, SpecTexLightingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSpecTexLighting),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSpecTexLighting));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSpecTexLighting),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSpecTexLighting));
 
     oType.addInitialDesc(pDesc);
 
@@ -227,8 +227,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         SortTransFieldId, SortTransFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSortTrans),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSortTrans));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSortTrans),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSortTrans));
 
     oType.addInitialDesc(pDesc);
 
@@ -239,8 +239,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         ZWriteTransFieldId, ZWriteTransFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleZWriteTrans),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleZWriteTrans));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleZWriteTrans),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleZWriteTrans));
 
     oType.addInitialDesc(pDesc);
 
@@ -251,8 +251,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         LocalLightsFieldId, LocalLightsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleLocalLights),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleLocalLights));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleLocalLights),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleLocalLights));
 
     oType.addInitialDesc(pDesc);
 
@@ -263,8 +263,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         CorrectTwoSidedLightingFieldId, CorrectTwoSidedLightingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleCorrectTwoSidedLighting),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleCorrectTwoSidedLighting));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleCorrectTwoSidedLighting),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleCorrectTwoSidedLighting));
 
     oType.addInitialDesc(pDesc);
 
@@ -275,8 +275,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         OcclusionCullingFieldId, OcclusionCullingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleOcclusionCulling),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleOcclusionCulling));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleOcclusionCulling),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleOcclusionCulling));
 
     oType.addInitialDesc(pDesc);
 
@@ -287,8 +287,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         OcclusionCullingModeFieldId, OcclusionCullingModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleOcclusionCullingMode),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleOcclusionCullingMode));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleOcclusionCullingMode),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleOcclusionCullingMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -299,8 +299,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         OcclusionCullingPixelsFieldId, OcclusionCullingPixelsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleOcclusionCullingPixels),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleOcclusionCullingPixels));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleOcclusionCullingPixels),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleOcclusionCullingPixels));
 
     oType.addInitialDesc(pDesc);
 
@@ -311,8 +311,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         AntialiasingFieldId, AntialiasingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasing),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasing));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasing),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasing));
 
     oType.addInitialDesc(pDesc);
 
@@ -323,8 +323,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         AntialiasingDistanceFieldId, AntialiasingDistanceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasingDistance),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasingDistance));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasingDistance),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasingDistance));
 
     oType.addInitialDesc(pDesc);
 
@@ -335,8 +335,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         AntialiasingScaleFieldId, AntialiasingScaleFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasingScale),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasingScale));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasingScale),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasingScale));
 
     oType.addInitialDesc(pDesc);
 
@@ -347,8 +347,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         AntialiasingTriggerFieldId, AntialiasingTriggerFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasingTrigger),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasingTrigger));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasingTrigger),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasingTrigger));
 
     oType.addInitialDesc(pDesc);
 
@@ -359,8 +359,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         FrustumCullingFieldId, FrustumCullingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFrustumCulling),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFrustumCulling));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFrustumCulling),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFrustumCulling));
 
     oType.addInitialDesc(pDesc);
 
@@ -371,8 +371,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         BackfaceCullingFieldId, BackfaceCullingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleBackfaceCulling),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleBackfaceCulling));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleBackfaceCulling),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleBackfaceCulling));
 
     oType.addInitialDesc(pDesc);
 
@@ -383,8 +383,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         SmallFeatureCullingFieldId, SmallFeatureCullingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSmallFeatureCulling),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSmallFeatureCulling));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSmallFeatureCulling),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSmallFeatureCulling));
 
     oType.addInitialDesc(pDesc);
 
@@ -395,8 +395,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         SmallFeaturePixelsFieldId, SmallFeaturePixelsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSmallFeaturePixels),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSmallFeaturePixels));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSmallFeaturePixels),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSmallFeaturePixels));
 
     oType.addInitialDesc(pDesc);
 
@@ -407,8 +407,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         SmallFeatureThresholdFieldId, SmallFeatureThresholdFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSmallFeatureThreshold),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSmallFeatureThreshold));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSmallFeatureThreshold),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSmallFeatureThreshold));
 
     oType.addInitialDesc(pDesc);
 
@@ -419,8 +419,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         FirstFrameFieldId, FirstFrameFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFirstFrame),
-        reinterpret_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFirstFrame));
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFirstFrame),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFirstFrame));
 
     oType.addInitialDesc(pDesc);
 }
@@ -1438,7 +1438,7 @@ RenderOptionsBase::~RenderOptionsBase(void)
 }
 
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleStatistic       (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleStatistic       (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1448,7 +1448,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleStatistic       (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleStatistic      (void)
+EditFieldHandlePtr RenderOptionsBase::editHandleStatistic      (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1460,7 +1460,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleStatistic      (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr RenderOptionsBase::getHandlePolygonMode     (void)
+GetFieldHandlePtr RenderOptionsBase::getHandlePolygonMode     (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -1470,7 +1470,7 @@ SFGLenum::GetHandlePtr RenderOptionsBase::getHandlePolygonMode     (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr RenderOptionsBase::editHandlePolygonMode    (void)
+EditFieldHandlePtr RenderOptionsBase::editHandlePolygonMode    (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -1482,7 +1482,7 @@ SFGLenum::EditHandlePtr RenderOptionsBase::editHandlePolygonMode    (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleTwoSidedLighting (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleTwoSidedLighting (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1492,7 +1492,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleTwoSidedLighting (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleTwoSidedLighting(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleTwoSidedLighting(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1504,7 +1504,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleTwoSidedLighting(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleSpecTexLighting (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleSpecTexLighting (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1514,7 +1514,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleSpecTexLighting (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleSpecTexLighting(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleSpecTexLighting(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1526,7 +1526,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleSpecTexLighting(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleSortTrans       (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleSortTrans       (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1536,7 +1536,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleSortTrans       (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleSortTrans      (void)
+EditFieldHandlePtr RenderOptionsBase::editHandleSortTrans      (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1548,7 +1548,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleSortTrans      (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleZWriteTrans     (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleZWriteTrans     (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1558,7 +1558,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleZWriteTrans     (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleZWriteTrans    (void)
+EditFieldHandlePtr RenderOptionsBase::editHandleZWriteTrans    (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1570,7 +1570,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleZWriteTrans    (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleLocalLights     (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleLocalLights     (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1580,7 +1580,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleLocalLights     (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleLocalLights    (void)
+EditFieldHandlePtr RenderOptionsBase::editHandleLocalLights    (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1592,7 +1592,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleLocalLights    (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleCorrectTwoSidedLighting (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleCorrectTwoSidedLighting (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1602,7 +1602,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleCorrectTwoSidedLighting (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleCorrectTwoSidedLighting(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleCorrectTwoSidedLighting(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1614,7 +1614,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleCorrectTwoSidedLighting(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleOcclusionCulling (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleOcclusionCulling (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1624,7 +1624,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleOcclusionCulling (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleOcclusionCulling(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleOcclusionCulling(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1636,7 +1636,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleOcclusionCulling(void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr RenderOptionsBase::getHandleOcclusionCullingMode (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleOcclusionCullingMode (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -1646,7 +1646,7 @@ SFInt32::GetHandlePtr RenderOptionsBase::getHandleOcclusionCullingMode (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr RenderOptionsBase::editHandleOcclusionCullingMode(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleOcclusionCullingMode(void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -1658,7 +1658,7 @@ SFInt32::EditHandlePtr RenderOptionsBase::editHandleOcclusionCullingMode(void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr RenderOptionsBase::getHandleOcclusionCullingPixels (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleOcclusionCullingPixels (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1668,7 +1668,7 @@ SFUInt32::GetHandlePtr RenderOptionsBase::getHandleOcclusionCullingPixels (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr RenderOptionsBase::editHandleOcclusionCullingPixels(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleOcclusionCullingPixels(void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -1680,7 +1680,7 @@ SFUInt32::EditHandlePtr RenderOptionsBase::editHandleOcclusionCullingPixels(void
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleAntialiasing    (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleAntialiasing    (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1690,7 +1690,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleAntialiasing    (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleAntialiasing   (void)
+EditFieldHandlePtr RenderOptionsBase::editHandleAntialiasing   (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1702,7 +1702,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleAntialiasing   (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr RenderOptionsBase::getHandleAntialiasingDistance (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleAntialiasingDistance (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1712,7 +1712,7 @@ SFReal32::GetHandlePtr RenderOptionsBase::getHandleAntialiasingDistance (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr RenderOptionsBase::editHandleAntialiasingDistance(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleAntialiasingDistance(void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -1724,7 +1724,7 @@ SFReal32::EditHandlePtr RenderOptionsBase::editHandleAntialiasingDistance(void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr RenderOptionsBase::getHandleAntialiasingScale (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleAntialiasingScale (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1734,7 +1734,7 @@ SFReal32::GetHandlePtr RenderOptionsBase::getHandleAntialiasingScale (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr RenderOptionsBase::editHandleAntialiasingScale(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleAntialiasingScale(void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -1746,7 +1746,7 @@ SFReal32::EditHandlePtr RenderOptionsBase::editHandleAntialiasingScale(void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr RenderOptionsBase::getHandleAntialiasingTrigger (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleAntialiasingTrigger (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1756,7 +1756,7 @@ SFUInt32::GetHandlePtr RenderOptionsBase::getHandleAntialiasingTrigger (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr RenderOptionsBase::editHandleAntialiasingTrigger(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleAntialiasingTrigger(void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -1768,7 +1768,7 @@ SFUInt32::EditHandlePtr RenderOptionsBase::editHandleAntialiasingTrigger(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleFrustumCulling  (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleFrustumCulling  (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1778,7 +1778,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleFrustumCulling  (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleFrustumCulling (void)
+EditFieldHandlePtr RenderOptionsBase::editHandleFrustumCulling (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1790,7 +1790,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleFrustumCulling (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleBackfaceCulling (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleBackfaceCulling (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1800,7 +1800,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleBackfaceCulling (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleBackfaceCulling(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleBackfaceCulling(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1812,7 +1812,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleBackfaceCulling(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleSmallFeatureCulling (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleSmallFeatureCulling (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1822,7 +1822,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleSmallFeatureCulling (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleSmallFeatureCulling(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleSmallFeatureCulling(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1834,7 +1834,7 @@ SFBool::EditHandlePtr RenderOptionsBase::editHandleSmallFeatureCulling(void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr RenderOptionsBase::getHandleSmallFeaturePixels (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleSmallFeaturePixels (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1844,7 +1844,7 @@ SFReal32::GetHandlePtr RenderOptionsBase::getHandleSmallFeaturePixels (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr RenderOptionsBase::editHandleSmallFeaturePixels(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleSmallFeaturePixels(void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -1856,7 +1856,7 @@ SFReal32::EditHandlePtr RenderOptionsBase::editHandleSmallFeaturePixels(void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr RenderOptionsBase::getHandleSmallFeatureThreshold (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleSmallFeatureThreshold (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1866,7 +1866,7 @@ SFUInt32::GetHandlePtr RenderOptionsBase::getHandleSmallFeatureThreshold (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr RenderOptionsBase::editHandleSmallFeatureThreshold(void)
+EditFieldHandlePtr RenderOptionsBase::editHandleSmallFeatureThreshold(void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -1878,7 +1878,7 @@ SFUInt32::EditHandlePtr RenderOptionsBase::editHandleSmallFeatureThreshold(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr RenderOptionsBase::getHandleFirstFrame      (void)
+GetFieldHandlePtr RenderOptionsBase::getHandleFirstFrame      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1888,7 +1888,7 @@ SFBool::GetHandlePtr RenderOptionsBase::getHandleFirstFrame      (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr RenderOptionsBase::editHandleFirstFrame     (void)
+EditFieldHandlePtr RenderOptionsBase::editHandleFirstFrame     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

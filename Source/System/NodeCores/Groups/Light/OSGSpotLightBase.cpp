@@ -113,8 +113,8 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
         DirectionFieldId, DirectionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SpotLightBase::editHandleDirection),
-        reinterpret_cast<FieldGetMethodSig >(&SpotLightBase::getHandleDirection));
+        static_cast<FieldEditMethodSig>(&SpotLightBase::editHandleDirection),
+        static_cast<FieldGetMethodSig >(&SpotLightBase::getHandleDirection));
 
     oType.addInitialDesc(pDesc);
 
@@ -125,8 +125,8 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
         SpotExponentFieldId, SpotExponentFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SpotLightBase::editHandleSpotExponent),
-        reinterpret_cast<FieldGetMethodSig >(&SpotLightBase::getHandleSpotExponent));
+        static_cast<FieldEditMethodSig>(&SpotLightBase::editHandleSpotExponent),
+        static_cast<FieldGetMethodSig >(&SpotLightBase::getHandleSpotExponent));
 
     oType.addInitialDesc(pDesc);
 
@@ -137,8 +137,8 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
         SpotCutOffFieldId, SpotCutOffFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SpotLightBase::editHandleSpotCutOff),
-        reinterpret_cast<FieldGetMethodSig >(&SpotLightBase::getHandleSpotCutOff));
+        static_cast<FieldEditMethodSig>(&SpotLightBase::editHandleSpotCutOff),
+        static_cast<FieldGetMethodSig >(&SpotLightBase::getHandleSpotCutOff));
 
     oType.addInitialDesc(pDesc);
 }
@@ -413,7 +413,7 @@ SpotLightBase::~SpotLightBase(void)
 }
 
 
-SFVec3r::GetHandlePtr SpotLightBase::getHandleDirection       (void)
+GetFieldHandlePtr SpotLightBase::getHandleDirection       (void) const
 {
     SFVec3r::GetHandlePtr returnValue(
         new  SFVec3r::GetHandle(
@@ -423,7 +423,7 @@ SFVec3r::GetHandlePtr SpotLightBase::getHandleDirection       (void)
     return returnValue;
 }
 
-SFVec3r::EditHandlePtr SpotLightBase::editHandleDirection      (void)
+EditFieldHandlePtr SpotLightBase::editHandleDirection      (void)
 {
     SFVec3r::EditHandlePtr returnValue(
         new  SFVec3r::EditHandle(
@@ -435,7 +435,7 @@ SFVec3r::EditHandlePtr SpotLightBase::editHandleDirection      (void)
     return returnValue;
 }
 
-SFReal::GetHandlePtr SpotLightBase::getHandleSpotExponent    (void)
+GetFieldHandlePtr SpotLightBase::getHandleSpotExponent    (void) const
 {
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
@@ -445,7 +445,7 @@ SFReal::GetHandlePtr SpotLightBase::getHandleSpotExponent    (void)
     return returnValue;
 }
 
-SFReal::EditHandlePtr SpotLightBase::editHandleSpotExponent   (void)
+EditFieldHandlePtr SpotLightBase::editHandleSpotExponent   (void)
 {
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
@@ -457,7 +457,7 @@ SFReal::EditHandlePtr SpotLightBase::editHandleSpotExponent   (void)
     return returnValue;
 }
 
-SFReal::GetHandlePtr SpotLightBase::getHandleSpotCutOff      (void)
+GetFieldHandlePtr SpotLightBase::getHandleSpotCutOff      (void) const
 {
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
@@ -467,7 +467,7 @@ SFReal::GetHandlePtr SpotLightBase::getHandleSpotCutOff      (void)
     return returnValue;
 }
 
-SFReal::EditHandlePtr SpotLightBase::editHandleSpotCutOff     (void)
+EditFieldHandlePtr SpotLightBase::editHandleSpotCutOff     (void)
 {
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(

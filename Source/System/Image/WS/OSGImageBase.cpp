@@ -210,8 +210,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         DimensionFieldId, DimensionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleDimension),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleDimension));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleDimension),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleDimension));
 
     oType.addInitialDesc(pDesc);
 
@@ -222,8 +222,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleWidth),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -234,8 +234,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleHeight),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 
@@ -246,8 +246,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         DepthFieldId, DepthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleDepth),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleDepth));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleDepth),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleDepth));
 
     oType.addInitialDesc(pDesc);
 
@@ -258,8 +258,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         BppFieldId, BppFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleBpp),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleBpp));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleBpp),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleBpp));
 
     oType.addInitialDesc(pDesc);
 
@@ -270,8 +270,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         MipMapCountFieldId, MipMapCountFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleMipMapCount),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleMipMapCount));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleMipMapCount),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleMipMapCount));
 
     oType.addInitialDesc(pDesc);
 
@@ -282,8 +282,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         FrameCountFieldId, FrameCountFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleFrameCount),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleFrameCount));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleFrameCount),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleFrameCount));
 
     oType.addInitialDesc(pDesc);
 
@@ -294,8 +294,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         FrameDelayFieldId, FrameDelayFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleFrameDelay),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleFrameDelay));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleFrameDelay),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleFrameDelay));
 
     oType.addInitialDesc(pDesc);
 
@@ -306,8 +306,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         PixelFormatFieldId, PixelFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandlePixelFormat),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandlePixelFormat));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandlePixelFormat),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandlePixelFormat));
 
     oType.addInitialDesc(pDesc);
 
@@ -318,8 +318,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         PixelFieldId, PixelFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandlePixel),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandlePixel));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandlePixel),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandlePixel));
 
     oType.addInitialDesc(pDesc);
 
@@ -330,8 +330,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         FrameSizeFieldId, FrameSizeFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleFrameSize),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleFrameSize));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleFrameSize),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleFrameSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -342,8 +342,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleName),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleName));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleName),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleName));
 
     oType.addInitialDesc(pDesc);
 
@@ -354,8 +354,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         DataTypeFieldId, DataTypeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleDataType),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleDataType));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleDataType),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleDataType));
 
     oType.addInitialDesc(pDesc);
 
@@ -367,8 +367,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ComponentSizeFieldId, ComponentSizeFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleComponentSize),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleComponentSize));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleComponentSize),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleComponentSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -379,8 +379,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         SideCountFieldId, SideCountFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleSideCount),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleSideCount));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleSideCount),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleSideCount));
 
     oType.addInitialDesc(pDesc);
 
@@ -391,8 +391,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         SideSizeFieldId, SideSizeFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleSideSize),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleSideSize));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleSideSize),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleSideSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -404,8 +404,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ForceCompressedDataFieldId, ForceCompressedDataFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleForceCompressedData),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleForceCompressedData));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleForceCompressedData),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleForceCompressedData));
 
     oType.addInitialDesc(pDesc);
 
@@ -417,8 +417,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ForceAlphaChannelFieldId, ForceAlphaChannelFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleForceAlphaChannel),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleForceAlphaChannel));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleForceAlphaChannel),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleForceAlphaChannel));
 
     oType.addInitialDesc(pDesc);
 
@@ -430,8 +430,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ForceColorChannelFieldId, ForceColorChannelFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleForceColorChannel),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleForceColorChannel));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleForceColorChannel),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleForceColorChannel));
 
     oType.addInitialDesc(pDesc);
 
@@ -443,8 +443,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ForceAlphaBinaryFieldId, ForceAlphaBinaryFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleForceAlphaBinary),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleForceAlphaBinary));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleForceAlphaBinary),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleForceAlphaBinary));
 
     oType.addInitialDesc(pDesc);
 
@@ -455,8 +455,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ResXFieldId, ResXFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleResX),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleResX));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleResX),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleResX));
 
     oType.addInitialDesc(pDesc);
 
@@ -467,8 +467,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ResYFieldId, ResYFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleResY),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleResY));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleResY),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleResY));
 
     oType.addInitialDesc(pDesc);
 
@@ -479,8 +479,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ResUnitFieldId, ResUnitFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editHandleResUnit),
-        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getHandleResUnit));
+        static_cast<FieldEditMethodSig>(&ImageBase::editHandleResUnit),
+        static_cast<FieldGetMethodSig >(&ImageBase::getHandleResUnit));
 
     oType.addInitialDesc(pDesc);
 }
@@ -1716,7 +1716,7 @@ void ImageBase::onCreate(const Image *source)
     }
 }
 
-MFParentFieldContainerPtr::GetHandlePtr ImageBase::getHandleParents         (void)
+GetFieldHandlePtr ImageBase::getHandleParents         (void) const
 {
     MFParentFieldContainerPtr::GetHandlePtr returnValue(
         new  MFParentFieldContainerPtr::GetHandle(
@@ -1726,14 +1726,14 @@ MFParentFieldContainerPtr::GetHandlePtr ImageBase::getHandleParents         (voi
     return returnValue;
 }
 
-MFParentFieldContainerPtr::EditHandlePtr ImageBase::editHandleParents        (void)
+EditFieldHandlePtr ImageBase::editHandleParents        (void)
 {
     MFParentFieldContainerPtr::EditHandlePtr returnValue;
 
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleDimension       (void)
+GetFieldHandlePtr ImageBase::getHandleDimension       (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -1743,7 +1743,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleDimension       (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleDimension      (void)
+EditFieldHandlePtr ImageBase::editHandleDimension      (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -1755,7 +1755,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleDimension      (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleWidth           (void)
+GetFieldHandlePtr ImageBase::getHandleWidth           (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -1765,7 +1765,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleWidth           (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleWidth          (void)
+EditFieldHandlePtr ImageBase::editHandleWidth          (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -1777,7 +1777,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleWidth          (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleHeight          (void)
+GetFieldHandlePtr ImageBase::getHandleHeight          (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -1787,7 +1787,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleHeight          (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleHeight         (void)
+EditFieldHandlePtr ImageBase::editHandleHeight         (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -1799,7 +1799,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleHeight         (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleDepth           (void)
+GetFieldHandlePtr ImageBase::getHandleDepth           (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -1809,7 +1809,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleDepth           (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleDepth          (void)
+EditFieldHandlePtr ImageBase::editHandleDepth          (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -1821,7 +1821,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleDepth          (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleBpp             (void)
+GetFieldHandlePtr ImageBase::getHandleBpp             (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -1831,7 +1831,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleBpp             (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleBpp            (void)
+EditFieldHandlePtr ImageBase::editHandleBpp            (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -1843,7 +1843,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleBpp            (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleMipMapCount     (void)
+GetFieldHandlePtr ImageBase::getHandleMipMapCount     (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -1853,7 +1853,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleMipMapCount     (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleMipMapCount    (void)
+EditFieldHandlePtr ImageBase::editHandleMipMapCount    (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -1865,7 +1865,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleMipMapCount    (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleFrameCount      (void)
+GetFieldHandlePtr ImageBase::getHandleFrameCount      (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -1875,7 +1875,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleFrameCount      (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleFrameCount     (void)
+EditFieldHandlePtr ImageBase::editHandleFrameCount     (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -1887,7 +1887,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleFrameCount     (void)
     return returnValue;
 }
 
-SFTime::GetHandlePtr ImageBase::getHandleFrameDelay      (void)
+GetFieldHandlePtr ImageBase::getHandleFrameDelay      (void) const
 {
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
@@ -1897,7 +1897,7 @@ SFTime::GetHandlePtr ImageBase::getHandleFrameDelay      (void)
     return returnValue;
 }
 
-SFTime::EditHandlePtr ImageBase::editHandleFrameDelay     (void)
+EditFieldHandlePtr ImageBase::editHandleFrameDelay     (void)
 {
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
@@ -1909,7 +1909,7 @@ SFTime::EditHandlePtr ImageBase::editHandleFrameDelay     (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr ImageBase::getHandlePixelFormat     (void)
+GetFieldHandlePtr ImageBase::getHandlePixelFormat     (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1919,7 +1919,7 @@ SFUInt32::GetHandlePtr ImageBase::getHandlePixelFormat     (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr ImageBase::editHandlePixelFormat    (void)
+EditFieldHandlePtr ImageBase::editHandlePixelFormat    (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -1931,7 +1931,7 @@ SFUInt32::EditHandlePtr ImageBase::editHandlePixelFormat    (void)
     return returnValue;
 }
 
-MFUInt8::GetHandlePtr ImageBase::getHandlePixel           (void)
+GetFieldHandlePtr ImageBase::getHandlePixel           (void) const
 {
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
@@ -1941,7 +1941,7 @@ MFUInt8::GetHandlePtr ImageBase::getHandlePixel           (void)
     return returnValue;
 }
 
-MFUInt8::EditHandlePtr ImageBase::editHandlePixel          (void)
+EditFieldHandlePtr ImageBase::editHandlePixel          (void)
 {
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(
@@ -1953,7 +1953,7 @@ MFUInt8::EditHandlePtr ImageBase::editHandlePixel          (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleFrameSize       (void)
+GetFieldHandlePtr ImageBase::getHandleFrameSize       (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -1963,7 +1963,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleFrameSize       (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleFrameSize      (void)
+EditFieldHandlePtr ImageBase::editHandleFrameSize      (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -1975,7 +1975,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleFrameSize      (void)
     return returnValue;
 }
 
-SFString::GetHandlePtr ImageBase::getHandleName            (void)
+GetFieldHandlePtr ImageBase::getHandleName            (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -1985,7 +1985,7 @@ SFString::GetHandlePtr ImageBase::getHandleName            (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr ImageBase::editHandleName           (void)
+EditFieldHandlePtr ImageBase::editHandleName           (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -1997,7 +1997,7 @@ SFString::EditHandlePtr ImageBase::editHandleName           (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleDataType        (void)
+GetFieldHandlePtr ImageBase::getHandleDataType        (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -2007,7 +2007,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleDataType        (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleDataType       (void)
+EditFieldHandlePtr ImageBase::editHandleDataType       (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -2019,7 +2019,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleDataType       (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleComponentSize   (void)
+GetFieldHandlePtr ImageBase::getHandleComponentSize   (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -2029,7 +2029,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleComponentSize   (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleComponentSize  (void)
+EditFieldHandlePtr ImageBase::editHandleComponentSize  (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -2041,7 +2041,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleComponentSize  (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleSideCount       (void)
+GetFieldHandlePtr ImageBase::getHandleSideCount       (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -2051,7 +2051,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleSideCount       (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleSideCount      (void)
+EditFieldHandlePtr ImageBase::editHandleSideCount      (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -2063,7 +2063,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleSideCount      (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr ImageBase::getHandleSideSize        (void)
+GetFieldHandlePtr ImageBase::getHandleSideSize        (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -2073,7 +2073,7 @@ SFInt32::GetHandlePtr ImageBase::getHandleSideSize        (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr ImageBase::editHandleSideSize       (void)
+EditFieldHandlePtr ImageBase::editHandleSideSize       (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -2085,7 +2085,7 @@ SFInt32::EditHandlePtr ImageBase::editHandleSideSize       (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ImageBase::getHandleForceCompressedData (void)
+GetFieldHandlePtr ImageBase::getHandleForceCompressedData (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -2095,7 +2095,7 @@ SFBool::GetHandlePtr ImageBase::getHandleForceCompressedData (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ImageBase::editHandleForceCompressedData(void)
+EditFieldHandlePtr ImageBase::editHandleForceCompressedData(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -2107,7 +2107,7 @@ SFBool::EditHandlePtr ImageBase::editHandleForceCompressedData(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ImageBase::getHandleForceAlphaChannel (void)
+GetFieldHandlePtr ImageBase::getHandleForceAlphaChannel (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -2117,7 +2117,7 @@ SFBool::GetHandlePtr ImageBase::getHandleForceAlphaChannel (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ImageBase::editHandleForceAlphaChannel(void)
+EditFieldHandlePtr ImageBase::editHandleForceAlphaChannel(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -2129,7 +2129,7 @@ SFBool::EditHandlePtr ImageBase::editHandleForceAlphaChannel(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ImageBase::getHandleForceColorChannel (void)
+GetFieldHandlePtr ImageBase::getHandleForceColorChannel (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -2139,7 +2139,7 @@ SFBool::GetHandlePtr ImageBase::getHandleForceColorChannel (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ImageBase::editHandleForceColorChannel(void)
+EditFieldHandlePtr ImageBase::editHandleForceColorChannel(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -2151,7 +2151,7 @@ SFBool::EditHandlePtr ImageBase::editHandleForceColorChannel(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ImageBase::getHandleForceAlphaBinary (void)
+GetFieldHandlePtr ImageBase::getHandleForceAlphaBinary (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -2161,7 +2161,7 @@ SFBool::GetHandlePtr ImageBase::getHandleForceAlphaBinary (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ImageBase::editHandleForceAlphaBinary(void)
+EditFieldHandlePtr ImageBase::editHandleForceAlphaBinary(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -2173,7 +2173,7 @@ SFBool::EditHandlePtr ImageBase::editHandleForceAlphaBinary(void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr ImageBase::getHandleResX            (void)
+GetFieldHandlePtr ImageBase::getHandleResX            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -2183,7 +2183,7 @@ SFReal32::GetHandlePtr ImageBase::getHandleResX            (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr ImageBase::editHandleResX           (void)
+EditFieldHandlePtr ImageBase::editHandleResX           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -2195,7 +2195,7 @@ SFReal32::EditHandlePtr ImageBase::editHandleResX           (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr ImageBase::getHandleResY            (void)
+GetFieldHandlePtr ImageBase::getHandleResY            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -2205,7 +2205,7 @@ SFReal32::GetHandlePtr ImageBase::getHandleResY            (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr ImageBase::editHandleResY           (void)
+EditFieldHandlePtr ImageBase::editHandleResY           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -2217,7 +2217,7 @@ SFReal32::EditHandlePtr ImageBase::editHandleResY           (void)
     return returnValue;
 }
 
-SFUInt16::GetHandlePtr ImageBase::getHandleResUnit         (void)
+GetFieldHandlePtr ImageBase::getHandleResUnit         (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -2227,7 +2227,7 @@ SFUInt16::GetHandlePtr ImageBase::getHandleResUnit         (void)
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr ImageBase::editHandleResUnit        (void)
+EditFieldHandlePtr ImageBase::editHandleResUnit        (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(

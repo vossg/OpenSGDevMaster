@@ -322,16 +322,16 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFBool::GetHandlePtr  getHandleCgFrontEnd      (void);
-    SFBool::EditHandlePtr editHandleCgFrontEnd     (void);
-    SFBool::GetHandlePtr  getHandlePointSize       (void);
-    SFBool::EditHandlePtr editHandlePointSize      (void);
-    MFGLenum::GetHandlePtr  getHandleProgramParameterNames (void);
-    MFGLenum::EditHandlePtr editHandleProgramParameterNames(void);
-    MFUInt32::GetHandlePtr  getHandleProgramParameterValues (void);
-    MFUInt32::EditHandlePtr editHandleProgramParameterValues(void);
-    SFUInt32::GetHandlePtr  getHandleGLId            (void);
-    SFUInt32::EditHandlePtr editHandleGLId           (void);
+    GetFieldHandlePtr  getHandleCgFrontEnd      (void) const;
+    EditFieldHandlePtr editHandleCgFrontEnd     (void);
+    GetFieldHandlePtr  getHandlePointSize       (void) const;
+    EditFieldHandlePtr editHandlePointSize      (void);
+    GetFieldHandlePtr  getHandleProgramParameterNames (void) const;
+    EditFieldHandlePtr editHandleProgramParameterNames(void);
+    GetFieldHandlePtr  getHandleProgramParameterValues (void) const;
+    EditFieldHandlePtr editHandleProgramParameterValues(void);
+    GetFieldHandlePtr  getHandleGLId            (void) const;
+    EditFieldHandlePtr editHandleGLId           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

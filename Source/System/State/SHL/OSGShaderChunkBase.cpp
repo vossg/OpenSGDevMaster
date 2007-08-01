@@ -106,8 +106,8 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
         VertexProgramFieldId, VertexProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleVertexProgram),
-        reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleVertexProgram));
+        static_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleVertexProgram),
+        static_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleVertexProgram));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
         FragmentProgramFieldId, FragmentProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleFragmentProgram),
-        reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleFragmentProgram));
+        static_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleFragmentProgram),
+        static_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleFragmentProgram));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
         GeometryProgramFieldId, GeometryProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleGeometryProgram),
-        reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleGeometryProgram));
+        static_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleGeometryProgram),
+        static_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleGeometryProgram));
 
     oType.addInitialDesc(pDesc);
 }
@@ -361,7 +361,7 @@ ShaderChunkBase::~ShaderChunkBase(void)
 }
 
 
-SFString::GetHandlePtr ShaderChunkBase::getHandleVertexProgram   (void)
+GetFieldHandlePtr ShaderChunkBase::getHandleVertexProgram   (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -371,7 +371,7 @@ SFString::GetHandlePtr ShaderChunkBase::getHandleVertexProgram   (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr ShaderChunkBase::editHandleVertexProgram  (void)
+EditFieldHandlePtr ShaderChunkBase::editHandleVertexProgram  (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -383,7 +383,7 @@ SFString::EditHandlePtr ShaderChunkBase::editHandleVertexProgram  (void)
     return returnValue;
 }
 
-SFString::GetHandlePtr ShaderChunkBase::getHandleFragmentProgram (void)
+GetFieldHandlePtr ShaderChunkBase::getHandleFragmentProgram (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -393,7 +393,7 @@ SFString::GetHandlePtr ShaderChunkBase::getHandleFragmentProgram (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr ShaderChunkBase::editHandleFragmentProgram(void)
+EditFieldHandlePtr ShaderChunkBase::editHandleFragmentProgram(void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -405,7 +405,7 @@ SFString::EditHandlePtr ShaderChunkBase::editHandleFragmentProgram(void)
     return returnValue;
 }
 
-SFString::GetHandlePtr ShaderChunkBase::getHandleGeometryProgram (void)
+GetFieldHandlePtr ShaderChunkBase::getHandleGeometryProgram (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -415,7 +415,7 @@ SFString::GetHandlePtr ShaderChunkBase::getHandleGeometryProgram (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr ShaderChunkBase::editHandleGeometryProgram(void)
+EditFieldHandlePtr ShaderChunkBase::editHandleGeometryProgram(void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(

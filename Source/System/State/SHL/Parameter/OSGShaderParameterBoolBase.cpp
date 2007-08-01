@@ -98,8 +98,8 @@ void ShaderParameterBoolBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterBoolBase::editHandleValue),
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterBoolBase::getHandleValue));
+        static_cast<FieldEditMethodSig>(&ShaderParameterBoolBase::editHandleValue),
+        static_cast<FieldGetMethodSig >(&ShaderParameterBoolBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -277,7 +277,7 @@ ShaderParameterBoolBase::~ShaderParameterBoolBase(void)
 }
 
 
-SFBool::GetHandlePtr ShaderParameterBoolBase::getHandleValue           (void)
+GetFieldHandlePtr ShaderParameterBoolBase::getHandleValue           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -287,7 +287,7 @@ SFBool::GetHandlePtr ShaderParameterBoolBase::getHandleValue           (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ShaderParameterBoolBase::editHandleValue          (void)
+EditFieldHandlePtr ShaderParameterBoolBase::editHandleValue          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

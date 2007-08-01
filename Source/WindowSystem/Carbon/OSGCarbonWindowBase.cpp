@@ -98,8 +98,8 @@ void CarbonWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&CarbonWindowBase::editHandleContext),
-        reinterpret_cast<FieldGetMethodSig >(&CarbonWindowBase::getHandleContext));
+        static_cast<FieldEditMethodSig>(&CarbonWindowBase::editHandleContext),
+        static_cast<FieldGetMethodSig >(&CarbonWindowBase::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }
@@ -277,7 +277,7 @@ CarbonWindowBase::~CarbonWindowBase(void)
 }
 
 
-SFAGLContext::GetHandlePtr CarbonWindowBase::getHandleContext         (void)
+GetFieldHandlePtr CarbonWindowBase::getHandleContext         (void) const
 {
     SFAGLContext::GetHandlePtr returnValue(
         new  SFAGLContext::GetHandle(
@@ -287,7 +287,7 @@ SFAGLContext::GetHandlePtr CarbonWindowBase::getHandleContext         (void)
     return returnValue;
 }
 
-SFAGLContext::EditHandlePtr CarbonWindowBase::editHandleContext        (void)
+EditFieldHandlePtr CarbonWindowBase::editHandleContext        (void)
 {
     SFAGLContext::EditHandlePtr returnValue(
         new  SFAGLContext::EditHandle(

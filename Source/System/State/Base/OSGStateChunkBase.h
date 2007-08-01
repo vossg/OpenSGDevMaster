@@ -205,8 +205,8 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFBool::GetHandlePtr  getHandleIgnore          (void);
-    SFBool::EditHandlePtr editHandleIgnore         (void);
+    GetFieldHandlePtr  getHandleIgnore          (void) const;
+    EditFieldHandlePtr editHandleIgnore         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

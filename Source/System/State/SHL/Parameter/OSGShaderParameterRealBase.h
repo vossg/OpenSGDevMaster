@@ -220,8 +220,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFReal32::GetHandlePtr  getHandleValue           (void);
-    SFReal32::EditHandlePtr editHandleValue          (void);
+    GetFieldHandlePtr  getHandleValue           (void) const;
+    EditFieldHandlePtr editHandleValue          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -104,8 +104,8 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
         MaterialsFieldId, MaterialsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SwitchMaterialBase::editHandleMaterials),
-        reinterpret_cast<FieldGetMethodSig >(&SwitchMaterialBase::getHandleMaterials));
+        static_cast<FieldEditMethodSig>(&SwitchMaterialBase::editHandleMaterials),
+        static_cast<FieldGetMethodSig >(&SwitchMaterialBase::getHandleMaterials));
 
     oType.addInitialDesc(pDesc);
 
@@ -116,8 +116,8 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SwitchMaterialBase::editHandleChoice),
-        reinterpret_cast<FieldGetMethodSig >(&SwitchMaterialBase::getHandleChoice));
+        static_cast<FieldEditMethodSig>(&SwitchMaterialBase::editHandleChoice),
+        static_cast<FieldGetMethodSig >(&SwitchMaterialBase::getHandleChoice));
 
     oType.addInitialDesc(pDesc);
 }
@@ -484,7 +484,7 @@ void SwitchMaterialBase::onCreate(const SwitchMaterial *source)
     }
 }
 
-MFMaterialPtr::GetHandlePtr SwitchMaterialBase::getHandleMaterials       (void)
+GetFieldHandlePtr SwitchMaterialBase::getHandleMaterials       (void) const
 {
     MFMaterialPtr::GetHandlePtr returnValue(
         new  MFMaterialPtr::GetHandle(
@@ -494,7 +494,7 @@ MFMaterialPtr::GetHandlePtr SwitchMaterialBase::getHandleMaterials       (void)
     return returnValue;
 }
 
-MFMaterialPtr::EditHandlePtr SwitchMaterialBase::editHandleMaterials      (void)
+EditFieldHandlePtr SwitchMaterialBase::editHandleMaterials      (void)
 {
     MFMaterialPtr::EditHandlePtr returnValue(
         new  MFMaterialPtr::EditHandle(
@@ -508,7 +508,7 @@ MFMaterialPtr::EditHandlePtr SwitchMaterialBase::editHandleMaterials      (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr SwitchMaterialBase::getHandleChoice          (void)
+GetFieldHandlePtr SwitchMaterialBase::getHandleChoice          (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -518,7 +518,7 @@ SFUInt32::GetHandlePtr SwitchMaterialBase::getHandleChoice          (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr SwitchMaterialBase::editHandleChoice         (void)
+EditFieldHandlePtr SwitchMaterialBase::editHandleChoice         (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(

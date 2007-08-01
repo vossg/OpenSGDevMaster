@@ -110,8 +110,8 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskRFieldId, MaskRFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskR),
-        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskR));
+        static_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskR),
+        static_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskR));
 
     oType.addInitialDesc(pDesc);
 
@@ -122,8 +122,8 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskGFieldId, MaskGFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskG),
-        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskG));
+        static_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskG),
+        static_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskG));
 
     oType.addInitialDesc(pDesc);
 
@@ -134,8 +134,8 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskBFieldId, MaskBFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskB),
-        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskB));
+        static_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskB),
+        static_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskB));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskAFieldId, MaskAFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskA),
-        reinterpret_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskA));
+        static_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskA),
+        static_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskA));
 
     oType.addInitialDesc(pDesc);
 }
@@ -456,7 +456,7 @@ ColorMaskChunkBase::~ColorMaskChunkBase(void)
 }
 
 
-SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskR           (void)
+GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskR           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -466,7 +466,7 @@ SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskR           (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ColorMaskChunkBase::editHandleMaskR          (void)
+EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskR          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -478,7 +478,7 @@ SFBool::EditHandlePtr ColorMaskChunkBase::editHandleMaskR          (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskG           (void)
+GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskG           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -488,7 +488,7 @@ SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskG           (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ColorMaskChunkBase::editHandleMaskG          (void)
+EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskG          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -500,7 +500,7 @@ SFBool::EditHandlePtr ColorMaskChunkBase::editHandleMaskG          (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskB           (void)
+GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskB           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -510,7 +510,7 @@ SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskB           (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ColorMaskChunkBase::editHandleMaskB          (void)
+EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskB          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -522,7 +522,7 @@ SFBool::EditHandlePtr ColorMaskChunkBase::editHandleMaskB          (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskA           (void)
+GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskA           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -532,7 +532,7 @@ SFBool::GetHandlePtr ColorMaskChunkBase::getHandleMaskA           (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ColorMaskChunkBase::editHandleMaskA          (void)
+EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskA          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

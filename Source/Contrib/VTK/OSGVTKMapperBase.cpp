@@ -144,8 +144,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         RootFieldId, RootFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleRoot),
-        reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleRoot));
+        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleRoot),
+        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
 
@@ -156,8 +156,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         GeoRootsFieldId, GeoRootsFieldMask,
         false,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleGeoRoots),
-        reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleGeoRoots));
+        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleGeoRoots),
+        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleGeoRoots));
 
     oType.addInitialDesc(pDesc);
 
@@ -168,8 +168,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         GeometriesFieldId, GeometriesFieldMask,
         false,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleGeometries),
-        reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleGeometries));
+        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleGeometries),
+        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleGeometries));
 
     oType.addInitialDesc(pDesc);
 
@@ -180,8 +180,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         MaterialsFieldId, MaterialsFieldMask,
         false,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleMaterials),
-        reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleMaterials));
+        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleMaterials),
+        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleMaterials));
 
     oType.addInitialDesc(pDesc);
 
@@ -192,8 +192,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         MaterialChunksFieldId, MaterialChunksFieldMask,
         false,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleMaterialChunks),
-        reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleMaterialChunks));
+        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleMaterialChunks),
+        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleMaterialChunks));
 
     oType.addInitialDesc(pDesc);
 
@@ -204,8 +204,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&VTKMapperBase::editHandlePositions),
-        reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getHandlePositions));
+        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandlePositions),
+        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
 
@@ -216,8 +216,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         LengthFieldId, LengthFieldMask,
         false,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleLength),
-        reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleLength));
+        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleLength),
+        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleLength));
 
     oType.addInitialDesc(pDesc);
 
@@ -228,8 +228,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         TypesFieldId, TypesFieldMask,
         false,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleTypes),
-        reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleTypes));
+        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleTypes),
+        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleTypes));
 
     oType.addInitialDesc(pDesc);
 
@@ -240,8 +240,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         ColorsFieldId, ColorsFieldMask,
         false,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleColors),
-        reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleColors));
+        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleColors),
+        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleColors));
 
     oType.addInitialDesc(pDesc);
 
@@ -252,8 +252,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         NormalsFieldId, NormalsFieldMask,
         false,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleNormals),
-        reinterpret_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleNormals));
+        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleNormals),
+        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleNormals));
 
     oType.addInitialDesc(pDesc);
 }
@@ -2028,7 +2028,7 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
     }
 }
 
-SFNodePtr::GetHandlePtr VTKMapperBase::getHandleRoot            (void)
+GetFieldHandlePtr VTKMapperBase::getHandleRoot            (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -2038,7 +2038,7 @@ SFNodePtr::GetHandlePtr VTKMapperBase::getHandleRoot            (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr VTKMapperBase::editHandleRoot           (void)
+EditFieldHandlePtr VTKMapperBase::editHandleRoot           (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -2052,7 +2052,7 @@ SFNodePtr::EditHandlePtr VTKMapperBase::editHandleRoot           (void)
     return returnValue;
 }
 
-MFNodePtr::GetHandlePtr VTKMapperBase::getHandleGeoRoots        (void)
+GetFieldHandlePtr VTKMapperBase::getHandleGeoRoots        (void) const
 {
     MFNodePtr::GetHandlePtr returnValue(
         new  MFNodePtr::GetHandle(
@@ -2062,7 +2062,7 @@ MFNodePtr::GetHandlePtr VTKMapperBase::getHandleGeoRoots        (void)
     return returnValue;
 }
 
-MFNodePtr::EditHandlePtr VTKMapperBase::editHandleGeoRoots       (void)
+EditFieldHandlePtr VTKMapperBase::editHandleGeoRoots       (void)
 {
     MFNodePtr::EditHandlePtr returnValue(
         new  MFNodePtr::EditHandle(
@@ -2076,7 +2076,7 @@ MFNodePtr::EditHandlePtr VTKMapperBase::editHandleGeoRoots       (void)
     return returnValue;
 }
 
-MFGeometryPtr::GetHandlePtr VTKMapperBase::getHandleGeometries      (void)
+GetFieldHandlePtr VTKMapperBase::getHandleGeometries      (void) const
 {
     MFGeometryPtr::GetHandlePtr returnValue(
         new  MFGeometryPtr::GetHandle(
@@ -2086,7 +2086,7 @@ MFGeometryPtr::GetHandlePtr VTKMapperBase::getHandleGeometries      (void)
     return returnValue;
 }
 
-MFGeometryPtr::EditHandlePtr VTKMapperBase::editHandleGeometries     (void)
+EditFieldHandlePtr VTKMapperBase::editHandleGeometries     (void)
 {
     MFGeometryPtr::EditHandlePtr returnValue(
         new  MFGeometryPtr::EditHandle(
@@ -2100,7 +2100,7 @@ MFGeometryPtr::EditHandlePtr VTKMapperBase::editHandleGeometries     (void)
     return returnValue;
 }
 
-MFChunkMaterialPtr::GetHandlePtr VTKMapperBase::getHandleMaterials       (void)
+GetFieldHandlePtr VTKMapperBase::getHandleMaterials       (void) const
 {
     MFChunkMaterialPtr::GetHandlePtr returnValue(
         new  MFChunkMaterialPtr::GetHandle(
@@ -2110,7 +2110,7 @@ MFChunkMaterialPtr::GetHandlePtr VTKMapperBase::getHandleMaterials       (void)
     return returnValue;
 }
 
-MFChunkMaterialPtr::EditHandlePtr VTKMapperBase::editHandleMaterials      (void)
+EditFieldHandlePtr VTKMapperBase::editHandleMaterials      (void)
 {
     MFChunkMaterialPtr::EditHandlePtr returnValue(
         new  MFChunkMaterialPtr::EditHandle(
@@ -2124,7 +2124,7 @@ MFChunkMaterialPtr::EditHandlePtr VTKMapperBase::editHandleMaterials      (void)
     return returnValue;
 }
 
-MFMaterialChunkPtr::GetHandlePtr VTKMapperBase::getHandleMaterialChunks  (void)
+GetFieldHandlePtr VTKMapperBase::getHandleMaterialChunks  (void) const
 {
     MFMaterialChunkPtr::GetHandlePtr returnValue(
         new  MFMaterialChunkPtr::GetHandle(
@@ -2134,7 +2134,7 @@ MFMaterialChunkPtr::GetHandlePtr VTKMapperBase::getHandleMaterialChunks  (void)
     return returnValue;
 }
 
-MFMaterialChunkPtr::EditHandlePtr VTKMapperBase::editHandleMaterialChunks (void)
+EditFieldHandlePtr VTKMapperBase::editHandleMaterialChunks (void)
 {
     MFMaterialChunkPtr::EditHandlePtr returnValue(
         new  MFMaterialChunkPtr::EditHandle(
@@ -2148,7 +2148,7 @@ MFMaterialChunkPtr::EditHandlePtr VTKMapperBase::editHandleMaterialChunks (void)
     return returnValue;
 }
 
-MFGeoPnt3fPropertyPtr::GetHandlePtr VTKMapperBase::getHandlePositions       (void)
+GetFieldHandlePtr VTKMapperBase::getHandlePositions       (void) const
 {
     MFGeoPnt3fPropertyPtr::GetHandlePtr returnValue(
         new  MFGeoPnt3fPropertyPtr::GetHandle(
@@ -2158,7 +2158,7 @@ MFGeoPnt3fPropertyPtr::GetHandlePtr VTKMapperBase::getHandlePositions       (voi
     return returnValue;
 }
 
-MFGeoPnt3fPropertyPtr::EditHandlePtr VTKMapperBase::editHandlePositions      (void)
+EditFieldHandlePtr VTKMapperBase::editHandlePositions      (void)
 {
     MFGeoPnt3fPropertyPtr::EditHandlePtr returnValue(
         new  MFGeoPnt3fPropertyPtr::EditHandle(
@@ -2172,7 +2172,7 @@ MFGeoPnt3fPropertyPtr::EditHandlePtr VTKMapperBase::editHandlePositions      (vo
     return returnValue;
 }
 
-MFGeoUInt32PropertyPtr::GetHandlePtr VTKMapperBase::getHandleLength          (void)
+GetFieldHandlePtr VTKMapperBase::getHandleLength          (void) const
 {
     MFGeoUInt32PropertyPtr::GetHandlePtr returnValue(
         new  MFGeoUInt32PropertyPtr::GetHandle(
@@ -2182,7 +2182,7 @@ MFGeoUInt32PropertyPtr::GetHandlePtr VTKMapperBase::getHandleLength          (vo
     return returnValue;
 }
 
-MFGeoUInt32PropertyPtr::EditHandlePtr VTKMapperBase::editHandleLength         (void)
+EditFieldHandlePtr VTKMapperBase::editHandleLength         (void)
 {
     MFGeoUInt32PropertyPtr::EditHandlePtr returnValue(
         new  MFGeoUInt32PropertyPtr::EditHandle(
@@ -2196,7 +2196,7 @@ MFGeoUInt32PropertyPtr::EditHandlePtr VTKMapperBase::editHandleLength         (v
     return returnValue;
 }
 
-MFGeoUInt8PropertyPtr::GetHandlePtr VTKMapperBase::getHandleTypes           (void)
+GetFieldHandlePtr VTKMapperBase::getHandleTypes           (void) const
 {
     MFGeoUInt8PropertyPtr::GetHandlePtr returnValue(
         new  MFGeoUInt8PropertyPtr::GetHandle(
@@ -2206,7 +2206,7 @@ MFGeoUInt8PropertyPtr::GetHandlePtr VTKMapperBase::getHandleTypes           (voi
     return returnValue;
 }
 
-MFGeoUInt8PropertyPtr::EditHandlePtr VTKMapperBase::editHandleTypes          (void)
+EditFieldHandlePtr VTKMapperBase::editHandleTypes          (void)
 {
     MFGeoUInt8PropertyPtr::EditHandlePtr returnValue(
         new  MFGeoUInt8PropertyPtr::EditHandle(
@@ -2220,7 +2220,7 @@ MFGeoUInt8PropertyPtr::EditHandlePtr VTKMapperBase::editHandleTypes          (vo
     return returnValue;
 }
 
-MFGeoColor4fPropertyPtr::GetHandlePtr VTKMapperBase::getHandleColors          (void)
+GetFieldHandlePtr VTKMapperBase::getHandleColors          (void) const
 {
     MFGeoColor4fPropertyPtr::GetHandlePtr returnValue(
         new  MFGeoColor4fPropertyPtr::GetHandle(
@@ -2230,7 +2230,7 @@ MFGeoColor4fPropertyPtr::GetHandlePtr VTKMapperBase::getHandleColors          (v
     return returnValue;
 }
 
-MFGeoColor4fPropertyPtr::EditHandlePtr VTKMapperBase::editHandleColors         (void)
+EditFieldHandlePtr VTKMapperBase::editHandleColors         (void)
 {
     MFGeoColor4fPropertyPtr::EditHandlePtr returnValue(
         new  MFGeoColor4fPropertyPtr::EditHandle(
@@ -2244,7 +2244,7 @@ MFGeoColor4fPropertyPtr::EditHandlePtr VTKMapperBase::editHandleColors         (
     return returnValue;
 }
 
-MFGeoVec3fPropertyPtr::GetHandlePtr VTKMapperBase::getHandleNormals         (void)
+GetFieldHandlePtr VTKMapperBase::getHandleNormals         (void) const
 {
     MFGeoVec3fPropertyPtr::GetHandlePtr returnValue(
         new  MFGeoVec3fPropertyPtr::GetHandle(
@@ -2254,7 +2254,7 @@ MFGeoVec3fPropertyPtr::GetHandlePtr VTKMapperBase::getHandleNormals         (voi
     return returnValue;
 }
 
-MFGeoVec3fPropertyPtr::EditHandlePtr VTKMapperBase::editHandleNormals        (void)
+EditFieldHandlePtr VTKMapperBase::editHandleNormals        (void)
 {
     MFGeoVec3fPropertyPtr::EditHandlePtr returnValue(
         new  MFGeoVec3fPropertyPtr::EditHandle(

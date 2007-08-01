@@ -102,8 +102,8 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
         VerticalSizeFieldId, VerticalSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&OrthographicCameraBase::editHandleVerticalSize),
-        reinterpret_cast<FieldGetMethodSig >(&OrthographicCameraBase::getHandleVerticalSize));
+        static_cast<FieldEditMethodSig>(&OrthographicCameraBase::editHandleVerticalSize),
+        static_cast<FieldGetMethodSig >(&OrthographicCameraBase::getHandleVerticalSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -114,8 +114,8 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
         AspectFieldId, AspectFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&OrthographicCameraBase::editHandleAspect),
-        reinterpret_cast<FieldGetMethodSig >(&OrthographicCameraBase::getHandleAspect));
+        static_cast<FieldEditMethodSig>(&OrthographicCameraBase::editHandleAspect),
+        static_cast<FieldGetMethodSig >(&OrthographicCameraBase::getHandleAspect));
 
     oType.addInitialDesc(pDesc);
 }
@@ -333,7 +333,7 @@ OrthographicCameraBase::~OrthographicCameraBase(void)
 }
 
 
-SFReal32::GetHandlePtr OrthographicCameraBase::getHandleVerticalSize    (void)
+GetFieldHandlePtr OrthographicCameraBase::getHandleVerticalSize    (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -343,7 +343,7 @@ SFReal32::GetHandlePtr OrthographicCameraBase::getHandleVerticalSize    (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr OrthographicCameraBase::editHandleVerticalSize   (void)
+EditFieldHandlePtr OrthographicCameraBase::editHandleVerticalSize   (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -355,7 +355,7 @@ SFReal32::EditHandlePtr OrthographicCameraBase::editHandleVerticalSize   (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr OrthographicCameraBase::getHandleAspect          (void)
+GetFieldHandlePtr OrthographicCameraBase::getHandleAspect          (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -365,7 +365,7 @@ SFReal32::GetHandlePtr OrthographicCameraBase::getHandleAspect          (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr OrthographicCameraBase::editHandleAspect         (void)
+EditFieldHandlePtr OrthographicCameraBase::editHandleAspect         (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(

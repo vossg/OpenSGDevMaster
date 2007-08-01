@@ -101,8 +101,8 @@ void FBOViewportBase::classDescInserter(TypeObject &oType)
         FrameBufferObjectFieldId, FrameBufferObjectFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FBOViewportBase::editHandleFrameBufferObject),
-        reinterpret_cast<FieldGetMethodSig >(&FBOViewportBase::getHandleFrameBufferObject));
+        static_cast<FieldEditMethodSig>(&FBOViewportBase::editHandleFrameBufferObject),
+        static_cast<FieldGetMethodSig >(&FBOViewportBase::getHandleFrameBufferObject));
 
     oType.addInitialDesc(pDesc);
 }
@@ -281,7 +281,7 @@ void FBOViewportBase::onCreate(const FBOViewport *source)
     }
 }
 
-SFFrameBufferObjectPtr::GetHandlePtr FBOViewportBase::getHandleFrameBufferObject (void)
+GetFieldHandlePtr FBOViewportBase::getHandleFrameBufferObject (void) const
 {
     SFFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFFrameBufferObjectPtr::GetHandle(
@@ -291,7 +291,7 @@ SFFrameBufferObjectPtr::GetHandlePtr FBOViewportBase::getHandleFrameBufferObject
     return returnValue;
 }
 
-SFFrameBufferObjectPtr::EditHandlePtr FBOViewportBase::editHandleFrameBufferObject(void)
+EditFieldHandlePtr FBOViewportBase::editHandleFrameBufferObject(void)
 {
     SFFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFFrameBufferObjectPtr::EditHandle(

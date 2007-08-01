@@ -220,8 +220,8 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFString::GetHandlePtr  getHandleMessage         (void);
-    SFString::EditHandlePtr editHandleMessage        (void);
+    GetFieldHandlePtr  getHandleMessage         (void) const;
+    EditFieldHandlePtr editHandleMessage        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -301,20 +301,20 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFNodePtr::GetHandlePtr  getHandleUser            (void);
-    SFNodePtr::EditHandlePtr editHandleUser           (void);
-    MFPnt3f::GetHandlePtr  getHandleSurface         (void);
-    MFPnt3f::EditHandlePtr editHandleSurface        (void);
-    SFPlane::GetHandlePtr  getHandleLeft            (void);
-    SFPlane::EditHandlePtr editHandleLeft           (void);
-    SFPlane::GetHandlePtr  getHandleBottom          (void);
-    SFPlane::EditHandlePtr editHandleBottom         (void);
-    SFPlane::GetHandlePtr  getHandleNormal          (void);
-    SFPlane::EditHandlePtr editHandleNormal         (void);
-    SFReal32::GetHandlePtr  getHandleWidth           (void);
-    SFReal32::EditHandlePtr editHandleWidth          (void);
-    SFReal32::GetHandlePtr  getHandleHeight          (void);
-    SFReal32::EditHandlePtr editHandleHeight         (void);
+    GetFieldHandlePtr  getHandleUser            (void) const;
+    EditFieldHandlePtr editHandleUser           (void);
+    GetFieldHandlePtr  getHandleSurface         (void) const;
+    EditFieldHandlePtr editHandleSurface        (void);
+    GetFieldHandlePtr  getHandleLeft            (void) const;
+    EditFieldHandlePtr editHandleLeft           (void);
+    GetFieldHandlePtr  getHandleBottom          (void) const;
+    EditFieldHandlePtr editHandleBottom         (void);
+    GetFieldHandlePtr  getHandleNormal          (void) const;
+    EditFieldHandlePtr editHandleNormal         (void);
+    GetFieldHandlePtr  getHandleWidth           (void) const;
+    EditFieldHandlePtr editHandleWidth          (void);
+    GetFieldHandlePtr  getHandleHeight          (void) const;
+    EditFieldHandlePtr editHandleHeight         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

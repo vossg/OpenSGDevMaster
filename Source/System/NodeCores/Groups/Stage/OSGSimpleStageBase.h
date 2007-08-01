@@ -320,20 +320,20 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFReal32::GetHandlePtr  getHandleLeft            (void);
-    SFReal32::EditHandlePtr editHandleLeft           (void);
-    SFReal32::GetHandlePtr  getHandleRight           (void);
-    SFReal32::EditHandlePtr editHandleRight          (void);
-    SFReal32::GetHandlePtr  getHandleBottom          (void);
-    SFReal32::EditHandlePtr editHandleBottom         (void);
-    SFReal32::GetHandlePtr  getHandleTop             (void);
-    SFReal32::EditHandlePtr editHandleTop            (void);
-    SFCameraPtr::GetHandlePtr  getHandleCamera          (void);
-    SFCameraPtr::EditHandlePtr editHandleCamera         (void);
-    SFBackgroundPtr::GetHandlePtr  getHandleBackground      (void);
-    SFBackgroundPtr::EditHandlePtr editHandleBackground     (void);
-    MFForegroundPtr::GetHandlePtr  getHandleForegrounds     (void);
-    MFForegroundPtr::EditHandlePtr editHandleForegrounds    (void);
+    GetFieldHandlePtr  getHandleLeft            (void) const;
+    EditFieldHandlePtr editHandleLeft           (void);
+    GetFieldHandlePtr  getHandleRight           (void) const;
+    EditFieldHandlePtr editHandleRight          (void);
+    GetFieldHandlePtr  getHandleBottom          (void) const;
+    EditFieldHandlePtr editHandleBottom         (void);
+    GetFieldHandlePtr  getHandleTop             (void) const;
+    EditFieldHandlePtr editHandleTop            (void);
+    GetFieldHandlePtr  getHandleCamera          (void) const;
+    EditFieldHandlePtr editHandleCamera         (void);
+    GetFieldHandlePtr  getHandleBackground      (void) const;
+    EditFieldHandlePtr editHandleBackground     (void);
+    GetFieldHandlePtr  getHandleForegrounds     (void) const;
+    EditFieldHandlePtr editHandleForegrounds    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

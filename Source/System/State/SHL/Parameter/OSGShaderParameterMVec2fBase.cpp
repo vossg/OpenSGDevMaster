@@ -98,8 +98,8 @@ void ShaderParameterMVec2fBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterMVec2fBase::editHandleValue),
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterMVec2fBase::getHandleValue));
+        static_cast<FieldEditMethodSig>(&ShaderParameterMVec2fBase::editHandleValue),
+        static_cast<FieldGetMethodSig >(&ShaderParameterMVec2fBase::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -359,7 +359,7 @@ ShaderParameterMVec2fBase::~ShaderParameterMVec2fBase(void)
 }
 
 
-MFVec2f::GetHandlePtr ShaderParameterMVec2fBase::getHandleValue           (void)
+GetFieldHandlePtr ShaderParameterMVec2fBase::getHandleValue           (void) const
 {
     MFVec2f::GetHandlePtr returnValue(
         new  MFVec2f::GetHandle(
@@ -369,7 +369,7 @@ MFVec2f::GetHandlePtr ShaderParameterMVec2fBase::getHandleValue           (void)
     return returnValue;
 }
 
-MFVec2f::EditHandlePtr ShaderParameterMVec2fBase::editHandleValue          (void)
+EditFieldHandlePtr ShaderParameterMVec2fBase::editHandleValue          (void)
 {
     MFVec2f::EditHandlePtr returnValue(
         new  MFVec2f::EditHandle(

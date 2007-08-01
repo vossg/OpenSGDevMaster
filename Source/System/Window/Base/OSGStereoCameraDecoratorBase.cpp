@@ -107,8 +107,8 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         LeftEyeFieldId, LeftEyeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editHandleLeftEye),
-        reinterpret_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getHandleLeftEye));
+        static_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editHandleLeftEye),
+        static_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getHandleLeftEye));
 
     oType.addInitialDesc(pDesc);
 
@@ -119,8 +119,8 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         EyeSeparationFieldId, EyeSeparationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editHandleEyeSeparation),
-        reinterpret_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getHandleEyeSeparation));
+        static_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editHandleEyeSeparation),
+        static_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getHandleEyeSeparation));
 
     oType.addInitialDesc(pDesc);
 }
@@ -318,7 +318,7 @@ StereoCameraDecoratorBase::~StereoCameraDecoratorBase(void)
 }
 
 
-SFBool::GetHandlePtr StereoCameraDecoratorBase::getHandleLeftEye         (void)
+GetFieldHandlePtr StereoCameraDecoratorBase::getHandleLeftEye         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -328,7 +328,7 @@ SFBool::GetHandlePtr StereoCameraDecoratorBase::getHandleLeftEye         (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr StereoCameraDecoratorBase::editHandleLeftEye        (void)
+EditFieldHandlePtr StereoCameraDecoratorBase::editHandleLeftEye        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -340,7 +340,7 @@ SFBool::EditHandlePtr StereoCameraDecoratorBase::editHandleLeftEye        (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr StereoCameraDecoratorBase::getHandleEyeSeparation   (void)
+GetFieldHandlePtr StereoCameraDecoratorBase::getHandleEyeSeparation   (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -350,7 +350,7 @@ SFReal32::GetHandlePtr StereoCameraDecoratorBase::getHandleEyeSeparation   (void
     return returnValue;
 }
 
-SFReal32::EditHandlePtr StereoCameraDecoratorBase::editHandleEyeSeparation  (void)
+EditFieldHandlePtr StereoCameraDecoratorBase::editHandleEyeSeparation  (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(

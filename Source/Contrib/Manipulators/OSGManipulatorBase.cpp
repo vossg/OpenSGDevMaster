@@ -171,8 +171,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         TargetFieldId, TargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTarget),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTarget));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTarget),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -183,8 +183,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         ActiveSubHandleFieldId, ActiveSubHandleFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleActiveSubHandle),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleActiveSubHandle));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleActiveSubHandle),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleActiveSubHandle));
 
     oType.addInitialDesc(pDesc);
 
@@ -195,8 +195,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         LastMousePosFieldId, LastMousePosFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleLastMousePos),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleLastMousePos));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleLastMousePos),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleLastMousePos));
 
     oType.addInitialDesc(pDesc);
 
@@ -207,8 +207,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         ViewportFieldId, ViewportFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleViewport),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleViewport));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleViewport),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleViewport));
 
     oType.addInitialDesc(pDesc);
 
@@ -219,8 +219,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         ActiveFieldId, ActiveFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleActive),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleActive));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleActive),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleActive));
 
     oType.addInitialDesc(pDesc);
 
@@ -231,8 +231,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         LengthFieldId, LengthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleLength),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleLength));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleLength),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleLength));
 
     oType.addInitialDesc(pDesc);
 
@@ -243,8 +243,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         HandleXNodeFieldId, HandleXNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleHandleXNode),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleHandleXNode));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleHandleXNode),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleHandleXNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -255,8 +255,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         HandleYNodeFieldId, HandleYNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleHandleYNode),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleHandleYNode));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleHandleYNode),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleHandleYNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -267,8 +267,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         HandleZNodeFieldId, HandleZNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleHandleZNode),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleHandleZNode));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleHandleZNode),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleHandleZNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -279,8 +279,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         TransXNodeFieldId, TransXNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTransXNode),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTransXNode));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTransXNode),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTransXNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -291,8 +291,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         TransYNodeFieldId, TransYNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTransYNode),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTransYNode));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTransYNode),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTransYNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -303,8 +303,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         TransZNodeFieldId, TransZNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTransZNode),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTransZNode));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTransZNode),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTransZNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -315,8 +315,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         MaterialXFieldId, MaterialXFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleMaterialX),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleMaterialX));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleMaterialX),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleMaterialX));
 
     oType.addInitialDesc(pDesc);
 
@@ -327,8 +327,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         MaterialYFieldId, MaterialYFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleMaterialY),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleMaterialY));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleMaterialY),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleMaterialY));
 
     oType.addInitialDesc(pDesc);
 
@@ -339,8 +339,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         MaterialZFieldId, MaterialZFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleMaterialZ),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleMaterialZ));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleMaterialZ),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleMaterialZ));
 
     oType.addInitialDesc(pDesc);
 
@@ -351,8 +351,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         AxisLinesNFieldId, AxisLinesNFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleAxisLinesN),
-        reinterpret_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleAxisLinesN));
+        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleAxisLinesN),
+        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleAxisLinesN));
 
     oType.addInitialDesc(pDesc);
 }
@@ -996,7 +996,7 @@ void ManipulatorBase::onCreate(const Manipulator *source)
     }
 }
 
-SFNodePtr::GetHandlePtr ManipulatorBase::getHandleTarget          (void)
+GetFieldHandlePtr ManipulatorBase::getHandleTarget          (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1006,7 +1006,7 @@ SFNodePtr::GetHandlePtr ManipulatorBase::getHandleTarget          (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ManipulatorBase::editHandleTarget         (void)
+EditFieldHandlePtr ManipulatorBase::editHandleTarget         (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -1020,7 +1020,7 @@ SFNodePtr::EditHandlePtr ManipulatorBase::editHandleTarget         (void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr ManipulatorBase::getHandleActiveSubHandle (void)
+GetFieldHandlePtr ManipulatorBase::getHandleActiveSubHandle (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1030,7 +1030,7 @@ SFNodePtr::GetHandlePtr ManipulatorBase::getHandleActiveSubHandle (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ManipulatorBase::editHandleActiveSubHandle(void)
+EditFieldHandlePtr ManipulatorBase::editHandleActiveSubHandle(void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -1044,7 +1044,7 @@ SFNodePtr::EditHandlePtr ManipulatorBase::editHandleActiveSubHandle(void)
     return returnValue;
 }
 
-SFPnt2f::GetHandlePtr ManipulatorBase::getHandleLastMousePos    (void)
+GetFieldHandlePtr ManipulatorBase::getHandleLastMousePos    (void) const
 {
     SFPnt2f::GetHandlePtr returnValue(
         new  SFPnt2f::GetHandle(
@@ -1054,7 +1054,7 @@ SFPnt2f::GetHandlePtr ManipulatorBase::getHandleLastMousePos    (void)
     return returnValue;
 }
 
-SFPnt2f::EditHandlePtr ManipulatorBase::editHandleLastMousePos   (void)
+EditFieldHandlePtr ManipulatorBase::editHandleLastMousePos   (void)
 {
     SFPnt2f::EditHandlePtr returnValue(
         new  SFPnt2f::EditHandle(
@@ -1066,7 +1066,7 @@ SFPnt2f::EditHandlePtr ManipulatorBase::editHandleLastMousePos   (void)
     return returnValue;
 }
 
-SFViewportPtr::GetHandlePtr ManipulatorBase::getHandleViewport        (void)
+GetFieldHandlePtr ManipulatorBase::getHandleViewport        (void) const
 {
     SFViewportPtr::GetHandlePtr returnValue(
         new  SFViewportPtr::GetHandle(
@@ -1076,7 +1076,7 @@ SFViewportPtr::GetHandlePtr ManipulatorBase::getHandleViewport        (void)
     return returnValue;
 }
 
-SFViewportPtr::EditHandlePtr ManipulatorBase::editHandleViewport       (void)
+EditFieldHandlePtr ManipulatorBase::editHandleViewport       (void)
 {
     SFViewportPtr::EditHandlePtr returnValue(
         new  SFViewportPtr::EditHandle(
@@ -1090,7 +1090,7 @@ SFViewportPtr::EditHandlePtr ManipulatorBase::editHandleViewport       (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ManipulatorBase::getHandleActive          (void)
+GetFieldHandlePtr ManipulatorBase::getHandleActive          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1100,7 +1100,7 @@ SFBool::GetHandlePtr ManipulatorBase::getHandleActive          (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ManipulatorBase::editHandleActive         (void)
+EditFieldHandlePtr ManipulatorBase::editHandleActive         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1112,7 +1112,7 @@ SFBool::EditHandlePtr ManipulatorBase::editHandleActive         (void)
     return returnValue;
 }
 
-SFVec3f::GetHandlePtr ManipulatorBase::getHandleLength          (void)
+GetFieldHandlePtr ManipulatorBase::getHandleLength          (void) const
 {
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
@@ -1122,7 +1122,7 @@ SFVec3f::GetHandlePtr ManipulatorBase::getHandleLength          (void)
     return returnValue;
 }
 
-SFVec3f::EditHandlePtr ManipulatorBase::editHandleLength         (void)
+EditFieldHandlePtr ManipulatorBase::editHandleLength         (void)
 {
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
@@ -1134,7 +1134,7 @@ SFVec3f::EditHandlePtr ManipulatorBase::editHandleLength         (void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr ManipulatorBase::getHandleHandleXNode     (void)
+GetFieldHandlePtr ManipulatorBase::getHandleHandleXNode     (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1144,7 +1144,7 @@ SFNodePtr::GetHandlePtr ManipulatorBase::getHandleHandleXNode     (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ManipulatorBase::editHandleHandleXNode    (void)
+EditFieldHandlePtr ManipulatorBase::editHandleHandleXNode    (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -1158,7 +1158,7 @@ SFNodePtr::EditHandlePtr ManipulatorBase::editHandleHandleXNode    (void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr ManipulatorBase::getHandleHandleYNode     (void)
+GetFieldHandlePtr ManipulatorBase::getHandleHandleYNode     (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1168,7 +1168,7 @@ SFNodePtr::GetHandlePtr ManipulatorBase::getHandleHandleYNode     (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ManipulatorBase::editHandleHandleYNode    (void)
+EditFieldHandlePtr ManipulatorBase::editHandleHandleYNode    (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -1182,7 +1182,7 @@ SFNodePtr::EditHandlePtr ManipulatorBase::editHandleHandleYNode    (void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr ManipulatorBase::getHandleHandleZNode     (void)
+GetFieldHandlePtr ManipulatorBase::getHandleHandleZNode     (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1192,7 +1192,7 @@ SFNodePtr::GetHandlePtr ManipulatorBase::getHandleHandleZNode     (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ManipulatorBase::editHandleHandleZNode    (void)
+EditFieldHandlePtr ManipulatorBase::editHandleHandleZNode    (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -1206,7 +1206,7 @@ SFNodePtr::EditHandlePtr ManipulatorBase::editHandleHandleZNode    (void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr ManipulatorBase::getHandleTransXNode      (void)
+GetFieldHandlePtr ManipulatorBase::getHandleTransXNode      (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1216,7 +1216,7 @@ SFNodePtr::GetHandlePtr ManipulatorBase::getHandleTransXNode      (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ManipulatorBase::editHandleTransXNode     (void)
+EditFieldHandlePtr ManipulatorBase::editHandleTransXNode     (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -1230,7 +1230,7 @@ SFNodePtr::EditHandlePtr ManipulatorBase::editHandleTransXNode     (void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr ManipulatorBase::getHandleTransYNode      (void)
+GetFieldHandlePtr ManipulatorBase::getHandleTransYNode      (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1240,7 +1240,7 @@ SFNodePtr::GetHandlePtr ManipulatorBase::getHandleTransYNode      (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ManipulatorBase::editHandleTransYNode     (void)
+EditFieldHandlePtr ManipulatorBase::editHandleTransYNode     (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -1254,7 +1254,7 @@ SFNodePtr::EditHandlePtr ManipulatorBase::editHandleTransYNode     (void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr ManipulatorBase::getHandleTransZNode      (void)
+GetFieldHandlePtr ManipulatorBase::getHandleTransZNode      (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1264,7 +1264,7 @@ SFNodePtr::GetHandlePtr ManipulatorBase::getHandleTransZNode      (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ManipulatorBase::editHandleTransZNode     (void)
+EditFieldHandlePtr ManipulatorBase::editHandleTransZNode     (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -1278,7 +1278,7 @@ SFNodePtr::EditHandlePtr ManipulatorBase::editHandleTransZNode     (void)
     return returnValue;
 }
 
-SFMaterialPtr::GetHandlePtr ManipulatorBase::getHandleMaterialX       (void)
+GetFieldHandlePtr ManipulatorBase::getHandleMaterialX       (void) const
 {
     SFMaterialPtr::GetHandlePtr returnValue(
         new  SFMaterialPtr::GetHandle(
@@ -1288,7 +1288,7 @@ SFMaterialPtr::GetHandlePtr ManipulatorBase::getHandleMaterialX       (void)
     return returnValue;
 }
 
-SFMaterialPtr::EditHandlePtr ManipulatorBase::editHandleMaterialX      (void)
+EditFieldHandlePtr ManipulatorBase::editHandleMaterialX      (void)
 {
     SFMaterialPtr::EditHandlePtr returnValue(
         new  SFMaterialPtr::EditHandle(
@@ -1302,7 +1302,7 @@ SFMaterialPtr::EditHandlePtr ManipulatorBase::editHandleMaterialX      (void)
     return returnValue;
 }
 
-SFMaterialPtr::GetHandlePtr ManipulatorBase::getHandleMaterialY       (void)
+GetFieldHandlePtr ManipulatorBase::getHandleMaterialY       (void) const
 {
     SFMaterialPtr::GetHandlePtr returnValue(
         new  SFMaterialPtr::GetHandle(
@@ -1312,7 +1312,7 @@ SFMaterialPtr::GetHandlePtr ManipulatorBase::getHandleMaterialY       (void)
     return returnValue;
 }
 
-SFMaterialPtr::EditHandlePtr ManipulatorBase::editHandleMaterialY      (void)
+EditFieldHandlePtr ManipulatorBase::editHandleMaterialY      (void)
 {
     SFMaterialPtr::EditHandlePtr returnValue(
         new  SFMaterialPtr::EditHandle(
@@ -1326,7 +1326,7 @@ SFMaterialPtr::EditHandlePtr ManipulatorBase::editHandleMaterialY      (void)
     return returnValue;
 }
 
-SFMaterialPtr::GetHandlePtr ManipulatorBase::getHandleMaterialZ       (void)
+GetFieldHandlePtr ManipulatorBase::getHandleMaterialZ       (void) const
 {
     SFMaterialPtr::GetHandlePtr returnValue(
         new  SFMaterialPtr::GetHandle(
@@ -1336,7 +1336,7 @@ SFMaterialPtr::GetHandlePtr ManipulatorBase::getHandleMaterialZ       (void)
     return returnValue;
 }
 
-SFMaterialPtr::EditHandlePtr ManipulatorBase::editHandleMaterialZ      (void)
+EditFieldHandlePtr ManipulatorBase::editHandleMaterialZ      (void)
 {
     SFMaterialPtr::EditHandlePtr returnValue(
         new  SFMaterialPtr::EditHandle(
@@ -1350,7 +1350,7 @@ SFMaterialPtr::EditHandlePtr ManipulatorBase::editHandleMaterialZ      (void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr ManipulatorBase::getHandleAxisLinesN      (void)
+GetFieldHandlePtr ManipulatorBase::getHandleAxisLinesN      (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1360,7 +1360,7 @@ SFNodePtr::GetHandlePtr ManipulatorBase::getHandleAxisLinesN      (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ManipulatorBase::editHandleAxisLinesN     (void)
+EditFieldHandlePtr ManipulatorBase::editHandleAxisLinesN     (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(

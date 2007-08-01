@@ -107,8 +107,8 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SolidBackgroundBase::editHandleColor),
-        reinterpret_cast<FieldGetMethodSig >(&SolidBackgroundBase::getHandleColor));
+        static_cast<FieldEditMethodSig>(&SolidBackgroundBase::editHandleColor),
+        static_cast<FieldGetMethodSig >(&SolidBackgroundBase::getHandleColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -119,8 +119,8 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SolidBackgroundBase::editHandleAlpha),
-        reinterpret_cast<FieldGetMethodSig >(&SolidBackgroundBase::getHandleAlpha));
+        static_cast<FieldEditMethodSig>(&SolidBackgroundBase::editHandleAlpha),
+        static_cast<FieldGetMethodSig >(&SolidBackgroundBase::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
 }
@@ -349,7 +349,7 @@ SolidBackgroundBase::~SolidBackgroundBase(void)
 }
 
 
-SFColor3r::GetHandlePtr SolidBackgroundBase::getHandleColor           (void)
+GetFieldHandlePtr SolidBackgroundBase::getHandleColor           (void) const
 {
     SFColor3r::GetHandlePtr returnValue(
         new  SFColor3r::GetHandle(
@@ -359,7 +359,7 @@ SFColor3r::GetHandlePtr SolidBackgroundBase::getHandleColor           (void)
     return returnValue;
 }
 
-SFColor3r::EditHandlePtr SolidBackgroundBase::editHandleColor          (void)
+EditFieldHandlePtr SolidBackgroundBase::editHandleColor          (void)
 {
     SFColor3r::EditHandlePtr returnValue(
         new  SFColor3r::EditHandle(
@@ -371,7 +371,7 @@ SFColor3r::EditHandlePtr SolidBackgroundBase::editHandleColor          (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr SolidBackgroundBase::getHandleAlpha           (void)
+GetFieldHandlePtr SolidBackgroundBase::getHandleAlpha           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -381,7 +381,7 @@ SFReal32::GetHandlePtr SolidBackgroundBase::getHandleAlpha           (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr SolidBackgroundBase::editHandleAlpha          (void)
+EditFieldHandlePtr SolidBackgroundBase::editHandleAlpha          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(

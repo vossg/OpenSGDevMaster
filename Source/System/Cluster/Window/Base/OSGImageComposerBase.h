@@ -223,10 +223,10 @@ class OSG_CLUSTER_DLLMAPPING ImageComposerBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFBool::GetHandlePtr  getHandleEnabled         (void);
-    SFBool::EditHandlePtr editHandleEnabled        (void);
-    SFBool::GetHandlePtr  getHandleStatistics      (void);
-    SFBool::EditHandlePtr editHandleStatistics     (void);
+    GetFieldHandlePtr  getHandleEnabled         (void) const;
+    EditFieldHandlePtr editHandleEnabled        (void);
+    GetFieldHandlePtr  getHandleStatistics      (void) const;
+    EditFieldHandlePtr editHandleStatistics     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

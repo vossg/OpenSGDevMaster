@@ -115,8 +115,8 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         ClearStencilBitFieldId, ClearStencilBitFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BackgroundBase::editHandleClearStencilBit),
-        reinterpret_cast<FieldGetMethodSig >(&BackgroundBase::getHandleClearStencilBit));
+        static_cast<FieldEditMethodSig>(&BackgroundBase::editHandleClearStencilBit),
+        static_cast<FieldGetMethodSig >(&BackgroundBase::getHandleClearStencilBit));
 
     oType.addInitialDesc(pDesc);
 
@@ -127,8 +127,8 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         DepthFieldId, DepthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BackgroundBase::editHandleDepth),
-        reinterpret_cast<FieldGetMethodSig >(&BackgroundBase::getHandleDepth));
+        static_cast<FieldEditMethodSig>(&BackgroundBase::editHandleDepth),
+        static_cast<FieldGetMethodSig >(&BackgroundBase::getHandleDepth));
 
     oType.addInitialDesc(pDesc);
 }
@@ -340,7 +340,7 @@ BackgroundBase::~BackgroundBase(void)
 }
 
 
-SFInt32::GetHandlePtr BackgroundBase::getHandleClearStencilBit (void)
+GetFieldHandlePtr BackgroundBase::getHandleClearStencilBit (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -350,7 +350,7 @@ SFInt32::GetHandlePtr BackgroundBase::getHandleClearStencilBit (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr BackgroundBase::editHandleClearStencilBit(void)
+EditFieldHandlePtr BackgroundBase::editHandleClearStencilBit(void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -362,7 +362,7 @@ SFInt32::EditHandlePtr BackgroundBase::editHandleClearStencilBit(void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr BackgroundBase::getHandleDepth           (void)
+GetFieldHandlePtr BackgroundBase::getHandleDepth           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -372,7 +372,7 @@ SFReal32::GetHandlePtr BackgroundBase::getHandleDepth           (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr BackgroundBase::editHandleDepth          (void)
+EditFieldHandlePtr BackgroundBase::editHandleDepth          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(

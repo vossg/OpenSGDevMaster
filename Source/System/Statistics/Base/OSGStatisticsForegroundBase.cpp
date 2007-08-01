@@ -122,8 +122,8 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
         ElementIDsFieldId, ElementIDsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editHandleElementIDs),
-        reinterpret_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getHandleElementIDs));
+        static_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editHandleElementIDs),
+        static_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getHandleElementIDs));
 
     oType.addInitialDesc(pDesc);
 
@@ -134,8 +134,8 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
         CollectorFieldId, CollectorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editHandleCollector),
-        reinterpret_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getHandleCollector));
+        static_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editHandleCollector),
+        static_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getHandleCollector));
 
     oType.addInitialDesc(pDesc);
 }
@@ -445,7 +445,7 @@ StatisticsForegroundBase::~StatisticsForegroundBase(void)
 }
 
 
-MFInt32::GetHandlePtr StatisticsForegroundBase::getHandleElementIDs      (void)
+GetFieldHandlePtr StatisticsForegroundBase::getHandleElementIDs      (void) const
 {
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
@@ -455,7 +455,7 @@ MFInt32::GetHandlePtr StatisticsForegroundBase::getHandleElementIDs      (void)
     return returnValue;
 }
 
-MFInt32::EditHandlePtr StatisticsForegroundBase::editHandleElementIDs     (void)
+EditFieldHandlePtr StatisticsForegroundBase::editHandleElementIDs     (void)
 {
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
@@ -467,7 +467,7 @@ MFInt32::EditHandlePtr StatisticsForegroundBase::editHandleElementIDs     (void)
     return returnValue;
 }
 
-SFStatCollectorP::GetHandlePtr StatisticsForegroundBase::getHandleCollector       (void)
+GetFieldHandlePtr StatisticsForegroundBase::getHandleCollector       (void) const
 {
     SFStatCollectorP::GetHandlePtr returnValue(
         new  SFStatCollectorP::GetHandle(
@@ -477,7 +477,7 @@ SFStatCollectorP::GetHandlePtr StatisticsForegroundBase::getHandleCollector     
     return returnValue;
 }
 
-SFStatCollectorP::EditHandlePtr StatisticsForegroundBase::editHandleCollector      (void)
+EditFieldHandlePtr StatisticsForegroundBase::editHandleCollector      (void)
 {
     SFStatCollectorP::EditHandlePtr returnValue(
         new  SFStatCollectorP::EditHandle(

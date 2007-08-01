@@ -274,14 +274,14 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFReal32::GetHandlePtr  getHandleWidth           (void);
-    SFReal32::EditHandlePtr editHandleWidth          (void);
-    SFInt32::GetHandlePtr  getHandleStippleRepeat   (void);
-    SFInt32::EditHandlePtr editHandleStippleRepeat  (void);
-    SFUInt16::GetHandlePtr  getHandleStipplePattern  (void);
-    SFUInt16::EditHandlePtr editHandleStipplePattern (void);
-    SFBool::GetHandlePtr  getHandleSmooth          (void);
-    SFBool::EditHandlePtr editHandleSmooth         (void);
+    GetFieldHandlePtr  getHandleWidth           (void) const;
+    EditFieldHandlePtr editHandleWidth          (void);
+    GetFieldHandlePtr  getHandleStippleRepeat   (void) const;
+    EditFieldHandlePtr editHandleStippleRepeat  (void);
+    GetFieldHandlePtr  getHandleStipplePattern  (void) const;
+    EditFieldHandlePtr editHandleStipplePattern (void);
+    GetFieldHandlePtr  getHandleSmooth          (void) const;
+    EditFieldHandlePtr editHandleSmooth         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

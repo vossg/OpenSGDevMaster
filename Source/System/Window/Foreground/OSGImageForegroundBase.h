@@ -263,10 +263,10 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    MFImagePtr::GetHandlePtr  getHandleImages          (void);
-    MFImagePtr::EditHandlePtr editHandleImages         (void);
-    MFPnt2f::GetHandlePtr  getHandlePositions       (void);
-    MFPnt2f::EditHandlePtr editHandlePositions      (void);
+    GetFieldHandlePtr  getHandleImages          (void) const;
+    EditFieldHandlePtr editHandleImages         (void);
+    GetFieldHandlePtr  getHandlePositions       (void) const;
+    EditFieldHandlePtr editHandlePositions      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

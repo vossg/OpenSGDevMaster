@@ -109,8 +109,8 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GradientBackgroundBase::editHandleColor),
-        reinterpret_cast<FieldGetMethodSig >(&GradientBackgroundBase::getHandleColor));
+        static_cast<FieldEditMethodSig>(&GradientBackgroundBase::editHandleColor),
+        static_cast<FieldGetMethodSig >(&GradientBackgroundBase::getHandleColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -121,8 +121,8 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
         PositionFieldId, PositionFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GradientBackgroundBase::editHandlePosition),
-        reinterpret_cast<FieldGetMethodSig >(&GradientBackgroundBase::getHandlePosition));
+        static_cast<FieldEditMethodSig>(&GradientBackgroundBase::editHandlePosition),
+        static_cast<FieldGetMethodSig >(&GradientBackgroundBase::getHandlePosition));
 
     oType.addInitialDesc(pDesc);
 }
@@ -520,7 +520,7 @@ GradientBackgroundBase::~GradientBackgroundBase(void)
 }
 
 
-MFColor3f::GetHandlePtr GradientBackgroundBase::getHandleColor           (void)
+GetFieldHandlePtr GradientBackgroundBase::getHandleColor           (void) const
 {
     MFColor3f::GetHandlePtr returnValue(
         new  MFColor3f::GetHandle(
@@ -530,7 +530,7 @@ MFColor3f::GetHandlePtr GradientBackgroundBase::getHandleColor           (void)
     return returnValue;
 }
 
-MFColor3f::EditHandlePtr GradientBackgroundBase::editHandleColor          (void)
+EditFieldHandlePtr GradientBackgroundBase::editHandleColor          (void)
 {
     MFColor3f::EditHandlePtr returnValue(
         new  MFColor3f::EditHandle(
@@ -542,7 +542,7 @@ MFColor3f::EditHandlePtr GradientBackgroundBase::editHandleColor          (void)
     return returnValue;
 }
 
-MFReal32::GetHandlePtr GradientBackgroundBase::getHandlePosition        (void)
+GetFieldHandlePtr GradientBackgroundBase::getHandlePosition        (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
@@ -552,7 +552,7 @@ MFReal32::GetHandlePtr GradientBackgroundBase::getHandlePosition        (void)
     return returnValue;
 }
 
-MFReal32::EditHandlePtr GradientBackgroundBase::editHandlePosition       (void)
+EditFieldHandlePtr GradientBackgroundBase::editHandlePosition       (void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(

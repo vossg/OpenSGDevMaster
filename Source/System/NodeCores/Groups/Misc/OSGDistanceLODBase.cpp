@@ -137,8 +137,8 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
         CenterFieldId, CenterFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DistanceLODBase::editHandleCenter),
-        reinterpret_cast<FieldGetMethodSig >(&DistanceLODBase::getHandleCenter));
+        static_cast<FieldEditMethodSig>(&DistanceLODBase::editHandleCenter),
+        static_cast<FieldGetMethodSig >(&DistanceLODBase::getHandleCenter));
 
     oType.addInitialDesc(pDesc);
 
@@ -149,8 +149,8 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
         RangeFieldId, RangeFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DistanceLODBase::editHandleRange),
-        reinterpret_cast<FieldGetMethodSig >(&DistanceLODBase::getHandleRange));
+        static_cast<FieldEditMethodSig>(&DistanceLODBase::editHandleRange),
+        static_cast<FieldGetMethodSig >(&DistanceLODBase::getHandleRange));
 
     oType.addInitialDesc(pDesc);
 }
@@ -522,7 +522,7 @@ DistanceLODBase::~DistanceLODBase(void)
 }
 
 
-SFPnt3f::GetHandlePtr DistanceLODBase::getHandleCenter          (void)
+GetFieldHandlePtr DistanceLODBase::getHandleCenter          (void) const
 {
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
@@ -532,7 +532,7 @@ SFPnt3f::GetHandlePtr DistanceLODBase::getHandleCenter          (void)
     return returnValue;
 }
 
-SFPnt3f::EditHandlePtr DistanceLODBase::editHandleCenter         (void)
+EditFieldHandlePtr DistanceLODBase::editHandleCenter         (void)
 {
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
@@ -544,7 +544,7 @@ SFPnt3f::EditHandlePtr DistanceLODBase::editHandleCenter         (void)
     return returnValue;
 }
 
-MFReal32::GetHandlePtr DistanceLODBase::getHandleRange           (void)
+GetFieldHandlePtr DistanceLODBase::getHandleRange           (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
@@ -554,7 +554,7 @@ MFReal32::GetHandlePtr DistanceLODBase::getHandleRange           (void)
     return returnValue;
 }
 
-MFReal32::EditHandlePtr DistanceLODBase::editHandleRange          (void)
+EditFieldHandlePtr DistanceLODBase::editHandleRange          (void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(

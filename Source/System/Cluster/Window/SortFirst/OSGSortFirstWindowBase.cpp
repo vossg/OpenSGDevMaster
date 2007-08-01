@@ -114,8 +114,8 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         CompressionFieldId, CompressionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleCompression),
-        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleCompression));
+        static_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleCompression),
+        static_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleCompression));
 
     oType.addInitialDesc(pDesc);
 
@@ -126,8 +126,8 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         SubtileSizeFieldId, SubtileSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleSubtileSize),
-        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleSubtileSize));
+        static_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleSubtileSize),
+        static_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleSubtileSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         ComposeFieldId, ComposeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleCompose),
-        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleCompose));
+        static_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleCompose),
+        static_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleCompose));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         RegionFieldId, RegionFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleRegion),
-        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleRegion));
+        static_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleRegion),
+        static_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleRegion));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         UseFaceDistributionFieldId, UseFaceDistributionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleUseFaceDistribution),
-        reinterpret_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleUseFaceDistribution));
+        static_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleUseFaceDistribution),
+        static_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleUseFaceDistribution));
 
     oType.addInitialDesc(pDesc);
 }
@@ -592,7 +592,7 @@ SortFirstWindowBase::~SortFirstWindowBase(void)
 }
 
 
-SFString::GetHandlePtr SortFirstWindowBase::getHandleCompression     (void)
+GetFieldHandlePtr SortFirstWindowBase::getHandleCompression     (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -602,7 +602,7 @@ SFString::GetHandlePtr SortFirstWindowBase::getHandleCompression     (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr SortFirstWindowBase::editHandleCompression    (void)
+EditFieldHandlePtr SortFirstWindowBase::editHandleCompression    (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -614,7 +614,7 @@ SFString::EditHandlePtr SortFirstWindowBase::editHandleCompression    (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr SortFirstWindowBase::getHandleSubtileSize     (void)
+GetFieldHandlePtr SortFirstWindowBase::getHandleSubtileSize     (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -624,7 +624,7 @@ SFUInt32::GetHandlePtr SortFirstWindowBase::getHandleSubtileSize     (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr SortFirstWindowBase::editHandleSubtileSize    (void)
+EditFieldHandlePtr SortFirstWindowBase::editHandleSubtileSize    (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -636,7 +636,7 @@ SFUInt32::EditHandlePtr SortFirstWindowBase::editHandleSubtileSize    (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr SortFirstWindowBase::getHandleCompose         (void)
+GetFieldHandlePtr SortFirstWindowBase::getHandleCompose         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -646,7 +646,7 @@ SFBool::GetHandlePtr SortFirstWindowBase::getHandleCompose         (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr SortFirstWindowBase::editHandleCompose        (void)
+EditFieldHandlePtr SortFirstWindowBase::editHandleCompose        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -658,7 +658,7 @@ SFBool::EditHandlePtr SortFirstWindowBase::editHandleCompose        (void)
     return returnValue;
 }
 
-MFUInt32::GetHandlePtr SortFirstWindowBase::getHandleRegion          (void)
+GetFieldHandlePtr SortFirstWindowBase::getHandleRegion          (void) const
 {
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
@@ -668,7 +668,7 @@ MFUInt32::GetHandlePtr SortFirstWindowBase::getHandleRegion          (void)
     return returnValue;
 }
 
-MFUInt32::EditHandlePtr SortFirstWindowBase::editHandleRegion         (void)
+EditFieldHandlePtr SortFirstWindowBase::editHandleRegion         (void)
 {
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
@@ -680,7 +680,7 @@ MFUInt32::EditHandlePtr SortFirstWindowBase::editHandleRegion         (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr SortFirstWindowBase::getHandleUseFaceDistribution (void)
+GetFieldHandlePtr SortFirstWindowBase::getHandleUseFaceDistribution (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -690,7 +690,7 @@ SFBool::GetHandlePtr SortFirstWindowBase::getHandleUseFaceDistribution (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr SortFirstWindowBase::editHandleUseFaceDistribution(void)
+EditFieldHandlePtr SortFirstWindowBase::editHandleUseFaceDistribution(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

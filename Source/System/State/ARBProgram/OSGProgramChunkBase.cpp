@@ -121,8 +121,8 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         ProgramFieldId, ProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleProgram),
-        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleProgram));
+        static_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleProgram),
+        static_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleProgram));
 
     oType.addInitialDesc(pDesc);
 
@@ -133,8 +133,8 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         ParamValuesFieldId, ParamValuesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleParamValues),
-        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleParamValues));
+        static_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleParamValues),
+        static_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleParamValues));
 
     oType.addInitialDesc(pDesc);
 
@@ -145,8 +145,8 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         ParamNamesFieldId, ParamNamesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleParamNames),
-        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleParamNames));
+        static_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleParamNames),
+        static_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleParamNames));
 
     oType.addInitialDesc(pDesc);
 
@@ -157,8 +157,8 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleGLId),
-        reinterpret_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -618,7 +618,7 @@ ProgramChunkBase::~ProgramChunkBase(void)
 }
 
 
-SFString::GetHandlePtr ProgramChunkBase::getHandleProgram         (void)
+GetFieldHandlePtr ProgramChunkBase::getHandleProgram         (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -628,7 +628,7 @@ SFString::GetHandlePtr ProgramChunkBase::getHandleProgram         (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr ProgramChunkBase::editHandleProgram        (void)
+EditFieldHandlePtr ProgramChunkBase::editHandleProgram        (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -640,7 +640,7 @@ SFString::EditHandlePtr ProgramChunkBase::editHandleProgram        (void)
     return returnValue;
 }
 
-MFVec4f::GetHandlePtr ProgramChunkBase::getHandleParamValues     (void)
+GetFieldHandlePtr ProgramChunkBase::getHandleParamValues     (void) const
 {
     MFVec4f::GetHandlePtr returnValue(
         new  MFVec4f::GetHandle(
@@ -650,7 +650,7 @@ MFVec4f::GetHandlePtr ProgramChunkBase::getHandleParamValues     (void)
     return returnValue;
 }
 
-MFVec4f::EditHandlePtr ProgramChunkBase::editHandleParamValues    (void)
+EditFieldHandlePtr ProgramChunkBase::editHandleParamValues    (void)
 {
     MFVec4f::EditHandlePtr returnValue(
         new  MFVec4f::EditHandle(
@@ -662,7 +662,7 @@ MFVec4f::EditHandlePtr ProgramChunkBase::editHandleParamValues    (void)
     return returnValue;
 }
 
-MFString::GetHandlePtr ProgramChunkBase::getHandleParamNames      (void)
+GetFieldHandlePtr ProgramChunkBase::getHandleParamNames      (void) const
 {
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
@@ -672,7 +672,7 @@ MFString::GetHandlePtr ProgramChunkBase::getHandleParamNames      (void)
     return returnValue;
 }
 
-MFString::EditHandlePtr ProgramChunkBase::editHandleParamNames     (void)
+EditFieldHandlePtr ProgramChunkBase::editHandleParamNames     (void)
 {
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
@@ -684,7 +684,7 @@ MFString::EditHandlePtr ProgramChunkBase::editHandleParamNames     (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr ProgramChunkBase::getHandleGLId            (void)
+GetFieldHandlePtr ProgramChunkBase::getHandleGLId            (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -694,7 +694,7 @@ SFUInt32::GetHandlePtr ProgramChunkBase::getHandleGLId            (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr ProgramChunkBase::editHandleGLId           (void)
+EditFieldHandlePtr ProgramChunkBase::editHandleGLId           (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(

@@ -133,8 +133,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         TypesFieldId, TypesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandleTypes),
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandleTypes));
+        static_cast<FieldEditMethodSig>(&GeometryBase::editHandleTypes),
+        static_cast<FieldGetMethodSig >(&GeometryBase::getHandleTypes));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         LengthsFieldId, LengthsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandleLengths),
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandleLengths));
+        static_cast<FieldEditMethodSig>(&GeometryBase::editHandleLengths),
+        static_cast<FieldGetMethodSig >(&GeometryBase::getHandleLengths));
 
     oType.addInitialDesc(pDesc);
 
@@ -159,8 +159,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         PropertiesFieldId, PropertiesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandleProperties),
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandleProperties));
+        static_cast<FieldEditMethodSig>(&GeometryBase::editHandleProperties),
+        static_cast<FieldGetMethodSig >(&GeometryBase::getHandleProperties));
 
     oType.addInitialDesc(pDesc);
 
@@ -172,8 +172,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         PropIndicesFieldId, PropIndicesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandlePropIndices),
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandlePropIndices));
+        static_cast<FieldEditMethodSig>(&GeometryBase::editHandlePropIndices),
+        static_cast<FieldGetMethodSig >(&GeometryBase::getHandlePropIndices));
 
     oType.addInitialDesc(pDesc);
 
@@ -184,8 +184,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         DlistCacheFieldId, DlistCacheFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandleDlistCache),
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandleDlistCache));
+        static_cast<FieldEditMethodSig>(&GeometryBase::editHandleDlistCache),
+        static_cast<FieldGetMethodSig >(&GeometryBase::getHandleDlistCache));
 
     oType.addInitialDesc(pDesc);
 
@@ -196,8 +196,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         ClassicGLIdFieldId, ClassicGLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandleClassicGLId),
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandleClassicGLId));
+        static_cast<FieldEditMethodSig>(&GeometryBase::editHandleClassicGLId),
+        static_cast<FieldGetMethodSig >(&GeometryBase::getHandleClassicGLId));
 
     oType.addInitialDesc(pDesc);
 
@@ -208,8 +208,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         AttGLIdFieldId, AttGLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editHandleAttGLId),
-        reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getHandleAttGLId));
+        static_cast<FieldEditMethodSig>(&GeometryBase::editHandleAttGLId),
+        static_cast<FieldGetMethodSig >(&GeometryBase::getHandleAttGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -984,7 +984,7 @@ void GeometryBase::onCreate(const Geometry *source)
     }
 }
 
-SFGeoIntegralPropertyPtr::GetHandlePtr GeometryBase::getHandleTypes           (void)
+GetFieldHandlePtr GeometryBase::getHandleTypes           (void) const
 {
     SFGeoIntegralPropertyPtr::GetHandlePtr returnValue(
         new  SFGeoIntegralPropertyPtr::GetHandle(
@@ -994,7 +994,7 @@ SFGeoIntegralPropertyPtr::GetHandlePtr GeometryBase::getHandleTypes           (v
     return returnValue;
 }
 
-SFGeoIntegralPropertyPtr::EditHandlePtr GeometryBase::editHandleTypes          (void)
+EditFieldHandlePtr GeometryBase::editHandleTypes          (void)
 {
     SFGeoIntegralPropertyPtr::EditHandlePtr returnValue(
         new  SFGeoIntegralPropertyPtr::EditHandle(
@@ -1008,7 +1008,7 @@ SFGeoIntegralPropertyPtr::EditHandlePtr GeometryBase::editHandleTypes          (
     return returnValue;
 }
 
-SFGeoIntegralPropertyPtr::GetHandlePtr GeometryBase::getHandleLengths         (void)
+GetFieldHandlePtr GeometryBase::getHandleLengths         (void) const
 {
     SFGeoIntegralPropertyPtr::GetHandlePtr returnValue(
         new  SFGeoIntegralPropertyPtr::GetHandle(
@@ -1018,7 +1018,7 @@ SFGeoIntegralPropertyPtr::GetHandlePtr GeometryBase::getHandleLengths         (v
     return returnValue;
 }
 
-SFGeoIntegralPropertyPtr::EditHandlePtr GeometryBase::editHandleLengths        (void)
+EditFieldHandlePtr GeometryBase::editHandleLengths        (void)
 {
     SFGeoIntegralPropertyPtr::EditHandlePtr returnValue(
         new  SFGeoIntegralPropertyPtr::EditHandle(
@@ -1032,7 +1032,7 @@ SFGeoIntegralPropertyPtr::EditHandlePtr GeometryBase::editHandleLengths        (
     return returnValue;
 }
 
-MFGeoVectorPropertyPtr::GetHandlePtr GeometryBase::getHandleProperties      (void)
+GetFieldHandlePtr GeometryBase::getHandleProperties      (void) const
 {
     MFGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  MFGeoVectorPropertyPtr::GetHandle(
@@ -1042,7 +1042,7 @@ MFGeoVectorPropertyPtr::GetHandlePtr GeometryBase::getHandleProperties      (voi
     return returnValue;
 }
 
-MFGeoVectorPropertyPtr::EditHandlePtr GeometryBase::editHandleProperties     (void)
+EditFieldHandlePtr GeometryBase::editHandleProperties     (void)
 {
     MFGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  MFGeoVectorPropertyPtr::EditHandle(
@@ -1056,7 +1056,7 @@ MFGeoVectorPropertyPtr::EditHandlePtr GeometryBase::editHandleProperties     (vo
     return returnValue;
 }
 
-MFGeoIntegralPropertyPtr::GetHandlePtr GeometryBase::getHandlePropIndices     (void)
+GetFieldHandlePtr GeometryBase::getHandlePropIndices     (void) const
 {
     MFGeoIntegralPropertyPtr::GetHandlePtr returnValue(
         new  MFGeoIntegralPropertyPtr::GetHandle(
@@ -1066,7 +1066,7 @@ MFGeoIntegralPropertyPtr::GetHandlePtr GeometryBase::getHandlePropIndices     (v
     return returnValue;
 }
 
-MFGeoIntegralPropertyPtr::EditHandlePtr GeometryBase::editHandlePropIndices    (void)
+EditFieldHandlePtr GeometryBase::editHandlePropIndices    (void)
 {
     MFGeoIntegralPropertyPtr::EditHandlePtr returnValue(
         new  MFGeoIntegralPropertyPtr::EditHandle(
@@ -1080,7 +1080,7 @@ MFGeoIntegralPropertyPtr::EditHandlePtr GeometryBase::editHandlePropIndices    (
     return returnValue;
 }
 
-SFBool::GetHandlePtr GeometryBase::getHandleDlistCache      (void)
+GetFieldHandlePtr GeometryBase::getHandleDlistCache      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1090,7 +1090,7 @@ SFBool::GetHandlePtr GeometryBase::getHandleDlistCache      (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr GeometryBase::editHandleDlistCache     (void)
+EditFieldHandlePtr GeometryBase::editHandleDlistCache     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1102,7 +1102,7 @@ SFBool::EditHandlePtr GeometryBase::editHandleDlistCache     (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr GeometryBase::getHandleClassicGLId     (void)
+GetFieldHandlePtr GeometryBase::getHandleClassicGLId     (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -1112,7 +1112,7 @@ SFInt32::GetHandlePtr GeometryBase::getHandleClassicGLId     (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr GeometryBase::editHandleClassicGLId    (void)
+EditFieldHandlePtr GeometryBase::editHandleClassicGLId    (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
@@ -1124,7 +1124,7 @@ SFInt32::EditHandlePtr GeometryBase::editHandleClassicGLId    (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr GeometryBase::getHandleAttGLId         (void)
+GetFieldHandlePtr GeometryBase::getHandleAttGLId         (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -1134,7 +1134,7 @@ SFInt32::GetHandlePtr GeometryBase::getHandleAttGLId         (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr GeometryBase::editHandleAttGLId        (void)
+EditFieldHandlePtr GeometryBase::editHandleAttGLId        (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(

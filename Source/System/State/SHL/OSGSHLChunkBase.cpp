@@ -146,8 +146,8 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         CgFrontEndFieldId, CgFrontEndFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleCgFrontEnd),
-        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleCgFrontEnd));
+        static_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleCgFrontEnd),
+        static_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleCgFrontEnd));
 
     oType.addInitialDesc(pDesc);
 
@@ -158,8 +158,8 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         PointSizeFieldId, PointSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editHandlePointSize),
-        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getHandlePointSize));
+        static_cast<FieldEditMethodSig>(&SHLChunkBase::editHandlePointSize),
+        static_cast<FieldGetMethodSig >(&SHLChunkBase::getHandlePointSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -170,8 +170,8 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         ProgramParameterNamesFieldId, ProgramParameterNamesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleProgramParameterNames),
-        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleProgramParameterNames));
+        static_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleProgramParameterNames),
+        static_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleProgramParameterNames));
 
     oType.addInitialDesc(pDesc);
 
@@ -182,8 +182,8 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         ProgramParameterValuesFieldId, ProgramParameterValuesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleProgramParameterValues),
-        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleProgramParameterValues));
+        static_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleProgramParameterValues),
+        static_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleProgramParameterValues));
 
     oType.addInitialDesc(pDesc);
 
@@ -194,8 +194,8 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleGLId),
-        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -769,7 +769,7 @@ SHLChunkBase::~SHLChunkBase(void)
 }
 
 
-SFBool::GetHandlePtr SHLChunkBase::getHandleCgFrontEnd      (void)
+GetFieldHandlePtr SHLChunkBase::getHandleCgFrontEnd      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -779,7 +779,7 @@ SFBool::GetHandlePtr SHLChunkBase::getHandleCgFrontEnd      (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr SHLChunkBase::editHandleCgFrontEnd     (void)
+EditFieldHandlePtr SHLChunkBase::editHandleCgFrontEnd     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -791,7 +791,7 @@ SFBool::EditHandlePtr SHLChunkBase::editHandleCgFrontEnd     (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr SHLChunkBase::getHandlePointSize       (void)
+GetFieldHandlePtr SHLChunkBase::getHandlePointSize       (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -801,7 +801,7 @@ SFBool::GetHandlePtr SHLChunkBase::getHandlePointSize       (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr SHLChunkBase::editHandlePointSize      (void)
+EditFieldHandlePtr SHLChunkBase::editHandlePointSize      (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -813,7 +813,7 @@ SFBool::EditHandlePtr SHLChunkBase::editHandlePointSize      (void)
     return returnValue;
 }
 
-MFGLenum::GetHandlePtr SHLChunkBase::getHandleProgramParameterNames (void)
+GetFieldHandlePtr SHLChunkBase::getHandleProgramParameterNames (void) const
 {
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
@@ -823,7 +823,7 @@ MFGLenum::GetHandlePtr SHLChunkBase::getHandleProgramParameterNames (void)
     return returnValue;
 }
 
-MFGLenum::EditHandlePtr SHLChunkBase::editHandleProgramParameterNames(void)
+EditFieldHandlePtr SHLChunkBase::editHandleProgramParameterNames(void)
 {
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
@@ -835,7 +835,7 @@ MFGLenum::EditHandlePtr SHLChunkBase::editHandleProgramParameterNames(void)
     return returnValue;
 }
 
-MFUInt32::GetHandlePtr SHLChunkBase::getHandleProgramParameterValues (void)
+GetFieldHandlePtr SHLChunkBase::getHandleProgramParameterValues (void) const
 {
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
@@ -845,7 +845,7 @@ MFUInt32::GetHandlePtr SHLChunkBase::getHandleProgramParameterValues (void)
     return returnValue;
 }
 
-MFUInt32::EditHandlePtr SHLChunkBase::editHandleProgramParameterValues(void)
+EditFieldHandlePtr SHLChunkBase::editHandleProgramParameterValues(void)
 {
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
@@ -857,7 +857,7 @@ MFUInt32::EditHandlePtr SHLChunkBase::editHandleProgramParameterValues(void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr SHLChunkBase::getHandleGLId            (void)
+GetFieldHandlePtr SHLChunkBase::getHandleGLId            (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -867,7 +867,7 @@ SFUInt32::GetHandlePtr SHLChunkBase::getHandleGLId            (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr SHLChunkBase::editHandleGLId           (void)
+EditFieldHandlePtr SHLChunkBase::editHandleGLId           (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(

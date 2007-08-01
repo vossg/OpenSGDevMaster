@@ -108,8 +108,8 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
         LeftBufferFieldId, LeftBufferFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editHandleLeftBuffer),
-        reinterpret_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getHandleLeftBuffer));
+        static_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editHandleLeftBuffer),
+        static_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getHandleLeftBuffer));
 
     oType.addInitialDesc(pDesc);
 
@@ -120,8 +120,8 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
         RightBufferFieldId, RightBufferFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editHandleRightBuffer),
-        reinterpret_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getHandleRightBuffer));
+        static_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editHandleRightBuffer),
+        static_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getHandleRightBuffer));
 
     oType.addInitialDesc(pDesc);
 }
@@ -355,7 +355,7 @@ StereoBufferViewportBase::~StereoBufferViewportBase(void)
 }
 
 
-SFBool::GetHandlePtr StereoBufferViewportBase::getHandleLeftBuffer      (void)
+GetFieldHandlePtr StereoBufferViewportBase::getHandleLeftBuffer      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -365,7 +365,7 @@ SFBool::GetHandlePtr StereoBufferViewportBase::getHandleLeftBuffer      (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr StereoBufferViewportBase::editHandleLeftBuffer     (void)
+EditFieldHandlePtr StereoBufferViewportBase::editHandleLeftBuffer     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -377,7 +377,7 @@ SFBool::EditHandlePtr StereoBufferViewportBase::editHandleLeftBuffer     (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr StereoBufferViewportBase::getHandleRightBuffer     (void)
+GetFieldHandlePtr StereoBufferViewportBase::getHandleRightBuffer     (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -387,7 +387,7 @@ SFBool::GetHandlePtr StereoBufferViewportBase::getHandleRightBuffer     (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr StereoBufferViewportBase::editHandleRightBuffer    (void)
+EditFieldHandlePtr StereoBufferViewportBase::editHandleRightBuffer    (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

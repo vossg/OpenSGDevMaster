@@ -292,16 +292,16 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFBool::GetHandlePtr  getHandleEnable          (void);
-    SFBool::EditHandlePtr editHandleEnable         (void);
-    SFGLenum::GetHandlePtr  getHandleFunc            (void);
-    SFGLenum::EditHandlePtr editHandleFunc           (void);
-    SFReal32::GetHandlePtr  getHandleNear            (void);
-    SFReal32::EditHandlePtr editHandleNear           (void);
-    SFReal32::GetHandlePtr  getHandleFar             (void);
-    SFReal32::EditHandlePtr editHandleFar            (void);
-    SFBool::GetHandlePtr  getHandleReadOnly        (void);
-    SFBool::EditHandlePtr editHandleReadOnly       (void);
+    GetFieldHandlePtr  getHandleEnable          (void) const;
+    EditFieldHandlePtr editHandleEnable         (void);
+    GetFieldHandlePtr  getHandleFunc            (void) const;
+    EditFieldHandlePtr editHandleFunc           (void);
+    GetFieldHandlePtr  getHandleNear            (void) const;
+    EditFieldHandlePtr editHandleNear           (void);
+    GetFieldHandlePtr  getHandleFar             (void) const;
+    EditFieldHandlePtr editHandleFar            (void);
+    GetFieldHandlePtr  getHandleReadOnly        (void) const;
+    EditFieldHandlePtr editHandleReadOnly       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

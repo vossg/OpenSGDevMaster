@@ -220,8 +220,8 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFVec3r::GetHandlePtr  getHandleDirection       (void);
-    SFVec3r::EditHandlePtr editHandleDirection      (void);
+    GetFieldHandlePtr  getHandleDirection       (void) const;
+    EditFieldHandlePtr editHandleDirection      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -220,8 +220,8 @@ class OSG_STATE_DLLMAPPING TransformChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFMatrix::GetHandlePtr  getHandleMatrix          (void);
-    SFMatrix::EditHandlePtr editHandleMatrix         (void);
+    GetFieldHandlePtr  getHandleMatrix          (void) const;
+    EditFieldHandlePtr editHandleMatrix         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

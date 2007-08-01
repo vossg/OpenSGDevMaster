@@ -102,8 +102,8 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editHandleWidth),
-        reinterpret_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -114,8 +114,8 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editHandleHeight),
-        reinterpret_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 }
@@ -301,7 +301,7 @@ FrameBufferAttachmentBase::~FrameBufferAttachmentBase(void)
 }
 
 
-SFUInt16::GetHandlePtr FrameBufferAttachmentBase::getHandleWidth           (void)
+GetFieldHandlePtr FrameBufferAttachmentBase::getHandleWidth           (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -311,7 +311,7 @@ SFUInt16::GetHandlePtr FrameBufferAttachmentBase::getHandleWidth           (void
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr FrameBufferAttachmentBase::editHandleWidth          (void)
+EditFieldHandlePtr FrameBufferAttachmentBase::editHandleWidth          (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
@@ -323,7 +323,7 @@ SFUInt16::EditHandlePtr FrameBufferAttachmentBase::editHandleWidth          (voi
     return returnValue;
 }
 
-SFUInt16::GetHandlePtr FrameBufferAttachmentBase::getHandleHeight          (void)
+GetFieldHandlePtr FrameBufferAttachmentBase::getHandleHeight          (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -333,7 +333,7 @@ SFUInt16::GetHandlePtr FrameBufferAttachmentBase::getHandleHeight          (void
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr FrameBufferAttachmentBase::editHandleHeight         (void)
+EditFieldHandlePtr FrameBufferAttachmentBase::editHandleHeight         (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(

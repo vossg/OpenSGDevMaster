@@ -126,8 +126,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleColor),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleColor));
+        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleColor),
+        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleTexture),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleTexture));
+        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleTexture),
+        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleTexCoords),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleTexCoords));
+        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleTexCoords),
+        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleTexCoords));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         RadialDistortionFieldId, RadialDistortionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleRadialDistortion),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleRadialDistortion));
+        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleRadialDistortion),
+        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleRadialDistortion));
 
     oType.addInitialDesc(pDesc);
 
@@ -174,8 +174,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         CenterOfDistortionFieldId, CenterOfDistortionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleCenterOfDistortion),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleCenterOfDistortion));
+        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleCenterOfDistortion),
+        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleCenterOfDistortion));
 
     oType.addInitialDesc(pDesc);
 
@@ -186,8 +186,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         HorFieldId, HorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleHor),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleHor));
+        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleHor),
+        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleHor));
 
     oType.addInitialDesc(pDesc);
 
@@ -198,8 +198,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         VertFieldId, VertFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleVert),
-        reinterpret_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleVert));
+        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleVert),
+        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleVert));
 
     oType.addInitialDesc(pDesc);
 }
@@ -714,7 +714,7 @@ void TextureBackgroundBase::onCreate(const TextureBackground *source)
     }
 }
 
-SFColor4f::GetHandlePtr TextureBackgroundBase::getHandleColor           (void)
+GetFieldHandlePtr TextureBackgroundBase::getHandleColor           (void) const
 {
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
@@ -724,7 +724,7 @@ SFColor4f::GetHandlePtr TextureBackgroundBase::getHandleColor           (void)
     return returnValue;
 }
 
-SFColor4f::EditHandlePtr TextureBackgroundBase::editHandleColor          (void)
+EditFieldHandlePtr TextureBackgroundBase::editHandleColor          (void)
 {
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
@@ -736,7 +736,7 @@ SFColor4f::EditHandlePtr TextureBackgroundBase::editHandleColor          (void)
     return returnValue;
 }
 
-SFTextureBaseChunkPtr::GetHandlePtr TextureBackgroundBase::getHandleTexture         (void)
+GetFieldHandlePtr TextureBackgroundBase::getHandleTexture         (void) const
 {
     SFTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  SFTextureBaseChunkPtr::GetHandle(
@@ -746,7 +746,7 @@ SFTextureBaseChunkPtr::GetHandlePtr TextureBackgroundBase::getHandleTexture     
     return returnValue;
 }
 
-SFTextureBaseChunkPtr::EditHandlePtr TextureBackgroundBase::editHandleTexture        (void)
+EditFieldHandlePtr TextureBackgroundBase::editHandleTexture        (void)
 {
     SFTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  SFTextureBaseChunkPtr::EditHandle(
@@ -760,7 +760,7 @@ SFTextureBaseChunkPtr::EditHandlePtr TextureBackgroundBase::editHandleTexture   
     return returnValue;
 }
 
-MFPnt2f::GetHandlePtr TextureBackgroundBase::getHandleTexCoords       (void)
+GetFieldHandlePtr TextureBackgroundBase::getHandleTexCoords       (void) const
 {
     MFPnt2f::GetHandlePtr returnValue(
         new  MFPnt2f::GetHandle(
@@ -770,7 +770,7 @@ MFPnt2f::GetHandlePtr TextureBackgroundBase::getHandleTexCoords       (void)
     return returnValue;
 }
 
-MFPnt2f::EditHandlePtr TextureBackgroundBase::editHandleTexCoords      (void)
+EditFieldHandlePtr TextureBackgroundBase::editHandleTexCoords      (void)
 {
     MFPnt2f::EditHandlePtr returnValue(
         new  MFPnt2f::EditHandle(
@@ -782,7 +782,7 @@ MFPnt2f::EditHandlePtr TextureBackgroundBase::editHandleTexCoords      (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr TextureBackgroundBase::getHandleRadialDistortion (void)
+GetFieldHandlePtr TextureBackgroundBase::getHandleRadialDistortion (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -792,7 +792,7 @@ SFReal32::GetHandlePtr TextureBackgroundBase::getHandleRadialDistortion (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr TextureBackgroundBase::editHandleRadialDistortion(void)
+EditFieldHandlePtr TextureBackgroundBase::editHandleRadialDistortion(void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -804,7 +804,7 @@ SFReal32::EditHandlePtr TextureBackgroundBase::editHandleRadialDistortion(void)
     return returnValue;
 }
 
-SFVec2f::GetHandlePtr TextureBackgroundBase::getHandleCenterOfDistortion (void)
+GetFieldHandlePtr TextureBackgroundBase::getHandleCenterOfDistortion (void) const
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
@@ -814,7 +814,7 @@ SFVec2f::GetHandlePtr TextureBackgroundBase::getHandleCenterOfDistortion (void)
     return returnValue;
 }
 
-SFVec2f::EditHandlePtr TextureBackgroundBase::editHandleCenterOfDistortion(void)
+EditFieldHandlePtr TextureBackgroundBase::editHandleCenterOfDistortion(void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
@@ -826,7 +826,7 @@ SFVec2f::EditHandlePtr TextureBackgroundBase::editHandleCenterOfDistortion(void)
     return returnValue;
 }
 
-SFUInt16::GetHandlePtr TextureBackgroundBase::getHandleHor             (void)
+GetFieldHandlePtr TextureBackgroundBase::getHandleHor             (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -836,7 +836,7 @@ SFUInt16::GetHandlePtr TextureBackgroundBase::getHandleHor             (void)
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr TextureBackgroundBase::editHandleHor            (void)
+EditFieldHandlePtr TextureBackgroundBase::editHandleHor            (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
@@ -848,7 +848,7 @@ SFUInt16::EditHandlePtr TextureBackgroundBase::editHandleHor            (void)
     return returnValue;
 }
 
-SFUInt16::GetHandlePtr TextureBackgroundBase::getHandleVert            (void)
+GetFieldHandlePtr TextureBackgroundBase::getHandleVert            (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
@@ -858,7 +858,7 @@ SFUInt16::GetHandlePtr TextureBackgroundBase::getHandleVert            (void)
     return returnValue;
 }
 
-SFUInt16::EditHandlePtr TextureBackgroundBase::editHandleVert           (void)
+EditFieldHandlePtr TextureBackgroundBase::editHandleVert           (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(

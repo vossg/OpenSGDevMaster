@@ -271,14 +271,14 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFTextureObjChunkPtr::GetHandlePtr  getHandleTexture         (void);
-    SFTextureObjChunkPtr::EditHandlePtr editHandleTexture        (void);
-    SFBool::GetHandlePtr  getHandleAutoResize      (void);
-    SFBool::EditHandlePtr editHandleAutoResize     (void);
-    SFGLenum::GetHandlePtr  getHandleBindTarget      (void);
-    SFGLenum::EditHandlePtr editHandleBindTarget     (void);
-    SFGLenum::GetHandlePtr  getHandleCopyTarget      (void);
-    SFGLenum::EditHandlePtr editHandleCopyTarget     (void);
+    GetFieldHandlePtr  getHandleTexture         (void) const;
+    EditFieldHandlePtr editHandleTexture        (void);
+    GetFieldHandlePtr  getHandleAutoResize      (void) const;
+    EditFieldHandlePtr editHandleAutoResize     (void);
+    GetFieldHandlePtr  getHandleBindTarget      (void) const;
+    EditFieldHandlePtr editHandleBindTarget     (void);
+    GetFieldHandlePtr  getHandleCopyTarget      (void) const;
+    EditFieldHandlePtr editHandleCopyTarget     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

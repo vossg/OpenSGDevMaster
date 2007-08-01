@@ -148,8 +148,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         EnabledFieldId, EnabledFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleEnabled),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleEnabled));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleEnabled),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleEnabled));
 
     oType.addInitialDesc(pDesc);
 
@@ -160,8 +160,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         UrlFieldId, UrlFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleUrl),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleUrl));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleUrl),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleUrl));
 
     oType.addInitialDesc(pDesc);
 
@@ -172,8 +172,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         RootFieldId, RootFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleRoot),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleRoot));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleRoot),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
 
@@ -184,8 +184,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         StateFieldId, StateFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleState),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleState));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleState),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleState));
 
     oType.addInitialDesc(pDesc);
 
@@ -196,8 +196,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         ConcurrentLoadFieldId, ConcurrentLoadFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleConcurrentLoad),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleConcurrentLoad));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleConcurrentLoad),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleConcurrentLoad));
 
     oType.addInitialDesc(pDesc);
 
@@ -208,8 +208,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         VolumeFieldId, VolumeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleVolume),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleVolume));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleVolume),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleVolume));
 
     oType.addInitialDesc(pDesc);
 
@@ -220,8 +220,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         IndicesFieldId, IndicesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleIndices),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleIndices));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleIndices),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleIndices));
 
     oType.addInitialDesc(pDesc);
 
@@ -232,8 +232,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         TrianglesFieldId, TrianglesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleTriangles),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleTriangles));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleTriangles),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleTriangles));
 
     oType.addInitialDesc(pDesc);
 
@@ -244,8 +244,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandlePositions),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandlePositions));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandlePositions),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
 
@@ -256,8 +256,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         GeometriesFieldId, GeometriesFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleGeometries),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleGeometries));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleGeometries),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleGeometries));
 
     oType.addInitialDesc(pDesc);
 
@@ -268,8 +268,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         AbsoluteUrlFieldId, AbsoluteUrlFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleAbsoluteUrl),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleAbsoluteUrl));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleAbsoluteUrl),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleAbsoluteUrl));
 
     oType.addInitialDesc(pDesc);
 
@@ -280,8 +280,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         InlineFieldId, InlineFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleInline),
-        reinterpret_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleInline));
+        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleInline),
+        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleInline));
 
     oType.addInitialDesc(pDesc);
 }
@@ -1006,7 +1006,7 @@ void ProxyGroupBase::onCreate(const ProxyGroup *source)
     }
 }
 
-SFBool::GetHandlePtr ProxyGroupBase::getHandleEnabled         (void)
+GetFieldHandlePtr ProxyGroupBase::getHandleEnabled         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1016,7 +1016,7 @@ SFBool::GetHandlePtr ProxyGroupBase::getHandleEnabled         (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ProxyGroupBase::editHandleEnabled        (void)
+EditFieldHandlePtr ProxyGroupBase::editHandleEnabled        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1028,7 +1028,7 @@ SFBool::EditHandlePtr ProxyGroupBase::editHandleEnabled        (void)
     return returnValue;
 }
 
-SFString::GetHandlePtr ProxyGroupBase::getHandleUrl             (void)
+GetFieldHandlePtr ProxyGroupBase::getHandleUrl             (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -1038,7 +1038,7 @@ SFString::GetHandlePtr ProxyGroupBase::getHandleUrl             (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr ProxyGroupBase::editHandleUrl            (void)
+EditFieldHandlePtr ProxyGroupBase::editHandleUrl            (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -1050,7 +1050,7 @@ SFString::EditHandlePtr ProxyGroupBase::editHandleUrl            (void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr ProxyGroupBase::getHandleRoot            (void)
+GetFieldHandlePtr ProxyGroupBase::getHandleRoot            (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1060,7 +1060,7 @@ SFNodePtr::GetHandlePtr ProxyGroupBase::getHandleRoot            (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ProxyGroupBase::editHandleRoot           (void)
+EditFieldHandlePtr ProxyGroupBase::editHandleRoot           (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -1074,7 +1074,7 @@ SFNodePtr::EditHandlePtr ProxyGroupBase::editHandleRoot           (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr ProxyGroupBase::getHandleState           (void)
+GetFieldHandlePtr ProxyGroupBase::getHandleState           (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1084,7 +1084,7 @@ SFUInt32::GetHandlePtr ProxyGroupBase::getHandleState           (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr ProxyGroupBase::editHandleState          (void)
+EditFieldHandlePtr ProxyGroupBase::editHandleState          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -1096,7 +1096,7 @@ SFUInt32::EditHandlePtr ProxyGroupBase::editHandleState          (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr ProxyGroupBase::getHandleConcurrentLoad  (void)
+GetFieldHandlePtr ProxyGroupBase::getHandleConcurrentLoad  (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1106,7 +1106,7 @@ SFBool::GetHandlePtr ProxyGroupBase::getHandleConcurrentLoad  (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ProxyGroupBase::editHandleConcurrentLoad (void)
+EditFieldHandlePtr ProxyGroupBase::editHandleConcurrentLoad (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1118,7 +1118,7 @@ SFBool::EditHandlePtr ProxyGroupBase::editHandleConcurrentLoad (void)
     return returnValue;
 }
 
-SFDynamicVolume::GetHandlePtr ProxyGroupBase::getHandleVolume          (void)
+GetFieldHandlePtr ProxyGroupBase::getHandleVolume          (void) const
 {
     SFDynamicVolume::GetHandlePtr returnValue(
         new  SFDynamicVolume::GetHandle(
@@ -1128,7 +1128,7 @@ SFDynamicVolume::GetHandlePtr ProxyGroupBase::getHandleVolume          (void)
     return returnValue;
 }
 
-SFDynamicVolume::EditHandlePtr ProxyGroupBase::editHandleVolume         (void)
+EditFieldHandlePtr ProxyGroupBase::editHandleVolume         (void)
 {
     SFDynamicVolume::EditHandlePtr returnValue(
         new  SFDynamicVolume::EditHandle(
@@ -1140,7 +1140,7 @@ SFDynamicVolume::EditHandlePtr ProxyGroupBase::editHandleVolume         (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr ProxyGroupBase::getHandleIndices         (void)
+GetFieldHandlePtr ProxyGroupBase::getHandleIndices         (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1150,7 +1150,7 @@ SFUInt32::GetHandlePtr ProxyGroupBase::getHandleIndices         (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr ProxyGroupBase::editHandleIndices        (void)
+EditFieldHandlePtr ProxyGroupBase::editHandleIndices        (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -1162,7 +1162,7 @@ SFUInt32::EditHandlePtr ProxyGroupBase::editHandleIndices        (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr ProxyGroupBase::getHandleTriangles       (void)
+GetFieldHandlePtr ProxyGroupBase::getHandleTriangles       (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1172,7 +1172,7 @@ SFUInt32::GetHandlePtr ProxyGroupBase::getHandleTriangles       (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr ProxyGroupBase::editHandleTriangles      (void)
+EditFieldHandlePtr ProxyGroupBase::editHandleTriangles      (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -1184,7 +1184,7 @@ SFUInt32::EditHandlePtr ProxyGroupBase::editHandleTriangles      (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr ProxyGroupBase::getHandlePositions       (void)
+GetFieldHandlePtr ProxyGroupBase::getHandlePositions       (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1194,7 +1194,7 @@ SFUInt32::GetHandlePtr ProxyGroupBase::getHandlePositions       (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr ProxyGroupBase::editHandlePositions      (void)
+EditFieldHandlePtr ProxyGroupBase::editHandlePositions      (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -1206,7 +1206,7 @@ SFUInt32::EditHandlePtr ProxyGroupBase::editHandlePositions      (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr ProxyGroupBase::getHandleGeometries      (void)
+GetFieldHandlePtr ProxyGroupBase::getHandleGeometries      (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -1216,7 +1216,7 @@ SFUInt32::GetHandlePtr ProxyGroupBase::getHandleGeometries      (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr ProxyGroupBase::editHandleGeometries     (void)
+EditFieldHandlePtr ProxyGroupBase::editHandleGeometries     (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -1228,7 +1228,7 @@ SFUInt32::EditHandlePtr ProxyGroupBase::editHandleGeometries     (void)
     return returnValue;
 }
 
-SFString::GetHandlePtr ProxyGroupBase::getHandleAbsoluteUrl     (void)
+GetFieldHandlePtr ProxyGroupBase::getHandleAbsoluteUrl     (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -1238,7 +1238,7 @@ SFString::GetHandlePtr ProxyGroupBase::getHandleAbsoluteUrl     (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr ProxyGroupBase::editHandleAbsoluteUrl    (void)
+EditFieldHandlePtr ProxyGroupBase::editHandleAbsoluteUrl    (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -1250,7 +1250,7 @@ SFString::EditHandlePtr ProxyGroupBase::editHandleAbsoluteUrl    (void)
     return returnValue;
 }
 
-MFUInt8::GetHandlePtr ProxyGroupBase::getHandleInline          (void)
+GetFieldHandlePtr ProxyGroupBase::getHandleInline          (void) const
 {
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
@@ -1260,7 +1260,7 @@ MFUInt8::GetHandlePtr ProxyGroupBase::getHandleInline          (void)
     return returnValue;
 }
 
-MFUInt8::EditHandlePtr ProxyGroupBase::editHandleInline         (void)
+EditFieldHandlePtr ProxyGroupBase::editHandleInline         (void)
 {
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(

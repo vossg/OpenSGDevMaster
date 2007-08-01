@@ -161,8 +161,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         FormatsFieldId, FormatsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleFormats),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleFormats));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleFormats),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleFormats));
 
     oType.addInitialDesc(pDesc);
 
@@ -173,8 +173,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         SizeFieldId, SizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleSize),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleSize));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleSize),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -185,8 +185,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleColor),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleColor));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleColor),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -197,8 +197,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         ShadowColorFieldId, ShadowColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleShadowColor),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleShadowColor));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleShadowColor),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleShadowColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -209,8 +209,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         BgColorFieldId, BgColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleBgColor),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleBgColor));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleBgColor),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleBgColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -221,8 +221,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         FamilyFieldId, FamilyFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleFamily),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleFamily));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleFamily),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleFamily));
 
     oType.addInitialDesc(pDesc);
 
@@ -233,8 +233,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         ShadowOffsetFieldId, ShadowOffsetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleShadowOffset),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleShadowOffset));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleShadowOffset),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleShadowOffset));
 
     oType.addInitialDesc(pDesc);
 
@@ -245,8 +245,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         HorizontalAlignFieldId, HorizontalAlignFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleHorizontalAlign),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleHorizontalAlign));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleHorizontalAlign),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleHorizontalAlign));
 
     oType.addInitialDesc(pDesc);
 
@@ -257,8 +257,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         VerticalAlignFieldId, VerticalAlignFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleVerticalAlign),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleVerticalAlign));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleVerticalAlign),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleVerticalAlign));
 
     oType.addInitialDesc(pDesc);
 
@@ -269,8 +269,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         BorderColorFieldId, BorderColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleBorderColor),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleBorderColor));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleBorderColor),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleBorderColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -281,8 +281,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         BorderOffsetFieldId, BorderOffsetFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleBorderOffset),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleBorderOffset));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleBorderOffset),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleBorderOffset));
 
     oType.addInitialDesc(pDesc);
 
@@ -293,8 +293,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         TextMarginFieldId, TextMarginFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleTextMargin),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleTextMargin));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleTextMargin),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleTextMargin));
 
     oType.addInitialDesc(pDesc);
 }
@@ -1064,7 +1064,7 @@ SimpleStatisticsForegroundBase::~SimpleStatisticsForegroundBase(void)
 }
 
 
-MFString::GetHandlePtr SimpleStatisticsForegroundBase::getHandleFormats         (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleFormats         (void) const
 {
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
@@ -1074,7 +1074,7 @@ MFString::GetHandlePtr SimpleStatisticsForegroundBase::getHandleFormats         
     return returnValue;
 }
 
-MFString::EditHandlePtr SimpleStatisticsForegroundBase::editHandleFormats        (void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleFormats        (void)
 {
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
@@ -1086,7 +1086,7 @@ MFString::EditHandlePtr SimpleStatisticsForegroundBase::editHandleFormats       
     return returnValue;
 }
 
-SFReal32::GetHandlePtr SimpleStatisticsForegroundBase::getHandleSize            (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleSize            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -1096,7 +1096,7 @@ SFReal32::GetHandlePtr SimpleStatisticsForegroundBase::getHandleSize            
     return returnValue;
 }
 
-SFReal32::EditHandlePtr SimpleStatisticsForegroundBase::editHandleSize           (void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleSize           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -1108,7 +1108,7 @@ SFReal32::EditHandlePtr SimpleStatisticsForegroundBase::editHandleSize          
     return returnValue;
 }
 
-SFColor4f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleColor           (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleColor           (void) const
 {
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
@@ -1118,7 +1118,7 @@ SFColor4f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleColor          
     return returnValue;
 }
 
-SFColor4f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleColor          (void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleColor          (void)
 {
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
@@ -1130,7 +1130,7 @@ SFColor4f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleColor        
     return returnValue;
 }
 
-SFColor4f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleShadowColor     (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleShadowColor     (void) const
 {
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
@@ -1140,7 +1140,7 @@ SFColor4f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleShadowColor    
     return returnValue;
 }
 
-SFColor4f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleShadowColor    (void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleShadowColor    (void)
 {
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
@@ -1152,7 +1152,7 @@ SFColor4f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleShadowColor  
     return returnValue;
 }
 
-SFColor4f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleBgColor         (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleBgColor         (void) const
 {
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
@@ -1162,7 +1162,7 @@ SFColor4f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleBgColor        
     return returnValue;
 }
 
-SFColor4f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleBgColor        (void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleBgColor        (void)
 {
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
@@ -1174,7 +1174,7 @@ SFColor4f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleBgColor      
     return returnValue;
 }
 
-SFString::GetHandlePtr SimpleStatisticsForegroundBase::getHandleFamily          (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleFamily          (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -1184,7 +1184,7 @@ SFString::GetHandlePtr SimpleStatisticsForegroundBase::getHandleFamily          
     return returnValue;
 }
 
-SFString::EditHandlePtr SimpleStatisticsForegroundBase::editHandleFamily         (void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleFamily         (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -1196,7 +1196,7 @@ SFString::EditHandlePtr SimpleStatisticsForegroundBase::editHandleFamily        
     return returnValue;
 }
 
-SFVec2f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleShadowOffset    (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleShadowOffset    (void) const
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
@@ -1206,7 +1206,7 @@ SFVec2f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleShadowOffset    (
     return returnValue;
 }
 
-SFVec2f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleShadowOffset   (void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleShadowOffset   (void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
@@ -1218,7 +1218,7 @@ SFVec2f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleShadowOffset   
     return returnValue;
 }
 
-SFUInt8::GetHandlePtr SimpleStatisticsForegroundBase::getHandleHorizontalAlign (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleHorizontalAlign (void) const
 {
     SFUInt8::GetHandlePtr returnValue(
         new  SFUInt8::GetHandle(
@@ -1228,7 +1228,7 @@ SFUInt8::GetHandlePtr SimpleStatisticsForegroundBase::getHandleHorizontalAlign (
     return returnValue;
 }
 
-SFUInt8::EditHandlePtr SimpleStatisticsForegroundBase::editHandleHorizontalAlign(void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleHorizontalAlign(void)
 {
     SFUInt8::EditHandlePtr returnValue(
         new  SFUInt8::EditHandle(
@@ -1240,7 +1240,7 @@ SFUInt8::EditHandlePtr SimpleStatisticsForegroundBase::editHandleHorizontalAlign
     return returnValue;
 }
 
-SFUInt8::GetHandlePtr SimpleStatisticsForegroundBase::getHandleVerticalAlign   (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleVerticalAlign   (void) const
 {
     SFUInt8::GetHandlePtr returnValue(
         new  SFUInt8::GetHandle(
@@ -1250,7 +1250,7 @@ SFUInt8::GetHandlePtr SimpleStatisticsForegroundBase::getHandleVerticalAlign   (
     return returnValue;
 }
 
-SFUInt8::EditHandlePtr SimpleStatisticsForegroundBase::editHandleVerticalAlign  (void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleVerticalAlign  (void)
 {
     SFUInt8::EditHandlePtr returnValue(
         new  SFUInt8::EditHandle(
@@ -1262,7 +1262,7 @@ SFUInt8::EditHandlePtr SimpleStatisticsForegroundBase::editHandleVerticalAlign  
     return returnValue;
 }
 
-SFColor4f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleBorderColor     (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleBorderColor     (void) const
 {
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
@@ -1272,7 +1272,7 @@ SFColor4f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleBorderColor    
     return returnValue;
 }
 
-SFColor4f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleBorderColor    (void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleBorderColor    (void)
 {
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
@@ -1284,7 +1284,7 @@ SFColor4f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleBorderColor  
     return returnValue;
 }
 
-SFVec2f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleBorderOffset    (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleBorderOffset    (void) const
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
@@ -1294,7 +1294,7 @@ SFVec2f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleBorderOffset    (
     return returnValue;
 }
 
-SFVec2f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleBorderOffset   (void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleBorderOffset   (void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
@@ -1306,7 +1306,7 @@ SFVec2f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleBorderOffset   
     return returnValue;
 }
 
-SFVec2f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleTextMargin      (void)
+GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleTextMargin      (void) const
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
@@ -1316,7 +1316,7 @@ SFVec2f::GetHandlePtr SimpleStatisticsForegroundBase::getHandleTextMargin      (
     return returnValue;
 }
 
-SFVec2f::EditHandlePtr SimpleStatisticsForegroundBase::editHandleTextMargin     (void)
+EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleTextMargin     (void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(

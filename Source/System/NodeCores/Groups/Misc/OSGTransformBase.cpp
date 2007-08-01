@@ -99,8 +99,8 @@ void TransformBase::classDescInserter(TypeObject &oType)
         MatrixFieldId, MatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TransformBase::editHandleMatrix),
-        reinterpret_cast<FieldGetMethodSig >(&TransformBase::getHandleMatrix));
+        static_cast<FieldEditMethodSig>(&TransformBase::editHandleMatrix),
+        static_cast<FieldGetMethodSig >(&TransformBase::getHandleMatrix));
 
     oType.addInitialDesc(pDesc);
 }
@@ -279,7 +279,7 @@ TransformBase::~TransformBase(void)
 }
 
 
-SFMatrixr::GetHandlePtr TransformBase::getHandleMatrix          (void)
+GetFieldHandlePtr TransformBase::getHandleMatrix          (void) const
 {
     SFMatrixr::GetHandlePtr returnValue(
         new  SFMatrixr::GetHandle(
@@ -289,7 +289,7 @@ SFMatrixr::GetHandlePtr TransformBase::getHandleMatrix          (void)
     return returnValue;
 }
 
-SFMatrixr::EditHandlePtr TransformBase::editHandleMatrix         (void)
+EditFieldHandlePtr TransformBase::editHandleMatrix         (void)
 {
     SFMatrixr::EditHandlePtr returnValue(
         new  SFMatrixr::EditHandle(

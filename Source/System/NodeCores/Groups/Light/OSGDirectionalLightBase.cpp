@@ -99,8 +99,8 @@ void DirectionalLightBase::classDescInserter(TypeObject &oType)
         DirectionFieldId, DirectionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&DirectionalLightBase::editHandleDirection),
-        reinterpret_cast<FieldGetMethodSig >(&DirectionalLightBase::getHandleDirection));
+        static_cast<FieldEditMethodSig>(&DirectionalLightBase::editHandleDirection),
+        static_cast<FieldGetMethodSig >(&DirectionalLightBase::getHandleDirection));
 
     oType.addInitialDesc(pDesc);
 }
@@ -279,7 +279,7 @@ DirectionalLightBase::~DirectionalLightBase(void)
 }
 
 
-SFVec3r::GetHandlePtr DirectionalLightBase::getHandleDirection       (void)
+GetFieldHandlePtr DirectionalLightBase::getHandleDirection       (void) const
 {
     SFVec3r::GetHandlePtr returnValue(
         new  SFVec3r::GetHandle(
@@ -289,7 +289,7 @@ SFVec3r::GetHandlePtr DirectionalLightBase::getHandleDirection       (void)
     return returnValue;
 }
 
-SFVec3r::EditHandlePtr DirectionalLightBase::editHandleDirection      (void)
+EditFieldHandlePtr DirectionalLightBase::editHandleDirection      (void)
 {
     SFVec3r::EditHandlePtr returnValue(
         new  SFVec3r::EditHandle(

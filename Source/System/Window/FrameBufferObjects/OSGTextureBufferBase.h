@@ -271,14 +271,14 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFTextureObjChunkPtr::GetHandlePtr  getHandleTexture         (void);
-    SFTextureObjChunkPtr::EditHandlePtr editHandleTexture        (void);
-    SFGLenum::GetHandlePtr  getHandleTexTarget       (void);
-    SFGLenum::EditHandlePtr editHandleTexTarget      (void);
-    SFUInt32::GetHandlePtr  getHandleLevel           (void);
-    SFUInt32::EditHandlePtr editHandleLevel          (void);
-    SFUInt32::GetHandlePtr  getHandleZoffset         (void);
-    SFUInt32::EditHandlePtr editHandleZoffset        (void);
+    GetFieldHandlePtr  getHandleTexture         (void) const;
+    EditFieldHandlePtr editHandleTexture        (void);
+    GetFieldHandlePtr  getHandleTexTarget       (void) const;
+    EditFieldHandlePtr editHandleTexTarget      (void);
+    GetFieldHandlePtr  getHandleLevel           (void) const;
+    EditFieldHandlePtr editHandleLevel          (void);
+    GetFieldHandlePtr  getHandleZoffset         (void) const;
+    EditFieldHandlePtr editHandleZoffset        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

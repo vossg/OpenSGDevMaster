@@ -146,8 +146,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         SrcFactorFieldId, SrcFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleSrcFactor),
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleSrcFactor));
+        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleSrcFactor),
+        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleSrcFactor));
 
     oType.addInitialDesc(pDesc);
 
@@ -158,8 +158,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         DestFactorFieldId, DestFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleDestFactor),
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleDestFactor));
+        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleDestFactor),
+        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleDestFactor));
 
     oType.addInitialDesc(pDesc);
 
@@ -170,8 +170,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         EquationFieldId, EquationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleEquation),
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleEquation));
+        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleEquation),
+        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleEquation));
 
     oType.addInitialDesc(pDesc);
 
@@ -182,8 +182,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleColor),
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleColor));
+        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleColor),
+        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -195,8 +195,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaFuncFieldId, AlphaFuncFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaFunc),
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaFunc));
+        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaFunc),
+        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaFunc));
 
     oType.addInitialDesc(pDesc);
 
@@ -207,8 +207,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaValueFieldId, AlphaValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaValue),
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaValue));
+        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaValue),
+        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaValue));
 
     oType.addInitialDesc(pDesc);
 
@@ -221,8 +221,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaSrcFactorFieldId, AlphaSrcFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaSrcFactor),
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaSrcFactor));
+        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaSrcFactor),
+        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaSrcFactor));
 
     oType.addInitialDesc(pDesc);
 
@@ -235,8 +235,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaDestFactorFieldId, AlphaDestFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaDestFactor),
-        reinterpret_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaDestFactor));
+        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaDestFactor),
+        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaDestFactor));
 
     oType.addInitialDesc(pDesc);
 }
@@ -746,7 +746,7 @@ BlendChunkBase::~BlendChunkBase(void)
 }
 
 
-SFGLenum::GetHandlePtr BlendChunkBase::getHandleSrcFactor       (void)
+GetFieldHandlePtr BlendChunkBase::getHandleSrcFactor       (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -756,7 +756,7 @@ SFGLenum::GetHandlePtr BlendChunkBase::getHandleSrcFactor       (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr BlendChunkBase::editHandleSrcFactor      (void)
+EditFieldHandlePtr BlendChunkBase::editHandleSrcFactor      (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -768,7 +768,7 @@ SFGLenum::EditHandlePtr BlendChunkBase::editHandleSrcFactor      (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr BlendChunkBase::getHandleDestFactor      (void)
+GetFieldHandlePtr BlendChunkBase::getHandleDestFactor      (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -778,7 +778,7 @@ SFGLenum::GetHandlePtr BlendChunkBase::getHandleDestFactor      (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr BlendChunkBase::editHandleDestFactor     (void)
+EditFieldHandlePtr BlendChunkBase::editHandleDestFactor     (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -790,7 +790,7 @@ SFGLenum::EditHandlePtr BlendChunkBase::editHandleDestFactor     (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr BlendChunkBase::getHandleEquation        (void)
+GetFieldHandlePtr BlendChunkBase::getHandleEquation        (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -800,7 +800,7 @@ SFGLenum::GetHandlePtr BlendChunkBase::getHandleEquation        (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr BlendChunkBase::editHandleEquation       (void)
+EditFieldHandlePtr BlendChunkBase::editHandleEquation       (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -812,7 +812,7 @@ SFGLenum::EditHandlePtr BlendChunkBase::editHandleEquation       (void)
     return returnValue;
 }
 
-SFColor4f::GetHandlePtr BlendChunkBase::getHandleColor           (void)
+GetFieldHandlePtr BlendChunkBase::getHandleColor           (void) const
 {
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
@@ -822,7 +822,7 @@ SFColor4f::GetHandlePtr BlendChunkBase::getHandleColor           (void)
     return returnValue;
 }
 
-SFColor4f::EditHandlePtr BlendChunkBase::editHandleColor          (void)
+EditFieldHandlePtr BlendChunkBase::editHandleColor          (void)
 {
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
@@ -834,7 +834,7 @@ SFColor4f::EditHandlePtr BlendChunkBase::editHandleColor          (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr BlendChunkBase::getHandleAlphaFunc       (void)
+GetFieldHandlePtr BlendChunkBase::getHandleAlphaFunc       (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -844,7 +844,7 @@ SFGLenum::GetHandlePtr BlendChunkBase::getHandleAlphaFunc       (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr BlendChunkBase::editHandleAlphaFunc      (void)
+EditFieldHandlePtr BlendChunkBase::editHandleAlphaFunc      (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -856,7 +856,7 @@ SFGLenum::EditHandlePtr BlendChunkBase::editHandleAlphaFunc      (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr BlendChunkBase::getHandleAlphaValue      (void)
+GetFieldHandlePtr BlendChunkBase::getHandleAlphaValue      (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -866,7 +866,7 @@ SFReal32::GetHandlePtr BlendChunkBase::getHandleAlphaValue      (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr BlendChunkBase::editHandleAlphaValue     (void)
+EditFieldHandlePtr BlendChunkBase::editHandleAlphaValue     (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -878,7 +878,7 @@ SFReal32::EditHandlePtr BlendChunkBase::editHandleAlphaValue     (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr BlendChunkBase::getHandleAlphaSrcFactor  (void)
+GetFieldHandlePtr BlendChunkBase::getHandleAlphaSrcFactor  (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -888,7 +888,7 @@ SFGLenum::GetHandlePtr BlendChunkBase::getHandleAlphaSrcFactor  (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr BlendChunkBase::editHandleAlphaSrcFactor (void)
+EditFieldHandlePtr BlendChunkBase::editHandleAlphaSrcFactor (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -900,7 +900,7 @@ SFGLenum::EditHandlePtr BlendChunkBase::editHandleAlphaSrcFactor (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr BlendChunkBase::getHandleAlphaDestFactor (void)
+GetFieldHandlePtr BlendChunkBase::getHandleAlphaDestFactor (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -910,7 +910,7 @@ SFGLenum::GetHandlePtr BlendChunkBase::getHandleAlphaDestFactor (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr BlendChunkBase::editHandleAlphaDestFactor(void)
+EditFieldHandlePtr BlendChunkBase::editHandleAlphaDestFactor(void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(

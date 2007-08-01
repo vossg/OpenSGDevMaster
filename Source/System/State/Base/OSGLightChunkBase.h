@@ -397,28 +397,28 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFColor4r::GetHandlePtr  getHandleDiffuse         (void);
-    SFColor4r::EditHandlePtr editHandleDiffuse        (void);
-    SFColor4r::GetHandlePtr  getHandleAmbient         (void);
-    SFColor4r::EditHandlePtr editHandleAmbient        (void);
-    SFColor4r::GetHandlePtr  getHandleSpecular        (void);
-    SFColor4r::EditHandlePtr editHandleSpecular       (void);
-    SFVec4r::GetHandlePtr  getHandlePosition        (void);
-    SFVec4r::EditHandlePtr editHandlePosition       (void);
-    SFVec3r::GetHandlePtr  getHandleDirection       (void);
-    SFVec3r::EditHandlePtr editHandleDirection      (void);
-    SFReal::GetHandlePtr  getHandleExponent        (void);
-    SFReal::EditHandlePtr editHandleExponent       (void);
-    SFReal::GetHandlePtr  getHandleCutoff          (void);
-    SFReal::EditHandlePtr editHandleCutoff         (void);
-    SFReal::GetHandlePtr  getHandleConstantAttenuation (void);
-    SFReal::EditHandlePtr editHandleConstantAttenuation(void);
-    SFReal::GetHandlePtr  getHandleLinearAttenuation (void);
-    SFReal::EditHandlePtr editHandleLinearAttenuation(void);
-    SFReal::GetHandlePtr  getHandleQuadraticAttenuation (void);
-    SFReal::EditHandlePtr editHandleQuadraticAttenuation(void);
-    SFNodePtr::GetHandlePtr  getHandleBeacon          (void);
-    SFNodePtr::EditHandlePtr editHandleBeacon         (void);
+    GetFieldHandlePtr  getHandleDiffuse         (void) const;
+    EditFieldHandlePtr editHandleDiffuse        (void);
+    GetFieldHandlePtr  getHandleAmbient         (void) const;
+    EditFieldHandlePtr editHandleAmbient        (void);
+    GetFieldHandlePtr  getHandleSpecular        (void) const;
+    EditFieldHandlePtr editHandleSpecular       (void);
+    GetFieldHandlePtr  getHandlePosition        (void) const;
+    EditFieldHandlePtr editHandlePosition       (void);
+    GetFieldHandlePtr  getHandleDirection       (void) const;
+    EditFieldHandlePtr editHandleDirection      (void);
+    GetFieldHandlePtr  getHandleExponent        (void) const;
+    EditFieldHandlePtr editHandleExponent       (void);
+    GetFieldHandlePtr  getHandleCutoff          (void) const;
+    EditFieldHandlePtr editHandleCutoff         (void);
+    GetFieldHandlePtr  getHandleConstantAttenuation (void) const;
+    EditFieldHandlePtr editHandleConstantAttenuation(void);
+    GetFieldHandlePtr  getHandleLinearAttenuation (void) const;
+    EditFieldHandlePtr editHandleLinearAttenuation(void);
+    GetFieldHandlePtr  getHandleQuadraticAttenuation (void) const;
+    EditFieldHandlePtr editHandleQuadraticAttenuation(void);
+    GetFieldHandlePtr  getHandleBeacon          (void) const;
+    EditFieldHandlePtr editHandleBeacon         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -103,8 +103,8 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ContainerPoolBase::editHandleName),
-        reinterpret_cast<FieldGetMethodSig >(&ContainerPoolBase::getHandleName));
+        static_cast<FieldEditMethodSig>(&ContainerPoolBase::editHandleName),
+        static_cast<FieldGetMethodSig >(&ContainerPoolBase::getHandleName));
 
     oType.addInitialDesc(pDesc);
 
@@ -115,8 +115,8 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
         ContainersFieldId, ContainersFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ContainerPoolBase::editHandleContainers),
-        reinterpret_cast<FieldGetMethodSig >(&ContainerPoolBase::getHandleContainers));
+        static_cast<FieldEditMethodSig>(&ContainerPoolBase::editHandleContainers),
+        static_cast<FieldGetMethodSig >(&ContainerPoolBase::getHandleContainers));
 
     oType.addInitialDesc(pDesc);
 }
@@ -478,7 +478,7 @@ void ContainerPoolBase::onCreate(const ContainerPool *source)
     }
 }
 
-SFString::GetHandlePtr ContainerPoolBase::getHandleName            (void)
+GetFieldHandlePtr ContainerPoolBase::getHandleName            (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -488,7 +488,7 @@ SFString::GetHandlePtr ContainerPoolBase::getHandleName            (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr ContainerPoolBase::editHandleName           (void)
+EditFieldHandlePtr ContainerPoolBase::editHandleName           (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -500,7 +500,7 @@ SFString::EditHandlePtr ContainerPoolBase::editHandleName           (void)
     return returnValue;
 }
 
-MFFieldContainerPtr::GetHandlePtr ContainerPoolBase::getHandleContainers      (void)
+GetFieldHandlePtr ContainerPoolBase::getHandleContainers      (void) const
 {
     MFFieldContainerPtr::GetHandlePtr returnValue(
         new  MFFieldContainerPtr::GetHandle(
@@ -510,7 +510,7 @@ MFFieldContainerPtr::GetHandlePtr ContainerPoolBase::getHandleContainers      (v
     return returnValue;
 }
 
-MFFieldContainerPtr::EditHandlePtr ContainerPoolBase::editHandleContainers     (void)
+EditFieldHandlePtr ContainerPoolBase::editHandleContainers     (void)
 {
     MFFieldContainerPtr::EditHandlePtr returnValue(
         new  MFFieldContainerPtr::EditHandle(

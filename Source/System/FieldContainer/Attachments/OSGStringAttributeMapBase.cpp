@@ -104,8 +104,8 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
         KeysFieldId, KeysFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StringAttributeMapBase::editHandleKeys),
-        reinterpret_cast<FieldGetMethodSig >(&StringAttributeMapBase::getHandleKeys));
+        static_cast<FieldEditMethodSig>(&StringAttributeMapBase::editHandleKeys),
+        static_cast<FieldGetMethodSig >(&StringAttributeMapBase::getHandleKeys));
 
     oType.addInitialDesc(pDesc);
 
@@ -116,8 +116,8 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
         ValuesFieldId, ValuesFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&StringAttributeMapBase::editHandleValues),
-        reinterpret_cast<FieldGetMethodSig >(&StringAttributeMapBase::getHandleValues));
+        static_cast<FieldEditMethodSig>(&StringAttributeMapBase::editHandleValues),
+        static_cast<FieldGetMethodSig >(&StringAttributeMapBase::getHandleValues));
 
     oType.addInitialDesc(pDesc);
 }
@@ -504,7 +504,7 @@ StringAttributeMapBase::~StringAttributeMapBase(void)
 }
 
 
-MFString::GetHandlePtr StringAttributeMapBase::getHandleKeys            (void)
+GetFieldHandlePtr StringAttributeMapBase::getHandleKeys            (void) const
 {
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
@@ -514,7 +514,7 @@ MFString::GetHandlePtr StringAttributeMapBase::getHandleKeys            (void)
     return returnValue;
 }
 
-MFString::EditHandlePtr StringAttributeMapBase::editHandleKeys           (void)
+EditFieldHandlePtr StringAttributeMapBase::editHandleKeys           (void)
 {
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
@@ -526,7 +526,7 @@ MFString::EditHandlePtr StringAttributeMapBase::editHandleKeys           (void)
     return returnValue;
 }
 
-MFString::GetHandlePtr StringAttributeMapBase::getHandleValues          (void)
+GetFieldHandlePtr StringAttributeMapBase::getHandleValues          (void) const
 {
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
@@ -536,7 +536,7 @@ MFString::GetHandlePtr StringAttributeMapBase::getHandleValues          (void)
     return returnValue;
 }
 
-MFString::EditHandlePtr StringAttributeMapBase::editHandleValues         (void)
+EditFieldHandlePtr StringAttributeMapBase::editHandleValues         (void)
 {
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(

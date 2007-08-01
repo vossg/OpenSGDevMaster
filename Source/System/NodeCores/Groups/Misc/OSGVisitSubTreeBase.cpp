@@ -106,8 +106,8 @@ void VisitSubTreeBase::classDescInserter(TypeObject &oType)
         SubTreeRootFieldId, SubTreeRootFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&VisitSubTreeBase::editHandleSubTreeRoot),
-        reinterpret_cast<FieldGetMethodSig >(&VisitSubTreeBase::getHandleSubTreeRoot));
+        static_cast<FieldEditMethodSig>(&VisitSubTreeBase::editHandleSubTreeRoot),
+        static_cast<FieldGetMethodSig >(&VisitSubTreeBase::getHandleSubTreeRoot));
 
     oType.addInitialDesc(pDesc);
 }
@@ -293,7 +293,7 @@ void VisitSubTreeBase::onCreate(const VisitSubTree *source)
     }
 }
 
-SFNodePtr::GetHandlePtr VisitSubTreeBase::getHandleSubTreeRoot     (void)
+GetFieldHandlePtr VisitSubTreeBase::getHandleSubTreeRoot     (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -303,7 +303,7 @@ SFNodePtr::GetHandlePtr VisitSubTreeBase::getHandleSubTreeRoot     (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr VisitSubTreeBase::editHandleSubTreeRoot    (void)
+EditFieldHandlePtr VisitSubTreeBase::editHandleSubTreeRoot    (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(

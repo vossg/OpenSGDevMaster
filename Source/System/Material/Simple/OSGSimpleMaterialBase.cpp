@@ -138,8 +138,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleAmbient),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleAmbient));
+        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleAmbient),
+        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleAmbient));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleDiffuse),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleDiffuse));
+        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleDiffuse),
+        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleDiffuse));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleSpecular),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleSpecular));
+        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleSpecular),
+        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleSpecular));
 
     oType.addInitialDesc(pDesc);
 
@@ -174,8 +174,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         ShininessFieldId, ShininessFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleShininess),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleShininess));
+        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleShininess),
+        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleShininess));
 
     oType.addInitialDesc(pDesc);
 
@@ -186,8 +186,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         EmissionFieldId, EmissionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleEmission),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleEmission));
+        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleEmission),
+        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleEmission));
 
     oType.addInitialDesc(pDesc);
 
@@ -198,8 +198,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         TransparencyFieldId, TransparencyFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleTransparency),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleTransparency));
+        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleTransparency),
+        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleTransparency));
 
     oType.addInitialDesc(pDesc);
 
@@ -210,8 +210,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         LitFieldId, LitFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleLit),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleLit));
+        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleLit),
+        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleLit));
 
     oType.addInitialDesc(pDesc);
 
@@ -222,8 +222,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         ColorMaterialFieldId, ColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleColorMaterial),
-        reinterpret_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleColorMaterial));
+        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleColorMaterial),
+        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleColorMaterial));
 
     oType.addInitialDesc(pDesc);
 }
@@ -722,7 +722,7 @@ SimpleMaterialBase::~SimpleMaterialBase(void)
 }
 
 
-SFColor3r::GetHandlePtr SimpleMaterialBase::getHandleAmbient         (void)
+GetFieldHandlePtr SimpleMaterialBase::getHandleAmbient         (void) const
 {
     SFColor3r::GetHandlePtr returnValue(
         new  SFColor3r::GetHandle(
@@ -732,7 +732,7 @@ SFColor3r::GetHandlePtr SimpleMaterialBase::getHandleAmbient         (void)
     return returnValue;
 }
 
-SFColor3r::EditHandlePtr SimpleMaterialBase::editHandleAmbient        (void)
+EditFieldHandlePtr SimpleMaterialBase::editHandleAmbient        (void)
 {
     SFColor3r::EditHandlePtr returnValue(
         new  SFColor3r::EditHandle(
@@ -744,7 +744,7 @@ SFColor3r::EditHandlePtr SimpleMaterialBase::editHandleAmbient        (void)
     return returnValue;
 }
 
-SFColor3r::GetHandlePtr SimpleMaterialBase::getHandleDiffuse         (void)
+GetFieldHandlePtr SimpleMaterialBase::getHandleDiffuse         (void) const
 {
     SFColor3r::GetHandlePtr returnValue(
         new  SFColor3r::GetHandle(
@@ -754,7 +754,7 @@ SFColor3r::GetHandlePtr SimpleMaterialBase::getHandleDiffuse         (void)
     return returnValue;
 }
 
-SFColor3r::EditHandlePtr SimpleMaterialBase::editHandleDiffuse        (void)
+EditFieldHandlePtr SimpleMaterialBase::editHandleDiffuse        (void)
 {
     SFColor3r::EditHandlePtr returnValue(
         new  SFColor3r::EditHandle(
@@ -766,7 +766,7 @@ SFColor3r::EditHandlePtr SimpleMaterialBase::editHandleDiffuse        (void)
     return returnValue;
 }
 
-SFColor3r::GetHandlePtr SimpleMaterialBase::getHandleSpecular        (void)
+GetFieldHandlePtr SimpleMaterialBase::getHandleSpecular        (void) const
 {
     SFColor3r::GetHandlePtr returnValue(
         new  SFColor3r::GetHandle(
@@ -776,7 +776,7 @@ SFColor3r::GetHandlePtr SimpleMaterialBase::getHandleSpecular        (void)
     return returnValue;
 }
 
-SFColor3r::EditHandlePtr SimpleMaterialBase::editHandleSpecular       (void)
+EditFieldHandlePtr SimpleMaterialBase::editHandleSpecular       (void)
 {
     SFColor3r::EditHandlePtr returnValue(
         new  SFColor3r::EditHandle(
@@ -788,7 +788,7 @@ SFColor3r::EditHandlePtr SimpleMaterialBase::editHandleSpecular       (void)
     return returnValue;
 }
 
-SFReal::GetHandlePtr SimpleMaterialBase::getHandleShininess       (void)
+GetFieldHandlePtr SimpleMaterialBase::getHandleShininess       (void) const
 {
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
@@ -798,7 +798,7 @@ SFReal::GetHandlePtr SimpleMaterialBase::getHandleShininess       (void)
     return returnValue;
 }
 
-SFReal::EditHandlePtr SimpleMaterialBase::editHandleShininess      (void)
+EditFieldHandlePtr SimpleMaterialBase::editHandleShininess      (void)
 {
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
@@ -810,7 +810,7 @@ SFReal::EditHandlePtr SimpleMaterialBase::editHandleShininess      (void)
     return returnValue;
 }
 
-SFColor3r::GetHandlePtr SimpleMaterialBase::getHandleEmission        (void)
+GetFieldHandlePtr SimpleMaterialBase::getHandleEmission        (void) const
 {
     SFColor3r::GetHandlePtr returnValue(
         new  SFColor3r::GetHandle(
@@ -820,7 +820,7 @@ SFColor3r::GetHandlePtr SimpleMaterialBase::getHandleEmission        (void)
     return returnValue;
 }
 
-SFColor3r::EditHandlePtr SimpleMaterialBase::editHandleEmission       (void)
+EditFieldHandlePtr SimpleMaterialBase::editHandleEmission       (void)
 {
     SFColor3r::EditHandlePtr returnValue(
         new  SFColor3r::EditHandle(
@@ -832,7 +832,7 @@ SFColor3r::EditHandlePtr SimpleMaterialBase::editHandleEmission       (void)
     return returnValue;
 }
 
-SFReal::GetHandlePtr SimpleMaterialBase::getHandleTransparency    (void)
+GetFieldHandlePtr SimpleMaterialBase::getHandleTransparency    (void) const
 {
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
@@ -842,7 +842,7 @@ SFReal::GetHandlePtr SimpleMaterialBase::getHandleTransparency    (void)
     return returnValue;
 }
 
-SFReal::EditHandlePtr SimpleMaterialBase::editHandleTransparency   (void)
+EditFieldHandlePtr SimpleMaterialBase::editHandleTransparency   (void)
 {
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
@@ -854,7 +854,7 @@ SFReal::EditHandlePtr SimpleMaterialBase::editHandleTransparency   (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr SimpleMaterialBase::getHandleLit             (void)
+GetFieldHandlePtr SimpleMaterialBase::getHandleLit             (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -864,7 +864,7 @@ SFBool::GetHandlePtr SimpleMaterialBase::getHandleLit             (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr SimpleMaterialBase::editHandleLit            (void)
+EditFieldHandlePtr SimpleMaterialBase::editHandleLit            (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -876,7 +876,7 @@ SFBool::EditHandlePtr SimpleMaterialBase::editHandleLit            (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr SimpleMaterialBase::getHandleColorMaterial   (void)
+GetFieldHandlePtr SimpleMaterialBase::getHandleColorMaterial   (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -886,7 +886,7 @@ SFGLenum::GetHandlePtr SimpleMaterialBase::getHandleColorMaterial   (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr SimpleMaterialBase::editHandleColorMaterial  (void)
+EditFieldHandlePtr SimpleMaterialBase::editHandleColorMaterial  (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(

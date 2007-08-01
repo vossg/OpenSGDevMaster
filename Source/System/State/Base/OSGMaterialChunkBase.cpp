@@ -163,8 +163,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleDiffuse),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleDiffuse));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleDiffuse),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleDiffuse));
 
     oType.addInitialDesc(pDesc);
 
@@ -175,8 +175,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleAmbient),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleAmbient));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleAmbient),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleAmbient));
 
     oType.addInitialDesc(pDesc);
 
@@ -187,8 +187,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleSpecular),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleSpecular));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleSpecular),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleSpecular));
 
     oType.addInitialDesc(pDesc);
 
@@ -199,8 +199,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         EmissionFieldId, EmissionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleEmission),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleEmission));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleEmission),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleEmission));
 
     oType.addInitialDesc(pDesc);
 
@@ -211,8 +211,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         ShininessFieldId, ShininessFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleShininess),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleShininess));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleShininess),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleShininess));
 
     oType.addInitialDesc(pDesc);
 
@@ -224,8 +224,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         LitFieldId, LitFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleLit),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleLit));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleLit),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleLit));
 
     oType.addInitialDesc(pDesc);
 
@@ -236,8 +236,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         ColorMaterialFieldId, ColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleColorMaterial),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleColorMaterial));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleColorMaterial),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleColorMaterial));
 
     oType.addInitialDesc(pDesc);
 
@@ -250,8 +250,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackMaterialFieldId, BackMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackMaterial),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackMaterial));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackMaterial),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackMaterial));
 
     oType.addInitialDesc(pDesc);
 
@@ -262,8 +262,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackDiffuseFieldId, BackDiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackDiffuse),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackDiffuse));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackDiffuse),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackDiffuse));
 
     oType.addInitialDesc(pDesc);
 
@@ -274,8 +274,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackAmbientFieldId, BackAmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackAmbient),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackAmbient));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackAmbient),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackAmbient));
 
     oType.addInitialDesc(pDesc);
 
@@ -286,8 +286,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackSpecularFieldId, BackSpecularFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackSpecular),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackSpecular));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackSpecular),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackSpecular));
 
     oType.addInitialDesc(pDesc);
 
@@ -298,8 +298,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackEmissionFieldId, BackEmissionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackEmission),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackEmission));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackEmission),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackEmission));
 
     oType.addInitialDesc(pDesc);
 
@@ -310,8 +310,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackShininessFieldId, BackShininessFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackShininess),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackShininess));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackShininess),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackShininess));
 
     oType.addInitialDesc(pDesc);
 
@@ -322,8 +322,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackColorMaterialFieldId, BackColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackColorMaterial),
-        reinterpret_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackColorMaterial));
+        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackColorMaterial),
+        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackColorMaterial));
 
     oType.addInitialDesc(pDesc);
 }
@@ -1057,7 +1057,7 @@ MaterialChunkBase::~MaterialChunkBase(void)
 }
 
 
-SFColor4r::GetHandlePtr MaterialChunkBase::getHandleDiffuse         (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleDiffuse         (void) const
 {
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
@@ -1067,7 +1067,7 @@ SFColor4r::GetHandlePtr MaterialChunkBase::getHandleDiffuse         (void)
     return returnValue;
 }
 
-SFColor4r::EditHandlePtr MaterialChunkBase::editHandleDiffuse        (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleDiffuse        (void)
 {
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
@@ -1079,7 +1079,7 @@ SFColor4r::EditHandlePtr MaterialChunkBase::editHandleDiffuse        (void)
     return returnValue;
 }
 
-SFColor4r::GetHandlePtr MaterialChunkBase::getHandleAmbient         (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleAmbient         (void) const
 {
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
@@ -1089,7 +1089,7 @@ SFColor4r::GetHandlePtr MaterialChunkBase::getHandleAmbient         (void)
     return returnValue;
 }
 
-SFColor4r::EditHandlePtr MaterialChunkBase::editHandleAmbient        (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleAmbient        (void)
 {
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
@@ -1101,7 +1101,7 @@ SFColor4r::EditHandlePtr MaterialChunkBase::editHandleAmbient        (void)
     return returnValue;
 }
 
-SFColor4r::GetHandlePtr MaterialChunkBase::getHandleSpecular        (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleSpecular        (void) const
 {
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
@@ -1111,7 +1111,7 @@ SFColor4r::GetHandlePtr MaterialChunkBase::getHandleSpecular        (void)
     return returnValue;
 }
 
-SFColor4r::EditHandlePtr MaterialChunkBase::editHandleSpecular       (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleSpecular       (void)
 {
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
@@ -1123,7 +1123,7 @@ SFColor4r::EditHandlePtr MaterialChunkBase::editHandleSpecular       (void)
     return returnValue;
 }
 
-SFColor4r::GetHandlePtr MaterialChunkBase::getHandleEmission        (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleEmission        (void) const
 {
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
@@ -1133,7 +1133,7 @@ SFColor4r::GetHandlePtr MaterialChunkBase::getHandleEmission        (void)
     return returnValue;
 }
 
-SFColor4r::EditHandlePtr MaterialChunkBase::editHandleEmission       (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleEmission       (void)
 {
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
@@ -1145,7 +1145,7 @@ SFColor4r::EditHandlePtr MaterialChunkBase::editHandleEmission       (void)
     return returnValue;
 }
 
-SFReal::GetHandlePtr MaterialChunkBase::getHandleShininess       (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleShininess       (void) const
 {
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
@@ -1155,7 +1155,7 @@ SFReal::GetHandlePtr MaterialChunkBase::getHandleShininess       (void)
     return returnValue;
 }
 
-SFReal::EditHandlePtr MaterialChunkBase::editHandleShininess      (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleShininess      (void)
 {
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
@@ -1167,7 +1167,7 @@ SFReal::EditHandlePtr MaterialChunkBase::editHandleShininess      (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr MaterialChunkBase::getHandleLit             (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleLit             (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1177,7 +1177,7 @@ SFBool::GetHandlePtr MaterialChunkBase::getHandleLit             (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr MaterialChunkBase::editHandleLit            (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleLit            (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1189,7 +1189,7 @@ SFBool::EditHandlePtr MaterialChunkBase::editHandleLit            (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr MaterialChunkBase::getHandleColorMaterial   (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleColorMaterial   (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -1199,7 +1199,7 @@ SFGLenum::GetHandlePtr MaterialChunkBase::getHandleColorMaterial   (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr MaterialChunkBase::editHandleColorMaterial  (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleColorMaterial  (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
@@ -1211,7 +1211,7 @@ SFGLenum::EditHandlePtr MaterialChunkBase::editHandleColorMaterial  (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr MaterialChunkBase::getHandleBackMaterial    (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleBackMaterial    (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -1221,7 +1221,7 @@ SFBool::GetHandlePtr MaterialChunkBase::getHandleBackMaterial    (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr MaterialChunkBase::editHandleBackMaterial   (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleBackMaterial   (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -1233,7 +1233,7 @@ SFBool::EditHandlePtr MaterialChunkBase::editHandleBackMaterial   (void)
     return returnValue;
 }
 
-SFColor4r::GetHandlePtr MaterialChunkBase::getHandleBackDiffuse     (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleBackDiffuse     (void) const
 {
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
@@ -1243,7 +1243,7 @@ SFColor4r::GetHandlePtr MaterialChunkBase::getHandleBackDiffuse     (void)
     return returnValue;
 }
 
-SFColor4r::EditHandlePtr MaterialChunkBase::editHandleBackDiffuse    (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleBackDiffuse    (void)
 {
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
@@ -1255,7 +1255,7 @@ SFColor4r::EditHandlePtr MaterialChunkBase::editHandleBackDiffuse    (void)
     return returnValue;
 }
 
-SFColor4r::GetHandlePtr MaterialChunkBase::getHandleBackAmbient     (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleBackAmbient     (void) const
 {
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
@@ -1265,7 +1265,7 @@ SFColor4r::GetHandlePtr MaterialChunkBase::getHandleBackAmbient     (void)
     return returnValue;
 }
 
-SFColor4r::EditHandlePtr MaterialChunkBase::editHandleBackAmbient    (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleBackAmbient    (void)
 {
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
@@ -1277,7 +1277,7 @@ SFColor4r::EditHandlePtr MaterialChunkBase::editHandleBackAmbient    (void)
     return returnValue;
 }
 
-SFColor4r::GetHandlePtr MaterialChunkBase::getHandleBackSpecular    (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleBackSpecular    (void) const
 {
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
@@ -1287,7 +1287,7 @@ SFColor4r::GetHandlePtr MaterialChunkBase::getHandleBackSpecular    (void)
     return returnValue;
 }
 
-SFColor4r::EditHandlePtr MaterialChunkBase::editHandleBackSpecular   (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleBackSpecular   (void)
 {
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
@@ -1299,7 +1299,7 @@ SFColor4r::EditHandlePtr MaterialChunkBase::editHandleBackSpecular   (void)
     return returnValue;
 }
 
-SFColor4r::GetHandlePtr MaterialChunkBase::getHandleBackEmission    (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleBackEmission    (void) const
 {
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
@@ -1309,7 +1309,7 @@ SFColor4r::GetHandlePtr MaterialChunkBase::getHandleBackEmission    (void)
     return returnValue;
 }
 
-SFColor4r::EditHandlePtr MaterialChunkBase::editHandleBackEmission   (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleBackEmission   (void)
 {
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
@@ -1321,7 +1321,7 @@ SFColor4r::EditHandlePtr MaterialChunkBase::editHandleBackEmission   (void)
     return returnValue;
 }
 
-SFReal::GetHandlePtr MaterialChunkBase::getHandleBackShininess   (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleBackShininess   (void) const
 {
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
@@ -1331,7 +1331,7 @@ SFReal::GetHandlePtr MaterialChunkBase::getHandleBackShininess   (void)
     return returnValue;
 }
 
-SFReal::EditHandlePtr MaterialChunkBase::editHandleBackShininess  (void)
+EditFieldHandlePtr MaterialChunkBase::editHandleBackShininess  (void)
 {
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
@@ -1343,7 +1343,7 @@ SFReal::EditHandlePtr MaterialChunkBase::editHandleBackShininess  (void)
     return returnValue;
 }
 
-SFGLenum::GetHandlePtr MaterialChunkBase::getHandleBackColorMaterial (void)
+GetFieldHandlePtr MaterialChunkBase::getHandleBackColorMaterial (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -1353,7 +1353,7 @@ SFGLenum::GetHandlePtr MaterialChunkBase::getHandleBackColorMaterial (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr MaterialChunkBase::editHandleBackColorMaterial(void)
+EditFieldHandlePtr MaterialChunkBase::editHandleBackColorMaterial(void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(

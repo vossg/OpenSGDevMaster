@@ -310,18 +310,18 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFReal32::GetHandlePtr  getHandleLeft            (void);
-    SFReal32::EditHandlePtr editHandleLeft           (void);
-    SFReal32::GetHandlePtr  getHandleRight           (void);
-    SFReal32::EditHandlePtr editHandleRight          (void);
-    SFReal32::GetHandlePtr  getHandleBottom          (void);
-    SFReal32::EditHandlePtr editHandleBottom         (void);
-    SFReal32::GetHandlePtr  getHandleTop             (void);
-    SFReal32::EditHandlePtr editHandleTop            (void);
-    SFUInt32::GetHandlePtr  getHandleFullWidth       (void);
-    SFUInt32::EditHandlePtr editHandleFullWidth      (void);
-    SFUInt32::GetHandlePtr  getHandleFullHeight      (void);
-    SFUInt32::EditHandlePtr editHandleFullHeight     (void);
+    GetFieldHandlePtr  getHandleLeft            (void) const;
+    EditFieldHandlePtr editHandleLeft           (void);
+    GetFieldHandlePtr  getHandleRight           (void) const;
+    EditFieldHandlePtr editHandleRight          (void);
+    GetFieldHandlePtr  getHandleBottom          (void) const;
+    EditFieldHandlePtr editHandleBottom         (void);
+    GetFieldHandlePtr  getHandleTop             (void) const;
+    EditFieldHandlePtr editHandleTop            (void);
+    GetFieldHandlePtr  getHandleFullWidth       (void) const;
+    EditFieldHandlePtr editHandleFullWidth      (void);
+    GetFieldHandlePtr  getHandleFullHeight      (void) const;
+    EditFieldHandlePtr editHandleFullHeight     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

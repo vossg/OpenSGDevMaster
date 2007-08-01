@@ -109,8 +109,8 @@ void ForegroundBase::classDescInserter(TypeObject &oType)
         ActiveFieldId, ActiveFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ForegroundBase::editHandleActive),
-        reinterpret_cast<FieldGetMethodSig >(&ForegroundBase::getHandleActive));
+        static_cast<FieldEditMethodSig>(&ForegroundBase::editHandleActive),
+        static_cast<FieldGetMethodSig >(&ForegroundBase::getHandleActive));
 
     oType.addInitialDesc(pDesc);
 }
@@ -278,7 +278,7 @@ ForegroundBase::~ForegroundBase(void)
 }
 
 
-SFBool::GetHandlePtr ForegroundBase::getHandleActive          (void)
+GetFieldHandlePtr ForegroundBase::getHandleActive          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -288,7 +288,7 @@ SFBool::GetHandlePtr ForegroundBase::getHandleActive          (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr ForegroundBase::editHandleActive         (void)
+EditFieldHandlePtr ForegroundBase::editHandleActive         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

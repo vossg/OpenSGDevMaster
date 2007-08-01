@@ -99,8 +99,8 @@ void MultiPassMaterialBase::classDescInserter(TypeObject &oType)
         MaterialsFieldId, MaterialsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&MultiPassMaterialBase::editHandleMaterials),
-        reinterpret_cast<FieldGetMethodSig >(&MultiPassMaterialBase::getHandleMaterials));
+        static_cast<FieldEditMethodSig>(&MultiPassMaterialBase::editHandleMaterials),
+        static_cast<FieldGetMethodSig >(&MultiPassMaterialBase::getHandleMaterials));
 
     oType.addInitialDesc(pDesc);
 }
@@ -422,7 +422,7 @@ void MultiPassMaterialBase::onCreate(const MultiPassMaterial *source)
     }
 }
 
-MFMaterialPtr::GetHandlePtr MultiPassMaterialBase::getHandleMaterials       (void)
+GetFieldHandlePtr MultiPassMaterialBase::getHandleMaterials       (void) const
 {
     MFMaterialPtr::GetHandlePtr returnValue(
         new  MFMaterialPtr::GetHandle(
@@ -432,7 +432,7 @@ MFMaterialPtr::GetHandlePtr MultiPassMaterialBase::getHandleMaterials       (voi
     return returnValue;
 }
 
-MFMaterialPtr::EditHandlePtr MultiPassMaterialBase::editHandleMaterials      (void)
+EditFieldHandlePtr MultiPassMaterialBase::editHandleMaterials      (void)
 {
     MFMaterialPtr::EditHandlePtr returnValue(
         new  MFMaterialPtr::EditHandle(

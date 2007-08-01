@@ -98,8 +98,8 @@ void TestStageBase::classDescInserter(TypeObject &oType)
         MessageFieldId, MessageFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TestStageBase::editHandleMessage),
-        reinterpret_cast<FieldGetMethodSig >(&TestStageBase::getHandleMessage));
+        static_cast<FieldEditMethodSig>(&TestStageBase::editHandleMessage),
+        static_cast<FieldGetMethodSig >(&TestStageBase::getHandleMessage));
 
     oType.addInitialDesc(pDesc);
 }
@@ -278,7 +278,7 @@ TestStageBase::~TestStageBase(void)
 }
 
 
-SFString::GetHandlePtr TestStageBase::getHandleMessage         (void)
+GetFieldHandlePtr TestStageBase::getHandleMessage         (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -288,7 +288,7 @@ SFString::GetHandlePtr TestStageBase::getHandleMessage         (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr TestStageBase::editHandleMessage        (void)
+EditFieldHandlePtr TestStageBase::editHandleMessage        (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(

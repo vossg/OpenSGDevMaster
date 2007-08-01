@@ -256,12 +256,12 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFDisplayP::GetHandlePtr  getHandleDisplay         (void);
-    SFDisplayP::EditHandlePtr editHandleDisplay        (void);
-    SFX11Window::GetHandlePtr  getHandleWindow          (void);
-    SFX11Window::EditHandlePtr editHandleWindow         (void);
-    SFGLXContext::GetHandlePtr  getHandleContext         (void);
-    SFGLXContext::EditHandlePtr editHandleContext        (void);
+    GetFieldHandlePtr  getHandleDisplay         (void) const;
+    EditFieldHandlePtr editHandleDisplay        (void);
+    GetFieldHandlePtr  getHandleWindow          (void) const;
+    EditFieldHandlePtr editHandleWindow         (void);
+    GetFieldHandlePtr  getHandleContext         (void) const;
+    EditFieldHandlePtr editHandleContext        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

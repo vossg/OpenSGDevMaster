@@ -102,8 +102,8 @@ void PointLightBase::classDescInserter(TypeObject &oType)
         PositionFieldId, PositionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&PointLightBase::editHandlePosition),
-        reinterpret_cast<FieldGetMethodSig >(&PointLightBase::getHandlePosition));
+        static_cast<FieldEditMethodSig>(&PointLightBase::editHandlePosition),
+        static_cast<FieldGetMethodSig >(&PointLightBase::getHandlePosition));
 
     oType.addInitialDesc(pDesc);
 }
@@ -288,7 +288,7 @@ PointLightBase::~PointLightBase(void)
 }
 
 
-SFPnt3r::GetHandlePtr PointLightBase::getHandlePosition        (void)
+GetFieldHandlePtr PointLightBase::getHandlePosition        (void) const
 {
     SFPnt3r::GetHandlePtr returnValue(
         new  SFPnt3r::GetHandle(
@@ -298,7 +298,7 @@ SFPnt3r::GetHandlePtr PointLightBase::getHandlePosition        (void)
     return returnValue;
 }
 
-SFPnt3r::EditHandlePtr PointLightBase::editHandlePosition       (void)
+EditFieldHandlePtr PointLightBase::editHandlePosition       (void)
 {
     SFPnt3r::EditHandlePtr returnValue(
         new  SFPnt3r::EditHandle(

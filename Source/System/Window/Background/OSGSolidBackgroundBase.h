@@ -238,10 +238,10 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFColor3r::GetHandlePtr  getHandleColor           (void);
-    SFColor3r::EditHandlePtr editHandleColor          (void);
-    SFReal32::GetHandlePtr  getHandleAlpha           (void);
-    SFReal32::EditHandlePtr editHandleAlpha          (void);
+    GetFieldHandlePtr  getHandleColor           (void) const;
+    EditFieldHandlePtr editHandleColor          (void);
+    GetFieldHandlePtr  getHandleAlpha           (void) const;
+    EditFieldHandlePtr editHandleAlpha          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

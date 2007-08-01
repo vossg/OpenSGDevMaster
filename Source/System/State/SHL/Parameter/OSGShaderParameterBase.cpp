@@ -103,8 +103,8 @@ void ShaderParameterBase::classDescInserter(TypeObject &oType)
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShaderParameterBase::editHandleName),
-        reinterpret_cast<FieldGetMethodSig >(&ShaderParameterBase::getHandleName));
+        static_cast<FieldEditMethodSig>(&ShaderParameterBase::editHandleName),
+        static_cast<FieldGetMethodSig >(&ShaderParameterBase::getHandleName));
 
     oType.addInitialDesc(pDesc);
 
@@ -296,7 +296,7 @@ void ShaderParameterBase::onCreate(const ShaderParameter *source)
     }
 }
 
-SFString::GetHandlePtr ShaderParameterBase::getHandleName            (void)
+GetFieldHandlePtr ShaderParameterBase::getHandleName            (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -306,7 +306,7 @@ SFString::GetHandlePtr ShaderParameterBase::getHandleName            (void)
     return returnValue;
 }
 
-SFString::EditHandlePtr ShaderParameterBase::editHandleName           (void)
+EditFieldHandlePtr ShaderParameterBase::editHandleName           (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -318,7 +318,7 @@ SFString::EditHandlePtr ShaderParameterBase::editHandleName           (void)
     return returnValue;
 }
 
-MFParentFieldContainerPtr::GetHandlePtr ShaderParameterBase::getHandleParents         (void)
+GetFieldHandlePtr ShaderParameterBase::getHandleParents         (void) const
 {
     MFParentFieldContainerPtr::GetHandlePtr returnValue(
         new  MFParentFieldContainerPtr::GetHandle(
@@ -328,7 +328,7 @@ MFParentFieldContainerPtr::GetHandlePtr ShaderParameterBase::getHandleParents   
     return returnValue;
 }
 
-MFParentFieldContainerPtr::EditHandlePtr ShaderParameterBase::editHandleParents        (void)
+EditFieldHandlePtr ShaderParameterBase::editHandleParents        (void)
 {
     MFParentFieldContainerPtr::EditHandlePtr returnValue;
 

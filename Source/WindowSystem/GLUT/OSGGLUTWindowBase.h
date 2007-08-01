@@ -220,8 +220,8 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFInt32::GetHandlePtr  getHandleGlutId          (void);
-    SFInt32::EditHandlePtr editHandleGlutId         (void);
+    GetFieldHandlePtr  getHandleGlutId          (void) const;
+    EditFieldHandlePtr editHandleGlutId         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

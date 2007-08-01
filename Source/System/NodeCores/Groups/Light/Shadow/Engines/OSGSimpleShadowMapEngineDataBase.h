@@ -271,20 +271,20 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFCameraPtr::GetHandlePtr  getHandleCamera          (void);
-    SFCameraPtr::EditHandlePtr editHandleCamera         (void);
-    SFTextureObjChunkPtr::GetHandlePtr  getHandleTexChunk        (void);
-    SFTextureObjChunkPtr::EditHandlePtr editHandleTexChunk       (void);
-    SFTextureBufferPtr::GetHandlePtr  getHandleTexBuffer       (void);
-    SFTextureBufferPtr::EditHandlePtr editHandleTexBuffer      (void);
-    SFLightChunkPtr::GetHandlePtr  getHandleLightChunk      (void);
-    SFLightChunkPtr::EditHandlePtr editHandleLightChunk     (void);
-    SFBlendChunkPtr::GetHandlePtr  getHandleBlendChunk      (void);
-    SFBlendChunkPtr::EditHandlePtr editHandleBlendChunk     (void);
-    SFTexGenChunkPtr::GetHandlePtr  getHandleTexGenChunk     (void);
-    SFTexGenChunkPtr::EditHandlePtr editHandleTexGenChunk    (void);
-    SFPolygonChunkPtr::GetHandlePtr  getHandlePolyChunk       (void);
-    SFPolygonChunkPtr::EditHandlePtr editHandlePolyChunk      (void);
+    GetFieldHandlePtr  getHandleCamera          (void) const;
+    EditFieldHandlePtr editHandleCamera         (void);
+    GetFieldHandlePtr  getHandleTexChunk        (void) const;
+    EditFieldHandlePtr editHandleTexChunk       (void);
+    GetFieldHandlePtr  getHandleTexBuffer       (void) const;
+    EditFieldHandlePtr editHandleTexBuffer      (void);
+    GetFieldHandlePtr  getHandleLightChunk      (void) const;
+    EditFieldHandlePtr editHandleLightChunk     (void);
+    GetFieldHandlePtr  getHandleBlendChunk      (void) const;
+    EditFieldHandlePtr editHandleBlendChunk     (void);
+    GetFieldHandlePtr  getHandleTexGenChunk     (void) const;
+    EditFieldHandlePtr editHandleTexGenChunk    (void);
+    GetFieldHandlePtr  getHandlePolyChunk       (void) const;
+    EditFieldHandlePtr editHandlePolyChunk      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

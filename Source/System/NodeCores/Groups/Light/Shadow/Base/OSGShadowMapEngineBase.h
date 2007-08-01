@@ -294,18 +294,18 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public ShadowMapEnginePare
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFFrameBufferObjectPtr::GetHandlePtr  getHandleRenderTarget    (void);
-    SFFrameBufferObjectPtr::EditHandlePtr editHandleRenderTarget   (void);
-    SFInt32::GetHandlePtr  getHandleWidth           (void);
-    SFInt32::EditHandlePtr editHandleWidth          (void);
-    SFInt32::GetHandlePtr  getHandleHeight          (void);
-    SFInt32::EditHandlePtr editHandleHeight         (void);
-    SFColor4f::GetHandlePtr  getHandleShadowColor     (void);
-    SFColor4f::EditHandlePtr editHandleShadowColor    (void);
-    SFReal32::GetHandlePtr  getHandleOffsetBias      (void);
-    SFReal32::EditHandlePtr editHandleOffsetBias     (void);
-    SFReal32::GetHandlePtr  getHandleOffsetFactor    (void);
-    SFReal32::EditHandlePtr editHandleOffsetFactor   (void);
+    GetFieldHandlePtr  getHandleRenderTarget    (void) const;
+    EditFieldHandlePtr editHandleRenderTarget   (void);
+    GetFieldHandlePtr  getHandleWidth           (void) const;
+    EditFieldHandlePtr editHandleWidth          (void);
+    GetFieldHandlePtr  getHandleHeight          (void) const;
+    EditFieldHandlePtr editHandleHeight         (void);
+    GetFieldHandlePtr  getHandleShadowColor     (void) const;
+    EditFieldHandlePtr editHandleShadowColor    (void);
+    GetFieldHandlePtr  getHandleOffsetBias      (void) const;
+    EditFieldHandlePtr editHandleOffsetBias     (void);
+    GetFieldHandlePtr  getHandleOffsetFactor    (void) const;
+    EditFieldHandlePtr editHandleOffsetFactor   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

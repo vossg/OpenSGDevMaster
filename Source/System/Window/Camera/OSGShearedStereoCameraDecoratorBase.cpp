@@ -105,8 +105,8 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         ZeroParallaxDistanceFieldId, ZeroParallaxDistanceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editHandleZeroParallaxDistance),
-        reinterpret_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getHandleZeroParallaxDistance));
+        static_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editHandleZeroParallaxDistance),
+        static_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getHandleZeroParallaxDistance));
 
     oType.addInitialDesc(pDesc);
 
@@ -117,8 +117,8 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         OverlapFieldId, OverlapFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editHandleOverlap),
-        reinterpret_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getHandleOverlap));
+        static_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editHandleOverlap),
+        static_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getHandleOverlap));
 
     oType.addInitialDesc(pDesc);
 }
@@ -346,7 +346,7 @@ ShearedStereoCameraDecoratorBase::~ShearedStereoCameraDecoratorBase(void)
 }
 
 
-SFReal32::GetHandlePtr ShearedStereoCameraDecoratorBase::getHandleZeroParallaxDistance (void)
+GetFieldHandlePtr ShearedStereoCameraDecoratorBase::getHandleZeroParallaxDistance (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -356,7 +356,7 @@ SFReal32::GetHandlePtr ShearedStereoCameraDecoratorBase::getHandleZeroParallaxDi
     return returnValue;
 }
 
-SFReal32::EditHandlePtr ShearedStereoCameraDecoratorBase::editHandleZeroParallaxDistance(void)
+EditFieldHandlePtr ShearedStereoCameraDecoratorBase::editHandleZeroParallaxDistance(void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -368,7 +368,7 @@ SFReal32::EditHandlePtr ShearedStereoCameraDecoratorBase::editHandleZeroParallax
     return returnValue;
 }
 
-SFReal32::GetHandlePtr ShearedStereoCameraDecoratorBase::getHandleOverlap         (void)
+GetFieldHandlePtr ShearedStereoCameraDecoratorBase::getHandleOverlap         (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -378,7 +378,7 @@ SFReal32::GetHandlePtr ShearedStereoCameraDecoratorBase::getHandleOverlap       
     return returnValue;
 }
 
-SFReal32::EditHandlePtr ShearedStereoCameraDecoratorBase::editHandleOverlap        (void)
+EditFieldHandlePtr ShearedStereoCameraDecoratorBase::editHandleOverlap        (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(

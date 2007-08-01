@@ -126,8 +126,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleLeft),
-        reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleLeft));
+        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleLeft),
+        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleLeft));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleRight),
-        reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleRight));
+        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleRight),
+        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleRight));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleBottom),
-        reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleBottom));
+        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleBottom),
+        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleBottom));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         TopFieldId, TopFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleTop),
-        reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleTop));
+        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleTop),
+        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleTop));
 
     oType.addInitialDesc(pDesc);
 
@@ -174,8 +174,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         FullWidthFieldId, FullWidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleFullWidth),
-        reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleFullWidth));
+        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleFullWidth),
+        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleFullWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -186,8 +186,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         FullHeightFieldId, FullHeightFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleFullHeight),
-        reinterpret_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleFullHeight));
+        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleFullHeight),
+        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleFullHeight));
 
     oType.addInitialDesc(pDesc);
 }
@@ -596,7 +596,7 @@ TileCameraDecoratorBase::~TileCameraDecoratorBase(void)
 }
 
 
-SFReal32::GetHandlePtr TileCameraDecoratorBase::getHandleLeft            (void)
+GetFieldHandlePtr TileCameraDecoratorBase::getHandleLeft            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -606,7 +606,7 @@ SFReal32::GetHandlePtr TileCameraDecoratorBase::getHandleLeft            (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr TileCameraDecoratorBase::editHandleLeft           (void)
+EditFieldHandlePtr TileCameraDecoratorBase::editHandleLeft           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -618,7 +618,7 @@ SFReal32::EditHandlePtr TileCameraDecoratorBase::editHandleLeft           (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr TileCameraDecoratorBase::getHandleRight           (void)
+GetFieldHandlePtr TileCameraDecoratorBase::getHandleRight           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -628,7 +628,7 @@ SFReal32::GetHandlePtr TileCameraDecoratorBase::getHandleRight           (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr TileCameraDecoratorBase::editHandleRight          (void)
+EditFieldHandlePtr TileCameraDecoratorBase::editHandleRight          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -640,7 +640,7 @@ SFReal32::EditHandlePtr TileCameraDecoratorBase::editHandleRight          (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr TileCameraDecoratorBase::getHandleBottom          (void)
+GetFieldHandlePtr TileCameraDecoratorBase::getHandleBottom          (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -650,7 +650,7 @@ SFReal32::GetHandlePtr TileCameraDecoratorBase::getHandleBottom          (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr TileCameraDecoratorBase::editHandleBottom         (void)
+EditFieldHandlePtr TileCameraDecoratorBase::editHandleBottom         (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -662,7 +662,7 @@ SFReal32::EditHandlePtr TileCameraDecoratorBase::editHandleBottom         (void)
     return returnValue;
 }
 
-SFReal32::GetHandlePtr TileCameraDecoratorBase::getHandleTop             (void)
+GetFieldHandlePtr TileCameraDecoratorBase::getHandleTop             (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -672,7 +672,7 @@ SFReal32::GetHandlePtr TileCameraDecoratorBase::getHandleTop             (void)
     return returnValue;
 }
 
-SFReal32::EditHandlePtr TileCameraDecoratorBase::editHandleTop            (void)
+EditFieldHandlePtr TileCameraDecoratorBase::editHandleTop            (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -684,7 +684,7 @@ SFReal32::EditHandlePtr TileCameraDecoratorBase::editHandleTop            (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr TileCameraDecoratorBase::getHandleFullWidth       (void)
+GetFieldHandlePtr TileCameraDecoratorBase::getHandleFullWidth       (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -694,7 +694,7 @@ SFUInt32::GetHandlePtr TileCameraDecoratorBase::getHandleFullWidth       (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr TileCameraDecoratorBase::editHandleFullWidth      (void)
+EditFieldHandlePtr TileCameraDecoratorBase::editHandleFullWidth      (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -706,7 +706,7 @@ SFUInt32::EditHandlePtr TileCameraDecoratorBase::editHandleFullWidth      (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr TileCameraDecoratorBase::getHandleFullHeight      (void)
+GetFieldHandlePtr TileCameraDecoratorBase::getHandleFullHeight      (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -716,7 +716,7 @@ SFUInt32::GetHandlePtr TileCameraDecoratorBase::getHandleFullHeight      (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr TileCameraDecoratorBase::editHandleFullHeight     (void)
+EditFieldHandlePtr TileCameraDecoratorBase::editHandleFullHeight     (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(

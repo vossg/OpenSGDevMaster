@@ -241,12 +241,12 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFString::GetHandlePtr  getHandleVertexProgram   (void);
-    SFString::EditHandlePtr editHandleVertexProgram  (void);
-    SFString::GetHandlePtr  getHandleFragmentProgram (void);
-    SFString::EditHandlePtr editHandleFragmentProgram(void);
-    SFString::GetHandlePtr  getHandleGeometryProgram (void);
-    SFString::EditHandlePtr editHandleGeometryProgram(void);
+    GetFieldHandlePtr  getHandleVertexProgram   (void) const;
+    EditFieldHandlePtr editHandleVertexProgram  (void);
+    GetFieldHandlePtr  getHandleFragmentProgram (void) const;
+    EditFieldHandlePtr editHandleFragmentProgram(void);
+    GetFieldHandlePtr  getHandleGeometryProgram (void) const;
+    EditFieldHandlePtr editHandleGeometryProgram(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

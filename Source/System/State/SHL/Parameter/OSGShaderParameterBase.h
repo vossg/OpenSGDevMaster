@@ -217,10 +217,10 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFString::GetHandlePtr  getHandleName            (void);
-    SFString::EditHandlePtr editHandleName           (void);
-    MFParentFieldContainerPtr::GetHandlePtr  getHandleParents         (void);
-    MFParentFieldContainerPtr::EditHandlePtr editHandleParents        (void);
+    GetFieldHandlePtr  getHandleName            (void) const;
+    EditFieldHandlePtr editHandleName           (void);
+    GetFieldHandlePtr  getHandleParents         (void) const;
+    EditFieldHandlePtr editHandleParents        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

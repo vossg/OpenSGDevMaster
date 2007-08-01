@@ -310,18 +310,18 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFReal32::GetHandlePtr  getHandleExposure        (void);
-    SFReal32::EditHandlePtr editHandleExposure       (void);
-    SFReal32::GetHandlePtr  getHandleBlurWidth       (void);
-    SFReal32::EditHandlePtr editHandleBlurWidth      (void);
-    SFReal32::GetHandlePtr  getHandleBlurAmount      (void);
-    SFReal32::EditHandlePtr editHandleBlurAmount     (void);
-    SFReal32::GetHandlePtr  getHandleEffectAmount    (void);
-    SFReal32::EditHandlePtr editHandleEffectAmount   (void);
-    SFReal32::GetHandlePtr  getHandleGamma           (void);
-    SFReal32::EditHandlePtr editHandleGamma          (void);
-    SFGLenum::GetHandlePtr  getHandleBufferFormat    (void);
-    SFGLenum::EditHandlePtr editHandleBufferFormat   (void);
+    GetFieldHandlePtr  getHandleExposure        (void) const;
+    EditFieldHandlePtr editHandleExposure       (void);
+    GetFieldHandlePtr  getHandleBlurWidth       (void) const;
+    EditFieldHandlePtr editHandleBlurWidth      (void);
+    GetFieldHandlePtr  getHandleBlurAmount      (void) const;
+    EditFieldHandlePtr editHandleBlurAmount     (void);
+    GetFieldHandlePtr  getHandleEffectAmount    (void) const;
+    EditFieldHandlePtr editHandleEffectAmount   (void);
+    GetFieldHandlePtr  getHandleGamma           (void) const;
+    EditFieldHandlePtr editHandleGamma          (void);
+    GetFieldHandlePtr  getHandleBufferFormat    (void) const;
+    EditFieldHandlePtr editHandleBufferFormat   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

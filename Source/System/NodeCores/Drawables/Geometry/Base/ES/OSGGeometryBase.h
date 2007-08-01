@@ -280,18 +280,18 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFGeoIntegralPropertyPtr::GetHandlePtr  getHandleTypes           (void);
-    SFGeoIntegralPropertyPtr::EditHandlePtr editHandleTypes          (void);
-    SFGeoIntegralPropertyPtr::GetHandlePtr  getHandleLengths         (void);
-    SFGeoIntegralPropertyPtr::EditHandlePtr editHandleLengths        (void);
-    MFGeoVectorPropertyPtr::GetHandlePtr  getHandleProperties      (void);
-    MFGeoVectorPropertyPtr::EditHandlePtr editHandleProperties     (void);
-    MFGeoIntegralPropertyPtr::GetHandlePtr  getHandlePropIndices     (void);
-    MFGeoIntegralPropertyPtr::EditHandlePtr editHandlePropIndices    (void);
-    SFInt32::GetHandlePtr  getHandleClassicGLId     (void);
-    SFInt32::EditHandlePtr editHandleClassicGLId    (void);
-    SFInt32::GetHandlePtr  getHandleAttGLId         (void);
-    SFInt32::EditHandlePtr editHandleAttGLId        (void);
+    GetFieldHandlePtr  getHandleTypes           (void) const;
+    EditFieldHandlePtr editHandleTypes          (void);
+    GetFieldHandlePtr  getHandleLengths         (void) const;
+    EditFieldHandlePtr editHandleLengths        (void);
+    GetFieldHandlePtr  getHandleProperties      (void) const;
+    EditFieldHandlePtr editHandleProperties     (void);
+    GetFieldHandlePtr  getHandlePropIndices     (void) const;
+    EditFieldHandlePtr editHandlePropIndices    (void);
+    GetFieldHandlePtr  getHandleClassicGLId     (void) const;
+    EditFieldHandlePtr editHandleClassicGLId    (void);
+    GetFieldHandlePtr  getHandleAttGLId         (void) const;
+    EditFieldHandlePtr editHandleAttGLId        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

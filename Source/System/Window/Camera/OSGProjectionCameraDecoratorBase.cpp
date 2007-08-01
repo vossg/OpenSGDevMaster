@@ -136,8 +136,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         UserFieldId, UserFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleUser),
-        reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleUser));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleUser),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleUser));
 
     oType.addInitialDesc(pDesc);
 
@@ -149,8 +149,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         SurfaceFieldId, SurfaceFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleSurface),
-        reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleSurface));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleSurface),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleSurface));
 
     oType.addInitialDesc(pDesc);
 
@@ -161,8 +161,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         LeftFieldId, LeftFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleLeft),
-        reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleLeft));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleLeft),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleLeft));
 
     oType.addInitialDesc(pDesc);
 
@@ -173,8 +173,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         BottomFieldId, BottomFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleBottom),
-        reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleBottom));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleBottom),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleBottom));
 
     oType.addInitialDesc(pDesc);
 
@@ -185,8 +185,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         NormalFieldId, NormalFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleNormal),
-        reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleNormal));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleNormal),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleNormal));
 
     oType.addInitialDesc(pDesc);
 
@@ -197,8 +197,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleWidth),
-        reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -209,8 +209,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleHeight),
-        reinterpret_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 }
@@ -744,7 +744,7 @@ void ProjectionCameraDecoratorBase::onCreate(const ProjectionCameraDecorator *so
     }
 }
 
-SFNodePtr::GetHandlePtr ProjectionCameraDecoratorBase::getHandleUser            (void)
+GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleUser            (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -754,7 +754,7 @@ SFNodePtr::GetHandlePtr ProjectionCameraDecoratorBase::getHandleUser            
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr ProjectionCameraDecoratorBase::editHandleUser           (void)
+EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleUser           (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(
@@ -768,7 +768,7 @@ SFNodePtr::EditHandlePtr ProjectionCameraDecoratorBase::editHandleUser          
     return returnValue;
 }
 
-MFPnt3f::GetHandlePtr ProjectionCameraDecoratorBase::getHandleSurface         (void)
+GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleSurface         (void) const
 {
     MFPnt3f::GetHandlePtr returnValue(
         new  MFPnt3f::GetHandle(
@@ -778,7 +778,7 @@ MFPnt3f::GetHandlePtr ProjectionCameraDecoratorBase::getHandleSurface         (v
     return returnValue;
 }
 
-MFPnt3f::EditHandlePtr ProjectionCameraDecoratorBase::editHandleSurface        (void)
+EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleSurface        (void)
 {
     MFPnt3f::EditHandlePtr returnValue(
         new  MFPnt3f::EditHandle(
@@ -790,7 +790,7 @@ MFPnt3f::EditHandlePtr ProjectionCameraDecoratorBase::editHandleSurface        (
     return returnValue;
 }
 
-SFPlane::GetHandlePtr ProjectionCameraDecoratorBase::getHandleLeft            (void)
+GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleLeft            (void) const
 {
     SFPlane::GetHandlePtr returnValue(
         new  SFPlane::GetHandle(
@@ -800,7 +800,7 @@ SFPlane::GetHandlePtr ProjectionCameraDecoratorBase::getHandleLeft            (v
     return returnValue;
 }
 
-SFPlane::EditHandlePtr ProjectionCameraDecoratorBase::editHandleLeft           (void)
+EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleLeft           (void)
 {
     SFPlane::EditHandlePtr returnValue(
         new  SFPlane::EditHandle(
@@ -812,7 +812,7 @@ SFPlane::EditHandlePtr ProjectionCameraDecoratorBase::editHandleLeft           (
     return returnValue;
 }
 
-SFPlane::GetHandlePtr ProjectionCameraDecoratorBase::getHandleBottom          (void)
+GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleBottom          (void) const
 {
     SFPlane::GetHandlePtr returnValue(
         new  SFPlane::GetHandle(
@@ -822,7 +822,7 @@ SFPlane::GetHandlePtr ProjectionCameraDecoratorBase::getHandleBottom          (v
     return returnValue;
 }
 
-SFPlane::EditHandlePtr ProjectionCameraDecoratorBase::editHandleBottom         (void)
+EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleBottom         (void)
 {
     SFPlane::EditHandlePtr returnValue(
         new  SFPlane::EditHandle(
@@ -834,7 +834,7 @@ SFPlane::EditHandlePtr ProjectionCameraDecoratorBase::editHandleBottom         (
     return returnValue;
 }
 
-SFPlane::GetHandlePtr ProjectionCameraDecoratorBase::getHandleNormal          (void)
+GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleNormal          (void) const
 {
     SFPlane::GetHandlePtr returnValue(
         new  SFPlane::GetHandle(
@@ -844,7 +844,7 @@ SFPlane::GetHandlePtr ProjectionCameraDecoratorBase::getHandleNormal          (v
     return returnValue;
 }
 
-SFPlane::EditHandlePtr ProjectionCameraDecoratorBase::editHandleNormal         (void)
+EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleNormal         (void)
 {
     SFPlane::EditHandlePtr returnValue(
         new  SFPlane::EditHandle(
@@ -856,7 +856,7 @@ SFPlane::EditHandlePtr ProjectionCameraDecoratorBase::editHandleNormal         (
     return returnValue;
 }
 
-SFReal32::GetHandlePtr ProjectionCameraDecoratorBase::getHandleWidth           (void)
+GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleWidth           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -866,7 +866,7 @@ SFReal32::GetHandlePtr ProjectionCameraDecoratorBase::getHandleWidth           (
     return returnValue;
 }
 
-SFReal32::EditHandlePtr ProjectionCameraDecoratorBase::editHandleWidth          (void)
+EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleWidth          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
@@ -878,7 +878,7 @@ SFReal32::EditHandlePtr ProjectionCameraDecoratorBase::editHandleWidth          
     return returnValue;
 }
 
-SFReal32::GetHandlePtr ProjectionCameraDecoratorBase::getHandleHeight          (void)
+GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleHeight          (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
@@ -888,7 +888,7 @@ SFReal32::GetHandlePtr ProjectionCameraDecoratorBase::getHandleHeight          (
     return returnValue;
 }
 
-SFReal32::EditHandlePtr ProjectionCameraDecoratorBase::editHandleHeight         (void)
+EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleHeight         (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(

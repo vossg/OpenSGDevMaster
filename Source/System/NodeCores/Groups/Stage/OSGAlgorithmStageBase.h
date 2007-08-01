@@ -253,12 +253,12 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFAlgorithmPtr::GetHandlePtr  getHandleAlgorithm       (void);
-    SFAlgorithmPtr::EditHandlePtr editHandleAlgorithm      (void);
-    SFUInt32::GetHandlePtr  getHandleProjectionMode  (void);
-    SFUInt32::EditHandlePtr editHandleProjectionMode (void);
-    SFMatrix::GetHandlePtr  getHandleProjectionMatrix (void);
-    SFMatrix::EditHandlePtr editHandleProjectionMatrix(void);
+    GetFieldHandlePtr  getHandleAlgorithm       (void) const;
+    EditFieldHandlePtr editHandleAlgorithm      (void);
+    GetFieldHandlePtr  getHandleProjectionMode  (void) const;
+    EditFieldHandlePtr editHandleProjectionMode (void);
+    GetFieldHandlePtr  getHandleProjectionMatrix (void) const;
+    EditFieldHandlePtr editHandleProjectionMatrix(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

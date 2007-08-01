@@ -292,16 +292,16 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFUInt32::GetHandlePtr  getHandleHServers        (void);
-    SFUInt32::EditHandlePtr editHandleHServers       (void);
-    SFUInt32::GetHandlePtr  getHandleVServers        (void);
-    SFUInt32::EditHandlePtr editHandleVServers       (void);
-    SFBool::GetHandlePtr  getHandleManageClientViewports (void);
-    SFBool::EditHandlePtr editHandleManageClientViewports(void);
-    SFInt32::GetHandlePtr  getHandleXOverlap        (void);
-    SFInt32::EditHandlePtr editHandleXOverlap       (void);
-    SFInt32::GetHandlePtr  getHandleYOverlap        (void);
-    SFInt32::EditHandlePtr editHandleYOverlap       (void);
+    GetFieldHandlePtr  getHandleHServers        (void) const;
+    EditFieldHandlePtr editHandleHServers       (void);
+    GetFieldHandlePtr  getHandleVServers        (void) const;
+    EditFieldHandlePtr editHandleVServers       (void);
+    GetFieldHandlePtr  getHandleManageClientViewports (void) const;
+    EditFieldHandlePtr editHandleManageClientViewports(void);
+    GetFieldHandlePtr  getHandleXOverlap        (void) const;
+    EditFieldHandlePtr editHandleXOverlap       (void);
+    GetFieldHandlePtr  getHandleYOverlap        (void) const;
+    EditFieldHandlePtr editHandleYOverlap       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

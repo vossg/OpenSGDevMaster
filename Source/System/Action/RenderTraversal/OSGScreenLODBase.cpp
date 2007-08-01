@@ -109,8 +109,8 @@ void ScreenLODBase::classDescInserter(TypeObject &oType)
         CoverageOverrideFieldId, CoverageOverrideFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ScreenLODBase::editHandleCoverageOverride),
-        reinterpret_cast<FieldGetMethodSig >(&ScreenLODBase::getHandleCoverageOverride));
+        static_cast<FieldEditMethodSig>(&ScreenLODBase::editHandleCoverageOverride),
+        static_cast<FieldGetMethodSig >(&ScreenLODBase::getHandleCoverageOverride));
 
     oType.addInitialDesc(pDesc);
 }
@@ -380,7 +380,7 @@ ScreenLODBase::~ScreenLODBase(void)
 }
 
 
-MFReal32::GetHandlePtr ScreenLODBase::getHandleCoverageOverride (void)
+GetFieldHandlePtr ScreenLODBase::getHandleCoverageOverride (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
@@ -390,7 +390,7 @@ MFReal32::GetHandlePtr ScreenLODBase::getHandleCoverageOverride (void)
     return returnValue;
 }
 
-MFReal32::EditHandlePtr ScreenLODBase::editHandleCoverageOverride(void)
+EditFieldHandlePtr ScreenLODBase::editHandleCoverageOverride(void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(

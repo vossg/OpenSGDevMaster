@@ -152,8 +152,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleDiffuse),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleDiffuse));
+        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleDiffuse),
+        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleDiffuse));
 
     oType.addInitialDesc(pDesc);
 
@@ -164,8 +164,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleAmbient),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleAmbient));
+        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleAmbient),
+        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleAmbient));
 
     oType.addInitialDesc(pDesc);
 
@@ -176,8 +176,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleSpecular),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleSpecular));
+        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleSpecular),
+        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleSpecular));
 
     oType.addInitialDesc(pDesc);
 
@@ -188,8 +188,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         PositionFieldId, PositionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandlePosition),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandlePosition));
+        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandlePosition),
+        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandlePosition));
 
     oType.addInitialDesc(pDesc);
 
@@ -200,8 +200,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         DirectionFieldId, DirectionFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleDirection),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleDirection));
+        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleDirection),
+        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleDirection));
 
     oType.addInitialDesc(pDesc);
 
@@ -212,8 +212,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         ExponentFieldId, ExponentFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleExponent),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleExponent));
+        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleExponent),
+        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleExponent));
 
     oType.addInitialDesc(pDesc);
 
@@ -224,8 +224,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         CutoffFieldId, CutoffFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleCutoff),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleCutoff));
+        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleCutoff),
+        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleCutoff));
 
     oType.addInitialDesc(pDesc);
 
@@ -236,8 +236,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleConstantAttenuation),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleConstantAttenuation));
+        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleConstantAttenuation),
+        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleConstantAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -248,8 +248,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleLinearAttenuation),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleLinearAttenuation));
+        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleLinearAttenuation),
+        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleLinearAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -260,8 +260,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleQuadraticAttenuation),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleQuadraticAttenuation));
+        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleQuadraticAttenuation),
+        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleQuadraticAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -272,8 +272,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&LightChunkBase::editHandleBeacon),
-        reinterpret_cast<FieldGetMethodSig >(&LightChunkBase::getHandleBeacon));
+        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleBeacon),
+        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 }
@@ -894,7 +894,7 @@ void LightChunkBase::onCreate(const LightChunk *source)
     }
 }
 
-SFColor4r::GetHandlePtr LightChunkBase::getHandleDiffuse         (void)
+GetFieldHandlePtr LightChunkBase::getHandleDiffuse         (void) const
 {
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
@@ -904,7 +904,7 @@ SFColor4r::GetHandlePtr LightChunkBase::getHandleDiffuse         (void)
     return returnValue;
 }
 
-SFColor4r::EditHandlePtr LightChunkBase::editHandleDiffuse        (void)
+EditFieldHandlePtr LightChunkBase::editHandleDiffuse        (void)
 {
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
@@ -916,7 +916,7 @@ SFColor4r::EditHandlePtr LightChunkBase::editHandleDiffuse        (void)
     return returnValue;
 }
 
-SFColor4r::GetHandlePtr LightChunkBase::getHandleAmbient         (void)
+GetFieldHandlePtr LightChunkBase::getHandleAmbient         (void) const
 {
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
@@ -926,7 +926,7 @@ SFColor4r::GetHandlePtr LightChunkBase::getHandleAmbient         (void)
     return returnValue;
 }
 
-SFColor4r::EditHandlePtr LightChunkBase::editHandleAmbient        (void)
+EditFieldHandlePtr LightChunkBase::editHandleAmbient        (void)
 {
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
@@ -938,7 +938,7 @@ SFColor4r::EditHandlePtr LightChunkBase::editHandleAmbient        (void)
     return returnValue;
 }
 
-SFColor4r::GetHandlePtr LightChunkBase::getHandleSpecular        (void)
+GetFieldHandlePtr LightChunkBase::getHandleSpecular        (void) const
 {
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
@@ -948,7 +948,7 @@ SFColor4r::GetHandlePtr LightChunkBase::getHandleSpecular        (void)
     return returnValue;
 }
 
-SFColor4r::EditHandlePtr LightChunkBase::editHandleSpecular       (void)
+EditFieldHandlePtr LightChunkBase::editHandleSpecular       (void)
 {
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
@@ -960,7 +960,7 @@ SFColor4r::EditHandlePtr LightChunkBase::editHandleSpecular       (void)
     return returnValue;
 }
 
-SFVec4r::GetHandlePtr LightChunkBase::getHandlePosition        (void)
+GetFieldHandlePtr LightChunkBase::getHandlePosition        (void) const
 {
     SFVec4r::GetHandlePtr returnValue(
         new  SFVec4r::GetHandle(
@@ -970,7 +970,7 @@ SFVec4r::GetHandlePtr LightChunkBase::getHandlePosition        (void)
     return returnValue;
 }
 
-SFVec4r::EditHandlePtr LightChunkBase::editHandlePosition       (void)
+EditFieldHandlePtr LightChunkBase::editHandlePosition       (void)
 {
     SFVec4r::EditHandlePtr returnValue(
         new  SFVec4r::EditHandle(
@@ -982,7 +982,7 @@ SFVec4r::EditHandlePtr LightChunkBase::editHandlePosition       (void)
     return returnValue;
 }
 
-SFVec3r::GetHandlePtr LightChunkBase::getHandleDirection       (void)
+GetFieldHandlePtr LightChunkBase::getHandleDirection       (void) const
 {
     SFVec3r::GetHandlePtr returnValue(
         new  SFVec3r::GetHandle(
@@ -992,7 +992,7 @@ SFVec3r::GetHandlePtr LightChunkBase::getHandleDirection       (void)
     return returnValue;
 }
 
-SFVec3r::EditHandlePtr LightChunkBase::editHandleDirection      (void)
+EditFieldHandlePtr LightChunkBase::editHandleDirection      (void)
 {
     SFVec3r::EditHandlePtr returnValue(
         new  SFVec3r::EditHandle(
@@ -1004,7 +1004,7 @@ SFVec3r::EditHandlePtr LightChunkBase::editHandleDirection      (void)
     return returnValue;
 }
 
-SFReal::GetHandlePtr LightChunkBase::getHandleExponent        (void)
+GetFieldHandlePtr LightChunkBase::getHandleExponent        (void) const
 {
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
@@ -1014,7 +1014,7 @@ SFReal::GetHandlePtr LightChunkBase::getHandleExponent        (void)
     return returnValue;
 }
 
-SFReal::EditHandlePtr LightChunkBase::editHandleExponent       (void)
+EditFieldHandlePtr LightChunkBase::editHandleExponent       (void)
 {
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
@@ -1026,7 +1026,7 @@ SFReal::EditHandlePtr LightChunkBase::editHandleExponent       (void)
     return returnValue;
 }
 
-SFReal::GetHandlePtr LightChunkBase::getHandleCutoff          (void)
+GetFieldHandlePtr LightChunkBase::getHandleCutoff          (void) const
 {
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
@@ -1036,7 +1036,7 @@ SFReal::GetHandlePtr LightChunkBase::getHandleCutoff          (void)
     return returnValue;
 }
 
-SFReal::EditHandlePtr LightChunkBase::editHandleCutoff         (void)
+EditFieldHandlePtr LightChunkBase::editHandleCutoff         (void)
 {
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
@@ -1048,7 +1048,7 @@ SFReal::EditHandlePtr LightChunkBase::editHandleCutoff         (void)
     return returnValue;
 }
 
-SFReal::GetHandlePtr LightChunkBase::getHandleConstantAttenuation (void)
+GetFieldHandlePtr LightChunkBase::getHandleConstantAttenuation (void) const
 {
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
@@ -1058,7 +1058,7 @@ SFReal::GetHandlePtr LightChunkBase::getHandleConstantAttenuation (void)
     return returnValue;
 }
 
-SFReal::EditHandlePtr LightChunkBase::editHandleConstantAttenuation(void)
+EditFieldHandlePtr LightChunkBase::editHandleConstantAttenuation(void)
 {
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
@@ -1070,7 +1070,7 @@ SFReal::EditHandlePtr LightChunkBase::editHandleConstantAttenuation(void)
     return returnValue;
 }
 
-SFReal::GetHandlePtr LightChunkBase::getHandleLinearAttenuation (void)
+GetFieldHandlePtr LightChunkBase::getHandleLinearAttenuation (void) const
 {
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
@@ -1080,7 +1080,7 @@ SFReal::GetHandlePtr LightChunkBase::getHandleLinearAttenuation (void)
     return returnValue;
 }
 
-SFReal::EditHandlePtr LightChunkBase::editHandleLinearAttenuation(void)
+EditFieldHandlePtr LightChunkBase::editHandleLinearAttenuation(void)
 {
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
@@ -1092,7 +1092,7 @@ SFReal::EditHandlePtr LightChunkBase::editHandleLinearAttenuation(void)
     return returnValue;
 }
 
-SFReal::GetHandlePtr LightChunkBase::getHandleQuadraticAttenuation (void)
+GetFieldHandlePtr LightChunkBase::getHandleQuadraticAttenuation (void) const
 {
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
@@ -1102,7 +1102,7 @@ SFReal::GetHandlePtr LightChunkBase::getHandleQuadraticAttenuation (void)
     return returnValue;
 }
 
-SFReal::EditHandlePtr LightChunkBase::editHandleQuadraticAttenuation(void)
+EditFieldHandlePtr LightChunkBase::editHandleQuadraticAttenuation(void)
 {
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
@@ -1114,7 +1114,7 @@ SFReal::EditHandlePtr LightChunkBase::editHandleQuadraticAttenuation(void)
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr LightChunkBase::getHandleBeacon          (void)
+GetFieldHandlePtr LightChunkBase::getHandleBeacon          (void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -1124,7 +1124,7 @@ SFNodePtr::GetHandlePtr LightChunkBase::getHandleBeacon          (void)
     return returnValue;
 }
 
-SFNodePtr::EditHandlePtr LightChunkBase::editHandleBeacon         (void)
+EditFieldHandlePtr LightChunkBase::editHandleBeacon         (void)
 {
     SFNodePtr::EditHandlePtr returnValue(
         new  SFNodePtr::EditHandle(

@@ -98,8 +98,8 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
         GlutIdFieldId, GlutIdFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GLUTWindowBase::editHandleGlutId),
-        reinterpret_cast<FieldGetMethodSig >(&GLUTWindowBase::getHandleGlutId));
+        static_cast<FieldEditMethodSig>(&GLUTWindowBase::editHandleGlutId),
+        static_cast<FieldGetMethodSig >(&GLUTWindowBase::getHandleGlutId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -277,7 +277,7 @@ GLUTWindowBase::~GLUTWindowBase(void)
 }
 
 
-SFInt32::GetHandlePtr GLUTWindowBase::getHandleGlutId          (void)
+GetFieldHandlePtr GLUTWindowBase::getHandleGlutId          (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -287,7 +287,7 @@ SFInt32::GetHandlePtr GLUTWindowBase::getHandleGlutId          (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr GLUTWindowBase::editHandleGlutId         (void)
+EditFieldHandlePtr GLUTWindowBase::editHandleGlutId         (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(

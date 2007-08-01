@@ -340,20 +340,20 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFColor4f::GetHandlePtr  getHandleColor           (void);
-    SFColor4f::EditHandlePtr editHandleColor          (void);
-    SFTextureBaseChunkPtr::GetHandlePtr  getHandleTexture         (void);
-    SFTextureBaseChunkPtr::EditHandlePtr editHandleTexture        (void);
-    MFPnt2f::GetHandlePtr  getHandleTexCoords       (void);
-    MFPnt2f::EditHandlePtr editHandleTexCoords      (void);
-    SFReal32::GetHandlePtr  getHandleRadialDistortion (void);
-    SFReal32::EditHandlePtr editHandleRadialDistortion(void);
-    SFVec2f::GetHandlePtr  getHandleCenterOfDistortion (void);
-    SFVec2f::EditHandlePtr editHandleCenterOfDistortion(void);
-    SFUInt16::GetHandlePtr  getHandleHor             (void);
-    SFUInt16::EditHandlePtr editHandleHor            (void);
-    SFUInt16::GetHandlePtr  getHandleVert            (void);
-    SFUInt16::EditHandlePtr editHandleVert           (void);
+    GetFieldHandlePtr  getHandleColor           (void) const;
+    EditFieldHandlePtr editHandleColor          (void);
+    GetFieldHandlePtr  getHandleTexture         (void) const;
+    EditFieldHandlePtr editHandleTexture        (void);
+    GetFieldHandlePtr  getHandleTexCoords       (void) const;
+    EditFieldHandlePtr editHandleTexCoords      (void);
+    GetFieldHandlePtr  getHandleRadialDistortion (void) const;
+    EditFieldHandlePtr editHandleRadialDistortion(void);
+    GetFieldHandlePtr  getHandleCenterOfDistortion (void) const;
+    EditFieldHandlePtr editHandleCenterOfDistortion(void);
+    GetFieldHandlePtr  getHandleHor             (void) const;
+    EditFieldHandlePtr editHandleHor            (void);
+    GetFieldHandlePtr  getHandleVert            (void) const;
+    EditFieldHandlePtr editHandleVert           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

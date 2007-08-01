@@ -289,16 +289,16 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFImagePtr::GetHandlePtr  getHandleImage           (void);
-    SFImagePtr::EditHandlePtr editHandleImage          (void);
-    SFGLenum::GetHandlePtr  getHandleMinFilter       (void);
-    SFGLenum::EditHandlePtr editHandleMinFilter      (void);
-    SFGLenum::GetHandlePtr  getHandleMagFilter       (void);
-    SFGLenum::EditHandlePtr editHandleMagFilter      (void);
-    SFGLenum::GetHandlePtr  getHandleEnvMode         (void);
-    SFGLenum::EditHandlePtr editHandleEnvMode        (void);
-    SFBool::GetHandlePtr  getHandleEnvMap          (void);
-    SFBool::EditHandlePtr editHandleEnvMap         (void);
+    GetFieldHandlePtr  getHandleImage           (void) const;
+    EditFieldHandlePtr editHandleImage          (void);
+    GetFieldHandlePtr  getHandleMinFilter       (void) const;
+    EditFieldHandlePtr editHandleMinFilter      (void);
+    GetFieldHandlePtr  getHandleMagFilter       (void) const;
+    EditFieldHandlePtr editHandleMagFilter      (void);
+    GetFieldHandlePtr  getHandleEnvMode         (void) const;
+    EditFieldHandlePtr editHandleEnvMode        (void);
+    GetFieldHandlePtr  getHandleEnvMap          (void) const;
+    EditFieldHandlePtr editHandleEnvMap         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

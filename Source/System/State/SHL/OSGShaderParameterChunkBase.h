@@ -215,8 +215,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    MFShaderParameterPtr::GetHandlePtr  getHandleParameters      (void);
-    MFShaderParameterPtr::EditHandlePtr editHandleParameters     (void);
+    GetFieldHandlePtr  getHandleParameters      (void) const;
+    EditFieldHandlePtr editHandleParameters     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

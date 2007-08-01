@@ -235,8 +235,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterMIntBase : public ShaderParameter
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    MFInt32::GetHandlePtr  getHandleValue           (void);
-    MFInt32::EditHandlePtr editHandleValue          (void);
+    GetFieldHandlePtr  getHandleValue           (void) const;
+    EditFieldHandlePtr editHandleValue          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -248,10 +248,10 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFString::GetHandlePtr  getHandleName            (void);
-    SFString::EditHandlePtr editHandleName           (void);
-    MFFieldContainerPtr::GetHandlePtr  getHandleContainers      (void);
-    MFFieldContainerPtr::EditHandlePtr editHandleContainers     (void);
+    GetFieldHandlePtr  getHandleName            (void) const;
+    EditFieldHandlePtr editHandleName           (void);
+    GetFieldHandlePtr  getHandleContainers      (void) const;
+    EditFieldHandlePtr editHandleContainers     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

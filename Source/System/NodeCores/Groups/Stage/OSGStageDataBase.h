@@ -256,12 +256,12 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFInt32::GetHandlePtr  getHandlePartitionRangeBegin (void);
-    SFInt32::EditHandlePtr editHandlePartitionRangeBegin(void);
-    SFInt32::GetHandlePtr  getHandlePartitionRangeEnd (void);
-    SFInt32::EditHandlePtr editHandlePartitionRangeEnd(void);
-    SFInt32::GetHandlePtr  getHandleGroupMode       (void);
-    SFInt32::EditHandlePtr editHandleGroupMode      (void);
+    GetFieldHandlePtr  getHandlePartitionRangeBegin (void) const;
+    EditFieldHandlePtr editHandlePartitionRangeBegin(void);
+    GetFieldHandlePtr  getHandlePartitionRangeEnd (void) const;
+    EditFieldHandlePtr editHandlePartitionRangeEnd(void);
+    GetFieldHandlePtr  getHandleGroupMode       (void) const;
+    EditFieldHandlePtr editHandleGroupMode      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -391,24 +391,24 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFMaterialPtr::GetHandlePtr  getHandleMaterial        (void);
-    SFMaterialPtr::EditHandlePtr editHandleMaterial       (void);
-    MFPnt2f::GetHandlePtr  getHandlePositions       (void);
-    MFPnt2f::EditHandlePtr editHandlePositions      (void);
-    MFVec3f::GetHandlePtr  getHandleTexCoords       (void);
-    MFVec3f::EditHandlePtr editHandleTexCoords      (void);
-    SFBool::GetHandlePtr  getHandleNormalizedX     (void);
-    SFBool::EditHandlePtr editHandleNormalizedX    (void);
-    SFBool::GetHandlePtr  getHandleNormalizedY     (void);
-    SFBool::EditHandlePtr editHandleNormalizedY    (void);
-    SFUInt16::GetHandlePtr  getHandleAspectHeight    (void);
-    SFUInt16::EditHandlePtr editHandleAspectHeight   (void);
-    SFUInt16::GetHandlePtr  getHandleAspectWidth     (void);
-    SFUInt16::EditHandlePtr editHandleAspectWidth    (void);
-    SFReal32::GetHandlePtr  getHandleScale           (void);
-    SFReal32::EditHandlePtr editHandleScale          (void);
-    SFBool::GetHandlePtr  getHandleTile            (void);
-    SFBool::EditHandlePtr editHandleTile           (void);
+    GetFieldHandlePtr  getHandleMaterial        (void) const;
+    EditFieldHandlePtr editHandleMaterial       (void);
+    GetFieldHandlePtr  getHandlePositions       (void) const;
+    EditFieldHandlePtr editHandlePositions      (void);
+    GetFieldHandlePtr  getHandleTexCoords       (void) const;
+    EditFieldHandlePtr editHandleTexCoords      (void);
+    GetFieldHandlePtr  getHandleNormalizedX     (void) const;
+    EditFieldHandlePtr editHandleNormalizedX    (void);
+    GetFieldHandlePtr  getHandleNormalizedY     (void) const;
+    EditFieldHandlePtr editHandleNormalizedY    (void);
+    GetFieldHandlePtr  getHandleAspectHeight    (void) const;
+    EditFieldHandlePtr editHandleAspectHeight   (void);
+    GetFieldHandlePtr  getHandleAspectWidth     (void) const;
+    EditFieldHandlePtr editHandleAspectWidth    (void);
+    GetFieldHandlePtr  getHandleScale           (void) const;
+    EditFieldHandlePtr editHandleScale          (void);
+    GetFieldHandlePtr  getHandleTile            (void) const;
+    EditFieldHandlePtr editHandleTile           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

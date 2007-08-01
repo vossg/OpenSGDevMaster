@@ -220,8 +220,8 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFCGLContextObj::GetHandlePtr  getHandleContext         (void);
-    SFCGLContextObj::EditHandlePtr editHandleContext        (void);
+    GetFieldHandlePtr  getHandleContext         (void) const;
+    EditFieldHandlePtr editHandleContext        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

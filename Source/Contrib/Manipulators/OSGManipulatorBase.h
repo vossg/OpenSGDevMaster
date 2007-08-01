@@ -351,38 +351,38 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFNodePtr::GetHandlePtr  getHandleTarget          (void);
-    SFNodePtr::EditHandlePtr editHandleTarget         (void);
-    SFNodePtr::GetHandlePtr  getHandleActiveSubHandle (void);
-    SFNodePtr::EditHandlePtr editHandleActiveSubHandle(void);
-    SFPnt2f::GetHandlePtr  getHandleLastMousePos    (void);
-    SFPnt2f::EditHandlePtr editHandleLastMousePos   (void);
-    SFViewportPtr::GetHandlePtr  getHandleViewport        (void);
-    SFViewportPtr::EditHandlePtr editHandleViewport       (void);
-    SFBool::GetHandlePtr  getHandleActive          (void);
-    SFBool::EditHandlePtr editHandleActive         (void);
-    SFVec3f::GetHandlePtr  getHandleLength          (void);
-    SFVec3f::EditHandlePtr editHandleLength         (void);
-    SFNodePtr::GetHandlePtr  getHandleHandleXNode     (void);
-    SFNodePtr::EditHandlePtr editHandleHandleXNode    (void);
-    SFNodePtr::GetHandlePtr  getHandleHandleYNode     (void);
-    SFNodePtr::EditHandlePtr editHandleHandleYNode    (void);
-    SFNodePtr::GetHandlePtr  getHandleHandleZNode     (void);
-    SFNodePtr::EditHandlePtr editHandleHandleZNode    (void);
-    SFNodePtr::GetHandlePtr  getHandleTransXNode      (void);
-    SFNodePtr::EditHandlePtr editHandleTransXNode     (void);
-    SFNodePtr::GetHandlePtr  getHandleTransYNode      (void);
-    SFNodePtr::EditHandlePtr editHandleTransYNode     (void);
-    SFNodePtr::GetHandlePtr  getHandleTransZNode      (void);
-    SFNodePtr::EditHandlePtr editHandleTransZNode     (void);
-    SFMaterialPtr::GetHandlePtr  getHandleMaterialX       (void);
-    SFMaterialPtr::EditHandlePtr editHandleMaterialX      (void);
-    SFMaterialPtr::GetHandlePtr  getHandleMaterialY       (void);
-    SFMaterialPtr::EditHandlePtr editHandleMaterialY      (void);
-    SFMaterialPtr::GetHandlePtr  getHandleMaterialZ       (void);
-    SFMaterialPtr::EditHandlePtr editHandleMaterialZ      (void);
-    SFNodePtr::GetHandlePtr  getHandleAxisLinesN      (void);
-    SFNodePtr::EditHandlePtr editHandleAxisLinesN     (void);
+    GetFieldHandlePtr  getHandleTarget          (void) const;
+    EditFieldHandlePtr editHandleTarget         (void);
+    GetFieldHandlePtr  getHandleActiveSubHandle (void) const;
+    EditFieldHandlePtr editHandleActiveSubHandle(void);
+    GetFieldHandlePtr  getHandleLastMousePos    (void) const;
+    EditFieldHandlePtr editHandleLastMousePos   (void);
+    GetFieldHandlePtr  getHandleViewport        (void) const;
+    EditFieldHandlePtr editHandleViewport       (void);
+    GetFieldHandlePtr  getHandleActive          (void) const;
+    EditFieldHandlePtr editHandleActive         (void);
+    GetFieldHandlePtr  getHandleLength          (void) const;
+    EditFieldHandlePtr editHandleLength         (void);
+    GetFieldHandlePtr  getHandleHandleXNode     (void) const;
+    EditFieldHandlePtr editHandleHandleXNode    (void);
+    GetFieldHandlePtr  getHandleHandleYNode     (void) const;
+    EditFieldHandlePtr editHandleHandleYNode    (void);
+    GetFieldHandlePtr  getHandleHandleZNode     (void) const;
+    EditFieldHandlePtr editHandleHandleZNode    (void);
+    GetFieldHandlePtr  getHandleTransXNode      (void) const;
+    EditFieldHandlePtr editHandleTransXNode     (void);
+    GetFieldHandlePtr  getHandleTransYNode      (void) const;
+    EditFieldHandlePtr editHandleTransYNode     (void);
+    GetFieldHandlePtr  getHandleTransZNode      (void) const;
+    EditFieldHandlePtr editHandleTransZNode     (void);
+    GetFieldHandlePtr  getHandleMaterialX       (void) const;
+    EditFieldHandlePtr editHandleMaterialX      (void);
+    GetFieldHandlePtr  getHandleMaterialY       (void) const;
+    EditFieldHandlePtr editHandleMaterialY      (void);
+    GetFieldHandlePtr  getHandleMaterialZ       (void) const;
+    EditFieldHandlePtr editHandleMaterialZ      (void);
+    GetFieldHandlePtr  getHandleAxisLinesN      (void) const;
+    EditFieldHandlePtr editHandleAxisLinesN     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -335,20 +335,20 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFGLenum::GetHandlePtr  getHandleGLId            (void);
-    SFGLenum::EditHandlePtr editHandleGLId           (void);
-    MFFrameBufferAttachmentPtr::GetHandlePtr  getHandleColorAttachments (void);
-    MFFrameBufferAttachmentPtr::EditHandlePtr editHandleColorAttachments(void);
-    MFGLenum::GetHandlePtr  getHandleDrawBuffers     (void);
-    MFGLenum::EditHandlePtr editHandleDrawBuffers    (void);
-    SFFrameBufferAttachmentPtr::GetHandlePtr  getHandleDepthAttachment (void);
-    SFFrameBufferAttachmentPtr::EditHandlePtr editHandleDepthAttachment(void);
-    SFFrameBufferAttachmentPtr::GetHandlePtr  getHandleStencilAttachment (void);
-    SFFrameBufferAttachmentPtr::EditHandlePtr editHandleStencilAttachment(void);
-    SFUInt16::GetHandlePtr  getHandleWidth           (void);
-    SFUInt16::EditHandlePtr editHandleWidth          (void);
-    SFUInt16::GetHandlePtr  getHandleHeight          (void);
-    SFUInt16::EditHandlePtr editHandleHeight         (void);
+    GetFieldHandlePtr  getHandleGLId            (void) const;
+    EditFieldHandlePtr editHandleGLId           (void);
+    GetFieldHandlePtr  getHandleColorAttachments (void) const;
+    EditFieldHandlePtr editHandleColorAttachments(void);
+    GetFieldHandlePtr  getHandleDrawBuffers     (void) const;
+    EditFieldHandlePtr editHandleDrawBuffers    (void);
+    GetFieldHandlePtr  getHandleDepthAttachment (void) const;
+    EditFieldHandlePtr editHandleDepthAttachment(void);
+    GetFieldHandlePtr  getHandleStencilAttachment (void) const;
+    EditFieldHandlePtr editHandleStencilAttachment(void);
+    GetFieldHandlePtr  getHandleWidth           (void) const;
+    EditFieldHandlePtr editHandleWidth          (void);
+    GetFieldHandlePtr  getHandleHeight          (void) const;
+    EditFieldHandlePtr editHandleHeight         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

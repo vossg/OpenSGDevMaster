@@ -107,8 +107,8 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         UseVBOFieldId, UseVBOFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleUseVBO),
-        reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleUseVBO));
+        static_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleUseVBO),
+        static_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleUseVBO));
 
     oType.addInitialDesc(pDesc);
 
@@ -119,8 +119,8 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleGLId),
-        reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 
@@ -131,8 +131,8 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         UsageFieldId, UsageFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleUsage),
-        reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleUsage));
+        static_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleUsage),
+        static_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleUsage));
 
     oType.addInitialDesc(pDesc);
 }
@@ -366,7 +366,7 @@ GeoPropertyBase::~GeoPropertyBase(void)
 }
 
 
-SFBool::GetHandlePtr GeoPropertyBase::getHandleUseVBO          (void)
+GetFieldHandlePtr GeoPropertyBase::getHandleUseVBO          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -376,7 +376,7 @@ SFBool::GetHandlePtr GeoPropertyBase::getHandleUseVBO          (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr GeoPropertyBase::editHandleUseVBO         (void)
+EditFieldHandlePtr GeoPropertyBase::editHandleUseVBO         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -388,7 +388,7 @@ SFBool::EditHandlePtr GeoPropertyBase::editHandleUseVBO         (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr GeoPropertyBase::getHandleGLId            (void)
+GetFieldHandlePtr GeoPropertyBase::getHandleGLId            (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -398,7 +398,7 @@ SFUInt32::GetHandlePtr GeoPropertyBase::getHandleGLId            (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr GeoPropertyBase::editHandleGLId           (void)
+EditFieldHandlePtr GeoPropertyBase::editHandleGLId           (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -410,7 +410,7 @@ SFUInt32::EditHandlePtr GeoPropertyBase::editHandleGLId           (void)
     return returnValue;
 }
 
-SFInt32::GetHandlePtr GeoPropertyBase::getHandleUsage           (void)
+GetFieldHandlePtr GeoPropertyBase::getHandleUsage           (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
@@ -420,7 +420,7 @@ SFInt32::GetHandlePtr GeoPropertyBase::getHandleUsage           (void)
     return returnValue;
 }
 
-SFInt32::EditHandlePtr GeoPropertyBase::editHandleUsage          (void)
+EditFieldHandlePtr GeoPropertyBase::editHandleUsage          (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(

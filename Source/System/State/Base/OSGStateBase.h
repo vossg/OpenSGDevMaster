@@ -230,8 +230,8 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    MFStateChunkPtr::GetHandlePtr  getHandleChunks          (void);
-    MFStateChunkPtr::EditHandlePtr editHandleChunks         (void);
+    GetFieldHandlePtr  getHandleChunks          (void) const;
+    EditFieldHandlePtr editHandleChunks         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

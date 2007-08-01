@@ -217,8 +217,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFNodePtr::GetHandlePtr  getHandleSubTreeRoot     (void);
-    SFNodePtr::EditHandlePtr editHandleSubTreeRoot    (void);
+    GetFieldHandlePtr  getHandleSubTreeRoot     (void) const;
+    EditFieldHandlePtr editHandleSubTreeRoot    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

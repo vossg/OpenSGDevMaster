@@ -106,8 +106,8 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
         ImageFieldId, ImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GrabForegroundBase::editHandleImage),
-        reinterpret_cast<FieldGetMethodSig >(&GrabForegroundBase::getHandleImage));
+        static_cast<FieldEditMethodSig>(&GrabForegroundBase::editHandleImage),
+        static_cast<FieldGetMethodSig >(&GrabForegroundBase::getHandleImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
         AutoResizeFieldId, AutoResizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&GrabForegroundBase::editHandleAutoResize),
-        reinterpret_cast<FieldGetMethodSig >(&GrabForegroundBase::getHandleAutoResize));
+        static_cast<FieldEditMethodSig>(&GrabForegroundBase::editHandleAutoResize),
+        static_cast<FieldGetMethodSig >(&GrabForegroundBase::getHandleAutoResize));
 
     oType.addInitialDesc(pDesc);
 }
@@ -344,7 +344,7 @@ void GrabForegroundBase::onCreate(const GrabForeground *source)
     }
 }
 
-SFImagePtr::GetHandlePtr GrabForegroundBase::getHandleImage           (void)
+GetFieldHandlePtr GrabForegroundBase::getHandleImage           (void) const
 {
     SFImagePtr::GetHandlePtr returnValue(
         new  SFImagePtr::GetHandle(
@@ -354,7 +354,7 @@ SFImagePtr::GetHandlePtr GrabForegroundBase::getHandleImage           (void)
     return returnValue;
 }
 
-SFImagePtr::EditHandlePtr GrabForegroundBase::editHandleImage          (void)
+EditFieldHandlePtr GrabForegroundBase::editHandleImage          (void)
 {
     SFImagePtr::EditHandlePtr returnValue(
         new  SFImagePtr::EditHandle(
@@ -368,7 +368,7 @@ SFImagePtr::EditHandlePtr GrabForegroundBase::editHandleImage          (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr GrabForegroundBase::getHandleAutoResize      (void)
+GetFieldHandlePtr GrabForegroundBase::getHandleAutoResize      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -378,7 +378,7 @@ SFBool::GetHandlePtr GrabForegroundBase::getHandleAutoResize      (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr GrabForegroundBase::editHandleAutoResize     (void)
+EditFieldHandlePtr GrabForegroundBase::editHandleAutoResize     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

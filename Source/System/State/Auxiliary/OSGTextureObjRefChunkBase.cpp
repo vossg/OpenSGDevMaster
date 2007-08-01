@@ -98,8 +98,8 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         false,
         (Field::FClusterLocal),
-        reinterpret_cast<FieldEditMethodSig>(&TextureObjRefChunkBase::editHandleGLId),
-        reinterpret_cast<FieldGetMethodSig >(&TextureObjRefChunkBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&TextureObjRefChunkBase::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&TextureObjRefChunkBase::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -278,7 +278,7 @@ TextureObjRefChunkBase::~TextureObjRefChunkBase(void)
 }
 
 
-SFGLenum::GetHandlePtr TextureObjRefChunkBase::getHandleGLId            (void)
+GetFieldHandlePtr TextureObjRefChunkBase::getHandleGLId            (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
@@ -288,7 +288,7 @@ SFGLenum::GetHandlePtr TextureObjRefChunkBase::getHandleGLId            (void)
     return returnValue;
 }
 
-SFGLenum::EditHandlePtr TextureObjRefChunkBase::editHandleGLId           (void)
+EditFieldHandlePtr TextureObjRefChunkBase::editHandleGLId           (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(

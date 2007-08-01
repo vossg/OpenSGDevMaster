@@ -271,18 +271,18 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFImagePtr::GetHandlePtr  getHandlePosZImage       (void);
-    SFImagePtr::EditHandlePtr editHandlePosZImage      (void);
-    SFImagePtr::GetHandlePtr  getHandlePosXImage       (void);
-    SFImagePtr::EditHandlePtr editHandlePosXImage      (void);
-    SFImagePtr::GetHandlePtr  getHandleNegXImage       (void);
-    SFImagePtr::EditHandlePtr editHandleNegXImage      (void);
-    SFImagePtr::GetHandlePtr  getHandlePosYImage       (void);
-    SFImagePtr::EditHandlePtr editHandlePosYImage      (void);
-    SFImagePtr::GetHandlePtr  getHandleNegYImage       (void);
-    SFImagePtr::EditHandlePtr editHandleNegYImage      (void);
-    SFBool::GetHandlePtr  getHandleIsReflectionMap (void);
-    SFBool::EditHandlePtr editHandleIsReflectionMap(void);
+    GetFieldHandlePtr  getHandlePosZImage       (void) const;
+    EditFieldHandlePtr editHandlePosZImage      (void);
+    GetFieldHandlePtr  getHandlePosXImage       (void) const;
+    EditFieldHandlePtr editHandlePosXImage      (void);
+    GetFieldHandlePtr  getHandleNegXImage       (void) const;
+    EditFieldHandlePtr editHandleNegXImage      (void);
+    GetFieldHandlePtr  getHandlePosYImage       (void) const;
+    EditFieldHandlePtr editHandlePosYImage      (void);
+    GetFieldHandlePtr  getHandleNegYImage       (void) const;
+    EditFieldHandlePtr editHandleNegYImage      (void);
+    GetFieldHandlePtr  getHandleIsReflectionMap (void) const;
+    EditFieldHandlePtr editHandleIsReflectionMap(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

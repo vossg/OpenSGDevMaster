@@ -114,8 +114,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         BalanceFieldId, BalanceFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleBalance),
-        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleBalance));
+        static_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleBalance),
+        static_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleBalance));
 
     oType.addInitialDesc(pDesc);
 
@@ -126,8 +126,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         BestCutFieldId, BestCutFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleBestCut),
-        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleBestCut));
+        static_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleBestCut),
+        static_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleBestCut));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         ShowBalancingFieldId, ShowBalancingFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleShowBalancing),
-        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleShowBalancing));
+        static_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleShowBalancing),
+        static_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleShowBalancing));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         TileSizeFieldId, TileSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleTileSize),
-        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleTileSize));
+        static_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleTileSize),
+        static_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleTileSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         ShortFieldId, ShortFieldMask,
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleShort),
-        reinterpret_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleShort));
+        static_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleShort),
+        static_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleShort));
 
     oType.addInitialDesc(pDesc);
 }
@@ -513,7 +513,7 @@ BalancedMultiWindowBase::~BalancedMultiWindowBase(void)
 }
 
 
-SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleBalance         (void)
+GetFieldHandlePtr BalancedMultiWindowBase::getHandleBalance         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -523,7 +523,7 @@ SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleBalance         (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr BalancedMultiWindowBase::editHandleBalance        (void)
+EditFieldHandlePtr BalancedMultiWindowBase::editHandleBalance        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -535,7 +535,7 @@ SFBool::EditHandlePtr BalancedMultiWindowBase::editHandleBalance        (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleBestCut         (void)
+GetFieldHandlePtr BalancedMultiWindowBase::getHandleBestCut         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -545,7 +545,7 @@ SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleBestCut         (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr BalancedMultiWindowBase::editHandleBestCut        (void)
+EditFieldHandlePtr BalancedMultiWindowBase::editHandleBestCut        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -557,7 +557,7 @@ SFBool::EditHandlePtr BalancedMultiWindowBase::editHandleBestCut        (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleShowBalancing   (void)
+GetFieldHandlePtr BalancedMultiWindowBase::getHandleShowBalancing   (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -567,7 +567,7 @@ SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleShowBalancing   (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr BalancedMultiWindowBase::editHandleShowBalancing  (void)
+EditFieldHandlePtr BalancedMultiWindowBase::editHandleShowBalancing  (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -579,7 +579,7 @@ SFBool::EditHandlePtr BalancedMultiWindowBase::editHandleShowBalancing  (void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr BalancedMultiWindowBase::getHandleTileSize        (void)
+GetFieldHandlePtr BalancedMultiWindowBase::getHandleTileSize        (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -589,7 +589,7 @@ SFUInt32::GetHandlePtr BalancedMultiWindowBase::getHandleTileSize        (void)
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr BalancedMultiWindowBase::editHandleTileSize       (void)
+EditFieldHandlePtr BalancedMultiWindowBase::editHandleTileSize       (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -601,7 +601,7 @@ SFUInt32::EditHandlePtr BalancedMultiWindowBase::editHandleTileSize       (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleShort           (void)
+GetFieldHandlePtr BalancedMultiWindowBase::getHandleShort           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -611,7 +611,7 @@ SFBool::GetHandlePtr BalancedMultiWindowBase::getHandleShort           (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr BalancedMultiWindowBase::editHandleShort          (void)
+EditFieldHandlePtr BalancedMultiWindowBase::editHandleShort          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

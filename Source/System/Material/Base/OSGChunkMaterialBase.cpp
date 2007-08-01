@@ -111,8 +111,8 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
         ChunksFieldId, ChunksFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ChunkMaterialBase::editHandleChunks),
-        reinterpret_cast<FieldGetMethodSig >(&ChunkMaterialBase::getHandleChunks));
+        static_cast<FieldEditMethodSig>(&ChunkMaterialBase::editHandleChunks),
+        static_cast<FieldGetMethodSig >(&ChunkMaterialBase::getHandleChunks));
 
     oType.addInitialDesc(pDesc);
 
@@ -123,8 +123,8 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
         SlotsFieldId, SlotsFieldMask,
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&ChunkMaterialBase::editHandleSlots),
-        reinterpret_cast<FieldGetMethodSig >(&ChunkMaterialBase::getHandleSlots));
+        static_cast<FieldEditMethodSig>(&ChunkMaterialBase::editHandleSlots),
+        static_cast<FieldGetMethodSig >(&ChunkMaterialBase::getHandleSlots));
 
     oType.addInitialDesc(pDesc);
 }
@@ -566,7 +566,7 @@ void ChunkMaterialBase::onCreate(const ChunkMaterial *source)
     }
 }
 
-MFStateChunkPtr::GetHandlePtr ChunkMaterialBase::getHandleChunks          (void)
+GetFieldHandlePtr ChunkMaterialBase::getHandleChunks          (void) const
 {
     MFStateChunkPtr::GetHandlePtr returnValue(
         new  MFStateChunkPtr::GetHandle(
@@ -576,7 +576,7 @@ MFStateChunkPtr::GetHandlePtr ChunkMaterialBase::getHandleChunks          (void)
     return returnValue;
 }
 
-MFStateChunkPtr::EditHandlePtr ChunkMaterialBase::editHandleChunks         (void)
+EditFieldHandlePtr ChunkMaterialBase::editHandleChunks         (void)
 {
     MFStateChunkPtr::EditHandlePtr returnValue(
         new  MFStateChunkPtr::EditHandle(
@@ -590,7 +590,7 @@ MFStateChunkPtr::EditHandlePtr ChunkMaterialBase::editHandleChunks         (void
     return returnValue;
 }
 
-MFInt32::GetHandlePtr ChunkMaterialBase::getHandleSlots           (void)
+GetFieldHandlePtr ChunkMaterialBase::getHandleSlots           (void) const
 {
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
@@ -600,7 +600,7 @@ MFInt32::GetHandlePtr ChunkMaterialBase::getHandleSlots           (void)
     return returnValue;
 }
 
-MFInt32::EditHandlePtr ChunkMaterialBase::editHandleSlots          (void)
+EditFieldHandlePtr ChunkMaterialBase::editHandleSlots          (void)
 {
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(

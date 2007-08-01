@@ -253,12 +253,12 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFVec4f::GetHandlePtr  getHandleEquation        (void);
-    SFVec4f::EditHandlePtr editHandleEquation       (void);
-    SFBool::GetHandlePtr  getHandleEnable          (void);
-    SFBool::EditHandlePtr editHandleEnable         (void);
-    SFNodePtr::GetHandlePtr  getHandleBeacon          (void);
-    SFNodePtr::EditHandlePtr editHandleBeacon         (void);
+    GetFieldHandlePtr  getHandleEquation        (void) const;
+    EditFieldHandlePtr editHandleEquation       (void);
+    GetFieldHandlePtr  getHandleEnable          (void) const;
+    EditFieldHandlePtr editHandleEnable         (void);
+    GetFieldHandlePtr  getHandleBeacon          (void) const;
+    EditFieldHandlePtr editHandleBeacon         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

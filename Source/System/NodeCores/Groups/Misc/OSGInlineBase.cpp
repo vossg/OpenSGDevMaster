@@ -102,8 +102,8 @@ void InlineBase::classDescInserter(TypeObject &oType)
         UrlFieldId, UrlFieldMask,
         true,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&InlineBase::editHandleUrl),
-        reinterpret_cast<FieldGetMethodSig >(&InlineBase::getHandleUrl));
+        static_cast<FieldEditMethodSig>(&InlineBase::editHandleUrl),
+        static_cast<FieldGetMethodSig >(&InlineBase::getHandleUrl));
 
     oType.addInitialDesc(pDesc);
 
@@ -114,8 +114,8 @@ void InlineBase::classDescInserter(TypeObject &oType)
         LoadedFieldId, LoadedFieldMask,
         true,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&InlineBase::editHandleLoaded),
-        reinterpret_cast<FieldGetMethodSig >(&InlineBase::getHandleLoaded));
+        static_cast<FieldEditMethodSig>(&InlineBase::editHandleLoaded),
+        static_cast<FieldGetMethodSig >(&InlineBase::getHandleLoaded));
 
     oType.addInitialDesc(pDesc);
 }
@@ -415,7 +415,7 @@ InlineBase::~InlineBase(void)
 }
 
 
-MFString::GetHandlePtr InlineBase::getHandleUrl             (void)
+GetFieldHandlePtr InlineBase::getHandleUrl             (void) const
 {
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
@@ -425,7 +425,7 @@ MFString::GetHandlePtr InlineBase::getHandleUrl             (void)
     return returnValue;
 }
 
-MFString::EditHandlePtr InlineBase::editHandleUrl            (void)
+EditFieldHandlePtr InlineBase::editHandleUrl            (void)
 {
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
@@ -437,7 +437,7 @@ MFString::EditHandlePtr InlineBase::editHandleUrl            (void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr InlineBase::getHandleLoaded          (void)
+GetFieldHandlePtr InlineBase::getHandleLoaded          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -447,7 +447,7 @@ SFBool::GetHandlePtr InlineBase::getHandleLoaded          (void)
     return returnValue;
 }
 
-SFBool::EditHandlePtr InlineBase::editHandleLoaded         (void)
+EditFieldHandlePtr InlineBase::editHandleLoaded         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(

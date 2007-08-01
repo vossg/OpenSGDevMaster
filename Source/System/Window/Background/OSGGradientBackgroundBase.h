@@ -194,10 +194,10 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    MFColor3f::GetHandlePtr  getHandleColor           (void);
-    MFColor3f::EditHandlePtr editHandleColor          (void);
-    MFReal32::GetHandlePtr  getHandlePosition        (void);
-    MFReal32::EditHandlePtr editHandlePosition       (void);
+    GetFieldHandlePtr  getHandleColor           (void) const;
+    EditFieldHandlePtr editHandleColor          (void);
+    GetFieldHandlePtr  getHandlePosition        (void) const;
+    EditFieldHandlePtr editHandlePosition       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

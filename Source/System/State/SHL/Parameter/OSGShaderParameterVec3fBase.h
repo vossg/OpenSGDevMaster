@@ -220,8 +220,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterVec3fBase : public ShaderParameter
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    SFVec3f::GetHandlePtr  getHandleValue           (void);
-    SFVec3f::EditHandlePtr editHandleValue          (void);
+    GetFieldHandlePtr  getHandleValue           (void) const;
+    EditFieldHandlePtr editHandleValue          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
