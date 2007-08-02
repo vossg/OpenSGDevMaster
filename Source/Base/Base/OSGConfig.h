@@ -982,6 +982,14 @@
 # define OSG_FLOAT_PROFILE
 #endif
 
+
+#if (defined(__linux) && defined(__i386__)) || defined(WIN32)
+#define OSG_FAST_INT 1
+#endif
+
+#define OSG_DOUBLEMAGICROUNDEPS (.5-1.4e-11)
+#define OSG_DOUBLEMAGIC         double(6755399441055744.0)
+
 // XXX: This may not be needed any more, should just be default.
 #define OSG_OPT_DRAWTREE 1
 

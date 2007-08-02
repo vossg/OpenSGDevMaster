@@ -340,6 +340,13 @@ TypeT osgnextpower2(TypeT rValue);
 /*---------------------------------------------------------------------*/
 /*                    Miscellaneous Functions                          */
 
+inline 
+int osgLog2Int(Real32 v);
+
+
+inline 
+Int32 osgRound2Int(Real64 val);
+
 template<class VecPntT> inline
 UInt32 getMaxIndexAbs3(const VecPntT &v);
 

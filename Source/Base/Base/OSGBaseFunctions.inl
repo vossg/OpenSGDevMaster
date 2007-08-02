@@ -2552,6 +2552,23 @@ size_t osgnextpower2<size_t>(size_t rValue)
 /*! \name Misc                                                         */
 /*! \{                                                                 */
 
+inline 
+int osgLog2Int(Real32 v) 
+{
+	return ((*(Int32 *) &v) >> 23) - 127;
+}
+
+inline 
+Int32 osgRound2Int(Real64 val) 
+{
+#ifdef OSG_FAST_INT
+	val		= val + OSG_DOUBLEMAGIC;
+	return ((long*) &val)[0];
+#else
+	return int (val + OSG_DOUBLEMAGICROUNDEPS);
+#endif
+}
+
 /*! Returns the index of the element that has the largest absolute value in
     a Vec3 or Pnt3.
 
