@@ -1550,7 +1550,7 @@ PROTO Sphere [
      endFieldDecl  ();
 
      beginFieldDecl("SFInt", Self::OSGsfInt32, "resolution");
-     addFieldValue ("2");
+     addFieldValue ("8");
      endFieldDecl  ();
  }
  endProtoInterface();

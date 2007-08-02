@@ -78,7 +78,6 @@ class MFieldAdaptor : public ParentT
                                        iNamespace>      MFieldTraits;
 
     typedef typename MFieldTraits::ArgumentType         ArgumentType;
-    typedef typename MFieldTraits::ParentContainerPtr   ParentContainerPtr;
 
     typedef typename
     boost::mpl::if_<boost::mpl::bool_<MFieldTraits::bIsPointerField>,

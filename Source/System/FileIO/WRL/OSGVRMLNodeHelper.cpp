@@ -65,6 +65,8 @@
 #include "OSGTextureObjChunk.h"
 #include "OSGTextureEnvChunk.h"
 #include "OSGImageFileHandler.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGComponentTransform.h"
 
 #ifndef OSG_LOG_MODULE
 #define OSG_LOG_MODULE "VRMLLoader"
@@ -519,6 +521,32 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
                         pFieldFC = pTmpFC;
                         pField   = pTmpFC->editField(szFieldname);
                     }
+                }
+            }
+            else
+            {
+                if(pDesc == NULL)
+                {
+                    pTmpFC =
+                        pNode->findAttachment(
+                            VRMLGenericAtt::getClassType().getGroupId());
+                    
+                    if(pTmpFC != NullFC)
+                    {
+                        pDesc = pTmpFC->getFieldDescription(szFieldname);
+                    }
+                    
+#ifdef OSG_DEBUG_VRML
+                    indentLog(getIndent(), PINFO);
+                    PINFO << "Got this from node (no core) attachment : "
+                          << pDesc << std::endl;
+#endif
+                }
+                
+                if(pDesc != NULL)
+                {
+                    pFieldFC = pTmpFC;
+                    pField   = pTmpFC->editField(szFieldname);
                 }
             }
         }
@@ -1006,6 +1034,119 @@ void VRMLGroupHelper::dump(const Char8 *)
 VRMLNodeHelperFactoryBase::RegisterHelper VRMLGroupHelper::_regHelper(
     &VRMLGroupHelper::create,
     "Group");
+
+
+
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \class OSG::VRMLTransformHelper
+    \ingroup GrpSystemFileIOVRML
+    VRML Group description
+*/
+
+VRMLNodeHelper *VRMLTransformHelper::create(void)
+{
+    return new VRMLTransformHelper();
+}
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+VRMLTransformHelper::VRMLTransformHelper(void) :
+    Inherited()
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+VRMLTransformHelper::~VRMLTransformHelper(void)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Helper                                    */
+
+void VRMLTransformHelper::init(const Char8 *szName)
+{
+    Inherited::init(szName);
+
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "TransformHelper::init : " << szName << std::endl;
+#endif
+
+    _pNodeProto     = Node              ::create();
+    _pNodeCoreProto = ComponentTransform::create();
+
+    _pGenAttProto   = VRMLGenericAtt::create();
+    _pGenAttProto->setInternal(true);
+
+    addRef(_pNodeProto    );
+    addRef(_pNodeCoreProto);
+    addRef(_pGenAttProto  );
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Field                                     */
+
+bool VRMLTransformHelper::prototypeAddField(const Char8  *szFieldType,
+                                            const UInt32  uiFieldTypeId,
+                                            const Char8  *szFieldname)
+{
+    return Inherited::prototypeAddField(szFieldType,
+                                        uiFieldTypeId,
+                                        szFieldname);
+}
+
+void VRMLTransformHelper::getFieldAndDesc(
+          FieldContainerPtr      pFC,
+    const Char8                * szFieldname,
+          FieldContainerPtr     &pFieldFC,
+          EditFieldHandlePtr    &pField,
+    const FieldDescriptionBase *&pDesc)
+{
+    if(szFieldname == NULL)
+        return;
+
+    if(pFC == NullFC)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
+        }
+
+        return;
+    }
+
+#ifdef OSG_DEBUG_VRML
+    incIndent();
+#endif
+
+    Inherited::getFieldAndDesc(pFC,
+                               szFieldname,
+                               pFieldFC,
+                               pField,
+                               pDesc);
+#ifdef OSG_DEBUG_VRML
+    decIndent();
+#endif
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Dump                                     */
+
+void VRMLTransformHelper::dump(const Char8 *)
+{
+}
+
+
+VRMLNodeHelperFactoryBase::RegisterHelper VRMLTransformHelper::_regHelper(
+    &VRMLTransformHelper::create,
+    "Transform");
 
 
 
@@ -2701,6 +2842,401 @@ VRMLNodeHelperFactoryBase::RegisterHelper
         &VRMLGeometryPartHelper::create,
         "TextureCoordinate");
 
+
+
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \class osg::VRMLGeometryObjectDesc
+    \ingroup GrpSystemFileIOVRML
+    VRML Geometry Object Set description
+*/
+
+VRMLNodeHelper *VRMLGeometryObjectHelper::create(void)
+{
+    return new VRMLGeometryObjectHelper();
+}
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+VRMLGeometryObjectHelper::VRMLGeometryObjectHelper(void) :
+     Inherited      (          ),
+    _eVRMLObjectType(UnknownGeo)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+VRMLGeometryObjectHelper::~VRMLGeometryObjectHelper(void)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Helper                                    */
+
+void VRMLGeometryObjectHelper::init(const Char8 *szName)
+{
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "GeoObjDesc::init : "
+          << szName << " "
+          << _eVRMLObjectType
+          << std::endl;
+#endif
+
+    if(osgStringCaseCmp("Box", szName) == 0)
+    {
+        _eVRMLObjectType = BoxGeo;
+    }
+    else if(osgStringCaseCmp("Sphere", szName) == 0)
+    {
+        _eVRMLObjectType = SphereGeo;
+    }
+
+    _pNodeProto = Node::create();
+
+    if(_pNodeProto == NullFC)
+    {
+        PWARNING << "GeoObjDesc::init : no prototype available" << std::endl;
+    }
+
+    _pGenAttProto = VRMLGenericAtt::create();
+    _pGenAttProto->setInternal(true);
+
+    addRef(_pNodeProto    );
+    addRef(_pGenAttProto  );
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Field                                     */
+
+bool VRMLGeometryObjectHelper::prototypeAddField(const Char8  *szFieldType,
+                                                 const UInt32  uiFieldTypeId,
+                                                 const Char8  *szFieldname)
+{
+    return Inherited::prototypeAddField(szFieldType,
+                                        uiFieldTypeId,
+                                        szFieldname);
+}
+
+void VRMLGeometryObjectHelper::getFieldAndDesc(
+          FieldContainerPtr      pFC,
+    const Char8                * szFieldname,
+          FieldContainerPtr     &pFieldFC,
+          EditFieldHandlePtr    &pField,
+    const FieldDescriptionBase *&pDesc)
+{
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "VRMLGeometryObjectHelper::getFieldAndDesc : looking for "
+          << szFieldname
+          << std::endl;
+#endif
+
+    if(szFieldname == NULL)
+        return;
+
+    if(pFC == NullFC)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
+        }
+
+        return;
+    }
+
+#ifdef OSG_DEBUG_VRML
+    incIndent();
+#endif
+
+    Inherited::getFieldAndDesc(pFC,
+                               szFieldname,
+                               pFieldFC,
+                               pField,
+                               pDesc);
+
+#ifdef OSG_DEBUG_VRML
+    decIndent();
+#endif
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Node                                     */
+
+void VRMLGeometryObjectHelper::endNode(FieldContainerPtr pFC)
+{
+          EditFieldHandlePtr    pField;
+    const FieldDescriptionBase *pDesc    = NULL;
+          FieldContainerPtr     pDummyFC = NullFC;
+          NodePtr               pNode    = NullFC;
+
+    if(pFC == NullFC)
+        return;
+
+    pNode = dynamic_cast<NodePtr>(pFC);
+
+    if(pNode == NullFC)
+        return;
+
+    if(_eVRMLObjectType == BoxGeo)
+    {
+        Inherited::getFieldAndDesc(pFC,
+                                   "size",
+                                   pDummyFC,
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            SFVec3f::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFVec3f::EditHandle>(pField);
+
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                SFVec3f *pVec = pValField->getField();
+
+                GeometryPtr pGeo = makeBoxGeo(pVec->getValue()[0],
+                                              pVec->getValue()[1],
+                                              pVec->getValue()[2],
+                                              1,
+                                              1,
+                                              1);
+                
+                pNode->setCore(pGeo);
+            }
+        }
+    }
+#if 0
+    else if(stringcasecmp("Cone",     _szVRMLObjectname) == 0)
+    {
+        SFReal32 *pBotRad = NULL;
+        SFReal32 *pHeight = NULL;
+        SFBool   *pSide   = NULL;
+        SFBool   *pBottom = NULL;
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "bottomRadius",
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            pBotRad = static_cast<SFReal32 *>(pField);
+        }
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "height",
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            pHeight = static_cast<SFReal32 *>(pField);
+        }
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "side",
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            pSide = static_cast<SFBool *>(pField);
+        }
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "bottom",
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            pBottom = static_cast<SFBool *>(pField);
+        }
+
+        if(pBotRad != NULL &&
+           pHeight != NULL &&
+           pSide   != NULL &&
+           pBottom != NULL)
+        {
+#ifdef OSG_DEBUG_VRML
+            indentLog(getIndent(), PINFO);
+            PINFO << "VRMLGeometryObjectDesc::endNode : Create cone"
+                  << std::endl;
+#endif
+
+            GeometryPtr pGeo = makeConeGeo(pHeight->getValue(),
+                                           pBotRad->getValue(),
+                                           32,
+                                           pSide  ->getValue(),
+                                           pBottom->getValue());
+
+            beginEditCP(pNode, Node::CoreFieldMask);
+            {
+                pNode->setCore(pGeo);
+            }
+            endEditCP  (pNode, Node::CoreFieldMask);
+        }
+    }
+    else if(stringcasecmp("Cylinder", _szVRMLObjectname) == 0)
+    {
+        SFBool   *pBottom = NULL;
+        SFReal32 *pHeight = NULL;
+        SFReal32 *pRadius = NULL;
+        SFBool   *pSide   = NULL;
+        SFBool   *pTop    = NULL;
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "bottom",
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            pBottom = static_cast<SFBool *>(pField);
+        }
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "height",
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            pHeight = static_cast<SFReal32 *>(pField);
+        }
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "radius",
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            pRadius = static_cast<SFReal32 *>(pField);
+        }
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "side",
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            pSide = static_cast<SFBool *>(pField);
+        }
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "top",
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            pTop = static_cast<SFBool *>(pField);
+        }
+
+
+        if(pBottom != NULL &&
+           pHeight != NULL &&
+           pRadius != NULL &&
+           pSide   != NULL &&
+           pTop    != NULL)
+        {
+#ifdef OSG_DEBUG_VRML
+            indentLog(getIndent(), PINFO);
+            PINFO << "VRMLGeometryObjectDesc::endNode : Create cylinder"
+                  << std::endl;
+#endif
+
+            GeometryPtr pGeo = makeCylinderGeo(pHeight->getValue(),
+                                               pRadius->getValue(),
+                                               32,
+                                               pSide  ->getValue(),
+                                               pTop   ->getValue(),
+                                               pBottom->getValue());
+
+            beginEditCP(pNode, Node::CoreFieldMask);
+            {
+                pNode->setCore(pGeo);
+            }
+            endEditCP  (pNode, Node::CoreFieldMask);
+        }
+    }
+#endif
+    else if(_eVRMLObjectType == SphereGeo)
+    {
+        SFReal32 *pSize       = NULL;
+        SFInt32  *pResolution = NULL;
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "radius",
+                                   pDummyFC,
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            SFReal32::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFReal32::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pSize = pValField->getField();
+            }
+        }
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "resolution",
+                                   pDummyFC,
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            SFInt32::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFInt32::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pResolution = pValField->getField();
+            }
+        }
+
+        if(pSize != NULL && pResolution != NULL)
+        {
+            GeometryPtr pGeo = 
+                makeLatLongSphereGeo(pResolution->getValue(), 
+                                     pResolution->getValue() * 2, 
+                                     pSize      ->getValue());
+
+            pNode->setCore(pGeo);
+        }
+    }
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Dump                                     */
+
+void VRMLGeometryObjectHelper::dump(const Char8 *)
+{
+}
+
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGeometryObjectHelper::_regHelperBox(
+        &VRMLGeometryObjectHelper::create,
+        "Box");
+
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGeometryObjectHelper::_regHelperSphere(
+        &VRMLGeometryObjectHelper::create,
+        "Sphere");
 
 
 //---------------------------------------------------------------------------

@@ -69,7 +69,6 @@ class SFieldAdaptor : public ParentT
                                        iNamespace>  SFieldTraits;
 
     typedef typename SFieldTraits::ArgumentType        ArgumentType;
-    typedef typename SFieldTraits::ParentContainerPtr  ParentContainerPtr;
 
     typedef typename
     boost::mpl::if_<boost::mpl::bool_<SFieldTraits::bIsPointerField>,
