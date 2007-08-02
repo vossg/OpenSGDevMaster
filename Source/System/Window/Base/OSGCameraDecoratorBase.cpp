@@ -101,8 +101,8 @@ void CameraDecoratorBase::classDescInserter(TypeObject &oType)
         DecorateeFieldId, DecorateeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&CameraDecoratorBase::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&CameraDecoratorBase::getSFDecoratee));
+        static_cast<FieldEditMethodSig>(&CameraDecoratorBase::editHandleDecoratee),
+        static_cast<FieldGetMethodSig >(&CameraDecoratorBase::getHandleDecoratee ));
 
     oType.addInitialDesc(pDesc);
 }
@@ -339,6 +339,30 @@ void CameraDecoratorBase::onCreate(const CameraDecorator *source)
 
         this->setBeacon(source->getBeacon());
     }
+}
+
+GetFieldHandlePtr  CameraDecoratorBase::getHandleDecoratee (void) const
+{
+    SFCameraPtr::GetHandlePtr returnValue(
+        new SFCameraPtr::GetHandle(
+            &_sfDecoratee,
+            this->getType().getFieldDesc(DecorateeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CameraDecoratorBase::editHandleDecoratee(void)
+{
+    SFCameraPtr::EditHandlePtr returnValue(
+        new SFCameraPtr::EditHandle(
+            &_sfDecoratee,
+            this->getType().getFieldDesc(DecorateeFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&CameraDecorator::setDecoratee, this, _1));
+
+    editSField(DecorateeFieldMask);
+
+    return returnValue;
 }
 
 GetFieldHandlePtr CameraDecoratorBase::getHandleBeacon          (void) const

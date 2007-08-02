@@ -229,6 +229,9 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleDecoratee (void) const;
+    EditFieldHandlePtr editHandleDecoratee(void);
+
     GetFieldHandlePtr  getHandleBeacon          (void) const;
     EditFieldHandlePtr editHandleBeacon         (void);
     GetFieldHandlePtr  getHandleNear            (void) const;
