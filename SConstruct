@@ -99,7 +99,7 @@ def registerfcd2codeBuilder(env, required=True):
 
    template_files.append(glob.glob(pj("Tools",
                                       "fcd2code",
-                                      "*Template*.py")))
+                                      "*.py")))
 
 
    

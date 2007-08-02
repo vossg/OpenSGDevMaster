@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
 StatsAttachmentBase::TypeObject StatsAttachmentBase::_type(
     StatsAttachmentBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "StatsAttachment",
     0,
     NULL,
     StatsAttachment::initMethod,

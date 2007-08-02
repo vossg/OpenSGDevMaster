@@ -29,12 +29,13 @@ class FieldContainer(FCDElement):
         self.setFCD("useLocalIncludes",       "false");
         self.setFCD("isNodeCore",             "false");
         self.setFCD("description",            "");
-        self.setFCD("group",                  "NULL");
+        self.setFCD("group",                  "");
         self.setFCD("namespace",              "");
         self.setFCD("decorateeFieldFlags",    "");
         self.setFCD("additionalIncludes",     "");
         self.setFCD("fcdFileLines",           []);
         self.setFCD("fieldsUnmarkedOnCreate", "0")
+        self.setFCD("libnamespace",           "OSG")
 
     #
     # Access fields
@@ -217,16 +218,25 @@ class FieldContainer(FCDElement):
         
         if self.getFCD("decoratable") == "true":
             self["MethodType"] = "virtual";
-        
+
         if self.getFCD("group") != "":
             self["Group"] = self.getFCD("group");
         else:
-            self["Group"] = "NULL";
-        
+            if self["CLASSNAME"]     .endswith("ATTACHMENT") == True or \
+               self["Parent"].upper().endswith("ATTACHMENT") == True:
+                self["Group"] = self["Classname"]
+            else:
+                self["Group"] = "NULL";
+
         if self.getFCD("namespace") != "":
             self["Namespace"] = self.getFCD("namespace");
         else:
             self["Namespace"] = "0";
+
+        if self.getFCD("libnamespace") != "":
+            self["LibNamespace"] = self.getFCD("libnamespace");
+        else:
+            self["LibNamespace"] = "OSG";
 
         self["FieldsUnmarkedOnCreate"] = self.getFCD("fieldsUnmarkedOnCreate");   
 

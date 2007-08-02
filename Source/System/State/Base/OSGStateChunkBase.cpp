@@ -110,7 +110,7 @@ void StateChunkBase::classDescInserter(TypeObject &oType)
 StateChunkBase::TypeObject StateChunkBase::_type(
     StateChunkBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "StateChunk",
     0,
     NULL,
     StateChunk::initMethod,

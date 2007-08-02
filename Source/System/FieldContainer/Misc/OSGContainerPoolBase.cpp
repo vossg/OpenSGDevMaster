@@ -125,7 +125,7 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
 ContainerPoolBase::TypeObject ContainerPoolBase::_type(
     ContainerPoolBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "ContainerPool",
     0,
     (PrototypeCreateF) &ContainerPoolBase::createEmpty,
     ContainerPool::initMethod,

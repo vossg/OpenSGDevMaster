@@ -127,7 +127,7 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
 RenderBufferBase::TypeObject RenderBufferBase::_type(
     RenderBufferBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "RenderBuffer",
     0,
     (PrototypeCreateF) &RenderBufferBase::createEmpty,
     RenderBuffer::initMethod,

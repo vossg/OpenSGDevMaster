@@ -161,7 +161,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
 TextureBufferBase::TypeObject TextureBufferBase::_type(
     TextureBufferBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "TextureBuffer",
     0,
     (PrototypeCreateF) &TextureBufferBase::createEmpty,
     TextureBuffer::initMethod,

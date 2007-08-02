@@ -81,6 +81,9 @@ class Field(FCDElement):
     
     def isPtrField(self):
         return self["isPtrField"];
+
+    def isCPtrField(self):
+        return self["isCPtrField"];
     
     #
     # Fill out dictionary from in (fcd) dictionary
@@ -148,9 +151,18 @@ class Field(FCDElement):
                 self.getFCD("cardinality"));
         
         if self["Type"].endswith("Ptr"):
-            self["isPtrField"] = True;
+            self["isPtrField" ] = True;
+            self["isCPtrField"] = False;
         else:
-            self["isPtrField"] = False;
+            self["isPtrField" ] = False;
+            self["isCPtrField"] = False;
+
+#        if self["Type"].endswith("P"):
+#            self["isPtrField" ] = True;
+#            self["isCPtrField"] = True;
+#        else:
+#            self["isPtrField" ] = False;
+#            self["isCPtrField"] = True;
         
         if self.getFCD("description").strip() == "":
             self["Description"]     = "";
@@ -404,6 +416,9 @@ class Field(FCDElement):
             
             if classInclude.endswith("Ptr"):
                 classInclude = classInclude[:-3];
+
+#            if classInclude.endswith("P"):
+#                classInclude = classInclude[:-1];
             
             classInclude = classInclude.replace("Parent", "");
             classInclude = classInclude + ".h";

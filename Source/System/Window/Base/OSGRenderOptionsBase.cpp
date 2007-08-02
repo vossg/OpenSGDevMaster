@@ -429,7 +429,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     RenderOptionsBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "RenderOptions",
     0,
     (PrototypeCreateF) &RenderOptionsBase::createEmpty,
     RenderOptions::initMethod,

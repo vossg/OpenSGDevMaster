@@ -220,7 +220,7 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
 GeoStatsAttachmentBase::TypeObject GeoStatsAttachmentBase::_type(
     GeoStatsAttachmentBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "GeoStatsAttachment",
     0,
     (PrototypeCreateF) &GeoStatsAttachmentBase::createEmpty,
     GeoStatsAttachment::initMethod,

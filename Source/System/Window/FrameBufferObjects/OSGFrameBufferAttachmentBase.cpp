@@ -124,7 +124,7 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
 FrameBufferAttachmentBase::TypeObject FrameBufferAttachmentBase::_type(
     FrameBufferAttachmentBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "FrameBufferAttachment",
     0,
     NULL,
     FrameBufferAttachment::initMethod,

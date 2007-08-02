@@ -79,7 +79,7 @@
 #include "OSG@!Classname!@Base.h"
 #include "OSG@!Classname!@.h"
 
-OSG_BEGIN_NAMESPACE
+@!LibNamespace!@_BEGIN_NAMESPACE
 
 /***************************************************************************\
  *                            Description                                  *
@@ -1185,15 +1185,15 @@ DataType FieldTraits<@!Classname!@P>::_type("@!Classname!@P", "@!Parent!@P");
 #endif
 
 @@if PointerField
-OSG_FIELDTRAITS_GETTYPE(@!Classname!@Ptr)
+OSG_FIELDTRAITS_GETTYPE(@!Classname!@P)
 
     @@if SFPointerField
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, @!Classname!@Ptr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, @!Classname!@P, SFFieldBundleP);
     @@endif // SFPointerField
     @@if MFPointerField
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, @!Classname!@Ptr, MFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, @!Classname!@P, MFFieldBundleP);
     @@endif // MFPointerField
 @@endif // PointerField
 
 
-OSG_END_NAMESPACE
+@!LibNamespace!@_END_NAMESPACE

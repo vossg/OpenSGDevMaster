@@ -126,7 +126,7 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
 StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(
     StringAttributeMapBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "StringAttributeMap",
     0,
     (PrototypeCreateF) &StringAttributeMapBase::createEmpty,
     StringAttributeMap::initMethod,
