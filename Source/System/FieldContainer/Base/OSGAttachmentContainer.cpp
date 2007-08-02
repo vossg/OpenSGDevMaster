@@ -47,6 +47,8 @@
 
 #include "OSGAttachmentContainer.h"
 #include "OSGFieldContainerAttachment.h"
+#include "OSGTypeBasePredicates.h"
+#include "OSGReflexiveContainerTypePredicates.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -510,7 +512,50 @@ void cloneAttachments(
     fDesc->shareValuesV(srcField, fieldId, dst, cloneTypes,    ignoreTypes,
                                                 cloneGroupIds, ignoreGroupIds);
 #else
-    OSG_ASSERT(false);
+    const SFFieldContainerAttachmentPtrMap *pAttMap =
+        src->getSFAttachments();
+
+    FieldContainerAttachmentMap::const_iterator mapIt  =
+        pAttMap->getValue().begin();
+
+    FieldContainerAttachmentMap::const_iterator mapEnd =
+        pAttMap->getValue().end();
+
+    for(; mapIt != mapEnd; ++mapIt)
+    {
+        FieldContainerAttachmentPtr att       = mapIt->second;
+        UInt16                      uiBinding = UInt16(mapIt->first &
+                                                       0x0000FFFF    );
+
+        if(att != NullFC)
+        {
+            const FieldContainerType &attType = att->getType();
+
+            // test if att type should NOT be ignored
+            if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                                ignoreGroupIds.end(),
+                                                attType                ) &&
+               !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                                ignoreTypes.end(),
+                                                attType                )   )
+            {
+                // test if att should cloned
+                if(TypePredicates::typeInGroupIds (cloneGroupIds.begin(),
+                                                   cloneGroupIds.end(),
+                                                   attType               ) ||
+                   TypePredicates::typeDerivedFrom(cloneTypes.begin(),
+                                                   cloneTypes.end(),
+                                                   attType               )   )
+                {
+                    att = dynamic_cast<FieldContainerAttachmentPtr>(
+                        OSG::deepClone(att, cloneTypes,    ignoreTypes,
+                                            cloneGroupIds, ignoreGroupIds));
+                }
+            }
+        }
+
+        dst->addAttachment(att, uiBinding);
+    }
 #endif
 }
 
@@ -639,7 +684,50 @@ void deepCloneAttachments(
     fDesc->cloneValuesV(srcField, fieldId, dst, shareTypes,    ignoreTypes,
                                                 shareGroupIds, ignoreGroupIds);
 #else
-    OSG_ASSERT(false);
+    const SFFieldContainerAttachmentPtrMap *pAttMap =
+        src->getSFAttachments();
+
+    FieldContainerAttachmentMap::const_iterator mapIt  =
+        pAttMap->getValue().begin();
+
+    FieldContainerAttachmentMap::const_iterator mapEnd =
+        pAttMap->getValue().end();
+
+    for(; mapIt != mapEnd; ++mapIt)
+    {
+        FieldContainerAttachmentPtr att       = mapIt->second;
+        UInt16                      uiBinding = UInt16(mapIt->first &
+                                                       0x0000FFFF    );
+
+        if(att != NullFC)
+        {
+            const FieldContainerType &attType = att->getType();
+
+            // test if att type should NOT be ignored
+            if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                                ignoreGroupIds.end(),
+                                                attType                ) &&
+               !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                                ignoreTypes.end(),
+                                                attType                )   )
+            {
+                // test if att should cloned
+                if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
+                                                    shareGroupIds.end(),
+                                                    attType               ) &&
+                   !TypePredicates::typeDerivedFrom(shareTypes.begin(),
+                                                    shareTypes.end(),
+                                                    attType               )   )
+                {
+                    att = dynamic_cast<FieldContainerAttachmentPtr>(
+                        OSG::deepClone(att, shareTypes,    ignoreTypes,
+                                            shareGroupIds, ignoreGroupIds));
+                }
+            }
+        }
+
+        dst->addAttachment(att, uiBinding);
+    }
 #endif
 }
 

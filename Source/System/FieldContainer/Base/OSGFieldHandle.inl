@@ -90,20 +90,6 @@ std::string FieldHandle::getName(void) const
     }
 }
 
-#if 0
-inline
-void FieldHandle::pushValueToStream(OutStream &str) const
-{
-    _pDescription->pushValueToStream(_pField, str);
-}
-
-inline
-void FieldHandle::pushSizeToStream(OutStream &str) const
-{
-    _pDescription->pushSizeToStream(_pField, str);
-}
-#endif
-
 
 /*---------------------------------------------------------------------*/
 
@@ -133,6 +119,20 @@ bool GetFieldHandle::isValid(void) const
     return _pField != NULL;
 }
 
+inline
+bool GetFieldHandle::operator ==(const EditFieldHandle &rhs)
+{
+    return (_pDescription == rhs._pDescription &&
+            _pField       == rhs._pField        );
+}
+
+inline
+bool GetFieldHandle::operator ==(const GetFieldHandle &rhs)
+{
+    return (_pDescription == rhs._pDescription &&
+            _pField       == rhs._pField        );
+}
+
 /*---------------------------------------------------------------------*/
 
 inline
@@ -159,6 +159,20 @@ inline
 bool EditFieldHandle::isValid(void) const
 {
     return _pField != NULL;
+}
+
+inline
+bool EditFieldHandle::operator ==(const EditFieldHandle &rhs)
+{
+    return (_pDescription == rhs._pDescription &&
+            _pField       == rhs._pField        );
+}
+
+inline
+bool EditFieldHandle::operator ==(const GetFieldHandle &rhs)
+{
+    return (_pDescription == rhs._pDescription &&
+            _pField       == rhs._pField        );
 }
 
 /*---------------------------------------------------------------------*/

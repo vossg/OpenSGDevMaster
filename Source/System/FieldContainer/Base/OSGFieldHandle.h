@@ -110,7 +110,7 @@ class OSG_SYSTEM_DLLMAPPING FieldHandle
 };
 
 
-
+class EditFieldHandle;
 
 class OSG_SYSTEM_DLLMAPPING GetFieldHandle : public FieldHandle
 {
@@ -123,6 +123,8 @@ class OSG_SYSTEM_DLLMAPPING GetFieldHandle : public FieldHandle
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    friend class EditFieldHandle;
 
     typedef FieldHandle Inherited;
 
@@ -152,6 +154,9 @@ class OSG_SYSTEM_DLLMAPPING GetFieldHandle : public FieldHandle
     /*---------------------------------------------------------------------*/
 
     virtual bool equal(Ptr rhs) = 0;
+
+    bool operator ==(const EditFieldHandle &rhs);
+    bool operator ==(const GetFieldHandle  &rhs);
 };
 
 typedef boost::shared_ptr<GetFieldHandle > GetFieldHandlePtr;
@@ -170,6 +175,8 @@ class OSG_SYSTEM_DLLMAPPING EditFieldHandle : public FieldHandle
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    friend class GetFieldHandle;
 
     typedef FieldHandle Inherited;
 
@@ -206,6 +213,9 @@ class OSG_SYSTEM_DLLMAPPING EditFieldHandle : public FieldHandle
     /*---------------------------------------------------------------------*/
 
     virtual bool equal(Ptr rhs) = 0;
+
+    bool operator ==(const EditFieldHandle &rhs);
+    bool operator ==(const GetFieldHandle  &rhs);
 
     /*---------------------------------------------------------------------*/
 

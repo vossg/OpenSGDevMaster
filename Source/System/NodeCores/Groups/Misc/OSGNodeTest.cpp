@@ -268,7 +268,7 @@ TEST(DynFieldAttachment)
 
     CHECK(pFN != NULL);
 
-    CHECK(pFN == pFI);
+    CHECK(*pFN == *pFI);
 }
 
 } // SUITE

@@ -104,49 +104,6 @@ void FieldContainer::dump(      UInt32    uiIndent,
          << std::endl;
 }
 
-#if 0
-void FieldContainer::pushToField(      FieldContainerPtrConstArg pNewElement,
-                                 const UInt32                    uiFieldId  )
-{
-
-}
-
-void FieldContainer::insertIntoMField(
-    const UInt32                    uiIndex,
-          FieldContainerPtrConstArg pNewElement,
-    const UInt32                    uiFieldId  )
-{
-}
-
-void FieldContainer::replaceInMField(
-    const UInt32                    uiIndex,
-          FieldContainerPtrConstArg pNewElement,
-    const UInt32                    uiFieldId )
-{
-}
-
-void FieldContainer::replaceInMField(
-          FieldContainerPtrConstArg pOldElement,
-          FieldContainerPtrConstArg pNewElement,
-    const UInt32                    uiFieldId  )
-{
-}
-
-void FieldContainer::removeFromMField(const UInt32 uiIndex,
-                                      const UInt32 uiFieldId)
-{
-}
-
-void FieldContainer::removeFromMField(
-          FieldContainerPtrConstArg pElement,
-    const UInt32                    uiFieldId)
-{
-}
-
-void FieldContainer::clearField(const UInt32 uiFieldId)
-{
-}
-#endif
 
 void FieldContainer::copyFromBin(BinaryDataHandler  &,
                                  ConstFieldMaskArg   whichField)
@@ -413,8 +370,11 @@ FieldContainerPtr deepClone(
         GetFieldHandlePtr  srcField = src    ->getField (i);
         EditFieldHandlePtr dstField = fcClone->editField(i);
 
-        if(dstField->isValid() == false || srcField->isValid() == false)
+        if(dstField == NULL || dstField->isValid() == false || 
+           srcField == NULL || srcField->isValid() == false)
+        {
             continue;
+        }
 
 //        if(dstField != NULL)
         if(srcField->isPointerField() == false)
