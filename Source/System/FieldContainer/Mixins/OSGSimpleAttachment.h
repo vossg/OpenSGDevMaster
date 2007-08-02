@@ -252,8 +252,8 @@ class SimpleAttachment : public FieldContainerAttachment
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
-    GetHandlePtr  getHandleField (void) const;
-    EditHandlePtr editHandleField(void);
+    GetFieldHandlePtr  getHandleField (void) const;
+    EditFieldHandlePtr editHandleField(void);
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

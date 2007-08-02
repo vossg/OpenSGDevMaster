@@ -60,8 +60,8 @@ void NodeCore::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(NodeCore::Parents),
         true,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&NodeCore::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&NodeCore::getHandleParents));
+        static_cast<FieldEditMethodSig>(&NodeCore::invalidEditField),
+        static_cast<FieldGetMethodSig >(&NodeCore::getHandleParents));
 
     oType.addInitialDesc(pDesc);
 }
@@ -278,7 +278,7 @@ void NodeCore::dump(      UInt32    uiIndent,
     PLOG << "}" << std::endl;
 }
 
-MFParentFieldContainerPtr::GetHandlePtr NodeCore::getHandleParents(void)
+GetFieldHandlePtr NodeCore::getHandleParents(void) const
 {
     MFParentFieldContainerPtr::GetHandlePtr returnValue(
         new  MFParentFieldContainerPtr::GetHandle(

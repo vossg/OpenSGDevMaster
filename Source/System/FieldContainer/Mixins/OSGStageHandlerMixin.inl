@@ -52,8 +52,8 @@ void StageHandlerMixin<ParentT>::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Self::UpdateMode),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Self::editHandleUpdateMode),
-        reinterpret_cast<FieldGetMethodSig >(&Self::getHandleUpdateMode ),
+        static_cast<FieldEditMethodSig>(&Self::editHandleUpdateMode),
+        static_cast<FieldGetMethodSig >(&Self::getHandleUpdateMode ),
         NULL);
 
     oType.addInitialDesc(pDesc);
@@ -366,7 +366,7 @@ void StageHandlerMixin<ParentT>::dump(      UInt32    uiIndent,
 }
 
 template <class ParentT> inline
-SFUInt32::EditHandlePtr StageHandlerMixin<ParentT>::editHandleUpdateMode(void)
+EditFieldHandlePtr StageHandlerMixin<ParentT>::editHandleUpdateMode(void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -379,7 +379,7 @@ SFUInt32::EditHandlePtr StageHandlerMixin<ParentT>::editHandleUpdateMode(void)
 }
 
 template <class ParentT> inline
-SFUInt32::GetHandlePtr  StageHandlerMixin<ParentT>::getHandleUpdateMode(
+GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleUpdateMode(
     void) const
 {
     SFUInt32::GetHandlePtr returnValue(

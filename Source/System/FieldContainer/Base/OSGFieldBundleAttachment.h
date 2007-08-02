@@ -201,10 +201,10 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleAttachment : public FieldBundle
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
-    SFBool              ::EditHandlePtr editInternalHandler(void);
-    SFBool              ::GetHandlePtr  getInternalHandler (void);
+    EditFieldHandlePtr editInternalHandler(void);
+    GetFieldHandlePtr  getInternalHandler (void) const;
 
-    MFParentFieldBundleP::GetHandlePtr  getHandleParents   (void);
+    GetFieldHandlePtr  getHandleParents   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

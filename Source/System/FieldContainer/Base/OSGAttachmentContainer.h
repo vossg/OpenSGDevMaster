@@ -251,8 +251,8 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
-    SFAttachmentObjPtrMap::EditHandlePtr editHandleAttachments(void);
-    SFAttachmentObjPtrMap::GetHandlePtr  getHandleAttachments (void) const;
+    EditFieldHandlePtr editHandleAttachments(void);
+    GetFieldHandlePtr  getHandleAttachments (void) const;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

@@ -519,8 +519,8 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::initMethod(InitPhase ePhase)
 }
 
 template <class GeoPropertyDesc> inline
-typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredEditHandlePtr  
-    TypedGeoIntegralProperty<GeoPropertyDesc>::editHandleField(void)
+EditFieldHandlePtr TypedGeoIntegralProperty<GeoPropertyDesc>::editHandleField(
+    void)
 {
     StoredEditHandlePtr returnValue(
         new  StoredEditHandle(
@@ -533,8 +533,8 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredEditHandlePtr
 }
 
 template <class GeoPropertyDesc> inline
-typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredGetHandlePtr
-    TypedGeoIntegralProperty<GeoPropertyDesc>::getHandleField(void) const
+GetFieldHandlePtr TypedGeoIntegralProperty<GeoPropertyDesc>::getHandleField(
+    void) const
 {
     StoredGetHandlePtr returnValue(
         new  StoredGetHandle(

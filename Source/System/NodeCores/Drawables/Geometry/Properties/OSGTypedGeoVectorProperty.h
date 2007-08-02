@@ -355,8 +355,8 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
-    StoredEditHandlePtr editHandleField(void);
-    StoredGetHandlePtr  getHandleField (void) const;
+    EditFieldHandlePtr editHandleField(void);
+    GetFieldHandlePtr  getHandleField (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

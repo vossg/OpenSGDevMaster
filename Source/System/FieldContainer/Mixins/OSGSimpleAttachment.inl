@@ -193,8 +193,7 @@ void SimpleAttachment<AttachmentDescT>::dump(
 }
 
 template <class AttachmentDescT> inline
-typename SimpleAttachment<AttachmentDescT>::GetHandlePtr  
-    SimpleAttachment<AttachmentDescT>::getHandleField(void) const
+GetFieldHandlePtr SimpleAttachment<AttachmentDescT>::getHandleField(void) const
 {
     GetHandlePtr returnValue(
         new  GetHandle(
@@ -205,8 +204,7 @@ typename SimpleAttachment<AttachmentDescT>::GetHandlePtr
 }
 
 template <class AttachmentDescT> inline
-typename SimpleAttachment<AttachmentDescT>::EditHandlePtr 
-    SimpleAttachment<AttachmentDescT>::editHandleField(void)
+EditFieldHandlePtr SimpleAttachment<AttachmentDescT>::editHandleField(void)
 {
     EditHandlePtr returnValue(
         new  EditHandle(

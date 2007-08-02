@@ -290,7 +290,7 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
-    MFParentFieldContainerPtr::GetHandlePtr getHandleParents(void);
+    GetFieldHandlePtr getHandleParents(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

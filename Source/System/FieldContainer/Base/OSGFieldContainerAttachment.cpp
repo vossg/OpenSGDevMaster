@@ -65,8 +65,8 @@ void FieldContainerAttachment::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Self::Parents),
         true,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&Self::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&Self::getHandleParents),
+        static_cast<FieldEditMethodSig>(&Self::invalidEditField),
+        static_cast<FieldGetMethodSig >(&Self::getHandleParents),
         NULL);
 
     oType.addInitialDesc(pDesc);
@@ -79,8 +79,8 @@ void FieldContainerAttachment::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Self::Internal),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Self::editInternalHandler),
-        reinterpret_cast<FieldGetMethodSig >(&Self::getInternalHandler ),
+        static_cast<FieldEditMethodSig>(&Self::editInternalHandler),
+        static_cast<FieldGetMethodSig >(&Self::getInternalHandler ),
         NULL);
 
     oType.addInitialDesc(pDesc);
@@ -181,7 +181,7 @@ void FieldContainerAttachment::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
-SFBool::EditHandlePtr FieldContainerAttachment::editInternalHandler(void)
+EditFieldHandlePtr FieldContainerAttachment::editInternalHandler(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -193,7 +193,7 @@ SFBool::EditHandlePtr FieldContainerAttachment::editInternalHandler(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr FieldContainerAttachment::getInternalHandler(void)
+GetFieldHandlePtr FieldContainerAttachment::getInternalHandler(void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -203,8 +203,7 @@ SFBool::GetHandlePtr FieldContainerAttachment::getInternalHandler(void)
     return returnValue;
 }
 
-MFParentFieldContainerPtr::GetHandlePtr 
-    FieldContainerAttachment::getHandleParents(void)
+GetFieldHandlePtr FieldContainerAttachment::getHandleParents(void) const
 {
     MFParentFieldContainerPtr::GetHandlePtr returnValue(
         new  MFParentFieldContainerPtr::GetHandle(

@@ -68,8 +68,8 @@ void Node::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Node::Volume),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Node::editHandleVolume),
-        reinterpret_cast<FieldGetMethodSig >(&Node::getHandleVolume ));
+        static_cast<FieldEditMethodSig>(&Node::editHandleVolume),
+        static_cast<FieldGetMethodSig >(&Node::getHandleVolume ));
 
     oType.addInitialDesc(pDesc);
 
@@ -81,8 +81,8 @@ void Node::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Node::TravMask),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Node::editHandleTravMask),
-        reinterpret_cast<FieldGetMethodSig >(&Node::getHandleTravMask ));
+        static_cast<FieldEditMethodSig>(&Node::editHandleTravMask),
+        static_cast<FieldGetMethodSig >(&Node::getHandleTravMask ));
 
     oType.addInitialDesc(pDesc);
 
@@ -94,8 +94,8 @@ void Node::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Node::Parent),
         true,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&Node::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&Node::getHandleParent ));
+        static_cast<FieldEditMethodSig>(&Node::invalidEditField),
+        static_cast<FieldGetMethodSig >(&Node::getHandleParent ));
 
     oType.addInitialDesc(pDesc);
 
@@ -107,8 +107,8 @@ void Node::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Node::Core),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Node::editHandleCore),
-        reinterpret_cast<FieldGetMethodSig >(&Node::getHandleCore ));
+        static_cast<FieldEditMethodSig>(&Node::editHandleCore),
+        static_cast<FieldGetMethodSig >(&Node::getHandleCore ));
 
     oType.addInitialDesc(pDesc);
 
@@ -120,8 +120,8 @@ void Node::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Node::Children),
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Node::editHandleChildren),
-        reinterpret_cast<FieldGetMethodSig >(&Node::getHandleChildren));
+        static_cast<FieldEditMethodSig>(&Node::editHandleChildren),
+        static_cast<FieldGetMethodSig >(&Node::getHandleChildren));
 
     oType.addInitialDesc(pDesc);
 }
@@ -856,7 +856,7 @@ void Node::execSyncV(      FieldContainer     &oFrom,
 }
 #endif
 
-SFDynamicVolume::EditHandlePtr Node::editHandleVolume(void)
+EditFieldHandlePtr Node::editHandleVolume(void)
 {
     SFDynamicVolume::EditHandlePtr returnValue(
         new  SFDynamicVolume::EditHandle(
@@ -868,7 +868,7 @@ SFDynamicVolume::EditHandlePtr Node::editHandleVolume(void)
     return returnValue;
 }
 
-SFDynamicVolume::GetHandlePtr  Node::getHandleVolume(void) const
+GetFieldHandlePtr  Node::getHandleVolume(void) const
 {
     SFDynamicVolume::GetHandlePtr returnValue(
         new  SFDynamicVolume::GetHandle(
@@ -878,7 +878,7 @@ SFDynamicVolume::GetHandlePtr  Node::getHandleVolume(void) const
     return returnValue;
 }
 
-SFUInt32::EditHandlePtr Node::editHandleTravMask(void)
+EditFieldHandlePtr Node::editHandleTravMask(void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -890,7 +890,7 @@ SFUInt32::EditHandlePtr Node::editHandleTravMask(void)
     return returnValue;
 }
 
-SFUInt32::GetHandlePtr Node::getHandleTravMask(void) const
+GetFieldHandlePtr Node::getHandleTravMask(void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
@@ -900,7 +900,7 @@ SFUInt32::GetHandlePtr Node::getHandleTravMask(void) const
     return returnValue;
 }
 
-SFNodePtr::GetHandlePtr Node::getHandleParent(void) const
+GetFieldHandlePtr Node::getHandleParent(void) const
 {
     SFNodePtr::GetHandlePtr returnValue(
         new  SFNodePtr::GetHandle(
@@ -910,7 +910,7 @@ SFNodePtr::GetHandlePtr Node::getHandleParent(void) const
     return returnValue;
 }
 
-SFNodeCorePtr::EditHandlePtr Node::editHandleCore(void)
+EditFieldHandlePtr Node::editHandleCore(void)
 {
     SFNodeCorePtr::EditHandlePtr returnValue(
         new  SFNodeCorePtr::EditHandle(
@@ -924,7 +924,7 @@ SFNodeCorePtr::EditHandlePtr Node::editHandleCore(void)
     return returnValue;
 }
 
-SFNodeCorePtr::GetHandlePtr Node::getHandleCore(void) const
+GetFieldHandlePtr Node::getHandleCore(void) const
 {
     SFNodeCorePtr::GetHandlePtr returnValue(
         new  SFNodeCorePtr::GetHandle(
@@ -934,7 +934,7 @@ SFNodeCorePtr::GetHandlePtr Node::getHandleCore(void) const
     return returnValue;
 }
 
-MFNodePtr::EditHandlePtr Node::editHandleChildren(void)
+EditFieldHandlePtr Node::editHandleChildren(void)
 {
     MFNodePtr::EditHandlePtr returnValue(
         new  MFNodePtr::EditHandle(
@@ -948,7 +948,7 @@ MFNodePtr::EditHandlePtr Node::editHandleChildren(void)
     return returnValue;
 }
 
-MFNodePtr::GetHandlePtr  Node::getHandleChildren(void) const
+GetFieldHandlePtr  Node::getHandleChildren(void) const
 {
     MFNodePtr::GetHandlePtr returnValue(
         new  MFNodePtr::GetHandle(

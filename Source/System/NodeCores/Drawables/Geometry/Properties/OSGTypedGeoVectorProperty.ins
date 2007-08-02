@@ -51,8 +51,8 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::classDescInserter(
         OSG_RC_FIELD_DESC(Self::GeoPropData),
         false,
         Field::MFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Self::editHandleField),
-        reinterpret_cast<FieldGetMethodSig >(&Self::getHandleField ));
+        static_cast<FieldEditMethodSig>(&Self::editHandleField),
+        static_cast<FieldGetMethodSig >(&Self::getHandleField ));
 
     oType.addInitialDesc(pDesc);
 }

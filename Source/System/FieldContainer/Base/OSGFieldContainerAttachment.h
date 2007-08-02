@@ -214,10 +214,10 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
-    SFBool                   ::EditHandlePtr editInternalHandler(void);
-    SFBool                   ::GetHandlePtr  getInternalHandler (void);
+    EditFieldHandlePtr editInternalHandler(void);
+    GetFieldHandlePtr  getInternalHandler (void) const;
 
-    MFParentFieldContainerPtr::GetHandlePtr  getHandleParents   (void);
+    GetFieldHandlePtr  getHandleParents   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

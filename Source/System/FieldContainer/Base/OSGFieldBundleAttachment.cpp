@@ -60,8 +60,8 @@ void FieldBundleAttachment::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Self::Parents),
         true,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&Self::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&Self::getHandleParents),
+        static_cast<FieldEditMethodSig>(&Self::invalidEditField),
+        static_cast<FieldGetMethodSig >(&Self::getHandleParents),
         NULL);
 
     oType.addInitialDesc(pDesc);
@@ -74,8 +74,8 @@ void FieldBundleAttachment::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Self::Internal),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Self::editInternalHandler),
-        reinterpret_cast<FieldGetMethodSig >(&Self::getInternalHandler ),
+        static_cast<FieldEditMethodSig>(&Self::editInternalHandler),
+        static_cast<FieldGetMethodSig >(&Self::getInternalHandler ),
         NULL);
 
     oType.addInitialDesc(pDesc);
@@ -174,7 +174,7 @@ void FieldBundleAttachment::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
-SFBool::EditHandlePtr FieldBundleAttachment::editInternalHandler(void)
+EditFieldHandlePtr FieldBundleAttachment::editInternalHandler(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -186,7 +186,7 @@ SFBool::EditHandlePtr FieldBundleAttachment::editInternalHandler(void)
     return returnValue;
 }
 
-SFBool::GetHandlePtr FieldBundleAttachment::getInternalHandler(void)
+GetFieldHandlePtr FieldBundleAttachment::getInternalHandler(void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -196,8 +196,7 @@ SFBool::GetHandlePtr FieldBundleAttachment::getInternalHandler(void)
     return returnValue;
 }
 
-MFParentFieldBundleP::GetHandlePtr  
-    FieldBundleAttachment::getHandleParents(void)
+GetFieldHandlePtr FieldBundleAttachment::getHandleParents(void) const
 {
     MFParentFieldBundleP::GetHandlePtr returnValue(
         new  MFParentFieldBundleP::GetHandle(

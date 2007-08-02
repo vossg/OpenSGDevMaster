@@ -737,9 +737,9 @@ void VRMLNodeHelper::getField(const Char8                * szFieldname,
         0,                                                  \
         false,                                              \
         OSG::Field::SFDefaultFlags,                         \
-        reinterpret_cast<OSG::FieldIndexEditMethodSig>(     \
+        static_cast<OSG::FieldIndexEditMethodSig>(          \
             &VRMLGenericAtt::editDynamicField),             \
-        reinterpret_cast<OSG::FieldIndexGetMethodSig >(     \
+        static_cast<OSG::FieldIndexGetMethodSig >(          \
             &VRMLGenericAtt::getDynamicField ))
 
 #define OSG_CREATE_DESC_ELSE(TYPE)                          \

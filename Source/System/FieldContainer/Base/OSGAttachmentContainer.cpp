@@ -63,8 +63,8 @@ void AttachmentContainer::classDescInserter(TypeObject &oType)
         OSG_RC_FIELD_DESC(Attachments),
         false,
         Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&Self::editHandleAttachments),
-        reinterpret_cast<FieldGetMethodSig >(&Self::getHandleAttachments ),
+        static_cast<FieldEditMethodSig>(&Self::editHandleAttachments),
+        static_cast<FieldGetMethodSig >(&Self::getHandleAttachments ),
         NULL);
 
     oType.addInitialDesc(pDesc);
@@ -357,8 +357,7 @@ void AttachmentContainer::resolveLinks(void)
     }
 }
 
-AttachmentContainer::SFAttachmentObjPtrMap::EditHandlePtr 
-    AttachmentContainer::editHandleAttachments(void) 
+EditFieldHandlePtr AttachmentContainer::editHandleAttachments(void) 
 {
     SFAttachmentObjPtrMap::EditHandlePtr returnValue(
         new  SFAttachmentObjPtrMap::EditHandle(
@@ -370,8 +369,7 @@ AttachmentContainer::SFAttachmentObjPtrMap::EditHandlePtr
     return returnValue;
 }
 
-AttachmentContainer::SFAttachmentObjPtrMap::GetHandlePtr  
-    AttachmentContainer::getHandleAttachments(void) const
+GetFieldHandlePtr AttachmentContainer::getHandleAttachments(void) const
 {
     SFAttachmentObjPtrMap::GetHandlePtr returnValue(
         new  SFAttachmentObjPtrMap::GetHandle(

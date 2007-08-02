@@ -531,8 +531,8 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::initMethod(InitPhase ePhase)
 }
 
 template <class GeoPropertyDesc> inline
-typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredEditHandlePtr  
-    TypedGeoVectorProperty<GeoPropertyDesc>::editHandleField(void)
+EditFieldHandlePtr TypedGeoVectorProperty<GeoPropertyDesc>::editHandleField(
+    void)
 {
     StoredEditHandlePtr returnValue(
         new  StoredEditHandle(
@@ -545,8 +545,8 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredEditHandlePtr
 }
 
 template <class GeoPropertyDesc> inline
-typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredGetHandlePtr
-    TypedGeoVectorProperty<GeoPropertyDesc>::getHandleField(void) const
+GetFieldHandlePtr TypedGeoVectorProperty<GeoPropertyDesc>::getHandleField(
+    void) const
 {
     StoredGetHandlePtr returnValue(
         new  StoredGetHandle(

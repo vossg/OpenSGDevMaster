@@ -364,19 +364,19 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
-    SFDynamicVolume::EditHandlePtr editHandleVolume  (void);
-    SFDynamicVolume::GetHandlePtr  getHandleVolume   (void) const;
+    EditFieldHandlePtr editHandleVolume  (void);
+    GetFieldHandlePtr  getHandleVolume   (void) const;
     
-    SFUInt32       ::EditHandlePtr editHandleTravMask(void);
-    SFUInt32       ::GetHandlePtr  getHandleTravMask (void) const;
+    EditFieldHandlePtr editHandleTravMask(void);
+    GetFieldHandlePtr  getHandleTravMask (void) const;
     
-    SFNodePtr      ::GetHandlePtr  getHandleParent   (void) const;
+    GetFieldHandlePtr  getHandleParent   (void) const;
     
-    SFNodeCorePtr  ::EditHandlePtr editHandleCore    (void);
-    SFNodeCorePtr  ::GetHandlePtr  getHandleCore     (void) const;
+    EditFieldHandlePtr editHandleCore    (void);
+    GetFieldHandlePtr  getHandleCore     (void) const;
 
-    MFNodePtr      ::EditHandlePtr editHandleChildren(void);
-    MFNodePtr      ::GetHandlePtr  getHandleChildren (void) const;
+    EditFieldHandlePtr editHandleChildren(void);
+    GetFieldHandlePtr  getHandleChildren (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
