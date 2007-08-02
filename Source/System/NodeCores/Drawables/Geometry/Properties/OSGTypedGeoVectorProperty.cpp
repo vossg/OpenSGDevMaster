@@ -60,7 +60,7 @@ OSG_FIELD_CONTAINER_NONINL_TMPL_DEF(TypedGeoVectorProperty,
 
 #define OSG_EXPORT_PROP(DESC)                           \
    OSG_RC_GET_TYPE_SPECIALIZED_TMPL_DEF(TypedGeoVectorProperty, DESC) \
-   OSG_RC_CREATE_SPECIALIZED_TMPL_DEF(TypedGeoVectorProperty, DESC)   \
+   OSG_FC_CREATE_SPECIALIZED_TMPL_DEF(TypedGeoVectorProperty, DESC)   \
    template class OSG_DLL_EXPORT TypedGeoVectorProperty<DESC>;
 
 

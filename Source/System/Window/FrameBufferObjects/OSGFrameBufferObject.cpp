@@ -340,8 +340,8 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
 }
 
 void FrameBufferObject::handleGL(DrawEnv                 *pEnv, 
-                               UInt32                   osgid, 
-                               Window::GLObjectStatusE  mode)
+                                 UInt32                   osgid, 
+                                 Window::GLObjectStatusE  mode)
 {
     Window *win     = pEnv->getWindow();
     GLuint  uiFBOId = 0;
@@ -486,8 +486,8 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
 }
 
 void FrameBufferObject::handleDestroyGL(DrawEnv                 *pEnv, 
-                               UInt32                   osgid, 
-                               Window::GLObjectStatusE  mode)
+                                        UInt32                   osgid, 
+                                        Window::GLObjectStatusE  mode)
 {
     Window *win = pEnv->getWindow();
 

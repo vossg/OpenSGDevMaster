@@ -62,7 +62,7 @@ OSG_FIELD_CONTAINER_NONINL_TMPL_DEF(TypedGeoIntegralProperty, GeoPropertyDesc)
 
 #define EXPORT_PROP(TMPL_PARAM)                                         \
    OSG_RC_GET_TYPE_SPECIALIZED_TMPL_DEF(TypedGeoIntegralProperty, TMPL_PARAM) \
-   OSG_RC_CREATE_SPECIALIZED_TMPL_DEF(TypedGeoIntegralProperty, TMPL_PARAM)   \
+   OSG_FC_CREATE_SPECIALIZED_TMPL_DEF(TypedGeoIntegralProperty, TMPL_PARAM)   \
    template class OSG_DLL_EXPORT TypedGeoIntegralProperty<TMPL_PARAM>;
    
 
