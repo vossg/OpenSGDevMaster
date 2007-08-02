@@ -588,7 +588,8 @@ EditFieldHandlePtr SimpleTexturedMaterialBase::editHandleImage          (void)
              &_sfImage, 
              this->getType().getFieldDesc(ImageFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SimpleTexturedMaterial::setImage, this, _1));
+    returnValue->setSetMethod(boost::bind(&SimpleTexturedMaterial::setImage, 
+                                          static_cast<SimpleTexturedMaterial *>(this), _1));
 
     editSField(ImageFieldMask);
 

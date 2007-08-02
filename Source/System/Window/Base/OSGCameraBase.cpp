@@ -388,7 +388,8 @@ EditFieldHandlePtr CameraBase::editHandleBeacon         (void)
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Camera::setBeacon, this, _1));
+    returnValue->setSetMethod(boost::bind(&Camera::setBeacon, 
+                                          static_cast<Camera *>(this), _1));
 
     editSField(BeaconFieldMask);
 

@@ -292,7 +292,8 @@ EditFieldHandlePtr SHLParameterChunkBase::editHandleSHLChunk       (void)
              &_sfSHLChunk, 
              this->getType().getFieldDesc(SHLChunkFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SHLParameterChunk::setSHLChunk, this, _1));
+    returnValue->setSetMethod(boost::bind(&SHLParameterChunk::setSHLChunk, 
+                                          static_cast<SHLParameterChunk *>(this), _1));
 
     editSField(SHLChunkFieldMask);
 

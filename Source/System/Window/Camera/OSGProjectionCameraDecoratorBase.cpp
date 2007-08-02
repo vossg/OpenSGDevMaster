@@ -761,7 +761,8 @@ EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleUser           (void
              &_sfUser, 
              this->getType().getFieldDesc(UserFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&ProjectionCameraDecorator::setUser, this, _1));
+    returnValue->setSetMethod(boost::bind(&ProjectionCameraDecorator::setUser, 
+                                          static_cast<ProjectionCameraDecorator *>(this), _1));
 
     editSField(UserFieldMask);
 

@@ -452,7 +452,8 @@ EditFieldHandlePtr ShaderParameterChunkBase::editHandleParameters     (void)
              &_mfParameters, 
              this->getType().getFieldDesc(ParametersFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&ShaderParameterChunk::addParameter, this, _1));
+    returnValue->setAddMethod(boost::bind(&ShaderParameterChunk::addParameter, 
+                              static_cast<ShaderParameterChunk *>(this), _1));
 
     editMField(ParametersFieldMask, _mfParameters);
 

@@ -886,7 +886,8 @@ EditFieldHandlePtr SimpleStageBase::editHandleCamera         (void)
              &_sfCamera, 
              this->getType().getFieldDesc(CameraFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SimpleStage::setCamera, this, _1));
+    returnValue->setSetMethod(boost::bind(&SimpleStage::setCamera, 
+                                          static_cast<SimpleStage *>(this), _1));
 
     editSField(CameraFieldMask);
 
@@ -910,7 +911,8 @@ EditFieldHandlePtr SimpleStageBase::editHandleBackground     (void)
              &_sfBackground, 
              this->getType().getFieldDesc(BackgroundFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SimpleStage::setBackground, this, _1));
+    returnValue->setSetMethod(boost::bind(&SimpleStage::setBackground, 
+                                          static_cast<SimpleStage *>(this), _1));
 
     editSField(BackgroundFieldMask);
 
@@ -934,7 +936,8 @@ EditFieldHandlePtr SimpleStageBase::editHandleForegrounds    (void)
              &_mfForegrounds, 
              this->getType().getFieldDesc(ForegroundsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&SimpleStage::pushToForegrounds, this, _1));
+    returnValue->setAddMethod(boost::bind(&SimpleStage::pushToForegrounds, 
+                              static_cast<SimpleStage *>(this), _1));
 
     editMField(ForegroundsFieldMask, _mfForegrounds);
 

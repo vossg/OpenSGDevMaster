@@ -1131,7 +1131,8 @@ EditFieldHandlePtr LightChunkBase::editHandleBeacon         (void)
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&LightChunk::setBeacon, this, _1));
+    returnValue->setSetMethod(boost::bind(&LightChunk::setBeacon, 
+                                          static_cast<LightChunk *>(this), _1));
 
     editSField(BeaconFieldMask);
 

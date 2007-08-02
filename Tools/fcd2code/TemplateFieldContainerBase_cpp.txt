@@ -905,7 +905,8 @@ EditFieldHandlePtr @!Classname!@Base::editHandleDecoratee(void)
             &_sfDecoratee,
             this->getType().getFieldDesc(DecorateeFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&@!Classname!@::setDecoratee, this, _1));
+    returnValue->setSetMethod(boost::bind(&@!Classname!@::setDecoratee, 
+                              static_cast<@!Classname!@ *>(this), _1));
 
     editSField(DecorateeFieldMask);
 
@@ -934,14 +935,16 @@ EditFieldHandlePtr @!Classname!@Base::editHandle@!field.Name:15!@(void)
 @@if field.isMField
   @@if field.isPtrField
 
-    returnValue->setAddMethod(boost::bind(&@!Classname!@::@!field.PushToField!@, this, _1));
+    returnValue->setAddMethod(boost::bind(&@!Classname!@::@!field.PushToField!@, 
+                              static_cast<@!Classname!@ *>(this), _1));
   @@endif
 
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 @@else // field.isMField
   @@if field.isPtrField
 
-    returnValue->setSetMethod(boost::bind(&@!Classname!@::set@!field.Name!@, this, _1));
+    returnValue->setSetMethod(boost::bind(&@!Classname!@::set@!field.Name!@, 
+                                          static_cast<@!Classname!@ *>(this), _1));
   @@endif
 
     editSField(@!field.Name!@FieldMask);

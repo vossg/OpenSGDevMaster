@@ -301,7 +301,8 @@ EditFieldHandlePtr MaterialGroupBase::editHandleMaterial       (void)
              &_sfMaterial, 
              this->getType().getFieldDesc(MaterialFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&MaterialGroup::setMaterial, this, _1));
+    returnValue->setSetMethod(boost::bind(&MaterialGroup::setMaterial, 
+                                          static_cast<MaterialGroup *>(this), _1));
 
     editSField(MaterialFieldMask);
 

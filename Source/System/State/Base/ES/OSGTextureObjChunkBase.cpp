@@ -3674,7 +3674,8 @@ EditFieldHandlePtr TextureObjChunkBase::editHandleImage          (void)
              &_sfImage, 
              this->getType().getFieldDesc(ImageFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TextureObjChunk::setImage, this, _1));
+    returnValue->setSetMethod(boost::bind(&TextureObjChunk::setImage, 
+                                          static_cast<TextureObjChunk *>(this), _1));
 
     editSField(ImageFieldMask);
 

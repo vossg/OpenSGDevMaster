@@ -310,7 +310,8 @@ EditFieldHandlePtr VisitSubTreeBase::editHandleSubTreeRoot    (void)
              &_sfSubTreeRoot, 
              this->getType().getFieldDesc(SubTreeRootFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&VisitSubTree::setSubTreeRoot, this, _1));
+    returnValue->setSetMethod(boost::bind(&VisitSubTree::setSubTreeRoot, 
+                                          static_cast<VisitSubTree *>(this), _1));
 
     editSField(SubTreeRootFieldMask);
 

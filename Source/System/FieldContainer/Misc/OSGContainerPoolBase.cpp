@@ -517,7 +517,8 @@ EditFieldHandlePtr ContainerPoolBase::editHandleContainers     (void)
              &_mfContainers, 
              this->getType().getFieldDesc(ContainersFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&ContainerPool::pushToContainers, this, _1));
+    returnValue->setAddMethod(boost::bind(&ContainerPool::pushToContainers, 
+                              static_cast<ContainerPool *>(this), _1));
 
     editMField(ContainersFieldMask, _mfContainers);
 

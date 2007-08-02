@@ -481,7 +481,8 @@ EditFieldHandlePtr ClipPlaneChunkBase::editHandleBeacon         (void)
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&ClipPlaneChunk::setBeacon, this, _1));
+    returnValue->setSetMethod(boost::bind(&ClipPlaneChunk::setBeacon, 
+                                          static_cast<ClipPlaneChunk *>(this), _1));
 
     editSField(BeaconFieldMask);
 

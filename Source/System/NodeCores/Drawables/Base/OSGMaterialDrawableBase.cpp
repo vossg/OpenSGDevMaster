@@ -259,7 +259,8 @@ EditFieldHandlePtr MaterialDrawableBase::editHandleMaterial       (void)
              &_sfMaterial, 
              this->getType().getFieldDesc(MaterialFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&MaterialDrawable::setMaterial, this, _1));
+    returnValue->setSetMethod(boost::bind(&MaterialDrawable::setMaterial, 
+                                          static_cast<MaterialDrawable *>(this), _1));
 
     editSField(MaterialFieldMask);
 

@@ -501,7 +501,8 @@ EditFieldHandlePtr SwitchMaterialBase::editHandleMaterials      (void)
              &_mfMaterials, 
              this->getType().getFieldDesc(MaterialsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&SwitchMaterial::pushToMaterials, this, _1));
+    returnValue->setAddMethod(boost::bind(&SwitchMaterial::pushToMaterials, 
+                              static_cast<SwitchMaterial *>(this), _1));
 
     editMField(MaterialsFieldMask, _mfMaterials);
 

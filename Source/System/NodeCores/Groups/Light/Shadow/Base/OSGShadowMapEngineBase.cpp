@@ -552,7 +552,8 @@ EditFieldHandlePtr ShadowMapEngineBase::editHandleRenderTarget   (void)
              &_sfRenderTarget, 
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&ShadowMapEngine::setRenderTarget, this, _1));
+    returnValue->setSetMethod(boost::bind(&ShadowMapEngine::setRenderTarget, 
+                                          static_cast<ShadowMapEngine *>(this), _1));
 
     editSField(RenderTargetFieldMask);
 

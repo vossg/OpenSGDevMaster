@@ -2263,7 +2263,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBackTexture    (void)
              &_sfBackTexture, 
              this->getType().getFieldDesc(BackTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setBackTexture, this, _1));
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setBackTexture, 
+                                          static_cast<SkyBackground *>(this), _1));
 
     editSField(BackTextureFieldMask);
 
@@ -2287,7 +2288,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBottomTexture  (void)
              &_sfBottomTexture, 
              this->getType().getFieldDesc(BottomTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setBottomTexture, this, _1));
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setBottomTexture, 
+                                          static_cast<SkyBackground *>(this), _1));
 
     editSField(BottomTextureFieldMask);
 
@@ -2311,7 +2313,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleFrontTexture   (void)
              &_sfFrontTexture, 
              this->getType().getFieldDesc(FrontTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setFrontTexture, this, _1));
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setFrontTexture, 
+                                          static_cast<SkyBackground *>(this), _1));
 
     editSField(FrontTextureFieldMask);
 
@@ -2335,7 +2338,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleLeftTexture    (void)
              &_sfLeftTexture, 
              this->getType().getFieldDesc(LeftTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setLeftTexture, this, _1));
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setLeftTexture, 
+                                          static_cast<SkyBackground *>(this), _1));
 
     editSField(LeftTextureFieldMask);
 
@@ -2359,7 +2363,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleRightTexture   (void)
              &_sfRightTexture, 
              this->getType().getFieldDesc(RightTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setRightTexture, this, _1));
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setRightTexture, 
+                                          static_cast<SkyBackground *>(this), _1));
 
     editSField(RightTextureFieldMask);
 
@@ -2383,7 +2388,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleTopTexture     (void)
              &_sfTopTexture, 
              this->getType().getFieldDesc(TopTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setTopTexture, this, _1));
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setTopTexture, 
+                                          static_cast<SkyBackground *>(this), _1));
 
     editSField(TopTextureFieldMask);
 
@@ -2561,7 +2567,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBeacon         (void)
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setBeacon, this, _1));
+    returnValue->setSetMethod(boost::bind(&SkyBackground::setBeacon, 
+                                          static_cast<SkyBackground *>(this), _1));
 
     editSField(BeaconFieldMask);
 

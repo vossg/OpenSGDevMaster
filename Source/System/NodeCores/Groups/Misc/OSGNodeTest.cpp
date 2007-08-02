@@ -249,9 +249,9 @@ TEST(DynFieldAttachment)
         0,
         false,
         OSG::Field::SFDefaultFlags,
-        reinterpret_cast<OSG::FieldIndexEditMethodSig>(
+        static_cast<OSG::FieldIndexEditMethodSig>(
             &OSG::TestAtt::editDynamicField),
-        reinterpret_cast<OSG::FieldIndexGetMethodSig >(
+        static_cast<OSG::FieldIndexGetMethodSig >(
             &OSG::TestAtt::getDynamicField ));
 
     CHECK(pT != OSGNullFC);
@@ -260,11 +260,11 @@ TEST(DynFieldAttachment)
 
     CHECK(fIndex != 0);
 
-    const OSG::Field *pFI = pT->getDynamicField(fIndex);
+    OSG::GetFieldHandlePtr pFI = pT->getDynamicField(fIndex);
 
     CHECK(pFI != NULL);
 
-    const OSG::Field *pFN = pT->getDynamicFieldByName("foo");
+    OSG::GetFieldHandlePtr pFN = pT->getDynamicFieldByName("foo");
 
     CHECK(pFN != NULL);
 

@@ -536,7 +536,8 @@ EditFieldHandlePtr TextureSelectChunkBase::editHandleTextures       (void)
              &_mfTextures, 
              this->getType().getFieldDesc(TexturesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&TextureSelectChunk::pushToTextures, this, _1));
+    returnValue->setAddMethod(boost::bind(&TextureSelectChunk::pushToTextures, 
+                              static_cast<TextureSelectChunk *>(this), _1));
 
     editMField(TexturesFieldMask, _mfTextures);
 

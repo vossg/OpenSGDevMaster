@@ -575,7 +575,8 @@ EditFieldHandlePtr CubeTextureChunkBase::editHandlePosZImage      (void)
              &_sfPosZImage, 
              this->getType().getFieldDesc(PosZImageFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CubeTextureChunk::setPosZImage, this, _1));
+    returnValue->setSetMethod(boost::bind(&CubeTextureChunk::setPosZImage, 
+                                          static_cast<CubeTextureChunk *>(this), _1));
 
     editSField(PosZImageFieldMask);
 
@@ -599,7 +600,8 @@ EditFieldHandlePtr CubeTextureChunkBase::editHandlePosXImage      (void)
              &_sfPosXImage, 
              this->getType().getFieldDesc(PosXImageFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CubeTextureChunk::setPosXImage, this, _1));
+    returnValue->setSetMethod(boost::bind(&CubeTextureChunk::setPosXImage, 
+                                          static_cast<CubeTextureChunk *>(this), _1));
 
     editSField(PosXImageFieldMask);
 
@@ -623,7 +625,8 @@ EditFieldHandlePtr CubeTextureChunkBase::editHandleNegXImage      (void)
              &_sfNegXImage, 
              this->getType().getFieldDesc(NegXImageFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CubeTextureChunk::setNegXImage, this, _1));
+    returnValue->setSetMethod(boost::bind(&CubeTextureChunk::setNegXImage, 
+                                          static_cast<CubeTextureChunk *>(this), _1));
 
     editSField(NegXImageFieldMask);
 
@@ -647,7 +650,8 @@ EditFieldHandlePtr CubeTextureChunkBase::editHandlePosYImage      (void)
              &_sfPosYImage, 
              this->getType().getFieldDesc(PosYImageFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CubeTextureChunk::setPosYImage, this, _1));
+    returnValue->setSetMethod(boost::bind(&CubeTextureChunk::setPosYImage, 
+                                          static_cast<CubeTextureChunk *>(this), _1));
 
     editSField(PosYImageFieldMask);
 
@@ -671,7 +675,8 @@ EditFieldHandlePtr CubeTextureChunkBase::editHandleNegYImage      (void)
              &_sfNegYImage, 
              this->getType().getFieldDesc(NegYImageFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CubeTextureChunk::setNegYImage, this, _1));
+    returnValue->setSetMethod(boost::bind(&CubeTextureChunk::setNegYImage, 
+                                          static_cast<CubeTextureChunk *>(this), _1));
 
     editSField(NegYImageFieldMask);
 

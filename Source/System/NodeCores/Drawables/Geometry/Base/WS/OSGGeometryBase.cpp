@@ -1001,7 +1001,8 @@ EditFieldHandlePtr GeometryBase::editHandleTypes          (void)
              &_sfTypes, 
              this->getType().getFieldDesc(TypesFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Geometry::setTypes, this, _1));
+    returnValue->setSetMethod(boost::bind(&Geometry::setTypes, 
+                                          static_cast<Geometry *>(this), _1));
 
     editSField(TypesFieldMask);
 
@@ -1025,7 +1026,8 @@ EditFieldHandlePtr GeometryBase::editHandleLengths        (void)
              &_sfLengths, 
              this->getType().getFieldDesc(LengthsFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Geometry::setLengths, this, _1));
+    returnValue->setSetMethod(boost::bind(&Geometry::setLengths, 
+                                          static_cast<Geometry *>(this), _1));
 
     editSField(LengthsFieldMask);
 
@@ -1049,7 +1051,8 @@ EditFieldHandlePtr GeometryBase::editHandleProperties     (void)
              &_mfProperties, 
              this->getType().getFieldDesc(PropertiesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&Geometry::pushToProperties, this, _1));
+    returnValue->setAddMethod(boost::bind(&Geometry::pushToProperties, 
+                              static_cast<Geometry *>(this), _1));
 
     editMField(PropertiesFieldMask, _mfProperties);
 
@@ -1073,7 +1076,8 @@ EditFieldHandlePtr GeometryBase::editHandlePropIndices    (void)
              &_mfPropIndices, 
              this->getType().getFieldDesc(PropIndicesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&Geometry::pushToPropIndices, this, _1));
+    returnValue->setAddMethod(boost::bind(&Geometry::pushToPropIndices, 
+                              static_cast<Geometry *>(this), _1));
 
     editMField(PropIndicesFieldMask, _mfPropIndices);
 

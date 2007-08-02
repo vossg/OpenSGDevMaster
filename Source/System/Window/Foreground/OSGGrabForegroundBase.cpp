@@ -361,7 +361,8 @@ EditFieldHandlePtr GrabForegroundBase::editHandleImage          (void)
              &_sfImage, 
              this->getType().getFieldDesc(ImageFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&GrabForeground::setImage, this, _1));
+    returnValue->setSetMethod(boost::bind(&GrabForeground::setImage, 
+                                          static_cast<GrabForeground *>(this), _1));
 
     editSField(ImageFieldMask);
 

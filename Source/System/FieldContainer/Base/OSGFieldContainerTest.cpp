@@ -50,8 +50,8 @@ SUITE(FieldContainerTests)
 
 TEST(appendTypesVector)
 {
-    std::vector<std::string>                     typeNames;
-    std::vector<const OSG::FieldContainerType *> types;
+    std::vector<std::string>                         typeNames;
+    std::vector<const OSG::ReflexiveContainerType *> types;
 
     typeNames.push_back("Node");
     typeNames.push_back("NodeCore");
@@ -87,8 +87,8 @@ TEST(appendGroupsVector)
 
 TEST(appendTypesString)
 {
-    std::string                                  typesString;
-    std::vector<const OSG::FieldContainerType *> types;
+    std::string                                      typesString;
+    std::vector<const OSG::ReflexiveContainerType *> types;
 
     typesString.assign("Node, NodeCore,FieldContainer");
 

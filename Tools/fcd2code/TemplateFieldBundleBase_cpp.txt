@@ -121,8 +121,8 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
         DecorateeFieldId, DecorateeFieldMask,
         true,
         @!DecorateeFieldFlags!@,
-        static_cast     <FieldEditMethodSig>(&@!Classname!@Base::invalidEditField),
-        reinterpret_cast<FieldGetMethodSig >(&@!Classname!@Base::getSFDecoratee));
+        static_cast<FieldEditMethodSig>(&@!Classname!@Base::editHandleDecoratee),
+        static_cast<FieldGetMethodSig >(&@!Classname!@Base::getHandleDecoratee ));
 
     oType.addInitialDesc(pDesc);
     @@else // isDecorator
@@ -876,6 +876,33 @@ void @!Classname!@Base::resolveLinks(void)
 @@EndMFFieldLoop@@
 }
 
+@@if isDecorator
+GetFieldHandlePtr  @!Classname!@Base::getHandleDecoratee (void) const
+{
+    SF@!Parent!@Ptr::GetHandlePtr returnValue(
+        new SF@!Parent!@Ptr::GetHandle(
+            &_sfDecoratee,
+            this->getType().getFieldDesc(DecorateeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr @!Classname!@Base::editHandleDecoratee(void)
+{
+    SF@!Parent!@Ptr::EditHandlePtr returnValue(
+        new SF@!Parent!@Ptr::EditHandle(
+            &_sfDecoratee,
+            this->getType().getFieldDesc(DecorateeFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&@!Classname!@::setDecoratee, 
+                              static_cast<@!Classname!@ *>(this), _1));
+
+    editSField(DecorateeFieldMask);
+
+    return returnValue;
+}
+
+@@endif // isDecorator
 @@BeginFieldLoop@@
 GetFieldHandlePtr @!Classname!@Base::getHandle@!field.Name:15!@ (void) const
 {
@@ -897,14 +924,16 @@ EditFieldHandlePtr @!Classname!@Base::editHandle@!field.Name:15!@(void)
 @@if field.isMField
   @@if field.isPtrField
 
-    returnValue->setAddMethod(boost::bind(&@!Classname!@::@!field.PushToField!@, this, _1));
+    returnValue->setAddMethod(boost::bind(&@!Classname!@::@!field.PushToField!@, 
+                                          static_cast<@!Classname!@ *>(this), _1));
   @@endif
 
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 @@else // field.isMField
   @@if field.isPtrField
 
-    returnValue->setSetMethod(boost::bind(&@!Classname!@::set@!field.Name!@, this, _1));
+    returnValue->setSetMethod(boost::bind(&@!Classname!@::set@!field.Name!@, 
+                                          static_cast<@!Classname!@ *>(this), _1));
   @@endif
 
     editSField(@!field.Name!@FieldMask);

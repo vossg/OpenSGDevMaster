@@ -803,7 +803,8 @@ EditFieldHandlePtr LightBase::editHandleBeacon         (void)
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Light::setBeacon, this, _1));
+    returnValue->setSetMethod(boost::bind(&Light::setBeacon, 
+                                          static_cast<Light *>(this), _1));
 
     editSField(BeaconFieldMask);
 
@@ -915,7 +916,8 @@ EditFieldHandlePtr LightBase::editHandleLightEngine    (void)
              &_sfLightEngine, 
              this->getType().getFieldDesc(LightEngineFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Light::setLightEngine, this, _1));
+    returnValue->setSetMethod(boost::bind(&Light::setLightEngine, 
+                                          static_cast<Light *>(this), _1));
 
     editSField(LightEngineFieldMask);
 

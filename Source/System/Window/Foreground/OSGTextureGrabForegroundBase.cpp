@@ -481,7 +481,8 @@ EditFieldHandlePtr TextureGrabForegroundBase::editHandleTexture        (void)
              &_sfTexture, 
              this->getType().getFieldDesc(TextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TextureGrabForeground::setTexture, this, _1));
+    returnValue->setSetMethod(boost::bind(&TextureGrabForeground::setTexture, 
+                                          static_cast<TextureGrabForeground *>(this), _1));
 
     editSField(TextureFieldMask);
 

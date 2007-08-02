@@ -1280,7 +1280,8 @@ EditFieldHandlePtr ParticlesBase::editHandlePositions      (void)
              &_sfPositions, 
              this->getType().getFieldDesc(PositionsFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Particles::setPositions, this, _1));
+    returnValue->setSetMethod(boost::bind(&Particles::setPositions, 
+                                          static_cast<Particles *>(this), _1));
 
     editSField(PositionsFieldMask);
 
@@ -1326,7 +1327,8 @@ EditFieldHandlePtr ParticlesBase::editHandleSecPositions   (void)
              &_sfSecPositions, 
              this->getType().getFieldDesc(SecPositionsFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Particles::setSecPositions, this, _1));
+    returnValue->setSetMethod(boost::bind(&Particles::setSecPositions, 
+                                          static_cast<Particles *>(this), _1));
 
     editSField(SecPositionsFieldMask);
 
@@ -1350,7 +1352,8 @@ EditFieldHandlePtr ParticlesBase::editHandleColors         (void)
              &_sfColors, 
              this->getType().getFieldDesc(ColorsFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Particles::setColors, this, _1));
+    returnValue->setSetMethod(boost::bind(&Particles::setColors, 
+                                          static_cast<Particles *>(this), _1));
 
     editSField(ColorsFieldMask);
 
@@ -1374,7 +1377,8 @@ EditFieldHandlePtr ParticlesBase::editHandleNormals        (void)
              &_sfNormals, 
              this->getType().getFieldDesc(NormalsFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Particles::setNormals, this, _1));
+    returnValue->setSetMethod(boost::bind(&Particles::setNormals, 
+                                          static_cast<Particles *>(this), _1));
 
     editSField(NormalsFieldMask);
 

@@ -2045,7 +2045,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleRoot           (void)
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&VTKMapper::setRoot, this, _1));
+    returnValue->setSetMethod(boost::bind(&VTKMapper::setRoot, 
+                                          static_cast<VTKMapper *>(this), _1));
 
     editSField(RootFieldMask);
 
@@ -2069,7 +2070,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleGeoRoots       (void)
              &_mfGeoRoots, 
              this->getType().getFieldDesc(GeoRootsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToGeoRoots, this, _1));
+    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToGeoRoots, 
+                              static_cast<VTKMapper *>(this), _1));
 
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
@@ -2093,7 +2095,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleGeometries     (void)
              &_mfGeometries, 
              this->getType().getFieldDesc(GeometriesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToGeometries, this, _1));
+    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToGeometries, 
+                              static_cast<VTKMapper *>(this), _1));
 
     editMField(GeometriesFieldMask, _mfGeometries);
 
@@ -2117,7 +2120,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleMaterials      (void)
              &_mfMaterials, 
              this->getType().getFieldDesc(MaterialsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToMaterials, this, _1));
+    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToMaterials, 
+                              static_cast<VTKMapper *>(this), _1));
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
@@ -2141,7 +2145,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleMaterialChunks (void)
              &_mfMaterialChunks, 
              this->getType().getFieldDesc(MaterialChunksFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToMaterialChunks, this, _1));
+    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToMaterialChunks, 
+                              static_cast<VTKMapper *>(this), _1));
 
     editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
@@ -2165,7 +2170,8 @@ EditFieldHandlePtr VTKMapperBase::editHandlePositions      (void)
              &_mfPositions, 
              this->getType().getFieldDesc(PositionsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToPositions, this, _1));
+    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToPositions, 
+                              static_cast<VTKMapper *>(this), _1));
 
     editMField(PositionsFieldMask, _mfPositions);
 
@@ -2189,7 +2195,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleLength         (void)
              &_mfLength, 
              this->getType().getFieldDesc(LengthFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToLength, this, _1));
+    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToLength, 
+                              static_cast<VTKMapper *>(this), _1));
 
     editMField(LengthFieldMask, _mfLength);
 
@@ -2213,7 +2220,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleTypes          (void)
              &_mfTypes, 
              this->getType().getFieldDesc(TypesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToTypes, this, _1));
+    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToTypes, 
+                              static_cast<VTKMapper *>(this), _1));
 
     editMField(TypesFieldMask, _mfTypes);
 
@@ -2237,7 +2245,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleColors         (void)
              &_mfColors, 
              this->getType().getFieldDesc(ColorsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToColors, this, _1));
+    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToColors, 
+                              static_cast<VTKMapper *>(this), _1));
 
     editMField(ColorsFieldMask, _mfColors);
 
@@ -2261,7 +2270,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleNormals        (void)
              &_mfNormals, 
              this->getType().getFieldDesc(NormalsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToNormals, this, _1));
+    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToNormals, 
+                              static_cast<VTKMapper *>(this), _1));
 
     editMField(NormalsFieldMask, _mfNormals);
 

@@ -298,7 +298,8 @@ EditFieldHandlePtr FBOViewportBase::editHandleFrameBufferObject(void)
              &_sfFrameBufferObject, 
              this->getType().getFieldDesc(FrameBufferObjectFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FBOViewport::setFrameBufferObject, this, _1));
+    returnValue->setSetMethod(boost::bind(&FBOViewport::setFrameBufferObject, 
+                                          static_cast<FBOViewport *>(this), _1));
 
     editSField(FrameBufferObjectFieldMask);
 

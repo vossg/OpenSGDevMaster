@@ -409,7 +409,8 @@ EditFieldHandlePtr AlgorithmStageBase::editHandleAlgorithm      (void)
              &_sfAlgorithm, 
              this->getType().getFieldDesc(AlgorithmFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&AlgorithmStage::setAlgorithm, this, _1));
+    returnValue->setSetMethod(boost::bind(&AlgorithmStage::setAlgorithm, 
+                                          static_cast<AlgorithmStage *>(this), _1));
 
     editSField(AlgorithmFieldMask);
 

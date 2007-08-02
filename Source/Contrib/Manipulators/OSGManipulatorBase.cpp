@@ -1013,7 +1013,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleTarget         (void)
              &_sfTarget, 
              this->getType().getFieldDesc(TargetFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setTarget, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setTarget, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(TargetFieldMask);
 
@@ -1037,7 +1038,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleActiveSubHandle(void)
              &_sfActiveSubHandle, 
              this->getType().getFieldDesc(ActiveSubHandleFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setActiveSubHandle, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setActiveSubHandle, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(ActiveSubHandleFieldMask);
 
@@ -1083,7 +1085,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleViewport       (void)
              &_sfViewport, 
              this->getType().getFieldDesc(ViewportFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setViewport, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setViewport, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(ViewportFieldMask);
 
@@ -1151,7 +1154,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleHandleXNode    (void)
              &_sfHandleXNode, 
              this->getType().getFieldDesc(HandleXNodeFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setHandleXNode, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setHandleXNode, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(HandleXNodeFieldMask);
 
@@ -1175,7 +1179,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleHandleYNode    (void)
              &_sfHandleYNode, 
              this->getType().getFieldDesc(HandleYNodeFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setHandleYNode, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setHandleYNode, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(HandleYNodeFieldMask);
 
@@ -1199,7 +1204,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleHandleZNode    (void)
              &_sfHandleZNode, 
              this->getType().getFieldDesc(HandleZNodeFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setHandleZNode, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setHandleZNode, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(HandleZNodeFieldMask);
 
@@ -1223,7 +1229,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleTransXNode     (void)
              &_sfTransXNode, 
              this->getType().getFieldDesc(TransXNodeFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setTransXNode, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setTransXNode, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(TransXNodeFieldMask);
 
@@ -1247,7 +1254,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleTransYNode     (void)
              &_sfTransYNode, 
              this->getType().getFieldDesc(TransYNodeFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setTransYNode, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setTransYNode, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(TransYNodeFieldMask);
 
@@ -1271,7 +1279,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleTransZNode     (void)
              &_sfTransZNode, 
              this->getType().getFieldDesc(TransZNodeFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setTransZNode, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setTransZNode, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(TransZNodeFieldMask);
 
@@ -1295,7 +1304,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleMaterialX      (void)
              &_sfMaterialX, 
              this->getType().getFieldDesc(MaterialXFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setMaterialX, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setMaterialX, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(MaterialXFieldMask);
 
@@ -1319,7 +1329,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleMaterialY      (void)
              &_sfMaterialY, 
              this->getType().getFieldDesc(MaterialYFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setMaterialY, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setMaterialY, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(MaterialYFieldMask);
 
@@ -1343,7 +1354,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleMaterialZ      (void)
              &_sfMaterialZ, 
              this->getType().getFieldDesc(MaterialZFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setMaterialZ, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setMaterialZ, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(MaterialZFieldMask);
 
@@ -1367,7 +1379,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleAxisLinesN     (void)
              &_sfAxisLinesN, 
              this->getType().getFieldDesc(AxisLinesNFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Manipulator::setAxisLinesN, this, _1));
+    returnValue->setSetMethod(boost::bind(&Manipulator::setAxisLinesN, 
+                                          static_cast<Manipulator *>(this), _1));
 
     editSField(AxisLinesNFieldMask);
 

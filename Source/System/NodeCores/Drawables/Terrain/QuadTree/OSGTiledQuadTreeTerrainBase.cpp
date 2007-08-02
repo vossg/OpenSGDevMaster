@@ -1338,7 +1338,8 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleHeightTiles    (void)
              &_mfHeightTiles, 
              this->getType().getFieldDesc(HeightTilesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&TiledQuadTreeTerrain::pushToHeightTiles, this, _1));
+    returnValue->setAddMethod(boost::bind(&TiledQuadTreeTerrain::pushToHeightTiles, 
+                              static_cast<TiledQuadTreeTerrain *>(this), _1));
 
     editMField(HeightTilesFieldMask, _mfHeightTiles);
 
@@ -1362,7 +1363,8 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleHeightTextures (void)
              &_mfHeightTextures, 
              this->getType().getFieldDesc(HeightTexturesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&TiledQuadTreeTerrain::pushToHeightTextures, this, _1));
+    returnValue->setAddMethod(boost::bind(&TiledQuadTreeTerrain::pushToHeightTextures, 
+                              static_cast<TiledQuadTreeTerrain *>(this), _1));
 
     editMField(HeightTexturesFieldMask, _mfHeightTextures);
 

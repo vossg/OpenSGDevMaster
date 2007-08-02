@@ -701,7 +701,8 @@ EditFieldHandlePtr HDRStageDataBase::editHandleToneMappingMaterial(void)
              &_sfToneMappingMaterial, 
              this->getType().getFieldDesc(ToneMappingMaterialFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setToneMappingMaterial, this, _1));
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setToneMappingMaterial, 
+                                          static_cast<HDRStageData *>(this), _1));
 
     editSField(ToneMappingMaterialFieldMask);
 
@@ -725,7 +726,8 @@ EditFieldHandlePtr HDRStageDataBase::editHandleBlurRenderTarget(void)
              &_sfBlurRenderTarget, 
              this->getType().getFieldDesc(BlurRenderTargetFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setBlurRenderTarget, this, _1));
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setBlurRenderTarget, 
+                                          static_cast<HDRStageData *>(this), _1));
 
     editSField(BlurRenderTargetFieldMask);
 
@@ -749,7 +751,8 @@ EditFieldHandlePtr HDRStageDataBase::editHandleBlurMaterial   (void)
              &_sfBlurMaterial, 
              this->getType().getFieldDesc(BlurMaterialFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setBlurMaterial, this, _1));
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setBlurMaterial, 
+                                          static_cast<HDRStageData *>(this), _1));
 
     editSField(BlurMaterialFieldMask);
 
@@ -773,7 +776,8 @@ EditFieldHandlePtr HDRStageDataBase::editHandleHBlurShader    (void)
              &_sfHBlurShader, 
              this->getType().getFieldDesc(HBlurShaderFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setHBlurShader, this, _1));
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setHBlurShader, 
+                                          static_cast<HDRStageData *>(this), _1));
 
     editSField(HBlurShaderFieldMask);
 
@@ -797,7 +801,8 @@ EditFieldHandlePtr HDRStageDataBase::editHandleVBlurShader    (void)
              &_sfVBlurShader, 
              this->getType().getFieldDesc(VBlurShaderFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setVBlurShader, this, _1));
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setVBlurShader, 
+                                          static_cast<HDRStageData *>(this), _1));
 
     editSField(VBlurShaderFieldMask);
 
@@ -865,7 +870,8 @@ EditFieldHandlePtr HDRStageDataBase::editHandleShrinkRenderTarget(void)
              &_sfShrinkRenderTarget, 
              this->getType().getFieldDesc(ShrinkRenderTargetFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setShrinkRenderTarget, this, _1));
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setShrinkRenderTarget, 
+                                          static_cast<HDRStageData *>(this), _1));
 
     editSField(ShrinkRenderTargetFieldMask);
 
@@ -889,7 +895,8 @@ EditFieldHandlePtr HDRStageDataBase::editHandleShrinkMaterial (void)
              &_sfShrinkMaterial, 
              this->getType().getFieldDesc(ShrinkMaterialFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setShrinkMaterial, this, _1));
+    returnValue->setSetMethod(boost::bind(&HDRStageData::setShrinkMaterial, 
+                                          static_cast<HDRStageData *>(this), _1));
 
     editSField(ShrinkMaterialFieldMask);
 

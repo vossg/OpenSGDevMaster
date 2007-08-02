@@ -583,7 +583,8 @@ EditFieldHandlePtr ChunkMaterialBase::editHandleChunks         (void)
              &_mfChunks, 
              this->getType().getFieldDesc(ChunksFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&ChunkMaterial::pushToChunks, this, _1));
+    returnValue->setAddMethod(boost::bind(&ChunkMaterial::pushToChunks, 
+                              static_cast<ChunkMaterial *>(this), _1));
 
     editMField(ChunksFieldMask, _mfChunks);
 

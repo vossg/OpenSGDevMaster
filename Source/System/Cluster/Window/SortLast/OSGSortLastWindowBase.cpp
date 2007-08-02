@@ -635,7 +635,8 @@ EditFieldHandlePtr SortLastWindowBase::editHandleGroupNodes     (void)
              &_mfGroupNodes, 
              this->getType().getFieldDesc(GroupNodesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&SortLastWindow::pushToGroupNodes, this, _1));
+    returnValue->setAddMethod(boost::bind(&SortLastWindow::pushToGroupNodes, 
+                              static_cast<SortLastWindow *>(this), _1));
 
     editMField(GroupNodesFieldMask, _mfGroupNodes);
 

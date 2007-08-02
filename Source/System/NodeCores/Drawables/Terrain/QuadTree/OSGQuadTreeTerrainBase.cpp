@@ -1797,7 +1797,8 @@ EditFieldHandlePtr QuadTreeTerrainBase::editHandleHeightData     (void)
              &_sfHeightData, 
              this->getType().getFieldDesc(HeightDataFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&QuadTreeTerrain::setHeightData, this, _1));
+    returnValue->setSetMethod(boost::bind(&QuadTreeTerrain::setHeightData, 
+                                          static_cast<QuadTreeTerrain *>(this), _1));
 
     editSField(HeightDataFieldMask);
 
@@ -1997,7 +1998,8 @@ EditFieldHandlePtr QuadTreeTerrainBase::editHandleHeightVertices (void)
              &_sfHeightVertices, 
              this->getType().getFieldDesc(HeightVerticesFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&QuadTreeTerrain::setHeightVertices, this, _1));
+    returnValue->setSetMethod(boost::bind(&QuadTreeTerrain::setHeightVertices, 
+                                          static_cast<QuadTreeTerrain *>(this), _1));
 
     editSField(HeightVerticesFieldMask);
 

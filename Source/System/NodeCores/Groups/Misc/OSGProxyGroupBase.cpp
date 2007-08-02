@@ -1067,7 +1067,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleRoot           (void)
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&ProxyGroup::setRoot, this, _1));
+    returnValue->setSetMethod(boost::bind(&ProxyGroup::setRoot, 
+                                          static_cast<ProxyGroup *>(this), _1));
 
     editSField(RootFieldMask);
 

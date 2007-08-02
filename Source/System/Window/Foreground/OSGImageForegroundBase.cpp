@@ -596,7 +596,8 @@ EditFieldHandlePtr ImageForegroundBase::editHandleImages         (void)
              &_mfImages, 
              this->getType().getFieldDesc(ImagesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&ImageForeground::pushToImages, this, _1));
+    returnValue->setAddMethod(boost::bind(&ImageForeground::pushToImages, 
+                              static_cast<ImageForeground *>(this), _1));
 
     editMField(ImagesFieldMask, _mfImages);
 

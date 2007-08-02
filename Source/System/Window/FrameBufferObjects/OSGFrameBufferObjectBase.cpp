@@ -884,7 +884,8 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleColorAttachments(void)
              &_mfColorAttachments, 
              this->getType().getFieldDesc(ColorAttachmentsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&FrameBufferObject::pushToColorAttachments, this, _1));
+    returnValue->setAddMethod(boost::bind(&FrameBufferObject::pushToColorAttachments, 
+                              static_cast<FrameBufferObject *>(this), _1));
 
     editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
@@ -930,7 +931,8 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleDepthAttachment(void)
              &_sfDepthAttachment, 
              this->getType().getFieldDesc(DepthAttachmentFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FrameBufferObject::setDepthAttachment, this, _1));
+    returnValue->setSetMethod(boost::bind(&FrameBufferObject::setDepthAttachment, 
+                                          static_cast<FrameBufferObject *>(this), _1));
 
     editSField(DepthAttachmentFieldMask);
 
@@ -954,7 +956,8 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleStencilAttachment(void)
              &_sfStencilAttachment, 
              this->getType().getFieldDesc(StencilAttachmentFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FrameBufferObject::setStencilAttachment, this, _1));
+    returnValue->setSetMethod(boost::bind(&FrameBufferObject::setStencilAttachment, 
+                                          static_cast<FrameBufferObject *>(this), _1));
 
     editSField(StencilAttachmentFieldMask);
 

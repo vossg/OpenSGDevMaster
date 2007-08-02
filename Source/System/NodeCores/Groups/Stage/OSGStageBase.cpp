@@ -357,7 +357,8 @@ EditFieldHandlePtr StageBase::editHandleRenderTarget   (void)
              &_sfRenderTarget, 
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Stage::setRenderTarget, this, _1));
+    returnValue->setSetMethod(boost::bind(&Stage::setRenderTarget, 
+                                          static_cast<Stage *>(this), _1));
 
     editSField(RenderTargetFieldMask);
 

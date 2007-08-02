@@ -1348,7 +1348,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleClientWindow   (void)
              &_sfClientWindow, 
              this->getType().getFieldDesc(ClientWindowFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&ClusterWindow::setClientWindow, this, _1));
+    returnValue->setSetMethod(boost::bind(&ClusterWindow::setClientWindow, 
+                                          static_cast<ClusterWindow *>(this), _1));
 
     editSField(ClientWindowFieldMask);
 
@@ -1416,7 +1417,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleComposer       (void)
              &_sfComposer, 
              this->getType().getFieldDesc(ComposerFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&ClusterWindow::setComposer, this, _1));
+    returnValue->setSetMethod(boost::bind(&ClusterWindow::setComposer, 
+                                          static_cast<ClusterWindow *>(this), _1));
 
     editSField(ComposerFieldMask);
 

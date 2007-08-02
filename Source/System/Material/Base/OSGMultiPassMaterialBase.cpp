@@ -439,7 +439,8 @@ EditFieldHandlePtr MultiPassMaterialBase::editHandleMaterials      (void)
              &_mfMaterials, 
              this->getType().getFieldDesc(MaterialsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&MultiPassMaterial::addMaterial, this, _1));
+    returnValue->setAddMethod(boost::bind(&MultiPassMaterial::addMaterial, 
+                              static_cast<MultiPassMaterial *>(this), _1));
 
     editMField(MaterialsFieldMask, _mfMaterials);
 

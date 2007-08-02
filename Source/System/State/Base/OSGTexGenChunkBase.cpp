@@ -1120,7 +1120,8 @@ EditFieldHandlePtr TexGenChunkBase::editHandleSBeacon        (void)
              &_sfSBeacon, 
              this->getType().getFieldDesc(SBeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TexGenChunk::setSBeacon, this, _1));
+    returnValue->setSetMethod(boost::bind(&TexGenChunk::setSBeacon, 
+                                          static_cast<TexGenChunk *>(this), _1));
 
     editSField(SBeaconFieldMask);
 
@@ -1144,7 +1145,8 @@ EditFieldHandlePtr TexGenChunkBase::editHandleTBeacon        (void)
              &_sfTBeacon, 
              this->getType().getFieldDesc(TBeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TexGenChunk::setTBeacon, this, _1));
+    returnValue->setSetMethod(boost::bind(&TexGenChunk::setTBeacon, 
+                                          static_cast<TexGenChunk *>(this), _1));
 
     editSField(TBeaconFieldMask);
 
@@ -1168,7 +1170,8 @@ EditFieldHandlePtr TexGenChunkBase::editHandleRBeacon        (void)
              &_sfRBeacon, 
              this->getType().getFieldDesc(RBeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TexGenChunk::setRBeacon, this, _1));
+    returnValue->setSetMethod(boost::bind(&TexGenChunk::setRBeacon, 
+                                          static_cast<TexGenChunk *>(this), _1));
 
     editSField(RBeaconFieldMask);
 
@@ -1192,7 +1195,8 @@ EditFieldHandlePtr TexGenChunkBase::editHandleQBeacon        (void)
              &_sfQBeacon, 
              this->getType().getFieldDesc(QBeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TexGenChunk::setQBeacon, this, _1));
+    returnValue->setSetMethod(boost::bind(&TexGenChunk::setQBeacon, 
+                                          static_cast<TexGenChunk *>(this), _1));
 
     editSField(QBeaconFieldMask);
 

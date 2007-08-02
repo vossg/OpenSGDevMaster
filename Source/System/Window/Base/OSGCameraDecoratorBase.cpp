@@ -358,7 +358,8 @@ EditFieldHandlePtr CameraDecoratorBase::editHandleDecoratee(void)
             &_sfDecoratee,
             this->getType().getFieldDesc(DecorateeFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CameraDecorator::setDecoratee, this, _1));
+    returnValue->setSetMethod(boost::bind(&CameraDecorator::setDecoratee, 
+                              static_cast<CameraDecorator *>(this), _1));
 
     editSField(DecorateeFieldMask);
 
@@ -382,7 +383,8 @@ EditFieldHandlePtr CameraDecoratorBase::editHandleBeacon         (void)
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CameraDecorator::setBeacon, this, _1));
+    returnValue->setSetMethod(boost::bind(&CameraDecorator::setBeacon, 
+                                          static_cast<CameraDecorator *>(this), _1));
 
     editSField(BeaconFieldMask);
 

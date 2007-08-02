@@ -1102,7 +1102,8 @@ EditFieldHandlePtr WindowBase::editHandlePort           (void)
              &_mfPort, 
              this->getType().getFieldDesc(PortFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&Window::addPort, this, _1));
+    returnValue->setAddMethod(boost::bind(&Window::addPort, 
+                              static_cast<Window *>(this), _1));
 
     editMField(PortFieldMask, _mfPort);
 

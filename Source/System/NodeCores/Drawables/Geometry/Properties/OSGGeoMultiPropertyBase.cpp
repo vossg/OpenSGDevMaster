@@ -659,7 +659,8 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleContainer      (void)
              &_sfContainer, 
              this->getType().getFieldDesc(ContainerFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&GeoMultiProperty::setContainer, this, _1));
+    returnValue->setSetMethod(boost::bind(&GeoMultiProperty::setContainer, 
+                                          static_cast<GeoMultiProperty *>(this), _1));
 
     editSField(ContainerFieldMask);
 

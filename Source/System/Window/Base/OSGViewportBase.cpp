@@ -1174,7 +1174,8 @@ EditFieldHandlePtr ViewportBase::editHandleCamera         (void)
              &_sfCamera, 
              this->getType().getFieldDesc(CameraFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Viewport::setCamera, this, _1));
+    returnValue->setSetMethod(boost::bind(&Viewport::setCamera, 
+                                          static_cast<Viewport *>(this), _1));
 
     editSField(CameraFieldMask);
 
@@ -1198,7 +1199,8 @@ EditFieldHandlePtr ViewportBase::editHandleRoot           (void)
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Viewport::setRoot, this, _1));
+    returnValue->setSetMethod(boost::bind(&Viewport::setRoot, 
+                                          static_cast<Viewport *>(this), _1));
 
     editSField(RootFieldMask);
 
@@ -1222,7 +1224,8 @@ EditFieldHandlePtr ViewportBase::editHandleBackground     (void)
              &_sfBackground, 
              this->getType().getFieldDesc(BackgroundFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Viewport::setBackground, this, _1));
+    returnValue->setSetMethod(boost::bind(&Viewport::setBackground, 
+                                          static_cast<Viewport *>(this), _1));
 
     editSField(BackgroundFieldMask);
 
@@ -1246,7 +1249,8 @@ EditFieldHandlePtr ViewportBase::editHandleForegrounds    (void)
              &_mfForegrounds, 
              this->getType().getFieldDesc(ForegroundsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&Viewport::addForeground, this, _1));
+    returnValue->setAddMethod(boost::bind(&Viewport::addForeground, 
+                              static_cast<Viewport *>(this), _1));
 
     editMField(ForegroundsFieldMask, _mfForegrounds);
 

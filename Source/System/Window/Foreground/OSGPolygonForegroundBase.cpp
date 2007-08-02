@@ -954,7 +954,8 @@ EditFieldHandlePtr PolygonForegroundBase::editHandleMaterial       (void)
              &_sfMaterial, 
              this->getType().getFieldDesc(MaterialFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&PolygonForeground::setMaterial, this, _1));
+    returnValue->setSetMethod(boost::bind(&PolygonForeground::setMaterial, 
+                                          static_cast<PolygonForeground *>(this), _1));
 
     editSField(MaterialFieldMask);
 

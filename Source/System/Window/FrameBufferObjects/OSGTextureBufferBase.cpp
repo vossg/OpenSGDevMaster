@@ -478,7 +478,8 @@ EditFieldHandlePtr TextureBufferBase::editHandleTexture        (void)
              &_sfTexture, 
              this->getType().getFieldDesc(TextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TextureBuffer::setTexture, this, _1));
+    returnValue->setSetMethod(boost::bind(&TextureBuffer::setTexture, 
+                                          static_cast<TextureBuffer *>(this), _1));
 
     editSField(TextureFieldMask);
 
