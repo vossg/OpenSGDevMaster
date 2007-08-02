@@ -2823,6 +2823,17 @@ osgSwapBytes<Int32>(Int32 src)
     return static_cast<Int32>(osgSwapBytes<UInt32>(static_cast<UInt32>(src)));
 }
 
+#ifdef OSG_GLENUM_NEQ_UINT32
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+template <>
+inline GLenum
+osgSwapBytes<GLenum>(GLenum src)
+{
+    return static_cast<GLenum>(osgSwapBytes<UInt32>(static_cast<UInt32>(src)));
+}
+#endif // OSG_GLENUM_NEQ_UINT32
+
 /*! \ingroup GrpBaseBaseMiscFn
  */
 template <>
