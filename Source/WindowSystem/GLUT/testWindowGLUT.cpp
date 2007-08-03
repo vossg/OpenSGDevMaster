@@ -384,7 +384,7 @@ int main (int argc, char **argv)
 
 //    file->dump();
 
-#if 1
+#if 0
     char *outFileName = "/tmp/foo1.osg";
 
     OSG::IndentFileOutStream outFileStream(outFileName);

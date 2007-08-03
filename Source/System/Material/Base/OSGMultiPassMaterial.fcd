@@ -18,6 +18,13 @@
 		visibility="external"
 		access="public"
         pushToFieldAs="addMaterial"
+        assignMFieldAs="assignMaterialsFrom"
+        insertIntoMFieldAs="insertMaterial"
+        replaceInMFieldIndexAs="replaceMaterial"
+        replaceInMFieldObjectAs="replaceMaterial"
+        removeFromMFieldIndexAs="subMaterial"
+        removeFromMFieldObjectAs="subMaterial"
+        clearFieldAs="clearMaterials"
 	>
 	</Field>
 </FieldContainer>

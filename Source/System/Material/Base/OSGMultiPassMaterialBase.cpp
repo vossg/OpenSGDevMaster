@@ -136,6 +136,13 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "        pushToFieldAs=\"addMaterial\"\n"
+    "        assignMFieldAs=\"assignMaterialsFrom\"\n"
+    "        insertIntoMFieldAs=\"insertMaterial\"\n"
+    "        replaceInMFieldIndexAs=\"replaceMaterial\"\n"
+    "        replaceInMFieldObjectAs=\"replaceMaterial\"\n"
+    "        removeFromMFieldIndexAs=\"subMaterial\"\n"
+    "        removeFromMFieldObjectAs=\"subMaterial\"\n"
+    "        clearFieldAs=\"clearMaterials\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -182,7 +189,7 @@ void MultiPassMaterialBase::addMaterial(MaterialPtrConstArg value)
     _mfMaterials.push_back(value);
 }
 
-void MultiPassMaterialBase::assignMaterials(const MFMaterialPtr     &value)
+void MultiPassMaterialBase::assignMaterialsFrom(const MFMaterialPtr     &value)
 {
     MFMaterialPtr    ::const_iterator elemIt  =
         value.begin();
@@ -199,7 +206,7 @@ void MultiPassMaterialBase::assignMaterials(const MFMaterialPtr     &value)
     }
 }
 
-void MultiPassMaterialBase::insertIntoMaterials(UInt32                uiIndex,
+void MultiPassMaterialBase::insertMaterial(UInt32                uiIndex,
                                                    MaterialPtrConstArg value   )
 {
     if(value == NullFC)
@@ -216,7 +223,7 @@ void MultiPassMaterialBase::insertIntoMaterials(UInt32                uiIndex,
     _mfMaterials.insert(fieldIt, value);
 }
 
-void MultiPassMaterialBase::replaceInMaterials(UInt32                uiIndex,
+void MultiPassMaterialBase::replaceMaterial(UInt32                uiIndex,
                                                        MaterialPtrConstArg value   )
 {
     if(value == NullFC)
@@ -234,7 +241,7 @@ void MultiPassMaterialBase::replaceInMaterials(UInt32                uiIndex,
     _mfMaterials[uiIndex] = value;
 }
 
-void MultiPassMaterialBase::replaceInMaterials(MaterialPtrConstArg pOldElem,
+void MultiPassMaterialBase::replaceMaterial(MaterialPtrConstArg pOldElem,
                                                         MaterialPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
@@ -257,7 +264,7 @@ void MultiPassMaterialBase::replaceInMaterials(MaterialPtrConstArg pOldElem,
     }
 }
 
-void MultiPassMaterialBase::removeFromMaterials(UInt32 uiIndex)
+void MultiPassMaterialBase::subMaterial(UInt32 uiIndex)
 {
     if(uiIndex < _mfMaterials.size())
     {
@@ -273,7 +280,7 @@ void MultiPassMaterialBase::removeFromMaterials(UInt32 uiIndex)
     }
 }
 
-void MultiPassMaterialBase::removeFromMaterials(MaterialPtrConstArg value)
+void MultiPassMaterialBase::subMaterial(MaterialPtrConstArg value)
 {
     Int32 iElemIdx = _mfMaterials.findIndex(value);
 
