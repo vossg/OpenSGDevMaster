@@ -115,9 +115,6 @@ struct FieldTraits<PassiveBackgroundPtr> :
 typedef SFieldAdaptor<PassiveBackgroundPtr, SFFieldContainerPtr> SFPassiveBackgroundPtr;
 #endif
 
-#ifndef OSG_COMPILEPASSIVEBACKGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, PassiveBackgroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

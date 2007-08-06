@@ -116,9 +116,6 @@ struct FieldTraits<GeoStatsAttachmentPtr> :
 typedef SFieldAdaptor<GeoStatsAttachmentPtr, SFFieldContainerPtr> SFGeoStatsAttachmentPtr;
 #endif
 
-#ifndef OSG_COMPILEGEOSTATSATTACHMENTINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, GeoStatsAttachmentPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, GeoStatsAttachmentPtr, OSG_DRAWABLE_DLLTMPLMAP
 typedef MFieldAdaptor<GeoStatsAttachmentPtr, MFFieldContainerPtr> MFGeoStatsAttachmentPtr;
 #endif
 
-#ifndef OSG_COMPILEGEOSTATSATTACHMENTINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, GeoStatsAttachmentPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

@@ -116,9 +116,6 @@ struct FieldTraits<BillboardPtr> :
 typedef SFieldAdaptor<BillboardPtr, SFFieldContainerPtr> SFBillboardPtr;
 #endif
 
-#ifndef OSG_COMPILEBILLBOARDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, BillboardPtr, OSG_GROUP_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, BillboardPtr, OSG_GROUP_DLLTMPLMAPPING)
 typedef MFieldAdaptor<BillboardPtr, MFFieldContainerPtr> MFBillboardPtr;
 #endif
 
-#ifndef OSG_COMPILEBILLBOARDINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, BillboardPtr, OSG_GROUP_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

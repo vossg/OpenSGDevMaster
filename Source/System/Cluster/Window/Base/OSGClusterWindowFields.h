@@ -116,9 +116,6 @@ struct FieldTraits<ClusterWindowPtr> :
 typedef SFieldAdaptor<ClusterWindowPtr, SFFieldContainerPtr> SFClusterWindowPtr;
 #endif
 
-#ifndef OSG_COMPILECLUSTERWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ClusterWindowPtr, OSG_CLUSTER_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ClusterWindowPtr, OSG_CLUSTER_DLLTMPLMAPPING)
 typedef MFieldAdaptor<ClusterWindowPtr, MFFieldContainerPtr> MFClusterWindowPtr;
 #endif
 
-#ifndef OSG_COMPILECLUSTERWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ClusterWindowPtr, OSG_CLUSTER_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

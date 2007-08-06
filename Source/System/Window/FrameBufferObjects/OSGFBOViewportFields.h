@@ -116,9 +116,6 @@ struct FieldTraits<FBOViewportPtr> :
 typedef SFieldAdaptor<FBOViewportPtr, SFFieldContainerPtr> SFFBOViewportPtr;
 #endif
 
-#ifndef OSG_COMPILEFBOVIEWPORTINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, FBOViewportPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, FBOViewportPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<FBOViewportPtr, MFFieldContainerPtr> MFFBOViewportPtr;
 #endif
 
-#ifndef OSG_COMPILEFBOVIEWPORTINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, FBOViewportPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

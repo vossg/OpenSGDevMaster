@@ -116,9 +116,6 @@ struct FieldTraits<ViewportPtr> :
 typedef SFieldAdaptor<ViewportPtr, SFFieldContainerPtr> SFViewportPtr;
 #endif
 
-#ifndef OSG_COMPILEVIEWPORTINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ViewportPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ViewportPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<ViewportPtr, MFFieldContainerPtr> MFViewportPtr;
 #endif
 
-#ifndef OSG_COMPILEVIEWPORTINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ViewportPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

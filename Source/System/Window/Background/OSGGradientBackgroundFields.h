@@ -116,9 +116,6 @@ struct FieldTraits<GradientBackgroundPtr> :
 typedef MFieldAdaptor<GradientBackgroundPtr, MFFieldContainerPtr> MFGradientBackgroundPtr;
 #endif
 
-#ifndef OSG_COMPILEGRADIENTBACKGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, GradientBackgroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

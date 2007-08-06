@@ -60,9 +60,6 @@ OSG_BEGIN_NAMESPACE
 typedef SField<bool, 2>   SFBool;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL2(SField, bool, 2, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -71,9 +68,6 @@ typedef SField<bool, 2>   SFBool;
 typedef SField<Int8>   SFInt8;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, Int8, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -82,9 +76,6 @@ typedef SField<Int8>   SFInt8;
 typedef SField<UInt8>  SFUInt8;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, UInt8, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -93,9 +84,6 @@ typedef SField<UInt8>  SFUInt8;
 typedef SField<Int16>  SFInt16;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, Int16, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -104,9 +92,6 @@ typedef SField<Int16>  SFInt16;
 typedef SField<UInt16> SFUInt16;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, UInt16, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -115,25 +100,15 @@ typedef SField<UInt16> SFUInt16;
 typedef SField<Int32>  SFInt32;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, Int32, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
 
-typedef SField          <UInt32         > SFUInt32;
-#ifdef FDFOO
-typedef FieldDescription<UInt32FieldDesc,
-                         SingleField    > SUInt32FieldDescription;
-#endif
+typedef SField<UInt32> SFUInt32;
 
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, UInt32, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -142,9 +117,6 @@ typedef FieldDescription<UInt32FieldDesc,
 typedef SField<Int64>  SFInt64;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, Int64, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -153,9 +125,6 @@ typedef SField<Int64>  SFInt64;
 typedef SField<UInt64> SFUInt64;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, UInt64, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -164,9 +133,6 @@ typedef SField<UInt64> SFUInt64;
 typedef SField<Real16> SFReal16;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, Real16, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -175,9 +141,7 @@ typedef SField<Real16> SFReal16;
 typedef SField<Real32> SFReal32;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, Real32, OSG_BASE_DLLTMPLMAPPING)
-#endif
+
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
@@ -185,15 +149,15 @@ typedef SField<Real32> SFReal32;
 typedef SField<Fixed32> SFFixed32;
 #endif
 
+
+
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
 
 typedef SField<Real64> SFReal64;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, Real64, OSG_BASE_DLLTMPLMAPPING)
-#endif
+
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
@@ -201,9 +165,7 @@ typedef SField<Real64> SFReal64;
 typedef SField<void *>   SFVoidP;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, void *, OSG_BASE_DLLTMPLMAPPING)
-#endif
+
 
 #ifdef OSG_FLOAT_PROFILE
 typedef SFReal32  SFReal;

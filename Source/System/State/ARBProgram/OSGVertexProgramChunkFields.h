@@ -116,9 +116,6 @@ struct FieldTraits<VertexProgramChunkPtr> :
 typedef SFieldAdaptor<VertexProgramChunkPtr, SFFieldContainerPtr> SFVertexProgramChunkPtr;
 #endif
 
-#ifndef OSG_COMPILEVERTEXPROGRAMCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, VertexProgramChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, VertexProgramChunkPtr, OSG_STATE_DLLTMPLMAPPIN
 typedef MFieldAdaptor<VertexProgramChunkPtr, MFFieldContainerPtr> MFVertexProgramChunkPtr;
 #endif
 
-#ifndef OSG_COMPILEVERTEXPROGRAMCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, VertexProgramChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

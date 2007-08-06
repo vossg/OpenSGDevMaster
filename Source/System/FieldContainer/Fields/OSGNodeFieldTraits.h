@@ -91,40 +91,9 @@ struct FieldTraits<NodePtr> : public FieldTraitsFCPtrBase<NodePtr>
 /*! \hideinhierarchy                         */
 #endif
 
-/*! \ingroup 
- */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
-template <>
-struct FieldTraits<ParentNodePtr> : 
-    public FieldTraitsFCPtrBase<ParentNodePtr>
-{
-  private:
-
-    static  DataType                      _type;
-
-  public:
-
-    typedef FieldTraits<ParentNodePtr>     Self;
-
-    enum             { Convertible = Self::NotConvertible                  };
-
-    static OSG_SYSTEM_DLLMAPPING
-                 DataType &getType      (void);
-
-    static const Char8    *getSName     (void) { return "SFParentNodePtr"; }
-
-    static const Char8    *getMName     (void) { return "MFParentNodePtr"; }
-};
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ParentNodePtr> */
-/*! \hideinhierarchy                         */
-#endif
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+
 
 OSG_END_NAMESPACE
 

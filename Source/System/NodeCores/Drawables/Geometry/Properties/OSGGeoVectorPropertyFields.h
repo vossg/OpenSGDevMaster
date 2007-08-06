@@ -116,9 +116,6 @@ struct FieldTraits<GeoVectorPropertyPtr> :
 typedef SFieldAdaptor<GeoVectorPropertyPtr, SFFieldContainerPtr> SFGeoVectorPropertyPtr;
 #endif
 
-#ifndef OSG_COMPILEGEOVECTORPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, GeoVectorPropertyPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, GeoVectorPropertyPtr, OSG_DRAWABLE_DLLTMPLMAPP
 typedef MFieldAdaptor<GeoVectorPropertyPtr, MFFieldContainerPtr> MFGeoVectorPropertyPtr;
 #endif
 
-#ifndef OSG_COMPILEGEOVECTORPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, GeoVectorPropertyPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

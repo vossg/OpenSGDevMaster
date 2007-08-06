@@ -116,9 +116,6 @@ struct FieldTraits<VTKMapperPtr> :
 typedef SFieldAdaptor<VTKMapperPtr, SFFieldContainerPtr> SFVTKMapperPtr;
 #endif
 
-#ifndef OSG_COMPILEVTKMAPPERINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, VTKMapperPtr, OSG_CONTRIBVTK_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribVTKFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, VTKMapperPtr, OSG_CONTRIBVTK_DLLTMPLMAPPING)
 typedef MFieldAdaptor<VTKMapperPtr, MFFieldContainerPtr> MFVTKMapperPtr;
 #endif
 
-#ifndef OSG_COMPILEVTKMAPPERINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, VTKMapperPtr, OSG_CONTRIBVTK_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

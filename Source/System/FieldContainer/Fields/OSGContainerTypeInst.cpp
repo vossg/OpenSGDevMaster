@@ -74,6 +74,12 @@
 
 OSG_BEGIN_NAMESPACE
 
+OSG_SFIELDTYPE_SPEZ_INST(FieldContainerPtr, 0);
+OSG_MFIELDTYPE_SPEZ_INST(FieldContainerPtr, 0);
+
+OSG_SFIELDTYPE_SPEZ_INST(ParentFieldContainerPtr, 0);
+OSG_MFIELDTYPE_SPEZ_INST(ParentFieldContainerPtr, 0);
+
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 DataType FieldTraits<FieldContainerPtr          >::_type(
@@ -100,10 +106,6 @@ DataType FieldTraits<NodePtr                    >::_type(
     "NodePtr",
     "AttachmentContainerPtr");
 
-DataType FieldTraits<ParentNodePtr              >::_type(
-    "ParentNodePtr",
-    NULL);
-
 DataType FieldTraits<ChangedFunctorCallback     >::_type(
     "ChangedFunctorCallback",
     NULL);
@@ -115,16 +117,15 @@ OSG_FIELDTRAITS_GETTYPE   (FieldContainerAttachmentPtr)
 OSG_FIELDTRAITS_GETTYPE   (AttachmentContainerPtr     )
 OSG_FIELDTRAITS_GETTYPE   (NodeCorePtr                )
 OSG_FIELDTRAITS_GETTYPE   (NodePtr                    )
-OSG_FIELDTRAITS_GETTYPE   (ParentNodePtr              )
 OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback     )
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, FieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, FieldContainerPtr);
+OSG_FIELD_SPEZ_DLLEXPORT_DEF2(SField, FieldContainerPtr, 0);
+OSG_FIELD_SPEZ_DLLEXPORT_DEF2(MField, FieldContainerPtr, 0);
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, ParentFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, ParentFieldContainerPtr);
+OSG_FIELD_SPEZ_DLLEXPORT_DEF2(SField, ParentFieldContainerPtr, 0);
+OSG_FIELD_SPEZ_DLLEXPORT_DEF2(MField, ParentFieldContainerPtr, 0);
 
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, 
                          FieldContainerAttachmentPtr, 
@@ -138,9 +139,6 @@ OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodeCorePtr, MFFieldContainerPtr);
 
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, NodePtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodePtr, MFFieldContainerPtr);
-
-OSG_FIELD_DLLEXPORT_DEF1(SField, ParentNodePtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, ParentNodePtr);
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, ChangedFunctorCallback);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ChangedFunctorCallback);

@@ -116,9 +116,6 @@ struct FieldTraits<StagePtr> :
 typedef SFieldAdaptor<StagePtr, SFFieldContainerPtr> SFStagePtr;
 #endif
 
-#ifndef OSG_COMPILESTAGEINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, StagePtr, OSG_GROUP_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, StagePtr, OSG_GROUP_DLLTMPLMAPPING)
 typedef MFieldAdaptor<StagePtr, MFFieldContainerPtr> MFStagePtr;
 #endif
 
-#ifndef OSG_COMPILESTAGEINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, StagePtr, OSG_GROUP_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

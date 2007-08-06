@@ -53,9 +53,6 @@ OSG_BEGIN_NAMESPACE
 typedef MField<Color3f> MFColor3f;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(MField, Color3f, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -64,9 +61,6 @@ typedef MField<Color3f> MFColor3f;
 typedef MField<Color3fx> MFColor3fx;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(MField, Color3fx, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -75,9 +69,6 @@ typedef MField<Color3fx> MFColor3fx;
 typedef MField<Color4f> MFColor4f;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(MField, Color4f, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -86,9 +77,6 @@ typedef MField<Color4f> MFColor4f;
 typedef MField<Color4fx> MFColor4fx;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(MField, Color4fx, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -97,9 +85,6 @@ typedef MField<Color4fx> MFColor4fx;
 typedef MField<Color3ub> MFColor3ub;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(MField, Color3ub, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -108,9 +93,7 @@ typedef MField<Color3ub> MFColor3ub;
 typedef MField<Color4ub> MFColor4ub;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(MField, Color4ub, OSG_BASE_DLLTMPLMAPPING)
-#endif
+
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
@@ -118,9 +101,6 @@ typedef MField<Color4ub> MFColor4ub;
 typedef MField<std::string> MFString;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(MField, std::string, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -129,9 +109,6 @@ typedef MField<std::string> MFString;
 typedef MField<Time, 1> MFTime;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL2(MField, Time, 1, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 
@@ -141,9 +118,6 @@ typedef MField<Time, 1> MFTime;
 typedef MField<DynamicVolume> MFVolume;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(MField, DynamicVolume, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -152,9 +126,6 @@ typedef MField<DynamicVolume> MFVolume;
 typedef MField<BitVector, 1>  MFBitVector;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL2(MField, BitVector, 1, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -163,9 +134,6 @@ typedef MField<BitVector, 1>  MFBitVector;
 typedef MField<GLenum, 1>  MFGLenum;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL2(MField, GLenum, 1, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -174,9 +142,7 @@ typedef MField<GLenum, 1>  MFGLenum;
 typedef MField<Plane> MFPlane;
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(MField, Plane, OSG_BASE_DLLTMPLMAPPING)
-#endif
+
 
 #ifdef OSG_FLOAT_PROFILE
 typedef MFColor3f  MFColor3r;

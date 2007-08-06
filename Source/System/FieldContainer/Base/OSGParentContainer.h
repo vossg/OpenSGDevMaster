@@ -71,6 +71,12 @@ struct PtrWrapper
     {
     } 
 
+    PtrWrapper(Ptr ptr, UInt16 parentFPos) :
+        _ptr       (ptr),
+        _parentFPos(parentFPos)
+    {
+    } 
+
     ~PtrWrapper(void) 
     {
     }
@@ -80,12 +86,17 @@ struct PtrWrapper
         _parentFPos = parentFPos;
     }
 
-    UInt16 getParentFieldPos(void)
+    UInt16 getParentFieldPos(void) 
     {
         return _parentFPos;
     }
 
-    Ptr getCPtr(void) const
+    UInt16 getParentFieldPos(void) const
+    {
+        return _parentFPos;
+    }
+
+    Ptr getCPtr(void) const 
     {
         return _ptr;
     }
@@ -134,6 +145,13 @@ struct PtrWrapper
     {
         return _ptr == other;
     }
+
+    void set(Ptr ptr, UInt16 parentFPos) 
+    {
+        _ptr        = ptr;
+        _parentFPos = parentFPos;
+    }
+     
 
 /*
     bool operator ==(const int other) const

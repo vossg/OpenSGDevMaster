@@ -116,9 +116,6 @@ struct FieldTraits<FragmentProgramChunkPtr> :
 typedef SFieldAdaptor<FragmentProgramChunkPtr, SFFieldContainerPtr> SFFragmentProgramChunkPtr;
 #endif
 
-#ifndef OSG_COMPILEFRAGMENTPROGRAMCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, FragmentProgramChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, FragmentProgramChunkPtr, OSG_STATE_DLLTMPLMAPP
 typedef MFieldAdaptor<FragmentProgramChunkPtr, MFFieldContainerPtr> MFFragmentProgramChunkPtr;
 #endif
 
-#ifndef OSG_COMPILEFRAGMENTPROGRAMCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, FragmentProgramChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

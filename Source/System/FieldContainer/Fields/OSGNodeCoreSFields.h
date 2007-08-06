@@ -53,15 +53,6 @@ OSG_BEGIN_NAMESPACE
 
 typedef SFieldAdaptor   <NodeCorePtr, 
                          SFFieldContainerPtr > SFNodeCorePtr;
-
-#ifdef FDFOO
-typedef FieldDescription<NodeCorePtrFieldDesc, 
-                         SingleField         > SNodeCorePtrFieldDescription;
-#endif
-#endif
-
-#ifndef OSG_COMPILECONTAINERFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, NodeCorePtr, OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE

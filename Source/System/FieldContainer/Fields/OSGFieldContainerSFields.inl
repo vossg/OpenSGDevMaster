@@ -38,6 +38,371 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+inline
+SField<FieldContainerPtr, 0>::SField(void) : 
+     Inherited (),
+    _fieldValue()
+{
+}
+
+inline
+SField<FieldContainerPtr, 0>::SField(const SField &obj) :
+     Inherited (obj            ),
+    _fieldValue(obj._fieldValue)
+{
+}
+
+inline
+SField<FieldContainerPtr, 0>::SField(ArgumentType value) :
+     Inherited (     ),
+    _fieldValue(value)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+inline
+SField<FieldContainerPtr, 0>::~SField(void)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Get                                       */
+
+inline
+SField<FieldContainerPtr, 0>::reference 
+    SField<FieldContainerPtr, 0>::getValue(void)
+
+{
+    return _fieldValue;
+}
+
+inline
+SField<FieldContainerPtr, 0>::const_reference
+    SField<FieldContainerPtr, 0>::getValue(void) const
+{
+    return _fieldValue;
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Set                                      */
+
+inline
+void SField<FieldContainerPtr, 0>::setValue(ArgumentType value)
+{
+    _fieldValue = value;
+}
+
+inline
+void SField<FieldContainerPtr, 0>::setValue(const Self &obj)
+{
+    _fieldValue = obj._fieldValue;
+}
+
+#if 0
+inline
+void SField<FieldContainerPtr, 0>::setValueFromCString(const Char8 *str)
+{
+    typedef boost::mpl::if_<boost::mpl::bool_< 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::FromStringConvertible)>, 
+        SFieldTraits, 
+        StringConversionError<FieldContainerPtr, 0> >::type Converter;
+    
+    Converter::getFromCString(_fieldValue, str);
+}
+
+inline
+void SField<FieldContainerPtr, 0>::pushValueToString(std::string  &str) const
+{
+    typedef boost::mpl::if_<boost::mpl::bool_< 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::ToStringConvertible)>, 
+        SFieldTraits, 
+        StringConversionError<FieldContainerPtr, 0> >::type Converter;
+    
+    Converter::putToString(_fieldValue, str);
+}
+
+inline
+void SField<FieldContainerPtr, 0>::pushValueFromStream(std::istream &str)
+{
+    typedef boost::mpl::if_<boost::mpl::bool_< 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::FromStreamConvertible)>, 
+        SFieldTraits, 
+        StreamConversionError<FieldContainerPtr, 0> >::type Converter;
+    
+    Converter::getFromStream(_fieldValue, str);
+}
+
+inline
+void SField<FieldContainerPtr, 0>::pushValueToStream(OutStream &str) const
+{
+    typedef boost::mpl::if_<boost::mpl::bool_< 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::ToStreamConvertible)>, 
+        SFieldTraits, 
+        StreamConversionError<FieldContainerPtr, 0> >::type Converter;
+    
+    Converter::putToStream(_fieldValue, str);
+}
+
+inline
+void SField<FieldContainerPtr, 0>::pushSizeToStream(OutStream &str) const
+{
+    str << 1;
+}
+#endif
+
+/*-------------------------------------------------------------------------*/
+/*                         Binary Interface                                */
+
+inline
+UInt32 SField<FieldContainerPtr, 0>::getBinSize(void) const
+{
+    return SFieldTraits::getBinSize(_fieldValue);
+}
+
+inline
+void SField<FieldContainerPtr, 0>::copyToBin(BinaryDataHandler &pMem) const
+{
+    SFieldTraits::copyToBin( pMem, 
+                            _fieldValue);
+}
+
+inline
+void SField<FieldContainerPtr, 0>::copyFromBin(BinaryDataHandler &pMem)
+{
+    SFieldTraits::copyFromBin( pMem, 
+                              _fieldValue);
+}
+
+/*-------------------------------------------------------------------------*/
+/*                              MT Sync                                    */
+
+#ifdef OSG_MT_CPTR_ASPECT
+inline
+void SField<FieldContainerPtr, 0>::syncWith(Self &source)
+{
+    setValue(convertToCurrentAspect(source.getValue()));
+}
+#endif
+
+/*-------------------------------------------------------------------------*/
+/*                              MT Sync                                    */
+
+inline
+bool SField<FieldContainerPtr, 0>::operator ==(const SField &source) const
+{
+    return _fieldValue == source._fieldValue;
+}
+
+/*-------------------------------------------------------------------------*/
+/*                              MT Sync                                    */
+
+inline
+void SField<FieldContainerPtr, 0>::operator =(const SField &source)
+{
+    if(this != &source)
+    {
+        _fieldValue = source._fieldValue;
+    }
+}
+
+
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+inline
+SField<ParentFieldContainerPtr, 0>::SField(void) : 
+     Inherited (),
+    _fieldValue()
+{
+}
+
+inline
+SField<ParentFieldContainerPtr, 0>::SField(const SField &obj) :
+     Inherited (obj            ),
+    _fieldValue(obj._fieldValue)
+{
+}
+
+inline
+SField<ParentFieldContainerPtr, 0>::SField(ArgumentType value) :
+     Inherited (     ),
+    _fieldValue(value)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+inline
+SField<ParentFieldContainerPtr, 0>::~SField(void)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Get                                       */
+
+inline
+SField<ParentFieldContainerPtr, 0>::reference 
+    SField<ParentFieldContainerPtr, 0>::getValue(void)
+
+{
+    return _fieldValue;
+}
+
+inline
+SField<ParentFieldContainerPtr, 0>::const_reference
+    SField<ParentFieldContainerPtr, 0>::getValue(void) const
+{
+    return _fieldValue;
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Set                                      */
+
+inline
+void SField<ParentFieldContainerPtr, 0>::setValue(ArgumentType value)
+{
+    _fieldValue = value;
+}
+
+inline
+void SField<ParentFieldContainerPtr, 0>::setValue(const Self &obj)
+{
+    _fieldValue = obj._fieldValue;
+}
+
+#if 0
+inline
+void SField<ParentFieldContainerPtr, 0>::setValueFromCString(const Char8 *str)
+{
+    typedef boost::mpl::if_<boost::mpl::bool_< 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::FromStringConvertible)>, 
+        SFieldTraits, 
+        StringConversionError<ParentFieldContainerPtr, 0> >::type Converter;
+    
+    Converter::getFromCString(_fieldValue, str);
+}
+
+inline
+void SField<ParentFieldContainerPtr, 
+            0                     >::pushValueToString(std::string  &str) const
+{
+    typedef boost::mpl::if_<boost::mpl::bool_< 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::ToStringConvertible)>, 
+        SFieldTraits, 
+        StringConversionError<ParentFieldContainerPtr, 0> >::type Converter;
+    
+    Converter::putToString(_fieldValue, str);
+}
+
+inline
+void SField<ParentFieldContainerPtr, 0>::pushValueFromStream(std::istream &str)
+{
+    typedef boost::mpl::if_<boost::mpl::bool_< 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::FromStreamConvertible)>, 
+        SFieldTraits, 
+        StreamConversionError<ParentFieldContainerPtr, 0> >::type Converter;
+    
+    Converter::getFromStream(_fieldValue, str);
+}
+
+inline
+void SField<ParentFieldContainerPtr, 
+            0                      >::pushValueToStream(OutStream &str) const
+{
+    typedef boost::mpl::if_<boost::mpl::bool_< 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::ToStreamConvertible)>, 
+        SFieldTraits, 
+        StreamConversionError<ParentFieldContainerPtr, 0> >::type Converter;
+    
+    Converter::putToStream(_fieldValue, str);
+}
+
+inline
+void SField<ParentFieldContainerPtr, 0>::pushSizeToStream(OutStream &str) const
+{
+    str << 1;
+}
+#endif
+
+/*-------------------------------------------------------------------------*/
+/*                         Binary Interface                                */
+
+inline
+UInt32 SField<ParentFieldContainerPtr, 0>::getBinSize(void) const
+{
+    return SFieldTraits::getBinSize(_fieldValue);
+}
+
+inline
+void SField<ParentFieldContainerPtr, 
+            0                      >::copyToBin(BinaryDataHandler &pMem) const
+{
+    SFieldTraits::copyToBin( pMem, 
+                            _fieldValue);
+}
+
+inline
+void SField<ParentFieldContainerPtr, 0>::copyFromBin(BinaryDataHandler &pMem)
+{
+    SFieldTraits::copyFromBin( pMem, 
+                              _fieldValue);
+}
+
+/*-------------------------------------------------------------------------*/
+/*                              MT Sync                                    */
+
+#ifdef OSG_MT_CPTR_ASPECT
+inline
+void SField<ParentFieldContainerPtr, 0>::syncWith(Self &source)
+{
+    ParentFieldContainerPtr pParent(
+        convertToCurrentAspect(source.getValue().getCPtr          ()),
+                               source.getValue().getParentFieldPos());
+
+    setValue(pParent);
+}
+#endif
+
+/*-------------------------------------------------------------------------*/
+/*                              MT Sync                                    */
+
+inline
+bool SField<ParentFieldContainerPtr, 
+            0                      >::operator ==(const SField &source) const
+{
+    return _fieldValue == source._fieldValue;
+}
+
+/*-------------------------------------------------------------------------*/
+/*                              MT Sync                                    */
+
+inline
+void SField<ParentFieldContainerPtr, 0>::operator =(const SField &source)
+{
+    if(this != &source)
+    {
+        _fieldValue = source._fieldValue;
+    }
+}
+
+
+
+
 /*---------------------------------------------------------------------*/
 
 inline

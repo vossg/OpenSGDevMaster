@@ -116,9 +116,6 @@ struct FieldTraits<StereoBufferViewportPtr> :
 typedef SFieldAdaptor<StereoBufferViewportPtr, SFFieldContainerPtr> SFStereoBufferViewportPtr;
 #endif
 
-#ifndef OSG_COMPILESTEREOBUFFERVIEWPORTINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, StereoBufferViewportPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, StereoBufferViewportPtr, OSG_WINDOW_DLLTMPLMAP
 typedef MFieldAdaptor<StereoBufferViewportPtr, MFFieldContainerPtr> MFStereoBufferViewportPtr;
 #endif
 
-#ifndef OSG_COMPILESTEREOBUFFERVIEWPORTINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, StereoBufferViewportPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

@@ -116,9 +116,6 @@ struct FieldTraits<GeoMultiPropertyPtr> :
 typedef SFieldAdaptor<GeoMultiPropertyPtr, SFFieldContainerPtr> SFGeoMultiPropertyPtr;
 #endif
 
-#ifndef OSG_COMPILEGEOMULTIPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, GeoMultiPropertyPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, GeoMultiPropertyPtr, OSG_DRAWABLE_DLLTMPLMAPPI
 typedef MFieldAdaptor<GeoMultiPropertyPtr, MFFieldContainerPtr> MFGeoMultiPropertyPtr;
 #endif
 
-#ifndef OSG_COMPILEGEOMULTIPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, GeoMultiPropertyPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

@@ -116,9 +116,6 @@ struct FieldTraits<LightChunkPtr> :
 typedef SFieldAdaptor<LightChunkPtr, SFFieldContainerPtr> SFLightChunkPtr;
 #endif
 
-#ifndef OSG_COMPILELIGHTCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, LightChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, LightChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<LightChunkPtr, MFFieldContainerPtr> MFLightChunkPtr;
 #endif
 
-#ifndef OSG_COMPILELIGHTCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, LightChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

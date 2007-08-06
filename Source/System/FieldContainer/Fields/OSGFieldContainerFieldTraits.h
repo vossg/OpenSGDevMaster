@@ -143,13 +143,13 @@ struct FieldTraitsFCPtrBase<ParentFieldContainerPtr> :
 
     static UInt32 getBinSize(const ParentFieldContainerPtr &)
     {
-        return sizeof(UInt32);
+        return sizeof(UInt32) + sizeof(UInt16);
     }
 
     static UInt32 getBinSize(const ParentFieldContainerPtr *,
                                    UInt32                   uiNumObjects)
     {
-        return sizeof(UInt32) * uiNumObjects;
+        return (sizeof(UInt32) + sizeof(UInt16)) * uiNumObjects;
     }
 
     static void copyToBin(      BinaryDataHandler       &pMem, 
@@ -168,7 +168,9 @@ struct FieldTraitsFCPtrBase<ParentFieldContainerPtr> :
         }
 
         pMem.putValue(containerId);
+        pMem.putValue(pObject.getParentFieldPos());
     }
+
     static void copyToBin(      BinaryDataHandler       &pMem, 
                           const ParentFieldContainerPtr *pObjectStore,
                                 UInt32                   uiNumObjects)
@@ -183,18 +185,23 @@ struct FieldTraitsFCPtrBase<ParentFieldContainerPtr> :
                             ParentFieldContainerPtr &pObject)
     {
         UInt32 containerId;
+        UInt16 parentFieldPos;
 
-        pMem.getValue(containerId);
+        pMem.getValue(containerId   );
+        pMem.getValue(parentFieldPos);
 
         if(0 != containerId)
         {
-            pObject = FieldContainerFactory::the()->getMappedContainer(containerId);
+            pObject.set(
+                FieldContainerFactory::the()->getMappedContainer(containerId),
+                parentFieldPos);
         }
         else
         {
             pObject = NullFC;
         }
     }
+
     static void copyFromBin(BinaryDataHandler       &pMem, 
                             ParentFieldContainerPtr *pObjectStore,
                             UInt32                   uiNumObjects)

@@ -115,9 +115,6 @@ struct FieldTraits<DepthClearBackgroundPtr> :
 typedef SFieldAdaptor<DepthClearBackgroundPtr, SFFieldContainerPtr> SFDepthClearBackgroundPtr;
 #endif
 
-#ifndef OSG_COMPILEDEPTHCLEARBACKGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, DepthClearBackgroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

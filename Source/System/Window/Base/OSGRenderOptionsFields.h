@@ -116,9 +116,6 @@ struct FieldTraits<RenderOptionsPtr> :
 typedef SFieldAdaptor<RenderOptionsPtr, SFFieldContainerPtr> SFRenderOptionsPtr;
 #endif
 
-#ifndef OSG_COMPILERENDEROPTIONSINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, RenderOptionsPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, RenderOptionsPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<RenderOptionsPtr, MFFieldContainerPtr> MFRenderOptionsPtr;
 #endif
 
-#ifndef OSG_COMPILERENDEROPTIONSINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, RenderOptionsPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

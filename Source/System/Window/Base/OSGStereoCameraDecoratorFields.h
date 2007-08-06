@@ -116,9 +116,6 @@ struct FieldTraits<StereoCameraDecoratorPtr> :
 typedef SFieldAdaptor<StereoCameraDecoratorPtr, SFFieldContainerPtr> SFStereoCameraDecoratorPtr;
 #endif
 
-#ifndef OSG_COMPILESTEREOCAMERADECORATORINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, StereoCameraDecoratorPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, StereoCameraDecoratorPtr, OSG_SYSTEM_DLLTMPLMA
 typedef MFieldAdaptor<StereoCameraDecoratorPtr, MFFieldContainerPtr> MFStereoCameraDecoratorPtr;
 #endif
 
-#ifndef OSG_COMPILESTEREOCAMERADECORATORINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, StereoCameraDecoratorPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

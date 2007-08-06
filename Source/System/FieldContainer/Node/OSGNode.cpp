@@ -87,8 +87,8 @@ void Node::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 
-    pDesc = new SFParentNodePtr::Description(
-        SFParentNodePtr::getClassType(),
+    pDesc = new SFNodePtr::Description(
+        SFNodePtr::getClassType(),
         "parent",
         "This node's parent.",
         OSG_RC_FIELD_DESC(Node::Parent),

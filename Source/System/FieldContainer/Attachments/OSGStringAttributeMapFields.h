@@ -115,9 +115,6 @@ struct FieldTraits<StringAttributeMapPtr> :
 typedef SFieldAdaptor<StringAttributeMapPtr, SFFieldContainerPtr> SFStringAttributeMapPtr;
 #endif
 
-#ifndef OSG_COMPILESTRINGATTRIBUTEMAPINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, StringAttributeMapPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

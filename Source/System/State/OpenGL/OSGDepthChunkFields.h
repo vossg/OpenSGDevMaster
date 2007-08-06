@@ -116,9 +116,6 @@ struct FieldTraits<DepthChunkPtr> :
 typedef SFieldAdaptor<DepthChunkPtr, SFFieldContainerPtr> SFDepthChunkPtr;
 #endif
 
-#ifndef OSG_COMPILEDEPTHCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, DepthChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, DepthChunkPtr, OSG_STATE_DLLTMPLMAPPING)
 typedef MFieldAdaptor<DepthChunkPtr, MFFieldContainerPtr> MFDepthChunkPtr;
 #endif
 
-#ifndef OSG_COMPILEDEPTHCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, DepthChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

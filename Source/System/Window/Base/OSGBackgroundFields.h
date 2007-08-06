@@ -116,9 +116,6 @@ struct FieldTraits<BackgroundPtr> :
 typedef SFieldAdaptor<BackgroundPtr, SFFieldContainerPtr> SFBackgroundPtr;
 #endif
 
-#ifndef OSG_COMPILEBACKGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, BackgroundPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, BackgroundPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<BackgroundPtr, MFFieldContainerPtr> MFBackgroundPtr;
 #endif
 
-#ifndef OSG_COMPILEBACKGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, BackgroundPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

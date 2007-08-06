@@ -116,9 +116,6 @@ struct FieldTraits<TextureChunkPtr> :
 typedef SFieldAdaptor<TextureChunkPtr, SFFieldContainerPtr> SFTextureChunkPtr;
 #endif
 
-#ifndef OSG_COMPILETEXTURECHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, TextureChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, TextureChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<TextureChunkPtr, MFFieldContainerPtr> MFTextureChunkPtr;
 #endif
 
-#ifndef OSG_COMPILETEXTURECHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, TextureChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

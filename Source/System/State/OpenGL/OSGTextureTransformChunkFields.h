@@ -116,9 +116,6 @@ struct FieldTraits<TextureTransformChunkPtr> :
 typedef SFieldAdaptor<TextureTransformChunkPtr, SFFieldContainerPtr> SFTextureTransformChunkPtr;
 #endif
 
-#ifndef OSG_COMPILETEXTURETRANSFORMCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, TextureTransformChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, TextureTransformChunkPtr, OSG_STATE_DLLTMPLMAP
 typedef MFieldAdaptor<TextureTransformChunkPtr, MFFieldContainerPtr> MFTextureTransformChunkPtr;
 #endif
 
-#ifndef OSG_COMPILETEXTURETRANSFORMCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, TextureTransformChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

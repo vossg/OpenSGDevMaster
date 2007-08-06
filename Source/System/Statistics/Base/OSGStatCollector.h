@@ -256,10 +256,6 @@ struct FieldTraits<StatCollectorP> :
 typedef SField<StatCollectorP> SFStatCollectorP;
 #endif
 
-#ifndef OSG_COMPILESTATCOLLECTORINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, StatCollectorP, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
-
 OSG_END_NAMESPACE
 
 #include "OSGStatCollector.inl"

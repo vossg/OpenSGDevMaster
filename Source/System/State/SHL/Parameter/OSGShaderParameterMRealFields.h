@@ -116,9 +116,6 @@ struct FieldTraits<ShaderParameterMRealPtr> :
 typedef SFieldAdaptor<ShaderParameterMRealPtr, SFFieldContainerPtr> SFShaderParameterMRealPtr;
 #endif
 
-#ifndef OSG_COMPILESHADERPARAMETERMREALINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ShaderParameterMRealPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ShaderParameterMRealPtr, OSG_STATE_DLLTMPLMAPP
 typedef MFieldAdaptor<ShaderParameterMRealPtr, MFFieldContainerPtr> MFShaderParameterMRealPtr;
 #endif
 
-#ifndef OSG_COMPILESHADERPARAMETERMREALINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ShaderParameterMRealPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

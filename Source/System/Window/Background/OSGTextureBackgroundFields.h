@@ -115,9 +115,6 @@ struct FieldTraits<TextureBackgroundPtr> :
 typedef SFieldAdaptor<TextureBackgroundPtr, SFFieldContainerPtr> SFTextureBackgroundPtr;
 #endif
 
-#ifndef OSG_COMPILETEXTUREBACKGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, TextureBackgroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

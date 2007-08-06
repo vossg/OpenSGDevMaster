@@ -54,9 +54,6 @@ OSG_BEGIN_NAMESPACE
 typedef MFieldAdaptor<NodeCorePtr, MFFieldContainerPtr> MFNodeCorePtr;
 #endif
 
-#ifndef OSG_COMPILECONTAINERFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(MField, NodeCorePtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

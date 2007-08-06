@@ -116,9 +116,6 @@ struct FieldTraits<WIN32WindowPtr> :
 typedef SFieldAdaptor<WIN32WindowPtr, SFFieldContainerPtr> SFWIN32WindowPtr;
 #endif
 
-#ifndef OSG_COMPILEWIN32WINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, WIN32WindowPtr, OSG_WINDOWWIN32_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowWIN32FieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, WIN32WindowPtr, OSG_WINDOWWIN32_DLLTMPLMAPPING
 typedef MFieldAdaptor<WIN32WindowPtr, MFFieldContainerPtr> MFWIN32WindowPtr;
 #endif
 
-#ifndef OSG_COMPILEWIN32WINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, WIN32WindowPtr, OSG_WINDOWWIN32_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

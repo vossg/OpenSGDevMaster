@@ -321,10 +321,6 @@ struct FieldTraits<ParticleBSPTree> :
 typedef SField<ParticleBSPTree> SFParticleBSPTree;
 #endif
 
-#ifndef OSG_COMPILEPARTICLEBSPINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ParticleBSPTree, OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
-
 
 OSG_END_NAMESPACE
 

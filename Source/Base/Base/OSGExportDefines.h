@@ -49,10 +49,11 @@
  *                               Field                                       *
 \*---------------------------------------------------------------------------*/
 
-
+#ifdef OSG_1_COMPAT
 # define OSG_FIELD_DLLEXPORT_DECL1(CLASSNAME, T1, DLLMAPPING)
 # define OSG_FIELD_DLLEXPORT_DECL2(CLASSNAME, T1, T2, DLLMAPPING)
 # define OSG_FIELD_DLLEXPORT_DECL3(CLASSNAME, T1, T2, T3, DLLMAPPING)
+#endif
 
 # define OSG_FIELD_DLLEXPORT_DEF1(CLASSNAME, T1)                             \
                                                                              \
@@ -78,6 +79,24 @@ const FieldType &CLASSNAME< T1, T2, T3 >::getClassType(void)                 \
     return _fieldType;                                                       \
 }
 
+# define OSG_FIELD_SPEZ_DLLEXPORT_DEF1(CLASSNAME, T1)                        \
+                                                                             \
+OSG_DLL_EXPORT                                                               \
+const FieldType &CLASSNAME< T1 >::getClassType(void)                         \
+{                                                                            \
+    return _fieldType;                                                       \
+}
+
+# define OSG_FIELD_SPEZ_DLLEXPORT_DEF2(CLASSNAME, T1, T2)                    \
+                                                                             \
+OSG_DLL_EXPORT                                                               \
+const FieldType &CLASSNAME< T1, T2 >::getClassType(void)                     \
+{                                                                            \
+    return _fieldType;                                                       \
+}
+
+
+
 #define OSG_FIELDTRAITS_GETTYPE(CLASSNAME)        \
 DataType &FieldTraits< CLASSNAME >::getType(void) \
 {                                                 \
@@ -89,6 +108,41 @@ DataType &FieldTraits< CLASSNAME, NAMESPACE >::getType(void) \
 {                                                            \
     return _type;                                            \
 }
+
+
+#if defined(OSG_STATIC_MEMEBER_NEEDS_COPY_ASIGN_INIT)
+
+#define OSG_SFIELDTYPE_SPEZ_INST(T1, T2)                 \
+FieldType SField< T1 , T2 >::_fieldType = FieldType(     \
+    SFieldTraits::getSName(),                            \
+    SFieldTraits::getPName(),                            \
+    SFieldTraits::getType (),                            \
+    FieldType::SINGLE_FIELD)
+
+#define OSG_MFIELDTYPE_SPEZ_INST(T1, T2)                 \
+FieldType MField< T1, T2 >::_fieldType = FieldType(      \
+    MFieldTraits::getMName(),                            \
+    MFieldTraits::getPName(),                            \
+    MFieldTraits::getType (),                            \
+    FieldType::MULTI_FIELD)
+
+#else
+
+#define OSG_SFIELDTYPE_SPEZ_INST(T1, T2)                 \
+FieldType SField< T1 , T2 >::_fieldType(                 \
+    SFieldTraits::getSName(),                            \
+    SFieldTraits::getPName(),                            \
+    SFieldTraits::getType (),                            \
+    FieldType::SINGLE_FIELD)
+
+#define OSG_MFIELDTYPE_SPEZ_INST(T1, T2)                 \
+FieldType MField< T1 , T2 >::_fieldType(                 \
+    MFieldTraits::getMName(),                            \
+    MFieldTraits::getPName(),                            \
+    MFieldTraits::getType (),                            \
+    FieldType::MULTI_FIELD)
+
+#endif
 
 #endif /* _OSGEXPORTDEFINES_H_ */
 

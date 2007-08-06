@@ -116,9 +116,6 @@ struct FieldTraits<ShadowMapEnginePtr> :
 typedef SFieldAdaptor<ShadowMapEnginePtr, SFFieldContainerPtr> SFShadowMapEnginePtr;
 #endif
 
-#ifndef OSG_COMPILESHADOWMAPENGINEINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ShadowMapEnginePtr, OSG_RENDERTRAV_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpRenderTravFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ShadowMapEnginePtr, OSG_RENDERTRAV_DLLTMPLMAPP
 typedef MFieldAdaptor<ShadowMapEnginePtr, MFFieldContainerPtr> MFShadowMapEnginePtr;
 #endif
 
-#ifndef OSG_COMPILESHADOWMAPENGINEINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ShadowMapEnginePtr, OSG_RENDERTRAV_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

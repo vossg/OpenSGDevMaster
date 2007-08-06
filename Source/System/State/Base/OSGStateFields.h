@@ -116,9 +116,6 @@ struct FieldTraits<StatePtr> :
 typedef SFieldAdaptor<StatePtr, SFFieldContainerPtr> SFStatePtr;
 #endif
 
-#ifndef OSG_COMPILESTATEINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, StatePtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, StatePtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<StatePtr, MFFieldContainerPtr> MFStatePtr;
 #endif
 
-#ifndef OSG_COMPILESTATEINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, StatePtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

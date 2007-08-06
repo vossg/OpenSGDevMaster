@@ -87,9 +87,9 @@ void Viewport::setParent(
 {
     editSField(ParentFieldMask);
 
-    _sfParent.setValue(value);
-    _sfParent.getValue().setParentFieldPos(uiStoredInFieldId);
+    ParentFieldContainerPtr pParent(value, uiStoredInFieldId);
 
+    _sfParent.setValue(pParent);
 }
 
 OSG_END_NAMESPACE

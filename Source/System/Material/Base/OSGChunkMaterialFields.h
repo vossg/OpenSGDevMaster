@@ -116,9 +116,6 @@ struct FieldTraits<ChunkMaterialPtr> :
 typedef SFieldAdaptor<ChunkMaterialPtr, SFFieldContainerPtr> SFChunkMaterialPtr;
 #endif
 
-#ifndef OSG_COMPILECHUNKMATERIALINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ChunkMaterialPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ChunkMaterialPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<ChunkMaterialPtr, MFFieldContainerPtr> MFChunkMaterialPtr;
 #endif
 
-#ifndef OSG_COMPILECHUNKMATERIALINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ChunkMaterialPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

@@ -116,9 +116,6 @@ struct FieldTraits<ProjectionCameraDecoratorPtr> :
 typedef SFieldAdaptor<ProjectionCameraDecoratorPtr, SFFieldContainerPtr> SFProjectionCameraDecoratorPtr;
 #endif
 
-#ifndef OSG_COMPILEPROJECTIONCAMERADECORATORINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ProjectionCameraDecoratorPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ProjectionCameraDecoratorPtr, OSG_WINDOW_DLLTM
 typedef MFieldAdaptor<ProjectionCameraDecoratorPtr, MFFieldContainerPtr> MFProjectionCameraDecoratorPtr;
 #endif
 
-#ifndef OSG_COMPILEPROJECTIONCAMERADECORATORINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ProjectionCameraDecoratorPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

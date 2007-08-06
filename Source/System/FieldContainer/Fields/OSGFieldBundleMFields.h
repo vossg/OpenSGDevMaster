@@ -53,9 +53,6 @@ OSG_BEGIN_NAMESPACE
 typedef MField<FieldBundleP> MFFieldBundleP;
 #endif
 
-#ifndef OSG_COMPILEBUNDLEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(MField, FieldBundleP, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if 0
 template <>
@@ -85,18 +82,16 @@ FieldDescription<FieldTraits<FieldBundleP>,
     const std::vector<UInt16>                    &ignoreGroupIds) const;
 #endif
 
+
+
+
+
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
 typedef MField<ParentFieldBundleP, 1> MFParentFieldBundleP;
 #endif
 
-#ifndef OSG_COMPILEBUNDLEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL2(MField, 
-//                          ParentFieldBundleP, 
-//                          1,
-//                          OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

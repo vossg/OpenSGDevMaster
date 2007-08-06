@@ -116,9 +116,6 @@ struct FieldTraits<MatrixCameraPtr> :
 typedef SFieldAdaptor<MatrixCameraPtr, SFFieldContainerPtr> SFMatrixCameraPtr;
 #endif
 
-#ifndef OSG_COMPILEMATRIXCAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, MatrixCameraPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, MatrixCameraPtr, OSG_WINDOW_DLLTMPLMAPPING)
 typedef MFieldAdaptor<MatrixCameraPtr, MFFieldContainerPtr> MFMatrixCameraPtr;
 #endif
 
-#ifndef OSG_COMPILEMATRIXCAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, MatrixCameraPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

@@ -49,17 +49,163 @@
 
 OSG_BEGIN_NAMESPACE
 
+template<>
+class SField<FieldContainerPtr, 0> : public Field
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef       FieldTraits      <FieldContainerPtr, 0>  SFieldTraits;
+    typedef       SField           <FieldContainerPtr, 0>  Self;
+
+    typedef       FieldContainerPtr                        StoredType;
+    typedef       FieldContainerPtr                       &reference;
+    typedef const FieldContainerPtr                       &const_reference;
+  
+    typedef       SFieldTraits::ArgumentType               ArgumentType;
+
+    typedef       FieldDescription<SFieldTraits,
+                                   SingleField        >    Description;
+
+
+    typedef       EditSFieldHandle <Self      >            EditHandle;
+    typedef       boost::shared_ptr<EditHandle>            EditHandlePtr;
+
+    typedef       GetSFieldHandle  <Self     >             GetHandle;
+    typedef       boost::shared_ptr<GetHandle>             GetHandlePtr;
+
+    /*---------------------------------------------------------------------*/
+
+    static const Int32 Namespace = 0;
+
+    static const bool isSField = true;
+    static const bool isMField = false;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Class Get                                  */
+    /*! \{                                                                 */
+
+    static const FieldType &getClassType(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+             SField(void                     );
+             SField(const SField       &obj  );
+    explicit SField(      ArgumentType  value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    ~SField(void); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Get                                     */
+    /*! \{                                                                 */
+
+          reference getValue(void);
+    const_reference getValue(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Set                                     */
+    /*! \{                                                                 */
+
+    void setValue           (      ArgumentType  value);
+    void setValue           (const Self         &obj  );
+
+#if 0
+    void setValueFromCString(const Char8        *str  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Push                                    */
+    /*! \{                                                                 */
+
+    void pushValueToString  (std::string  &str) const;
+    void pushValueFromStream(std::istream &str);
+    void pushValueToStream  (OutStream    &str) const;
+    void pushSizeToStream   (OutStream    &str) const;
+#endif
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Binary Interface                           */
+    /*! \{                                                                 */
+
+    UInt32 getBinSize (void                   ) const;
+    
+    void   copyToBin  (BinaryDataHandler &pMem) const;
+    void   copyFromBin(BinaryDataHandler &pMem);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      MT Sync                                 */
+    /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    void syncWith(Self &source);
+#endif
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Compare                                 */
+    /*! \{                                                                 */
+
+    bool operator ==(const SField &source) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Assign                                  */
+    /*! \{                                                                 */
+
+    void operator =(const SField &source);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Type information                            */
+    /*! \{                                                                 */
+
+    typedef Field Inherited;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    static FieldType            _fieldType;
+     
+           FieldContainerPtr    _fieldValue;
+
+#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_HELPER_FCT)
+    const FieldType &fieldTypeExportHelper(void);
+#endif
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+};
+
+
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup  */
 
 typedef SField<FieldContainerPtr> SFFieldContainerPtr;
 #endif
 
-#ifndef OSG_COMPILECONTAINERFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField,
-//                          FieldContainerPtr,
-//                          OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
+
+
 #if 0
 template <>
 OSG_SYSTEM_DLLMAPPING
@@ -88,28 +234,171 @@ FieldDescription<FieldTraits<FieldContainerPtr>,
     const std::vector<UInt16>                    &ignoreGroupIds) const;
 #endif
 
-#ifdef OSG_MT_CPTR_ASPECT
-template<> inline
-void SField<FieldContainerPtr, 
-            0                >::syncWith(SField<FieldContainerPtr, 0> &source)
+
+
+
+template<>
+class SField<ParentFieldContainerPtr, 0> : public Field
 {
-    setValue(convertToCurrentAspect(source.getValue()));
-}
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef       FieldTraits      <ParentFieldContainerPtr, 
+                                    0                      >  SFieldTraits;
+    typedef       SField           <ParentFieldContainerPtr, 
+                                    0                      >  Self;
+
+    typedef       ParentFieldContainerPtr                     StoredType;
+    typedef       ParentFieldContainerPtr                    &reference;
+    typedef const ParentFieldContainerPtr                    &const_reference;
+  
+    typedef       SFieldTraits::ArgumentType                  ArgumentType;
+
+    typedef       FieldDescription<SFieldTraits,
+                                   SingleField        >       Description;
+
+
+    typedef       EditSFieldHandle <Self      >               EditHandle;
+    typedef       boost::shared_ptr<EditHandle>               EditHandlePtr;
+
+    typedef       GetSFieldHandle  <Self     >                GetHandle;
+    typedef       boost::shared_ptr<GetHandle>                GetHandlePtr;
+
+    /*---------------------------------------------------------------------*/
+
+    static const Int32 Namespace = 0;
+
+    static const bool isSField = true;
+    static const bool isMField = false;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Class Get                                  */
+    /*! \{                                                                 */
+
+    static const FieldType &getClassType(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+             SField(void                     );
+             SField(const SField       &obj  );
+    explicit SField(      ArgumentType  value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    ~SField(void); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Get                                     */
+    /*! \{                                                                 */
+
+          reference getValue(void);
+    const_reference getValue(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Set                                     */
+    /*! \{                                                                 */
+
+    void setValue           (      ArgumentType  value);
+    void setValue           (const Self         &obj  );
+
+#if 0
+    void setValueFromCString(const Char8        *str  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Push                                    */
+    /*! \{                                                                 */
+
+    void pushValueToString  (std::string  &str) const;
+    void pushValueFromStream(std::istream &str);
+    void pushValueToStream  (OutStream    &str) const;
+    void pushSizeToStream   (OutStream    &str) const;
 #endif
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Binary Interface                           */
+    /*! \{                                                                 */
+
+    UInt32 getBinSize (void                   ) const;
+    
+    void   copyToBin  (BinaryDataHandler &pMem) const;
+    void   copyFromBin(BinaryDataHandler &pMem);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      MT Sync                                 */
+    /*! \{                                                                 */
+
+    void syncWith(Self &source);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Compare                                 */
+    /*! \{                                                                 */
+
+    bool operator ==(const SField &source) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Assign                                  */
+    /*! \{                                                                 */
+
+    void operator =(const SField &source);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Type information                            */
+    /*! \{                                                                 */
+
+    typedef Field Inherited;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    static FieldType               _fieldType;
+     
+           ParentFieldContainerPtr _fieldValue;
+
+#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_HELPER_FCT)
+    const FieldType &fieldTypeExportHelper(void);
+#endif
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+};
+
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
 typedef SField<ParentFieldContainerPtr> SFParentFieldContainerPtr;
-
 #endif
 
-#ifndef OSG_COMPILECONTAINERFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL2(SField,
-//                          ParentFieldContainerPtr,
-//                          1,
-//                          OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
+
+
+
+
+
+
+
 
 template<>
 class OSG_SYSTEM_DLLMAPPING EditSFieldHandle<SFFieldContainerPtr> : 
@@ -249,8 +538,6 @@ class GetFCPtrSFieldHandle : public  GetSFieldHandle<SFFieldContainerPtr>
     FieldT const * operator ->(void);
     FieldT const & operator * (void);
 };
-
-class Node;
 
 template<class FieldT>
 class EditFCPtrSFieldHandle : public EditSFieldHandle<SFFieldContainerPtr>

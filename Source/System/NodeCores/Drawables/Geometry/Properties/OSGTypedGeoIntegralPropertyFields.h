@@ -98,11 +98,6 @@ typedef SFieldAdaptor<GeoUInt8PropertyPtr,
                       SFFieldContainerPtr> SFGeoUInt8PropertyPtr;
 #endif
 
-#ifndef OSG_COMPILETYPEDGEOINTEGRALPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, 
-                          GeoUInt8PropertyPtr, 
-                          OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
@@ -111,11 +106,6 @@ typedef MFieldAdaptor<GeoUInt8PropertyPtr,
                       MFFieldContainerPtr> MFGeoUInt8PropertyPtr;
 #endif
 
-#ifndef OSG_COMPILETYPEDGEOINTEGRALPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, 
-                          GeoUInt8PropertyPtr, 
-                          OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 
 
@@ -170,11 +160,6 @@ typedef SFieldAdaptor<GeoUInt32PropertyPtr,
                       SFFieldContainerPtr> SFGeoUInt32PropertyPtr;
 #endif
 
-#ifndef OSG_COMPILETYPEDGEOINTEGRALPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, 
-                          GeoUInt32PropertyPtr, 
-                          OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
@@ -183,11 +168,6 @@ typedef MFieldAdaptor<GeoUInt32PropertyPtr,
                       MFFieldContainerPtr> MFGeoUInt32PropertyPtr;
 #endif
 
-#ifndef OSG_COMPILETYPEDGEOINTEGRALPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, 
-                          GeoUInt32PropertyPtr, 
-                          OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

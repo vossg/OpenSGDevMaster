@@ -116,9 +116,6 @@ struct FieldTraits<PolygonForegroundPtr> :
 typedef SFieldAdaptor<PolygonForegroundPtr, SFFieldContainerPtr> SFPolygonForegroundPtr;
 #endif
 
-#ifndef OSG_COMPILEPOLYGONFOREGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, PolygonForegroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, PolygonForegroundPtr, OSG_WINDOW_DLLTMPLMAPPIN
 typedef MFieldAdaptor<PolygonForegroundPtr, MFFieldContainerPtr> MFPolygonForegroundPtr;
 #endif
 
-#ifndef OSG_COMPILEPOLYGONFOREGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, PolygonForegroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

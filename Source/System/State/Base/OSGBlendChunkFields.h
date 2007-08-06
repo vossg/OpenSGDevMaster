@@ -116,9 +116,6 @@ struct FieldTraits<BlendChunkPtr> :
 typedef SFieldAdaptor<BlendChunkPtr, SFFieldContainerPtr> SFBlendChunkPtr;
 #endif
 
-#ifndef OSG_COMPILEBLENDCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, BlendChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, BlendChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<BlendChunkPtr, MFFieldContainerPtr> MFBlendChunkPtr;
 #endif
 
-#ifndef OSG_COMPILEBLENDCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, BlendChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

@@ -116,9 +116,6 @@ struct FieldTraits<ManipulatorPtr> :
 typedef SFieldAdaptor<ManipulatorPtr, SFFieldContainerPtr> SFManipulatorPtr;
 #endif
 
-#ifndef OSG_COMPILEMANIPULATORINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ManipulatorPtr, OSG_CONTRIBGUI_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribGUIFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ManipulatorPtr, OSG_CONTRIBGUI_DLLTMPLMAPPING)
 typedef MFieldAdaptor<ManipulatorPtr, MFFieldContainerPtr> MFManipulatorPtr;
 #endif
 
-#ifndef OSG_COMPILEMANIPULATORINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ManipulatorPtr, OSG_CONTRIBGUI_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

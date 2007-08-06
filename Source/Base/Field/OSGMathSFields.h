@@ -61,9 +61,7 @@ typedef SField          <Matrix         > SFMatrix;
 
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, Matrix, OSG_BASE_DLLTMPLMAPPING)
-#endif
+
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
@@ -72,9 +70,6 @@ typedef SField          <Matrix4d       > SFMatrix4d;
 
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, Matrix, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -84,9 +79,6 @@ typedef SField          <Matrix4fx      > SFMatrix4fx;
 
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, Matrix4fx, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -96,9 +88,6 @@ typedef SField          <Quaternion         > SFQuaternion;
 
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, Quaternion, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -108,9 +97,6 @@ typedef SField          <Quaternionfx       > SFQuaternionfx;
 
 #endif
 
-#ifndef OSG_COMPILEFIELDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, Quaternionfx, OSG_BASE_DLLTMPLMAPPING)
-#endif
 
 #ifdef OSG_FLOAT_PROFILE
 typedef SFMatrix       SFMatrixr;

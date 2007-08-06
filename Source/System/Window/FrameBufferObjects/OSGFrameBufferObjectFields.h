@@ -116,9 +116,6 @@ struct FieldTraits<FrameBufferObjectPtr> :
 typedef SFieldAdaptor<FrameBufferObjectPtr, SFFieldContainerPtr> SFFrameBufferObjectPtr;
 #endif
 
-#ifndef OSG_COMPILEFRAMEBUFFEROBJECTINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, FrameBufferObjectPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, FrameBufferObjectPtr, OSG_SYSTEM_DLLTMPLMAPPIN
 typedef MFieldAdaptor<FrameBufferObjectPtr, MFFieldContainerPtr> MFFrameBufferObjectPtr;
 #endif
 
-#ifndef OSG_COMPILEFRAMEBUFFEROBJECTINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, FrameBufferObjectPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

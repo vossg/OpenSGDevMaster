@@ -116,9 +116,6 @@ struct FieldTraits<SimpleStatisticsForegroundPtr> :
 typedef SFieldAdaptor<SimpleStatisticsForegroundPtr, SFFieldContainerPtr> SFSimpleStatisticsForegroundPtr;
 #endif
 
-#ifndef OSG_COMPILESIMPLESTATISTICSFOREGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, SimpleStatisticsForegroundPtr, OSG_UTIL_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpUtilFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, SimpleStatisticsForegroundPtr, OSG_UTIL_DLLTMP
 typedef MFieldAdaptor<SimpleStatisticsForegroundPtr, MFFieldContainerPtr> MFSimpleStatisticsForegroundPtr;
 #endif
 
-#ifndef OSG_COMPILESIMPLESTATISTICSFOREGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, SimpleStatisticsForegroundPtr, OSG_UTIL_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

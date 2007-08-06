@@ -116,9 +116,6 @@ struct FieldTraits<TextureBufferPtr> :
 typedef SFieldAdaptor<TextureBufferPtr, SFFieldContainerPtr> SFTextureBufferPtr;
 #endif
 
-#ifndef OSG_COMPILETEXTUREBUFFERINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, TextureBufferPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, TextureBufferPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<TextureBufferPtr, MFFieldContainerPtr> MFTextureBufferPtr;
 #endif
 
-#ifndef OSG_COMPILETEXTUREBUFFERINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, TextureBufferPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

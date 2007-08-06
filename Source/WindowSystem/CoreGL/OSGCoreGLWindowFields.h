@@ -116,9 +116,6 @@ struct FieldTraits<CoreGLWindowPtr> :
 typedef SFieldAdaptor<CoreGLWindowPtr, SFFieldContainerPtr> SFCoreGLWindowPtr;
 #endif
 
-#ifndef OSG_COMPILECOREGLWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, CoreGLWindowPtr, OSG_WINDOWCOREGL_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCoreGLFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, CoreGLWindowPtr, OSG_WINDOWCOREGL_DLLTMPLMAPPI
 typedef MFieldAdaptor<CoreGLWindowPtr, MFFieldContainerPtr> MFCoreGLWindowPtr;
 #endif
 
-#ifndef OSG_COMPILECOREGLWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, CoreGLWindowPtr, OSG_WINDOWCOREGL_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

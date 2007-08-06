@@ -52,21 +52,9 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef SFieldAdaptor   <AttachmentContainerPtr,
-                         SFFieldContainerPtr    >
-    SFAttachmentContainerPtr;
-
-#ifdef FDFOO
-typedef FieldDescription<AttachmentContainerPtr,
-                         SingleField            >
-    SAttachmentContainerPtrFieldDescription;
+typedef SFieldAdaptor<AttachmentContainerPtr,
+                      SFFieldContainerPtr   > SFAttachmentContainerPtr;
 #endif
-#endif
-
-#ifndef OSG_COMPILECONTAINERFIELDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, AttachmentContainerPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
-
 
 OSG_END_NAMESPACE
 

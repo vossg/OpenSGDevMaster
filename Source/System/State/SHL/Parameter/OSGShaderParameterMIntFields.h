@@ -116,9 +116,6 @@ struct FieldTraits<ShaderParameterMIntPtr> :
 typedef SFieldAdaptor<ShaderParameterMIntPtr, SFFieldContainerPtr> SFShaderParameterMIntPtr;
 #endif
 
-#ifndef OSG_COMPILESHADERPARAMETERMINTINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ShaderParameterMIntPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ShaderParameterMIntPtr, OSG_STATE_DLLTMPLMAPPI
 typedef MFieldAdaptor<ShaderParameterMIntPtr, MFFieldContainerPtr> MFShaderParameterMIntPtr;
 #endif
 
-#ifndef OSG_COMPILESHADERPARAMETERMINTINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ShaderParameterMIntPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

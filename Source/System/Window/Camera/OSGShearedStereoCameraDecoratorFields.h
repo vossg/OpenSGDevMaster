@@ -116,9 +116,6 @@ struct FieldTraits<ShearedStereoCameraDecoratorPtr> :
 typedef SFieldAdaptor<ShearedStereoCameraDecoratorPtr, SFFieldContainerPtr> SFShearedStereoCameraDecoratorPtr;
 #endif
 
-#ifndef OSG_COMPILESHEAREDSTEREOCAMERADECORATORINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ShearedStereoCameraDecoratorPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ShearedStereoCameraDecoratorPtr, OSG_WINDOW_DL
 typedef MFieldAdaptor<ShearedStereoCameraDecoratorPtr, MFFieldContainerPtr> MFShearedStereoCameraDecoratorPtr;
 #endif
 
-#ifndef OSG_COMPILESHEAREDSTEREOCAMERADECORATORINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ShearedStereoCameraDecoratorPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

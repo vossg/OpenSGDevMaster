@@ -116,9 +116,6 @@ struct FieldTraits<SimpleTexturedMaterialPtr> :
 typedef SFieldAdaptor<SimpleTexturedMaterialPtr, SFFieldContainerPtr> SFSimpleTexturedMaterialPtr;
 #endif
 
-#ifndef OSG_COMPILESIMPLETEXTUREDMATERIALINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, SimpleTexturedMaterialPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, SimpleTexturedMaterialPtr, OSG_SYSTEM_DLLTMPLM
 typedef MFieldAdaptor<SimpleTexturedMaterialPtr, MFFieldContainerPtr> MFSimpleTexturedMaterialPtr;
 #endif
 
-#ifndef OSG_COMPILESIMPLETEXTUREDMATERIALINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, SimpleTexturedMaterialPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

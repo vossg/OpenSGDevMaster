@@ -116,9 +116,6 @@ struct FieldTraits<SkyBackgroundPtr> :
 typedef MFieldAdaptor<SkyBackgroundPtr, MFFieldContainerPtr> MFSkyBackgroundPtr;
 #endif
 
-#ifndef OSG_COMPILESKYBACKGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, SkyBackgroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

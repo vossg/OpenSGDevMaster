@@ -48,7 +48,7 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-template<class ValueT, Int32 iNamespace>
+template<class ValueT, Int32 iNamespace> inline
 SField<ValueT, iNamespace>::SField(void) : 
      Inherited (),
     _fieldValue()
@@ -72,7 +72,7 @@ SField<ValueT, iNamespace>::SField(ArgumentType value) :
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-template<class ValueT, Int32 iNamespace>
+template<class ValueT, Int32 iNamespace> inline
 SField<ValueT, iNamespace>::~SField(void)
 {
 }
@@ -94,6 +94,7 @@ typename SField<ValueT, iNamespace>::const_reference
 {
     return _fieldValue;
 }
+
 /*-------------------------------------------------------------------------*/
 /*                                Set                                      */
 
@@ -193,11 +194,13 @@ void SField<ValueTypeT, iNameSpace>::copyFromBin(BinaryDataHandler &pMem)
 /*-------------------------------------------------------------------------*/
 /*                              MT Sync                                    */
 
+#ifdef OSG_MT_CPTR_ASPECT
 template <class ValueT, Int32 iNamespace> inline
 void SField<ValueT, iNamespace>::syncWith(Self &source)
 {
     setValue(source);
 }
+#endif
 
 /*-------------------------------------------------------------------------*/
 /*                              MT Sync                                    */

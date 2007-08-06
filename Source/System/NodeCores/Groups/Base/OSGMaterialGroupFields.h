@@ -116,9 +116,6 @@ struct FieldTraits<MaterialGroupPtr> :
 typedef SFieldAdaptor<MaterialGroupPtr, SFFieldContainerPtr> SFMaterialGroupPtr;
 #endif
 
-#ifndef OSG_COMPILEMATERIALGROUPINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, MaterialGroupPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, MaterialGroupPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<MaterialGroupPtr, MFFieldContainerPtr> MFMaterialGroupPtr;
 #endif
 
-#ifndef OSG_COMPILEMATERIALGROUPINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, MaterialGroupPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

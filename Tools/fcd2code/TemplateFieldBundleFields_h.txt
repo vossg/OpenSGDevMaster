@@ -133,12 +133,6 @@ struct FieldTraits<@!Classname!@P> :
 typedef SFieldAdaptor<@!Classname!@P, SFFieldBundleP> SF@!Classname!@P;
 #endif
 
-#ifndef OSG_COMPILE@!CLASSNAME!@INST
-    @@if isInLibrary
-OSG_FIELD_DLLEXPORT_DECL1(SField, @!Classname!@P, OSG_@!LIBNAME!@_DLLTMPLMAPPING)
-    @@else  // isInLibrary
-    @@endif // isInLibrary
-#endif
 @@endif
 
 @@if MFPointerField
@@ -148,13 +142,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, @!Classname!@P, OSG_@!LIBNAME!@_DLLTMPLMAPPING
 
     @@endif // isInLibrary
 typedef MFieldAdaptor<@!Classname!@P, MFFieldBundleP> MF@!Classname!@P;
-#endif
-
-#ifndef OSG_COMPILE@!CLASSNAME!@INST
-    @@if isInLibrary
-OSG_FIELD_DLLEXPORT_DECL1(MField, @!Classname!@P, OSG_@!LIBNAME!@_DLLTMPLMAPPING)
-    @@else  // isInLibrary
-    @@endif // isInLibrary
 #endif
 
 @@endif

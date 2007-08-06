@@ -116,9 +116,6 @@ struct FieldTraits<PolygonChunkPtr> :
 typedef SFieldAdaptor<PolygonChunkPtr, SFFieldContainerPtr> SFPolygonChunkPtr;
 #endif
 
-#ifndef OSG_COMPILEPOLYGONCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, PolygonChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, PolygonChunkPtr, OSG_STATE_DLLTMPLMAPPING)
 typedef MFieldAdaptor<PolygonChunkPtr, MFFieldContainerPtr> MFPolygonChunkPtr;
 #endif
 
-#ifndef OSG_COMPILEPOLYGONCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, PolygonChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

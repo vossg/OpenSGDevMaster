@@ -116,9 +116,6 @@ struct FieldTraits<PassiveViewportPtr> :
 typedef SFieldAdaptor<PassiveViewportPtr, SFFieldContainerPtr> SFPassiveViewportPtr;
 #endif
 
-#ifndef OSG_COMPILEPASSIVEVIEWPORTINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, PassiveViewportPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, PassiveViewportPtr, OSG_WINDOW_DLLTMPLMAPPING)
 typedef MFieldAdaptor<PassiveViewportPtr, MFFieldContainerPtr> MFPassiveViewportPtr;
 #endif
 
-#ifndef OSG_COMPILEPASSIVEVIEWPORTINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, PassiveViewportPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

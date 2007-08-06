@@ -116,9 +116,6 @@ struct FieldTraits<QuadTreeTerrainPtr> :
 typedef SFieldAdaptor<QuadTreeTerrainPtr, SFFieldContainerPtr> SFQuadTreeTerrainPtr;
 #endif
 
-#ifndef OSG_COMPILEQUADTREETERRAININST
-OSG_FIELD_DLLEXPORT_DECL1(SField, QuadTreeTerrainPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, QuadTreeTerrainPtr, OSG_DRAWABLE_DLLTMPLMAPPIN
 typedef MFieldAdaptor<QuadTreeTerrainPtr, MFFieldContainerPtr> MFQuadTreeTerrainPtr;
 #endif
 
-#ifndef OSG_COMPILEQUADTREETERRAININST
-OSG_FIELD_DLLEXPORT_DECL1(MField, QuadTreeTerrainPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

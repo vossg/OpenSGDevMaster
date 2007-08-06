@@ -116,9 +116,6 @@ struct FieldTraits<ImageComposerPtr> :
 typedef SFieldAdaptor<ImageComposerPtr, SFFieldContainerPtr> SFImageComposerPtr;
 #endif
 
-#ifndef OSG_COMPILEIMAGECOMPOSERINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ImageComposerPtr, OSG_CLUSTER_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ImageComposerPtr, OSG_CLUSTER_DLLTMPLMAPPING)
 typedef MFieldAdaptor<ImageComposerPtr, MFFieldContainerPtr> MFImageComposerPtr;
 #endif
 
-#ifndef OSG_COMPILEIMAGECOMPOSERINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ImageComposerPtr, OSG_CLUSTER_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

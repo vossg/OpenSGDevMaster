@@ -116,9 +116,6 @@ struct FieldTraits<CocoaWindowPtr> :
 typedef SFieldAdaptor<CocoaWindowPtr, SFFieldContainerPtr> SFCocoaWindowPtr;
 #endif
 
-#ifndef OSG_COMPILECOCOAWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, CocoaWindowPtr, OSG_WINDOWCOCOA_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCocoaFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, CocoaWindowPtr, OSG_WINDOWCOCOA_DLLTMPLMAPPING
 typedef MFieldAdaptor<CocoaWindowPtr, MFFieldContainerPtr> MFCocoaWindowPtr;
 #endif
 
-#ifndef OSG_COMPILECOCOAWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, CocoaWindowPtr, OSG_WINDOWCOCOA_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

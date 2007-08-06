@@ -116,9 +116,6 @@ struct FieldTraits<InverseTransformPtr> :
 typedef SFieldAdaptor<InverseTransformPtr, SFFieldContainerPtr> SFInverseTransformPtr;
 #endif
 
-#ifndef OSG_COMPILEINVERSETRANSFORMINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, InverseTransformPtr, OSG_GROUP_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, InverseTransformPtr, OSG_GROUP_DLLTMPLMAPPING)
 typedef MFieldAdaptor<InverseTransformPtr, MFFieldContainerPtr> MFInverseTransformPtr;
 #endif
 
-#ifndef OSG_COMPILEINVERSETRANSFORMINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, InverseTransformPtr, OSG_GROUP_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

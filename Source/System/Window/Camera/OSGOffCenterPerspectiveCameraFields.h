@@ -116,9 +116,6 @@ struct FieldTraits<OffCenterPerspectiveCameraPtr> :
 typedef SFieldAdaptor<OffCenterPerspectiveCameraPtr, SFFieldContainerPtr> SFOffCenterPerspectiveCameraPtr;
 #endif
 
-#ifndef OSG_COMPILEOFFCENTERPERSPECTIVECAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, OffCenterPerspectiveCameraPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, OffCenterPerspectiveCameraPtr, OSG_WINDOW_DLLT
 typedef MFieldAdaptor<OffCenterPerspectiveCameraPtr, MFFieldContainerPtr> MFOffCenterPerspectiveCameraPtr;
 #endif
 
-#ifndef OSG_COMPILEOFFCENTERPERSPECTIVECAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, OffCenterPerspectiveCameraPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

@@ -116,9 +116,6 @@ struct FieldTraits<InlinePtr> :
 typedef SFieldAdaptor<InlinePtr, SFFieldContainerPtr> SFInlinePtr;
 #endif
 
-#ifndef OSG_COMPILEINLINEINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, InlinePtr, OSG_GROUP_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, InlinePtr, OSG_GROUP_DLLTMPLMAPPING)
 typedef MFieldAdaptor<InlinePtr, MFFieldContainerPtr> MFInlinePtr;
 #endif
 
-#ifndef OSG_COMPILEINLINEINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, InlinePtr, OSG_GROUP_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

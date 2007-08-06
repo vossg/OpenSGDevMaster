@@ -116,9 +116,6 @@ struct FieldTraits<PerspectiveCameraPtr> :
 typedef SFieldAdaptor<PerspectiveCameraPtr, SFFieldContainerPtr> SFPerspectiveCameraPtr;
 #endif
 
-#ifndef OSG_COMPILEPERSPECTIVECAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, PerspectiveCameraPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, PerspectiveCameraPtr, OSG_WINDOW_DLLTMPLMAPPIN
 typedef MFieldAdaptor<PerspectiveCameraPtr, MFFieldContainerPtr> MFPerspectiveCameraPtr;
 #endif
 
-#ifndef OSG_COMPILEPERSPECTIVECAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, PerspectiveCameraPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

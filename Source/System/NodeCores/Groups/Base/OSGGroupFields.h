@@ -116,9 +116,6 @@ struct FieldTraits<GroupPtr> :
 typedef SFieldAdaptor<GroupPtr, SFFieldContainerPtr> SFGroupPtr;
 #endif
 
-#ifndef OSG_COMPILEGROUPINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, GroupPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, GroupPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<GroupPtr, MFFieldContainerPtr> MFGroupPtr;
 #endif
 
-#ifndef OSG_COMPILEGROUPINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, GroupPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

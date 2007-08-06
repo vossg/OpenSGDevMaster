@@ -116,9 +116,6 @@ struct FieldTraits<CameraPtr> :
 typedef SFieldAdaptor<CameraPtr, SFFieldContainerPtr> SFCameraPtr;
 #endif
 
-#ifndef OSG_COMPILECAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, CameraPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, CameraPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<CameraPtr, MFFieldContainerPtr> MFCameraPtr;
 #endif
 
-#ifndef OSG_COMPILECAMERAINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, CameraPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

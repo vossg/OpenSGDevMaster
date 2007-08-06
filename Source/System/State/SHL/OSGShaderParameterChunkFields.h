@@ -116,9 +116,6 @@ struct FieldTraits<ShaderParameterChunkPtr> :
 typedef SFieldAdaptor<ShaderParameterChunkPtr, SFFieldContainerPtr> SFShaderParameterChunkPtr;
 #endif
 
-#ifndef OSG_COMPILESHADERPARAMETERCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ShaderParameterChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ShaderParameterChunkPtr, OSG_STATE_DLLTMPLMAPP
 typedef MFieldAdaptor<ShaderParameterChunkPtr, MFFieldContainerPtr> MFShaderParameterChunkPtr;
 #endif
 
-#ifndef OSG_COMPILESHADERPARAMETERCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ShaderParameterChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

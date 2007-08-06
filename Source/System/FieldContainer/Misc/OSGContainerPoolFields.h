@@ -116,9 +116,6 @@ struct FieldTraits<ContainerPoolPtr> :
 typedef SFieldAdaptor<ContainerPoolPtr, SFFieldContainerPtr> SFContainerPoolPtr;
 #endif
 
-#ifndef OSG_COMPILECONTAINERPOOLINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ContainerPoolPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ContainerPoolPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<ContainerPoolPtr, MFFieldContainerPtr> MFContainerPoolPtr;
 #endif
 
-#ifndef OSG_COMPILECONTAINERPOOLINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ContainerPoolPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

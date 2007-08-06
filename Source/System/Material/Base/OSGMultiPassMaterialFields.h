@@ -116,9 +116,6 @@ struct FieldTraits<MultiPassMaterialPtr> :
 typedef SFieldAdaptor<MultiPassMaterialPtr, SFFieldContainerPtr> SFMultiPassMaterialPtr;
 #endif
 
-#ifndef OSG_COMPILEMULTIPASSMATERIALINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, MultiPassMaterialPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, MultiPassMaterialPtr, OSG_SYSTEM_DLLTMPLMAPPIN
 typedef MFieldAdaptor<MultiPassMaterialPtr, MFFieldContainerPtr> MFMultiPassMaterialPtr;
 #endif
 
-#ifndef OSG_COMPILEMULTIPASSMATERIALINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, MultiPassMaterialPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

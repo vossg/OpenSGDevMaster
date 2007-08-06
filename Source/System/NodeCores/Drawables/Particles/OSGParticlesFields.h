@@ -116,9 +116,6 @@ struct FieldTraits<ParticlesPtr> :
 typedef SFieldAdaptor<ParticlesPtr, SFFieldContainerPtr> SFParticlesPtr;
 #endif
 
-#ifndef OSG_COMPILEPARTICLESINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ParticlesPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ParticlesPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
 typedef MFieldAdaptor<ParticlesPtr, MFFieldContainerPtr> MFParticlesPtr;
 #endif
 
-#ifndef OSG_COMPILEPARTICLESINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ParticlesPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

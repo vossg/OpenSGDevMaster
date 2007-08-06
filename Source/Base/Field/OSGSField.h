@@ -176,7 +176,9 @@ class SField : public Field
     /*! \name                      MT Sync                                 */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
     void syncWith(Self &source);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -116,9 +116,6 @@ struct FieldTraits<SHLChunkPtr> :
 typedef SFieldAdaptor<SHLChunkPtr, SFFieldContainerPtr> SFSHLChunkPtr;
 #endif
 
-#ifndef OSG_COMPILESHLCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, SHLChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, SHLChunkPtr, OSG_STATE_DLLTMPLMAPPING)
 typedef MFieldAdaptor<SHLChunkPtr, MFFieldContainerPtr> MFSHLChunkPtr;
 #endif
 
-#ifndef OSG_COMPILESHLCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, SHLChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

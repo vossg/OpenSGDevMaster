@@ -98,11 +98,6 @@ typedef SFieldAdaptor<GeoPnt3fPropertyPtr,
                       SFFieldContainerPtr> SFGeoPnt3fPropertyPtr;
 #endif
 
-#ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, 
-                          GeoPnt3fPropertyPtr, 
-                          OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
@@ -111,11 +106,6 @@ typedef MFieldAdaptor<GeoPnt3fPropertyPtr,
                       MFFieldContainerPtr> MFGeoPnt3fPropertyPtr;
 #endif
 
-#ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, 
-                          GeoPnt3fPropertyPtr, 
-                          OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 
 
@@ -170,11 +160,6 @@ typedef SFieldAdaptor<GeoVec3fPropertyPtr,
                       SFFieldContainerPtr> SFGeoVec3fPropertyPtr;
 #endif
 
-#ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, 
-                          GeoVec3fPropertyPtr, 
-                          OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
@@ -183,11 +168,6 @@ typedef MFieldAdaptor<GeoVec3fPropertyPtr,
                       MFFieldContainerPtr> MFGeoVec3fPropertyPtr;
 #endif
 
-#ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, 
-                          GeoVec3fPropertyPtr, 
-                          OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 
 
@@ -244,11 +224,6 @@ typedef SFieldAdaptor<GeoColor4fPropertyPtr,
                       SFFieldContainerPtr  > SFGeoColor4fPropertyPtr;
 #endif
 
-#ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, 
-                          GeoColor4fPropertyPtr, 
-                          OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
@@ -257,11 +232,6 @@ typedef MFieldAdaptor<GeoColor4fPropertyPtr,
                       MFFieldContainerPtr  > MFGeoColor4fPropertyPtr;
 #endif
 
-#ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, 
-                          GeoColor4fPropertyPtr, 
-                          OSG_DRAWABLE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

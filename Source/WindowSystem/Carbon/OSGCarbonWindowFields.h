@@ -116,9 +116,6 @@ struct FieldTraits<CarbonWindowPtr> :
 typedef SFieldAdaptor<CarbonWindowPtr, SFFieldContainerPtr> SFCarbonWindowPtr;
 #endif
 
-#ifndef OSG_COMPILECARBONWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, CarbonWindowPtr, OSG_WINDOWCARBON_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCarbonFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, CarbonWindowPtr, OSG_WINDOWCARBON_DLLTMPLMAPPI
 typedef MFieldAdaptor<CarbonWindowPtr, MFFieldContainerPtr> MFCarbonWindowPtr;
 #endif
 
-#ifndef OSG_COMPILECARBONWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, CarbonWindowPtr, OSG_WINDOWCARBON_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

@@ -53,11 +53,7 @@ OSG_BEGIN_NAMESPACE
 typedef SField<FieldBundleP> SFFieldBundleP;
 #endif
 
-#ifndef OSG_COMPILEBUNDLEFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField,
-//                          FieldContainerPtr,
-//                          OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
+
 
 #if 0
 template <>
@@ -87,6 +83,9 @@ FieldDescription<FieldTraits<FieldBundleP>,
     const std::vector<UInt16>                    &ignoreGroupIds) const;
 #endif
 
+
+
+
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
@@ -96,12 +95,6 @@ typedef SField<
 
 #endif
 
-#ifndef OSG_COMPILECONTAINERFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL2(SField,
-//                          ParentFieldContainerPtr,
-//                          1,
-//                          OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

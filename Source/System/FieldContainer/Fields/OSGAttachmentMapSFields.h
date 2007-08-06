@@ -53,20 +53,14 @@ OSG_BEGIN_NAMESPACE
 typedef SField<FieldBundleAttachmentMap> SFFieldBundleAttachmentPtrMap;
 #endif
 
-#ifndef OSG_COMPILECONTAINERFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, 
-//                          FieldBundleAttachmentMap, 
-//                          OSG_SYSTEM_DLLMAPPING);
-#endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
 
-typedef SField<
-    FieldContainerAttachmentMap    > SFFieldContainerAttachmentPtrMap;
-
+typedef SField<FieldContainerAttachmentMap> SFFieldContainerAttachmentPtrMap;
 #endif
+
 
 #if 0
 template <>
@@ -94,12 +88,6 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
         const std::vector<const FieldContainerType*> &ignoreTypes,
         const std::vector<UInt16>                    &cloneGroupIds,
         const std::vector<UInt16>                    &ignoreGroupIds) const;
-#endif
-
-#ifndef OSG_COMPILECONTAINERFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL1(SField, 
-//                          FieldContainerAttachmentMap, 
-//                          OSG_SYSTEM_DLLMAPPING);
 #endif
 
 OSG_END_NAMESPACE

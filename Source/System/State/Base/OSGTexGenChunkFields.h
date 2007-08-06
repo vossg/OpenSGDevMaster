@@ -116,9 +116,6 @@ struct FieldTraits<TexGenChunkPtr> :
 typedef SFieldAdaptor<TexGenChunkPtr, SFFieldContainerPtr> SFTexGenChunkPtr;
 #endif
 
-#ifndef OSG_COMPILETEXGENCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, TexGenChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, TexGenChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<TexGenChunkPtr, MFFieldContainerPtr> MFTexGenChunkPtr;
 #endif
 
-#ifndef OSG_COMPILETEXGENCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, TexGenChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

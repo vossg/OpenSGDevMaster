@@ -116,9 +116,6 @@ struct FieldTraits<XWindowPtr> :
 typedef SFieldAdaptor<XWindowPtr, SFFieldContainerPtr> SFXWindowPtr;
 #endif
 
-#ifndef OSG_COMPILEXWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, XWindowPtr, OSG_WINDOWX_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowXFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, XWindowPtr, OSG_WINDOWX_DLLTMPLMAPPING)
 typedef MFieldAdaptor<XWindowPtr, MFFieldContainerPtr> MFXWindowPtr;
 #endif
 
-#ifndef OSG_COMPILEXWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, XWindowPtr, OSG_WINDOWX_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

@@ -115,9 +115,6 @@ struct FieldTraits<SolidBackgroundPtr> :
 typedef SFieldAdaptor<SolidBackgroundPtr, SFFieldContainerPtr> SFSolidBackgroundPtr;
 #endif
 
-#ifndef OSG_COMPILESOLIDBACKGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, SolidBackgroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

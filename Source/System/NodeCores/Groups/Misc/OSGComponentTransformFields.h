@@ -116,9 +116,6 @@ struct FieldTraits<ComponentTransformPtr> :
 typedef SFieldAdaptor<ComponentTransformPtr, SFFieldContainerPtr> SFComponentTransformPtr;
 #endif
 
-#ifndef OSG_COMPILECOMPONENTTRANSFORMINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ComponentTransformPtr, OSG_GROUP_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ComponentTransformPtr, OSG_GROUP_DLLTMPLMAPPIN
 typedef MFieldAdaptor<ComponentTransformPtr, MFFieldContainerPtr> MFComponentTransformPtr;
 #endif
 
-#ifndef OSG_COMPILECOMPONENTTRANSFORMINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ComponentTransformPtr, OSG_GROUP_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

@@ -116,9 +116,6 @@ struct FieldTraits<LightEnginePtr> :
 typedef SFieldAdaptor<LightEnginePtr, SFFieldContainerPtr> SFLightEnginePtr;
 #endif
 
-#ifndef OSG_COMPILELIGHTENGINEINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, LightEnginePtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, LightEnginePtr, OSG_SYSTEM_DLLTMPLMAPPING)
 typedef MFieldAdaptor<LightEnginePtr, MFFieldContainerPtr> MFLightEnginePtr;
 #endif
 
-#ifndef OSG_COMPILELIGHTENGINEINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, LightEnginePtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

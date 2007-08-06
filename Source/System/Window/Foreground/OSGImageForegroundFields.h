@@ -116,9 +116,6 @@ struct FieldTraits<ImageForegroundPtr> :
 typedef SFieldAdaptor<ImageForegroundPtr, SFFieldContainerPtr> SFImageForegroundPtr;
 #endif
 
-#ifndef OSG_COMPILEIMAGEFOREGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ImageForegroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ImageForegroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
 typedef MFieldAdaptor<ImageForegroundPtr, MFFieldContainerPtr> MFImageForegroundPtr;
 #endif
 
-#ifndef OSG_COMPILEIMAGEFOREGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ImageForegroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

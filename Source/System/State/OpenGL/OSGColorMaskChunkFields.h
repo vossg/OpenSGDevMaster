@@ -116,9 +116,6 @@ struct FieldTraits<ColorMaskChunkPtr> :
 typedef SFieldAdaptor<ColorMaskChunkPtr, SFFieldContainerPtr> SFColorMaskChunkPtr;
 #endif
 
-#ifndef OSG_COMPILECOLORMASKCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, ColorMaskChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, ColorMaskChunkPtr, OSG_STATE_DLLTMPLMAPPING)
 typedef MFieldAdaptor<ColorMaskChunkPtr, MFFieldContainerPtr> MFColorMaskChunkPtr;
 #endif
 
-#ifndef OSG_COMPILECOLORMASKCHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, ColorMaskChunkPtr, OSG_STATE_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

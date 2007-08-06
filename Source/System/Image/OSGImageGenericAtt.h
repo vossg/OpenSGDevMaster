@@ -151,12 +151,6 @@ typedef SFieldAdaptor<FieldContainerAttachmentPtr,
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-#ifndef OSG_IMAGEGENERICATT
-OSG_FIELD_DLLEXPORT_DECL1(SField, 
-                          ImageGenericAttPtr, 
-                          OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
-
 #endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -164,12 +158,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField,
 
 typedef MFieldAdaptor<FieldContainerAttachmentPtr, 
                       ImageGenericAttPtr         > MFImageGenericAttPtr;
-#endif
-
-#ifndef OSG_IMAGEGENERICATT
-OSG_FIELD_DLLEXPORT_DECL1(MField, 
-                          ImageGenericAttPtr, 
-                          OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE

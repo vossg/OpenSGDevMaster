@@ -52,25 +52,7 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef MFieldAdaptor   <NodePtr, 
-                         MFFieldContainerPtr> MFNodePtr;
-
-#endif
-
-#ifndef OSG_COMPILECONTAINERFIELDINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, NodePtr, OSG_SYSTEM_DLLTMPLMAPPING)
-#endif
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
-
-typedef MField          <ParentNodePtr> MFParentNodePtr;
-
-#endif
-
-#ifndef OSG_COMPILECONTAINERFIELDINST
-OSG_FIELD_DLLEXPORT_DECL2(MField, ParentNodePtr, 1, OSG_SYSTEM_DLLTMPLMAPPING)
+typedef MFieldAdaptor<NodePtr, MFFieldContainerPtr> MFNodePtr;
 #endif
 
 OSG_END_NAMESPACE

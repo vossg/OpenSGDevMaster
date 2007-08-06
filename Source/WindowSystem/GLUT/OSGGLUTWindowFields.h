@@ -116,9 +116,6 @@ struct FieldTraits<GLUTWindowPtr> :
 typedef SFieldAdaptor<GLUTWindowPtr, SFFieldContainerPtr> SFGLUTWindowPtr;
 #endif
 
-#ifndef OSG_COMPILEGLUTWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, GLUTWindowPtr, OSG_WINDOWGLUT_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowGLUTFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, GLUTWindowPtr, OSG_WINDOWGLUT_DLLTMPLMAPPING)
 typedef MFieldAdaptor<GLUTWindowPtr, MFFieldContainerPtr> MFGLUTWindowPtr;
 #endif
 
-#ifndef OSG_COMPILEGLUTWINDOWINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, GLUTWindowPtr, OSG_WINDOWGLUT_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 

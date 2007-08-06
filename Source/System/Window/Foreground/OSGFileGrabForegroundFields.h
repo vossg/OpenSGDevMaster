@@ -116,9 +116,6 @@ struct FieldTraits<FileGrabForegroundPtr> :
 typedef SFieldAdaptor<FileGrabForegroundPtr, SFFieldContainerPtr> SFFileGrabForegroundPtr;
 #endif
 
-#ifndef OSG_COMPILEFILEGRABFOREGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, FileGrabForegroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
@@ -126,9 +123,6 @@ OSG_FIELD_DLLEXPORT_DECL1(SField, FileGrabForegroundPtr, OSG_WINDOW_DLLTMPLMAPPI
 typedef MFieldAdaptor<FileGrabForegroundPtr, MFFieldContainerPtr> MFFileGrabForegroundPtr;
 #endif
 
-#ifndef OSG_COMPILEFILEGRABFOREGROUNDINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, FileGrabForegroundPtr, OSG_WINDOW_DLLTMPLMAPPING)
-#endif
 
 OSG_END_NAMESPACE
 
