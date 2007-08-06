@@ -229,162 +229,139 @@ bool TIFImageFileType::read(      ImagePtrArg   OSG_TIF_ARG(pImage),
                                   std::istream &OSG_TIF_ARG(is),
                             const std::string  &OSG_TIF_ARG(mimetype))
 {
-    bool    valid = false;
-
 #ifdef OSG_WITH_TIF
-    TIFF    *in = TIFFClientOpen("dummy", "rm", (thandle_t)&is,
-                                 isReadProc, 
-                                 isWriteProc, 
-                                 isSeekProc, 
-                                 closeProc,
-			                     isSizeProc, 
-                                 mapFileProc, 
-                                 unmapFileProc);
-    UChar8  *data = 0, *line = 0, *dest;
-    UInt32  w, h, u, v;
-    Real32  res_x, res_y;
-    UInt16  res_unit;
-    UInt16  bpp;
-    Char8   errorMessage[1024];
-    UInt16  *sampleinfo;
-    UInt16  extrasamples;
-    UInt16  si;
-    UInt16  red, green, blue, alpha;
 
-    if(in)
+    TIFF *in = TIFFClientOpen("dummy", "rm", (thandle_t)&is,
+                              isReadProc,
+                              isWriteProc,
+                              isSeekProc,
+                              closeProc,
+                              isSizeProc,
+                              mapFileProc,
+                              unmapFileProc);
+    if (in == 0)
+        return false;
+
+    uint32 w, h;
+    TIFFGetField(in, TIFFTAG_IMAGEWIDTH, &w);
+    TIFFGetField(in, TIFFTAG_IMAGELENGTH, &h);
+
+    float res_x, res_y;
+    uint16 res_unit;
+    TIFFGetField(in, TIFFTAG_XRESOLUTION, &res_x);
+    TIFFGetField(in, TIFFTAG_YRESOLUTION, &res_y);
+    TIFFGetField(in, TIFFTAG_RESOLUTIONUNIT, &res_unit);
+    if (res_unit == RESUNIT_CENTIMETER)
     {
-        TIFFGetField(in, TIFFTAG_IMAGEWIDTH,  &w);
-        TIFFGetField(in, TIFFTAG_IMAGELENGTH, &h);
-
-        TIFFGetField(in, TIFFTAG_XRESOLUTION,    &res_x);
-        TIFFGetField(in, TIFFTAG_YRESOLUTION,    &res_y);
-        TIFFGetField(in, TIFFTAG_RESOLUTIONUNIT, &res_unit);
-
-        TIFFGetFieldDefaulted(in, TIFFTAG_SAMPLESPERPIXEL, &bpp);
-
-        if(bpp == 4)
-        {   // accept unspecified extra samples as associated alpha
- 
-            TIFFGetFieldDefaulted(in, 
-                                  TIFFTAG_EXTRASAMPLES, 
-                                  &extrasamples,
-                                  &sampleinfo);
-            
-            if(sampleinfo && sampleinfo[0] == EXTRASAMPLE_UNSPECIFIED)
-            {
-                si = EXTRASAMPLE_ASSOCALPHA;
-                TIFFSetField(in, TIFFTAG_EXTRASAMPLES, 1, &si);
-            }
-        }
-
-        data = new UChar8[w * h * 4];
-
-        if(TIFFRGBAImageOK(in, errorMessage) &&
-           TIFFReadRGBAImage(in, w, h, (uint32 *) data, 1))
-        {
-            valid = true;
-        }
-        else
-        {
-            SWARNING << "Tiff reader failed: " << errorMessage << std::endl;
-
-            valid = false;
-        }
-
-        if(valid)
-        {
-            Image::PixelFormat type = Image::OSG_INVALID_PF;
-
-            switch(bpp)
-            {
-                case 1:
-                    type = Image::OSG_L_PF;
-                    break;
-                case 2:
-                    type = Image::OSG_LA_PF;
-                    break;
-                case 3:
-                    type = Image::OSG_RGB_PF;
-                    break;
-                case 4:
-                    type = Image::OSG_RGBA_PF;
-                    break;
-            }
-            
-            pImage->set(type, w, h);
-
-            if(res_unit == RESUNIT_CENTIMETER)
-            {
-                // convert it to dpi.
-                res_x    *= 2.54f;
-                res_y    *= 2.54f;
-                res_unit  = Image::OSG_RESUNIT_INCH;
-            }
-            pImage->setResX   (res_x   );
-            pImage->setResY   (res_y   );
-            pImage->setResUnit(res_unit);
-
-            dest = pImage->editData();
-            
-#if defined(__linux) || defined(_WIN32)
-            red   = 0;
-            green = 1;
-            blue  = 2;
-            alpha = 3;
-
-#else
-            red   = 3;
-            green = 2;
-            blue  = 1;
-            alpha = 0;
-#endif
-            for(v = 0; v < h; v++)
-            {
-                line = data + ((v) * (w * 4));
-
-                for(u = 0; u < w; u++)
-                {
-                    switch(bpp)
-                    {
-                        case 4:
-                            *dest++ = line[red];
-                            *dest++ = line[green];
-                            *dest++ = line[blue];
-                            *dest++ = line[alpha];
-                            break;
-                        case 3:
-                            *dest++ = line[red];
-                            *dest++ = line[green];
-                            *dest++ = line[blue];
-                            break;
-                        case 2:
-                            *dest++ = line[red];
-                            *dest++ = line[green];
-                            break;
-                        case 1:
-                            *dest++ = line[red];
-                            break;
-                    }
-                    
-                    line += 4;
-                }
-            }
-            
-            TIFFClose(in);
-
-            delete[] data;
-
-            data = NULL;
-        }
+        // convert it to dpi.
+        res_x *= 2.54f;
+        res_y *= 2.54f;
+        res_unit = Image::OSG_RESUNIT_INCH;
     }
 
-#else
-    SWARNING << getMimeType()
-             << " read is not compiled into the current binary " 
-             << std::endl;
-#endif
+    uint16 bpp;
+    TIFFGetFieldDefaulted(in, TIFFTAG_SAMPLESPERPIXEL, &bpp);
+    if (bpp == 4)
+    {   // accept unspecified extra samples as associated alpha
+        uint16 *sampleinfo;
+        uint16 extrasamples;
+        TIFFGetFieldDefaulted(in,
+                              TIFFTAG_EXTRASAMPLES,
+                              &extrasamples,
+                              &sampleinfo);
+        if (sampleinfo && sampleinfo[0] == EXTRASAMPLE_UNSPECIFIED)
+        {
+            uint16 si = EXTRASAMPLE_ASSOCALPHA;
+            TIFFSetField(in, TIFFTAG_EXTRASAMPLES, 1, &si);
+        }
+    }
+    Image::PixelFormat type = Image::OSG_INVALID_PF;
+    switch (bpp)
+    {
+    case 1:
+        type = Image::OSG_L_PF;
+        break;
+    case 2:
+        type = Image::OSG_LA_PF;
+        break;
+    case 3:
+        type = Image::OSG_RGB_PF;
+        break;
+    case 4:
+        type = Image::OSG_RGBA_PF;
+        break;
+    }
 
-    return valid;
+    char errorMessage[1024];
+    if (TIFFRGBAImageOK(in, errorMessage) == 0)
+    {
+        SWARNING << "Tiff reader failed: " << errorMessage << std::endl;
+        TIFFClose(in);
+        return false;
+    }
+
+    UInt32 numPixels = w * h;
+    u_long *buffer = new u_long[numPixels];
+    if (TIFFReadRGBAImage(in, w, h, buffer, 1) == 0)
+    {
+        delete [] buffer;
+        TIFFClose(in);
+        return false;
+    }
+
+    TIFFClose(in);
+
+    pImage->set(type, w, h);
+    pImage->setResX(res_x);
+    pImage->setResY(res_y);
+    pImage->setResUnit(res_unit);
+
+    UChar8 *dst = pImage->editData();
+    u_long *src = buffer;
+    switch (bpp)
+    {
+    case 4:
+        for (UInt32 i = numPixels; i > 0; --i)
+        {
+            *dst++ = TIFFGetR(*src);
+            *dst++ = TIFFGetG(*src);
+            *dst++ = TIFFGetB(*src);
+            *dst++ = TIFFGetA(*src++);
+        }
+        break;
+    case 3:
+        for (UInt32 i = numPixels; i > 0; --i)
+        {
+            *dst++ = TIFFGetR(*src);
+            *dst++ = TIFFGetG(*src);
+            *dst++ = TIFFGetB(*src++);
+        }
+        break;
+    case 2:
+        for (UInt32 i = numPixels; i > 0; --i)
+        {
+            *dst++ = TIFFGetG(*src);
+            *dst++ = TIFFGetA(*src++);
+        }
+        break;
+    case 1:
+        for (UInt32 i = numPixels; i > 0; --i)
+            *dst++ = TIFFGetG(*src++);
+        break;
+    }
+
+    delete [] buffer;
+
+    return true;
+
+#else
+
+    SWARNING << getMimeType()
+             << " read is not compiled into the current binary "
+             << std::endl;
+    return false;
+
+#endif // OSG_WITH_TIF
 }
 
 //-------------------------------------------------------------------------
