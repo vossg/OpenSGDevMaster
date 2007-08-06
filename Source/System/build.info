@@ -21,7 +21,7 @@ else:
             libpath.append(option.libDir)
 
    # Tests' dependencies
-   osg_test_libs = ['OSGBase', 'OSGSystem', 'OSGGroup' ]
+   osg_test_libs = ['OSGBase', 'OSGSystem', 'OSGGroup', 'OSGDrawable', 'OSGUtil', 'OSGImageFileIO', 'OSGWindowGLUT']
    test_cpppath = []
    test_libpath = []
      
@@ -34,5 +34,5 @@ else:
             test_libpath.append(option.libDir)
 
    if "darwin" == platform:
-      frameworks = ['OpenGL']
+      frameworks = ['OpenGL', 'GLUT']
       frameworkpath = []
