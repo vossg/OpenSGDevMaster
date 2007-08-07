@@ -1831,6 +1831,11 @@ void EffectIntegration::handleSimpleColor(DomColor *pDiffuse,
     }
  */
 
+    if(fShininess > 128.f)
+        fShininess = 128.f;
+    if(fShininess < 0.f)
+        fShininess = 0.f;
+
     pMatChunk->setShininess(fShininess);
 
     _pMaterial->addChunk(pMatChunk);

@@ -50,7 +50,7 @@
 OSG_BEGIN_NAMESPACE
 
 template<>
-class MField<FieldContainerPtr, 0> : public Field
+class OSG_SYSTEM_DLLMAPPING MField<FieldContainerPtr, 0> : public Field
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -346,7 +346,7 @@ FieldDescription<FieldTraits<FieldContainerPtr>,
 
 
 template<>
-class MField<ParentFieldContainerPtr, 0> : public Field
+class OSG_SYSTEM_DLLMAPPING MField<ParentFieldContainerPtr, 0> : public Field
 {
     /*==========================  PUBLIC  =================================*/
 
