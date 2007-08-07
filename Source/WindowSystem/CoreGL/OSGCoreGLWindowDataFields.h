@@ -98,16 +98,6 @@ typedef SField<CGLContextObj> SFCGLContextObj;
 
 typedef MField<CGLContextObj> MFCGLContextObj;
 
-// Instantiations
-
-#ifndef OSG_COMPILECOREGLWINDOWINST
-
-OSG_FIELD_DLLEXPORT_DECL1(SField, CGLContextObj, OSG_WINDOWCOREGL_DLLTMPLMAPPING)
-
-OSG_FIELD_DLLEXPORT_DECL1(MField, CGLContextObj, OSG_WINDOWCOREGL_DLLTMPLMAPPING)
-
-#endif
-
 OSG_END_NAMESPACE
 
 #endif /* __APPLE__ */

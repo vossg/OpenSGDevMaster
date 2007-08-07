@@ -98,16 +98,6 @@ typedef SField<AGLContext> SFAGLContext;
 
 typedef MField<AGLContext> MFAGLContext;
 
-// Instantiations
-
-#ifndef OSG_COMPILECARBONWINDOWINST
-
-OSG_FIELD_DLLEXPORT_DECL1(SField, AGLContext, OSG_WINDOWCARBON_DLLTMPLMAPPING)
-
-OSG_FIELD_DLLEXPORT_DECL1(MField, AGLContext, OSG_WINDOWCARBON_DLLTMPLMAPPING)
-
-#endif
-
 OSG_END_NAMESPACE
 
 #endif /* __APPLE__ */

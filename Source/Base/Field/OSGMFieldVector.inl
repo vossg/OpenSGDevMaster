@@ -153,9 +153,10 @@ MFieldVector<Tp, Alloc>::~MFieldVector()
 {
 }
 
-template <> inline
-void MFieldVector<UInt32>::dump(      UInt32    uiIndent,
-                                const BitVector OSG_CHECK_ARG(bvFlags)) const
+template <class Tp, class Alloc> inline
+void MFieldVector<Tp, Alloc>::dump(
+          UInt32    uiIndent,
+    const BitVector OSG_CHECK_ARG(bvFlags)) const
 {
     for(UInt32 i = 0; i < uiIndent; ++i)
         fprintf(stderr, " ");
@@ -223,9 +224,9 @@ void MFieldVector<Tp, A>::resolveShare(void)
     this->MYEND   = NULL;
 }
 
-template <> inline
-void MFieldVector<UInt32>::dump(      UInt32    uiIndent,
-                                const BitVector bvFlags ) const
+template <class Tp, class A> inline
+void MFieldVector<Tp, A>::dump(      UInt32    uiIndent,
+                               const BitVector bvFlags ) const
 {
     for(UInt32 i = 0; i < uiIndent; ++i)
         fprintf(stderr, " ");

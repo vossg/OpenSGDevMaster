@@ -300,8 +300,8 @@ bool TIFImageFileType::read(      ImagePtrArg   OSG_TIF_ARG(pImage),
         return false;
     }
 
-    UInt32 numPixels = w * h;
-    UInt32 *buffer = new UInt32[numPixels];
+    UInt32  numPixels = w * h;
+    uint32 *buffer = new uint32[numPixels];
     if (TIFFReadRGBAImage(in, w, h, buffer, 1) == 0)
     {
         delete [] buffer;
@@ -317,7 +317,7 @@ bool TIFImageFileType::read(      ImagePtrArg   OSG_TIF_ARG(pImage),
     pImage->setResUnit(res_unit);
 
     UChar8 *dst = pImage->editData();
-    UInt32 *src = buffer;
+    uint32 *src = buffer;
     switch (bpp)
     {
     case 4:

@@ -101,16 +101,6 @@ typedef SField<NSOpenGLContextP> SFNSOpenGLContextP;
 
 typedef MField<NSOpenGLContextP> MFNSOpenGLContextP;
 
-// Instantiations
-
-#ifndef OSG_COMPILECOCOAWINDOWINST
-
-OSG_FIELD_DLLEXPORT_DECL1(SField, NSOpenGLContextP, OSG_WINDOWCOCOA_DLLTMPLMAPPING)
-
-OSG_FIELD_DLLEXPORT_DECL1(MField, NSOpenGLContextP, OSG_WINDOWCOCOA_DLLTMPLMAPPING)
-
-#endif
-
 OSG_END_NAMESPACE
 
 #endif /* __APPLE__ */

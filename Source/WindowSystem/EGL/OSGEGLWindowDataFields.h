@@ -197,24 +197,6 @@ typedef SField<EGLContext> SFEGLContext;
 
 // Instantiations
 
-#ifndef OSG_COMPILEEGLWINDOWINST
-
-/*
-OSG_FIELD_DLLEXPORT_DECL1(SField, 
-                          HWND,        
-                          OSG_WINDOWEGL_DLLTMPLMAPPING)
-*/
-
-OSG_FIELD_DLLEXPORT_DECL1(SField, 
-                          EGLSurface,         
-                          OSG_WINDOWEGL_DLLTMPLMAPPING)
-
-OSG_FIELD_DLLEXPORT_DECL1(SField, 
-                          EGLContext,         
-                          OSG_WINDOWEGL_DLLTMPLMAPPING)
-
-#endif
-
 OSG_END_NAMESPACE
 
 #endif /* OSG_USE_GLES */
