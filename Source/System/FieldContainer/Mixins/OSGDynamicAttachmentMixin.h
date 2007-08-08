@@ -51,6 +51,11 @@
 #include "OSGSystemDef.h"
 #include "OSGContainerPtrFuncs.h"
 
+#include "OSGFieldContainerSFields.h"
+#include "OSGFieldContainerMFields.h"
+
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 //---------------------------------------------------------------------------
@@ -202,6 +207,9 @@ class DynFieldAttachment : public AttachmentDescT::Parent
     
     /*!\brief prohibit default functions (move to 'public' if needed) */
     void operator =(const DynFieldAttachment &source);
+
+    void addPointerValue(FieldContainerPtr pVal, UInt32 uiFieldId);
+    void setPointerValue(FieldContainerPtr pVal, UInt32 uiFieldId);
 };
 
 OSG_END_NAMESPACE

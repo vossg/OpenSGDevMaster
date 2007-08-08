@@ -410,9 +410,12 @@ class OSG_SYSTEM_DLLMAPPING EditSFieldHandle<SFFieldContainerPtr> :
 
     typedef EditFieldHandle Inherited;
 
+    typedef boost::function<void(SFFieldContainerPtr::ArgumentType)> SetMethod;
+
     /*==========================  PUBLIC  =================================*/
 
     FieldContainerPtr _pContainer;
+    SetMethod         _fSetMethod;
 
   public:
 
@@ -440,7 +443,9 @@ class OSG_SYSTEM_DLLMAPPING EditSFieldHandle<SFFieldContainerPtr> :
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Inherited::Ptr rhs);
+    void         setSetMethod(SetMethod      fMethod);
+
+    virtual bool equal       (Inherited::Ptr rhs    );
 
     /*---------------------------------------------------------------------*/
 

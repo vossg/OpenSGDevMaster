@@ -459,7 +459,6 @@ struct FieldTraitsVec4TemplateBase :
     }
 };
 
-#if 1
 struct FieldDescBase
 {
     static  const Int32                iNamespace = 0;
@@ -490,6 +489,36 @@ class FieldDescription : public DescT::FieldDescParent
 
     typedef typename HandledField::EditHandle    EditHandle;
     typedef typename HandledField::EditHandlePtr EditHandlePtr;
+
+    struct SFieldFunctions
+    {
+        static void beginEdit(HandledField       *pField,
+                              UInt32              uiAspect,
+                              AspectOffsetStore  &oOffsets);
+
+        static bool isShared (HandledField       *pField  );
+    };
+
+    struct MFieldFunctions
+    {
+        static void beginEdit(HandledField       *pField,
+                              UInt32              uiAspect,
+                              AspectOffsetStore  &oOffsets);
+
+        static bool isShared (HandledField       *pField  );
+    };
+
+    typedef typename
+        boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
+                         SFieldFunctions,
+                         MFieldFunctions>::type FieldFunctions;
+
+
+    virtual void beginEdit(Field              *pField,
+                           UInt32              uiAspect,
+                           AspectOffsetStore  &oOffsets);
+
+    virtual bool isShared (Field              *pField  );
 
   public:
 
@@ -531,205 +560,7 @@ class FieldDescription : public DescT::FieldDescParent
     virtual EditFieldHandlePtr  createEditHandler(      Field *pField);
 };
 
-#else
-struct FieldDescBase
-{
-    static  const Int32                iNamespace = 0;
 
-    typedef       FieldDescriptionBase Parent;
-};
-
-template<class DescT, enum FieldCardinality eFieldCard>
-class FieldDescription : public DescT::FieldDescParent
-{
-    struct SFieldFunctions;
-    friend struct SFieldFunctions;
-
-    struct MFieldFunctions;
-    friend struct MFieldFunctions;
-
-    typedef          FieldDescription<DescT,
-                                      eFieldCard> Self;
-
-    typedef typename DescT::FieldDescParent       Inherited;
-    typedef typename Inherited::StringVector      StringVector;
-
-    typedef typename
-      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
-                      SField<typename DescT::ValueType,
-                                      DescT::iNamespace>,
-                      MField<typename DescT::ValueType,
-                                      DescT::iNamespace> >::type HandledField;
-
-    struct SFieldFunctions
-    {
-        static void pushValueFromCString(const Char8        *str,
-                                               HandledField *pField);
-
-        static void pushValueToCString  (const HandledField *pField,
-                                               Char8        *str   );
-
-
-        static void pushValueFromString (const std::string  &in,
-                                               HandledField *pField);
-
-        static void pushValueToString   (const HandledField *pField,
-                                               std::string  &out   );
-
-
-        static void pushValueFromStream(      std::istream &str,
-                                              HandledField *pField );
-
-        static void pushValueToStream  (const HandledField *pField,
-                                              OutStream    &str    );
-
-        static void pushSizeToStream   (const HandledField *pField,
-                                              OutStream    &str    );
-
-
-        static void copyValues         (const HandledField *pSrc,
-                                              HandledField *pDst   );
-    };
-
-    struct MFieldFunctions
-    {
-        static void pushValueFromCString(const Char8        *str,
-                                               HandledField *pField);
-
-        static void pushValueToCString  (const HandledField *pField,
-                                               Char8        *str   );
-
-
-        static void pushValueFromString (const std::string   &in,
-                                               HandledField *pField);
-
-        static void pushValueToString   (const HandledField *pField,
-                                               std::string  &out   );
-
-
-        static void pushValueFromStream(      std::istream &str,
-                                              HandledField *pField );
-
-        static void pushValueToStream  (const HandledField *pField,
-                                              OutStream    &str    );
-
-        static void pushSizeToStream   (const HandledField *pField,
-                                              OutStream    &str    );
-
-
-        static void copyValues         (const HandledField *pSrc,
-                                              HandledField *pDst  );
-    };
-
-    typedef typename
-        boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
-                         SFieldFunctions,
-                         MFieldFunctions>::type FieldFunctions;
-
-    void cloneValues(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &shareTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &shareGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const;
-
-    void shareValues(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &cloneTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &cloneGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const;
-
-  public:
-
-    FieldDescription(const FieldType        &elementType,
-                     const Char8            *szName,
-                     std::string             documentation,
-                     const UInt32            uiFieldId,
-                     const BitVector         vFieldMask,
-                     const bool              bInternal,
-                     const UInt32            uiFieldFlags,
-                           FieldEditMethod   fEditMethod,
-                           FieldGetMethod    fGetMethod,
-                     const Char8            *defaultValue = NULL );
-
-    FieldDescription(const FieldType            &elementType,
-                     const Char8                *szName,
-                     std::string                 documentation,
-                     const UInt32                uiFieldId,
-                     const BitVector             vFieldMask,
-                     const bool                  bInternal,
-                     const UInt32                uiFieldFlags,
-                           FieldIndexEditMethod  fIndexedEditMethod,
-                           FieldIndexGetMethod   fIndexedGetMethod,
-                     const Char8                *defaultValue = NULL );
-
-    FieldDescription(const FieldDescription &source);
-
-    virtual ~FieldDescription(void);
-
-          HandledField *dcast       (      Field *pField) const;
-    const HandledField *dcast_const (const Field *pField) const;
-
-
-    virtual void pushValueFromCString(const Char8        *str,
-                                           Field         *pField) const;
-
-    virtual void pushValueToCString  (const Field        *pField,
-                                            Char8        *str) const;
-
-
-    virtual void pushValueFromString (const std::string  &in,
-                                            Field        *pField) const;
-
-    virtual void pushValueToString   (const Field        *pField,
-                                            std::string  &out   ) const;
-
-
-    virtual void pushValueFromStream (      std::istream &str,
-                                            Field        *pField) const;
-
-    virtual void pushValueToStream   (const Field        *pField,
-                                            OutStream    &str   ) const;
-
-    virtual void pushSizeToStream    (const Field        *pField,
-                                            OutStream    &str   ) const;
-
-
-    virtual void copyValues         (const Field *pSrc,
-                                           Field *pDst  ) const;
-
-    virtual void cloneValuesV(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &shareTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &shareGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const;
-
-    virtual void shareValuesV(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &cloneTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &cloneGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const;
-
-    virtual bool equal(const Field *lhs,
-                       const Field *rhs) const;
-
-    virtual Field                *createField (void         ) const;
-    virtual void                  destroyField(Field *pField) const;
-
-    virtual FieldDescriptionBase *clone       (void         ) const;
-};
-#endif
 
 
 template <class T, Int32 iNamespace = 0>

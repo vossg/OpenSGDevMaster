@@ -55,14 +55,8 @@ OSG_BEGIN_NAMESPACE
 
 class Field;
 
-#if 0
-typedef       Field *(ReflexiveContainer::*FieldEditMethodSig)(void);
-typedef const Field *(ReflexiveContainer::*FieldGetMethodSig )(void) const;
-
-typedef       Field *(ReflexiveContainer::*FieldIndexEditMethodSig)(UInt32);
-typedef const Field *(
-    ReflexiveContainer::*FieldIndexGetMethodSig )(UInt32) const;
-#endif
+template <class AttachmentDescT>
+class DynFieldAttachment;
 
 typedef 
     EditFieldHandlePtr(ReflexiveContainer::*FieldEditMethodSig)(void);
@@ -81,9 +75,6 @@ typedef GetFieldHandlePtr  (ReflexiveContainer::*FieldIndexGetMethodSig )(
 #ifdef FDESC_USE_BOOST
 typedef boost::function<Field *(ReflexiveContainer *)> FieldEditMethod;
 #else
-#if 0
-typedef Field              *(ReflexiveContainer::*FieldEditMethod  )(void  );
-#endif
 typedef EditFieldHandlePtr (ReflexiveContainer::*FieldEditMethod)(void  );
 #endif
 
@@ -94,10 +85,6 @@ typedef EditFieldHandlePtr (ReflexiveContainer::*FieldEditMethod)(void  );
 typedef boost::function<
           const Field *(const ReflexiveContainer *)> FieldGetMethod;
 #else
-#if 0
-typedef 
-    const Field      *(ReflexiveContainer::*FieldGetMethod  )(void  ) const;
-#endif
 typedef GetFieldHandlePtr (ReflexiveContainer::*FieldGetMethod)(void) const;
 #endif
 
@@ -108,10 +95,6 @@ typedef GetFieldHandlePtr (ReflexiveContainer::*FieldGetMethod)(void) const;
 typedef boost::function<
           Field *(ReflexiveContainer *, int)>             FieldIndexEditMethod;
 #else
-#if 0
-typedef 
-    Field              *(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
-#endif
 typedef EditFieldHandlePtr (ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
 #endif
 
@@ -122,10 +105,6 @@ typedef EditFieldHandlePtr (ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
 typedef boost::function<
           const Field *(const ReflexiveContainer *, int)> FieldIndexGetMethod;
 #else
-#if 0
-typedef const Field       *(ReflexiveContainer::*FieldIndexGetMethod  )(
-    UInt32) const;
-#endif
 typedef GetFieldHandlePtr (ReflexiveContainer::*FieldIndexGetMethod)(
     UInt32) const;
 #endif
@@ -352,6 +331,9 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
 
   protected:
 
+    template <class AttachmentDescT>
+    friend class DynFieldAttachment;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
@@ -388,6 +370,12 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
+
+    virtual void beginEdit(Field              *pField,
+                           UInt32              uiAspect,
+                           AspectOffsetStore  &oOffsets) = 0;
+
+    virtual bool isShared (Field              *pField  ) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

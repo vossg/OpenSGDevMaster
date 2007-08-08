@@ -146,6 +146,46 @@ EditFieldHandlePtr DynFieldAttachment<AttachmentDescT>::editDynamicField(
         pField = _dynFieldsV[index - Inherited::NextFieldId];
 
         returnValue = pDesc->createEditHandler(pField);
+
+        this->editSField(pDesc->getFieldMask());
+
+        if(returnValue->getCardinality() == FieldType::MULTI_FIELD)
+        {
+#ifdef OSG_MT_CPTR_ASPECT
+            if(pDesc->isShared(pField) == true)
+            {
+                AspectOffsetStore oOffsets;
+
+                this->_pAspectStore->fillOffsetArray(oOffsets, this);
+                
+                pDesc->beginEdit(pField,
+                                 Thread::getCurrentAspect(),
+                                 oOffsets                  );
+            }
+#endif
+
+            MFFieldContainerPtr::EditHandlePtr pMFHandle = 
+                boost::dynamic_pointer_cast<MFFieldContainerPtr::EditHandle>(
+                    returnValue);
+
+            if(pMFHandle != NULL && pMFHandle->isValid() == true)
+            {
+                pMFHandle->setAddMethod(
+                    boost::bind(&Self::addPointerValue, this, _1, index));
+            }
+        }
+        else
+        {
+            SFFieldContainerPtr::EditHandlePtr pSFHandle = 
+                boost::dynamic_pointer_cast<SFFieldContainerPtr::EditHandle>(
+                    returnValue);
+
+            if(pSFHandle != NULL && pSFHandle->isValid() == true)
+            {
+                pSFHandle->setSetMethod(
+                    boost::bind(&Self::setPointerValue, this, _1, index));
+            }
+        }
     }
 
     return returnValue;
@@ -342,5 +382,29 @@ void DynFieldAttachment<AttachmentDescT>::execSync (
 }
 
 #endif
+
+template <class AttachmentDescT> inline
+void DynFieldAttachment<AttachmentDescT>::addPointerValue(
+    FieldContainerPtr pVal, 
+    UInt32            uiFieldId)
+{
+    MFFieldContainerPtr *pField = static_cast<MFFieldContainerPtr *>(
+        _dynFieldsV[uiFieldId - Inherited::NextFieldId]);
+    
+    OSG::addRef(pVal);
+
+    pField->push_back(pVal);
+}
+
+template <class AttachmentDescT> inline
+void DynFieldAttachment<AttachmentDescT>::setPointerValue(
+    FieldContainerPtr pVal, 
+    UInt32            uiFieldId)
+{
+    SFFieldContainerPtr *pField = static_cast<SFFieldContainerPtr *>(
+        _dynFieldsV[uiFieldId - Inherited::NextFieldId]);
+
+    OSG::setRefd(pField->getValue(), pVal);
+}
 
 OSG_END_NAMESPACE

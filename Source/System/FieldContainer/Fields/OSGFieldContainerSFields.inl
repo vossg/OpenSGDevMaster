@@ -410,7 +410,8 @@ EditSFieldHandle<SFFieldContainerPtr>::EditSFieldHandle(
     const EditSFieldHandle &source) :
 
      Inherited (source            ),
-    _pContainer(source._pContainer)
+    _pContainer(source._pContainer),
+    _fSetMethod(source._fSetMethod)
 {
 }
 
@@ -421,7 +422,8 @@ EditSFieldHandle<SFFieldContainerPtr>::EditSFieldHandle(
 
      Inherited (pField, 
                 pDescription),
-    _pContainer(NULL)
+    _pContainer(NULL        ),
+    _fSetMethod(NULL        )
 {
 }
 
@@ -441,7 +443,10 @@ inline
 void EditSFieldHandle<SFFieldContainerPtr>::setValue(
     FieldContainerPtrConstArg rhs)
 {
-    OSG_ASSERT(false);
+    if(_fSetMethod != NULL)
+    {
+        _fSetMethod(rhs);
+    }
 }
 
 inline
@@ -479,6 +484,12 @@ bool EditSFieldHandle<SFFieldContainerPtr>::equal(Inherited::Ptr rhs)
         static_cast<SFFieldContainerPtr *>(pOther->_pField);
 
     return (*pLhs) == (*pRhs);
+}
+
+inline
+void EditSFieldHandle<SFFieldContainerPtr>::setSetMethod(SetMethod fMethod)
+{
+    _fSetMethod = fMethod;
 }
 
 inline

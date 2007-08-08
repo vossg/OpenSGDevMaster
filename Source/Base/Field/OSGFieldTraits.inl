@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 OSG_BEGIN_NAMESPACE
-#if 1
+
 template<class DescT, enum FieldCardinality eFieldCard> inline
 FieldDescription<DescT, eFieldCard>::FieldDescription(
     const FieldType       &elementType,
@@ -159,349 +159,64 @@ EditFieldHandlePtr
     return returnValue;
 }
 
-#else
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::SFieldFunctions::pushValueFromCString(
-    const Char8        *str,
-          HandledField *pField)
-{
-    pField->setValueFromCString(str);
-}
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT,
-                      eFieldCard>::SFieldFunctions::pushValueToCString(
-                          const HandledField *pField,
-                                Char8        *str   )
+                      eFieldCard>::SFieldFunctions::beginEdit(
+                          HandledField       *,
+                          UInt32              ,
+                          AspectOffsetStore  &)
 {
-    std::string tmpVal;
-
-    pField->pushValueToString(tmpVal);
-
-    osgStringCopy(tmpVal.c_str(), str);
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT,
-                      eFieldCard>::SFieldFunctions::pushValueFromString(
-                          const std::string  &in,
-                                HandledField *pField)
+                      eFieldCard>::MFieldFunctions::beginEdit(
+                          HandledField       *pField,
+                          UInt32              uiAspect,
+                          AspectOffsetStore  &oOffsets)
 {
-    pField->setValueFromCString(in.c_str());
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::SFieldFunctions::pushValueToString(
-                          const HandledField *pField,
-                                std::string  &out   )
-{
-    pField->pushValueToString(out);
+    pField->beginEdit(uiAspect, oOffsets);
 }
 
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::SFieldFunctions::pushValueFromStream(
-                          std::istream &str,
-                          HandledField *pField )
+bool FieldDescription<DescT,
+                      eFieldCard>::SFieldFunctions::isShared(
+                          HandledField *)
 {
-    pField->pushValueFromStream(str);
+    return false;
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::SFieldFunctions::pushValueToStream(
-                          const HandledField *pField,
-                                OutStream    &str    )
+bool FieldDescription<DescT,
+                      eFieldCard>::MFieldFunctions::isShared(
+                          HandledField *pField)
 {
-    pField->pushValueToStream(str);
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::SFieldFunctions::pushSizeToStream(
-                          const HandledField *pField,
-                                OutStream    &str    )
-{
-    pField->pushSizeToStream(str);
-}
-
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::SFieldFunctions::copyValues(
-    const HandledField *pSrc,
-          HandledField *pDst)
-{
-    pDst->setValue(*pSrc);
-}
-
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::MFieldFunctions::pushValueFromCString(
-    const Char8        *str,
-          HandledField *pField)
-{
-    pField->addValueFromCString(str);
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::MFieldFunctions::pushValueToCString(
-                          const HandledField *pField,
-                                Char8        *str   )
-{
-    std::string tmpVal;
-
-    pField->pushValuesToString(tmpVal);
-
-    osgStringCopy(tmpVal.c_str(), str);
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::MFieldFunctions::pushValueFromString(
-                          const std::string  &in,
-                                HandledField *pField)
-{
-    pField->addValueFromCString(in.c_str());
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::MFieldFunctions::pushValueToString(
-                          const HandledField *pField,
-                                std::string  &out   )
-{
-    pField->pushValuesToString(out);
-}
-
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::MFieldFunctions::pushValueFromStream(
-                          std::istream &str,
-                          HandledField *pField )
-{
-    pField->pushValuesFromStream(str);
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::MFieldFunctions::pushValueToStream(
-                          const HandledField *pField,
-                          OutStream          &str    )
-{
-    pField->pushValuesToStream(str);
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT,
-                      eFieldCard>::MFieldFunctions::pushSizeToStream(
-                          const HandledField *pField,
-                          OutStream          &str    )
-{
-    pField->pushSizeToStream(str);
-}
-
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::MFieldFunctions::copyValues(
-    const HandledField *pSrc,
-          HandledField *pDst  )
-{
-    pDst->setValues(*pSrc);
-}
-
-template<class DescT, enum FieldCardinality eFieldCard>
-inline void
-FieldDescription<DescT, eFieldCard>::cloneValues(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &shareTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &shareGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const
-{
-    FWARNING(("illegal cloneValues called for %s\n", this->getCName()));
-    OSG_ASSERT(false);
-}
-
-template<class DescT, enum FieldCardinality eFieldCard>
-inline void
-FieldDescription<DescT, eFieldCard>::shareValues(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &cloneTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &cloneGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const
-{
-    FWARNING(("illegal shareValues called for %s\n", this->getCName()));
-    OSG_ASSERT(false);
+    return pField->isShared();
 }
 
 
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-const typename FieldDescription<DescT, eFieldCard>::HandledField *
-    FieldDescription<DescT, eFieldCard>::dcast_const(const Field *pField) const
+void FieldDescription<DescT,
+                      eFieldCard>::beginEdit(Field              *pField,
+                                             UInt32              uiAspect,
+                                             AspectOffsetStore  &oOffsets)
 {
-    return static_cast<const HandledField *>(pField);
+    HandledField *pTypedField = dcast(pField);
+    
+    FieldFunctions::beginEdit(pTypedField, uiAspect, oOffsets);
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::pushValueFromCString(
-    const Char8 *str,
-          Field *pField) const
+bool FieldDescription<DescT,
+                      eFieldCard>::isShared(Field *pField)
 {
-    HandledField *pConcreteField = dcast(pField);
-
-    if(pConcreteField != NULL)
-    {
-        FieldFunctions::pushValueFromCString(str, pConcreteField);
-    }
+    HandledField *pTypedField = dcast(pField);
+    
+    return FieldFunctions::isShared(pTypedField);
 }
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::pushValueToCString(
-    const Field *pField,
-          Char8 *str) const
-{
-    const HandledField *pConcreteField = dcast_const(pField);
-
-    if(pConcreteField != NULL)
-    {
-        FieldFunctions::pushValueToCString(pConcreteField, str);
-    }
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::pushValueFromString(
-    const std::string &in,
-          Field       *pField) const
-{
-    HandledField *pConcreteField = dcast(pField);
-
-    if(pConcreteField != NULL)
-    {
-        FieldFunctions::pushValueFromString(in, pConcreteField);
-    }
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::pushValueToString(
-    const Field       *pField,
-          std::string &out   ) const
-{
-    const HandledField *pConcreteField = dcast_const(pField);
-
-    if(pConcreteField != NULL)
-    {
-        FieldFunctions::pushValueToString(pConcreteField, out);
-    }
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::pushValueFromStream(
-    std::istream &in,
-    Field        *pField) const
-{
-    HandledField *pConcreteField = dcast(pField);
-
-    if(pConcreteField != NULL)
-    {
-        FieldFunctions::pushValueFromStream(in, pConcreteField);
-    }
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::pushValueToStream(
-    const Field        *pField,
-          OutStream    &out   ) const
-{
-    const HandledField *pConcreteField = dcast_const(pField);
-
-    if(pConcreteField != NULL)
-    {
-        FieldFunctions::pushValueToStream(pConcreteField, out);
-    }
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::pushSizeToStream(
-    const Field        *pField,
-          OutStream    &out   ) const
-{
-    const HandledField *pConcreteField = dcast_const(pField);
-
-    if(pConcreteField != NULL)
-    {
-        FieldFunctions::pushSizeToStream(pConcreteField, out);
-    }
-}
-
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::copyValues(
-    const Field *pSrc,
-          Field *pDst) const
-{
-    const HandledField *pSrcField = dcast_const(pSrc);
-          HandledField *pDstField = dcast      (pDst);
-
-    if(pSrcField != NULL && pDstField != NULL)
-    {
-        FieldFunctions::copyValues(pSrcField, pDstField);
-    }
-}
-
-template<class DescT, enum FieldCardinality eFieldCard>
-inline void
-FieldDescription<DescT, eFieldCard>::cloneValuesV(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &shareTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &shareGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const
-{
-    cloneValues(pSrc, fieldId, pDst, shareTypes, ignoreTypes,
-                shareGroupIds, ignoreGroupIds);
-}
-
-template<class DescT, enum FieldCardinality eFieldCard>
-inline void
-FieldDescription<DescT, eFieldCard>::shareValuesV(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &cloneTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &cloneGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const
-{
-    shareValues(pSrc, fieldId, pDst, cloneTypes, ignoreTypes,
-                cloneGroupIds, ignoreGroupIds);
-}
-
-template<class DescT, enum FieldCardinality eFieldCard> inline
-bool FieldDescription<DescT, eFieldCard>::equal(const Field *lhs,
-                                                const Field *rhs) const
-{
-    const HandledField *lhsField = dcast_const(lhs);
-    const HandledField *rhsField = dcast_const(rhs);
-
-    return (*lhsField) == (*rhsField);
-}
-
-
-#endif
 
 OSG_END_NAMESPACE
 

@@ -166,19 +166,7 @@ EditFieldHandlePtr ReflexiveContainer::editField(UInt32 fieldId)
 {
     const FieldDescriptionBase *desc = getType().getFieldDesc(fieldId);
 
-    if(desc != NULL)
-    {
-        if(_bvChanged == TypeTraits<BitVector>::BitsClear)
-        {
-            registerChangedContainerV();
-        }
-
-        _bvChanged |= desc->getFieldMask();
-
-        return desc->editField(*this);
-    }
-
-    return EditFieldHandlePtr();
+    return (desc != NULL) ? desc->editField(*this) : EditFieldHandlePtr();
 }
 
 inline
@@ -186,19 +174,7 @@ EditFieldHandlePtr ReflexiveContainer::editField(const Char8 *fieldName)
 {
     const FieldDescriptionBase *desc = getType().getFieldDesc(fieldName);
 
-    if(desc != NULL)
-    {
-        if(_bvChanged == TypeTraits<BitVector>::BitsClear)
-        {
-            registerChangedContainerV();
-        }
-
-        _bvChanged |= desc->getFieldMask();
-
-        return desc->editField(*this);
-    }
-
-    return EditFieldHandlePtr();
+    return (desc != NULL) ? desc->editField(*this) : EditFieldHandlePtr();
 }
 
 inline
