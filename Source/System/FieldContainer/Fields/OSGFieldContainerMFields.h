@@ -88,10 +88,12 @@ class OSG_SYSTEM_DLLMAPPING MField<FieldContainerPtr, 0> : public Field
 
     /*---------------------------------------------------------------------*/
 
-    static const Int32 Namespace = 0;
+    static const Int32 Namespace     = 0;
 
-    static const bool isSField = false;
-    static const bool isMField = true;
+    static const bool isSField       = false;
+    static const bool isMField       = true;
+
+    static const bool isPointerField = true;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */

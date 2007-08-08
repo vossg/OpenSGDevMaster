@@ -43,13 +43,123 @@ OSG_RC_GET_STATIC_TYPE_ID_INL_TMPL_DEF(SimpleAttachment, AttachmentDescT)
 
 template <class AttachmentDescT> inline
 typename SimpleAttachment<AttachmentDescT>::StoredFieldType *
+    SimpleAttachment<AttachmentDescT>::SFieldValFunctions::editFieldPtr(
+        StoredFieldType  *pField,
+        SimpleAttachment *pThis )
+{
+    pThis->editSField(SimpleAttachment::SimpleFieldId);
+
+    return pField;
+}
+
+template <class AttachmentDescT> inline
+EditFieldHandlePtr 
+    SimpleAttachment<AttachmentDescT>::SFieldValFunctions::editHandleField(
+        StoredFieldType  *pField,
+        SimpleAttachment *pThis)
+{
+    typename SimpleAttachment::EditHandlePtr returnValue(
+        new typename SimpleAttachment::EditHandle(
+             pField, 
+             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId)));
+
+    pThis->editSField(SimpleAttachment::SimpleFieldId);
+
+    return returnValue;
+}
+
+
+template <class AttachmentDescT> inline
+typename SimpleAttachment<AttachmentDescT>::StoredFieldType *
+    SimpleAttachment<AttachmentDescT>::SFieldPtrFunctions::editFieldPtr(
+        StoredFieldType  *pField,
+        SimpleAttachment *pThis )
+{
+    return NULL;
+}
+
+template <class AttachmentDescT> inline
+EditFieldHandlePtr 
+    SimpleAttachment<AttachmentDescT>::SFieldPtrFunctions::editHandleField(
+        StoredFieldType  *pField,
+        SimpleAttachment *pThis)
+{
+    typename SimpleAttachment::EditHandlePtr returnValue(
+        new typename SimpleAttachment::EditHandle(
+             pField, 
+             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId)));
+
+    pThis->editSField(SimpleAttachment::SimpleFieldId);
+
+    returnValue->setSetMethod(
+        boost::bind(&SimpleAttachment::setPointerValue, pThis, _1));
+
+    return returnValue;
+}
+
+
+template <class AttachmentDescT> inline
+typename SimpleAttachment<AttachmentDescT>::StoredFieldType *
+    SimpleAttachment<AttachmentDescT>::MFieldValFunctions::editFieldPtr(
+        StoredFieldType  *pField,
+        SimpleAttachment *pThis )
+{
+    pThis->editMField(*pField, SimpleAttachment::SimpleFieldId);
+
+    return pField;
+}
+
+template <class AttachmentDescT> inline
+EditFieldHandlePtr 
+    SimpleAttachment<AttachmentDescT>::MFieldValFunctions::editHandleField(
+        StoredFieldType  *pField,
+        SimpleAttachment *pThis)
+{
+    typename SimpleAttachment::EditHandlePtr returnValue(
+        new typename SimpleAttachment::EditHandle(
+             pField, 
+             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId)));
+
+    pThis->editMField(*pField, SimpleAttachment::SimpleFieldId);
+
+    return returnValue;
+}
+
+
+template <class AttachmentDescT> inline
+typename SimpleAttachment<AttachmentDescT>::StoredFieldType *
+    SimpleAttachment<AttachmentDescT>::MFieldPtrFunctions::editFieldPtr(
+        StoredFieldType  *pField,
+        SimpleAttachment *pThis )
+{
+    return NULL;
+}
+
+template <class AttachmentDescT> inline
+EditFieldHandlePtr 
+    SimpleAttachment<AttachmentDescT>::MFieldPtrFunctions::editHandleField(
+        StoredFieldType  *pField,
+        SimpleAttachment *pThis)
+{
+    typename SimpleAttachment::EditHandlePtr returnValue(
+        new typename SimpleAttachment::EditHandle(
+             pField, 
+             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId)));
+
+    pThis->editMField(*pField, SimpleAttachment::SimpleFieldId);
+
+    returnValue->setSetMethod(
+        boost::bind(&SimpleAttachment::addPointerValue, pThis, _1));
+
+    return returnValue;
+}
+
+
+template <class AttachmentDescT> inline
+typename SimpleAttachment<AttachmentDescT>::StoredFieldType *
     SimpleAttachment<AttachmentDescT>::editFieldPtr(void)
 {
-//    EditFieldResult::editField(SimpleFieldMask, _field, this);
-
-//    this->editField(_field);
-
-    return &_field;
+    return FieldFunctions::editFieldPtr(&_field, this);
 }
 
 template <class AttachmentDescT> inline
@@ -57,15 +167,6 @@ const typename SimpleAttachment<AttachmentDescT>::StoredFieldType *
     SimpleAttachment<AttachmentDescT>::getFieldPtr(void) const
 {
     return &_field;
-}
-
-template <class AttachmentDescT> inline
-typename SimpleAttachment<AttachmentDescT>::StoredFieldType &
-    SimpleAttachment<AttachmentDescT>::editField(void)
-{
-//    EditFieldResult::editField(SimpleFieldMask, _field, this);
-
-    return _field;
 }
 
 template <class AttachmentDescT> inline
@@ -206,14 +307,31 @@ GetFieldHandlePtr SimpleAttachment<AttachmentDescT>::getHandleField(void) const
 template <class AttachmentDescT> inline
 EditFieldHandlePtr SimpleAttachment<AttachmentDescT>::editHandleField(void)
 {
+#if 0
     EditHandlePtr returnValue(
         new  EditHandle(
              &_field, 
              this->getType().getFieldDesc(SimpleFieldId)));
-
+#endif
 //    editSField(TravMaskFieldMask);
 
-    return returnValue;
+//    return returnValue;
+
+    return FieldFunctions::editHandleField(&_field, this);
+}
+
+template <class AttachmentDescT> inline
+void SimpleAttachment<AttachmentDescT>::setPointerValue(ArgumentType pVal)
+{
+    OSG::setRefd(_field.getValue(), pVal);
+}
+
+template <class AttachmentDescT> inline
+void SimpleAttachment<AttachmentDescT>::addPointerValue(ArgumentType pVal)
+{
+    OSG::addRef(pVal);
+
+    _field.push_back(pVal);
 }
 
 OSG_END_NAMESPACE

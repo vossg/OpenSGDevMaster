@@ -46,6 +46,8 @@
 #include "OSGFieldContainerAttachment.h"
 #include "OSGContainerPtrFuncs.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 //! Template to build simple attachment classes which store only one field.
@@ -54,24 +56,17 @@ OSG_BEGIN_NAMESPACE
 template <class AttachmentDescT>
 class SimpleAttachment : public FieldContainerAttachment
 {
-    /*=========================  PROTECTED  ===============================*/
+
+    /*==========================  PUBLIC  =================================*/
 
   public:
 
     typedef FieldContainerAttachment Inherited;
     typedef FieldContainerAttachment ParentContainer;
 
-  protected:
-
-    typedef Inherited::TypeObject TypeObject;
-    typedef TypeObject::InitPhase InitPhase;
-
-    /*==========================  PUBLIC  =================================*/
-
-  public:
-
     typedef          AttachmentDescT                   SimpleDesc;
     typedef typename SimpleDesc::FieldTypeT            StoredFieldType;
+    typedef typename StoredFieldType::ArgumentType     ArgumentType;
 
     typedef          SimpleAttachment<AttachmentDescT> Self;
 
@@ -81,7 +76,78 @@ class SimpleAttachment : public FieldContainerAttachment
     typedef typename StoredFieldType::EditHandle       EditHandle;
     typedef typename StoredFieldType::EditHandlePtr    EditHandlePtr;
     
-    OSG_GEN_INTERNALPTR(Self);
+     /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef Inherited::TypeObject TypeObject;
+    typedef TypeObject::InitPhase InitPhase;
+
+    struct SFieldValFunctions
+    {
+        static StoredFieldType   *editFieldPtr   (StoredFieldType  *pField,
+                                                  SimpleAttachment *pThis );
+
+
+        static EditFieldHandlePtr editHandleField(StoredFieldType  *pField,
+                                                  SimpleAttachment *pThis);
+    };
+
+    struct SFieldPtrFunctions
+    {
+        static StoredFieldType   *editFieldPtr   (StoredFieldType  *pField,
+                                                  SimpleAttachment *pThis );
+
+
+        static EditFieldHandlePtr editHandleField(StoredFieldType  *pField,
+                                                  SimpleAttachment *pThis);
+    };
+
+    struct MFieldValFunctions
+    {
+        static StoredFieldType   *editFieldPtr   (StoredFieldType  *pField,
+                                                  SimpleAttachment *pThis );
+
+
+        static EditFieldHandlePtr editHandleField(StoredFieldType  *pField,
+                                                  SimpleAttachment *pThis);
+    };
+
+    struct MFieldPtrFunctions
+    {
+        static StoredFieldType   *editFieldPtr   (StoredFieldType  *pField,
+                                                  SimpleAttachment *pThis );
+
+
+        static EditFieldHandlePtr editHandleField(StoredFieldType  *pField,
+                                                  SimpleAttachment *pThis);
+    };
+
+
+    typedef typename
+        boost::mpl::if_<boost::mpl::bool_<
+                             (StoredFieldType::isPointerField == true)>,
+                         SFieldPtrFunctions,
+                         SFieldValFunctions>::type SFieldFunctions;
+
+    typedef typename
+        boost::mpl::if_<boost::mpl::bool_<
+                             (StoredFieldType::isPointerField == true)>,
+                         MFieldPtrFunctions,
+                         MFieldValFunctions>::type MFieldFunctions;
+
+    typedef typename
+        boost::mpl::if_<boost::mpl::bool_<(StoredFieldType::isSField == true)>,
+                         SFieldFunctions,
+                         MFieldFunctions>::type FieldFunctions;
+
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+
+   OSG_GEN_INTERNALPTR(Self);
 
     enum 
     { 
@@ -92,58 +158,6 @@ class SimpleAttachment : public FieldContainerAttachment
     static const BitVector SimpleFieldMask = Inherited::NextFieldMask;
     static const BitVector NextFieldMask   = SimpleFieldMask << 1;
 
-
-#if 0
-    struct EditSField
-    {
-
-        static void editField(
-            ConstFieldMaskArg                                 whichField, 
-            StoredFieldType &,
-            Self *thisP) inline
-        {
-            thisP->editSField(whichField);
-        }
-    };
-    
-    struct EditMField
-    {
-        static void editField(ConstFieldMaskArg  whichField, 
-                              StoredFieldType   &field, 
-                              Self              *thisP     ) inline
-        {
-            thisP->editMField(whichField, field);
-        }
-    };
-
-    struct EditError
-    {
-    };
-
-
-    typedef typename osgIF<
-              StoreFieldType::isSField == true,
-              EditSField,
-              EditError                       >::_IRet EditSFieldResult;
-
-    typedef typename osgIF<
-              StoreFieldType::isSField == true,
-              EditMField,
-              EditSFieldResult                >::_IRet EditFieldResult;
-
-    typedef typename StoredFieldType::StoredType ValueType;
-
-    template<class ValueT>
-    void editField(SField<ValueT, StoredFieldTypeNamespace> &field);
-
-    template<>
-    void editField< SField<ValueType, StoredFieldType::Namespace> >(
-        SField<ValueType, StoredFieldTypeNamespace> &field)
-        {
-        }
-#endif
-    
-   
 
     /*---------------------------------------------------------------------*/
     /*! \name        General Fieldcontainer Declaration                    */
@@ -159,7 +173,6 @@ class SimpleAttachment : public FieldContainerAttachment
           StoredFieldType *editFieldPtr(void);
     const StoredFieldType *getFieldPtr (void) const;
 
-          StoredFieldType &editField   (void);
     const StoredFieldType &getField    (void) const;
 
     /*! \}                                                                 */
@@ -264,6 +277,9 @@ class SimpleAttachment : public FieldContainerAttachment
     
     /*! \brief prohibit default functions (move to 'public' if needed) */
     SimpleAttachment &operator =(const SimpleAttachment &source);
+
+    void setPointerValue(ArgumentType pVal);
+    void addPointerValue(ArgumentType pVal);
 };
 
 OSG_END_NAMESPACE

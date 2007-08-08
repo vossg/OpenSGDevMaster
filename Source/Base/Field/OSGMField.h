@@ -100,37 +100,23 @@ class MField : public Field
 
     typedef typename MFieldTraits::ArgumentType         ArgumentType;
 
-#if 1
     typedef          FieldDescription<MFieldTraits,
                                       MultiField     >  Description;
-#else
-    typedef FieldDescriptionBase Description;
-#endif
 
-#if 0
-    typedef typename
-    boost::mpl::if_<boost::mpl::bool_<MFieldTraits::bIsPointerField>,
-                    EditFCPtrMFieldHandle<Self>,
-                    EditMFieldHandle     <Self>  >::type  EditHandle;
-#endif
+    typedef          EditMFieldHandle <Self      >      EditHandle;
+    typedef          boost::shared_ptr<EditHandle>      EditHandlePtr;
 
-    typedef EditMFieldHandle <Self      > EditHandle;
-    typedef boost::shared_ptr<EditHandle> EditHandlePtr;
+    typedef          GetMFieldHandle  <Self     >       GetHandle;
+    typedef          boost::shared_ptr<GetHandle>       GetHandlePtr;
 
-#if 0
-    typedef typename
-    boost::mpl::if_<boost::mpl::bool_<MFieldTraits::bIsPointerField>,
-                    GetFCPtrMFieldHandle<Self> ,
-                    GetMFieldHandle     <Self> >::type  GetHandle;
-#endif
+    /*---------------------------------------------------------------------*/
 
-    typedef GetMFieldHandle  <Self     > GetHandle;
-    typedef boost::shared_ptr<GetHandle> GetHandlePtr;
+    static const Int32 Namespace     = iNamespace;
 
-    static const Int32 Namespace = iNamespace;
+    static const bool isSField       = false;
+    static const bool isMField       = true;
 
-    static const bool isSField = false;
-    static const bool isMField = true;
+    static const bool isPointerField = false;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */
