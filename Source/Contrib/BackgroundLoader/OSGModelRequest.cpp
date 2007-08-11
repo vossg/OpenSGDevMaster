@@ -38,7 +38,7 @@ void ModelRequest::execute()
 
 void ModelRequest::sync()
 {
-   if (mParent != NullFC && mModel != NullFC)
+   if (mParent && mModel)
    {
       std::cout << "ModelRequest: adding model to scene: " << mFilename << std::endl;
       mParent->addChild(mModel);
