@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class ChunkMaterial
+ **     class ChunkOverrideGroup
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGCHUNKMATERIALBASE_H_
-#define _OSGCHUNKMATERIALBASE_H_
+#ifndef _OSGCHUNKOVERRIDEGROUPBASE_H_
+#define _OSGCHUNKOVERRIDEGROUPBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,30 +63,29 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGMaterial.h" // Parent
+#include "OSGGroup.h" // Parent
 
 #include "OSGStateChunkFields.h" // Chunks type
-#include "OSGInt32Fields.h" // Slots type
 
-#include "OSGChunkMaterialFields.h"
+#include "OSGChunkOverrideGroupFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class ChunkMaterial;
+class ChunkOverrideGroup;
 
-//! \brief ChunkMaterial Base Class.
+//! \brief ChunkOverrideGroup Base Class.
 
-class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
+class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
 {
   public:
 
-    typedef Material Inherited;
-    typedef Material ParentContainer;
+    typedef Group Inherited;
+    typedef Group ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(ChunkMaterial);
+    OSG_GEN_INTERNALPTR(ChunkOverrideGroup);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -95,14 +94,11 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     enum
     {
         ChunksFieldId = Inherited::NextFieldId,
-        SlotsFieldId = ChunksFieldId + 1,
-        NextFieldId = SlotsFieldId + 1
+        NextFieldId = ChunksFieldId + 1
     };
 
     static const OSG::BitVector ChunksFieldMask =
         (TypeTraits<BitVector>::One << ChunksFieldId);
-    static const OSG::BitVector SlotsFieldMask =
-        (TypeTraits<BitVector>::One << SlotsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -141,8 +137,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ChunkMaterialPtr create     (void);
-    static  ChunkMaterialPtr createEmpty(void);
+    static  ChunkOverrideGroupPtr create     (void);
+    static  ChunkOverrideGroupPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -166,29 +162,28 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \{                                                                 */
 
     MFStateChunkPtr   _mfChunks;
-    MFInt32           _mfSlots;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    ChunkMaterialBase(void);
-    ChunkMaterialBase(const ChunkMaterialBase &source);
+    ChunkOverrideGroupBase(void);
+    ChunkOverrideGroupBase(const ChunkOverrideGroupBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ChunkMaterialBase(void);
+    virtual ~ChunkOverrideGroupBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const ChunkMaterial *source = NULL);
+    void onCreate(const ChunkOverrideGroup *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -197,8 +192,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
 
     GetFieldHandlePtr  getHandleChunks          (void) const;
     EditFieldHandlePtr editHandleChunks         (void);
-    GetFieldHandlePtr  getHandleSlots           (void) const;
-    EditFieldHandlePtr editHandleSlots          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -207,24 +200,9 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
 
             const MFStateChunkPtr     *getMFChunks          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFInt32             *getMFSlots           (void);
-#endif
-                  MFInt32             *editMFSlots          (void);
-            const MFInt32             *getMFSlots           (void) const;
-
 
                   StateChunkPtrConst getChunks         (const UInt32 index) const;
             const MFStateChunkPtr     &getChunks          (void) const;
-
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getSlots           (const UInt32 index);
-                  MFInt32             &getSlots          (void);
-#endif
-                  Int32               &editSlots          (const UInt32 index);
-            const Int32               &getSlots           (const UInt32 index) const;
-                  MFInt32             &editSlots          (void);
-            const MFInt32             &getSlots           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -251,19 +229,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
 
 
 
-    void pushToSlots               (const Int32& value   );
-    void insertIntoSlots      (UInt32                uiIndex,
-                                             const Int32& value   );
-    void replaceInSlots   (UInt32                uiIndex,
-                                             const Int32& value   );
-    void replaceInSlots  (const Int32& pOldElem,
-                                             const Int32& pNewElem);
-    void removeFromSlots (UInt32                uiIndex );
-    void removeFromSlots(const Int32& value   );
-    void clearSlots                 (void                          );
-
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -276,7 +241,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      ChunkMaterialBase *pFrom,
+            void execSync (      ChunkOverrideGroupBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -314,21 +279,21 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
   private:
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ChunkMaterialBase &source);
+    void operator =(const ChunkOverrideGroupBase &source);
 };
 
-typedef ChunkMaterialBase *ChunkMaterialBaseP;
+typedef ChunkOverrideGroupBase *ChunkOverrideGroupBaseP;
 
-/** Type specific RefPtr type for ChunkMaterial. */
-typedef RefPtr<ChunkMaterialPtr> ChunkMaterialRefPtr;
+/** Type specific RefPtr type for ChunkOverrideGroup. */
+typedef RefPtr<ChunkOverrideGroupPtr> ChunkOverrideGroupRefPtr;
 
 typedef boost::mpl::if_<
-    boost::mpl::bool_<ChunkMaterialBase::isNodeCore>,
-    CoredNodePtr<ChunkMaterial>,
+    boost::mpl::bool_<ChunkOverrideGroupBase::isNodeCore>,
+    CoredNodePtr<ChunkOverrideGroup>,
     FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
-        ChunkMaterialNodePtr;
+        ChunkOverrideGroupNodePtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCHUNKMATERIALBASE_H_ */
+#endif /* _OSGCHUNKOVERRIDEGROUPBASE_H_ */

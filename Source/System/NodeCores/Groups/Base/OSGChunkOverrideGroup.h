@@ -36,29 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSG@!CLASSNAME!@_H_
-#define _OSG@!CLASSNAME!@_H_
+#ifndef _OSGCHUNKOVERRIDEGROUP_H_
+#define _OSGCHUNKOVERRIDEGROUP_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSG@!Classname!@Base.h"
+#include "OSGChunkOverrideGroupBase.h"
+#include "OSGState.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief @!Classname!@ class. See \ref
-@@if isInLibrary
-           Page@!Libname!@@!Classname!@ for a description.
-@@else
-           Page@!Classname!@ for a description.
-@@endif
+/*! \brief ChunkOverrideGroup class. See \ref
+           PageSystemChunkOverrideGroup for a description.
 */
 
-@@if isInLibrary
-class OSG_@!LIBNAME!@_DLLMAPPING @!Classname!@ : public @!Classname!@Base
-@@else
-class @!Classname!@ : public @!Classname!@Base
-@@endif
+class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : public ChunkOverrideGroupBase
 {
   protected:
 
@@ -66,8 +59,8 @@ class @!Classname!@ : public @!Classname!@Base
 
   public:
 
-    typedef @!Classname!@Base Inherited;
-    typedef @!Classname!@     Self;
+    typedef ChunkOverrideGroupBase Inherited;
+    typedef ChunkOverrideGroup     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -82,6 +75,34 @@ class @!Classname!@ : public @!Classname!@Base
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    bool addChunk(StateChunkPtr chunk, 
+                  Int32         slot = State::AutoSlotReplace);
+
+    bool subChunk(StateChunkPtr chunk, 
+                  Int32         slot = State::AutoSlotReplace);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    Int32         find(      StateChunkPtr    chunk);
+    StateChunkPtr find(const StateChunkClass &type, 
+                             Int32            slot =State::AutoSlotReplace);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    MFStateChunkPtr::const_iterator beginChunks(void) const;
+    MFStateChunkPtr::const_iterator endChunks  (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
@@ -90,21 +111,21 @@ class @!Classname!@ : public @!Classname!@Base
 
   protected:
 
-    // Variables should all be in @!Classname!@Base.
+    // Variables should all be in ChunkOverrideGroupBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    @!Classname!@(void);
-    @!Classname!@(const @!Classname!@ &source);
+    ChunkOverrideGroup(void);
+    ChunkOverrideGroup(const ChunkOverrideGroup &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~@!Classname!@(void);
+    virtual ~ChunkOverrideGroup(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -119,17 +140,17 @@ class @!Classname!@ : public @!Classname!@Base
   private:
 
     friend class FieldContainer;
-    friend class @!Classname!@Base;
+    friend class ChunkOverrideGroupBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const @!Classname!@ &source);
+    void operator =(const ChunkOverrideGroup &source);
 };
 
-typedef @!Classname!@ *@!Classname!@P;
+typedef ChunkOverrideGroup *ChunkOverrideGroupP;
 
 OSG_END_NAMESPACE
 
-#include "OSG@!Classname!@Base.inl"
-#include "OSG@!Classname!@.inl"
+#include "OSGChunkOverrideGroupBase.inl"
+#include "OSGChunkOverrideGroup.inl"
 
-#endif /* _OSG@!CLASSNAME!@_H_ */
+#endif /* _OSGCHUNKOVERRIDEGROUP_H_ */

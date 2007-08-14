@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -36,25 +34,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSTAGEPARENT_H_
-#define _OSGSTAGEPARENT_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-#include "OSGGroup.h"
-#include "OSGStageHandlerMixin.h"
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
 OSG_BEGIN_NAMESPACE
 
-struct StageDesc
+inline
+MFStateChunkPtr::const_iterator ChunkOverrideGroup::beginChunks(void) const
 {
-    typedef Group                      ParentT;
-    typedef FieldContainer::TypeObject TypeObject;
-};
+    return _mfChunks.begin();
+}
 
-typedef StageHandlerMixin< ContainerMixinHead< StageDesc > > StageParent;
+inline
+MFStateChunkPtr::const_iterator ChunkOverrideGroup::endChunks(void) const
+{
+    return _mfChunks.end();
+}
 
 OSG_END_NAMESPACE
-
-#endif /* _OSGSTAGEPARENT_H_ */

@@ -109,14 +109,22 @@ TiledQuadTreeTerrain::~TiledQuadTreeTerrain(void)
 
 inline MaterialPtr cloneMaterial(const MaterialPtr &mat)
 {
-    ChunkMaterialPtr m     = dynamic_cast<ChunkMaterialPtr>(mat);
-    ChunkMaterialPtr clone = ChunkMaterial::create();
+#if 0
 
     for(MFStateChunkPtr::const_iterator it =  m->getChunks().begin();
                                         it != m->getChunks().end();
                                       ++it)
     {
         clone->addChunk(*it);
+    }
+#endif
+
+    ChunkMaterialPtr m     = dynamic_cast<ChunkMaterialPtr>(mat);
+    ChunkMaterialPtr clone = NULL;
+
+    if(m != NULL)
+    {
+        clone = dynamic_cast<ChunkMaterialPtr>(m->shallowCopy());
     }
 
     return clone;

@@ -59,6 +59,7 @@
 #include "OSGComponentTransform.h"
 #include "OSGDistanceLOD.h"
 #include "OSGMaterialGroup.h"
+#include "OSGChunkOverrideGroup.h"
 #include "OSGSwitch.h"
 #include "OSGTransform.h"
 #include "OSGDirectionalLight.h"
@@ -372,6 +373,60 @@ ActionBase::ResultE MaterialGroupRenderLeave(const NodeCorePtr &pCore,
     {
         pAction->overrideMaterial(NULL, pAction->getActNode());
     }
+
+    return GroupRenderLeave(pCore, action);
+}
+
+ActionBase::ResultE ChunkOverrideGroupRenderEnter(const NodeCorePtr &pCore,
+                                                        Action      *action)
+{
+#ifdef OSG_DUMP_TRAVERSAL
+    FDEBUG_GV(("Enter ChunkOverrideGroup %p\n", &(*pCore)));
+#endif
+
+    RenderTraversalAction *pAction = 
+        dynamic_cast<RenderTraversalAction *>(action);
+
+    ChunkOverrideGroupPtr pCOGroup = 
+        dynamic_cast<ChunkOverrideGroupPtr>(pCore);
+
+    if(pAction                  != NULL   && 
+       pCOGroup                 != NullFC  )
+    {
+        pAction->pushState();
+
+        MFStateChunkPtr::const_iterator chIt   = pCOGroup->beginChunks();
+        MFStateChunkPtr::const_iterator chEnd  = pCOGroup->endChunks  ();
+        UInt32                          uiSlot = 0;
+
+        while(chIt != chEnd)
+        {
+            if(*chIt != NullFC)
+                pAction->addOverride(uiSlot, *chIt);
+            
+            ++uiSlot;
+            ++chIt;
+        }
+    }
+
+    return GroupRenderEnter(pCore, action);
+}
+
+ActionBase::ResultE ChunkOverrideGroupRenderLeave(const NodeCorePtr &pCore,
+                                                        Action      *action)
+{
+#ifdef OSG_DUMP_TRAVERSAL
+    FDEBUG_GV(("Leave ChunkOverrideGroup %p\n", &(*pCore)));
+#endif
+
+    RenderTraversalAction *pAction = 
+        dynamic_cast<RenderTraversalAction *>(action);
+
+    if(pAction != NULL)
+    {
+        pAction->popState();
+    }
+
 
     return GroupRenderLeave(pCore, action);
 }
@@ -1180,6 +1235,14 @@ bool RenderTraversalActionInitialize(void)
     RenderTraversalAction::registerLeaveDefault(
         MaterialGroup::getClassType(), 
         MaterialGroupRenderLeave);
+
+    RenderTraversalAction::registerEnterDefault(
+        ChunkOverrideGroup::getClassType(), 
+        ChunkOverrideGroupRenderEnter);
+
+    RenderTraversalAction::registerLeaveDefault(
+        ChunkOverrideGroup::getClassType(), 
+        ChunkOverrideGroupRenderLeave);
 
 #if 0
     ShadingAction::registerEnterDefault(

@@ -45,13 +45,13 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class ChunkMaterial!
+ **     class ChunkOverrideGroup!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#define OSG_COMPILECHUNKMATERIALINST
+#define OSG_COMPILECHUNKOVERRIDEGROUPINST
 
 #include <cstdlib>
 #include <cstdio>
@@ -63,8 +63,8 @@
 
 #include <OSGStateChunk.h> // Chunks Class
 
-#include "OSGChunkMaterialBase.h"
-#include "OSGChunkMaterial.h"
+#include "OSGChunkOverrideGroupBase.h"
+#include "OSGChunkOverrideGroup.h"
 
 #include "boost/bind.hpp"
 
@@ -74,32 +74,23 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::ChunkMaterial
-    \ingroup GrpSystemMaterial
-
-    The chunk material class. See \ref PageSystemMaterialChunkMaterial for a
-    description.
-
-    Chunks can be attached and detached from the material using
-    OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more
-    complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks
-    field's functions.
+/*! \class OSG::ChunkOverrideGroup
+    ChunkOverrideGroup is a simple group node that allows for material chunks
+    to be set that will override all chunks stored in materials in the entire 
+    subtree. Currently the last chunk override wins (note the difference to
+    the material group). This might change in future
  */
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var StateChunkPtr   ChunkMaterialBase::_mfChunks
-    
-*/
-
-/*! \var Int32           ChunkMaterialBase::_mfSlots
+/*! \var StateChunkPtr   ChunkOverrideGroupBase::_mfChunks
     
 */
 
 
-void ChunkMaterialBase::classDescInserter(TypeObject &oType)
+void ChunkOverrideGroupBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
@@ -111,131 +102,83 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
         ChunksFieldId, ChunksFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ChunkMaterialBase::editHandleChunks),
-        static_cast<FieldGetMethodSig >(&ChunkMaterialBase::getHandleChunks));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new MFInt32::Description(
-        MFInt32::getClassType(),
-        "slots",
-        "",
-        SlotsFieldId, SlotsFieldMask,
-        false,
-        Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ChunkMaterialBase::editHandleSlots),
-        static_cast<FieldGetMethodSig >(&ChunkMaterialBase::getHandleSlots));
+        static_cast<FieldEditMethodSig>(&ChunkOverrideGroupBase::editHandleChunks),
+        static_cast<FieldGetMethodSig >(&ChunkOverrideGroupBase::getHandleChunks));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(
-    ChunkMaterialBase::getClassname(),
+ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
+    ChunkOverrideGroupBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ChunkMaterialBase::createEmpty,
-    ChunkMaterial::initMethod,
-    (InitalInsertDescFunc) &ChunkMaterialBase::classDescInserter,
+    (PrototypeCreateF) &ChunkOverrideGroupBase::createEmpty,
+    ChunkOverrideGroup::initMethod,
+    (InitalInsertDescFunc) &ChunkOverrideGroupBase::classDescInserter,
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ChunkMaterial\"\n"
-    "\tparent=\"Material\"\n"
+    "\tname=\"ChunkOverrideGroup\"\n"
+    "\tparent=\"Group\"\n"
     "\tlibrary=\"System\"\n"
-    "\tstructure=\"concrete\"\n"
     "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
     ">\n"
-    "\\ingroup GrpSystemMaterial\n"
-    "\n"
-    "The chunk material class. See \\ref PageSystemMaterialChunkMaterial for a\n"
-    "description.\n"
-    "\n"
-    "Chunks can be attached and detached from the material using\n"
-    "OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more\n"
-    "complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks\n"
-    "field's functions.\n"
+    "ChunkOverrideGroup is a simple group node that allows for material chunks\n"
+    "to be set that will override all chunks stored in materials in the entire \n"
+    "subtree. Currently the last chunk override wins (note the difference to\n"
+    "the material group). This might change in future\n"
     "\t<Field\n"
     "\t\tname=\"chunks\"\n"
     "\t\ttype=\"StateChunkPtr\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "        access=\"protected\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"slots\"\n"
-    "\t\ttype=\"Int32\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "        access=\"protected\"\n"
-    "\t>\n"
+    "    >\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemMaterial\n"
-    "\n"
-    "The chunk material class. See \\ref PageSystemMaterialChunkMaterial for a\n"
-    "description.\n"
-    "\n"
-    "Chunks can be attached and detached from the material using\n"
-    "OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more\n"
-    "complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks\n"
-    "field's functions.\n"
+    "ChunkOverrideGroup is a simple group node that allows for material chunks\n"
+    "to be set that will override all chunks stored in materials in the entire \n"
+    "subtree. Currently the last chunk override wins (note the difference to\n"
+    "the material group). This might change in future\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ChunkMaterialBase::getType(void)
+FieldContainerType &ChunkOverrideGroupBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &ChunkMaterialBase::getType(void) const
+const FieldContainerType &ChunkOverrideGroupBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 ChunkMaterialBase::getContainerSize(void) const
+UInt32 ChunkOverrideGroupBase::getContainerSize(void) const
 {
-    return sizeof(ChunkMaterial);
+    return sizeof(ChunkOverrideGroup);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the ChunkMaterial::_mfChunks field.
-const MFStateChunkPtr *ChunkMaterialBase::getMFChunks(void) const
+//! Get the ChunkOverrideGroup::_mfChunks field.
+const MFStateChunkPtr *ChunkOverrideGroupBase::getMFChunks(void) const
 {
     return &_mfChunks;
 }
 
-MFInt32 *ChunkMaterialBase::editMFSlots(void)
-{
-    editMField(SlotsFieldMask, _mfSlots);
-
-    return &_mfSlots;
-}
-
-const MFInt32 *ChunkMaterialBase::getMFSlots(void) const
-{
-    return &_mfSlots;
-}
-
-#ifdef OSG_1_GET_COMPAT
-MFInt32             *ChunkMaterialBase::getMFSlots          (void)
-{
-    return this->editMFSlots          ();
-}
-#endif
 
 
-
-void ChunkMaterialBase::pushToChunks(StateChunkPtrConstArg value)
+void ChunkOverrideGroupBase::pushToChunks(StateChunkPtrConstArg value)
 {
     if(value == NullFC)
         return;
@@ -247,14 +190,14 @@ void ChunkMaterialBase::pushToChunks(StateChunkPtrConstArg value)
     _mfChunks.push_back(value);
 }
 
-void ChunkMaterialBase::assignChunks   (const MFStateChunkPtr   &value)
+void ChunkOverrideGroupBase::assignChunks   (const MFStateChunkPtr   &value)
 {
     MFStateChunkPtr  ::const_iterator elemIt  =
         value.begin();
     MFStateChunkPtr  ::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<ChunkMaterial *>(this)->clearChunks();
+    static_cast<ChunkOverrideGroup *>(this)->clearChunks();
 
     while(elemIt != elemEnd)
     {
@@ -264,7 +207,7 @@ void ChunkMaterialBase::assignChunks   (const MFStateChunkPtr   &value)
     }
 }
 
-void ChunkMaterialBase::insertIntoChunks(UInt32                uiIndex,
+void ChunkOverrideGroupBase::insertIntoChunks(UInt32                uiIndex,
                                                    StateChunkPtrConstArg value   )
 {
     if(value == NullFC)
@@ -281,7 +224,7 @@ void ChunkMaterialBase::insertIntoChunks(UInt32                uiIndex,
     _mfChunks.insert(fieldIt, value);
 }
 
-void ChunkMaterialBase::replaceInChunks(UInt32                uiIndex,
+void ChunkOverrideGroupBase::replaceInChunks(UInt32                uiIndex,
                                                        StateChunkPtrConstArg value   )
 {
     if(value == NullFC)
@@ -299,7 +242,7 @@ void ChunkMaterialBase::replaceInChunks(UInt32                uiIndex,
     _mfChunks[uiIndex] = value;
 }
 
-void ChunkMaterialBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
+void ChunkOverrideGroupBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
                                                         StateChunkPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
@@ -322,7 +265,7 @@ void ChunkMaterialBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
     }
 }
 
-void ChunkMaterialBase::removeFromChunks(UInt32 uiIndex)
+void ChunkOverrideGroupBase::removeFromChunks(UInt32 uiIndex)
 {
     if(uiIndex < _mfChunks.size())
     {
@@ -338,7 +281,7 @@ void ChunkMaterialBase::removeFromChunks(UInt32 uiIndex)
     }
 }
 
-void ChunkMaterialBase::removeFromChunks(StateChunkPtrConstArg value)
+void ChunkOverrideGroupBase::removeFromChunks(StateChunkPtrConstArg value)
 {
     Int32 iElemIdx = _mfChunks.findIndex(value);
 
@@ -355,7 +298,7 @@ void ChunkMaterialBase::removeFromChunks(StateChunkPtrConstArg value)
         _mfChunks.erase(fieldIt);
     }
 }
-void ChunkMaterialBase::clearChunks(void)
+void ChunkOverrideGroupBase::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
@@ -372,93 +315,11 @@ void ChunkMaterialBase::clearChunks(void)
     _mfChunks.clear();
 }
 
-/*********************************** Non-ptr code ********************************/
-void ChunkMaterialBase::pushToSlots(const Int32& value)
-{
-    editMField(SlotsFieldMask, _mfSlots);
-    _mfSlots.push_back(value);
-}
-
-void ChunkMaterialBase::insertIntoSlots(UInt32                uiIndex,
-                                                   const Int32& value   )
-{
-    editMField(SlotsFieldMask, _mfSlots);
-
-    MFInt32::iterator fieldIt = _mfSlots.begin();
-
-    fieldIt += uiIndex;
-
-    _mfSlots.insert(fieldIt, value);
-}
-
-void ChunkMaterialBase::replaceInSlots(UInt32                uiIndex,
-                                                       const Int32& value   )
-{
-    if(uiIndex >= _mfSlots.size())
-        return;
-
-    editMField(SlotsFieldMask, _mfSlots);
-
-    _mfSlots[uiIndex] = value;
-}
-
-void ChunkMaterialBase::replaceInSlots(const Int32& pOldElem,
-                                                        const Int32& pNewElem)
-{
-    Int32  elemIdx = _mfSlots.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(SlotsFieldMask, _mfSlots);
-
-        MFInt32::iterator fieldIt = _mfSlots.begin();
-
-        fieldIt += elemIdx;
-
-        (*fieldIt) = pNewElem;
-    }
-}
-
-void ChunkMaterialBase::removeFromSlots(UInt32 uiIndex)
-{
-    if(uiIndex < _mfSlots.size())
-    {
-        editMField(SlotsFieldMask, _mfSlots);
-
-        MFInt32::iterator fieldIt = _mfSlots.begin();
-
-        fieldIt += uiIndex;
-        _mfSlots.erase(fieldIt);
-    }
-}
-
-void ChunkMaterialBase::removeFromSlots(const Int32& value)
-{
-    Int32 iElemIdx = _mfSlots.findIndex(value);
-
-    if(iElemIdx != -1)
-    {
-        editMField(SlotsFieldMask, _mfSlots);
-
-        MFInt32::iterator fieldIt = _mfSlots.begin();
-
-        fieldIt += iElemIdx;
-
-        _mfSlots.erase(fieldIt);
-    }
-}
-
-void ChunkMaterialBase::clearSlots(void)
-{
-    editMField(SlotsFieldMask, _mfSlots);
-
-    _mfSlots.clear();
-}
 
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ChunkMaterialBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 ChunkOverrideGroupBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
@@ -466,15 +327,11 @@ UInt32 ChunkMaterialBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfChunks.getBinSize();
     }
-    if(FieldBits::NoField != (SlotsFieldMask & whichField))
-    {
-        returnValue += _mfSlots.getBinSize();
-    }
 
     return returnValue;
 }
 
-void ChunkMaterialBase::copyToBin(BinaryDataHandler &pMem,
+void ChunkOverrideGroupBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
@@ -483,13 +340,9 @@ void ChunkMaterialBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfChunks.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (SlotsFieldMask & whichField))
-    {
-        _mfSlots.copyToBin(pMem);
-    }
 }
 
-void ChunkMaterialBase::copyFromBin(BinaryDataHandler &pMem,
+void ChunkOverrideGroupBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
@@ -498,20 +351,16 @@ void ChunkMaterialBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _mfChunks.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (SlotsFieldMask & whichField))
-    {
-        _mfSlots.copyFromBin(pMem);
-    }
 }
 
 //! create a new instance of the class
-ChunkMaterialPtr ChunkMaterialBase::create(void)
+ChunkOverrideGroupPtr ChunkOverrideGroupBase::create(void)
 {
-    ChunkMaterialPtr fc;
+    ChunkOverrideGroupPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ChunkMaterial::ObjPtr>(
+        fc = dynamic_cast<ChunkOverrideGroup::ObjPtr>(
             getClassType().getPrototype()-> shallowCopy());
     }
 
@@ -519,20 +368,20 @@ ChunkMaterialPtr ChunkMaterialBase::create(void)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ChunkMaterialPtr ChunkMaterialBase::createEmpty(void)
+ChunkOverrideGroupPtr ChunkOverrideGroupBase::createEmpty(void)
 {
-    ChunkMaterialPtr returnValue;
+    ChunkOverrideGroupPtr returnValue;
 
-    newPtr<ChunkMaterial>(returnValue);
+    newPtr<ChunkOverrideGroup>(returnValue);
 
     return returnValue;
 }
 
-FieldContainerPtr ChunkMaterialBase::shallowCopy(void) const
+FieldContainerPtr ChunkOverrideGroupBase::shallowCopy(void) const
 {
-    ChunkMaterialPtr returnValue;
+    ChunkOverrideGroupPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ChunkMaterial *>(this));
+    newPtr(returnValue, dynamic_cast<const ChunkOverrideGroup *>(this));
 
     return returnValue;
 }
@@ -541,28 +390,26 @@ FieldContainerPtr ChunkMaterialBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-ChunkMaterialBase::ChunkMaterialBase(void) :
+ChunkOverrideGroupBase::ChunkOverrideGroupBase(void) :
     Inherited(),
-    _mfChunks                 (),
-    _mfSlots                  ()
+    _mfChunks                 ()
 {
 }
 
-ChunkMaterialBase::ChunkMaterialBase(const ChunkMaterialBase &source) :
+ChunkOverrideGroupBase::ChunkOverrideGroupBase(const ChunkOverrideGroupBase &source) :
     Inherited(source),
-    _mfChunks                 (),
-    _mfSlots                  (source._mfSlots                  )
+    _mfChunks                 ()
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-ChunkMaterialBase::~ChunkMaterialBase(void)
+ChunkOverrideGroupBase::~ChunkOverrideGroupBase(void)
 {
 }
 
-void ChunkMaterialBase::onCreate(const ChunkMaterial *source)
+void ChunkOverrideGroupBase::onCreate(const ChunkOverrideGroup *source)
 {
     Inherited::onCreate(source);
 
@@ -583,7 +430,7 @@ void ChunkMaterialBase::onCreate(const ChunkMaterial *source)
     }
 }
 
-GetFieldHandlePtr ChunkMaterialBase::getHandleChunks          (void) const
+GetFieldHandlePtr ChunkOverrideGroupBase::getHandleChunks          (void) const
 {
     MFStateChunkPtr::GetHandlePtr returnValue(
         new  MFStateChunkPtr::GetHandle(
@@ -593,52 +440,30 @@ GetFieldHandlePtr ChunkMaterialBase::getHandleChunks          (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr ChunkMaterialBase::editHandleChunks         (void)
+EditFieldHandlePtr ChunkOverrideGroupBase::editHandleChunks         (void)
 {
     MFStateChunkPtr::EditHandlePtr returnValue(
         new  MFStateChunkPtr::EditHandle(
              &_mfChunks, 
              this->getType().getFieldDesc(ChunksFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&ChunkMaterial::pushToChunks, 
-                              static_cast<ChunkMaterial *>(this), _1));
+    returnValue->setAddMethod(boost::bind(&ChunkOverrideGroup::pushToChunks, 
+                              static_cast<ChunkOverrideGroup *>(this), _1));
 
     editMField(ChunksFieldMask, _mfChunks);
 
     return returnValue;
 }
 
-GetFieldHandlePtr ChunkMaterialBase::getHandleSlots           (void) const
-{
-    MFInt32::GetHandlePtr returnValue(
-        new  MFInt32::GetHandle(
-             &_mfSlots, 
-             this->getType().getFieldDesc(SlotsFieldId)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ChunkMaterialBase::editHandleSlots          (void)
-{
-    MFInt32::EditHandlePtr returnValue(
-        new  MFInt32::EditHandle(
-             &_mfSlots, 
-             this->getType().getFieldDesc(SlotsFieldId)));
-
-    editMField(SlotsFieldMask, _mfSlots);
-
-    return returnValue;
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
-void ChunkMaterialBase::execSyncV(      FieldContainer    &oFrom,
+void ChunkOverrideGroupBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ChunkMaterialBase *>(&oFrom),
+    this->execSync(static_cast<ChunkOverrideGroupBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -648,32 +473,23 @@ void ChunkMaterialBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ChunkMaterialBase::createAspectCopy(void) const
+FieldContainerPtr ChunkOverrideGroupBase::createAspectCopy(void) const
 {
-    ChunkMaterialPtr returnValue;
+    ChunkOverrideGroupPtr returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const ChunkMaterial *>(this));
+                  dynamic_cast<const ChunkOverrideGroup *>(this));
 
     return returnValue;
 }
 #endif
 
-void ChunkMaterialBase::resolveLinks(void)
+void ChunkOverrideGroupBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-#ifdef OSG_MT_CPTR_ASPECT
-    AspectOffsetStore oOffsets;
 
-    _pAspectStore->fillOffsetArray(oOffsets, this);
-#endif
-
-    static_cast<ChunkMaterial *>(this)->clearChunks();
-#ifdef OSG_MT_CPTR_ASPECT
-    _mfSlots.terminateShare(Thread::getCurrentAspect(), 
-                                      oOffsets);
-#endif
+    static_cast<ChunkOverrideGroup *>(this)->clearChunks();
 }
 
 
@@ -685,12 +501,12 @@ OSG_END_NAMESPACE
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ChunkMaterialPtr>::_type("ChunkMaterialPtr", "MaterialPtr");
+DataType FieldTraits<ChunkOverrideGroupPtr>::_type("ChunkOverrideGroupPtr", "GroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ChunkMaterialPtr)
+OSG_FIELDTRAITS_GETTYPE(ChunkOverrideGroupPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ChunkMaterialPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ChunkMaterialPtr, MFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ChunkOverrideGroupPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ChunkOverrideGroupPtr, MFFieldContainerPtr);
 
 OSG_END_NAMESPACE

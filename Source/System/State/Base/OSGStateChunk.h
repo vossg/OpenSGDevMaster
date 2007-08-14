@@ -94,6 +94,8 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
     static iterator begin(void);
     static iterator end  (void);
 
+    bool operator ==(const StateChunkClass &rhs) const;
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 

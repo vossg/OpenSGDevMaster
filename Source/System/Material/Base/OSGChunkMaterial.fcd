@@ -23,7 +23,7 @@ field's functions.
 		type="StateChunkPtr"
 		cardinality="multi"
 		visibility="external"
-        clearField="clearChunks"
+        access="protected"
 	>
 	</Field>
 	<Field
@@ -31,6 +31,7 @@ field's functions.
 		type="Int32"
 		cardinality="multi"
 		visibility="external"
+        access="protected"
 	>
 	</Field>
 </FieldContainer>

@@ -19,7 +19,8 @@
 #include <OSGRenderTraversalAction.h>
 #include <OSGSimpleGeometry.h>
 #include <OSGSceneFileHandler.h>
-
+#include <OSGChunkOverrideGroup.h>
+#include <OSGPolygonChunk.h>
 #include <OSGDirectionalLight.h>
 
 #include "OSGViewport.h"
@@ -53,6 +54,10 @@ WindowPtr win;
 
 TransformPtr cam_trans;
 TransformPtr scene_trans;
+
+PolygonChunkPtr pPoly;
+bool            bPolyActive = false;
+ChunkOverrideGroupPtr pCOver;
 
 Trackball tball;
 
@@ -209,21 +214,43 @@ void key(unsigned char key, int x, int y)
             delete rentravact;
             osgExit(); 
             exit(0);
-        case 'a':   glDisable( GL_LIGHTING );
+        case 'a':   
+            glDisable( GL_LIGHTING );
             std::cerr << "Lighting disabled." << std::endl;
             break;
-        case 's':   glEnable( GL_LIGHTING );
+        case 's':   
+            glEnable( GL_LIGHTING );
             std::cerr << "Lighting enabled." << std::endl;
             break;
-        case 'z':   glPolygonMode( GL_FRONT_AND_BACK, GL_POINT);
+        case 'z':   
+            pPoly->setFrontMode(GL_POINT);
+            pPoly->setBackMode(GL_POINT);
             std::cerr << "PolygonMode: Point." << std::endl;
             break;
-        case 'x':   glPolygonMode( GL_FRONT_AND_BACK, GL_LINE);
+        case 'x':   
+            pPoly->setFrontMode(GL_LINE);
+            pPoly->setBackMode(GL_LINE);
             std::cerr << "PolygonMode: Line." << std::endl;
             break;
-        case 'c':   glPolygonMode( GL_FRONT_AND_BACK, GL_FILL);
+        case 'c':   
+            pPoly->setFrontMode(GL_FILL);
+            pPoly->setBackMode(GL_FILL);
             std::cerr << "PolygonMode: Fill." << std::endl;
             break;
+        case 'p':
+        {
+            if(bPolyActive == true)
+            {
+                OSG_ASSERT(pCOver->subChunk(pPoly) == true);
+                bPolyActive = false;
+            }
+            else
+            {
+                OSG_ASSERT(pCOver->addChunk(pPoly) == true);
+                bPolyActive = true;
+            }
+            break;
+        }
         case 'r':   
         {
             std::cerr << "Sending ray through " << x << "," << y << std::endl;
@@ -420,11 +447,19 @@ int main (int argc, char **argv)
     std::cout << "Volume: from " << min << " to " << max << std::endl;
 
 
+    NodePtr pChunkOverNode = Node::create();
+    
+    pCOver = ChunkOverrideGroup::create();
+
+    pChunkOverNode->setCore(pCOver);
+    pChunkOverNode->addChild(file);
+
     scene_trans      = Transform::create();
     NodePtr sceneTrN = Node::create();
 
     sceneTrN->setCore(scene_trans);
-    sceneTrN->addChild(file);
+    sceneTrN->addChild(pChunkOverNode);
+
 
     dlight->addChild(sceneTrN);
 
@@ -511,6 +546,8 @@ int main (int argc, char **argv)
 
     // run...
     
+    pPoly = PolygonChunk::create();
+    OSG::addRef(pPoly);
 
 #if 0
     GroupNodePtr pGr = GroupNodePtr::create();

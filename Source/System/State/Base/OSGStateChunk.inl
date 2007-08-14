@@ -67,6 +67,11 @@ UInt32 StateChunkClass::getUsedSlots(void)
     return StateChunkClass::_numslots->size();
 }
 
+inline
+bool StateChunkClass::operator ==(const StateChunkClass &rhs) const
+{
+    return _classId == rhs._classId;
+}
 
 
 /*---------------------- Chunk Class Access -------------------------------*/

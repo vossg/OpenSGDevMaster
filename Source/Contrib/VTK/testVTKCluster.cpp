@@ -202,7 +202,8 @@ void prepareSceneGraph(const NodePtr &node)
             if(mat != NullFC)
             {
                 ChunkMaterialPtr cmat = dynamic_cast<ChunkMaterialPtr>(mat);
-                if(cmat->getChunks().find(polygonChunk) == cmat->getChunks().end())
+
+                if(cmat->find(PolygonChunk::getClassType()) == NullFC)
                 {
                     cmat->addChunk(polygonChunk);
                 }
@@ -228,7 +229,7 @@ void prepareSceneGraph(const NodePtr &node)
                     ChunkMaterialPtr cmat = 
                         dynamic_cast<ChunkMaterialPtr>(mat);
 
-                    if(cmat->getChunks().find(polygonChunk) == cmat->getChunks().end())
+                    if(cmat->find(PolygonChunk::getClassType()) == NullFC)
                     {
                         cmat->addChunk(polygonChunk);
                     }
