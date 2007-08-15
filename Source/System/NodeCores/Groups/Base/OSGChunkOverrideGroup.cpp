@@ -202,7 +202,7 @@ bool ChunkOverrideGroup::subChunk(StateChunkPtr chunk,
             }
         }
         
-        if(ci >= cindex + nslots)    // chunk not found
+        if(ci >= cindex + nslots || ci >= csize)    // chunk not found
         {
             SWARNING << "subChunk: chunk " 
                      << chunk
