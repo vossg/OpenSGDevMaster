@@ -334,7 +334,7 @@ ActionBase::ResultE Action::recurse(NodePtrConstArg node)
 
     _useNewList = false;
     
-    result = callEnter(node);
+    result = callEnter(node->getCore());
 
     if(result != Continue)
     {
@@ -367,11 +367,11 @@ ActionBase::ResultE Action::recurse(NodePtrConstArg node)
 
     if(result == Continue)
     {
-        result = callLeave(node);
+        result = callLeave(node->getCore());
     }
     else
     {
-        callLeave(node);
+        callLeave(node->getCore());
     }
 
     if(result == Skip)

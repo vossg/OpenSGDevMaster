@@ -37,6 +37,7 @@
 #include "OSGGeoFunctions.h"
 #include "OSGGraphOp.h"
 #include "OSGGraphOpFactory.h"
+#include "OSGMultiCore.h"
 
 #include "OSGTrackball.h"
 
@@ -447,18 +448,24 @@ int main (int argc, char **argv)
     std::cout << "Volume: from " << min << " to " << max << std::endl;
 
 
-    NodePtr pChunkOverNode = Node::create();
-    
-    pCOver = ChunkOverrideGroup::create();
+//    NodePtr pChunkOverNode = Node::create();
+  
 
-    pChunkOverNode->setCore(pCOver);
-    pChunkOverNode->addChild(file);
+//    pChunkOverNode->setCore(pCOver);
+//    pChunkOverNode->addChild(file);
 
-    scene_trans      = Transform::create();
+    MultiCorePtr pMCore = MultiCore::create();
+
+    pCOver      = ChunkOverrideGroup::create();
+    scene_trans = Transform::create();
+
+    pMCore->addCore(scene_trans);
+    pMCore->addCore(pCOver     );
+
     NodePtr sceneTrN = Node::create();
 
-    sceneTrN->setCore(scene_trans);
-    sceneTrN->addChild(pChunkOverNode);
+    sceneTrN->setCore(pMCore);
+    sceneTrN->addChild(file);
 
 
     dlight->addChild(sceneTrN);
@@ -547,6 +554,9 @@ int main (int argc, char **argv)
     // run...
     
     pPoly = PolygonChunk::create();
+
+    pCOver->subChunk(pPoly);
+
     OSG::addRef(pPoly);
 
 #if 0

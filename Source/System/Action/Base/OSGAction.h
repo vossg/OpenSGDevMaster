@@ -70,6 +70,11 @@ OSG_BEGIN_NAMESPACE
 class Node;
 class Action;
 
+ActionBase::ResultE MultiCoreRenderEnter(const NodeCorePtr &pCore,
+                                               Action      *action);
+ActionBase::ResultE MultiCoreRenderLeave(const NodeCorePtr &pCore,
+                                               Action      *action);
+
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
@@ -227,8 +232,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
 
     // call the single node. used for cascading actions
     
-    inline ResultE callEnter(NodePtrConstArg node);   
-    inline ResultE callLeave(NodePtrConstArg node);
+    inline ResultE callEnter(NodeCorePtrConstArg core);   
+    inline ResultE callLeave(NodeCorePtrConstArg core);
 
     // start/stop functions for the action.
     // called at the very beginning/end, can return a list of nodes
@@ -296,6 +301,11 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     //-----------------------------------------------------------------------
     //   friend functions                                                    
     //-----------------------------------------------------------------------
+
+    friend ActionBase::ResultE MultiCoreRenderEnter(const NodeCorePtr &pCore,
+                                                          Action      *action);
+    friend ActionBase::ResultE MultiCoreRenderLeave(const NodeCorePtr &pCore,
+                                                          Action      *action);
 
     //-----------------------------------------------------------------------
     //   class variables                                                     

@@ -113,15 +113,15 @@ void Action::setTravMask(UInt32 val)
 // default list.
 
 inline
-ActionBase::ResultE Action::callEnter(NodePtrConstArg node)
+ActionBase::ResultE Action::callEnter(NodeCorePtrConstArg core)
 {
     ResultE result;
 
-    UInt32 uiFunctorIndex = node->getCore()->getType().getId();
+    UInt32 uiFunctorIndex = core->getType().getId();
 
     if(uiFunctorIndex < _enterFunctors.size())
     {
-        result = _enterFunctors[uiFunctorIndex](node->getCore(), this);
+        result = _enterFunctors[uiFunctorIndex](core, this);
     }
     else if(getDefaultEnterFunctors() &&
             uiFunctorIndex < getDefaultEnterFunctors()->size())
@@ -136,26 +136,26 @@ ActionBase::ResultE Action::callEnter(NodePtrConstArg node)
             _enterFunctors.push_back((*defaultEnter)[_enterFunctors.size()]);
         }
 
-        result = _enterFunctors[uiFunctorIndex](node->getCore(), this);
+        result = _enterFunctors[uiFunctorIndex](core, this);
     }
     else // unknown field container
     {
-        result = _defaultEnterFunction(node->getCore(), this);
+        result = _defaultEnterFunction(core, this);
     }
 
     return result;
 }
 
 inline
-ActionBase::ResultE Action::callLeave(NodePtrConstArg node)
+ActionBase::ResultE Action::callLeave(NodeCorePtrConstArg core)
 {
     ResultE result;
 
-    UInt32 uiFunctorIndex = node->getCore()->getType().getId();
+    UInt32 uiFunctorIndex = core->getType().getId();
 
     if(uiFunctorIndex < _leaveFunctors.size())
     {
-        result = _leaveFunctors[uiFunctorIndex](node->getCore(), this);
+        result = _leaveFunctors[uiFunctorIndex](core, this);
     }
     else if(getDefaultLeaveFunctors() &&
             uiFunctorIndex < getDefaultLeaveFunctors()->size())
@@ -170,11 +170,11 @@ ActionBase::ResultE Action::callLeave(NodePtrConstArg node)
             _leaveFunctors.push_back((*defaultLeave)[_leaveFunctors.size()]);
         }
 
-        result = _leaveFunctors[uiFunctorIndex](node->getCore(), this);
+        result = _leaveFunctors[uiFunctorIndex](core, this);
     }
     else // unknown field container
     {
-        result = _defaultLeaveFunction(node->getCore(), this);
+        result = _defaultLeaveFunction(core, this);
     }
 
     return result;

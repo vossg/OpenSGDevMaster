@@ -75,6 +75,7 @@
 #include "OSGVisitSubTree.h"
 #include "OSGFrameBufferAttachment.h"
 #include "OSGParticles.h"
+#include "OSGMultiCore.h"
 
 #include "OSGLightEngine.h"
 #include "OSGMatrixUtility.h"
@@ -1142,6 +1143,68 @@ ActionBase::ResultE VisitSubTreeRender(const NodeCorePtr &pCore,
     return Action::Continue;
 }
 
+
+ActionBase::ResultE MultiCoreRenderEnter(const NodeCorePtr &pCore,
+                                               Action      *action)
+{
+    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
+
+    MultiCorePtr pMultiCore = dynamic_cast<MultiCorePtr>(pCore);
+
+    MFNodeCorePtr::const_iterator coreIt  = pMultiCore->getCores().begin();
+    MFNodeCorePtr::const_iterator coreEnd = pMultiCore->getCores().end  ();
+
+    Action::ResultE returnValue = Action::Continue;
+
+    while(coreIt != coreEnd)
+    {
+        returnValue = action->callEnter(*coreIt);
+
+        if(returnValue != Action::Continue)
+            break;
+
+        ++coreIt;
+    }    
+
+    if(returnValue == Action::Skip)
+        returnValue = Action::Continue;
+
+    return returnValue;
+}
+
+
+ActionBase::ResultE MultiCoreRenderLeave(const NodeCorePtr &pCore,
+                                               Action      *action)
+{
+#ifdef OSG_DUMP_TRAVERSAL
+    FDEBUG_GV(("Leave AlgorithmStage %p\n", &(*pCore)));
+#endif
+    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
+
+    MultiCorePtr pMultiCore = dynamic_cast<MultiCorePtr>(pCore);
+
+    MFNodeCorePtr::const_iterator coreIt  = pMultiCore->getCores().begin();
+    MFNodeCorePtr::const_iterator coreEnd = pMultiCore->getCores().end  ();
+
+    Action::ResultE returnValue = Action::Continue;
+
+    while(coreIt != coreEnd)
+    {
+        returnValue = action->callLeave(*coreIt);
+
+        if(returnValue != Action::Continue)
+            break;
+
+        ++coreIt;
+    }    
+
+    if(returnValue == Action::Skip)
+        returnValue = Action::Continue;
+
+    return returnValue;
+}
+
+
 /*-------------------------------------------------------------------------*/
 /*                                   init                                  */
 
@@ -1347,6 +1410,14 @@ bool RenderTraversalActionInitialize(void)
         VisitSubTree::getClassType(), 
               VisitSubTreeRender);
 
+
+    RenderTraversalAction::registerEnterDefault(
+        MultiCore::getClassType(), 
+        MultiCoreRenderEnter);
+
+    RenderTraversalAction::registerLeaveDefault( 
+        MultiCore::getClassType(), 
+        MultiCoreRenderLeave);
 
     return true;
 

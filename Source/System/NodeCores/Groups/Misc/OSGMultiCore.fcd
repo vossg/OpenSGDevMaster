@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="MultiCore"
+	parent="Group"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+	<Field
+		name="cores"
+		type="NodeCorePtr"
+		cardinality="multi"
+		visibility="external"
+        linkMParent="true"
+        access="public"
+
+        pushToFieldAs="addCore"
+        assignMFieldAs="assignCoresFrom"
+        insertIntoMFieldAs="insertCore"
+        replaceInMFieldIndexAs="replaceCore"
+        replaceInMFieldObjectAs="replaceCore"
+        removeFromMFieldIndexAs="subCore"
+        removeFromMFieldObjectAs="subCore"
+        clearFieldAs="clearCores"
+	>
+	</Field>
+</FieldContainer>
