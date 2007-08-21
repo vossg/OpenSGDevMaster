@@ -443,7 +443,8 @@ inline
 void EditSFieldHandle<SFFieldContainerPtr>::setValue(
     FieldContainerPtrConstArg rhs)
 {
-    if(_fSetMethod != NULL)
+    // for whatever reason VS2003 does not like == NULL
+    if(_fSetMethod)
     {
         _fSetMethod(rhs);
     }
@@ -708,7 +709,8 @@ void EditFCPtrSFieldHandle<FieldT>::setValue(FieldContainerPtrConstArg rhs)
     if(rhs != NULL && pVal == NULL)
         return;
 
-    if(_fSetMethod != NULL)
+    // for whatever reason VS2003 does not like == NULL
+    if(_fSetMethod)
     {
         _fSetMethod(pVal);
     }

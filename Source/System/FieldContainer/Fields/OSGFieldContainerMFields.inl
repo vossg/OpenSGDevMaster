@@ -103,6 +103,7 @@ const MField<FieldContainerPtr, 0>::StorageType &
     return _values;
 }
 
+
 /*-------------------------------------------------------------------------*/
 /*                                Set                                      */
 
@@ -126,6 +127,7 @@ void MField<FieldContainerPtr, 0>::setValues(const Self &obj)
 {
     _values = obj._values;
 }
+
 
 #if 0
 inline
@@ -212,6 +214,7 @@ void MField<FieldContainerPtr, 0>::pushSizeToStream(OutStream &str) const
 
 /*-------------------------------------------------------------------------*/
 /*                         Binary Interface                                */
+
 
 inline
 UInt32 MField<FieldContainerPtr, 0>::getBinSize(void) const
@@ -1240,7 +1243,8 @@ inline
 EditMFieldHandle<MFFieldContainerPtr>::EditMFieldHandle(
     const EditMFieldHandle &source) :
     
-     Inherited (source)
+     Inherited (source            ),
+    _fAddMethod(source._fAddMethod)
 {
 }
 
@@ -1250,7 +1254,8 @@ EditMFieldHandle<MFFieldContainerPtr>::EditMFieldHandle(
     const FieldDescriptionBase *pDescription) :
 
      Inherited (pField, 
-                pDescription)
+                pDescription),
+    _fAddMethod(NULL        )
 {
 }
 
@@ -1270,11 +1275,13 @@ inline
 void EditMFieldHandle<MFFieldContainerPtr>::add(
     FieldContainerPtrConstArg pNewElement)
 {
-    if(_fAddMethod != NULL)
+    // for whatever reason VS2003 does not like == NULL
+    if(_fAddMethod)
     {
         _fAddMethod(pNewElement);
     }
 }
+
 
 inline
 void EditMFieldHandle<MFFieldContainerPtr>::replace(
@@ -1540,7 +1547,8 @@ void EditFCPtrMFieldHandle<FieldT>::add(FieldContainerPtrConstArg pNewElement)
     if(pNewElement != NULL && pVal == NULL)
         return;
 
-    if(_fAddMethod != NULL)
+    // for whatever reason VS2003 does not like == NULL
+    if(_fAddMethod)
     {
         _fAddMethod(pVal);
     }
@@ -1608,6 +1616,7 @@ void EditFCPtrMFieldHandle<FieldT>::cloneValues(
 {
     OSG_ASSERT(false);
 }
+
 
 /*---------------------------------------------------------------------*/
 
@@ -1807,3 +1816,4 @@ MFParentFieldContainerPtr const &
 }
 
 OSG_END_NAMESPACE
+

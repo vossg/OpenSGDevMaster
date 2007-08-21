@@ -623,7 +623,6 @@ class OSG_SYSTEM_DLLMAPPING EditMFieldHandle<MFFieldContainerPtr> :
 
     typedef EditFieldHandle Inherited;
 
-
     typedef boost::function<void(MFFieldContainerPtr::ArgumentType)> AddMethod;
 
     AddMethod _fAddMethod;
