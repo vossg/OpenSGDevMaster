@@ -3,7 +3,7 @@
 <FieldContainer
 	name="MultiCore"
 	parent="Group"
-	library="System"
+	library="Group"
 	structure="concrete"
 	pointerfieldtypes="both"
 	systemcomponent="true"

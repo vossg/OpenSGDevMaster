@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemMultiCore for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING MultiCore : public MultiCoreBase
+class OSG_GROUP_DLLMAPPING MultiCore : public MultiCoreBase
 {
   protected:
 

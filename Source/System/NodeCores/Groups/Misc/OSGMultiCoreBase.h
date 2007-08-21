@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGGroupDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class MultiCore;
 
 //! \brief MultiCore Base Class.
 
-class OSG_SYSTEM_DLLMAPPING MultiCoreBase : public Group
+class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
 {
   public:
 

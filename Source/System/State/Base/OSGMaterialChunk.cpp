@@ -470,7 +470,7 @@ void MaterialChunk::changeFrom(DrawEnv    *,
         }
     }
 
-	glErr("material:changed:precheck");
+	glErr("material:changed:postcheck");
 }
 #endif
 
