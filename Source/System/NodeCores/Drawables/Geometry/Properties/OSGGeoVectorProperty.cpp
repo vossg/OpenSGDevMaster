@@ -164,6 +164,7 @@ GeoVectorProperty::~GeoVectorProperty(void)
 {
 }
 
+#if 0
 /*-------------------- Arbitrary Type Interface Methods ------------------*/
 
 /*! Returns the value at index \a index in \a val after converting it to
@@ -202,7 +203,7 @@ void GeoVectorProperty::setValue(const Vec3f  &val,
     GeoConvert::convertIn(ival, val, 1, 0);
     setValue(ival, index);
 }
-
+#endif
 
 /*! State Chunk handling */
 

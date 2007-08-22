@@ -95,7 +95,7 @@ struct FieldTraits<MultiCorePtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
+    static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFMultiCorePtr"; }
     static const char *getMName(void) { return "MFMultiCorePtr"; }
