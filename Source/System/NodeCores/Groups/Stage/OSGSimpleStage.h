@@ -58,6 +58,8 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
 
   public:
 
+    typedef std::vector<RenderFunctor> RenderFunctorStore;
+
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
@@ -76,6 +78,40 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
                  Real32 right, 
                  Real32 top   );
     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    UInt32 addPreRenderFunctor    (RenderFunctor func,
+                                   std::string    createSymbol);
+
+    template<class FunctorT>
+    void   subPreRenderFunctor    (FunctorT       func        );
+
+    void   subPreRenderFunctor    (UInt32         uiId        );
+
+    void   clearPreRenderFunctors (void                       );
+
+
+    UInt32 addPostRenderFunctor   (RenderFunctor func,
+                                   std::string    createSymbol);
+
+    template<class FunctorT>
+    void   subPostRenderFunctor   (FunctorT       func        );
+
+    void   subPostRenderFunctor   (UInt32         uiId        );
+
+    void   clearPostRenderFunctors(void                       );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    void fillPreRenderStore (RenderFunctorStore &vStore);
+    void fillPostRenderStore(RenderFunctorStore &vStore);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */

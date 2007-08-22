@@ -240,20 +240,6 @@ void SimpleStageBase::setBackground(BackgroundPtrConstArg value)
 
 }
 
-//! Get the value of the \a index element the SimpleStage::_mfForegrounds field.
-inline
-ForegroundPtrConst SimpleStageBase::getForegrounds(const UInt32 index) const
-{
-    return _mfForegrounds[index];
-}
-
-//! Get the SimpleStage::_mfForegrounds field.
-inline
-const MFForegroundPtr &SimpleStageBase::getForegrounds(void) const
-{
-    return _mfForegrounds;
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -283,8 +269,14 @@ void SimpleStageBase::execSync (      SimpleStageBase *pFrom,
     if(FieldBits::NoField != (BackgroundFieldMask & whichField))
         _sfBackground.syncWith(pFrom->_sfBackground);
 
-    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
-        _mfForegrounds.syncWith(pFrom->_mfForegrounds,
+    if(FieldBits::NoField != (PreRenderCallbacksFieldMask & whichField))
+        _mfPreRenderCallbacks.syncWith(pFrom->_mfPreRenderCallbacks,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (PostRenderCallbacksFieldMask & whichField))
+        _mfPostRenderCallbacks.syncWith(pFrom->_mfPostRenderCallbacks,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);

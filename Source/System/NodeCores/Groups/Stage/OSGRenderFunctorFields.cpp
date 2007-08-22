@@ -36,36 +36,41 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCHANGEDFUNCTORSFIELDS_H_
-#define _OSGCHANGEDFUNCTORSFIELDS_H_
-#ifdef __sgi
-#pragma once
-#endif
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
-#include "OSGSField.h"
-#include "OSGChangedFunctorFieldTraits.h"
+#include<OSGSystemDef.h>
+#include<OSGFieldDescriptionBase.h>
+#include<OSGRenderFunctorCallbackFields.h>
+
+#include <OSGSField.h>
+#include <OSGSField.ins>
+
+#include <OSGMField.h>
+#include <OSGMField.ins>
+
+
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-typedef SField<ChangedFunctorCallback> SFChangedFunctorCallback;
+DataType FieldTraits<RenderFunctorCallback     >::_type(
+    "RenderFunctorCallback",
+    NULL);
+
+OSG_FIELDTRAITS_GETTYPE   (RenderFunctorCallback     )
 
 #endif
 
-// there is no good way of comparing boost function objects
-template<> inline
-bool SField<ChangedFunctorCallback, 0>::operator ==(
-    const SField<ChangedFunctorCallback, 0> &source) const
-{
-    return false;
-}
+OSG_FIELD_DLLEXPORT_DEF1(SField, RenderFunctorCallback);
+OSG_FIELD_DLLEXPORT_DEF1(MField, RenderFunctorCallback);
 
 #if 0
 template <>
-OSG_SYSTEM_DLLMAPPING
-void FieldDescription<FieldTraits<ChangedFunctorCallback>,
+OSG_DLL_EXPORT
+void FieldDescription<FieldTraits<RenderFunctorCallback>,
                       SingleField                         >::cloneValues(
     const Field                                  *pSrc,
     const UInt32                                  fieldId,
@@ -73,11 +78,14 @@ void FieldDescription<FieldTraits<ChangedFunctorCallback>,
     const std::vector<const FieldContainerType*> &shareTypes,
     const std::vector<const FieldContainerType*> &ignoreTypes,
     const std::vector<UInt16>                    &shareGroupIds,
-    const std::vector<UInt16>                    &ignoreGroupIds) const;
+    const std::vector<UInt16>                    &ignoreGroupIds) const
+{
+    FWARNING(("FieldDescription::cloneValues called for sf render functors.\n"));
+}
 
 template <>
-OSG_SYSTEM_DLLMAPPING
-void FieldDescription<FieldTraits<ChangedFunctorCallback>,
+OSG_DLL_EXPORT
+void FieldDescription<FieldTraits<RenderFunctorCallback>,
                       SingleField                         >::shareValues(
     const Field                                  *pSrc,
     const UInt32                                  fieldId,
@@ -85,9 +93,40 @@ void FieldDescription<FieldTraits<ChangedFunctorCallback>,
     const std::vector<const FieldContainerType*> &cloneTypes,
     const std::vector<const FieldContainerType*> &ignoreTypes,
     const std::vector<UInt16>                    &cloneGroupIds,
-    const std::vector<UInt16>                    &ignoreGroupIds) const;
+    const std::vector<UInt16>                    &ignoreGroupIds) const
+{
+    FWARNING(("FieldDescription::shareValues called for sf render functors.\n"));
+}
+
+template <>
+OSG_DLL_EXPORT
+void FieldDescription<FieldTraits<REnderFunctorCallback>,
+                      MultiField                          >::cloneValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
+{
+    FWARNING(("FieldDescription::cloneValues called for mf render functors.\n"));
+}
+
+template <>
+OSG_DLL_EXPORT
+void FieldDescription<FieldTraits<RenderFunctorCallback>,
+                      MultiField                          >::shareValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
+{
+    FWARNING(("FieldDescription::shareValues called for mf render functors.\n"));
+}
 #endif
 
 OSG_END_NAMESPACE
-
-#endif /* _OSGCHANGEDFUNCTORSFIELDS_H_ */

@@ -159,6 +159,90 @@ ActionBase::ResultE SimpleStage::render(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                               loading                                   */
 
+
+UInt32 SimpleStage::addPreRenderFunctor(RenderFunctor func,
+                                        std::string   createSymbol)
+{
+    RenderFunctorCallback oTmp;
+
+    oTmp._func         = func;
+    oTmp._uiId         = _mfPreRenderCallbacks.size();
+    oTmp._createSymbol = createSymbol;
+
+    _mfPreRenderCallbacks.push_back(oTmp);
+
+    return oTmp._uiId;
+}
+
+
+void SimpleStage::subPreRenderFunctor(UInt32 uiId)
+{
+    MFRenderFunctorCallback::iterator       cfIt = 
+        _mfPreRenderCallbacks.begin();
+
+    MFRenderFunctorCallback::const_iterator cfEnd= 
+        _mfPreRenderCallbacks.end();
+
+    while(cfIt != cfEnd)
+    {
+        if(cfIt->_uiId == uiId)
+            break;
+
+        ++cfIt;
+    }
+
+    if(cfIt != cfEnd)
+        _mfPreRenderCallbacks.erase(cfIt);
+}
+
+
+void SimpleStage::clearPreRenderFunctors(void)
+{
+    _mfPreRenderCallbacks.clear();
+}
+
+
+UInt32 SimpleStage::addPostRenderFunctor(RenderFunctor func,
+                                         std::string   createSymbol)
+{
+    RenderFunctorCallback oTmp;
+
+    oTmp._func         = func;
+    oTmp._uiId         = _mfPostRenderCallbacks.size();
+    oTmp._createSymbol = createSymbol;
+
+    _mfPostRenderCallbacks.push_back(oTmp);
+
+    return oTmp._uiId;
+}
+
+
+void SimpleStage::subPostRenderFunctor(UInt32 uiId)
+{
+    MFRenderFunctorCallback::iterator       cfIt = 
+        _mfPostRenderCallbacks.begin();
+
+    MFRenderFunctorCallback::const_iterator cfEnd= 
+        _mfPostRenderCallbacks.end();
+
+    while(cfIt != cfEnd)
+    {
+        if(cfIt->_uiId == uiId)
+            break;
+
+        ++cfIt;
+    }
+
+    if(cfIt != cfEnd)
+        _mfPostRenderCallbacks.erase(cfIt);
+}
+
+
+void SimpleStage::clearPostRenderFunctors(void)
+{
+    _mfPostRenderCallbacks.clear();
+}
+
 /*-------------------------------------------------------------------------*/
 /*                               Init                                      */
 

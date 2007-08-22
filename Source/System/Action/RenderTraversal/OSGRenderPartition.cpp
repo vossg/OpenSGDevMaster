@@ -187,7 +187,9 @@ RenderPartition::RenderPartition(Mode eMode) :
     _bFrustumCulling         (    true ),
     _bVolumeDrawing          (    false),
     _bAutoFrustum            (    true ),
-    _oFrustum                (         )
+    _oFrustum                (         ),
+    _vPreRenderCallbacks     (         ),
+    _vPostRenderCallbacks    (         )
 #ifdef OSG_DEBUG
    ,_szDebugString           (         )
 #endif
@@ -221,6 +223,9 @@ void RenderPartition::reset(Mode eMode)
     _bDone      = false;
 
     _vGroupStore.clear();
+
+    _vPreRenderCallbacks .clear();
+    _vPostRenderCallbacks.clear();
 
     if(_eMode == StateSorting || _eMode == TransformSorting)
     {
@@ -414,6 +419,15 @@ void RenderPartition::doExecution   (void)
     }
 #endif
 
+    RenderCallbackStore::const_iterator cbIt  = _vPreRenderCallbacks.begin();
+    RenderCallbackStore::const_iterator cbEnd = _vPreRenderCallbacks.end  ();
+
+    while(cbIt != cbEnd)
+    {
+        (*cbIt)(&_oDrawEnv);
+        ++cbIt;
+    }
+
     if(_eMode == SimpleCallback)
     {
         _oSimpleDrawCallback(&_oDrawEnv);
@@ -458,6 +472,15 @@ void RenderPartition::doExecution   (void)
         {
             glDisable(GL_SCISSOR_TEST);
         }
+    }
+
+    cbIt  = _vPostRenderCallbacks.begin();
+    cbEnd = _vPostRenderCallbacks.end  ();
+
+    while(cbIt != cbEnd)
+    {
+        (*cbIt)(&_oDrawEnv);
+        ++cbIt;
     }
 
     if(0x0000 != (_eSetupMode & ProjectionSetup))

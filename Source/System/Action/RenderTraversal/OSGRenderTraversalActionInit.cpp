@@ -76,6 +76,8 @@
 #include "OSGFrameBufferAttachment.h"
 #include "OSGParticles.h"
 #include "OSGMultiCore.h"
+#include "OSGCubeMapGenerator.h"
+
 
 #include "OSGLightEngine.h"
 #include "OSGMatrixUtility.h"
@@ -765,6 +767,8 @@ ActionBase::ResultE SimpleStageRenderEnter(const NodeCorePtr &pCore,
     Viewport          *pPort   = a->getViewport();
     Window            *pWin    = a->getWindow  ();
 
+    SimpleStage::RenderFunctorStore vCallbackStore;
+
     if(pTarget == NULL && pStage->getInheritedTarget() == true)
     {
         pTarget = pParentPart->getRenderTarget();
@@ -830,6 +834,37 @@ ActionBase::ResultE SimpleStageRenderEnter(const NodeCorePtr &pCore,
         
     }
     
+    pStage->fillPreRenderStore(vCallbackStore);
+
+    SimpleStage::RenderFunctorStore::const_iterator cbIt  = 
+        vCallbackStore.begin();
+
+    SimpleStage::RenderFunctorStore::const_iterator cbEnd = 
+        vCallbackStore.end  ();
+
+    while(cbIt != cbEnd)
+    {
+        pPart->addPreRenderCallback(*cbIt);
+        
+        ++cbIt;
+    }
+
+
+    vCallbackStore.clear();
+
+    pStage->fillPostRenderStore(vCallbackStore);
+
+    cbIt  = vCallbackStore.begin();
+    cbEnd = vCallbackStore.end  ();
+
+    while(cbIt != cbEnd)
+    {
+        pPart->addPostRenderCallback(*cbIt);
+        
+        ++cbIt;
+    }
+
+
     pPart->setBackground(pBack);
 
     return ActionBase::Continue;
@@ -1205,6 +1240,73 @@ ActionBase::ResultE MultiCoreRenderLeave(const NodeCorePtr &pCore,
 }
 
 
+ActionBase::ResultE CubeMapGeneratorRenderEnter(const NodeCorePtr &pCore,
+                                                      Action      *action)
+{
+    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
+
+    Action::ResultE returnValue = Action::Continue;
+
+#if 0
+    MultiCorePtr pMultiCore = dynamic_cast<MultiCorePtr>(pCore);
+
+    MFNodeCorePtr::const_iterator coreIt  = pMultiCore->getCores().begin();
+    MFNodeCorePtr::const_iterator coreEnd = pMultiCore->getCores().end  ();
+
+
+    while(coreIt != coreEnd)
+    {
+        returnValue = action->callEnter(*coreIt);
+
+        if(returnValue != Action::Continue)
+            break;
+
+        ++coreIt;
+    }    
+
+    if(returnValue == Action::Skip)
+        returnValue = Action::Continue;
+#endif
+
+    return returnValue;
+}
+
+
+ActionBase::ResultE CubeMapGeneratorRenderLeave(const NodeCorePtr &pCore,
+                                                      Action      *action)
+{
+#ifdef OSG_DUMP_TRAVERSAL
+    FDEBUG_GV(("Leave AlgorithmStage %p\n", &(*pCore)));
+#endif
+    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
+
+    Action::ResultE returnValue = Action::Continue;
+
+#if 0
+    MultiCorePtr pMultiCore = dynamic_cast<MultiCorePtr>(pCore);
+
+    MFNodeCorePtr::const_iterator coreIt  = pMultiCore->getCores().begin();
+    MFNodeCorePtr::const_iterator coreEnd = pMultiCore->getCores().end  ();
+
+
+    while(coreIt != coreEnd)
+    {
+        returnValue = action->callLeave(*coreIt);
+
+        if(returnValue != Action::Continue)
+            break;
+
+        ++coreIt;
+    }    
+
+    if(returnValue == Action::Skip)
+        returnValue = Action::Continue;
+#endif
+
+    return returnValue;
+}
+
+
 /*-------------------------------------------------------------------------*/
 /*                                   init                                  */
 
@@ -1418,6 +1520,14 @@ bool RenderTraversalActionInitialize(void)
     RenderTraversalAction::registerLeaveDefault( 
         MultiCore::getClassType(), 
         MultiCoreRenderLeave);
+
+    RenderTraversalAction::registerEnterDefault(
+        CubeMapGenerator::getClassType(), 
+        CubeMapGeneratorRenderEnter);
+
+    RenderTraversalAction::registerLeaveDefault( 
+        CubeMapGenerator::getClassType(), 
+        CubeMapGeneratorRenderLeave);
 
     return true;
 

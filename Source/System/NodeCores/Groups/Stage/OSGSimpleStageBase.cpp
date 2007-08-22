@@ -63,7 +63,6 @@
 
 #include <OSGCamera.h> // Camera Class
 #include <OSGBackground.h> // Background Class
-#include <OSGForeground.h> // Foregrounds Class
 
 #include "OSGSimpleStageBase.h"
 #include "OSGSimpleStage.h"
@@ -116,7 +115,11 @@ OSG_BEGIN_NAMESPACE
     The background used to clear this viewport.
 */
 
-/*! \var ForegroundPtr   SimpleStageBase::_mfForegrounds
+/*! \var RenderFunctorCallback SimpleStageBase::_mfPreRenderCallbacks
+    The foreground additions to the rendered image.
+*/
+
+/*! \var RenderFunctorCallback SimpleStageBase::_mfPostRenderCallbacks
     The foreground additions to the rendered image.
 */
 
@@ -206,15 +209,27 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFForegroundPtr::Description(
-        MFForegroundPtr::getClassType(),
-        "foregrounds",
+    pDesc = new MFRenderFunctorCallback::Description(
+        MFRenderFunctorCallback::getClassType(),
+        "preRenderCallbacks",
         "The foreground additions to the rendered image.\n",
-        ForegroundsFieldId, ForegroundsFieldMask,
+        PreRenderCallbacksFieldId, PreRenderCallbacksFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleForegrounds),
-        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleForegrounds));
+        static_cast     <FieldEditMethodSig>(&SimpleStageBase::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&SimpleStageBase::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFRenderFunctorCallback::Description(
+        MFRenderFunctorCallback::getClassType(),
+        "postRenderCallbacks",
+        "The foreground additions to the rendered image.\n",
+        PostRenderCallbacksFieldId, PostRenderCallbacksFieldMask,
+        false,
+        Field::MFDefaultFlags,
+        static_cast     <FieldEditMethodSig>(&SimpleStageBase::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&SimpleStageBase::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }
@@ -313,11 +328,20 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     "        The background used to clear this viewport.\n"
     "        </Field>\n"
     "        <Field\n"
-    "                name=\"foregrounds\"\n"
-    "                type=\"ForegroundPtr\"\n"
+    "                name=\"preRenderCallbacks\"\n"
+    "                type=\"RenderFunctorCallback\"\n"
     "                cardinality=\"multi\"\n"
     "                visibility=\"external\"\n"
-    "                access=\"public\"\n"
+    "                access=\"none\"\n"
+    "        >\n"
+    "        The foreground additions to the rendered image.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"postRenderCallbacks\"\n"
+    "                type=\"RenderFunctorCallback\"\n"
+    "                cardinality=\"multi\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"none\"\n"
     "        >\n"
     "        The foreground additions to the rendered image.\n"
     "        </Field>\n"
@@ -433,151 +457,12 @@ const SFBackgroundPtr *SimpleStageBase::getSFBackground(void) const
     return &_sfBackground;
 }
 
-//! Get the SimpleStage::_mfForegrounds field.
-const MFForegroundPtr *SimpleStageBase::getMFForegrounds(void) const
-{
-    return &_mfForegrounds;
-}
 
 
 
-void SimpleStageBase::pushToForegrounds(ForegroundPtrConstArg value)
-{
-    if(value == NullFC)
-        return;
 
-    editMField(ForegroundsFieldMask, _mfForegrounds);
-
-    addRef(value);
-
-    _mfForegrounds.push_back(value);
-}
-
-void SimpleStageBase::assignForegrounds(const MFForegroundPtr   &value)
-{
-    MFForegroundPtr  ::const_iterator elemIt  =
-        value.begin();
-    MFForegroundPtr  ::const_iterator elemEnd =
-        value.end  ();
-
-    static_cast<SimpleStage *>(this)->clearForegrounds();
-
-    while(elemIt != elemEnd)
-    {
-        this->pushToForegrounds(*elemIt);
-
-        ++elemIt;
-    }
-}
-
-void SimpleStageBase::insertIntoForegrounds(UInt32                uiIndex,
-                                                   ForegroundPtrConstArg value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(ForegroundsFieldMask, _mfForegrounds);
-
-    MFForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
-
-    addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfForegrounds.insert(fieldIt, value);
-}
-
-void SimpleStageBase::replaceInForegrounds(UInt32                uiIndex,
-                                                       ForegroundPtrConstArg value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfForegrounds.size())
-        return;
-
-    editMField(ForegroundsFieldMask, _mfForegrounds);
-
-    addRef(value);
-
-    subRef(_mfForegrounds[uiIndex]);
-
-    _mfForegrounds[uiIndex] = value;
-}
-
-void SimpleStageBase::replaceInForegrounds(ForegroundPtrConstArg pOldElem,
-                                                        ForegroundPtrConstArg pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfForegrounds.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(ForegroundsFieldMask, _mfForegrounds);
-
-        MFForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
-
-        fieldIt += elemIdx;
-
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
-    }
-}
-
-void SimpleStageBase::removeFromForegrounds(UInt32 uiIndex)
-{
-    if(uiIndex < _mfForegrounds.size())
-    {
-        editMField(ForegroundsFieldMask, _mfForegrounds);
-
-        MFForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
-
-        fieldIt += uiIndex;
-
-        subRef(*fieldIt);
-
-        _mfForegrounds.erase(fieldIt);
-    }
-}
-
-void SimpleStageBase::removeFromForegrounds(ForegroundPtrConstArg value)
-{
-    Int32 iElemIdx = _mfForegrounds.findIndex(value);
-
-    if(iElemIdx != -1)
-    {
-        editMField(ForegroundsFieldMask, _mfForegrounds);
-
-        MFForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
-
-        fieldIt += iElemIdx;
-
-        subRef(*fieldIt);
-
-        _mfForegrounds.erase(fieldIt);
-    }
-}
-void SimpleStageBase::clearForegrounds(void)
-{
-    editMField(ForegroundsFieldMask, _mfForegrounds);
-
-    MFForegroundPtr::iterator       fieldIt  = _mfForegrounds.begin();
-    MFForegroundPtr::const_iterator fieldEnd = _mfForegrounds.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        subRef(*fieldIt);
-
-        ++fieldIt;
-    }
-
-    _mfForegrounds.clear();
-}
-
+/*********************************** Non-ptr code ********************************/
+/*********************************** Non-ptr code ********************************/
 
 
 /*------------------------------ access -----------------------------------*/
@@ -610,9 +495,13 @@ UInt32 SimpleStageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfBackground.getBinSize();
     }
-    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
+    if(FieldBits::NoField != (PreRenderCallbacksFieldMask & whichField))
     {
-        returnValue += _mfForegrounds.getBinSize();
+        returnValue += _mfPreRenderCallbacks.getBinSize();
+    }
+    if(FieldBits::NoField != (PostRenderCallbacksFieldMask & whichField))
+    {
+        returnValue += _mfPostRenderCallbacks.getBinSize();
     }
 
     return returnValue;
@@ -647,9 +536,13 @@ void SimpleStageBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfBackground.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
+    if(FieldBits::NoField != (PreRenderCallbacksFieldMask & whichField))
     {
-        _mfForegrounds.copyToBin(pMem);
+        _mfPreRenderCallbacks.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (PostRenderCallbacksFieldMask & whichField))
+    {
+        _mfPostRenderCallbacks.copyToBin(pMem);
     }
 }
 
@@ -682,9 +575,13 @@ void SimpleStageBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfBackground.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
+    if(FieldBits::NoField != (PreRenderCallbacksFieldMask & whichField))
     {
-        _mfForegrounds.copyFromBin(pMem);
+        _mfPreRenderCallbacks.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (PostRenderCallbacksFieldMask & whichField))
+    {
+        _mfPostRenderCallbacks.copyFromBin(pMem);
     }
 }
 
@@ -733,7 +630,8 @@ SimpleStageBase::SimpleStageBase(void) :
     _sfTop                    (Real32(1.f)),
     _sfCamera                 (NullFC),
     _sfBackground             (NullFC),
-    _mfForegrounds            ()
+    _mfPreRenderCallbacks     (),
+    _mfPostRenderCallbacks    ()
 {
 }
 
@@ -745,7 +643,8 @@ SimpleStageBase::SimpleStageBase(const SimpleStageBase &source) :
     _sfTop                    (source._sfTop                    ),
     _sfCamera                 (NullFC),
     _sfBackground             (NullFC),
-    _mfForegrounds            ()
+    _mfPreRenderCallbacks     (source._mfPreRenderCallbacks     ),
+    _mfPostRenderCallbacks    (source._mfPostRenderCallbacks    )
 {
 }
 
@@ -766,18 +665,6 @@ void SimpleStageBase::onCreate(const SimpleStage *source)
         this->setCamera(source->getCamera());
 
         this->setBackground(source->getBackground());
-
-        MFForegroundPtr::const_iterator ForegroundsIt  =
-            source->_mfForegrounds.begin();
-        MFForegroundPtr::const_iterator ForegroundsEnd =
-            source->_mfForegrounds.end  ();
-
-        while(ForegroundsIt != ForegroundsEnd)
-        {
-            this->pushToForegrounds(*ForegroundsIt);
-
-            ++ForegroundsIt;
-        }
     }
 }
 
@@ -919,27 +806,36 @@ EditFieldHandlePtr SimpleStageBase::editHandleBackground     (void)
     return returnValue;
 }
 
-GetFieldHandlePtr SimpleStageBase::getHandleForegrounds     (void) const
+GetFieldHandlePtr SimpleStageBase::getHandlePreRenderCallbacks (void) const
 {
-    MFForegroundPtr::GetHandlePtr returnValue(
-        new  MFForegroundPtr::GetHandle(
-             &_mfForegrounds, 
-             this->getType().getFieldDesc(ForegroundsFieldId)));
+    MFRenderFunctorCallback::GetHandlePtr returnValue(
+        new  MFRenderFunctorCallback::GetHandle(
+             &_mfPreRenderCallbacks, 
+             this->getType().getFieldDesc(PreRenderCallbacksFieldId)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr SimpleStageBase::editHandleForegrounds    (void)
+EditFieldHandlePtr SimpleStageBase::editHandlePreRenderCallbacks(void)
 {
-    MFForegroundPtr::EditHandlePtr returnValue(
-        new  MFForegroundPtr::EditHandle(
-             &_mfForegrounds, 
-             this->getType().getFieldDesc(ForegroundsFieldId)));
+    MFRenderFunctorCallback::EditHandlePtr returnValue;
 
-    returnValue->setAddMethod(boost::bind(&SimpleStage::pushToForegrounds, 
-                              static_cast<SimpleStage *>(this), _1));
+    return returnValue;
+}
 
-    editMField(ForegroundsFieldMask, _mfForegrounds);
+GetFieldHandlePtr SimpleStageBase::getHandlePostRenderCallbacks (void) const
+{
+    MFRenderFunctorCallback::GetHandlePtr returnValue(
+        new  MFRenderFunctorCallback::GetHandle(
+             &_mfPostRenderCallbacks, 
+             this->getType().getFieldDesc(PostRenderCallbacksFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SimpleStageBase::editHandlePostRenderCallbacks(void)
+{
+    MFRenderFunctorCallback::EditHandlePtr returnValue;
 
     return returnValue;
 }
@@ -981,8 +877,20 @@ void SimpleStageBase::resolveLinks(void)
 
     static_cast<SimpleStage *>(this)->setBackground(NullFC);
 
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
 
-    static_cast<SimpleStage *>(this)->clearForegrounds();
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfPreRenderCallbacks.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfPostRenderCallbacks.terminateShare(Thread::getCurrentAspect(), 
+                                      oOffsets);
+#endif
 }
 
 

@@ -110,6 +110,8 @@ class NodeCore;
 class FieldBundleAttachment;
 class FieldContainerAttachment;
 
+class DrawEnv;
+
 struct ContainerChangeEntry;
 
 
@@ -136,6 +138,8 @@ typedef SingletonHolder<FieldBundleFactoryBase   > FieldBundleFactory;
 
 typedef boost::function<
               void (FieldContainerPtrArg, ConstFieldMaskArg )> ChangedFunctor;
+
+typedef boost::function<void (DrawEnv *)> RenderFunctor;
 
 struct ChangedFunctorCallback
 {

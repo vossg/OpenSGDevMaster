@@ -81,11 +81,20 @@ Extension to the Stage core that provides for viewport support, a camera, backgr
         The background used to clear this viewport.
         </Field>
         <Field
-                name="foregrounds"
-                type="ForegroundPtr"
+                name="preRenderCallbacks"
+                type="RenderFunctorCallback"
                 cardinality="multi"
                 visibility="external"
-                access="public"
+                access="none"
+        >
+        The foreground additions to the rendered image.
+        </Field>
+        <Field
+                name="postRenderCallbacks"
+                type="RenderFunctorCallback"
+                cardinality="multi"
+                visibility="external"
+                access="none"
         >
         The foreground additions to the rendered image.
         </Field>

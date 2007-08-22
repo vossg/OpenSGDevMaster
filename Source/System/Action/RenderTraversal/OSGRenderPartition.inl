@@ -410,6 +410,18 @@ UInt32 RenderPartition::getNumTriangles(void)
     return _uiNumTriangles;
 }
 
+inline
+void RenderPartition::addPreRenderCallback (const RenderFunctor &oCallback)
+{
+    _vPreRenderCallbacks.push_back(oCallback);
+}
+
+inline
+void RenderPartition::addPostRenderCallback(const RenderFunctor &oCallback)
+{
+    _vPostRenderCallbacks.push_back(oCallback);
+}
+
 /*-------------------------- your_category---------------------------------*/
 
 #ifdef OSG_DEBUG

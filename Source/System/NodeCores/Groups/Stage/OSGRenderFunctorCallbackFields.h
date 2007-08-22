@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                     Copyright 2000-2002 by OpenSG Forum                   *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,99 +36,48 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#ifndef _OSGRENDERFUNCTORCALLBACKFIELDS_H_
+#define _OSGRENDERFUNCTORCALLBACKFIELDS_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSGSField.h"
+#include "OSGMField.h"
+#include "OSGRenderFunctorFieldTraits.h"
+
 OSG_BEGIN_NAMESPACE
 
-/*! Set all of the size-related fields of the viewport.
- */ 
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 
-inline 
-void SimpleStage::setSize(Real32 left, 
-                          Real32 bottom, 
-                          Real32 right, 
-                          Real32 top  )
+typedef SField<RenderFunctorCallback> SFRenderFunctorCallback;
+
+#endif
+
+// there is no good way of comparing boost function objects
+template<> inline
+bool SField<RenderFunctorCallback, 0>::operator ==(
+    const SField<RenderFunctorCallback, 0> &source) const
 {
-    setLeft  (left  );
-    setRight (right );
-    setBottom(bottom);
-    setTop   (top   );
+    return false;
 }
 
-template<class FunctorT> inline
-void SimpleStage::subPreRenderFunctor(FunctorT func)
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+
+typedef MField<RenderFunctorCallback> MFRenderFunctorCallback;
+
+#endif
+
+// there is no good way of comparing boost function objects
+template<> inline
+bool MField<RenderFunctorCallback, 0>::operator ==(
+    const MField<RenderFunctorCallback, 0> & OSG_CHECK_ARG(source)) const
 {
-    MFRenderFunctorCallback::iterator       cfIt = 
-        _mfPreRenderCallbacks.begin();
-
-    MFRenderFunctorCallback::const_iterator cfEnd= 
-        _mfPreRenderCallbacks.end();
-
-    while(cfIt != cfEnd)
-    {
-        if(cfIt->_func == func)
-            break;
-
-        ++cfIt;
-    }
-
-    if(cfIt != cfEnd)
-        _mfPreRenderCallbacks.erase(cfIt);
+    return false;
 }
 
-template<class FunctorT> inline
-void SimpleStage::subPostRenderFunctor(FunctorT func)
-{
-    MFRenderFunctorCallback::iterator       cfIt = 
-        _mfPostRenderCallbacks.begin();
-
-    MFRenderFunctorCallback::const_iterator cfEnd= 
-        _mfPostRenderCallbacks.end();
-
-    while(cfIt != cfEnd)
-    {
-        if(cfIt->_func == func)
-            break;
-
-        ++cfIt;
-    }
-
-    if(cfIt != cfEnd)
-        _mfPostRenderCallbacks.erase(cfIt);
-}
-
-inline
-void SimpleStage::fillPreRenderStore (RenderFunctorStore &vStore)
-{
-    MFRenderFunctorCallback::const_iterator cfIt = 
-        _mfPreRenderCallbacks.begin();
-
-    MFRenderFunctorCallback::const_iterator cfEnd= 
-        _mfPreRenderCallbacks.end();
-
-    while(cfIt != cfEnd)
-    {
-        vStore.push_back(cfIt->_func);
-
-        ++cfIt;
-    }
-}
-
-inline
-void SimpleStage::fillPostRenderStore(RenderFunctorStore &vStore)
-{
-    MFRenderFunctorCallback::const_iterator cfIt = 
-        _mfPostRenderCallbacks.begin();
-
-    MFRenderFunctorCallback::const_iterator cfEnd= 
-        _mfPostRenderCallbacks.end();
-
-    while(cfIt != cfEnd)
-    {
-        vStore.push_back(cfIt->_func);
-
-        ++cfIt;
-    }
-}
 
 OSG_END_NAMESPACE
 
-
+#endif /* _OSGRENDERCALLBACKFUNCTORFIELDS_H_ */

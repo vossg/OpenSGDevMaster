@@ -93,6 +93,15 @@ TextureBuffer: pTexBuffer  --> tx1o
 RenderBuffer: pDepthBuffer
 */
 
+void testPreRenderCB(DrawEnv *)
+{
+//    fprintf(stderr, "PreRender\n");
+}
+
+void testPostRenderCB(DrawEnv *)
+{
+//    fprintf(stderr, "PostRender\n");
+}
 
 void display(void)
 {
@@ -271,6 +280,7 @@ void initAnimSetup(int argc, char **argv)
     stage_cam->setNear  (0.1);
     stage_cam->setFar   (100000);
 
+
     // Background
     SolidBackgroundPtr bkgnd = SolidBackground::create();
     bkgnd->setColor(Color3f(0,1,0));
@@ -302,6 +312,9 @@ void initAnimSetup(int argc, char **argv)
     pStage->setRenderTarget(pFBO );
     pStage->setCamera      (stage_cam  );
     pStage->setBackground  (bkgnd);
+
+    pStage->addPreRenderFunctor (&testPreRenderCB, "" );
+    pStage->addPostRenderFunctor(&testPostRenderCB, "");
 
     // Setup sub-tree visitor
     // - This will setup a graph that will render a subtree during traversal
@@ -407,7 +420,7 @@ int main (int argc, char **argv)
     //glutVisibilityFunc(vis);
     glutReshapeFunc(reshape);
     glutDisplayFunc(display);
-//    glutIdleFunc(display);
+    glutIdleFunc(display);
     glutMouseFunc(mouse);
     glutMotionFunc(motion);
 

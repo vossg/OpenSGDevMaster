@@ -147,6 +147,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     typedef std::vector<RenderPartition *>          GroupStore;
 
+    typedef std::vector<RenderFunctor>              RenderCallbackStore;
+
     //-----------------------------------------------------------------------
     //   class functions                                                     
     //-----------------------------------------------------------------------
@@ -334,6 +336,11 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*-------------------------- comparison ---------------------------------*/
 
+    void addPreRenderCallback (const RenderFunctor &oCallback);
+    void addPostRenderCallback(const RenderFunctor &oCallback);
+
+    /*-------------------------- comparison ---------------------------------*/
+
 #ifdef OSG_DEBUG
     void setDebugString(std::string szDebugString);
 #endif
@@ -435,7 +442,9 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition : public RenderPartitionBase
     bool                _bAutoFrustum;
     FrustumVolume       _oFrustum;
 
-
+    RenderCallbackStore _vPreRenderCallbacks;
+    RenderCallbackStore _vPostRenderCallbacks;
+    
 #ifdef OSG_DEBUG
      // Debug
 

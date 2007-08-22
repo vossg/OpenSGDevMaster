@@ -71,7 +71,8 @@
 #include "OSGReal32Fields.h" // Top type
 #include "OSGCameraFields.h" // Camera type
 #include "OSGBackgroundFields.h" // Background type
-#include "OSGForegroundFields.h" // Foregrounds type
+#include "OSGRenderFunctorCallbackFields.h" // PreRenderCallbacks type
+#include "OSGRenderFunctorCallbackFields.h" // PostRenderCallbacks type
 
 #include "OSGSimpleStageFields.h"
 
@@ -105,8 +106,9 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
         TopFieldId = BottomFieldId + 1,
         CameraFieldId = TopFieldId + 1,
         BackgroundFieldId = CameraFieldId + 1,
-        ForegroundsFieldId = BackgroundFieldId + 1,
-        NextFieldId = ForegroundsFieldId + 1
+        PreRenderCallbacksFieldId = BackgroundFieldId + 1,
+        PostRenderCallbacksFieldId = PreRenderCallbacksFieldId + 1,
+        NextFieldId = PostRenderCallbacksFieldId + 1
     };
 
     static const OSG::BitVector LeftFieldMask =
@@ -121,8 +123,10 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
         (TypeTraits<BitVector>::One << CameraFieldId);
     static const OSG::BitVector BackgroundFieldMask =
         (TypeTraits<BitVector>::One << BackgroundFieldId);
-    static const OSG::BitVector ForegroundsFieldMask =
-        (TypeTraits<BitVector>::One << ForegroundsFieldId);
+    static const OSG::BitVector PreRenderCallbacksFieldMask =
+        (TypeTraits<BitVector>::One << PreRenderCallbacksFieldId);
+    static const OSG::BitVector PostRenderCallbacksFieldMask =
+        (TypeTraits<BitVector>::One << PostRenderCallbacksFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -175,7 +179,6 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
             const SFReal32            *getSFTop             (void) const;
             const SFCameraPtr         *getSFCamera          (void) const;
             const SFBackgroundPtr     *getSFBackground      (void) const;
-            const MFForegroundPtr     *getMFForegrounds     (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -206,9 +209,6 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
 
                   BackgroundPtrConst getBackground     (void) const;
 
-                  ForegroundPtrConst getForegrounds    (const UInt32 index) const;
-            const MFForegroundPtr     &getForegrounds    (void) const;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -231,17 +231,6 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToForegrounds           (ForegroundPtrConstArg value   );
-    void assignForegrounds           (const MFForegroundPtr   &value);
-    void insertIntoForegrounds      (UInt32                uiIndex,
-                                             ForegroundPtrConstArg value   );
-    void replaceInForegrounds  (UInt32                uiIndex,
-                                             ForegroundPtrConstArg value   );
-    void replaceInForegrounds (ForegroundPtrConstArg pOldElem,
-                                             ForegroundPtrConstArg pNewElem);
-    void removeFromForegrounds (UInt32                uiIndex );
-    void removeFromForegrounds(ForegroundPtrConstArg value   );
-    void clearForegrounds            (void                          );
 
 
     /*! \}                                                                 */
@@ -291,7 +280,8 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     SFReal32          _sfTop;
     SFCameraPtr       _sfCamera;
     SFBackgroundPtr   _sfBackground;
-    MFForegroundPtr   _mfForegrounds;
+    MFRenderFunctorCallback _mfPreRenderCallbacks;
+    MFRenderFunctorCallback _mfPostRenderCallbacks;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -332,8 +322,10 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     EditFieldHandlePtr editHandleCamera         (void);
     GetFieldHandlePtr  getHandleBackground      (void) const;
     EditFieldHandlePtr editHandleBackground     (void);
-    GetFieldHandlePtr  getHandleForegrounds     (void) const;
-    EditFieldHandlePtr editHandleForegrounds    (void);
+    GetFieldHandlePtr  getHandlePreRenderCallbacks (void) const;
+    EditFieldHandlePtr editHandlePreRenderCallbacks(void);
+    GetFieldHandlePtr  getHandlePostRenderCallbacks (void) const;
+    EditFieldHandlePtr editHandlePostRenderCallbacks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

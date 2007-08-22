@@ -603,6 +603,7 @@ void @!Classname!@Base::@!field.ClearField!@(void)
     @@endif //!field.noAccess
     @@else // field.isPtrField
 /*********************************** Non-ptr code ********************************/
+    @@if !field.noAccess
         @@if field.writePushToField
 void @!Classname!@Base::@!field.PushToField!@(const @!field.Type!@& value)
 {
@@ -698,6 +699,7 @@ void @!Classname!@Base::@!field.ClearField!@(void)
     _mf@!field.Name!@.clear();
 }
         @@endif // field.writeClearField
+    @@endif // !field.noAccess
     @@endif // field.isPtrField
 @@EndMFFieldLoop@@
 
