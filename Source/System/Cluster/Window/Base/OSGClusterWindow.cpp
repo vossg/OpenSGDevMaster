@@ -249,7 +249,7 @@ void ClusterWindow::init(void)
                       << " to start."
                       << std::endl;
 
-                char result;
+                int result;
                 std::string line="";
 
                 while((result=fgetc(pipes[id])) != EOF)

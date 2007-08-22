@@ -208,8 +208,10 @@ DataType FieldTraits<GLXContext, 1>::_type("GLXContext", NULL);
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, DisplayP     );
 OSG_FIELD_DLLEXPORT_DEF1(MField, DisplayP     );
+#if ( !defined(__GNUC__) || !defined(__linux) || ( !defined(__ia64) && !defined(__x86_64) && !defined(_ARCH_PPC64)) ) && (!defined(_MIPS_SZPTR) || _MIPS_SZPTR != 64)
 OSG_FIELD_DLLEXPORT_DEF1(SField, X11Window    );
 OSG_FIELD_DLLEXPORT_DEF1(MField, X11Window    );
+#endif
 OSG_FIELD_DLLEXPORT_DEF2(SField, GLXContext, 1);
 OSG_FIELD_DLLEXPORT_DEF2(MField, GLXContext, 1);
 

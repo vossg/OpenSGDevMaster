@@ -1,7 +1,7 @@
 
 from __future__ import generators
 
-import os, sys, traceback, re, imp, types, string
+import os, sys, traceback, re, imp, types, string, copy
 import distutils.util
 import SConsAddons
 
@@ -256,6 +256,8 @@ def UtilGetArch():
          # PowerPC
       elif re.search(r'Power_Mac', platform):
          arch = 'ppc'
+      elif re.search(r'ppc64', platform):
+         arch = 'ppc64'
    else:
       arch_str = os.uname()[4]
       if re.search(r'i.86', arch_str):
@@ -272,6 +274,8 @@ def UtilGetArch():
             arch = 'ppc64'
          else:
             arch = 'ppc'
+      elif re.search(r'ppc64', arch_str):
+         arch = 'ppc64'
 
    return arch
 
@@ -295,6 +299,7 @@ def EnvironmentBuilderDetectValidArchs():
 #   print Util.GetArch
    
    cur_arch = SConsAddons.Util.GetArch()
+   
    if "ia32" == cur_arch:
       valid_archs.append(SConsAddons.EnvironmentBuilder.EnvironmentBuilder.IA32_ARCH)
    elif "x64" == cur_arch:
@@ -303,7 +308,9 @@ def EnvironmentBuilderDetectValidArchs():
       valid_archs.append(SConsAddons.EnvironmentBuilder.EnvironmentBuilder.PPC_ARCH)   
    elif "ppc64" == cur_arch:
       valid_archs.append(SConsAddons.EnvironmentBuilder.EnvironmentBuilder.PPC64_ARCH)      
-   
+   elif "ia64" == cur_arch:
+      valid_archs.append(SConsAddons.EnvironmentBuilder.EnvironmentBuilder.IA64_ARCH)      
+
    # Only handle case of non-windows and using gcc compiler for now
    test_env = SConsAddons.EnvironmentBuilder.EnvironmentBuilder().buildEnvironment()
    if GetPlatform() == "win32" or test_env["CC"] != 'gcc':
@@ -321,7 +328,9 @@ def EnvironmentBuilderDetectValidArchs():
                      SConsAddons.EnvironmentBuilder.EnvironmentBuilder.X64_ARCH]
    elif cur_arch in ["ppc","ppc64"]:   # Check PowerPC architectures
       arch_checks = [SConsAddons.EnvironmentBuilder.EnvironmentBuilder.PPC_ARCH,
-                     SConsAddons.EnvironmentBuilder.EnvironmentBuilder.xPPC64_ARCH]
+                     SConsAddons.EnvironmentBuilder.EnvironmentBuilder.PPC64_ARCH]
+   elif cur_arch in ["ia64"]: # Check x86 platforms
+      arch_checks = [SConsAddons.EnvironmentBuilder.EnvironmentBuilder.IA64_ARCH]
 
    for test_arch in arch_checks:
       if test_arch not in valid_archs:
@@ -336,6 +345,28 @@ def EnvironmentBuilderDetectValidArchs():
 
    return valid_archs
 
+def EnvironmentBuilder_gcc_linux_misc(bldr, env):
+   assert isinstance(bldr, SConsAddons.EnvironmentBuilder.EnvironmentBuilder)
+   if bldr.cpuArch:
+
+      if bldr.cpuArch == SConsAddons.EnvironmentBuilder.EnvironmentBuilder.IA32_ARCH:
+         env.Append(CCFLAGS = ['-m32'],
+                    CXXFLAGS = ['-m32'],
+                    LINKFLAGS = ['-m32'])
+      elif bldr.cpuArch == SConsAddons.EnvironmentBuilder.EnvironmentBuilder.X64_ARCH:
+         env.Append(CCFLAGS = ['-m64'],
+                    CXXFLAGS = ['-m64'],
+                    LINKFLAGS = ['-m64'])
+      elif bldr.cpuArch == SConsAddons.EnvironmentBuilder.EnvironmentBuilder.PPC_ARCH:
+         env.Append(CCFLAGS = ['-m32'],
+                    CXXFLAGS = ['-m32'],
+                    LINKFLAGS = ['-m32'])
+      elif bldr.cpuArch == SConsAddons.EnvironmentBuilder.EnvironmentBuilder.PPC64_ARCH:
+         env.Append(CCFLAGS = ['-m64'],
+                    CXXFLAGS = ['-m64'],
+                    LINKFLAGS = ['-m64'])
+      else:
+         assert False, "Invalid arch used for Linux gcc."
 
 def VariantsHelperFillDefaultVariants(self, varKeys):
       """ Fill the variants variable with default allowable settings. """
@@ -409,5 +440,21 @@ def apply():
 
     SConsAddons.EnvironmentBuilder.detectValidArchs = \
         EnvironmentBuilderDetectValidArchs
+
+    SConsAddons.EnvironmentBuilder.gcc_linux_misc = \
+        EnvironmentBuilder_gcc_linux_misc
+
+    funcList = copy.copy(SConsAddons.EnvironmentBuilder.default_funcs)
+
+    
+    SConsAddons.EnvironmentBuilder.default_funcs = []
+    
+    for f in funcList:
+        (compiler_list,platform_list, func) = f
+        print f
+        if 'gcc' in compiler_list and 'linux' in platform_list:
+            SConsAddons.EnvironmentBuilder.default_funcs.append([compiler_list, platform_list, EnvironmentBuilder_gcc_linux_misc])
+        else:
+            SConsAddons.EnvironmentBuilder.default_funcs.append([compiler_list, platform_list, func])            
 
     SConsAddons.Options.BoolOption.textToBool = BoolOptionTextToBool
