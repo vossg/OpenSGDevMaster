@@ -451,7 +451,7 @@ def apply():
     
     for f in funcList:
         (compiler_list,platform_list, func) = f
-        print f
+
         if 'gcc' in compiler_list and 'linux' in platform_list:
             SConsAddons.EnvironmentBuilder.default_funcs.append([compiler_list, platform_list, EnvironmentBuilder_gcc_linux_misc])
         else:
