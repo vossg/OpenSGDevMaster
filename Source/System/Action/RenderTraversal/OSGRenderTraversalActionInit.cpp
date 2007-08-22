@@ -76,8 +76,9 @@
 #include "OSGFrameBufferAttachment.h"
 #include "OSGParticles.h"
 #include "OSGMultiCore.h"
+#ifdef OSG_GV_BETA
 #include "OSGCubeMapGenerator.h"
-
+#endif
 
 #include "OSGLightEngine.h"
 #include "OSGMatrixUtility.h"
@@ -1240,6 +1241,7 @@ ActionBase::ResultE MultiCoreRenderLeave(const NodeCorePtr &pCore,
 }
 
 
+#ifdef OSG_GV_BETA
 ActionBase::ResultE CubeMapGeneratorRenderEnter(const NodeCorePtr &pCore,
                                                       Action      *action)
 {
@@ -1305,6 +1307,7 @@ ActionBase::ResultE CubeMapGeneratorRenderLeave(const NodeCorePtr &pCore,
 
     return returnValue;
 }
+#endif
 
 
 /*-------------------------------------------------------------------------*/
@@ -1521,6 +1524,7 @@ bool RenderTraversalActionInitialize(void)
         MultiCore::getClassType(), 
         MultiCoreRenderLeave);
 
+#ifdef OSG_GV_BETA
     RenderTraversalAction::registerEnterDefault(
         CubeMapGenerator::getClassType(), 
         CubeMapGeneratorRenderEnter);
@@ -1528,6 +1532,7 @@ bool RenderTraversalActionInitialize(void)
     RenderTraversalAction::registerLeaveDefault( 
         CubeMapGenerator::getClassType(), 
         CubeMapGeneratorRenderLeave);
+#endif
 
     return true;
 
