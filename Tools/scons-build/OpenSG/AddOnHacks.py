@@ -9,11 +9,14 @@ import SConsAddons.Options.VTK
 import SConsAddons.Options.Boost
 import SConsAddons.Builders
 import SConsAddons.EnvironmentBuilder
+import SCons.SConf
 
 from SConsAddons.Variants           import zipVariants
 from SConsAddons.Util               import GetPlatform
 
 import SConsAddons.Util as sca_util
+
+Configure = SCons.SConf.SConf
 
 if sys.version[:3] == "2.2":
     import optik.textwrap as textwrap
@@ -184,6 +187,175 @@ def BoostFind(self, env):
          # find base dir
          self.incDir = os.path.dirname(os.path.dirname(ver_header))
          self.baseDir = os.path.dirname(self.incDir)         
+
+def BoostValidate(self, env):
+      " Check to make sure that the current settings work and are valid. """
+      # Check that path exist
+      # Check that an include file: boost/version.hpp  exists
+      passed = True
+      self.available = False
+      
+      if not self.baseDir:
+         self.checkRequired("Boost base dir not set")
+         return
+      
+      if not os.path.isdir(self.baseDir):    # If we don't have a directory
+         self.checkRequired("Boost base dir is not a directory: %s" % self.baseDir)
+         return
+
+      # Make sure we have a valid inc dir or try to find one
+      if self.incDir:
+         # Check the version header is there         
+         version_header = pj(self.incDir, 'boost', 'version.hpp')         
+         if not os.path.isfile(version_header):
+            self.checkRequired("Boost version.hpp header does not exist:%s"%version_header)
+            return
+         
+      # --- Find include path --- #
+      # If inc dir not set, try to find it      
+      # - Try just include, try local, then try subdirs in reverse sorted order (to get most recent)
+      else:
+         print "   Searching for correct boost include dir...",
+         base_include_dir = pj(self.baseDir, 'include')
+         potential_dirs = [base_include_dir, self.baseDir]
+         if os.path.isdir(base_include_dir):
+            inc_dirs = [pj(base_include_dir,d) for d in os.listdir(base_include_dir)]
+            inc_dirs.sort()
+            inc_dirs.reverse()
+            potential_dirs.extend(inc_dirs)
+         
+         for d in potential_dirs:
+            if os.path.isfile(pj(d,'boost','version.hpp')):
+               self.incDir = d
+               break
+         
+         if self.incDir:
+            print "  found: ", self.incDir
+         else:
+            print "  not found."
+            self.checkRequired("Can not find boost include directory.")
+            return
+
+         
+      print "   boost include path: ", self.incDir
+      
+      # --- Check version requirement --- #
+      version_header = pj(self.incDir, 'boost', 'version.hpp')
+      ver_file = file(version_header)
+      ver_file_contents = ver_file.read()
+      ver_match = re.search("define\s+?BOOST_VERSION\s+?(\d*)",
+                            ver_file_contents)
+      if not ver_match:
+         self.checkRequired("   could not find BOOST_VERSION in file: %s"%version_header)
+         return
+
+      lib_ver_match = re.search("define\s+?BOOST_LIB_VERSION\s+?\"(.*)\"",
+                                ver_file_contents)
+      if lib_ver_match:
+         self.libVersionStr = lib_ver_match.group(1)
+      else:         
+         print "WARNING: Could not determine library version string"
+         self.libVersionStr = None
+
+      found_ver_str = int(ver_match.group(1))
+      found_ver_str = str(found_ver_str / 100000) + '.' + str(found_ver_str / 100 % 1000) + '.' + str(found_ver_str % 100)
+      req_ver = [int(n) for n in self.requiredVersion.split('.')]
+      found_ver = [int(n) for n in found_ver_str.split('.')]
+      print "   boost version:", ".".join([str(x) for x in found_ver])
+      if found_ver < req_ver:
+         self.checkRequired("   Boost version is too old! Required %s but found %s"%(self.requiredVersion,found_ver_str))
+         return
+
+      arch_str = SConsAddons.Util.GetArch()
+      # Set lists of the options we want
+      self.found_incs = [self.incDir]
+      self.found_incs_as_flags = [env["INCPREFIX"] + p for p in self.found_incs];
+
+      if re.search(r'64', arch_str):
+         self.found_lib_paths = [pj(self.baseDir, 'lib64')]
+      else:
+         self.found_lib_paths = [pj(self.baseDir, 'lib')]
+         
+      self.found_defines = []
+      # Note: This doesn't work because the configure context uses the static
+      #       run-time and this makes boost error out.
+      #if self.preferDynamic:
+      #   self.found_defines.append("BOOST_ALL_DYN_LINK")      
+      #if not self.autoLink:
+      #   self.found_defines.append("BOOST_ALL_NO_LIB")
+
+      ######## BUILD CHECKS ###########  
+      # --- Check building against libraries --- #   
+      def check_lib(libname, lib_filename, env):         
+         """ Helper method that checks if we can compile code that uses
+             capabilities from the boost library 'libname' and get the
+             symbols from the library lib_filename.
+         """
+         header_to_check = pj('boost','config.hpp')
+         if self.headerMap.has_key(libname):
+            header_to_check = self.headerMap[libname]
+
+         # Create config environment
+         # - Need to extend the environment
+         conf_env = env.Copy()
+         conf_env.Append(CPPPATH= self.found_incs, 
+                         LIBPATH = self.found_lib_paths,
+                         CPPDEFINES = self.found_defines)
+         if "python" == libname:
+            conf_env.Append(CPPPATH = self.python_inc_dir,
+                            LIBPATH = self.python_lib_path,
+                            LINKFLAGS = self.python_link_flags,
+                            #LIBS = [lib_filename,] + self.python_extra_libs
+                            LIBS = self.python_extra_libs
+                         )
+         
+         # Thread library needs some additional libraries on Linux... (yuck)
+         if "thread" == libname:
+            conf_env.Append(LIBS = [lib_filename,] + self.thread_extra_libs)
+         
+         conf_ctxt = Configure(conf_env)
+         result = conf_ctxt.CheckLibWithHeader(lib_filename, header_to_check, "c++")
+         conf_ctxt.Finish()         
+         return result
+      
+
+      # For each lib we are supposed to have
+      #  - Search through possible names for that library
+      #     - If we find one that works, store it
+      for libname in self.lib_names:
+         possible_lib_names = self.buildFullLibNamePossibilities(libname,env)
+         
+         found_fullname = None
+         for testname in possible_lib_names:
+            result = check_lib(libname, testname, env)
+            if result:
+               found_fullname = testname
+               break
+            
+         if not found_fullname:
+            passed = False
+            self.checkRequired("Unable to find library: %s tried: %s"%(libname,possible_lib_names))
+         else:
+            self.found_libs[libname] = found_fullname
+            print "  %s: %s"%(libname, found_fullname)
+
+      # --- Handle final settings ---- #     
+      if not passed:
+         # Clear everything
+         self.baseDir = None
+         self.incDir = None
+         edict = env.Dictionary()
+         for k in (self.baseDirKey, self.incDirKey):
+            if edict.has_key(k):
+               del edict[k]
+         self.found_incs = None
+         self.found_lib_paths = []
+         self.found_libs = {}
+         self.found_defines = []
+      else:
+         self.available = True
+
+
 
 
 def BuilderCreateDefineBuilder(target, source, env):
@@ -427,6 +599,7 @@ def apply():
     SConsAddons.Options.VTK.VTK.setInitial  = VTKSetInitial
 
     SConsAddons.Options.Boost.Boost.find = BoostFind
+    SConsAddons.Options.Boost.Boost.validate = BoostValidate
 
     SConsAddons.Builders.CreateDefineBuilder = BuilderCreateDefineBuilder
 
