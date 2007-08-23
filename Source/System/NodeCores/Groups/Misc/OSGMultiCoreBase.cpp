@@ -121,7 +121,7 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     "<FieldContainer\n"
     "\tname=\"MultiCore\"\n"
     "\tparent=\"Group\"\n"
-    "\tlibrary=\"System\"\n"
+    "\tlibrary=\"Group\"\n"
     "\tstructure=\"concrete\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tsystemcomponent=\"true\"\n"

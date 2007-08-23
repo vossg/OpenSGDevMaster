@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGGroupDef.h"
 
 #include "OSGGroupFields.h"
 
@@ -75,7 +75,7 @@ OSG_GEN_CONTAINERPTR(MultiCore);
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpGroupFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -111,14 +111,14 @@ struct FieldTraits<MultiCorePtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
+/*! \ingroup GrpGroupFieldSingle */
 
 typedef SFieldAdaptor<MultiCorePtr, SFFieldContainerPtr> SFMultiCorePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
+/*! \ingroup GrpGroupFieldMulti */
 
 typedef MFieldAdaptor<MultiCorePtr, MFFieldContainerPtr> MFMultiCorePtr;
 #endif
