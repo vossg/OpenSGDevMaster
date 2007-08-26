@@ -480,7 +480,13 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces.
 
-INPUT                  = $(DOX_INPUT)
+#INPUT                  = $(DOX_INPUT)
+
+# The input is generated dynamically to get around environment length 
+# restrictions
+
+@INCLUDE = opensg_input.doxy
+
 
 # If the value of the INPUT tag contains directories, you can use the 
 # FILE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 

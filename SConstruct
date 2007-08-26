@@ -842,25 +842,30 @@ if not SConsAddons.Util.hasHelpFlag():
       #   - handle different output types
 
       # Get all used source/header files
-      dox_inp = ""
+      dox_inp = "INPUT = "
       for (name,lib) in lib_map.iteritems():
          for i in lib.source_files:
             dox_inp += "../Source/" + i + " "
          for i in lib.header_files:
             dox_inp += "../Source/" + i + " "
       
+      # Write it to a file that's included by doxygen
+      # Need to do this to avoid environment size problems
+      f = open(pj("Doc","opensg_input.doxy"), 'w')
+      f.write(dox_inp)
+      f.close()
+      
       # Need to use my private doxygen version until the parameter macro patch is in
       if "dream.lite3d.com" == gethostname():
          common_env["DOXYGEN"] = "/home/reiners/software/DocumentationTools/doxygen-cvs/doxygen-070225/bin//doxygen"
-      common_env["DOX_INPUT"] = dox_inp
       common_env["DOX_VERSION"] = opensg_version_string
       
       if "STANDALONE" == common_env["docs_mode"]:
-         common_env.Doxygen("Doc/standalone.doxy")
+         common_env.Doxygen(pj("Doc","standalone.doxy"))
       elif "TRAC" == common_env["docs_mode"]:
-         common_env.Doxygen("Doc/trac.doxy")
+         common_env.Doxygen(pj("Doc","trac.doxy"))
       elif "DEVELOPER" == common_env["docs_mode"]:
-         common_env.Doxygen("Doc/developer.doxy")
+         common_env.Doxygen(pj("Doc","developer.doxy"))
       else:
          raise "Unknown docs_mode %s" % common_env["docs_mode"]
       
