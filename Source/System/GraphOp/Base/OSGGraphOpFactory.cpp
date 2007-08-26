@@ -43,17 +43,6 @@
 
 #include <OSGGraphOpFactory.h>
 
-#include <OSGGeoTypeGraphOp.h>
-#include <OSGMakeTransparentGraphOp.h>
-#include <OSGMaterialMergeGraphOp.h>
-#include <OSGMergeGraphOp.h>
-#include <OSGPruneGraphOp.h>
-#include <OSGSharePtrGraphOp.h>
-#include <OSGSplitGraphOp.h>
-#include <OSGStripeGraphOp.h>
-#include <OSGVerifyGeoGraphOp.h>
-#include <OSGVerifyGraphOp.h>
-
 OSG_USING_NAMESPACE
 
 GraphOpFactory *GraphOpFactory::_the=NULL;

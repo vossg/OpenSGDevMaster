@@ -53,10 +53,7 @@
 #include <OSGBaseTypes.h>
 #include <OSGPathHandler.h>
 
-#ifdef OSG_HAVE_GRAPH_OP //CHECK
 #include <OSGGraphOpSeq.h>
-#include <OSGStripeGraphOp.h>
-#endif
 
 #include <OSGImageFileHandler.h>
 
@@ -234,10 +231,9 @@ NodePtr SceneFileHandlerBase::read(      std::istream &is,
 
         if(scene != NullFC)
         {
-#ifdef OSG_HAVE_GRAPH_OP //CHECK
             if(graphOpSeq != NULL)
                 graphOpSeq->run(scene);
-#endif
+
             SINFO    << "read ok:"        << std::endl;
         }
         else
@@ -277,10 +273,8 @@ SceneFileHandlerBase::FCPtrStore SceneFileHandlerBase::readTopNodes(
 
         newChild->setCore(child->getCore());
 
-#ifdef OSG_HAVE_GRAPH_OP //CHECK
         if(graphOpSeq != NULL)
                 graphOpSeq->run(newChild);
-#endif
 
         nodeVec.push_back(newChild);
 
@@ -362,10 +356,8 @@ NodePtr SceneFileHandlerBase::read(const Char8      *fileName,
 
         if(scene != NullFC)
         {
-#ifdef OSG_HAVE_GRAPH_OP //CHECK
             if(graphOpSeq != NULL)
                 graphOpSeq->run(scene);
-#endif
 
             SINFO    << "read ok:"        << std::endl;
         }
@@ -439,10 +431,8 @@ SceneFileHandlerBase::FCPtrStore SceneFileHandlerBase::readTopNodes(
 
             newChild->setCore(child->getCore());
 
-#ifdef OSG_HAVE_GRAPH_OP //CHECK
             if(graphOpSeq != NULL)
                 graphOpSeq->run(newChild);
-#endif
 
             nodeVec.push_back(newChild);
 
@@ -833,14 +823,12 @@ SceneFileHandlerBase::SceneFileHandlerBase(void) :
     _progressData.length = 0;
     _progressData.is = NULL;
 
-#ifdef OSG_HAVE_GRAPH_OP //CHECK
     if(_defaultgraphOpSeq == NULL)
     {
         _defaultgraphOpSeq = new GraphOpSeq;
         _defaultgraphOpSeq->setGraphOps(
             "Stripe() SharePtr(includes=Material,StateChunk)");
     }
-#endif
 }
 
 // read progress stuff.

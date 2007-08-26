@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
 //! \ingroup GrpSystemRenderingBackend
 //! GraphOpSeq class
 
-class OSG_UTIL_DLLMAPPING GraphOpFactory
+class OSG_SYSTEM_DLLMAPPING GraphOpFactory
 {
   public:
         

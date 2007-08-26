@@ -37,21 +37,25 @@
 \*---------------------------------------------------------------------------*/
 
 
-#ifndef _OSGGRAPHOPSEQ_H_
-#define _OSGGRAPHOPSEQ_H_
+#ifndef _OSGGRAPHOP_H_
+#define _OSGGRAPHOP_H_
 #ifdef __sgi
 #pragma once
 #endif
 
+#include "OSGUtilDef.h"
 #include "OSGAction.h"
-#include "OSGGraphOp.h"
+#include "OSGBaseTypes.h"
+
+#include <map>
+#include <string>
 
 OSG_BEGIN_NAMESPACE
 
 //! \ingroup GrpSystemRenderingBackend
-//! GraphOpSeq class
+//! GraphOp class
 
-class OSG_UTIL_DLLMAPPING GraphOpSeq
+class OSG_SYSTEM_DLLMAPPING GraphOp
 {
     /*==========================  PUBLIC  =================================*/
 public:
@@ -60,56 +64,107 @@ public:
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static const char *getClassname(void) { return "GraphOpSeq"; };
+    static const char *getClassname(void) { return "GraphOp"; };
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    GraphOpSeq(void);
-    GraphOpSeq(const std::string params);
+    GraphOp(const char* name = "");
+
+    virtual GraphOp *create(void) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    ~GraphOpSeq(void);
+    virtual ~GraphOp(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Parameters                                */
+    /*! \{                                                                 */
+
+    virtual void setParams(const std::string params) = 0;
+    virtual std::string usage(void) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool run(NodePtr &root);
+    virtual bool traverse(NodePtr& root);
+
+    const std::string &getName(void);
+    void              setName(const char *name);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Exclusion                                 */
+    /*! \{                                                                 */    
+    
+    void addToExcludeList       (NodePtrConst node       );
+    void addToExcludeList       (const std::string &name );
+    void removeFromExcludeList  (NodePtrConst node       );
+    void removeFromExcludeList  (const std::string &name );
+    void clearExcludeList       (void                    );
+    bool isInExcludeListNodes   (NodePtrConst node       );
+    bool isInExcludeListNames   (const std::string &name );
+    bool isInExcludeList        (NodePtrConst node       );        
 
     /*! \}                                                                 */
 
-    void setGraphOps(const std::string params);     
-
-    void addGraphOp            (GraphOp *op                 );
-    void removeGraphOp         (GraphOp *op                 );    
-    void clearGraphOps         (void                        );
-
-    UInt16      getSize        (void                        );
-    GraphOp*    getGraphOp     (UInt16 index                );
-    bool        setGraphOp     (UInt16 index, GraphOp *op   );
-    bool        removeGraphOp  (UInt16 index                );
-
     /*=========================  PROTECTED  ===============================*/
-protected:    
+protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                Parameter Helpers                             */
+    /*! \{                                                                 */
+
+    class ParamSet
+    {
+      public:
+        
+        ParamSet(const std::string &params);
+    
+        // Set given value to parameter value, return true if set,
+        // false if not
+        bool operator()(const char *name, std::string &val); 
+        bool operator()(const char *name, Real32 &val); 
+        bool operator()(const char *name, UInt16 &val); 
+        bool operator()(const char *name, UInt32 &val); 
+        bool operator()(const char *name, bool &val); 
+
+        void markUsed(const char *name);
+        
+        std::string getUnusedParams(void);
+        
+      private:
+      
+        typedef std::map<std::string, std::string> valuesT;
+        typedef std::map<std::string, bool>        usedT;
+        
+        valuesT _values;
+        usedT _used;    
+    };
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    virtual Action::ResultE traverseEnter(NodePtrConstArg node) = 0;
+    virtual Action::ResultE traverseLeave(NodePtrConstArg node, Action::ResultE res) = 0;
+
+    std::list<NodeConstPtr> _excludeListNodes;
+    std::list<std::string>  _excludeListNames;
 
     /*==========================  PRIVATE  ================================*/
 private:
-    std::vector<GraphOp *> _GraphOperators;
-    std::list<std::string> _excludeNames;
-
-    UInt16 extractStr(const std::string param, UInt16 spos, char* delim, std::string& result);
+    std::string            _name;
 };
 
-typedef GraphOpSeq *GraphOpSeqP;
-
+typedef GraphOp *GraphOpP;
 OSG_END_NAMESPACE
 
-#endif /* _OSGGRAPHOPSEQ_H_ */
+#endif /* _OSGGRAPHOP_H_ */
