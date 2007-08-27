@@ -337,9 +337,6 @@ NodePtr SceneFileHandlerBase::read(const Char8      *fileName,
             scene = read(in, fullFilePath.c_str(), graphOpSeq);
 
             in.close();
-
-            if(scene != NullFC)
-                return scene;
         }
         else
         {
@@ -366,6 +363,13 @@ NodePtr SceneFileHandlerBase::read(const Char8      *fileName,
             SWARNING << "could not read " << std::endl;
         }
 #endif
+
+        if(scene != NullFC && graphOpSeq != NULL)
+        {
+            SINFO    << "Running GraphOps..." << std::endl;
+            graphOpSeq->run(scene);
+        }
+
     }
     else
     {
@@ -809,6 +813,20 @@ bool SceneFileHandlerBase::subSceneFileType(SceneFileType &fileType)
 #pragma warning (default : 383)
 #endif
 
+    
+static bool initializeDefaultGraphOps(void)
+{
+    GraphOpSeq *ops = new GraphOpSeq;
+    ops->setGraphOps(
+            "Stripe() SharePtr(includes=Material,StateChunk)");
+
+    SceneFileHandlerBase *the = SceneFileHandler::the();
+    
+    the->setDefaultGraphOp(ops);
+    
+    return true;
+}
+
 SceneFileHandlerBase::SceneFileHandlerBase(void) :
     _readProgressFP    (NULL          ),
     _progressData      (              ),
@@ -823,12 +841,7 @@ SceneFileHandlerBase::SceneFileHandlerBase(void) :
     _progressData.length = 0;
     _progressData.is = NULL;
 
-    if(_defaultgraphOpSeq == NULL)
-    {
-        _defaultgraphOpSeq = new GraphOpSeq;
-        _defaultgraphOpSeq->setGraphOps(
-            "Stripe() SharePtr(includes=Material,StateChunk)");
-    }
+    addPreFactoryInitFunction(initializeDefaultGraphOps);
 }
 
 // read progress stuff.
