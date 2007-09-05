@@ -996,7 +996,7 @@
 #endif
 
 #else
-#define OSG_STL_DEFAULT_ALLOCATOR std::allocator<Ty>
+#define OSG_STL_DEFAULT_ALLOCATOR(TP) std::allocator< TP >
 #endif
 
 #if (defined(__linux) && defined(__i386__)) || defined(WIN32)

@@ -144,6 +144,8 @@ class MFieldVector : public std::vector<Tp, Alloc>
     \hideinhierarchy
  */
 
+#define OSG_STL_ALLOCATOR_DEFAULT(TP) = std::allocator< TP >
+
 template<class Ty, class A = std::allocator<Ty> >
 class MFieldVector : public std::vector<Ty, A>
 {
