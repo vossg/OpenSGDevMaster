@@ -538,7 +538,7 @@ Action::ResultE RenderTraversalAction::start(void)
 
     if(_pViewport != NULL)
     {
-        _pActivePartition->setViewport(_pViewport);
+//        _pActivePartition->setViewport(_pViewport);
         _pActivePartition->setWindow  (_pWindow  );
 
         _pActivePartition->setViewportDimension(_pViewport->getPixelLeft  (),
@@ -656,14 +656,14 @@ void RenderTraversalAction::drawBuffer(UInt32 buf)
     for(Int32 i = _vRenderPartitions[buf].size() - 1; i > 0; --i)
     {
         _vRenderPartitions[buf][i]->execute();
-        _vRenderPartitions[buf][i]->exit();
+//        _vRenderPartitions[buf][i]->exit();
     }
 
     // Quick fix, have to check GV
      glPopAttrib();
 
     _vRenderPartitions[buf][0]->doExecution();
-    _vRenderPartitions[buf][0]->exit();
+//    _vRenderPartitions[buf][0]->exit();
 
     if(_bUseGLFinish == true)
     {

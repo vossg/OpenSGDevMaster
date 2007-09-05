@@ -176,8 +176,10 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*------------------------- your_operators ------------------------------*/
 
+#if 0
     void      setViewport  (Viewport   *pViewport  );
     Viewport *getViewport  (void                   );
+#endif
 
     void      setWindow    (Window     *pWindow    );
     Window   *getWindow    (void                   );
@@ -297,6 +299,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     void               setRenderTarget(FrameBufferObject *pTarget);
     FrameBufferObject *getRenderTarget(void                      );
+
+    void               setDrawBuffer  (GLenum             eBuffer);
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -420,13 +424,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition : public RenderPartitionBase
     // Target
 
     FrameBufferObject  *_pRenderTarget;
-
-    Int32               _iPixelLeft;
-    Int32               _iPixelRight;
-    Int32               _iPixelBottom;
-    Int32               _iPixelTop;
-
-    bool                _bFull;
+    GLenum              _eDrawBuffer;
 
     // Stat
 

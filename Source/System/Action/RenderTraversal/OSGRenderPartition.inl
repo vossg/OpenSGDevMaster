@@ -92,23 +92,23 @@ void RenderPartition::setViewportDimension(Int32 iPixelLeft,
                                            Int32 iPixelTop,
                                            bool  bFull       )
 {
-    _iPixelLeft   = iPixelLeft;
-    _iPixelRight  = iPixelRight;
-    _iPixelBottom = iPixelBottom;
-    _iPixelTop    = iPixelTop;
-    _bFull        = bFull;
+    _oDrawEnv.setViewportDimension(iPixelLeft,
+                                   iPixelBottom,
+                                   iPixelRight,
+                                   iPixelTop,
+                                   bFull);
 }
 
 inline
 Int32 RenderPartition::getViewportWidth(void)
 {
-    return _iPixelRight - _iPixelLeft + 1;
+    return _oDrawEnv.getPixelWidth();
 }
 
 inline
 Int32 RenderPartition::getViewportHeight(void)
 {
-    return _iPixelTop - _iPixelBottom + 1;
+    return _oDrawEnv.getPixelHeight();
 }
 
 inline
@@ -147,6 +147,7 @@ StatCollectorP RenderPartition::getStatCollector(void)
     return _oDrawEnv.getStatCollector();
 }
 
+#if 0
 inline
 void RenderPartition::setViewport(Viewport *pViewport)
 {
@@ -158,7 +159,7 @@ Viewport *RenderPartition::getViewport(void)
 {
     return _oDrawEnv.getViewport();
 }
-
+#endif
 
 inline
 void RenderPartition::setWindow(Window *pWindow)
@@ -330,6 +331,12 @@ inline
 FrameBufferObject *RenderPartition::getRenderTarget(void)
 {
     return _pRenderTarget;
+}
+
+inline
+void RenderPartition::setDrawBuffer(GLenum eBuffer)
+{
+    _eDrawBuffer = eBuffer;
 }
 
 inline

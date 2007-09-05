@@ -296,11 +296,13 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv &denv, RenderPartition *part)
     //std::cout << "Calculated Pixels" << std::endl;
 
     
-    Viewport* vp = denv.getViewport();
-    _vpWidth = vp->getPixelWidth();
-    _vpHeight = vp->getPixelHeight();
+//    Viewport* vp = denv.getViewport();
+    _vpWidth = denv.getPixelWidth();
+    _vpHeight = denv.getPixelHeight();
 
-    vp->getCamera()->getWorldToScreen(_worldToScreen, *vp);
+//    vp->getCamera()->getWorldToScreen(_worldToScreen, *vp);
+    
+    _worldToScreen = denv.getVPWorldToScreen();
     
     _testingState = &*_testingStatePtr;
 

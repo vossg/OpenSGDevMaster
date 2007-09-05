@@ -174,12 +174,8 @@ RenderPartition::RenderPartition(Mode eMode) :
     _pMaterialNode           (   NullFC),
 
     _pRenderTarget           (     NULL),
-    _iPixelLeft              (        0),
-    _iPixelRight             (        1),
-    _iPixelBottom            (        0),
-    _iPixelTop               (        1),
-    _bFull                   (     true),
- 
+    _eDrawBuffer             (  GL_NONE),
+
     _uiNumMatrixChanges      (        0),
     _uiNumTriangles          (        0),
 
@@ -227,6 +223,8 @@ void RenderPartition::reset(Mode eMode)
     _vPreRenderCallbacks .clear();
     _vPostRenderCallbacks.clear();
 
+    _eDrawBuffer = GL_NONE;
+
     if(_eMode == StateSorting || _eMode == TransformSorting)
     {
         _pBackground = NULL;
@@ -268,14 +266,7 @@ void RenderPartition::reset(Mode eMode)
         
         _pRenderTarget    = NULL;
         
-        _iPixelLeft       = 0;
-        _iPixelRight      = 1;
-        _iPixelBottom     = 0;
-        _iPixelTop        = 1;
-        
-        
         _visibilityStack.clear();
-        
         
         _bFrustumCulling = true;
         _bVolumeDrawing  = false;
@@ -286,11 +277,6 @@ void RenderPartition::reset(Mode eMode)
         _pBackground      = NULL;
 
         _pRenderTarget    = NULL;
-
-        _iPixelLeft       = 0;
-        _iPixelRight      = 1;
-        _iPixelBottom     = 0;
-        _iPixelTop        = 1;
 
         _oDrawEnv.clearState();
         
@@ -327,32 +313,43 @@ void RenderPartition::calcViewportDimension(Real32 rLeft,
                                             UInt16 iTargetWidth,
                                             UInt16 iTargetHeight)
 {
+    Int32 iPixelLeft;
+    Int32 iPixelRight;
+    Int32 iPixelTop;
+    Int32 iPixelBottom;
+
     if(rLeft > 1.f)
-        _iPixelLeft = Int32(rLeft);
+        iPixelLeft = Int32(rLeft);
     else
-        _iPixelLeft = Int32(iTargetWidth * rLeft);
+        iPixelLeft = Int32(iTargetWidth * rLeft);
 
     if(rRight > 1.f)
-        _iPixelRight = Int32(rRight);
+        iPixelRight = Int32(rRight);
     else
-        _iPixelRight = Int32(iTargetWidth * rRight) - 1;
+        iPixelRight = Int32(iTargetWidth * rRight) - 1;
 
 
     if(rBottom > 1.f)
-        _iPixelBottom = Int32(rBottom);
+        iPixelBottom = Int32(rBottom);
     else
-        _iPixelBottom = Int32(iTargetHeight * rBottom);
+        iPixelBottom = Int32(iTargetHeight * rBottom);
 
     if(rTop > 1.f)
-        _iPixelTop = Int32(rTop);
+        iPixelTop = Int32(rTop);
     else
-        _iPixelTop = Int32(iTargetHeight * rTop) - 1;
+        iPixelTop = Int32(iTargetHeight * rTop) - 1;
 
 
-    _bFull = ( (_iPixelLeft   == 0                ) &&
-               (_iPixelRight  == iTargetWidth  - 1) &&
-               (_iPixelBottom == 0                ) &&
-               (_iPixelTop    == iTargetHeight - 1)  );
+    bool bFull = ( (iPixelLeft   == 0                ) &&
+                   (iPixelRight  == iTargetWidth  - 1) &&
+                   (iPixelBottom == 0                ) &&
+                   (iPixelTop    == iTargetHeight - 1)  );
+
+    _oDrawEnv.setViewportDimension(iPixelLeft,
+                                   iPixelBottom,
+                                   iPixelRight,
+                                   iPixelTop,
+                                   bFull       );
 }
 
 void RenderPartition::setupExecution(void)
@@ -370,18 +367,22 @@ void RenderPartition::setupExecution(void)
 #endif
 
     if(_pRenderTarget != NULL)
-        _pRenderTarget->activate(&_oDrawEnv);
+        _pRenderTarget->activate(&_oDrawEnv, _eDrawBuffer);
 
     if(0x0000 != (_eSetupMode & ViewportSetup))
     {
-        Int32 pw  = _iPixelRight - _iPixelLeft + 1;
-        Int32 ph  = _iPixelTop   - _iPixelBottom + 1;
+        glViewport(_oDrawEnv.getPixelLeft  (), 
+                   _oDrawEnv.getPixelBottom(), 
+                   _oDrawEnv.getPixelWidth (), 
+                   _oDrawEnv.getPixelHeight());
         
-        glViewport(_iPixelLeft, _iPixelBottom, pw, ph);
-        
-        if(_bFull == false)
+        if(_oDrawEnv.getFull() == false)
         {
-            glScissor (_iPixelLeft, _iPixelBottom, pw, ph);
+            glScissor (_oDrawEnv.getPixelLeft  (), 
+                       _oDrawEnv.getPixelBottom(), 
+                       _oDrawEnv.getPixelWidth (), 
+                       _oDrawEnv.getPixelHeight());
+
             glEnable(GL_SCISSOR_TEST);
         }
     }
@@ -400,7 +401,7 @@ void RenderPartition::setupExecution(void)
     {
         if(_pBackground != NULL)
         {
-            _pBackground->clear(&_oDrawEnv, _oDrawEnv.getViewport());
+            _pBackground->clear(&_oDrawEnv); //, _oDrawEnv.getViewport());
         }
     }
 }
@@ -468,7 +469,7 @@ void RenderPartition::doExecution   (void)
         if(!_bZWriteTrans)
             glDepthMask(true);
         
-        if(_bFull == false)
+        if(_oDrawEnv.getFull() == false)
         {
             glDisable(GL_SCISSOR_TEST);
         }
@@ -492,6 +493,8 @@ void RenderPartition::doExecution   (void)
 
     if(_pRenderTarget != NULL)
         _pRenderTarget->deactivate(&_oDrawEnv);
+    
+    exit();
 }
 
 
@@ -509,7 +512,7 @@ void RenderPartition::execute(void)
     while(gIt != gEnd)
     {
         (*gIt)->execute();
-        (*gIt)->exit   ();
+//        (*gIt)->exit   ();
 
         ++gIt;
     }
@@ -944,10 +947,12 @@ void RenderPartition::initFrom(RenderPartition *pSource,
                               pSource->getProjectionTrans());
     }
 
+#if 0
     if(0x0000 != (uiCopyOnPush & CopyViewport))
     {
         this->setViewport(pSource->getViewport());
     }
+#endif
 
     if(0x0000 != (uiCopyOnPush & CopyWindow))
     {
@@ -956,11 +961,11 @@ void RenderPartition::initFrom(RenderPartition *pSource,
 
     if(0x0000 != (uiCopyOnPush & CopyViewportSize))
     {
-        this->setViewportDimension(pSource->_iPixelLeft,
-                                   pSource->_iPixelBottom,
-                                   pSource->_iPixelRight,
-                                   pSource->_iPixelTop,
-                                   pSource->_bFull);
+        this->setViewportDimension(pSource->_oDrawEnv.getPixelLeft  (),
+                                   pSource->_oDrawEnv.getPixelBottom(),
+                                   pSource->_oDrawEnv.getPixelRight (),
+                                   pSource->_oDrawEnv.getPixelTop   (),
+                                   pSource->_oDrawEnv.getFull       ());
 
     }
 
