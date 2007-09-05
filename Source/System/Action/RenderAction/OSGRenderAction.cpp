@@ -2415,7 +2415,14 @@ Action::ResultE RenderAction::start(void)
     _visibilityStack.clear();
     _visibilityStack.push_back(FrustumVolume::P_NONE);
 
-    _pDrawEnv->setViewport (_viewport);
+//    _pDrawEnv->setViewport (_viewport);
+
+    _pDrawEnv->setViewportDimension(_viewport->getPixelLeft  (),
+                                    _viewport->getPixelRight (),
+                                    _viewport->getPixelBottom(),
+                                    _viewport->getPixelTop   (),
+                                    _viewport->isFullWindow  ());
+
     _pDrawEnv->setWindow   (_window  );
 
     bool full = false;

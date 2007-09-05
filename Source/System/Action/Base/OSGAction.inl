@@ -75,9 +75,9 @@ void Action::addNode(NodePtrConstArg node)
 }
 
 inline
-void Action::useNodeList(void)
+void Action::useNodeList(bool bVal)
 {
-    _useNewList = true;
+    _useNewList = bVal;
 }
 
 inline

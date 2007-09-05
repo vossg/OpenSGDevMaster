@@ -185,7 +185,7 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     // them, but it's not clear if any at all. Call useNodeList() and then
     // addNode() for every node to traverse, or not at all. 
 
-    void         useNodeList(void            ); 
+    void         useNodeList(bool bVal = true    ); 
    
     /*------------------------- assignment ----------------------------------*/
 
@@ -193,6 +193,11 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     
     void   setTravMask (UInt32 val);
     
+    /*------------------------- comparison ----------------------------------*/
+
+    // recurse through the node
+    ResultE recurse(NodePtrConstArg node);
+
     /*------------------------- comparison ----------------------------------*/
 
     bool operator <  (const Action &other);
@@ -243,10 +248,7 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     virtual ResultE start(void       );  
     virtual ResultE stop (ResultE res); // res is the exit code of the action
     
-    // recurse through the node
-    
-    ResultE recurse(NodePtrConstArg node);
-    
+   
     // call the _newList list of nodes
     
     ResultE callNewList(void);
