@@ -2484,7 +2484,7 @@ Action::ResultE RenderAction::start(void)
 
         if(_background != NULL)
         {
-            _background->clear(_pDrawEnv, _viewport);
+            _background->clear(_pDrawEnv);
         }
     }
 
