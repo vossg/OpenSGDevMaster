@@ -68,7 +68,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackground :
     /*! \name                     Clear                                    */
     /*! \{                                                                 */
 
-    void clear(DrawEnv *pEnv, Viewport *pPort);
+    void clear(DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

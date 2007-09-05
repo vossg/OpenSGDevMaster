@@ -114,19 +114,19 @@ void TextureGrabBackground::changed(ConstFieldMaskArg whichField,
 
 /*-------------------------- your_category---------------------------------*/
 
-void TextureGrabBackground::clear(DrawEnv *pEnv, Viewport *pPort)
+void TextureGrabBackground::clear(DrawEnv *pEnv)
 {   
     // grab the texture
     TextureObjChunkPtr t = getTexture();
     
     if(t == NullFC)       // No texture, no grab.
     {
-        Inherited::clear(pEnv, pPort);
+        Inherited::clear(pEnv);
         return;
     }
     
-    Int32  pw = pPort->getPixelWidth ();
-    Int32  ph = pPort->getPixelHeight();
+    Int32  pw = pEnv->getPixelWidth ();
+    Int32  ph = pEnv->getPixelHeight();
     
     // Ignore empty viewports
     if(pw < 1 || ph < 1)
@@ -160,7 +160,7 @@ void TextureGrabBackground::clear(DrawEnv *pEnv, Viewport *pPort)
         {
             FWARNING(("TextureGrabBackground:: 3D textures not "
                       "supported for this window!\n"));
-            Inherited::clear(pEnv, pPort);
+            Inherited::clear(pEnv);
             return;
         }
         else if(h > 1) 
@@ -189,13 +189,13 @@ void TextureGrabBackground::clear(DrawEnv *pEnv, Viewport *pPort)
     else if(copyTarget == GL_TEXTURE_1D)
     {
         glCopyTexSubImage1D(copyTarget, 0, 0, 
-                            pPort->getPixelLeft(), pPort->getPixelBottom(), 
+                            pEnv->getPixelLeft(), pEnv->getPixelBottom(), 
                             w);
     }
     else
     {
         glCopyTexSubImage2D(copyTarget, 0, 0, 0, 
-                            pPort->getPixelLeft(), pPort->getPixelBottom(), 
+                            pEnv->getPixelLeft(), pEnv->getPixelBottom(), 
                             w, h);
     }
     
@@ -204,7 +204,7 @@ void TextureGrabBackground::clear(DrawEnv *pEnv, Viewport *pPort)
     glBindTexture(bindTarget, 0);
    
     // now do the clearing
-    Inherited::clear(pEnv, pPort);
+    Inherited::clear(pEnv);
 }
 
 /*------------------------------- dump ----------------------------------*/

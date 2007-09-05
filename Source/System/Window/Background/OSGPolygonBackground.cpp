@@ -49,6 +49,7 @@
 
 #include "OSGPolygonBackground.h"
 #include "OSGTileCameraDecorator.h"
+#include "OSGDrawEnv.h"
 
 OSG_USING_NAMESPACE
 
@@ -117,10 +118,10 @@ Real32 PolygonBackground::mapCoordinate(Real32 val, Real32 max, bool norm)
     return val;
 }
 
-void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
+void PolygonBackground::clear(DrawEnv *pEnv)
 {
-    if(pPort->getPixelWidth()  == 0 ||
-       pPort->getPixelHeight() == 0 ) 
+    if(pEnv->getPixelWidth()  == 0 ||
+       pEnv->getPixelHeight() == 0 ) 
     {   
         FWARNING(("Port has zero size: nothing to render to!\n"));
         return;
@@ -162,8 +163,8 @@ void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
     
     if (getAspectHeight() && getAspectWidth())
     {
-        aspectX = ((Real32)pPort->getPixelHeight()/getAspectHeight()) /
-                  ((Real32)pPort->getPixelWidth() / getAspectWidth());
+        aspectX = ((Real32)pEnv->getPixelHeight()/getAspectHeight()) /
+                  ((Real32)pEnv->getPixelWidth() / getAspectWidth());
     }
  
 	glMatrixMode(GL_TEXTURE);
@@ -180,9 +181,10 @@ void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
    
  	Real32 sFac = getScale() > 0 ? getScale() : 1.0f;
 	
-	UInt32 width  = pPort->getPixelWidth(),
-		   height = pPort->getPixelHeight();
+	UInt32 width  = pEnv->getPixelWidth(),
+		   height = pEnv->getPixelHeight();
 
+#if 0
     Camera *cP               = getCPtr(pPort->getCamera());
     TileCameraDecorator *cdP = dynamic_cast<TileCameraDecorator*>(cP);
 	
@@ -199,12 +201,11 @@ void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
 	cdP = dynamic_cast<TileCameraDecorator*>(cP);
     
     if (cdP && !getTile())
+#endif
+
+    if(!getTile())
     {
-        Real32 t = 0,
-               left   = cdP->getLeft(),
-               right  = cdP->getRight(),
-               top    = cdP->getTop(),
-               bottom = cdP->getBottom();
+        Real32 t = 0;
         
         if (getAspectHeight() && getAspectWidth() &&
             height != 0 && width != 0)
@@ -212,20 +213,20 @@ void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
             aspectX = ((Real32)height/getAspectHeight()) /
                       ((Real32)width / getAspectWidth());
             t  = (Real32)width * (1 - aspectX) * 0.5f;
-            t *= (Real32)pPort->getPixelWidth() / width;
+            t *= (Real32)pEnv->getPixelWidth() / width;
         }
 		
 		Matrix sm;
-		cP->getDecoration(sm, width, height);
+		pEnv->getCameraDecoration(); //sm, width, height);
         
         glLoadMatrixf(sm.getValues());
-        glOrtho(0, pPort->getPixelWidth(), 0, pPort->getPixelHeight(), 0, 1);
+        glOrtho(0, pEnv->getPixelWidth(), 0, pEnv->getPixelHeight(), 0, 1);
         
         glTranslatef(t, 0, 0);
         glScalef(aspectX, aspectY, 1);
 		
-        float t1 = (1 - sFac) * 0.5f * (Real32)pPort->getPixelWidth();
-        float t2 = (1 - sFac) * 0.5f * (Real32)pPort->getPixelHeight();
+        float t1 = (1 - sFac) * 0.5f * (Real32)pEnv->getPixelWidth();
+        float t2 = (1 - sFac) * 0.5f * (Real32)pEnv->getPixelHeight();
         glTranslatef(t1, t2, 0);
         glScalef(sFac,sFac,1);
     }
@@ -234,8 +235,8 @@ void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
         glScalef(sFac,sFac,1);
         
         glScalef(aspectX, aspectY, 1);
-        glOrtho(0, pPort->getPixelWidth(), 
-                0, pPort->getPixelHeight(), 
+        glOrtho(0, pEnv->getPixelWidth(), 
+                0, pEnv->getPixelHeight(), 
                 0, 1);    
     }
 
@@ -250,9 +251,9 @@ void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
     for (UInt16 i=0; i<getPositions().size(); i++)
     {
         glTexCoord3fv( tc[i].getValues() );
-        glVertex2f( mapCoordinate(pos[i][0], Real32(pPort->getPixelWidth()),
+        glVertex2f( mapCoordinate(pos[i][0], Real32(pEnv->getPixelWidth()),
                                              getNormalizedX()),
-                    mapCoordinate(pos[i][1], Real32(pPort->getPixelHeight()),
+                    mapCoordinate(pos[i][1], Real32(pEnv->getPixelHeight()),
                                              getNormalizedY()) );
     }
 

@@ -101,7 +101,7 @@ void SolidBackground::changed(ConstFieldMaskArg whichField,
 
 /*-------------------------- your_category---------------------------------*/
 
-void SolidBackground::clear(DrawEnv *, Viewport *)
+void SolidBackground::clear(DrawEnv *)
 {
 	const Color3r &col = getColor();
 

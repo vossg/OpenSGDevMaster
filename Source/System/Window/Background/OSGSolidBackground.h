@@ -63,8 +63,7 @@ class OSG_WINDOW_DLLMAPPING SolidBackground : public SolidBackgroundBase
     /*! \name                     your_category                            */
     /*! \{                                                                 */
 
-    void clear(DrawEnv  *, 
-               Viewport *);
+    void clear(DrawEnv  *);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

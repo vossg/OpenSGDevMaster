@@ -128,6 +128,13 @@ const Matrixr &DrawEnv::getCameraProjectionTrans(void) const
 }
 
 inline
+const Matrixr &DrawEnv::getCameraDecoration(void) const
+{
+    return _cameraDecoration;
+}
+
+
+inline
 const Matrixr &DrawEnv::getCameraViewing(void) const
 {
     return _cameraViewing;
@@ -297,6 +304,9 @@ void DrawEnv::clearState(void)
     _uiNumStateChanges       = 0;
     _uiNumShaderChanges      = 0;
     _uiNumShaderParamChanges = 0;
+
+
+    _cameraDecoration .setIdentity();
 
     _iPixelLeft              = 0;
     _iPixelRight             = 1;

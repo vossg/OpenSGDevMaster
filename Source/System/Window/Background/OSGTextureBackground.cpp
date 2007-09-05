@@ -192,8 +192,7 @@ void TextureBackground::updateGrid(void)
     }
 }
 
-void TextureBackground::clear(DrawEnv  *pEnv, 
-                              Viewport *   )
+void TextureBackground::clear(DrawEnv  *pEnv)
 {
     TextureBaseChunkPtr tex = getTexture();
 

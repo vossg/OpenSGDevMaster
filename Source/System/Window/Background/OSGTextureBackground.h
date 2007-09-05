@@ -60,7 +60,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackground : public TextureBackgroundBase
     /*! \name                     Clear                                    */
     /*! \{                                                                 */
 
-    virtual void clear(DrawEnv *pEnv, Viewport *pPort);
+    virtual void clear(DrawEnv *pEnv);
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */

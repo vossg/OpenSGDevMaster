@@ -62,7 +62,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackground : public PolygonBackgroundBase
     /*! \name                     Clear                                    */
     /*! \{                                                                 */
 
-    virtual void clear(DrawEnv *pEnv, Viewport *pPort);
+    virtual void clear(DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

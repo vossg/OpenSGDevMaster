@@ -72,7 +72,7 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackground :
     void clear(DrawActionBase *, Viewport *);
 #endif
 
-    void clear(DrawEnv *, Viewport *);
+    void clear(DrawEnv *);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

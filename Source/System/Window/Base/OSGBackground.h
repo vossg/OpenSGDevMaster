@@ -46,7 +46,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-class Viewport;
 class DrawEnv;
 
 /*! \brief Background clearing base class. See \ref 
@@ -63,8 +62,7 @@ class OSG_SYSTEM_DLLMAPPING Background : public BackgroundBase
     /*! \name                    access fields                             */
     /*! \{                                                                 */
 
-    virtual void clear(DrawEnv  *pEnv,
-                       Viewport *pPort) = 0;
+    virtual void clear(DrawEnv *pEnv) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

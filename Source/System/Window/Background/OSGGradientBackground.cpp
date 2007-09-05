@@ -112,8 +112,7 @@ void GradientBackground::changed(ConstFieldMaskArg whichField,
 
 /*-------------------------- your_category---------------------------------*/
 
-#ifdef OSG_OLD_RENDER_ACTION
-void GradientBackground::clear(DrawActionBase *pEnv, Viewport *pPort)
+void GradientBackground::clear(DrawEnv *pEnv)
 {
     Int32 bit = getClearStencilBit();
 
@@ -159,8 +158,9 @@ void GradientBackground::clear(DrawActionBase *pEnv, Viewport *pPort)
         glPushMatrix();
         glLoadIdentity();
 
-        UInt32 width  = pPort->getPixelWidth(),
-               height = pPort->getPixelHeight();
+#if 0
+        UInt32 width  = pEnv->getPixelWidth(),
+               height = pEnv->getPixelHeight();
 
         Camera              *cP  = getCPtr(pPort->getCamera());
         TileCameraDecorator *cdP = dynamic_cast<TileCameraDecorator*>(cP);
@@ -174,7 +174,7 @@ void GradientBackground::clear(DrawActionBase *pEnv, Viewport *pPort)
             cdP = dynamic_cast<TileCameraDecorator*>(cP);
         }
 
-        cP  = getCPtr(pPort->getCamera());
+        cP  = getCPtr(pEnv->getCamera());
         cdP = dynamic_cast<TileCameraDecorator*>(cP);
 
         if(cdP != NULL)
@@ -190,138 +190,16 @@ void GradientBackground::clear(DrawActionBase *pEnv, Viewport *pPort)
         {
             glOrtho(0, 1, 0, 1, 0, 1);
         }
-
-        Real32 r1, g1, b1;
-        UInt32 size = _mfPosition.size();
-
-        glBegin(GL_QUAD_STRIP);
-        
-        Real32 pos = _mfPosition[0];
-        if(pos > 0) 
-        {
-            glColor3f(0.0, 0.0, 0.0);
-            glVertex3f(0, 0, 0);
-            glVertex3f(1, 0, 0);
-        }
-
-        for(UInt32 i = 0; i < size; i++)
-        {
-            pos = _mfPosition[i];
-
-            Color3f col1 = _mfColor[i];
-            col1.getValuesRGB(r1, g1, b1);
-
-            glColor3f(r1, g1, b1);
-            glVertex3f(0, pos, 0);
-            glVertex3f(1, pos, 0);
-        }
-
-        if(pos < 1) 
-        {
-            glColor3f(0.0, 0.0, 0.0);
-            glVertex3f(0, 1, 0);
-            glVertex3f(1, 1, 0);
-        }
-        
-        glEnd();
-
-        glPopMatrix();
-        glMatrixMode(GL_MODELVIEW);
-        glPopMatrix();
-
-        glPopAttrib();
-
-        if(bit >= 0)
-        {
-            glClearStencil(bit);
-
-            glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-        }
-        else
-        {
-            glClear(GL_DEPTH_BUFFER_BIT);
-        }
-    }
-}
 #endif
 
-void GradientBackground::clear(DrawEnv *pEnv, Viewport *pPort)
-{
-    Int32 bit = getClearStencilBit();
+        glOrtho(pEnv->getPixelLeft  (), 
+                pEnv->getPixelRight (),
+                pEnv->getPixelBottom(),
+                pEnv->getPixelTop   (), 
+                0.f, 
+                1.f);
 
-    if(_mfPosition.size() < 2)
-    {
-        Real32 r = 0.f, g = 0.f, b = 0.f;
-
-        if(_mfPosition.size() == 1)
-        {
-            Color3f col = _mfColor[0];
-            col.getValuesRGB(r, g, b);
-        }
-
-        glClearColor(r, g, b, 1);
         
-        if (bit >= 0)
-        {
-            glClearStencil(bit);
-            glClear((GL_COLOR_BUFFER_BIT   | 
-                     GL_DEPTH_BUFFER_BIT   | 
-                     GL_STENCIL_BUFFER_BIT ));
-        }
-        else
-        {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        }
-    }
-    else
-    {
-        glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT | 
-                     GL_LIGHTING_BIT);
-        
-        glDisable(GL_LIGHTING);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        glDisable(GL_DEPTH_TEST);
-        glDisable(GL_COLOR_MATERIAL);
-
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        glLoadIdentity();
-
-        glMatrixMode(GL_PROJECTION);
-        glPushMatrix();
-        glLoadIdentity();
-
-        UInt32 width  = pPort->getPixelWidth(),
-               height = pPort->getPixelHeight();
-
-        Camera              *cP  = getCPtr(pPort->getCamera());
-        TileCameraDecorator *cdP = dynamic_cast<TileCameraDecorator*>(cP);
-
-        while(cdP != NULL)
-        {
-            width  = cdP->getFullWidth()  ? cdP->getFullWidth()  : width;
-            height = cdP->getFullHeight() ? cdP->getFullHeight() : height;
-
-            cP  = getCPtr(cdP->getDecoratee());
-            cdP = dynamic_cast<TileCameraDecorator*>(cP);
-        }
-
-        cP  = getCPtr(pPort->getCamera());
-        cdP = dynamic_cast<TileCameraDecorator*>(cP);
-
-        if(cdP != NULL)
-        {
-            Real32 left   = cdP->getLeft(),
-                   right  = cdP->getRight(),
-                   top    = cdP->getTop(),
-                   bottom = cdP->getBottom();
-
-            glOrtho(left , right, bottom, top, 0, 1);
-        }
-        else
-        {
-            glOrtho(0, 1, 0, 1, 0, 1);
-        }
 
         Real32 r1, g1, b1;
         UInt32 size = _mfPosition.size();

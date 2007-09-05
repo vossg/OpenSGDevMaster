@@ -97,6 +97,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     const Matrixr       &getCameraFullProjection (void         ) const;
     const Matrixr       &getCameraProjection     (void         ) const;
     const Matrixr       &getCameraProjectionTrans(void         ) const;
+    const Matrixr       &getCameraDecoration     (void         ) const;
 
     const Matrixr       &getCameraViewing        (void         ) const;
 
@@ -230,6 +231,8 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     Matrixr        _cameraProjectionTrans;
     Matrixr        _cameraViewing;
     Matrixr        _cameraToWorld;
+    Matrixr        _cameraDecoration;
+
     Matrixr        _objectToWorld;
     Matrixr        _worldToScreen;
 

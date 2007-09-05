@@ -74,7 +74,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackground : public SkyBackgroundBase
     /*! \name                     Background                               */
     /*! \{                                                                 */
 
-    virtual void clear(DrawEnv *pEnv, Viewport *pPort);
+    virtual void clear(DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

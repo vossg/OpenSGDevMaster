@@ -68,11 +68,7 @@ class OSG_WINDOW_DLLMAPPING GradientBackground : public GradientBackgroundBase
     /*! \name                    your_category                             */
     /*! \{                                                                 */
     
-#ifdef OSG_OLD_RENDER_ACTION
-    void clear(DrawActionBase *, Viewport *);
-#endif
-
-    void clear(DrawEnv *,        Viewport *);
+    void clear(DrawEnv *);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

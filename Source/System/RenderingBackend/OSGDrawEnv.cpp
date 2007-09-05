@@ -63,6 +63,7 @@ DrawEnv::DrawEnv(void) :
     _cameraProjectionTrans  (     ),
     _cameraViewing          (     ),
     _cameraToWorld          (     ),
+    _cameraDecoration       (     ),
     _objectToWorld          (     ),
 
     _vpCameraFullProjection (     ),
@@ -94,6 +95,8 @@ DrawEnv::DrawEnv(void) :
     _cameraProjectionTrans  .setIdentity();
     _cameraViewing          .setIdentity();
     _cameraToWorld          .setIdentity();
+    _cameraDecoration       .setIdentity();
+
     _objectToWorld          .setIdentity();
 
     _vpCameraFullProjection .setIdentity();

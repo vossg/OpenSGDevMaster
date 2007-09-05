@@ -135,7 +135,7 @@ void DepthClearBackground::clear(DrawActionBase *, Viewport *)
 }
 #endif
 
-void DepthClearBackground::clear(DrawEnv *, Viewport *)
+void DepthClearBackground::clear(DrawEnv *)
 {
     Int32 bit = getClearStencilBit();
 

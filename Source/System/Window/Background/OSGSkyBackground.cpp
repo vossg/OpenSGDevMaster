@@ -152,7 +152,7 @@ void SkyBackground::drawFace(      DrawEnv             * pEnv,
    
 }
 
-void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
+void SkyBackground::clear(DrawEnv *pEnv)
 {
 
     glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT | 

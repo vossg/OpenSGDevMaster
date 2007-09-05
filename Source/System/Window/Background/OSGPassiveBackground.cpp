@@ -109,7 +109,7 @@ void PassiveBackground::changed(ConstFieldMaskArg whichField,
 
 /*-------------------------- your_category---------------------------------*/
 
-void PassiveBackground::clear(DrawEnv *, Viewport *)
+void PassiveBackground::clear(DrawEnv *)
 {
 }
 
