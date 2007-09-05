@@ -119,19 +119,13 @@ SHLChunkPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
 //    printf("nsamples = %d\n", nsamples2);
 
     std::ostringstream ost;
-    ost 
-//        "!!ARBfp1.0\n"
-//        "OPTION NV_fragment_program2;\n"
-//        "SHORT TEMP H1, H2;\n"
-//        "TEMP R0;\n";
-
-        << "\n"
+    ost << "\n"
         << "uniform sampler2D inputTex;\n"
         << "\n"
         << "void main(void)\n"
         << "{\n"
         << "    vec2 texCoord;\n"
-        << "    vec4 sum;\n"
+        << "    vec4 sum = vec4(0., 0., 0., 0.);\n"
         << "\n";
 
 
@@ -148,7 +142,6 @@ SHLChunkPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
         }
         float weight = weights2[i];
 
-//        ost << "ADD R0, fragment.texcoord[0], {" << x_offset << ", " << y_offset << "};\n";
 
         ost << "    texCoord = gl_TexCoord[0].xy + vec2(" 
             << x_offset << ", " 
@@ -173,15 +166,9 @@ SHLChunkPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
         }
     }
 
-//    ost << 
-//        "MOV result.color, H2;\n"
-//        "END\n";
-
     ost << "\n"
         << "    gl_FragColor = sum;\n"
         << "}\n";
-
-//    std::cerr << ost.str() << std::endl;
 
     returnValue->setFragmentProgram(ost.str());
 
