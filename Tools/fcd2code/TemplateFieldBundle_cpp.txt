@@ -104,9 +104,11 @@ void @!Classname!@::initMethod(InitPhase ePhase)
 
 /*----------------------------- class specific ----------------------------*/
 
-void @!Classname!@::changed(ConstFieldMaskArg whichField, UInt32 origin)
+void @!Classname!@::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details  )
 {
-    Inherited::changed(whichField, origin);
+    Inherited::changed(whichField, origin, details);
 }
 
 void @!Classname!@::dump(      UInt32    ,
