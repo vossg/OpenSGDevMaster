@@ -1239,6 +1239,10 @@ ActionBase::ResultE MultiCoreRenderLeave(const NodeCorePtr &pCore,
 }
 
 
+<<<<<<< .merge_file_phVZPl
+=======
+#ifdef OSG_GV_BETAX
+>>>>>>> .merge_file_7IJkUi
 ActionBase::ResultE CubeMapGeneratorRenderEnter(const NodeCorePtr &pCore,
                                                       Action      *action)
 {
@@ -1651,6 +1655,10 @@ bool RenderTraversalActionInitialize(void)
         MultiCore::getClassType(), 
         MultiCoreRenderLeave);
 
+<<<<<<< .merge_file_phVZPl
+=======
+#ifdef OSG_GV_BETAX
+>>>>>>> .merge_file_7IJkUi
     RenderTraversalAction::registerEnterDefault(
         CubeMapGenerator::getClassType(), 
         CubeMapGeneratorRenderEnter);

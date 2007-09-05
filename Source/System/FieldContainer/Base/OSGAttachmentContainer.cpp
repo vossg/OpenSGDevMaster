@@ -50,6 +50,8 @@
 #include "OSGTypeBasePredicates.h"
 #include "OSGReflexiveContainerTypePredicates.h"
 
+#include "boost/bind.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 void AttachmentContainer::classDescInserter(TypeObject &oType)
@@ -365,6 +367,11 @@ EditFieldHandlePtr AttachmentContainer::editHandleAttachments(void)
         new  SFAttachmentObjPtrMap::EditHandle(
              &_sfAttachments, 
              this->getType().getFieldDesc(AttachmentsFieldId)));
+
+    returnValue->setAddMethod(boost::bind(&AttachmentContainer::addAttachment,
+                                          this,
+                                          _1,
+                                          _2));
 
     editSField(AttachmentsFieldMask);
 

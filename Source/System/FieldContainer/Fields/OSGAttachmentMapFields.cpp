@@ -40,6 +40,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
+#define OSG_COMPILEATTACHMENTMAPFIELDINST
+
 #include <OSGFieldContainer.h>
 #include <OSGAttachmentMapSFields.h>
 #include <OSGFieldContainerAttachment.h>

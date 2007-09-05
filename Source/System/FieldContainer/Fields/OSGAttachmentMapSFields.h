@@ -61,6 +61,72 @@ typedef SField<FieldBundleAttachmentMap> SFFieldBundleAttachmentPtrMap;
 typedef SField<FieldContainerAttachmentMap> SFFieldContainerAttachmentPtrMap;
 #endif
 
+template<>
+class OSG_SYSTEM_DLLMAPPING 
+    EditSFieldHandle<SFFieldContainerAttachmentPtrMap> : public EditFieldHandle
+{
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef EditFieldHandle Inherited;
+
+    typedef boost::function<void(FieldContainerAttachmentPtrConstArg,
+                                 UInt32                           )> AddMethod;
+
+    /*==========================  PUBLIC  =================================*/
+
+    FieldContainerPtr _pContainer;
+    AddMethod         _fAddMethod;
+
+  public:
+
+    typedef boost::shared_ptr<EditSFieldHandle> Ptr;
+
+    /*---------------------------------------------------------------------*/
+
+    EditSFieldHandle(const EditSFieldHandle                 &source      );
+    EditSFieldHandle(      SFFieldContainerAttachmentPtrMap *pField, 
+                     const FieldDescriptionBase             *pDescription);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual const FieldType &getType       (void) const;
+    virtual       bool       isPointerField(void) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void add(FieldContainerPtrConstArg rhs,
+                     UInt32                    uiBindings);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueToStream(OutStream &str) const;
+    virtual void pushSizeToStream (OutStream &str) const;
+
+    /*---------------------------------------------------------------------*/
+
+    void         setAddMethod(AddMethod      fMethod);
+
+    virtual bool equal       (Inherited::Ptr rhs    );
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueFromCString(const Char8             *str   );
+
+    virtual void copyValues          (      GetFieldHandlePtr  source);
+    virtual void shareValues         (      GetFieldHandlePtr  source);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void cloneValues(
+              GetFieldHandlePtr  pSrc,
+        const TypePtrVector     &shareTypes     = TypePtrVector(),
+        const TypePtrVector     &ignoreTypes    = TypePtrVector(),
+        const TypeIdVector      &shareGroupIds  = TypeIdVector (),
+        const TypeIdVector      &ignoreGroupIds = TypeIdVector ()) const;
+
+};
 
 #if 0
 template <>
@@ -91,5 +157,9 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
 #endif
 
 OSG_END_NAMESPACE
+
+#ifndef OSG_COMPILEATTACHMENTMAPFIELDINST
+#include "OSGAttachmentMapSFields.inl"
+#endif
 
 #endif /* _OSGATTACHMENTMAPSFIELDS_H_ */
