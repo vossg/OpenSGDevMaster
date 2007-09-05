@@ -68,14 +68,16 @@ OSG_BEGIN_NAMESPACE
    \ingroup GrpBaseFieldMulti
  */
 
-template<class ValueT, Int32 iNamespace = 0>
+template<class  ValueT, 
+          Int32 iNamespace = 0, 
+          class AllocT OSG_STL_ALLOCATOR_DEFAULT(ValueT)>
 class MField : public Field
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef          MFieldVector<ValueT>               StorageType;
+    typedef          MFieldVector<ValueT, AllocT>       StorageType;
     typedef typename StorageType::Inherited             StorageTypeParent;
 
     typedef typename StorageType::iterator              iterator;

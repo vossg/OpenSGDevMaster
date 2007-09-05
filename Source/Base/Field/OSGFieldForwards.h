@@ -55,7 +55,7 @@ class Field;
 template<class ValueT, Int32 iNamespace>
 class SField;
 
-template<class ValueT, Int32 iNamespace>
+template<class ValueT, Int32 iNamespace, class AllocT>
 class MField;
 
 class FieldDescriptionBase;

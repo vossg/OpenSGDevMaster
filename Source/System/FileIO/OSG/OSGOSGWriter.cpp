@@ -342,7 +342,7 @@ void OSGWriter::writeContainer(const FieldContainerPtr pFC,
         
         _outStream << IncIndent;
 
-        for(UInt32 field=1; field<=numFields; field++)
+        for(UInt32 field=numFields; field > 0; field--)
         {
             GetFieldHandlePtr fHandle = pFC->getField(field);
 
@@ -404,15 +404,8 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
     MFFieldContainerPtr::GetHandlePtr mfFCPtr = 
         boost::dynamic_pointer_cast<MFFieldContainerPtr::GetHandle>(hF);
 
-//    if(strstr(fType.getCName(), "AttachmentPtrMap") != NULL)
     if(sfAttMap != NULL && sfAttMap->isValid() == true)
     {
-        //write Attachments
-
-//        const SFFieldContainerAttachmentPtrMap *sfAttMap = 
-//            reinterpret_cast<const SFFieldContainerAttachmentPtrMap *>(
-//                hF.getField());
-
         FieldContainerAttachmentMap::const_iterator iter = 
             (*sfAttMap)->getValue().begin();
         FieldContainerAttachmentMap::const_iterator end  = 
@@ -421,8 +414,6 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
         _outStream << BeginElem 
                    << hF->getName();
 
-//        _state.setIndent(_indent.getIndent());
-        
         //if the Attachment Map is empty write [] as its content
         if(iter == end)
         {

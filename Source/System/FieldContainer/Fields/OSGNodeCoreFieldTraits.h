@@ -45,6 +45,7 @@
 #include "OSGFieldTraits.h"
 #include "OSGDataType.h"
 
+#include "OSGFieldContainerFieldTraits.h"
 #include "OSGContainerForwards.h"
 
 OSG_BEGIN_NAMESPACE

@@ -108,6 +108,7 @@ DataType FieldTraits<Color4ub     >::_type("Color4ub",     "BaseType"    );
 DataType FieldTraits<std::string  >::_type("string",       "BaseType"    );
 DataType FieldTraits<Time,      1 >::_type("Time",         "BaseType"    );
 DataType FieldTraits<DynamicVolume>::_type("DynamicVolume","BaseType"    );
+DataType FieldTraits<BoxVolume    >::_type("BoxVolume",    "BaseType"    );
 DataType FieldTraits<BitVector, 1 >::_type("BitVector",    "BaseType"    );
 DataType FieldTraits<GLenum,    1 >::_type("GLenum",       "BaseType"    );
 DataType FieldTraits<Plane        >::_type("Plane",        "BaseType"    );
@@ -230,6 +231,7 @@ OSG_FIELDTRAITS_GETTYPE   (Color4ub       )
 OSG_FIELDTRAITS_GETTYPE   (std::string    )
 OSG_FIELDTRAITS_GETTYPE_NS(Time,         1)
 OSG_FIELDTRAITS_GETTYPE   (DynamicVolume  )
+OSG_FIELDTRAITS_GETTYPE   (BoxVolume      )
 OSG_FIELDTRAITS_GETTYPE_NS(BitVector,    1)
 OSG_FIELDTRAITS_GETTYPE_NS(GLenum,       1)
 OSG_FIELDTRAITS_GETTYPE   (Plane          )
@@ -370,6 +372,7 @@ OSG_FIELD_DLLEXPORT_DEF1(SField, Color4ub       )
 OSG_FIELD_DLLEXPORT_DEF1(SField, std::string    )
 OSG_FIELD_DLLEXPORT_DEF2(SField, Time,         1)
 OSG_FIELD_DLLEXPORT_DEF1(SField, DynamicVolume  )
+OSG_FIELD_DLLEXPORT_DEF1(SField, BoxVolume      )
 OSG_FIELD_DLLEXPORT_DEF2(SField, BitVector,    1)
 OSG_FIELD_DLLEXPORT_DEF2(SField, GLenum,       1)
 OSG_FIELD_DLLEXPORT_DEF1(SField, Plane          )
@@ -383,6 +386,7 @@ OSG_FIELD_DLLEXPORT_DEF1(MField, Color4ub       )
 OSG_FIELD_DLLEXPORT_DEF1(MField, std::string    )
 OSG_FIELD_DLLEXPORT_DEF2(MField, Time,         1)
 OSG_FIELD_DLLEXPORT_DEF1(MField, DynamicVolume  )
+OSG_FIELD_DLLEXPORT_DEF1(MField, BoxVolume      )
 OSG_FIELD_DLLEXPORT_DEF2(MField, BitVector,    1)
 OSG_FIELD_DLLEXPORT_DEF2(MField, GLenum,       1)
 OSG_FIELD_DLLEXPORT_DEF1(MField, Plane          )

@@ -65,19 +65,19 @@ OSG_BEGIN_NAMESPACE
 #if defined(__linux) || defined(__hpux) || defined(__APPLE__) || defined(__sun)
 #    if defined(__GNUC__)
 #        if __GNUC__ >= 3
-#            define OSG_STL_DEFAULT_ALLOCATOR(TP) = std::allocator<TP>
+#            define OSG_STL_ALLOCATOR_DEFAULT(TP) = std::allocator<TP>
 #        endif
 #    elif defined (__ICL)
-#        define OSG_STL_DEFAULT_ALLOCATOR(TP) = std::allocator<TP>
+#        define OSG_STL_ALLOCATOR_DEFAULT(TP) = std::allocator<TP>
 #    elif defined (OSG_HPUX_ACC)
-#        define OSG_STL_DEFAULT_ALLOCATOR(TP) _RWSTD_COMPLEX_DEFAULT(std::allocator<TP>)
+#        define OSG_STL_ALLOCATOR_DEFAULT(TP) _RWSTD_COMPLEX_DEFAULT(std::allocator<TP>)
 #    elif defined(OSG_SUN_CC)
-#        define OSG_STL_DEFAULT_ALLOCATOR(TP) _RWSTD_COMPLEX_DEFAULT(std::allocator<TP>)
+#        define OSG_STL_ALLOCATOR_DEFAULT(TP) _RWSTD_COMPLEX_DEFAULT(std::allocator<TP>)
 #    else
-#        define OSG_STL_DEFAULT_ALLOCATOR(TP) = std::__STL_DEFAULT_ALLOCATOR(TP)
+#        define OSG_STL_ALLOCATOR_DEFAULT(TP) = std::__STL_DEFAULT_ALLOCATOR(TP)
 #    endif
 #else
-#    define OSG_STL_DEFAULT_ALLOCATOR(TP) = std::__STL_DEFAULT_ALLOCATOR(TP)
+#    define OSG_STL_ALLOCATOR_DEFAULT(TP) = std::__STL_DEFAULT_ALLOCATOR(TP)
 #endif
 
 /*! \ingroup GrpBaseField
@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
     \hideinhierarchy
  */
 
-template <class Tp, class Alloc OSG_STL_DEFAULT_ALLOCATOR(Tp) >
+template <class Tp, class Alloc OSG_STL_ALLOCATOR_DEFAULT(Tp) >
 class MFieldVector : public std::vector<Tp, Alloc> 
 {
   public:

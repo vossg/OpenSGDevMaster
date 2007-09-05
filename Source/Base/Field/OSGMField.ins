@@ -40,8 +40,8 @@ OSG_BEGIN_NAMESPACE
 
 #if defined(OSG_STATIC_MEMEBER_NEEDS_COPY_ASIGN_INIT)
 
-template <class ValueT, Int32 iNamespace>
-FieldType MField<ValueT, iNamespace>::_fieldType = FieldType(
+template <class ValueT, Int32 iNamespace, class AllocT>
+FieldType MField<ValueT, iNamespace, AllocT>::_fieldType = FieldType(
     MFieldTraits::getMName(),
     MFieldTraits::getPName(),
     MFieldTraits::getType (),
@@ -49,8 +49,8 @@ FieldType MField<ValueT, iNamespace>::_fieldType = FieldType(
 
 #else
 
-template <class ValueT, Int32 iNamespace>
-FieldType MField<ValueT, iNamespace>::_fieldType(
+template <class ValueT, Int32 iNamespace, class AllocT>
+FieldType MField<ValueT, iNamespace, AllocT>::_fieldType(
     MFieldTraits::getMName(),
     MFieldTraits::getPName(),
     MFieldTraits::getType (),
@@ -59,8 +59,10 @@ FieldType MField<ValueT, iNamespace>::_fieldType(
 #endif
 
 #if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_HELPER_FCT)
-template <class ValueT, Int32 iNamespace>
-const FieldType &MField<ValueT, iNamespace>::fieldTypeExportHelper(void)
+template <class ValueT, Int32 iNamespace, class AllocT>
+const FieldType &MField<ValueT, 
+                        iNamespace, 
+                        AllocT    >::fieldTypeExportHelper(void)
 {
     return _fieldType;
 }

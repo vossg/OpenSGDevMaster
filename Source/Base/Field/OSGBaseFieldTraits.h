@@ -744,12 +744,200 @@ struct FieldTraits<DynamicVolume> :
 /*! \hideinhierarchy                               */
 #endif
 
-#ifdef FDFOO
-struct DynamicVolumeFieldDesc : public FieldDescBase
-{
-    typedef DynamicVolume ValueType;
-};
+
+/*! \ingroup GrpBaseFieldTraits
+ */
+#if !defined(OSG_DOC_DEV_TRAITS)
+/*! \hideinhierarchy */
 #endif
+
+template <>
+struct FieldTraits<BoxVolume> : 
+    public FieldTraitsTemplateBase<BoxVolume>
+{
+  private:
+
+    static  DataType                   _type;
+
+  public:
+
+    typedef FieldTraits<BoxVolume>  Self;
+
+    enum                  { Convertible = (Self::FromStringConvertible |
+                                           Self::ToStreamConvertible   )     };
+
+    static OSG_BASE_DLLMAPPING
+                 DataType  &getType     (void);
+
+    static const Char8     *getSName    (void) { return "SFBoxVolume"; }
+
+    static const Char8     *getMName    (void) { return "MFBoxVolume"; }
+
+    static const BoxVolume  getDefault  (void) { return BoxVolume();   }
+
+
+    static bool getFromCString(      BoxVolume  &outVal,
+                               const Char8     *&inVal)
+    {
+        Real32 valStore[  6];
+        Char8  str     [256];
+
+        UInt32  length = strlen(inVal);
+        Char8  *c      = str;
+    
+        if(length > 256)
+        {
+            std::cerr << "FieldDataTraits<BoxVolume>::getFromString(): "
+                      << "Input too long" << std::endl;
+
+            return false;
+        }
+
+        strncpy(str, inVal, length);
+
+        while(*c != '\0')
+        {
+            if(*c == '[')
+                *c = ' ';
+            if(*c == ']')
+                *c = ' ';
+            if(*c == ',')
+                *c = ' ';
+
+            c++;
+        }
+        
+        Int16 count = sscanf(str, "%f %f %f %f %f %f",
+                             &valStore[0], 
+                             &valStore[1], 
+                             &valStore[2],
+                             &valStore[3], 
+                             &valStore[4], 
+                             &valStore[5]);
+        
+        if(count == 6)
+        {
+            outVal.setBounds(valStore[0],
+                             valStore[1],
+                             valStore[2],
+                             valStore[3],
+                             valStore[4],
+                             valStore[5]);
+
+            return true;
+        }
+        else
+        {
+            outVal.setBounds(0.f, 0.f, 0.f, 
+                             0.f, 0.f, 0.f);
+            
+            return false;
+        }
+    }
+
+
+    static void putToStream(const BoxVolume &val,
+                                  OutStream &str)
+    {
+        Pnt3r min, max;
+
+        typedef TypeTraits<Pnt3r::ValueType> TypeTrait;
+
+        val.getBounds(min, max);
+        
+        TypeTrait::putToStream(min[0], str);
+        str << " ";
+        
+        TypeTrait::putToStream(min[1], str);
+        str << " ";
+        
+        TypeTrait::putToStream(min[2], str);
+        str << " ";
+        
+        TypeTrait::putToStream(max[0], str);
+        str << " ";
+        
+        TypeTrait::putToStream(max[1], str);
+        str << " ";
+        
+        TypeTrait::putToStream(max[2], str);
+    }
+
+    static UInt32 getBinSize(const BoxVolume &oObject)
+    {
+        UInt32  size = sizeof(UInt16);
+
+        size += sizeof(Pnt3f) + sizeof(Pnt3f);
+
+        return size;
+    }
+
+
+    static UInt32 getBinSize(const BoxVolume *pObjectStore,
+                                   UInt32     uiNumObjects)
+    {
+        UInt32 size = 0;
+
+        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        {
+            size += getBinSize(pObjectStore[i]);
+        }
+
+        return size;
+    }
+
+    static void copyToBin(      BinaryDataHandler &pMem, 
+                          const BoxVolume         &oObject)
+    {
+        
+        UInt16 state = oObject.getState();
+        
+        pMem.putValue(state);
+        
+        pMem.putValues(&(oObject.getMin()[0]), 3);
+        pMem.putValues(&(oObject.getMax()[0]), 3);
+    }
+
+    static void copyToBin(      BinaryDataHandler &pMem, 
+                          const BoxVolume         *pObjectStore,
+                                UInt32             uiNumObjects)
+    {
+        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        {
+            copyToBin(pMem, pObjectStore[i]);
+        }
+    }
+
+    static void copyFromBin(BinaryDataHandler &pMem, 
+                            BoxVolume         &oObject)
+    {
+        Pnt3r min,max;
+        UInt16 state;
+        
+        pMem.getValue (state       );
+        pMem.getValues(&(min[0]), 3);
+        pMem.getValues(&(max[0]), 3);
+        
+        oObject.setBounds(min, max);
+        oObject.setState (state   );
+    }
+
+    static void copyFromBin(BinaryDataHandler &pMem, 
+                            BoxVolume         *pObjectStore,
+                            UInt32             uiNumObjects)
+    {
+        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        {
+            copyFromBin(pMem, pObjectStore[i]);
+        }
+    }
+};
+
+#if !defined(OSG_DOC_DEV_TRAITS)
+/*! \class  FieldTraitsTemplateBase<BoxVolume> */
+/*! \hideinhierarchy                           */
+#endif
+
 
 /*! \ingroup GrpBaseFieldTraits
  */

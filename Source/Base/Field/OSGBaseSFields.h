@@ -122,6 +122,14 @@ typedef SField          <DynamicVolume        > SFDynamicVolume;
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
 
+typedef SField          <BoxVolume            > SFBoxVolume;
+#endif
+
+
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+/*! \ingroup GrpBaseFieldSingle */
+
 typedef SField<BitVector, 1>  SFBitVector;
 #endif
 

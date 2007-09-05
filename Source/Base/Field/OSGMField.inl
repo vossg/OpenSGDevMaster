@@ -48,8 +48,8 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-template <class ValueT, Int32 iNamespace> inline
-MField<ValueT, iNamespace>::MField(void) :
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+MField<ValueT, iNamespace, AllocT>::MField(void) :
      Inherited   ( ),
     _values      ( )
 #ifdef OSG_MT_CPTR_ASPECT
@@ -58,8 +58,8 @@ MField<ValueT, iNamespace>::MField(void) :
 {
 }
 
-template <class ValueT, Int32 iNamespace> inline
-MField<ValueT, iNamespace>::MField(const MField &obj) :
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+MField<ValueT, iNamespace, AllocT>::MField(const MField &obj) :
      Inherited   (obj        ),
     _values      (obj._values)
 #ifdef OSG_MT_CPTR_ASPECT
@@ -68,8 +68,8 @@ MField<ValueT, iNamespace>::MField(const MField &obj) :
 {
 }
 
-template <class ValueT, Int32 iNamespace> inline
-MField<ValueT, iNamespace>::MField(const UInt32 size) :
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+MField<ValueT, iNamespace, AllocT>::MField(const UInt32 size) :
      Inherited   ( ),
     _values      ( )
 #ifdef OSG_MT_CPTR_ASPECT
@@ -82,8 +82,8 @@ MField<ValueT, iNamespace>::MField(const UInt32 size) :
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-template <class ValueT, Int32 iNamespace> inline
-MField<ValueT, iNamespace>::~MField(void)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+MField<ValueT, iNamespace, AllocT>::~MField(void)
 {
 }
 
@@ -93,9 +93,9 @@ MField<ValueT, iNamespace>::~MField(void)
 /*! Return a reference to the value store 
  */
 
-template <class ValueT, Int32 iNamespace> inline
-typename MField<ValueT, iNamespace>::StorageType &
-    MField<ValueT, iNamespace>::getValues(void)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+typename MField<ValueT, iNamespace, AllocT>::StorageType &
+    MField<ValueT, iNamespace, AllocT>::getValues(void)
 {
     return _values;
 }
@@ -103,9 +103,9 @@ typename MField<ValueT, iNamespace>::StorageType &
 /*! Return a const reference to the value store 
  */
 
-template <class ValueT, Int32 iNamespace> inline
-const typename MField<ValueT, iNamespace>::StorageType &
-    MField<ValueT, iNamespace>::getValues(void) const
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+const typename MField<ValueT, iNamespace, AllocT>::StorageType &
+    MField<ValueT, iNamespace, AllocT>::getValues(void) const
 {
     return _values;
 }
@@ -113,14 +113,14 @@ const typename MField<ValueT, iNamespace>::StorageType &
 /*-------------------------------------------------------------------------*/
 /*                                Set                                      */
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::setValues(const StorageType &value)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::setValues(const StorageType &value)
 {
     _values = value;
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::setValues(
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::setValues(
     const StorageTypeParent &value)
 {
     // Hack probably move it to MFieldVector (GV)
@@ -128,14 +128,14 @@ void MField<ValueT, iNamespace>::setValues(
     *(static_cast<StorageTypeParent *>(&_values)) = value;
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::setValues(const Self &obj)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::setValues(const Self &obj)
 {
     _values = obj._values;
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::addValueFromCString(const Char8 *str)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::addValueFromCString(const Char8 *str)
 {
     ValueT tmpVal;
 
@@ -152,8 +152,10 @@ void MField<ValueT, iNamespace>::addValueFromCString(const Char8 *str)
 }
 
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::pushValuesToString(std::string  &str) const
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, 
+            iNamespace, 
+            AllocT    >::pushValuesToString(std::string  &str) const
 {
     typedef typename boost::mpl::if_<boost::mpl::bool_< 
         static_cast<bool>(MFieldTraits    ::Convertible &
@@ -174,8 +176,10 @@ void MField<ValueT, iNamespace>::pushValuesToString(std::string  &str) const
 
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::pushValuesFromStream(std::istream &str)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, 
+            iNamespace, 
+            AllocT    >::pushValuesFromStream(std::istream &str)
 {
     ValueT tmpVal;
 
@@ -191,8 +195,10 @@ void MField<ValueT, iNamespace>::pushValuesFromStream(std::istream &str)
     push_back(tmpVal);
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::pushValuesToStream(OutStream &str) const
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, 
+            iNamespace, 
+            AllocT    >::pushValuesToStream(OutStream &str) const
 {
     typedef typename boost::mpl::if_<boost::mpl::bool_< 
         static_cast<bool>(MFieldTraits    ::Convertible &
@@ -213,8 +219,8 @@ void MField<ValueT, iNamespace>::pushValuesToStream(OutStream &str) const
 
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::pushSizeToStream(OutStream &str) const
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::pushSizeToStream(OutStream &str) const
 {
     str << _values.size();
 }
@@ -222,8 +228,8 @@ void MField<ValueT, iNamespace>::pushSizeToStream(OutStream &str) const
 /*-------------------------------------------------------------------------*/
 /*                         Binary Interface                                */
 
-template <class ValueTypeT, Int32 iNameSpace> inline
-UInt32 MField<ValueTypeT, iNameSpace>::getBinSize(void) const
+template <class ValueTypeT, Int32 iNameSpace, class AllocT> inline
+UInt32 MField<ValueTypeT, iNameSpace, AllocT>::getBinSize(void) const
 {
     return 
         sizeof(UInt32) + // num elements
@@ -231,9 +237,10 @@ UInt32 MField<ValueTypeT, iNameSpace>::getBinSize(void) const
          MFieldTraits::getBinSize(&(_values[0]), _values.size()) : 0);
 }
 
-template <class ValueTypeT, Int32 iNameSpace> inline
+template <class ValueTypeT, Int32 iNameSpace, class AllocT> inline
 void MField<ValueTypeT, 
-            iNameSpace>::copyToBin(BinaryDataHandler &pMem) const
+            iNameSpace, 
+            AllocT>::copyToBin(BinaryDataHandler &pMem) const
 {
     UInt32 n = _values.size();
 
@@ -247,8 +254,10 @@ void MField<ValueTypeT,
     }
 }
 
-template <class ValueTypeT, Int32 iNameSpace> inline
-void MField<ValueTypeT, iNameSpace>::copyFromBin(BinaryDataHandler &pMem)
+template <class ValueTypeT, Int32 iNameSpace, class AllocT> inline
+void MField<ValueTypeT, 
+            iNameSpace, 
+            AllocT    >::copyFromBin(BinaryDataHandler &pMem)
 {
     UInt32 n;
 
@@ -274,171 +283,203 @@ void MField<ValueTypeT, iNameSpace>::copyFromBin(BinaryDataHandler &pMem)
 /*-------------------------------------------------------------------------*/
 /*                             STL Interface                               */
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::iterator MField<ValueT, 
-                                             iNamespace>::begin (void)
+                iNamespace, 
+                AllocT    >::iterator MField<ValueT, 
+                                             iNamespace, 
+                                             AllocT    >::begin (void)
 {
     return _values.begin();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::iterator MField<ValueT, 
-                                             iNamespace>::end(void)
+                iNamespace, 
+                AllocT    >::iterator MField<ValueT, 
+                                             iNamespace, 
+                                             AllocT    >::end(void)
 {
     return _values.end();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::reverse_iterator 
+                iNamespace, 
+                AllocT    >::reverse_iterator 
     MField<ValueT, 
-           iNamespace>::rbegin(void)
+           iNamespace, 
+           AllocT    >::rbegin(void)
 {
     return _values.rbegin();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::reverse_iterator 
+                iNamespace, 
+                AllocT    >::reverse_iterator 
     MField<ValueT, 
-           iNamespace>::rend(void)
+           iNamespace, 
+           AllocT    >::rend(void)
 {
     return _values.rend();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::const_iterator MField<ValueT, 
-                                                   iNamespace>::begin(
+                iNamespace, 
+                AllocT    >::const_iterator MField<ValueT, 
+                                                   iNamespace, 
+                                                   AllocT    >::begin(
                                                                     void) const
 {
     return _values.begin();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::const_iterator MField<ValueT,
-                                                   iNamespace>::end(void) const
+                iNamespace, 
+                AllocT    >::const_iterator MField<ValueT,
+                                                   iNamespace, 
+                                                   AllocT>::end(void) const
 {
     return _values.end();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT,
-                iNamespace>::const_reverse_iterator 
+                iNamespace, 
+                AllocT    >::const_reverse_iterator 
     MField<ValueT, 
-           iNamespace>::rbegin(void) const
+           iNamespace, 
+           AllocT>::rbegin(void) const
 {
     return _values.rbegin();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::const_reverse_iterator 
+                iNamespace, 
+                AllocT    >::const_reverse_iterator 
     MField<ValueT, 
-           iNamespace>::rend(void) const
+           iNamespace, 
+           AllocT    >::rend(void) const
 {
     return _values.rend();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::reference MField<ValueT, 
-                                              iNamespace>::front(void)
+                iNamespace, 
+                AllocT    >::reference MField<ValueT, 
+                                              iNamespace, 
+                                              AllocT    >::front(void)
 {
     return _values.front();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::const_reference MField<ValueT, 
-                                                    iNamespace>::front(
+                iNamespace, 
+                AllocT    >::const_reference MField<ValueT, 
+                                                    iNamespace, 
+                                                    AllocT    >::front(
                                                                     void) const
 {
     return _values.front();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::reference MField<ValueT, 
-                                              iNamespace>::back(void)
+                iNamespace, 
+                AllocT    >::reference MField<ValueT, 
+                                              iNamespace, 
+                                              AllocT    >::back(void)
 {
     return _values.back();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::const_reference MField<ValueT, 
-                                                    iNamespace>::back(
+                iNamespace, 
+                AllocT    >::const_reference MField<ValueT, 
+                                                    iNamespace, 
+                                                    AllocT    >::back(
                                                                     void) const
 {
     return _values.back();
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::clear(void)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::clear(void)
 {
     _values.clear();
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::iterator MField<ValueT, 
-                                             iNamespace>::insert(
+                iNamespace, 
+                AllocT    >::iterator MField<ValueT, 
+                                             iNamespace, 
+                                             AllocT    >::insert(
     iterator pos, ArgumentType value)
 {
     return _values.insert(pos, value);
 }
 
 #ifdef __STL_MEMBER_TEMPLATES
-template <class ValueT, Int32 iNamespace> 
+template <class ValueT, Int32 iNamespace, class AllocT> 
 template <class InputIterator> inline
-void MField<ValueT, iNamespace>::insert(iterator      pos, 
-                                        InputIterator first, 
-                                        InputIterator last )
+void MField<ValueT, iNamespace, AllocT>::insert(iterator      pos, 
+                                                InputIterator first, 
+                                                InputIterator last )
 {
     _values.insert(pos, first, last);
 }
 #else
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::insert(iterator      pos, 
-                                        iterator      first,
-                                        iterator      last )
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::insert(iterator      pos, 
+                                                iterator      first,
+                                                iterator      last )
 {
     _values.insert(pos, first, last);
 }
 #endif /* __STL_MEMBER_TEMPLATES */
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::iterator MField<ValueT, 
-                                             iNamespace>::erase(iterator pos)
+                iNamespace, 
+                AllocT    >::iterator MField<ValueT, 
+                                             iNamespace, 
+                                             AllocT    >::erase(iterator pos)
 {
     return _values.erase(pos);
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::iterator MField<ValueT, 
-                                             iNamespace>::find(
+                iNamespace, 
+                AllocT    >::iterator MField<ValueT, 
+                                             iNamespace, 
+                                             AllocT    >::find(
     ArgumentType value)
 {
     return std::find(_values.begin(), _values.end(), value);
 }
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::const_iterator MField<ValueT, 
-                                                   iNamespace>::find(
+                iNamespace, 
+                AllocT    >::const_iterator MField<ValueT, 
+                                                   iNamespace, 
+                                                   AllocT    >::find(
     ArgumentType value) const
 {
     return std::find(_values.begin(), _values.end(), value);
 }
 
-template <class ValueT, Int32 iNamespace> inline
-Int32 MField<ValueT, iNamespace>::findIndex(ArgumentType value) const
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+Int32 MField<ValueT, iNamespace, AllocT>::findIndex(ArgumentType value) const
 {
     const_iterator it = std::find(_values.begin(), _values.end(), value);
 
@@ -452,51 +493,51 @@ Int32 MField<ValueT, iNamespace>::findIndex(ArgumentType value) const
     }
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::push_back(ArgumentType value)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::push_back(ArgumentType value)
 {
     _values.push_back(value);
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::resize(size_t newsize, ValueT t)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::resize(size_t newsize, ValueT t)
 {
     _values.resize(newsize, t);
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::reserve(size_t newsize)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::reserve(size_t newsize)
 {
     _values.reserve(newsize);
 }
 
-template <class ValueT, Int32 iNamespace> inline
-UInt32 MField<ValueT, iNamespace>::size(void) const
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+UInt32 MField<ValueT, iNamespace, AllocT>::size(void) const
 {
     return _values.size();
 }
 
-template <class ValueT, Int32 iNamespace> inline
-UInt32 MField<ValueT, iNamespace>::capacity(void) const
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+UInt32 MField<ValueT, iNamespace, AllocT>::capacity(void) const
 {
     return _values.capacity();
 }
 
-template <class ValueT, Int32 iNamespace> inline
-bool MField<ValueT, iNamespace>::empty(void) const
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+bool MField<ValueT, iNamespace, AllocT>::empty(void) const
 {
     return _values.empty();
 }
 
-template <class FieldTypeT, Int32 fieldNameSpace> inline
-void MField<FieldTypeT, fieldNameSpace>::swap(MField &right)
+template <class FieldTypeT, Int32 fieldNameSpace, class AllocT> inline
+void MField<FieldTypeT, fieldNameSpace, AllocT>::swap(MField &right)
 {
     _values.swap(right._values);
 }
 
 #ifdef OSG_1_COMPAT
-template <class FieldTypeT, Int32 fieldNameSpace> inline
-void MField<FieldTypeT, fieldNameSpace>::addValue (ArgumentType value)
+template <class FieldTypeT, Int32 fieldNameSpace, class AllocT> inline
+void MField<FieldTypeT, fieldNameSpace, AllocT>::addValue (ArgumentType value)
 {
     _values.push_back(value);
     
@@ -506,28 +547,30 @@ void MField<FieldTypeT, fieldNameSpace>::addValue (ArgumentType value)
 /*-------------------------------------------------------------------------*/
 /*                           Index Operator                                */
 
-template <class ValueT, Int32 iNamespace> inline
-typename MField<ValueT, iNamespace>::reference
-    MField<ValueT, iNamespace>::operator [](UInt32 index)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+typename MField<ValueT, iNamespace, AllocT>::reference
+    MField<ValueT, iNamespace, AllocT>::operator [](UInt32 index)
 {
     return _values[index];
 }
 
-template <class ValueT, Int32 iNamespace> inline
-typename MField<ValueT, iNamespace>::const_reference
-    MField<ValueT, iNamespace>::operator [](UInt32 index) const
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+typename MField<ValueT, iNamespace, AllocT>::const_reference
+    MField<ValueT, iNamespace, AllocT>::operator [](UInt32 index) const
 {
     return _values[index];
 }
 
-template <class ValueT, Int32 iNamespace> inline
-bool MField<ValueT, iNamespace>::operator ==(const MField &source) const
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+bool MField<ValueT, 
+            iNamespace, 
+            AllocT    >::operator ==(const MField &source) const
 {
     return _values == source._values;
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::operator =(const MField &source)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::operator =(const MField &source)
 {
     if(this == &source)
        return;
@@ -539,11 +582,13 @@ void MField<ValueT, iNamespace>::operator =(const MField &source)
 /*                              MT Sync                                    */
 
 #ifdef OSG_MT_CPTR_ASPECT
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::syncWith(Self               &source, 
-                                          ConstFieldMaskArg   syncMode,
-                                          UInt32              uiSyncInfo,
-                                          AspectOffsetStore  &oOffsets  )
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, 
+            iNamespace, 
+            AllocT    >::syncWith(Self               &source, 
+                                  ConstFieldMaskArg   syncMode,
+                                  UInt32              uiSyncInfo,
+                                  AspectOffsetStore  &oOffsets  )
 {
     if(syncMode != 0x0000)
     {
@@ -606,9 +651,9 @@ void MField<ValueT, iNamespace>::syncWith(Self               &source,
     }
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::beginEdit(UInt32             uiAspect,
-                                           AspectOffsetStore &oOffsets)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::beginEdit(UInt32             uiAspect,
+                                                   AspectOffsetStore &oOffsets)
 {
     if(_uiSharedWith != 0x0000)
     {
@@ -621,11 +666,13 @@ void MField<ValueT, iNamespace>::beginEdit(UInt32             uiAspect,
 }
 
 
-template <class ValueT, Int32 iNamespace> inline
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
-                iNamespace>::Self *
+                iNamespace, 
+                AllocT    >::Self *
     MField<ValueT, 
-           iNamespace>::resolveShare(UInt32             uiAspect, 
+           iNamespace, 
+           AllocT    >::resolveShare(UInt32             uiAspect, 
                                      AspectOffsetStore &oOffsets)
 {
     Char8  *pOtherMem = reinterpret_cast<Char8 *>(this);
@@ -665,9 +712,11 @@ typename MField<ValueT,
     return pOther;
 }
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::terminateShare(UInt32             uiAspect,
-                                                AspectOffsetStore &oOffsets)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, 
+            iNamespace, 
+            AllocT    >::terminateShare(UInt32             uiAspect,
+                                        AspectOffsetStore &oOffsets)
 {
     if(_uiSharedWith != 0x0000)
     {
@@ -677,8 +726,8 @@ void MField<ValueT, iNamespace>::terminateShare(UInt32             uiAspect,
     }
 }
 
-template <class ValueT, Int32 iNamespace> inline
-bool  MField<ValueT, iNamespace>::isShared(void)
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+bool  MField<ValueT, iNamespace, AllocT>::isShared(void)
 {
     return _uiSharedWith != 0x0000;
 }
@@ -686,9 +735,9 @@ bool  MField<ValueT, iNamespace>::isShared(void)
 #endif
 
 
-template <class ValueT, Int32 iNamespace> inline
-void MField<ValueT, iNamespace>::dump(      UInt32    uiIndent, 
-                                      const BitVector bvFlags ) const
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::dump(      UInt32    uiIndent, 
+                                              const BitVector bvFlags ) const
 {
     for(UInt32 i = 0; i < uiIndent; ++i)
         fprintf(stderr, " ");

@@ -124,8 +124,12 @@ struct FieldTraitsTemplateBase : public FieldTraitsBase
                     const ValueT & >::type  ArgumentType;
 #endif
 
-    typedef      ValueT                ValueType;
-    typedef      FieldDescriptionBase  FieldDescParent;
+
+    typedef      ValueT                            ValueType;
+    typedef      FieldDescriptionBase              FieldDescParent;
+
+    typedef      OSG_STL_DEFAULT_ALLOCATOR(ValueT) MFAlloc;
+
 
     static const Int32                 iNamespace      = NamespaceI;
     static const bool                  bIsPointerField = false;
@@ -482,7 +486,8 @@ class FieldDescription : public DescT::FieldDescParent
                       SField<typename DescT::ValueType,
                                       DescT::iNamespace>,
                       MField<typename DescT::ValueType,
-                                      DescT::iNamespace> >::type HandledField;
+                                      DescT::iNamespace,
+                             typename DescT::MFAlloc   > >::type HandledField;
 
     typedef typename HandledField::GetHandle    GetHandle;
     typedef typename HandledField::GetHandlePtr GetHandlePtr;

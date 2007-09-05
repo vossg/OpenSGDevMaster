@@ -119,6 +119,13 @@ typedef MField<DynamicVolume> MFVolume;
 #endif
 
 
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+/*! \ingroup GrpBaseFieldMulti */
+
+typedef MField<BoxVolume> MFBoxVolume;
+#endif
+
+
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
