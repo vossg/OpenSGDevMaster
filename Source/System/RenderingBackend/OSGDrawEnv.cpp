@@ -75,8 +75,13 @@ DrawEnv::DrawEnv(void) :
     _cameraNear             (1.f  ),
     _cameraFar              (100.f),
 
+    _iPixelLeft             (    0),
+    _iPixelRight            (    1),
+    _iPixelBottom           (    0),
+    _iPixelTop              (    1),
+    _bFull                  ( true),
+
     _pWindow                (NULL ),
-    _pViewport              (NULL ),
     _pActiveState           (NULL ),
     _pActiveStateOverride   (NULL ),
     _uiNumStateChanges      (0    ),

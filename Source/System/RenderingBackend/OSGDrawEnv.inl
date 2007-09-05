@@ -52,12 +52,6 @@ void DrawEnv::setAction(RTAction *pAction)
 }
 
 inline
-void DrawEnv::setViewport(Viewport *pViewport)
-{
-    _pViewport = pViewport;
-}
-
-inline
 void DrawEnv::setWindow(Window *pWindow)
 {
     _pWindow = pWindow;
@@ -173,12 +167,6 @@ inline
 DrawEnv::RTAction *DrawEnv::getRTAction(void) const
 {
     return _pRTAction;
-}
-
-inline
-Viewport *DrawEnv::getViewport(void) const
-{
-    return _pViewport;
 }
 
 inline
@@ -309,6 +297,13 @@ void DrawEnv::clearState(void)
     _uiNumStateChanges       = 0;
     _uiNumShaderChanges      = 0;
     _uiNumShaderParamChanges = 0;
+
+    _iPixelLeft              = 0;
+    _iPixelRight             = 1;
+    _iPixelBottom            = 0;
+    _iPixelTop               = 1;
+
+    _bFull                   = true;
 }
 
 inline
@@ -345,6 +340,63 @@ void DrawEnv::activateState(State         *pNewState,
             _pActiveStateOverride = pNewStateOverride;
         }
     }
+}
+
+
+inline
+void DrawEnv::setViewportDimension (Int32  iPixelLeft,
+                                    Int32  iPixelBottom,
+                                    Int32  iPixelRight,
+                                    Int32  iPixelTop,
+                                    bool   bFull        )
+{
+    _iPixelLeft   = iPixelLeft;
+    _iPixelRight  = iPixelRight;
+    _iPixelBottom = iPixelBottom;
+    _iPixelTop    = iPixelTop;
+    _bFull        = bFull;
+}
+
+inline
+Int32 DrawEnv::getPixelLeft(void)
+{
+    return _iPixelLeft;
+}
+
+inline
+Int32 DrawEnv::getPixelRight(void)
+{
+    return _iPixelRight;
+}
+
+inline
+Int32 DrawEnv::getPixelBottom(void)
+{
+    return _iPixelBottom;
+}
+
+inline
+Int32 DrawEnv::getPixelTop(void)
+{
+    return _iPixelTop;
+}
+
+inline
+Int32 DrawEnv::getPixelWidth(void)
+{
+    return _iPixelRight - _iPixelLeft + 1;
+}
+
+inline
+Int32 DrawEnv::getPixelHeight(void)
+{
+    return _iPixelTop - _iPixelBottom + 1;
+}
+
+inline
+bool DrawEnv::getFull(void)
+{
+    return _bFull;
 }
 
 OSG_END_NAMESPACE

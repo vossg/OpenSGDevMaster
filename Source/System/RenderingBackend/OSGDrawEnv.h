@@ -55,7 +55,6 @@ class RenderTraversalActionBase;
 class DrawActionBase;
 
 class Window;
-class Viewport;
 class State;
 class StateOverride;
 
@@ -77,7 +76,6 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
     void setAction         (      RAction  *pAction    );
     void setAction         (      RTAction *pAction    );
-    void setViewport       (      Viewport *pViewport  );
     void setWindow         (      Window   *pWindow    );
 
     void setupProjection   (const Matrixr  &projection,
@@ -114,7 +112,6 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
           RAction       *getRAction              (void         ) const;
           RTAction      *getRTAction             (void         ) const;
-          Viewport      *getViewport             (void         ) const;
           Window        *getWindow               (void         ) const;
 
           GLenum         getActiveTexTarget      (UInt32 uiSlot) const;
@@ -187,6 +184,26 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    void  setViewportDimension(Int32  iPixelLeft,
+                               Int32  iPixelBottom,
+                               Int32  iPixelRight,
+                               Int32  iPixelTop,
+                               bool   bFull        );
+
+    Int32 getPixelLeft        (void                );
+    Int32 getPixelRight       (void                );
+    Int32 getPixelBottom      (void                );
+    Int32 getPixelTop         (void                );
+
+    Int32 getPixelWidth       (void                );
+    Int32 getPixelHeight      (void                );
+    bool  getFull             (void                );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
     DrawEnv(void);
 
     /*! \}                                                                 */
@@ -226,8 +243,14 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     Real           _cameraNear;
     Real           _cameraFar;
 
+    Int32          _iPixelLeft;
+    Int32          _iPixelRight;
+    Int32          _iPixelBottom;
+    Int32          _iPixelTop;
+
+    bool           _bFull;
+
     Window        *_pWindow;
-    Viewport      *_pViewport;
 
     State         *_pActiveState;
     StateOverride *_pActiveStateOverride;
