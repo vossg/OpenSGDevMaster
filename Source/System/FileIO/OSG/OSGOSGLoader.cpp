@@ -493,6 +493,7 @@ void OSGLoader::endNode(void)
 
     _sChangedStack.pop();
 
+    commitChanges();
 }
 
 void OSGLoader::nullNode(void)

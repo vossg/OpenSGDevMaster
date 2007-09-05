@@ -350,6 +350,12 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
             boost::dynamic_pointer_cast<MFFieldContainerPtr::EditHandle>(
                 info._fc->editField(info._fieldId));
 
+        SFFieldContainerAttachmentPtrMap::EditHandlePtr pAMapHandle =
+            boost::dynamic_pointer_cast<
+                SFFieldContainerAttachmentPtrMap::EditHandle>(
+                    info._fc->editField(info._fieldId));
+
+
         for(std::vector<UInt32>::const_iterator i = info._ids.begin();
             i != info._ids.end(); ++i)
         {
@@ -375,6 +381,10 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
             if(pHandle != NULL && pHandle->isValid())
             {
                 pHandle->add(fc);
+            }
+            else if(pAMapHandle != NULL && pAMapHandle->isValid())
+            {
+                pAMapHandle->add(fc, 0);
             }
         }
     }
@@ -742,9 +752,11 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
                 //if(fieldPtr->getCardinality() == FieldType::SINGLE_FIELD)
                 if(sfPtrHandle != NULL && sfPtrHandle->isValid() == true)
                 {
+                    UInt32 size = sizeof(UInt32);
+
                     _out->putValue(fieldName);
                     _out->putValue(fieldType);
-                    _out->putValue(fc->getBinSize(mask));
+                    _out->putValue(size);
                     writeSFFieldContainerPtr(sfPtrHandle);
                 }
                 else if(mfPtrHandle != NULL && mfPtrHandle->isValid() == true)
@@ -898,6 +910,7 @@ void NFIOBase::skipFCFields(void)
     while(true)
     {
         _in->getValue(fieldName);
+
         // check for fieldcontainer end marker.
         if(fieldName.empty())
         {

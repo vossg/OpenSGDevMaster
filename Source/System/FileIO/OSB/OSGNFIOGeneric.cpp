@@ -128,6 +128,7 @@ FieldContainerPtr NFIOGeneric::readFC(const std::string &typeName)
         return createFCReplacement(fcPtrType);
     }
 
+
     readFCFields(fc);
 
     return fc;

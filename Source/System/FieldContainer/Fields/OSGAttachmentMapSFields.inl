@@ -73,7 +73,7 @@ inline
 bool EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::isPointerField(
     void) const
 {
-    return false;
+    return true;
 }
 
 inline
