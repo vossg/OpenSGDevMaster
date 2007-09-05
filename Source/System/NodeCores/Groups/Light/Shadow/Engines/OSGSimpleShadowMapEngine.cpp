@@ -528,7 +528,7 @@ void SimpleShadowMapEngine::doLightPass(LightPtr               pLight,
     {
         CameraPtr pCam = pEngineData->getCamera();
 
-        pPart->setViewport(pPort         );
+//        pPart->setViewport(pPort         );
         pPart->setWindow  (pAction->getWindow());
 
         pPart->calcViewportDimension(pPort->getLeft  (),
