@@ -44,6 +44,10 @@ for (lib_name, library) in lib_map.iteritems():
                   FRAMEWORKPATH=config_info.getFrameworkPath(),
                   FRAMEWORKS=config_info.getFrameworks())
 
+   # Define OSG_DEBUG if needed 
+   if combo["type"] in ["debug","hybrid"]: 
+      lib_env.Append(CPPDEFINES=["OSG_DEBUG",])
+
    # XXX: Apply custom options
    #
    # Add the define needed for declspec to know what library we are building

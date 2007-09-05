@@ -52,10 +52,6 @@
 #endif
 
 
-#ifdef _DEBUG
-#define OSG_DEBUG
-#endif
-
 /*-------------------------------------------------------------------------*/
 /*                                Versioning                               */
 
@@ -886,10 +882,6 @@
 #    else
 #        error "Neither APIENTRY nor GLAPIENTRY defined"
 #    endif
-#endif
-
-#ifdef _DEBUG
-#define OSG_DEBUG
 #endif
 
 #ifdef OSG_DEBUG
