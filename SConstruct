@@ -523,10 +523,13 @@ vtk_libs = ['vtkRendering',
             'vtkCommon',
             'vtkftgl',
             'vtkDICOMParser',
-            'vtksys']
+            'vtksys',
+            'verdict',
+            'vtkNetCDF',
+            'vtkmetaio']
 
-if "win32" != platform:
-    vtk_libs.append('vtkMPEG2Encode')
+#if "win32" != platform:
+#    vtk_libs.append('vtkMPEG2Encode')
 
 optional_libs_options['vtk'] = sca_opts.VTK.VTK(
    "vtk",
