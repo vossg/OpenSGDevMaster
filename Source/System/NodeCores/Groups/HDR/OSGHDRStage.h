@@ -52,7 +52,7 @@
 OSG_BEGIN_NAMESPACE
 
 class DrawEnv;
-class RenderTraversalAction;
+class RenderTraversalActionBase;
 
 //! Stage
 //! \ingroup GrpSystemNodeCoresMisc
@@ -85,8 +85,8 @@ class OSG_GROUP_DLLMAPPING HDRStage : public HDRStageBase
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    void initData(Viewport              *pViewport,
-                  RenderTraversalAction *pAction  );
+    void initData(Viewport                  *pViewport,
+                  RenderTraversalActionBase *pAction  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

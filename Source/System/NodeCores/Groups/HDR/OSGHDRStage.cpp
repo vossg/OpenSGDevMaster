@@ -53,7 +53,7 @@
 #include "OSGHDRStage.h"
 #include "OSGHDRStageData.h"
 
-#include "OSGRenderTraversalAction.h"
+#include "OSGRenderTraversalActionBase.h"
 
 #include "OSGFrameBufferObject.h"
 #include "OSGFrameBufferAttachment.h"
@@ -496,19 +496,18 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
 
     HDRStageDataP  pData     = pAction->getData<HDRStageData *>(_iDataSlotId);
-    Viewport      *pViewport = pEnv->getViewport();
 
     if(pData == NULL)
     {
         return;
     }
 
-    if((pData->getWidth () != pViewport->getPixelWidth() ) ||
-       (pData->getHeight() != pViewport->getPixelHeight())  )
+    if((pData->getWidth () != pEnv->getPixelWidth() ) ||
+       (pData->getHeight() != pEnv->getPixelHeight())  )
     {
         resizeStageData(pData, 
-                        pViewport->getPixelWidth(),
-                        pViewport->getPixelHeight());
+                        pEnv->getPixelWidth(),
+                        pEnv->getPixelHeight());
     }
     
 
@@ -522,8 +521,8 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     glViewport(0,
                0, 
-               pViewport->getPixelWidth () / 2,
-               pViewport->getPixelHeight() / 2);
+               pEnv->getPixelWidth () / 2,
+               pEnv->getPixelHeight() / 2);
 
 
     State *pShrinkState = getCPtr(pSHM->getState());
@@ -561,8 +560,8 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     glViewport(0,
                0, 
-               pViewport->getPixelWidth () / 4,
-               pViewport->getPixelHeight() / 4);
+               pEnv->getPixelWidth () / 4,
+               pEnv->getPixelHeight() / 4);
 
     ChunkMaterialPtr  pBLM       = pData->getBlurMaterial();
 
@@ -656,10 +655,12 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     // Tonemap pass
 
-    glViewport(pViewport->getPixelLeft  (), 
-               pViewport->getPixelBottom(),
-               pViewport->getPixelRight (),
-               pViewport->getPixelTop   ());
+    glDisable(GL_DEPTH_TEST);
+
+    glViewport(pEnv->getPixelLeft  (), 
+               pEnv->getPixelBottom(),
+               pEnv->getPixelRight (),
+               pEnv->getPixelTop   ());
 
     ChunkMaterialPtr pTCM = pData->getToneMappingMaterial();
 
@@ -682,6 +683,8 @@ void HDRStage::postProcess(DrawEnv *pEnv)
         glVertex2f  (0.00, 1.00);
     }
     glEnd();
+
+    glEnable(GL_DEPTH_TEST);
             
     pEnv->deactivateState();
 
@@ -689,8 +692,8 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     glPopMatrix();
 }
 
-void HDRStage::initData(Viewport              *pViewport,
-                        RenderTraversalAction *pAction  )
+void HDRStage::initData(Viewport                  *pViewport,
+                        RenderTraversalActionBase *pAction  )
 {
     HDRStageDataP pData = pAction->getData<HDRStageData *>(_iDataSlotId);
 
@@ -706,74 +709,75 @@ void HDRStage::initData(Viewport              *pViewport,
     }
 }
 
+#define OSGHDRL << std::endl
 
 SHLChunkPtr HDRStage::generateHDRFragmentProgram(void)
 {
     std::ostringstream ost;
 
-    ost << "uniform sampler2D sceneTex;"
-        << "uniform sampler2D blurTex;"
-        << "uniform float     exposure;" 
-        << "uniform float     blurAmount;"
-        << "uniform float     effectAmount;"
-        << "uniform float     gamma;"
-        << ""
-        << "float vignette(vec2 pos, float inner, float outer)"
-        << "{"
-        << "    float r = length(pos);"
-        << ""
-        << "    r = 1.0 - smoothstep(inner, outer, r);"
-        << ""
-        << "    return r;"
-        << "}"
-        << "\n"
-        << "// radial blur\n"
-        << "vec4 radial(sampler2D tex,"
-        << "            vec2    texcoord,"
-        << "            int       samples,"
-        << "            float     startScale = 1.0,"
-        << "            float     scaleMul   = 0.9)"
-        << "{"
-        << "    vec4 c     = (0., 0., 0., 0.);"
-        << "    float  scale = startScale;"
-        << ""
-        << "    for(int i=0; i<samples; i++) "
-        << "    {"
-        << "        vec2 uv = ((texcoord - 0.5)*scale)+0.5;"
-        << "        vec4 s  = tex2D(tex, uv);"
-        << ""
-        << "        c += s;"
-        << ""
-        << "        scale *= scaleMul;"
-        << "    }"
-        << ""
-        << "    c /= samples;"
-        << ""
-        << "    return c;"
-        << "}"
-        << ""
-        << "void main(void)"
-        << "{"
-        << "    vec4 scene   = texture2D(sceneTex, gl_TexCoord[0].xy);"
-        << "    vec4 blurred = texture2D(blurTex,  gl_TexCoord[0].xy);"
-        << "	vec4 effect  = radial   (blurTex,  gl_TexCoord[0].xy, "
-        << "                             30, 1.0, 0.95);"
-        << ""
-        << "    vec4 c = lerp(scene, blurred, blurAmount);"
-        << ""
-        << "	c += effect * effectAmount;"
-        << "\n"
-        << "    // exposure\n"
-        << "    c = c * exposure;"
-        << "\n"
-        << "    // vignette effect\n"
-        << "    c *= vignette(gl_TexCoord[0].xy * 2 - 1, 0.7, 1.5);"
-        << "\n"
-        << "    // gamma correction\n"
-        << "    c.rgb = pow(c.rgb, gamma);"
-        << ""
-        << "    gl_FragColor = c;"
-        << "}"
+    ost << "uniform sampler2D sceneTex;"                                 OSGHDRL
+        << "uniform sampler2D blurTex;"                                  OSGHDRL
+        << "uniform float     exposure;"                                 OSGHDRL
+        << "uniform float     blurAmount;"                               OSGHDRL
+        << "uniform float     effectAmount;"                             OSGHDRL
+        << "uniform float     gamma;"                                    OSGHDRL
+        << ""                                                            OSGHDRL
+        << "float vignette(vec2 pos, float inner, float outer)"          OSGHDRL
+        << "{"                                                           OSGHDRL
+        << "    float r = length(pos);"                                  OSGHDRL
+        << ""                                                            OSGHDRL
+        << "    r = 1.0 - smoothstep(inner, outer, r);"                  OSGHDRL
+        << ""                                                            OSGHDRL
+        << "    return r;"                                               OSGHDRL
+        << "}"                                                           OSGHDRL
+        << ""                                                            OSGHDRL
+        << "// radial blur"                                              OSGHDRL
+        << "vec4 radial(sampler2D tex,"                                  OSGHDRL
+        << "            vec2      texcoord,"                             OSGHDRL
+        << "            int       samples,"                              OSGHDRL
+        << "            float     startScale = 1.0,"                     OSGHDRL
+        << "            float     scaleMul   = 0.9)"                     OSGHDRL
+        << "{"                                                           OSGHDRL
+        << "    vec4 c     = vec4(0., 0., 0., 0.);"                      OSGHDRL
+        << "    float  scale = startScale;"                              OSGHDRL
+        << ""                                                            OSGHDRL
+        << "    for(int i=0; i<samples; i++) "                           OSGHDRL
+        << "    {"                                                       OSGHDRL
+        << "        vec2 uv = ((texcoord - 0.5)*scale)+0.5;"             OSGHDRL
+        << "        vec4 s  = texture2D(tex, uv);"                       OSGHDRL
+        << ""                                                            OSGHDRL
+        << "        c += s;"                                             OSGHDRL
+        << ""                                                            OSGHDRL
+        << "        scale *= scaleMul;"                                  OSGHDRL
+        << "    }"                                                       OSGHDRL
+        << ""                                                            OSGHDRL
+        << "    c /= float(samples);"                                    OSGHDRL
+        << ""                                                            OSGHDRL
+        << "    return c;"                                               OSGHDRL
+        << "}"                                                           OSGHDRL
+        << ""                                                            OSGHDRL
+        << "void main(void)"                                             OSGHDRL
+        << "{"                                                           OSGHDRL
+        << "    vec4 scene   = texture2D(sceneTex, gl_TexCoord[0].xy);"  OSGHDRL
+        << "    vec4 blurred = texture2D(blurTex,  gl_TexCoord[0].xy);"  OSGHDRL
+        << "	vec4 effect  = radial   (blurTex,  gl_TexCoord[0].xy, "  OSGHDRL
+        << "                             30, 1.0, 0.95);"                OSGHDRL
+        << ""                                                            OSGHDRL
+        << "    vec4 c = mix(scene, blurred, blurAmount);"               OSGHDRL
+        << ""                                                            OSGHDRL
+        << "	c += effect * effectAmount;"                             OSGHDRL
+        << ""                                                            OSGHDRL
+        << "    // exposure"                                             OSGHDRL
+        << "    c = c * exposure;"                                       OSGHDRL
+        << ""                                                            OSGHDRL
+        << "    // vignette effect"                                      OSGHDRL
+        << "    c *= vignette(gl_TexCoord[0].xy * 2.0 - 1.0, 0.7, 1.5);" OSGHDRL
+        << ""                                                            OSGHDRL
+        << "    // gamma correction"                                     OSGHDRL
+        << "    c.rgb = pow(c.rgb, vec3(gamma));"                        OSGHDRL
+        << ""                                                            OSGHDRL
+        << "    gl_FragColor = c;"                                       OSGHDRL
+        << "}"                                                           OSGHDRL
         << "";
 
     SHLChunkPtr returnValue = SHLChunk::create();
