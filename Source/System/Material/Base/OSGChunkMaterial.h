@@ -116,6 +116,14 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \name                      Find                                    */
     /*! \{                                                                 */
 
+          StateChunkPtrConst   getChunk (const UInt32 index) const;
+    const MFStateChunkPtr     &getChunks(      void        ) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Find                                    */
+    /*! \{                                                                 */
+
     void clearChunks(void);
 
     /*! \}                                                                 */
