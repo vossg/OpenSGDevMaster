@@ -76,9 +76,7 @@
 #include "OSGFrameBufferAttachment.h"
 #include "OSGParticles.h"
 #include "OSGMultiCore.h"
-#ifdef OSG_GV_BETA
 #include "OSGCubeMapGenerator.h"
-#endif
 
 #include "OSGLightEngine.h"
 #include "OSGMatrixUtility.h"
@@ -675,7 +673,7 @@ ActionBase::ResultE StageRenderEnter(const NodeCorePtr &pCore,
 
     if(pPort != NULL)
     {
-        pPart->setViewport(pPort         );
+//        pPart->setViewport(pPort         );
         pPart->setWindow  (a->getWindow());
             
         if(pTarget != NULL)
@@ -782,7 +780,7 @@ ActionBase::ResultE SimpleStageRenderEnter(const NodeCorePtr &pCore,
     
     pPart->setRenderTarget(pTarget);
     
-    pPart->setViewport(pPort);
+//    pPart->setViewport(pPort);
     pPart->setWindow  (pWin );
     
     if(pTarget != NULL)
@@ -925,7 +923,7 @@ ActionBase::ResultE HDRStageRenderEnter(const NodeCorePtr &pCore,
 
             if(pPort != NULL)
             {
-                pPart->setViewport(pPort         );
+//                pPart->setViewport(pPort         );
                 pPart->setWindow  (a->getWindow());
                 
                 if(pTarget != NULL)
@@ -998,7 +996,7 @@ ActionBase::ResultE HDRStageRenderEnter(const NodeCorePtr &pCore,
            
             if(pPort != NULL)
             {
-                pPart->setViewport(pPort         );
+//                pPart->setViewport(pPort         );
                 pPart->setWindow  (a->getWindow());
                 
                 pPart->calcViewportDimension(pPort->getLeft  (),
@@ -1068,7 +1066,7 @@ ActionBase::ResultE AlgorithmStageRenderEnter(const NodeCorePtr &pCore,
             
             if(pPort != NULL)
             {
-                pPart->setViewport(pPort         );
+//                pPart->setViewport(pPort         );
                 pPart->setWindow  (a->getWindow());
                 
                 pPart->calcViewportDimension(pPort->getLeft  (),
@@ -1241,34 +1239,183 @@ ActionBase::ResultE MultiCoreRenderLeave(const NodeCorePtr &pCore,
 }
 
 
-#ifdef OSG_GV_BETA
 ActionBase::ResultE CubeMapGeneratorRenderEnter(const NodeCorePtr &pCore,
                                                       Action      *action)
 {
+#ifdef OSG_DUMP_TRAVERSAL
+    FDEBUG_GV(("Enter CubeMapGeneratorRender %p\n", &(*pCore)));
+#endif
+
+    static Matrix transforms[] = 
+    { 
+        Matrix( 1,  0,  0,  0,
+                0, -1,  0,  0,
+                0,  0, -1,  0,
+                0,  0,  0,  1),
+        
+        Matrix(-1,  0,  0,  0,
+                0, -1,  0,  0,
+                0,  0,  1,  0,
+                0,  0,  0,  1),
+        
+        Matrix( 1,  0,  0,  0,
+                0,  0,  1,  0,
+                0, -1,  0,  0,
+                0,  0,  0,  1),
+        
+        Matrix( 1,  0,  0,  0,
+                0,  0, -1,  0,
+                0,  1,  0,  0,
+                0,  0,  0,  1),
+        
+        Matrix( 0,  0, -1,  0,
+                0, -1,  0,  0,
+               -1,  0,  0,  0,
+                0,  0,  0,  1),
+        
+        Matrix( 0,  0,  1,  0,
+                0, -1,  0,  0,
+                1,  0,  0,  0,
+                0,  0,  0,  1)
+    };
+
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
 
     Action::ResultE returnValue = Action::Continue;
 
-#if 0
-    MultiCorePtr pMultiCore = dynamic_cast<MultiCorePtr>(pCore);
+    CubeMapGeneratorPtr  pGen  = dynamic_cast<CubeMapGeneratorPtr>(pCore);
+    Camera              *pCam  = a->getCamera();
+    Background          *pBack = a->getBackground();
 
-    MFNodeCorePtr::const_iterator coreIt  = pMultiCore->getCores().begin();
-    MFNodeCorePtr::const_iterator coreEnd = pMultiCore->getCores().end  ();
+    Viewport            *pPort = a->getViewport();
 
-
-    while(coreIt != coreEnd)
+    a->beginPartitionGroup();
     {
-        returnValue = action->callEnter(*coreIt);
+        FrameBufferObject *pTarget  = getCPtr(pGen->getRenderTarget());
+                
+        if(pTarget == NULL)
+        {
+            pGen->initData(a);
+            
+            pTarget  = getCPtr(pGen->getRenderTarget());
+        }
 
-        if(returnValue != Action::Continue)
-            break;
+        NodePtr pActNode = a->getActNode();
 
-        ++coreIt;
-    }    
+        Pnt3f oOrigin;
 
-    if(returnValue == Action::Skip)
-        returnValue = Action::Continue;
+        if(pGen->getOriginMode() == CubeMapGenerator::UseStoredValue)
+        {
+            oOrigin = pGen->getOrigin();
+        }
+        else if(pGen->getOriginMode() == CubeMapGenerator::UseBeacon)
+        {
+            fprintf(stderr, "CubemapGen::UseBeacon NYI\n");
+        }
+        else if(pGen->getOriginMode() == 
+                                       CubeMapGenerator::UseCurrentVolumeCenter)
+        {
+            DynamicVolume oWorldVol;
+
+            commitChanges();
+
+            pActNode->updateVolume();
+
+            pActNode->getWorldVolume(oWorldVol);
+                
+            oWorldVol.getCenter(oOrigin);
+        }
+        else if(pGen->getOriginMode() == 
+                                       CubeMapGenerator::UseParentsVolumeCenter)
+        {
+            fprintf(stderr, "CubemapGen::UseParentsCenter NYI\n");
+        }
+
+        for(UInt32 i = 0; i < 6; ++i)
+        {
+            a->pushPartition();
+            {
+                RenderPartition   *pPart    = a->getActivePartition();
+                
+
+                pPart->setRenderTarget(pTarget       );
+                pPart->setWindow      (a->getWindow());
+
+                pPart->calcViewportDimension(0,
+                                             0,
+                                             1,
+                                             1,
+                                             pGen->getWidth (),
+                                             pGen->getHeight());
+                
+                Camera            *pCam     = a->getCamera  ();
+
+                Matrix m, t;
+            
+                // set the projection
+                pCam->getProjection          (m, 
+                                              pPart->getViewportWidth (), 
+                                              pPart->getViewportHeight());
+                
+                pCam->getProjectionTranslation(t, 
+                                               pPart->getViewportWidth (), 
+                                               pPart->getViewportHeight());
+                
+                pPart->setupProjection(m, t);
+            
+                m = transforms[i];
+            
+                m[3][0] = oOrigin[0];
+                m[3][1] = oOrigin[1];
+                m[3][2] = oOrigin[2];
+
+                m.invert();
+
+                pPart->setupViewing(m);
+            
+                pPart->setNear     (pCam->getNear());
+                pPart->setFar      (pCam->getFar ());
+                
+                pPart->calcFrustum();
+                
+                if(pGen->getBackground() == NullFC)
+                {
+                    pPart->setBackground(pBack);
+                }
+                else
+                {
+                    pPart->setBackground(pGen->getBackground());
+                }
+
+               
+                pActNode->setTravMask(0);
+                
+                if(pGen->getRoot() != NullFC)
+                {
+                    a->recurse(pGen->getRoot());
+                }
+                else
+                {
+                    a->recurse(pPort->getRoot());
+                }
+
+                pActNode->setTravMask(~0);
+
+                pPart->setDrawBuffer(GL_COLOR_ATTACHMENT0_EXT + i);
+
+#ifdef OSG_DEBUGX
+                std::string szMessage("CubeX\n");
+                pPart->setDebugString(szMessage          );
 #endif
+            }
+            a->popPartition();
+        }
+    }
+    a->endPartitionGroup();
+
+    returnValue = ChunkOverrideGroupRenderEnter(pCore, action);
+
+    action->useNodeList(false);
 
     return returnValue;
 }
@@ -1278,36 +1425,16 @@ ActionBase::ResultE CubeMapGeneratorRenderLeave(const NodeCorePtr &pCore,
                                                       Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    FDEBUG_GV(("Leave AlgorithmStage %p\n", &(*pCore)));
+    FDEBUG_GV(("Leave CubeMapGeneratorRender %p\n", &(*pCore)));
 #endif
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
 
     Action::ResultE returnValue = Action::Continue;
 
-#if 0
-    MultiCorePtr pMultiCore = dynamic_cast<MultiCorePtr>(pCore);
-
-    MFNodeCorePtr::const_iterator coreIt  = pMultiCore->getCores().begin();
-    MFNodeCorePtr::const_iterator coreEnd = pMultiCore->getCores().end  ();
-
-
-    while(coreIt != coreEnd)
-    {
-        returnValue = action->callLeave(*coreIt);
-
-        if(returnValue != Action::Continue)
-            break;
-
-        ++coreIt;
-    }    
-
-    if(returnValue == Action::Skip)
-        returnValue = Action::Continue;
-#endif
+    returnValue = ChunkOverrideGroupRenderLeave(pCore, action);
 
     return returnValue;
 }
-#endif
 
 
 /*-------------------------------------------------------------------------*/
@@ -1524,7 +1651,6 @@ bool RenderTraversalActionInitialize(void)
         MultiCore::getClassType(), 
         MultiCoreRenderLeave);
 
-#ifdef OSG_GV_BETA
     RenderTraversalAction::registerEnterDefault(
         CubeMapGenerator::getClassType(), 
         CubeMapGeneratorRenderEnter);
@@ -1532,7 +1658,6 @@ bool RenderTraversalActionInitialize(void)
     RenderTraversalAction::registerLeaveDefault( 
         CubeMapGenerator::getClassType(), 
         CubeMapGeneratorRenderLeave);
-#endif
 
     return true;
 
