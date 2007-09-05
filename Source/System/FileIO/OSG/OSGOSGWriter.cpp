@@ -433,7 +433,7 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
             _outStream << EndElemNL
                        << BeginElem
                        << "["
-                       << EndElem;
+                       << EndElemNL;
 
             _outStream << IncIndent;
         

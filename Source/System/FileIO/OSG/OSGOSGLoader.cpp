@@ -377,6 +377,9 @@ void OSGLoader::beginNode(const Char8 *szNodeTypename,
     pNewNode =
         FieldContainerFactory::the()->createContainer(szNodeTypename);
 
+    
+    PINFO << "  Got ptr " << pNewNode << std::endl;
+
     if(szNodename != NULL && pNewNode != NullFC)
     {
 #ifdef DO_CHECK
