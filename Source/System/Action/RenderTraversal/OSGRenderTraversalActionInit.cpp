@@ -1239,10 +1239,6 @@ ActionBase::ResultE MultiCoreRenderLeave(const NodeCorePtr &pCore,
 }
 
 
-<<<<<<< .merge_file_phVZPl
-=======
-#ifdef OSG_GV_BETAX
->>>>>>> .merge_file_7IJkUi
 ActionBase::ResultE CubeMapGeneratorRenderEnter(const NodeCorePtr &pCore,
                                                       Action      *action)
 {
@@ -1472,8 +1468,6 @@ bool RenderTraversalActionInitialize(void)
         Particles::getClassType(),
         MaterialDrawableRenderLeave);
 
-#if 1
-
 
 #if 0
     ShadingAction::registerEnterDefault( 
@@ -1655,10 +1649,6 @@ bool RenderTraversalActionInitialize(void)
         MultiCore::getClassType(), 
         MultiCoreRenderLeave);
 
-<<<<<<< .merge_file_phVZPl
-=======
-#ifdef OSG_GV_BETAX
->>>>>>> .merge_file_7IJkUi
     RenderTraversalAction::registerEnterDefault(
         CubeMapGenerator::getClassType(), 
         CubeMapGeneratorRenderEnter);
@@ -1668,8 +1658,6 @@ bool RenderTraversalActionInitialize(void)
         CubeMapGeneratorRenderLeave);
 
     return true;
-
-#endif
 }
 
 struct RenderTraversalActionInit
