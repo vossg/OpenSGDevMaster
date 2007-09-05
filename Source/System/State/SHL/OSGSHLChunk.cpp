@@ -65,6 +65,8 @@
 #include <OSGShaderParameterVec3f.h>
 #include <OSGShaderParameterVec4f.h>
 #include <OSGShaderParameterMatrix.h>
+#include <OSGShaderParameterPnt2f.h>
+#include <OSGShaderParameterPnt3f.h>
 
 #include <OSGShaderParameterMInt.h>
 #include <OSGShaderParameterMReal.h>
@@ -1074,6 +1076,62 @@ void SHLChunk::updateParameters(Window *win,
                 }
             }
             break;
+            case ShaderParameter::SHPTypePnt2f:
+            {
+                ShaderParameterPnt2fPtr p =
+                    dynamic_cast<ShaderParameterPnt2fPtr>(parameter);
+
+                // get "glUniform2fvARB" function pointer
+                OSGGLUNIFORMFVARBPROC uniform2fv =
+                    (OSGGLUNIFORMFVARBPROC)
+                        win->getFunction(_funcUniform2fv);
+
+                if(p->getLocation() == -1)
+                {
+                    updateParameterLocation(win, program, p);
+                }
+                if(p->getLocation() != -1)
+                {
+                    uniform2fv(
+                        p->getLocation(), 1, 
+                        const_cast<Real32 *>(p->getValue().getValues()));
+                }
+                else
+                {
+                    FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
+                              p->getName().c_str()));
+                }
+            }
+            break;
+            case ShaderParameter::SHPTypePnt3f:
+            {
+                ShaderParameterPnt3fPtr p =
+                    dynamic_cast<ShaderParameterPnt3fPtr>(parameter);
+
+                // get "glUniform3fvARB" function pointer
+                OSGGLUNIFORMFVARBPROC uniform3fv =
+                    (OSGGLUNIFORMFVARBPROC)
+                        win->getFunction(_funcUniform3fv);
+
+                if(p->getLocation() == -1)
+                {
+                    updateParameterLocation(win, program, p);
+                }
+                if(p->getLocation() != -1)
+                {
+                    uniform3fv(p->getLocation(), 1, 
+                               const_cast<Real32 *>(p->getValue().getValues()));
+                }
+                else
+                {
+                    FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
+                              p->getName().c_str()));
+                }
+            }
+            break;
+
+
+
             // arrays
             case ShaderParameter::SHPTypeMInt:
             {

@@ -57,6 +57,8 @@
 #include <OSGShaderParameterVec3f.h>
 #include <OSGShaderParameterVec4f.h>
 #include <OSGShaderParameterMatrix.h>
+#include <OSGShaderParameterPnt2f.h>
+#include <OSGShaderParameterPnt3f.h>
 
 #include <OSGShaderParameterMInt.h>
 #include <OSGShaderParameterMReal.h>
@@ -191,6 +193,19 @@ bool ShaderParameterChunk::setUniformParameter(const Char8 *name,
     return _parameter_access->setParameter<ShaderParameterMatrix>(name, value);
 }
 
+bool ShaderParameterChunk::setUniformParameter(const Char8 *name, 
+                                               const Pnt2f &value)
+{
+    return _parameter_access->setParameter<ShaderParameterPnt2f>(name, value);
+}
+
+bool ShaderParameterChunk::setUniformParameter(const Char8 *name, 
+                                               const Pnt3f &value)
+{
+    return _parameter_access->setParameter<ShaderParameterPnt3f>(name, value);
+}
+
+
 // arrays
 
 bool ShaderParameterChunk::setUniformParameter(const char *name, const MFInt32 &value)
@@ -261,6 +276,18 @@ bool ShaderParameterChunk::getUniformParameter(const Char8  *name,
 {
     return _parameter_access->getParameter<ShaderParameterMatrix>(name, value);
 }
+
+bool ShaderParameterChunk::getUniformParameter(const Char8 *name, Pnt2f &value)
+{
+    return _parameter_access->getParameter<ShaderParameterPnt2f>(name, value);
+}
+
+bool ShaderParameterChunk::getUniformParameter(const Char8 *name, Pnt3f &value)
+{
+    return _parameter_access->getParameter<ShaderParameterPnt3f>(name, value);
+}
+
+
 
 bool ShaderParameterChunk::subUniformParameter(const Char8 *name)
 {

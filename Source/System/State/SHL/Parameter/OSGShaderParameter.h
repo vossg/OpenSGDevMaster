@@ -107,6 +107,8 @@ class OSG_STATE_DLLMAPPING ShaderParameter : public ShaderParameterBase
         SHPTypeVec2f,
         SHPTypeVec3f,
         SHPTypeVec4f,
+        SHPTypePnt2f,
+        SHPTypePnt3f,
         SHPTypeMatrix,
         SHPTypeString,
         SHPTypeMBool,
