@@ -47,6 +47,7 @@
 #include "OSGReal16.h"
 
 #include <vector>
+#include <boost/mpl/if.hpp>
 
 #if defined(OSG_SGI_TYPES) || defined (OSG_LINUX_TYPES) || \
     defined(OSG_SUNOS_TYPES)
@@ -657,6 +658,21 @@ static const Char8  DirSep OSG_UNUSED_ATTRIB = '/';
 
 #undef OSG_UNUSED_ATTRIB
 #endif
+
+namespace PointerSize
+{
+    struct UnknowSize {};
+
+    typedef boost::mpl::if_<boost::mpl::bool_<(sizeof(void *) == 4)>,
+                            UInt32,
+                            UnknowSize>::type Tmp1;
+
+    typedef boost::mpl::if_<boost::mpl::bool_<(sizeof(void *) == 8)>,
+                            UInt64,
+                            Tmp1  >::type PtrSize;
+}
+
+typedef PointerSize::PtrSize UIntPointer;
 
 /*! MathTypeProperties
  *  \ingroup GrpBaseBaseConstants

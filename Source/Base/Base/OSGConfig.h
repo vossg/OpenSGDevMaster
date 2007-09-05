@@ -974,6 +974,30 @@
 # define OSG_FLOAT_PROFILE
 #endif
 
+#if defined(__sgi) || defined(__linux) || defined(__APPLE__) || \
+    defined(__sun) || defined(__hpux)
+
+#if defined(__linux) || defined(__hpux) || defined(__APPLE__) || defined(__sun)
+#    if defined(__GNUC__)
+#        if __GNUC__ >= 3
+#            define OSG_STL_DEFAULT_ALLOCATOR(TP) std::allocator<TP>
+#        endif
+#    elif defined (__ICL)
+#        define OSG_STL_DEFAULT_ALLOCATOR(TP) std::allocator<TP>
+#    elif defined (OSG_HPUX_ACC)
+#        define OSG_STL_DEFAULT_ALLOCATOR(TP) std::allocator<TP>
+#    elif defined(OSG_SUN_CC)
+#        define OSG_STL_DEFAULT_ALLOCATOR(TP) std::allocator<TP>
+#    else
+#        define OSG_STL_DEFAULT_ALLOCATOR(TP) std::__STL_DEFAULT_ALLOCATOR(TP)
+#    endif
+#else
+#    define OSG_STL_DEFAULT_ALLOCATOR(TP) std::__STL_DEFAULT_ALLOCATOR(TP)
+#endif
+
+#else
+#define OSG_STL_DEFAULT_ALLOCATOR std::allocator<Ty>
+#endif
 
 #if (defined(__linux) && defined(__i386__)) || defined(WIN32)
 #define OSG_FAST_INT 1
