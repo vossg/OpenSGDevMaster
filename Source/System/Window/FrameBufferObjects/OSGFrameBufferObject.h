@@ -102,7 +102,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
-    virtual void activate   (DrawEnv *pEnv);
+    virtual void activate   (DrawEnv *pEnv,
+                             GLenum   eDrawBuffer = GL_NONE);
     virtual void deactivate (DrawEnv *pEnv);
 
     /*! \}                                                                 */

@@ -281,7 +281,8 @@ void FrameBufferObject::dump(      UInt32    ,
     SLOG << "Dump FrameBufferObject NI" << std::endl;
 }
 
-void FrameBufferObject::activate(DrawEnv *pEnv)
+void FrameBufferObject::activate(DrawEnv *pEnv,
+                                 GLenum   eDrawBuffer)
 {
     Window *win = pEnv->getWindow();
 
@@ -305,17 +306,27 @@ void FrameBufferObject::activate(DrawEnv *pEnv)
 
     glErr("FrameBufferObject::activate");
 
-    if(_mfDrawBuffers.size() != 0)
+    if(eDrawBuffer == GL_NONE)
     {
-        GLDrawBuffersEXTProcT glDrawBuffersEXTProc =
-            (GLDrawBuffersEXTProcT) win->getFunction(_uiFuncDrawBuffers);
-
-        glDrawBuffersEXTProc(_mfDrawBuffers.size(), &(_mfDrawBuffers[0]) );
+        if(_mfDrawBuffers.size() != 0)
+        {
+            GLDrawBuffersEXTProcT glDrawBuffersEXTProc =
+                (GLDrawBuffersEXTProcT) win->getFunction(_uiFuncDrawBuffers);
+            
+            glDrawBuffersEXTProc(_mfDrawBuffers.size(), &(_mfDrawBuffers[0]) );
+        }
+        else
+        {
+            glDrawBuffer(GL_NONE);
+            glReadBuffer(GL_NONE);
+        }
     }
     else
     {
-        glDrawBuffer(GL_NONE);
-        glReadBuffer(GL_NONE);
+        GLDrawBuffersEXTProcT glDrawBuffersEXTProc =
+            (GLDrawBuffersEXTProcT) win->getFunction(_uiFuncDrawBuffers);
+        
+        glDrawBuffersEXTProc(1, &eDrawBuffer );
     }
 
     CHECK_FRAMEBUFFER_STATUS();
