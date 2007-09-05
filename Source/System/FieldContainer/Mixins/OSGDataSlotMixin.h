@@ -65,7 +65,7 @@ class DataSlotMixin : public ParentT
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
 
-    void setDataX(FieldBundleP pBundle, Int32 iSlotId);
+    void setData(FieldBundleP pBundle, Int32 iSlotId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

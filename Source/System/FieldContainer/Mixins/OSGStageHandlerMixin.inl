@@ -103,7 +103,7 @@ typename StageHandlerMixin<ParentT>::ValidationStatus
     {
         pData = StageData::create();
 
-        pAction->setDataX(pData, _iDataSlotId);
+        pAction->setData(pData, _iDataSlotId);
     }
 
     if(returnValue == StageValidator::Finished)
@@ -244,13 +244,13 @@ void StageHandlerMixin<ParentT>::setData(
 
     if(pStoredData == NULL)
     {
-        pAction->setDataX(pData, iDataSlotId);
+        pAction->setData(pData, iDataSlotId);
     }
     else if(pStoredData != pData)
     {
         pData->copyFrom(pStoredData);
 
-        pAction->setDataX(pData, iDataSlotId);
+        pAction->setData(pData, iDataSlotId);
     }
 }
 
