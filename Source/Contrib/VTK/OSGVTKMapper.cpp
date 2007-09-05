@@ -294,7 +294,8 @@ bool VTKMapper::processPrimitive(
     pColorField ->resize(numIndices);
     
     int prim = 0, vert = 0;
-    int i, npts, *pts, transparentFlag = 0;
+    vtkIdType i, npts, *pts;
+    int transparentFlag = 0;
     
     unsigned char *aColor  = NULL;
     vtkReal       *aNormal = NULL;
