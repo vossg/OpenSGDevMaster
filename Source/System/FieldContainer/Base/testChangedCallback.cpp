@@ -3,6 +3,17 @@
 #include "OSGNode.h"
 #include "OSGNodeCore.h"
 
+#include "boost/bind.hpp"
+
+class Foo
+{
+  public:
+
+    void testCB(OSG::FieldContainerPtr pObj, OSG::BitVector whichField)
+    {
+        fprintf(stderr, "Foo::testCB %llx\n", whichField);
+    }
+};
 
 void testCB(OSG::FieldContainerPtr pObj, OSG::BitVector whichField)
 {
@@ -13,11 +24,16 @@ int main (int argc, char **argv)
 {
     OSG::osgInit(argc, argv);
 
+    Foo foo;
+
     OSG::Thread::getCurrentChangeList()->clear();
 
     OSG::NodePtr pNode = OSG::Node::create();
 
+    OSG::ChangedFunctor objCB = boost::bind(&Foo::testCB, &foo, _1, _2);
+
     pNode->addChangedFunctor(testCB, "");
+    pNode->addChangedFunctor(objCB, "");
 
     pNode->setTravMask(0);
 
