@@ -257,7 +257,7 @@ bool ReflexiveContainerType::initParentFields(void)
                 {
                     SWARNING << "ERROR: Can't add field "
                              << "description a second time: "
-                             << (*dVIt)->getName().str() << std::endl;
+                             << (*dVIt)->getName().c_str() << std::endl;
                 }
 
             }
