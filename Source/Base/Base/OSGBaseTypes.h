@@ -692,6 +692,7 @@ struct FieldFlags
     BitVector _bSyncFlags;
     BitVector _bThreadLocalFlags;
     BitVector _bClusterLocalFlags;
+    BitVector _bNamespaceMask;
 
     FieldFlags(void);
     FieldFlags(const FieldFlags &source);

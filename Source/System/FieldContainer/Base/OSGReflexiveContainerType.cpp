@@ -156,19 +156,26 @@ void ReflexiveContainerType::terminate(void)
 {
     _bInitialized = false;
 
+    for(UInt32 i = 0; i < _vDescVec.size(); ++i)
+    {
+        delete _vDescVec[i];
+    }
+
     for(UInt32 i = 0; i < _vInitialDescs.size(); ++i)
     {
         delete _vInitialDescs[i];
     }
 
+    _vDescVec     .clear();
     _vInitialDescs.clear();
 }
 
 bool ReflexiveContainerType::initFields(void)
 {
-    bool      returnValue = true;
-    UInt32    i;
-    DescMapIt descIt;
+    bool                  returnValue = true;
+    UInt32                i;
+    DescMapIt             descIt;
+    FieldDescriptionBase *pDesc;
 
     for(i = 0; i < _vInitialDescs.size(); i++)
     {
@@ -179,10 +186,12 @@ bool ReflexiveContainerType::initFields(void)
 
             if(descIt == _mDescMap.end())
             {
-                _mDescMap[IDStringLink(_vInitialDescs[i]->getCName())] =
-                    _vInitialDescs[i];
+                pDesc = _vInitialDescs[i]->clone();
 
-                _vDescVec.push_back(_vInitialDescs[i]);
+                _mDescMap[IDStringLink(_vInitialDescs[i]->getCName())] =
+                    pDesc;
+
+                _vDescVec.push_back(pDesc);
             }
             else
             {
@@ -213,7 +222,11 @@ bool ReflexiveContainerType::initFields(void)
 bool ReflexiveContainerType::initParentFields(void)
 {
     bool      returnValue = true;
+#if 0
     DescMapIt dPIt;
+#endif
+    DescVecIt             dVIt;
+    FieldDescriptionBase *pDesc;
 
     ReflexiveContainerType *pReflexParent =
         dynamic_cast<ReflexiveContainerType *>(_pParentType);
@@ -222,6 +235,34 @@ bool ReflexiveContainerType::initParentFields(void)
     {
         if(pReflexParent->isInitialized() == true)
         {
+            _vDescVec.reserve(               _vDescVec.size() + 
+                              pReflexParent->_vDescVec.size());
+
+
+            for(  dVIt  = pReflexParent->_vDescVec.begin();
+                  dVIt != pReflexParent->_vDescVec.end  ();
+                ++dVIt)
+            {
+                if(_mDescMap.find(IDStringLink((*dVIt)->getCName())) == 
+                       _mDescMap.end())
+                {
+                    pDesc = (*dVIt)->clone();
+
+                    _mDescMap[IDStringLink((*dVIt)->getCName())] =
+                        pDesc;
+                    
+                    _vDescVec.push_back(pDesc);
+                }
+                else
+                {
+                    SWARNING << "ERROR: Can't add field "
+                             << "description a second time: "
+                             << (*dVIt)->getName().str() << std::endl;
+                }
+
+            }
+
+#if 0
             for(  dPIt  = pReflexParent->_mDescMap.begin();
                   dPIt != pReflexParent->_mDescMap.end  ();
                 ++dPIt)
@@ -241,7 +282,7 @@ bool ReflexiveContainerType::initParentFields(void)
             _vDescVec.insert(_vDescVec.end(),
                               pReflexParent->_vDescVec.begin(),
                               pReflexParent->_vDescVec.end  ());
-
+#endif
         }
         else
         {

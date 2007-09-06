@@ -465,6 +465,8 @@ void FieldContainer::onCreateAspect(const FieldContainer *,
 
         _pFieldFlags->_bClusterLocalFlags = 
             ~(_pFieldFlags->_bClusterLocalFlags);
+
+        _pFieldFlags->_bNamespaceMask = Thread::getCurrentNamespaceMask();
     }
 }
 

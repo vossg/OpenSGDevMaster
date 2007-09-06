@@ -42,7 +42,8 @@ inline
 FieldFlags::FieldFlags(void) :
     _bSyncFlags        (0x0000),
     _bThreadLocalFlags (0x0000),
-    _bClusterLocalFlags(0x0000)
+    _bClusterLocalFlags(0x0000),
+    _bNamespaceMask    (0x0001)
 {    
 }
 
@@ -50,7 +51,8 @@ inline
 FieldFlags::FieldFlags(const FieldFlags &source) :
     _bSyncFlags        (source._bSyncFlags        ),
     _bThreadLocalFlags (source._bThreadLocalFlags ),
-    _bClusterLocalFlags(source._bClusterLocalFlags)
+    _bClusterLocalFlags(source._bClusterLocalFlags),
+    _bNamespaceMask    (source._bNamespaceMask    )
 {
 }
 

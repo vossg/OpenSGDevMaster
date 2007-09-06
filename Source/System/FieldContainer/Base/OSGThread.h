@@ -488,14 +488,17 @@ class OSG_SYSTEM_DLLMAPPING Thread : public ThreadBase
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    static UInt32      getCurrentAspect    (      void         );
-    static ChangeList *getCurrentChangeList(      void         );
-    
-    static Thread     *getCurrent          (      void         );
+    static UInt32      getCurrentAspect           (      void             );
+    static ChangeList *getCurrentChangeList       (      void             );
+    static BitVector   getCurrentNamespaceMask    (      void             );
+
+    static void        setCurrentNamespaceMask    (      BitVector  bMask );
+
+    static Thread     *getCurrent                 (      void             );
 
 
-    static Thread     *get                 (const Char8 *szName);
-    static Thread     *find                (const Char8 *szName);
+    static Thread     *get                        (const Char8     *szName);
+    static Thread     *find                       (const Char8     *szName);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

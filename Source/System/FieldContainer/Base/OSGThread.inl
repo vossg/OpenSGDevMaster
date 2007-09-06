@@ -200,6 +200,17 @@ ChangeList *Thread::getCurrentChangeList(void)
 }
 
 inline
+BitVector Thread::getCurrentNamespaceMask(void)
+{
+    return 0x0001;
+}
+
+inline
+void Thread::setCurrentNamespaceMask(BitVector bMask)
+{
+}
+
+inline
 Thread *Thread::getCurrent(void)
 {
     return static_cast<Thread *>(Inherited::getCurrent());
