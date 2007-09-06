@@ -54,9 +54,21 @@ ChangeList *ThreadCommonBase::getChangeList(void)
 }
 
 inline
+BitVector ThreadCommonBase::getNamespaceMask(void)
+{
+    return _bNamespaceMask;
+}
+
+inline
 void ThreadCommonBase::setAspect(UInt32 uiAspectId)
 {
     _uiAspectId = uiAspectId;
+}
+
+inline
+void ThreadCommonBase::setNamespaceMask(BitVector bNamespaceMask)
+{
+    _bNamespaceMask = bNamespaceMask; 
 }
 
 #if defined (OSG_USE_PTHREADS)
@@ -202,12 +214,15 @@ ChangeList *Thread::getCurrentChangeList(void)
 inline
 BitVector Thread::getCurrentNamespaceMask(void)
 {
-    return 0x0001;
+    return Inherited::getCurrentNamespaceMask();
 }
 
 inline
 void Thread::setCurrentNamespaceMask(BitVector bMask)
 {
+    Inherited::setNamespaceMaskTo(bMask);
+
+    Self::getCurrent()->setNamespaceMask(bMask);
 }
 
 inline

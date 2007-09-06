@@ -106,9 +106,10 @@ class OSG_SYSTEM_DLLMAPPING ThreadCommonBase : public BaseThread
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    UInt32      getAspect    (void);
-    ChangeList *getChangeList(void);
-    
+    UInt32      getAspect       (void);
+    ChangeList *getChangeList   (void);
+    BitVector   getNamespaceMask(void);
+ 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -122,6 +123,7 @@ class OSG_SYSTEM_DLLMAPPING ThreadCommonBase : public BaseThread
 
     UInt32      _uiAspectId;
     ChangeList *_pChangeList;
+    BitVector   _bNamespaceMask;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -143,8 +145,9 @@ class OSG_SYSTEM_DLLMAPPING ThreadCommonBase : public BaseThread
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    void setAspect    (UInt32      uiAspectId);
-    void setChangeList(ChangeList *pChangeList);
+    void setAspect       (UInt32      uiAspectId    );
+    void setChangeList   (ChangeList *pChangeList   );
+    void setNamespaceMask(BitVector   bNamespaceMask);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -190,6 +193,7 @@ class PThreadBase : public ThreadCommonBase
 #if defined(OSG_PTHREAD_ELF_TLS)
     static __thread UInt32      _uiTLSAspectId;
     static __thread ChangeList *_pTLSChangeList;
+    static __thread BitVector   _bTLSNamespaceMask;
 #else
     static pthread_key_t  _aspectKey;
     static pthread_key_t  _changeListKey;
@@ -210,8 +214,9 @@ class PThreadBase : public ThreadCommonBase
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    static UInt32       getCurrentAspect    (void);
-    static ChangeList  *getCurrentChangeList(void);
+    static UInt32       getCurrentAspect       (void);
+    static ChangeList  *getCurrentChangeList   (void);
+    static BitVector    getCurrentNamespaceMask(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -237,13 +242,15 @@ class PThreadBase : public ThreadCommonBase
 
             void setupAspect    (void);
             void setupChangeList(void);
+            void setupMasks     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Debug                                   */
     /*! \{                                                                 */
 
-    static void setAspectTo(UInt32 uiNewAspect);
+    static void setAspectTo       (UInt32    uiNewAspect   );
+    static void setNamespaceMaskTo(BitVector bNamespaceMask);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -490,6 +497,7 @@ class OSG_SYSTEM_DLLMAPPING Thread : public ThreadBase
 
     static UInt32      getCurrentAspect           (      void             );
     static ChangeList *getCurrentChangeList       (      void             );
+
     static BitVector   getCurrentNamespaceMask    (      void             );
 
     static void        setCurrentNamespaceMask    (      BitVector  bMask );

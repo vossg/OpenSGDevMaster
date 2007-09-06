@@ -90,11 +90,12 @@ void ThreadCommonBase::setChangeList(ChangeList *pChangeList)
 ThreadCommonBase::ThreadCommonBase(const Char8  *szName,
                                          UInt32  uiId) :
     
-     Inherited  (szName, 
-                 uiId  ),
+     Inherited     (szName, 
+                    uiId                                  ),
 
-    _uiAspectId (0     ),
-    _pChangeList(NULL  )
+    _uiAspectId    (0                                     ),
+    _pChangeList   (NULL                                  ),
+    _bNamespaceMask(TypeTraits<BitVector>::getOneElement())
 {
 }
 
@@ -114,6 +115,8 @@ ThreadCommonBase::~ThreadCommonBase(void)
 #if defined(OSG_PTHREAD_ELF_TLS)
 __thread UInt32      PThreadBase::_uiTLSAspectId  = 0;
 __thread ChangeList *PThreadBase::_pTLSChangeList = NULL;
+
+__thread BitVector   PThreadBase::_bTLSNamespaceMask = 1;
 #else
 pthread_key_t PThreadBase::_aspectKey;
 pthread_key_t PThreadBase::_changeListKey;
@@ -186,6 +189,13 @@ ChangeList *PThreadBase::getCurrentChangeList(void)
 #endif
 }
 
+#if defined(OSG_PTHREAD_ELF_TLS)
+BitVector PThreadBase::getCurrentNamespaceMask(void)
+{
+    return _bTLSNamespaceMask;
+}
+#endif
+
 void PThreadBase::setAspectTo(UInt32 uiNewAspect)
 {
 #if defined(OSG_PTHREAD_ELF_TLS)
@@ -198,6 +208,13 @@ void PThreadBase::setAspectTo(UInt32 uiNewAspect)
     *pUint = uiNewAspect;
 #endif
 }
+
+#if defined(OSG_PTHREAD_ELF_TLS)
+void PThreadBase::setNamespaceMaskTo(BitVector bNamespaceMask)
+{
+    _bTLSNamespaceMask = bNamespaceMask;
+}
+#endif
 
 /*-------------------------------------------------------------------------*/
 /*                               Setup                                     */
@@ -212,7 +229,8 @@ void PThreadBase::init(void)
     if(_bInitialized == true)
     {
         setupAspect    ();        
-        setupChangeList();        
+        setupChangeList();   
+        setupMasks     ();
     }
 }
 
@@ -238,7 +256,6 @@ void PThreadBase::shutdown(void)
 
 void PThreadBase::setupAspect(void)
 {
-
 #if defined(OSG_PTHREAD_ELF_TLS)
     _uiTLSAspectId  = Inherited::_uiAspectId;
 #else
@@ -287,6 +304,13 @@ void PThreadBase::setupChangeList(void)
     pthread_setspecific(_changeListKey, (void *) pChangeList);  
 #endif
 }
+
+#if defined(OSG_PTHREAD_ELF_TLS)
+void PThreadBase::setupMasks(void)
+{
+    _bTLSNamespaceMask = Inherited::_bNamespaceMask;
+}
+#endif
 
 #endif /* OSG_USE_PTHREADS */
 
