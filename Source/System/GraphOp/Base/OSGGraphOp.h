@@ -123,7 +123,7 @@ protected:
     /*! \name                Parameter Helpers                             */
     /*! \{                                                                 */
 
-    class ParamSet
+    class OSG_SYSTEM_DLLMAPPING ParamSet
     {
       public:
         

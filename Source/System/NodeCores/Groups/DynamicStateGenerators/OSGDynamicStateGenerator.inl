@@ -43,7 +43,7 @@ OSG_BEGIN_NAMESPACE
 inline
 FrameBufferObjectPtrConst DynamicStateGenerator::getRenderTarget(void) const
 {
-    Inherited::getRenderTarget();
+    return Inherited::getRenderTarget();
 }
 
 OSG_END_NAMESPACE
