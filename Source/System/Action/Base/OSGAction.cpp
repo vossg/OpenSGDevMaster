@@ -337,10 +337,7 @@ ActionBase::ResultE Action::recurse(NodePtrConstArg node)
         return Quit;                    
     }
     
-    Action::ResultE result;
-
-    if(_nodeEnterCB != NULL)
-        _nodeEnterCB(node, this);
+    Action::ResultE result = Continue;
 
     _actList = NULL;
     _actNode = node;
@@ -348,7 +345,18 @@ ActionBase::ResultE Action::recurse(NodePtrConstArg node)
     _newList.clear();
 
     _useNewList = false;
+
+    if(_nodeEnterCB != NULL)
+        result = _nodeEnterCB(node, this);
+
+    if(result != Continue)
+    {
+        if(result == Skip)
+            return Continue;
     
+        return result;
+    }
+
     result = callEnter(node->getCore());
 
     if(result != Continue)
