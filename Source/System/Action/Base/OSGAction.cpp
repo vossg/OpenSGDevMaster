@@ -157,7 +157,14 @@ Action *Action::getPrototype(void)
  */
 
 Action::Action(void) : 
-    _travMask(TypeTraits<UInt32>::getMax())
+    _enterFunctors(                            ),
+    _leaveFunctors(                            ),
+    _actNode      (OSGNullFC                   ),
+    _actList      (NULL                        ),
+    _useNewList   (false                       ),
+    _travMask     (TypeTraits<UInt32>::getMax()),
+    _nodeEnterCB  (                            ),
+    _nodeLeaveCB  (                            )
 {
     if(_defaultEnterFunctors)
         _enterFunctors = *_defaultEnterFunctors;
@@ -170,9 +177,14 @@ Action::Action(void) :
  */
 
 Action::Action(const Action & source) :
-    _enterFunctors(source._enterFunctors),
-    _leaveFunctors(source._leaveFunctors),
-    _travMask     (source._travMask     )
+    _enterFunctors(source._enterFunctors       ),
+    _leaveFunctors(source._leaveFunctors       ),
+    _actNode      (OSGNullFC                   ),
+    _actList      (NULL                        ),
+    _useNewList   (false                       ),
+    _travMask     (source._travMask            ),
+    _nodeEnterCB  (source._nodeEnterCB         ),
+    _nodeLeaveCB  (source._nodeLeaveCB         )
 {
 }
 
@@ -326,7 +338,10 @@ ActionBase::ResultE Action::recurse(NodePtrConstArg node)
     }
     
     Action::ResultE result;
-    
+
+    if(_nodeEnterCB != NULL)
+        _nodeEnterCB(node, this);
+
     _actList = NULL;
     _actNode = node;
 
@@ -373,6 +388,9 @@ ActionBase::ResultE Action::recurse(NodePtrConstArg node)
     {
         callLeave(node->getCore());
     }
+
+    if(_nodeLeaveCB != NULL)
+        _nodeLeaveCB(node, this);
 
     if(result == Skip)
         return Continue;

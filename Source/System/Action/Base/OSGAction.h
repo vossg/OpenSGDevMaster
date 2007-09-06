@@ -90,15 +90,10 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     //   enums                                                               
     //-----------------------------------------------------------------------
 
-/*
-    typedef ArgsCollector<Action *>                      FunctorArgs;
-
-    typedef TypedFunctor2Base<ResultE, 
-                              CPtrRefCallArg<NodeCorePtr>, 
-                              FunctorArgs               > Functor;
- */
-
-    typedef boost::function<ResultE (NodeCorePtrConstArg, Action *)> Functor;
+    typedef boost::function<ResultE(NodeCorePtrConstArg, 
+                                    Action             *)> Functor;
+    typedef boost::function<ResultE(NodePtrConstArg,   
+                                    Action             *)> NodeFunctor; 
 
     typedef ActionBase::ResultE (NodeCore::*Callback)(Action *);
 
@@ -285,6 +280,9 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     std::vector<NodePtr>  _newList;   // list of active object for this level
 
     UInt32                _travMask;
+
+    NodeFunctor           _nodeEnterCB;
+    NodeFunctor           _nodeLeaveCB;
 
   private:
 
