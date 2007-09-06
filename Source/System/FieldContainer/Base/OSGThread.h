@@ -197,6 +197,7 @@ class PThreadBase : public ThreadCommonBase
 #else
     static pthread_key_t  _aspectKey;
     static pthread_key_t  _changeListKey;
+    static pthread_key_t  _namespaceMaskKey;
 #endif
 
 #if !defined(OSG_PTHREAD_ELF_TLS)
@@ -205,8 +206,9 @@ class PThreadBase : public ThreadCommonBase
     /*! \name                     Free                                     */
     /*! \{                                                                 */
 
-    static void  freeAspect    (void *pAspect);
-    static void  freeChangeList(void *pChangeList);
+    static void  freeAspect       (void *pAspect       );
+    static void  freeChangeList   (void *pChangeList   );
+    static void  freeNamespaceMask(void *pNamespaceMask);
 #endif
 
     /*! \}                                                                 */
@@ -385,9 +387,11 @@ class WinThreadBase : public ThreadCommonBase
 #if defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
     static UInt32 _aspectKey;
     static UInt32 _changeListKey;
+    static UInt32 _namespaceMaskKey;
 #else
     static __declspec (thread) UInt32      _uiAspectLocal;
     static __declspec (thread) ChangeList *_pChangeListLocal;
+    static __declspec (thread) BitVector   _bNamespaceMaskLocal;
 #endif
 
 #ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
@@ -397,9 +401,13 @@ class WinThreadBase : public ThreadCommonBase
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING 
-    static void freeAspect    (void);
+    static void freeAspect       (void);
+
     OSG_SYSTEM_DLLMAPPING 
-    static void freeChangeList(void);
+    static void freeChangeList   (void);
+
+    OSG_SYSTEM_DLLMAPPING 
+    static void freeNamespaceMask(void);
 #endif
 
     /*! \}                                                                 */
@@ -409,8 +417,12 @@ class WinThreadBase : public ThreadCommonBase
 
     OSG_SYSTEM_DLLMAPPING 
     static UInt32      getCurrentAspect    (void);
+
     OSG_SYSTEM_DLLMAPPING 
     static ChangeList *getCurrentChangeList(void);
+
+    OSG_SYSTEM_DLLMAPPING 
+    static BitVector    getCurrentNamespaceMask(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -438,8 +450,12 @@ class WinThreadBase : public ThreadCommonBase
 
             OSG_SYSTEM_DLLMAPPING 
             void setupAspect     (void);
+
             OSG_SYSTEM_DLLMAPPING 
             void setupChangeList (void);
+
+            OSG_SYSTEM_DLLMAPPING 
+            void setupMasks      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -447,7 +463,10 @@ class WinThreadBase : public ThreadCommonBase
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING 
-    static void setAspectTo(UInt32 uiNewAspect);
+    static void setAspectTo       (UInt32    uiNewAspect   );
+
+    OSG_SYSTEM_DLLMAPPING 
+    static void setNamespaceMaskTo(BitVector bNamespaceMask);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

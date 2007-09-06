@@ -120,6 +120,7 @@ __thread BitVector   PThreadBase::_bTLSNamespaceMask = 1;
 #else
 pthread_key_t PThreadBase::_aspectKey;
 pthread_key_t PThreadBase::_changeListKey;
+pthread_key_t PThreadBase::_namespaceMaskKey;
 #endif
 
 /*-------------------------------------------------------------------------*/
@@ -140,6 +141,14 @@ void PThreadBase::freeChangeList(void *pChangeList)
 
     if(pCl != NULL)
         delete pCl;
+}
+
+void PThreadBase::freeNamespaceMask(void *pNamespaceMask)
+{
+    BitVector *pNM = (BitVector *) pNamespaceMask;
+
+    if(pNM != NULL)
+        delete pNM;
 }
 #endif
 
@@ -189,12 +198,18 @@ ChangeList *PThreadBase::getCurrentChangeList(void)
 #endif
 }
 
-#if defined(OSG_PTHREAD_ELF_TLS)
 BitVector PThreadBase::getCurrentNamespaceMask(void)
 {
+#if defined(OSG_PTHREAD_ELF_TLS)
     return _bTLSNamespaceMask;
-}
+#else
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) pthread_getspecific(_namespaceMaskKey);
+
+    return *pBitVec;
 #endif
+}
 
 void PThreadBase::setAspectTo(UInt32 uiNewAspect)
 {
@@ -209,12 +224,18 @@ void PThreadBase::setAspectTo(UInt32 uiNewAspect)
 #endif
 }
 
-#if defined(OSG_PTHREAD_ELF_TLS)
 void PThreadBase::setNamespaceMaskTo(BitVector bNamespaceMask)
 {
+#if defined(OSG_PTHREAD_ELF_TLS)
     _bTLSNamespaceMask = bNamespaceMask;
-}
+#else
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) pthread_getspecific(_namespaceMaskKey);
+
+    *pBitVec = bNamespaceMask;
 #endif
+}
 
 /*-------------------------------------------------------------------------*/
 /*                               Setup                                     */
@@ -245,11 +266,25 @@ void PThreadBase::shutdown(void)
 
     delete pUint;
 
+    pthread_setspecific(_aspectKey, NULL);  
+
+
     ChangeList **pCList;
 
     pCList = (ChangeList **) pthread_getspecific(_changeListKey);
 
     delete pCList;
+
+    pthread_setspecific(_changeListKey, NULL);  
+
+
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) pthread_getspecific(_namespaceMaskKey);
+
+    delete pBitVec;
+
+    pthread_setspecific(_namespaceMaskKey, NULL);  
 #endif
 }
 
@@ -305,12 +340,18 @@ void PThreadBase::setupChangeList(void)
 #endif
 }
 
-#if defined(OSG_PTHREAD_ELF_TLS)
 void PThreadBase::setupMasks(void)
 {
+#if defined(OSG_PTHREAD_ELF_TLS)
     _bTLSNamespaceMask = Inherited::_bNamespaceMask;
-}
+#else
+    BitVector *pBitVec = new BitVector;
+
+    *pBitVec = Inherited::_bNamespaceMask;
+
+    pthread_setspecific(_namespaceMaskKey, (void *) pBitVec);  
 #endif
+}
 
 #endif /* OSG_USE_PTHREADS */
 
@@ -390,11 +431,13 @@ void SprocBase::setupChangeListInternal(void)
 #if defined (OSG_USE_WINTHREADS)
 
 #if defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
-UInt32 WinThreadBase::_aspectKey     = 0;
-UInt32 WinThreadBase::_changeListKey = 0;
+UInt32 WinThreadBase::_aspectKey        = 0;
+UInt32 WinThreadBase::_changeListKey    = 0;
+UInt32 WinThreadBase::_namespaceMaskKey = 0;
 #else
-__declspec (thread) UInt32      WinThreadBase::_uiAspectLocal    = 0;
-__declspec (thread) ChangeList *WinThreadBase::_pChangeListLocal = NULL;
+__declspec (thread) UInt32      WinThreadBase::_uiAspectLocal       = 0;
+__declspec (thread) ChangeList *WinThreadBase::_pChangeListLocal    = NULL;
+__declspec (thread) BitVector   WinThreadBase::_bNamespaceMaskLocal = 1;
 #endif
 
 /*-------------------------------------------------------------------------*/
@@ -417,6 +460,15 @@ void WinThreadBase::freeChangeList(void)
     pCList = (ChangeList **) TlsGetValue(_changeListKey);
 
     delete pCList;
+}
+
+void WinThreadBase::freeNAmespaceMask(void)
+{
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) TlsGetValue(_namespaceMaskKey);
+
+    delete pBitVec;
 }
 #endif
 
@@ -453,6 +505,7 @@ void WinThreadBase::init(void)
     {
         setupAspect    ();
         setupChangeList();        
+        setupMasks     ();
     }
 }
 
@@ -503,6 +556,19 @@ void WinThreadBase::setupChangeList(void)
     }
 
     _pChangeListLocal->setAspect(Inherited::_uiAspectId);
+#endif
+}
+
+void WinThreadBase::setupMasks(void)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BitVector *pBitVec = new BitVector;
+
+    *pBitVec = Inherited::_bNamespaceMask;
+
+    TlsSetValue(_namespaceMaskKey, pBitVec);
+#else
+    _bNamespaceMaskLocal = Inherited::_bNamespaceMask;
 #endif
 }
 

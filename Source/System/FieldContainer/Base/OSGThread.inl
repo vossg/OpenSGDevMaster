@@ -184,6 +184,20 @@ ChangeList *WinThreadBase::getCurrentChangeList(void)
 }
 
 inline
+BitVector WinThreadBase::getCurrentNamespaceMask(void)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) TlsGetValue(_namespaceMaskKey);
+
+    return *pBitVec;
+#else
+    return _bNamespaceMaskLocal;
+#endif
+}
+
+inline
 void WinThreadBase::setAspectTo(UInt32 uiNewAspect)
 {
 #ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
@@ -194,6 +208,20 @@ void WinThreadBase::setAspectTo(UInt32 uiNewAspect)
     *pUint = uiNewAspect;
 #else
     _uiAspectLocal = uiNewAspect;
+#endif
+}
+
+inline
+void WinThreadBase::setNamespaceMaskTo(BitVector bNamespaceMask)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) TlsGetValue(_namespaceMaskKey);
+
+    *pBitVec = bNamespaceMask;
+#else
+    _bNamespaceMaskLocal = bNamespaceMask;
 #endif
 }
 #endif
