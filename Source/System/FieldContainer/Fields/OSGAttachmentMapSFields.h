@@ -44,6 +44,8 @@
 
 #include "OSGSField.h"
 #include "OSGAttachmentMapFieldTraits.h"
+#include "OSGTypeBasePredicates.h"
+#include "OSGReflexiveContainerTypePredicates.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -60,6 +62,48 @@ typedef SField<FieldBundleAttachmentMap> SFFieldBundleAttachmentPtrMap;
 
 typedef SField<FieldContainerAttachmentMap> SFFieldContainerAttachmentPtrMap;
 #endif
+
+template<>
+class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFFieldContainerAttachmentPtrMap> : 
+    public GetFieldHandle
+{
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef GetFieldHandle Inherited;
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef boost::shared_ptr<GetSFieldHandle> Ptr;
+
+    /*---------------------------------------------------------------------*/
+
+    GetSFieldHandle(const GetSFieldHandle                  &source);
+    GetSFieldHandle(const SFFieldContainerAttachmentPtrMap *pField, 
+                    const FieldDescriptionBase             *pDescription);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual const FieldType &getType       (void) const;
+    virtual       bool       isPointerField(void) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void pushValueToStream(OutStream &str) const;
+    virtual void pushSizeToStream (OutStream &str) const;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool equal(Inherited::Ptr rhs);
+
+    /*---------------------------------------------------------------------*/
+
+    SFFieldContainerAttachmentPtrMap const * operator ->(void);
+    SFFieldContainerAttachmentPtrMap const & operator * (void);
+};
 
 template<>
 class OSG_SYSTEM_DLLMAPPING 

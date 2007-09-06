@@ -41,6 +41,92 @@ OSG_BEGIN_NAMESPACE
 /*---------------------------------------------------------------------*/
 
 inline
+GetSFieldHandle<SFFieldContainerAttachmentPtrMap>::GetSFieldHandle(
+    const GetSFieldHandle &source) :
+
+    Inherited(source)
+{
+}
+
+inline
+GetSFieldHandle<SFFieldContainerAttachmentPtrMap>::GetSFieldHandle(
+    const SFFieldContainerAttachmentPtrMap *pField, 
+    const FieldDescriptionBase             *pDescription) :
+
+    Inherited(pField, pDescription)
+{
+}
+
+inline
+const FieldType &
+    GetSFieldHandle<SFFieldContainerAttachmentPtrMap>::getType(void) const
+{
+    return SFFieldContainerAttachmentPtrMap::getClassType();
+}
+
+
+inline
+bool 
+   GetSFieldHandle<SFFieldContainerAttachmentPtrMap>::isPointerField(void) const
+{
+    return true;
+}
+
+inline
+void GetSFieldHandle<SFFieldContainerAttachmentPtrMap>::pushValueToStream(
+    OutStream &str) const
+{
+    FWARNING(("illegal pushValueToStream called for %s\n", 
+              this->getName().c_str()));
+    OSG_ASSERT(false);
+}
+
+inline
+void GetSFieldHandle<SFFieldContainerAttachmentPtrMap>::pushSizeToStream(
+    OutStream &str) const
+{
+    FWARNING(("illegal pushSizeToStream called for %s\n", 
+              this->getName().c_str()));
+    OSG_ASSERT(false);
+}
+
+inline
+bool GetSFieldHandle<SFFieldContainerAttachmentPtrMap>::equal(
+    Inherited::Ptr rhs)
+{
+    Ptr pOther = boost::dynamic_pointer_cast<GetSFieldHandle>(rhs);
+
+    if(pOther == NULL)
+    {
+        return false;
+    }
+
+    SFFieldContainerAttachmentPtrMap const *pLhs = 
+        static_cast<SFFieldContainerAttachmentPtrMap const *>(        _pField);
+
+    SFFieldContainerAttachmentPtrMap const *pRhs = 
+        static_cast<SFFieldContainerAttachmentPtrMap const *>(pOther->_pField);
+
+    return (*pLhs) == (*pRhs);
+}
+
+inline
+SFFieldContainerAttachmentPtrMap const *
+    GetSFieldHandle<SFFieldContainerAttachmentPtrMap>::operator ->(void)
+{
+    return static_cast<SFFieldContainerAttachmentPtrMap const *>(_pField);
+}
+
+inline
+SFFieldContainerAttachmentPtrMap const &
+    GetSFieldHandle<SFFieldContainerAttachmentPtrMap>::operator * (void)
+{
+    return *(static_cast<SFFieldContainerAttachmentPtrMap const *>(_pField));
+}
+
+/*---------------------------------------------------------------------*/
+
+inline
 EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::EditSFieldHandle(
     const EditSFieldHandle &source) :
 
@@ -161,7 +247,32 @@ inline
 void EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::shareValues(
     GetFieldHandlePtr source)
 {
-    OSG_ASSERT(false);
+    SFFieldContainerAttachmentPtrMap::GetHandlePtr pGetHandle = 
+        boost::dynamic_pointer_cast<
+            SFFieldContainerAttachmentPtrMap::GetHandle>(source);
+
+    if(pGetHandle == NULL || pGetHandle->isValid() == false)
+        return;
+
+    const SFFieldContainerAttachmentPtrMap &pAttMap = **pGetHandle;
+
+    FieldContainerAttachmentMap::const_iterator mapIt  =
+        pAttMap.getValue().begin();
+
+    FieldContainerAttachmentMap::const_iterator mapEnd =
+        pAttMap.getValue().end();
+
+    for(; mapIt != mapEnd; ++mapIt)
+    {
+        FieldContainerAttachmentPtr att       = mapIt->second;
+        UInt16                      uiBinding = UInt16(mapIt->first &
+                                                       0x0000FFFF    );
+
+        if(_fAddMethod)
+        {
+            _fAddMethod(att, uiBinding);
+        }
+    }
 }
 
 
@@ -173,7 +284,59 @@ void EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::cloneValues(
     const TypeIdVector      &shareGroupIds,
     const TypeIdVector      &ignoreGroupIds) const
 {
-    OSG_ASSERT(false);
+    SFFieldContainerAttachmentPtrMap::GetHandlePtr pGetHandle = 
+        boost::dynamic_pointer_cast<
+            SFFieldContainerAttachmentPtrMap::GetHandle>(pSrc);
+
+    if(pGetHandle == NULL || pGetHandle->isValid() == false)
+        return;
+
+    const SFFieldContainerAttachmentPtrMap &pAttMap = **pGetHandle;
+
+    FieldContainerAttachmentMap::const_iterator mapIt  =
+        pAttMap.getValue().begin();
+
+    FieldContainerAttachmentMap::const_iterator mapEnd =
+        pAttMap.getValue().end();
+
+    for(; mapIt != mapEnd; ++mapIt)
+    {
+        FieldContainerAttachmentPtr att       = mapIt->second;
+        UInt16                      uiBinding = UInt16(mapIt->first &
+                                                       0x0000FFFF    );
+
+        if(att != NullFC)
+        {
+            const FieldContainerType &attType = att->getType();
+
+            // test if att type should NOT be ignored
+            if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                                ignoreGroupIds.end(),
+                                                attType                ) &&
+               !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                                ignoreTypes.end(),
+                                                attType                )   )
+            {
+                // test if att should cloned
+                if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
+                                                    shareGroupIds.end(),
+                                                    attType               ) &&
+                   !TypePredicates::typeDerivedFrom(shareTypes.begin(),
+                                                    shareTypes.end(),
+                                                    attType               )   )
+                {
+                    att = dynamic_cast<FieldContainerAttachmentPtr>(
+                        OSG::deepClone(att, shareTypes,    ignoreTypes,
+                                            shareGroupIds, ignoreGroupIds));
+                }
+            }
+        }
+
+        if(_fAddMethod)
+        {
+            _fAddMethod(att, uiBinding);
+        }
+    }
 }
 
 
