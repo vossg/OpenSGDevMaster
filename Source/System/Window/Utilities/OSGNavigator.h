@@ -169,7 +169,9 @@ class OSG_UTIL_DLLMAPPING Navigator
           bool    getClickCenter();
           bool    getClickNoIntersect();
     
-          WalkNavigator* getWalkNavigator() { return &_walker; }
+          TrackballNavigator* getTrackballNavigator() { return &_trackball; }
+          FlyNavigator      * getFlyNavigator      () { return &_flyer;     }
+          WalkNavigator     * getWalkNavigator     () { return &_walker;    }
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
