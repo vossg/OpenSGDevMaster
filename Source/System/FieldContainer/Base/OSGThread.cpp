@@ -462,7 +462,7 @@ void WinThreadBase::freeChangeList(void)
     delete pCList;
 }
 
-void WinThreadBase::freeNAmespaceMask(void)
+void WinThreadBase::freeNamespaceMask(void)
 {
     BitVector *pBitVec;
 
