@@ -42,6 +42,20 @@ OSG_BEGIN_NAMESPACE
 #pragma warning( disable : 488 )
 #endif
 
+/*! \class MFieldAdaptor
+    \ingroup GrpBaseField
+    
+MFieldAdaptor can be used to quickly create MFields for pointer types. It can
+handle different actual types (e.g. RefPtr vs. FieldContainerPtr), which
+makes it quite powerful and universal. 
+
+\warning The type used in ValueT has to be layout-compatible to the type
+stored in the ParentT MField, as there is a reinterpret_cast used internally.
+Example: Mixing types with and without a virtual method will result in
+spurious and hard to debug crashes!
+
+*/
+
 template <class ValueT, class ParentT, Int32 iNamespace>
 template<class To> inline
 To &MFieldAdaptor<ValueT, ParentT, iNamespace>::dcast(void)

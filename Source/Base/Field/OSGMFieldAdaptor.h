@@ -46,9 +46,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseField
- */
-
 template<class ValueT, class ParentT, Int32 iNamespace = 0>
 class MFieldAdaptor : public ParentT
 {
