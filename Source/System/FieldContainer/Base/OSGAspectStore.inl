@@ -51,7 +51,7 @@ AspectStore::~AspectStore(void)
 }
 
 inline
-FieldContainer *AspectStore::getPtr(UInt32 uiAspect)
+FieldContainer *AspectStore::getPtr(UInt32 uiAspect) const
 {
     if(uiAspect < _vAspects.size())
     {
@@ -65,7 +65,7 @@ FieldContainer *AspectStore::getPtr(UInt32 uiAspect)
 
 
 inline
-FieldContainer *AspectStore::getPtr(void)
+FieldContainer *AspectStore::getPtr(void) const
 {
     return getPtr(Thread::getCurrentAspect());
 }
@@ -88,6 +88,12 @@ void AspectStore::removePtrForAspect(UInt32 uiAspect)
     }
 
     _vAspects[uiAspect] = NULL;
+}
+
+inline
+UInt32 AspectStore::getNumAspects(void) const
+{
+    return _vAspects.size();
 }
 
 /*-------------------------------------------------------------------------*/

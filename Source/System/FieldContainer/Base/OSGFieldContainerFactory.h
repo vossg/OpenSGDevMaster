@@ -126,6 +126,8 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
 
     ContainerPtr      getMappedContainer (UInt32 uiContainerId) const;
 
+    Int32             findContainer      (ContainerPtr ptr    ) const;
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */

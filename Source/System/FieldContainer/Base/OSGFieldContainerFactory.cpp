@@ -181,6 +181,49 @@ UInt32 FieldContainerFactoryBase::registerContainer(
     return returnValue;
 }
 
+/*! Try to find the ptr container in the factory. Primarily used to verify
+that a container is still valid and registered with the factory. As this
+function does not access the ptr itself at all, it is safe to call it with
+corrupted data.
+
+\return The container's id, or -1 if not found.
+
+\warning It uses the current thread's aspect to compare against, therefore it's not
+possible with this function to verify pointers from other threads/aspects.
+
+*/
+
+Int32 FieldContainerFactoryBase::findContainer(ContainerPtr ptr) const
+{
+#ifndef OSG_WINCE
+    _pStoreLock->acquire();
+#endif
+
+    ContainerStore::const_iterator it, end;
+    Int32 id = 0;
+    Int32 returnValue = -1;
+    
+    for(it = _vContainerStore.begin(), end = _vContainerStore.end();
+        it != end; ++it, ++id)
+    {
+#ifdef OSG_MT_CPTR_ASPECT
+        if((*it)->getPtr() == ptr)
+#else
+        if(*it == ptr)
+#endif
+        {
+            returnValue = id;
+            break;
+        }
+    }
+
+#ifndef OSG_WINCE
+    _pStoreLock->release();
+#endif
+
+    return returnValue;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
 

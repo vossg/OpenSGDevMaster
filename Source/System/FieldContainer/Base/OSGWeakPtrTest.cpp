@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *                  Copyright (C) 2006 by the OpenSG Forum                   *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -36,35 +34,99 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNODESFIELDS_H_
-#define _OSGNODESFIELDS_H_
-#ifdef __sgi
-#pragma once
-#endif
+#include <UnitTest++.h>
 
-#include "OSGSField.h"
-#include "OSGSFieldAdaptor.h"
-#include "OSGNodeFieldTraits.h"
-#include "OSGFieldContainerSFields.h"
+#include <OpenSG/OSGFieldContainer.h>
+#include <OpenSG/OSGWeakPtr.h>
+#include <OpenSG/OSGNode.h>
+#include <OpenSG/OSGNodeCore.h>
+#include <OpenSG/OSGTransform.h>
 
-OSG_BEGIN_NAMESPACE
+#include <iostream>
+#include <string>
+#include <vector>
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+using namespace OSG;
 
-typedef SFieldAdaptor<NodePtr, SFFieldContainerPtr> SFNodePtr;
-#endif
+typedef WeakPtr<NodeCorePtr>  NodeCoreWeakPtr;
+typedef WeakPtr<TransformPtr>  TransformWeakPtr;
 
+SUITE(WeakPtrTests)
+{
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+TEST(create)
+{    
+    NodePtr np = Node::create();
+    NodeRefPtr r(np);
 
-typedef SFieldAdaptor   <NodeRefPtr, 
-                         SFFieldContainerPtr> SFNodeRefPtr;
+    NodeWeakPtr w;
+    CHECK(w == NullFC);
 
-#endif
+    {
+    NodeWeakPtr w2(np);
+    CHECK(np->getWeakRefCount() == 1);   
+    }
+    CHECK(np->getWeakRefCount() == 0);   
+    
+    NodeWeakPtr w3(r);
+    CHECK(np->getWeakRefCount() == 1);   
+    
+    {
+    NodeWeakPtr w4(w3);
+    CHECK(np->getWeakRefCount() == 2);   
+    }
+    CHECK(np->getWeakRefCount() == 1);   
+}
 
+TEST(convertAndAssign)
+{
+    NodePtr np = Node::create();
+    NodeRefPtr r(np);
+    CHECK(np->getWeakRefCount() == 0); 
+    CHECK(np->getRefCount()     == 1); 
+    
+    NodeWeakPtr w;
+    w = np;
+    CHECK(np->getWeakRefCount() == 1); 
+    
+    NodeWeakPtr w2;    
+    w2 = w;
+    CHECK(np->getWeakRefCount() == 2); 
+    
+    NodeWeakPtr w3;    
+    w3 = r;
+    CHECK(np->getWeakRefCount() == 3); 
+    
+    NodeRefPtr r2;    
+    r2 = w;
+    CHECK(np->getRefCount() == 2); 
+   
+    NodeRefPtr r3;    
+    r3 = w.get();
+    CHECK(np->getRefCount() == 3); 
+}
 
-OSG_END_NAMESPACE
+TEST(compare)
+{
+    NodePtr np = Node::create();
+    NodePtr np2 = Node::create();
 
-#endif /* _OSGNODESFIELDS_H_ */
+    NodeRefPtr r(np), r2(np2);
+    
+    NodeWeakPtr w(np), w2(np), w3(np2);
+    
+    CHECK(w == w2); 
+    CHECK(w != w3); 
+    
+    CHECK(w == np);
+    CHECK(w != np2);
+    
+    
+    CHECK(w);
+    
+    NodeWeakPtr w4;
+    
+    CHECK(!w4);
+}
+
+} // SUITE

@@ -48,6 +48,31 @@
 SUITE(FieldContainerTests)
 {
 
+TEST(refCountAndRefPtr)
+{
+    OSG::NodePtr np = OSG::Node::create();
+    CHECK(np->getRefCount() == 0);
+    CHECK(np->getWeakRefCount() == 0);
+
+    OSG::UInt32 node_id = getContainerId(np);
+    CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) == np);
+
+    OSG::NodeRefPtr r;
+    CHECK(!r);
+
+    r = np;
+    CHECK(r);
+    CHECK(r.get() == np);
+    CHECK(np->getRefCount() == 1);
+
+    {
+    OSG::NodeRefPtr r2(np);
+    CHECK(r2);
+    CHECK(r2.get() == np);
+    CHECK(np->getRefCount() == 2);
+    }
+}
+
 TEST(appendTypesVector)
 {
     std::vector<std::string>                         typeNames;
@@ -126,6 +151,7 @@ TEST(checkMemoryCleanup)
    OSG::commitChanges();
    CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) == OSGNullFC);
 }
+
 
 // Test to show the bug where uncommitted changes was referencing old data
 //

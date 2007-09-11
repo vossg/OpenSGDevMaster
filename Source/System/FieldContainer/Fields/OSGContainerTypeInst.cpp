@@ -106,6 +106,10 @@ DataType FieldTraits<NodePtr                    >::_type(
     "NodePtr",
     "AttachmentContainerPtr");
 
+DataType FieldTraits<NodeRefPtr                 >::_type(
+    "NodeRefPtr",
+    "AttachmentContainerPtr");
+
 DataType FieldTraits<ChangedFunctorCallback     >::_type(
     "ChangedFunctorCallback",
     NULL);
@@ -117,6 +121,7 @@ OSG_FIELDTRAITS_GETTYPE   (FieldContainerAttachmentPtr)
 OSG_FIELDTRAITS_GETTYPE   (AttachmentContainerPtr     )
 OSG_FIELDTRAITS_GETTYPE   (NodeCorePtr                )
 OSG_FIELDTRAITS_GETTYPE   (NodePtr                    )
+OSG_FIELDTRAITS_GETTYPE   (NodeRefPtr                 )
 OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback     )
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
@@ -139,6 +144,9 @@ OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodeCorePtr, MFFieldContainerPtr);
 
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, NodePtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodePtr, MFFieldContainerPtr);
+
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, NodeRefPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodeRefPtr, MFFieldContainerPtr);
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, ChangedFunctorCallback);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ChangedFunctorCallback);

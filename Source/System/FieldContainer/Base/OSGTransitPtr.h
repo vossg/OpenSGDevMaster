@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *                     Copyright 2000-2002 by OpenSG Forum                   *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -36,35 +34,82 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNODESFIELDS_H_
-#define _OSGNODESFIELDS_H_
+#ifndef _OSGTRANSITPTR_H_
+#define _OSGTRANSITPTR_H_
+
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGSField.h"
-#include "OSGSFieldAdaptor.h"
-#include "OSGNodeFieldTraits.h"
-#include "OSGFieldContainerSFields.h"
+#ifdef OSG_DOC_FILES_IN_MODULE
+/*! \file OSGTransitPtr.h
+    \ingroup GrpSystemFieldContainer
+ */
+#endif
+
+#include "OSGContainerForwards.h"
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+/*! \ingroup GrpSystemFieldContainer
+ */
 
-typedef SFieldAdaptor<NodePtr, SFFieldContainerPtr> SFNodePtr;
-#endif
+template<class ContainerPtr>
+class RefPtr;
 
+template<class ContainerPtr>
+class TransitPtr
+{
+    /*==========================  PUBLIC  =================================*/
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+  public:
+  
+    typedef ContainerPtr Ref;
 
-typedef SFieldAdaptor   <NodeRefPtr, 
-                         SFFieldContainerPtr> SFNodeRefPtr;
+    typedef RefPtr<ContainerPtr> SelfRefPtr;
+    
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+  
+    TransitPtr(TransitPtr &other);
+    TransitPtr(SelfRefPtr &other);
+     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+ 
+    virtual ~TransitPtr(void);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Access                                  */
+    /*! \{                                                                 */
+    
+    TransitPtr &operator =(const TransitPtr  &other);
+    TransitPtr &operator =(const SelfRefPtr  &other);
 
-#endif
+    void swap(TransitPtr  &other);    
+    void swap(SelfRefPtr  &other);
+    
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
 
+  protected:
+
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+    
+    
+    SelfRefPtr _pRef;
+};
+
+typedef TransitPtr<FieldContainerPtr> FieldContainerTransitPtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGNODESFIELDS_H_ */
+#include "OSGTransitPtr.inl"
+
+#endif /* _OSGCOREDNODEPTR_H_ */

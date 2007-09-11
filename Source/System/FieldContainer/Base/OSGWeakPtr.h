@@ -34,15 +34,15 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGREFPTR_H_
-#define _OSGREFPTR_H_
+#ifndef _OSGWEAKPTR_H_
+#define _OSGWEAKPTR_H_
 
 #ifdef __sgi
 #pragma once
 #endif
 
 #ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGRefPtr.h
+/*! \file OSGWeakPtr.h
     \ingroup GrpSystemFieldContainer
  */
 #endif
@@ -51,74 +51,72 @@
 
 OSG_BEGIN_NAMESPACE
 
-template<class ContainerPtr>
-class TransitPtr;
-
 /*! \ingroup GrpSystemFieldContainer
  */
 
 template<class ContainerPtr>
-class RefPtr
+class RefPtr;
+
+template<class ContainerPtr>
+class WeakPtr
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
   
     typedef ContainerPtr Ref;
-    typedef TransitPtr<ContainerPtr> SelfTransitPtr;
-    // typedef const Ref RefPtr::*unspecified_bool_type;
+    typedef const Ref WeakPtr::*unspecified_bool_type;
 
+    typedef RefPtr<ContainerPtr> SelfRefPtr;
+    
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
   
-    RefPtr(void);
-    RefPtr(const RefPtr &refPtr);
+    WeakPtr(void);
+    WeakPtr(const WeakPtr &weakPtr);
     
     // make it explicit to prevent unexpected construction/cast paths
     
-    explicit RefPtr(const Ref         &pContainer);
+    explicit WeakPtr(const SelfRefPtr &refPtr);
+    explicit WeakPtr(const Ref        &pContainer);
      
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
  
-    ~RefPtr(void);
+    virtual ~WeakPtr(void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Access                                  */
     /*! \{                                                                 */
     
-    operator Ref(void) const;
+    operator SelfRefPtr(void) const;
     
-    typename PtrStripper<ContainerPtr>::Object* operator->(void) const;
+    SelfRefPtr get(void) const;
     
-    Ref get(void) const;
-    
-    RefPtr &operator =(const Ref                  &pContainer);
-    RefPtr &operator =(const RefPtr               &refPtr    );
-    RefPtr &operator =(      SelfTransitPtr       &transPtr  );
+    WeakPtr &operator =(const Ref                   &pContainer);
+    WeakPtr &operator =(const WeakPtr               &weakPtr   );
+    WeakPtr &operator =(const SelfRefPtr            &refPtr   );
 
-    void swap(RefPtr         &other);
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-//    bool operator <  (const FieldContainerPtr    &other) const;
-//    bool operator == (const FieldContainerPtr    &other) const;
-//    bool operator != (const FieldContainerPtr    &other) const;
+    bool operator <  (const FieldContainerPtr    &other) const;
+    bool operator == (const FieldContainerPtr    &other) const;
+    bool operator != (const FieldContainerPtr    &other) const;
 
-    bool operator <  (const RefPtr<ContainerPtr> &other) const;
-    bool operator == (const RefPtr<ContainerPtr> &other) const;
-    bool operator != (const RefPtr<ContainerPtr> &other) const;
+    bool operator <  (const WeakPtr<ContainerPtr> &other) const;
+    bool operator == (const WeakPtr<ContainerPtr> &other) const;
+    bool operator != (const WeakPtr<ContainerPtr> &other) const;
 
     bool operator !  (void                              ) const;
  
-//    operator unspecified_bool_type() const;
+    operator unspecified_bool_type() const;
   
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -134,10 +132,10 @@ class RefPtr
     Ref _pRef;
 };
 
-typedef RefPtr<FieldContainerPtr> FieldContainerRefPtr;
+typedef WeakPtr<FieldContainerPtr> FieldContainerWeakPtr;
 
 OSG_END_NAMESPACE
 
-#include "OSGRefPtr.inl"
+#include "OSGWeakPtr.inl"
 
 #endif /* _OSGCOREDNODEPTR_H_ */

@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *                  Copyright (C) 2006 by the OpenSG Forum                   *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -36,35 +34,53 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNODESFIELDS_H_
-#define _OSGNODESFIELDS_H_
-#ifdef __sgi
-#pragma once
-#endif
+#include <UnitTest++.h>
 
-#include "OSGSField.h"
-#include "OSGSFieldAdaptor.h"
-#include "OSGNodeFieldTraits.h"
-#include "OSGFieldContainerSFields.h"
+#include <OpenSG/OSGFieldContainer.h>
+#include <OpenSG/OSGRefPtr.h>
+#include <OpenSG/OSGTransitPtr.h>
+#include <OpenSG/OSGNode.h>
 
-OSG_BEGIN_NAMESPACE
+#include <iostream>
+#include <string>
+#include <vector>
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+using namespace OSG;
 
-typedef SFieldAdaptor<NodePtr, SFFieldContainerPtr> SFNodePtr;
-#endif
+typedef TransitPtr<NodePtr>  NodeTransitPtr;
 
+SUITE(TransitPtrTests)
+{
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+TEST(create)
+{    
+    NodePtr np = Node::create();
+    NodeRefPtr r(np);
+    CHECK(np->getRefCount() == 1);
+    
+    NodeRefPtr r2 = r;
+    CHECK(np->getRefCount() == 2);
+    
+    NodeTransitPtr t(r);
+    CHECK(r == NullFC);
+    CHECK(np->getRefCount() == 2);
+    
+    NodeRefPtr r3;
+    r3 = t;
+    CHECK(np->getRefCount() == 2);
+    CHECK(r3 == r2);
+    
+    r = r2;
+    NodeTransitPtr t2(r);
+    CHECK(r == NullFC);
+    CHECK(np->getRefCount() == 3);
+       
+    NodeTransitPtr t3(t2);
+    CHECK(np->getRefCount() == 3);
+    
+    r3 = t3;
+    CHECK(np->getRefCount() == 3);
+    CHECK(r3 == r2);     
+}
 
-typedef SFieldAdaptor   <NodeRefPtr, 
-                         SFFieldContainerPtr> SFNodeRefPtr;
-
-#endif
-
-
-OSG_END_NAMESPACE
-
-#endif /* _OSGNODESFIELDS_H_ */
+} // SUITE

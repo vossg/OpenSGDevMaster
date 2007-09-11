@@ -52,6 +52,7 @@
 #include "OSGChangedFunctorMFields.h"
 #include "OSGAspectStore.h"
 #include "OSGRefPtr.h"
+#include "OSGWeakPtr.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -219,6 +220,15 @@ class FieldContainer : public ReflexiveContainer
     OSG_SYSTEM_DLLMAPPING
     Int32 getRefCount         (void) const;
 
+    OSG_SYSTEM_DLLMAPPING
+    void  addWeakReference    (void);
+
+    OSG_SYSTEM_DLLMAPPING
+    void  subWeakReference    (void);
+
+    OSG_SYSTEM_DLLMAPPING
+    Int32 getWeakRefCount     (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
@@ -253,6 +263,7 @@ class FieldContainer : public ReflexiveContainer
     MFChangedFunctorCallback  _mfChangedFunctors;
 
     Int32                     _iRefCount;
+    Int32                     _iWeakRefCount;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -294,10 +305,10 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    FieldContainerPtr getAspectPtr    (UInt32 uiAspect      );
+    FieldContainerPtr getAspectPtr    (UInt32 uiAspect      ) const;
     void              setupAspectStore(void                 );
     void              setupAspectStore(AspectStore *pStore  );
-    AspectStoreP      getAspectStore  (void                 );
+    AspectStoreP      getAspectStore  (void                 ) const;
 #endif
 
     /*! \}                                                                 */

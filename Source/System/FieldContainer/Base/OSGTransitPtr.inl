@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *                     Copyright 2000-2002 by OpenSG Forum                   *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -36,35 +34,72 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNODESFIELDS_H_
-#define _OSGNODESFIELDS_H_
-#ifdef __sgi
-#pragma once
+#ifdef OSG_DOC_FILES_IN_MODULE
+/*! \file OSGTransitPtr.inl
+    \ingroup GrpSystemFieldContainer
+ */
 #endif
 
-#include "OSGSField.h"
-#include "OSGSFieldAdaptor.h"
-#include "OSGNodeFieldTraits.h"
-#include "OSGFieldContainerSFields.h"
+/*! \class TransitPtr
+
+The TransitPtr is used to avoid copying RefPtr by value, as that would incur
+an unnecessary reference increment/decrement. They work very much like a
+std::auto_ptr in that they pass ownership when assigned to or from.
+
+\sa RefPtr MTRefPtr
+
+*/
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+// TransitPtr methods
 
-typedef SFieldAdaptor<NodePtr, SFFieldContainerPtr> SFNodePtr;
-#endif
+template<class ContainerPtr> inline
+TransitPtr<ContainerPtr>::TransitPtr(TransitPtr &other) :
+    _pRef()
+{
+    _pRef.swap(other._pRef);
+}
+
+template<class ContainerPtr> inline
+TransitPtr<ContainerPtr>::TransitPtr(SelfRefPtr &other) :
+    _pRef()
+{
+    _pRef.swap(other);
+}
+
+template<class ContainerPtr> inline
+TransitPtr<ContainerPtr>::~TransitPtr(void)
+{
+}
+
+template<class ContainerPtr> inline
+TransitPtr<ContainerPtr> &TransitPtr<ContainerPtr>::operator =(const TransitPtr<ContainerPtr> &other)
+{
+    _pRef.swap(other._pRef);
+
+    return *this;
+}
+
+template<class ContainerPtr> inline
+TransitPtr<ContainerPtr> &TransitPtr<ContainerPtr>::operator =(const SelfRefPtr &other)
+{
+    _pRef.swap(other);
+
+    return *this;
+}
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+template<class ContainerPtr> inline
+void TransitPtr<ContainerPtr>::swap(RefPtr<ContainerPtr> &other)
+{
+    _pRef.swap(other);
+}
 
-typedef SFieldAdaptor   <NodeRefPtr, 
-                         SFFieldContainerPtr> SFNodeRefPtr;
-
-#endif
-
+template<class ContainerPtr> inline
+void TransitPtr<ContainerPtr>::swap(TransitPtr<ContainerPtr> &other)
+{
+    _pRef.swap(other._pRef);
+}
 
 OSG_END_NAMESPACE
-
-#endif /* _OSGNODESFIELDS_H_ */

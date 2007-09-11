@@ -1552,6 +1552,11 @@ void EditFCPtrMFieldHandle<FieldT>::add(FieldContainerPtrConstArg pNewElement)
     {
         _fAddMethod(pVal);
     }
+    else
+    {
+        FFATAL(("EditFCPtrMFieldHandle<FieldT>::add called but "
+                "_fAddMethod not set!\n"));
+    }
 }
 
 template<class FieldT> inline
@@ -1814,6 +1819,8 @@ MFParentFieldContainerPtr const &
 {
     return *(static_cast<MFParentFieldContainerPtr const *>(_pField));
 }
+
+
 
 OSG_END_NAMESPACE
 

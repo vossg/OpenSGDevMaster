@@ -35,80 +35,76 @@
 \*---------------------------------------------------------------------------*/
 
 #ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGRefPtr.inl
+/*! \file OSGWeakPtr.inl
     \ingroup GrpSystemFieldContainer
  */
 #endif
 
-/*! \class RefPtr
+OSG_BEGIN_NAMESPACE
 
-The RefPtr is OpenSG's basic smart pointer implementation. The main goal is
-to relieve the developer from having to keep track of reference counting by
-moving that into the pointer implementation.
+/*! \class WeakPtr
 
-Applications should always use RefPtrs for storing values. Only for passing
-values to functions/methods should normal pointers be used. 
-
-RefPtr are specific to a single thread. When a pointer needs to usable from
-multiple threads, an MTRefPtr has to be used.
-
-\sa TransitPtr MTRefPtr
+The WeakPtr class is used to keep references that should not keep an object from being
+deleted. The main use are parent pointers in the graph, but other uses are possible.
 
 */
 
-OSG_BEGIN_NAMESPACE
-
-// RefPtr methods
+// WeakPtr methods
 
 template<class ContainerPtr> inline
-RefPtr<ContainerPtr>::RefPtr(void) :
+WeakPtr<ContainerPtr>::WeakPtr(void) :
     _pRef(NullFC)
 {
 }
 
 template<class ContainerPtr> inline
-RefPtr<ContainerPtr>::RefPtr(const Ref &pRef) :
+WeakPtr<ContainerPtr>::WeakPtr(const WeakPtr &weakPtr) :
     _pRef(NullFC)
 {
-    setRefd(_pRef, pRef);
+    setRef(weakPtr._pRef);
 }
 
 template<class ContainerPtr> inline
-RefPtr<ContainerPtr>::RefPtr(const RefPtr &refPtr) :
+WeakPtr<ContainerPtr>::WeakPtr(const SelfRefPtr &refPtr) :
     _pRef(NullFC)
 {
-    setRefd(_pRef, refPtr._pRef);
+    setRef(refPtr.get());
 }
 
 template<class ContainerPtr> inline
-RefPtr<ContainerPtr>::~RefPtr(void)
+WeakPtr<ContainerPtr>::WeakPtr(const Ref &pRef) :
+    _pRef(NullFC)
+{
+    setRef(pRef);
+}
+
+template<class ContainerPtr> inline
+WeakPtr<ContainerPtr>::~WeakPtr(void)
 {
     if(_pRef != NullFC)
-        subRef(_pRef);
-    _pRef = NullFC;
+        _pRef->subWeakReference();
 }
 
 template<class ContainerPtr> inline
-RefPtr<ContainerPtr>::operator ContainerPtr(void) const
+WeakPtr<ContainerPtr>::operator SelfRefPtr(void) const
 {
-    return _pRef;
+    if(_pRef->getRefCount() <= 0)
+        return SelfRefPtr();
+        
+    return SelfRefPtr(_pRef);
 }
 
 template<class ContainerPtr> inline
-typename 
-PtrStripper<ContainerPtr>::Object *RefPtr<ContainerPtr>::operator->(void) const
+typename WeakPtr<ContainerPtr>::SelfRefPtr WeakPtr<ContainerPtr>::get(void) const
 {
-    return &(*_pRef);
+    if(_pRef->getRefCount() <= 0)
+        return SelfRefPtr();
+        
+    return SelfRefPtr(_pRef);
 }
 
 template<class ContainerPtr> inline
-typename RefPtr<ContainerPtr>::Ref RefPtr<ContainerPtr>::get(void) const
-{
-    return _pRef;
-}
-
-template<class ContainerPtr> inline
-RefPtr<ContainerPtr> &RefPtr<ContainerPtr>::operator =(const Ref &pContainer)
+WeakPtr<ContainerPtr> &WeakPtr<ContainerPtr>::operator =(const Ref &pContainer)
 {
     setRef(pContainer);
 
@@ -116,92 +112,84 @@ RefPtr<ContainerPtr> &RefPtr<ContainerPtr>::operator =(const Ref &pContainer)
 }
 
 template<class ContainerPtr> inline
-RefPtr<ContainerPtr> &RefPtr<ContainerPtr>::operator =(const RefPtr &refPtr)
+WeakPtr<ContainerPtr> &WeakPtr<ContainerPtr>::operator =(const WeakPtr &weakPtr)
 {
-    setRef(refPtr._pRef);
+    setRef(weakPtr._pRef);
 
     return *this;
 }
 
 template<class ContainerPtr> inline
-RefPtr<ContainerPtr> &RefPtr<ContainerPtr>::operator =(SelfTransitPtr &other)
+WeakPtr<ContainerPtr> &WeakPtr<ContainerPtr>::operator =(const SelfRefPtr &refPtr)
 {
-    other.swap(*this);
+    setRef(refPtr.get());
 
     return *this;
 }
 
 template<class ContainerPtr> inline
-void RefPtr<ContainerPtr>::swap(RefPtr &refPtr)
-{
-    Ref buf = _pRef;
-    
-    _pRef = refPtr._pRef;
-
-    refPtr._pRef = buf;
-}
-
-
-#if 0
-template<class ContainerPtr> inline
-bool RefPtr<ContainerPtr>::operator < (const FieldContainerPtr &other) const
+bool WeakPtr<ContainerPtr>::operator < (const FieldContainerPtr &other) const
 {
     return _pRef < other;
 }
 
 template<class ContainerPtr> inline
-bool RefPtr<ContainerPtr>::operator ==(const FieldContainerPtr &other) const
+bool WeakPtr<ContainerPtr>::operator ==(const FieldContainerPtr &other) const
 {
     return _pRef == other;
 }
 
 template<class ContainerPtr> inline
-bool RefPtr<ContainerPtr>::operator !=(const FieldContainerPtr &other) const
+bool WeakPtr<ContainerPtr>::operator !=(const FieldContainerPtr &other) const
 {
     return !(_pRef == other);
 }
-#endif
+
 
 template<class ContainerPtr> inline
-bool RefPtr<ContainerPtr>::operator < (const RefPtr<ContainerPtr> &other) const
+bool WeakPtr<ContainerPtr>::operator < (const WeakPtr<ContainerPtr> &other) const
 {
     return _pRef < other._pRef;
 }
 
 template<class ContainerPtr> inline
-bool RefPtr<ContainerPtr>::operator ==(const RefPtr<ContainerPtr> &other) const
+bool WeakPtr<ContainerPtr>::operator ==(const WeakPtr<ContainerPtr> &other) const
 {
     return _pRef == other._pRef;
 }
 
 template<class ContainerPtr> inline
-bool RefPtr<ContainerPtr>::operator !=(const RefPtr<ContainerPtr> &other) const
+bool WeakPtr<ContainerPtr>::operator !=(const WeakPtr<ContainerPtr> &other) const
 {
     return !(_pRef == other._pRef);
 }
 
 template<class ContainerPtr> inline
-bool RefPtr<ContainerPtr>::operator ! (void) const
+bool WeakPtr<ContainerPtr>::operator ! (void) const
 {
-    return _pRef == NullFC;
+    return _pRef == NullFC || _pRef->getRefCount() <= 0;
 }
 
-#if 0
 template< class ContainerPtr >
-RefPtr<ContainerPtr>::operator 
-     typename RefPtr<ContainerPtr>::unspecified_bool_type (void) const
+WeakPtr<ContainerPtr>::operator 
+     typename WeakPtr<ContainerPtr>::unspecified_bool_type (void) const
 {
-    return  !*this ? 0 : &RefPtr<Ref>::_ref;
+    return  !*this ? 0 : &WeakPtr<Ref>::_ref;
 }
-#endif
 
 template<class ContainerPtr> inline
-void RefPtr<ContainerPtr>::setRef(const Ref &pContainer)
+void WeakPtr<ContainerPtr>::setRef(const Ref &pContainer)
 {
     if(_pRef == pContainer)
         return;
 
-    setRefd(_pRef, pContainer);
+    if(pContainer != NullFC)
+        pContainer->addWeakReference();
+        
+    if(_pRef != NullFC)
+        _pRef->subWeakReference();
+    
+    _pRef = pContainer;
 }
 
 OSG_END_NAMESPACE

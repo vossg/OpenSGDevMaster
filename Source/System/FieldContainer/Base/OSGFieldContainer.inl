@@ -98,7 +98,7 @@ void FieldContainer::subReference(void)
 {
     --_iRefCount;
 
-    if(_iRefCount <= 0)
+    if(_iRefCount <= 0 && _iWeakRefCount <= 0)
     {
         Thread::getCurrentChangeList()->incSubRefLevel();
 
@@ -186,6 +186,61 @@ Int32 FieldContainer::getRefCount(void) const
     return _iRefCount;
 }
 
+
+inline
+void FieldContainer::addWeakReference(void)
+{
+    ++_iWeakRefCount;
+}
+
+inline
+void FieldContainer::subWeakReference(void)
+{
+    --_iWeakRefCount;
+
+    if(_iRefCount <= 0 && _iWeakRefCount <= 0)
+    {
+        Thread::getCurrentChangeList()->incSubRefLevel();
+
+        this->resolveLinks();
+
+        Thread::getCurrentChangeList()->decSubRefLevel();
+
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+
+#ifdef OSG_MT_CPTR_ASPECT
+        this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
+
+        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
+
+        if(_pAspectStore->getRefCount() == 1)
+        {
+            this->deregister(Inherited::getId());
+            this->onDestroy (Inherited::getId());
+        }
+
+        OSG::subRef(_pAspectStore);
+#else
+        this->deregister     (Inherited::getId()   );
+        this->onDestroyAspect(Inherited::getId(), 0);
+        this->onDestroy      (Inherited::getId()   );
+#endif
+
+        delete this;
+    }
+    else
+    {
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+    }
+
+}
+
+inline
+Int32 FieldContainer::getWeakRefCount(void) const
+{
+    return _iWeakRefCount;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
@@ -197,7 +252,8 @@ FieldContainer::FieldContainer(void) :
 #endif
     _pFieldFlags      (NULL),
     _mfChangedFunctors(    ),
-    _iRefCount        (   0)
+    _iRefCount        (   0),
+    _iWeakRefCount    (   0)
 {
     _pFieldFlags = new FieldFlags;
 }
@@ -210,7 +266,8 @@ FieldContainer::FieldContainer(const FieldContainer &source) :
 #endif
     _pFieldFlags      (NULL                     ),
     _mfChangedFunctors(source._mfChangedFunctors),
-    _iRefCount        (                        0)
+    _iRefCount        (                        0),
+    _iWeakRefCount    (                        0)
 {
     _pFieldFlags = new FieldFlags(*(source._pFieldFlags));
 }
@@ -293,7 +350,7 @@ const FieldFlags *FieldContainer::getFieldFlags(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-FieldContainerPtr FieldContainer::getAspectPtr(UInt32 uiAspect)
+FieldContainerPtr FieldContainer::getAspectPtr(UInt32 uiAspect) const
 {
     if(_pAspectStore == NULL)
         return NullFC;
@@ -322,7 +379,7 @@ void FieldContainer::setupAspectStore(AspectStore *pStore)
 }
 
 inline
-AspectStoreP FieldContainer::getAspectStore(void)
+AspectStoreP FieldContainer::getAspectStore(void) const
 {
     return _pAspectStore;
 }

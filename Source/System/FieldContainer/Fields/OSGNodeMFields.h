@@ -55,6 +55,15 @@ OSG_BEGIN_NAMESPACE
 typedef MFieldAdaptor<NodePtr, MFFieldContainerPtr> MFNodePtr;
 #endif
 
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+/*! \ingroup  */
+
+typedef MFieldAdaptor<NodeRefPtr, MFFieldContainerPtr> MFNodeRefPtr;
+
+#endif
+
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGNODEMFIELDS_H_ */

@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *                  Copyright (C) 2006 by the OpenSG Forum                   *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -36,35 +34,110 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNODESFIELDS_H_
-#define _OSGNODESFIELDS_H_
-#ifdef __sgi
-#pragma once
-#endif
+#include <UnitTest++.h>
 
-#include "OSGSField.h"
-#include "OSGSFieldAdaptor.h"
-#include "OSGNodeFieldTraits.h"
-#include "OSGFieldContainerSFields.h"
+#include <OpenSG/OSGFieldContainer.h>
+#include <OpenSG/OSGWeakPtr.h>
+#include <OpenSG/OSGNode.h>
+#include <OpenSG/OSGNodeCore.h>
+#include <OpenSG/OSGTransform.h>
 
-OSG_BEGIN_NAMESPACE
+#include <iostream>
+#include <string>
+#include <vector>
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+using namespace OSG;
 
-typedef SFieldAdaptor<NodePtr, SFFieldContainerPtr> SFNodePtr;
-#endif
+SUITE(RefPtrTests)
+{
 
+TEST(create)
+{    
+    NodePtr np = Node::create();
+    CHECK(np->getRefCount() == 0);
+    
+    NodeRefPtr r;
+    CHECK(r == NullFC);
+    
+    NodeRefPtr r2(np);
+    CHECK(r2.get() == np);
+    CHECK(np->getRefCount() == 1);
+    
+    NodeRefPtr r3(r2);
+    CHECK(r3.get() == np);
+    CHECK(np->getRefCount() == 2);
+}
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+TEST(convertAndAssign)
+{
+    NodePtr np = Node::create();
 
-typedef SFieldAdaptor   <NodeRefPtr, 
-                         SFFieldContainerPtr> SFNodeRefPtr;
+    NodeRefPtr r(np); 
+    CHECK(np->getRefCount() == 1);
+    
+    NodePtr n2 = r;
+    CHECK(np == n2);
 
-#endif
+    NodeRefPtr r2 = r;
+    CHECK(r.get() == r2.get());
 
+    NodeRefPtr r3;
+    CHECK(r3 == NullFC);
+    
+    r3.swap(r2);
+    CHECK(r2 == NullFC);
+    CHECK(r3.get() == np);
+}
 
-OSG_END_NAMESPACE
+static bool fcptrF(NodePtr np)
+{
+    return true;
+}
 
-#endif /* _OSGNODESFIELDS_H_ */
+static bool refptrF(NodeRefPtr nrp)
+{
+    return true;
+}
+
+static bool fcptrRefF(NodePtr &np)
+{
+    return true;
+}
+
+static bool refptrRefF(NodeRefPtr &nrp)
+{
+    return true;
+}
+
+TEST(pass)
+{
+    NodePtr np = Node::create();
+    NodeRefPtr r(np); 
+
+    CHECK(fcptrF(np));
+    CHECK(fcptrF(r));
+    
+    CHECK(refptrF(r));
+
+    CHECK(fcptrRefF(np));
+    // CHECK(fcptrRefF(r)); // I couldn't get this to work...
+    
+    CHECK(refptrRefF(r));
+}
+
+TEST(compare)
+{
+    NodePtr np = Node::create();
+    NodePtr np2 = Node::create();
+
+    NodeRefPtr r(np), r2(np2);
+    
+    CHECK(r == r); 
+    CHECK(r != r2); 
+    CHECK(r < r2 || r2 < r); 
+
+    NodeRefPtr r3;
+    CHECK(!r3);
+}
+
+} // SUITE

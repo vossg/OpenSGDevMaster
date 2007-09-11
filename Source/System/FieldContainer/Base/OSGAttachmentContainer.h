@@ -266,6 +266,7 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
 OSG_GEN_CONTAINERPTR(AttachmentContainer);
 
 typedef RefPtr<AttachmentContainerPtr>      AttachmentContainerRefPtr;
+typedef WeakPtr<AttachmentContainerPtr>     AttachmentContainerWeakPtr;
 
 OSG_SYSTEM_DLLMAPPING
 void cloneAttachments(

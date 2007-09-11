@@ -75,15 +75,17 @@ class OSG_SYSTEM_DLLMAPPING AspectStore
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
+    /*! \name                     Access                                   */
     /*! \{                                                                 */
 
-    FieldContainer *getPtr            (void                        );
-    FieldContainer *getPtr            (UInt32            uiAspect  );
+    FieldContainer *getPtr            (void                        ) const;
+    FieldContainer *getPtr            (UInt32            uiAspect  ) const;
     void            setPtrForAspect   (FieldContainerPtr pContainer, 
                                        UInt32            uiAspect  );
     void            removePtrForAspect(UInt32            uiAspect  );
 
+    UInt32          getNumAspects     (void                        ) const;
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */
