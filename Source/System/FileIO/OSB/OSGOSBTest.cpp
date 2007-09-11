@@ -70,6 +70,7 @@ struct FileFixture
 TEST_FIXTURE(FileFixture, CreateOSBFile)
 {
    OSG::NodePtr n = OSG::Node::create();
+   n->setCore(OSG::Group::create());
 
    CHECK(!bf::exists(test_file));
    OSG::SceneFileHandler::the()->write(n, test_file.native_file_string().c_str());
@@ -109,6 +110,7 @@ TEST_FIXTURE(FileFixture, TestNameRetention)
    std::string start_name("node");
    OSG::NodePtr n = OSG::Node::create();
    OSG::setName(n, start_name);
+   n->setCore(OSG::Group::create());
 
    CHECK(!bf::exists(test_file));
    OSG::SceneFileHandler::the()->write(n, test_file.native_file_string().c_str());
