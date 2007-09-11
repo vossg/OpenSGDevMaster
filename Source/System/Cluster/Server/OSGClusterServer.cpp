@@ -362,7 +362,7 @@ void ClusterServer::doRender(DrawActionBase *action)
 
     if(outFileStream)
     {
-        std::cerr << "STARTING PRINTOUT:" << std::endl;
+        //std::cerr << "STARTING PRINTOUT:" << std::endl;
 
         OSG::OSGWriter writer(outFileStream, 4);
 
@@ -388,7 +388,7 @@ void ClusterServer::doRender(RenderTraversalActionBase *action)
 
     if(outFileStream)
     {
-        std::cerr << "STARTING PRINTOUT:" << std::endl;
+        //std::cerr << "STARTING PRINTOUT:" << std::endl;
 
         OSG::OSGWriter writer(outFileStream, 4);
 
