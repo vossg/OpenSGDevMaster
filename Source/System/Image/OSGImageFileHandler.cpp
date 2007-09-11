@@ -50,7 +50,6 @@
 #include <OSGFileSystem.h>
 
 #include "OSGImageFileHandler.h"
-#include "OSGSceneFileHandler.h"
 
 #include "OSGSingletonHolder.ins"
 
@@ -395,8 +394,7 @@ bool ImageFileHandlerBase::read(      ImagePtrArg  pImage,
                fullFilePath[0] != '\\' && 
                fullFilePath[1] != ':')
             {
-                std::string base = 
-                    SceneFileHandler::the()->getPathHandler()->getBaseFile();
+                std::string base = getPathHandler()->getBaseFile();
 
                 if(base.size() < 2 ||
                    (base[0] != '/' && base[0] != '\\' && base[1] != ':'))
