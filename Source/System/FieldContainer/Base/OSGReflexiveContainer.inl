@@ -161,6 +161,11 @@ UInt32 ReflexiveContainer::getNumFields(void) const
     return getType().getNumFieldDescs();
 }
 
+/*! Returns a pointer to an EditFieldHandle for the Field with the given
+    \a fieldId. If the \a fieldId is not valid an empty pointer is returned.
+    
+    \note This is part of the generic field interface.
+ */
 inline
 EditFieldHandlePtr ReflexiveContainer::editField(UInt32 fieldId)
 {
@@ -169,6 +174,11 @@ EditFieldHandlePtr ReflexiveContainer::editField(UInt32 fieldId)
     return (desc != NULL) ? desc->editField(*this) : EditFieldHandlePtr();
 }
 
+/*! Returns a pointer to an EditFieldHandle for the Field with the given
+    \a fieldName. If the \a fieldName is not valid an empty pointer is returned.
+    
+    \note This is part of the generic field interface.
+ */
 inline
 EditFieldHandlePtr ReflexiveContainer::editField(const Char8 *fieldName)
 {
@@ -177,6 +187,11 @@ EditFieldHandlePtr ReflexiveContainer::editField(const Char8 *fieldName)
     return (desc != NULL) ? desc->editField(*this) : EditFieldHandlePtr();
 }
 
+/*! Returns a pointer to a GetFieldHandle for the Field with the given
+    \a fieldId. If the \a fieldId is not valid an empty pointer is returned.
+    
+    \note This is part of the generic field interface.
+ */
 inline
 GetFieldHandlePtr ReflexiveContainer::getField(UInt32 fieldId) const
 {
@@ -185,6 +200,11 @@ GetFieldHandlePtr ReflexiveContainer::getField(UInt32 fieldId) const
     return (desc != NULL) ? desc->getField(*this) : GetFieldHandlePtr();
 }
 
+/*! Returns a pointer to a GetFieldHandle for the Field with the given
+    \a fieldName. If the \a fieldName is not valid an empty pointer is returned.
+    
+    \note This is part of the generic field interface.
+ */
 inline
 GetFieldHandlePtr ReflexiveContainer::getField(const Char8 *fieldName) const
 {
