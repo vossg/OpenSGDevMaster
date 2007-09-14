@@ -74,7 +74,7 @@ inline
 void AspectStore::setPtrForAspect(FieldContainerPtr pContainer, 
                                   UInt32            uiAspect  )
 {
-    _vAspects.resize(osgMax(_vAspects.size(), uiAspect + 1), NULL);
+    _vAspects.resize(osgMax<UInt32>(_vAspects.size(), uiAspect + 1), NULL);
     
     _vAspects[uiAspect] = pContainer;
 }
