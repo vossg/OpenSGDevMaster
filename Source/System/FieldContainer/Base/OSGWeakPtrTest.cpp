@@ -48,7 +48,8 @@
 
 using namespace OSG;
 
-typedef WeakPtr<NodeCorePtr>  NodeCoreWeakPtr;
+typedef WeakPtr<NodePtr>       NodeWeakPtr;
+typedef WeakPtr<NodeCorePtr>   NodeCoreWeakPtr;
 typedef WeakPtr<TransformPtr>  TransformWeakPtr;
 
 SUITE(WeakPtrTests)
@@ -63,8 +64,8 @@ TEST(create)
     CHECK(w == NullFC);
 
     {
-    NodeWeakPtr w2(np);
-    CHECK(np->getWeakRefCount() == 1);   
+        NodeWeakPtr w2(np);
+        CHECK(np->getWeakRefCount() == 1);   
     }
     CHECK(np->getWeakRefCount() == 0);   
     
@@ -72,8 +73,8 @@ TEST(create)
     CHECK(np->getWeakRefCount() == 1);   
     
     {
-    NodeWeakPtr w4(w3);
-    CHECK(np->getWeakRefCount() == 2);   
+        NodeWeakPtr w4(w3);
+        CHECK(np->getWeakRefCount() == 2);   
     }
     CHECK(np->getWeakRefCount() == 1);   
 }
