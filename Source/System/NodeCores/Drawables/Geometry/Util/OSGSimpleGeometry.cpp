@@ -1031,14 +1031,16 @@ GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
             cosPhi = osgCos(phi);
             sinPhi = osgSin(phi);
 
-            n->push_back(Vec3f( cosTheta * sinPhi,
+            n->push_back(Vec3f(cosTheta * sinPhi,
                                sinTheta,
                                cosTheta * cosPhi));
+        
             p->push_back(Pnt3f( cosTheta * sinPhi * radius,
                                sinTheta          * radius,
                                cosTheta * cosPhi * radius));
+
             tx->push_back(Vec2f(b / (Real32)longres,
-                               a / (Real32)latres));
+                                a / (Real32)latres));
         }
     }
 
@@ -1073,6 +1075,473 @@ GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
     geo->setLengths(lens);
 
     return geo;
+}
+
+
+/*! Creates a sphere centered in the origin and divided in latitude
+    and longitude. \a radius is the radius of the sphere, \a latres and
+    \a longres are the number of subdivisions along the latitudes and longitudes.
+
+    \param[in] latres Number of subdivisions along latitudes.
+    \param[in] longres Number of subdivisions along longitudes.
+    \param[in] radius Radius of sphere.
+    \return NodePtr to a newly created Node with a Geometry core.
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
+NodePtr makeLatLongEllipsoid(UInt16 latres,
+                             UInt16 longres,
+                             Real32 rSemiMajorAxis,
+                             Real32 rSemiMinorAxis)
+{
+    GeometryPtr pGeo = makeLatLongEllipsoidGeo(latres, 
+                                               longres,
+                                               rSemiMajorAxis,
+                                               rSemiMinorAxis);
+
+    if(pGeo == NullFC)
+    {
+        return NullFC;
+    }
+
+    NodePtr node = Node::create();
+
+    node->setCore(pGeo);
+
+    return node;
+}
+
+/*! Create the Geometry Core used by OSG::makeLatLongSphere.
+
+    \param[in] latres Number of subdivisions along latitudes.
+    \param[in] longres Number of subdivisions along longitudes.
+    \param[in] radius Radius of sphere.
+    \return GeometryPtr to a newly created Geometry core.
+
+    \sa OSG::makeLatLongSphere
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
+GeometryPtr makeLatLongEllipsoidGeo(UInt16 latres, 
+                                    UInt16 longres,
+                                    Real32 rSemiMajorAxis,
+                                    Real32 rSemiMinorAxis)
+{
+    if(rSemiMajorAxis <= 0 || rSemiMinorAxis <= 0 || latres < 4 || longres < 4)
+    {
+        SWARNING << "makeLatLongSphere: illegal parameters "
+                 << "latres=" << latres
+                 << ", longres=" << longres
+                 << ", rSemiMajorAxis=" << rSemiMajorAxis
+                 << ", rSemiMinorAxis=" << rSemiMinorAxis
+                 << std::endl;
+        return NullFC;
+    }
+
+    GeoPnt3fPropertyPtr   pnts  = GeoPnt3fProperty  ::create();
+    GeoVec3fPropertyPtr   norms = GeoVec3fProperty  ::create();
+    GeoVec2fPropertyPtr   tex   = GeoVec2fProperty  ::create();
+    GeoUInt32PropertyPtr  index = GeoUInt32Property ::create();
+    GeoUInt32PropertyPtr  lens  = GeoUInt32Property ::create();
+    GeoUInt8PropertyPtr   types = GeoUInt8Property  ::create();
+
+    UInt16 a, b;
+    Real32 theta, phi;
+    Real32 cosTheta, sinTheta;
+    Real32 latDelta, longDelta;
+
+    // calc the vertices
+
+    GeoPnt3fProperty  ::StoredFieldType  *p  = pnts ->editFieldPtr();
+    GeoVec3fProperty  ::StoredFieldType  *n  = norms->editFieldPtr();
+    GeoVec2fProperty  ::StoredFieldType  *tx = tex  ->editFieldPtr();
+
+    latDelta  =       Pi / latres;
+    longDelta = 2.f * Pi / longres;
+
+//    float ea = 6378.137;
+//    float eb = 6356.7523142;
+
+    float rSemiMajorAxisSquare = rSemiMajorAxis * rSemiMajorAxis;
+
+    float e2 = (rSemiMajorAxisSquare - 
+                rSemiMinorAxis * rSemiMinorAxis) / (rSemiMajorAxisSquare);
+
+    for(a = 0, theta = -Pi / 2; a <= latres; a++, theta += latDelta)
+    {
+        cosTheta = osgCos(theta);
+        sinTheta = osgSin(theta);
+
+        float v = rSemiMajorAxis / osgSqrt(1 - (e2 * sinTheta * sinTheta));
+
+        for(b = 0, phi = -Pi; b <= longres; b++, phi += longDelta)
+        {
+            GLfloat cosPhi, sinPhi;
+
+            cosPhi = osgCos(phi);
+            sinPhi = osgSin(phi);
+
+
+            n->push_back(Vec3f(cosTheta * sinPhi,
+                               sinTheta,
+                               cosTheta * cosPhi));
+        
+            p->push_back(Pnt3f(cosTheta * sinPhi * v,
+                               sinTheta          * ((1 - e2) * v),
+                               cosTheta * cosPhi * v));
+
+            tx->push_back(Vec2f(b / (Real32)longres,
+                                a / (Real32)latres));
+
+        }
+    }
+
+    // create the faces
+
+    GeoUInt32Property::StoredFieldType *i  = index->editFieldPtr();
+    GeoUInt32Property::StoredFieldType *l  = lens ->editFieldPtr();
+    GeoUInt8Property::StoredFieldType  *t  = types->editFieldPtr();
+
+    for(a = 0; a < longres; a++)
+    {
+        t->push_back(GL_TRIANGLE_STRIP);
+        l->push_back((latres + 1) * 2);
+
+        for(b = 0; b <= latres; b++)
+        {
+            i->push_back(b * (longres+1) + a);
+            i->push_back(b * (longres+1) + a + 1);
+        }
+    }
+
+    // create the geometry
+
+    GeometryPtr geo = Geometry::create();
+
+    geo->setMaterial(getDefaultMaterial());
+    geo->setPositions(pnts);
+    geo->setNormals(norms);
+    geo->setTexCoords(tex);
+    geo->setIndices(index);
+    geo->setTypes(types);
+    geo->setLengths(lens);
+
+    return geo;
+}
+
+
+/*! Creates a sphere centered in the origin and divided in latitude
+    and longitude. \a radius is the radius of the sphere, \a latres and
+    \a longres are the number of subdivisions along the latitudes and longitudes.
+
+    \param[in] latres Number of subdivisions along latitudes.
+    \param[in] longres Number of subdivisions along longitudes.
+    \param[in] radius Radius of sphere.
+    \return NodePtr to a newly created Node with a Geometry core.
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
+
+NodePtr makeLatLongEllipsoidSeg(UInt16 latres,
+                                UInt16 longres,
+                                Real32 rSemiMajorAxis,
+                                Real32 rSemiMinorAxis,
+                                Real32 rStartLatRad,
+                                Real32 rStartLongRad,
+                                Real32 rStopLatRad,
+                                Real32 rStopLongRad)
+{
+    GeometryPtr pGeo = makeLatLongEllipsoidGeoSeg(latres, 
+                                                  longres,
+                                                  rSemiMajorAxis,
+                                                  rSemiMinorAxis,
+                                                  rStartLatRad,
+                                                  rStartLongRad,
+                                                  rStopLatRad,
+                                                  rStopLongRad );
+
+    if(pGeo == NullFC)
+    {
+        return NullFC;
+    }
+
+    NodePtr node = Node::create();
+
+    node->setCore(pGeo);
+
+    return node;
+}
+
+/*! Create the Geometry Core used by OSG::makeLatLongSphere.
+
+    \param[in] latres Number of subdivisions along latitudes.
+    \param[in] longres Number of subdivisions along longitudes.
+    \param[in] radius Radius of sphere.
+    \return GeometryPtr to a newly created Geometry core.
+
+    \sa OSG::makeLatLongSphere
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
+GeometryPtr makeLatLongEllipsoidGeoSeg(UInt16 latres, 
+                                       UInt16 longres,
+                                       Real32 rSemiMajorAxis,
+                                       Real32 rSemiMinorAxis,
+                                       Real32 rStartLatRad,
+                                       Real32 rStartLongRad,
+                                       Real32 rStopLatRad,
+                                       Real32 rStopLongRad)
+{
+    if(rSemiMajorAxis <= 0 || rSemiMinorAxis <= 0 || latres < 4 || longres < 4)
+    {
+        SWARNING << "makeLatLongSphere: illegal parameters "
+                 << "latres=" << latres
+                 << ", longres=" << longres
+                 << ", rSemiMajorAxis=" << rSemiMajorAxis
+                 << ", rSemiMinorAxis=" << rSemiMinorAxis
+                 << std::endl;
+        return NullFC;
+    }
+
+    GeoPnt3fPropertyPtr   pnts  = GeoPnt3fProperty  ::create();
+    GeoVec3fPropertyPtr   norms = GeoVec3fProperty  ::create();
+    GeoVec2fPropertyPtr   tex   = GeoVec2fProperty  ::create();
+    GeoUInt32PropertyPtr  index = GeoUInt32Property ::create();
+    GeoUInt32PropertyPtr  lens  = GeoUInt32Property ::create();
+    GeoUInt8PropertyPtr   types = GeoUInt8Property  ::create();
+
+    UInt16 a, b;
+    Real32 theta, phi;
+    Real32 cosTheta, sinTheta;
+    Real32 latDelta, longDelta;
+
+    // calc the vertices
+
+    GeoPnt3fProperty  ::StoredFieldType  *p  = pnts ->editFieldPtr();
+    GeoVec3fProperty  ::StoredFieldType  *n  = norms->editFieldPtr();
+    GeoVec2fProperty  ::StoredFieldType  *tx = tex  ->editFieldPtr();
+
+    Real32 latDiff  = rStopLatRad   - rStartLatRad;
+    Real32 longDiff = rStopLongRad  - rStartLongRad;
+
+    latDelta  = latDiff  / latres;
+    longDelta = longDiff / longres;
+
+//    float ea = 6378.137;
+//    float eb = 6356.7523142;
+
+    float rSemiMajorAxisSquare = rSemiMajorAxis * rSemiMajorAxis;
+
+    float e2 = (rSemiMajorAxisSquare - 
+                rSemiMinorAxis * rSemiMinorAxis) / (rSemiMajorAxisSquare);
+
+    for(a = 0, theta = rStartLatRad; a <= latres; a++, theta += latDelta)
+    {
+        cosTheta = osgCos(theta);
+        sinTheta = osgSin(theta);
+
+        float v = rSemiMajorAxis / osgSqrt(1 - (e2 * sinTheta * sinTheta));
+
+        for(b = 0, phi = rStartLongRad; b <= longres; b++, phi += longDelta)
+        {
+            GLfloat cosPhi, sinPhi;
+
+            cosPhi = osgCos(phi);
+            sinPhi = osgSin(phi);
+
+
+            n->push_back(Vec3f(cosTheta * sinPhi,
+                               sinTheta,
+                               cosTheta * cosPhi));
+        
+            p->push_back(Pnt3f(cosTheta * sinPhi * v,
+                               sinTheta          * ((1 - e2) * v),
+                               cosTheta * cosPhi * v));
+
+            tx->push_back(Vec2f(b / (Real32)longres,
+                                a / (Real32)latres));
+
+        }
+    }
+
+    // create the faces
+
+    GeoUInt32Property::StoredFieldType *i  = index->editFieldPtr();
+    GeoUInt32Property::StoredFieldType *l  = lens ->editFieldPtr();
+    GeoUInt8Property::StoredFieldType  *t  = types->editFieldPtr();
+
+    for(a = 0; a < longres; a++)
+    {
+        t->push_back(GL_TRIANGLE_STRIP);
+        l->push_back((latres + 1) * 2);
+
+        for(b = 0; b <= latres; b++)
+        {
+            i->push_back(b * (longres+1) + a);
+            i->push_back(b * (longres+1) + a + 1);
+        }
+    }
+
+    // create the geometry
+
+    GeometryPtr geo = Geometry::create();
+
+    geo->setMaterial(getDefaultMaterial());
+    geo->setPositions(pnts);
+    geo->setNormals(norms);
+    geo->setTexCoords(tex);
+    geo->setIndices(index);
+    geo->setTypes(types);
+    geo->setLengths(lens);
+
+    return geo;
+}
+
+
+GeometryPtr makeEllipsoidAxisGeo(UInt16 latres,
+                                 UInt16 longres,
+                                 Real32 rSemiMajorAxis,
+                                 Real32 rSemiMinorAxis)
+{
+    if(rSemiMajorAxis <= 0 || rSemiMinorAxis <= 0 || latres < 4 || longres < 4)
+    {
+        SWARNING << "makeLatLongSphere: illegal parameters "
+                 << "latres=" << latres
+                 << ", longres=" << longres
+                 << ", rSemiMajorAxis=" << rSemiMajorAxis
+                 << ", rSemiMinorAxis=" << rSemiMinorAxis
+                 << std::endl;
+        return NullFC;
+    }
+
+    GeoPnt3fPropertyPtr   pnts  = GeoPnt3fProperty  ::create();
+    GeoColor3fPropertyPtr color = GeoColor3fProperty::create(); 
+    GeoUInt32PropertyPtr  index = GeoUInt32Property ::create();
+    GeoUInt32PropertyPtr  lens  = GeoUInt32Property ::create();
+    GeoUInt8PropertyPtr   types = GeoUInt8Property  ::create();
+
+    UInt16 a, b;
+    Real32 theta, phi;
+    Real32 cosTheta, sinTheta;
+    Real32 latDelta, longDelta;
+
+    // calc the vertices
+
+    GeoPnt3fProperty  ::StoredFieldType  *p  = pnts ->editFieldPtr();
+    GeoColor3fProperty::StoredFieldType  *c  = color->editFieldPtr();
+
+    latDelta  = Pi / (2 * latres);
+    longDelta = Pi / (2 * longres);
+
+//    float ea = 6378.137;
+//    float eb = 6356.7523142;
+
+    float rSemiMajorAxisSquare = rSemiMajorAxis * rSemiMajorAxis;
+
+    float e2 = (rSemiMajorAxisSquare - 
+                rSemiMinorAxis * rSemiMinorAxis) / (rSemiMajorAxisSquare);
+
+    for(a = 0, theta = 0; a <= latres; a++, theta += latDelta)
+    {
+        cosTheta = osgCos(theta);
+        sinTheta = osgSin(theta);
+
+        float v = rSemiMajorAxis / osgSqrt(1 - (e2 * sinTheta * sinTheta));
+
+        phi = 0;
+
+        GLfloat cosPhi, sinPhi;
+        
+        cosPhi = osgCos(phi);
+        sinPhi = osgSin(phi);
+        
+        
+        p->push_back(Pnt3f(cosTheta * sinPhi * v,
+                           sinTheta          * ((1 - e2) * v),
+                           cosTheta * cosPhi * v));
+
+        c->push_back(Color3f(0.f, 1.f, 0.f));
+    }
+
+    theta = 0;
+
+    cosTheta = osgCos(theta);
+    sinTheta = osgSin(theta);
+    
+    float v = rSemiMajorAxis / osgSqrt(1 - (e2 * sinTheta * sinTheta));
+    
+    for(b = 0, phi = 0; b <= longres; b++, phi += longDelta)
+    {
+        GLfloat cosPhi, sinPhi;
+        
+        cosPhi = osgCos(phi);
+        sinPhi = osgSin(phi);
+        
+        
+        p->push_back(Pnt3f(cosTheta * sinPhi * v,
+                           sinTheta          * ((1 - e2) * v),
+                           cosTheta * cosPhi * v));
+
+        c->push_back(Color3f(1.f, 0.f, 0.f));
+    }
+
+
+    // create the faces
+
+    GeoUInt32Property::StoredFieldType *i  = index->editFieldPtr();
+    GeoUInt32Property::StoredFieldType *l  = lens ->editFieldPtr();
+    GeoUInt8Property ::StoredFieldType *t  = types->editFieldPtr();
+
+    t->push_back(GL_LINE_STRIP);
+    l->push_back(latres + 1);
+
+    t->push_back(GL_LINE_STRIP);
+    l->push_back(longres + 1);
+
+    for(a = 0; a <= latres; a++)
+    {
+        i->push_back(a);
+    }
+
+    for(b = 0; b <= longres; b++)
+    {
+        i->push_back(b + a);
+    }
+
+    // create the geometry
+
+    GeometryPtr geo = Geometry::create();
+
+    geo->setMaterial(getDefaultUnlitMaterial());
+    geo->setPositions(pnts);
+    geo->setColors(color);
+    geo->setIndices(index);
+    geo->setTypes(types);
+    geo->setLengths(lens);
+
+    return geo;
+}
+
+NodePtr makeEllipsoidAxis(UInt16 latres,
+                          UInt16 longres,
+                          Real32 rSemiMajorAxis,
+                          Real32 rSemiMinorAxis)
+{
+    GeometryPtr pGeo = makeEllipsoidAxisGeo(latres, 
+                                            longres,
+                                            rSemiMajorAxis,
+                                            rSemiMinorAxis);
+    
+    if(pGeo == NullFC)
+    {
+        return NullFC;
+    }
+
+    NodePtr node = Node::create();
+
+    node->setCore(pGeo);
+
+    return node;
 }
 
 /*! Creates a box around the origin. It spans the [-\a xsize /2,\a

@@ -143,6 +143,50 @@ NodePtr                   makeLatLongSphere     (UInt16 latres,
                                                  Real32 radius);
 
 OSG_DRAWABLE_DLLMAPPING
+GeometryPtr               makeLatLongEllipsoidGeo(UInt16 latres,
+                                                  UInt16 longres,
+                                                  Real32 rSemiMajorAxis,
+                                                  Real32 rSemiMinorAxis);
+
+OSG_DRAWABLE_DLLMAPPING
+NodePtr                   makeLatLongEllipsoid   (UInt16 latres,
+                                                  UInt16 longres,
+                                                  Real32 rSemiMajorAxis,
+                                                  Real32 rSemiMinorAxis);
+
+OSG_DRAWABLE_DLLMAPPING
+GeometryPtr               makeLatLongEllipsoidGeoSeg(UInt16 latres,
+                                                     UInt16 longres,
+                                                     Real32 rSemiMajorAxis,
+                                                     Real32 rSemiMinorAxis,
+                                                     Real32 rStartLatRad,
+                                                     Real32 rStartLongRad,
+                                                     Real32 rStopLatRad,
+                                                     Real32 rStopLongRad );
+
+OSG_DRAWABLE_DLLMAPPING
+NodePtr                   makeLatLongEllipsoidSeg   (UInt16 latres,
+                                                     UInt16 longres,
+                                                     Real32 rSemiMajorAxis,
+                                                     Real32 rSemiMinorAxis,
+                                                     Real32 rStartLatRad,
+                                                     Real32 rStartLongRad,
+                                                     Real32 rStopLatRad,
+                                                     Real32 rStopLongRad );
+
+OSG_DRAWABLE_DLLMAPPING
+GeometryPtr               makeEllipsoidAxisGeo   (UInt16 latres,
+                                                  UInt16 longres,
+                                                  Real32 rSemiMajorAxis,
+                                                  Real32 rSemiMinorAxis);
+
+OSG_DRAWABLE_DLLMAPPING
+NodePtr                   makeEllipsoidAxis      (UInt16 latres,
+                                                  UInt16 longres,
+                                                  Real32 rSemiMajorAxis,
+                                                  Real32 rSemiMinorAxis);
+
+OSG_DRAWABLE_DLLMAPPING
 GeometryPtr               makeConicalFrustumGeo (Real32 height,
                                                  Real32 topradius,
                                                  Real32 botradius,
