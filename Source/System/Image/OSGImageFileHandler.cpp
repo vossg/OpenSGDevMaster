@@ -394,7 +394,10 @@ bool ImageFileHandlerBase::read(      ImagePtrArg  pImage,
                fullFilePath[0] != '\\' && 
                fullFilePath[1] != ':')
             {
-                std::string base = getPathHandler()->getBaseFile();
+                std::string base;
+
+                if(getPathHandler() != NULL)
+                    base = getPathHandler()->getBaseFile();
 
                 if(base.size() < 2 ||
                    (base[0] != '/' && base[0] != '\\' && base[1] != ':'))

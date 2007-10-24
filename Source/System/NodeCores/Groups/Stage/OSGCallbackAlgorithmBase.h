@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class AlgorithmStage
+ **     class CallbackAlgorithm
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGALGORITHMSTAGEBASE_H_
-#define _OSGALGORITHMSTAGEBASE_H_
+#ifndef _OSGCALLBACKALGORITHMBASE_H_
+#define _OSGCALLBACKALGORITHMBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,32 +63,29 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGStage.h" // Parent
+#include "OSGAlgorithm.h" // Parent
 
-#include "OSGAlgorithmFields.h" // Algorithm type
-#include "OSGUInt32Fields.h" // ProjectionMode type
-#include "OSGBoolFields.h" // CopyViewing type
-#include "OSGMatrixFields.h" // ProjectionMatrix type
+#include "OSGRenderFunctorCallbackFields.h" // Callback type
 
-#include "OSGAlgorithmStageFields.h"
+#include "OSGCallbackAlgorithmFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class AlgorithmStage;
+class CallbackAlgorithm;
 
-//! \brief AlgorithmStage Base Class.
+//! \brief CallbackAlgorithm Base Class.
 
-class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
+class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
 {
   public:
 
-    typedef Stage Inherited;
-    typedef Stage ParentContainer;
+    typedef Algorithm Inherited;
+    typedef Algorithm ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(AlgorithmStage);
+    OSG_GEN_INTERNALPTR(CallbackAlgorithm);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -96,21 +93,12 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
 
     enum
     {
-        AlgorithmFieldId = Inherited::NextFieldId,
-        ProjectionModeFieldId = AlgorithmFieldId + 1,
-        CopyViewingFieldId = ProjectionModeFieldId + 1,
-        ProjectionMatrixFieldId = CopyViewingFieldId + 1,
-        NextFieldId = ProjectionMatrixFieldId + 1
+        CallbackFieldId = Inherited::NextFieldId,
+        NextFieldId = CallbackFieldId + 1
     };
 
-    static const OSG::BitVector AlgorithmFieldMask =
-        (TypeTraits<BitVector>::One << AlgorithmFieldId);
-    static const OSG::BitVector ProjectionModeFieldMask =
-        (TypeTraits<BitVector>::One << ProjectionModeFieldId);
-    static const OSG::BitVector CopyViewingFieldMask =
-        (TypeTraits<BitVector>::One << CopyViewingFieldId);
-    static const OSG::BitVector ProjectionMatrixFieldMask =
-        (TypeTraits<BitVector>::One << ProjectionMatrixFieldId);
+    static const OSG::BitVector CallbackFieldMask =
+        (TypeTraits<BitVector>::One << CallbackFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -134,72 +122,6 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const SFAlgorithmPtr      *getSFAlgorithm       (void) const;
-
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFProjectionMode  (void);
-#endif
-                  SFUInt32            *editSFProjectionMode (void);
-            const SFUInt32            *getSFProjectionMode  (void) const;
-
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFCopyViewing     (void);
-#endif
-                  SFBool              *editSFCopyViewing    (void);
-            const SFBool              *getSFCopyViewing     (void) const;
-
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFProjectionMatrix (void);
-#endif
-                  SFMatrix            *editSFProjectionMatrix(void);
-            const SFMatrix            *getSFProjectionMatrix (void) const;
-
-
-                  AlgorithmPtrConst getAlgorithm      (void) const;
-
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getProjectionMode  (void);
-#endif
-                  UInt32              &editProjectionMode (void);
-            const UInt32              &getProjectionMode  (void) const;
-
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getCopyViewing     (void);
-#endif
-                  bool                &editCopyViewing    (void);
-            const bool                &getCopyViewing     (void) const;
-
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getProjectionMatrix (void);
-#endif
-                  Matrix              &editProjectionMatrix(void);
-            const Matrix              &getProjectionMatrix (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setAlgorithm      (AlgorithmPtrConstArg value);
-            void setProjectionMode (const UInt32 &value);
-            void setCopyViewing    (const bool &value);
-            void setProjectionMatrix(const Matrix &value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
@@ -215,8 +137,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  AlgorithmStagePtr create     (void);
-    static  AlgorithmStagePtr createEmpty(void);
+    static  CallbackAlgorithmPtr create     (void);
+    static  CallbackAlgorithmPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -239,46 +161,36 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFAlgorithmPtr    _sfAlgorithm;
-    SFUInt32          _sfProjectionMode;
-    SFBool            _sfCopyViewing;
-    SFMatrix          _sfProjectionMatrix;
+    SFRenderFunctorCallback _sfCallback;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    AlgorithmStageBase(void);
-    AlgorithmStageBase(const AlgorithmStageBase &source);
+    CallbackAlgorithmBase(void);
+    CallbackAlgorithmBase(const CallbackAlgorithmBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AlgorithmStageBase(void);
+    virtual ~CallbackAlgorithmBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const AlgorithmStage *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAlgorithm       (void) const;
-    EditFieldHandlePtr editHandleAlgorithm      (void);
-    GetFieldHandlePtr  getHandleProjectionMode  (void) const;
-    EditFieldHandlePtr editHandleProjectionMode (void);
-    GetFieldHandlePtr  getHandleCopyViewing     (void) const;
-    EditFieldHandlePtr editHandleCopyViewing    (void);
-    GetFieldHandlePtr  getHandleProjectionMatrix (void) const;
-    EditFieldHandlePtr editHandleProjectionMatrix(void);
+    GetFieldHandlePtr  getHandleCallback        (void) const;
+    EditFieldHandlePtr editHandleCallback       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -292,7 +204,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      AlgorithmStageBase *pFrom,
+            void execSync (      CallbackAlgorithmBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -330,21 +242,21 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
   private:
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AlgorithmStageBase &source);
+    void operator =(const CallbackAlgorithmBase &source);
 };
 
-typedef AlgorithmStageBase *AlgorithmStageBaseP;
+typedef CallbackAlgorithmBase *CallbackAlgorithmBaseP;
 
-/** Type specific RefPtr type for AlgorithmStage. */
-typedef RefPtr<AlgorithmStagePtr> AlgorithmStageRefPtr;
+/** Type specific RefPtr type for CallbackAlgorithm. */
+typedef RefPtr<CallbackAlgorithmPtr> CallbackAlgorithmRefPtr;
 
 typedef boost::mpl::if_<
-    boost::mpl::bool_<AlgorithmStageBase::isNodeCore>,
-    CoredNodePtr<AlgorithmStage>,
+    boost::mpl::bool_<CallbackAlgorithmBase::isNodeCore>,
+    CoredNodePtr<CallbackAlgorithm>,
     FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
-        AlgorithmStageNodePtr;
+        CallbackAlgorithmNodePtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGALGORITHMSTAGEBASE_H_ */
+#endif /* _OSGCALLBACKALGORITHMBASE_H_ */

@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class AlgorithmStage!
+ **     class CallbackAlgorithm!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,20 +53,20 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &AlgorithmStageBase::getClassType(void)
+OSG::FieldContainerType &CallbackAlgorithmBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 AlgorithmStageBase::getClassTypeId(void)
+OSG::UInt32 CallbackAlgorithmBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 AlgorithmStageBase::getClassGroupId(void)
+OSG::UInt16 CallbackAlgorithmBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
@@ -74,126 +74,10 @@ OSG::UInt16 AlgorithmStageBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the AlgorithmStage::_sfAlgorithm field.
-inline
-AlgorithmPtrConst AlgorithmStageBase::getAlgorithm(void) const
-{
-    return _sfAlgorithm.getValue();
-}
-
-//! Set the value of the AlgorithmStage::_sfAlgorithm field.
-inline
-void AlgorithmStageBase::setAlgorithm(AlgorithmPtrConstArg value)
-{
-    editSField(AlgorithmFieldMask);
-
-    setRefd(_sfAlgorithm.getValue(), value);
-
-}
-//! Get the value of the AlgorithmStage::_sfProjectionMode field.
-
-inline
-UInt32 &AlgorithmStageBase::editProjectionMode(void)
-{
-    editSField(ProjectionModeFieldMask);
-
-    return _sfProjectionMode.getValue();
-}
-
-//! Get the value of the AlgorithmStage::_sfProjectionMode field.
-inline
-const UInt32 &AlgorithmStageBase::getProjectionMode(void) const
-{
-    return _sfProjectionMode.getValue();
-}
-
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &AlgorithmStageBase::getProjectionMode (void)
-{
-    return this->editProjectionMode ();
-}
-#endif
-
-//! Set the value of the AlgorithmStage::_sfProjectionMode field.
-inline
-void AlgorithmStageBase::setProjectionMode(const UInt32 &value)
-{
-    editSField(ProjectionModeFieldMask);
-
-    _sfProjectionMode.setValue(value);
-}
-//! Get the value of the AlgorithmStage::_sfCopyViewing field.
-
-inline
-bool &AlgorithmStageBase::editCopyViewing(void)
-{
-    editSField(CopyViewingFieldMask);
-
-    return _sfCopyViewing.getValue();
-}
-
-//! Get the value of the AlgorithmStage::_sfCopyViewing field.
-inline
-const bool &AlgorithmStageBase::getCopyViewing(void) const
-{
-    return _sfCopyViewing.getValue();
-}
-
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &AlgorithmStageBase::getCopyViewing    (void)
-{
-    return this->editCopyViewing    ();
-}
-#endif
-
-//! Set the value of the AlgorithmStage::_sfCopyViewing field.
-inline
-void AlgorithmStageBase::setCopyViewing(const bool &value)
-{
-    editSField(CopyViewingFieldMask);
-
-    _sfCopyViewing.setValue(value);
-}
-//! Get the value of the AlgorithmStage::_sfProjectionMatrix field.
-
-inline
-Matrix &AlgorithmStageBase::editProjectionMatrix(void)
-{
-    editSField(ProjectionMatrixFieldMask);
-
-    return _sfProjectionMatrix.getValue();
-}
-
-//! Get the value of the AlgorithmStage::_sfProjectionMatrix field.
-inline
-const Matrix &AlgorithmStageBase::getProjectionMatrix(void) const
-{
-    return _sfProjectionMatrix.getValue();
-}
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Matrix              &AlgorithmStageBase::getProjectionMatrix(void)
-{
-    return this->editProjectionMatrix();
-}
-#endif
-
-//! Set the value of the AlgorithmStage::_sfProjectionMatrix field.
-inline
-void AlgorithmStageBase::setProjectionMatrix(const Matrix &value)
-{
-    editSField(ProjectionMatrixFieldMask);
-
-    _sfProjectionMatrix.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void AlgorithmStageBase::execSync (      AlgorithmStageBase *pFrom,
+void CallbackAlgorithmBase::execSync (      CallbackAlgorithmBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -201,27 +85,18 @@ void AlgorithmStageBase::execSync (      AlgorithmStageBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
-        _sfAlgorithm.syncWith(pFrom->_sfAlgorithm);
-
-    if(FieldBits::NoField != (ProjectionModeFieldMask & whichField))
-        _sfProjectionMode.syncWith(pFrom->_sfProjectionMode);
-
-    if(FieldBits::NoField != (CopyViewingFieldMask & whichField))
-        _sfCopyViewing.syncWith(pFrom->_sfCopyViewing);
-
-    if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
-        _sfProjectionMatrix.syncWith(pFrom->_sfProjectionMatrix);
+    if(FieldBits::NoField != (CallbackFieldMask & whichField))
+        _sfCallback.syncWith(pFrom->_sfCallback);
 }
 #endif
 
 
 inline
-Char8 *AlgorithmStageBase::getClassname(void)
+Char8 *CallbackAlgorithmBase::getClassname(void)
 {
-    return "AlgorithmStage";
+    return "CallbackAlgorithm";
 }
-OSG_GEN_CONTAINERPTR(AlgorithmStage);
+OSG_GEN_CONTAINERPTR(CallbackAlgorithm);
 
 OSG_END_NAMESPACE
 

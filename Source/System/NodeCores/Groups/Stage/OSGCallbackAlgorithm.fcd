@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="CallbackAlgorithm"
+	parent="Algorithm"
+	library="Group"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+    isNodeCore="true"
+>
+        <Field
+                name="callback"
+                type="RenderFunctorCallback"
+                cardinality="single"
+                visibility="external"
+                access="none"
+        >
+        Inherited the parent target if none is set  
+        </Field>
+</FieldContainer>

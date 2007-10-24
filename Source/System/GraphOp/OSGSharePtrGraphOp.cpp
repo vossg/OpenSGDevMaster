@@ -293,7 +293,7 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr &fc)
                 {
                     SFFieldContainerPtr::EditHandlePtr sfPtrEditHandle =
                         boost::dynamic_pointer_cast<
-                           SFFieldContainerPtr::EditHandle>(fc->getField(i));
+                           SFFieldContainerPtr::EditHandle>(fc->editField(i));
                     
                     sfPtrEditHandle->setValue(nffc);
 #if 0
@@ -330,7 +330,7 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr &fc)
                         MFFieldContainerPtr::EditHandlePtr mfPtrEditHandle =
                             boost::dynamic_pointer_cast<
                                 MFFieldContainerPtr::EditHandle>(
-                                    fc->getField(i));
+                                    fc->editField(i));
 
                         mfPtrEditHandle->replace(j, nffc);
 

@@ -77,7 +77,14 @@
 #include "OSGParticles.h"
 #include "OSGMultiCore.h"
 #include "OSGCubeMapGenerator.h"
+#include "OSGQuadTreeTerrain.h"
+#include "OSGTiledQuadTreeTerrain.h"
+
+#include "OSGTypedGeoIntegralProperty.h"
+
+#if 0
 #include "OSGDynamicTerrain.h"
+#endif
 
 #include "OSGLightEngine.h"
 #include "OSGMatrixUtility.h"
@@ -1057,9 +1064,19 @@ ActionBase::ResultE AlgorithmStageRenderEnter(const NodeCorePtr &pCore,
 
     AlgorithmStagePtr pStage = dynamic_cast<AlgorithmStagePtr>(pCore);
 
-    a->pushPartition(0, RenderPartition::SimpleCallback);
+    UInt32 uiCopyOnPush = RenderPartition::CopyNothing;
+
+    if(pStage->getCopyViewing() == true)
+    {
+        uiCopyOnPush = RenderPartition::CopyViewing;
+    }
+
+    a->pushPartition(uiCopyOnPush, 
+                     RenderPartition::SimpleCallback);
     {
         RenderPartition *pPart  = a->getActivePartition();
+
+        pPart->setWindow(a->getWindow());
 
         if(pStage->getProjectionMode() != AlgorithmStage::Ignore)
         {
@@ -1068,8 +1085,7 @@ ActionBase::ResultE AlgorithmStageRenderEnter(const NodeCorePtr &pCore,
             if(pPort != NULL)
             {
 //                pPart->setViewport(pPort         );
-                pPart->setWindow  (a->getWindow());
-                
+               
                 pPart->calcViewportDimension(pPort->getLeft  (),
                                              pPort->getBottom(),
                                              pPort->getRight (),
@@ -1438,6 +1454,43 @@ ActionBase::ResultE CubeMapGeneratorRenderLeave(const NodeCorePtr &pCore,
 }
 
 
+
+Action::ResultE QuadTreeTerrainRenderEnter(const NodeCorePtr &pCore,
+                                                 Action      *action)
+{  
+    RenderTraversalAction* da = 
+        dynamic_cast<RenderTraversalAction*>(action);
+
+    QuadTreeTerrainPtr pTer = dynamic_cast<QuadTreeTerrainPtr>(pCore);
+
+    pTer->doRenderEnter(da->getFrustum(),
+                        da->getActivePartition()->getCameraToWorld(),
+                        da->getActivePartition()->topMatrix());
+    
+    
+    return MaterialDrawableRenderEnter(pCore, action);
+}
+
+
+Action::ResultE TiledQuadTreeTerrainRenderEnter(const NodeCorePtr &pCore,
+                                                      Action      *action)
+{  
+    RenderTraversalAction* da = 
+        dynamic_cast<RenderTraversalAction*>(action);
+
+    TiledQuadTreeTerrainPtr pTer = 
+        dynamic_cast<TiledQuadTreeTerrainPtr>(pCore);
+
+    Action::ResultE returnValue =
+        pTer->doRenderEnter(da->getFrustum(),
+                            da->getActivePartition()->getCameraToWorld(),
+                            da->getActivePartition()->topMatrix());
+    
+    
+    return returnValue;
+}
+
+
 /*-------------------------------------------------------------------------*/
 /*                                   init                                  */
 
@@ -1469,6 +1522,7 @@ bool RenderTraversalActionInitialize(void)
         Particles::getClassType(),
         MaterialDrawableRenderLeave);
 
+#if 0
     RenderTraversalAction::registerEnterDefault(
         DynamicTerrain::getClassType(),
         MaterialDrawableRenderEnter);
@@ -1476,6 +1530,7 @@ bool RenderTraversalActionInitialize(void)
     RenderTraversalAction::registerLeaveDefault(
         DynamicTerrain::getClassType(),
         MaterialDrawableRenderLeave);
+#endif
 
 #if 0
     ShadingAction::registerEnterDefault( 
@@ -1664,6 +1719,15 @@ bool RenderTraversalActionInitialize(void)
     RenderTraversalAction::registerLeaveDefault( 
         CubeMapGenerator::getClassType(), 
         CubeMapGeneratorRenderLeave);
+
+
+    RenderTraversalAction::registerEnterDefault(
+        QuadTreeTerrain::getClassType(), 
+        QuadTreeTerrainRenderEnter);
+
+    RenderTraversalAction::registerEnterDefault(
+        TiledQuadTreeTerrain::getClassType(), 
+        TiledQuadTreeTerrainRenderEnter);
 
     return true;
 }

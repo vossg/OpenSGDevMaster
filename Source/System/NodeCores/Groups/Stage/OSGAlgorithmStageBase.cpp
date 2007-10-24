@@ -90,6 +90,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            AlgorithmStageBase::_sfCopyViewing
+    
+*/
+
 /*! \var Matrix          AlgorithmStageBase::_sfProjectionMatrix
     
 */
@@ -121,6 +125,18 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleProjectionMode),
         static_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleProjectionMode));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "copyViewing",
+        "",
+        CopyViewingFieldId, CopyViewingFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleCopyViewing),
+        static_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleCopyViewing));
 
     oType.addInitialDesc(pDesc);
 
@@ -177,6 +193,15 @@ AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0x0001\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"copyViewing\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -238,6 +263,25 @@ SFUInt32            *AlgorithmStageBase::getSFProjectionMode (void)
 }
 #endif
 
+SFBool *AlgorithmStageBase::editSFCopyViewing(void)
+{
+    editSField(CopyViewingFieldMask);
+
+    return &_sfCopyViewing;
+}
+
+const SFBool *AlgorithmStageBase::getSFCopyViewing(void) const
+{
+    return &_sfCopyViewing;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFBool              *AlgorithmStageBase::getSFCopyViewing    (void)
+{
+    return this->editSFCopyViewing    ();
+}
+#endif
+
 SFMatrix *AlgorithmStageBase::editSFProjectionMatrix(void)
 {
     editSField(ProjectionMatrixFieldMask);
@@ -275,6 +319,10 @@ UInt32 AlgorithmStageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfProjectionMode.getBinSize();
     }
+    if(FieldBits::NoField != (CopyViewingFieldMask & whichField))
+    {
+        returnValue += _sfCopyViewing.getBinSize();
+    }
     if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
     {
         returnValue += _sfProjectionMatrix.getBinSize();
@@ -296,6 +344,10 @@ void AlgorithmStageBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfProjectionMode.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (CopyViewingFieldMask & whichField))
+    {
+        _sfCopyViewing.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
     {
         _sfProjectionMatrix.copyToBin(pMem);
@@ -314,6 +366,10 @@ void AlgorithmStageBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ProjectionModeFieldMask & whichField))
     {
         _sfProjectionMode.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (CopyViewingFieldMask & whichField))
+    {
+        _sfCopyViewing.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
     {
@@ -362,6 +418,7 @@ AlgorithmStageBase::AlgorithmStageBase(void) :
     Inherited(),
     _sfAlgorithm              (AlgorithmPtr(NullFC)),
     _sfProjectionMode         (UInt32(0x0001)),
+    _sfCopyViewing            (bool(false)),
     _sfProjectionMatrix       ()
 {
 }
@@ -370,6 +427,7 @@ AlgorithmStageBase::AlgorithmStageBase(const AlgorithmStageBase &source) :
     Inherited(source),
     _sfAlgorithm              (NullFC),
     _sfProjectionMode         (source._sfProjectionMode         ),
+    _sfCopyViewing            (source._sfCopyViewing            ),
     _sfProjectionMatrix       (source._sfProjectionMatrix       )
 {
 }
@@ -435,6 +493,28 @@ EditFieldHandlePtr AlgorithmStageBase::editHandleProjectionMode (void)
              this->getType().getFieldDesc(ProjectionModeFieldId)));
 
     editSField(ProjectionModeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr AlgorithmStageBase::getHandleCopyViewing     (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfCopyViewing, 
+             this->getType().getFieldDesc(CopyViewingFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr AlgorithmStageBase::editHandleCopyViewing    (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfCopyViewing, 
+             this->getType().getFieldDesc(CopyViewingFieldId)));
+
+    editSField(CopyViewingFieldMask);
 
     return returnValue;
 }

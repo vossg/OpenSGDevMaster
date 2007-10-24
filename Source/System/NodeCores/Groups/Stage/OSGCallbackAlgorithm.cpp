@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,98 +36,98 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
+
 #include <cstdlib>
 #include <cstdio>
 
-#include <sstream>
-#include <fstream>
-
 #include <OSGConfig.h>
 
-#include <OSGAction.h>
-#include <OSGCamera.h>
-#include <OSGRenderAction.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGVolumeDraw.h>
-#include <OSGAlgorithm.h>
+#include "OSGCallbackAlgorithm.h"
 
-#include "OSGAlgorithmStage.h"
+OSG_BEGIN_NAMESPACE
 
-#include "OSGFrameBufferObject.h"
-#include "OSGFrameBufferAttachment.h"
-
-OSG_USING_NAMESPACE
-
-// Documentation for this class is emited in the
-// OSGAlgorithmStageBase.cpp file.
-// To modify it, please change the .fcd file (OSGAlgorithmStage.fcd) and
+// Documentation for this class is emitted in the
+// OSGCallbackAlgorithmBase.cpp file.
+// To modify it, please change the .fcd file (OSGCallbackAlgorithm.fcd) and
 // regenerate the base file.
 
-/*-------------------------------------------------------------------------*/
-/*                               Sync                                      */
+/***************************************************************************\
+ *                           Class variables                               *
+\***************************************************************************/
 
-void AlgorithmStage::changed(ConstFieldMaskArg whichField, 
-                             UInt32            origin,
-                             BitVector         details)
-{
-    Inherited::changed(whichField, origin, details);
-}
+/***************************************************************************\
+ *                           Class methods                                 *
+\***************************************************************************/
 
-/*-------------------------------------------------------------------------*/
-/*                               Dump                                      */
-
-void AlgorithmStage::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
-                          const BitVector OSG_CHECK_ARG(bvFlags )) const
-{
-    SLOG << "Dump VisitSubTree NI" << std::endl;
-}
-
-/*-------------------------------------------------------------------------*/
-/*                            Constructors                                 */
-
-AlgorithmStage::AlgorithmStage(void) :
-    Inherited()
-{
-}
-
-AlgorithmStage::AlgorithmStage(const AlgorithmStage &source) :
-    Inherited(source)
-{
-}
-
-/*-------------------------------------------------------------------------*/
-/*                             Destructor                                  */
-
-AlgorithmStage::~AlgorithmStage(void)
-{
-}
-
-void AlgorithmStage::execute(DrawEnv *pDrawEnv)
-{
-    AlgorithmPtr pAlgorithm = getAlgorithm();
-
-    if(pAlgorithm != NullFC)
-    {
-        pAlgorithm->execute(pDrawEnv);
-    }
-}
-
-
-/*-------------------------------------------------------------------------*/
-/*                               loading                                   */
-
-/*-------------------------------------------------------------------------*/
-/*                               Init                                      */
-
-void AlgorithmStage::initMethod(InitPhase ePhase)
+void CallbackAlgorithm::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
     if(ePhase == TypeObject::SystemPost)
     {
-        RenderAction::registerEnterDefault(
-            getClassType(),
-            reinterpret_cast<Action::Callback>(&AlgorithmStage::render));
     }
 }
 
+
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
+
+/*-------------------------------------------------------------------------*\
+ -  private                                                                 -
+\*-------------------------------------------------------------------------*/
+
+/*----------------------- constructors & destructors ----------------------*/
+
+CallbackAlgorithm::CallbackAlgorithm(void) :
+    Inherited()
+{
+}
+
+CallbackAlgorithm::CallbackAlgorithm(const CallbackAlgorithm &source) :
+    Inherited(source)
+{
+}
+
+CallbackAlgorithm::~CallbackAlgorithm(void)
+{
+}
+
+/*----------------------------- class specific ----------------------------*/
+
+void CallbackAlgorithm::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
+{
+    Inherited::changed(whichField, origin, details);
+}
+
+void CallbackAlgorithm::setCallback(RenderFunctor func,
+                                    std::string   createSymbol)
+{
+    RenderFunctorCallback oTmp;
+
+    oTmp._func         = func;
+    oTmp._createSymbol = createSymbol;
+
+    _sfCallback.setValue(oTmp);
+}
+
+void CallbackAlgorithm::execute(DrawEnv *pEnv)
+{
+    if(_sfCallback.getValue()._func)
+    {
+        _sfCallback.getValue()._func(pEnv);
+    }
+}
+
+void CallbackAlgorithm::dump(      UInt32    ,
+                         const BitVector ) const
+{
+    SLOG << "Dump CallbackAlgorithm NI" << std::endl;
+}
+
+OSG_END_NAMESPACE

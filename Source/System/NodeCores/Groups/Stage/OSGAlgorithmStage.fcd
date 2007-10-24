@@ -31,6 +31,15 @@
 	>
 	</Field>
 	<Field
+		name="copyViewing"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="false"
+		access="public"
+	>
+	</Field>
+	<Field
 		name="projectionMatrix"
 		type="Matrix"
 		cardinality="single"
