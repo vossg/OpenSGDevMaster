@@ -73,6 +73,10 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrain :
 
     Action::ResultE renderEnter (Action* action);
 
+    Action::ResultE doRenderEnter  (const FrustumVolume &frustum,
+                                          Matrix         camera,
+                                          Matrix         toworld);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */

@@ -101,12 +101,14 @@ void QuadTreeTerrain::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
+#if 0
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
             getClassType(), 
             reinterpret_cast<Action::Callback>(&QuadTreeTerrain::renderEnter));
     }
+#endif
 }
 
 
@@ -1732,6 +1734,86 @@ Action::ResultE QuadTreeTerrain::renderEnter (Action* action)
     }
     
     return Inherited::renderActionHandler(action);
+}
+
+
+Action::ResultE QuadTreeTerrain::doRenderEnter (const FrustumVolume &frustum,
+                                                Matrix         camera,
+                                                Matrix         toworld)
+{  
+    if(getWidth() > 0) 
+    { // dynamic tesselation
+        Time startTime = getSystemTime();
+        //--- create Terrain Mesh ---------------------------------------------
+
+        GeoUInt32PropertyPtr len = 
+            dynamic_cast<GeoUInt32PropertyPtr>(getLengths());
+
+        if(getUpdateTerrain() || len->size() == 0) 
+        {
+            if(!getEyePointValid()) 
+            {
+//                Matrix camera  = da->getCameraToWorld();
+//                Matrix toworld = da->top_matrix();
+                //action->getActNode()->getToWorld(toworld);
+                toworld.invert();
+                camera.multLeft(toworld);
+                //--- triangulate Mesh ----------------------------------------
+                setEyePoint(Pnt3f(camera[3][0], camera[3][1], camera[3][2]));
+            }
+            
+            setEyeHeight(getHeightAboveGround(getEyePoint()));
+
+//            const FrustumVolume& frustum = da->getFrustum();
+
+            triangulateMeshRec(frustum, 
+                               getWidth()*getWidth()/2, 
+                               getWidth()-1, 
+                               1);
+            
+            GeoUInt8PropertyPtr  typ = 
+                dynamic_cast<GeoUInt8PropertyPtr >(getTypes());
+            
+            GeoUInt32PropertyPtr ind = 
+                dynamic_cast<GeoUInt32PropertyPtr>(getIndices());
+            
+            len->clear();
+            typ->clear();
+            ind->clear();
+            
+            const GeoPnt3fProperty::StoredFieldType &v = 
+                dynamic_cast<GeoPnt3fPropertyPtr>(
+                    getHeightVertices())->getField();
+
+            Real32 hNW = v[0][1];
+            Real32 hNE = v[(getWidth()-1)][1];
+            Real32 hSW = v[(getWidth()-1)*getWidth()][1];
+            Real32 hSE = v[((getWidth()-1)*getWidth()+(getWidth()-1))][1];
+            renderMeshRec(frustum, 
+                          getWidth()/2, 
+                          getWidth()/2, 
+                          getWidth()-1, 
+                          1, 
+                          C, 
+                          hNW, 
+                          hNE, 
+                          hSW, 
+                          hSE);
+#ifdef WITH_TRIANGLES
+            len->push_back((ind->size()));
+            typ->push_back(GL_TRIANGLES);
+#endif
+            
+        }
+        Time endTime = getSystemTime();
+        
+//        SNOTICE << "terrain time:     " 
+//                << endTime-startTime 
+//                << " ms" 
+//                << std::endl;
+    }
+    
+    return Action::Continue;
 }
 
 void QuadTreeTerrain::adjustVolume (Volume& volume)

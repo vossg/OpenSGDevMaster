@@ -72,6 +72,10 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
                          UInt32            origin,
                          BitVector         detail);
 
+    Action::ResultE doRenderEnter  (const FrustumVolume &frustum,
+                                          Matrix         camera,
+                                          Matrix         toworld);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
@@ -127,7 +131,6 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
                                              Int32          width);
           Real32  calcBlend           (      Real32         subDiv     );
           Real32  getHeightAboveGround(const Pnt3f         &eye        );
-
           UInt32  getNumVertices      (      void                      ) const;
           void    calcD2ErrorMatrix   (      void                      );
           void    calcD2ErrorMatrixRec(      Int32          centerX, 

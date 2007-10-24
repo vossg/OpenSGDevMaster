@@ -77,6 +77,8 @@ static UInt32 frame = 0;
 // Standard GLUT callback functions
 void display( void )
 {
+    commitChanges();
+
     mgr->idle();
     mgr->redraw();
     //SLOG << "frametime=" << mgr->getWindow()->getPort(0)->getDrawTime() 

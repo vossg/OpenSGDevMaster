@@ -244,7 +244,7 @@ int main(int argc, char **argv)
     terrain->setGeoMorphing(true);
     terrain->setDetail (25.0f);
 //    terrain->setPerPixelLighting (true);
-    terrain->setPerPixelLighting (true);
+//    terrain->setPerPixelLighting (true);
 
     scene = Node::create();
 
