@@ -71,9 +71,10 @@ class State;
 class Light;
 class LightEnv;
 class LightChunk;
+#if 0
 class ClipPlane;
+#endif
 class SClipPlaneChunk;
-
 class DrawTreeNodeFactory;
 
 //---------------------------------------------------------------------------
@@ -173,9 +174,10 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     void dropLightEnv  (LightEnv  *pLightEnv);
     void undropLightEnv(LightEnv  *pLightEnv);
 
+#if 0
     void dropClipPlane  (ClipPlane     *pClipPlane);
     void undropClipPlane(ClipPlane     *pClipPlane);
-
+#endif
 
     void setStateSorting(bool s);
     bool getStateSorting(void);
@@ -347,7 +349,9 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     std::vector<UInt32>               _lightEnvsLightsState;
 
     std::vector<ClipPlaneStore> _vClipPlanes;
+#if 0
     std::vector<ClipPlane *>    _clipPlanesMap;
+#endif
     UInt32                      _clipPlanesState;
     UInt32                      _activeClipPlanesState;
     UInt32                      _activeClipPlanesCount;

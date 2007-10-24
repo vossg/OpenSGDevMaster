@@ -321,7 +321,9 @@ RenderAction::RenderAction(void) :
     _lightEnvsLightsState(),
 
     _vClipPlanes(),
+#if 0
     _clipPlanesMap(),
+#endif
     _clipPlanesState(0),
     _activeClipPlanesState(0),
     _activeClipPlanesCount(0),
@@ -449,7 +451,9 @@ RenderAction::RenderAction(const RenderAction &source) :
     _lightEnvsLightsState(source._lightEnvsLightsState),
 
     _vClipPlanes            (source._vClipPlanes),
+#if 0
     _clipPlanesMap          (source._clipPlanesMap),
+#endif
     _clipPlanesState        (source._clipPlanesState),
     _activeClipPlanesState  (source._activeClipPlanesState),
     _activeClipPlanesCount  (source._activeClipPlanesCount),
@@ -1249,9 +1253,9 @@ std::vector<Light *> RenderAction::getActiveLights(void)
     return lights;
 }
 
+#if 0
 void RenderAction::dropClipPlane(ClipPlane *pClipPlane)
 {
-#if 0
     if(pClipPlane == NULL)
         return;
 
@@ -1299,12 +1303,10 @@ void RenderAction::dropClipPlane(ClipPlane *pClipPlane)
     // add current clip planes path to the lights table.
     _clipPlanesTable.push_back(_clipPlanesPath);
     _clipPlanesState = clipPlaneState;
-#endif
 }
 
 void RenderAction::undropClipPlane(ClipPlane *pClipPlane)
 {
-#if 0
     if(pClipPlane == NULL)
         return;
 
@@ -1313,8 +1315,8 @@ void RenderAction::undropClipPlane(ClipPlane *pClipPlane)
         _clipPlanesState = _clipPlanesPath.back();
     else
         _clipPlanesState = 0;
-#endif
 }
+#endif
 
 bool RenderAction::isVisible( Node* node )
 {
@@ -2556,7 +2558,9 @@ Action::ResultE RenderAction::start(void)
     _lightEnvsLightsState.clear();
 
     _vClipPlanes.clear();
+#if 0
     _clipPlanesMap.clear();
+#endif
     _clipPlanesState       = 0;
     _activeClipPlanesState = 0;
     _activeClipPlanesCount = 0;
