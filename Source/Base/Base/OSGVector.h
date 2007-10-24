@@ -860,6 +860,18 @@ typedef VectorInterface< Int16, VecStorage2<Int16> > Vec2s;
 
 typedef Vec2s *Vec2sP;
 
+/*! \var typedef VectorInterface< Int32, VecStorage2<Int32> > Vec2i;
+    \ingroup GrpBaseBaseMathObj
+ */
+
+typedef VectorInterface< Int32, VecStorage2<Int32> > Vec2i;
+
+/*! \var typedef Vec2i *Vec2iP;
+    \ingroup GrpBaseBaseMathObj
+ */
+
+typedef Vec2i *Vec2iP;
+
 /*! \var typedef VectorInterface< Real32, VecStorage2<Real32> > Vec2f;
     \ingroup GrpBaseBaseMathObj
  */
@@ -1267,6 +1279,18 @@ typedef PointInterface< Int16, VecStorage2<Int16> > Pnt2s;
  */
 
 typedef Pnt2s *Pnt2sP;
+
+/*! \var typedef PointInterface< Int32, VecStorage2<Int32> > Pnt2i;
+    \ingroup GrpBaseBaseMathObj
+ */
+
+typedef PointInterface< Int32, VecStorage2<Int32> > Pnt2i;
+
+/*! \var typedef Pnt2i *Pnt2iP;
+    \ingroup GrpBaseBaseMathObj
+ */
+
+typedef Pnt2i *Pnt2iP;
 
 /*! \var typedef PointInterface< Real32, VecStorage2<Real32> > Pnt2f;
     \ingroup GrpBaseBaseMathObj
