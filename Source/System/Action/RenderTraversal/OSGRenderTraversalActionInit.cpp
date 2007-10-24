@@ -77,6 +77,7 @@
 #include "OSGParticles.h"
 #include "OSGMultiCore.h"
 #include "OSGCubeMapGenerator.h"
+#include "OSGDynamicTerrain.h"
 
 #include "OSGLightEngine.h"
 #include "OSGMatrixUtility.h"
@@ -1468,6 +1469,13 @@ bool RenderTraversalActionInitialize(void)
         Particles::getClassType(),
         MaterialDrawableRenderLeave);
 
+    RenderTraversalAction::registerEnterDefault(
+        DynamicTerrain::getClassType(),
+        MaterialDrawableRenderEnter);
+
+    RenderTraversalAction::registerLeaveDefault(
+        DynamicTerrain::getClassType(),
+        MaterialDrawableRenderLeave);
 
 #if 0
     ShadingAction::registerEnterDefault( 
