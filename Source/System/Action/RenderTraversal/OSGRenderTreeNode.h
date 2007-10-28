@@ -45,7 +45,6 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGRenderTravDef.h"
-#include "OSGRenderAction.h"
 #include "OSGMaterial.h"
 #include "OSGRenderTraversalFwd.h"
 

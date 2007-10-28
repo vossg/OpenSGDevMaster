@@ -149,6 +149,9 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
                      State                 *pState,
                      UInt32                 uiSortKey);
 
+    void dropFunctor(Material::DrawFunctor &func,
+                     Material              *pMat);
+
     /*---------------------------- state ------------------------------------*/
 
     void pushState  (void                             );

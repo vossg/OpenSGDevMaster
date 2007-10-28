@@ -41,8 +41,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
-
 #include "OSGRenderTreeNodePool.h"
 #include "OSGScalarSortTreeBuilder.h"
 #include "OSGBaseFunctions.h"
@@ -132,5 +130,3 @@ void ScalarSortTreeBuilder::add(DrawEnv &denv,
         }
     }
 }
-
-#endif

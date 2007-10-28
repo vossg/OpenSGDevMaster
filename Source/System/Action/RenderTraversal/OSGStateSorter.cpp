@@ -41,7 +41,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
 
 #include "OSGRenderTreeNodePool.h"
 #include "OSGStateSorter.h"
@@ -213,4 +212,3 @@ void StateSorter::add(RenderTreeNode *pNode,
     }
 }
 
-#endif

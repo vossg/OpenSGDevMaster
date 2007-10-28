@@ -42,8 +42,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
-
 #include "OSGWindow.h"
 #include "OSGGL.h"
 #include "OSGGLU.h"
@@ -877,4 +875,3 @@ void OcclusionCullingTreeBuilder::add(DrawEnv &denv,
             break;
     }
 }
-#endif

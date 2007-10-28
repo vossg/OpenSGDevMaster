@@ -47,7 +47,6 @@
 #include "OSGCamera.h"
 #include "OSGViewport.h"
 #include "OSGDrawEnv.h"
-#include "OSGDrawActionBase.h"
 #include "OSGGeoStatsAttachment.h"
 
 OSG_BEGIN_NAMESPACE

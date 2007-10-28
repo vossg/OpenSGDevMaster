@@ -41,8 +41,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
-
 #include "OSGRenderTreeNodePool.h"
 #include "OSGStateSortTreeBuilder.h"
 #include "OSGBaseFunctions.h"
@@ -172,5 +170,3 @@ void StateSortTreeBuilder::add(DrawEnv &denv,
         pNode->setStateOverride(pStateOverride);
     }
 }
-
-#endif

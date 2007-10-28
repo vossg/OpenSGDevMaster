@@ -41,8 +41,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
-
 #include "OSGRenderTreeNode.h"
 #include "OSGBaseFunctions.h"
 
@@ -79,5 +77,3 @@ RenderTreeNode::RenderTreeNode(void) :
 RenderTreeNode::~RenderTreeNode(void)
 {
 }
-
-#endif

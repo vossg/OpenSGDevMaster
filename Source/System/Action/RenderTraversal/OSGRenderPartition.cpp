@@ -45,8 +45,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
-
 #include "OSGRenderPartition.h"
 #include "OSGRenderTreeNodePool.h"
 #include "OSGRenderTraversalAction.h"
@@ -1063,8 +1061,6 @@ const Matrix &RenderPartition::topMatrix(void)
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */
-
-#endif
 
 #ifdef WIN32
 __declspec(dllexport)

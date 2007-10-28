@@ -41,8 +41,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
-
 #include "OSGRenderTreeNodePool.h"
 #include "OSGTreeBuilderBase.h"
 #include "OSGBaseFunctions.h"
@@ -173,5 +171,3 @@ const Matrix &TreeBuilderBase::topMatrix(void)
 {
     return _accMatrix;
 }
-
-#endif

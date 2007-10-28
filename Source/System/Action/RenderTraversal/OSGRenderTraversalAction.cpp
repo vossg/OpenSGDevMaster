@@ -45,8 +45,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
-
 #include "OSGRenderTraversalAction.h"
 
 #include "OSGRenderPartitionPool.h"
@@ -683,6 +681,35 @@ void RenderTraversalAction::dropFunctor(Material::DrawFunctor &func,
     _pActivePartition->dropFunctor(func, pState, uiSortKey);
 }
 
+void RenderTraversalAction::dropFunctor(Material::DrawFunctor &func,
+                                        Material              *pMat)
+{
+    if(pMat == NULL)
+        return;
+
+    UInt32 uiNPasses = pMat->getNPasses();
+    
+    for(UInt32 uiPass = 0; uiPass < uiNPasses; ++uiPass)
+    {
+        StatePtr st = pMat->getState(uiPass);
+        
+        if(st != NullFC)
+        {
+            this->dropFunctor(func, 
+                              getCPtr(st), 
+                              pMat->getSortKey() + uiPass);
+        }
+        else
+        {
+#ifndef WIN32
+            FINFO(("%s: hit material with NullFC state!\n", __func__));
+#else
+            FINFO(("Hit material with NullFC state!\n"));
+#endif
+        }
+    }
+}
+
 void RenderTraversalAction::pushState(void)
 {
     _pActivePartition->pushState();
@@ -1035,4 +1062,3 @@ std::vector<Action::Functor> *
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-#endif

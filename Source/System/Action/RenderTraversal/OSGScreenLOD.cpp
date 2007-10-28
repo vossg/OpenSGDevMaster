@@ -101,7 +101,6 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
             // -- Compute bounding volume screen coverage of current node -- //
             Matrixr worldToScreen;
 #if 1 
-            DrawActionBase  *da        = dynamic_cast<DrawActionBase  *>(action);
             Camera* cam = ra->getCamera();
             Viewport* vp = ra->getViewport();
             cam->getWorldToScreen(worldToScreen, *vp);
