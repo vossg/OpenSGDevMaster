@@ -45,7 +45,6 @@
 
 #include "OSGTwoSidedLightingChunk.h"
 #include <OSGWindow.h>
-#include <OSGDrawActionBase.h>
 #include <OSGCamera.h>
 
 OSG_USING_NAMESPACE

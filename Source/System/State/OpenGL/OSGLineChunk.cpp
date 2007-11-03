@@ -47,7 +47,6 @@
 
 #include <OSGGL.h>
 
-#include "OSGDrawActionBase.h"
 #include "OSGWindow.h"
 
 #include "OSGLineChunk.h"
