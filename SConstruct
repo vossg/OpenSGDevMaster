@@ -482,6 +482,10 @@ optional_libs_options["glut"] = sca_opts.StandardPackageOption(
     "glut", "Location of the GLUT library", library = glut_libname,
     header = "GL/glut.h", required = False)
 
+optional_libs_options["X"] = sca_opts.StandardPackageOption(
+    "X", "Location of the X library", library = 'X11',
+    required = False)
+
 optional_libs_options["freetype"] = sca_opts.StandardPackageOption(
     "freetype", "Location of freetype2 library", library = "freetype",
     header = "freetype/config/ftheader.h", required = False)
