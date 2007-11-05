@@ -260,19 +260,16 @@ void ClusterServer::render(DrawActionBase *action)
 
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-
 /*! sync with client and render scenegraph
  */
 
-void ClusterServer::render(RenderTraversalActionBase *action)
+void ClusterServer::render(RenderActionBase *action)
 {
     doSync  (false );
     doRender(action);
     doSwap  (      );
 }
 
-#endif
 
 /*! Synchronize all field containers with the client and call 
  *  <code>serverInit</code>, <code>serverRender</code> and
@@ -377,12 +374,11 @@ void ClusterServer::doRender(DrawActionBase *action)
 
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
 
 /*! render server window
  */
 
-void ClusterServer::doRender(RenderTraversalActionBase *action)
+void ClusterServer::doRender(RenderActionBase *action)
 {
     OSG::IndentFileOutStream outFileStream("/tmp/cluster.osg");
 
@@ -399,8 +395,6 @@ void ClusterServer::doRender(RenderTraversalActionBase *action)
 
     _clusterWindow->serverRender(_window, _serverId, action);
 }
-
-#endif
 
 /*! swap server window
  */

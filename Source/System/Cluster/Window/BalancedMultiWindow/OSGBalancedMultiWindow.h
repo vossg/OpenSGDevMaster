@@ -107,9 +107,11 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
 
     void serverInit  (WindowPtr       window,
                       UInt32          id    );
+#ifdef OSG_OLD_RENDER_ACTION
     void serverRender(WindowPtr       window,
                       UInt32          id,
                       DrawActionBase *action);
+#endif
 
     /*! \}                                                                */
     /*--------------------------------------------------------------------*/
@@ -118,7 +120,9 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
 
     void clientInit   (void                  );
     void clientPreSync(void                  );
+#ifdef OSG_OLD_RENDER_ACTION
     void clientRender (DrawActionBase *action);
+#endif
 
     /*! \}                                                                */
     /*---------------------------------------------------------------------*/
@@ -313,6 +317,7 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
                    int axis,
                    Real32 (&resultLoad)[2],
                    Int32 (&resultRect)[2][4]);
+#ifdef OSG_OLD_RENDER_ACTION
     // render part of a viewport viewport 
     void renderViewport(WindowPtr         serverWindow,
                         UInt32            id,
@@ -323,9 +328,12 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     void clearViewports(WindowPtr         serverWindow,
                         UInt32            id,
                         DrawActionBase *action);
+#endif
+
     // store viewport
     void storeViewport(Area &area,ViewportPtr vp, Int32 const (&rect)[4]);
 
+#ifdef OSG_OLD_RENDER_ACTION
     // do rendering and network transfer
     void drawSendAndRecv(WindowPtr serverWindow,
                          DrawActionBase *action,
@@ -334,6 +342,7 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     // preload display lists and textures
     void preloadCache(WindowPtr window,
                       DrawActionBase *action);
+#endif
 
     friend class FieldContainer;
     friend class BalancedMultiWindowBase;

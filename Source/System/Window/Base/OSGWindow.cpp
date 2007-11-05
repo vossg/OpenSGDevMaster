@@ -69,7 +69,6 @@
 #endif
 
 #include <OSGBaseFunctions.h>
-#include <OSGDrawActionBase.h>
 #include <OSGDrawEnv.h>
 
 #include "OSGViewport.h"
@@ -78,9 +77,7 @@
 #include "OSGCamera.h"
 #include "OSGWindow.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
-#include "OSGRenderTraversalActionBase.h"
-#endif
+#include "OSGRenderActionBase.h"
 
 #include "OSGStageValidator.h"
 
@@ -1747,14 +1744,13 @@ void OSG::Window::renderAllViewports(DrawActionBase *action)
 }
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
 /*! Render the Window using the given RenderAction. 
 
     It takes care of all initialisation and cleanup functions and contains just
     5 lines of code. If you know that the correct context is active or you want
     to delay swaps you can just copy and manipulate it.
  */   
-void OSG::Window::render(RenderTraversalActionBase *action)
+void OSG::Window::render(RenderActionBase *action)
 {
     activate ();
     frameInit();    // query recently registered GL extensions
@@ -1772,7 +1768,7 @@ void OSG::Window::render(RenderTraversalActionBase *action)
     method.
  */   
 
-void OSG::Window::renderAllViewports(RenderTraversalActionBase *action)
+void OSG::Window::renderAllViewports(RenderActionBase *action)
 {
     MFViewportPtr::iterator       portIt  = _mfPort.begin();
     MFViewportPtr::const_iterator portEnd = _mfPort.end();
@@ -1792,7 +1788,6 @@ void OSG::Window::renderAllViewports(RenderTraversalActionBase *action)
         SWARNING << "Window::renderAllViewports: no action!" << std::endl;
     }
 }
-#endif    
 
 /*! Resize notifier function. 
 

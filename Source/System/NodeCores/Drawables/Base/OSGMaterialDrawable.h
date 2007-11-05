@@ -45,7 +45,6 @@
 #include "OSGMaterialDrawableBase.h"
 
 #include "OSGAction.h"
-#include "OSGDrawActionBase.h"
 #include "OSGMaterial.h"
 
 OSG_BEGIN_NAMESPACE

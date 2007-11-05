@@ -56,6 +56,8 @@
 #include "OSGFrameBufferObject.h"
 #include "OSGFrameBufferAttachment.h"
 
+#include "OSGMatrixUtility.h"
+
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -116,6 +118,123 @@ void AlgorithmStage::execute(DrawEnv *pDrawEnv)
 /*-------------------------------------------------------------------------*/
 /*                               loading                                   */
 
+ActionBase::ResultE AlgorithmStage::renderEnter(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+
+    UInt32 uiCopyOnPush = RenderPartition::CopyNothing;
+
+    if(this->getCopyViewing() == true)
+    {
+        uiCopyOnPush = RenderPartition::CopyViewing;
+    }
+
+    a->pushPartition(uiCopyOnPush, 
+                     RenderPartition::SimpleCallback);
+    {
+        RenderPartition *pPart  = a->getActivePartition();
+
+        pPart->setWindow(a->getWindow());
+
+        if(this->getProjectionMode() != AlgorithmStage::Ignore)
+        {
+            Viewport *pPort = a->getViewport();
+            
+            if(pPort != NULL)
+            {
+//                pPart->setViewport(pPort         );
+               
+                pPart->calcViewportDimension(pPort->getLeft  (),
+                                             pPort->getBottom(),
+                                             pPort->getRight (),
+                                             pPort->getTop   (),
+                                             
+                                             a->getWindow()->getWidth (),
+                                             a->getWindow()->getHeight());
+                
+                Matrix m, t;
+                
+                m.setIdentity();
+                t.setIdentity();
+                
+                switch(this->getProjectionMode())
+                {
+                    case AlgorithmStage::ZeroOne:
+                        MatrixOrthogonal( m,
+                                          0.f, 1.f,
+                                          0.f, 1.f,
+                                         -1.f, 1.f);
+            
+                        break;
+
+                    case AlgorithmStage::CenterOne:
+                        MatrixOrthogonal( m,
+                                         -1.f, 1.f,
+                                         -1.f, 1.f,
+                                         -1.f, 1.f);
+            
+                        break;
+
+                    case AlgorithmStage::ZeroSize:
+                        MatrixOrthogonal( m,
+                                          0.f, pPart->getViewportWidth(),
+                                          0.f, pPart->getViewportHeight(),
+                                         -1.f, 1.f);
+            
+                        break;
+
+                    case AlgorithmStage::CenterSize:
+                    {
+                        Real32 rWHalf = 
+                            Real32(pPart->getViewportWidth()) / 2.f;
+                        Real32 rHHalf = 
+                            Real32(pPart->getViewportWidth()) / 2.f;
+
+                        MatrixOrthogonal( m,
+                                         -rWHalf, rWHalf,
+                                         -rHHalf, rHHalf,
+                                         -1.f, 1.f);
+                    }
+                    break;
+
+                    case AlgorithmStage::StoredMatrix:
+                        
+                        m = this->getProjectionMatrix();
+            
+                        break;
+                }
+
+                pPart->setSetupMode(RenderPartition::FullSetup);
+                pPart->setupProjection(m, t);
+            }
+            else
+            {
+                pPart->setSetupMode(RenderPartition::EmptySetup);
+            }
+        }
+        else
+        {
+            pPart->setSetupMode(RenderPartition::EmptySetup);
+        }
+         
+        RenderPartition::SimpleDrawCallback f;
+        
+        f = boost::bind(&AlgorithmStage::execute, this, _1);
+        
+        pPart->dropFunctor(f);
+    }
+    a->popPartition();
+
+    return Action::Skip;
+}
+
+ActionBase::ResultE AlgorithmStage::renderLeave(Action *action)
+{
+    return Action::Skip;
+}
+
+
 /*-------------------------------------------------------------------------*/
 /*                               Init                                      */
 
@@ -126,8 +245,12 @@ void AlgorithmStage::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(),
-            reinterpret_cast<Action::Callback>(&AlgorithmStage::render));
+            AlgorithmStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(&AlgorithmStage::renderEnter));
+        
+        RenderAction::registerLeaveDefault( 
+            AlgorithmStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(&AlgorithmStage::renderLeave));
     }
 }
 

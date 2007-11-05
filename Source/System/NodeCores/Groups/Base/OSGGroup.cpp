@@ -144,13 +144,13 @@ void Group::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault( 
-            getClassType(), 
+            Group::getClassType(),
             reinterpret_cast<Action::Callback>(&Group::renderEnter));
-
-        RenderAction::registerLeaveDefault( 
-            getClassType(),
-            reinterpret_cast<Action::Callback>(&Group::renderLeave));
         
+        RenderAction::registerLeaveDefault( 
+            Group::getClassType(), 
+            reinterpret_cast<Action::Callback>(&Group::renderLeave));
+
 #ifndef OSG_WINCE
         IntersectAction::registerEnterDefault( 
             getClassType(),

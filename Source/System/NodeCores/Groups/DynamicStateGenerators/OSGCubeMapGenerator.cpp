@@ -54,6 +54,7 @@
 #include "OSGTextureBuffer.h"
 #include "OSGTextureEnvChunk.h"
 #include "OSGTexGenChunk.h"
+#include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -76,6 +77,15 @@ void CubeMapGenerator::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
+        RenderAction::registerEnterDefault(
+            CubeMapGenerator::getClassType(), 
+            reinterpret_cast<Action::Callback>(
+                &CubeMapGenerator::renderEnter));
+        
+        RenderAction::registerLeaveDefault( 
+            CubeMapGenerator::getClassType(), 
+            reinterpret_cast<Action::Callback>(
+                &CubeMapGenerator::renderLeave));
     }
 }
 
@@ -119,8 +129,195 @@ void CubeMapGenerator::dump(      UInt32    ,
     SLOG << "Dump CubeMapGenerator NI" << std::endl;
 }
 
+ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
+{
+    static Matrix transforms[] = 
+    { 
+        Matrix( 1,  0,  0,  0,
+                0, -1,  0,  0,
+                0,  0, -1,  0,
+                0,  0,  0,  1),
+        
+        Matrix(-1,  0,  0,  0,
+                0, -1,  0,  0,
+                0,  0,  1,  0,
+                0,  0,  0,  1),
+        
+        Matrix( 1,  0,  0,  0,
+                0,  0,  1,  0,
+                0, -1,  0,  0,
+                0,  0,  0,  1),
+        
+        Matrix( 1,  0,  0,  0,
+                0,  0, -1,  0,
+                0,  1,  0,  0,
+                0,  0,  0,  1),
+        
+        Matrix( 0,  0, -1,  0,
+                0, -1,  0,  0,
+               -1,  0,  0,  0,
+                0,  0,  0,  1),
+        
+        Matrix( 0,  0,  1,  0,
+                0, -1,  0,  0,
+                1,  0,  0,  0,
+                0,  0,  0,  1)
+    };
+
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    Action::ResultE returnValue = Action::Continue;
+
+    Camera              *pCam  = a->getCamera();
+    Background          *pBack = a->getBackground();
+
+    Viewport            *pPort = a->getViewport();
+
+    a->beginPartitionGroup();
+    {
+        FrameBufferObject *pTarget  = getCPtr(this->getRenderTarget());
+                
+        if(pTarget == NULL)
+        {
+            this->initData(a);
+            
+            pTarget  = getCPtr(this->getRenderTarget());
+        }
+
+        NodePtr pActNode = a->getActNode();
+
+        Pnt3f oOrigin;
+
+        if(this->getOriginMode() == CubeMapGenerator::UseStoredValue)
+        {
+            oOrigin = this->getOrigin();
+        }
+        else if(this->getOriginMode() == CubeMapGenerator::UseBeacon)
+        {
+            fprintf(stderr, "CubemapGen::UseBeacon NYI\n");
+        }
+        else if(this->getOriginMode() == 
+                                       CubeMapGenerator::UseCurrentVolumeCenter)
+        {
+            DynamicVolume oWorldVol;
+
+            commitChanges();
+
+            pActNode->updateVolume();
+
+            pActNode->getWorldVolume(oWorldVol);
+                
+            oWorldVol.getCenter(oOrigin);
+        }
+        else if(this->getOriginMode() == 
+                                       CubeMapGenerator::UseParentsVolumeCenter)
+        {
+            fprintf(stderr, "CubemapGen::UseParentsCenter NYI\n");
+        }
+
+        for(UInt32 i = 0; i < 6; ++i)
+        {
+            a->pushPartition();
+            {
+                RenderPartition   *pPart    = a->getActivePartition();
+                
+
+                pPart->setRenderTarget(pTarget       );
+                pPart->setWindow      (a->getWindow());
+
+                pPart->calcViewportDimension(0,
+                                             0,
+                                             1,
+                                             1,
+                                             this->getWidth (),
+                                             this->getHeight());
+                
+                Camera            *pCam     = a->getCamera  ();
+
+                Matrix m, t;
+            
+                // set the projection
+                pCam->getProjection          (m, 
+                                              pPart->getViewportWidth (), 
+                                              pPart->getViewportHeight());
+                
+                pCam->getProjectionTranslation(t, 
+                                               pPart->getViewportWidth (), 
+                                               pPart->getViewportHeight());
+                
+                pPart->setupProjection(m, t);
+            
+                m = transforms[i];
+            
+                m[3][0] = oOrigin[0];
+                m[3][1] = oOrigin[1];
+                m[3][2] = oOrigin[2];
+
+                m.invert();
+
+                pPart->setupViewing(m);
+            
+                pPart->setNear     (pCam->getNear());
+                pPart->setFar      (pCam->getFar ());
+                
+                pPart->calcFrustum();
+                
+                if(this->getBackground() == NullFC)
+                {
+                    pPart->setBackground(pBack);
+                }
+                else
+                {
+                    pPart->setBackground(this->getBackground());
+                }
+
+               
+                pActNode->setTravMask(0);
+                
+                if(this->getRoot() != NullFC)
+                {
+                    a->recurse(this->getRoot());
+                }
+                else
+                {
+                    a->recurse(pPort->getRoot());
+                }
+
+                pActNode->setTravMask(~0);
+
+                pPart->setDrawBuffer(GL_COLOR_ATTACHMENT0_EXT + i);
+
+#ifdef OSG_DEBUGX
+                std::string szMessage("CubeX\n");
+                pPart->setDebugString(szMessage          );
+#endif
+            }
+            a->popPartition();
+        }
+    }
+    a->endPartitionGroup();
+
+    returnValue = Inherited::renderEnter(action);
+
+    action->useNodeList(false);
+
+    return returnValue;
+}
+
+ActionBase::ResultE CubeMapGenerator::renderLeave(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    Action::ResultE returnValue = Action::Continue;
+
+    returnValue = Inherited::renderLeave(action);
+
+    return returnValue;
+}
+
+
 CubeMapGeneratorStageDataP CubeMapGenerator::setupStageData(
-    RenderTraversalActionBase *pAction)
+    RenderActionBase *pAction)
 {
     CubeMapGeneratorStageDataP returnValue = 
         CubeMapGeneratorStageData::create();
@@ -237,7 +434,7 @@ CubeMapGeneratorStageDataP CubeMapGenerator::setupStageData(
     return returnValue;
 }
 
-void CubeMapGenerator::initData(RenderTraversalActionBase *pAction)
+void CubeMapGenerator::initData(RenderActionBase *pAction)
 {
     CubeMapGeneratorStageDataP pData = 
         pAction->getData<CubeMapGeneratorStageData *>(_iDataSlotId);

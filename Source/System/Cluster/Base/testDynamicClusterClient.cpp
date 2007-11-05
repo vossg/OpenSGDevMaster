@@ -150,7 +150,7 @@ static void connectCluster(void)
     _cluster_win->init();
 
     // apply changelist to the servers
-    _cluster_win->render((RenderAction *) _mgr->getAction());
+    _cluster_win->render(_mgr->getRenderAction());
 
     // clear changelist
     Thread::getCurrentChangeList()->clear();
@@ -186,7 +186,7 @@ void display(void)
         if(_cluster_win != NullFC)
         {
             // redraw the server windows
-            _cluster_win->render((RenderAction *) _mgr->getAction());
+            _cluster_win->render(_mgr->getRenderAction());
         }
     }
     

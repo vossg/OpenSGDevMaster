@@ -119,8 +119,7 @@ void ColorBufferViewport::render(DrawActionBase *action)
 }
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-void ColorBufferViewport::render(RenderTraversalActionBase *action)
+void ColorBufferViewport::render(RenderActionBase *action)
 {
     glColorMask(getRed(), getGreen(), getBlue(), getAlpha());
 
@@ -128,4 +127,3 @@ void ColorBufferViewport::render(RenderTraversalActionBase *action)
 
     glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 }
-#endif

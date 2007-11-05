@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGStatsAttachmentFields.h"
+#include "OSGDrawableStatsAttachmentFields.h"
 
 #include "OSGSFieldAdaptor.h"
 #include "OSGMFieldAdaptor.h"

@@ -124,6 +124,7 @@ Transform::~Transform(void)
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
+#ifdef OSG_OLD_RENDER_ACTION
 ActionBase::ResultE Transform::renderEnter(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
@@ -145,7 +146,31 @@ ActionBase::ResultE Transform::renderLeave(Action *action)
 
     return ActionBase::Continue;
 }
+#endif
 
+ActionBase::ResultE Transform::renderEnter(Action *action)
+{
+    RenderAction *pAction = 
+        dynamic_cast<RenderAction *>(action);
+
+    pAction->pushVisibility();
+
+    pAction->pushMatrix(this->getMatrix());
+
+    return ActionBase::Continue;
+}
+
+ActionBase::ResultE Transform::renderLeave(Action *action)
+{
+    RenderAction *pAction = 
+        dynamic_cast<RenderAction *>(action);
+
+    pAction->popVisibility();
+
+    pAction->popMatrix();
+
+    return ActionBase::Continue;
+}
 
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
@@ -262,11 +287,11 @@ void Transform::initMethod(InitPhase ePhase)
 #endif
        
         RenderAction::registerEnterDefault(
-            getClassType(), 
+            Transform::getClassType(), 
             reinterpret_cast<Action::Callback>(&Transform::renderEnter));
-        
+
         RenderAction::registerLeaveDefault(
-            getClassType(), 
+            Transform::getClassType(), 
             reinterpret_cast<Action::Callback>(&Transform::renderLeave));
 
 #ifdef OSG_HAVE_ACTION //CHECK

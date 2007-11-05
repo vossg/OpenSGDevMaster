@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGRenderTravDef.h"
+#include "OSGGroupDef.h"
 
 #include "OSGLightEngineFields.h"
 
@@ -75,7 +75,7 @@ OSG_GEN_CONTAINERPTR(ShadowMapEngine);
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpRenderTravFieldTraits
+/*! \ingroup GrpGroupFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -95,7 +95,7 @@ struct FieldTraits<ShadowMapEnginePtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_RENDERTRAV_DLLMAPPING DataType &getType(void);
+    static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFShadowMapEnginePtr"; }
     static const char *getMName(void) { return "MFShadowMapEnginePtr"; }
@@ -111,14 +111,14 @@ struct FieldTraits<ShadowMapEnginePtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpRenderTravFieldSingle */
+/*! \ingroup GrpGroupFieldSingle */
 
 typedef SFieldAdaptor<ShadowMapEnginePtr, SFFieldContainerPtr> SFShadowMapEnginePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpRenderTravFieldMulti */
+/*! \ingroup GrpGroupFieldMulti */
 
 typedef MFieldAdaptor<ShadowMapEnginePtr, MFFieldContainerPtr> MFShadowMapEnginePtr;
 #endif

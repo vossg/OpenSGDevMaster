@@ -44,7 +44,6 @@
 
 #include "OSGDistanceLODBase.h"
 #include "OSGAction.h"
-#include "OSGDrawActionBase.h"
 
 OSG_BEGIN_NAMESPACE
 

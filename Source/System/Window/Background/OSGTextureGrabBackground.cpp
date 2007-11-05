@@ -51,7 +51,6 @@
 #include <OSGViewport.h>
 #include <OSGImage.h>
 #include <OSGTextureObjChunk.h>
-#include <OSGDrawActionBase.h>
 #include <OSGDrawEnv.h>
 
 #include "OSGTextureGrabBackground.h"

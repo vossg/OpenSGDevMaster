@@ -81,7 +81,7 @@ MaterialDrawable::~MaterialDrawable(void)
 Action::ResultE MaterialDrawable::renderActionHandler(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
-
+    
     Material::DrawFunctor func;
 
     func = boost::bind(&MaterialDrawable::drawPrimitives, this, _1);
@@ -90,19 +90,39 @@ Action::ResultE MaterialDrawable::renderActionHandler(Action *action)
 
     if(m == NULL)
     {
-        if(getMaterial() != NullFC)
+        if(this->getMaterial() != NullFC)
         {
-            m = getCPtr(getMaterial());
+            m = getCPtr(this->getMaterial());
         }
         else
         {
             m = getCPtr(getDefaultMaterial());
-
+            
             FNOTICE(("MaterialDrawable::render: no Material!?!\n"));
         }
     }
 
-    a->dropFunctor(func, m);
+    UInt32 uiNPasses = m->getNPasses();
+    
+    for(UInt32 uiPass = 0; uiPass < uiNPasses; ++uiPass)
+    {
+        StatePtr st = m->getState(uiPass);
+        
+        if(st != NullFC)
+        {
+            a->dropFunctor(func, 
+                           getCPtr(st), 
+                           m->getSortKey() + uiPass);
+        }
+        else
+        {
+#ifndef WIN32
+            FINFO(("%s: hit material with NullFC state!\n", __func__));
+#else
+            FINFO(("Hit material with NullFC state!\n"));
+#endif
+        }
+    }
 
     return Action::Continue;
 }

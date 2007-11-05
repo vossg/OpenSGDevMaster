@@ -78,8 +78,7 @@ class OSG_GROUP_DLLMAPPING InverseTransform : public InverseTransformBase
 
     void initMatrix(const Matrixr        &mToWorld);
 
-    void calcMatrix(      DrawActionBase *pAction,
-                    const Matrixr        &mToWorld,
+    void calcMatrix(const Matrixr        &mToWorld,
                           Matrixr        &mResult);
 
     /*! \}                                                                 */

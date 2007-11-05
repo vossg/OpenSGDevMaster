@@ -494,8 +494,7 @@ void ClusterWindow::render(DrawActionBase *action)
 }
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-void ClusterWindow::render(RenderTraversalActionBase *action)
+void ClusterWindow::render(RenderActionBase *action)
 {
     activate();
     frameInit();
@@ -503,7 +502,6 @@ void ClusterWindow::render(RenderTraversalActionBase *action)
     swap();
     frameExit();
 }
-#endif
 
 void ClusterWindow::activate(void)
 {
@@ -533,15 +531,13 @@ void ClusterWindow::renderAllViewports(DrawActionBase *action)
 }
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-void ClusterWindow::renderAllViewports(RenderTraversalActionBase *action)
+void ClusterWindow::renderAllViewports(RenderActionBase *action)
 {
     if(getNetwork()->getMainConnection() && getNetwork()->getAspect())
     {
         clientRender(action);
     }
 }
-#endif
 
 void ClusterWindow::frameInit(void)
 {
@@ -1093,15 +1089,13 @@ void ClusterWindow::clientRender(DrawActionBase *action)
 }
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-void ClusterWindow::clientRender(RenderTraversalActionBase *action)
+void ClusterWindow::clientRender(RenderActionBase *action)
 {
     if(getClientWindow() != NullFC)
     {
         getClientWindow()->renderAllViewports(action);
     }
 }
-#endif
 
 /** swap client window
  *  
@@ -1295,10 +1289,9 @@ void ClusterWindow::serverRender( WindowPtr window,
 }
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
 void ClusterWindow::serverRender( WindowPtr window,
                                   UInt32 id,
-                                  RenderTraversalActionBase *action )
+                                  RenderActionBase *action )
 {
     window->activate();
     window->frameInit();
@@ -1323,7 +1316,6 @@ void ClusterWindow::serverRender( WindowPtr window,
         calibPtr->calibrate(window,action);
 #endif
 }
-#endif
 
 /** swap server window
  *  

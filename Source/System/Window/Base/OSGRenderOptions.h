@@ -47,7 +47,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+#ifdef OSG_OLD_RENDER_ACTION
 class RenderAction;
+#endif
 
 class OSG_SYSTEM_DLLMAPPING RenderOptions : public RenderOptionsBase
 {
@@ -76,7 +78,9 @@ class OSG_SYSTEM_DLLMAPPING RenderOptions : public RenderOptionsBase
     BitVector getChanged     (void                );
     BitVector getLastChanged (void                );
 
+#ifdef OSG_OLD_RENDER_ACTION
     void      activateOptions(RenderAction *action);
+#endif
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

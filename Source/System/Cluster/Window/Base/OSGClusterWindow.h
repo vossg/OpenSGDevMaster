@@ -102,12 +102,10 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     virtual void  renderAllViewports(DrawActionBase *action = NULL);
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-    virtual void  render            (RenderTraversalActionBase *action);
-    virtual void  renderAllViewports(RenderTraversalActionBase *action);
-#endif
-    virtual void  frameInit         (void                           );
-    virtual void  frameExit         (void                           );
+    virtual void  render            (RenderActionBase *action);
+    virtual void  renderAllViewports(RenderActionBase *action);
+    virtual void  frameInit         (void                             );
+    virtual void  frameExit         (void                             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -170,12 +168,10 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     virtual void clientInit   (void                    );
     virtual void clientPreSync(void                    );
 #ifdef OSG_OLD_RENDER_ACTION
-    virtual void clientRender (DrawActionBase *action);
-#endif
-#ifdef OSG_CLEANED_RENDERACTION
-    virtual void clientRender (RenderTraversalActionBase *action);
+    virtual void clientRender (DrawActionBase   *action);
 #endif
 
+    virtual void clientRender (RenderActionBase *action);
     virtual void clientSwap   (void                    );
 
     /*! \}                                                                 */
@@ -190,11 +186,10 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
                               UInt32            id,
                               DrawActionBase *action);
 #endif
-#ifdef OSG_CLEANED_RENDERACTION
+
     virtual void serverRender(WindowPtr         window,
                               UInt32            id,
-                              RenderTraversalActionBase *action);
-#endif
+                              RenderActionBase *action);
     virtual void serverSwap  (WindowPtr         window,
                               UInt32            id    );
 

@@ -129,6 +129,14 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : public ChunkOverrideGroupBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      Render                                  */
+    /*! \{                                                                 */
+
+    ActionBase::ResultE renderEnter(Action *action);
+    ActionBase::ResultE renderLeave(Action *action);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 

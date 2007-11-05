@@ -50,7 +50,6 @@
 #include <OSGFieldContainer.h>
 #include <OSGNode.h>
 #include <OSGAction.h>
-#include <OSGDrawActionBase.h>
 #include "OSGViewport.h"
 #include "OSGCamera.h"
 #include "OSGWindow.h"

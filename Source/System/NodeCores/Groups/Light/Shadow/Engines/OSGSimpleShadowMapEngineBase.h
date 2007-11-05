@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGRenderTravDef.h"
+#include "OSGGroupDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class SimpleShadowMapEngine;
 
 //! \brief SimpleShadowMapEngine Base Class.
 
-class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
+class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
 {
   public:
 

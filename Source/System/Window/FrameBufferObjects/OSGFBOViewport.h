@@ -47,8 +47,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-class RenderActionBase;
-
 /*! \brief Viewport class for color channel selection. See \ref 
     PageSystemWindowViewports for a description.
 */
@@ -98,7 +96,9 @@ class OSG_SYSTEM_DLLMAPPING FBOViewport : public FBOViewportBase
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
+#ifdef OSG_OLD_RENDER_ACTION
     virtual void render(DrawActionBase *action);
+#endif
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -101,14 +101,12 @@ void QuadTreeTerrain::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
-#if 0
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(), 
+            QuadTreeTerrain::getClassType(), 
             reinterpret_cast<Action::Callback>(&QuadTreeTerrain::renderEnter));
     }
-#endif
 }
 
 
@@ -1657,6 +1655,7 @@ Real32 QuadTreeTerrain::getHeightAboveGround (const Pnt3f& eye)
     return ey - ground;
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
 Action::ResultE QuadTreeTerrain::renderEnter (Action* action)
 {  
     RenderAction* da = dynamic_cast<RenderAction*>(action);
@@ -1735,7 +1734,21 @@ Action::ResultE QuadTreeTerrain::renderEnter (Action* action)
     
     return Inherited::renderActionHandler(action);
 }
+#endif
 
+Action::ResultE QuadTreeTerrain::renderEnter (Action* action)
+{  
+    RenderAction* da = 
+        dynamic_cast<RenderAction*>(action);
+
+
+    this->doRenderEnter(da->getFrustum(),
+                        da->getActivePartition()->getCameraToWorld(),
+                        da->getActivePartition()->topMatrix());
+    
+    
+    return Inherited::renderActionHandler(action);
+}
 
 Action::ResultE QuadTreeTerrain::doRenderEnter (const FrustumVolume &frustum,
                                                 Matrix         camera,

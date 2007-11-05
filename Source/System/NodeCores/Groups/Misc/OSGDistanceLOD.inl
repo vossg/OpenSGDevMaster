@@ -51,9 +51,9 @@ ActionBase::ResultE DistanceLOD::render(Action *action)
     Pnt3f            eyepos(0.f, 0.f, 0.f);
     Pnt3f            objpos;
 
-    ra->getCameraToWorld().mult(eyepos);
+    ra->getActivePartition()->getCameraToWorld().mult(eyepos);
 
-    ra->top_matrix().mult(getCenter(), objpos);
+    ra->topMatrix().mult(getCenter(), objpos);
         
     Real32 dist = osgSqrt((eyepos[0] - objpos[0])*(eyepos[0] - objpos[0]) +
                           (eyepos[1] - objpos[1])*(eyepos[1] - objpos[1]) +

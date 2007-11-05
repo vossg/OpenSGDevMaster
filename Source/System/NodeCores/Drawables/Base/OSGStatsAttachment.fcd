@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="StatsAttachment"
+	parent="FieldContainerAttachment"
+	library="System"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+The base class for statistics attachments.
+</FieldContainer>

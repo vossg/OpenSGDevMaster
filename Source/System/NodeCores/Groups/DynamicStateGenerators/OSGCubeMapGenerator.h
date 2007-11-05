@@ -48,7 +48,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-class RenderTraversalActionBase;
+class RenderActionBase;
 
 /*! \brief CubeMapGenerator class. See \ref
            PageGroupCubeMapGenerator for a description.
@@ -90,7 +90,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGenerator : public CubeMapGeneratorBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    void initData(RenderTraversalActionBase *pAction);
+    void initData(RenderActionBase *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -143,11 +143,18 @@ class OSG_GROUP_DLLMAPPING CubeMapGenerator : public CubeMapGeneratorBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Draw                                       */
+    /*! \{                                                                 */
+
+    ActionBase::ResultE renderEnter(Action *action);
+    ActionBase::ResultE renderLeave(Action *action);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    CubeMapGeneratorStageDataP setupStageData(
-        RenderTraversalActionBase *pAction);
+    CubeMapGeneratorStageDataP setupStageData(RenderActionBase *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

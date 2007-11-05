@@ -45,7 +45,6 @@
 
 #include <OSGConfig.h>
 
-#include <OSGDrawActionBase.h>
 #include <OSGCamera.h>
 #include <OSGViewport.h>
 #include <OSGTextureObjChunk.h>

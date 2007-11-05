@@ -43,7 +43,6 @@
 #include <OSGGLEXT.h>
 
 #include "OSGRenderOptions.h"
-#include "OSGRenderAction.h"
 
 OSG_USING_NAMESPACE
 
@@ -153,6 +152,7 @@ BitVector RenderOptions::getLastChanged(void)
     return _last_changed;
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
 void RenderOptions::activateOptions(RenderAction *action)
 {
     if(_gl_version == 0.0f)
@@ -249,3 +249,4 @@ void RenderOptions::activateOptions(RenderAction *action)
     _last_changed = _changed;
     _changed = 0;
 }
+#endif

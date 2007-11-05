@@ -56,8 +56,7 @@ OSG_USING_NAMESPACE
 /*                            Constructors                                 */
 
 DrawEnv::DrawEnv(void) :
-    _pRAction               (NULL ),
-    _pRTAction              (NULL ),
+    _pRenderAction          (NULL ),
     _cameraFullProjection   (     ),
     _cameraProjection       (     ),
     _cameraProjectionTrans  (     ),

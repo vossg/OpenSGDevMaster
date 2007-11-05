@@ -46,7 +46,6 @@
 #include "OSGPointLightBase.h"
 #include "OSGStatIntElem.h"
 #include "OSGStatElemDesc.h"
-#include "OSGDrawActionBase.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -66,37 +66,6 @@ void VisitSubTree::changed(ConstFieldMaskArg whichField,
                            UInt32            origin,
                            BitVector         details)
 {
-#if 0
-    if(whichField & (UrlFieldMask))
-    {
-        if(getAbsoluteUrl().empty())
-        {
-            PathHandler *ph = SceneFileHandler::the()->getPathHandler();
-
-            if(ph != NULL) 
-            {
-                setAbsoluteUrl(ph->findFile(getUrl().c_str()));
-            }
-
-            if(getAbsoluteUrl().empty())
-            {
-                setAbsoluteUrl(getUrl());
-            }
-
-            setState(NOT_LOADED);
-        }
-    }
-    if(whichField & (StateFieldMask |
-                     UrlFieldMask   |
-                     VolumeFieldMask))
-    {
-        for(UInt32 i = 0; i < _mfParents.size(); i++)
-        {
-            _mfParents[i]->invalidateVolume();
-        }
-    }
-#endif
-
     Inherited::changed(whichField, origin, details);
 }
 
@@ -153,6 +122,7 @@ void VisitSubTree::adjustVolume(Volume &volume)
   thid group.
  */
 
+#ifdef OSG_OLD_RENDER_ACTION
 ActionBase::ResultE VisitSubTree::render(Action *action)
 {
     DrawActionBase *da = dynamic_cast<DrawActionBase *>(action);
@@ -161,6 +131,19 @@ ActionBase::ResultE VisitSubTree::render(Action *action)
     
     if(da->isVisible(getCPtr(getSubTreeRoot())))
         da->addNode(getSubTreeRoot());
+
+    return Action::Continue;
+}
+#endif
+
+ActionBase::ResultE VisitSubTree::render(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    a->useNodeList();
+    
+    if(a->isVisible(getCPtr(this->getSubTreeRoot())))
+        a->addNode(this->getSubTreeRoot());
 
     return Action::Continue;
 }
@@ -178,7 +161,7 @@ void VisitSubTree::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(),
+            VisitSubTree::getClassType(),
             reinterpret_cast<Action::Callback>(&VisitSubTree::render));
     }
 }

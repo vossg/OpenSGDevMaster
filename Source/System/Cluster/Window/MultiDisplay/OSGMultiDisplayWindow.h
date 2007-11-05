@@ -92,11 +92,10 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindow : public MultiDisplayWindowBase
                               UInt32            id,
                               DrawActionBase *action);
 #endif
-#ifdef OSG_CLEANED_RENDERACTION
+
     virtual void serverRender(WindowPtr         window,
                               UInt32            id,
-                              RenderTraversalActionBase *action);
-#endif
+                              RenderActionBase *action);
 
     virtual void serverSwap  (WindowPtr         window,
                               UInt32            id    );

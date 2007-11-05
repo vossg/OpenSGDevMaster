@@ -121,6 +121,7 @@ SpotLight::~SpotLight(void)
 /*-------------------------------------------------------------------------*/
 /*                             Rendering                                   */
 
+#ifdef OSG_OLD_RENDER_ACTION
 Action::ResultE SpotLight::renderEnter(Action *action)
 {
     if(getOn() == false)
@@ -143,6 +144,27 @@ Action::ResultE SpotLight::renderLeave(Action *action)
 
     return PointLightBase::renderLeave(action);
 }
+#endif
+
+Action::ResultE SpotLight::renderEnter(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    if(a->getActivePartition()->getStatCollector() != NULL)
+    {
+        a->getActivePartition()->getStatCollector()->getElem(
+            SpotLight::statNSpotLights)->inc();
+    }
+
+    return Light::renderEnter(LightEngine::Spot,
+                                  a);
+}
+
+Action::ResultE SpotLight::renderLeave(Action *action)
+{
+    return Light::renderLeave(LightEngine::Spot,
+                              action);
+}
 
 /*-------------------------------------------------------------------------*/
 /*                               Init                                      */
@@ -154,11 +176,11 @@ void SpotLight::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(), 
+            SpotLight::getClassType(), 
             reinterpret_cast<Action::Callback>(&SpotLight::renderEnter));
 
         RenderAction::registerLeaveDefault( 
-            getClassType(), 
+            SpotLight::getClassType(), 
             reinterpret_cast<Action::Callback>(&SpotLight::renderLeave));
     }
 }

@@ -88,33 +88,31 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindow : public SortFirstWindowBase
     /*! \name      client window funcitons                                 */
     /*! \{                                                                 */
 
-    virtual void clientInit   (void                             );
-    virtual void clientPreSync(void                             );
-#ifdef OSG_OLD_RENDER_ACTION
-    virtual void clientRender (RenderActionBase          *action);
-#else
-    virtual void clientRender (RenderTraversalActionBase *action);
-#endif
-    virtual void clientSwap   (void                             );
+    virtual void clientInit   (void                    );
+    virtual void clientPreSync(void                    );
+
+    virtual void clientRender (RenderActionBase *action);
+    virtual void clientSwap   (void                    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name      server window funcitons                                 */
     /*! \{                                                                 */
 
-    virtual void serverInit  (WindowPtr                  window,
-                              UInt32                     id    );
+    virtual void serverInit  (WindowPtr         window,
+                              UInt32            id    );
 #ifdef OSG_OLD_RENDER_ACTION
-    virtual void serverRender(WindowPtr                  window,
-                              UInt32                     id,
-                              DrawActionBase            *action);
-#else
-    virtual void serverRender(WindowPtr                  window,
-                              UInt32                     id,
-                              RenderTraversalActionBase *action);
+    virtual void serverRender(WindowPtr         window,
+                              UInt32            id,
+                              DrawActionBase   *action);
 #endif
-    virtual void serverSwap (WindowPtr                   window,
-                             UInt32                      id    );
+
+    virtual void serverRender(WindowPtr         window,
+                              UInt32            id,
+                              RenderActionBase *action);
+
+    virtual void serverSwap (WindowPtr          window,
+                             UInt32             id    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -117,6 +117,14 @@ class OSG_GROUP_DLLMAPPING AlgorithmStage : public AlgorithmStageBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Draw                                       */
+    /*! \{                                                                 */
+
+    ActionBase::ResultE renderEnter(Action *action);
+    ActionBase::ResultE renderLeave(Action *action);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 

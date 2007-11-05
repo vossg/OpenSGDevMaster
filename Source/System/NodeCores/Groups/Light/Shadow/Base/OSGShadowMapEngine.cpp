@@ -41,9 +41,6 @@
 
 #include "OSGConfig.h"
 
-#include <OSGRenderAction.h>
-#include <OSGIntersectAction.h>
-
 #include "OSGShadowMapEngine.h"
 #include "OSGPassMaskPool.h"
 #include "OSGChunkMaterial.h"

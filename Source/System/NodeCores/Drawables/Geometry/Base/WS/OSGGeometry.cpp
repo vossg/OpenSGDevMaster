@@ -61,6 +61,7 @@
 #include "OSGFaceIterator.h"
 #include "OSGLineIterator.h"
 #include "OSGEdgeIterator.h"
+#include "OSGDrawableStatsAttachment.h"
 
 OSG_USING_NAMESPACE
 
@@ -626,6 +627,123 @@ Geometry::IndexBag Geometry::getUniqueIndexBag(void)
     }
 
     return returnValue;
+}
+
+void Geometry::fill(DrawableStatsAttachmentPtrArg pStat)
+{
+    if(pStat == NullFC)
+    {
+        FINFO(("Geometry::fille StatsAttachment::"
+               "calc: No attachment given.\n"));
+
+        return;
+    }
+
+    // Att Bytes
+    UInt32 storedAttBytes    = 0;
+    UInt32 attBytesPerVertex = 0;
+
+    for(UInt16 i = 0; i < Geometry::MaxAttribs; ++i)
+    {
+        if(this->getProperty(i) == NullFC)
+            continue;
+
+        attBytesPerVertex += this->getProperty(i)->getFormatSize() *
+                             this->getProperty(i)->getDimension();
+        storedAttBytes    += this->getProperty(i)->getFormatSize() *
+                             this->getProperty(i)->getDimension()  *
+                             this->getProperty(i)->size();
+    }
+
+
+    GeoIntegralPropertyPtr geoTypePtr = this->getTypes();
+    GeoIntegralPropertyPtr lensPtr    = this->getLengths();
+
+    UInt32 lN, tN, len, type;
+
+    lN = (lensPtr    == NullFC) ? 0 : lensPtr   ->getSize();
+    tN = (geoTypePtr == NullFC) ? 0 : geoTypePtr->getSize();
+
+    if((tN == 0) || (lN != 0 && tN != lN) || (lN == 0 && tN != 1))
+    {
+        FINFO(("GeoStatsAttachment::calc: "
+               "Lengths and Types information mismatch.\n"));
+        return;
+    }
+
+    UInt32 triangle = 0, line = 0, point = 0, vertices = 0,
+           procAttBytes = 0;
+
+    for(UInt32 i = 0; i < tN; ++i)
+    {
+        geoTypePtr->getValue(type, i);
+
+        if(lN != 0)
+        {
+            lensPtr->getValue(len, i);
+        }
+        else
+        {
+            GeoVectorPropertyPtr pos = this->getPositions();
+
+            if(pos == NullFC)
+            {
+                FINFO(("GeoStatsAttachment::calc: No Positions!\n"));
+                return;
+            }
+
+            len = pos->size();
+        }
+
+        vertices     += len;
+        procAttBytes += len * attBytesPerVertex;
+
+        switch(type)
+        {
+            case GL_POINTS:
+                point += len;
+                break;
+            case GL_LINES:
+                line += len / 2;
+                break;
+            case GL_LINE_LOOP:
+                line += len;
+                break;
+            case GL_LINE_STRIP:
+                line += len - 1;
+                break;
+            case GL_TRIANGLES:
+                triangle += len / 3;
+                break;
+            case GL_TRIANGLE_STRIP:
+                triangle += len - 2;
+                break;
+            case GL_TRIANGLE_FAN:
+                triangle += len - 2;
+                break;
+            case GL_QUADS:
+                triangle += len / 2;
+                break;
+            case GL_QUAD_STRIP:
+                triangle += len - 2;
+                break;
+            case GL_POLYGON:
+                triangle += len - 2;
+                break;
+            default:
+                FWARNING(("GeoStatsAttachment::calc: Invalid geoType: %d\n",
+                          type));
+                break;
+        }
+    }
+
+    pStat->setVertices(vertices);
+    pStat->setPoints(point);
+    pStat->setLines(line);
+    pStat->setTriangles(triangle);
+    pStat->setStoredAttributeBytes(storedAttBytes);
+    pStat->setProcessedAttributeBytes(procAttBytes);
+    pStat->setValid(true);
 }
 
 // Iterators

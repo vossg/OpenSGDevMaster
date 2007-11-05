@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="GeoStatsAttachment"
-	parent="StatsAttachment"
+	parent="DrawableStatsAttachment"
 	library="Drawable"
 	pointerfieldtypes="both"
 	structure="concrete"
@@ -27,68 +27,4 @@ methods! Otherwise the necessary callbacks are not set!
 
 \warning Before accessing the data osg::GeoStatsAttachment::validate() needs
 to be called to calculate and aggregate the results.
-	<Field
-		name="vertices"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-        The number of vertices in the subtree.
-	</Field>
-	<Field
-		name="points"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-        The number of points in the subtree.
-	</Field>
-	<Field
-		name="lines"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-        The number of lines in the subtree.
-	</Field>
-	<Field
-		name="triangles"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-        The number of triangles in the subtree.
-	</Field>
-	<Field
-		name="processedAttributeBytes"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-        The number of bytes in vertex attribute data that are processed while rendering.
-	</Field>
-	<Field
-		name="storedAttributeBytes"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
-        The number of bytes in vertex attribute data that are stored.
-	</Field>
-	<Field
-		name="valid"
-		type="bool"
-		cardinality="single"
-		visibility="internal"
-		access="public"
-                defaultValue="false"
-	>
-        Flags whether the data is valid or needs to be updated.
-	</Field>
 </FieldContainer>

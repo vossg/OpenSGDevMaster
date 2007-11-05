@@ -285,9 +285,9 @@ class VolumeDrawWrapper
     }
 
     template<class RenderActionT>
-    static void drop(      DrawActionBase *action, 
-                     const DynamicVolume  &volume, 
-                           Color3r         col   )
+    static void drop(      RenderActionBase *action, 
+                     const DynamicVolume    &volume, 
+                           Color3r           col   )
     {
         
         VolumeDrawWrapper * vdw = new VolumeDrawWrapper(volume, 
@@ -303,7 +303,9 @@ class VolumeDrawWrapper
     }
 
     template<class RenderActionT>
-    static void drop(DrawActionBase *action, NodePtr node, Color3r col)
+    static void drop(RenderActionBase *action, 
+                     NodePtr           node, 
+                     Color3r           col   )
     {
         node->updateVolume();
 
@@ -335,14 +337,14 @@ class VolumeDrawWrapper
     Draw the local Bounding Volume of the current Node given in the Action.
 */
 
-void dropVolume(DrawActionBase *action, NodePtr node, Color3r col)
+void dropVolume(RenderActionBase *action, NodePtr node, Color3r col)
 {
     VolumeDrawWrapper::drop<RenderAction>(action, node, col);
 }
 
-void dropVolume(      DrawActionBase *action, 
-                const DynamicVolume  &volume, 
-                      Color3r         col   )
+void dropVolume(      RenderActionBase *action, 
+                const DynamicVolume    &volume, 
+                      Color3r           col   )
 {
     VolumeDrawWrapper::drop<RenderAction>(action, volume, col);
 }

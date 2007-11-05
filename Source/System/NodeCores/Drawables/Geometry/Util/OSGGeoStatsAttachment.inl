@@ -40,16 +40,4 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! Access the GeoStatsAttachemnt in \a arg, if it has one. Return NullFC
-otherwise.
-*/
-
-template<class CntPtr> inline
-GeoStatsAttachmentPtr GeoStatsAttachment::get(CntPtr arg)
-{
-    return dynamic_cast<GeoStatsAttachmentPtr>(
-            arg->findAttachment(GeoStatsAttachment::getClassType()));
-
-}
-
 OSG_END_NAMESPACE

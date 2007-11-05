@@ -47,9 +47,8 @@ StatElemDesc<StatStringElem> *nvStatElems[] =
 #endif
 
 SimpleSceneManager    *mgr;
-RenderTraversalAction *tact = NULL;
-RenderAction          *act = NULL;
-RenderAction          *debugact = NULL;
+RenderAction *tact = NULL;
+RenderAction *debugact = NULL;
 
 // create the scene
 NodePtr scene;
@@ -346,6 +345,7 @@ void keyboard(unsigned char k, int, int)
             exit(0);
         }
         
+#ifdef OSG_OLD_RENDER_ACTION
         case 'v':
         {
             mgr->getAction()->setVolumeDrawing(
@@ -368,6 +368,7 @@ void keyboard(unsigned char k, int, int)
              
         }
         break;
+#endif
 
         case 'r':
         {
@@ -378,11 +379,13 @@ void keyboard(unsigned char k, int, int)
          }
          break;
 
+#ifdef OSG_OLD_RENDER_ACTION
         case 'n':
             fprintf(stderr, "1) set s sorting to %d\n", act->getStateSorting());
             act->setStateSorting(!act->getStateSorting());
             fprintf(stderr, "2) set s sorting to %d\n", act->getStateSorting());
             break;
+#endif
 
         case 'k':
             tact->setKeyGen(0);
@@ -404,7 +407,9 @@ void keyboard(unsigned char k, int, int)
         case 'g':
             bGLFinish = !bGLFinish;
             tact->setUseGLFinish(bGLFinish);
+#ifdef OSG_OLD_RENDER_ACTION
             act->setUseGLFinish(bGLFinish);
+#endif
             break;
 
 
@@ -714,8 +719,10 @@ int main(int argc, char **argv)
 
     mgr->setUseTraversalAction(true);
 
-    tact      = RenderTraversalAction::create();
+    tact      = RenderAction::create();
+#ifdef OSG_OLD_RENDER_ACTION
     act       = RenderAction::create();
+#endif
     debugact  = RenderAction::create();
     tact->setOcclusionCulling(true);
 
@@ -772,17 +779,17 @@ int main(int argc, char **argv)
     statfg->setSize(25);
     statfg->setColor(Color4f(0,1,0,0.7));
 
-    statfg->addElement(RenderTraversalAction::statDrawTime, 
+    statfg->addElement(RenderAction::statDrawTime, 
                        "Draw FPS: %r.3f");
-    statfg->addElement(RenderTraversalAction::statNMatrices, 
+    statfg->addElement(RenderAction::statNMatrices, 
                        "Matrix Changes: %d");
-    //statfg->addElement(RenderTraversalAction::statNGeometries, 
+    //statfg->addElement(RenderAction::statNGeometries, 
     //                   "Geometries drawn: %d");
-    statfg->addElement(RenderTraversalAction::statNStates, 
+    statfg->addElement(RenderAction::statNStates, 
                        "State Changes: %d");
-    //statfg->addElement(RenderTraversalAction::statNShaders, 
+    //statfg->addElement(RenderAction::statNShaders, 
     //                   "Shader Changes: %d");
-    //statfg->addElement(RenderTraversalAction::statNShaderParams, 
+    //statfg->addElement(RenderAction::statNShaderParams, 
     //                   "Shader Param Changes: %d");
                        
     statfg->addElement(RenderPartition::statCullTestedNodes, 
@@ -799,7 +806,7 @@ int main(int argc, char **argv)
     statfg->addElement(OcclusionCullingTreeBuilder::statNOccSuccessTestPer, 
                        "OCC Success rate: %per%%");
 
-    statfg->addElement(RenderTraversalAction::statNTriangles, 
+    statfg->addElement(RenderAction::statNTriangles, 
                        "Triangles:        %d");
     statfg->addElement(OcclusionCullingTreeBuilder::statNOccTriangles, 
                        "Triangles culled: %d");
@@ -807,10 +814,14 @@ int main(int argc, char **argv)
     collector = statfg->getCollector();
 
     tact->setStatCollector(collector);
+#ifdef OSG_OLD_RENDER_ACTION
     act ->setStatCollector(collector);
+#endif
 
     mgr->setAction(tact);
+#ifdef OSG_OLD_RENDER_ACTION
     mgr->setAction( act);
+#endif
 
     //tact->setOcclusionCullingMinimumFeatureSize(15);
     //tact->setOcclusionCullingVisibilityThreshold(15);

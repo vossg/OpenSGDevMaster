@@ -4,7 +4,7 @@
 	name="ShadowMapEngine"
 	parent="LightEngine"
     mixinparent="ShadowMapEngineParent"
-	library="RenderTrav"
+	library="Group"
 	structure="abstract"
 	pointerfieldtypes="both"
 	systemcomponent="true"

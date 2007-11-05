@@ -105,12 +105,12 @@ void Billboard::initMethod(InitPhase ePhase)
             reinterpret_cast<Action::Callback>(&Billboard::intersectLeave));
 
 
-        RenderAction::registerEnterDefault(
-            getClassType(),
+        RenderAction::registerEnterDefault( 
+            Billboard::getClassType(),
             reinterpret_cast<Action::Callback>(&Billboard::renderEnter));
-
-        RenderAction::registerLeaveDefault(
-            getClassType(),
+        
+        RenderAction::registerLeaveDefault( 
+            Billboard::getClassType(), 
             reinterpret_cast<Action::Callback>(&Billboard::renderLeave));
     }
 }
@@ -366,6 +366,7 @@ ActionBase::ResultE Billboard::intersectLeave(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
+#ifdef OSG_OLD_RENDER_ACTION
 ActionBase::ResultE Billboard::renderEnter(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
@@ -391,5 +392,34 @@ ActionBase::ResultE Billboard::renderLeave(Action *action)
 
     return ActionBase::Continue;
 }
+#endif
 
+ActionBase::ResultE Billboard::renderEnter(Action *action)
+{
+    RenderAction *pAction = 
+        dynamic_cast<RenderAction *>(action);
+
+    Matrix mMat;
+    Matrix cam_to_world = 
+        pAction->getActivePartition()->getVPCameraToWorld();
+
+    this->calcMatrix(cam_to_world, pAction->topMatrix(), mMat);
+
+    pAction->pushMatrix(mMat);
+
+// !!! can't use visibles, as ToWorld gives garbage leading to wrong culling
+//    pAction->selectVisibles();
+
+    return ActionBase::Continue;
+}
+
+ActionBase::ResultE Billboard::renderLeave(Action *action)
+{
+    RenderAction *pAction = 
+        dynamic_cast<RenderAction *>(action);
+
+    pAction->popMatrix();
+
+    return ActionBase::Continue;
+}
 

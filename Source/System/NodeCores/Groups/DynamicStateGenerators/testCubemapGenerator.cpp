@@ -10,7 +10,7 @@
 #include "OSGPerspectiveCamera.h"
 #include "OSGTransform.h"
 #include "OSGComponentTransform.h"
-#include "OSGRenderTraversalAction.h"
+#include "OSGRenderAction.h"
 #include "OSGWindow.h"
 #include "OSGSceneFileHandler.h"
 #include "OSGSolidBackground.h"
@@ -26,7 +26,7 @@
 
 using namespace OSG;
 
-RenderTraversalAction *rentravact = NullFC;
+RenderAction *rentravact = NullFC;
 
 NodePtr  hdrroot = NullFC;
 NodePtr  root    = NullFC;
@@ -535,7 +535,7 @@ int main (int argc, char **argv)
     }
 
     // Action
-    rentravact = RenderTraversalAction::create();
+    rentravact = RenderAction::create();
 
 //    rentravact->setFrustumCulling(false);
 

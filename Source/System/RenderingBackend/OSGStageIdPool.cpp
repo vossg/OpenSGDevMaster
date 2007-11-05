@@ -45,8 +45,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
-
 #include "OSGBaseInitFunctions.h"
 #include "OSGStageIdPool.h"
 #include "OSGTaggedSingletonHolder.ins"
@@ -62,5 +60,3 @@ template class TaggedSingletonHolder<StageIdPoolBase,
                                      StageIdPoolTag >;
 
 OSG_END_NAMESPACE
-
-#endif

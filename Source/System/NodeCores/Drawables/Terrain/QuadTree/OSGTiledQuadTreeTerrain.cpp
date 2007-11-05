@@ -72,10 +72,9 @@ void TiledQuadTreeTerrain::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        RenderAction::registerEnterDefault(
-            getClassType(), 
-            reinterpret_cast<Action::Callback>(
-                &TiledQuadTreeTerrain::renderEnter));
+    RenderAction::registerEnterDefault(
+        TiledQuadTreeTerrain::getClassType(), 
+        reinterpret_cast<Action::Callback>(&TiledQuadTreeTerrain::renderEnter));
     }
 }
 
@@ -480,6 +479,7 @@ inline void caseChilds_p1p1 (const NodePtr& parent, NodePtr order[], Int32 num)
     subAllChilds(parent, order, num);
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
 Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
 {  
    NodePtr            node;
@@ -1221,7 +1221,21 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
 
    return Action::Continue;
 }
+#endif
 
+Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
+{
+    RenderAction* da = 
+        dynamic_cast<RenderAction*>(action);
+
+    Action::ResultE returnValue =
+        this->doRenderEnter(da->getFrustum(),
+                            da->getActivePartition()->getCameraToWorld(),
+                            da->getActivePartition()->topMatrix());
+    
+    
+    return returnValue;
+}
 
 Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
     const FrustumVolume &frustum,

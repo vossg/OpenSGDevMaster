@@ -43,7 +43,10 @@
 
 #include <OSGGL.h>
 
+#ifdef OSG_OLD_RENDER_ACTION
 #include <OSGRenderAction.h>
+#endif
+
 #include "OSGLightEnv.h"
 
 OSG_USING_NAMESPACE
@@ -105,6 +108,7 @@ void LightEnv::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
+#ifdef OSG_OLD_RENDER_ACTION
         typedef ActionBase::ResultE (LightEnv::*Callback)(Action *);
 
         Callback enter = &LightEnv::renderEnter<RenderAction>;
@@ -117,5 +121,6 @@ void LightEnv::initMethod(InitPhase ePhase)
         RenderAction::registerLeaveDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(leave));
+#endif
     }
 }

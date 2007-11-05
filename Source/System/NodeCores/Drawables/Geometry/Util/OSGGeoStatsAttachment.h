@@ -84,41 +84,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachment : public GeoStatsAttachmentBase
     /*! \name                     Creation                                 */
     /*! \{                                                                 */
 
-    void                            reset(void);
-
     void                            calc(GeometryPtrArg geo);
 
-    static GeoStatsAttachmentPtr    calcStatic(GeometryPtrArg geo);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Access                                   */
-    /*! \{                                                                 */
-
-    template<class CntPtr>
-    static GeoStatsAttachmentPtr    get(CntPtr  arg);
 
 //    static GeoStatsAttachmentPtr    get(AttachmentContainer    *arg);
 
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Updating                                  */
-    /*! \{                                                                 */
 
-    static GeoStatsAttachmentPtr addTo(AttachmentContainerPtr obj);
 
-    void attachTo(AttachmentContainerPtr obj);
-
-    void validate(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Operators                                 */
-    /*! \{                                                                 */
-
-    void operator +=(GeoStatsAttachmentPtr arg);
-    void operator -=(GeoStatsAttachmentPtr arg);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -148,15 +121,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachment : public GeoStatsAttachmentBase
 
     static void initMethod(InitPhase ePhase);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                  Update Helper                               */
-    /*! \{                                                                 */
-    
-    static void invalidateFunctor(FieldContainerPtr obj,
-                                  BitVector mask);
-    
-    static void invalidate(FieldContainerPtrArg obj);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

@@ -109,6 +109,7 @@ void BalancedMultiWindow::serverInit(WindowPtr serverWindow, UInt32 id)
     Inherited::serverInit(serverWindow,id);
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
 void BalancedMultiWindow::serverRender(WindowPtr       serverWindow, 
                                        UInt32          id, 
                                        DrawActionBase *action      )
@@ -277,6 +278,7 @@ void BalancedMultiWindow::serverRender(WindowPtr       serverWindow,
     glPopMatrix();
 #endif
 }
+#endif
 
 void BalancedMultiWindow::clientInit(void)
 {
@@ -299,6 +301,7 @@ void BalancedMultiWindow::clientPreSync(void)
     Inherited::clientPreSync();
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
 void BalancedMultiWindow::clientRender(DrawActionBase *action)
 {
     if(!getBalance())
@@ -451,6 +454,7 @@ void BalancedMultiWindow::clientRender(DrawActionBase *action)
     }
 #endif
 }
+#endif
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -1623,6 +1627,7 @@ void BalancedMultiWindow::splitAxis(Real32 const (&load)[2],
 #endif
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
 /*! render part of a viewport viewport 
  */
 void BalancedMultiWindow::renderViewport(WindowPtr         serverWindow,
@@ -1707,6 +1712,7 @@ void BalancedMultiWindow::clearViewports(WindowPtr         serverWindow,
         port.root->setTravMask(travMask);
     }
 }
+#endif
 
 /*! store viewport
  */
@@ -1758,6 +1764,7 @@ void BalancedMultiWindow::storeViewport(Area &area,ViewportPtr vp,
     vp->deactivate();
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
 /*! rendering and network transfer 
  */
 void BalancedMultiWindow::drawSendAndRecv(WindowPtr window,
@@ -2082,3 +2089,4 @@ void BalancedMultiWindow::preloadCache(WindowPtr window,
         root->subChild(cartN);
     }
 }
+#endif

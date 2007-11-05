@@ -54,9 +54,9 @@
 #include <OSGRemoteAspect.h>
 #include <OSGImageComposer.h>
 #include <OSGStatisticsForeground.h>
-#include <OSGRenderAction.h>
 #include <OSGClusterNetwork.h>
 #include <OSGDrawEnv.h>
+#include <OSGRenderActionBase.h>
 
 #include "OSGSortLastWindow.h"
 
@@ -272,6 +272,111 @@ void SortLastWindow::serverRender(WindowPtr       serverWindow,
 }
 #endif
 
+void SortLastWindow::serverRender(WindowPtr         serverWindow,
+                                  UInt32            id,
+                                  RenderActionBase *action      )
+{
+    ViewportPtr serverPort  = NullFC;
+    ViewportPtr clientPort  = NullFC;
+    UInt32      sv          = 0;
+    UInt32      cv          = 0;
+    UInt32      regionStart = 0;
+
+    // duplicate viewports
+    for(cv = 0, sv = 0; cv < getPort().size(); ++cv)
+    {
+        clientPort = getPort()[cv];
+
+        if(serverWindow->getPort().size() <= sv)
+        {
+            // create new port
+            serverPort = Viewport::create();
+
+            serverWindow->addPort(serverPort);
+        }
+        else
+        {
+            serverPort = serverWindow->getPort()[sv];
+        }
+
+        // duplicate values
+
+        if(getWidth() && getHeight())
+        {
+           serverPort->setSize(clientPort->getPixelLeft  (),
+                               clientPort->getPixelBottom(),
+                               clientPort->getPixelRight (),
+                               clientPort->getPixelTop   ());
+        }
+        else
+        {
+            serverPort->setSize(0,0,0,0); 
+        }
+  
+        serverPort->setCamera    (clientPort->getCamera    ());
+        serverPort->setRoot      (clientPort->getRoot      ());
+        serverPort->setBackground(clientPort->getBackground());
+
+        // ignore statistics foreground
+        serverPort->clearForegrounds();
+
+        for(UInt32 f = 0 ; f < serverPort->getForegrounds().size(); ++f)
+        {
+            ForegroundPtr fg = clientPort->getForegrounds()[f];
+
+            StatisticsForegroundPtr sfg = 
+                dynamic_cast<StatisticsForegroundPtr>(fg);
+
+            if(sfg == NullFC)
+            {
+                serverPort->addForeground(fg);
+            }
+        }
+
+        serverPort->setTravMask(clientPort->getTravMask());
+
+        sv++;
+    }
+
+    // remove unused ports
+    while(serverWindow->getPort().size() > sv)
+    {
+        serverWindow->subPort(sv);
+    }
+
+    // setup visible nodes
+    setupNodes(id);
+
+    // render the viewports
+    serverWindow->activate();
+    serverWindow->frameInit();
+
+    action->setWindow(serverWindow);
+
+    if(getComposer() != NullFC)
+        getComposer()->startFrame();
+
+    for(sv = 0; sv < serverWindow->getPort().size(); ++sv)
+    {
+        ViewportPtr  vp         = serverWindow->getPort()[sv];
+        NodePtr      root       = vp->getRoot();
+
+        if(getComposer() != NullFC)
+            getComposer()->startViewport(vp);
+
+        // render
+        vp->render(action);
+
+        // compose single viewport
+        if(getComposer() != NullFC)
+            getComposer()->composeViewport(vp);
+    }
+
+    // compose whole window
+    if(getComposer() != NullFC)
+        getComposer()->composeWindow();
+}
+
 /*! swap
  */
 void SortLastWindow::serverSwap( WindowPtr window,
@@ -427,6 +532,84 @@ void SortLastWindow::clientRender(DrawActionBase *action)
     }
 }
 #endif
+
+void SortLastWindow::clientRender(RenderActionBase *action)
+{
+    UInt32            p;
+    UInt32            groupId = getServers().size();
+    UInt32            l,b,r,t;
+    UInt32            front,back;
+    SortLastWindowPtr clusterWindow(this);
+
+    if(getServers().size())
+    {
+        Connection *srcConnection=
+            getNetwork()->getConnection(groupId);
+        
+        if(getClientWindow()!=NullFC)
+        {
+            setupNodes(groupId);
+/*
+            getClientWindow()->activate();
+            getClientWindow()->frameInit();
+*/
+            action->setWindow(getClientWindow());
+
+            if(getComposer() != NullFC)
+                getComposer()->startFrame();
+
+            DrawEnv oEnv;
+            
+            oEnv.setWindow(action->getWindow());
+
+            // render all viewports
+            for(p = 0; p < getPort().size() ; ++p)
+            {
+                ViewportPtr vp=getPort()[p];
+                if(getComposer() != NullFC)
+                {
+                    getComposer()->startViewport(vp);
+
+                    action->setCamera    (vp->getCamera    ());
+                    action->setBackground(vp->getBackground());
+                    action->setViewport  (vp                 );
+                    action->setTravMask  (vp->getTravMask  ());
+
+                    action->apply(vp->getRoot());
+
+                    for(UInt16 i=0; i < vp->getForegrounds().size(); i++)
+                    {
+                        if(dynamic_cast<StatisticsForegroundPtr>(
+                               vp->getForegrounds(i)) == NullFC)
+                        {
+                            vp->getForegrounds(i)->draw(&oEnv, vp);
+                        }
+                    }
+
+                    getComposer()->composeViewport(vp);
+
+                    for(UInt16 i=0; i < vp->getForegrounds().size(); i++)
+                    {
+                        if(dynamic_cast<StatisticsForegroundPtr>(
+                               vp->getForegrounds(i)) != NullFC)
+                        {
+                            vp->getForegrounds(i)->draw(&oEnv, vp);
+                        }
+                    }
+
+                }
+                else
+                {
+                    vp->render(action);
+                }
+            }
+
+            // compose whole window
+            if(getComposer() != NullFC)
+                getComposer()->composeWindow();
+        }
+    }
+}
 
 /*! swap
  */

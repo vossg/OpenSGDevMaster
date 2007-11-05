@@ -259,6 +259,13 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Stats                                    */
+    /*! \{                                                                 */
+
+    virtual void fill(DrawableStatsAttachmentPtrArg pStat);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name              Global Pump Group Handling                      */
     /*! \{                                                                 */
 

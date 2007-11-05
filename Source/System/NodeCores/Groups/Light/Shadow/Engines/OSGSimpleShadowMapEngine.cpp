@@ -41,15 +41,12 @@
 
 #include "OSGConfig.h"
 
-#include <OSGRenderAction.h>
-#include <OSGIntersectAction.h>
-
 #include "OSGSimpleShadowMapEngine.h"
 
 #include "OSGMatrixCamera.h"
 
 #include "OSGMatrixUtility.h"
-#include "OSGRenderTraversalAction.h"
+#include "OSGRenderAction.h"
 
 #include "OSGRenderPartition.h"
 #include "OSGFrameBufferObject.h"
@@ -226,8 +223,8 @@ void SimpleShadowMapEngine::initMethod(InitPhase ePhase)
     }
 }
 
-void SimpleShadowMapEngine::lightRenderEnter(LightPtr               pLight,
-                                             RenderTraversalAction *pAction)
+void SimpleShadowMapEngine::lightRenderEnter(LightPtr      pLight,
+                                             RenderAction *pAction)
 {
     if(pLight->getOn() == false)
         return;
@@ -259,10 +256,10 @@ void SimpleShadowMapEngine::lightRenderEnter(LightPtr               pLight,
     }
 }
 
-void SimpleShadowMapEngine::setupCamera(LightPtr               pLight,
-                                        LightTypeE             eType,
-                                        RenderTraversalAction *pAction,
-                                        EngineData            *pEngineData)
+void SimpleShadowMapEngine::setupCamera(LightPtr      pLight,
+                                        LightTypeE    eType,
+                                        RenderAction *pAction,
+                                        EngineData   *pEngineData)
 {
     if(eType == Directional)
     {
@@ -392,10 +389,10 @@ void SimpleShadowMapEngine::setupCamera(LightPtr               pLight,
     }
 }
 
-void SimpleShadowMapEngine::setupLightChunk(LightPtr               pLight,
-                                            LightTypeE             eType,
-                                            RenderTraversalAction *pAction,
-                                            EngineData            *pEngineData)
+void SimpleShadowMapEngine::setupLightChunk(LightPtr      pLight,
+                                            LightTypeE    eType,
+                                            RenderAction *pAction,
+                                            EngineData   *pEngineData)
 {
     if(eType == Directional)
     {
@@ -470,9 +467,9 @@ void SimpleShadowMapEngine::setupLightChunk(LightPtr               pLight,
 }
 
 
-void SimpleShadowMapEngine::doLightPass(LightPtr               pLight,
-                                        RenderTraversalAction *pAction,
-                                        EngineData            *pEngineData)
+void SimpleShadowMapEngine::doLightPass(LightPtr      pLight,
+                                        RenderAction *pAction,
+                                        EngineData   *pEngineData)
 {
     pAction->pushPartition();
 
@@ -589,9 +586,9 @@ void SimpleShadowMapEngine::doLightPass(LightPtr               pLight,
     pAction->popPartition();
 }
 
-void SimpleShadowMapEngine::doAmbientPass(LightPtr               pLight,
-                                          RenderTraversalAction *pAction,
-                                          EngineData            *pEngineData)
+void SimpleShadowMapEngine::doAmbientPass(LightPtr      pLight,
+                                          RenderAction *pAction,
+                                          EngineData   *pEngineData)
 {
     pAction->pushPartition((RenderPartition::CopyViewing      |
                             RenderPartition::CopyProjection   |
@@ -629,9 +626,9 @@ void SimpleShadowMapEngine::doAmbientPass(LightPtr               pLight,
     pAction->popPartition ();
 }
 
-void SimpleShadowMapEngine::doFinalPass(LightPtr               pLight,
-                                        RenderTraversalAction *pAction,
-                                        EngineData            *pEngineData)
+void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
+                                        RenderAction *pAction,
+                                        EngineData   *pEngineData)
 {
     pAction->pushPartition((RenderPartition::CopyViewing      |
                             RenderPartition::CopyProjection   |
@@ -794,9 +791,9 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr               pLight,
 
 
 ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
-    LightPtr               pLight,
-    LightTypeE             eType,
-    RenderTraversalAction *pAction)
+    LightPtr      pLight,
+    LightTypeE    eType,
+    RenderAction *pAction)
 {
     EngineData *pEngineData = 
         pAction->getData<SimpleShadowMapEngineData *>(_iDataSlotId);
@@ -873,9 +870,9 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
 }
 
 ActionBase::ResultE SimpleShadowMapEngine::runOnLeave(
-    LightPtr               pLight,
-    LightTypeE             eType,
-    RenderTraversalAction *pAction)
+    LightPtr      pLight,
+    LightTypeE    eType,
+    RenderAction *pAction)
 {
     return ActionBase::Continue;
 }

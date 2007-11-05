@@ -143,6 +143,7 @@ PointLight::~PointLight(void)
 /*-------------------------------------------------------------------------*/
 /*                             Rendering                                   */
 
+#ifdef OSG_OLD_RENDER_ACTION
 Action::ResultE PointLight::renderEnter(Action *action)
 {
     if(getOn() == false)
@@ -165,6 +166,26 @@ Action::ResultE PointLight::renderLeave(Action *action)
 
     return Light::renderLeave(action);
 }
+#endif
+Action::ResultE PointLight::renderEnter(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    if(a->getActivePartition()->getStatCollector() != NULL)
+    {
+        a->getActivePartition()->getStatCollector()->getElem(
+            PointLight::statNPointLights)->inc();
+    }
+
+    return Inherited::renderEnter(LightEngine::Point,
+                                  a);
+}
+
+Action::ResultE PointLight::renderLeave(Action *action)
+{
+    return Inherited::renderLeave(LightEngine::Point,
+                                  action);
+}
 
 /*-------------------------------------------------------------------------*/
 /*                               Init                                      */
@@ -176,11 +197,11 @@ void PointLight::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault( 
-            getClassType(), 
+            PointLight::getClassType(), 
             reinterpret_cast<Action::Callback>(&PointLight::renderEnter));
-
+        
         RenderAction::registerLeaveDefault( 
-            getClassType(), 
+            PointLight::getClassType(), 
             reinterpret_cast<Action::Callback>(&PointLight::renderLeave));
     }
 }

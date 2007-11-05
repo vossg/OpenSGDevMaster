@@ -95,13 +95,14 @@ MaterialGroup::~MaterialGroup(void)
 
 ActionBase::ResultE MaterialGroup::renderEnter(Action *action)
 {
-    RenderAction *da = dynamic_cast<RenderAction *>(action);
+    RenderAction *pAction = 
+        dynamic_cast<RenderAction *>(action);
 
-    if( da                    != NULL &&
-       _sfMaterial.getValue() != NullFC &&
-        da->getMaterial()     == NULL)
+    if(pAction             != NULL   && 
+       this->getMaterial() != NullFC  )
     {
-        da->setMaterial(&(*(_sfMaterial.getValue())), da->getActNode());
+        pAction->overrideMaterial(getCPtr(this->getMaterial()), 
+                                  pAction->getActNode()      );
     }
 
     return Group::renderEnter(action);
@@ -109,11 +110,12 @@ ActionBase::ResultE MaterialGroup::renderEnter(Action *action)
 
 ActionBase::ResultE MaterialGroup::renderLeave(Action *action)
 {
-    RenderAction *da = dynamic_cast<RenderAction *>(action);
+    RenderAction *pAction = 
+        dynamic_cast<RenderAction *>(action);
 
-    if(da != NULL && da->getMaterialNode() == action->getActNode())
+    if(pAction != NULL)
     {
-        da->setMaterial(NULL, NullFC);
+        pAction->overrideMaterial(NULL, pAction->getActNode());
     }
 
     return Group::renderLeave(action);
@@ -129,11 +131,11 @@ void MaterialGroup::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(),
+            MaterialGroup::getClassType(), 
             reinterpret_cast<Action::Callback>(&MaterialGroup::renderEnter));
-
+        
         RenderAction::registerLeaveDefault(
-            getClassType(),
+            MaterialGroup::getClassType(), 
             reinterpret_cast<Action::Callback>(&MaterialGroup::renderLeave));
     }
 }

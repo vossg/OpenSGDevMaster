@@ -81,131 +81,97 @@ OSG_BEGIN_NAMESPACE
 
 /*------------- constructors & destructors --------------------------------*/
 
-/** \brief Constructor
- */
-
-
-
-/** \brief Destructor
- */
-
-
 /*------------------------------ access -----------------------------------*/
 
 /*---------------------------- properties ---------------------------------*/
 
-inline 
-void RenderAction::updateTopMatrix(void)
+inline
+void RenderAction::setKeyGen(UInt32 uiKeyGen)
 {
-    _currMatrix.acc = _camInverse;
-    _currMatrix.acc.mult(_currMatrix.second);
+    _uiKeyGen = uiKeyGen;
 }
 
 inline
-const Matrixr &RenderAction::top_matrix(void)
+void RenderAction::addPassMask(BitVector bvMask)
 {
-// not necessary anymore, is updated as soon as _currMatrix changes
-//    _accMatrix = _camInverse;
-//    _accMatrix.mult(_currMatrix.second);
-
-    return _currMatrix.acc;
+    _bvPassMask |= bvMask;
 }
 
 inline
-void RenderAction::setStateSorting(bool s)
+void RenderAction::subPassMask(BitVector bvMask)
 {
-    _stateSorting = s;
+    _bvPassMask &= ~bvMask;
 }
 
 inline
-bool RenderAction::getStateSorting(void)
+BitVector RenderAction::getPassMask(void)
 {
-    return _stateSorting;
+    return _bvPassMask;
 }
 
 inline
-UInt32 RenderAction::getActiveLightsMask(void)
+void RenderAction::setUseGLFinish(bool bVal)
 {
-    return _activeLightsMask;
+    _bUseGLFinish = bVal;
 }
 
 inline
-UInt32 RenderAction::getActiveLightsCount(void)
+bool RenderAction::getUseGLFinish(void)
 {
-    return _activeLightsCount;
+    return _bUseGLFinish;
 }
 
 inline
-const std::vector<UInt32> &RenderAction::getLightEnvsLightsState(void)
+void RenderAction::beginPartitionGroup(void)
 {
-    return _lightEnvsLightsState;
+    _sRenderPartitionIdxStack.push(_iActivePartitionIdx);
+
+    _iActivePartitionIdx = _vRenderPartitions[_currentBuffer].size();
+
+    _bInPartitionGroup = true;
 }
 
-inline State *RenderAction::getCurrentState(void)
+inline
+void RenderAction::endPartitionGroup(void)
 {
-    return _pActiveState;
+    _iActivePartitionIdx = _sRenderPartitionIdxStack.top();
+
+    _sRenderPartitionIdxStack.pop();
+
+    _bInPartitionGroup = false;
 }
 
 /*-------------------------- your_category---------------------------------*/
 
+inline
+Int32 RenderAction::getActivePartitionIdx(void)
+{
+    return _iActivePartitionIdx;
+}
+
+
+inline
+Int32 RenderAction::getLastPartitionIdx(void)
+{
+    return _vRenderPartitions[_currentBuffer].size() - 1;
+}
+
+inline
+void RenderAction::disableDefaultPartition(void)
+{
+    _vRenderPartitions[_currentBuffer][0]->disable();
+}
+
 /*-------------------------- assignment -----------------------------------*/
 
-/** \brief assignment
- */
-
-
 /*-------------------------- comparison -----------------------------------*/
-
-/** \brief assignment
- */
-
-
-/** \brief equal
- */
-
-
-/** \brief unequal
- */
-
-
 
 /*-------------------------------------------------------------------------*\
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/
-
-
 
 /*-------------------------------------------------------------------------*\
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
-
-///---------------------------------------------------------------------------
-///  FUNCTION: 
-///---------------------------------------------------------------------------
-//:  Example for the head comment of a function
-///---------------------------------------------------------------------------
-///
-//p: Paramaters: 
-//p: 
-///
-//g: GlobalVars:
-//g: 
-///
-//r: Return:
-//r: 
-///
-//c: Caution:
-//c: 
-///
-//a: Assumptions:
-//a: 
-///
-//d: Description:
-//d: 
-///
-//s: SeeAlso:
-//s: 
-///---------------------------------------------------------------------------
-

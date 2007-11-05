@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGChunkOverrideGroup.h"
+#include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -68,6 +69,15 @@ void ChunkOverrideGroup::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
+        RenderAction::registerEnterDefault(
+            ChunkOverrideGroup::getClassType(), 
+            reinterpret_cast<Action::Callback>(
+                &ChunkOverrideGroup::renderEnter));
+
+        RenderAction::registerLeaveDefault(
+            ChunkOverrideGroup::getClassType(), 
+            reinterpret_cast<Action::Callback>(
+                &ChunkOverrideGroup::renderLeave));
     }
 }
 
@@ -313,9 +323,49 @@ void ChunkOverrideGroup::changed(ConstFieldMaskArg whichField,
 }
 
 void ChunkOverrideGroup::dump(      UInt32    ,
-                         const BitVector ) const
+                              const BitVector ) const
 {
     SLOG << "Dump ChunkOverrideGroup NI" << std::endl;
+}
+
+ActionBase::ResultE ChunkOverrideGroup::renderEnter(Action *action)
+{
+    RenderAction *pAction = 
+        dynamic_cast<RenderAction *>(action);
+
+    if(pAction != NULL)
+    {
+        pAction->pushState();
+
+        MFStateChunkPtr::const_iterator chIt   = this->beginChunks();
+        MFStateChunkPtr::const_iterator chEnd  = this->endChunks  ();
+        UInt32                          uiSlot = 0;
+
+        while(chIt != chEnd)
+        {
+            if(*chIt != NullFC)
+                pAction->addOverride(uiSlot, *chIt);
+            
+            ++uiSlot;
+            ++chIt;
+        }
+    }
+
+    return Inherited::renderEnter(action);
+}
+
+ActionBase::ResultE ChunkOverrideGroup::renderLeave(Action *action)
+{
+    RenderAction *pAction = 
+        dynamic_cast<RenderAction *>(action);
+
+    if(pAction != NULL)
+    {
+        pAction->popState();
+    }
+
+
+    return Inherited::renderLeave(action);
 }
 
 OSG_END_NAMESPACE

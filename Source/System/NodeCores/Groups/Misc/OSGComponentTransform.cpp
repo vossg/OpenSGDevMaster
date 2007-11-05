@@ -118,12 +118,12 @@ void ComponentTransform::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(),
+            ComponentTransform::getClassType(), 
             reinterpret_cast<Action::Callback>(
                 &ComponentTransform::renderEnter));
         
         RenderAction::registerLeaveDefault(
-            getClassType(),
+            ComponentTransform::getClassType(), 
             reinterpret_cast<Action::Callback>(
                 &ComponentTransform::renderLeave));
         

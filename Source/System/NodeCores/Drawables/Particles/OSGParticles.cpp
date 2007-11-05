@@ -84,7 +84,7 @@ void Particles::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(),
+            Particles::getClassType(),
             reinterpret_cast<Action::Callback>(
                 &MaterialDrawable::renderActionHandler));
 
@@ -235,6 +235,12 @@ void Particles::adjustVolume( Volume & volume )
             volume.extendBy(p);
         }
     }
+}
+
+void Particles::fill(DrawableStatsAttachmentPtrArg pStat)
+{
+    SWARNING << "Particles::fill stats NYI "
+             << std::endl;
 }
 
 #if !defined(OSG_DO_DOC) || OSG_DOC_LEVEL > 1  // remove from user docu

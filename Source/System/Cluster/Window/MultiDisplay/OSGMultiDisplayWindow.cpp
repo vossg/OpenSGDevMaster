@@ -128,6 +128,7 @@ void MultiDisplayWindow::serverInit(WindowPtr ,
 {
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
 /*! render server window
  *  
  *  update all viewport parameters and render local viewports
@@ -284,11 +285,11 @@ void MultiDisplayWindow::serverRender(WindowPtr         serverWindow,
 
     Inherited::serverRender(serverWindow,id,action);
 }
+#endif
 
-#ifdef OSG_CLEANED_RENDERACTION
 void MultiDisplayWindow::serverRender(WindowPtr         window,
                                       UInt32            id,
-                                      RenderTraversalActionBase *action)
+                                      RenderActionBase *action)
 {
     TileCameraDecoratorPtr deco;
     ViewportPtr serverPort;
@@ -435,7 +436,6 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
 
     Inherited::serverRender(window,id,action);
 }
-#endif
 
 /*! swap server window
  */

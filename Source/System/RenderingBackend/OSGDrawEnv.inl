@@ -42,13 +42,7 @@ OSG_BEGIN_NAMESPACE
 inline
 void DrawEnv::setAction(RAction *pAction)
 {
-    _pRAction = pAction;
-}
-
-inline
-void DrawEnv::setAction(RTAction *pAction)
-{
-    _pRTAction = pAction;
+    _pRenderAction = pAction;
 }
 
 inline
@@ -165,16 +159,11 @@ Real DrawEnv::getCameraFar(void) const
 }
 
 inline
-DrawEnv::RAction *DrawEnv::getRAction(void) const
+DrawEnv::RAction *DrawEnv::getAction(void) const
 {
-    return _pRAction;
+    return _pRenderAction;
 }
 
-inline
-DrawEnv::RTAction *DrawEnv::getRTAction(void) const
-{
-    return _pRTAction;
-}
 
 inline
 Window *DrawEnv::getWindow(void) const

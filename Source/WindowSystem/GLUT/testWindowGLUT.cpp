@@ -16,7 +16,7 @@
 #include <OSGThread.h>
 #include <OSGTransform.h>
 #include <OSGAction.h>
-#include <OSGRenderTraversalAction.h>
+#include <OSGRenderAction.h>
 #include <OSGSimpleGeometry.h>
 #include <OSGSceneFileHandler.h>
 #include <OSGChunkOverrideGroup.h>
@@ -43,7 +43,7 @@
 
 using namespace OSG;
 
-RenderTraversalAction *rentravact;
+RenderAction *rentravact;
 
 NodePtr  root;
 
@@ -519,7 +519,7 @@ int main (int argc, char **argv)
 
     // Action
     
-    rentravact = RenderTraversalAction::create();
+    rentravact = RenderAction::create();
 //    renact->setFrustumCulling(false);
 
 

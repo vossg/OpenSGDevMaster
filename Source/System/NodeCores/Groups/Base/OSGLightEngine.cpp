@@ -41,8 +41,6 @@
 
 #include "OSGConfig.h"
 
-#include <OSGRenderAction.h>
-
 #include "OSGLightEngine.h"
 
 OSG_USING_NAMESPACE

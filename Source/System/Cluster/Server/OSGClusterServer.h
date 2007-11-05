@@ -83,18 +83,17 @@ class OSG_CLUSTER_DLLMAPPING ClusterServer
     void start   (void                               );
     void stop    (void                               );
 #ifdef OSG_OLD_RENDER_ACTION
-    void render  (DrawActionBase *action           );
+    void render  (DrawActionBase *action             );
 #endif
-#ifdef OSG_CLEANED_RENDERACTION
-    void render  (RenderTraversalActionBase *action           );
-#endif
-    void doSync  (bool              applyToChangelist);
+
 #ifdef OSG_OLD_RENDER_ACTION
-    void doRender(DrawActionBase *action           );
+    void doRender(DrawActionBase *action             );
 #endif
-#ifdef OSG_CLEANED_RENDERACTION
-    void doRender(RenderTraversalActionBase *action           );
-#endif
+
+    void render  (RenderActionBase *action           );
+    void doSync  (bool              applyToChangelist);
+    void doRender(RenderActionBase *action           );
+
     void doSwap  (void                               );
 
     /*! \}                                                                 */

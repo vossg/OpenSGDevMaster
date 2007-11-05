@@ -128,6 +128,7 @@ DirectionalLight::~DirectionalLight(void)
 /*-------------------------------------------------------------------------*/
 /*                             Rendering                                   */
 
+#ifdef OSG_OLD_RENDER_ACTION
 Action::ResultE DirectionalLight::renderEnter(Action *action)
 {
     if(getOn() == false)
@@ -151,6 +152,25 @@ Action::ResultE DirectionalLight::renderLeave(Action *action)
 
     return Light::renderLeave(action);
 }
+#endif
+
+Action::ResultE DirectionalLight::renderEnter(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    if(a->getActivePartition()->getStatCollector() != NULL)
+    {
+        a->getActivePartition()->getStatCollector()->getElem(
+            DirectionalLight::statNDirectionalLights)->inc();
+    }
+
+    return Inherited::renderEnter(LightEngine::Directional, a);
+}
+
+Action::ResultE DirectionalLight::renderLeave(Action *action)
+{
+    return Inherited::renderLeave(LightEngine::Directional, action);
+}
 
 /*-------------------------------------------------------------------------*/
 /*                               Init                                      */
@@ -162,12 +182,12 @@ void DirectionalLight::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault( 
-            getClassType(), 
+            DirectionalLight::getClassType(), 
             reinterpret_cast<Action::Callback>(
                 &DirectionalLight::renderEnter));
 
         RenderAction::registerLeaveDefault(
-            getClassType(), 
+            DirectionalLight::getClassType(), 
             reinterpret_cast<Action::Callback>(
                 &DirectionalLight::renderLeave));
     }

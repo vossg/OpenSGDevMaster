@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGMultiCore.h"
+#include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -68,6 +69,13 @@ void MultiCore::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
+        RenderAction::registerEnterDefault(
+            MultiCore::getClassType(), 
+            reinterpret_cast<Action::Callback>(&MultiCore::renderEnter));
+        
+        RenderAction::registerLeaveDefault( 
+            MultiCore::getClassType(), 
+            reinterpret_cast<Action::Callback>(&MultiCore::renderLeave));
     }
 }
 
@@ -143,6 +151,56 @@ void MultiCore::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump MultiCore NI" << std::endl;
+}
+
+ActionBase::ResultE MultiCore::renderEnter(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    MFNodeCorePtr::const_iterator coreIt  = this->getCores().begin();
+    MFNodeCorePtr::const_iterator coreEnd = this->getCores().end  ();
+
+    Action::ResultE returnValue = Action::Continue;
+
+    while(coreIt != coreEnd)
+    {
+        returnValue = action->callEnter(*coreIt);
+
+        if(returnValue != Action::Continue)
+            break;
+
+        ++coreIt;
+    }    
+
+    if(returnValue == Action::Skip)
+        returnValue = Action::Continue;
+
+    return returnValue;
+}
+
+ActionBase::ResultE MultiCore::renderLeave(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    MFNodeCorePtr::const_iterator coreIt  = this->getCores().begin();
+    MFNodeCorePtr::const_iterator coreEnd = this->getCores().end  ();
+
+    Action::ResultE returnValue = Action::Continue;
+
+    while(coreIt != coreEnd)
+    {
+        returnValue = action->callLeave(*coreIt);
+
+        if(returnValue != Action::Continue)
+            break;
+
+        ++coreIt;
+    }    
+
+    if(returnValue == Action::Skip)
+        returnValue = Action::Continue;
+
+    return returnValue;
 }
 
 OSG_END_NAMESPACE

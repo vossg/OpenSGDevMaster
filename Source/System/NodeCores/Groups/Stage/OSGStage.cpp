@@ -69,37 +69,6 @@ void Stage::changed(ConstFieldMaskArg whichField,
                     UInt32            origin,
                     BitVector         details)
 {
-#if 0
-    if(whichField & (UrlFieldMask))
-    {
-        if(getAbsoluteUrl().empty())
-        {
-            PathHandler *ph = SceneFileHandler::the()->getPathHandler();
-
-            if(ph != NULL) 
-            {
-                setAbsoluteUrl(ph->findFile(getUrl().c_str()));
-            }
-
-            if(getAbsoluteUrl().empty())
-            {
-                setAbsoluteUrl(getUrl());
-            }
-
-            setState(NOT_LOADED);
-        }
-    }
-    if(whichField & (StateFieldMask |
-                     UrlFieldMask   |
-                     VolumeFieldMask))
-    {
-        for(UInt32 i = 0; i < _mfParents.size(); i++)
-        {
-            _mfParents[i]->invalidateVolume();
-        }
-    }
-#endif
-
     Inherited::changed(whichField, origin, details);
 }
 
@@ -141,18 +110,97 @@ Stage::~Stage(void)
   thid group.
  */
 
-ActionBase::ResultE Stage::render(Action *action)
+ActionBase::ResultE Stage::renderEnter(Action *action)
 {
-/*
-    DrawActionBase *da = dynamic_cast<DrawActionBase *>(action);
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    da->useNodeList();
+    if(a == NULL)
+        return ActionBase::Continue;
+
+    RenderPartition   *pParentPart = a->getActivePartition();
+    FrameBufferObject *pTarget     = this->getRenderTarget();
+
+    if(pTarget == NULL && this->getInheritedTarget() == true)
+    {
+        pTarget = pParentPart->getRenderTarget();
+    }
+
+    a->pushPartition();
+
+    RenderPartition   *pPart    = a->getActivePartition();
+    Viewport          *pPort    = a->getViewport();
+    Camera            *pCam     = a->getCamera  ();
+    Background        *pBack    = a->getBackground();
     
-    if(da->isVisible(getCPtr(getSubTreeRoot())))
-        da->addNode(getSubTreeRoot());
- */
+    pPart->setRenderTarget(pTarget);
 
-    return Action::Continue;
+    if(pPort != NULL)
+    {
+//        pPart->setViewport(pPort         );
+        pPart->setWindow  (a->getWindow());
+            
+        if(pTarget != NULL)
+        {
+            pPart->calcViewportDimension(pPort->getLeft  (),
+                                         pPort->getBottom(),
+                                         pPort->getRight (),
+                                         pPort->getTop   (),
+                                         
+                                         pTarget->getWidth    (),
+                                         pTarget->getHeight   ());
+        }
+        else
+        {
+            pPart->calcViewportDimension(pPort->getLeft  (),
+                                         pPort->getBottom(),
+                                         pPort->getRight (),
+                                         pPort->getTop   (),
+                                         
+                                         a->getWindow()->getWidth (),
+                                         a->getWindow()->getHeight());
+        }
+        
+        if(pCam != NULL)
+        {
+            Matrix m, t;
+            
+            // set the projection
+            pCam->getProjection          (m, 
+                                          pPart->getViewportWidth (), 
+                                          pPart->getViewportHeight());
+            
+            pCam->getProjectionTranslation(t, 
+                                           pPart->getViewportWidth (), 
+                                           pPart->getViewportHeight());
+                
+            pPart->setupProjection(m, t);
+            
+            pCam->getViewing(m, 
+                             pPart->getViewportWidth (),
+                             pPart->getViewportHeight());
+            
+            
+            pPart->setupViewing(m);
+            
+            pPart->setNear     (pCam->getNear());
+            pPart->setFar      (pCam->getFar ());
+            
+            pPart->calcFrustum();
+        }
+    }
+
+    pPart->setBackground(pBack);
+
+    return ActionBase::Continue;
+}
+
+ActionBase::ResultE Stage::renderLeave(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    a->popPartition();
+
+    return ActionBase::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -168,7 +216,11 @@ void Stage::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(),
-            reinterpret_cast<Action::Callback>(&Stage::render));
+            Stage::getClassType(), 
+            reinterpret_cast<Action::Callback>(&Stage::renderEnter));
+        
+        RenderAction::registerLeaveDefault( 
+            Stage::getClassType(), 
+            reinterpret_cast<Action::Callback>(&Stage::renderLeave));
     }
 }

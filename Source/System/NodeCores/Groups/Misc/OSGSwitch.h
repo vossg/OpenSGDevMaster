@@ -105,7 +105,8 @@ class OSG_GROUP_DLLMAPPING Switch : public SwitchBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    ActionBase::ResultE render(Action *action);
+    ActionBase::ResultE renderEnter(Action *action);
+    ActionBase::ResultE renderLeave(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

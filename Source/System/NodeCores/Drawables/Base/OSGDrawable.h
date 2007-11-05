@@ -44,8 +44,10 @@
 
 #include "OSGDrawableBase.h"
 #include "OSGStatElemTypes.h"
+#include "OSGDrawableStatsAttachmentFields.h"
 
 OSG_BEGIN_NAMESPACE
+
 
 /*! \brief *put brief class description here* 
  */
@@ -86,6 +88,13 @@ class OSG_SYSTEM_DLLMAPPING Drawable : public DrawableBase
 
     virtual void dump(      UInt32     uiIndent = 0, 
                       const BitVector  bvFlags  = 0) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Statistic                                */
+    /*! \{                                                                 */
+
+    virtual void fill(DrawableStatsAttachmentPtrArg oStat) = 0;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

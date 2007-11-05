@@ -51,7 +51,6 @@
 OSG_BEGIN_NAMESPACE
 
 class Viewport;
-class DrawActionBase;
 class FrustumVolume;
 class Line;
 
@@ -85,9 +84,11 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     /*! \name                   Setup Rendering                            */
     /*! \{                                                                 */
 
+#ifdef OSG_OLD_RENDER_ACTION
     virtual void setup          (DrawActionBase *action, const Viewport &port);
 
     virtual void setupProjection(DrawActionBase *action, const Viewport &port);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

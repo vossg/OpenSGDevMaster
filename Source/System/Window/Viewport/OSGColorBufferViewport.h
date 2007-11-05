@@ -90,12 +90,10 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewport :
 #endif
 
 #ifdef OSG_OLD_RENDER_ACTION
-    virtual void render(DrawActionBase *action);
+    virtual void render(DrawActionBase   *action);
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-    virtual void render(RenderTraversalActionBase *action);
-#endif
+    virtual void render(RenderActionBase *action);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

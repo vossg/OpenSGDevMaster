@@ -14,7 +14,6 @@
 #include <OSGTransform.h>
 #include <OSGAction.h>
 #include <OSGRenderAction.h>
-#include <OSGRenderTraversalAction.h>
 #include <OSGSimpleGeometry.h>
 #include <OSGSceneFileHandler.h>
 

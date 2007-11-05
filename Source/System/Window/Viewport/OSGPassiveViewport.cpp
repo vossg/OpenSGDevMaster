@@ -49,7 +49,6 @@
 #include <OSGCamera.h>
 #include <OSGBackground.h>
 #include <OSGForeground.h>
-#include <OSGRenderAction.h>
 #include "OSGPassiveViewport.h"
 
 OSG_USING_NAMESPACE
@@ -133,8 +132,7 @@ void PassiveViewport::render(DrawActionBase *action)
 }
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-void PassiveViewport::render(RenderTraversalActionBase *action)
+void PassiveViewport::render(RenderActionBase *action)
 {
 #if 1 // Have to check GV
     if ( getCamera() == NullFC )
@@ -163,4 +161,3 @@ void PassiveViewport::render(RenderTraversalActionBase *action)
 
     Inherited::render(action);
 }
-#endif

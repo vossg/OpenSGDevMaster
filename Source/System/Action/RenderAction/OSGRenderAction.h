@@ -46,17 +46,12 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <vector>
 #include <stack>
-#include <map>
-#include <set>
 
-#include "OSGSystemDef.h"
-#include "OSGBaseTypes.h"
-#include "OSGDrawActionBase.h"
-#include "OSGMatrix.h"
+#include "OSGRenderActionFwd.h"
+#include "OSGRenderActionBase.h"
+#include "OSGRenderPartition.h"
 #include "OSGMaterial.h"
-#include "OSGStatElemTypes.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -64,18 +59,7 @@ OSG_BEGIN_NAMESPACE
 //  Forward References
 //---------------------------------------------------------------------------
 
-class Material;
-class DrawTreeNode;
-class MaterialDrawable;
 class State;
-class Light;
-class LightEnv;
-class LightChunk;
-#if 0
-class ClipPlane;
-#endif
-class SClipPlaneChunk;
-class DrawTreeNodeFactory;
 
 //---------------------------------------------------------------------------
 //   Types
@@ -88,38 +72,22 @@ class DrawTreeNodeFactory;
 /*! \brief RenderAction class
  */
 
-class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
+class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 {
   public:
-
-    typedef struct
-    {
-        UInt32  first;
-        Matrixr second;
-        Matrixr acc;
-    }
-    MatrixStore;
-
-    typedef std::map <Material   *,      DrawTreeNode *> MaterialMap;
-    typedef std::pair<LightChunk *,      Matrixr       > LightStore;
-    typedef std::pair<SClipPlaneChunk *, Matrix        > ClipPlaneStore;
 
     //-----------------------------------------------------------------------
     //   constants
     //-----------------------------------------------------------------------
 
-    static StatElemDesc<StatTimeElem   > statDrawTime;
-    static StatElemDesc<StatIntElem    > statNMaterials;
-    static StatElemDesc<StatIntElem    > statNMatrices;
-    static StatElemDesc<StatIntElem    > statNGeometries;
-    static StatElemDesc<StatIntElem    > statNTransGeometries;
-    static StatElemDesc<StatStringElem > statNOcclusionMode;
-    static StatElemDesc<StatIntElem    > statNOcclusionTests;
-    static StatElemDesc<StatIntElem    > statNOcclusionCulled;
-
-    static const Int32 OcclusionStopAndWait;
-    static const Int32 OcclusionMultiFrame;
-    static const Int32 OcclusionHierarchicalMultiFrame;
+    static StatElemDesc<StatTimeElem>     statDrawTime;
+    static StatElemDesc<StatIntElem >     statNStates;
+    static StatElemDesc<StatIntElem >     statNMatrices;
+    static StatElemDesc<StatIntElem >     statNGeometries;
+//    static StatElemDesc<StatIntElem > statNTransGeometries;
+    static StatElemDesc<StatIntElem >     statNTriangles;
+    static StatElemDesc<StatIntElem >     statNShaders;
+    static StatElemDesc<StatIntElem >     statNShaderParams;
 
     //-----------------------------------------------------------------------
     //   enums
@@ -129,21 +97,34 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     //   types
     //-----------------------------------------------------------------------
 
+    typedef std::vector<RenderPartition *> RenderPartitionStore;
+    typedef std::stack <RenderPartition *> RenderPartitionStack;
+    typedef std::stack <Int32            > RenderPartitionIdxStack;
+    typedef std::stack <bool             > RenderPartitionGrpStack;
+
     //-----------------------------------------------------------------------
     //   class functions
     //-----------------------------------------------------------------------
 
-    static RenderAction *create      (void                    );
+    static
+    RenderAction *create      (void                    );
 
-    static void          setPrototype(RenderAction *pPrototype);
-    static RenderAction *getPrototype(void                    );
+    static
+    void          setPrototype(RenderAction *pPrototype);
 
+    static
+    RenderAction *getPrototype(void                   );
+
+
+    //-----------------------------------------------------------------------
+    //   class functions
+    //-----------------------------------------------------------------------
 
     static void registerEnterDefault (const FieldContainerType &type,
-                                      const Action::Functor    &func);
+                                      const Action::Functor    &func      );
 
     static void registerLeaveDefault (const FieldContainerType &type,
-                                      const Action::Functor    &func);
+                                      const Action::Functor    &func      );
 
     //-----------------------------------------------------------------------
     //   instance functions
@@ -153,103 +134,163 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
 
     /*------------------------- your_category -------------------------------*/
 
+    ResultE recurceNoNodeCallbacks(NodePtrConstArg node);
+
+    /*------------------------- your_operators ------------------------------*/
+
     virtual Action::ResultE start(void       );
     virtual Action::ResultE stop (ResultE res);
 
     /*------------------------- your_operators ------------------------------*/
 
-           void           push_matrix(const Matrixr &matrix);
-           void           pop_matrix (      void           );
+    void dropFunctor(Material::DrawFunctor &func,
+                     State                 *pState,
+                     UInt32                 uiSortKey);
 
-    inline const Matrixr &top_matrix (      void           );
+    void dropFunctor(Material::DrawFunctor &func,
+                     Material              *pMat);
 
-    /*------------------------- assignment ----------------------------------*/
+    /*---------------------------- state ------------------------------------*/
 
-    void dropGeometry(MaterialDrawable      *pGeo);
-    void dropFunctor (Material::DrawFunctor &func, Material *mat);
+    void pushState  (void                             );
+    void popState   (void                             );
 
-    void dropLight     (Light     *pLight);
-    void undropLight   (Light     *pLight);
+    void addOverride(UInt32 uiSlot, StateChunk *pChunk);
 
-    void dropLightEnv  (LightEnv  *pLightEnv);
-    void undropLightEnv(LightEnv  *pLightEnv);
+    /*---------------------------- state ------------------------------------*/
 
-#if 0
-    void dropClipPlane  (ClipPlane     *pClipPlane);
-    void undropClipPlane(ClipPlane     *pClipPlane);
-#endif
+    Int32 allocateLightIndex(void);
+    void  releaseLightIndex (void);
 
-    void setStateSorting(bool s);
-    bool getStateSorting(void);
+    /*--------------------------- matrix ------------------------------------*/
 
-    std::vector<Light *> getActiveLights(void);
-    UInt32 getActiveLightsMask(void);
-    UInt32 getActiveLightsCount(void);
+          void    pushMatrix (const Matrix &matrix);
+          void    popMatrix  (      void          );
 
-    const std::vector<UInt32> &getLightEnvsLightsState(void);
+    const Matrix &topMatrix  (      void          );
 
-    inline State *getCurrentState(void);
+    /*------------------------- visibility ---------------------------------*/
 
-    /*------------------------- comparison ----------------------------------*/
-
-    void setSortTrans(bool bVal);
-    bool getSortTrans(void) const;
-
-    void setZWriteTrans(bool bVal);
-    bool getZWriteTrans(void) const;
-
-    void setLocalLights(bool bVal);
-    bool getLocalLights(void) const;
-
-    void setCorrectTwoSidedLighting(bool bVal);
-    bool getCorrectTwoSidedLighting(void) const;
-
-    void setOcclusionCulling(bool bVal);
-    bool getOcclusionCulling(void) const;
-
-    void setOcclusionCullingMode(Int32 mode);
-    Int32 getOcclusionCullingMode(void) const;
-    void setOcclusionCullingPixels(UInt32 pixels);
-    UInt32 getOcclusionCullingPixels(void) const;
-    void setOcclusionCullingThreshold(UInt32 threshold);
-    UInt32 getOcclusionCullingThreshold(void) const;
-
-    void setSmallFeatureCulling(bool bVal);
-    bool getSmallFeatureCulling(void) const;
-    void setSmallFeaturePixels(Real32 pixels);
-    Real32 getSmallFeaturePixels(void) const;
-    void setSmallFeatureThreshold(UInt32 threshold);
-    UInt32 getSmallFeatureThreshold(void) const;
-    void setUseGLFinish(bool s);
-    bool getUseGLFinish(void) const;
-
-    /*------------------------- comparison ----------------------------------*/
-
-    bool isSmallFeature(const NodePtr &node);
-    bool isOccluded(DrawTreeNode *pRoot);
-    void deleteOcclusionQueriesPool(void);
-    GLuint getOcclusionQuery(void);
-    GLuint getOcclusionQuery(NodePtr node);
-    void setOcclusionQuery(NodePtr node, GLuint occlusionQuery);
-    void resetOcclusionQueryIndex(void);
-    void setOcclusionMask(NodePtr node, UInt8 mask);
-    bool hasGeometryChild(NodePtr node);
-
-    void drawOcclusionBB(const Pnt3r &bbmin, const Pnt3r &bbmax);
-    void drawMultiFrameOcclusionBB(DrawTreeNode *pRoot);
-    void drawHierarchicalMultiFrameOcclusionBB(const Matrixr &view, NodePtr node);
     // test a single node
-    bool            isVisible( Node* node );
+    virtual bool isVisible      (Node *node);
 
     // visibility levels
-    bool  pushVisibility(void);
-    void  popVisibility(void);
+            bool  pushVisibility(void      );
+            void  popVisibility (void      );
 
-    void (OSG_APIENTRY* _glGenQueriesARB)(GLsizei, GLuint*);
-    void (OSG_APIENTRY* _glDeleteQueriesARB)(GLsizei, GLuint*);
-    void (OSG_APIENTRY* _glBeginQueryARB)(GLenum, GLuint);
-    void (OSG_APIENTRY* _glEndQueryARB)(GLenum);
-    void (OSG_APIENTRY* _glGetQueryObjectuivARB)(GLuint, GLenum, GLuint*);
+    /*------------------------- culling ------------------------------------*/
+
+    // control activation of frustum culling
+    virtual bool                 getFrustumCulling(void                ) const;
+    virtual void                 setFrustumCulling(bool val = true     );
+
+    // control frustum
+    virtual const FrustumVolume &getFrustum       (void                ) const;
+    virtual void                 setFrustum       (FrustumVolume &frust);
+
+    /*------------------------- comparison ----------------------------------*/
+
+    void      overrideMaterial(Material        *pMaterial,
+                               NodePtrConstArg  pNode    );
+
+    Material *getMaterial     (void                      );
+
+    /*------------------------- comparison ----------------------------------*/
+
+    void      setKeyGen(UInt32 uiKeyGen);
+
+    /*------------------------- comparison ----------------------------------*/
+
+
+    void pushPartition           (UInt32                uiCopyOnPush = 0x0000, 
+                                  RenderPartition::Mode eMode        = 
+                                                RenderPartition::StateSorting);
+
+    void popPartition            (void                                       );
+
+    void beginPartitionGroup     (void                                       );
+    void endPartitionGroup       (void                                       );
+
+    Int32 getActivePartitionIdx  (void                                       );
+    Int32 getLastPartitionIdx    (void                                       );
+    
+    void  readdPartitionByIndex  (UInt32                uiPartIdx            );
+    
+    void  dumpPartitionList      (void                                       );
+
+    void  disableDefaultPartition(void                                       );
+
+    /*------------------------- comparison ----------------------------------*/
+
+    RenderPartition *getActivePartition(void);
+
+    /*----------- multi-frame buffering / split cull/draw -------------------*/
+
+    void      addPassMask(BitVector bvMask);
+    void      subPassMask(BitVector bvMask);
+    BitVector getPassMask(void            );
+
+    /*----------- multi-frame buffering / split cull/draw -------------------*/
+    
+    void   setDoCullOnly   (bool val);
+    bool   getDoCullOnly   (void    );
+
+    void   setNumBuffers   (UInt32 n);
+    UInt32 getNumBuffers   (void    );
+
+    void   setCurrentBuffer(UInt32 b);
+    UInt32 getCurrentBuffer(void    );
+   
+    // use with care. Should probably be more protected
+    void   drawBuffer      (UInt32 buf);
+
+    /*----------- multi-frame buffering / split cull/draw -------------------*/
+
+    void setUseGLFinish(bool bVal);
+    bool getUseGLFinish(void     );
+
+    /*------------------ Occlusion Culling control --------------------------*/
+
+    void   setOcclusionCulling                    (const bool bVal     );
+    bool   getOcclusionCulling                    (      void          );
+
+    void   setOcclusionCullingDebug               (const bool bVal     );
+    bool   getOcclusionCullingDebug               (      void          );
+
+    void   setOcclusionDebugMasks                 (const UInt32 tested, 
+                                                   const UInt32 culled, 
+                                                   const UInt32 visible);
+
+    UInt32 getOcclusionTestedDebugMask            (      void          );
+    UInt32 getOcclusionCulledDebugMask            (      void          );
+    UInt32 getOcclusionVisibleDebugMask           (      void          );
+
+    void   setOcclusionCullingMinimumFeatureSize  (const UInt32 pixels );
+    UInt32 getOcclusionCullingMinimumFeatureSize  (      void          );
+
+    void   setOcclusionCullingVisibilityThreshold (const UInt32 pixels );
+    UInt32 getOcclusionCullingVisibilityThreshold (      void          );
+
+    void   setOcclusionCullingCoveredThreshold    (const Real32 percent);
+    Real32 getOcclusionCullingCoveredThreshold    (      void          );
+
+    void   setOcclusionCullingQueryBufferSize     (const UInt32 size   );
+    UInt32 getOcclusionCullingQueryBufferSize     (      void          );
+
+    void   setOcclusionCullingMinimumTriangleCount(const UInt32 count  );
+    UInt32 getOcclusionCullingMinimumTriangleCount(      void          );
+
+    /*------------------- ScreenLOD Control -------------------------------*/
+
+    void   setScreenLODCoverageThreshold(const Real32 percent);
+    Real32 getScreenLODCoverageThreshold(      void          );
+
+    void   setScreenLODNumLevels        (const UInt32 levels);
+    UInt32 getScreenLODNumLevels        (      void         );
+
+    void   setScreenLODDegradationFactor(const Real32 percent);
+    Real32 getScreenLODDegradationFactor(      void          );
+
 
   protected:
 
@@ -261,16 +302,17 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     //   types
     //-----------------------------------------------------------------------
 
-    typedef DrawActionBase Inherited;
+    typedef RenderActionBase Inherited;
 
     //-----------------------------------------------------------------------
     //   class variables
     //-----------------------------------------------------------------------
 
-    static RenderAction    *_pPrototype;
+    static RenderAction          *_pPrototype;
 
-    static std::vector<Functor> *_vDefaultEnterFunctors;
-    static std::vector<Functor> *_vDefaultLeaveFunctors;
+    static std::vector<Functor>  *_vDefaultEnterFunctors;
+    static std::vector<Functor>  *_vDefaultLeaveFunctors;
+
 
     //-----------------------------------------------------------------------
     //   class functions
@@ -283,104 +325,47 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     //   instance variables
     //-----------------------------------------------------------------------
 
-    DrawTreeNodeFactory      *_pNodeFactory;
+    bool                                _doCullOnly;
+    UInt32                              _numBuffers;
+    UInt32                              _currentBuffer;
 
-    UInt32                    _uiMatrixId;
+    UInt32                              _uiKeyGen;
 
-    MatrixStore               _currMatrix;
-    Matrixr                   _camInverse;
+    // Multi-buffered pools for cull/draw separation
+    std::vector<RenderPartitionPool *>  _pPartitionPools;
+    std::vector<RenderTreeNodePool  *>  _pNodePools;
+    std::vector<StateOverridePool   *>  _pStatePools;
+    std::vector<TreeBuilderPool     *>  _pTreeBuilderPools;
+    
+    std::vector<RenderPartitionStore >  _vRenderPartitions;
 
-    std::vector<MatrixStore>  _vMatrixStack;
+    Int32                               _iActivePartitionIdx;
+    bool                                _bInPartitionGroup;
+    RenderPartition                    *_pActivePartition;
 
-    MaterialMap               _mMatMap;
+    RenderPartitionStack                _sRenderPartitionStack;
+    RenderPartitionIdxStack             _sRenderPartitionIdxStack;
+    RenderPartitionGrpStack             _sRenderPartitionGrpStack;
 
-    //DrawTreeNode             *_pRoot;
-    typedef std::map<Int32, DrawTreeNode *> SortKeyMap;
-    SortKeyMap                  _pMatRoots;
+    BitVector                           _bvPassMask;
+    bool                                _bUseGLFinish;
 
-    typedef std::map<Real,  DrawTreeNode *> TransSortMap;
-    typedef std::map<Int32, TransSortMap  > TransSortKeyMap;
-    TransSortKeyMap             _pTransMatRoots;
+    // Occlusion Culling
+    bool                                _occlusionCulling;
+    bool                                _occlusionCullingDebug;
+    UInt32                              _occDMTested;
+    UInt32                              _occDMCulled;
+    UInt32                              _occDMVisible;
+    UInt32                              _occMinFeatureSize;
+    UInt32                              _occVisibilityThreshold;
+    Real32                              _occCoveredThreshold;
+    UInt32                              _occQueryBufferSize;
+    UInt32                              _occMinimumTriangleCount;
 
-    DrawTreeNode               *_pNoStateSortRoot;
-    DrawTreeNode               *_pNoStateSortTransRoot;
-
-    typedef std::map<Real, DrawTreeNode  *> OCMap;
-    OCMap                       _ocRoot;
-
-    UInt32                    _uiActiveMatrix;
-    State                    *_pActiveState;
-
-    UInt32                    _uiNumMaterialChanges;
-    UInt32                    _uiNumMatrixChanges;
-    UInt32                    _uiNumGeometries;
-    UInt32                    _uiNumTransGeometries;
-    UInt32                    _uiNumOcclusionTests;
-    UInt32                    _uiNumOcclusionCulled;
-
-    bool                      _bSortTrans;
-    bool                      _bZWriteTrans;
-    bool                      _bLocalLights;
-    bool                      _bCorrectTwoSidedLighting;
-    bool                      _bOcclusionCulling;
-    Int32                     _occlusionCullingMode;
-    UInt32                    _occlusionCullingPixels;
-    UInt32                    _occlusionCullingThreshold;
-    UInt32                    _currentOcclusionQueryIndex;
-    std::vector<NodePtr>      _occluded_nodes;
-    std::set<UInt32>          _hier_occlusions;
-    UInt32                    _occ_bb_dl;
-
-    bool                      _bSmallFeatureCulling;
-    Real32                    _smallFeaturesPixels;
-    UInt32                    _smallFeaturesThreshold;
-    Matrixr                   _worldToScreenMatrix;
-    bool                      _useGLFinish;
-
-    std::vector<LightStore>   _vLights;
-    std::vector<Light *>      _lightsMap;
-    UInt32                    _lightsState;
-    UInt32                    _activeLightsState;
-    UInt32                    _activeLightsCount;
-    UInt32                    _activeLightsMask;
-
-    std::vector<std::vector<UInt32> > _lightsTable;
-    std::vector<UInt32>               _lightsPath;
-    std::vector<UInt32>               _lightEnvsLightsState;
-
-    std::vector<ClipPlaneStore> _vClipPlanes;
-#if 0
-    std::vector<ClipPlane *>    _clipPlanesMap;
-#endif
-    UInt32                      _clipPlanesState;
-    UInt32                      _activeClipPlanesState;
-    UInt32                      _activeClipPlanesCount;
-    UInt32                      _activeClipPlanesMask;
-
-    std::vector<std::vector<UInt32> > _clipPlanesTable;
-    std::vector<UInt32>               _clipPlanesPath;
-
-    bool                      _stateSorting;
-
-    std::vector<FrustumVolume::PlaneSet>  _visibilityStack;
-
-    GLuint _occlusionQuery;
-    std::vector<GLuint> _occlusionQueriesPool;
-    std::map<UInt32, GLuint> _occlusionQueries;
-
-
-    Int32 _cgChunkId;
-    Int32 _cgfxChunkId;
-    Int32 _shlChunkId;
-
-    static UInt32 _arbOcclusionQuery;
-    static UInt32 _funcGenQueriesARB;
-    static UInt32 _funcDeleteQueriesARB;
-    static UInt32 _funcBeginQueryARB;
-    static UInt32 _funcEndQueryARB;
-    static UInt32 _funcGetQueryObjectuivARB;
-
-//    Time                 _tMatSlot
+    // Screen LOD
+    Real32                              _scrlodCoverageThreshold;
+    UInt32                              _scrlodNumLODsToUse;
+    Real32                              _scrlodDegradationFactor;
 
     //-----------------------------------------------------------------------
     //   instance functions
@@ -391,22 +376,13 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     RenderAction(void);
     RenderAction(const RenderAction &source);
 
-    void operator =(const RenderAction &source);
-
     // access default functors
 
     virtual std::vector<Functor> *getDefaultEnterFunctors(void);
     virtual std::vector<Functor> *getDefaultLeaveFunctors(void);
 
-            void dump(DrawTreeNode *pRoot, UInt32 uiIndent);
-            void updateShader(State *state);
-   virtual void draw(DrawTreeNode *pRoot);
-
-    inline  void updateTopMatrix(void);
-            void activateLocalLights(DrawTreeNode *pRoot);
-            void activateLocalClipPlanes(DrawTreeNode *pRoot);
-
-    void getMaterialStates(Material *mat, std::vector<State *> &states);
+//            void dump(DrawTreeNode *pRoot, UInt32 uiIndent);
+//    virtual void draw(DrawTreeNode *pRoot);
 
   private:
 
@@ -422,8 +398,6 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     //   friend classes
     //-----------------------------------------------------------------------
 
-    friend class ShadowViewport;
-
     //-----------------------------------------------------------------------
     //   friend functions
     //-----------------------------------------------------------------------
@@ -431,6 +405,7 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     //-----------------------------------------------------------------------
     //   class variables
     //-----------------------------------------------------------------------
+
 
     //-----------------------------------------------------------------------
     //   class functions
@@ -443,11 +418,20 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     //-----------------------------------------------------------------------
     //   instance functions
     //-----------------------------------------------------------------------
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const RenderAction &source);
 };
 
 //---------------------------------------------------------------------------
 //   Exported Types
 //---------------------------------------------------------------------------
+
+Action::ResultE MaterialDrawableRenderEnter(const NodeCorePtr &pCore,
+                                                  Action      *action);
+
+Action::ResultE MaterialDrawableRenderLeave(const NodeCorePtr &pCore,
+                                                  Action      *action);
 
 OSG_END_NAMESPACE
 

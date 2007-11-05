@@ -1009,8 +1009,4 @@
 // XXX: This may not be needed any more, should just be default.
 #define OSG_OPT_DRAWTREE 1
 
-// XXX: This will need to cleaned up before a release
-#define OSG_OLD_RENDER_ACTION 1
-#define OSG_CLEANED_RENDERACTION 1
-
 #endif /* _OSGCONFIG_H_ */

@@ -97,6 +97,7 @@ void Camera::changed(ConstFieldMaskArg whichField,
 }
 
 
+#ifdef OSG_OLD_RENDER_ACTION
 /*-------------------------- your_category---------------------------------*/
 
 /*! Setup OpenGL for rendering, call all the necessary commands to start
@@ -154,7 +155,7 @@ void Camera::setupProjection(      DrawActionBase *OSG_CHECK_ARG(action),
 /*! Draw the camera's geometry (if any). Usually there is none.
  */
 
-
+#endif
 
 /*! Get/calculate the projection matrix for this camera.
  */

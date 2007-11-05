@@ -19,8 +19,7 @@
 OSG_USING_NAMESPACE
 
 SimpleSceneManager    *mgr(NULL);
-RenderTraversalAction *tact = NULL;
-RenderAction          *act = NULL;
+RenderAction *tact = NULL;
 
 PassiveWindowPtr              pwin;
 SimpleStatisticsForegroundPtr statfg;
@@ -98,7 +97,7 @@ void setStatMethod(StatMethod method)
     {
         std::cerr << "Setting to custom stats.\n";
         pwin->getPort(0)->addForeground(statfg);
-        act ->setStatCollector(collector);
+//        act ->setStatCollector(collector);
         tact->setStatCollector(collector);
     }
     else if(method == USE_SIMPLE)
@@ -147,14 +146,16 @@ void keyboard(unsigned char k, int, int)
 
         case 'v':
         {
-            mgr->getAction()->setVolumeDrawing(
-                                    !mgr->getAction()->getVolumeDrawing());
+            mgr->getRenderAction()->setVolumeDrawing(
+                !mgr->getRenderAction()->getVolumeDrawing());
             std::cerr << "Volume Drawing: "
-                      << (mgr->getAction()->getVolumeDrawing()?"on":"off")
+                      << (mgr->getRenderAction()->getVolumeDrawing() ?
+                          "on":"off")
                       << std::endl;
         }
         break;
 
+#ifdef OSG_OLD_RENDER_ACTION
         case 'z':
         {
             RenderAction *ract =
@@ -168,6 +169,7 @@ void keyboard(unsigned char k, int, int)
 
         }
         break;
+#endif
 
         case 'x':
         {
@@ -189,11 +191,13 @@ void keyboard(unsigned char k, int, int)
             mgr->setUseTraversalAction(true);
             break;
 
+#ifdef OSG_OLD_RENDER_ACTION
         case 'n':
             fprintf(stderr, "1) set s sorting to %d\n", act->getStateSorting());
             act->setStateSorting(!act->getStateSorting());
             fprintf(stderr, "2) set s sorting to %d\n", act->getStateSorting());
             break;
+#endif
 
         case 'm':
             tact->setKeyGen(0);
@@ -215,7 +219,7 @@ void keyboard(unsigned char k, int, int)
         case 'g':
             bGLFinish = !bGLFinish;
             tact->setUseGLFinish(bGLFinish);
-            act->setUseGLFinish(bGLFinish);
+            //act->setUseGLFinish(bGLFinish);
             std::cerr << "Set use gl finish to: " << bGLFinish << std::endl;
             break;
     }
@@ -324,14 +328,14 @@ int main(int argc, char **argv)
 
     mgr->setUseTraversalAction(true);
 
-    tact = RenderTraversalAction::create();
-    act  = RenderAction::create();
+    tact = RenderAction::create();
+//    act  = RenderAction::create();
 
     tact->setStatCollector(collector);
-    act ->setStatCollector(collector);
+//    act ->setStatCollector(collector);
 
     mgr->setAction(tact);
-    mgr->setAction( act);
+//    mgr->setAction( act);
 
     setStatMethod(gStatMethod);
 

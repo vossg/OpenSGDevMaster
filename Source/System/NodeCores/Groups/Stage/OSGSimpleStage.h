@@ -146,7 +146,8 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    ActionBase::ResultE render(Action *action);
+    ActionBase::ResultE renderEnter(Action *action);
+    ActionBase::ResultE renderLeave(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

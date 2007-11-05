@@ -109,6 +109,14 @@ class OSG_GROUP_DLLMAPPING MultiCore : public MultiCoreBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Draw                                       */
+    /*! \{                                                                 */
+
+    ActionBase::ResultE renderEnter(Action *action);
+    ActionBase::ResultE renderLeave(Action *action);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 

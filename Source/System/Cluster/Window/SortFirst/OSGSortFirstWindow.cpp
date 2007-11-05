@@ -48,13 +48,13 @@
 #include <OSGViewport.h>
 #include <OSGGeometry.h>
 #include <OSGStereoBufferViewport.h>
-#include <OSGRenderAction.h>
 #include "OSGSortFirstWindow.h"
 #include "OSGClusterViewBuffer.h"
 #include "OSGConnection.h"
 #include "OSGRenderNode.h"
 #include "OSGTileGeometryLoad.h"
 #include "OSGClusterNetwork.h"
+#include "OSGRenderActionBase.h"
 
 OSG_USING_NAMESPACE
 
@@ -151,6 +151,7 @@ void SortFirstWindow::serverInit(WindowPtr serverWindow,
 #endif
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
 /** update server window
  *
  * todo: enamble frustum culling if error is removed
@@ -158,6 +159,143 @@ void SortFirstWindow::serverInit(WindowPtr serverWindow,
 void SortFirstWindow::serverRender( WindowPtr serverWindow,
                                     UInt32 id,
                                     DrawActionBase *action )
+{
+    TileCameraDecoratorPtr deco;
+    ViewportPtr serverPort;
+    ViewportPtr clientPort;
+    UInt32 sv,cv,regionStart;
+    UInt32 vpWidth;
+    UInt32 vpHeight;
+
+    // duplicate viewports
+    for(cv=0,sv=0;cv<getPort().size();cv++)
+    {
+        clientPort = getPort()[cv];
+        if(serverWindow->getPort().size() <= sv)
+        {
+            // create new port
+            //serverPort = StereoBufferViewport::create();
+            serverPort = dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
+            deco=TileCameraDecorator::create();
+
+            serverWindow->addPort(serverPort);
+            serverPort->setCamera(deco);
+        }
+        else
+        {
+            serverPort = serverWindow->getPort()[sv];
+            deco=dynamic_cast<TileCameraDecoratorPtr>(serverPort->getCamera());
+            if(serverWindow->getPort()[sv]->getType() != 
+               clientPort->getType())
+            {
+                // there is a viewport with the wrong type
+                serverPort = dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
+                serverWindow->replacePort(sv, serverPort);//[sv] = serverPort;
+                serverPort->setCamera(deco);
+            }
+            else
+            {
+                deco=dynamic_cast<TileCameraDecoratorPtr>(serverPort->getCamera());
+            }
+            //serverPort = serverWindow->getPort()[sv];
+            //deco=TileCameraDecoratorPtr::dcast(serverPort->getCamera());
+        }
+
+        // duplicate values
+        regionStart=cv * getServers().size() * 4 + id * 4;
+        serverPort->setSize( 
+            Real32(getRegion()[regionStart+0] + clientPort->getPixelLeft()),
+            Real32(getRegion()[regionStart+1] + clientPort->getPixelBottom()),
+            Real32(getRegion()[regionStart+2] + clientPort->getPixelLeft()),
+            Real32(getRegion()[regionStart+3] + clientPort->getPixelBottom()));
+
+        serverPort->setRoot      ( clientPort->getRoot()       );
+        serverPort->setBackground( clientPort->getBackground() );
+
+        serverPort->assignForegrounds(clientPort->getForegrounds());
+
+        serverPort->setTravMask  ( clientPort->getTravMask()   );
+
+        // calculate tile parameters
+        vpWidth =clientPort->getPixelWidth();
+        vpHeight=clientPort->getPixelHeight();
+
+        deco->setFullWidth ( vpWidth );
+        deco->setFullHeight( vpHeight );
+        deco->setSize( getRegion()[ regionStart+0 ]/(float)vpWidth,
+                       getRegion()[ regionStart+1 ]/(float)vpHeight,
+                       getRegion()[ regionStart+2 ]/(float)vpWidth,
+                       getRegion()[ regionStart+3 ]/(float)vpHeight );
+        deco->setDecoratee( clientPort->getCamera() );
+
+        sv++;
+    }
+    // remove unused ports
+    while(serverWindow->getPort().size()>sv)
+    {
+        serverWindow->subPort(sv);
+    }
+
+    Inherited::serverRender(serverWindow,id,action);
+
+    // compression type
+    if(getCompose())
+    {
+        if(getCompression().empty())
+        {
+            _bufferHandler.setImgTransType(NULL);
+        }
+        else
+        {
+            _bufferHandler.setImgTransType(getCompression().c_str());
+        }
+        if(getSubtileSize())
+        {
+            _bufferHandler.setSubtileSize(getSubtileSize());
+        }
+    }
+
+#if 1
+    glDisable(GL_SCISSOR_TEST);
+    glClearColor(0,0,0,0);
+    glClear(GL_COLOR_BUFFER_BIT);
+#endif
+
+    // render the viewports
+    serverWindow->activate();
+    serverWindow->frameInit();
+    action->setWindow( serverWindow );
+    for(sv=0;sv<serverWindow->getPort().size();++sv)
+    {
+        ViewportPtr vp=serverWindow->getPort()[sv];
+        vp->render( action );
+
+        // send resulting image
+        if(getCompose())
+        {
+            // activate the appropriate viewport to retrieve image
+            vp->activate();
+
+            // send image
+            _bufferHandler.send(
+                *getNetwork()->getMainPointConnection(),
+                ClusterViewBuffer::RGB,
+                vp->getPixelLeft(),
+                vp->getPixelBottom(),
+                vp->getPixelRight(),
+                vp->getPixelTop(),
+                0,0);
+
+            // deactivate the viewport
+            vp->deactivate();
+        }
+    }
+}
+#endif
+
+void SortFirstWindow::serverRender( WindowPtr         serverWindow,
+                                    UInt32            id,
+                                    RenderActionBase *action )
 {
     TileCameraDecoratorPtr deco;
     ViewportPtr serverPort;
@@ -405,12 +543,19 @@ void SortFirstWindow::clientPreSync( void )
     Inherited::clientPreSync();
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
 /*! client rendering
  *  
  *  one tile is rendered by the client
  */
 
 void SortFirstWindow::clientRender( RenderActionBase *  /* action */ )
+{
+//    Inherited::clientRender(action);
+}
+#endif
+
+void SortFirstWindow::clientRender(RenderActionBase *  /* action */)
 {
 //    Inherited::clientRender(action);
 }

@@ -46,7 +46,6 @@
 
 #include <OSGAction.h>
 #include <OSGCamera.h>
-#include <OSGRenderAction.h>
 #include <OSGSceneFileHandler.h>
 #include <OSGVolumeDraw.h>
 
@@ -69,37 +68,6 @@ void Algorithm::changed(ConstFieldMaskArg whichField,
                         UInt32            origin,
                         BitVector         details)
 {
-#if 0
-    if(whichField & (UrlFieldMask))
-    {
-        if(getAbsoluteUrl().empty())
-        {
-            PathHandler *ph = SceneFileHandler::the()->getPathHandler();
-
-            if(ph != NULL) 
-            {
-                setAbsoluteUrl(ph->findFile(getUrl().c_str()));
-            }
-
-            if(getAbsoluteUrl().empty())
-            {
-                setAbsoluteUrl(getUrl());
-            }
-
-            setState(NOT_LOADED);
-        }
-    }
-    if(whichField & (StateFieldMask |
-                     UrlFieldMask   |
-                     VolumeFieldMask))
-    {
-        for(UInt32 i = 0; i < _mfParents.size(); i++)
-        {
-            _mfParents[i]->invalidateVolume();
-        }
-    }
-#endif
-
     Inherited::changed(whichField, origin, details);
 }
 

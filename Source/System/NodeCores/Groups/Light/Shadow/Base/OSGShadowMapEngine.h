@@ -52,13 +52,13 @@
 
 OSG_BEGIN_NAMESPACE
 
-class RenderTraversalAction;
+class RenderAction;
 
 /*! \brief ShadowMapEngine is the basic NodeCore for inner nodes in the tree.
     \ingroup GrpSystemNodeCoresMisc
 */
 
-class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngine : public ShadowMapEngineBase
+class OSG_GROUP_DLLMAPPING ShadowMapEngine : public ShadowMapEngineBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -77,12 +77,12 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngine : public ShadowMapEngineBase
     /*! \name                       Render                                 */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE runOnEnter(LightPtr               pLight,
-                                           LightTypeE             eType,
-                                           RenderTraversalAction *pAction) = 0;
-    virtual ActionBase::ResultE runOnLeave(LightPtr               pLight,
-                                           LightTypeE             eType,
-                                           RenderTraversalAction *pAction) = 0;
+    virtual ActionBase::ResultE runOnEnter(LightPtr      pLight,
+                                           LightTypeE    eType,
+                                           RenderAction *pAction) = 0;
+    virtual ActionBase::ResultE runOnLeave(LightPtr      pLight,
+                                           LightTypeE    eType,
+                                           RenderAction *pAction) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

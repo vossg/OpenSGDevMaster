@@ -70,37 +70,6 @@ void SimpleStage::changed(ConstFieldMaskArg whichField,
                           UInt32            origin,
                           BitVector         details)
 {
-#if 0
-    if(whichField & (UrlFieldMask))
-    {
-        if(getAbsoluteUrl().empty())
-        {
-            PathHandler *ph = SceneFileHandler::the()->getPathHandler();
-
-            if(ph != NULL) 
-            {
-                setAbsoluteUrl(ph->findFile(getUrl().c_str()));
-            }
-
-            if(getAbsoluteUrl().empty())
-            {
-                setAbsoluteUrl(getUrl());
-            }
-
-            setState(NOT_LOADED);
-        }
-    }
-    if(whichField & (StateFieldMask |
-                     UrlFieldMask   |
-                     VolumeFieldMask))
-    {
-        for(UInt32 i = 0; i < _mfParents.size(); i++)
-        {
-            _mfParents[i]->invalidateVolume();
-        }
-    }
-#endif
-
     Inherited::changed(whichField, origin, details);
 }
 
@@ -142,6 +111,7 @@ SimpleStage::~SimpleStage(void)
   thid group.
  */
 
+#ifdef OSG_OLD_RENDER_ACTION
 ActionBase::ResultE SimpleStage::render(Action *action)
 {
 /*
@@ -154,6 +124,133 @@ ActionBase::ResultE SimpleStage::render(Action *action)
  */
 
     return Action::Continue;
+}
+#endif
+
+ActionBase::ResultE SimpleStage::renderEnter(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    if(a == NULL)
+        return ActionBase::Continue;
+
+    RenderPartition   *pParentPart = a   ->getActivePartition();
+    FrameBufferObject *pTarget     = this->getRenderTarget();
+
+    Background        *pBack   = this->getBackground();
+    Viewport          *pPort   = a->getViewport();
+    Window            *pWin    = a->getWindow  ();
+
+    SimpleStage::RenderFunctorStore vCallbackStore;
+
+    if(pTarget == NULL && this->getInheritedTarget() == true)
+    {
+        pTarget = pParentPart->getRenderTarget();
+    }
+
+    a->pushPartition();
+    
+    RenderPartition   *pPart   = a->getActivePartition();
+    Camera            *pCam    = this->getCamera();
+    
+    pPart->setRenderTarget(pTarget);
+    
+//    pPart->setViewport(pPort);
+    pPart->setWindow  (pWin );
+    
+    if(pTarget != NULL)
+    {
+        pPart->calcViewportDimension(this->getLeft  (),
+                                     this->getBottom(),
+                                     this->getRight (),
+                                     this->getTop   (),
+                                     
+                                     pTarget->getWidth    (),
+                                     pTarget->getHeight   ());
+    }
+    else if(pWin != NULL)
+    {
+        pPart->calcViewportDimension(this->getLeft  (),
+                                     this->getBottom(),
+                                     this->getRight (),
+                                     this->getTop   (),
+                                     
+                                     pWin->getWidth   (),
+                                     pWin->getHeight  ());
+    }
+    
+    if(pCam != NULL)
+    {
+        Matrix m, t;
+        
+        // set the projection
+        pCam->getProjection          (m, 
+                                      pPart->getViewportWidth (), 
+                                      pPart->getViewportHeight());
+        
+        pCam->getProjectionTranslation(t, 
+                                       pPart->getViewportWidth (), 
+                                       pPart->getViewportHeight());
+        
+        pPart->setupProjection(m, t);
+        
+        pCam->getViewing(m, 
+                         pPart->getViewportWidth (),
+                         pPart->getViewportHeight());
+        
+        
+        pPart->setupViewing(m              );
+        
+        pPart->setNear     (pCam->getNear());
+        pPart->setFar      (pCam->getFar ());
+        
+        pPart->calcFrustum (               );
+        
+    }
+    
+    this->fillPreRenderStore(vCallbackStore);
+
+    SimpleStage::RenderFunctorStore::const_iterator cbIt  = 
+        vCallbackStore.begin();
+
+    SimpleStage::RenderFunctorStore::const_iterator cbEnd = 
+        vCallbackStore.end  ();
+
+    while(cbIt != cbEnd)
+    {
+        pPart->addPreRenderCallback(*cbIt);
+        
+        ++cbIt;
+    }
+
+
+    vCallbackStore.clear();
+
+    this->fillPostRenderStore(vCallbackStore);
+
+    cbIt  = vCallbackStore.begin();
+    cbEnd = vCallbackStore.end  ();
+
+    while(cbIt != cbEnd)
+    {
+        pPart->addPostRenderCallback(*cbIt);
+        
+        ++cbIt;
+    }
+
+
+    pPart->setBackground(pBack);
+
+    return ActionBase::Continue;
+}
+
+ActionBase::ResultE SimpleStage::renderLeave(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    a->popPartition();
+
+    return ActionBase::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -253,7 +350,11 @@ void SimpleStage::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(),
-            reinterpret_cast<Action::Callback>(&SimpleStage::render));
+            SimpleStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(&SimpleStage::renderEnter));
+        
+        RenderAction::registerLeaveDefault( 
+            SimpleStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(&SimpleStage::renderLeave));
     }
 }

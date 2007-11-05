@@ -6,6 +6,8 @@ else:
    library = "OSGRenderTraversal"
    osg_dep_libs = ['OSGBase','OSGSystem','OSGGroup','OSGState','OSGDrawable', 'OSGWindow']
 
+   stop_traversal = True
+
    # This is only need in test, but I don't know how to add opt libs to test
    nvperfsdk_option = opts.GetOption("NVPerfSDK")
    

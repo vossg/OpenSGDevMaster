@@ -87,14 +87,12 @@ void InverseTransform::initMethod(InitPhase ePhase)
 #endif
 
         RenderAction::registerEnterDefault(
-            getClassType(),
-            reinterpret_cast<Action::Callback>(
-                &InverseTransform::renderEnter));
-
+            InverseTransform::getClassType(),
+            reinterpret_cast<Action::Callback>(&InverseTransform::renderEnter));
+        
         RenderAction::registerLeaveDefault(
-                getClassType(),
-                reinterpret_cast<Action::Callback>(
-                    &InverseTransform::renderLeave));
+            InverseTransform::getClassType(),
+            reinterpret_cast<Action::Callback>(&InverseTransform::renderLeave));
     }
 }
 
@@ -154,8 +152,7 @@ void InverseTransform::accumulateMatrix(Matrixr &result)
 
 /*------------------------- calc matrix ---------------------------------*/
 
-void InverseTransform::calcMatrix(      DrawActionBase *,
-                                  const Matrixr        &mToWorld,
+void InverseTransform::calcMatrix(const Matrixr        &mToWorld,
                                         Matrixr        &mResult)
 {
     mResult.invertFrom(mToWorld);
@@ -215,6 +212,7 @@ Action::ResultE InverseTransform::intersectLeave(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
+#ifdef OSG_OLD_RENDER_ACTION
 Action::ResultE InverseTransform::renderEnter(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
@@ -232,6 +230,35 @@ Action::ResultE InverseTransform::renderLeave(Action *action)
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 
     pAction->pop_matrix();
+
+    return Action::Continue;
+}
+#endif
+
+Action::ResultE InverseTransform::renderEnter(Action *action)
+{
+    RenderAction *pAction = 
+        dynamic_cast<RenderAction *>(action);
+
+    Matrixr mMat;    // will be set to World^-1
+
+    calcMatrix(pAction->topMatrix(), mMat);
+
+    pAction->pushVisibility();
+
+    pAction->pushMatrix(mMat);
+
+    return Action::Continue;
+}
+
+Action::ResultE InverseTransform::renderLeave(Action *action)
+{
+    RenderAction *pAction = 
+        dynamic_cast<RenderAction *>(action);
+
+    pAction->popVisibility();
+
+    pAction->popMatrix();
 
     return Action::Continue;
 }

@@ -48,11 +48,7 @@
 #include "OSGBaseTypes.h"
 #include "OSGWindow.h"
 
-#include "OSGDrawActionBase.h"
 #include "OSGRenderAction.h"
-#ifdef OSG_CLEANED_RENDERACTION
-#include "OSGRenderTraversalAction.h"
-#endif
 
 #include "OSGNode.h"
 #include "OSGWindow.h"
@@ -112,27 +108,28 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual NodePtr              getRoot            ( void );
-    virtual WindowPtr            getWindow          ( void );
-    virtual NodePtr              getHighlight       ( void );
-    virtual DrawActionBase      *getAction          ( void );
-#ifdef OSG_CLEANED_RENDERACTION
-    virtual RenderTraversalAction *getRenderTraversalAction( void );
+    virtual NodePtr                getRoot            ( void );
+    virtual WindowPtr              getWindow          ( void );
+    virtual NodePtr                getHighlight       ( void );
+#ifdef OSG_OLD_RENDER_ACTION
+    virtual DrawActionBase        *getAction          ( void );
 #endif
-    virtual Navigator           *getNavigator       ( void );
-    virtual bool                 getHeadlightState  ( void );
-    virtual DirectionalLightPtr  getHeadlight       ( void );
-    virtual PerspectiveCameraPtr getCamera          ( void );
+    virtual RenderAction *getRenderAction( void );
+    virtual Navigator             *getNavigator       ( void );
+    virtual bool                   getHeadlightState  ( void );
+    virtual DirectionalLightPtr    getHeadlight       ( void );
+    virtual PerspectiveCameraPtr   getCamera          ( void );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
+#ifdef OSG_OLD_RENDER_ACTION
     virtual void  setAction        (RenderAction *action    );
-#ifdef OSG_CLEANED_RENDERACTION
-    virtual void  setAction        (RenderTraversalAction *action    );
 #endif
+
+    virtual void  setAction        (RenderAction *action    );
 
     virtual void  setRoot          (NodePtr       root      );
     virtual void  setWindow        (WindowPtr     win       );
@@ -218,13 +215,13 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
 
     NodePtr                      _internalRoot;
     DirectionalLightPtr          _headlight;
+#ifdef OSG_OLD_RENDER_ACTION
     RenderAction *               _renderAction;   /**< The RenderAction to use if using RenderActions. */
     RenderAction *               _ownAction;
-
-#ifdef OSG_CLEANED_RENDERACTION
-    /** The RenderTraversalAction to use if using render traversals. */
-    RenderTraversalAction *      _rtaction;
 #endif
+
+    /** The RenderAction to use if using render traversals. */
+    RenderAction *      _rtaction;
 
     TransformPtr                 _cart;
     PerspectiveCameraPtr         _camera;

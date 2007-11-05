@@ -97,6 +97,7 @@ Switch::~Switch(void)
 /*-------------------------------------------------------------------------*/
 /*                               Draw                                      */
 
+#ifdef OSG_OLD_RENDER_ACTION
 ActionBase::ResultE Switch::render(Action *action)
 {
     ActionBase::ResultE  returnValue = ActionBase::Continue;
@@ -126,6 +127,43 @@ ActionBase::ResultE Switch::render(Action *action)
     }
 
     return returnValue;
+}
+#endif
+
+ActionBase::ResultE Switch::renderEnter(Action *action)
+{
+    Action::ResultE        returnValue = Action::Continue;
+
+    RenderAction *pAction     =
+        dynamic_cast<RenderAction*>(action);
+    
+    if((this->getChoice()                      >= 0                   ) &&
+       (static_cast<UInt32>(this->getChoice()) <  pAction->getNNodes())    )
+    {
+        pAction->useNodeList();
+        
+        if(pAction->isVisible(getCPtr(pAction->getNode(this->getChoice()))))
+        {
+            pAction->addNode(pAction->getNode(this->getChoice()));
+        }
+        
+        returnValue = Inherited::renderEnter(action);
+    }
+    else if(this->getChoice() == Switch::ALL)
+    {
+        returnValue = Inherited::renderEnter(action);
+    }
+    else
+    {
+        returnValue = Action::Skip;
+    }
+    
+    return returnValue;
+}
+
+ActionBase::ResultE Switch::renderLeave(Action *action)
+{
+    return Inherited::renderLeave(action);
 }
 
 #ifndef OSG_WINCE
@@ -162,8 +200,12 @@ void Switch::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(),
-            reinterpret_cast<Action::Callback>(&Switch::render));
+            Switch::getClassType(),
+            reinterpret_cast<Action::Callback>(&Switch::renderEnter));
+    
+        RenderAction::registerLeaveDefault(
+            Switch::getClassType(),
+            reinterpret_cast<Action::Callback>(&Switch::renderLeave));
         
 #ifndef OSG_WINCE
         IntersectAction::registerEnterDefault(

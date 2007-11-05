@@ -3,7 +3,7 @@
 <FieldContainer
     name="SimpleShadowMapEngineData"
     parent="StageData"
-    library="RenderTrav"
+    library="Group"
     pointerfieldtypes="none"
     structure="concrete"
     systemcomponent="true"

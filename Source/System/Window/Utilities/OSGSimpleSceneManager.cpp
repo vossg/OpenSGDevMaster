@@ -198,11 +198,11 @@ SimpleSceneManager::SimpleSceneManager(void) :
 
     _internalRoot   (NullFC),
     _headlight      (NullFC),
+#ifdef OSG_OLD_RENDER_ACTION
     _renderAction   (NULL  ),
     _ownAction      (NULL  ),
-#ifdef OSG_CLEANED_RENDERACTION
-    _rtaction        (NULL  ),
 #endif
+    _rtaction       (NULL  ),
     _cart           (NullFC),
     _camera         (NullFC),
     _navigator      (      ),
@@ -210,11 +210,7 @@ SimpleSceneManager::SimpleSceneManager(void) :
     _lastx          (TypeTraits<Int16>::getMax()),
     _lasty          (TypeTraits<Int16>::getMax()),
     _mousebuttons   (0                             ),
-#ifdef OSG_CLEANED_RENDERACTION
     _traversalAction(true                         )
-#else
-    _traversalAction(false                          )
-#endif
 {
 }
 
@@ -231,15 +227,15 @@ SimpleSceneManager* SimpleSceneManager::create(void)
 
 SimpleSceneManager::~SimpleSceneManager(void)
 {
+#ifdef OSG_OLD_RENDER_ACTION
     delete _ownAction;
 
     if(_renderAction && _renderAction != _ownAction)
         delete _renderAction;
+#endif
 
-#ifdef OSG_CLEANED_RENDERACTION
     if(_rtaction)
         delete _rtaction;
-#endif
 
     setRoot(NullFC); // sub root
 
@@ -309,22 +305,23 @@ NodePtr SimpleSceneManager::getHighlight(void)
     return _highlight;
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
 /*! get the action used to render the scene
  */
 DrawActionBase *SimpleSceneManager::getAction(void)
 {
     return _renderAction;
 }
+#endif
 
-#ifdef OSG_CLEANED_RENDERACTION
 /*! get the traversal action used to render the scene
  */
-RenderTraversalAction *SimpleSceneManager::getRenderTraversalAction(void)
+RenderAction *SimpleSceneManager::getRenderAction(void)
 {
     return _rtaction;
 }
-#endif
 
+#ifdef OSG_OLD_RENDER_ACTION
 /*! set the action used to render the scene. Use NULL to set to
     internally created action.
  */
@@ -348,9 +345,9 @@ void SimpleSceneManager::setAction(RenderAction *action)
     if(statstate)
         setStatistics(true);
 }
+#endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-void SimpleSceneManager::setAction(RenderTraversalAction *action)
+void SimpleSceneManager::setAction(RenderAction *action)
 {
     bool statstate = _statstate;
 
@@ -366,7 +363,6 @@ void SimpleSceneManager::setAction(RenderTraversalAction *action)
     if(statstate)
         setStatistics(true);
 }
-#endif
 
 /*! set the root of the displayed tree
  */
@@ -478,14 +474,18 @@ void SimpleSceneManager::setStatistics(bool on)
         {
             vp->addForeground(_statforeground);
 
+#ifdef OSG_OLD_RENDER_ACTION
             _renderAction->setStatCollector(_statforeground->getCollector());
+#endif
             _rtaction    ->setStatCollector(_statforeground->getCollector());
         }
         else
         {
             vp->removeFromForegrounds(_statforeground);
 
+#ifdef OSG_OLD_RENDER_ACTION
             _renderAction->setStatCollector(NULL);
+#endif
             _rtaction    ->setStatCollector(NULL);
         }
 
@@ -515,12 +515,12 @@ void SimpleSceneManager::initialize(void)
     }
 
     // the rendering action
+#ifdef OSG_OLD_RENDER_ACTION
     _ownAction    = RenderAction::create();
     _renderAction = _ownAction;
-
-#ifdef OSG_CLEANED_RENDERACTION
-    _rtaction = RenderTraversalAction::create();
 #endif
+
+    _rtaction = RenderAction::create();
 
     // the camera and light beacon
     NodePtr cartN = Node::create();
@@ -569,28 +569,27 @@ void SimpleSceneManager::initialize(void)
         sf->setColor(Color4f(0,1,0,0.7));
 
 
-#ifdef OSG_CLEANED_RENDERACTION
         // Render traversal stats action
-        sf->addElement(RenderTraversalAction::statDrawTime,  
+        sf->addElement(RenderAction::statDrawTime,  
                        "Draw FPS: %r.3f");
-        sf->addElement(RenderTraversalAction::statTravTime,     
+        sf->addElement(RenderAction::statTravTime,     
                        "Trav FPS: %r.3f");
-        sf->addElement(RenderTraversalAction::statNStates,       
+        sf->addElement(RenderAction::statNStates,       
                        " State changes: %d");
-        sf->addElement(RenderTraversalAction::statNShaders,
+        sf->addElement(RenderAction::statNShaders,
                        "Shader changes: %d");
-        sf->addElement(RenderTraversalAction::statNShaderParams, 
+        sf->addElement(RenderAction::statNShaderParams, 
                        "Shader param changes: %d");
         sf->addElement(TextureObjChunk::statNTextures, 
                        "Textures: %d");
         sf->addElement(TextureObjChunk::statNTexBytes, 
                        " Tex Mem: %MB MB");
 
-        sf->addElement(RenderTraversalAction::statNGeometries,   
+        sf->addElement(RenderAction::statNGeometries,   
                        "    Geom nodes: %d");
-        sf->addElement(RenderTraversalAction::statNMatrices,     
+        sf->addElement(RenderAction::statNMatrices,     
                        "Matrix changes: %d");
-        sf->addElement(RenderTraversalAction::statNTriangles,
+        sf->addElement(RenderAction::statNTriangles,
                        "     Triangles: %d");
 
         sf->addElement(PointLight::statNPointLights,
@@ -624,7 +623,7 @@ void SimpleSceneManager::initialize(void)
                        "    %d entries in pool");
 
 
-#else
+#if 0
         // Render action
         sf->addElement(RenderAction::statDrawTime,      "Draw FPS: %r.3f");
         sf->addElement(RenderAction::statTravTime,      "Trav FPS: %r.3f");
@@ -775,12 +774,12 @@ void SimpleSceneManager::redraw(void)
 {
     update();
 
+#ifdef OSG_OLD_RENDER_ACTION
     if(!_traversalAction)
     {  _win->render(_renderAction); }
-#ifdef OSG_CLEANED_RENDERACTION
     else
-    {  _win->render(_rtaction); }
 #endif
+    {  _win->render(_rtaction); }
 }
 
 /*! Adjust the highlight to a changed object. Also initializes the highlight

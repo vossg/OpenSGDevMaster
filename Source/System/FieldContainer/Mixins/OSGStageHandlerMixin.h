@@ -49,7 +49,7 @@
 #include "OSGStageValidator.h"
 #include "OSGStageData.h"
 
-#include "OSGRenderTraversalActionBase.h"
+#include "OSGRenderActionBase.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -126,25 +126,25 @@ class StageHandlerMixin  : public ParentT
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    ValidationStatus validateOnEnter(RenderTraversalActionBase *pAction);
-    ValidationStatus validateOnLeave(RenderTraversalActionBase *pAction);
+    ValidationStatus validateOnEnter(RenderActionBase *pAction);
+    ValidationStatus validateOnLeave(RenderActionBase *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    void pushPartition      (RenderTraversalActionBase *pAction,
+    void pushPartition      (RenderActionBase          *pAction,
                              UInt32                     uiCopyOnPush = 0x0000, 
                              RenderPartitionBase::Mode  eMode        = 
                                             RenderPartitionBase::StateSorting);
-    void popPartition       (RenderTraversalActionBase *pAction);
+    void popPartition       (RenderActionBase          *pAction);
 
-    void beginPartitionGroup(RenderTraversalActionBase *pAction);
-    void endPartitionGroup  (RenderTraversalActionBase *pAction);
+    void beginPartitionGroup(RenderActionBase          *pAction);
+    void endPartitionGroup  (RenderActionBase          *pAction);
 
-    void beginPartitions    (RenderTraversalActionBase *pAction);
-    void endPartitions      (RenderTraversalActionBase *pAction);
+    void beginPartitions    (RenderActionBase          *pAction);
+    void endPartitions      (RenderActionBase          *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -178,9 +178,9 @@ class StageHandlerMixin  : public ParentT
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
 
-    void setData(StageDataP                 pData, 
-                 Int32                      iDataSlotId,
-                 RenderTraversalActionBase *pAction    );
+    void setData(StageDataP        pData, 
+                 Int32             iDataSlotId,
+                 RenderActionBase *pAction    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -215,7 +215,7 @@ class StageHandlerMixin  : public ParentT
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    ValidationStatus validate(RenderTraversalActionBase *pAction);
+    ValidationStatus validate(RenderActionBase *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

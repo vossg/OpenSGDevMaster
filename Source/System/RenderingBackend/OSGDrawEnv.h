@@ -51,9 +51,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-class RenderTraversalActionBase;
-class DrawActionBase;
-
+class RenderActionBase;
 class Window;
 class State;
 class StateOverride;
@@ -67,15 +65,13 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
   public:
 
-    typedef RenderTraversalActionBase RTAction;
-    typedef DrawActionBase            RAction;
+    typedef RenderActionBase RAction;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
     void setAction         (      RAction  *pAction    );
-    void setAction         (      RTAction *pAction    );
     void setWindow         (      Window   *pWindow    );
 
     void setupProjection   (const Matrixr  &projection,
@@ -111,8 +107,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
           Real           getCameraNear           (void         ) const;
           Real           getCameraFar            (void         ) const;
 
-          RAction       *getRAction              (void         ) const;
-          RTAction      *getRTAction             (void         ) const;
+          RAction       *getAction               (void         ) const;
           Window        *getWindow               (void         ) const;
 
           GLenum         getActiveTexTarget      (UInt32 uiSlot) const;
@@ -223,8 +218,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    RAction       *_pRAction;
-    RTAction      *_pRTAction;
+    RAction       *_pRenderAction;
 
     Matrixr        _cameraFullProjection;
     Matrixr        _cameraProjection;

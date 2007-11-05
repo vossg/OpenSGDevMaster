@@ -53,23 +53,25 @@
 
 OSG_BEGIN_NAMESPACE
 
+class RenderActionBase;
+
 /*---------------------------------------------------------------------*/
 /*! \name                   Draw Functions                             */
 /*! \{                                                                 */
 
-OSG_SYSTEM_DLLMAPPING void drawVolume(const DynamicVolume  &volume);
-OSG_SYSTEM_DLLMAPPING void drawVolume(const BoxVolume      &volume);
-OSG_SYSTEM_DLLMAPPING void drawVolume(const SphereVolume   &volume);
-OSG_SYSTEM_DLLMAPPING void drawVolume(const FrustumVolume  &volume);
-OSG_SYSTEM_DLLMAPPING void drawVolume(const CylinderVolume &volume);
+OSG_SYSTEM_DLLMAPPING void drawVolume(const DynamicVolume    &volume);
+OSG_SYSTEM_DLLMAPPING void drawVolume(const BoxVolume        &volume);
+OSG_SYSTEM_DLLMAPPING void drawVolume(const SphereVolume     &volume);
+OSG_SYSTEM_DLLMAPPING void drawVolume(const FrustumVolume    &volume);
+OSG_SYSTEM_DLLMAPPING void drawVolume(const CylinderVolume   &volume);
 
-OSG_SYSTEM_DLLMAPPING void dropVolume(      DrawActionBase *action, 
-                                            NodePtr         node,
-                                            Color3r         col   );
+OSG_SYSTEM_DLLMAPPING void dropVolume(      RenderActionBase *action, 
+                                            NodePtr           node,
+                                            Color3r           col   );
 
-OSG_SYSTEM_DLLMAPPING void dropVolume(      DrawActionBase *action, 
-                                      const DynamicVolume  &volume,
-                                            Color3r         col   );
+OSG_SYSTEM_DLLMAPPING void dropVolume(      RenderActionBase *action, 
+                                      const DynamicVolume    &volume,
+                                            Color3r           col   );
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/

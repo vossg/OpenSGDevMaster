@@ -43,7 +43,7 @@
 
 #include <OSGGL.h>
 
-#include <OSGRenderAction.h>
+#include "OSGRenderAction.h"
 #include "OSGLightEngine.h"
 #include "OSGLight.h"
 
@@ -156,22 +156,69 @@ Light::~Light(void)
 /*-------------------------------------------------------------------------*/
 /*                             Rendering                                   */
 
-Action::ResultE Light::renderEnter(Action *action)
+Action::ResultE Light::renderEnter(LightEngine::LightTypeE  eType,
+                                   RenderAction   *action)
 {
-    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
+    Action::ResultE        r = Action::Continue;
 
-    pAction->dropLight(this);
+    if(this->getOn() == false)
+        return Action::Continue;
 
-    return Action::Continue;
+    LightEnginePtr pLightEngine = this->getLightEngine();
+
+    if(pLightEngine != NullFC && pLightEngine->getEnabled() == true)
+    {
+        r = pLightEngine->runOnEnter(this, eType, action);
+    }
+    else
+    {
+        StateChunkPtr pChunk          = this->getChunk();
+        
+        UInt32        uiSlot          = pChunk->getClassId();
+        
+        Int32         iLightIndex     = action->allocateLightIndex();
+        
+        action->pushState();
+        
+        if(iLightIndex >= 0)
+        {
+            action->addOverride(uiSlot + iLightIndex, getCPtr(pChunk));
+        }
+        else
+        {
+            SWARNING << "maximum light source limit ("
+                     << -iLightIndex
+                     << ") is reached" 
+                     << " skipping light sources!"
+                     << std::endl;
+        }
+    }
+
+    return r;
 }
 
-Action::ResultE Light::renderLeave(Action *action)
+Action::ResultE Light::renderLeave(LightEngine::LightTypeE  eType,
+                                   Action                  *action)
 {
-    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
+    Action::ResultE  r = Action::Continue;
+    RenderAction    *a = dynamic_cast<RenderAction *>(action);
 
-    pAction->undropLight(this);
+    if(this->getOn() == false)
+        return Action::Continue;
 
-    return Action::Continue;
+    LightEnginePtr pLightEngine = this->getLightEngine();
+
+    if(pLightEngine != NullFC && pLightEngine->getEnabled() == true)
+    {
+        r = pLightEngine->runOnLeave(this, eType, a);
+    }
+    else
+    {
+        a->releaseLightIndex();
+        a->popState();
+    }
+
+    return r;
 }
 
 /*-------------------------------------------------------------------------*/

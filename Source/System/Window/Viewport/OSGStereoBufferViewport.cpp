@@ -173,8 +173,7 @@ void StereoBufferViewport::render(DrawActionBase *action)
 }
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-void StereoBufferViewport::render(RenderTraversalActionBase *action)
+void StereoBufferViewport::render(RenderActionBase *action)
 {
     if(getLeftBuffer())
     {
@@ -208,5 +207,4 @@ void StereoBufferViewport::render(RenderTraversalActionBase *action)
     glDrawBuffer(GL_BACK);
     glReadBuffer(GL_BACK);
 }
-#endif
 

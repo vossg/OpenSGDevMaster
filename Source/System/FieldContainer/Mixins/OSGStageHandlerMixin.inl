@@ -61,7 +61,7 @@ void StageHandlerMixin<ParentT>::classDescInserter(TypeObject &oType)
 
 template <class ParentT> inline
 typename StageHandlerMixin<ParentT>::ValidationStatus 
-    StageHandlerMixin<ParentT>::validate(RenderTraversalActionBase *pAction)
+    StageHandlerMixin<ParentT>::validate(RenderActionBase *pAction)
 {
  
     StageValidator *pVal = NULL;
@@ -93,7 +93,7 @@ typename StageHandlerMixin<ParentT>::ValidationStatus
 template <class ParentT> inline
 typename StageHandlerMixin<ParentT>::ValidationStatus 
     StageHandlerMixin<ParentT>::validateOnEnter(
-        RenderTraversalActionBase *pAction)
+        RenderActionBase *pAction)
 {
     StageValidator::ValidationStatus returnValue = Self::validate(pAction);
 
@@ -128,14 +128,14 @@ typename StageHandlerMixin<ParentT>::ValidationStatus
 template <class ParentT> inline
 typename StageHandlerMixin<ParentT>::ValidationStatus 
     StageHandlerMixin<ParentT>::validateOnLeave(
-        RenderTraversalActionBase *pAction)
+        RenderActionBase *pAction)
 {
     return Self::validate(pAction);
 }
 
 template <class ParentT> inline
 void StageHandlerMixin<ParentT>::pushPartition(
-    RenderTraversalActionBase *pAction,
+    RenderActionBase          *pAction,
     UInt32                     uiCopyOnPush, 
     RenderPartitionBase::Mode  eMode)
 {
@@ -155,7 +155,7 @@ void StageHandlerMixin<ParentT>::pushPartition(
 
 template <class ParentT> inline
 void StageHandlerMixin<ParentT>::popPartition(
-    RenderTraversalActionBase *pAction)
+    RenderActionBase *pAction)
 {
     StageDataP pData = pAction->template getData<StageData *>(_iDataSlotId);
 
@@ -172,7 +172,7 @@ void StageHandlerMixin<ParentT>::popPartition(
 
 template <class ParentT> inline
 void StageHandlerMixin<ParentT>::beginPartitionGroup(
-    RenderTraversalActionBase *pAction)
+    RenderActionBase *pAction)
 {
     StageDataP pData = pAction->template getData<StageData *>(_iDataSlotId);
 
@@ -191,7 +191,7 @@ void StageHandlerMixin<ParentT>::beginPartitionGroup(
 
 template <class ParentT> inline
 void StageHandlerMixin<ParentT>::endPartitionGroup(
-    RenderTraversalActionBase *pAction)
+    RenderActionBase *pAction)
 {
     StageDataP pData = pAction->template getData<StageData *>(_iDataSlotId);
 
@@ -210,7 +210,7 @@ void StageHandlerMixin<ParentT>::endPartitionGroup(
 
 template <class ParentT> inline
 void StageHandlerMixin<ParentT>::beginPartitions(
-    RenderTraversalActionBase *pAction)
+    RenderActionBase *pAction)
 {
     StageDataP pData = pAction->template getData<StageData *>(_iDataSlotId);
 
@@ -223,7 +223,7 @@ void StageHandlerMixin<ParentT>::beginPartitions(
 
 template <class ParentT> inline
 void StageHandlerMixin<ParentT>::endPartitions(
-    RenderTraversalActionBase *pAction)
+    RenderActionBase *pAction)
 {
     StageDataP pData = pAction->template getData<StageData *>(_iDataSlotId);
 
@@ -236,9 +236,9 @@ void StageHandlerMixin<ParentT>::endPartitions(
 
 template <class ParentT> inline
 void StageHandlerMixin<ParentT>::setData(
-    StageDataP                 pData, 
-    Int32                      iDataSlotId,
-    RenderTraversalActionBase *pAction)
+    StageDataP        pData, 
+    Int32             iDataSlotId,
+    RenderActionBase *pAction)
 {
     StageDataP pStoredData = pAction->template getData<StageData *>(_iDataSlotId);
 

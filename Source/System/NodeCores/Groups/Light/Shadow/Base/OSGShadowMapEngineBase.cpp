@@ -204,7 +204,7 @@ ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(
     "\tname=\"ShadowMapEngine\"\n"
     "\tparent=\"LightEngine\"\n"
     "    mixinparent=\"ShadowMapEngineParent\"\n"
-    "\tlibrary=\"RenderTrav\"\n"
+    "\tlibrary=\"Group\"\n"
     "\tstructure=\"abstract\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tsystemcomponent=\"true\"\n"

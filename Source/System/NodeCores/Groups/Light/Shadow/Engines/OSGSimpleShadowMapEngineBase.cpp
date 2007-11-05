@@ -120,7 +120,7 @@ SimpleShadowMapEngineBase::TypeObject SimpleShadowMapEngineBase::_type(
     "<FieldContainer\n"
     "\tname=\"SimpleShadowMapEngine\"\n"
     "\tparent=\"ShadowMapEngine\"\n"
-    "\tlibrary=\"RenderTrav\"\n"
+    "\tlibrary=\"Group\"\n"
     "\tstructure=\"concrete\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tsystemcomponent=\"true\"\n"

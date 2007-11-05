@@ -53,8 +53,6 @@
 #include "OSGHDRStage.h"
 #include "OSGHDRStageData.h"
 
-#include "OSGRenderTraversalActionBase.h"
-
 #include "OSGFrameBufferObject.h"
 #include "OSGFrameBufferAttachment.h"
 #include "OSGRenderBuffer.h"
@@ -68,6 +66,8 @@
 #include "OSGStateOverride.h"
 #include "OSGTextureEnvChunk.h"
 #include "OSGSHLFunctions.h"
+
+#include "OSGMatrixUtility.h"
 
 OSG_USING_NAMESPACE
 
@@ -133,20 +133,152 @@ HDRStage::~HDRStage(void)
   thid group.
  */
 
-ActionBase::ResultE HDRStage::render(Action *action)
+ActionBase::ResultE HDRStage::renderEnter(Action *action)
 {
-/*
-    DrawActionBase *da = dynamic_cast<DrawActionBase *>(action);
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    da->useNodeList();
-    
-    if(da->isVisible(getCPtr(getSubTreeRoot())))
-        da->addNode(getSubTreeRoot());
- */
+    a->disableDefaultPartition();
 
-    return Action::Continue;
+    a->beginPartitionGroup();
+    {
+        a->pushPartition();
+        {
+            RenderPartition   *pPart    = a->getActivePartition();
+            FrameBufferObject *pTarget  = getCPtr(this->getRenderTarget());
+            Viewport          *pPort    = a->getViewport();
+            Camera            *pCam     = a->getCamera  ();
+            Background        *pBack    = a->getBackground();
+            
+            if(pTarget == NULL)
+            {
+                this->initData(pPort, a);
+
+                pTarget  = getCPtr(this->getRenderTarget());
+            }
+
+            pPart->setRenderTarget(pTarget);
+            
+#ifdef OSG_DEBUGX
+            std::string szMessage("RenderPartition\n");
+            pPart->setDebugString(szMessage          );
+#endif
+
+            if(pPort != NULL)
+            {
+//                pPart->setViewport(pPort         );
+                pPart->setWindow  (a->getWindow());
+                
+                if(pTarget != NULL)
+                {
+                    pPart->calcViewportDimension(pPort->getLeft  (),
+                                                 pPort->getBottom(),
+                                                 pPort->getRight (),
+                                                 pPort->getTop   (),
+                                                 
+                                                 pTarget->getWidth    (),
+                                                 pTarget->getHeight   ());
+                }
+                else
+                {
+                    pPart->calcViewportDimension(pPort->getLeft  (),
+                                                 pPort->getBottom(),
+                                                 pPort->getRight (),
+                                                 pPort->getTop   (),
+                                                 
+                                                 a->getWindow()->getWidth (),
+                                                 a->getWindow()->getHeight());
+                }
+                
+                if(pCam != NULL)
+                {
+                    Matrix m, t;
+                    
+                    // set the projection
+                    pCam->getProjection          (m, 
+                                                  pPart->getViewportWidth (), 
+                                                  pPart->getViewportHeight());
+                    
+                    pCam->getProjectionTranslation(t, 
+                                                   pPart->getViewportWidth (), 
+                                                   pPart->getViewportHeight());
+                    
+                    pPart->setupProjection(m, t);
+                    
+                    pCam->getViewing(m, 
+                                     pPart->getViewportWidth (),
+                                     pPart->getViewportHeight());
+                    
+                    
+                    pPart->setupViewing(m);
+                    
+                    pPart->setNear     (pCam->getNear());
+                    pPart->setFar      (pCam->getFar ());
+                    
+                    pPart->calcFrustum();
+                }
+                
+                pPart->setBackground(pBack);
+            }
+            
+            NodePtr pActNode = a->getActNode();
+            
+            a->recurceNoNodeCallbacks(pActNode);
+        }
+        a->popPartition();
+        
+        a->pushPartition(0, RenderPartition::SimpleCallback);
+        {
+            Viewport        *pPort  = a->getViewport();
+            RenderPartition *pPart  = a->getActivePartition();
+
+#ifdef OSG_DEBUGX
+            std::string szMessage("PostProcessPartition\n");
+            pPart->setDebugString(szMessage          );
+#endif
+           
+            if(pPort != NULL)
+            {
+//                pPart->setViewport(pPort         );
+                pPart->setWindow  (a->getWindow());
+                
+                pPart->calcViewportDimension(pPort->getLeft  (),
+                                             pPort->getBottom(),
+                                             pPort->getRight (),
+                                             pPort->getTop   (),
+                                             
+                                             a->getWindow()->getWidth (),
+                                             a->getWindow()->getHeight());
+                
+                Matrix m, t;
+                
+                m.setIdentity();
+                t.setIdentity();
+                
+                MatrixOrthogonal( m,
+                                  0.f, 1.f,
+                                  0.f, 1.f,
+                                  -1.f, 1.f);
+                
+                pPart->setupProjection(m, t);
+                
+                RenderPartition::SimpleDrawCallback f;
+                
+                f = boost::bind(&HDRStage::postProcess, this, _1);
+                
+                pPart->dropFunctor(f);
+            }
+        }
+        a->popPartition();
+    }
+    a->endPartitionGroup();
+
+    return Action::Skip;
 }
 
+ActionBase::ResultE HDRStage::renderLeave(Action *action)
+{
+    return Action::Skip;
+}
 
 /*-------------------------------------------------------------------------*/
 /*                               Init                                      */
@@ -158,8 +290,12 @@ void HDRStage::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(),
-            reinterpret_cast<Action::Callback>(&HDRStage::render));
+            HDRStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(&HDRStage::renderEnter));
+        
+        RenderAction::registerLeaveDefault( 
+            HDRStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(&HDRStage::renderLeave));
 
         _uiFramebuffer_object_extension = 
             Window::registerExtension("GL_EXT_framebuffer_object");
@@ -489,7 +625,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     glLoadIdentity();
 
-    RenderTraversalActionBase *pAction = pEnv->getRTAction();
+    RenderActionBase *pAction = pEnv->getAction();
 
     if(pAction == NULL)
         return;
@@ -692,8 +828,8 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     glPopMatrix();
 }
 
-void HDRStage::initData(Viewport                  *pViewport,
-                        RenderTraversalActionBase *pAction  )
+void HDRStage::initData(Viewport         *pViewport,
+                        RenderActionBase *pAction  )
 {
     HDRStageDataP pData = pAction->getData<HDRStageData *>(_iDataSlotId);
 

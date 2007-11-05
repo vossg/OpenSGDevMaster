@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGRenderTravDef.h"
+#include "OSGGroupDef.h"
 
 #include "OSGStageDataFields.h"
 
@@ -75,7 +75,7 @@ OSG_GEN_BUNDLEP(SimpleShadowMapEngineData);
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpRenderTravFieldTraits
+/*! \ingroup GrpGroupFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */

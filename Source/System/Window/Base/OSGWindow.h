@@ -69,10 +69,8 @@ OSG_BEGIN_NAMESPACE
 
 class DrawEnv;
 
-#ifdef OSG_CLEANED_RENDERACTION
-class RenderTraversalActionBase;
+class RenderActionBase;
 class StageValidator;
-#endif
 
 /*! \brief Window base class. See \ref PageSystemWindowWindow
 for a description. */
@@ -241,14 +239,12 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     virtual void    frameExit         (void);
 
 #ifdef OSG_OLD_RENDER_ACTION
-    virtual void    render            (DrawActionBase *action = NULL);
-    virtual void    renderAllViewports(DrawActionBase *action = NULL);
+    virtual void    render            (DrawActionBase   *action = NULL);
+    virtual void    renderAllViewports(DrawActionBase   *action = NULL);
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-    virtual void    render            (RenderTraversalActionBase *action);
-    virtual void    renderAllViewports(RenderTraversalActionBase *action);
-#endif
+    virtual void    render            (RenderActionBase *action);
+    virtual void    renderAllViewports(RenderActionBase *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

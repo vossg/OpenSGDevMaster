@@ -111,7 +111,7 @@ void DistanceLOD::initMethod(InitPhase ePhase)
         Callback enter = &DistanceLOD::render<RenderAction>;
 
         RenderAction::registerEnterDefault(
-            getClassType(),
+            DistanceLOD::getClassType(),
             reinterpret_cast<Action::Callback>(enter));
     }
 }

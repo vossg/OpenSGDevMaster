@@ -54,10 +54,8 @@ OSG_BEGIN_NAMESPACE
 class DrawActionBase;
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-class RenderTraversalActionBase;
+class RenderActionBase;
 class StageValidator;
-#endif
 
 /*! \brief Viewport base class. See \ref 
     PageSystemWindowViewports for a description.
@@ -102,12 +100,10 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     virtual void deactivate  (void                             );
 
 #ifdef OSG_OLD_RENDER_ACTION
-    virtual void render      (DrawActionBase            *action);
+    virtual void render      (DrawActionBase   *action);
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-    virtual void render      (RenderTraversalActionBase *action);
-#endif
+    virtual void render      (RenderActionBase *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -49,7 +49,6 @@
 #include "OSGFBOViewport.h"
 #include "OSGFrameBufferObject.h"
 #include "OSGDrawEnv.h"
-#include "OSGDrawActionBase.h"
 
 #include "OSGCamera.h"
 #include "OSGBackground.h"
@@ -160,6 +159,7 @@ void FBOViewport::dump(      UInt32    ,
 }
 
 
+#ifdef OSG_OLD_RENDER_ACTION
 void FBOViewport::render(DrawActionBase *action)
 {
     if(getFrameBufferObject() != NullFC)
@@ -178,3 +178,4 @@ void FBOViewport::render(DrawActionBase *action)
         Inherited::render(action);
     }
 }
+#endif

@@ -19,7 +19,6 @@
 #include <OSGTrackball.h>
 #include <OSGVolumeDraw.h>
 #include <OSGGLUTWindow.h>
-#include <OSGRenderAction.h>
 #include <OSGMultiDisplayWindow.h>
 #include <OSGBalancedMultiWindow.h>
 #include <OSGSortFirstWindow.h>
@@ -40,6 +39,7 @@
 
 #include <OSGPipelineComposer.h>
 #include <OSGBinarySwapComposer.h>
+#include <OSGRenderAction.h>
 
 OSG_USING_NAMESPACE
 
@@ -53,7 +53,7 @@ NodePtr		            root;
 TransformPtr             cam_trans;
 PerspectiveCameraPtr     cam;
 ClusterWindowPtr         clusterWindow;
-RenderAction            *ract;
+RenderAction   *ract;
 GLUTWindowPtr            clientWindow;
 SortFirstWindowPtr       sortfirst;
 SortLastWindowPtr        sortlast;
@@ -1134,10 +1134,12 @@ int main(int argc,char **argv)
         glutMouseFunc(mouse);   
         glutMotionFunc(motion); 
         ract = RenderAction::create();
+#ifdef OSG_OLD_RENDER_ACTION
         ract->setSortTrans(true);
         ract->setZWriteTrans(true);
         ract->setLocalLights(true);
         ract->setCorrectTwoSidedLighting(true);
+#endif
 
         // clear changelist from prototypes
         OSG::Thread::getCurrentChangeList()->clear();

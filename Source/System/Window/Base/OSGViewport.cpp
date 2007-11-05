@@ -50,11 +50,8 @@
 #include <OSGField.h>
 #include <OSGFieldContainer.h>
 #include <OSGAction.h>
-#include <OSGDrawActionBase.h>
 
-#ifdef OSG_CLEANED_RENDERACTION
-#include <OSGRenderTraversalActionBase.h>
-#endif
+#include <OSGRenderActionBase.h>
 
 #include <OSGDrawEnv.h>
 
@@ -310,8 +307,7 @@ void Viewport::render(DrawActionBase *action)
 }
 #endif
 
-#ifdef OSG_CLEANED_RENDERACTION
-void Viewport::render(RenderTraversalActionBase *action)
+void Viewport::render(RenderActionBase *action)
 {
      _pStageValidator->incEventCounter();
  
@@ -353,7 +349,6 @@ void Viewport::render(RenderTraversalActionBase *action)
     deactivate();
 #endif
 }
-#endif
 
 /*------------------------------- dump ----------------------------------*/
 

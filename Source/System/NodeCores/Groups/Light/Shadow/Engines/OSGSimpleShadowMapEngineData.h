@@ -56,7 +56,8 @@ OSG_BEGIN_NAMESPACE
            PageGroupSimpleShadowMapEngineData for a description.
 */
 
-class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineData : public SimpleShadowMapEngineDataBase
+class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineData : 
+    public SimpleShadowMapEngineDataBase
 {
   protected:
 

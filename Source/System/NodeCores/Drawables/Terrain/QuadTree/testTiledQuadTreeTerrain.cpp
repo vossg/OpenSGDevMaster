@@ -288,7 +288,7 @@ int main (int argc, char **argv)
 
     mgr->setWindow( gwin );
     mgr->setRoot( scene );
-    mgr->getAction()->setFrustumCulling(false);
+    mgr->getRenderAction()->setFrustumCulling(false);
 
     WalkNavigator *walker=mgr->getNavigator()->getWalkNavigator();
     walker->setGroundDistance(1);

@@ -49,7 +49,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-class RenderTraversalAction;
+class RenderAction;
 
 /*! \brief LightEngine is the basic NodeCore for inner nodes in the tree.
     \ingroup GrpSystemNodeCoresMisc
@@ -81,12 +81,12 @@ class OSG_SYSTEM_DLLMAPPING LightEngine : public LightEngineBase
     /*! \name                       Render                                 */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE runOnEnter(LightPtr               pLight,
-                                           LightTypeE             eType,
-                                           RenderTraversalAction *pAction) = 0;
-    virtual ActionBase::ResultE runOnLeave(LightPtr               pLight,
-                                           LightTypeE             eType,
-                                           RenderTraversalAction *pAction) = 0;
+    virtual ActionBase::ResultE runOnEnter(LightPtr      pLight,
+                                           LightTypeE    eType,
+                                           RenderAction *pAction) = 0;
+    virtual ActionBase::ResultE runOnLeave(LightPtr      pLight,
+                                           LightTypeE    eType,
+                                           RenderAction *pAction) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
