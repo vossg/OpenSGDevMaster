@@ -44,6 +44,9 @@ for (lib_name, library) in lib_map.iteritems():
                   FRAMEWORKPATH=config_info.getFrameworkPath(),
                   FRAMEWORKS=config_info.getFrameworks())
 
+   lib_env.Append(CPPPATH=['External'])
+#   lib_env.Append(LINKFLAGS=['-Wl,--no-undefined'])
+
    # Define OSG_DEBUG if needed 
    if combo["type"] in ["debug","hybrid"]: 
       lib_env.Append(CPPDEFINES=["OSG_DEBUG",])
@@ -95,6 +98,8 @@ for (lib_name, library) in lib_map.iteritems():
                       FRAMEWORKPATH=config_info.getFrameworkPath(),
                       FRAMEWORKS=config_info.getFrameworks())
 
+      test_env.Append(CPPPATH=['External'])
+
       if GetPlatform() == "win32":
 
         test_env.Append(LIBS = ["MSVCPRT$DEBUG_CHAR", "MSVCRT$DEBUG_CHAR"])
@@ -127,6 +132,8 @@ for (lib_name, library) in lib_map.iteritems():
             else:
                 unittest_env["DEBUG_CHAR"]=''
                 unittest_env["UTDBGDIR"]='opt'
+
+         unittest_env.Append(CPPPATH=['External'])
 
          runner_obj = unittest_env.Object(target=pj("..","unittest","run"+lib_name), source=unittest_runner)
          runner = unittest_env.Program(pj("..","unittest","run"+lib_name), 
