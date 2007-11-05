@@ -3,6 +3,7 @@
 if option_pass:
    print "Processing option pass"
 else:
+   stop_traversal = True
 
    tc_option = opts.GetOption("enable_testcontainer")
 

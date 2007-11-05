@@ -48,7 +48,6 @@
 
 #ifdef OSG_CLEANED_RENDERACTION
 
-#include "OSGRenderTraversalAction.h"
 #include "OSGRenderAction.h"
 
 #include "OSGMaterialDrawable.h"
@@ -69,8 +68,8 @@ ActionBase::ResultE TestStageRenderEnter(const NodeCorePtr &pCore,
     FDEBUG_GV(("Enter TestStage %p\n", &(*pCore)));
 #endif
 
-    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
-    TestStagePtr      pStage = dynamic_cast<TestStagePtr>(pCore);
+    RenderAction *a      = dynamic_cast<RenderlAction *>(action);
+    TestStagePtr  pStage = dynamic_cast<TestStagePtr   >(pCore);
 
 #ifdef OSG_DEBUGX
     if(pStage != NullFC && pStage->getMessage().size() != 0)
@@ -115,8 +114,8 @@ ActionBase::ResultE TestStageRenderLeave(const NodeCorePtr &pCore,
     FDEBUG_GV(("Leave TestStage %p\n", &(*pCore)));
 #endif
 
-    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
-    TestStagePtr      pStage = dynamic_cast<TestStagePtr>(pCore);
+    RenderAction *a      = dynamic_cast<RenderAction *>(action);
+    TestStagePtr  pStage = dynamic_cast<TestStagePtr  >(pCore);
 
 #ifdef OSG_DEBUGX
     if(pStage != NullFC && pStage->getMessage().size() != 0)
@@ -154,7 +153,8 @@ ActionBase::ResultE TestMultiPartStageRenderEnter(const NodeCorePtr &pCore,
     FDEBUG_GV(("Enter TestMultiPartStage %p\n", &(*pCore)));
 #endif
 
-    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
     TestMultiPartitionStagePtr pStage = 
         dynamic_cast<TestMultiPartitionStagePtr>(pCore);
 
@@ -236,8 +236,8 @@ ActionBase::ResultE TestMultiPartStageRenderLeave(const NodeCorePtr &pCore,
     FDEBUG_GV(("Leave TestMultiPartStage %p\n", &(*pCore)));
 #endif
 
-    RenderTraversalAction      *a      = 
-        dynamic_cast<RenderTraversalAction *>(action);
+    RenderAction      *a      = 
+        dynamic_cast<RenderAction *>(action);
 
     TestMultiPartitionStagePtr  pStage = 
         dynamic_cast<TestMultiPartitionStagePtr>(pCore);
@@ -262,36 +262,36 @@ ActionBase::ResultE TestMultiPartStageRenderLeave(const NodeCorePtr &pCore,
 /*-------------------------------------------------------------------------*/
 /*                                   init                                  */
 
-bool RenderTraversalActionTestInitialize(void)
+bool RenderActionGroupTestInitialize(void)
 {
-    RenderTraversalAction::registerEnterDefault(
+    RenderAction::registerEnterDefault(
         TestStage::getClassType(), 
               TestStageRenderEnter);
 
-    RenderTraversalAction::registerLeaveDefault( 
+    RenderAction::registerLeaveDefault( 
         TestStage::getClassType(), 
               TestStageRenderLeave);
 
-    RenderTraversalAction::registerEnterDefault(
+    RenderAction::registerEnterDefault(
         TestMultiPartitionStage::getClassType(), 
               TestMultiPartStageRenderEnter);
 
-    RenderTraversalAction::registerLeaveDefault( 
+    RenderAction::registerLeaveDefault( 
         TestMultiPartitionStage::getClassType(), 
               TestMultiPartStageRenderLeave);
 
     return true;
 }
 
-struct RenderTraversalActionTestInit
+struct RenderActionGroupTestInit
 {
-    RenderTraversalActionTestInit(void) 
+    RenderActionGroupTestInit(void) 
     { 
-        addPostFactoryInitFunction(RenderTraversalActionTestInitialize); 
+        addPostFactoryInitFunction(RenderActionGroupTestInitialize); 
     }
 };
 
-static RenderTraversalActionTestInit initTestDummy;
+static RenderActionGroupTestInit initGroupTestDummy;
 
 OSG_END_NAMESPACE
 
