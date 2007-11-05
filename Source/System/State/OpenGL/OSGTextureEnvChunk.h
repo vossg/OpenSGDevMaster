@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zghdv.de          *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -36,21 +36,25 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTEXGENCHUNK_H_
-#define _OSGTEXGENCHUNK_H_
+#ifndef _OSGTEXTUREENVCHUNK_H_
+#define _OSGTEXTUREENVCHUNK_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGTexGenChunkBase.h"
+#include "OSGConfig.h"
+#include "OSGGLEXT.h"
+#include "OSGWindow.h"
+#include "OSGImage.h"
+#include "OSGTextureEnvChunkBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief State chunk for texture coordinate generation. See \ref 
-    PageSystemTexGenChunk for a description.
-*/
+/*! \brief State chunk for textures. See \ref PageSystemTextureEnvChunk 
+    for a description.
+ */
 
-class OSG_SYSTEM_DLLMAPPING TexGenChunk : public TexGenChunkBase
+class OSG_STATE_DLLMAPPING TextureEnvChunk : public TextureEnvChunkBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -72,42 +76,56 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunk : public TexGenChunkBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Chunk Id                                  */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            from,
+    virtual void changed(ConstFieldMaskArg whichField,
+                         UInt32            origin,
                          BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                      Output                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
-                      const BitVector  bvFlags  = 0) const;
+    virtual void dump(      UInt32    uiIndent = 0,
+                      const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       State                                  */
     /*! \{                                                                 */
 
-    virtual void activate  (DrawEnv    *pEnv, 
-                            UInt32      index = 0);
+    virtual void activate   (DrawEnv    *pEnv, 
+                             UInt32      index = 0);
 
-    virtual void changeFrom(DrawEnv    *pEnv, 
-                            StateChunk *pOld,
-                            UInt32      index = 0);
+    virtual void changeFrom (DrawEnv    *pEnv, 
+                             StateChunk *pOld,
+                             UInt32      index = 0);
 
-    virtual void deactivate(DrawEnv    *action, 
-                             UInt32     index = 0);
+    virtual void deactivate (DrawEnv    *pEnv, 
+                             UInt32      index = 0);
+
+    virtual bool isTransparent (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       query                                  */
+    /*! \{                                                                 */
+
+    //GLenum determineTextureTarget(Window *pWindow) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Comparison                                 */
     /*! \{                                                                 */
 
-    virtual Real32 switchCost(StateChunk *chunk);
+    virtual Real32 switchCost(StateChunk * chunk);
 
     virtual bool   operator <  (const StateChunk &other) const;
 
@@ -115,25 +133,47 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunk : public TexGenChunkBase
     virtual bool   operator != (const StateChunk &other) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Texture specific                              */
+    /*! \{                                                                 */
+
+    void setShaderOffsetMatrix(Real32 m11, 
+                               Real32 m12, 
+                               Real32 m21, 
+                               Real32 m22);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name             Multitexture handling                            */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    // Variables should all be in TexGenChunkBase.
-
     /*---------------------------------------------------------------------*/
-    /*! \name                  Constructors                                */
+    /*! \name                       Init                                   */
     /*! \{                                                                 */
 
-    TexGenChunk(void);
-    TexGenChunk(const TexGenChunk &source);
+    void onCreate      (const TextureEnvChunk *source      = NULL);
+    void onCreateAspect(const TextureEnvChunk *createAspect,
+                        const TextureEnvChunk *source      = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    TextureEnvChunk(void);
+    TextureEnvChunk(const TextureEnvChunk &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TexGenChunk(void); 
+    virtual ~TextureEnvChunk(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -143,27 +183,42 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunk : public TexGenChunkBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                         GL                                   */
+    /*! \{                                                                 */
+
+    static UInt32 _nvPointSprite;
+    static UInt32 _nvTextureShader;
+    static UInt32 _nvTextureShader2;
+    static UInt32 _nvTextureShader3;
+    static UInt32 _extTextureLodBias;
+
+    void handleTextureShader(Window *win, GLenum bindtarget);
+
+    /*! \}                                                                 */ 
+
+    // class. Used for indexing in State
+    // protected to give CubeTextureChunk access
+    static StateChunkClass _class;
+
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    typedef TexGenChunkBase Inherited;
+    typedef TextureEnvChunkBase Inherited;
 
     friend class FieldContainer;
-    friend class TexGenChunkBase;
-
-    // class. Used for indexing in State
-    static StateChunkClass _class;
+    friend class TextureEnvChunkBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const TexGenChunk &source);
+    void operator =(const TextureEnvChunk &source);
 };
 
-typedef TexGenChunk              *TexGenChunkP;
+typedef TextureEnvChunk *TextureEnvChunkP;
 
 OSG_END_NAMESPACE
 
-#include "OSGTexGenChunkBase.inl"
-#include "OSGTexGenChunk.inl"
+#include "OSGTextureEnvChunkBase.inl"
+#include "OSGTextureEnvChunk.inl"
 
-#endif /* _OSGTEXGENCHUNK_H_ */
+#endif /* _OSGTEXTUREENVCHUNK_H_ */

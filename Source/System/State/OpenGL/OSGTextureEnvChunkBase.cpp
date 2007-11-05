@@ -583,7 +583,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "<FieldContainer\n"
     "\tname=\"TextureEnvChunk\"\n"
     "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"System\"\n"
+    "\tlibrary=\"State\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"

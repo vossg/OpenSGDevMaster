@@ -78,7 +78,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \name                   Rendering                                  */
     /*! \{                                                                 */
 
-#ifdef OLD
+#ifdef OSG_OLD_RENDER_ACTION
     virtual void     draw         (DrawFunctor      &func,
                                    DrawActionBase   *action);
 

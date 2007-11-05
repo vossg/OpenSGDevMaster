@@ -41,8 +41,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
-
 #include "OSGStateOverride.h"
 #include <OSGBaseFunctions.h>
 
@@ -67,4 +65,3 @@ StateOverride::~StateOverride(void)
 {
 }
 
-#endif

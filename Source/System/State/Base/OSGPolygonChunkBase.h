@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class TexGenChunk
+ **     class PolygonChunk
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGTEXGENCHUNKBASE_H_
-#define _OSGTEXGENCHUNKBASE_H_
+#ifndef _OSGPOLYGONCHUNKBASE_H_
+#define _OSGPOLYGONCHUNKBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -65,28 +65,27 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGGLenumFields.h" // GenFuncS type
-#include "OSGGLenumFields.h" // GenFuncT type
-#include "OSGGLenumFields.h" // GenFuncR type
-#include "OSGGLenumFields.h" // GenFuncQ type
-#include "OSGVec4fFields.h" // GenFuncSPlane type
-#include "OSGVec4fFields.h" // GenFuncTPlane type
-#include "OSGVec4fFields.h" // GenFuncRPlane type
-#include "OSGVec4fFields.h" // GenFuncQPlane type
-#include "OSGNodeFields.h" // SBeacon type
-#include "OSGNodeFields.h" // TBeacon type
-#include "OSGNodeFields.h" // RBeacon type
-#include "OSGNodeFields.h" // QBeacon type
+#include "OSGGLenumFields.h" // CullFace type
+#include "OSGGLenumFields.h" // FrontFace type
+#include "OSGGLenumFields.h" // FrontMode type
+#include "OSGGLenumFields.h" // BackMode type
+#include "OSGBoolFields.h" // Smooth type
+#include "OSGReal32Fields.h" // OffsetFactor type
+#include "OSGReal32Fields.h" // OffsetBias type
+#include "OSGBoolFields.h" // OffsetPoint type
+#include "OSGBoolFields.h" // OffsetLine type
+#include "OSGBoolFields.h" // OffsetFill type
+#include "OSGInt32Fields.h" // Stipple type
 
-#include "OSGTexGenChunkFields.h"
+#include "OSGPolygonChunkFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class TexGenChunk;
+class PolygonChunk;
 
-//! \brief TexGenChunk Base Class.
+//! \brief PolygonChunk Base Class.
 
-class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
+class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
 {
   public:
 
@@ -96,7 +95,7 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(TexGenChunk);
+    OSG_GEN_INTERNALPTR(PolygonChunk);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -104,45 +103,42 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
 
     enum
     {
-        GenFuncSFieldId = Inherited::NextFieldId,
-        GenFuncTFieldId = GenFuncSFieldId + 1,
-        GenFuncRFieldId = GenFuncTFieldId + 1,
-        GenFuncQFieldId = GenFuncRFieldId + 1,
-        GenFuncSPlaneFieldId = GenFuncQFieldId + 1,
-        GenFuncTPlaneFieldId = GenFuncSPlaneFieldId + 1,
-        GenFuncRPlaneFieldId = GenFuncTPlaneFieldId + 1,
-        GenFuncQPlaneFieldId = GenFuncRPlaneFieldId + 1,
-        SBeaconFieldId = GenFuncQPlaneFieldId + 1,
-        TBeaconFieldId = SBeaconFieldId + 1,
-        RBeaconFieldId = TBeaconFieldId + 1,
-        QBeaconFieldId = RBeaconFieldId + 1,
-        NextFieldId = QBeaconFieldId + 1
+        CullFaceFieldId = Inherited::NextFieldId,
+        FrontFaceFieldId = CullFaceFieldId + 1,
+        FrontModeFieldId = FrontFaceFieldId + 1,
+        BackModeFieldId = FrontModeFieldId + 1,
+        SmoothFieldId = BackModeFieldId + 1,
+        OffsetFactorFieldId = SmoothFieldId + 1,
+        OffsetBiasFieldId = OffsetFactorFieldId + 1,
+        OffsetPointFieldId = OffsetBiasFieldId + 1,
+        OffsetLineFieldId = OffsetPointFieldId + 1,
+        OffsetFillFieldId = OffsetLineFieldId + 1,
+        StippleFieldId = OffsetFillFieldId + 1,
+        NextFieldId = StippleFieldId + 1
     };
 
-    static const OSG::BitVector GenFuncSFieldMask =
-        (TypeTraits<BitVector>::One << GenFuncSFieldId);
-    static const OSG::BitVector GenFuncTFieldMask =
-        (TypeTraits<BitVector>::One << GenFuncTFieldId);
-    static const OSG::BitVector GenFuncRFieldMask =
-        (TypeTraits<BitVector>::One << GenFuncRFieldId);
-    static const OSG::BitVector GenFuncQFieldMask =
-        (TypeTraits<BitVector>::One << GenFuncQFieldId);
-    static const OSG::BitVector GenFuncSPlaneFieldMask =
-        (TypeTraits<BitVector>::One << GenFuncSPlaneFieldId);
-    static const OSG::BitVector GenFuncTPlaneFieldMask =
-        (TypeTraits<BitVector>::One << GenFuncTPlaneFieldId);
-    static const OSG::BitVector GenFuncRPlaneFieldMask =
-        (TypeTraits<BitVector>::One << GenFuncRPlaneFieldId);
-    static const OSG::BitVector GenFuncQPlaneFieldMask =
-        (TypeTraits<BitVector>::One << GenFuncQPlaneFieldId);
-    static const OSG::BitVector SBeaconFieldMask =
-        (TypeTraits<BitVector>::One << SBeaconFieldId);
-    static const OSG::BitVector TBeaconFieldMask =
-        (TypeTraits<BitVector>::One << TBeaconFieldId);
-    static const OSG::BitVector RBeaconFieldMask =
-        (TypeTraits<BitVector>::One << RBeaconFieldId);
-    static const OSG::BitVector QBeaconFieldMask =
-        (TypeTraits<BitVector>::One << QBeaconFieldId);
+    static const OSG::BitVector CullFaceFieldMask =
+        (TypeTraits<BitVector>::One << CullFaceFieldId);
+    static const OSG::BitVector FrontFaceFieldMask =
+        (TypeTraits<BitVector>::One << FrontFaceFieldId);
+    static const OSG::BitVector FrontModeFieldMask =
+        (TypeTraits<BitVector>::One << FrontModeFieldId);
+    static const OSG::BitVector BackModeFieldMask =
+        (TypeTraits<BitVector>::One << BackModeFieldId);
+    static const OSG::BitVector SmoothFieldMask =
+        (TypeTraits<BitVector>::One << SmoothFieldId);
+    static const OSG::BitVector OffsetFactorFieldMask =
+        (TypeTraits<BitVector>::One << OffsetFactorFieldId);
+    static const OSG::BitVector OffsetBiasFieldMask =
+        (TypeTraits<BitVector>::One << OffsetBiasFieldId);
+    static const OSG::BitVector OffsetPointFieldMask =
+        (TypeTraits<BitVector>::One << OffsetPointFieldId);
+    static const OSG::BitVector OffsetLineFieldMask =
+        (TypeTraits<BitVector>::One << OffsetLineFieldId);
+    static const OSG::BitVector OffsetFillFieldMask =
+        (TypeTraits<BitVector>::One << OffsetFillFieldId);
+    static const OSG::BitVector StippleFieldMask =
+        (TypeTraits<BitVector>::One << StippleFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -171,141 +167,174 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
 
 
 #ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFGenFuncS        (void);
+                  SFGLenum            *getSFCullFace        (void);
 #endif
-                  SFGLenum            *editSFGenFuncS       (void);
-            const SFGLenum            *getSFGenFuncS        (void) const;
+                  SFGLenum            *editSFCullFace       (void);
+            const SFGLenum            *getSFCullFace        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFGenFuncT        (void);
+                  SFGLenum            *getSFFrontFace       (void);
 #endif
-                  SFGLenum            *editSFGenFuncT       (void);
-            const SFGLenum            *getSFGenFuncT        (void) const;
+                  SFGLenum            *editSFFrontFace      (void);
+            const SFGLenum            *getSFFrontFace       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFGenFuncR        (void);
+                  SFGLenum            *getSFFrontMode       (void);
 #endif
-                  SFGLenum            *editSFGenFuncR       (void);
-            const SFGLenum            *getSFGenFuncR        (void) const;
+                  SFGLenum            *editSFFrontMode      (void);
+            const SFGLenum            *getSFFrontMode       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFGenFuncQ        (void);
+                  SFGLenum            *getSFBackMode        (void);
 #endif
-                  SFGLenum            *editSFGenFuncQ       (void);
-            const SFGLenum            *getSFGenFuncQ        (void) const;
+                  SFGLenum            *editSFBackMode       (void);
+            const SFGLenum            *getSFBackMode        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFVec4f             *getSFGenFuncSPlane   (void);
+                  SFBool              *getSFSmooth          (void);
 #endif
-                  SFVec4f             *editSFGenFuncSPlane  (void);
-            const SFVec4f             *getSFGenFuncSPlane   (void) const;
+                  SFBool              *editSFSmooth         (void);
+            const SFBool              *getSFSmooth          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFVec4f             *getSFGenFuncTPlane   (void);
+                  SFReal32            *getSFOffsetFactor    (void);
 #endif
-                  SFVec4f             *editSFGenFuncTPlane  (void);
-            const SFVec4f             *getSFGenFuncTPlane   (void) const;
+                  SFReal32            *editSFOffsetFactor   (void);
+            const SFReal32            *getSFOffsetFactor    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFVec4f             *getSFGenFuncRPlane   (void);
+                  SFReal32            *getSFOffsetBias      (void);
 #endif
-                  SFVec4f             *editSFGenFuncRPlane  (void);
-            const SFVec4f             *getSFGenFuncRPlane   (void) const;
+                  SFReal32            *editSFOffsetBias     (void);
+            const SFReal32            *getSFOffsetBias      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFVec4f             *getSFGenFuncQPlane   (void);
+                  SFBool              *getSFOffsetPoint     (void);
 #endif
-                  SFVec4f             *editSFGenFuncQPlane  (void);
-            const SFVec4f             *getSFGenFuncQPlane   (void) const;
-            const SFNodePtr           *getSFSBeacon         (void) const;
-            const SFNodePtr           *getSFTBeacon         (void) const;
-            const SFNodePtr           *getSFRBeacon         (void) const;
-            const SFNodePtr           *getSFQBeacon         (void) const;
+                  SFBool              *editSFOffsetPoint    (void);
+            const SFBool              *getSFOffsetPoint     (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFBool              *getSFOffsetLine      (void);
+#endif
+                  SFBool              *editSFOffsetLine     (void);
+            const SFBool              *getSFOffsetLine      (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFBool              *getSFOffsetFill      (void);
+#endif
+                  SFBool              *editSFOffsetFill     (void);
+            const SFBool              *getSFOffsetFill      (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  MFInt32             *getMFStipple         (void);
+#endif
+                  MFInt32             *editMFStipple        (void);
+            const MFInt32             *getMFStipple         (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
-                  GLenum              &getGenFuncS        (void);
+                  GLenum              &getCullFace        (void);
 #endif
-                  GLenum              &editGenFuncS       (void);
-            const GLenum              &getGenFuncS        (void) const;
+                  GLenum              &editCullFace       (void);
+            const GLenum              &getCullFace        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  GLenum              &getGenFuncT        (void);
+                  GLenum              &getFrontFace       (void);
 #endif
-                  GLenum              &editGenFuncT       (void);
-            const GLenum              &getGenFuncT        (void) const;
+                  GLenum              &editFrontFace      (void);
+            const GLenum              &getFrontFace       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  GLenum              &getGenFuncR        (void);
+                  GLenum              &getFrontMode       (void);
 #endif
-                  GLenum              &editGenFuncR       (void);
-            const GLenum              &getGenFuncR        (void) const;
+                  GLenum              &editFrontMode      (void);
+            const GLenum              &getFrontMode       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  GLenum              &getGenFuncQ        (void);
+                  GLenum              &getBackMode        (void);
 #endif
-                  GLenum              &editGenFuncQ       (void);
-            const GLenum              &getGenFuncQ        (void) const;
+                  GLenum              &editBackMode       (void);
+            const GLenum              &getBackMode        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  Vec4f               &getGenFuncSPlane   (void);
+                  bool                &getSmooth          (void);
 #endif
-                  Vec4f               &editGenFuncSPlane  (void);
-            const Vec4f               &getGenFuncSPlane   (void) const;
+                  bool                &editSmooth         (void);
+            const bool                &getSmooth          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  Vec4f               &getGenFuncTPlane   (void);
+                  Real32              &getOffsetFactor    (void);
 #endif
-                  Vec4f               &editGenFuncTPlane  (void);
-            const Vec4f               &getGenFuncTPlane   (void) const;
+                  Real32              &editOffsetFactor   (void);
+            const Real32              &getOffsetFactor    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  Vec4f               &getGenFuncRPlane   (void);
+                  Real32              &getOffsetBias      (void);
 #endif
-                  Vec4f               &editGenFuncRPlane  (void);
-            const Vec4f               &getGenFuncRPlane   (void) const;
+                  Real32              &editOffsetBias     (void);
+            const Real32              &getOffsetBias      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  Vec4f               &getGenFuncQPlane   (void);
+                  bool                &getOffsetPoint     (void);
 #endif
-                  Vec4f               &editGenFuncQPlane  (void);
-            const Vec4f               &getGenFuncQPlane   (void) const;
+                  bool                &editOffsetPoint    (void);
+            const bool                &getOffsetPoint     (void) const;
 
-                  NodePtrConst getSBeacon        (void) const;
+#ifdef OSG_1_GET_COMPAT
+                  bool                &getOffsetLine      (void);
+#endif
+                  bool                &editOffsetLine     (void);
+            const bool                &getOffsetLine      (void) const;
 
-                  NodePtrConst getTBeacon        (void) const;
+#ifdef OSG_1_GET_COMPAT
+                  bool                &getOffsetFill      (void);
+#endif
+                  bool                &editOffsetFill     (void);
+            const bool                &getOffsetFill      (void) const;
 
-                  NodePtrConst getRBeacon        (void) const;
-
-                  NodePtrConst getQBeacon        (void) const;
+#ifdef OSG_1_GET_COMPAT
+                  Int32               &getStipple         (const UInt32 index);
+                  MFInt32             &getStipple        (void);
+#endif
+                  Int32               &editStipple        (const UInt32 index);
+            const Int32               &getStipple         (const UInt32 index) const;
+                  MFInt32             &editStipple        (void);
+            const MFInt32             &getStipple        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setGenFuncS       (const GLenum &value);
-            void setGenFuncT       (const GLenum &value);
-            void setGenFuncR       (const GLenum &value);
-            void setGenFuncQ       (const GLenum &value);
-            void setGenFuncSPlane  (const Vec4f &value);
-            void setGenFuncTPlane  (const Vec4f &value);
-            void setGenFuncRPlane  (const Vec4f &value);
-            void setGenFuncQPlane  (const Vec4f &value);
-            void setSBeacon        (NodePtrConstArg value);
-            void setTBeacon        (NodePtrConstArg value);
-            void setRBeacon        (NodePtrConstArg value);
-            void setQBeacon        (NodePtrConstArg value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
+            void setCullFace       (const GLenum &value);
+            void setFrontFace      (const GLenum &value);
+            void setFrontMode      (const GLenum &value);
+            void setBackMode       (const GLenum &value);
+            void setSmooth         (const bool &value);
+            void setOffsetFactor   (const Real32 &value);
+            void setOffsetBias     (const Real32 &value);
+            void setOffsetPoint    (const bool &value);
+            void setOffsetLine     (const bool &value);
+            void setOffsetFill     (const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
+
+    void pushToStipple                     (const Int32     &value   );
+    void insertIntoStipple                 (      UInt32     uiIndex,
+                                            const Int32     &value   );
+    void replaceInStipple                  (      UInt32     uiIndex,
+                                            const Int32     &value   );
+    void replaceInStipple                  (const Int32     &pOldElem,
+                                            const Int32     &pNewElem);
+    void removeFromStipple                 (      UInt32     uiIndex );
+    void removeFromStipple                 (const Int32     &value   );
+    void clearStipple                      (      void               );
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -324,8 +353,8 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TexGenChunkPtr create     (void);
-    static  TexGenChunkPtr createEmpty(void);
+    static  PolygonChunkPtr create     (void);
+    static  PolygonChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -348,70 +377,66 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGLenum          _sfGenFuncS;
-    SFGLenum          _sfGenFuncT;
-    SFGLenum          _sfGenFuncR;
-    SFGLenum          _sfGenFuncQ;
-    SFVec4f           _sfGenFuncSPlane;
-    SFVec4f           _sfGenFuncTPlane;
-    SFVec4f           _sfGenFuncRPlane;
-    SFVec4f           _sfGenFuncQPlane;
-    SFNodePtr         _sfSBeacon;
-    SFNodePtr         _sfTBeacon;
-    SFNodePtr         _sfRBeacon;
-    SFNodePtr         _sfQBeacon;
+    SFGLenum          _sfCullFace;
+    SFGLenum          _sfFrontFace;
+    SFGLenum          _sfFrontMode;
+    SFGLenum          _sfBackMode;
+    SFBool            _sfSmooth;
+    SFReal32          _sfOffsetFactor;
+    SFReal32          _sfOffsetBias;
+    SFBool            _sfOffsetPoint;
+    SFBool            _sfOffsetLine;
+    SFBool            _sfOffsetFill;
+    MFInt32           _mfStipple;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    TexGenChunkBase(void);
-    TexGenChunkBase(const TexGenChunkBase &source);
+    PolygonChunkBase(void);
+    PolygonChunkBase(const PolygonChunkBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TexGenChunkBase(void);
+    virtual ~PolygonChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const TexGenChunk *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGenFuncS        (void) const;
-    EditFieldHandlePtr editHandleGenFuncS       (void);
-    GetFieldHandlePtr  getHandleGenFuncT        (void) const;
-    EditFieldHandlePtr editHandleGenFuncT       (void);
-    GetFieldHandlePtr  getHandleGenFuncR        (void) const;
-    EditFieldHandlePtr editHandleGenFuncR       (void);
-    GetFieldHandlePtr  getHandleGenFuncQ        (void) const;
-    EditFieldHandlePtr editHandleGenFuncQ       (void);
-    GetFieldHandlePtr  getHandleGenFuncSPlane   (void) const;
-    EditFieldHandlePtr editHandleGenFuncSPlane  (void);
-    GetFieldHandlePtr  getHandleGenFuncTPlane   (void) const;
-    EditFieldHandlePtr editHandleGenFuncTPlane  (void);
-    GetFieldHandlePtr  getHandleGenFuncRPlane   (void) const;
-    EditFieldHandlePtr editHandleGenFuncRPlane  (void);
-    GetFieldHandlePtr  getHandleGenFuncQPlane   (void) const;
-    EditFieldHandlePtr editHandleGenFuncQPlane  (void);
-    GetFieldHandlePtr  getHandleSBeacon         (void) const;
-    EditFieldHandlePtr editHandleSBeacon        (void);
-    GetFieldHandlePtr  getHandleTBeacon         (void) const;
-    EditFieldHandlePtr editHandleTBeacon        (void);
-    GetFieldHandlePtr  getHandleRBeacon         (void) const;
-    EditFieldHandlePtr editHandleRBeacon        (void);
-    GetFieldHandlePtr  getHandleQBeacon         (void) const;
-    EditFieldHandlePtr editHandleQBeacon        (void);
+    GetFieldHandlePtr  getHandleCullFace        (void) const;
+    EditFieldHandlePtr editHandleCullFace       (void);
+    GetFieldHandlePtr  getHandleFrontFace       (void) const;
+    EditFieldHandlePtr editHandleFrontFace      (void);
+    GetFieldHandlePtr  getHandleFrontMode       (void) const;
+    EditFieldHandlePtr editHandleFrontMode      (void);
+    GetFieldHandlePtr  getHandleBackMode        (void) const;
+    EditFieldHandlePtr editHandleBackMode       (void);
+    GetFieldHandlePtr  getHandleSmooth          (void) const;
+    EditFieldHandlePtr editHandleSmooth         (void);
+    GetFieldHandlePtr  getHandleOffsetFactor    (void) const;
+    EditFieldHandlePtr editHandleOffsetFactor   (void);
+    GetFieldHandlePtr  getHandleOffsetBias      (void) const;
+    EditFieldHandlePtr editHandleOffsetBias     (void);
+    GetFieldHandlePtr  getHandleOffsetPoint     (void) const;
+    EditFieldHandlePtr editHandleOffsetPoint    (void);
+    GetFieldHandlePtr  getHandleOffsetLine      (void) const;
+    EditFieldHandlePtr editHandleOffsetLine     (void);
+    GetFieldHandlePtr  getHandleOffsetFill      (void) const;
+    EditFieldHandlePtr editHandleOffsetFill     (void);
+    GetFieldHandlePtr  getHandleStipple         (void) const;
+    EditFieldHandlePtr editHandleStipple        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -425,7 +450,7 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      TexGenChunkBase *pFrom,
+            void execSync (      PolygonChunkBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -463,21 +488,21 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
   private:
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const TexGenChunkBase &source);
+    void operator =(const PolygonChunkBase &source);
 };
 
-typedef TexGenChunkBase *TexGenChunkBaseP;
+typedef PolygonChunkBase *PolygonChunkBaseP;
 
-/** Type specific RefPtr type for TexGenChunk. */
-typedef RefPtr<TexGenChunkPtr> TexGenChunkRefPtr;
+/** Type specific RefPtr type for PolygonChunk. */
+typedef RefPtr<PolygonChunkPtr> PolygonChunkRefPtr;
 
 typedef boost::mpl::if_<
-    boost::mpl::bool_<TexGenChunkBase::isNodeCore>,
-    CoredNodePtr<TexGenChunk>,
+    boost::mpl::bool_<PolygonChunkBase::isNodeCore>,
+    CoredNodePtr<PolygonChunk>,
     FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
-        TexGenChunkNodePtr;
+        PolygonChunkNodePtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGTEXGENCHUNKBASE_H_ */
+#endif /* _OSGPOLYGONCHUNKBASE_H_ */

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,29 +36,25 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGDEPTHCHUNK_H_
-#define _OSGDEPTHCHUNK_H_
+#ifndef _OSGTEXGENCHUNK_H_
+#define _OSGTEXGENCHUNK_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGDepthChunkBase.h"
+#include "OSGTexGenChunkBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief DepthChunk class. See \ref 
-    PageSystemDepthChunk for a description.
+/*! \brief State chunk for texture coordinate generation. See \ref 
+    PageSystemTexGenChunk for a description.
 */
 
-class OSG_STATE_DLLMAPPING DepthChunk : public DepthChunkBase
+class OSG_STATE_DLLMAPPING TexGenChunk : public TexGenChunkBase
 {
-  private:
-
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-    typedef DepthChunkBase Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */
@@ -80,7 +76,7 @@ class OSG_STATE_DLLMAPPING DepthChunk : public DepthChunkBase
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin,
+                         UInt32            from,
                          BitVector         details);
 
     /*! \}                                                                 */
@@ -93,25 +89,25 @@ class OSG_STATE_DLLMAPPING DepthChunk : public DepthChunkBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    State Commands                            */
+    /*! \name                       State                                  */
     /*! \{                                                                 */
 
     virtual void activate  (DrawEnv    *pEnv, 
                             UInt32      index = 0);
 
-    virtual void changeFrom(DrawEnv    *action, 
-                            StateChunk *old,
+    virtual void changeFrom(DrawEnv    *pEnv, 
+                            StateChunk *pOld,
                             UInt32      index = 0);
 
     virtual void deactivate(DrawEnv    *action, 
-                            UInt32      index = 0);
+                             UInt32     index = 0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Comparison                                 */
     /*! \{                                                                 */
 
-    virtual Real32 switchCost (StateChunk *chunk);
+    virtual Real32 switchCost(StateChunk *chunk);
 
     virtual bool   operator <  (const StateChunk &other) const;
 
@@ -123,21 +119,21 @@ class OSG_STATE_DLLMAPPING DepthChunk : public DepthChunkBase
 
   protected:
 
-    // Variables should all be in DepthChunkBase.
+    // Variables should all be in TexGenChunkBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    DepthChunk(void);
-    DepthChunk(const DepthChunk &source);
+    TexGenChunk(void);
+    TexGenChunk(const TexGenChunk &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DepthChunk(void); 
+    virtual ~TexGenChunk(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -151,21 +147,23 @@ class OSG_STATE_DLLMAPPING DepthChunk : public DepthChunkBase
 
   private:
 
+    typedef TexGenChunkBase Inherited;
+
     friend class FieldContainer;
-    friend class DepthChunkBase;
+    friend class TexGenChunkBase;
 
     // class. Used for indexing in State
     static StateChunkClass _class;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const DepthChunk &source);
+    void operator =(const TexGenChunk &source);
 };
 
-typedef DepthChunk *DepthChunkP;
+typedef TexGenChunk              *TexGenChunkP;
 
 OSG_END_NAMESPACE
 
-#include "OSGDepthChunkBase.inl"
-#include "OSGDepthChunk.inl"
+#include "OSGTexGenChunkBase.inl"
+#include "OSGTexGenChunk.inl"
 
-#endif /* _OSGDEPTHCHUNK_H_ */
+#endif /* _OSGTEXGENCHUNK_H_ */

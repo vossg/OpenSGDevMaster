@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGDrawableDef.h"
 
 #include "OSGSimpleMaterialFields.h"
 
@@ -75,7 +75,7 @@ OSG_GEN_CONTAINERPTR(SimpleTexturedMaterial);
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpDrawableFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -95,7 +95,7 @@ struct FieldTraits<SimpleTexturedMaterialPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
+    static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFSimpleTexturedMaterialPtr"; }
     static const char *getMName(void) { return "MFSimpleTexturedMaterialPtr"; }
@@ -111,14 +111,14 @@ struct FieldTraits<SimpleTexturedMaterialPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
+/*! \ingroup GrpDrawableFieldSingle */
 
 typedef SFieldAdaptor<SimpleTexturedMaterialPtr, SFFieldContainerPtr> SFSimpleTexturedMaterialPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
+/*! \ingroup GrpDrawableFieldMulti */
 
 typedef MFieldAdaptor<SimpleTexturedMaterialPtr, MFFieldContainerPtr> MFSimpleTexturedMaterialPtr;
 #endif

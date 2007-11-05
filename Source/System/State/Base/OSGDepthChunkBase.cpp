@@ -190,7 +190,7 @@ DepthChunkBase::TypeObject DepthChunkBase::_type(
     "<FieldContainer\n"
     "\tname=\"DepthChunk\"\n"
     "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"State\"\n"
+    "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"

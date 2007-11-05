@@ -317,7 +317,7 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     "<FieldContainer\n"
     "\tname=\"TexGenChunk\"\n"
     "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"System\"\n"
+    "\tlibrary=\"State\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"

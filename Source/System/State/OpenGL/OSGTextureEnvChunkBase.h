@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGStateDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -102,7 +102,7 @@ class TextureEnvChunk;
 
 //! \brief TextureEnvChunk Base Class.
 
-class OSG_SYSTEM_DLLMAPPING TextureEnvChunkBase : public StateChunk
+class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
 {
   public:
 

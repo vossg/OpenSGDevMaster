@@ -307,7 +307,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     "<FieldContainer\n"
     "\tname=\"PolygonChunk\"\n"
     "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"State\"\n"
+    "\tlibrary=\"System\"\n"
     "\tstructure=\"concrete\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tsystemcomponent=\"true\"\n"

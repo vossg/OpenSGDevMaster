@@ -48,7 +48,6 @@
 #include <OSGGL.h>
 
 #include <OSGState.h>
-#include <OSGDrawActionBase.h>
 #include <OSGMaterialDrawable.h>
 
 #include "OSGChunkMaterial.h"
@@ -249,7 +248,7 @@ void ChunkMaterial::clearChunks(void)
     _mfSlots .clear();
 }
 
-#ifdef OLD
+#ifdef OSG_OLD_RENDER_ACTION
 /*! Draw the MaterialDrawable with this material.
 */
 

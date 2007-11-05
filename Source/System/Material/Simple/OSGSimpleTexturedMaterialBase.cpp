@@ -208,7 +208,7 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(
     "<FieldContainer\n"
     "\tname=\"SimpleTexturedMaterial\"\n"
     "\tparent=\"SimpleMaterial\"\n"
-    "\tlibrary=\"System\"\n"
+    "\tlibrary=\"Drawable\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"

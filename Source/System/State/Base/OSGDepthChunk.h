@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,26 +36,29 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-
-#ifndef _OSGPOLYGONCHUNK_H_
-#define _OSGPOLYGONCHUNK_H_
+#ifndef _OSGDEPTHCHUNK_H_
+#define _OSGDEPTHCHUNK_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGPolygonChunkBase.h"
+#include "OSGDepthChunkBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief State chunk for polygon-specific modes. See \ref 
-    PageSystemPolygonChunk for a description.
+/*! \brief DepthChunk class. See \ref 
+    PageSystemDepthChunk for a description.
 */
 
-class OSG_STATE_DLLMAPPING PolygonChunk : public PolygonChunkBase
+class OSG_SYSTEM_DLLMAPPING DepthChunk : public DepthChunkBase
 {
+  private:
+
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+    typedef DepthChunkBase Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */
@@ -76,63 +79,65 @@ class OSG_STATE_DLLMAPPING PolygonChunk : public PolygonChunkBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField,
+    virtual void changed(ConstFieldMaskArg whichField, 
                          UInt32            origin,
                          BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Output                                  */
+    /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0,
-                      const BitVector bvFlags  = 0) const;
+    virtual void dump(      UInt32     uiIndent = 0, 
+                      const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       State                                  */
+    /*! \name                    State Commands                            */
     /*! \{                                                                 */
 
     virtual void activate  (DrawEnv    *pEnv, 
                             UInt32      index = 0);
 
-    virtual void changeFrom(DrawEnv    *pEnv, 
+    virtual void changeFrom(DrawEnv    *action, 
                             StateChunk *old,
                             UInt32      index = 0);
 
-    virtual void deactivate(DrawEnv    *pEnv, 
+    virtual void deactivate(DrawEnv    *action, 
                             UInt32      index = 0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Comparison                                */
+    /*! \name                   Comparison                                 */
     /*! \{                                                                 */
 
-    virtual Real32 switchCost (      StateChunk *chunk);
+    virtual Real32 switchCost (StateChunk *chunk);
 
-    virtual bool   operator < (const StateChunk &other) const;
+    virtual bool   operator <  (const StateChunk &other) const;
 
-    virtual bool   operator ==(const StateChunk &other) const;
-    virtual bool   operator !=(const StateChunk &other) const;
+    virtual bool   operator == (const StateChunk &other) const;
+    virtual bool   operator != (const StateChunk &other) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
+    // Variables should all be in DepthChunkBase.
+
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    PolygonChunk(void);
-    PolygonChunk(const PolygonChunk &source);
+    DepthChunk(void);
+    DepthChunk(const DepthChunk &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~PolygonChunk(void);
+    virtual ~DepthChunk(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -146,27 +151,21 @@ class OSG_STATE_DLLMAPPING PolygonChunk : public PolygonChunkBase
 
   private:
 
-    typedef PolygonChunkBase Inherited;
-
     friend class FieldContainer;
-    friend class PolygonChunkBase;
-
-    /*---------------------------------------------------------------------*/
+    friend class DepthChunkBase;
 
     // class. Used for indexing in State
     static StateChunkClass _class;
 
-    /*---------------------------------------------------------------------*/
-
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const PolygonChunk &source);
+    void operator =(const DepthChunk &source);
 };
 
-typedef PolygonChunk *PolygonChunkP;
+typedef DepthChunk *DepthChunkP;
 
 OSG_END_NAMESPACE
 
-#include "OSGPolygonChunkBase.inl"
-#include "OSGPolygonChunk.inl"
+#include "OSGDepthChunkBase.inl"
+#include "OSGDepthChunk.inl"
 
-#endif /* _OSGPOLYGONCHUNK_H_ */
+#endif /* _OSGDEPTHCHUNK_H_ */

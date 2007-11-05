@@ -48,14 +48,14 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGTEXGENCHUNKFIELDS_H_
-#define _OSGTEXGENCHUNKFIELDS_H_
+#ifndef _OSGTEXTUREENVCHUNKFIELDS_H_
+#define _OSGTEXTUREENVCHUNKFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGStateDef.h"
 
 #include "OSGStateChunkFields.h"
 
@@ -65,25 +65,25 @@
 
 OSG_BEGIN_NAMESPACE
 
-class TexGenChunk;
+class TextureEnvChunk;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TexGenChunkPtr
+//! TextureEnvChunkPtr
 
-OSG_GEN_CONTAINERPTR(TexGenChunk);
+OSG_GEN_CONTAINERPTR(TextureEnvChunk);
 
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpStateFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
 #endif
 
 template <>
-struct FieldTraits<TexGenChunkPtr> :
-    public FieldTraitsFCPtrBase<TexGenChunkPtr>
+struct FieldTraits<TextureEnvChunkPtr> :
+    public FieldTraitsFCPtrBase<TextureEnvChunkPtr>
 {
   private:
 
@@ -91,18 +91,18 @@ struct FieldTraits<TexGenChunkPtr> :
 
   public:
 
-    typedef FieldTraits<TexGenChunkPtr>  Self;
+    typedef FieldTraits<TextureEnvChunkPtr>  Self;
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
+    static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFTexGenChunkPtr"; }
-    static const char *getMName(void) { return "MFTexGenChunkPtr"; }
+    static const char *getSName(void) { return "SFTextureEnvChunkPtr"; }
+    static const char *getMName(void) { return "MFTextureEnvChunkPtr"; }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TexGenChunkPtr, 0>
+/*! \class  FieldTraitsTemplateBase<TextureEnvChunkPtr, 0>
     \hideinhierarchy
  */
 #endif
@@ -111,19 +111,19 @@ struct FieldTraits<TexGenChunkPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
+/*! \ingroup GrpStateFieldSingle */
 
-typedef SFieldAdaptor<TexGenChunkPtr, SFFieldContainerPtr> SFTexGenChunkPtr;
+typedef SFieldAdaptor<TextureEnvChunkPtr, SFFieldContainerPtr> SFTextureEnvChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
+/*! \ingroup GrpStateFieldMulti */
 
-typedef MFieldAdaptor<TexGenChunkPtr, MFFieldContainerPtr> MFTexGenChunkPtr;
+typedef MFieldAdaptor<TextureEnvChunkPtr, MFFieldContainerPtr> MFTextureEnvChunkPtr;
 #endif
 
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGTEXGENCHUNKFIELDS_H_ */
+#endif /* _OSGTEXTUREENVCHUNKFIELDS_H_ */

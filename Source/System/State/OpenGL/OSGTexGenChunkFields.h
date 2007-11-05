@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGDEPTHCHUNKFIELDS_H_
-#define _OSGDEPTHCHUNKFIELDS_H_
+#ifndef _OSGTEXGENCHUNKFIELDS_H_
+#define _OSGTEXGENCHUNKFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -65,12 +65,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-class DepthChunk;
+class TexGenChunk;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! DepthChunkPtr
+//! TexGenChunkPtr
 
-OSG_GEN_CONTAINERPTR(DepthChunk);
+OSG_GEN_CONTAINERPTR(TexGenChunk);
 
 #endif
 
@@ -82,8 +82,8 @@ OSG_GEN_CONTAINERPTR(DepthChunk);
 #endif
 
 template <>
-struct FieldTraits<DepthChunkPtr> :
-    public FieldTraitsFCPtrBase<DepthChunkPtr>
+struct FieldTraits<TexGenChunkPtr> :
+    public FieldTraitsFCPtrBase<TexGenChunkPtr>
 {
   private:
 
@@ -91,18 +91,18 @@ struct FieldTraits<DepthChunkPtr> :
 
   public:
 
-    typedef FieldTraits<DepthChunkPtr>  Self;
+    typedef FieldTraits<TexGenChunkPtr>  Self;
 
     enum                        { Convertible = NotConvertible };
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFDepthChunkPtr"; }
-    static const char *getMName(void) { return "MFDepthChunkPtr"; }
+    static const char *getSName(void) { return "SFTexGenChunkPtr"; }
+    static const char *getMName(void) { return "MFTexGenChunkPtr"; }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<DepthChunkPtr, 0>
+/*! \class  FieldTraitsTemplateBase<TexGenChunkPtr, 0>
     \hideinhierarchy
  */
 #endif
@@ -113,17 +113,17 @@ struct FieldTraits<DepthChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef SFieldAdaptor<DepthChunkPtr, SFFieldContainerPtr> SFDepthChunkPtr;
+typedef SFieldAdaptor<TexGenChunkPtr, SFFieldContainerPtr> SFTexGenChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef MFieldAdaptor<DepthChunkPtr, MFFieldContainerPtr> MFDepthChunkPtr;
+typedef MFieldAdaptor<TexGenChunkPtr, MFFieldContainerPtr> MFTexGenChunkPtr;
 #endif
 
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGDEPTHCHUNKFIELDS_H_ */
+#endif /* _OSGTEXGENCHUNKFIELDS_H_ */

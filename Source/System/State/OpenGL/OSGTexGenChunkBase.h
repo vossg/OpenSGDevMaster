@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class DepthChunk
+ **     class TexGenChunk
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGDEPTHCHUNKBASE_H_
-#define _OSGDEPTHCHUNKBASE_H_
+#ifndef _OSGTEXGENCHUNKBASE_H_
+#define _OSGTEXGENCHUNKBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -65,21 +65,28 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBoolFields.h" // Enable type
-#include "OSGGLenumFields.h" // Func type
-#include "OSGReal32Fields.h" // Near type
-#include "OSGReal32Fields.h" // Far type
-#include "OSGBoolFields.h" // ReadOnly type
+#include "OSGGLenumFields.h" // GenFuncS type
+#include "OSGGLenumFields.h" // GenFuncT type
+#include "OSGGLenumFields.h" // GenFuncR type
+#include "OSGGLenumFields.h" // GenFuncQ type
+#include "OSGVec4fFields.h" // GenFuncSPlane type
+#include "OSGVec4fFields.h" // GenFuncTPlane type
+#include "OSGVec4fFields.h" // GenFuncRPlane type
+#include "OSGVec4fFields.h" // GenFuncQPlane type
+#include "OSGNodeFields.h" // SBeacon type
+#include "OSGNodeFields.h" // TBeacon type
+#include "OSGNodeFields.h" // RBeacon type
+#include "OSGNodeFields.h" // QBeacon type
 
-#include "OSGDepthChunkFields.h"
+#include "OSGTexGenChunkFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class DepthChunk;
+class TexGenChunk;
 
-//! \brief DepthChunk Base Class.
+//! \brief TexGenChunk Base Class.
 
-class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
+class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
 {
   public:
 
@@ -89,7 +96,7 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(DepthChunk);
+    OSG_GEN_INTERNALPTR(TexGenChunk);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -97,24 +104,45 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
 
     enum
     {
-        EnableFieldId = Inherited::NextFieldId,
-        FuncFieldId = EnableFieldId + 1,
-        NearFieldId = FuncFieldId + 1,
-        FarFieldId = NearFieldId + 1,
-        ReadOnlyFieldId = FarFieldId + 1,
-        NextFieldId = ReadOnlyFieldId + 1
+        GenFuncSFieldId = Inherited::NextFieldId,
+        GenFuncTFieldId = GenFuncSFieldId + 1,
+        GenFuncRFieldId = GenFuncTFieldId + 1,
+        GenFuncQFieldId = GenFuncRFieldId + 1,
+        GenFuncSPlaneFieldId = GenFuncQFieldId + 1,
+        GenFuncTPlaneFieldId = GenFuncSPlaneFieldId + 1,
+        GenFuncRPlaneFieldId = GenFuncTPlaneFieldId + 1,
+        GenFuncQPlaneFieldId = GenFuncRPlaneFieldId + 1,
+        SBeaconFieldId = GenFuncQPlaneFieldId + 1,
+        TBeaconFieldId = SBeaconFieldId + 1,
+        RBeaconFieldId = TBeaconFieldId + 1,
+        QBeaconFieldId = RBeaconFieldId + 1,
+        NextFieldId = QBeaconFieldId + 1
     };
 
-    static const OSG::BitVector EnableFieldMask =
-        (TypeTraits<BitVector>::One << EnableFieldId);
-    static const OSG::BitVector FuncFieldMask =
-        (TypeTraits<BitVector>::One << FuncFieldId);
-    static const OSG::BitVector NearFieldMask =
-        (TypeTraits<BitVector>::One << NearFieldId);
-    static const OSG::BitVector FarFieldMask =
-        (TypeTraits<BitVector>::One << FarFieldId);
-    static const OSG::BitVector ReadOnlyFieldMask =
-        (TypeTraits<BitVector>::One << ReadOnlyFieldId);
+    static const OSG::BitVector GenFuncSFieldMask =
+        (TypeTraits<BitVector>::One << GenFuncSFieldId);
+    static const OSG::BitVector GenFuncTFieldMask =
+        (TypeTraits<BitVector>::One << GenFuncTFieldId);
+    static const OSG::BitVector GenFuncRFieldMask =
+        (TypeTraits<BitVector>::One << GenFuncRFieldId);
+    static const OSG::BitVector GenFuncQFieldMask =
+        (TypeTraits<BitVector>::One << GenFuncQFieldId);
+    static const OSG::BitVector GenFuncSPlaneFieldMask =
+        (TypeTraits<BitVector>::One << GenFuncSPlaneFieldId);
+    static const OSG::BitVector GenFuncTPlaneFieldMask =
+        (TypeTraits<BitVector>::One << GenFuncTPlaneFieldId);
+    static const OSG::BitVector GenFuncRPlaneFieldMask =
+        (TypeTraits<BitVector>::One << GenFuncRPlaneFieldId);
+    static const OSG::BitVector GenFuncQPlaneFieldMask =
+        (TypeTraits<BitVector>::One << GenFuncQPlaneFieldId);
+    static const OSG::BitVector SBeaconFieldMask =
+        (TypeTraits<BitVector>::One << SBeaconFieldId);
+    static const OSG::BitVector TBeaconFieldMask =
+        (TypeTraits<BitVector>::One << TBeaconFieldId);
+    static const OSG::BitVector RBeaconFieldMask =
+        (TypeTraits<BitVector>::One << RBeaconFieldId);
+    static const OSG::BitVector QBeaconFieldMask =
+        (TypeTraits<BitVector>::One << QBeaconFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -143,76 +171,136 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
 
 
 #ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFEnable          (void);
+                  SFGLenum            *getSFGenFuncS        (void);
 #endif
-                  SFBool              *editSFEnable         (void);
-            const SFBool              *getSFEnable          (void) const;
+                  SFGLenum            *editSFGenFuncS       (void);
+            const SFGLenum            *getSFGenFuncS        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFFunc            (void);
+                  SFGLenum            *getSFGenFuncT        (void);
 #endif
-                  SFGLenum            *editSFFunc           (void);
-            const SFGLenum            *getSFFunc            (void) const;
+                  SFGLenum            *editSFGenFuncT       (void);
+            const SFGLenum            *getSFGenFuncT        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFNear            (void);
+                  SFGLenum            *getSFGenFuncR        (void);
 #endif
-                  SFReal32            *editSFNear           (void);
-            const SFReal32            *getSFNear            (void) const;
+                  SFGLenum            *editSFGenFuncR       (void);
+            const SFGLenum            *getSFGenFuncR        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFFar             (void);
+                  SFGLenum            *getSFGenFuncQ        (void);
 #endif
-                  SFReal32            *editSFFar            (void);
-            const SFReal32            *getSFFar             (void) const;
+                  SFGLenum            *editSFGenFuncQ       (void);
+            const SFGLenum            *getSFGenFuncQ        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFReadOnly        (void);
+                  SFVec4f             *getSFGenFuncSPlane   (void);
 #endif
-                  SFBool              *editSFReadOnly       (void);
-            const SFBool              *getSFReadOnly        (void) const;
+                  SFVec4f             *editSFGenFuncSPlane  (void);
+            const SFVec4f             *getSFGenFuncSPlane   (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFVec4f             *getSFGenFuncTPlane   (void);
+#endif
+                  SFVec4f             *editSFGenFuncTPlane  (void);
+            const SFVec4f             *getSFGenFuncTPlane   (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFVec4f             *getSFGenFuncRPlane   (void);
+#endif
+                  SFVec4f             *editSFGenFuncRPlane  (void);
+            const SFVec4f             *getSFGenFuncRPlane   (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFVec4f             *getSFGenFuncQPlane   (void);
+#endif
+                  SFVec4f             *editSFGenFuncQPlane  (void);
+            const SFVec4f             *getSFGenFuncQPlane   (void) const;
+            const SFNodePtr           *getSFSBeacon         (void) const;
+            const SFNodePtr           *getSFTBeacon         (void) const;
+            const SFNodePtr           *getSFRBeacon         (void) const;
+            const SFNodePtr           *getSFQBeacon         (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
-                  bool                &getEnable          (void);
+                  GLenum              &getGenFuncS        (void);
 #endif
-                  bool                &editEnable         (void);
-            const bool                &getEnable          (void) const;
+                  GLenum              &editGenFuncS       (void);
+            const GLenum              &getGenFuncS        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  GLenum              &getFunc            (void);
+                  GLenum              &getGenFuncT        (void);
 #endif
-                  GLenum              &editFunc           (void);
-            const GLenum              &getFunc            (void) const;
+                  GLenum              &editGenFuncT       (void);
+            const GLenum              &getGenFuncT        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  Real32              &getNear            (void);
+                  GLenum              &getGenFuncR        (void);
 #endif
-                  Real32              &editNear           (void);
-            const Real32              &getNear            (void) const;
+                  GLenum              &editGenFuncR       (void);
+            const GLenum              &getGenFuncR        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  Real32              &getFar             (void);
+                  GLenum              &getGenFuncQ        (void);
 #endif
-                  Real32              &editFar            (void);
-            const Real32              &getFar             (void) const;
+                  GLenum              &editGenFuncQ       (void);
+            const GLenum              &getGenFuncQ        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  bool                &getReadOnly        (void);
+                  Vec4f               &getGenFuncSPlane   (void);
 #endif
-                  bool                &editReadOnly       (void);
-            const bool                &getReadOnly        (void) const;
+                  Vec4f               &editGenFuncSPlane  (void);
+            const Vec4f               &getGenFuncSPlane   (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  Vec4f               &getGenFuncTPlane   (void);
+#endif
+                  Vec4f               &editGenFuncTPlane  (void);
+            const Vec4f               &getGenFuncTPlane   (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  Vec4f               &getGenFuncRPlane   (void);
+#endif
+                  Vec4f               &editGenFuncRPlane  (void);
+            const Vec4f               &getGenFuncRPlane   (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  Vec4f               &getGenFuncQPlane   (void);
+#endif
+                  Vec4f               &editGenFuncQPlane  (void);
+            const Vec4f               &getGenFuncQPlane   (void) const;
+
+                  NodePtrConst getSBeacon        (void) const;
+
+                  NodePtrConst getTBeacon        (void) const;
+
+                  NodePtrConst getRBeacon        (void) const;
+
+                  NodePtrConst getQBeacon        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setEnable         (const bool &value);
-            void setFunc           (const GLenum &value);
-            void setNear           (const Real32 &value);
-            void setFar            (const Real32 &value);
-            void setReadOnly       (const bool &value);
+            void setGenFuncS       (const GLenum &value);
+            void setGenFuncT       (const GLenum &value);
+            void setGenFuncR       (const GLenum &value);
+            void setGenFuncQ       (const GLenum &value);
+            void setGenFuncSPlane  (const Vec4f &value);
+            void setGenFuncTPlane  (const Vec4f &value);
+            void setGenFuncRPlane  (const Vec4f &value);
+            void setGenFuncQPlane  (const Vec4f &value);
+            void setSBeacon        (NodePtrConstArg value);
+            void setTBeacon        (NodePtrConstArg value);
+            void setRBeacon        (NodePtrConstArg value);
+            void setQBeacon        (NodePtrConstArg value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -236,8 +324,8 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DepthChunkPtr create     (void);
-    static  DepthChunkPtr createEmpty(void);
+    static  TexGenChunkPtr create     (void);
+    static  TexGenChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -260,48 +348,70 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool            _sfEnable;
-    SFGLenum          _sfFunc;
-    SFReal32          _sfNear;
-    SFReal32          _sfFar;
-    SFBool            _sfReadOnly;
+    SFGLenum          _sfGenFuncS;
+    SFGLenum          _sfGenFuncT;
+    SFGLenum          _sfGenFuncR;
+    SFGLenum          _sfGenFuncQ;
+    SFVec4f           _sfGenFuncSPlane;
+    SFVec4f           _sfGenFuncTPlane;
+    SFVec4f           _sfGenFuncRPlane;
+    SFVec4f           _sfGenFuncQPlane;
+    SFNodePtr         _sfSBeacon;
+    SFNodePtr         _sfTBeacon;
+    SFNodePtr         _sfRBeacon;
+    SFNodePtr         _sfQBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    DepthChunkBase(void);
-    DepthChunkBase(const DepthChunkBase &source);
+    TexGenChunkBase(void);
+    TexGenChunkBase(const TexGenChunkBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DepthChunkBase(void);
+    virtual ~TexGenChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const TexGenChunk *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEnable          (void) const;
-    EditFieldHandlePtr editHandleEnable         (void);
-    GetFieldHandlePtr  getHandleFunc            (void) const;
-    EditFieldHandlePtr editHandleFunc           (void);
-    GetFieldHandlePtr  getHandleNear            (void) const;
-    EditFieldHandlePtr editHandleNear           (void);
-    GetFieldHandlePtr  getHandleFar             (void) const;
-    EditFieldHandlePtr editHandleFar            (void);
-    GetFieldHandlePtr  getHandleReadOnly        (void) const;
-    EditFieldHandlePtr editHandleReadOnly       (void);
+    GetFieldHandlePtr  getHandleGenFuncS        (void) const;
+    EditFieldHandlePtr editHandleGenFuncS       (void);
+    GetFieldHandlePtr  getHandleGenFuncT        (void) const;
+    EditFieldHandlePtr editHandleGenFuncT       (void);
+    GetFieldHandlePtr  getHandleGenFuncR        (void) const;
+    EditFieldHandlePtr editHandleGenFuncR       (void);
+    GetFieldHandlePtr  getHandleGenFuncQ        (void) const;
+    EditFieldHandlePtr editHandleGenFuncQ       (void);
+    GetFieldHandlePtr  getHandleGenFuncSPlane   (void) const;
+    EditFieldHandlePtr editHandleGenFuncSPlane  (void);
+    GetFieldHandlePtr  getHandleGenFuncTPlane   (void) const;
+    EditFieldHandlePtr editHandleGenFuncTPlane  (void);
+    GetFieldHandlePtr  getHandleGenFuncRPlane   (void) const;
+    EditFieldHandlePtr editHandleGenFuncRPlane  (void);
+    GetFieldHandlePtr  getHandleGenFuncQPlane   (void) const;
+    EditFieldHandlePtr editHandleGenFuncQPlane  (void);
+    GetFieldHandlePtr  getHandleSBeacon         (void) const;
+    EditFieldHandlePtr editHandleSBeacon        (void);
+    GetFieldHandlePtr  getHandleTBeacon         (void) const;
+    EditFieldHandlePtr editHandleTBeacon        (void);
+    GetFieldHandlePtr  getHandleRBeacon         (void) const;
+    EditFieldHandlePtr editHandleRBeacon        (void);
+    GetFieldHandlePtr  getHandleQBeacon         (void) const;
+    EditFieldHandlePtr editHandleQBeacon        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -315,7 +425,7 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      DepthChunkBase *pFrom,
+            void execSync (      TexGenChunkBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -353,21 +463,21 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
   private:
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const DepthChunkBase &source);
+    void operator =(const TexGenChunkBase &source);
 };
 
-typedef DepthChunkBase *DepthChunkBaseP;
+typedef TexGenChunkBase *TexGenChunkBaseP;
 
-/** Type specific RefPtr type for DepthChunk. */
-typedef RefPtr<DepthChunkPtr> DepthChunkRefPtr;
+/** Type specific RefPtr type for TexGenChunk. */
+typedef RefPtr<TexGenChunkPtr> TexGenChunkRefPtr;
 
 typedef boost::mpl::if_<
-    boost::mpl::bool_<DepthChunkBase::isNodeCore>,
-    CoredNodePtr<DepthChunk>,
+    boost::mpl::bool_<TexGenChunkBase::isNodeCore>,
+    CoredNodePtr<TexGenChunk>,
     FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
-        DepthChunkNodePtr;
+        TexGenChunkNodePtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGDEPTHCHUNKBASE_H_ */
+#endif /* _OSGTEXGENCHUNKBASE_H_ */

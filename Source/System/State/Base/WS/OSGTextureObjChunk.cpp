@@ -52,8 +52,6 @@
 #include <OSGGLEXT.h>
 #include <OSGImage.h>
 
-#include <OSGRenderTraversalActionBase.h>
-#include <OSGDrawActionBase.h>
 #include <OSGDrawEnv.h>
 
 #include <OSGTextureObjChunk.h>

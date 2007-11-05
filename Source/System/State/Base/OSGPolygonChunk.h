@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zghdv.de          *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -36,25 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTEXTUREENVCHUNK_H_
-#define _OSGTEXTUREENVCHUNK_H_
+
+#ifndef _OSGPOLYGONCHUNK_H_
+#define _OSGPOLYGONCHUNK_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-#include "OSGGLEXT.h"
-#include "OSGWindow.h"
-#include "OSGImage.h"
-#include "OSGTextureEnvChunkBase.h"
+#include "OSGPolygonChunkBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief State chunk for textures. See \ref PageSystemTextureEnvChunk 
-    for a description.
- */
+/*! \brief State chunk for polygon-specific modes. See \ref 
+    PageSystemPolygonChunk for a description.
+*/
 
-class OSG_SYSTEM_DLLMAPPING TextureEnvChunk : public TextureEnvChunkBase
+class OSG_SYSTEM_DLLMAPPING PolygonChunk : public PolygonChunkBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -73,11 +70,6 @@ class OSG_SYSTEM_DLLMAPPING TextureEnvChunk : public TextureEnvChunkBase
 
     static       UInt32           getStaticClassId(void);
     static const StateChunkClass *getStaticClass  (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Chunk Id                                  */
-    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -101,51 +93,27 @@ class OSG_SYSTEM_DLLMAPPING TextureEnvChunk : public TextureEnvChunkBase
     /*! \name                       State                                  */
     /*! \{                                                                 */
 
-    virtual void activate   (DrawEnv    *pEnv, 
-                             UInt32      index = 0);
+    virtual void activate  (DrawEnv    *pEnv, 
+                            UInt32      index = 0);
 
-    virtual void changeFrom (DrawEnv    *pEnv, 
-                             StateChunk *pOld,
-                             UInt32      index = 0);
+    virtual void changeFrom(DrawEnv    *pEnv, 
+                            StateChunk *old,
+                            UInt32      index = 0);
 
-    virtual void deactivate (DrawEnv    *pEnv, 
-                             UInt32      index = 0);
-
-    virtual bool isTransparent (void) const;
+    virtual void deactivate(DrawEnv    *pEnv, 
+                            UInt32      index = 0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       query                                  */
+    /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-    //GLenum determineTextureTarget(Window *pWindow) const;
+    virtual Real32 switchCost (      StateChunk *chunk);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Comparison                                 */
-    /*! \{                                                                 */
+    virtual bool   operator < (const StateChunk &other) const;
 
-    virtual Real32 switchCost(StateChunk * chunk);
-
-    virtual bool   operator <  (const StateChunk &other) const;
-
-    virtual bool   operator == (const StateChunk &other) const;
-    virtual bool   operator != (const StateChunk &other) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Texture specific                              */
-    /*! \{                                                                 */
-
-    void setShaderOffsetMatrix(Real32 m11, 
-                               Real32 m12, 
-                               Real32 m21, 
-                               Real32 m22);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name             Multitexture handling                            */
-    /*! \{                                                                 */
+    virtual bool   operator ==(const StateChunk &other) const;
+    virtual bool   operator !=(const StateChunk &other) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -153,27 +121,18 @@ class OSG_SYSTEM_DLLMAPPING TextureEnvChunk : public TextureEnvChunkBase
   protected:
 
     /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
-    /*! \{                                                                 */
-
-    void onCreate      (const TextureEnvChunk *source      = NULL);
-    void onCreateAspect(const TextureEnvChunk *createAspect,
-                        const TextureEnvChunk *source      = NULL);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    TextureEnvChunk(void);
-    TextureEnvChunk(const TextureEnvChunk &source);
+    PolygonChunk(void);
+    PolygonChunk(const PolygonChunk &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureEnvChunk(void);
+    virtual ~PolygonChunk(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -183,42 +142,31 @@ class OSG_SYSTEM_DLLMAPPING TextureEnvChunk : public TextureEnvChunkBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                         GL                                   */
-    /*! \{                                                                 */
-
-    static UInt32 _nvPointSprite;
-    static UInt32 _nvTextureShader;
-    static UInt32 _nvTextureShader2;
-    static UInt32 _nvTextureShader3;
-    static UInt32 _extTextureLodBias;
-
-    void handleTextureShader(Window *win, GLenum bindtarget);
-
-    /*! \}                                                                 */ 
-
-    // class. Used for indexing in State
-    // protected to give CubeTextureChunk access
-    static StateChunkClass _class;
-
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    typedef TextureEnvChunkBase Inherited;
+    typedef PolygonChunkBase Inherited;
 
     friend class FieldContainer;
-    friend class TextureEnvChunkBase;
+    friend class PolygonChunkBase;
+
+    /*---------------------------------------------------------------------*/
+
+    // class. Used for indexing in State
+    static StateChunkClass _class;
+
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const TextureEnvChunk &source);
+    void operator =(const PolygonChunk &source);
 };
 
-typedef TextureEnvChunk *TextureEnvChunkP;
+typedef PolygonChunk *PolygonChunkP;
 
 OSG_END_NAMESPACE
 
-#include "OSGTextureEnvChunkBase.inl"
-#include "OSGTextureEnvChunk.inl"
+#include "OSGPolygonChunkBase.inl"
+#include "OSGPolygonChunk.inl"
 
-#endif /* _OSGTEXTUREENVCHUNK_H_ */
+#endif /* _OSGPOLYGONCHUNK_H_ */

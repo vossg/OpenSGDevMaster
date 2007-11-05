@@ -52,7 +52,6 @@
 #include <OSGGLEXT.h>
 #include <OSGImage.h>
 
-#include "OSGDrawActionBase.h"
 #include "OSGDrawEnv.h"
 
 #include "OSGTextureSelectChunk.h"

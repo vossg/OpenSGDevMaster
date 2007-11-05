@@ -48,14 +48,14 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGPOLYGONCHUNKFIELDS_H_
-#define _OSGPOLYGONCHUNKFIELDS_H_
+#ifndef _OSGDEPTHCHUNKFIELDS_H_
+#define _OSGDEPTHCHUNKFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGConfig.h"
-#include "OSGStateDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGStateChunkFields.h"
 
@@ -65,25 +65,25 @@
 
 OSG_BEGIN_NAMESPACE
 
-class PolygonChunk;
+class DepthChunk;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! PolygonChunkPtr
+//! DepthChunkPtr
 
-OSG_GEN_CONTAINERPTR(PolygonChunk);
+OSG_GEN_CONTAINERPTR(DepthChunk);
 
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpSystemFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
 #endif
 
 template <>
-struct FieldTraits<PolygonChunkPtr> :
-    public FieldTraitsFCPtrBase<PolygonChunkPtr>
+struct FieldTraits<DepthChunkPtr> :
+    public FieldTraitsFCPtrBase<DepthChunkPtr>
 {
   private:
 
@@ -91,18 +91,18 @@ struct FieldTraits<PolygonChunkPtr> :
 
   public:
 
-    typedef FieldTraits<PolygonChunkPtr>  Self;
+    typedef FieldTraits<DepthChunkPtr>  Self;
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING DataType &getType(void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFPolygonChunkPtr"; }
-    static const char *getMName(void) { return "MFPolygonChunkPtr"; }
+    static const char *getSName(void) { return "SFDepthChunkPtr"; }
+    static const char *getMName(void) { return "MFDepthChunkPtr"; }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<PolygonChunkPtr, 0>
+/*! \class  FieldTraitsTemplateBase<DepthChunkPtr, 0>
     \hideinhierarchy
  */
 #endif
@@ -111,19 +111,19 @@ struct FieldTraits<PolygonChunkPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
+/*! \ingroup GrpSystemFieldSingle */
 
-typedef SFieldAdaptor<PolygonChunkPtr, SFFieldContainerPtr> SFPolygonChunkPtr;
+typedef SFieldAdaptor<DepthChunkPtr, SFFieldContainerPtr> SFDepthChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
+/*! \ingroup GrpSystemFieldMulti */
 
-typedef MFieldAdaptor<PolygonChunkPtr, MFFieldContainerPtr> MFPolygonChunkPtr;
+typedef MFieldAdaptor<DepthChunkPtr, MFFieldContainerPtr> MFDepthChunkPtr;
 #endif
 
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGPOLYGONCHUNKFIELDS_H_ */
+#endif /* _OSGDEPTHCHUNKFIELDS_H_ */

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGDrawableDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -79,7 +79,7 @@ class SimpleTexturedMaterial;
 
 //! \brief SimpleTexturedMaterial Base Class.
 
-class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
+class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
 {
   public:
 

@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
     PageSystemMaterialTexturedSimpleMaterial for a description.
  */
 
-class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterial : 
+class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterial : 
     public SimpleTexturedMaterialBase
 {
     /*==========================  PUBLIC  =================================*/
