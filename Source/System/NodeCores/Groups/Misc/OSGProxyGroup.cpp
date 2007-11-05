@@ -227,6 +227,7 @@ ActionBase::ResultE ProxyGroup::render(Action *action)
 
 ActionBase::ResultE ProxyGroup::render(Action *action)
 {
+    return Action::Continue;
 }
 
 /*-------------------------------------------------------------------------*/
