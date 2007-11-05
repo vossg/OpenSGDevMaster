@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGStateDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -78,7 +78,7 @@ class ColorMaskChunk;
 
 //! \brief ColorMaskChunk Base Class.
 
-class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
+class OSG_SYSTEM_DLLMAPPING ColorMaskChunkBase : public StateChunk
 {
   public:
 

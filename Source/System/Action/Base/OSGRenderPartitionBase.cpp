@@ -104,10 +104,4 @@ RenderPartitionBase::~RenderPartitionBase(void)
 
 /*------------------------------ access -----------------------------------*/
 
-#ifdef WIN32
-__declspec(dllexport)
-void dummyTav(void)
-{
-}
-#endif
 

@@ -73,12 +73,6 @@
 #include "vtkCellData.h"
 #endif
 
-#define USE_RENDER_TRAVERSAL
-
-#ifdef USE_RENDER_TRAVERSAL
-#include "OSGRenderTraversalAction.h"
-#endif
-
 #include <typeinfo>
 
 OSG_USING_NAMESPACE
@@ -635,16 +629,12 @@ void VTKMapper::resolveLinks(void)
 
 ActionBase::ResultE VTKMapper::renderEnter(Action *action)
 {
-#ifdef USE_RENDER_TRAVERSAL
-    RenderTraversalAction *pRTAction = 
-        dynamic_cast<RenderTraversalAction *>(action);
-#endif
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
     
     this->execute();
 
 
-    if(pAction == NULL && pRTAction == NULL)
+    if(pAction == NULL)
         return ActionBase::Skip;
 
     if(pAction!= NULL)
@@ -656,27 +646,13 @@ ActionBase::ResultE VTKMapper::renderEnter(Action *action)
             pAction->addNode(_sfRoot.getValue());
         }
     }
-    else if(pRTAction!= NULL)
-    {
-        pRTAction->useNodeList();
-
-//    if(pAction->isVisible(getCPtr(_sfRoot.getValue())))
-        {
-            pRTAction->addNode(_sfRoot.getValue());
-        }
-    }
 
     return ActionBase::Continue;
 }
 
 ActionBase::ResultE VTKMapper::renderLeave(Action *action)
 {
-#ifdef USE_RENDER_TRAVERSAL
-    RenderTraversalAction *pAction = 
-        dynamic_cast<RenderTraversalAction *>(action);
-#else
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
-#endif
 
     return ActionBase::Continue;
 }
@@ -752,24 +728,5 @@ void VTKMapper::initMethod(InitPhase ePhase)
         RenderAction::registerLeaveDefault(
             getClassType(), 
             reinterpret_cast<Action::Callback>(&VTKMapper::renderLeave));
-
-
-#ifdef USE_RENDER_TRAVERSAL
-        RenderTraversalAction::registerEnterDefault(
-            getClassType(), 
-            reinterpret_cast<Action::Callback>(&VTKMapper::renderEnter));
-        
-        RenderTraversalAction::registerLeaveDefault(
-            getClassType(), 
-            reinterpret_cast<Action::Callback>(&VTKMapper::renderLeave));
-#else
-        RenderAction::registerEnterDefault(
-            getClassType(), 
-            reinterpret_cast<Action::Callback>(&VTKMapper::renderEnter));
-        
-        RenderAction::registerLeaveDefault(
-            getClassType(), 
-            reinterpret_cast<Action::Callback>(&VTKMapper::renderLeave));
-#endif
     }
 }

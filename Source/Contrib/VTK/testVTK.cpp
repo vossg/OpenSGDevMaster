@@ -15,7 +15,7 @@
 #include <OSGThread.h>
 #include <OSGTransform.h>
 #include <OSGAction.h>
-#include <OSGRenderTraversalAction.h>
+#include <OSGRenderAction.h>
 #include <OSGSimpleGeometry.h>
 #include <OSGSceneFileHandler.h>
 #include <OSGMaterialGroup.h>
@@ -55,7 +55,7 @@ using namespace OSG;
 
 
 
-RenderTraversalAction *renact;
+RenderAction *renact;
 
 NodePtr  root;
 
@@ -937,7 +937,7 @@ int main (int argc, char **argv)
 
     // Action
     
-    renact = RenderTraversalAction::create();
+    renact = RenderAction::create();
 
     // tball
 

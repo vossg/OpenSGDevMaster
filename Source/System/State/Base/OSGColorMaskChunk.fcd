@@ -3,7 +3,7 @@
 <FieldContainer
 	name="ColorMaskChunk"
 	parent="StateChunk"
-	library="State"
+	library="System"
 	pointerfieldtypes="both"
 	structure="concrete"
 	systemcomponent="true"

@@ -114,7 +114,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
 #ifdef OSG_OLD_RENDER_ACTION
     virtual DrawActionBase        *getAction          ( void );
 #endif
-    virtual RenderAction *getRenderAction( void );
+    virtual RenderAction          *getRenderAction    ( void );
     virtual Navigator             *getNavigator       ( void );
     virtual bool                   getHeadlightState  ( void );
     virtual DirectionalLightPtr    getHeadlight       ( void );

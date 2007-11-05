@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
     PageSystemColorMaskChunk for a description.
 */
 
-class OSG_STATE_DLLMAPPING ColorMaskChunk : public ColorMaskChunkBase
+class OSG_SYSTEM_DLLMAPPING ColorMaskChunk : public ColorMaskChunkBase
 {
   private:
 

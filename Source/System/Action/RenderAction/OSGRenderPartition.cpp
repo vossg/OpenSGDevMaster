@@ -1060,11 +1060,3 @@ const Matrix &RenderPartition::topMatrix(void)
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */
-
-#ifdef WIN32
-__declspec(dllexport)
-void dummyTav(void)
-{
-}
-#endif
-
