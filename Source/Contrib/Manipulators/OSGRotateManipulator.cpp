@@ -78,19 +78,23 @@ void RotateManipulator::initMethod(InitPhase ePhase)
     {
         IntersectAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&RotateManipulator::intersectEnter));
+            reinterpret_cast<Action::Callback>(
+                &RotateManipulator::intersectEnter));
 
         IntersectAction::registerLeaveDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&RotateManipulator::intersectLeave));
+            reinterpret_cast<Action::Callback>(
+                &RotateManipulator::intersectLeave));
 
         RenderAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&RotateManipulator::renderEnter));
+            reinterpret_cast<Action::Callback>(
+                &RotateManipulator::renderEnter));
 
         RenderAction::registerLeaveDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&RotateManipulator::renderLeave));
+            reinterpret_cast<Action::Callback>(
+                &RotateManipulator::renderLeave));
     }
 }
 

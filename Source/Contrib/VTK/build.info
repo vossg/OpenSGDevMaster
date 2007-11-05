@@ -10,7 +10,7 @@ else:
    else:
       library = "OSGContribVTK"
       osg_dep_libs = ['OSGBase', 'OSGSystem', 
-                      'OSGDrawable', 'OSGRenderTraversal']
+                      'OSGDrawable']
 
       for lib in vtk_option.library:
          libs.append(lib)
@@ -23,7 +23,7 @@ else:
          
       # Tests' dependencies
       osg_test_libs = [ 'OSGGroup','OSGDrawable', 'OSGState', 
-                        'OSGFileIO', 'OSGText', 'OSGRenderTraversal',
+                        'OSGFileIO', 'OSGText',
                         'OSGUtil', 'OSGWindowGLUT', 'OSGCluster' ]   
       test_cpppath = []
       test_libpath = []

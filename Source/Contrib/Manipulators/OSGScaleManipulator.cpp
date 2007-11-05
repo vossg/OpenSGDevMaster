@@ -78,11 +78,13 @@ void ScaleManipulator::initMethod(InitPhase ePhase)
     {
         IntersectAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&ScaleManipulator::intersectEnter));
+            reinterpret_cast<Action::Callback>(
+                &ScaleManipulator::intersectEnter));
 
         IntersectAction::registerLeaveDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&ScaleManipulator::intersectLeave));
+            reinterpret_cast<Action::Callback>(
+                &ScaleManipulator::intersectLeave));
 
         RenderAction::registerEnterDefault(
             getClassType(),

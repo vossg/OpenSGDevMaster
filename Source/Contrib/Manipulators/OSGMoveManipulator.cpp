@@ -78,11 +78,13 @@ void MoveManipulator::initMethod(InitPhase ePhase)
     {
         IntersectAction::registerEnterDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&MoveManipulator::intersectEnter));
+            reinterpret_cast<Action::Callback>(
+                &MoveManipulator::intersectEnter));
 
         IntersectAction::registerLeaveDefault(
             getClassType(),
-            reinterpret_cast<Action::Callback>(&MoveManipulator::intersectLeave));
+            reinterpret_cast<Action::Callback>(
+                &MoveManipulator::intersectLeave));
 
         RenderAction::registerEnterDefault(
             getClassType(),
