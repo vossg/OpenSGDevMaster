@@ -574,11 +574,16 @@ void updateScene()
     matChunk->setSpecular(Color4f(0.f, 0.f, 0.f, 1.f));
     matChunk->setShininess(0);
 
+    BlendChunkPtr blendChunk = BlendChunk::create();
+    blendChunk->setSrcFactor(GL_SRC_ALPHA);
+    blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
     ChunkMaterialPtr m = ChunkMaterial::create();
     m->addChunk(texObjChunk);
     m->addChunk(texEnvChunk);
     m->addChunk(texTransChunk);
     m->addChunk(matChunk);
+    m->addChunk(blendChunk);
 
     geo->setMaterial(m);
 
@@ -660,8 +665,6 @@ int main(int argc, char **argv)
 // redraw the window
 void display( void )
 {
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     mgr->redraw();
 }
 
