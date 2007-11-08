@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGStateDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGStateChunkFields.h"
 
@@ -75,7 +75,7 @@ OSG_GEN_CONTAINERPTR(ColorMaskChunk);
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpSystemFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -95,7 +95,7 @@ struct FieldTraits<ColorMaskChunkPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING DataType &getType(void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFColorMaskChunkPtr"; }
     static const char *getMName(void) { return "MFColorMaskChunkPtr"; }
@@ -111,14 +111,14 @@ struct FieldTraits<ColorMaskChunkPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
+/*! \ingroup GrpSystemFieldSingle */
 
 typedef SFieldAdaptor<ColorMaskChunkPtr, SFFieldContainerPtr> SFColorMaskChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
+/*! \ingroup GrpSystemFieldMulti */
 
 typedef MFieldAdaptor<ColorMaskChunkPtr, MFFieldContainerPtr> MFColorMaskChunkPtr;
 #endif

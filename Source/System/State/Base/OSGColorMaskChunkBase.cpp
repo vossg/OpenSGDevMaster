@@ -168,7 +168,7 @@ ColorMaskChunkBase::TypeObject ColorMaskChunkBase::_type(
     "<FieldContainer\n"
     "\tname=\"ColorMaskChunk\"\n"
     "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"State\"\n"
+    "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"
