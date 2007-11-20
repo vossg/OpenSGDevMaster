@@ -1319,6 +1319,81 @@ struct TypeTraits<Real128> : public TypeTraitsTemplateBase<Real128>
 };
 
 
+#ifdef SIZE_T_NEQ_UINT32
+
+/*! \ingroup GrpBaseBaseBaseTypeTraits
+ */
+
+template <>
+struct TypeTraits<size_t> : public TypeTraitsTemplateBase<size_t>
+{
+    typedef       Real32                RealReturnType;
+
+
+    static const  bool               IsPOD       = true;
+    static const  MathTypeProperties MathProp    = IntValue;
+
+    static const  UInt32             BitsSet     = 0xFFFFFFFF;
+    static const  UInt32             BitsClear   = 0x00000000;
+
+
+    static        size_t             getZeroElement(void)
+    {
+        return 0;
+    }
+
+    static        size_t             getOneElement (void)
+    {
+        return 1;
+    }
+
+    static        size_t             getMax        (void) 
+    { 
+        return std::numeric_limits<size_t>::max();
+    }
+
+    static        size_t             getMin        (void)
+    {
+        return std::numeric_limits<size_t>::min();
+    }
+
+
+    static size_t      getFromCString(const Char8 * pData,
+                                            Char8 *&pDataEnd)
+    {
+        if(pData != NULL)
+        {
+            return size_t(strtoul(pData, &pDataEnd, 0));
+        }
+        else
+        {
+            return getZeroElement();
+        }
+    }
+
+
+    static size_t      getFromCString(const Char8 *pData)
+    {
+        Char8 *pDataEnd;
+
+        return getFromCString(pData, pDataEnd);
+    }
+
+
+    static void putToString  (const size_t       val,
+                                    std::string &out)
+    {
+        Char8 buffer[15];
+
+        sprintf(buffer, "%u", val);
+
+        out.append(buffer);
+    }
+};
+
+#endif
+
+
 #ifdef OSG_GLENUM_NEQ_UINT32
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits

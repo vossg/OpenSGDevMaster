@@ -640,7 +640,9 @@
 # define OSG_LINUX_TYPES
 # define OSG_NO_CONCEPT_CHECKS 
 # define SIZE_T_NEQ_UINT32
-# define OSG_GLENUM_NEQ_UINT32
+# if (__APPLE_CC__ <= 5370)
+#  define OSG_GLENUM_NEQ_UINT32
+# endif
 
 # define OSG_USE_PTHREADS
 

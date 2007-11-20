@@ -68,7 +68,11 @@ typedef void (APIENTRY *OSGGLUfuncptr)();
 typedef void (*OSGGLUfuncptr)();
 #  endif
 #elif defined(__APPLE__)
-typedef GLvoid (*OSGGLUfuncptr)(...);
+# if (__APPLE_CC__ <= 5370)
+   typedef GLvoid (*OSGGLUfuncptr)(...);
+# else
+   typedef GLvoid (*OSGGLUfuncptr)();
+# endif
 #else
 typedef void (*OSGGLUfuncptr)();
 #endif

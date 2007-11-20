@@ -375,7 +375,7 @@ int main (int argc, char **argv)
         (CGLPixelFormatAttribute)0
     };
     CGLPixelFormatObj pixelFormatObj;
-    long numPixelFormats;
+    GLint numPixelFormats;
     CGLChoosePixelFormat(attribs, &pixelFormatObj, &numPixelFormats); 
 
     CGLContextObj contextObj;

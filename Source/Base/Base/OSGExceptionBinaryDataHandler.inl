@@ -178,7 +178,7 @@ void ExceptionBinaryDataHandler::putValue(const std::string &value)
     }
 }
 
-#ifdef __APPLE__
+#ifdef OSG_GLENUM_NEQ_UINT32
 inline 
 void ExceptionBinaryDataHandler::putValue(const GLenum &value)
 {
@@ -429,7 +429,7 @@ void ExceptionBinaryDataHandler::putValues(const std::string *value,
     }
 }
 
-#ifdef __APPLE__
+#ifdef OSG_GLENUM_NEQ_UINT32
 inline 
 void ExceptionBinaryDataHandler::putValues(const GLenum *value, UInt32 size)
 {
@@ -592,7 +592,7 @@ void ExceptionBinaryDataHandler::getValue(std::string &value) throw (ReadError)
     }
 }
 
-#ifdef __APPLE__
+#ifdef OSG_GLENUM_NEQ_UINT32
 inline
 void ExceptionBinaryDataHandler::getValue(GLenum &value) throw (ReadError)
 {
@@ -826,7 +826,7 @@ void
     }
 }
 
-#ifdef __APPLE__
+#ifdef OSG_GLENUM_NEQ_UINT32
 inline 
 void ExceptionBinaryDataHandler::getValues(GLenum *value, 
                                            UInt32  size ) throw (ReadError)
