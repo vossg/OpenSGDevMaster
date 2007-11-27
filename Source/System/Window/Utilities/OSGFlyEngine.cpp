@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000,2001 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -41,7 +41,11 @@
 #include "OSGMatrix.h"
 #include "OSGMatrixUtility.h"
 
-#include "OSGFlyNavigator.h"
+#include "OSGFlyEngine.h"
+
+#include "OSGNode.h"
+#include "OSGCamera.h"
+#include "OSGBackground.h"
 
 OSG_USING_NAMESPACE
 
@@ -49,38 +53,37 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::FlyNavigator
+/*! \class OSG::FlyEngine
     \ingroup GrpSystemWindowNavigators
 
-The FlyNavigator models a simple flying navigation model, see \ref 
+The FlyEngine models a simple flying navigation model, see \ref 
 PageSystemWindowNavigatorsFly for a description.
 
 */
 
-/*! \var OSG::FlyNavigator::_rFrom
+/*! \var OSG::FlyEngine::_rFrom
 
     The from point, i.e. the viewer position.
 */
 
-/*! \var OSG::FlyNavigator::_rAt
+/*! \var OSG::FlyEngine::_rAt
 
     The at point, i.e. the target position.
 */
 
-/*! \var OSG::FlyNavigator::_vUp
+/*! \var OSG::FlyEngine::_vUp
 
     The up vector.
 */
 
-/*! \var OSG::FlyNavigator::_tMatrix
+/*! \var OSG::FlyEngine::_tMatrix
 
     The transformation matrix for this navigator.
 */
 
-
 /*------------------------- constructors ----------------------------------*/
 
-FlyNavigator::FlyNavigator()
+FlyEngine::FlyEngine(void) : Inherited()
 {
     _rFrom  .setValues(0,0,0);
     _rAt    .setValues(0,0,1);
@@ -88,72 +91,78 @@ FlyNavigator::FlyNavigator()
     _tMatrix.setIdentity();
 }
 
-
 /*-------------------------- destructors ----------------------------------*/
 
-FlyNavigator::~FlyNavigator()
+FlyEngine::~FlyEngine()
 {
 }
 
 /*------------------------------ get --------------------------------------*/
 
-/*! Get the current transformation matrix.
-*/
-Matrix &FlyNavigator::getMatrix()
-{
-    MatrixLookAt(_tMatrix,_rFrom,_rAt,_vUp);
-    return _tMatrix;
-}
-
 /*! Get the from point.
 */
-Pnt3f &FlyNavigator::getFrom()
+const Pnt3f &FlyEngine::getFrom()
 {
     return _rFrom;
 }
 
 /*! Get the at point.
 */
-Pnt3f &FlyNavigator::getAt()
+const Pnt3f &FlyEngine::getAt()
 {
     return _rAt;
 }
 
 /*! Get the up vector.
 */
-Vec3f &FlyNavigator::getUp()
+const Vec3f &FlyEngine::getUp()
 {
     return _vUp;
 }
 
+/*! Get the current transformation matrix.
+*/
+const Matrix &FlyEngine::getMatrix()
+{
+    MatrixLookAt(_tMatrix,_rFrom,_rAt,_vUp);
+    return _tMatrix;
+}
+
+/*! Not needed by FlyEngine!!!
+*/
+// FIXME: remove getDistance() from NavigatorEngine???
+Real32 FlyEngine::getDistance()
+{
+    return 0.0f;
+}
 
 /*------------------------------ set --------------------------------------*/
 
 /*! Set the from point, the point where the viewer is (i.e the center 
     of all transformations).
 */
-void FlyNavigator::setFrom(Pnt3f new_from)
+void FlyEngine::setFrom(Pnt3f new_from)
 {
     _rFrom=new_from;
 }
 
 /*! Sets the target point at which the viewer is looking.
 */
-void FlyNavigator::setAt(Pnt3f new_At)
+void FlyEngine::setAt(Pnt3f new_At)
 {
     _rAt=new_At;
 }
 
 /*! Sets the up vector, i.e. the direction that point up on the screen.
 */
-void FlyNavigator::setUp(Vec3f new_up)
+void FlyEngine::setUp(Vec3f new_up)
 {
     _vUp=new_up;
 }
 
 /*! Set the position and the orientation at once.
 */
-void FlyNavigator::set(Pnt3f new_from,Pnt3f new_At,Vec3f new_up)
+void FlyEngine::set(Pnt3f new_from,Pnt3f new_At,Vec3f new_up)
 {
     _rFrom=new_from;
     _rAt=new_At;
@@ -162,7 +171,7 @@ void FlyNavigator::set(Pnt3f new_from,Pnt3f new_At,Vec3f new_up)
 
 /*! Set the position and the orientation at once using a matrix.
 */
-void FlyNavigator::set(Matrix new_matrix)
+void FlyEngine::set(const Matrix& new_matrix)
 {
     _rFrom= (Pnt3f) new_matrix[3];
     _rAt  = (Pnt3f)(new_matrix[3] - new_matrix[2]);
@@ -170,12 +179,116 @@ void FlyNavigator::set(Matrix new_matrix)
     set(_rFrom, _rAt, _vUp);
 }
 
+/*! Moves \var dist steps forward
+*/
+void FlyEngine::setDistance(Real32 dist)
+{
+    forward(dist);
+}
+
+/*---------------------- navigator engine callbacks ------------------------*/
+
+void FlyEngine::buttonPress(Int16 button, Int16 x, Int16 y, Navigator* nav)
+{
+    switch (button)
+    {
+        case Navigator::LEFT_MOUSE:  
+            _currentState = Navigator::TRANSLATING_ZPLUS;
+            break;                            
+        case Navigator::MIDDLE_MOUSE:
+            _currentState = Navigator::ROTATING;           
+            break;          
+        case Navigator::RIGHT_MOUSE:  
+            _currentState = Navigator::TRANSLATING_ZMINUS; 
+            break;
+        case Navigator::UP_MOUSE:  
+            _currentState = Navigator::IDLE;
+            forward(-nav->getMotionFactor());
+            break;
+        case Navigator::DOWN_MOUSE:
+            _currentState = Navigator::IDLE;
+            forward(nav->getMotionFactor());
+            break;
+        default:
+            FNOTICE(("FlyEngine: buttonPress, unknown button\n"));
+            break;
+    }
+}
+
+void FlyEngine::buttonRelease(Int16 button, Int16 x,Int16 y,Navigator* nav)
+{
+    _currentState = Navigator::IDLE;
+}
+
+void FlyEngine::keyPress(Int16 key, Int16 x,Int16 y,Navigator* nav)
+{
+    switch (key)
+    {
+        case Navigator::LEFTROT:
+            rotate(-nav->getRotationAngle(), 0);
+            break;
+        case Navigator::RIGHTROT:
+            rotate(nav->getRotationAngle(), 0);
+            break;
+        case Navigator::LEFT:
+            right(nav->getMotionFactor());
+            break;
+        case Navigator::RIGHT:
+            right(-nav->getMotionFactor());
+            break;
+        case Navigator::FORWARDS:
+            forward(-nav->getMotionFactor());
+            break;
+        case Navigator::BACKWARDS:
+            forward( nav->getMotionFactor());
+            break;
+        default:
+            FNOTICE(("FlyEngine: keyPress, unknown key\n"));
+            break;
+    }
+}
+
+void FlyEngine::moveTo(Int16 x,Int16 y,Navigator* nav)
+{
+    Real32 fromX,fromY, toX,toY;  
+
+    nav->calcFromTo(x,y, fromX,fromY, toX,toY);
+
+    Real32 distanceX = -(fromX-toX);
+    Real32 distanceY =  (fromY-toY);
+    rotate(distanceX, distanceY);
+
+    switch (_currentState)
+    {
+        case Navigator::TRANSLATING_ZPLUS:
+            forward(-nav->getMotionFactor());
+            break;
+        case Navigator::TRANSLATING_ZMINUS:
+            forward(nav->getMotionFactor());
+            break;                                    
+        case Navigator::ROTATING:
+            break;
+        default:
+            //IDLE
+            break;
+    }
+}
+
+void FlyEngine::idle(Int16 buttons, Int16 x,Int16 y,Navigator* nav)
+{
+}
+
+void FlyEngine::onViewportChanged(ViewportPtr new_viewport)
+{
+    // nothing to do here
+}
+
 /*---------------------- Flyer Transformations ----------------------------*/
 
 /*! Rotate the viewer \a deltaX around the up axis and deltaY around the 
     left/right axis. \a deltaX and \a deltaY should be between -Pi and Pi.
 */
-void FlyNavigator::rotate(Real32 deltaX, Real32 deltaY)
+void FlyEngine::rotate(Real32 deltaX, Real32 deltaY)
 {
     // rotate around the up vector
     Matrix final,temp;
@@ -218,7 +331,7 @@ void FlyNavigator::rotate(Real32 deltaX, Real32 deltaY)
 
 /*! Flies forward, i.e. translation \a step units along the view vector.
 */
-Real32 FlyNavigator::forward(Real32 step)
+Real32 FlyEngine::forward(Real32 step)
 {
     Vec3f lv;
     lv = _rFrom-_rAt;
@@ -234,7 +347,7 @@ Real32 FlyNavigator::forward(Real32 step)
 
 /*! Strafes to the right, i.e. translates along the side vector.
 */
-Real32 FlyNavigator::right(Real32 step)
+Real32 FlyEngine::right(Real32 step)
 {
     Vec3f sv;
     sv = _rFrom-_rAt;

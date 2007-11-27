@@ -45,6 +45,12 @@
 
 #include "OSGNavigator.h"
 
+#include "OSGNavigatorEngine.h"
+#include "OSGTrackballEngine.h"
+#include "OSGFlyEngine.h"
+#include "OSGWalkEngine.h"
+#include "OSGNoneEngine.h"
+
 OSG_USING_NAMESPACE
 
 /***************************************************************************\
@@ -138,23 +144,19 @@ OSG_USING_NAMESPACE
     The motion factor, roughly equivalent to speed.
 */
 
-/*! \var Navigator::_ip
-    
-    Temporary hit point for intersection testing.
-*/
-
-/*! \var Navigator::_dir
-
-    Temporary ray direction for intersection testing.
-*/
-
 /*------------------------- constructors ----------------------------------*/
 
-Navigator::Navigator() : 
+Navigator::Navigator() :
+    _engine(NULL), // pointer to current engine
+
+    _trackballEngine(new TrackballEngine),
+    _flyEngine(new FlyEngine),
+    _walkEngine(new WalkEngine),
+    _noneEngine(new NoneEngine),
+    _userEngine(new TrackballEngine),
+
     _rRotationAngle(0.04908739f),
     _rMotionFactor(1.f),
-    _currentState(IDLE),
-    _currentMode(TRACKBALL),
     _absolute(true),
     _vp(NullFC),
     _cartN(NullFC),
@@ -162,9 +164,15 @@ Navigator::Navigator() :
     _clickCenter(true),
     _clickNoIntersect(false),
     _lastX(0),
-    _lastY(0),
-    _ip(0,0,0)
+    _lastY(0)
 {
+    addRef(_trackballEngine);
+    addRef(_flyEngine);
+    addRef(_walkEngine);
+    addRef(_noneEngine);
+    addRef(_userEngine);
+
+    setMode(TRACKBALL); // use trackball as default
 }
 
 /*-------------------------- destructors ----------------------------------*/
@@ -172,6 +180,13 @@ Navigator::Navigator() :
 Navigator::~Navigator()
 {
     OSG::subRef(_cartN);
+
+    subRef(_engine);
+    subRef(_trackballEngine);
+    subRef(_flyEngine);
+    subRef(_walkEngine);
+    subRef(_noneEngine);
+    subRef(_userEngine);
 }
 
 /*-------------------------- Notificators ---------------------------------*/
@@ -183,190 +198,21 @@ void Navigator::buttonPress(Int16 button, Int16 x, Int16 y)
     _lastX = x; _lastY = y;
     _moved = false;
 
-    switch (_currentMode)
-    {
-    case NONE:
-        _currentState = IDLE;
-        break;
-
-    case TRACKBALL:
-
-        switch (button)
-        {
-        case LEFT_MOUSE  :  _currentState = ROTATING;         
-                            break;
-                            
-        case RIGHT_MOUSE :  _currentState = TRANSLATING_Z;    
-                            break;
- 
-        case MIDDLE_MOUSE:  _currentState = TRANSLATING_XY;
-                            getIntersectionPoint(x,y);      
-                            break;
-
-        case UP_MOUSE    :  _currentState = IDLE;
-                            _trackball.translateZ(-_rMotionFactor);
-                            break;
-
-        case DOWN_MOUSE  :  _currentState = IDLE;
-                            _trackball.translateZ(_rMotionFactor);
-                            break;
-
-        default:            FNOTICE(("Navigator: buttonPress, unknown button\n"));
-                            break;
-        }
-        break;
-
-    case FLY:
-
-        switch (button)
-        {
-        case LEFT_MOUSE  :  _currentState = TRANSLATING_ZPLUS;  
-                            break;
-                            
-        case MIDDLE_MOUSE:  _currentState = ROTATING;           
-                            break;
-                            
-        case RIGHT_MOUSE :  _currentState = TRANSLATING_ZMINUS; 
-                            break;
-                            
-        case UP_MOUSE    :  _currentState = IDLE;
-                            _flyer.forward(-_rMotionFactor);
-                            break;
-                            
-        case DOWN_MOUSE  :  _currentState = IDLE;
-                            _flyer.forward(_rMotionFactor);
-                            break;
-                            
-        default:            FNOTICE(("Navigator: buttonPress, unknown button\n"));
-                            break;
-        }
-        break;
-
-    case WALK:
-
-        switch (button)
-        {
-        case LEFT_MOUSE  :  _currentState = TRANSLATING_ZPLUS;  
-                            break;
-                            
-        case MIDDLE_MOUSE:  _currentState = ROTATING;           
-                            break;
-                            
-        case RIGHT_MOUSE :  _currentState = TRANSLATING_ZMINUS; 
-                            break;
-                            
-        case UP_MOUSE    :  _currentState = IDLE;
-                            _walker.forward(-_rMotionFactor);
-                            break;
-                            
-        case DOWN_MOUSE  :  _currentState = IDLE;
-                            _walker.forward(_rMotionFactor);
-                            break;
-                            
-        default:            FNOTICE(("Navigator: buttonPress, unknown button\n"));
-                            break;
-        }
-        break;
-
-    default: 
-    
-        FNOTICE(("Navigator: buttonPress, unknown mode\n"));
-        break;
-    }
+    _engine->buttonPress(button, x, y, this);
 }
 
 /*! Mouse button release handler.
 */
-void Navigator::buttonRelease(Int16 , Int16 x, Int16 y)
+void Navigator::buttonRelease(Int16 button, Int16 x, Int16 y)
 {
-    switch (_currentMode)
-    {
-    case NONE:      break;
-
-    case TRACKBALL: if (!_moved && _clickCenter)
-                    {
-                        IntersectAction * act  =  IntersectAction::create();
-                        Line line;
-                        _vp->getCamera()->calcViewRay(line, x, y, *_vp);
-
-                        Pnt3f lp1 = line.getPosition();
-                        Vec3f ld1 = line.getDirection();
-
-                        act->setLine(line);
-                        act->apply(_vp->getRoot());
-                        if (act->didHit())
-                        {
-                            Pnt3f p1 = act->getHitPoint();
-                            _trackball.setAt(p1);
-                        }
-
-                        delete act;
-                    }
-                    break;
-        
-    case FLY:       break;
-    case WALK:      break;
-
-    default:        FNOTICE(("Navigator: buttonRelease, unknown mode\n"));
-                    break;
-    }
-    _currentState=IDLE;
+    _engine->buttonRelease(button, x, y, this);
 }
 
 /*! Key press handler.
 */
-void Navigator::keyPress(Int16 key, Int16 , Int16 )
+void Navigator::keyPress(Int16 key, Int16 x, Int16 y)
 {
-    switch (_currentMode)
-    {
-    case NONE:
-        break;
-
-    case TRACKBALL:
-
-        switch (key)
-        {
-        case LEFT      : /*undefined*/ break;
-        case RIGHT     : /*undefined*/ break;
-        case FORWARDS  : _trackball.translateZ(-_rMotionFactor); break;
-        case BACKWARDS : _trackball.translateZ(_rMotionFactor);  break;
-        default        : FNOTICE(("Navigator: keyPress, unknown key\n"));
-        }
-        break;
-
-    case FLY:       
-    
-        switch (key)
-        {
-        case LEFTROT   : _flyer.rotate(-_rRotationAngle, 0);  break;
-        case RIGHTROT  : _flyer.rotate( _rRotationAngle, 0);  break;
-        case LEFT      : _flyer.right( _rMotionFactor);  break;
-        case RIGHT     : _flyer.right(-_rMotionFactor);  break;
-        case FORWARDS  : _flyer.forward(-_rMotionFactor); break;
-        case BACKWARDS : _flyer.forward( _rMotionFactor);  break;
-        default        : FNOTICE(("Navigator: keyPress, unknown key\n"));
-        }
-        break;
-
-    case WALK:      
-    
-        switch (key)
-        {
-        case LEFTROT   : _walker.rotate(-_rRotationAngle, 0);  break;
-        case RIGHTROT  : _walker.rotate( _rRotationAngle, 0);  break;
-        case LEFT      : _walker.right( _rMotionFactor);   break;
-        case RIGHT     : _walker.right(-_rMotionFactor);   break;
-        case FORWARDS  : _walker.forward(-_rMotionFactor); break;
-        case BACKWARDS : _walker.forward( _rMotionFactor);  break;
-        default        : FNOTICE(("Navigator: keyPress, unknown key\n"));
-        }
-        break;
-
-    default:        
-    
-        FNOTICE(("Navigator: keyPress, unknown mode\n"));
-        break;
-    }
+    _engine->keyPress(key, x, y, this);
 }
 
 /*! Mouse motion handler.
@@ -375,109 +221,11 @@ void Navigator::moveTo(Int16 x, Int16 y)
 {
     _moved = true;
 
-    Real32 width  = Real32(_vp->getPixelWidth());
-    Real32 height = Real32(_vp->getPixelHeight());
+    Real32 fromX, fromY, toX, toY;
+    if (!calcFromTo(x, y, fromX, fromY, toX, toY)) return;
 
-    if(width <= 0 || height <= 0)
-        return;
+    _engine->moveTo(x, y, this);
 
-    WindowPtr par = _vp->getParent();
-    Real32 winHeight;
-    
-    if(par != NullFC)
-        winHeight = (Real32)par->getHeight();
-    else
-        winHeight = height;
-        
-    Real32 fromX = (2.0f * (_lastX - _vp->getPixelLeft())- width)/  width;
-    Real32 fromY = (2.0f * (winHeight - _lastY - _vp->getPixelBottom()) 
-                                - height)  / height;
-    Real32 toX   = (2.0f * (x - _vp->getPixelLeft()) - width) / width;
-    Real32 toY   = (2.0f * (winHeight - y - _vp->getPixelBottom()) 
-                                - height)/height;
-    switch (_currentMode)
-    {
-    case NONE:
-        FNOTICE(("Navigator: moveTo NONE mode\n"));
-        break;
-
-    case TRACKBALL: 
-    
-        switch (_currentState)
-        {
-        case ROTATING      :_trackball.rotate(fromX, fromY, toX, toY);
-                            break;
-
-        case TRANSLATING_XY:{
-                            Real32 distanceX = 0,distanceY = 0;
-                            calcDeltas(Int16(_lastX), Int16(_lastY), x, y, 
-                                       distanceX, distanceY);
-                            _trackball.translateXY(distanceX, distanceY);
-                            }
-                            break;
-
-        case TRANSLATING_Z: {
-                            Real32 distance = osgSgn(toY-fromY)*
-                                              100.f * 
-                                              osgPow(osgAbs(toY-fromY),2.f);
-                            _trackball.translateZ(distance * _rMotionFactor);
-                            }
-                            break;
-
-        default            :;//IDLE                        
-        }
-        
-        break;
-
-    case FLY:
-     
-        {
-        Real32 distanceX = -(fromX-toX);
-        Real32 distanceY =  (fromY-toY);
-        _flyer.rotate(distanceX, distanceY);
-
-        switch (_currentState)
-        {
-        case TRANSLATING_ZPLUS:     _flyer.forward(-_rMotionFactor);
-                                    break;
-                                    
-        case TRANSLATING_ZMINUS:    _flyer.forward(_rMotionFactor);
-                                    break;
-                                    
-        case ROTATING:              break;
-        
-        default:                    ;//IDLE
-        }
-        }
-        break;
-
-    case WALK:
-    
-        {
-        Real32 distanceX = -(fromX-toX);
-        Real32 distanceY =  (fromY-toY);
-        _walker.rotate(distanceX, distanceY);
-
-        switch (_currentState)
-        {
-        case TRANSLATING_ZPLUS:     _walker.forward(-_rMotionFactor);
-                                    break;
-                                
-        case TRANSLATING_ZMINUS:    _walker.forward(_rMotionFactor);
-                                    break;
-                                    
-        case ROTATING:              break;
-        
-        default:                    ;//IDLE
-        }
-        }
-        break;
-
-    default: 
-
-        FNOTICE(("Navigator: moveTo, unknown mode\n"));
-        break;
-    }
     _lastX = x;
     _lastY = y;
 }
@@ -486,17 +234,7 @@ void Navigator::moveTo(Int16 x, Int16 y)
  */
 void Navigator::idle(Int16 buttons, Int16 x, Int16 y)
 {
-    switch (_currentMode)
-    {
-        case NONE:
-        case TRACKBALL:
-                        break;
-        case FLY:
-        case WALK:
-                        if (buttons)
-                            moveTo(x,y);
-                        break;
-    }
+    _engine->idle(buttons, x, y, this);
 }
 
 /*! Updates the camera transformation matrix directly in the node specified as
@@ -511,15 +249,7 @@ void Navigator::updateCameraTransformation()
         theMatrix.inverse(theMatrix);
     }
 
-    switch(_currentMode)
-    {
-    case NONE:      theMatrix.mult(_NoneMatrix);            break;
-    case TRACKBALL: theMatrix.mult(_trackball.getMatrix()); break;
-    case FLY:       theMatrix.mult(_flyer    .getMatrix()); break;
-    case WALK:      theMatrix.mult(_walker   .getMatrix()); break;
-    default:        FNOTICE(("Navigator: updateCamTrans, unknown mode\n"));
-                    break;
-    }
+    theMatrix.mult(_engine->getMatrix());
 
     if(_cartN != NullFC)
     {
@@ -548,9 +278,25 @@ void Navigator::updateCameraTransformation()
 */
 void Navigator::setMode(Navigator::Mode new_mode)
 {
-    if (_currentMode == new_mode) return;
+    NavigatorEngine* engine = _trackballEngine;
 
-    _currentMode = new_mode;
+    switch (new_mode) {
+        case TRACKBALL: engine = _trackballEngine; break;
+        case FLY:       engine = _flyEngine;       break;
+        case WALK:      engine = _walkEngine;      break;
+        case NONE:      engine = _noneEngine;      break;
+        case USER:      engine = _userEngine;      break;
+        default:
+            FWARNING (("Navigator: unknown mode. Fallback to trackball.\n"));
+    }
+
+    assert(engine);
+
+    if (engine != _engine) {
+        subRef(_engine);
+        _engine = engine;
+        addRef(_engine);
+    }
 }
 
 /*! Set the rotation angle.
@@ -572,75 +318,28 @@ void Navigator::setMotionFactor(Real32 new_factor)
 void Navigator::setViewport(ViewportPtr new_viewport)
 {
     _vp=new_viewport;
-    _walker.setGround(_vp->getRoot());
-    _walker.setWorld (_vp->getRoot());
-}
-
-/*! Set the navigation parameters in case of NONE mode
-*/
-void Navigator::setNoneMatrix(Pnt3f new_from, Pnt3f new_at, Vec3f new_up)
-{
-    bool b = MatrixLookAt(_NoneMatrix, new_at, new_at+(new_at-new_from), new_up);
-
-    if (b) FNOTICE(("Navigator: set(.,.,.) failed\n"));
+    _engine->onViewportChanged(_vp);
 }
 
 /*! Set the from point, i.e. the viewer position.
 */
 void Navigator::setFrom(Pnt3f new_from)
 {
-    switch (_currentMode)
-    {
-    case NONE:
-        setNoneMatrix( new_from,
-                      (Pnt3f)(_NoneMatrix[3]-_NoneMatrix[2]),
-                      (Vec3f) _NoneMatrix[1] );
-        break;
-    case TRACKBALL:     _trackball.setFrom(new_from);   break;
-    case FLY:           _flyer    .setFrom(new_from);   break;
-    case WALK:          _walker   .setFrom(new_from);   break;
-    default:            FNOTICE(("Navigator: setFrom, unknown mode"));
-                        break;
-    }
+    _engine->setFrom(new_from);
 }
 
 /*! Set the at point, i.e. the target position for the viewer.
 */
 void Navigator::setAt(Pnt3f new_at)
 {
-    switch (_currentMode)
-    {
-    case NONE:
-        setNoneMatrix((Pnt3f)_NoneMatrix[3], new_at, (Vec3f)_NoneMatrix[1]);
-        break;
-    case TRACKBALL:     _trackball.setAt(new_at);   break;
-    case FLY:           _flyer    .setAt(new_at);   break;
-    case WALK:          _walker   .setAt(new_at);   break;
-    default:            FNOTICE(("Navigator: setAt, unknown mode"));
-                        break;
-    }
+    _engine->setAt(new_at);
 }
 
 /*! Set the distance from the target position.
 */
 void Navigator::setDistance(Real32 new_distance)
 {
-    switch (_currentMode)
-    {
-    case NONE:          break;
-
-    case TRACKBALL:     _trackball.setDistance(new_distance);
-                        break;
-                        
-    case FLY:           _flyer.forward(new_distance);
-                        break;
-                        
-    case WALK:          _walker.forward(new_distance);
-                        break;
-                                
-    default:            FNOTICE(("Navigator: setDistance, unknown mode"));
-                        break;
-    }
+    _engine->setDistance(new_distance);
 }
 
 
@@ -648,75 +347,21 @@ void Navigator::setDistance(Real32 new_distance)
 */
 void Navigator::setUp(Vec3f new_up)
 {
-    switch (_currentMode)
-    {
-    case NONE:
-        setNoneMatrix((Pnt3f) _NoneMatrix[3],
-                      (Pnt3f)(_NoneMatrix[3]-_NoneMatrix[2]),
-                       new_up );
-        break;
-
-    case TRACKBALL:     _trackball.setUp(new_up);
-                        break;
-                        
-    case FLY:           _flyer.setUp(new_up);
-                        break;
-                        
-    case WALK:          _walker.setUp(new_up);
-                        break;        
-
-    default:            FNOTICE(("Navigator: setUp, unknown mode"));
-                        break;
-    }
+    _engine->setUp(new_up);
 }
 
 /*! Set the full navigator parameters.
 */
 void Navigator::set(Pnt3f new_from, Pnt3f new_at, Vec3f new_up)
 {
-    switch (_currentMode)
-    {
-    case NONE:          setNoneMatrix(new_from, new_at, new_up);
-                        break;
-
-    case TRACKBALL:     _trackball.set(new_from, new_at, new_up);
-                        break;
-                        
-    case FLY:           _flyer.set(new_from, new_at, new_up);
-                        break;
-                        
-    case WALK:          _walker.set(new_from, new_at, new_up);
-                        break; 
-           
-    default:            FNOTICE(("Navigator: set, unknown mode"));
-                        break;
-    }
+    _engine->set(new_from, new_at, new_up);
 }
 
 /*! Set the full navigator parameters from a matrix.
 */
 void Navigator::set(const Matrix & new_matrix)
 {
-    switch (_currentMode)
-    {
-    case NONE:          //setNoneMatrix((Pnt3f) new_matrix[3],
-                        //              (Pnt3f)(new_matrix[3]-new_matrix[2]),
-                        //              (Vec3f) new_matrix[1]);
-                        _NoneMatrix = new_matrix;
-                        break;
-
-    case TRACKBALL:     _trackball.set(new_matrix);
-                        break;
-                        
-    case FLY:           _flyer.set(new_matrix);
-                        break;
-                        
-    case WALK:          _walker.set(new_matrix);
-                        break;        
-                        
-    default:            FNOTICE(("Navigator: set(Matrix), unknown mode"));
-                        break;
-    }
+    _engine->set(new_matrix);
 }
 
 
@@ -738,77 +383,28 @@ void Navigator::setCameraTransformation(const NodePtr & new_cartn)
 */
 const Matrix &Navigator::getMatrix(void)
 {
-    switch (_currentMode)
-    {
-    case NONE:      return _NoneMatrix;
-    case TRACKBALL: return _trackball.getMatrix();
-    case FLY:       return _flyer    .getMatrix();
-    case WALK:      return _walker   .getMatrix();        
-    default:        FNOTICE(("Navigator: getMatrix, unknown mode"));
-                    break;
-    }
-
-    return Matrix::identity();
+    return _engine->getMatrix();
 }
 
 /*! Get the from point, i.e. the viewer position.
 */
 const Pnt3f  &Navigator::getFrom(void)
 {
-    static Pnt3f returnValue(0.f, 0.f, 0.f);
-    returnValue = (Pnt3f)_NoneMatrix[3];
-
-    switch (_currentMode)
-    {
-    case NONE:      return returnValue;
-    case TRACKBALL: return _trackball.getFrom();
-    case FLY:       return _flyer    .getFrom();
-    case WALK:      return _walker   .getFrom();
-    default:        FNOTICE(("Navigator: getFrom, unknown mode"));
-                    break;
-    }
-
-    return returnValue;
+    return _engine->getFrom();
 }
 
 /*! Get the at point, i.e. the target position.
 */
 const Pnt3f  &Navigator::getAt(void)
 {
-    static Pnt3f returnValue(0.f, 0.f, 0.f);
-    returnValue = (Pnt3f)(_NoneMatrix[3] - _NoneMatrix[2]);
-
-    switch (_currentMode)
-    {
-    case NONE:      return returnValue;
-    case TRACKBALL: return _trackball.getAt();
-    case FLY:       return _flyer    .getAt();
-    case WALK:      return _walker   .getAt();
-    default:        FNOTICE(("Navigator: getAt, unknown mode"));
-                    break;
-    }
-
-    return returnValue;
+    return _engine->getAt();
 }
 
 /*! Get the up vector.
 */
 const Vec3f  &Navigator::getUp(void)
 {
-    static Vec3f returnValue(0.f, 0.f, 0.f);
-    returnValue = (Vec3f)_NoneMatrix[1];
-
-    switch (_currentMode)
-    {
-    case NONE:      return returnValue;
-    case TRACKBALL: return _trackball.getUp();
-    case FLY:       return _flyer    .getUp();
-    case WALK:      return _walker   .getUp();
-    default:        FNOTICE(("NavigUpor: getUp, unknown mode"));
-                    break;
-    }
-
-    return returnValue;
+    return _engine->getUp();
 }
 
 
@@ -816,37 +412,26 @@ const Vec3f  &Navigator::getUp(void)
 */
 Real32 Navigator::getDistance(void)
 {
-    Real32 distance = 0.0f;
-    switch (_currentMode)
-    {
-    case NONE:          break;
-
-    case TRACKBALL:     distance = _trackball.getDistance();
-                        break;
-                        
-    case FLY:           break;
-                        
-    case WALK:          break;
-                                
-    default:            FNOTICE(("Navigator: setDistance, unknown mode"));
-                        break;
-    }
-
-    return distance;
+    return _engine->getDistance();
 }
 
 /*! Get the navigator's current state.
 */
 Navigator::State Navigator::getState(void)
 {
-    return _currentState;
+    return _engine->getState();
 }
 
 /*! Get the navigator's current mode.
 */
 Navigator::Mode Navigator::getMode(void)
 {
-    return _currentMode;
+    if (_engine == _trackballEngine) return TRACKBALL;
+    if (_engine == _flyEngine)       return FLY;
+    if (_engine == _walkEngine)      return WALK;
+    if (_engine == _noneEngine)      return NONE;
+
+    return USER;
 }
 
 /*! Get the navigator's rotation angle.
@@ -884,6 +469,59 @@ bool Navigator::getClickNoIntersect(void)
     return _clickNoIntersect;
 }
 
+
+bool Navigator::getMoved(void)
+{ 
+    return _moved;
+}
+
+ViewportPtr Navigator::getViewport(void)
+{
+    return _vp;
+}
+
+Real32 Navigator::getLastX(void)
+{
+    return _lastX;
+}
+
+Real32 Navigator::getLastY(void)
+{
+    return _lastY;
+}
+
+TrackballEngine* Navigator::getTrackballNavigator(void)
+{ 
+    return _trackballEngine; 
+}
+
+FlyEngine* Navigator::getFlyNavigator(void)
+{ 
+    return _flyEngine;
+}
+
+WalkEngine* Navigator::getWalkNavigator()
+{ 
+    return _walkEngine;
+}
+
+NavigatorEngine* Navigator::getUserNavigator(void)
+{
+    return _userEngine;
+}
+
+void Navigator::setUserEngine(NavigatorEngine* userEngine)
+{
+    if (userEngine == NULL) return;
+
+    if (userEngine != _userEngine) {
+        subRef(_userEngine);
+        _userEngine = userEngine;
+        addRef(_userEngine);
+    }
+}
+
+
 /*! Set the clickCenter current state.
 */
 bool Navigator::setClickCenter(bool state)
@@ -914,116 +552,29 @@ bool Navigator::setClickNoIntersect(bool state)
     return old;
 }
 
-/*! Calculates the transformation matrix from CC to WC using the actual view
-    matrix.
-*/
-static void calcCCtoWCMatrix(Matrix &cctowc, const Matrix &view,
-                             const ViewportPtr port)
+bool Navigator::calcFromTo(Int16 x, Int16 y,
+                           Real32& fromX, Real32& fromY,
+                           Real32& toX,   Real32& toY)
 {
-    Matrix proj, projtrans;
+    Real32 width  = Real32(_vp->getPixelWidth());
+    Real32 height = Real32(_vp->getPixelHeight());
 
-    port->getCamera()->getProjection( proj, port->getPixelWidth(),
-                                            port->getPixelHeight());
-    port->getCamera()->getProjectionTranslation( projtrans,
-                                                 port->getPixelWidth(),
-                                                 port->getPixelHeight());
+    if(width <= 0 || height <= 0) return false;
 
-    Matrix wctocc = proj;
-    wctocc.mult( projtrans );
-    wctocc.mult( view );
-
-    cctowc.invertFrom( wctocc );
-}
-
-/*! Calculates the intersection point of a ray that starts at from and goes
-    through the position on the screen given by x,y with the world, if no
-    intersection point exists the intersection is set to (0,0,0)
-*/
-void Navigator::getIntersectionPoint(Int16 x, Int16 y)
-{
-    IntersectAction * act = IntersectAction::create();
-    Line line;
+    WindowPtr par = _vp->getParent();
+    Real32 winHeight;
     
-    _vp->getCamera()->calcViewRay(line, x, y, *_vp);
-    
-    if(_clickNoIntersect)
-    {
-        Real32 u = (_dir.dot(Pnt3f(0.0f, 0.0f, 0.0f) - line.getPosition())) /
-                   (_dir.dot(line.getDirection()));
-        _ip = line.getPosition() + u * line.getDirection();
-        return;
-    }
-
-    act->setLine(line);
-    act->apply(_vp->getRoot());
-
-    Matrix cctowc,view;
-    Int16 width  = _vp->getPixelWidth();
-    Int16 height = _vp->getPixelHeight();
-
-    _vp->getCamera()->getViewing(view, width, height);
-
-    calcCCtoWCMatrix(cctowc, view, _vp);
-
-    Pnt3f at,to;
-
-    cctowc.multFullMatrixPnt( Pnt3f( 0, 0, 0.5f ), to );
-    cctowc.multFullMatrixPnt( Pnt3f( 0, 0, 1    ), at );
-
-    _dir = to - at;
-
-    if (act->didHit())
-    {
-        _ip = act->getHitPoint();
-    }
+    if(par != NullFC)
+        winHeight = (Real32)par->getHeight();
     else
-    {
-        Real32 u = (_dir.dot(Pnt3f(0.0f, 0.0f, 0.0f) - line.getPosition())) /
-                   (_dir.dot(line.getDirection()));
-        _ip = line.getPosition() + u * line.getDirection();
-    }
+        winHeight = height;
+        
+    fromX = (2.0f * (_lastX - _vp->getPixelLeft())- width) /  width;
+    fromY = (2.0f * (winHeight-_lastY-_vp->getPixelBottom())-height) / height;
 
-    delete act;
+    toX   = (2.0f * (x - _vp->getPixelLeft()) - width) / width;
+    toY   = (2.0f * (winHeight - y - _vp->getPixelBottom()) - height) / height;
+
+    return true;
 }
 
-/*! Calculate the real translation that has to be done, so that the
-    trackball can actually drag the object in the plane parallel to the
-    screen.
-*/
-void Navigator::calcDeltas(Int16 , Int16 , Int16 toX, Int16 toY,
-                           Real32 &distanceX, Real32 &distanceY)
-{
-    Matrix view;
-
-    view=_trackball.getMatrix();
-
-    Pnt3f from( view[3][0], view[3][1], view[3][2] );
-
-    view.invert();
-    Matrix cctowc;
-    calcCCtoWCMatrix(cctowc, view, _vp);
-
-    Real32  rx = ( toX / (Real32) _vp->getPixelWidth() ) * 2.f - 1.f,
-            ry = 1.f - ( toY / (Real32) _vp->getPixelHeight() ) * 2.f;
-
-    Pnt3f at;
-    cctowc.multFullMatrixPnt( Pnt3f( rx, ry, 1 ), at );
-
-    Line line2;
-    line2.setValue(from, at-from);
-
-    Real32 u = (_dir.dot(_ip-line2.getPosition())) /
-               (_dir.dot(line2.getDirection()));
-
-    Pnt3f p2 = line2.getPosition() + u * line2.getDirection();
-
-    Vec3f transl;
-    transl[0] = -p2[0] + _ip[0];
-    transl[1] = -p2[1] + _ip[1];
-    transl[2] = -p2[2] + _ip[2];
-
-    view.multMatrixVec(transl);
-
-    distanceX = transl[0];
-    distanceY = transl[1];
-}

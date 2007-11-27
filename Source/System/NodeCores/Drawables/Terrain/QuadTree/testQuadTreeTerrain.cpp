@@ -49,6 +49,7 @@
 
 // A little helper to simplify scene management and interaction
 #include <OSGSimpleSceneManager.h>
+#include <OSGWalkEngine.h>
 
 // Methods to create simple geometry: boxes, spheres, tori etc.
 #include <OSGSimpleGeometry.h>

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000,2001 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,84 +36,96 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include "OSGWalkNavigator.h"
+#include "OSGConfig.h"
+#include "OSGBaseTypes.h"
+#include "OSGMatrix.h"
+#include "OSGMatrixUtility.h"
 
-//#include "OSGSimpleGeometry.h"
+#include "OSGWalkEngine.h"
+
 #include "OSGNode.h"
-#include "OSGNodeCore.h"
+#include "OSGCamera.h"
+#include "OSGBackground.h"
 
 OSG_USING_NAMESPACE
-
 
 /***************************************************************************\
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::WalkNavigator
+/*! \class OSG::WalkEngine
     \ingroup GrpSystemWindowNavigators
 
+\dev 
+
+\enddev
 
 */
 
+
 /*------------------------- constructors ----------------------------------*/
 
-/*! Constructor
- */
-
-WalkNavigator::WalkNavigator(): FlyNavigator(),
+WalkEngine::WalkEngine(void) : 
+    Inherited(),
     _ground(NullFC),
     _world(NullFC),
     _groundDistance(0.75),
     _wallDistance(0.1),
     _height(0.85),
     _width(0.5),
-    _fatness(0.5)
+    _fatness(0.5),
+    _act(IntersectAction::create())
 {
-    _act = IntersectAction::create();
 }
 
 /*-------------------------- destructors ----------------------------------*/
 
-/*! Destructor
- */
-
-WalkNavigator::~WalkNavigator()
+WalkEngine::~WalkEngine()
 {
     delete _act;
 }
 
-
 /*------------------------------ get --------------------------------------*/
-
 
 /*------------------------------ set --------------------------------------*/
 
-
-void WalkNavigator::setGround(const NodePtr &new_ground)
+void WalkEngine::setGround(const NodePtr &new_ground)
 {
     _ground=new_ground;
 }
 
-void WalkNavigator::setWorld(const NodePtr &new_world)
+void WalkEngine::setWorld(const NodePtr &new_world)
 {
     _world=new_world;
 }
 
-void WalkNavigator::setGroundDistance(Real32 groundDistance)
+void WalkEngine::setGroundDistance(Real32 groundDistance)
 {
     _groundDistance=groundDistance;
 }
 
-void WalkNavigator::setMinWallDistance (Real32 wallDistance)
+void WalkEngine::setMinWallDistance (Real32 wallDistance)
 {
     _wallDistance=wallDistance;
 }
     
-void WalkNavigator::setPersonDimensions(Real32 height,Real32 width,Real32 fatness)
+void WalkEngine::setPersonDimensions(Real32 height,Real32 width,Real32 fatness)
 {
     _height  = height;
     _width   = width;
     _fatness = fatness;
+}
+
+/*---------------------- navigator engine callbacks ------------------------*/
+void WalkEngine::idle(Int16 buttons, Int16 x, Int16 y, Navigator* nav)
+{
+    if (buttons) moveTo(x, y, nav);
+}
+
+void WalkEngine::onViewportChanged(ViewportPtr new_viewport)
+{
+    setGround(new_viewport->getRoot());
+    setWorld (new_viewport->getRoot());
 }
 
 /*---------------------- Walker Transformations ----------------------------*/
@@ -121,15 +133,15 @@ void WalkNavigator::setPersonDimensions(Real32 height,Real32 width,Real32 fatnes
 /*! makes a rotation
  */
 
-void WalkNavigator::rotate (Real32 deltaX, Real32 deltaY)
+void WalkEngine::rotate (Real32 deltaX, Real32 deltaY)
 {
-    FlyNavigator::rotate(deltaX, deltaY);
+    Inherited::rotate(deltaX, deltaY);
 }
    
 /*! "walks" forward
  */
 
-Real32 WalkNavigator::forward(Real32 step)
+Real32 WalkEngine::forward(Real32 step)
 {
     Vec3f lv = _rFrom - _rAt;
     lv.normalize();
@@ -186,7 +198,7 @@ Real32 WalkNavigator::forward(Real32 step)
 /*! turns the viewer right or left
  */
 
-Real32 WalkNavigator::right(Real32 step)
+Real32 WalkEngine::right(Real32 step)
 {
 //    Int16 sign = (step >= 0) ? -1 : 1;
 //    Real32 angle = 0.19634954f;
@@ -245,3 +257,4 @@ Real32 WalkNavigator::right(Real32 step)
     _rAt = rAt;
     return step;
 }
+

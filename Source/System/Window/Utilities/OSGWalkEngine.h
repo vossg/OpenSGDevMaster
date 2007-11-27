@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000,2001 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,83 +36,111 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSG_FLYNAVIGATOR_H_
-#define _OSG_FLYNAVIGATOR_H_
+#ifndef _OSG_WALKENGINE_H_
+#define _OSG_WALKENGINE_H_
 
 #include "OSGConfig.h"
 #include "OSGUtilDef.h"
 
-#include "OSGBaseTypes.h"
 #include "OSGVector.h"
-#include "OSGMatrix.h"
 #include "OSGQuaternion.h"
+#include "OSGViewport.h"
+#include "OSGFlyEngine.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief Navigator for simple fly model. See \ref 
-    PageSystemWindowNavigatorsFly for a description.
+/*! \brief Base class for all navigator engines.
 */
-
-class OSG_UTIL_DLLMAPPING FlyNavigator
+class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine
 {
+    typedef FlyEngine Inherited;
+
     /*==========================  PUBLIC  =================================*/
   public:
+
+
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    FlyNavigator();
+    WalkEngine(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~FlyNavigator();
+    ~WalkEngine(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Class Get                                 */
+    /*! \{                                                                 */
+
+    const char *getClassname(void) { return "WalkEngine"; }
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Get                                   */
     /*! \{                                                                 */
 
-    Matrix &getMatrix(void);
-    Pnt3f  &getFrom  (void);
-    Pnt3f  &getAt    (void);
-    Vec3f  &getUp    (void);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Set                                   */
     /*! \{                                                                 */
 
-    void setFrom   (Pnt3f new_from);
-    void setAt     (Pnt3f new_at);
-    void setUp     (Vec3f new_up);
-    void set       (Pnt3f new_from, Pnt3f new_at, Vec3f new_up);
-    void set       (Matrix new_matrix);
+    void setGround  (const NodePtr &new_ground);
+    void setWorld   (const NodePtr &new_world );
+    
+    void setGroundDistance  (Real32 groundDistance);
+    void setMinWallDistance (Real32 wallDistance  );
+
+    void setPersonDimensions(Real32 height, Real32 width, Real32 fatness);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                  Flyer Transformations                       */
+    /*! \name              navigator engine callbacks                      */
     /*! \{                                                                 */
 
-    void   rotate (Real32 deltaX, Real32 deltaY);
-    Real32 forward(Real32 step);
-    Real32 right  (Real32 step);
+    virtual void idle(Int16 buttons, Int16 x, Int16 y, Navigator* nav);
+
+    virtual void onViewportChanged(ViewportPtr new_viewport);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Walker Transformations                      */
+    /*! \{                                                                 */
+
+    virtual void   rotate (Real32 deltaX, Real32 deltaY);
+    virtual Real32 forward(Real32 step);
+    virtual Real32 right  (Real32 step);
 
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
   protected:
+    
     /*---------------------------------------------------------------------*/
     /*! \name                     Members                                  */
     /*! \{                                                                 */
 
-    Pnt3f  _rFrom;
-    Pnt3f  _rAt;
-    Vec3f  _vUp;
-    Matrix _tMatrix;
+    NodePtr _ground;
+    NodePtr _world;
+
+    Real32 _groundDistance;
+    Real32 _wallDistance;
+    Real32 _height;
+    Real32 _width;
+    Real32 _fatness;
+    
+    IntersectAction *_act;
 
     /*! \}                                                                 */
+
+  private:
+    /* Not implemented */
+    WalkEngine(const WalkEngine &other);
+    WalkEngine &operator =(const WalkEngine &other);
 };
 
 OSG_END_NAMESPACE

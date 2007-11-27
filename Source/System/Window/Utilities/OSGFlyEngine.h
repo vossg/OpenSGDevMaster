@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSG_TRACKBALLNAVIGATOR_H_
-#define _OSG_TRACKBALLNAVIGATOR_H_
+#ifndef _OSG_FLYENGINE_H_
+#define _OSG_FLYENGINE_H_
 
 #include "OSGConfig.h"
 #include "OSGUtilDef.h"
@@ -45,98 +45,106 @@
 #include "OSGVector.h"
 #include "OSGQuaternion.h"
 #include "OSGViewport.h"
+#include "OSGNavigatorEngine.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief Navigator for trackball model. See \ref 
-    PageSystemWindowNavigatorsTrackball for a description.
+/*! \brief Navigator engine for simple fly model. See \ref 
+    PageSystemWindowNavigatorsFly for a description.
 */
-class OSG_UTIL_DLLMAPPING TrackballNavigator
+class OSG_UTIL_DLLMAPPING FlyEngine : public NavigatorEngine
 {
+    typedef NavigatorEngine Inherited;
+
     /*==========================  PUBLIC  =================================*/
   public:
 
-    enum State
-    {
-        IDLE=0,
-        ROTATING,
-        TRANSLATING_XY,
-        TRANSLATING_Z
-    };
 
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    TrackballNavigator(Real32 rSize=0.8);
+    FlyEngine(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    ~TrackballNavigator();
+    ~FlyEngine(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    const char *getClassname(void) { return "TrackballNavigator"; }
+    const char *getClassname(void) { return "FlyEngine"; }
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Get                                   */
     /*! \{                                                                 */
 
-    Matrix &getMatrix();
-    Pnt3f  &getFrom();
-    Pnt3f  &getAt();
-    Vec3f  &getUp();
-    Real32  getDistance();
+    virtual const Pnt3f  &getFrom(void);
+    virtual const Pnt3f  &getAt(void);
+    virtual const Vec3f  &getUp(void);
+    virtual const Matrix &getMatrix(void);
+    virtual Real32 getDistance(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Set                                   */
     /*! \{                                                                 */
 
-    void setAt       (Pnt3f  new_at);
-    void setFrom     (Pnt3f  new_from);
-    void setDistance (Real32 new_distance);
-    void setUp       (Vec3f  new_up);
-    void set         (Pnt3f  new_from, Pnt3f new_center, Vec3f new_up);
-    void set         (Matrix new_matrix);
+    virtual void setFrom(Pnt3f new_from);
+    virtual void setAt(Pnt3f new_at);
+    virtual void setUp(Vec3f new_up);
+    virtual void set(Pnt3f new_from, Pnt3f new_at, Vec3f new_up);
+    virtual void set(const Matrix & new_matrix);
+    virtual void setDistance(Real32 new_distance);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name              Trackball Transformations                       */
+    /*! \name              navigator engine callbacks                      */
     /*! \{                                                                 */
 
-    void rotate     (Real32 fromX, Real32 fromY,
-                     Real32 toX,   Real32 toY);
-    void translateXY(Real32 distanceX, Real32 distanceY);
-    void translateZ (Real32 distance);
+    virtual void buttonPress(Int16 button,Int16 x,Int16 y,Navigator* nav);
+    virtual void buttonRelease(Int16 ,    Int16 x,Int16 y,Navigator* nav);
+    virtual void keyPress(Int16 key,      Int16 x,Int16 y,Navigator* nav);
+    virtual void moveTo(                  Int16 x,Int16 y,Navigator* nav);
+    virtual void idle(Int16 buttons,      Int16 x,Int16 y,Navigator* nav);
+
+    virtual void onViewportChanged(ViewportPtr new_viewport);
 
     /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
-  private:
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Flyer Transformations                       */
+    /*! \{                                                                 */
+
+    virtual void   rotate (Real32 deltaX, Real32 deltaY);
+    virtual Real32 forward(Real32 step);
+    virtual Real32 right  (Real32 step);
+
+    /*! \}                                                                 */
+    /*==========================  PROTECTED  ==============================*/
+  protected:
     
     /*---------------------------------------------------------------------*/
     /*! \name                     Members                                  */
     /*! \{                                                                 */
 
-    Real32 _rRadius, _rDistance;
-    Matrix _tMatrix, _finalMatrix;
-    State  _currentState;
-    Pnt3f  _pFrom, _pAt;
+    Pnt3f  _rFrom;
+    Pnt3f  _rAt;
     Vec3f  _vUp;
+    Matrix _tMatrix;
 
     /*! \}                                                                 */
 
-    void updateFinalMatrix();
-
-    Real32 projectToSphere(Real32 rRadius, Real32 rX, Real32 rY);
+  private:
+    /* Not implemented */
+    FlyEngine(const FlyEngine &other);
+    FlyEngine &operator =(const FlyEngine &other);
 };
 
 OSG_END_NAMESPACE
