@@ -105,7 +105,7 @@ class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine
 
     virtual void idle(Int16 buttons, Int16 x, Int16 y, Navigator* nav);
 
-    virtual void onViewportChanged(ViewportPtr new_viewport);
+    virtual void onViewportChanged(Navigator* nav);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

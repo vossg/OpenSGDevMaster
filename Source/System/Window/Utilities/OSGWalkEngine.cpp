@@ -122,10 +122,11 @@ void WalkEngine::idle(Int16 buttons, Int16 x, Int16 y, Navigator* nav)
     if (buttons) moveTo(x, y, nav);
 }
 
-void WalkEngine::onViewportChanged(ViewportPtr new_viewport)
+void WalkEngine::onViewportChanged(Navigator* nav)
 {
-    setGround(new_viewport->getRoot());
-    setWorld (new_viewport->getRoot());
+    ViewportPtr vp = nav->getViewport();
+    setGround(vp->getRoot());
+    setWorld (vp->getRoot());
 }
 
 /*---------------------- Walker Transformations ----------------------------*/

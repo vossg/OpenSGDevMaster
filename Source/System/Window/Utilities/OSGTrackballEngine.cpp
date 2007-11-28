@@ -339,10 +339,13 @@ void TrackballEngine::moveTo(Int16 x, Int16 y, Navigator* nav)
 
         case Navigator::TRANSLATING_XY:
         {
-            Real32 distanceX = 0,distanceY = 0;
-            calcDeltas(Int16(nav->getLastX()), Int16(nav->getLastY()),
-                       x, y, distanceX, distanceY, nav);
-            translateXY(distanceX, distanceY);
+            Real32 distX = 0.0f;
+            Real32 distY = 0.0f;
+            Int16  lastX = nav->getLastX();
+            Int16  lastY = nav->getLastY();
+
+            calcDeltas(lastX, lastY, x, y, distX, distY, nav);
+            translateXY(distX, distY);
         }
         break;
 
@@ -365,12 +368,6 @@ void TrackballEngine::idle(Int16 buttons, Int16 x, Int16 y, Navigator* nav)
 {
     // nothing to do
 }
-
-void TrackballEngine::onViewportChanged(ViewportPtr new_viewport)
-{
-    // nothing to do
-}
-
 
 /*-------------------- Trackball Transformations --------------------------*/
 

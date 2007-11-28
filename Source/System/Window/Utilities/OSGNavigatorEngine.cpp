@@ -85,5 +85,14 @@ Navigator::State NavigatorEngine::getState(void) const
 /*------------------------------ set --------------------------------------*/
 
 
-/*-------------------- Trackball Transformations --------------------------*/
+/*-------------------- navigator engine callbacks -------------------------*/
 
+void NavigatorEngine::onViewportChanged(Navigator* nav)
+{
+    // nothing to do here
+}
+
+void NavigatorEngine::onActivation(Navigator* nav)
+{
+    // nothing to do here
+}

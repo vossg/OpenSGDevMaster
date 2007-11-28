@@ -174,8 +174,3 @@ void NoneEngine::idle(Int16 buttons, Int16 x, Int16 y, Navigator* nav)
     // nothing to do
 }
 
-void NoneEngine::onViewportChanged(ViewportPtr new_viewport)
-{
-    // nothing to do
-}
-

@@ -276,7 +276,7 @@ void Navigator::updateCameraTransformation()
 
 /*! Set the navigator mode (Trackball/Flyer/Walker).
 */
-void Navigator::setMode(Navigator::Mode new_mode)
+void Navigator::setMode(Navigator::Mode new_mode, bool copyViewParams)
 {
     NavigatorEngine* engine = _trackballEngine;
 
@@ -293,9 +293,14 @@ void Navigator::setMode(Navigator::Mode new_mode)
     assert(engine);
 
     if (engine != _engine) {
+        if (copyViewParams && _engine)
+            engine->set(_engine->getFrom(),_engine->getAt(),_engine->getUp());
+
         subRef(_engine);
         _engine = engine;
         addRef(_engine);
+
+        _engine->onActivation(this);
     }
 }
 
@@ -318,7 +323,7 @@ void Navigator::setMotionFactor(Real32 new_factor)
 void Navigator::setViewport(ViewportPtr new_viewport)
 {
     _vp=new_viewport;
-    _engine->onViewportChanged(_vp);
+    _engine->onViewportChanged(this);
 }
 
 /*! Set the from point, i.e. the viewer position.
@@ -480,12 +485,12 @@ ViewportPtr Navigator::getViewport(void)
     return _vp;
 }
 
-Real32 Navigator::getLastX(void)
+Int16 Navigator::getLastX(void)
 {
     return _lastX;
 }
 
-Real32 Navigator::getLastY(void)
+Int16 Navigator::getLastY(void)
 {
     return _lastY;
 }
@@ -519,6 +524,8 @@ void Navigator::setUserEngine(NavigatorEngine* userEngine)
         _userEngine = userEngine;
         addRef(_userEngine);
     }
+
+    if (getMode() == USER) setMode(USER); // assign userEngine to _engine
 }
 
 
@@ -552,7 +559,7 @@ bool Navigator::setClickNoIntersect(bool state)
     return old;
 }
 
-bool Navigator::calcFromTo(Int16 x, Int16 y,
+bool Navigator::calcFromTo(Int16   x,     Int16   y,
                            Real32& fromX, Real32& fromY,
                            Real32& toX,   Real32& toY)
 {

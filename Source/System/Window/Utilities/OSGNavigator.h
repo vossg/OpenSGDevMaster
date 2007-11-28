@@ -142,7 +142,7 @@ class OSG_UTIL_DLLMAPPING Navigator
     /*! \name                        Set                                   */
     /*! \{                                                                 */
 
-    void setMode         (Mode          new_mode    );
+    void setMode         (Mode new_mode, bool copyViewParams=false);
     void setViewport     (ViewportPtr   new_viewport);
     void setRotationAngle(Real32        new_angle   );
     void setMotionFactor (Real32        new_factor  );
@@ -179,10 +179,9 @@ class OSG_UTIL_DLLMAPPING Navigator
           bool    getClickCenter();
           bool    getClickNoIntersect();
 
-          // --- added by Martin:
           bool    getMoved(void);
-          Real32  getLastX(void);
-          Real32  getLastY(void);
+          Int16   getLastX(void);
+          Int16   getLastY(void);
     ViewportPtr   getViewport(void);
 
     TrackballEngine*  getTrackballNavigator(void);
@@ -217,7 +216,8 @@ class OSG_UTIL_DLLMAPPING Navigator
     bool               _moved;
     bool               _clickCenter;
     bool               _clickNoIntersect;
-    Real32             _lastX, _lastY;
+    Int16              _lastX;
+    Int16              _lastY;
 
     Matrix      theMatrix;
 

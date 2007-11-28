@@ -108,15 +108,12 @@ class OSG_UTIL_DLLMAPPING TrackballEngine : public NavigatorEngine
     virtual void moveTo(                     Int16 x, Int16 y, Navigator* nav);
     virtual void idle(Int16 buttons,         Int16 x, Int16 y, Navigator* nav);
 
-    virtual void onViewportChanged(ViewportPtr new_viewport);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name              Trackball Transformations                       */
     /*! \{                                                                 */
 
-    void rotate     (Real32 fromX, Real32 fromY,
-                     Real32 toX,   Real32 toY);
+    void rotate     (Real32 fromX, Real32 fromY, Real32 toX, Real32 toY);
     void translateXY(Real32 distanceX, Real32 distanceY);
     void translateZ (Real32 distance);
 

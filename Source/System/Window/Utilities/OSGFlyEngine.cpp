@@ -278,11 +278,6 @@ void FlyEngine::idle(Int16 buttons, Int16 x,Int16 y,Navigator* nav)
 {
 }
 
-void FlyEngine::onViewportChanged(ViewportPtr new_viewport)
-{
-    // nothing to do here
-}
-
 /*---------------------- Flyer Transformations ----------------------------*/
 
 /*! Rotate the viewer \a deltaX around the up axis and deltaY around the 

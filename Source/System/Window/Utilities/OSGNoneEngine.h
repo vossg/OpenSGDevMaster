@@ -114,8 +114,6 @@ class OSG_UTIL_DLLMAPPING NoneEngine : public NavigatorEngine
     virtual void moveTo(                  Int16 x,Int16 y,Navigator* nav);
     virtual void idle(Int16 buttons,      Int16 x,Int16 y,Navigator* nav);
 
-    virtual void onViewportChanged(ViewportPtr new_viewport);
-
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
   protected:
