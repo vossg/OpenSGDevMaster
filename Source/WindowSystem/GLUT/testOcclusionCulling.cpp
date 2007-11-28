@@ -433,10 +433,10 @@ void keyboard(unsigned char k, int, int)
 
         case 'M':
         {
-            UInt32 small = tact->getOcclusionCullingMinimumFeatureSize();
-            small+=1;
-            tact->setOcclusionCullingMinimumFeatureSize(small);
-            std::cout << "Minimum Feature Size now: " << small << std::endl;
+            UInt32 minFSize = tact->getOcclusionCullingMinimumFeatureSize();
+            minFSize+=1;
+            tact->setOcclusionCullingMinimumFeatureSize(minFSize);
+            std::cout << "Minimum Feature Size now: " << minFSize << std::endl;
         }
         break;
             
