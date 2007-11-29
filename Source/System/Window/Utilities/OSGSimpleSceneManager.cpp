@@ -59,6 +59,8 @@
 #include <OSGSpotLight.h>
 #include <OSGDirectionalLight.h>
 #include <OSGTextureObjChunk.h>
+#include <OSGPerspectiveCamera.h>
+#include <OSGOrthographicCamera.h>
 
 #include "OSGSimpleSceneManager.h"
 
@@ -284,7 +286,7 @@ DirectionalLightPtr SimpleSceneManager::getHeadlight(void)
 
 /*! get the camera
  */
-PerspectiveCameraPtr SimpleSceneManager::getCamera(void)
+CameraPtr SimpleSceneManager::getCamera(void)
 {
     return _camera;
 }
@@ -427,15 +429,35 @@ void SimpleSceneManager::turnHeadlightOff(void)
     setHeadlight(false);
 }
 
-void SimpleSceneManager::setCamera(PerspectiveCameraPtr camera)
+void SimpleSceneManager::setCamera(CameraPtr camera)
 {
     if(camera == NullFC)
         return;
 
     camera->setBeacon(_camera->getBeacon());
-    camera->setFov   (_camera->getFov());
-    camera->setNear  (_camera->getNear());
-    camera->setFar   (_camera->getFar());
+
+    PerspectiveCameraPtr oldPer  = dynamic_cast<PerspectiveCameraPtr>(_camera);
+    PerspectiveCameraPtr newPer  = dynamic_cast<PerspectiveCameraPtr>(camera);
+
+    OrthographicCameraPtr oldOrt =dynamic_cast<OrthographicCameraPtr>(_camera);
+    OrthographicCameraPtr newOrt =dynamic_cast<OrthographicCameraPtr>(camera);
+
+
+    if (oldPer && newPer) {
+        newPer->setFov(oldPer->getFov());
+    }
+    else if (oldOrt && newOrt) {
+        newOrt->setVerticalSize(oldOrt->getVerticalSize());
+    }
+    else {
+        FWARNING(("SimpleSceneManager::setCamera: some of the old camera's "
+                  " params could not be copied to the new camera, because of "
+                  " different or unsupported camera types!\n"));
+    }
+
+    camera->setNear(_camera->getNear());
+    camera->setFar (_camera->getFar());
+
 
     for(UInt32 i=0;i<_win->getPort().size();++i)
     {
@@ -550,9 +572,9 @@ void SimpleSceneManager::initialize(void)
     addRef(_camera);
 
     _camera->setBeacon(cartN);
-    _camera->setFov   (osgDegree2Rad(60.f));
-    _camera->setNear  (0.1f);
-    _camera->setFar   (10000.f);
+    static_cast<PerspectiveCameraPtr>(_camera)->setFov(osgDegree2Rad(60.f));
+    _camera->setNear (0.1f);
+    _camera->setFar  (10000.f);
 
     // need a viewport?
     if(_win->getPort().size() == 0)
@@ -701,10 +723,23 @@ void SimpleSceneManager::showAll(void)
         d = max - min;
     }
 
-    Real32 dist = osgMax(d[0],d[1]) / (2 * osgTan(_camera->getFov() / 2.f));
+    PerspectiveCameraPtr  perCam = dynamic_cast<PerspectiveCameraPtr>(_camera);
+    OrthographicCameraPtr ortCam =dynamic_cast<OrthographicCameraPtr>(_camera);
+    Real32 dist = osgMax(d[0],d[1]);
+
+    if (perCam) {
+        dist /= (2 * osgTan(perCam->getFov()/2.f));
+    }
+    else if (ortCam) {
+        ortCam->setVerticalSize(dist);
+    }
+    else {
+        FWARNING(("SimpleSceneManager::showAll: unsupported camera type, "
+                  "may not work properly!\n"));
+    }
 
     Vec3f up(0,1,0);
-    Pnt3f at((min[0] + max[0]) * .5f,(min[1] + max[1]) * .5f,(min[2] + max[2]) * .5f);
+    Pnt3f at((min[0]+max[0])*.5f,(min[1]+max[1])*.5f,(min[2]+max[2])*.5f);
     Pnt3f from=at;
     from[2]+=(dist+fabs(max[2]-min[2])*0.5f);
 

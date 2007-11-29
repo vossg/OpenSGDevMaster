@@ -56,7 +56,7 @@
 #include "OSGTransform.h"
 #include "OSGGeometry.h"
 #include "OSGSimpleMaterial.h"
-#include "OSGPerspectiveCamera.h"
+#include "OSGCamera.h"
 #include "OSGDirectionalLight.h"
 #include "OSGNavigator.h"
 #include "OSGStatisticsForeground.h"
@@ -118,7 +118,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     virtual Navigator             *getNavigator       ( void );
     virtual bool                   getHeadlightState  ( void );
     virtual DirectionalLightPtr    getHeadlight       ( void );
-    virtual PerspectiveCameraPtr   getCamera          ( void );
+    virtual CameraPtr              getCamera          ( void );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -137,7 +137,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     virtual void  setHeadlight     (bool          on        );
     virtual void  turnHeadlightOn  (void                    );
     virtual void  turnHeadlightOff (void                    );
-    virtual void  setCamera        (PerspectiveCameraPtr camera);
+    virtual void  setCamera        (CameraPtr     camera    );
 
     virtual void setUseTraversalAction(bool s               );
     virtual bool getUseTraversalAction(void                 );
@@ -224,7 +224,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     RenderAction *      _rtaction;
 
     TransformPtr                 _cart;
-    PerspectiveCameraPtr         _camera;
+    CameraPtr                    _camera;
 
     Navigator                    _navigator;
 
