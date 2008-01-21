@@ -475,6 +475,349 @@ ValueTypeT TransformationMatrix<ValueTypeT>::det3_calc(
         (a1 * b3 * c2) - (a2 * b1 * c3) - (a3 * b2 * c1);
 }
 
+/*! Returns the 1-norm of the upper left 3x3 part of this matrix.
+    The 1-norm is also known as maximum absolute column sum norm.
+    
+    \return 1-norm of \a matrix.
+ */
+template <class ValueTypeT>
+inline typename TransformationMatrix<ValueTypeT>::ValueType
+    TransformationMatrix<ValueTypeT>::norm1_3x3(void) const
+{
+    ValueType max;
+    ValueType t;
+    
+    max = osgAbs(_matrix[0][0]) + 
+          osgAbs(_matrix[0][1]) +
+          osgAbs(_matrix[0][2]);
+    
+    if((t = osgAbs(_matrix[1][0]) +
+            osgAbs(_matrix[1][1]) +
+            osgAbs(_matrix[1][2])  ) > max)
+    {
+        max = t;
+    }
+    
+    if((t = osgAbs(_matrix[2][0]) +
+            osgAbs(_matrix[2][1]) +
+            osgAbs(_matrix[2][2])  ) > max)
+    {
+        max = t;
+    }
+    
+    return max;
+}
+
+/*! Returns the infinity-norm of the upper left 3x3 part of this matrix.
+    The infinity-norm is also known as maximum absolute row sum norm.
+    
+    \return infinity-norm of \a matrix.
+ */
+template <class ValueTypeT>
+inline typename TransformationMatrix<ValueTypeT>::ValueType
+    TransformationMatrix<ValueTypeT>::normInf_3x3(void) const
+{
+    ValueType max;
+    ValueType t;
+    
+    max = osgAbs(_matrix[0][0]) +
+          osgAbs(_matrix[1][0]) +
+          osgAbs(_matrix[2][0]);
+    
+    if((t = osgAbs(_matrix[0][1]) +
+            osgAbs(_matrix[1][1]) +
+            osgAbs(_matrix[2][1])  ) > max)
+    {
+        max = t;
+    }
+    
+    if((t = osgAbs(_matrix[0][2]) +
+            osgAbs(_matrix[1][2]) +
+            osgAbs(_matrix[2][2])  ) > max)
+    {
+        max = t;
+    }
+    
+    return max;
+}
+
+/*! Computes the transpose of the adjoint of the upper left 3x3 part of
+    this matrix and stores it in \a result.
+    This is used in polarDecomposition.
+    
+    \param[out] Transpose of adjoint.
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::adjointT_3x3(
+        TransformationMatrix<ValueTypeT> &result) const
+{
+    result[0][0] = _matrix[1][1] * _matrix[2][2] - _matrix[2][1] * _matrix[1][2];
+    result[1][0] = _matrix[2][1] * _matrix[0][2] - _matrix[0][1] * _matrix[2][2];
+    result[2][0] = _matrix[0][1] * _matrix[1][2] - _matrix[1][1] * _matrix[0][2];
+    
+    result[0][1] = _matrix[1][2] * _matrix[2][0] - _matrix[2][2] * _matrix[1][0];
+    result[1][1] = _matrix[2][2] * _matrix[0][0] - _matrix[0][2] * _matrix[2][0];
+    result[2][1] = _matrix[0][2] * _matrix[1][0] - _matrix[1][2] * _matrix[0][0];
+    
+    result[0][2] = _matrix[1][0] * _matrix[2][1] - _matrix[2][0] * _matrix[1][1];
+    result[1][2] = _matrix[2][0] * _matrix[0][1] - _matrix[0][0] * _matrix[2][1];
+    result[2][2] = _matrix[0][0] * _matrix[1][1] - _matrix[1][0] * _matrix[0][1];
+}
+
+/*! Computes the decomposition M = QS of a non-singular, affine matrix \a M 
+    (\c this) into an orthogonal matrix \a Q (basically a rotation, but may
+    also reflect) and a symmetric positive semi-definite matrix \a S (basically
+    a non-uniform scaling in \em some orthonormal basis).
+    The sign of the determinant of Q can be used to distinguish the case where
+    \a Q contains a reflection (det(Q) < 0).
+        
+    \param[out] Q Rotation and reflection component.
+    \param[out] S Scaling component.
+    \param[out] det Determinant of Q. 
+    
+    Code taken from Graphics Gems IV article III.4 "Polar Matrix Decomposition".
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::polarDecompose(
+        TransformationMatrix &Q,
+        TransformationMatrix &S,
+        ValueType            &det) const
+{
+    ValueType const TOL = 1.0e-6;
+
+    TransformationMatrix const &M = *this;
+    TransformationMatrix        Mk;
+    TransformationMatrix        Ek;
+    TransformationMatrix        MkAdjT;
+    
+    Mk.transposeFrom(M);
+    
+    ValueType Mk_one = Mk.norm1_3x3  ();
+    ValueType Mk_inf = Mk.normInf_3x3();
+    
+    ValueType MkAdjT_one;
+    ValueType MkAdjT_inf;
+    
+    ValueType Ek_one;
+    ValueType Mk_det;
+       
+    do
+    {
+        // compute transpose of adjoint
+        Mk.adjointT_3x3(MkAdjT);
+        
+        // Mk_det = det(Mk) -- computed from the adjoint        
+        Mk_det = Mk[0][0] * MkAdjT[0][0] + 
+                 Mk[1][0] * MkAdjT[1][0] +
+                 Mk[2][0] * MkAdjT[2][0];
+        
+        // should this be a close to zero test ?
+        if(Mk_det == TypeTraits<ValueType>::getZeroElement())
+        {
+            FWARNING(("polarDecompose: Mk_det == 0.0\n"));
+            break;
+        }
+        
+        MkAdjT_one = MkAdjT.norm1_3x3  ();
+        MkAdjT_inf = MkAdjT.normInf_3x3();
+        
+        // compute update factors
+        ValueType gamma =
+            osgSqrt(
+                osgSqrt((MkAdjT_one * MkAdjT_inf) / (Mk_one * Mk_inf)) /
+                osgAbs(Mk_det));
+        
+        ValueType g1 = 0.5 * gamma;
+        ValueType g2 = 0.5 / (gamma * Mk_det);
+           
+        Ek = Mk;
+        Mk.scale    (g1          ); // this does:
+        Mk.addScaled(MkAdjT, g2  ); // Mk = g1 * Mk + g2 * MkAdjT
+        Ek.addScaled(Mk,     -1.0); // Ek -= Mk;
+        
+        Ek_one = Ek.norm1_3x3  ();
+        Mk_one = Mk.norm1_3x3  ();
+        Mk_inf = Mk.normInf_3x3();
+        
+    } while(Ek_one > (Mk_one * TOL));
+    
+    Q = Mk;
+    Q.transpose();
+    
+    S = Mk;
+    S.mult(M);
+    
+    for(UInt32 i = 0; i < 3; ++i)
+    {
+        for(UInt32 j = i; j < 3; ++j)
+        {
+            S[j][i] = S[i][j] = 0.5 * (S[j][i] + S[i][j]);
+        }
+    }
+    
+    det = Mk_det;
+}
+
+/*! Computes a spectral decomposition of a symmetric positive
+    semi-definite matrix \a S (\c this) into a rotation matrix \a SO and
+    a vector of scaling values \a k.
+    The decomposition satisfies S = SO K SO^t, where K is the diagonal matrix
+    of scaling factors.    
+    
+    \param[out] SO Scale orientation rotation matrix.
+    \param[out] k Scaling factors.
+    
+    Code taken from Graphics Gems IV article III.4 "Polar Matrix Decomposition".
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::spectralDecompose(
+        TransformationMatrix &SO,
+        VectorType3f         &k  ) const
+{
+    UInt32 const next[3]       = {1, 2, 0};
+    UInt32 const maxIterations = 20;
+    
+    TransformationMatrix const &S = *this;
+    
+    ValueType diag[3];
+    ValueType offDiag[3];
+    
+    diag[0] = S[0][0];
+    diag[1] = S[1][1];
+    diag[2] = S[2][2];
+    
+    offDiag[0] = S[2][1];
+    offDiag[1] = S[0][2];
+    offDiag[2] = S[1][0];
+    
+    for(UInt32 iter = 0; iter < maxIterations; ++iter)
+    {
+        ValueType sm = osgAbs(offDiag[0]) + osgAbs(offDiag[1]) + osgAbs(offDiag[2]);
+        
+        if(sm == TypeTraits<ValueType>::getZeroElement())
+        {        
+            break;
+        }
+        
+        for(Int32 i = 2; i >= 0; --i)
+        {
+            UInt32 p = next[i];
+            UInt32 q = next[p];
+            
+            ValueType absOffDiag = osgAbs(offDiag[i]);
+            ValueType g          = 100.0 * absOffDiag; 
+            
+            if(absOffDiag > 0.0)
+            {
+                ValueType t;
+                ValueType h    = diag[q] - diag[p];
+                ValueType absh = osgAbs(h);
+                
+                if(absh + g == absh)
+                {
+                    t = offDiag[i] / h;
+                }
+                else
+                {
+                    ValueType theta = 0.5 * h / offDiag[i];
+                    t = 1.0 / (osgAbs(theta) + osgSqrt(theta * theta + 1.0));
+                    
+                    t = theta < 0.0 ? -t : t;
+                }
+            
+                ValueType c = 1.0 / osgSqrt(t * t + 1.0);
+                ValueType s = t * c;
+                
+                ValueType tau = s / (c + 1.0);
+                ValueType ta  = t * offDiag[i];
+                
+                offDiag[i] = 0.0;
+                
+                diag[p] -= ta;
+                diag[q] += ta;
+                
+                ValueType offDiagq = offDiag[q];
+                
+                offDiag[q] -= s * (offDiag[p] + tau * offDiag[q]);
+                offDiag[p] += s * (offDiagq   - tau * offDiag[p]);
+                
+                for(Int32 j = 2; j >= 0; --j)
+                {
+                    ValueType a = SO[p][j];
+                    ValueType b = SO[q][j];
+                    
+                    SO[p][j] -= s * (b + tau * a);
+                    SO[q][j] += s * (a - tau * b);
+                }
+            }
+        }
+    }
+    
+    k[0] = diag[0];
+    k[1] = diag[1];
+    k[2] = diag[2];
+}
+
+/*! Computes the decomposition of the 4x4 affine matrix \a M (\c this) as
+    M = T F R SO S SO^t, where T is a translation matrix, F is +/- I
+    (a reflection), R is a rotation matrix, SO is a rotation matrix and S
+    is a (nonuniform) scale matrix.
+    The results of the decomposition are not returned as matrices but as more
+    appropriate types.
+    
+    Code taken from Graphics Gems IV article III.4 "Polar Matrix Decomposition".
+    Note: The "spectral axis adjustment" part, i.e. the "snuggle" function,
+          is not implemented here.
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::decompose(
+        VectorType3f   &t,
+        ValueType      &f,
+        QuaternionType &r,
+        QuaternionType &so,
+        VectorType3f   &s  ) const
+{
+    TransformationMatrix A = *this;
+    TransformationMatrix Q;
+    TransformationMatrix S;
+    TransformationMatrix SO;
+    ValueType            det;
+
+    t[0] = A[3][0];
+    t[1] = A[3][1];
+    t[2] = A[3][2];
+    
+    A[3][0] = 0.0;
+    A[3][1] = 0.0;
+    A[3][2] = 0.0;
+    
+    A[0][3] = 0.0;
+    A[1][3] = 0.0;
+    A[2][3] = 0.0;
+    
+    A.polarDecompose(Q, S, det);
+    
+    if(det < 0.0)
+    {
+        Q.negate();
+        f = - 1.0;
+    }
+    else
+    {
+        f = 1.0;
+    }
+    
+    r.setValue(Q);
+    
+    S.spectralDecompose(SO, s);
+    
+    so.setValue(SO);
+}
+
 #ifdef __sgi
 #pragma set woff 1424
 #endif
@@ -1017,24 +1360,20 @@ void TransformationMatrix<ValueTypeT>::getTransform(
     VectorType3f   &scaleFactor,
     QuaternionType &scaleOrientation) const
 {
+    ValueType            flip;
     TransformationMatrix so;
     TransformationMatrix rot;
     TransformationMatrix proj;
 
-    this->factor(so, scaleFactor, rot, translation, proj);
-
-    so.transpose();
-    scaleOrientation.setValue(so);
-
-    // gives us transpose of correct answer.
-    rotation.setValue(rot);
-
+    this->decompose(translation, flip, rotation, scaleOrientation, scaleFactor);
 }
 
 /*! \brief Factors a matrix m into 5 pieces: m = r s rt u t, where rt
     means transpose of r, and r and u are rotations, s is a scale,
     and t is a translation. Any projection information is returned
     in proj.
+    
+    \bug This function seems to be BROKEN.
 */
 
 template<class ValueTypeT> inline
