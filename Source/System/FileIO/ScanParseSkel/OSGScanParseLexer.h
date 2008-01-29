@@ -51,6 +51,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
+#include "OSGConfig.h"
+
 // We have to prevent double inclusion of the scanner header file
 #ifndef TOK_HEADER
 #include "OSGScanParseSkelParser.hpp"
@@ -58,11 +60,14 @@
 
 #ifndef yyFlexLexer
 #define yyFlexLexer OSGScanParseSkel_FlexLexer
+#ifdef OSG_PREBUILD_SCANPARSE
 #include "OSGScanParseSkelScanner_FlexLexer.h"
+#else
+#include "FlexLexer.h"
+#endif
 #undef yyFlexLexer
 #endif
 
-#include "OSGConfig.h"
 #include "OSGBaseTypes.h"
 
 // OSG_BEGIN_NAMESPACE

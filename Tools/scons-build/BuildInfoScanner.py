@@ -3,6 +3,7 @@ import os
 import os.path
 import sys
 
+import SCons.Util
 import SConsAddons.Util as sca_util
 from LibraryUtils import *
 
@@ -135,6 +136,25 @@ class BuildInfoScanner(object):
         headerFiles   = [f for f in files if (os.path.splitext(f)[1] in [".h", ".inl", ".ins", ".hpp"] and
                                               os.path.basename(f).startswith("OSG"))]
         
+        if self.env['enable_scanparse_in_builddir'] == True:
+            parserFiles  = [f for f in files if (os.path.splitext(f)[1] in [".yy"] and
+                                                 os.path.basename(f).startswith("OSG") )]
+            lexerFiles   = [f for f in files if (os.path.splitext(f)[1] in [".ll"] and
+                                                 os.path.basename(f).startswith("OSG") )]
+        
+            for f in parserFiles:
+                sourceFiles.append(f)
+                headerFiles.append(SCons.Util.splitext(f)[0] + '.hpp')
+
+            for f in lexerFiles:
+                sourceFiles.append(f)
+
+
+#        print "FOO ", self.libNameStack
+#        if len(self.libNameStack) != 0 and self.libNameStack[-1] == 'OSGSystem':
+#            print sourceFiles
+        
+
         # Add files to their library object
         if (len(testFiles) or len(unittestFiles) or
             len(sourceFiles) or len(headerFiles)):

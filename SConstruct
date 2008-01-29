@@ -349,8 +349,9 @@ else:
                                toolpath = ['.', 'Tools/scons-build/OpenSG/Tools'])
    else:
       common_env = Environment(ENV = os.environ, 
-                               toolpath = '.',
-                               tools = ['default', 'doxygen'])
+                               toolpath = ['.', 'Tools/scons-build/OpenSG/Tools'],
+                               tools = ['g++', 'gcc', 'gnulink', 'osg_yacc',
+                                        'osg_lex', 'doxygen'])
 
 SConsignFile('.sconsign.'+GetPlatform()+common_env.subst('$CXX'))
 buildDir = "build." + platform + '.' + common_env.subst('$CXX')
@@ -581,6 +582,9 @@ feature_options["enable_valgrind_checks"] = sca_opts.BoolOption(
 feature_options["enable_memory_debugging"] = sca_opts.BoolOption(
     "enable_memory_debugging", "Enable memory debugging checks in OpenSG.", False)
 
+feature_options["enable_scanparse_in_builddir"] = sca_opts.BoolOption(
+    "enable_scanparse_in_builddir", "Enable scanparse files generated into the builddir", False)
+
 if "win32" == platform:
     feature_options["enable_win_localstorage"] = sca_opts.BoolOption(
         "enable_win_localstorage", "Enable use of local storage instead of __declspec to "+
@@ -742,7 +746,7 @@ if not SConsAddons.Util.hasHelpFlag():
       print "  found %s libraries" % len(lib_map)
    
    # Add lexer to the build
-   addScanParseSkel(common_env)      
+#   addScanParseSkel(common_env)      
       
    # -- Common builder settings
    variant_helper.readOptions(common_env)
@@ -775,28 +779,29 @@ if not SConsAddons.Util.hasHelpFlag():
       common_env["icc_gnu_compat"] = False
    
    # ---- Generate OSGConfigured.h --- #
-   definemap = {"OSG_DISABLE_DEPRECATED"   : (common_env["disable_deprecated"],
-                                              "Disable interface that will go away in the future"),
-                "OSG_NO_GLUT_GLSUBDIR"     : (common_env["disable_glut_glsubdir"],
-                                              "Don't use GL subdir for glut"),
-                "OSG_MT_CPTR_ASPECT"       : ("MT_CPTR" == common_env["fcptr_mode"]),
-                "OSG_1_COMPAT"             : common_env["enable_osg1_compat"],
-                "OSG_DEPRECATED_PROPS"     : common_env["enable_deprecated_props"],
-                "OSG_NEW_OSB_IO"           : common_env["enable_new_osb_io"],
-                "OSG_ICC_GNU_COMPAT"       : common_env["icc_gnu_compat"],
-                "OSG_ENABLE_VALGRIND_CHECKS" : common_env["enable_valgrind_checks"],
+   definemap = {"OSG_DISABLE_DEPRECATED"      : (common_env["disable_deprecated"],
+                                                 "Disable interface that will go away in the future"),
+                "OSG_NO_GLUT_GLSUBDIR"        : (common_env["disable_glut_glsubdir"],
+                                                 "Don't use GL subdir for glut"),
+                "OSG_MT_CPTR_ASPECT"          : ("MT_CPTR" == common_env["fcptr_mode"]),
+                "OSG_1_COMPAT"                : common_env["enable_osg1_compat"],
+                "OSG_DEPRECATED_PROPS"        : common_env["enable_deprecated_props"],
+                "OSG_NEW_OSB_IO"              : common_env["enable_new_osb_io"],
+                "OSG_ICC_GNU_COMPAT"          : common_env["icc_gnu_compat"],
+                "OSG_ENABLE_VALGRIND_CHECKS"  : common_env["enable_valgrind_checks"],
                 "OSG_ENABLE_MEMORY_DEBUGGING" : common_env["enable_memory_debugging"],
                 
-                "OSG_WITH_JPG"       : image_format_options["jpeg"].isAvailable(),
-                "OSG_WITH_TIF"       : image_format_options["tiff"].isAvailable(),
-                "OSG_WITH_PNG"       : image_format_options["png"].isAvailable(),
-                "OSG_WITH_GIF"       : image_format_options["gif"].getValue(),
-                "OSG_WITH_GLUT"      : optional_libs_options["glut"].isAvailable(),
-                "OSG_WITH_ZLIB"      : optional_libs_options["zlib"].isAvailable(),
-                "OSG_WITH_NVPERFSDK" : optional_libs_options["NVPerfSDK"].isAvailable(),
-                "OSG_WITH_VTK"       : optional_libs_options["vtk"].isAvailable(),
-                "OSG_WITH_COLLADA"   : optional_libs_options["collada"].isAvailable(),
-                "OSG_GV_BETA"        : common_env["enable_gv_beta"]
+                "OSG_WITH_JPG"                : image_format_options["jpeg"].isAvailable(),
+                "OSG_WITH_TIF"                : image_format_options["tiff"].isAvailable(),
+                "OSG_WITH_PNG"                : image_format_options["png"].isAvailable(),
+                "OSG_WITH_GIF"                : image_format_options["gif"].getValue(),
+                "OSG_WITH_GLUT"               : optional_libs_options["glut"].isAvailable(),
+                "OSG_WITH_ZLIB"               : optional_libs_options["zlib"].isAvailable(),
+                "OSG_WITH_NVPERFSDK"          : optional_libs_options["NVPerfSDK"].isAvailable(),
+                "OSG_WITH_VTK"                : optional_libs_options["vtk"].isAvailable(),
+                "OSG_WITH_COLLADA"            : optional_libs_options["collada"].isAvailable(),
+                "OSG_GV_BETA"                 : common_env["enable_gv_beta"],
+                "OSG_PREBUILD_SCANPARSE"      : not common_env["enable_scanparse_in_builddir"]
                }
    if "win32" == platform:   # Win32 specific defines
       definemap.update(
