@@ -422,8 +422,8 @@ bool PNGImageFileType::write(      ImageConstPtrArg  OSG_PNG_ARG(pImage  ),
 
     // set resolution png supports only meter per pixel,
     // so we do a conversion from dpi with some rounding.
-    png_uint_32 res_x = pImage->getResX();
-    png_uint_32 res_y = pImage->getResY();
+    png_uint_32 res_x = png_uint_32(pImage->getResX());
+    png_uint_32 res_y = png_uint_32(pImage->getResY());
     if(pImage->getResUnit() == Image::OSG_RESUNIT_INCH)
     {
         res_x = png_uint_32((pImage->getResX() * 39.37007874f) < 0.0f ?
