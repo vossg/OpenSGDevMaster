@@ -130,6 +130,8 @@ class Tool:
                         file.close()
                     return module
                 except ImportError, e:
+                    org_error = e
+
                     try:
                         import zipimport
                         importer = zipimport.zipimporter( sys.modules['SCons.Tool'].__path__[0] )
@@ -138,6 +140,7 @@ class Tool:
                         return module
                     except ImportError, e:
                         m = "No tool named '%s': %s" % (self.name, e)
+                        print "Base import error:", org_error
                         raise SCons.Errors.UserError, m
             except ImportError, e:
                 m = "No tool named '%s': %s" % (self.name, e)
