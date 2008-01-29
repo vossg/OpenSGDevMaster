@@ -146,7 +146,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
     // * update HeightError and HeightQuad
     if((whichField & HeightTilesFieldMask) && getMFHeightTiles()->size() > 0) 
     {
-        if(getParents()[0] != NullFC)
+        if(getParents().size() > 0 && getParents()[0] != NullFC)
         { // parent must be set!
             NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
 
@@ -212,93 +212,102 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
     if(((whichField & MaterialFieldMask) || 
         (whichField & PerPixelLightingFieldMask))) 
     {
-        Real32 tstepx = 1.0f/getSizeX();
-        Real32 tstepy = 1.0f/getSizeY();
-        UInt32 i, j;
-        const UInt32 roi = getSizeROI()+getSizeROI()+1;
-        for(j=0; j<roi; ++j) 
-        {
-            for(i=0; i<roi; ++i) 
+        if(getParents().size() > 0 && getParents()[0] != NullFC)
+        { // parent must be set!
+            Real32 tstepx = 1.0f/getSizeX();
+            Real32 tstepy = 1.0f/getSizeY();
+            UInt32 i, j;
+            const UInt32 roi = getSizeROI()+getSizeROI()+1;
+            for(j=0; j<roi; ++j) 
             {
-                NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
-
-                NodePtr node = pParent->getChild(j*roi+i);
-
-                QuadTreeTerrainPtr terrain = 
-                    dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
-
-                if (terrain == NullFC) 
+                for(i=0; i<roi; ++i) 
                 {
-                    continue;
-                }
-
-                if(getMaterial() == NullFC) 
-                { // use material of MFHeightTextures
-                    if(getHeightTextures().size() > j*getSizeX()+i && 
-                       i < getSizeX() && j < getSizeY())
-                    {	      
-                        terrain->setMaterial(
-                            getHeightTextures(j*getSizeX()+i));
+                    NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                    
+                    NodePtr node = pParent->getChild(j*roi+i);
+                    
+                    QuadTreeTerrainPtr terrain = 
+                        dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
+                    
+                    if (terrain == NullFC) 
+                    {
+                        continue;
                     }
-                } 
-                else 
-                { // use material of this MaterialGroup
-                    MaterialPtr mat = cloneMaterial(getMaterial());
-                    terrain->setMaterial(mat);
-                    terrain->setOriginTexX(i*tstepx);
-                    terrain->setOriginTexY(j*tstepy);
-                    terrain->setTexSpacing (tstepx);
-                    terrain->setTexYSpacing(tstepy);
+                    
+                    if(getMaterial() == NullFC) 
+                    { // use material of MFHeightTextures
+                        if(getHeightTextures().size() > j*getSizeX()+i && 
+                           i < getSizeX() && j < getSizeY())
+                        {	      
+                            terrain->setMaterial(
+                                getHeightTextures(j*getSizeX()+i));
+                        }
+                    } 
+                    else 
+                    { // use material of this MaterialGroup
+                        MaterialPtr mat = cloneMaterial(getMaterial());
+                        terrain->setMaterial(mat);
+                        terrain->setOriginTexX(i*tstepx);
+                        terrain->setOriginTexY(j*tstepy);
+                        terrain->setTexSpacing (tstepx);
+                        terrain->setTexYSpacing(tstepy);
+                    }
+                    
+                    terrain->setPerPixelLighting(getPerPixelLighting());
                 }
-
-                terrain->setPerPixelLighting(getPerPixelLighting());
             }
-       }
+        }
     }
 
     if((whichField & GeoMorphingFieldMask)) 
     {
-        const UInt32 roi  = getSizeROI()+getSizeROI()+1;
-        const UInt32 roi2 = roi*roi;
-
-        for(UInt32 i=0; i<roi2; ++i) 
-        {
-            NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
-
-            NodePtr node = pParent->getChild(i);
+        if(getParents().size() > 0 && getParents()[0] != NullFC)
+        { // parent must be set!
+            const UInt32 roi  = getSizeROI()+getSizeROI()+1;
+            const UInt32 roi2 = roi*roi;
             
-            QuadTreeTerrainPtr terrain = 
-                dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
-
-            if(terrain == NullFC) 
+            for(UInt32 i=0; i<roi2; ++i) 
             {
-                continue;
+                NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                
+                NodePtr node = pParent->getChild(i);
+                
+                QuadTreeTerrainPtr terrain = 
+                    dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
+                
+                if(terrain == NullFC) 
+                {
+                    continue;
+                }
+                
+                terrain->setGeoMorphing(getGeoMorphing());
             }
-
-            terrain->setGeoMorphing(getGeoMorphing());
         }
     }
 
     if((whichField & DetailFieldMask)) 
     {
-        const UInt32 roi  = getSizeROI()+getSizeROI()+1;
-        const UInt32 roi2 = roi*roi;
+        if(getParents().size() > 0 && getParents()[0] != NullFC)
+        { // parent must be set!
+            const UInt32 roi  = getSizeROI()+getSizeROI()+1;
+            const UInt32 roi2 = roi*roi;
 
-        for (UInt32 i=0; i<roi2; ++i) 
-        {
-            NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
-
-            NodePtr    node = pParent->getChild(i);
-
-            QuadTreeTerrainPtr terrain = 
-                dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
-
-            if(terrain == NullFC) 
+            for (UInt32 i=0; i<roi2; ++i) 
             {
-                continue;
+                NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                
+                NodePtr    node = pParent->getChild(i);
+                
+                QuadTreeTerrainPtr terrain = 
+                    dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
+                
+                if(terrain == NullFC) 
+                {
+                    continue;
+                }
+                
+                terrain->setDetail(getDetail());
             }
-
-            terrain->setDetail(getDetail());
         }
     }
     Inherited::changed(whichField, origin, details);
