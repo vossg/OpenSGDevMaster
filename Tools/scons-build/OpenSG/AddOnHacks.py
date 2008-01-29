@@ -540,6 +540,72 @@ def EnvironmentBuilder_gcc_linux_misc(bldr, env):
       else:
          assert False, "Invalid arch used for Linux gcc."
 
+      if bldr.extraWarningLevel == SConsAddons.EnvironmentBuilder.EnvironmentBuilder.GV:
+          env.Append(CCFLAGS = ['-Winline', '-Wreturn-type', '-Werror'])
+
+
+
+   # ---- Command-line option processing ---- #
+def EnvironmentBuilderAddOptions(self, opts):
+      """ The EnvironmentBuilder has support for adding command line options to an
+          option processing object.  This object has to be an instance
+          of SConsAddons.Options.   Once the options are added, the user
+          will be able to set defaults for the environment builder.
+          
+          TODO: Add options for tags.
+      """
+      import SConsAddons.Options as sca_opts
+      
+      assert isinstance(opts, sca_opts.Options)
+      opts.AddOption(sca_opts.SeparatorOption("\nEnvironment Builder Defaults"))      
+      opts.AddOption(sca_opts.EnumOption('default_debug_level',
+                                         'Default debug level for environment builder.',
+                                         'standard', 
+                                         ['none','minimal','standard','extensive','maximum'],
+                                         {'none':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.NONE,
+                                          'minimal':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.STANDARD,
+                                          'standard':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.STANDARD,
+                                          'extensive':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.EXTENSIVE,
+                                          'maximum':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.MAXIMUM}))
+      opts.AddOption(sca_opts.EnumOption('default_opt_level',
+                                         'Default optimization level for environment builder.',
+                                         'standard', 
+                                         ['none','minimal','standard','extensive','maximum'],
+                                         {'none':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.NONE,
+                                          'minimal':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.STANDARD,
+                                          'standard':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.STANDARD,
+                                          'extensive':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.EXTENSIVE,
+                                          'maximum':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.MAXIMUM}))
+      opts.AddOption(sca_opts.EnumOption('default_warning_level',
+                                         'Default optimization level for environment builder.',
+                                         'standard', [],
+                                         {'none':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.NONE,
+                                          'minimal':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.STANDARD,
+                                          'standard':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.STANDARD,
+                                          'extensive':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.EXTENSIVE,
+                                          'maximum':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.MAXIMUM}))            
+      opts.AddOption(sca_opts.EnumOption('extra_warning_level',
+                                         'extra warning level for environment builder.',
+                                         'none', [],
+                                         {'none':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.NONE,
+                                          'gv':SConsAddons.EnvironmentBuilder.EnvironmentBuilder.GV}))            
+
+      if GetPlatform() == "darwin":
+         opts.Add(sca_opts.BoolOption('darwin_universal',
+                                      'Build universal binaries.', False))
+         opts.Add('darwin_sdk', 'Darwin Platform SDK.', '')
+
+def EnvironmentBuilderReadOptions(self, optEnv):
+      """ Read the processed options from the given environment. """
+      self.defaultDebugLevel   = optEnv["default_debug_level"]
+      self.defaultOptLevel     = optEnv["default_opt_level"]
+      self.defaultWarningLevel = optEnv["default_warning_level"]
+      self.extraWarningLevel   = optEnv["extra_warning_level"]
+
+      if GetPlatform() == "darwin":
+         self.darwinUniversalEnabled = optEnv["darwin_universal"]
+         self.darwinSdk = optEnv["darwin_sdk"]
+
 def VariantsHelperFillDefaultVariants(self, varKeys):
       """ Fill the variants variable with default allowable settings. """
       if "type" in varKeys:
@@ -594,6 +660,11 @@ def apply():
     setattr(SConsAddons.Options.VTK.VTK, "libDir",  None)
     setattr(SConsAddons.Options.VTK.VTK, "library", None)
 
+    setattr(SConsAddons.EnvironmentBuilder.EnvironmentBuilder, "GV", 5)
+    setattr(SConsAddons.EnvironmentBuilder.EnvironmentBuilder,
+            "extraWarningLevel",
+            SConsAddons.EnvironmentBuilder.EnvironmentBuilder.NONE)
+
     SConsAddons.Options.VTK.VTK.validate    = VTKValidate
     SConsAddons.Options.VTK.VTK.getSettings = VTKGetSettings
     SConsAddons.Options.VTK.VTK.setInitial  = VTKSetInitial
@@ -616,6 +687,13 @@ def apply():
 
     SConsAddons.EnvironmentBuilder.gcc_linux_misc = \
         EnvironmentBuilder_gcc_linux_misc
+
+
+    SConsAddons.EnvironmentBuilder.EnvironmentBuilder.addOptions = \
+        EnvironmentBuilderAddOptions
+
+    SConsAddons.EnvironmentBuilder.EnvironmentBuilder.readOptions = \
+        EnvironmentBuilderReadOptions
 
     funcList = copy.copy(SConsAddons.EnvironmentBuilder.default_funcs)
 
