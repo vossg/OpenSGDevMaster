@@ -212,6 +212,8 @@ bool isEqual(const OSG::FieldContainerPtr& a, const OSG::FieldContainerPtr& b)
 #endif
         }
     }
+
+    return true;
 }
 
 

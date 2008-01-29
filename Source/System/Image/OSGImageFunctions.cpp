@@ -1553,6 +1553,8 @@ bool createVignette(ImagePtr pImg,
             }
         }
     }
+
+    return true;
 }
 
 bool convertCrossToCubeMap(ImageConstPtrArg pIn,
