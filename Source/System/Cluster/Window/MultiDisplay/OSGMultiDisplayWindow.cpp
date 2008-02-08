@@ -613,26 +613,29 @@ void MultiDisplayWindow::updateViewport(ViewportPtr &serverPort,
 
         if(dst_ftype != src_ftype)
             continue;
-    
+
+        if(cdst_field == NULL || src_field == NULL)
+            continue;
+
         equal = true;
 
 //        if(strstr(dst_ftype.getCName(), "Ptr") == NULL)
         if(src_field->isPointerField() == true)
         {
-            if(src_field->equal(cdst_field) == true)
-            {
-                EditFieldHandlePtr dst_field = serverPort->editField(i);
-
-                dst_field->copyValues(src_field);
-            }
-        }
-        else
-        {
-            if(src_field->equal(cdst_field) == true)
+            if(src_field->equal(cdst_field) == false)
             {
                 EditFieldHandlePtr dst_field = serverPort->editField(i);
 
                 dst_field->shareValues(src_field);
+            }
+        }
+        else
+        {
+            if(src_field->equal(cdst_field) == false)
+            {
+                EditFieldHandlePtr dst_field = serverPort->editField(i);
+
+                dst_field->copyValues(src_field);
             }
         }
     }
