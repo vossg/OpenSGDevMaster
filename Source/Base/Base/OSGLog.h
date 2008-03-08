@@ -390,10 +390,7 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
 
     static const Char8        *_levelName [];
     static const Char8        *_levelColor[];
-
-    static       Char8        *_buffer;
-    static       int           _buffer_size;
-
+    
     /*! \{                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Static Fields                             */

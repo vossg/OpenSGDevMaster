@@ -256,9 +256,6 @@ const Char8        *Log::_levelColor[] =
     0
 };
 
-Char8 *Log::_buffer      = NULL;
-int    Log::_buffer_size =  0;
-
 /*! \brief colorHeader which takes the log level for level color
  */
 bool Log::colorHeader(LogLevel level, const char *sep)
@@ -810,61 +807,34 @@ void Log::setLogFile(const Char8 *fileName, bool force)
 
 void Log::doLog(const Char8 * format, ...)
 {
-
-    va_list args;
+    UInt32 const  buffer_size = 4096;
+    Char8         buffer[buffer_size];
+    std::ostream& os          = *this; // VC71 work around by Chad Austin.
+    va_list       args;
 
     va_start( args, format );
 
 #if defined(OSG_HAS_VSNPRINTF) && !defined(__sgi)
     int count;
 
-    if(_buffer == NULL)
-    {
-        _buffer_size = 8;
-        _buffer = new Char8[_buffer_size];
-    }
-
     // on windows it returns -1 if the output
     // was truncated due to the buffer size limit.
     // on irix this returns always buffer_size-1 ????
+    count = vsnprintf(buffer, buffer_size, format, args);
 
-    count = vsnprintf(_buffer, _buffer_size, format, args);
-
-    while(count >= _buffer_size || count == -1)
+    if(count >= buffer_size || count == -1)
     {
-        _buffer_size = osgMax(_buffer_size * 2, count + 1);
-
-        if(_buffer != NULL) 
-            delete [] _buffer;
-
-        _buffer = new Char8[_buffer_size];
-
-        va_start(args, format);
-
-        count = vsnprintf(_buffer, _buffer_size, format, args);
+        os << "Log::doLog: Message length exceeds buffer, "
+           << "truncated message follows:\n";
+    
     }
 #else
-    if(_buffer_size < 8192)
-    {
-        _buffer_size = 8192;
-
-        if(_buffer != NULL) 
-            delete [] _buffer;
-
-        _buffer = new Char8[_buffer_size];
-    }
-
-    vsprintf(_buffer, format, args);
+    vsprintf(buffer, format, args);
 #endif
-
-//    *this << buffer;
-//    *this << std::flush;
-//  Work around VC71. Patch by Chad Austin.
-    std::ostream& os = *this;
-    os << _buffer;
+    
+    os << buffer;
     os << std::flush;
-
-
+ 
     va_end(args);
 }
 
@@ -953,11 +923,6 @@ void Log::terminate(void)
 #endif
 
     delete osgLogP;
-
-    delete [] Log::_buffer;
-
-    Log::_buffer_size = 0;
-    Log::_buffer      = NULL;
 }
 
 /** \var LogType Log::_logType;
