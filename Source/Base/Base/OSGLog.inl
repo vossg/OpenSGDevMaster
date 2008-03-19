@@ -104,6 +104,20 @@ void LogBuf::setEnabled(bool value)
 //  Log
 //---------------------------------------------------------------------------
 
+inline
+void Log::lock(void)
+{
+    if(_pLogLock != NULL)
+        _pLogLock->acquire();
+}
+
+inline
+void Log::unlock(void)
+{
+    if(_pLogLock != NULL)
+        _pLogLock->release();
+}
+
 inline 
 bool Log::checkLevel(LogLevel level)
 {

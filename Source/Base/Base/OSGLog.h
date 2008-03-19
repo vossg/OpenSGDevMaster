@@ -43,7 +43,9 @@
 #endif
 
 #include "OSGBaseTypes.h"
+#include "OSGBaseInitFunctions.h"
 #include "OSGTime.h"
+#include "OSGLock.h"
 
 #include <fstream>
 #include <list>
@@ -270,8 +272,10 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     /*! \name                   Class Specific                             */
     /*! \{                                                                 */
 
-    void lock  (void) {;} // TODO: implement
-    void unlock(void) {;} // TODO: implement
+    static bool initLock(void);
+    
+           void lock    (void);
+           void unlock  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -385,11 +389,17 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     /*! \name                    Static Fields                             */
     /*! \{                                                                 */
 
-    static       nilbuf       *_nilbufP;
-    static       std::ostream *_nilstreamP;
+    static       nilbuf          *_nilbufP;
+    static       std::ostream    *_nilstreamP;
 
-    static const Char8        *_levelName [];
-    static const Char8        *_levelColor[];
+    static const Char8           *_levelName [];
+    static const Char8           *_levelColor[];
+
+    static       Char8           *_buffer;
+    static       int              _bufferSize;
+
+    static       Lock            *_pLogLock;
+    static       InitFuncWrapper  _lockInit;
     
     /*! \{                                                                 */
     /*---------------------------------------------------------------------*/

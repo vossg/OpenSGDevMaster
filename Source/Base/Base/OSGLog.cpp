@@ -236,10 +236,10 @@ std::streamsize LogBuf::xsputn(const Char8 *buffer, std::streamsize size)
 /*! \brief holds the nil buffer
  */
 
-      Log::nilbuf  *Log::_nilbufP     = NULL;
-      std::ostream *Log::_nilstreamP  = NULL;
+      Log::nilbuf  *Log::_nilbufP      = NULL;
+      std::ostream *Log::_nilstreamP   = NULL;
 
-const Char8        *Log::_levelName[] =
+const Char8        *Log::_levelName[]  =
 {
     "LOG", "FATAL", "WARNING", "NOTICE", "DEBUG_GV", "INFO", "DEBUG", 0
 };
@@ -255,6 +255,12 @@ const Char8        *Log::_levelColor[] =
     0,          // DEBUG
     0
 };
+
+Char8              *Log::_buffer       = NULL;
+int                 Log::_bufferSize   =  0;
+
+Lock               *Log::_pLogLock     = NULL;
+InitFuncWrapper     Log::_lockInit(&Log::initLock);
 
 /*! \brief colorHeader which takes the log level for level color
  */
@@ -403,6 +409,13 @@ Log::~Log(void)
         _streamVec[i] = NULL;
     }
 
+}
+
+bool Log::initLock(void)
+{
+    _pLogLock = Lock::get("OSG::Log::_pLogLock");
+    
+    return true;
 }
 
 /*------------------------------ access -----------------------------------*/
@@ -807,34 +820,61 @@ void Log::setLogFile(const Char8 *fileName, bool force)
 
 void Log::doLog(const Char8 * format, ...)
 {
-    UInt32 const  buffer_size = 4096;
-    Char8         buffer[buffer_size];
-    std::ostream& os          = *this; // VC71 work around by Chad Austin.
-    va_list       args;
+
+    va_list args;
 
     va_start( args, format );
 
 #if defined(OSG_HAS_VSNPRINTF) && !defined(__sgi)
     int count;
 
+    if(_buffer == NULL)
+    {
+        _bufferSize = 8;
+        _buffer = new Char8[_bufferSize];
+    }
+
     // on windows it returns -1 if the output
     // was truncated due to the buffer size limit.
     // on irix this returns always buffer_size-1 ????
-    count = vsnprintf(buffer, buffer_size, format, args);
 
-    if(count >= buffer_size || count == -1)
+    count = vsnprintf(_buffer, _bufferSize, format, args);
+
+    while(count >= _bufferSize || count == -1)
     {
-        os << "Log::doLog: Message length exceeds buffer, "
-           << "truncated message follows:\n";
-    
+        _bufferSize = osgMax(_bufferSize * 2, count + 1);
+
+        if(_buffer != NULL) 
+            delete [] _buffer;
+
+        _buffer = new Char8[_bufferSize];
+
+        va_start(args, format);
+
+        count = vsnprintf(_buffer, _bufferSize, format, args);
     }
 #else
-    vsprintf(buffer, format, args);
+    if(_bufferSize < 8192)
+    {
+        _bufferSize = 8192;
+
+        if(_buffer != NULL) 
+            delete [] _buffer;
+
+        _buffer = new Char8[_bufferSize];
+    }
+
+    vsprintf(_buffer, format, args);
 #endif
-    
-    os << buffer;
+
+//    *this << buffer;
+//    *this << std::flush;
+//  Work around VC71. Patch by Chad Austin.
+    std::ostream& os = *this;
+    os << _buffer;
     os << std::flush;
- 
+
+
     va_end(args);
 }
 
@@ -923,6 +963,11 @@ void Log::terminate(void)
 #endif
 
     delete osgLogP;
+
+    delete [] Log::_buffer;
+
+    Log::_bufferSize = 0;
+    Log::_buffer     = NULL;
 }
 
 /** \var LogType Log::_logType;
