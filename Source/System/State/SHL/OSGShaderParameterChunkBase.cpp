@@ -218,7 +218,7 @@ void ShaderParameterChunkBase::insertParameter(UInt32                uiIndex,
 
     editMField(ParametersFieldMask, _mfParameters);
 
-    MFUnrecFieldContainerChildShaderParameterPtr::iterator fieldIt = _mfParameters.beginNC();
+    MFUnrecFieldContainerChildShaderParameterPtr::iterator fieldIt = _mfParameters.begin_nc();
 
     //addRef(value);
 
@@ -276,7 +276,7 @@ void ShaderParameterChunkBase::subParameter(UInt32 uiIndex)
     {
         editMField(ParametersFieldMask, _mfParameters);
 
-        MFUnrecFieldContainerChildShaderParameterPtr::iterator fieldIt = _mfParameters.beginNC();
+        MFUnrecFieldContainerChildShaderParameterPtr::iterator fieldIt = _mfParameters.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -294,7 +294,7 @@ void ShaderParameterChunkBase::subParameter(ShaderParameterPtrConstArg value)
     {
         editMField(ParametersFieldMask, _mfParameters);
 
-        MFUnrecFieldContainerChildShaderParameterPtr::iterator fieldIt = _mfParameters.beginNC();
+        MFUnrecFieldContainerChildShaderParameterPtr::iterator fieldIt = _mfParameters.begin_nc();
 
         fieldIt += iElemIdx;
 

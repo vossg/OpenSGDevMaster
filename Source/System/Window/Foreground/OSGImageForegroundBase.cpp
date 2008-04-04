@@ -269,7 +269,7 @@ void ImageForegroundBase::insertIntoImages(UInt32                uiIndex,
 
     editMField(ImagesFieldMask, _mfImages);
 
-    MFUnrecImagePtr::iterator fieldIt = _mfImages.beginNC();
+    MFUnrecImagePtr::iterator fieldIt = _mfImages.begin_nc();
 
     //addRef(value);
 
@@ -327,7 +327,7 @@ void ImageForegroundBase::removeFromImages(UInt32 uiIndex)
     {
         editMField(ImagesFieldMask, _mfImages);
 
-        MFUnrecImagePtr::iterator fieldIt = _mfImages.beginNC();
+        MFUnrecImagePtr::iterator fieldIt = _mfImages.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -345,7 +345,7 @@ void ImageForegroundBase::removeFromImages(ImagePtrConstArg value)
     {
         editMField(ImagesFieldMask, _mfImages);
 
-        MFUnrecImagePtr::iterator fieldIt = _mfImages.beginNC();
+        MFUnrecImagePtr::iterator fieldIt = _mfImages.begin_nc();
 
         fieldIt += iElemIdx;
 

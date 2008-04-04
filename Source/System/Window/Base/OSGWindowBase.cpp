@@ -562,7 +562,7 @@ void WindowBase::insertPort(UInt32                uiIndex,
 
     editMField(PortFieldMask, _mfPort);
 
-    MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.beginNC();
+    MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
 
     //addRef(value);
 
@@ -620,7 +620,7 @@ void WindowBase::subPort(UInt32 uiIndex)
     {
         editMField(PortFieldMask, _mfPort);
 
-        MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.beginNC();
+        MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -638,7 +638,7 @@ void WindowBase::subPort(ViewportPtrConstArg value)
     {
         editMField(PortFieldMask, _mfPort);
 
-        MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.beginNC();
+        MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
 
         fieldIt += iElemIdx;
 

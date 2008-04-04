@@ -696,7 +696,7 @@ void ViewportBase::insertIntoForegrounds(UInt32                uiIndex,
 
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
-    MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.beginNC();
+    MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.begin_nc();
 
     //addRef(value);
 
@@ -754,7 +754,7 @@ void ViewportBase::removeFromForegrounds(UInt32 uiIndex)
     {
         editMField(ForegroundsFieldMask, _mfForegrounds);
 
-        MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.beginNC();
+        MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -772,7 +772,7 @@ void ViewportBase::removeFromForegrounds(ForegroundPtrConstArg value)
     {
         editMField(ForegroundsFieldMask, _mfForegrounds);
 
-        MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.beginNC();
+        MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.begin_nc();
 
         fieldIt += iElemIdx;
 

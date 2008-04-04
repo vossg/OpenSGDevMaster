@@ -294,7 +294,7 @@ void SortLastWindowBase::insertIntoGroupNodes(UInt32                uiIndex,
 
     editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-    MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.beginNC();
+    MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.begin_nc();
 
     //addRef(value);
 
@@ -352,7 +352,7 @@ void SortLastWindowBase::removeFromGroupNodes(UInt32 uiIndex)
     {
         editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-        MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.beginNC();
+        MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -370,7 +370,7 @@ void SortLastWindowBase::removeFromGroupNodes(NodePtrConstArg value)
     {
         editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-        MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.beginNC();
+        MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.begin_nc();
 
         fieldIt += iElemIdx;
 

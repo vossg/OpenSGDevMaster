@@ -250,7 +250,7 @@ void ContainerPoolBase::insertIntoContainers(UInt32                uiIndex,
 
     editMField(ContainersFieldMask, _mfContainers);
 
-    MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.beginNC();
+    MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.begin_nc();
 
     //addRef(value);
 
@@ -308,7 +308,7 @@ void ContainerPoolBase::removeFromContainers(UInt32 uiIndex)
     {
         editMField(ContainersFieldMask, _mfContainers);
 
-        MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.beginNC();
+        MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -326,7 +326,7 @@ void ContainerPoolBase::removeFromContainers(FieldContainerPtrConstArg value)
     {
         editMField(ContainersFieldMask, _mfContainers);
 
-        MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.beginNC();
+        MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.begin_nc();
 
         fieldIt += iElemIdx;
 

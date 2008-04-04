@@ -215,7 +215,7 @@ void MultiPassMaterialBase::insertMaterial(UInt32                uiIndex,
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.beginNC();
+    MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
 
     //addRef(value);
 
@@ -273,7 +273,7 @@ void MultiPassMaterialBase::subMaterial(UInt32 uiIndex)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.beginNC();
+        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -291,7 +291,7 @@ void MultiPassMaterialBase::subMaterial(MaterialPtrConstArg value)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.beginNC();
+        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
 
         fieldIt += iElemIdx;
 

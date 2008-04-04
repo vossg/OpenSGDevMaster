@@ -602,7 +602,7 @@ void CubeMapGeneratorBase::insertIntoExclude(UInt32                uiIndex,
 
     editMField(ExcludeFieldMask, _mfExclude);
 
-    MFUnrecNodePtr::iterator fieldIt = _mfExclude.beginNC();
+    MFUnrecNodePtr::iterator fieldIt = _mfExclude.begin_nc();
 
     //addRef(value);
 
@@ -660,7 +660,7 @@ void CubeMapGeneratorBase::removeFromExclude(UInt32 uiIndex)
     {
         editMField(ExcludeFieldMask, _mfExclude);
 
-        MFUnrecNodePtr::iterator fieldIt = _mfExclude.beginNC();
+        MFUnrecNodePtr::iterator fieldIt = _mfExclude.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -678,7 +678,7 @@ void CubeMapGeneratorBase::removeFromExclude(NodePtrConstArg value)
     {
         editMField(ExcludeFieldMask, _mfExclude);
 
-        MFUnrecNodePtr::iterator fieldIt = _mfExclude.beginNC();
+        MFUnrecNodePtr::iterator fieldIt = _mfExclude.begin_nc();
 
         fieldIt += iElemIdx;
 
