@@ -157,7 +157,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     template<class StorageTypeT, 
              typename ItRefCountPolicy,
              typename Value,
-             Int32    iNamespace>
+             Int32    INamespace>
     class ptrfield_iterator;
 
     template<class    StorageTypeT, 

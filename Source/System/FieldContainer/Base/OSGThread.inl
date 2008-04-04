@@ -264,7 +264,6 @@ void WinThreadBase::setLocalFlagsTo(BitVector bLocalFlags)
     _bLocalFlagsLocal = bLocalFlags;
 #endif
 }
-#endif
 
 #ifdef OSG_THREAD_DEBUG_SETASPECTTO
 inline
@@ -282,6 +281,7 @@ void WinThreadBase::setChangelistTo(ChangeList *pNewList)
 }
 #endif
 
+#endif
 
 inline
 UInt32 Thread::getCurrentAspect(void)
