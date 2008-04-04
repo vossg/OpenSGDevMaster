@@ -46,6 +46,7 @@
 #include "OSGViewportBase.h"
 #include "OSGWindowFields.h"
 #include "OSGBackground.h"
+#include "OSGForeground.h"
 #include "OSGCamera.h"
 
 OSG_BEGIN_NAMESPACE

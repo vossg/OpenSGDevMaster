@@ -149,11 +149,7 @@ void FieldContainerPtrSField<ValueT,
     SFieldTraits::copyFromBin( pMem, 
                               _fieldValue);
 
-#if 0 // later
     RefCountPolicy::addRef(_fieldValue);
-
-    OSG_ASSERT(false);
-#endif
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -162,7 +158,8 @@ void FieldContainerPtrSField<ValueT,
                              RefCountPolicy, 
                              iNamespace    >::syncWith(Self &source)
 {
-    Inherited::syncWith(source);
+    RefCountPolicy::setRefd(_fieldValue,
+                            convertToCurrentAspect(source.getValue()));
 }
 #endif
 

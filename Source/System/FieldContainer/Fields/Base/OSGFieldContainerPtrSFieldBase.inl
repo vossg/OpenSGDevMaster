@@ -112,14 +112,4 @@ void FieldContainerPtrSFieldBase::setValue(const Self &obj)
 }
 #endif
 
-#ifdef OSG_MT_CPTR_ASPECT
-inline
-void FieldContainerPtrSFieldBase::syncWith(Self &source)
-{
-//    setValue(convertToCurrentAspect(source.getValue()));
-
-    _fieldValue = convertToCurrentAspect(source.getValue());
-}
-#endif
-
 OSG_END_NAMESPACE

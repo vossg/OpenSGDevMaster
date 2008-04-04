@@ -196,7 +196,9 @@ void FieldContainerPtrParentSField<ValueT,
                                    RefCountPolicy, 
                                    iNamespace    >::syncWith(Self &source)
 {
-    Inherited::syncWith(source);
+    _fieldValue       = convertToCurrentAspect(source.getValue());
+
+    _uiParentFieldPos = source._uiParentFieldPos;
 }
 #endif
 

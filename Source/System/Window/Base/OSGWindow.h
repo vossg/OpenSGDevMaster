@@ -62,6 +62,7 @@
 
 #include "OSGBackground.h"
 #include "OSGCamera.h"
+#include "OSGViewport.h"
 
 #include "OSGWindowBase.h"
 

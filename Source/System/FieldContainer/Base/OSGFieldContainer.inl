@@ -94,6 +94,14 @@ void FieldContainer::addReferenceX(void)
 }
 
 inline
+void FieldContainer::addReferenceUnrecordedX(void)
+{
+    ++_iRefCount;
+    
+//    Thread::getCurrentChangeList()->addAddRefd(Inherited::getId());
+}
+
+inline
 void FieldContainer::subReferenceX(void)
 {
     --_iRefCount;
@@ -135,7 +143,49 @@ void FieldContainer::subReferenceX(void)
 
 }
 
+inline
+void FieldContainer::subReferenceUnrecordedX(void)
+{
+    --_iRefCount;
 
+    if(_iRefCount <= 0 && _iWeakRefCount <= 0)
+    {
+        Thread::getCurrentChangeList()->incSubRefLevel();
+
+        this->resolveLinks();
+
+        Thread::getCurrentChangeList()->decSubRefLevel();
+
+//        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+
+#ifdef OSG_MT_CPTR_ASPECT
+        this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
+
+        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
+
+        if(_pAspectStore->getRefCount() == 1)
+        {
+            this->deregister(Inherited::getId());
+            this->onDestroy (Inherited::getId());
+        }
+
+        OSG::subRef(_pAspectStore);
+#else
+        this->deregister     (Inherited::getId()   );
+        this->onDestroyAspect(Inherited::getId(), 0);
+        this->onDestroy      (Inherited::getId()   );
+#endif
+
+        delete this;
+    }
+    else
+    {
+//        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+    }
+
+}
+
+#if 0
 inline
 void FieldContainer::subReferenceLocalVarX(void)
 {
@@ -179,6 +229,7 @@ void FieldContainer::subReferenceLocalVarX(void)
     }
 
 }
+#endif
 
 inline
 Int32 FieldContainer::getRefCount(void) const

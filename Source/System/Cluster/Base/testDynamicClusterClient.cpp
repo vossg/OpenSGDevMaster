@@ -163,7 +163,7 @@ static void disconnectCluster(void)
     if(_cluster_win == NullFC)
         return;
 
-    subRefX(_cluster_win);
+    //subRefX(_cluster_win);
 
     _cluster_win = NullFC;
 }

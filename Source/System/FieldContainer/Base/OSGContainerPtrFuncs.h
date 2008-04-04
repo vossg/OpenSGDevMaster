@@ -61,9 +61,6 @@ struct PointerFuncs
     static void subRefX        (const PtrT objectP);
 
     template <class PtrT> 
-    static void subRefLocalVarX(const PtrT objectP);
-
-    template <class PtrT> 
     static void shallowSubRefX (const PtrT objectP);
 
     template <class PtrT> 
@@ -107,9 +104,6 @@ void addRefX(FieldContainerPtrConst objectP);
 
 inline
 void subRefX(FieldContainerPtrConst objectP);
-
-inline
-void subRefLocalVarX(FieldContainerPtrConst objectP);
 
 
 /*! \ingroup GrpSystemFieldContainerFuncs

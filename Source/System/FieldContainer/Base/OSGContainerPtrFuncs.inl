@@ -55,13 +55,6 @@ void PointerFuncs::subRefX(const PtrT objectP)
 }
 
 template <class PtrT> inline
-void PointerFuncs::subRefLocalVarX(const PtrT objectP)
-{
-    if(objectP != NullFC)
-        objectP->subReferenceLocalVarX();
-}
-
-template <class PtrT> inline
 void PointerFuncs::beginEdit(const PtrT     ,
                                    BitVector,
                                    UInt32   )
@@ -143,11 +136,6 @@ void subRefX(FieldContainerPtrConst objectP)
     PointerFuncs::subRefX(objectP);
 }
 
-inline
-void subRefLocalVarX(FieldContainerPtrConst objectP)
-{
-    PointerFuncs::subRefLocalVarX(objectP);
-}
 
 
 inline

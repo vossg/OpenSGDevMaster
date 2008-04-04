@@ -181,35 +181,4 @@ FieldContainerPtrMFieldBase::~FieldContainerPtrMFieldBase(void)
 {
 }
 
-#ifdef OSG_MT_CPTR_ASPECT
-inline
-void FieldContainerPtrMFieldBase::syncWith(Self               &source, 
-                                           ConstFieldMaskArg   syncMode,
-                                           UInt32              uiSyncInfo,
-                                           AspectOffsetStore  &oOffsets    )
-{
-    if(source.size() != 0)
-    {
-        _values.resize(source.size());
-
-        Self::iterator sIt  = source._values.begin();
-        Self::iterator sEnd = source._values.end  ();
-
-        Self::iterator fIt  = _values.begin();
-        
-        while(sIt != sEnd)
-        {
-            (*fIt) = convertToCurrentAspect(*sIt);
-
-            ++sIt;
-            ++fIt;
-        }
-    }
-    else
-    {
-        _values.clear();
-    }
-}
-#endif
-
 OSG_END_NAMESPACE

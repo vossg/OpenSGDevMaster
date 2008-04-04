@@ -284,13 +284,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
     /*! \name                      MT Sync                                 */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_CPTR_ASPECT
-    void syncWith       (Self               &source, 
-                         ConstFieldMaskArg   syncMode,
-                         UInt32              uiSyncInfo,
-                         AspectOffsetStore  &oOffsets    );
-#endif
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Assignment                                  */

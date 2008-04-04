@@ -156,7 +156,6 @@ void FieldContainerPtrMField<ValueT,
                                   &(_values[0]),
                                      n);
 
-#if 0 // later
         typename Inherited::const_iterator sIt  = _values.begin();
         typename Inherited::const_iterator sEnd = _values.end  ();
 
@@ -166,9 +165,6 @@ void FieldContainerPtrMField<ValueT,
 
             ++sIt;
         }
-
-        OSG_ASSERT(false);
-#endif
     }
 }
 
@@ -380,7 +376,28 @@ void FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::syncWith(
     UInt32              uiSyncInfo,
     AspectOffsetStore  &oOffsets    )
 {
-    Inherited::syncWith(source, syncMode, uiSyncInfo, oOffsets);
+    if(source.size() != 0)
+    {
+        this->resize(source.size(), NullFC);
+
+        Inherited::iterator sIt  = source._values.begin();
+        Inherited::iterator sEnd = source._values.end  ();
+
+        Inherited::iterator fIt  = _values.begin();
+        
+        while(sIt != sEnd)
+        {
+            RefCountPolicy::setRefd((*fIt),
+                                    convertToCurrentAspect(*sIt));
+
+            ++sIt;
+            ++fIt;
+        }
+    }
+    else
+    {
+        this->clear();
+    }
 }
 
 OSG_END_NAMESPACE

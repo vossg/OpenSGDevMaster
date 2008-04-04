@@ -389,12 +389,50 @@ void FieldContainerPtrParentMField<ValueT,
     UInt32              uiSyncInfo,
     AspectOffsetStore  &oOffsets    )
 {
-    Inherited::syncWith(source, syncMode, uiSyncInfo, oOffsets);
+    if(source.size() != 0)
+    {
+        this->resize(source.size());
+
+        Inherited::iterator sIt  = source._values.begin();
+        Inherited::iterator sEnd = source._values.end  ();
+
+        Inherited::iterator fIt  = _values.begin();
+        
+        while(sIt != sEnd)
+        {
+            (*fIt) = convertToCurrentAspect(*sIt);
+
+            ++sIt;
+            ++fIt;
+        }
+    }
+    else
+    {
+        this->clear();
+    }
     
     _vParentPos = source._vParentPos;
 }
 
 
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrParentMField<ValueT, 
+                                   RefCountPolicy, 
+                                   iNamespace    >::resize(size_t     newsize, 
+                                                           StoredType t      )
+{
+    _values    .resize(newsize,      t);
+    _vParentPos.resize(newsize, 0xFFFF);
+}
+
+ template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+ void FieldContainerPtrParentMField<ValueT, 
+                                   RefCountPolicy, 
+                                   iNamespace    >::clear(void)
+{
+    _values    .clear();
+    _vParentPos.clear();
+}
 
 OSG_END_NAMESPACE
 

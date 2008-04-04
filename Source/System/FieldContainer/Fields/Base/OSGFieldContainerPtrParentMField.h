@@ -475,6 +475,16 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
 #endif
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    void resize   (size_t       newsize, 
+                   StoredType   t      = NullFC);
+
+    void clear    (void                         );
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
