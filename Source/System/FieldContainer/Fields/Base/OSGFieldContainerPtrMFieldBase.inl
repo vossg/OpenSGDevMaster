@@ -161,6 +161,7 @@ FieldContainerPtrMFieldBase::FieldContainerPtrMFieldBase(void) :
 {
 }
 
+#if 0
 inline
 FieldContainerPtrMFieldBase::FieldContainerPtrMFieldBase(const Self &obj) :
      Inherited(obj        ),
@@ -175,6 +176,7 @@ FieldContainerPtrMFieldBase::FieldContainerPtrMFieldBase(const UInt32 size) :
 {
     _values.resize(size, NULL);
 }
+#endif
 
 inline
 FieldContainerPtrMFieldBase::~FieldContainerPtrMFieldBase(void)

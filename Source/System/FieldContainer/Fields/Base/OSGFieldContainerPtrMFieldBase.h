@@ -54,41 +54,29 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
 
   public:
 
-    typedef MFieldVector<FieldContainerPtr>     StorageType;
-    typedef StorageType::Inherited              StorageTypeParent;
+    typedef       MFieldVector<FieldContainerPtr>     StorageType;
+    typedef       StorageType::Inherited              StorageTypeParent;
 
-    typedef StorageType::iterator               iterator;
-    typedef StorageType::const_iterator         const_iterator;
+    typedef       StorageType::const_iterator         const_iterator;
 
-    typedef StorageType::reverse_iterator       reverse_iterator;
-    typedef StorageType::const_reverse_iterator const_reverse_iterator;
+    typedef const FieldContainerPtr                   const_reference;
 
-    typedef StorageType::reference              reference;
-    typedef StorageType::const_reference        const_reference;
+    typedef       StorageType::size_type              size_type;
 
-    typedef StorageType::size_type              size_type;
-
-    typedef FieldTraits<FieldContainerPtr, 0>   MFieldTraits;
+    typedef       FieldTraits<FieldContainerPtr, 0>   MFieldTraits;
  
-    typedef FieldContainerPtrMFieldBase         Self;
+    typedef       FieldContainerPtrMFieldBase         Self;
 
-    typedef FieldContainerPtr                   StoredType;
-    typedef FieldContainerPtr                   ArgumentType;
+    typedef       FieldContainerPtr                   StoredType;
+    typedef       FieldContainerPtr                   ArgumentType;
 
-//    typedef MFieldTraits::ArgumentType          ArgumentType;
+    typedef       EditMFieldHandle <Self      >       EditHandle;
+    typedef       boost::shared_ptr<EditHandle>       EditHandlePtr;
 
-//    typedef FieldDescription<MFieldTraits,
-//                             MultiField     >   Description;
-
-    typedef EditMFieldHandle <Self      >       EditHandle;
-    typedef boost::shared_ptr<EditHandle>       EditHandlePtr;
-
-    typedef GetMFieldHandle  <Self     >        GetHandle;
-    typedef boost::shared_ptr<GetHandle>        GetHandlePtr;
+    typedef       GetMFieldHandle  <Self     >        GetHandle;
+    typedef       boost::shared_ptr<GetHandle>        GetHandlePtr;
 
     /*---------------------------------------------------------------------*/
-
-    static const Int32 Namespace     = 0;
 
     static const bool isSField       = false;
     static const bool isMField       = true;
@@ -106,8 +94,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-//    const StorageType &getValues(void) const;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Interface                           */
@@ -122,58 +108,20 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
     /*! \name                   STL Interface                              */
     /*! \{                                                                 */
 
-//    iterator               begin    (void                              );
-//    iterator               end      (void                              );
-
-//    reverse_iterator       rbegin   (void                              );
-//    reverse_iterator       rend     (void                              );
-
-    const_iterator         begin    (void                              ) const;
-    const_iterator         end      (void                              ) const;
+    const_iterator begin    (void              ) const;
+    const_iterator end      (void              ) const;
     
-//    const_reverse_iterator rbegin   (void                              ) const;
-//    const_reverse_iterator rend     (void                              ) const;
+    Int32          findIndex(ArgumentType value) const;
 
-//    reference              front    (void                              );
-//    const_reference        front    (void                              ) const;
-
-//    reference              back     (void                              );
-//    const_reference        back     (void                              ) const;
-    
-   
-#ifdef __STL_MEMBER_TEMPLATES
-//    template <class InputIterator>
-//    void                   insert   (iterator      pos, 
-//                                     InputIterator first, 
-//                                     InputIterator last                );
-#else
-//    void                   insert   (iterator      pos, 
-//                                     iterator      first,
-//                                    iterator      last                );
-#endif /* __STL_MEMBER_TEMPLATES */
- 
-   
-//    iterator               find     (ArgumentType value                );
-//    const_iterator         find     (ArgumentType value                ) const;
-    Int32                  findIndex(ArgumentType value                ) const;
-
-//    void                   reserve  (size_t       newsize              );
-
-    size_type              size     (void                              ) const;
-    size_type              capacity (void                              ) const;
-    bool                   empty    (void                              ) const;
-//    void                   swap     (Self                        &right);
-
-#ifdef OSG_1_COMPAT
-//    void                   addValue (ArgumentType value                );
-#endif
+    size_type      size     (void              ) const;
+    size_type      capacity (void              ) const;
+    bool           empty    (void              ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
-//          reference operator [](UInt32 index);
     const_reference operator [](UInt32 index) const;
 
     /*! \}                                                                 */
@@ -214,6 +162,8 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
 
   protected:
 
+    typedef StorageType::iterator iterator;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
@@ -226,8 +176,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
     /*! \{                                                                 */
 
              FieldContainerPtrMFieldBase(void);
-             FieldContainerPtrMFieldBase(const Self   &obj );
-    explicit FieldContainerPtrMFieldBase(const UInt32  size);
+//    explicit FieldContainerPtrMFieldBase(const UInt32  size);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -247,37 +196,15 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-//    StorageType &getValues(void);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-//    void setValues          (const StorageType       &value);
-//    void setValues          (const StorageTypeParent &value);
-//    void setValues          (const Self              &obj  );
-    
-#if 0
-    void addValueFromCString(const Char8             *str  );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Push                                    */
-    /*! \{                                                                 */
-
-    void pushValuesToString  (std::string  &str) const;
-    void pushValuesFromStream(std::istream &str);
-    void pushValuesToStream  (OutStream    &str) const;
-    void pushSizeToStream    (OutStream    &str) const;
-#endif
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Interface                           */
     /*! \{                                                                 */
-
-//    void copyFromBin(BinaryDataHandler &pMem);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -308,6 +235,8 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    FieldContainerPtrMFieldBase(const Self &obj);
 };
 
 OSG_END_NAMESPACE

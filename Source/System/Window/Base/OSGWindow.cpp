@@ -1744,7 +1744,7 @@ void OSG::Window::render(DrawActionBase *action)
 
 void OSG::Window::renderAllViewports(DrawActionBase *action)
 {
-    MFViewportPtr::iterator       portIt  = _mfPort.begin();
+    MFViewportPtr::const_iterator portIt  = _mfPort.begin();
     MFViewportPtr::const_iterator portEnd = _mfPort.end();
 
     if(action != NULL)
@@ -1790,7 +1790,7 @@ void OSG::Window::render(RenderActionBase *action)
 
 void OSG::Window::renderAllViewports(RenderActionBase *action)
 {
-    ViewportFieldType::iterator       portIt  = _mfPort.begin();
+    ViewportFieldType::const_iterator portIt  = _mfPort.begin();
     ViewportFieldType::const_iterator portEnd = _mfPort.end();
 
     if(action != NULL)

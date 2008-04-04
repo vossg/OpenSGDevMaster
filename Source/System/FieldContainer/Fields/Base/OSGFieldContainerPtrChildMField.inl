@@ -200,7 +200,7 @@ typename FieldContainerPtrChildMField<ValueT,
                                       iNamespace    >::iterator
     FieldContainerPtrChildMField<ValueT, 
                                  RefCountPolicy, 
-                                 iNamespace    >::begin(void)
+                                 iNamespace    >::beginNC(void)
 {
     return (this->template dcast<typename Self::StorageType>()).begin();
 }
@@ -213,7 +213,7 @@ typename FieldContainerPtrChildMField<ValueT,
                                       iNamespace    >::iterator
     FieldContainerPtrChildMField<ValueT, 
                                  RefCountPolicy, 
-                                 iNamespace    >::end(void)
+                                 iNamespace    >::endNC(void)
 {
     return (this->template dcast<typename Self::StorageType>()).end();
 }
@@ -270,8 +270,8 @@ void FieldContainerPtrChildMField<ValueT,
                                   RefCountPolicy, 
                                   iNamespace    >::clear(void)
 {
-    typename StorageType::iterator       fieldIt  = this->begin();
-    typename StorageType::const_iterator fieldEnd = this->end  ();
+    typename StorageType::iterator       fieldIt  = this->beginNC();
+    typename StorageType::const_iterator fieldEnd = this->end    ();
 
     while(fieldIt != fieldEnd)
     {
@@ -322,9 +322,11 @@ typename FieldContainerPtrChildMField<ValueT,
 
     for(; first != last; ++first)
     {
-        ParentHandler::clearParentLinking(*first, _pParent, _usParentFieldPos);
+        ParentHandler::clearParentLinking( first.deref(), 
+                                          _pParent, 
+                                          _usParentFieldPos);
 
-        RefCountPolicy::subRef(*first);
+        RefCountPolicy::subRef(first.deref());
     }
     
 
@@ -358,7 +360,7 @@ void FieldContainerPtrChildMField<ValueT,
 
     if(newsize < oldSize)
     {
-        this->erase(this->begin() + newsize, this->end());
+        this->erase(this->beginNC() + newsize, this->endNC());
     }
     else
     {

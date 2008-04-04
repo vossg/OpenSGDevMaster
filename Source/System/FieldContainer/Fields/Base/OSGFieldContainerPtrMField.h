@@ -59,46 +59,39 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
   public:
 
-    typedef          MFieldVector <ValueT>                 StorageType;
-    typedef typename StorageType::Inherited                StorageTypeParent;
+    class                                                    ReferenceProxy;
 
-    typedef typename StorageType::reverse_iterator         reverse_iterator;
-    typedef typename StorageType::const_reverse_iterator const_reverse_iterator;
+    typedef          MFieldVector <ValueT>                   StorageType;
+    typedef typename StorageType::Inherited                  StorageTypeParent;
 
-
-    typedef typename StorageType::reference                reference;
-    typedef          ValueT                                const_reference;
+    typedef          ReferenceProxy                          reference;
+    typedef          ValueT                                  const_reference;
 
     typedef          FieldTraits            <ValueT, 
-                                             iNamespace>   MFieldTraits;
+                                             iNamespace    > MFieldTraits;
  
     typedef          FieldContainerPtrMField<ValueT, 
                                              RefCountPolicy,
-                                             iNamespace>   Self;
+                                             iNamespace    > Self;
 
-    typedef          ValueT                                StoredType;
+    typedef          ValueT                                  StoredType;
 
-    typedef typename MFieldTraits::ArgumentType            ArgumentType;
+    typedef const    ValueT                                  ArgumentType;
 
     typedef          FieldDescription       <MFieldTraits,
                                              MultiField,
                                              RefCountPolicy,
-                                             PtrField    > Description;
+                                             PtrField      > Description;
 
-    typedef          EditFCPtrMFieldHandle  <Self        > EditHandle;
-    typedef          boost::shared_ptr      <EditHandle  > EditHandlePtr;
+    typedef          EditFCPtrMFieldHandle  <Self          > EditHandle;
+    typedef          boost::shared_ptr      <EditHandle    > EditHandlePtr;
 
-    typedef          GetFCPtrMFieldHandle   <Self        > GetHandle;
-    typedef          boost::shared_ptr      <GetHandle   > GetHandlePtr;
+    typedef          GetFCPtrMFieldHandle   <Self          > GetHandle;
+    typedef          boost::shared_ptr      <GetHandle     > GetHandlePtr;
 
     /*---------------------------------------------------------------------*/
 
-    static const Int32 Namespace     = iNamespace;
-
-    static const bool isSField       = false;
-    static const bool isMField       = true;
-
-    static const bool isPointerField = true;
+    static const Int32 Namespace = iNamespace;
 
     /*---------------------------------------------------------------------*/
 
@@ -202,9 +195,10 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
         {
         }
 
-        const_reference operator*() const
+        reference operator*() const
         { 
-            return ItRefCountPolicy::validate(*Inherited::_M_current); 
+            return ReferenceProxy();
+            //ItRefCountPolicy::validate(*Inherited::_M_current); 
         }
 
         bool operator ==(const ptrfield_iterator &rhs) const
@@ -254,6 +248,11 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
             return returnValue;
         }
 
+        const_reference deref(void) const
+        { 
+            return ItRefCountPolicy::validate(*Inherited::_M_current); 
+        }
+
       protected:
     };
 
@@ -261,6 +260,11 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
                                     RefCountPolicy>       iterator;
     typedef const_ptrfield_iterator<StorageType,
                                     RefCountPolicy> const_iterator;
+
+
+    class ReferenceProxy
+    {
+    };
     
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */
@@ -303,32 +307,29 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*! \name                   Binary Interface                           */
     /*! \{                                                                 */
 
-    void   copyFromBin(BinaryDataHandler &pMem);
+    void copyFromBin(BinaryDataHandler &pMem);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   STL Interface                              */
     /*! \{                                                                 */
 
-    iterator               begin    (void                              );
-    iterator               end      (void                              );
+    iterator               beginNC  (void                              );
+    iterator               endNC    (void                              );
 
     const_iterator         begin    (void                              ) const;
     const_iterator         end      (void                              ) const;
     
-#if 0
-    reference              front    (void                              );
+    reference              frontNC  (void                              );
     const_reference        front    (void                              ) const;
 
-    reference              back     (void                              );
+    reference              backNC   (void                              );
     const_reference        back     (void                              ) const;
-#endif
     
    
     iterator               insert   (iterator     pos, 
                                      ArgumentType value                );
 
-#if 0
 #ifdef __STL_MEMBER_TEMPLATES
     template <class InputIterator>
     void                   insert   (iterator      pos, 
@@ -339,7 +340,6 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
                                      iterator      first,
                                      iterator      last                );
 #endif /* __STL_MEMBER_TEMPLATES */
-#endif
 
     void                   clear    (void                              );
 
@@ -347,10 +347,8 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     iterator               erase    (iterator     first,
                                      iterator     last                 );
     
-#if 0
-    iterator               find     (ArgumentType value                );
+    iterator               findNC   (ArgumentType value                );
     const_iterator         find     (ArgumentType value                ) const;
-#endif
 
     void                   push_back(ArgumentType value                );
 
@@ -359,12 +357,10 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
     void                   reserve  (size_t       newsize              );
 
-#if 0
     void                   swap     (Self                        &right);
 
 #ifdef OSG_1_COMPAT
     void                   addValue (ArgumentType value                );
-#endif
 #endif
 
     /*! \}                                                                 */
@@ -383,6 +379,9 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
+#if 0
+          reference operator [](UInt32 index);
+#endif
     const_reference operator [](UInt32 index) const;
 
     /*! \}                                                                 */
@@ -390,18 +389,14 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*! \name                  Compare                                     */
     /*! \{                                                                 */
 
-#if 0
     bool operator ==(const Self &source) const;
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Assignment                                  */
     /*! \{                                                                 */
 
-#if 0
     void operator =(const Self &source);
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

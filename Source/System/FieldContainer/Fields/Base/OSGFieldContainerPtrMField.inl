@@ -176,7 +176,7 @@ template<class    ValueT,
          typename RefCountPolicy, 
          Int32    iNamespace    > inline
 typename FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::iterator
-    FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::begin(void)
+    FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::beginNC(void)
 {
     return (this->template dcast<typename Self::StorageType>()).begin();
 }
@@ -185,7 +185,7 @@ template<class    ValueT,
          typename RefCountPolicy, 
          Int32    iNamespace    > inline
 typename FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::iterator
-    FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::end(void)
+    FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::endNC(void)
 {
     return (this->template dcast<typename Self::StorageType>()).end();
 }
@@ -278,7 +278,7 @@ typename FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::iterator
 
     for(; first != last; ++first)
     {
-        RefCountPolicy::subRef(*first);
+        RefCountPolicy::subRef(first.deref());
     }
     
     return (this->template dcast<typename Self::StorageType>()).erase(tmpFirst,
@@ -309,7 +309,7 @@ void FieldContainerPtrMField<ValueT,
 
     if(newsize < oldSize)
     {
-        this->erase(this->begin() + newsize, this->end());
+        this->erase(this->beginNC() + newsize, this->endNC());
     }
     else
     {

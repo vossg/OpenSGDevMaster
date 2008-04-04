@@ -80,10 +80,11 @@ FieldContainerPtrParentMField<ValueT,
                               iNamespace    >::FieldContainerPtrParentMField(
     const Self &obj) :
 
-     Inherited (obj            ),
-    _vParentPos(obj._vParentPos)
+     Inherited (),
+    _vParentPos()
 {
-    
+    _values     = obj._values;
+    _vParentPos = obj._vParentPos;
 }
 
 template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
@@ -214,7 +215,7 @@ typename FieldContainerPtrParentMField<ValueT,
                                        iNamespace    >::iterator
     FieldContainerPtrParentMField<ValueT, 
                                   RefCountPolicy, 
-                                  iNamespace    >::begin(void)
+                                  iNamespace    >::beginNC(void)
 {
     return iterator(
         (this->template dcast<typename Self::StorageType>()).begin(),
@@ -227,7 +228,7 @@ typename FieldContainerPtrParentMField<ValueT,
                                        iNamespace    >::iterator
     FieldContainerPtrParentMField<ValueT, 
                                   RefCountPolicy, 
-                                  iNamespace    >::end(void)
+                                  iNamespace    >::endNC(void)
 {
     return iterator(
         (this->template dcast<typename Self::StorageType>()).end(),

@@ -58,50 +58,42 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
 
   public:
 
-    typedef          MFieldVector <ValueT>                 StorageType;
-    typedef typename StorageType::Inherited                StorageTypeParent;
+    typedef          MFieldVector <ValueT>                    StorageType;
+    typedef typename StorageType::Inherited                   StorageTypeParent;
 
-    typedef typename StorageType::reverse_iterator         reverse_iterator;
-    typedef typename StorageType::const_reverse_iterator const_reverse_iterator;
+    typedef typename StorageType::reference                   reference;
+    typedef typename StorageType::const_reference             const_reference;
 
-
-    typedef typename StorageType::reference                reference;
-    typedef typename StorageType::const_reference          const_reference;
-
-    typedef typename StorageType::size_type                size_type;
+    typedef typename StorageType::size_type                   size_type;
 
     typedef          FieldTraits            <ValueT, 
-                                             iNamespace>   PtrMFieldTraits;
+                                             iNamespace>      PtrMFieldTraits;
 
-    typedef          FieldTraits            <UInt16, 0>    PosMFieldTraits;
+    typedef          FieldTraits            <UInt16, 0>       PosMFieldTraits;
  
-    typedef          FieldContainerPtrParentMField<ValueT, 
-                                                   RefCountPolicy,
-                                                   iNamespace>   Self;
+    typedef          FieldContainerPtrParentMField<
+                         ValueT, 
+                         RefCountPolicy,
+                         iNamespace>   Self;
 
-    typedef          ValueT                                StoredType;
+    typedef          ValueT                                   StoredType;
 
-    typedef typename MFieldTraits::ArgumentType            ArgumentType;
+    typedef const    ValueT                                   ArgumentType;
 
     typedef          FieldDescription       <PtrMFieldTraits,
                                              MultiField,
                                              RefCountPolicy,
-                                             ParentPtrField  > Description;
+                                             ParentPtrField > Description;
 
-    typedef          EditFCPtrMFieldHandle  <Self        > EditHandle;
-    typedef          boost::shared_ptr      <EditHandle  > EditHandlePtr;
+    typedef          EditFCPtrMFieldHandle  <Self           > EditHandle;
+    typedef          boost::shared_ptr      <EditHandle     > EditHandlePtr;
 
-    typedef          GetFCPtrMFieldHandle   <Self        > GetHandle;
-    typedef          boost::shared_ptr      <GetHandle   > GetHandlePtr;
+    typedef          GetFCPtrMFieldHandle   <Self           > GetHandle;
+    typedef          boost::shared_ptr      <GetHandle      > GetHandlePtr;
 
     /*---------------------------------------------------------------------*/
 
     static const Int32 Namespace     = iNamespace;
-
-    static const bool isSField       = false;
-    static const bool isMField       = true;
-
-    static const bool isPointerField = true;
 
     /*---------------------------------------------------------------------*/
 
@@ -262,36 +254,11 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-#if 0
-          StorageType &getValues(void);
-    const StorageType &getValues(void) const;
-#endif
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-#if 0
-    void setValues          (const StorageType       &value);
-    void setValues          (const StorageTypeParent &value);
-    void setValues          (const Self              &obj  );
-#endif
-    
-#if 0
-    void addValueFromCString(const Char8             *str  );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Push                                    */
-    /*! \{                                                                 */
-
-    void pushValuesToString  (std::string  &str) const;
-    void pushValuesFromStream(std::istream &str);
-    void pushValuesToStream  (OutStream    &str) const;
-    void pushSizeToStream    (OutStream    &str) const;
-#endif
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Interface                           */
@@ -307,63 +274,34 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
     /*! \name                   STL Interface                              */
     /*! \{                                                                 */
 
-    iterator               begin    (void                              );
-    iterator               end      (void                              );
-
-#if 0
-    reverse_iterator       rbegin   (void                              );
-    reverse_iterator       rend     (void                              );
-#endif
+    iterator               beginNC  (void                              );
+    iterator               endNC    (void                              );
 
     const_iterator         begin    (void                              ) const;
     const_iterator         end      (void                              ) const;
     
-#if 0
-    const_reverse_iterator rbegin   (void                              ) const;
-    const_reverse_iterator rend     (void                              ) const;
-
-    reference              front    (void                              );
     const_reference        front    (void                              ) const;
-
-    reference              back     (void                              );
     const_reference        back     (void                              ) const;
     
-   
     iterator               insert   (iterator     pos, 
-                                     ArgumentType value                );
-#ifdef __STL_MEMBER_TEMPLATES
-    template <class InputIterator>
-    void                   insert   (iterator      pos, 
-                                     InputIterator first, 
-                                     InputIterator last                );
-#else
-    void                   insert   (iterator      pos, 
-                                     iterator      first,
-                                     iterator      last                );
-#endif /* __STL_MEMBER_TEMPLATES */
- 
+                                     ArgumentType value,
+                                     UInt16       parentFieldPos       );
+
     iterator               erase    (iterator     pos                  );
-#endif
     void                   erase    (size_type    pos                  );
     
-#if 0
     iterator               find     (ArgumentType value                );
     const_iterator         find     (ArgumentType value                ) const;
-#endif
 
     void                   push_back(ArgumentType value,
                                      UInt16       parentFieldPos       );
 
-#if 0
-    void                   resize   (size_t       newsize, 
-                                     StoredType   t      = NullFC      );
     void                   reserve  (size_t       newsize              );
 
-    void                   swap     (Self                        &right);
 
 #ifdef OSG_1_COMPAT
-    void                   addValue (ArgumentType value                );
-#endif
+    void                   addValue (ArgumentType value,
+                                     UInt16       parentFieldPos       );
 #endif
 
     /*! \}                                                                 */
@@ -384,9 +322,6 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
-#if 0
-          reference operator [](UInt32 index);
-#endif
     const_reference operator [](UInt32 index) const;
 
     /*! \}                                                                 */

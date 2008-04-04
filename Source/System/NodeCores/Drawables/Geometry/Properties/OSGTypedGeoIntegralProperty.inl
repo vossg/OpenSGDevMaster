@@ -125,8 +125,8 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::changed(
 {
     typedef typename Inherited::ParentField PFieldT;
 
-    typename PFieldT::iterator parentsIt  = Self::_mfParents.begin();
-    typename PFieldT::iterator parentsEnd = Self::_mfParents.end  ();
+    typename PFieldT::const_iterator parentsIt  = Self::_mfParents.begin();
+    typename PFieldT::const_iterator parentsEnd = Self::_mfParents.end  ();
 
     while(parentsIt != parentsEnd)
     {

@@ -235,7 +235,7 @@ void Node::insertChild(UInt32 childIndex, NodePtrConstArg childP)
 
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.begin();
+        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.beginNC();
 
         childIt += childIndex;
 
@@ -354,7 +354,7 @@ void Node::subChild(NodePtrConstArg childP)
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.begin();
+        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.beginNC();
 
         childIt += childIdx;
 
@@ -377,7 +377,7 @@ void Node::subChild(UInt32 childIndex)
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.begin();
+        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.beginNC();
 
         childIt += childIndex;
 
@@ -671,7 +671,7 @@ void Node::updateVolume(void)
 
     DynamicVolume vol = _sfVolume.getValue();
 
-    MFUnrecNodeChildNodePtr::iterator it;
+    MFUnrecNodeChildNodePtr::const_iterator it;
 
     vol.getInstance().setEmpty();
 

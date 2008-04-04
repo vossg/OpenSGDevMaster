@@ -287,9 +287,9 @@ void State::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 
 void State::activate(DrawEnv *pEnv)
 {
-    MFUnrecStateChunkPtr::iterator it;
-    Int32                          ind = 0;
-    UInt32                         cind;
+    MFUnrecStateChunkPtr::const_iterator it;
+    Int32                                ind = 0;
+    UInt32                               cind;
 
     for(  it  = _mfChunks.begin(), cind = 0; 
           it != _mfChunks.end  ();
@@ -312,10 +312,10 @@ void State::activate(DrawEnv *pEnv)
 
 void State::changeFrom(DrawEnv *pEnv, State *pOld)
 {
-    MFUnrecStateChunkPtr::iterator it;
-    Int32                          ind = 0;
-    UInt32                         i;
-    UInt32                         cind;
+    MFUnrecStateChunkPtr::const_iterator it;
+    Int32                                ind = 0;
+    UInt32                               i;
+    UInt32                               cind;
 
     for(  it = _mfChunks.begin(), cind = 0; 
           it != _mfChunks.end();
@@ -370,9 +370,9 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
 
 void State::deactivate(DrawEnv *pEnv)
 {
-    MFUnrecStateChunkPtr::iterator it;
-    Int32                          ind = 0;
-    UInt32                         cind;
+    MFUnrecStateChunkPtr::const_iterator it;
+    Int32                                ind = 0;
+    UInt32                               cind;
 
     for(  it =  _mfChunks.begin(), cind = 0; 
           it != _mfChunks.end  ();
@@ -564,8 +564,8 @@ void State::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    OSG::for_each_iterator(_mfChunks.begin(), 
-                           _mfChunks.end  (),
+    OSG::for_each_iterator(_mfChunks.beginNC(), 
+                           _mfChunks.endNC  (),
                            ClearSlot(_mfChunks));
 }
 
