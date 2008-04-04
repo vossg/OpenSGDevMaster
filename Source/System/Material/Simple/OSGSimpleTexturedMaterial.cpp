@@ -96,6 +96,8 @@ void SimpleTexturedMaterial::initMethod(InitPhase ePhase)
 
 void SimpleTexturedMaterial::resolveLinks(void)
 {
+    Inherited::resolveLinks();
+
     subRefLocalVarX(_textureChunk);
     subRefLocalVarX(_texGenChunk );
     subRefLocalVarX(_texEnvChunk );

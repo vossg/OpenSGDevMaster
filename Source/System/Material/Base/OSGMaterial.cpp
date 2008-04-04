@@ -106,6 +106,8 @@ void Material::initMethod(InitPhase ePhase)
 
 void Material::resolveLinks(void)
 {
+    Inherited::resolveLinks();
+
     subRefLocalVarX(_pState);
 }
 
