@@ -528,8 +528,14 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          RecordedRefCounts,
                          0);
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MatrixCameraPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    MatrixCameraPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, MatrixCameraPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         MatrixCameraPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_END_NAMESPACE

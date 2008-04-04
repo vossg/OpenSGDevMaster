@@ -984,10 +984,12 @@ void Node::resolveLinks(void)
         (*vChildIt)->setParent(NullFC);
 
 //        subRef(*vChildIt);
-        _mfChildren.replace(vChildIt, NullFC);
+//        _mfChildren.replace(vChildIt, NullFC);
 
         ++vChildIt;
     }
+
+    _mfChildren.clear();
 }
 
 /*-------------------------------------------------------------------------*/

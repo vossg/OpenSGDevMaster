@@ -113,41 +113,6 @@ struct FieldTraits<NodePtr, 1> : public FieldTraitsFCPtrBase<NodePtr, 1>
 /*! \hideinhierarchy                         */
 #endif
 
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
-typedef RefPtr<NodePtr>        NodeRefPtr;
-
-template <>
-struct FieldTraits<NodeRefPtr> : public FieldTraitsFCPtrBase<NodeRefPtr>
-{
-  private:
-
-    static  DataType             _type;
-
-  public:
-
-    typedef FieldTraits<NodePtr>  Self;
-
-
-    enum             { Convertible = Self::NotConvertible              };
-
-    static OSG_SYSTEM_DLLMAPPING
-                 DataType &getType      (void);
-
-    static const Char8    *getSName     (void) { return "SFNodeRefPtr";   }
-
-    static const Char8    *getMName     (void) { return "MFNodeRefPtr";   }
-};
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<NodePtr> */
-/*! \hideinhierarchy                         */
-#endif
-
-
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 

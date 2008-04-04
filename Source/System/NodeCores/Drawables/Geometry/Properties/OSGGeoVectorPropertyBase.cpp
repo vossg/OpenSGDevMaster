@@ -225,8 +225,14 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          RecordedRefCounts,
                          0);
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoVectorPropertyPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    GeoVectorPropertyPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, GeoVectorPropertyPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         GeoVectorPropertyPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_END_NAMESPACE

@@ -271,8 +271,8 @@ Action::ResultE MergeGraphOp::traverseLeave(NodePtrConstArg node, Action::Result
 
 bool MergeGraphOp::isLeaf(NodePtrConst node)
 {
-    if (node->getMFChildren()->getValues().begin()==
-        node->getMFChildren()->getValues().end()) return true;
+    if (node->getMFChildren()->begin() ==
+        node->getMFChildren()->end  ()) return true;
     else return false;    
 }
 
@@ -293,22 +293,24 @@ bool MergeGraphOp::isGroup(NodePtrConst node)
 
 void MergeGraphOp::processGroups(NodePtrConst node)
 {
-    std::vector<NodePtr>::const_iterator it = node->getMFChildren()->getValues().begin();
-    std::vector<NodePtr>::const_iterator en = node->getMFChildren()->getValues().end  ();
+    MFNodePtr::const_iterator mfit = node->getMFChildren()->begin();
+    MFNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
     std::vector<NodePtr> toAdd;
     std::vector<NodePtr> toSub;
     
-    for ( ; it != en; ++it )
+    for ( ; mfit != mfen; ++mfit )
     {
-        bool special=isInExcludeList(*it);
-        bool leaf=isLeaf(*it);
+        bool special=isInExcludeList(*mfit);
+        bool leaf=isLeaf(*mfit);
         
-        if (isGroup(*it))
+        if (isGroup(*mfit))
         {
             if (!leaf && !special)
             {
-                std::vector<NodePtr>::const_iterator it2 = (*it)->getMFChildren()->getValues().begin();
-                std::vector<NodePtr>::const_iterator en2 = (*it)->getMFChildren()->getValues().end  ();
+                MFNodePtr::const_iterator it2 = 
+                    (*mfit)->getMFChildren()->begin();
+                MFNodePtr::const_iterator en2 = 
+                    (*mfit)->getMFChildren()->end  ();
                 
                 for ( ; it2 != en2; ++it2 )
                 {
@@ -318,7 +320,7 @@ void MergeGraphOp::processGroups(NodePtrConst node)
             
             if (!special)
             {
-                toSub.push_back(*it);
+                toSub.push_back(*mfit);
                 continue;
             }
             
@@ -332,12 +334,16 @@ void MergeGraphOp::processGroups(NodePtrConst node)
             }
             continue;
         }
-        else if ((*it)->getCore()->getType().isDerivedFrom( MaterialGroup::getClassType() ))
+        else if ((*mfit)->getCore()->getType().isDerivedFrom( 
+                     MaterialGroup::getClassType() ))
         {
-            MaterialGroupPtr mg = dynamic_cast<MaterialGroupPtr>((*it)->getCore());
+            MaterialGroupPtr mg = 
+                dynamic_cast<MaterialGroupPtr>((*mfit)->getCore());
             
-            std::vector<NodePtr>::const_iterator it2 = (*it)->getMFChildren()->getValues().begin();
-            std::vector<NodePtr>::const_iterator en2 = (*it)->getMFChildren()->getValues().end  ();
+            MFNodePtr::const_iterator it2 = 
+                (*mfit)->getMFChildren()->begin();
+            MFNodePtr::const_iterator en2 = 
+                (*mfit)->getMFChildren()->end  ();
             
             bool empty=true;
             
@@ -346,7 +352,8 @@ void MergeGraphOp::processGroups(NodePtrConst node)
                 if (!isInExcludeList(*it2))
                 {
                     //check if geometry
-                    if ((*it2)->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
+                    if ((*it2)->getCore()->getType().isDerivedFrom(
+                            Geometry::getClassType()))
                     {
                         if(!isLeaf(*it2))
                         {
@@ -356,66 +363,81 @@ void MergeGraphOp::processGroups(NodePtrConst node)
                         else
                         {                                
                             //it is a leaf geometry, so apply the transformation
-                            GeometryPtr geo = dynamic_cast<GeometryPtr>((*it2)->getCore());
+                            GeometryPtr geo = 
+                                dynamic_cast<GeometryPtr>((*it2)->getCore());
+
                             geo->setMaterial(mg->getMaterial());
+
                             toAdd.push_back(*it2);                            
                         }
-                    } else empty=false;
-                } else empty=false;                
+                    } 
+                    else 
+                    {
+                        empty=false;
+                    }
+                } 
+                else 
+                {
+                    empty=false;                
+                }
             }
             
-            if (empty) toSub.push_back(*it);
-            
+            if (empty) 
+                toSub.push_back(*mfit);
         }
     }
     
-    it = toAdd.begin();
-    en = toAdd.end  ();
+    std::vector<NodePtr>::const_iterator vit = toAdd.begin();
+    std::vector<NodePtr>::const_iterator ven = toAdd.end  ();
     
-    for ( ; it != en; ++it )
+    for ( ; vit != ven; ++vit )
     {
-        node->addChild(*it);
+        node->addChild(*vit);
     }
     
-    it = toSub.begin();
-    en = toSub.end  ();
+    vit = toSub.begin();
+    ven = toSub.end  ();
     
-    for ( ; it != en; ++it )
+    for ( ; vit != ven; ++vit )
     {
-        node->subChild(*it);
+        node->subChild(*vit);
     }
 }
 
 void MergeGraphOp::processTransformations(NodePtrConst node)
 {
-    std::vector<NodePtr>::const_iterator it = node->getMFChildren()->getValues().begin();
-    std::vector<NodePtr>::const_iterator en = node->getMFChildren()->getValues().end  ();
+    MFNodePtr::const_iterator mfit = node->getMFChildren()->begin();
+    MFNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
     std::vector<NodePtr> toAdd;
     std::vector<NodePtr> toSub;
     
-    for ( ; it != en; ++it )
+    for ( ; mfit != mfen; ++mfit )
     {
-        bool special=isInExcludeList(*it);
-        bool leaf=isLeaf(*it);
+        bool special=isInExcludeList(*mfit);
+        bool leaf=isLeaf(*mfit);
         bool empty=true;
         
         //if a transformation:
-        if ((*it)->getCore()->getType().isDerivedFrom(Transform::getClassType()))
+        if ((*mfit)->getCore()->getType().isDerivedFrom(
+                Transform::getClassType()))
         {        
             if (!leaf && !special)
             {
                 //try to apply it to children geometries
                 //move all "moveable" children one level up
                 //if empty after that, delete it
-                std::vector<NodePtr>::const_iterator it2 = (*it)->getMFChildren()->getValues().begin();
-                std::vector<NodePtr>::const_iterator en2 = (*it)->getMFChildren()->getValues().end  ();
+                MFNodePtr::const_iterator it2 = 
+                    (*mfit)->getMFChildren()->begin();
+                MFNodePtr::const_iterator en2 = 
+                    (*mfit)->getMFChildren()->end  ();
                 
                 for ( ; it2 != en2; ++it2 )
                 {
                     if (!isInExcludeList(*it2))
                     {
                         //check if geometry
-                        if ((*it2)->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
+                        if ((*it2)->getCore()->getType().isDerivedFrom(
+                                Geometry::getClassType()))
                         {
                             if(!isLeaf(*it2))
                             {
@@ -425,10 +447,18 @@ void MergeGraphOp::processTransformations(NodePtrConst node)
                             else
                             {                                
                                 //it is a leaf geometry, so apply the transformation
-                                GeometryPtr geo_old = dynamic_cast<GeometryPtr>((*it2)->getCore());
+                                GeometryPtr geo_old = 
+                                    dynamic_cast<GeometryPtr>(
+                                        (*it2)->getCore());
                                 //GeometryPtr geo = geo_old->clone();
-                                GeometryPtr geo = dynamic_cast<GeometryPtr>(OSG::deepClone(geo_old, "Material"));
-                                TransformPtr  t = dynamic_cast<TransformPtr>((*it)->getCore());
+                                GeometryPtr geo = 
+                                    dynamic_cast<GeometryPtr>(
+                                        OSG::deepClone(geo_old, "Material"));
+
+                                TransformPtr  t = 
+                                    dynamic_cast<TransformPtr>(
+                                        (*mfit)->getCore());
+
                                 GeoPnt3fPropertyPtr pos  = dynamic_cast<GeoPnt3fPropertyPtr>(geo->getPositions());
                                 GeoVec3fPropertyPtr   norm = dynamic_cast<GeoVec3fPropertyPtr>(geo->getNormals());
                                 GeoColor3fPropertyPtr color = dynamic_cast<GeoColor3fPropertyPtr>(geo->getColors());
@@ -437,7 +467,9 @@ void MergeGraphOp::processTransformations(NodePtrConst node)
                                 GeoVec3fPropertyPtr texcoord1 = dynamic_cast<GeoVec3fPropertyPtr>(geo->getTexCoords1());
                                 GeoVec3fPropertyPtr texcoord2 = dynamic_cast<GeoVec3fPropertyPtr>(geo->getTexCoords2());
                                 GeoVec3fPropertyPtr texcoord3 = dynamic_cast<GeoVec3fPropertyPtr>(geo->getTexCoords3());
+
                                 Matrix m=t->getMatrix();
+
                                 if (pos!=NullFC) 
                                 {
                                     for (UInt32 i=0; i<pos->getSize(); i++)
@@ -541,7 +573,7 @@ void MergeGraphOp::processTransformations(NodePtrConst node)
             //now check whether we have to remove it
             if ((empty||leaf) && !special)
             {
-                toSub.push_back(*it);
+                toSub.push_back(*mfit);
                 continue;
             }
             
@@ -557,37 +589,39 @@ void MergeGraphOp::processTransformations(NodePtrConst node)
         }
     }
     
-    it = toAdd.begin();
-    en = toAdd.end  ();
+    std::vector<NodePtr>::const_iterator vit = toAdd.begin();
+    std::vector<NodePtr>::const_iterator ven = toAdd.end  ();
     
-    for ( ; it != en; ++it )
+    for ( ; vit != ven; ++vit )
     {
-        node->addChild(*it);
+        node->addChild(*vit);
     }
     
-    it = toSub.begin();
-    en = toSub.end  ();
+    vit = toSub.begin();
+    ven = toSub.end  ();
     
-    for ( ; it != en; ++it )
+    for ( ; vit != ven; ++vit )
     {
-        node->subChild(*it);
+        node->subChild(*vit);
     }
 }
 
 void MergeGraphOp::processGeometries(NodePtrConst node)
 {
-    std::vector<NodePtr>::const_iterator it = node->getMFChildren()->getValues().begin();
-    std::vector<NodePtr>::const_iterator en = node->getMFChildren()->getValues().end  ();
+    MFNodePtr::const_iterator mfit = node->getMFChildren()->begin();
+    MFNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
+
     std::vector<NodePtr> toSub;
     std::vector<NodePtr> toAdd;
     
-    for ( ; it != en; ++it )
+    for ( ; mfit != mfen; ++mfit )
     {
-        bool special=isInExcludeList(*it);
+        bool special=isInExcludeList(*mfit);
         
-        if ((*it)->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
+        if ((*mfit)->getCore()->getType().isDerivedFrom(
+                Geometry::getClassType()))
         {
-            GeometryPtr geo = dynamic_cast<GeometryPtr>((*it)->getCore());
+            GeometryPtr geo = dynamic_cast<GeometryPtr>((*mfit)->getCore());
             //if a geometry, try to merge it in another geometry
             //if successfull, delete it.
             //check also if it is added for exclusion
@@ -598,14 +632,14 @@ void MergeGraphOp::processGeometries(NodePtrConst node)
             std::vector<NodePtr>::const_iterator en3=toSub.end();
 
             for ( ; it3 != en3; ++it3 ) 
-                if (*it3==*it) { inSubList=true; break; }
+                if (*it3==*mfit) { inSubList=true; break; }
 
             if (!special && !inSubList)
             {
                 //ok, try
-                std::vector<NodePtr>::const_iterator it2=it+1;
+                MFNodePtr::const_iterator it2=mfit+1;
                 GeometryPtr new_geo=NullFC;
-                for ( ; it2!=en; ++it2)
+                for ( ; it2!=mfen; ++it2)
                 {
                     if (!isInExcludeList(*it2) && (*it2)->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
                     {
@@ -653,19 +687,19 @@ void MergeGraphOp::processGeometries(NodePtrConst node)
         }
     }
     
-    it = toAdd.begin();
-    en = toAdd.end  ();
+    std::vector<NodePtr>::const_iterator vit = toAdd.begin();
+    std::vector<NodePtr>::const_iterator ven = toAdd.end  ();
     
-    for ( ; it != en; ++it )
+    for ( ; vit != ven; ++vit )
     {
-        node->addChild(*it);
+        node->addChild(*vit);
     }
 
-    it = toSub.begin();
-    en = toSub.end  ();
+    vit = toSub.begin();
+    ven = toSub.end  ();
     
-    for ( ; it != en; ++it )
+    for ( ; vit != ven; ++vit )
     {
-        node->subChild(*it);
+        node->subChild(*vit);
     }
 }

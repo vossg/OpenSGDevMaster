@@ -264,7 +264,7 @@ void State::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
     MFStateChunkPtr::const_iterator it;
     UInt32 cind;
 
-    for(it = _mfChunks.begin(), cind = 0; it != _mfChunks.end(); it++, cind++)
+    for(it = _mfChunks.begin(), cind = 0; it != _mfChunks.end(); ++it, ++cind)
     {
         std::cerr << StateChunkClass::getName(cind) << "\t";
 

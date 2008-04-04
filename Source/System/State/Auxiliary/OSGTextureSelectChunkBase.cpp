@@ -601,8 +601,14 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          RecordedRefCounts,
                          0);
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TextureSelectChunkPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    TextureSelectChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, TextureSelectChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         TextureSelectChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_END_NAMESPACE

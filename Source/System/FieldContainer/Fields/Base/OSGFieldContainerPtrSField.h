@@ -67,7 +67,7 @@ class FieldContainerPtrSField : public FieldContainerPtrSFieldBase
 
     typedef          ValueT                               StoredType;
     typedef          ValueT                              &reference;
-    typedef const    ValueT                              &const_reference;
+    typedef const    ValueT                               const_reference;
   
     typedef typename SFieldTraits::ArgumentType           ArgumentType;
 
@@ -199,7 +199,7 @@ class FieldContainerPtrSField : public FieldContainerPtrSFieldBase
           To &dcast(void);
 
     template<class To>
-    const To &dcast(void) const;
+    const To dcast(void) const;
 
 #ifdef OSG_LINUX_ICC
 #pragma warning( default : 488 )

@@ -151,9 +151,9 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
     FieldType::SINGLE_FIELD)
 
 
-#define OSG_MFIELDTYPE_INST(CLASSNAME, T1, T2)           \
+#define OSG_MFIELDTYPE_INST(CLASSNAME, T1, T2, T3)       \
 template<>                                               \
-FieldType CLASSNAME< T1 , T2 >::_fieldType(              \
+FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
     MFieldTraits::getMName(),                            \
     MFieldTraits::getMPName(),                           \
     MFieldTraits::getType (),                            \

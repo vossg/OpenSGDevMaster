@@ -976,8 +976,14 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          RecordedRefCounts,
                          0);
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, BlendChunkPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    BlendChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, BlendChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         BlendChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_END_NAMESPACE

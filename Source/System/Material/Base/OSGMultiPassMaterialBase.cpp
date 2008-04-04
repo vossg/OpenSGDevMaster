@@ -511,8 +511,14 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          RecordedRefCounts,
                          0);
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MultiPassMaterialPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    MultiPassMaterialPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, MultiPassMaterialPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         MultiPassMaterialPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_END_NAMESPACE

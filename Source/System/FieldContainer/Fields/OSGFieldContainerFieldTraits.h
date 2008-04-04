@@ -323,6 +323,18 @@ struct RecordedRefCounts
     {
         OSG::setRefdX(pTarget, pSource);
     }
+
+    template<class T>
+    static T *validate(T *pIn)
+    {
+        return pIn;
+    }
+
+    template<class T>
+    static T &dereference(T *pIn)
+    {
+        return *pIn;
+    }
 };
 
 struct UnrecordedRefCounts
@@ -344,6 +356,13 @@ struct NoRefCounts
     {
         pTarget = pSource;
     }
+
+    template<class T>
+    static T *validate(T *pIn)
+    {
+        return pIn;
+    }
+
 };
 
 OSG_END_NAMESPACE

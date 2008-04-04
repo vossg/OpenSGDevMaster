@@ -353,8 +353,14 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          RecordedRefCounts,
                          0);
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ShaderParameterStringPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    ShaderParameterStringPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ShaderParameterStringPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         ShaderParameterStringPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_END_NAMESPACE

@@ -475,8 +475,14 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          RecordedRefCounts,
                          0);
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoPropertyPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    GeoPropertyPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, GeoPropertyPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         GeoPropertyPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_END_NAMESPACE

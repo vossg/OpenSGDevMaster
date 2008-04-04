@@ -1518,8 +1518,14 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          RecordedRefCounts,
                          0);
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ClusterWindowPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    ClusterWindowPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ClusterWindowPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         ClusterWindowPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_END_NAMESPACE

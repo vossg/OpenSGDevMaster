@@ -696,8 +696,14 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          RecordedRefCounts,
                          0);
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ChunkMaterialPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    ChunkMaterialPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ChunkMaterialPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         ChunkMaterialPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_END_NAMESPACE

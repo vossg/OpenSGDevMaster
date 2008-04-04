@@ -276,38 +276,39 @@ if (geo->getmethod()!=NullFC && geo->getmethod()->size()>0)                     
 
 Action::ResultE SplitGraphOp::traverseLeave(NodePtrConstArg node, Action::ResultE res)
 {
-    std::vector<NodePtr>::const_iterator it = node->getMFChildren()->getValues().begin();
-    std::vector<NodePtr>::const_iterator en = node->getMFChildren()->getValues().end  ();
+    MFNodePtr::const_iterator mfit = node->getMFChildren()->begin();
+    MFNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
+
     std::vector<NodePtr> toAdd;
     std::vector<NodePtr> toSub;
 
-    for ( ; it != en; ++it )
+    for ( ; mfit != mfen; ++mfit )
     {
-        bool special=isInExcludeList(*it);
-        bool leaf=isLeaf(*it);
+        bool special=isInExcludeList(*mfit);
+        bool leaf=isLeaf(*mfit);
         
         if (!special && leaf)
         {
-            if (splitNode(*it, toAdd))
-                toSub.push_back(*it);
+            if (splitNode(*mfit, toAdd))
+                toSub.push_back(*mfit);
         }
     }
 
-    it = toAdd.begin();
-    en = toAdd.end  ();
+    std::vector<NodePtr>::const_iterator vit = toAdd.begin();
+    std::vector<NodePtr>::const_iterator ven = toAdd.end  ();
     
-    for ( ; it != en; ++it )
+    for ( ; vit != ven; ++vit )
     {
-        node->addChild(*it);
+        node->addChild(*vit);
     }
     
-    it = toSub.begin();
-    en = toSub.end  ();
+    vit = toSub.begin();
+    ven = toSub.end  ();
     
-    for ( ; it != en; ++it )
+    for ( ; vit != ven; ++vit )
     {
-        OSG::addRefX(*it);
-        node->subChild(*it);
+        OSG::addRefX(*vit);
+        node->subChild(*vit);
     }
     return res;
 }
@@ -725,8 +726,8 @@ bool SplitGraphOp::splitNode(const NodePtr& node, std::vector<NodePtr> &split)
 
 bool SplitGraphOp::isLeaf(NodePtrConst node)
 {
-    if (node->getMFChildren()->getValues().begin()==
-        node->getMFChildren()->getValues().end()) return true;
+    if (node->getMFChildren()->begin()==
+        node->getMFChildren()->end()) return true;
     else return false;    
 }
 

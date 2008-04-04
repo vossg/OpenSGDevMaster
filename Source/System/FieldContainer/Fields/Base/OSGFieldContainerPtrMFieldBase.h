@@ -241,16 +241,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
     /*! \name                   STL Interface                              */
     /*! \{                                                                 */
 
-    void push_back(ArgumentType value);
-
-    void clear    (void                              );
-
-    void resize   (size_t       newsize, 
-                   StoredType   t);
-
-    void push_back_nc(ArgumentType value);
-
-    void clear_nc    (void                              );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

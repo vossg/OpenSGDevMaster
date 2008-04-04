@@ -373,7 +373,7 @@ ActionBase::ResultE Action::recurse(NodePtrConstArg node)
     }
     else if(! _useNewList) // new list is empty, but not used?
     {
-        std::vector<NodePtr>::const_iterator it;
+        MFNodePtr::const_iterator it;
 
         for(  it  = node->getMFChildren()->begin(); 
               it != node->getMFChildren()->end(); 
@@ -601,6 +601,25 @@ ActionBase::ResultE traverse(const std::vector<NodePtr> &nodeList,
     return res;
 }
 
+ActionBase::ResultE traverse(const MFNodePtr            &nodeList, 
+                                   TraverseEnterFunctor  func    )
+{
+    ActionBase::ResultE res = ActionBase::Continue;
+
+    MFNodePtr::const_iterator it = nodeList.begin();
+    MFNodePtr::const_iterator en = nodeList.end  ();
+    
+    for(; it != en; ++it)
+    {
+        res = traverse((*it), func);
+        
+        if(res == ActionBase::Quit)
+            break;
+    }
+        
+    return res;
+}
+
 /*! Simple tree traversal function. Calls func for every node encountered
  */
 
@@ -617,8 +636,8 @@ ActionBase::ResultE traverse(NodePtrConstArg      node,
             return Action::Continue;
 
         case ActionBase::Continue:  
-            return traverse(node->getMFChildren()->getValues(), 
-                            func                              );
+            return traverse(*(node->getMFChildren()), 
+                            func                    );
 
         default:                
             break;
@@ -651,6 +670,26 @@ ActionBase::ResultE traverse(const std::vector<NodePtr> &nodeList,
     return res;
 }
 
+ActionBase::ResultE traverse(const MFNodePtr             &nodeList, 
+                                   TraverseEnterFunctor  enter, 
+                                   TraverseLeaveFunctor  leave )
+{
+    ActionBase::ResultE res = ActionBase::Continue;
+
+    MFNodePtr::const_iterator it = nodeList.begin();
+    MFNodePtr::const_iterator en = nodeList.end  ();
+    
+    for(; it != en; ++it)
+    {
+        res = traverse((*it), enter, leave);
+        
+        if(res == Action::Quit)
+            break;
+    }
+        
+    return res;
+}
+
                             
 /*! Simple tree traversal function. Calls enter before entering a node,
     leave after leaving.
@@ -671,9 +710,9 @@ ActionBase::ResultE traverse(NodePtrConstArg      node,
             break;
 
         case ActionBase::Continue:  
-            res = traverse(node->getMFChildren()->getValues(), 
+            res = traverse(*(node->getMFChildren()), 
                            enter, 
-                           leave                             );
+                           leave                   );
 
         default:                
             break;

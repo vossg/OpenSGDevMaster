@@ -181,57 +181,6 @@ FieldContainerPtrMFieldBase::~FieldContainerPtrMFieldBase(void)
 {
 }
 
-inline
-void FieldContainerPtrMFieldBase::push_back(ArgumentType value)
-{
-    OSG::addRefX(value);
-
-    _values.push_back(value);
-}
-
-inline
-void FieldContainerPtrMFieldBase::clear(void)
-{
-    iterator       fieldIt  = _values.begin();
-    const_iterator fieldEnd = _values.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        OSG::subRefX(*fieldIt);
-
-        ++fieldIt;
-    }
-
-    _values.clear();
-}
-
-inline
-void FieldContainerPtrMFieldBase::resize(size_t       newsize, 
-                                         StoredType   t)
-{
-    _values.resize(newsize, t);
-}
-
-inline
-void FieldContainerPtrMFieldBase::push_back_nc(ArgumentType value)
-{
-    _values.push_back(value);
-}
-
-inline
-void FieldContainerPtrMFieldBase::clear_nc(void)
-{
-    iterator       fieldIt  = _values.begin();
-    const_iterator fieldEnd = _values.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        ++fieldIt;
-    }
-
-    _values.clear();
-}
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void FieldContainerPtrMFieldBase::syncWith(Self               &source, 

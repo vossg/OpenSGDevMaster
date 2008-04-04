@@ -51,11 +51,11 @@ To &FieldContainerPtrSField<ValueT, RefCountPolicy, iNamespace>::dcast(void)
 
 template<class ValueT, typename RefCountPolicy, Int32 iNamespace> 
 template<class To> inline
-const To &FieldContainerPtrSField<ValueT, 
-                                  RefCountPolicy, 
-                                  iNamespace    >::dcast(void) const 
+const To FieldContainerPtrSField<ValueT, 
+                                 RefCountPolicy, 
+                                 iNamespace    >::dcast(void) const 
 {
-    return reinterpret_cast<const To &>(Self::_fieldValue); 
+    return reinterpret_cast<const To>(Self::_fieldValue); 
 }
 
 #ifdef OSG_LINUX_ICC
@@ -117,7 +117,8 @@ typename FieldContainerPtrSField<ValueT,
                             RefCountPolicy, 
                             iNamespace    >::getValue(void) const
 {
-    return this->template dcast<typename Self::StoredType>();
+    return RefCountPolicy::validate(
+        this->template dcast<typename Self::StoredType>());
 }
 
 template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
@@ -148,7 +149,11 @@ void FieldContainerPtrSField<ValueT,
     SFieldTraits::copyFromBin( pMem, 
                               _fieldValue);
 
+#if 0 // later
     RefCountPolicy::addRef(_fieldValue);
+
+    OSG_ASSERT(false);
+#endif
 }
 
 #ifdef OSG_MT_CPTR_ASPECT

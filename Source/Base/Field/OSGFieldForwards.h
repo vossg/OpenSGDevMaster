@@ -63,8 +63,9 @@ template<class    ValueT,
          Int32    iNamespace>
 class FieldContainerPtrSField;
 
-template<class  ValueT, 
-         Int32  iNamespace>
+template<class    ValueT, 
+         typename RefCountPolicy,
+         Int32    iNamespace>
 class FieldContainerPtrMField;
 
 template<class    ValueT, 
@@ -72,8 +73,9 @@ template<class    ValueT,
          Int32    iNamespace>
 class FieldContainerPtrParentSField;
 
-template<class  ValueT, 
-         Int32  iNamespace>
+template<class    ValueT, 
+         typename RefCountPolicy,
+         Int32    iNamespace>
 class FieldContainerPtrParentMField;
 
 class FieldDescriptionBase;

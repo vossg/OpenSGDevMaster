@@ -356,8 +356,14 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          RecordedRefCounts,
                          0);
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, SHLParameterChunkPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    SHLParameterChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, SHLParameterChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         SHLParameterChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_END_NAMESPACE

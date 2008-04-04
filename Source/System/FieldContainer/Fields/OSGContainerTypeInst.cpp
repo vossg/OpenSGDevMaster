@@ -83,13 +83,19 @@ OSG_SFIELDTYPE_INST(FieldContainerPtrSField,
                     FieldContainerPtr, 
                     RecordedRefCounts,
                     0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FieldContainerPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    FieldContainerPtr, 
+                    RecordedRefCounts,
+                    0);
 
 OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
                     NodePtr, 
                     RecordedRefCounts,
                     0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, NodePtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    NodePtr, 
+                    RecordedRefCounts,
+                    0);
 
 OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
                     NodePtr, 
@@ -100,19 +106,28 @@ OSG_SFIELDTYPE_INST(FieldContainerPtrSField,
                     NodeCorePtr, 
                     RecordedRefCounts,
                     0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, NodeCorePtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    NodeCorePtr, 
+                    RecordedRefCounts,
+                    0);
 
 OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
                     AttachmentContainerPtr, 
                     RecordedRefCounts,
                     0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, AttachmentContainerPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    AttachmentContainerPtr, 
+                    RecordedRefCounts,
+                    0);
 
 OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
                     FieldContainerAttachmentPtr, 
                     RecordedRefCounts,
                     0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FieldContainerAttachmentPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    FieldContainerAttachmentPtr, 
+                    RecordedRefCounts,
+                    0);
 
 OSG_SFIELDTYPE_INST(FieldContainerPtrParentSField,
                     FieldContainerPtr, 
@@ -120,6 +135,7 @@ OSG_SFIELDTYPE_INST(FieldContainerPtrParentSField,
                     1);
 OSG_MFIELDTYPE_INST(FieldContainerPtrParentMField, 
                     FieldContainerPtr, 
+                    NoRefCounts,
                     1);
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
@@ -144,10 +160,6 @@ DataType FieldTraits<NodePtr                    >::_type(
     "NodePtr",
     "AttachmentContainerPtr");
 
-DataType FieldTraits<NodeRefPtr                 >::_type(
-    "NodeRefPtr",
-    "AttachmentContainerPtr");
-
 DataType FieldTraits<ChangedFunctorCallback     >::_type(
     "ChangedFunctorCallback",
     NULL);
@@ -158,7 +170,6 @@ OSG_FIELDTRAITS_GETTYPE   (FieldContainerAttachmentPtr)
 OSG_FIELDTRAITS_GETTYPE   (AttachmentContainerPtr     )
 OSG_FIELDTRAITS_GETTYPE   (NodeCorePtr                )
 OSG_FIELDTRAITS_GETTYPE   (NodePtr                    )
-OSG_FIELDTRAITS_GETTYPE   (NodeRefPtr                 )
 OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback     )
 
 DataType &FieldTraits< FieldContainerPtr, 1 >::getType(void)
@@ -177,14 +188,18 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          FieldContainerPtr, 
                          RecordedRefCounts,
                          0);
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, FieldContainerPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         FieldContainerPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrParentSField, 
                          FieldContainerPtr, 
                          NoRefCounts,
                          1);
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrParentMField, 
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrParentMField, 
                          FieldContainerPtr, 
+                         NoRefCounts,
                          1);
 
 OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, FieldContainerAttachmentPtr);

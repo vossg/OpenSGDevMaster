@@ -331,8 +331,14 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          RecordedRefCounts,
                          0);
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, CallbackAlgorithmPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
+                    CallbackAlgorithmPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, CallbackAlgorithmPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
+                         CallbackAlgorithmPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_END_NAMESPACE

@@ -501,6 +501,7 @@ class FieldDescription : public DescT::FieldDescParent
                                       RefCountPolicy,
                                       DescT::iNamespace>,
               FieldContainerPtrMField<typename DescT::ValueType,
+                                      RefCountPolicy,
                                       DescT::iNamespace> >::type HandledPField;
 
     typedef typename
@@ -509,6 +510,7 @@ class FieldDescription : public DescT::FieldDescParent
                                             RefCountPolicy,
                                             DescT::iNamespace>,
               FieldContainerPtrParentMField<typename DescT::ValueType,
+                                            RefCountPolicy,
                                             DescT::iNamespace> 
               >::type HandledPPField;
 

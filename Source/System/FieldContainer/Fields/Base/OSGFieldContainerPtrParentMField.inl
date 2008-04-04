@@ -42,16 +42,20 @@ OSG_BEGIN_NAMESPACE
 #pragma warning( disable : 488 )
 #endif
 
-template<class ValueT, Int32 iNamespace> 
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> 
 template<class To> inline
-To &FieldContainerPtrParentMField<ValueT, iNamespace>::dcast(void)
+To &FieldContainerPtrParentMField<ValueT,
+                                  RefCountPolicy, 
+                                  iNamespace    >::dcast(void)
 {
     return reinterpret_cast<To &>(Self::_values); 
 }
 
-template<class ValueT, Int32 iNamespace> 
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> 
 template<class To> inline
-const To &FieldContainerPtrParentMField<ValueT, iNamespace>::dcast(void) const 
+const To &FieldContainerPtrParentMField<ValueT, 
+                                        RefCountPolicy, 
+                                        iNamespace    >::dcast(void) const 
 {
     return reinterpret_cast<const To &>(Self::_values); 
 }
@@ -60,17 +64,20 @@ const To &FieldContainerPtrParentMField<ValueT, iNamespace>::dcast(void) const
 #pragma warning( default : 488 )
 #endif
 
-template<class ValueT, Int32 iNamespace> inline
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 FieldContainerPtrParentMField<ValueT, 
-                              iNamespace>::FieldContainerPtrParentMField(void) :
+                              RefCountPolicy, 
+                              iNamespace    >::FieldContainerPtrParentMField(
+                                  void) :
      Inherited (),
     _vParentPos()
 {
 }
 
-template<class ValueT, Int32 iNamespace> inline
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 FieldContainerPtrParentMField<ValueT, 
-                              iNamespace>::FieldContainerPtrParentMField(
+                              RefCountPolicy, 
+                              iNamespace    >::FieldContainerPtrParentMField(
     const Self &obj) :
 
      Inherited (obj            ),
@@ -79,32 +86,40 @@ FieldContainerPtrParentMField<ValueT,
     
 }
 
-template<class ValueT, Int32 iNamespace> inline
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 FieldContainerPtrParentMField<ValueT, 
-                              iNamespace>::~FieldContainerPtrParentMField(void)
+                              RefCountPolicy, 
+                              iNamespace    >::~FieldContainerPtrParentMField(
+                                  void)
 {
 }
 
 #if 0
-template<class ValueT, Int32 iNamespace> inline
-typename FieldContainerPtrMField<ValueT, iNamespace>::StorageType &
-    FieldContainerPtrMField<ValueT, iNamespace>::getValues(void)
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+typename FieldContainerPtrMField<ValueT, 
+                                 RefCountPolicy, 
+                                 iNamespace    >::StorageType &
+    FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::getValues(void)
 {
     return (this->template dcast<typename Self::StorageType>());
 }
 
-template<class ValueT, Int32 iNamespace> inline
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 const typename FieldContainerPtrMField<ValueT, 
-                                       iNamespace>::StorageType &
-    FieldContainerPtrMField<ValueT, iNamespace>::getValues(void) const
+                                       RefCountPolicy, 
+                                       iNamespace    >::StorageType &
+    FieldContainerPtrMField<ValueT, 
+                            RefCountPolicy, 
+                            iNamespace    >::getValues(void) const
 {
     return (this->template dcast<typename Self::StorageType>());
 }
 #endif
 
-template<class ValueT, Int32 iNamespace> inline
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 UInt32 FieldContainerPtrParentMField<ValueT, 
-                                     iNamespace>::getBinSize (void) const
+                                     RefCountPolicy, 
+                                     iNamespace    >::getBinSize (void) const
 {
     UInt32 returnValue =  
         sizeof(UInt32) + // num elements
@@ -120,9 +135,10 @@ UInt32 FieldContainerPtrParentMField<ValueT,
     return returnValue;
 }
     
-template<class ValueT, Int32 iNamespace> inline
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 void FieldContainerPtrParentMField<ValueT, 
-                                   iNamespace>::copyToBin(
+                                   RefCountPolicy, 
+                                   iNamespace    >::copyToBin(
                                        BinaryDataHandler &pMem) const
 {
     UInt32 n = _values.size();
@@ -148,15 +164,17 @@ void FieldContainerPtrParentMField<ValueT,
     }
 }
 
-template<class ValueT, Int32 iNamespace> inline
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 void FieldContainerPtrParentMField<ValueT, 
-                                   iNamespace>::copyFromBin(
+                                   RefCountPolicy, 
+                                   iNamespace    >::copyFromBin(
                                        BinaryDataHandler &pMem)
 {
     UInt32 n;
 
      pMem  .getValue(n);
-     Inherited::clear_nc( );
+
+     OSG_ASSERT(_values.size() == 0);
 
 #ifdef __hpux
     FieldTypeT tmpVal;
@@ -174,7 +192,8 @@ void FieldContainerPtrParentMField<ValueT,
     }
 
      pMem.getValue(n);
-    _vParentPos.clear();
+    
+     OSG_ASSERT(_vParentPos.size() == 0);
     
     _vParentPos.resize(n);
 
@@ -189,36 +208,50 @@ void FieldContainerPtrParentMField<ValueT,
 //reference getValue(void);
 //const_reference getValue(void) const;
 
-template<class ValueT, Int32 iNamespace> inline
-typename FieldContainerPtrParentMField<ValueT, iNamespace>::iterator
-    FieldContainerPtrParentMField<ValueT, iNamespace>::begin(void)
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+typename FieldContainerPtrParentMField<ValueT, 
+                                       RefCountPolicy, 
+                                       iNamespace    >::iterator
+    FieldContainerPtrParentMField<ValueT, 
+                                  RefCountPolicy, 
+                                  iNamespace    >::begin(void)
 {
     return iterator(
         (this->template dcast<typename Self::StorageType>()).begin(),
         _vParentPos.begin());
 }
 
-template<class ValueT, Int32 iNamespace> inline
-typename FieldContainerPtrParentMField<ValueT, iNamespace>::iterator
-    FieldContainerPtrParentMField<ValueT, iNamespace>::end(void)
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+typename FieldContainerPtrParentMField<ValueT, 
+                                       RefCountPolicy, 
+                                       iNamespace    >::iterator
+    FieldContainerPtrParentMField<ValueT, 
+                                  RefCountPolicy, 
+                                  iNamespace    >::end(void)
 {
     return iterator(
         (this->template dcast<typename Self::StorageType>()).end(),
          _vParentPos.end());
 }
 
-template<class ValueT, Int32 iNamespace> inline
-typename FieldContainerPtrParentMField<ValueT, iNamespace>::const_iterator
-    FieldContainerPtrParentMField<ValueT, iNamespace>::begin(void) const
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+typename FieldContainerPtrParentMField<ValueT, 
+                                       RefCountPolicy, 
+                                       iNamespace    >::const_iterator
+    FieldContainerPtrParentMField<ValueT, RefCountPolicy, iNamespace>::begin(void) const
 {
     return const_iterator(
         (this->template dcast<typename Self::StorageType>()).begin(),
         _vParentPos.begin());
 }
 
-template<class ValueT, Int32 iNamespace> inline
-typename FieldContainerPtrParentMField<ValueT, iNamespace>::const_iterator
-    FieldContainerPtrParentMField<ValueT, iNamespace>::end(void) const
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+typename FieldContainerPtrParentMField<ValueT, 
+                                       RefCountPolicy, 
+                                       iNamespace    >::const_iterator
+    FieldContainerPtrParentMField<ValueT, 
+                                  RefCountPolicy, 
+                                  iNamespace    >::end(void) const
 {
     return const_iterator(
         (this->template dcast<typename Self::StorageType>()).end(),
@@ -227,9 +260,11 @@ typename FieldContainerPtrParentMField<ValueT, iNamespace>::const_iterator
 
 #if 0
 template<class ValueT, Int32 iNamespace> inline
-typename FieldContainerPtrMField<ValueT, iNamespace>::iterator 
-    FieldContainerPtrMField<ValueT, iNamespace>::insert(iterator     pos, 
-                                                        ArgumentType value)
+typename FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::iterator 
+    FieldContainerPtrMField<ValueT, 
+                            RefCountPolicy,  
+                            iNamespace    >::insert(iterator     pos, 
+                                                    ArgumentType value)
 {
     OSG::addRefX(value);
 
@@ -238,8 +273,12 @@ typename FieldContainerPtrMField<ValueT, iNamespace>::iterator
 }
 
 template<class ValueT, Int32 iNamespace> inline
-typename FieldContainerParentPtrMField<ValueT, iNamespace>::iterator 
-    FieldContainerParentPtrMField<ValueT, iNamespace>::erase(iterator pos)
+typename FieldContainerParentPtrMField<ValueT, 
+                                       RefCountPolicy, 
+                                       iNamespace    >::iterator 
+    FieldContainerParentPtrMField<ValueT, 
+                                  RefCountPolicy, 
+                                  iNamespace    >::erase(iterator pos)
 {
     typename StorageType::iterator tmpIt(pos);
     
@@ -249,8 +288,10 @@ typename FieldContainerParentPtrMField<ValueT, iNamespace>::iterator
 }
 #endif
 
-template<class ValueT, Int32 iNamespace> inline
-void FieldContainerPtrParentMField<ValueT, iNamespace>::erase(size_type pos)
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrParentMField<ValueT, 
+                                   RefCountPolicy, 
+                                   iNamespace    >::erase(size_type pos)
 {
     typename StorageType::iterator sIt = 
         (this->template dcast<typename Self::StorageType>()).begin();
@@ -265,35 +306,41 @@ void FieldContainerPtrParentMField<ValueT, iNamespace>::erase(size_type pos)
     _vParentPos.erase(pIt);
 }
 
-template<class ValueT, Int32 iNamespace> inline
-void FieldContainerPtrParentMField<ValueT, iNamespace>::push_back(
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrParentMField<ValueT, 
+                                   RefCountPolicy, 
+                                   iNamespace    >::push_back(
     ArgumentType value,
     UInt16       parentFieldPos)
 {
-    Inherited::push_back_nc(value);
+    _values.push_back(value);
 
     _vParentPos.push_back(parentFieldPos);
 }
 
 #if 0
-template<class ValueT, Int32 iNamespace> inline
-void FieldContainerPtrMField<ValueT, iNamespace>::resize(size_t     newsize, 
-                                                         StoredType t)
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrMField<ValueT, 
+                             RefCountPolicy, 
+                             iNamespace    >::resize(size_t     newsize, 
+                                                     StoredType t)
 {
     Inherited::resize(newsize, t);
 }
 
-template<class ValueT, Int32 iNamespace> inline
-void FieldContainerPtrMField<ValueT, iNamespace>::replace(UInt32       uiIdx, 
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::replace(UInt32       uiIdx, 
                                                           ArgumentType value)
 {
     OSG::setRefdX((this->template dcast<typename Self::StorageType>())[uiIdx],
                   value);
 }
 
-template<class ValueT, Int32 iNamespace> inline
-void FieldContainerPtrMField<ValueT, iNamespace>::replace(iterator     pos, 
-                                                          ArgumentType value)
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrMField<ValueT, 
+                             RefCountPolicy, 
+                             iNamespace    >::replace(iterator     pos, 
+                                                      ArgumentType value)
 {
     typename StorageType::iterator tmpIt(pos);
 
@@ -301,33 +348,42 @@ void FieldContainerPtrMField<ValueT, iNamespace>::replace(iterator     pos,
 }
 
 #if 0
-template<class ValueT, Int32 iNamespace> inline
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 typename FieldContainerPtrMField<ValueT, iNamespace>::reference 
-    FieldContainerPtrMField<ValueT, iNamespace>::operator [](UInt32 index)
+    FieldContainerPtrMField<ValueT, 
+                            RefCountPolicy, 
+                            iNamespace    >::operator [](UInt32 index)
 {
     return (this->template dcast<typename Self::StorageType>())[index];
 }
 #endif
 #endif
 
-template<class ValueT, Int32 iNamespace> inline
-typename FieldContainerPtrParentMField<ValueT, iNamespace>::const_reference 
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+typename FieldContainerPtrParentMField<ValueT, 
+                                       RefCountPolicy, 
+                                       iNamespace    >::const_reference 
     FieldContainerPtrParentMField<ValueT, 
-                                  iNamespace>::operator [](UInt32 index) const
+                                  RefCountPolicy, 
+                                  iNamespace    >::operator [](
+                                      UInt32 index) const
 {
     return (this->template dcast<typename Self::StorageType>())[index];
 }
 
-template<class ValueT, Int32 iNamespace> inline
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 bool FieldContainerPtrParentMField<ValueT, 
-                                   iNamespace>::operator ==(
+                                   RefCountPolicy, 
+                                   iNamespace    >::operator ==(
                                        const Self &source) const
 {
     return (_values == source._values && _vParentPos == source._vParentPos);
 }
 
-template<class ValueT, Int32 iNamespace> inline
-void FieldContainerPtrParentMField<ValueT, iNamespace>::syncWith(
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrParentMField<ValueT, 
+                                   RefCountPolicy, 
+                                   iNamespace    >::syncWith(
     Self               &source, 
     ConstFieldMaskArg   syncMode,
     UInt32              uiSyncInfo,

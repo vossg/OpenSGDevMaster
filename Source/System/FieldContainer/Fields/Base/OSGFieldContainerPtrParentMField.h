@@ -49,7 +49,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-template<class ValueT, Int32 iNamespace = 0>
+template<class    ValueT, 
+         typename RefCountPolicy = RecordedRefCounts, 
+         Int32    iNamespace     = 0>
 class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
 {
     /*==========================  PUBLIC  =================================*/
@@ -58,9 +60,6 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
 
     typedef          MFieldVector <ValueT>                 StorageType;
     typedef typename StorageType::Inherited                StorageTypeParent;
-
-//    typedef typename StorageType::iterator                 iterator;
-//    typedef typename StorageType::const_iterator           const_iterator;
 
     typedef typename StorageType::reverse_iterator         reverse_iterator;
     typedef typename StorageType::const_reverse_iterator const_reverse_iterator;
@@ -77,6 +76,7 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
     typedef          FieldTraits            <UInt16, 0>    PosMFieldTraits;
  
     typedef          FieldContainerPtrParentMField<ValueT, 
+                                                   RefCountPolicy,
                                                    iNamespace>   Self;
 
     typedef          ValueT                                StoredType;
@@ -85,7 +85,7 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
 
     typedef          FieldDescription       <PtrMFieldTraits,
                                              MultiField,
-                                             RecordedRefCounts,
+                                             RefCountPolicy,
                                              ParentPtrField  > Description;
 
     typedef          EditFCPtrMFieldHandle  <Self        > EditHandle;

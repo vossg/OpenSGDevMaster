@@ -305,7 +305,7 @@ void SimpleMaterial::dump(      UInt32    uiIndent,
     PLOG << "\tChunks: " << std::endl;
 
     for(MFStateChunkPtr::const_iterator i = _mfChunks.begin();
-            i != _mfChunks.end(); i++)
+            i != _mfChunks.end(); ++i)
     {
         indentLog(uiIndent, PLOG);
         PLOG << "\t" << *i << std::endl;
