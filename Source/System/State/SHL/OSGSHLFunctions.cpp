@@ -85,13 +85,13 @@ void generateGaussianWeights(Real32               fBlurWidth,
     }
 }
 
-SHLChunkPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
-                                          bool   vertical, 
-                                          bool   tex2D, 
-                                          Int32  imgWidth, 
-                                          Int32  imgHeight)
+SHLChunkTransitPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
+                                                 bool   vertical, 
+                                                 bool   tex2D, 
+                                                 Int32  imgWidth, 
+                                                 Int32  imgHeight)
 {
-    SHLChunkPtr returnValue = SHLChunk::create();
+    SHLChunkTransitPtr returnValue = SHLChunk::create();
     
     int width;
     std::vector<Real32> weights;
@@ -178,7 +178,7 @@ SHLChunkPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
     return returnValue;
 }
 
-SHLChunkPtr generate2DShrinkHalfFilterFP(UInt32 uiTexCoord)
+SHLChunkTransitPtr generate2DShrinkHalfFilterFP(UInt32 uiTexCoord)
 {
     std::ostringstream ost;
 
@@ -190,7 +190,7 @@ SHLChunkPtr generate2DShrinkHalfFilterFP(UInt32 uiTexCoord)
         << uiTexCoord << "].xy);"
         << "}";
 
-    SHLChunkPtr returnValue = SHLChunk::create();
+    SHLChunkTransitPtr returnValue = SHLChunk::create();
 
     returnValue->setFragmentProgram(ost.str());
 

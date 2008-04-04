@@ -108,7 +108,8 @@ void Material::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    subRefLocalVarX(_pState);
+//    subRefLocalVarX(_pState);
+    _pState = NullFC;
 }
 
 /***************************************************************************\
@@ -224,7 +225,7 @@ static bool subRefDefaultUnlitMaterial(void);
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
     Stores the default material used by the Simple Geometry.
 */
-static SimpleMaterialPtr _defaultMaterial;
+static SimpleMaterialUnrecPtr _defaultMaterial;
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
     Access the default Material for Simple Geometry. Also useful whenever 
@@ -242,7 +243,7 @@ MaterialPtr getDefaultMaterial(void)
 		_defaultMaterial->setSpecular (Color3r(1.f,1.f,1.f));
         _defaultMaterial->setShininess(20.f);
 
-        addRefX(_defaultMaterial);
+//        addRefX(_defaultMaterial);
 
         addPreFactoryExitFunction(subRefDefaultMaterial);
 
@@ -255,7 +256,7 @@ MaterialPtr getDefaultMaterial(void)
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
     Stores the default unlit material.
 */
-static SimpleMaterialPtr _defaultUnlitMaterial;
+static SimpleMaterialUnrecPtr _defaultUnlitMaterial;
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
     Access the default unlit Material. Useful whenever 
@@ -271,7 +272,7 @@ MaterialPtr getDefaultUnlitMaterial(void)
 		_defaultUnlitMaterial->setDiffuse(Color3r(1.f,1.f,.5f));
         _defaultUnlitMaterial->setLit(false);
 
-        addRefX(_defaultUnlitMaterial);
+//        addRefX(_defaultUnlitMaterial);
 
         addPreFactoryExitFunction(subRefDefaultUnlitMaterial);
 
@@ -283,14 +284,18 @@ MaterialPtr getDefaultUnlitMaterial(void)
 
 bool subRefDefaultMaterial     (void)
 {
-    subRefX(_defaultMaterial);
+//    subRefX(_defaultMaterial);
+
+    _defaultMaterial = NullFC;
 
     return true;
 }
 
 bool subRefDefaultUnlitMaterial(void)
 {
-    subRefX(_defaultUnlitMaterial);
+//    subRefX(_defaultUnlitMaterial);
+
+    _defaultUnlitMaterial = NullFC;
 
     return true;
 }

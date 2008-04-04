@@ -77,27 +77,30 @@ A3DSSceneFileType  A3DSSceneFileType::_the(_suffixA,
  * \param
  * \return
  */
-NodePtr A3DSSceneFileType::read(std::istream &is, const Char8 *) const
+NodeTransitPtr A3DSSceneFileType::read(std::istream &is, const Char8 *) const
 {
     if(!is)
-        return NullFC;
+        return NodeTransitPtr(NullFC);
 
     _materials.clear();
 
     L3DS scene;
+
     if(!scene.Load(is))
     {
         SWARNING << "Couldn't read from stream!" << std::endl;
-        return NullFC;
+
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr root = Node::create();
-    GroupPtr group = Group::create();
-    root->setCore(group);
+    NodeTransitPtr  root = Node::create();
+
+    root->setCore(Group::create());
 
     for(uint i=0;i<scene.GetMeshCount();++i)
     {
-        NodePtr mesh = createMesh(scene, scene.GetMesh(i));
+        NodeUnrecPtr mesh = createMesh(scene, scene.GetMesh(i));
+
         if(mesh != NullFC)
             root->addChild(mesh);
     }
@@ -174,33 +177,49 @@ A3DSSceneFileType::~A3DSSceneFileType (void )
  * \param
  * \return
  */
-NodePtr A3DSSceneFileType::createMesh(L3DS &scene, LMesh &mesh) const
+NodeTransitPtr A3DSSceneFileType::createMesh(L3DS &scene, LMesh &mesh) const
 {
     if(mesh.GetTriangleCount() == 0)
-        return NullFC;
+        return NodeTransitPtr(NullFC);
 
-    NodePtr node = Node::create();
-    GeometryPtr geo = Geometry::create();
+    NodeUnrecPtr     node = Node::create();
+    GeometryUnrecPtr geo = Geometry::create();
 
     node->setCore(geo);
 
     OSG::setName(node, mesh.GetName().c_str());
 
-    GeoPnt3fPropertyPtr points    = GeoPnt3fProperty::create();
-    GeoVec3fPropertyPtr normals   = GeoVec3fProperty::create();
-    GeoVec2fPropertyPtr texcoords = GeoVec2fProperty::create();
+    GeoPnt3fPropertyUnrecPtr points    = GeoPnt3fProperty::create();
+    GeoVec3fPropertyUnrecPtr normals   = GeoVec3fProperty::create();
+    GeoVec2fPropertyUnrecPtr texcoords = GeoVec2fProperty::create();
 
     for(UInt32 i=0;i<mesh.GetTriangleCount();++i)
     {
         const LTriangle2 &t = mesh.GetTriangle2(i);
 
-        points->push_back(Pnt3f(t.vertices[0].x, t.vertices[0].y, t.vertices[0].z));
-        points->push_back(Pnt3f(t.vertices[1].x, t.vertices[1].y, t.vertices[1].z));
-        points->push_back(Pnt3f(t.vertices[2].x, t.vertices[2].y, t.vertices[2].z));
+        points->push_back(Pnt3f(t.vertices[0].x, 
+                                t.vertices[0].y, 
+                                t.vertices[0].z));
 
-        normals->push_back(Vec3f(t.vertexNormals[0].x, t.vertexNormals[0].y, t.vertexNormals[0].z));
-        normals->push_back(Vec3f(t.vertexNormals[1].x, t.vertexNormals[1].y, t.vertexNormals[1].z));
-        normals->push_back(Vec3f(t.vertexNormals[2].x, t.vertexNormals[2].y, t.vertexNormals[2].z));
+        points->push_back(Pnt3f(t.vertices[1].x, 
+                                t.vertices[1].y, 
+                                t.vertices[1].z));
+
+        points->push_back(Pnt3f(t.vertices[2].x, 
+                                t.vertices[2].y, 
+                                t.vertices[2].z));
+
+        normals->push_back(Vec3f(t.vertexNormals[0].x, 
+                                 t.vertexNormals[0].y, 
+                                 t.vertexNormals[0].z));
+
+        normals->push_back(Vec3f(t.vertexNormals[1].x, 
+                                 t.vertexNormals[1].y, 
+                                 t.vertexNormals[1].z));
+
+        normals->push_back(Vec3f(t.vertexNormals[2].x, 
+                                 t.vertexNormals[2].y, 
+                                 t.vertexNormals[2].z));
 
         texcoords->push_back(Vec2f(t.textureCoords[0].x, t.textureCoords[0].y));
         texcoords->push_back(Vec2f(t.textureCoords[1].x, t.textureCoords[1].y));
@@ -208,21 +227,25 @@ NodePtr A3DSSceneFileType::createMesh(L3DS &scene, LMesh &mesh) const
     }
 
     // create material opensg supports only one material per geometry!
-    MaterialPtr mat = OSG::getDefaultMaterial();
+    MaterialUnrecPtr mat = OSG::getDefaultMaterial();
+
     if(mesh.GetMaterialCount() > 0)
         mat = createMaterial(scene, mesh.GetMaterial(0));
 
     int nv = mesh.GetTriangleCount() * 3;
 
-    GeoUInt32PropertyPtr indices = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr indices = GeoUInt32Property::create();
+
     indices->editFieldPtr()->reserve(nv);
+
     for (int i = 0; i < nv; ++i)
         indices->push_back(i);
 
-    GeoUInt32PropertyPtr lengths = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr lengths = GeoUInt32Property::create();
+
     lengths->push_back(nv);
 
-    GeoUInt8PropertyPtr types = GeoUInt8Property::create();
+    GeoUInt8PropertyUnrecPtr types = GeoUInt8Property::create();
     types->push_back(GL_TRIANGLES);
 
     geo->setMaterial(mat);
@@ -236,22 +259,24 @@ NodePtr A3DSSceneFileType::createMesh(L3DS &scene, LMesh &mesh) const
     //createSharedIndex(geo);
     //OSG::calcVertexNormals(geo);
 
-    return node;
+    return NodeTransitPtr(node);
 }
 
-MaterialPtr A3DSSceneFileType::createMaterial(L3DS &scene, UInt32 id) const
+MaterialTransitPtr A3DSSceneFileType::createMaterial(L3DS   &scene, 
+                                                     UInt32  id   ) const
 {
     materialIt mi = _materials.find(id);
+
     if(mi != _materials.end())
-        return (*mi).second;
+        return MaterialTransitPtr((*mi).second);
 
     LMaterial m = scene.GetMaterial(id);
 
-    ChunkMaterialPtr cmat = ChunkMaterial::create();
+    ChunkMaterialUnrecPtr cmat = ChunkMaterial::create();
 
     OSG::setName(cmat, m.GetName());
 
-    MaterialChunkPtr matc = MaterialChunk::create();
+    MaterialChunkUnrecPtr matc = MaterialChunk::create();
 
     cmat->addChunk(matc);
 
@@ -270,7 +295,9 @@ MaterialPtr A3DSSceneFileType::createMaterial(L3DS &scene, UInt32 id) const
     // create a texture chunk
     LMap &map = m.GetTextureMap1();
     const char *texname = map.mapName;
-    ImagePtr image = NullFC;
+
+    ImageUnrecPtr image = NullFC;
+
     if(texname != NULL && strlen(texname) > 0)
     {
         image = Image::create();
@@ -306,8 +333,8 @@ MaterialPtr A3DSSceneFileType::createMaterial(L3DS &scene, UInt32 id) const
         {
             image->setForceAlphaBinary(image->calcIsAlphaBinary());
             
-            TextureObjChunkPtr texc  = TextureObjChunk::create();
-            TextureEnvChunkPtr texec = TextureEnvChunk::create();
+            TextureObjChunkUnrecPtr texc  = TextureObjChunk::create();
+            TextureEnvChunkUnrecPtr texec = TextureEnvChunk::create();
 
             texc->setImage(image);
 
@@ -328,10 +355,9 @@ MaterialPtr A3DSSceneFileType::createMaterial(L3DS &scene, UInt32 id) const
     // add a blend chunk for transparency
     if(t > 0.0 || 
        ( image != NullFC && 
-         image->hasAlphaChannel()
-      ))
+         image->hasAlphaChannel()) )
     {
-        BlendChunkPtr blendc = BlendChunk::create();
+        BlendChunkUnrecPtr blendc = BlendChunk::create();
         
         if(image != NullFC && image->isAlphaBinary())
         {
@@ -349,5 +375,5 @@ MaterialPtr A3DSSceneFileType::createMaterial(L3DS &scene, UInt32 id) const
 
     _materials.insert(std::pair<UInt32, MaterialPtr>(id, cmat));
 
-    return cmat;
+    return MaterialTransitPtr(cmat);
 }

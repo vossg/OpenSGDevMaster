@@ -21,8 +21,8 @@ OSG_USING_NAMESPACE
 SimpleSceneManager    *mgr(NULL);
 RenderAction *tact = NULL;
 
-PassiveWindowPtr              pwin;
-SimpleStatisticsForegroundPtr statfg;
+PassiveWindowRefPtr              pwin;
+SimpleStatisticsForegroundRefPtr statfg;
 
 StatCollector         *collector(NULL);
 
@@ -120,6 +120,11 @@ void keyboard(unsigned char k, int, int)
     {
         case 27:
         {
+            delete mgr;
+
+            pwin   = NullFC;
+            statfg = NullFC;
+
             osgExit();
             exit(0);
         }
@@ -249,7 +254,7 @@ int main(int argc, char **argv)
     pwin->init();
 
     // create the scene
-    NodePtr scene;
+    NodeUnrecPtr scene;
 
     if(argc > 1 && !strcmp(argv[1],"-s"))
     {
@@ -258,15 +263,21 @@ int main(int argc, char **argv)
         argc--;
     }
 
+    NodeUnrecPtr file;
+
     if(argc > 1)
     {
         scene = Node::create();
-        GroupPtr g = Group::create();
+        GroupUnrecPtr g = Group::create();
 
         scene->setCore(g);
 
+
         for(UInt16 i = 1; i < argc; ++i)
-            scene->addChild(SceneFileHandler::the()->read(argv[i]));
+        {
+            file = SceneFileHandler::the()->read(argv[i]);
+            scene->addChild(file);
+        }
     }
     else
     {

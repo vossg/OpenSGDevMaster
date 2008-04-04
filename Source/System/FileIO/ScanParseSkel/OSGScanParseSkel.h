@@ -162,10 +162,10 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
     /*! \{                                                                 */
 
 #ifdef OSG_FLEX_USE_IOSTREAM_INPUT
-    virtual       void   scanStream (      std::istream &is        );
+                  void   scanStream (      std::istream &is        );
 #endif
 
-    virtual       void   scanFile   (const Char8        *szFilename);
+                  void   scanFile   (const Char8        *szFilename);
 
     virtual       Int32  lex        (      YYSTYPE *lvalp          );
     virtual const Char8 *getText    (      void                    );
@@ -271,7 +271,7 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
 
     virtual void addFloatValue(Real32 f);
 
-    virtual void addImageValue(ImagePtr &img);
+    virtual void addImageValue(ImagePtr img);
 
     virtual void addInt32Value(Int32 i);
 
@@ -390,7 +390,7 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
 
     void endImage();
 
-    ImagePtr _image;
+    ImageUnrecPtr _image;
 
     UInt8 *_imageDataPtr;
 };

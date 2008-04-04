@@ -52,6 +52,30 @@ NodeCorePtr Node::getCore(void) const
     return _sfCore.getValue();
 }
 
+template<class ObjectT> inline
+void Node::setCore(TransitPtr<ObjectT> core)
+{
+    editSField(CoreFieldMask);
+
+//    addRef(core);
+
+    if(_sfCore.getValue() != NullFC)
+    {
+        _sfCore.getValue()->subParent(this);
+
+//        subRef(_sfCore.getValue());
+    }
+
+    NodeCoreUnrecPtr pCore = core;
+
+    _sfCore.setValue(pCore);
+
+    if(_sfCore.getValue() != NullFC)
+    {
+        _sfCore.getValue()->addParent(this, CoreFieldId);
+    }
+}
+
 inline
 NodePtr Node::getParent(void)
 {
@@ -202,10 +226,10 @@ Char8 *Node::getClassname(void)
 }
 
 template <class Core> inline
-NodePtr makeCoredNode(typename Core::ObjPtr *pCore)
+NodeTransitPtr makeCoredNode(typename Core::ObjRefPtr *pCore)
 {
-             NodePtr      n = Node::create();
-    typename Core::ObjPtr c = Core::create();
+             NodeTransitPtr    n = Node::create();
+    typename Core::ObjUnrecPtr c = Core::create();
 
     n->setCore(c);
 
@@ -216,9 +240,9 @@ NodePtr makeCoredNode(typename Core::ObjPtr *pCore)
 }
 
 template <class CorePtr> inline
-NodePtr makeNodeFor(CorePtr c)
+NodeTransitPtr makeNodeFor(CorePtr c)
 {
-    NodePtr n = Node::create();
+    NodeTransitPtr n = Node::create();
 
     n->setCore(c);
 

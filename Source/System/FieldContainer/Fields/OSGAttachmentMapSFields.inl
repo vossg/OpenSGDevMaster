@@ -301,9 +301,9 @@ void EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::cloneValues(
 
     for(; mapIt != mapEnd; ++mapIt)
     {
-        FieldContainerAttachmentPtr att       = mapIt->second;
-        UInt16                      uiBinding = UInt16(mapIt->first &
-                                                       0x0000FFFF    );
+        FieldContainerAttachmentUnrecPtr att       = mapIt->second;
+        UInt16                           uiBinding = UInt16(mapIt->first &
+                                                            0x0000FFFF    );
 
         if(att != NullFC)
         {
@@ -325,7 +325,7 @@ void EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::cloneValues(
                                                     shareTypes.end(),
                                                     attType               )   )
                 {
-                    att = dynamic_cast<FieldContainerAttachmentPtr>(
+                    att = dynamic_pointer_cast<FieldContainerAttachment>(
                         OSG::deepClone(att, shareTypes,    ignoreTypes,
                                             shareGroupIds, ignoreGroupIds));
                 }

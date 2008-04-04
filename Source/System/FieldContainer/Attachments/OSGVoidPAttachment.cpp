@@ -126,7 +126,7 @@ void setVoidP(AttachmentContainerPtrConstArg  pContainer,
    
     // Get attachment pointer
 
-    VoidPPtr                    voidP = NullFC;
+    VoidPUnrecPtr               voidP = NullFC;
     FieldContainerAttachmentPtr att   = 
         pContainer->findAttachment(VoidP::getClassType().getGroupId());
     

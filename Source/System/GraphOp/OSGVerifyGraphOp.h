@@ -77,7 +77,7 @@ public:
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool traverse(NodePtr& node);
+    bool traverse(NodePtr node);
     
     void setParams(const std::string params);
     void setVerbose(bool verbose);    

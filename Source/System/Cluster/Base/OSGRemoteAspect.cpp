@@ -157,14 +157,15 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
     UInt32                              localAspect;
     std::string                         name;
     FieldContainerFactoryBase          *factory = FieldContainerFactory::the();
-    FieldContainerType                  *fcType;
-    FieldContainerPtr                   fcPtr;
+    FieldContainerType                 *fcType;
     BitVector                           mask;
     RemoteAspectFieldContainerMapper    mapper;
     UInt64                              fullRemoteId;
     LocalTypeMapT::iterator             localTypeI;
     LocalFCMapT::iterator               localFCI;
     UInt32                              len;
+
+    std::vector<FieldContainerUnrecRefPtr> newContainers;
 
     if(_statistics)
     {
@@ -210,7 +211,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
             }
 
             case CREATED:
-            {
+            {               
                 connection.getValue(remoteTypeId);
                 connection.getValue(remoteId);
 
@@ -228,6 +229,8 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                 {
                     UInt64 fullRemoteId = getFullRemoteId(remoteId);
 
+                    FieldContainerUnrecPtr fcPtr(NullFC);
+
                     if(_localFC.find(fullRemoteId) == _localFC.end())
                     {
                         localTypeId = localTypeI->second;
@@ -244,6 +247,8 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                         _remoteFC[getContainerId(fcPtr)] = fullRemoteId;
                         
                         callCreated(fcPtr);
+
+                        newContainers.push_back(fcPtr);
                     }
                     else
                     {
@@ -261,7 +266,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                 
                 if(getLocalId(remoteId,localId))
                 {
-                    fcPtr = factory->getContainer(localId);
+                    FieldContainerPtr fcPtr = factory->getContainer(localId);
                     
                     fcPtr->copyFromBin(connection, mask);
 
@@ -297,7 +302,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
 
                 if(getLocalId(remoteId, localId))
                 {
-                    fcPtr = factory->getContainer(localId);
+                    FieldContainerPtr fcPtr = factory->getContainer(localId);
 
                     FDEBUG(("AddRef: %s ID:%d\n", 
                             fcPtr->getType().getName().str(),
@@ -318,7 +323,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
 
                 if(getLocalId(remoteId,localId))
                 {
-                    fcPtr = factory->getContainer(localId);
+                    FieldContainerPtr fcPtr = factory->getContainer(localId);
 
                     FDEBUG(("SubRef: %s ID:%d\n", 
                             fcPtr->getType().getName().str(),

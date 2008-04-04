@@ -161,17 +161,18 @@ Int32 SceneFileHandlerBase::getSuffixList(std::list<const Char8 *> &suffixList,
 #endif
 
 
-NodePtr SceneFileHandlerBase::read(      std::istream &is,
-                                   const Char8        *fileNameOrExtension,
-                                         GraphOpSeq   *graphOpSeq         )
+NodeTransitPtr SceneFileHandlerBase::read(
+          std::istream &is,
+    const Char8        *fileNameOrExtension,
+          GraphOpSeq   *graphOpSeq         )
 {
     SceneFileType *type  = getFileType(fileNameOrExtension);
-    NodePtr        scene = NullFC;
+    NodeUnrecPtr   scene = NullFC;
 
     if(!fileNameOrExtension)
     {
         SWARNING << "cannot read NULL extension" << std::endl;
-        return scene;
+        return NodeTransitPtr(scene);
     }
 
     if(type != NULL)
@@ -246,51 +247,17 @@ NodePtr SceneFileHandlerBase::read(      std::istream &is,
         SWARNING << "could not read unknown file format" << std::endl;
     }
 
-    return scene;
+    return NodeTransitPtr(scene);
 }
 
 
-SceneFileHandlerBase::FCPtrStore SceneFileHandlerBase::readTopNodes(
-          std::istream &is,
-    const Char8        *fileNameOrExtension,
-          GraphOpSeq   *graphOpSeq         )
-{
-    std::vector<FieldContainerPtr> nodeVec;
-    NodePtr                        scene = read(is, fileNameOrExtension);
-
-    if(scene == NullFC)
-        return nodeVec;
-
-    while(scene->getNChildren() > 0)
-    {
-        NodePtr child    = scene->getChild(0);
-        NodePtr newChild = Node::create();
-
-        while(child->getNChildren() > 0)
-        {
-            newChild->addChild(child->getChild(0));
-        }
-
-        newChild->setCore(child->getCore());
-
-        if(graphOpSeq != NULL)
-                graphOpSeq->run(newChild);
-
-        nodeVec.push_back(newChild);
-
-        scene->subChild(child);
-    }
-
-    return nodeVec;
-}
-
-NodePtr SceneFileHandlerBase::read(const Char8      *fileName,
-                                         GraphOpSeq *graphOpSeq)
+NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
+                                                GraphOpSeq *graphOpSeq)
 {
     if(fileName == NULL)
     {
         SWARNING << "cannot read NULL file" << std::endl;
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
     std::string fullFilePath = initPathHandler(fileName);
@@ -312,18 +279,18 @@ NodePtr SceneFileHandlerBase::read(const Char8      *fileName,
             else
             {
                 SWARNING << "Couldn't open file " << fileName << std::endl;
-                return NullFC;
+                return NodeTransitPtr(NullFC);
             }
         }
         else
         {
             SWARNING << "Couldn't open file " << fileName << std::endl;
-            return NullFC;
+            return NodeTransitPtr(NullFC);
         }
     }
 
     SceneFileType *type  = getFileType(fullFilePath.c_str());
-    NodePtr        scene = NullFC;
+    NodeUnrecPtr   scene = NullFC;
 
     if(type != NULL)
     {
@@ -377,75 +344,9 @@ NodePtr SceneFileHandlerBase::read(const Char8      *fileName,
                  << "; unknown file format" << std::endl;
     }
 
-    return scene;
+    return NodeTransitPtr(scene);
 }
 
-SceneFileHandlerBase::FCPtrStore SceneFileHandlerBase::readTopNodes(
-    const Char8      *fileName,
-          GraphOpSeq *graphOpSeq)
-{
-    std::vector<FieldContainerPtr> nodeVec;
-
-    if(fileName == NULL)
-    {
-        SWARNING << "cannot read NULL file" << std::endl;
-        return nodeVec;
-    }
-
-    std::string fullFilePath = initPathHandler(fileName);
-
-    if(fullFilePath.empty() == true)
-    {
-        SWARNING << "Couldn't open file " << fileName << std::endl;
-        return nodeVec;
-    }
-
-    std::ifstream in(fullFilePath.c_str(), std::ios::binary);
-
-    if(in)
-    {
-        nodeVec = readTopNodes(in, fullFilePath.c_str(), graphOpSeq);
-
-        in.close();
-    }
-    else
-    {
-        SWARNING << "Couldn't open input stream for file "
-                 << fullFilePath
-                 << std::endl;
-    }
-
-    // Ok stream interface didn't work try via filename
-    if(nodeVec.empty() == true)
-    {
-        NodePtr scene = read(fullFilePath.c_str());
-
-        if(scene == NullFC)
-            return nodeVec;
-
-        while(scene->getNChildren() > 0)
-        {
-            NodePtr child    = scene->getChild(0);
-            NodePtr newChild = Node::create();
-
-            while(child->getNChildren() > 0)
-            {
-                newChild->addChild(child->getChild(0));
-            }
-
-            newChild->setCore(child->getCore());
-
-            if(graphOpSeq != NULL)
-                graphOpSeq->run(newChild);
-
-            nodeVec.push_back(newChild);
-
-            scene->subChild(child);
-        }
-    }
-
-    return nodeVec;
-}
 
 void SceneFileHandlerBase::setReadCB(FileIOReadCBF fp)
 {

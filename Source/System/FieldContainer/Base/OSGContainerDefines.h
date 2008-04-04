@@ -180,13 +180,13 @@
 /*---------------------------- create decl ----------------------------------*/
 
 #define OSG_RC_CREATE_DECL                                                    \
-    static ObjPtr create(void)
+    static ObjTransitPtr create(void)
 
 #define OSG_RC_CREATE_EMPTY_DECL                                              \
     static ObjPtr createEmpty(void)
 
 #define OSG_FC_SHALLOWCOPY_DECL                                               \
-    virtual OSG::FieldContainerPtr shallowCopy(void) const
+    virtual OSG::FieldContainerTransitPtr shallowCopy(void) const
 
 #define OSG_FB_SHALLOWCOPY_DECL                                               \
     virtual OSG::FieldBundleP shallowCopy(void) const
@@ -204,11 +204,13 @@
 /*---------------------------- create def -----------------------------------*/
 
 #define OSG_FC_SHALLOWCOPY_DEF(OSG_CLASS)                                     \
-    OSG::FieldContainerPtr OSG_CLASS::shallowCopy(void) const                 \
+    OSG::FieldContainerTransitPtr OSG_CLASS::shallowCopy(void) const          \
     {                                                                         \
-        ObjPtr returnValue;                                                   \
+        ObjPtr tmpPtr;                                                        \
                                                                               \
-        newPtr<Self>(returnValue, this);                                      \
+        newPtr<Self>(tmpPtr, this);                                           \
+                                                                              \
+        FieldContainerTransitPtr returnValue(tmpPtr);                         \
                                                                               \
         return returnValue;                                                   \
     } 
@@ -225,12 +227,14 @@
 
 #define OSG_FC_SHALLOWCOPY_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)        \
     template < class OSG_TMPL_PARAM > INLINE                                  \
-    OSG::FieldContainerPtr                                                    \
+    OSG::FieldContainerTransitPtr                                             \
         OSG_CLASS< OSG_TMPL_PARAM >::shallowCopy(void) const                  \
     {                                                                         \
-        ObjPtr returnValue;                                                   \
+        ObjPtr tmpPtr;                                                        \
                                                                               \
-        Self::template newPtr<Self>(returnValue, this);                       \
+        Self::template newPtr<Self>(tmpPtr, this);                            \
+                                                                              \
+        FieldContainerTransitPtr returnValue(tmpPtr);                         \
                                                                               \
         return returnValue;                                                   \
     }
@@ -262,29 +266,33 @@
 
 #define OSG_RC_CREATE_INL_DEF(OSG_CLASS)                                      \
     inline                                                                    \
-    OSG_CLASS::ObjPtr OSG_CLASS::create(void)                                 \
+    OSG_CLASS::ObjTransitPtr OSG_CLASS::create(void)                          \
     {                                                                         \
-        ObjPtr fc;                                                            \
+        ObjTransitPtr fc;                                                     \
                                                                               \
         if(getClassType().getPrototype() != OSGNullFC)                        \
-         fc = dynamic_cast<Self::ObjPtr>(                                     \
-             getClassType().getPrototype()->shallowCopy());                   \
+        {                                                                     \
+         OSG::FieldContainerTransitPtr temp_ptr =                             \
+             getClassType().getPrototype()->shallowCopy();                    \
+                                                                              \
+         fc = dynamic_pointer_cast<Self>(temp_ptr);                           \
+        }                                                                     \
                                                                               \
         return fc;                                                            \
     }
 
 #define OSG_FC_CREATE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)             \
     template < class OSG_TMPL_PARAM > INLINE                                  \
-    typename OSG_CLASS < OSG_TMPL_PARAM >::ObjPtr                             \
+    typename OSG_CLASS < OSG_TMPL_PARAM >::ObjTransitPtr                      \
         OSG_CLASS< OSG_TMPL_PARAM >::create(void)                             \
     {                                                                         \
-        ObjPtr fc;                                                            \
+        ObjTransitPtr fc;                                                     \
                                                                               \
         if(getClassType().getPrototype() != OSGNullFC)                        \
         {                                                                     \
-         OSG::FieldContainerPtr temp_ptr =                                    \
+         OSG::FieldContainerTransitPtr temp_ptr =                             \
              getClassType().getPrototype()->shallowCopy();                    \
-         fc = dynamic_cast<typename Self::ObjPtr>(temp_ptr);                  \
+         fc = dynamic_pointer_cast<Self>(temp_ptr);                           \
         }                                                                     \
                                                                               \
         return fc;                                                            \
@@ -322,16 +330,16 @@
 
 #define OSG_FC_CREATE_SPECIALIZED_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)         \
     template <> OSG_DLL_EXPORT                                                \
-    OSG_CLASS < OSG_TMPL_PARAM >::ObjPtr                                      \
+    OSG_CLASS < OSG_TMPL_PARAM >::ObjTransitPtr                               \
         OSG_CLASS< OSG_TMPL_PARAM >::create(void)                             \
     {                                                                         \
-        ObjPtr fc;                                                            \
+        ObjTransitPtr fc;                                                     \
                                                                               \
         if(getClassType().getPrototype() != OSGNullFC)                        \
         {                                                                     \
-         OSG::FieldContainerPtr temp_ptr =                                    \
+         OSG::FieldContainerTransitPtr temp_ptr =                             \
              getClassType().getPrototype()->shallowCopy();                    \
-         fc = dynamic_cast<Self::ObjPtr>(temp_ptr);                           \
+         fc = dynamic_pointer_cast<Self>(temp_ptr);                           \
         }                                                                     \
                                                                               \
         return fc;                                                            \

@@ -69,7 +69,7 @@ OSG_USING_NAMESPACE
 
 SimpleSceneManager *mgr;
 
-NodePtr scene;
+NodeRefPtr scene;
 
 Real32 speed = 1.;
 
@@ -111,7 +111,11 @@ key(unsigned char key, int x, int y)
 {
     switch(key)
     {
-        case 27:    exit(1);
+        case 27:    
+            delete mgr;
+            scene = NullFC;
+            osgExit();
+            exit(1);
         case 'a':   mgr->setHighlight( scene );
             break;
         case 's':   mgr->setHighlight( NullFC );
@@ -154,17 +158,17 @@ key(unsigned char key, int x, int y)
     glutPostRedisplay();
 }
 
-MaterialPtr makeTexture (const char* texname)
+MaterialTransitPtr makeTexture (const char* texname)
 {
-    ImagePtr image = ImageFileHandler::the()->read(texname);
+    ImageUnrecPtr image = ImageFileHandler::the()->read(texname);
     
     SLOG << "Create ChunkMaterial" << std::endl;
     
-    ChunkMaterialPtr   texMatPtr      = ChunkMaterial  ::create();
-    TextureObjChunkPtr texChunkPtr    = TextureObjChunk::create();
-    TextureEnvChunkPtr texEnvChunkPtr = TextureEnvChunk::create();
-    BlendChunkPtr      blendChunkPtr  = BlendChunk     ::create();
-    MaterialChunkPtr   phongChunk     = MaterialChunk  ::create();
+    ChunkMaterialUnrecPtr   texMatPtr      = ChunkMaterial  ::create();
+    TextureObjChunkUnrecPtr texChunkPtr    = TextureObjChunk::create();
+    TextureEnvChunkUnrecPtr texEnvChunkPtr = TextureEnvChunk::create();
+    BlendChunkUnrecPtr      blendChunkPtr  = BlendChunk     ::create();
+    MaterialChunkUnrecPtr   phongChunk     = MaterialChunk  ::create();
     
     phongChunk->setDiffuse (Color4f(1.0f, 1.0f, 1.0f, 1.0f));
     phongChunk->setAmbient (Color4f(0.1f, 0.1f, 0.1f, 1.0f));
@@ -190,7 +194,7 @@ MaterialPtr makeTexture (const char* texname)
     texMatPtr->addChunk(texEnvChunkPtr, 0);
     texMatPtr->addChunk(phongChunk);
     
-    return texMatPtr;
+    return MaterialTransitPtr(texMatPtr);
 }
 
 
@@ -213,15 +217,15 @@ int main(int argc, char **argv)
     //glutIdleFunc(display);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
+    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
 
     gwin->setGlutId(winid);
     gwin->init();
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // create the scene
-    ImagePtr    height;
-    MaterialPtr mat;
+    ImageUnrecPtr    height;
+    MaterialUnrecPtr mat;
     if (argc < 2) 
     {
         height = ImageFileHandler::the()->read("Default_HeightMap.png");
@@ -236,7 +240,7 @@ int main(int argc, char **argv)
         mat    = makeTexture(buffer);
     }
     
-    QuadTreeTerrainPtr terrain = QuadTreeTerrain::create();
+    QuadTreeTerrainUnrecPtr terrain = QuadTreeTerrain::create();
 
     terrain->setHeightData(height);
     terrain->setMaterial(mat);

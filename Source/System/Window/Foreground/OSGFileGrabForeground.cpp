@@ -111,7 +111,7 @@ void FileGrabForeground::draw(DrawEnv  *pEnv,
     // do we have an image yet? If not, create one.
     if(getImage() == NullFC)
     {
-            ImagePtr iPtr = Image::create();
+            ImageUnrecPtr iPtr = Image::create();
 
             iPtr->set(Image::OSG_RGB_PF, 1);
 

@@ -94,6 +94,8 @@ typedef SimpleAttachment<VoidPAttachmentDesc> VoidP;
  */
 
 typedef VoidP::ObjPtr VoidPPtr;
+typedef RefCountPtr<VoidP, 
+                    UnrecordedRefCounts>         VoidPUnrecPtr;
 
 #ifdef WIN32
 template <> OSG_SYSTEM_DLLMAPPING

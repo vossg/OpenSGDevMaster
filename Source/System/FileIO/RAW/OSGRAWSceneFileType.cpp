@@ -122,15 +122,15 @@ RAWSceneFileType  RAWSceneFileType::_the(_suffixA,
 #pragma set woff 1209
 #endif
 
-NodePtr RAWSceneFileType::read(std::istream &is, const Char8 *) const
+NodeTransitPtr RAWSceneFileType::read(std::istream &is, const Char8 *) const
 {
-    NodePtr                 root;
-    GeometryPtr             geo;
-    GeoPnt3rPropertyPtr     points;
-    GeoVec3rPropertyPtr     normals;
-    GeoIntegralPropertyPtr  index;
-    GeoIntegralPropertyPtr  lens;
-    GeoIntegralPropertyPtr  type;
+    NodeTransitPtr              root;
+    GeometryUnrecPtr            geo;
+    GeoPnt3rPropertyUnrecPtr    points;
+    GeoVec3rPropertyUnrecPtr    normals;
+    GeoIntegralPropertyUnrecPtr index;
+    GeoIntegralPropertyUnrecPtr lens;
+    GeoIntegralPropertyUnrecPtr type;
 
     Vec3r vec[3];
 
@@ -220,7 +220,7 @@ NodePtr RAWSceneFileType::read(std::istream &is, const Char8 *) const
             type->push_back(GL_TRIANGLES);
         }
 
-        SimpleMaterialPtr mat = SimpleMaterial::create();
+        SimpleMaterialUnrecPtr mat = SimpleMaterial::create();
 
         mat->setDiffuse  (Color3r(  .8f,  .8f,  .8f));
         mat->setSpecular (Color3r( 1.f,  1.f,  1.f ));

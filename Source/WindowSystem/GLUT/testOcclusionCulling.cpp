@@ -51,13 +51,13 @@ RenderAction *tact = NULL;
 RenderAction *debugact = NULL;
 
 // create the scene
-NodePtr scene;
+NodeRefPtr scene;
 
-GLUTWindowPtr mainwin;
-GLUTWindowPtr debugwin;
+GLUTWindowRefPtr mainwin;
+GLUTWindowRefPtr debugwin;
 int mainwinid = -1, debugwinid = -1;
 
-SimpleStatisticsForegroundPtr statfg;
+SimpleStatisticsForegroundRefPtr statfg;
 StatCollector         *collector;
 
 bool show = true;
@@ -341,6 +341,16 @@ void keyboard(unsigned char k, int, int)
 #ifdef OSG_WITH_NVPERFSDK
             NVPMShutdown();
 #endif
+            delete mgr;
+
+            delete tact;
+            delete debugact;
+            
+            scene    = NullFC;
+            mainwin  = NullFC;
+            debugwin = NullFC;
+            statfg   = NullFC;
+
             osgExit();
             exit(0);
         }
@@ -673,7 +683,7 @@ int main(int argc, char **argv)
     if(argc > 1)
     {
         scene = Node::create();
-        GroupPtr g = Group::create();
+        GroupUnrecPtr g = Group::create();
         
         scene->setCore(g);
         
@@ -700,7 +710,7 @@ int main(int argc, char **argv)
     glutMotionFunc(motion);
     glutKeyboardFunc(keyboard);
 
-    GLUTWindowPtr mainwin=GLUTWindow::create();
+    GLUTWindowUnrecPtr mainwin=GLUTWindow::create();
     mainwin->setGlutId(mainwinid);
     mainwin->init();
     
@@ -744,9 +754,9 @@ int main(int argc, char **argv)
         debugwin->setGlutId(debugwinid);
         debugwin->init();       
         
-        ViewportPtr vp = mainwin->getPort(0);
+        ViewportUnrecPtr vp = mainwin->getPort(0);
         
-        ViewportPtr newvp = Viewport::create();        
+        ViewportUnrecPtr newvp = Viewport::create();        
         newvp->setLeft(0);
         newvp->setRight(0.5);
         newvp->setBottom(0);

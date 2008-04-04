@@ -78,7 +78,7 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool run(NodePtr &root);
+    bool run(NodePtr root);
 
     /*! \}                                                                 */
 

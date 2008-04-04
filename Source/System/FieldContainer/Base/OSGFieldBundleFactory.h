@@ -55,6 +55,7 @@ struct FieldBundleFactoryDesc
 {
     typedef FieldBundleType ContainerType;
     typedef FieldBundleP    ContainerPtr;
+    typedef FieldBundleP    ContainerTransitPtr;
 
     static Char8 *getContainerFactoryLockName(void)
     {

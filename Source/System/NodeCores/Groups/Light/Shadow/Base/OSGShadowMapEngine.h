@@ -97,9 +97,9 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngine : public ShadowMapEngineBase
 
   protected:
 
-    typedef ShadowMapEngineBase  Inherited;
+    typedef ShadowMapEngineBase   Inherited;
 
-    static ChunkMaterialPtr     _pLightPassMat;
+    static ChunkMaterialUnrecPtr _pLightPassMat;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */

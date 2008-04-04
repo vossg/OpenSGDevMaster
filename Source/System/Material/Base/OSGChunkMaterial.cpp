@@ -248,65 +248,6 @@ void ChunkMaterial::clearChunks(void)
     _mfSlots .clear();
 }
 
-#ifdef OSG_OLD_RENDER_ACTION
-/*! Draw the MaterialDrawable with this material.
-*/
-
-void ChunkMaterial::draw(MaterialDrawable *geo, DrawActionBase *action)
-{
-    StatePtr state = makeState();
-
-    addRef(state);
-
-    state->activate(action);
-
-    geo->drawPrimitives(action);
-
-    state->deactivate(action);
-
-    subRef(state); // kill it
-}
-
-/*! Draw the function behind the functor with this material. The functored
-    function should be very careful changing OpenGL state, better just use
-    glBegin(), glEnd() and the standard stuff in between.
- */
-
-void ChunkMaterial::draw(DrawFunctor& func, DrawActionBase * action)
-{
-    StatePtr state = makeState();
-
-    addRef(state);
-
-    state->activate(action);
-
-    func.call(action);
-
-    state->deactivate(action);
-
-    subRef(state); // kill it
-}
-
-/*! Create a OSG::State that represents this Material and return it.
- */
-
-StatePtr ChunkMaterial::makeState(void)
-{
-    StatePtr state = State::create();
-
-    UInt32 i;
-    
-    for(i = 0; i < _mfChunks.size(); ++i)
-    {
-        state->addChunk(_mfChunks[i], 
-                        (i < _mfSlots.size()) ? _mfSlots[i]
-                                                : State::AutoSlotReplace);
-    }
-
-    return state;
-}
-#endif
-
 /*! Add chunks to the given state. Needed for ordering in the drived
   materials.
 */
@@ -340,7 +281,7 @@ void ChunkMaterial::rebuildState(void)
 
         _pState->setDefaultSortKey(getContainerId(this));
 
-        addRefX(_pState);
+//        addRefX(_pState);
     }
 
     addChunks(_pState);

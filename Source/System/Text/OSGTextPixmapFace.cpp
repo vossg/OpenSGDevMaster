@@ -126,13 +126,13 @@ const TextPixmapGlyph &TextPixmapFace::getPixmapGlyph(TextGlyph::Index glyphInde
 // Creates a texture image with the result of a layout operation
 // Author: pdaehne
 //----------------------------------------------------------------------
-ImagePtr TextPixmapFace::makeImage(const TextLayoutResult &layoutResult, Vec2f &offset, UInt32 border)
+ImageTransitPtr TextPixmapFace::makeImage(const TextLayoutResult &layoutResult, Vec2f &offset, UInt32 border)
 {
     Vec2f lowerLeft, upperRight;
     calculateBoundingBox(layoutResult, lowerLeft, upperRight);
     offset.setValues(lowerLeft.x() - border, upperRight.y() + border);
 
-    ImagePtr imagePtr = Image::create();
+    ImageTransitPtr imagePtr = Image::create();
 
     UInt32 width = static_cast<UInt32>(osgCeil(upperRight.x() - lowerLeft.x())) + (border << 1);
     UInt32 height = static_cast<UInt32>(osgCeil(upperRight.y() - lowerLeft.y())) + (border << 1);

@@ -175,7 +175,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
     /*==========================  PRIVATE  ================================*/
   private:
 
-    GeometryPtr _geo;
+    GeometryUnrecPtr _geo;
 
     UInt32 _actLen;
      Int32 _actType;

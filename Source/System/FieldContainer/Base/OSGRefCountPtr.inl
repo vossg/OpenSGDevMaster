@@ -65,6 +65,24 @@ RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(ObjectTransitPtr &other)
 }
 
 template <class ObjectT, 
+          class RefCountPolicyT>
+template <class OtherObjectT   > inline
+RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(
+    TransitPtr<OtherObjectT> const &other)
+{
+    RefCountPolicy::convertTransitPtr(_pObj, other._pObj);
+}
+
+
+template <class ObjectT, 
+          class RefCountPolicyT> inline
+RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(
+    ObjectTransitPtr const &other)
+{
+    RefCountPolicy::convertTransitPtr(_pObj, other._pObj);
+}
+
+template <class ObjectT, 
           class RefCountPolicyT> inline
 RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(ObjectPtrConstArg pObj) :
     _pObj(NULL)
@@ -100,6 +118,17 @@ typename RefCountPtr<ObjectT, RefCountPolicyT>::Self &
 {
     if(_pObj != objectPtr)
         RefCountPolicy::setRefd(_pObj, objectPtr);
+
+    return *this;
+}
+
+template <class ObjectT, 
+          class RefCountPolicyT> inline
+typename RefCountPtr<ObjectT, RefCountPolicyT>::Self &
+    RefCountPtr<ObjectT, RefCountPolicyT>::operator =(
+        const ObjectTransitPtr &other)
+{
+    RefCountPolicy::convertTransitPtr(_pObj, other._pObj);
 
     return *this;
 }

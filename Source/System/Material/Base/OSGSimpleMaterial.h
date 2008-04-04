@@ -97,8 +97,8 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterial : public SimpleMaterialBase
 
     // these chunks are used for rendering the material
 
-    MaterialChunkPtr _materialChunk;
-    BlendChunkPtr    _blendChunk;
+    MaterialChunkUnrecPtr _materialChunk;
+    BlendChunkUnrecPtr    _blendChunk;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */

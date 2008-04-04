@@ -97,9 +97,9 @@ StatElemDesc<StatIntElem>  OcclusionCullingTreeBuilder::statNOccTriangles(
 
 
 
-bool      OcclusionCullingTreeBuilder::_isOccStateCreated = false;
-StatePtr  OcclusionCullingTreeBuilder::_testingStatePtr;
-State    *OcclusionCullingTreeBuilder::_testingState;
+bool           OcclusionCullingTreeBuilder::_isOccStateCreated = false;
+StateUnrecPtr  OcclusionCullingTreeBuilder::_testingStatePtr;
+State         *OcclusionCullingTreeBuilder::_testingState;
 
 
 OcclusionCullingTreeBuilder::SortModeE OcclusionCullingTreeBuilder::_sortMode = 
@@ -290,18 +290,18 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv &denv, RenderPartition *part)
         // Create an empty state to render test nodes.
         _testingStatePtr = State::create();
         
-        DepthChunkPtr dc = DepthChunk::create();
+        DepthChunkUnrecPtr dc = DepthChunk::create();
         dc->setReadOnly(true);
         _testingStatePtr->addChunk(dc);
         
-        ColorMaskChunkPtr cc = ColorMaskChunk::create();
+        ColorMaskChunkUnrecPtr cc = ColorMaskChunk::create();
         cc->setMaskR(false);
         cc->setMaskG(false);
         cc->setMaskB(false);
         cc->setMaskA(false);
         _testingStatePtr->addChunk(cc);       
         
-        PolygonChunkPtr pc = PolygonChunk::create();
+        PolygonChunkUnrecPtr pc = PolygonChunk::create();
         pc->setCullFace(GL_BACK);
         _testingStatePtr->addChunk(pc);
         

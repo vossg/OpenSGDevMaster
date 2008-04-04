@@ -109,7 +109,7 @@ GraphOp *SharePtrGraphOp::create()
     return new SharePtrGraphOp();
 }
 
-bool SharePtrGraphOp::traverse(NodePtr& root)
+bool SharePtrGraphOp::traverse(NodePtr root)
 {
     if(!_includes.empty() && !_excludes.empty())
     {

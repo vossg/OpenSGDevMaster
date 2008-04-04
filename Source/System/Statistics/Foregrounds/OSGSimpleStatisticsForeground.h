@@ -138,8 +138,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
 
     TextTXFFace *_face;
 
-    TextureObjChunkPtr _texchunk;
-    TextureEnvChunkPtr _texenvchunk;
+    TextureObjChunkUnrecPtr _texchunk;
+    TextureEnvChunkUnrecPtr _texenvchunk;
 
     friend class FieldContainer;
     friend class SimpleStatisticsForegroundBase;

@@ -252,7 +252,7 @@ void appendTypesString(
     \return deep copy of \a src.
  */
 
-FieldContainerPtr deepClone(
+FieldContainerTransitPtr deepClone(
           FieldContainerPtrConstArg  src,
     const std::vector<std::string>  &shareTypeNames,
     const std::vector<std::string>  &ignoreTypeNames,
@@ -285,7 +285,7 @@ FieldContainerPtr deepClone(
     \return deep copy of \a src.
  */
 
-FieldContainerPtr deepClone(
+FieldContainerTransitPtr deepClone(
           FieldContainerPtrConstArg  src,
     const std::vector<UInt16>       &shareGroupIds,
     const std::vector<UInt16>       &ignoreGroupIds)
@@ -310,7 +310,7 @@ FieldContainerPtr deepClone(
     \return deep copy of \a src.
  */
 
-FieldContainerPtr deepClone(      
+FieldContainerTransitPtr deepClone(      
           FieldContainerPtrConstArg  src,
     const std::string               &shareTypesString,
     const std::string               &ignoreTypesString)
@@ -341,18 +341,18 @@ FieldContainerPtr deepClone(
     \return deep copy of \a src.
  */
 
-FieldContainerPtr deepClone(
+FieldContainerTransitPtr deepClone(
           FieldContainerPtrConstArg                    src,
     const std::vector<const ReflexiveContainerType *> &shareTypes,
     const std::vector<const ReflexiveContainerType *> &ignoreTypes,
     const std::vector<UInt16>                         &shareGroupIds,
     const std::vector<UInt16>                         &ignoreGroupIds)
 {
-    if(src == NullFC)
-        return NullFC;
+    if(src == NULL)
+        return FieldContainerTransitPtr(NULL);
 
     const FieldContainerType &fcType  = src->getType();
-    FieldContainerPtr         fcClone = fcType.createContainer();
+    FieldContainerTransitPtr  fcClone = fcType.createContainer();
 
     UInt32 fCount = osgMin(fcType            .getNumFieldDescs(),
                            fcClone->getType().getNumFieldDescs() );

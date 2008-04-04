@@ -150,7 +150,7 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
 
   protected:
 
-    StatePtr _pState;  // !!! TODO is that MT safe?
+    StateUnrecPtr _pState;  // !!! TODO is that MT safe?
 
     // Yes, but not efficient. Every material has as many States as there
     // are aspects, each of which itself is threadsafe (i.e. multibuffered).

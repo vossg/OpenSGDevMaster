@@ -53,25 +53,101 @@
 //  typedefs
 //---------------------------------------------------------------------------
 
-#define OSG_GEN_INTERNALPTR(CLASST)                        \
-    typedef       CLASST *       ObjPtr;                   \
-    typedef       CLASST * const ObjPtrConst;              \
-    typedef const CLASST *       ObjConstPtr;              \
-    typedef const CLASST * const ObjConstPtrConst;         \
-                                                           \
-    typedef       CLASST *       ObjPtrArg;                \
-    typedef       CLASST * const ObjPtrConstArg;           \
-    typedef const CLASST *       ObjConstPtrArg
+#define OLD_OSG_GEN_INTERNALPTR(CLASST)                     \
+    typedef       CLASST *       ObjPtr;                    \
+    typedef       CLASST * const ObjPtrConst;               \
+    typedef const CLASST *       ObjConstPtr;               \
+    typedef       CLASST * const ObjPtrConstArg
 
-#define OSG_GEN_CONTAINERPTR(CLASST)                      \
-    typedef       CLASST *       CLASST##Ptr;             \
-    typedef       CLASST * const CLASST##PtrConst;        \
-    typedef const CLASST *       CLASST##ConstPtr;        \
-    typedef const CLASST * const CLASST##ConstPtrConst;   \
-                                                          \
-    typedef       CLASST *       CLASST##PtrArg;          \
-    typedef       CLASST * const CLASST##PtrConstArg;     \
-    typedef const CLASST *       CLASST##ConstPtrArg
+#if 0
+    typedef const CLASST * const ObjConstPtrConst;          \
+                                                            \
+    typedef       CLASST *       ObjPtrArg;                 \
+    typedef const CLASST *       ObjConstPtrArg
+#endif
+
+#define OLD_OSG_GEN_CONTAINERPTR(CLASST)                   \
+    typedef       CLASST *       CLASST##Ptr;              \
+    typedef       CLASST * const CLASST##PtrConst;         \
+    typedef const CLASST *       CLASST##ConstPtrArg;      \
+    typedef       CLASST * const CLASST##PtrConstArg;      \
+    typedef const CLASST * const CLASST##ConstPtrConst;    \
+    typedef       CLASST *       CLASST##PtrArg;           \
+    typedef const CLASST *       CLASST##ConstPtr;         \
+                                                           \
+    typedef       CLASST *       CLASST##UnrecRefPtr;      \
+
+#define NEW_REFPTR
+
+#ifdef NEW_REFPTR
+
+#define TMP_INTERNAL_PTR(CLASST)                            \
+    typedef       TransitPtr< CLASST> ObjTransitPtr;        \
+    typedef       RefCountPtr<CLASST, RecordedRefCounts> ObjRefPtr;  \
+    typedef       RefCountPtr<CLASST, UnrecordedRefCounts> ObjUnrecPtr;  
+
+#define TMP_PTR(CLASST)                                     \
+    typedef       TransitPtr< CLASST> CLASST##TransitPtr;   \
+    typedef       RefCountPtr<CLASST, RecordedRefCounts> CLASST##RefPtr;  \
+    typedef       RefCountPtr<CLASST, UnrecordedRefCounts> CLASST##UnrecPtr;  
+
+#else
+
+#define TMP_INTERNAL_PTR(CLASST)                            \
+    typedef       CLASST *       ObjTransitPtr;             \
+    typedef       CLASST *       ObjRefPtr;                 \
+    typedef       CLASST *       ObjUnrecPtr;             
+
+#define TMP_PTR(CLASST)                                     \
+    typedef       CLASST *       CLASST##TransitPtr;        \
+    typedef       CLASST *       CLASST##RefPtr;            \
+    typedef       CLASST *       CLASST##UnrecPtr;
+
+#endif
+
+
+#define OSG_GEN_INTERNALPTR(CLASST)                         \
+    typedef       CLASST *       ObjCPtr;                   \
+    typedef       CLASST * const ObjCPtrConst;              \
+    typedef const CLASST *       ObjConstCPtr;              \
+    typedef const CLASST * const ObjConstCPtrConst;         \
+                                                            \
+    typedef       CLASST *       ObjCPtrArg;                \
+    typedef       CLASST * const ObjCPtrConstArg;           \
+    typedef const CLASST *       ObjConstCPtrArg;           \
+                                                            \
+    TMP_INTERNAL_PTR(CLASST)                                \
+                                                            \
+    OLD_OSG_GEN_INTERNALPTR(CLASST)
+
+
+
+#define OSG_GEN_CONTAINERPTR(CLASST)                       \
+    typedef       CLASST *       CLASST##CPtr;             \
+    typedef       CLASST * const CLASST##CPtrConst;        \
+    typedef const CLASST *       CLASST##ConstCPtr;        \
+    typedef const CLASST * const CLASST##ConstCPtrConst;   \
+                                                           \
+    typedef       CLASST *       CLASST##CPtrArg;          \
+    typedef       CLASST * const CLASST##CPtrConstArg;     \
+    typedef const CLASST *       CLASST##ConstCPtrArg;     \
+                                                           \
+    TMP_PTR(CLASST)                                        \
+                                                           \
+    OLD_OSG_GEN_CONTAINERPTR(CLASST)
+
+
+#define OSG_GEN_NAMED_PTR(CLASST, NAME)                     \
+    typedef CLASST       *       NAME##Ptr;                 \
+    typedef CLASST       * const NAME##PtrConst;            \
+    typedef CLASST const *       NAME##ConstPtr;            \
+    typedef CLASST const * const NAME##ConstPtrConst;       \
+                                                            \
+    typedef CLASST       *       NAME##PtrArg;              \
+    typedef CLASST       * const NAME##PtrConstArg;         \
+    typedef CLASST const *       NAME##ConstPtrArg
+
+
 
 #define OSG_GEN_BUNDLEP(CLASST)                           \
     typedef       CLASST *       CLASST##P;               \
@@ -114,6 +190,14 @@ class DrawEnv;
 
 struct ContainerChangeEntry;
 
+struct RecordedRefCounts;
+struct UnrecordedRefCounts;
+
+template<class ObjT> 
+class TransitPtr;
+
+template<class ObjT, class RefCountPolicyT> 
+class RefCountPtr;
 
 OSG_GEN_BUNDLEP(FieldBundle);
 
@@ -123,9 +207,10 @@ OSG_GEN_CONTAINERPTR(AttachmentContainer);
 OSG_GEN_CONTAINERPTR(Node);
 OSG_GEN_CONTAINERPTR(NodeCore);
 
-
+#if 0
 template <class Core>
 class CoredNodePtr;
+#endif
 
 template <class SingletonBaseT>
 class SingletonHolder;
@@ -137,7 +222,7 @@ typedef SingletonHolder<FieldContainerFactoryBase> FieldContainerFactory;
 typedef SingletonHolder<FieldBundleFactoryBase   > FieldBundleFactory;
 
 typedef boost::function<
-              void (FieldContainerPtrArg, ConstFieldMaskArg )> ChangedFunctor;
+              void (FieldContainerCPtrArg, ConstFieldMaskArg )> ChangedFunctor;
 
 typedef boost::function<void (DrawEnv *)> RenderFunctor;
 
@@ -162,6 +247,12 @@ typedef GetFieldHandlePtr (ReflexiveContainer::*FieldGetMethod )(void) const;
 typedef EditFieldHandlePtr(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
 typedef GetFieldHandlePtr (ReflexiveContainer::*FieldIndexGetMethod )(
     UInt32) const;
+
+template<class TargetT, class SourceT>
+TargetT *dynamic_pointer_cast(SourceT *pIn)
+{
+    return dynamic_cast<TargetT *>(pIn);
+}
 
 OSG_END_NAMESPACE
 

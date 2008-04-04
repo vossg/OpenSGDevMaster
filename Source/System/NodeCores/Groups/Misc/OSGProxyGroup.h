@@ -138,7 +138,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroup : public ProxyGroupBase
     /*! \name                   thread local                               */
     /*! \{                                                                 */
 
-    NodePtr          _loadedRoot;
+    NodeUnrecPtr _loadedRoot;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

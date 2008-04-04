@@ -76,7 +76,7 @@ public:
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool traverse(NodePtr& node);
+    bool traverse(NodePtr node);
 
     //virtual const std::string getName(void) { return _name; };
 
@@ -110,7 +110,7 @@ private:
     bool _texcoord2_is_vector;
     bool _texcoord3_is_vector;
 
-    bool mergeOnce(NodePtr& node);
+    bool mergeOnce(NodePtr node);
 
     void makeExcludeList        (NodePtr& node);
     void processGroups          (NodePtrConst node);

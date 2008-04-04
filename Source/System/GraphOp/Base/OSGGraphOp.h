@@ -91,7 +91,7 @@ public:
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    virtual bool traverse(NodePtr& root);
+    virtual bool traverse(NodePtr root);
 
     const std::string &getName(void);
     void              setName(const char *name);

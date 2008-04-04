@@ -131,7 +131,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*! \name                      Assigment                               */
     /*! \{                                                                 */
 
-    virtual GeoVectorPropertyPtr clone(void);
+    virtual GeoVectorPropertyTransitPtr clone(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -483,6 +483,10 @@ typedef TypedGeoVectorProperty<Geo##typename##PropertyDesc>                 \
                                                                             \
 typedef Geo##typename##Property::ObjPtr                                     \
     Geo##typename##PropertyPtr;                                             \
+typedef Geo##typename##Property::ObjRefPtr                                  \
+    Geo##typename##PropertyRefPtr;                                          \
+typedef Geo##typename##Property::ObjUnrecPtr                                \
+    Geo##typename##PropertyUnrecPtr;                                        \
 typedef Geo##typename##Property::ObjPtrConst                                \
     Geo##typename##PropertyPtrConst;                                        \
 typedef Geo##typename##Property::ObjPtrConstArg                             \
@@ -513,11 +517,15 @@ struct Geo##propname##PropertyDesc :                                      \
     /*! \}                                                                 */\
 };                                                                           \
                                                                              \
-typedef TypedGeoVectorProperty<Geo##propname##PropertyDesc>            \
-        Geo##propname##Property;                                          \
+typedef TypedGeoVectorProperty<Geo##propname##PropertyDesc>                  \
+        Geo##propname##Property;                                             \
                                                                             \
 typedef Geo##propname##Property::ObjPtr                                     \
     Geo##propname##PropertyPtr;                                             \
+typedef Geo##propname##Property::ObjRefPtr                                  \
+    Geo##propname##PropertyRefPtr;                                          \
+typedef Geo##propname##Property::ObjUnrecPtr                                \
+    Geo##propname##PropertyUnrecPtr;                                        \
 typedef Geo##propname##Property::ObjPtrConst                                \
     Geo##propname##PropertyPtrConst;                                        \
 typedef Geo##propname##Property::ObjPtrConstArg                             \
@@ -754,6 +762,14 @@ typedef GeoVec3fProperty      GeoVec3rProperty;
 typedef GeoPnt3fPropertyPtr   GeoPnt3rPropertyPtr;
 typedef GeoVec2fPropertyPtr   GeoVec2rPropertyPtr;
 typedef GeoVec3fPropertyPtr   GeoVec3rPropertyPtr;
+
+typedef GeoPnt3fPropertyUnrecPtr   GeoPnt3rPropertyUnrecPtr;
+typedef GeoVec2fPropertyUnrecPtr   GeoVec2rPropertyUnrecPtr;
+typedef GeoVec3fPropertyUnrecPtr   GeoVec3rPropertyUnrecPtr;
+
+typedef GeoPnt3fPropertyRefPtr   GeoPnt3rPropertyRefPtr;
+typedef GeoVec2fPropertyRefPtr   GeoVec2rPropertyRefPtr;
+typedef GeoVec3fPropertyRefPtr   GeoVec3rPropertyRefPtr;
 #endif
 
 

@@ -83,7 +83,8 @@ TextTXFFace::~TextTXFFace()
     }
 
     // Delete the texture
-    OSG::subRefX(_texture);
+//    OSG::subRefX(_texture);
+    _texture = NullFC;
 }
 
 
@@ -137,7 +138,7 @@ const TextTXFGlyph &TextTXFFace::getTXFGlyph(TextGlyph::Index glyphIndex)
 // Fills a geometry with a new text
 // Author: afischle, pdaehne
 //----------------------------------------------------------------------
-void TextTXFFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layoutResult, Real32 scale,
+void TextTXFFace::fillGeo(GeometryPtr geoPtr, const TextLayoutResult &layoutResult, Real32 scale,
                           Vec2f offset, Color3f color)
 {
     // cast the field containers down to the needed type and create them
@@ -188,27 +189,27 @@ void TextTXFFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layoutRes
     addToGeom(geoPtr,layoutResult,scale,offset,color);
 }
 
-void TextTXFFace::addToGeom(GeometryPtr &geoPtr, const TextLayoutResult &layoutResult, Real32 scale,
+void TextTXFFace::addToGeom(GeometryPtr geoPtr, const TextLayoutResult &layoutResult, Real32 scale,
                             Vec2f offset, Color3f color)
 {
     // cast the field containers down to the needed type and create them
     // when they have the wrong type
-    GeoPnt3fPropertyPtr posPtr = 
+    GeoPnt3fPropertyUnrecPtr posPtr = 
         dynamic_cast<GeoPnt3fPropertyPtr>(geoPtr->getPositions());
 
-    GeoVec3fPropertyPtr normalPtr = 
+    GeoVec3fPropertyUnrecPtr normalPtr = 
         dynamic_cast<GeoVec3fPropertyPtr>(geoPtr->getNormals());
 
-    GeoVec2fPropertyPtr texPtr = 
+    GeoVec2fPropertyUnrecPtr texPtr = 
         dynamic_cast<GeoVec2fPropertyPtr>(geoPtr->getTexCoords());
 
-    GeoColor3fPropertyPtr colorPtr = 
+    GeoColor3fPropertyUnrecPtr colorPtr = 
         dynamic_cast<GeoColor3fPropertyPtr>(geoPtr->getColors());
 
-    GeoUInt32PropertyPtr lensPtr = 
+    GeoUInt32PropertyUnrecPtr lensPtr = 
         dynamic_cast<GeoUInt32PropertyPtr>(geoPtr->getLengths());
 
-    GeoUInt8PropertyPtr typesPtr = 
+    GeoUInt8PropertyUnrecPtr typesPtr = 
         dynamic_cast<GeoUInt8PropertyPtr>(geoPtr->getTypes());
 
     // Create color buffer: If Null container AND color is set && we have not potentially added text before
@@ -318,12 +319,14 @@ void TextTXFFace::addToGeom(GeometryPtr &geoPtr, const TextLayoutResult &layoutR
 // Creates a new text geometry
 // Author: pdaehne
 //----------------------------------------------------------------------
-GeometryPtr TextTXFFace::makeGeo(const TextLayoutResult &layoutResult, Real32 scale,
-                                 Vec2f offset, Color3f color)
+GeometryTransitPtr TextTXFFace::makeGeo(const TextLayoutResult &layoutResult, 
+                                              Real32            scale,
+                                              Vec2f             offset, 
+                                              Color3f           color       )
 {
-    GeometryPtr geo = Geometry::create();
+    GeometryUnrecPtr geo = Geometry::create();
     fillGeo(geo, layoutResult, scale, offset, color);
-    return geo;
+    return GeometryTransitPtr(geo);
 }
 
 
@@ -331,11 +334,11 @@ GeometryPtr TextTXFFace::makeGeo(const TextLayoutResult &layoutResult, Real32 sc
 // Creates a new node with a text geometry
 // Author: pdaehne
 //----------------------------------------------------------------------
-NodePtr TextTXFFace::makeNode(const TextLayoutResult &layoutResult, Real32 scale,
+NodeTransitPtr TextTXFFace::makeNode(const TextLayoutResult &layoutResult, Real32 scale,
                               Vec2f offset, Color3f color)
 {
-    GeometryPtr geo = makeGeo(layoutResult, scale, offset, color);
-    NodePtr node = Node::create();
+    GeometryTransitPtr geo = makeGeo(layoutResult, scale, offset, color);
+    NodeTransitPtr node = Node::create();
     node->setCore(geo);
     return node;
 }
@@ -496,7 +499,7 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
 
     // Create the texture
     face->_texture = Image::create();
-    OSG::addRefX(face->_texture);
+//    OSG::addRefX(face->_texture);
 
     face->_texture->set(Image::OSG_A_PF, textureWidth, textureHeight);
     face->_texture->clear();
@@ -867,7 +870,7 @@ void TextTXFFace::prepareTexture(const TextTXFParam &param)
 
     // Create the texture
     _texture = Image::create();
-    OSG::addRefX(_texture);
+//    OSG::addRefX(_texture);
 
     _texture->set(Image::OSG_A_PF, textureWidth, textureHeight);
     _texture->clear();

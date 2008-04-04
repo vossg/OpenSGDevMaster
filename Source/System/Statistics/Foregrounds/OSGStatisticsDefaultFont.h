@@ -86,7 +86,7 @@ class OSG_UTIL_DLLMAPPING StatisticsDefaultFontBase
     TextTXFFace *_face;
 
     /** Texture object chunk that keeps the texture for the default font */
-    TextureObjChunkPtr _texObjChunk;
+    TextureObjChunkUnrecPtr _texObjChunk;
 };
 
 #if defined(WIN32)

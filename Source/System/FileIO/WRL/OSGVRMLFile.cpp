@@ -89,9 +89,6 @@ VRMLFile::VRMLFile(void) :
 
     _pSceneRootNode     (NullFC),
 
-    _pLightRoot         (NullFC),
-    _pCurrentGlobalLight(NullFC),
-
     _pCurrNodeHelper(NULL),
     _sNodeHelpers   (),
 
@@ -122,13 +119,11 @@ VRMLFile::~VRMLFile(void)
 /*-------------------------------------------------------------------------*/
 /*                           Skel Replacements                             */
 
-void VRMLFile::scanStream(std::istream &is)
+NodeTransitPtr VRMLFile::scanStream(std::istream &is)
 {
     startTime = getSystemTime();
 
     _pSceneRootNode      = NullFC;
-    _pLightRoot          = NullFC;
-    _pCurrentGlobalLight = NullFC;
 
     _nameFCMap.clear();
 
@@ -143,9 +138,15 @@ void VRMLFile::scanStream(std::istream &is)
 
     SceneFileHandler::the()->updateReadProgress(100);
 
+    NodeTransitPtr returnValue(_pSceneRootNode);
+
+    _pSceneRootNode      = NullFC;
+
     FINFO(("Full Time : %lf | Use Time %lf\n",
             getSystemTime() - startTime,
             useTime));
+
+    return returnValue;
 }
 
 void VRMLFile::handleError(const Char8 *szErrorText)
@@ -168,7 +169,7 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
 {
     SceneFileHandler::the()->updateReadProgress();
 
-    FieldContainerPtr pNewNode;
+    FieldContainerUnrecPtr pNewNode;
 
 #ifdef OSG_DEBUG_VRML
     indentLog(VRMLNodeHelper::getIndent(), PINFO);
@@ -200,7 +201,7 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
             std::string szKey = szNodename;
 
             AttachmentContainerPtr pAttC = 
-                dynamic_cast<AttachmentContainerPtr>(pNewNode);
+                dynamic_pointer_cast<AttachmentContainer>(pNewNode);
 
             if(pAttC != NULL)
             {
@@ -242,11 +243,9 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
 
         if(_pSceneRootNode == NullFC)
         {
-            GroupPtr pGroup = Group::create();
-
             _pSceneRootNode = Node::create();
 
-            _pSceneRootNode->setCore(pGroup);
+            _pSceneRootNode->setCore(Group::create());
         }
 
         _pSceneRootNode->addChild(pNode);
@@ -289,9 +288,7 @@ void VRMLFile::endNode(void)
 
             if(pNode->getCore() == NullFC)
             {
-                GroupPtr pGroup = Group::create();
-
-                pNode->setCore(pGroup);
+                pNode->setCore(Group::create());
             }
         }
     }
@@ -486,7 +483,7 @@ void VRMLFile::use(const Char8 *szName)
     SceneFileHandler::the()->updateReadProgress();
     Time beginUse = getSystemTime();
 
-    FieldContainerPtr pUsedFC;
+    FieldContainerUnrecPtr pUsedFC;
 
     // try to find a container with the given name attachment
 
@@ -515,7 +512,7 @@ void VRMLFile::use(const Char8 *szName)
         {
             if(pUsedFC->getType().isNode())
             {
-                NodePtr pRootNode = dynamic_cast<NodePtr>(pUsedFC);
+                NodePtr pRootNode = dynamic_pointer_cast<Node>(pUsedFC);
                 
                 pUsedFC = cloneTree(pRootNode);
             }
@@ -570,7 +567,7 @@ static Action::ResultE modifyMaterial(NodePtrConstArg node)
         dynamic_cast<MaterialChunkPtr>(
             cmat->find(MaterialChunk::getClassType()));
 
-    TextureEnvChunkPtr texe = 
+    TextureEnvChunkUnrecPtr texe = 
         dynamic_cast<TextureEnvChunkPtr>(
             cmat->find(TextureEnvChunk::getClassType()));
     
@@ -605,7 +602,7 @@ static Action::ResultE modifyMaterial(NodePtrConstArg node)
             img                   != NullFC &&
             img->getBpp()         ==      4   )
         {
-            BlendChunkPtr blendc = 
+            BlendChunkUnrecPtr blendc = 
                 dynamic_cast<BlendChunkPtr>(
                     cmat->find(BlendChunk::getClassType()));
 
@@ -622,18 +619,6 @@ static Action::ResultE modifyMaterial(NodePtrConstArg node)
     }
 
     return Action::Continue;
-}
-
-NodePtr VRMLFile::getRoot(void)
-{
-    // now walk through all materials and modify them.
-    if(_pSceneRootNode != NullFC)
-    {
-        // Should be handled in appearance
-//        traverse(_pSceneRootNode, modifyMaterial);
-    }
-    
-    return _pSceneRootNode;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -938,11 +923,6 @@ FieldContainerPtr VRMLFile::findReference(const Char8 *szName)
     else
     {
         returnValue = findFCByName(szName, _pSceneRootNode);
-
-        if(returnValue == NullFC && _pLightRoot != NullFC)
-        {
-            returnValue = findFCByName(szName, _pLightRoot);
-        }
     }
 
     return returnValue;

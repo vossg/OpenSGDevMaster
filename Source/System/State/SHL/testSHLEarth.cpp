@@ -36,9 +36,9 @@ OSG_USING_NAMESPACE
 // The SimpleSceneManager to manage simple applications
 static SimpleSceneManager *_mgr;
 // The scene
-static NodePtr _scene;
+static NodeRefPtr _scene;
 
-static SHLChunkPtr _shl = NullFC;
+static SHLChunkRefPtr _shl = NullFC;
 static Int32 _animation = 1;
 
 // forward declaration so we can have the interesting stuff upfront
@@ -54,23 +54,23 @@ int main(int argc, char **argv)
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
+    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->setSize( 800, 800 );
     gwin->init();
 
     // Create the shader material
-    ChunkMaterialPtr cmat = ChunkMaterial::create();
+    ChunkMaterialUnrecPtr cmat = ChunkMaterial::create();
 
     // Read the image for the normal texture
-    ImagePtr earth_map_img = Image::create();
+    ImageUnrecPtr earth_map_img = Image::create();
     if(!earth_map_img->read("Earth.jpg"))
     {
         fprintf(stderr, "Couldn't read texture 'Earth.jpg'\n");
         return 1;
     }
-    TextureObjChunkPtr tex_earth     = TextureObjChunk::create();
-    TextureEnvChunkPtr tex_earth_env = TextureEnvChunk::create();
+    TextureObjChunkUnrecPtr tex_earth     = TextureObjChunk::create();
+    TextureEnvChunkUnrecPtr tex_earth_env = TextureEnvChunk::create();
 
     tex_earth->setImage(earth_map_img);
     tex_earth->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
@@ -81,15 +81,15 @@ int main(int argc, char **argv)
     tex_earth_env->setEnvMode(GL_MODULATE);
 
     // Read the image for the normal texture
-    ImagePtr earth_night_map_img = Image::create();
+    ImageUnrecPtr earth_night_map_img = Image::create();
     if(!earth_night_map_img->read("EarthNight.jpg"))
     {
         fprintf(stderr, "Couldn't read texture 'EarthNight.jpg'\n");
         return 1;
     }
 
-    TextureObjChunkPtr tex_earth_night     = TextureObjChunk::create();
-    TextureEnvChunkPtr tex_earth_night_env = TextureEnvChunk::create();
+    TextureObjChunkUnrecPtr tex_earth_night     = TextureObjChunk::create();
+    TextureEnvChunkUnrecPtr tex_earth_night_env = TextureEnvChunk::create();
 
     tex_earth_night->setImage(earth_night_map_img);
     tex_earth_night->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
@@ -100,15 +100,15 @@ int main(int argc, char **argv)
     tex_earth_night_env->setEnvMode(GL_MODULATE);
     
     // Read the image for the normal texture
-    ImagePtr earth_clouds_map_img = Image::create();
+    ImageUnrecPtr earth_clouds_map_img = Image::create();
     if(!earth_clouds_map_img->read("EarthClouds.jpg"))
     {
         fprintf(stderr, "Couldn't read texture 'EarthClouds.jpg'\n");
         return 1;
     }
 
-    TextureObjChunkPtr tex_earth_clouds     = TextureObjChunk::create();
-    TextureEnvChunkPtr tex_earth_clouds_env = TextureEnvChunk::create();
+    TextureObjChunkUnrecPtr tex_earth_clouds     = TextureObjChunk::create();
+    TextureEnvChunkUnrecPtr tex_earth_clouds_env = TextureEnvChunk::create();
 
     tex_earth_clouds->setImage(earth_clouds_map_img);
     tex_earth_clouds->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
@@ -147,18 +147,18 @@ int main(int argc, char **argv)
     // create root node
     _scene = Node::create();
 
-    GeometryPtr geo = makeLatLongSphereGeo (100, 100, 1.0);
+    GeometryUnrecPtr geo = makeLatLongSphereGeo (100, 100, 1.0);
 
     geo->setMaterial(cmat);
 
 
-    NodePtr torus = Node::create();
+    NodeUnrecPtr torus = Node::create();
     
     torus->setCore(geo);
 
 
     // add torus to scene
-    GroupPtr group = Group::create();
+    GroupUnrecPtr group = Group::create();
 
     _scene->setCore(group);
     _scene->addChild(torus);
@@ -243,6 +243,12 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:
         case 'q':
+            delete _mgr;
+
+            _scene = NullFC; 
+            _shl   = NullFC;
+
+            osgExit();
             exit(1);
         break;
         case 'w':

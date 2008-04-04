@@ -95,6 +95,7 @@ struct VRMLGenericAttDesc
 
 typedef DynFieldAttachment<VRMLGenericAttDesc>  VRMLGenericAtt;
 typedef VRMLGenericAtt::ObjPtr                  VRMLGenericAttPtr;
+typedef VRMLGenericAtt::ObjUnrecPtr             VRMLGenericAttUnrecPtr;
 
 
 
@@ -278,11 +279,13 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
     /*! \name                     Field                                    */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr beginNode(const Char8             *szTypename,
-                                        const Char8             *szName,
-                                              FieldContainerPtr  pCurrentFC);
+    virtual 
+        FieldContainerTransitPtr beginNode(const Char8             *szTypename,
+                                           const Char8             *szName,
+                                                 FieldContainerPtr  pCurrentFC);
 
-    virtual void              endNode  (      FieldContainerPtr            );
+    virtual 
+        void                     endNode  (      FieldContainerPtr            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -351,11 +354,11 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    bool                  _bProtoInterfaceDone;
+    bool                   _bProtoInterfaceDone;
 
-    VRMLGenericAttPtr     _pGenAttProto;
-    FieldContainerPtr     _pNodeProto;
-    FieldContainerPtr     _pNodeCoreProto;
+    VRMLGenericAttUnrecPtr _pGenAttProto;
+    FieldContainerUnrecPtr _pNodeProto;
+    FieldContainerUnrecPtr _pNodeCoreProto;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -735,11 +738,13 @@ class OSG_FILEIO_DLLMAPPING VRMLMaterialHelper : public VRMLNodeHelper
     /*! \name                      Node                                    */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr beginNode(const Char8             *szTypename,
-                                        const Char8             *szName,
-                                              FieldContainerPtr  pCurrentFC);
+    virtual 
+        FieldContainerTransitPtr beginNode(const Char8             *szTypename,
+                                           const Char8             *szName,
+                                                 FieldContainerPtr  pCurrentFC);
 
-    virtual void              endNode  (      FieldContainerPtr            );
+    virtual 
+        void                     endNode  (      FieldContainerPtr            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -771,22 +776,22 @@ class OSG_FILEIO_DLLMAPPING VRMLMaterialHelper : public VRMLNodeHelper
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    SFReal32         _defaultAmbientIntensity;
-    SFColor3f        _defaultDiffuseColor;
-    SFColor3f        _defaultEmissiveColor;
-    SFReal32         _defaultShininess;
-    SFColor3f        _defaultSpecularColor;
-    SFReal32         _defaultTransparency;
+    SFReal32              _defaultAmbientIntensity;
+    SFColor3f             _defaultDiffuseColor;
+    SFColor3f             _defaultEmissiveColor;
+    SFReal32              _defaultShininess;
+    SFColor3f             _defaultSpecularColor;
+    SFReal32              _defaultTransparency;
 
-    SFReal32         _ambientIntensity;
-    SFColor3f        _diffuseColor;
-    SFColor3f        _emissiveColor;
-    SFReal32         _shininess;
-    SFColor3f        _specularColor;
-    SFReal32         _transparency;
+    SFReal32              _ambientIntensity;
+    SFColor3f             _diffuseColor;
+    SFColor3f             _emissiveColor;
+    SFReal32              _shininess;
+    SFColor3f             _specularColor;
+    SFReal32              _transparency;
 
-    ChunkMaterialPtr _pDefMat;
-    MaterialChunkPtr _pMat;
+    ChunkMaterialUnrecPtr _pDefMat;
+    MaterialChunkUnrecPtr _pMat;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1398,11 +1403,13 @@ class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLNodeHelper
     /*! \name                      Node                                    */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr beginNode(const Char8             *szTypename,
-                                        const Char8             *szName,
-                                              FieldContainerPtr  pCurrentFC);
+    virtual 
+        FieldContainerTransitPtr beginNode(const Char8             *szTypename,
+                                           const Char8             *szName,
+                                                 FieldContainerPtr  pCurrentFC);
 
-    virtual void              endNode  (      FieldContainerPtr            );
+    virtual 
+        void                     endNode  (      FieldContainerPtr            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

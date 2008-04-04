@@ -80,7 +80,7 @@ void SimpleMaterial::prepareLocalChunks(void)
     {
         _materialChunk = MaterialChunk::create();
 
-        addRefX(_materialChunk);
+//        addRefX(_materialChunk);
     }
 
     if(_blendChunk == NullFC)
@@ -90,7 +90,7 @@ void SimpleMaterial::prepareLocalChunks(void)
         _blendChunk->setSrcFactor (GL_SRC_ALPHA);
         _blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
 
-        addRefX(_blendChunk);
+//        addRefX(_blendChunk);
     }
 }
 
@@ -107,8 +107,11 @@ void SimpleMaterial::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    subRefLocalVarX(_materialChunk);
-    subRefLocalVarX(_blendChunk   );    
+    //subRefLocalVarX(_materialChunk);
+    _materialChunk = NullFC;
+
+    //subRefLocalVarX(_blendChunk   );    
+    _blendChunk = NullFC;
 }
 
 /***************************************************************************\
@@ -220,7 +223,7 @@ void SimpleMaterial::rebuildState(void)
 
         _pState->setDefaultSortKey(getContainerId(this));
 
-        addRefX(_pState);
+//        addRefX(_pState);
     }
 
     prepareLocalChunks();

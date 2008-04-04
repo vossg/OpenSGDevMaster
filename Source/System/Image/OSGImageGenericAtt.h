@@ -94,6 +94,8 @@ struct ImageGenericAttDesc
 typedef DynFieldAttachment<ImageGenericAttDesc>  ImageGenericAtt;
 
 typedef ImageGenericAtt::ObjPtr                  ImageGenericAttPtr;
+typedef RefCountPtr<ImageGenericAtt, 
+                    UnrecordedRefCounts>         ImageGenericAttUnrecPtr;
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 

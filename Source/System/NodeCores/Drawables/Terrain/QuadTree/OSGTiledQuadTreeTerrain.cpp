@@ -106,7 +106,7 @@ TiledQuadTreeTerrain::~TiledQuadTreeTerrain(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-inline MaterialPtr cloneMaterial(const MaterialPtr &mat)
+inline MaterialTransitPtr cloneMaterial(const MaterialPtr &mat)
 {
 #if 0
 
@@ -118,15 +118,15 @@ inline MaterialPtr cloneMaterial(const MaterialPtr &mat)
     }
 #endif
 
-    ChunkMaterialPtr m     = dynamic_cast<ChunkMaterialPtr>(mat);
-    ChunkMaterialPtr clone = NULL;
+    ChunkMaterialPtr        m     = dynamic_cast<ChunkMaterialPtr>(mat);
+    ChunkMaterialTransitPtr clone(NULL);
 
     if(m != NULL)
     {
-        clone = dynamic_cast<ChunkMaterialPtr>(m->shallowCopy());
+        clone = dynamic_pointer_cast<ChunkMaterial>(m->shallowCopy());
     }
 
-    return clone;
+    return MaterialTransitPtr(clone);
 }
 
 
@@ -170,7 +170,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
             {
                 for(i=0; i<roi; ++i) 
                 {
-                    QuadTreeTerrainPtr terrain = QuadTreeTerrain::create();
+                    QuadTreeTerrainUnrecPtr terrain = QuadTreeTerrain::create();
 
                     terrain->setVertexSpacing(getVertexSpacing());
                     terrain->setHeightScale  (getHeightScale());
@@ -181,9 +181,9 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
                     terrain->setUpdateTerrain(getUpdateTerrain());
                     terrain->setPerPixelLighting(getPerPixelLighting());
 
-                    NodePtr node = Node::create();
+                    NodeUnrecPtr node = Node::create();
                     
-                    addRefX(node);
+//                    addRefX(node);
 
                     node->setCore(terrain);
                     // activate the roi*roi tiles for current point
@@ -245,7 +245,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
                     } 
                     else 
                     { // use material of this MaterialGroup
-                        MaterialPtr mat = cloneMaterial(getMaterial());
+                        MaterialUnrecPtr mat = cloneMaterial(getMaterial());
                         terrain->setMaterial(mat);
                         terrain->setOriginTexX(i*tstepx);
                         terrain->setOriginTexY(j*tstepy);

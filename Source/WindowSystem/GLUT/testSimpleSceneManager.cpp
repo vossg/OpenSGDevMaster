@@ -39,13 +39,13 @@ int main(int argc, char **argv)
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
+    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->init();
 
     // load the scene
 
-    NodePtr scene;
+    NodeUnrecPtr scene;
     
     if(argc < 2)
     {
@@ -129,6 +129,9 @@ void keyboard(unsigned char k, int , int )
     switch(k)
     {
         case 27:
+            delete mgr;
+            
+
             OSG::osgExit();
             exit(0);
         break;

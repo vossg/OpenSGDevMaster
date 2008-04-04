@@ -37,6 +37,12 @@
 OSG_BEGIN_NAMESPACE
 
 template<class ObjectT> inline
+TransitPtr<ObjectT>::TransitPtr(void) :
+    _pObj(NULL)
+{
+}
+
+template<class ObjectT> inline
 TransitPtr<ObjectT>::TransitPtr(ObjectPtrConstArg pObj) :
     _pObj(pObj)
 {
@@ -46,6 +52,21 @@ TransitPtr<ObjectT>::TransitPtr(ObjectPtrConstArg pObj) :
 
 template<class ObjectT> inline
 TransitPtr<ObjectT>::TransitPtr(Self &other) :
+    _pObj(other._pObj)
+{
+    other._pObj = NULL;
+}
+
+template<class ObjectT> inline
+TransitPtr<ObjectT>::TransitPtr(const Self &other) :
+    _pObj(other._pObj)
+{
+    other._pObj = NULL;
+}
+
+template<class ObjectT>
+template<class OtherObjT> inline 
+TransitPtr<ObjectT>::TransitPtr(TransitPtr<OtherObjT> const &other) :
     _pObj(other._pObj)
 {
     other._pObj = NULL;
@@ -69,6 +90,72 @@ typename TransitPtr<ObjectT>::Self &TransitPtr<ObjectT>::operator =(Self &other)
     other._pObj = NULL;
 
     return *this;
+}
+
+template<class ObjectT> inline
+typename TransitPtr<ObjectT>::Self &TransitPtr<ObjectT>::operator =(
+    const Self &other)
+{
+    if(_pObj != NULL)
+        _pObj->subReferenceX();
+
+    _pObj = other._pObj;
+
+    other._pObj = NULL;
+
+    return *this;
+}
+
+template<class ObjectT> inline
+typename TransitPtr<ObjectT>::Self &
+    TransitPtr<ObjectT>::operator =(ObjectPtrConstArg  pObj)
+{
+    if(pObj != NULL)
+        pObj->addReferenceX();
+
+    if(_pObj != NULL)
+        _pObj->subReferenceX();
+
+
+    _pObj = pObj;
+
+    return *this;
+}
+
+template<class ObjectT> 
+template<class OtherObjT> inline
+typename TransitPtr<ObjectT>::Self &
+    TransitPtr<ObjectT>::operator =(TransitPtr<OtherObjT> const &other)
+{
+    if(_pObj != NULL)
+        _pObj->subReferenceX();
+
+    _pObj = other._pObj;
+
+    other._pObj = NULL;
+
+    return *this;
+}
+
+
+template<class ObjectT> inline
+typename TransitPtr<ObjectT>::ObjectPtr 
+    TransitPtr<ObjectT>::operator->(void) const
+{
+    return _pObj;
+}
+
+template<class ObjectT> inline
+bool TransitPtr<ObjectT>::operator ==(const FieldContainerCPtr rhs)
+{
+    return _pObj == rhs;
+}
+
+
+template<class ObjectT> inline
+bool TransitPtr<ObjectT>::operator !=(const FieldContainerCPtr rhs)
+{
+    return !(*this == rhs);
 }
 
 OSG_END_NAMESPACE

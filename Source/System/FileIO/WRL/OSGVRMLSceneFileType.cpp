@@ -90,16 +90,15 @@ const Char8 *VRMLSceneFileType::getName(void) const
 /*-------------------------------------------------------------------------*/
 /*                               Read                                      */
 
-NodePtr VRMLSceneFileType::read(std::istream &is, const Char8 *) const
+NodeTransitPtr VRMLSceneFileType::read(std::istream &is, const Char8 *) const
 {
-    NodePtr root = NullFC;
+    NodeTransitPtr root(NullFC);
 
     VRMLFile *loader = new VRMLFile();
 
     loader->createStandardPrototypes();
-    loader->scanStream(is);
 
-    root = loader->getRoot();
+    root = loader->scanStream(is);
 
     delete loader;
 

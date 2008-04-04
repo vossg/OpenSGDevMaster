@@ -133,24 +133,24 @@ void DrawableStatsAttachment::reset(void)
 /*! Create a GeoStatsAttachment for the given Geometry
 */
 
-DrawableStatsAttachmentPtr DrawableStatsAttachment::calcStatic(
+DrawableStatsAttachmentTransitPtr DrawableStatsAttachment::calcStatic(
     DrawablePtrArg pDrawable)
 {
-    DrawableStatsAttachmentPtr st = DrawableStatsAttachment::create();
+    DrawableStatsAttachmentUnrecPtr st = DrawableStatsAttachment::create();
 
     if(pDrawable != NullFC)
         pDrawable->fill(st); 
 
-    return st;
+    return DrawableStatsAttachmentTransitPtr(st);
 }
 
 /*! Add a new GeoStatsAttachment to the given \a obj.
 */
 
-DrawableStatsAttachmentPtr DrawableStatsAttachment::addTo(
+DrawableStatsAttachmentTransitPtr DrawableStatsAttachment::addTo(
     AttachmentContainerPtr obj)
 {
-    DrawableStatsAttachmentPtr st = DrawableStatsAttachment::create();
+    DrawableStatsAttachmentTransitPtr st = DrawableStatsAttachment::create();
 
     st->attachTo(obj);
 
@@ -218,7 +218,7 @@ void DrawableStatsAttachment::validate(void)
         DrawablePtr g = dynamic_cast<DrawablePtr>(n->getCore());
         if(g != NullFC)
         {
-            DrawableStatsAttachmentPtr s = get(g);
+            DrawableStatsAttachmentUnrecPtr s = get(g);
 
             if(s == NullFC)
             {
@@ -236,7 +236,7 @@ void DrawableStatsAttachment::validate(void)
         {
             NodePtr c = n->getChild(i);
 
-            DrawableStatsAttachmentPtr s = get(c);
+            DrawableStatsAttachmentUnrecPtr s = get(c);
 
             if(s == NullFC)
             {

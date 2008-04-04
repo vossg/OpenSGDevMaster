@@ -28,18 +28,18 @@ using namespace OSG;
 
 RenderAction *rentravact = NullFC;
 
-NodePtr  hdrroot = NullFC;
-NodePtr  root    = NullFC;
-NodePtr  file    = NullFC;
+NodeRefPtr  hdrroot = NullFC;
+NodeRefPtr  root    = NullFC;
+NodeRefPtr  file    = NullFC;
 
-PerspectiveCameraPtr cam = NullFC;
-ViewportPtr          vp  = NullFC;
-WindowPtr            win = NullFC;
+PerspectiveCameraRefPtr cam = NullFC;
+ViewportRefPtr          vp  = NullFC;
+WindowRefPtr            win = NullFC;
 
-TransformPtr cam_trans   = NullFC;
-TransformPtr scene_trans = NullFC;
+TransformRefPtr cam_trans   = NullFC;
+TransformRefPtr scene_trans = NullFC;
 
-ComponentTransformPtr pAnimTrs[6] = 
+ComponentTransformRefPtr pAnimTrs[6] = 
 {
     NullFC,
     NullFC,
@@ -219,6 +219,26 @@ void key(unsigned char key, int x, int y)
         case 27:    
             subRefX(win);
             delete rentravact;
+
+            hdrroot = NullFC;
+            root    = NullFC;
+            file    = NullFC;
+
+            cam = NullFC;
+            vp  = NullFC;
+            win = NullFC;
+
+            cam_trans   = NullFC;
+            scene_trans = NullFC;
+
+            pAnimTrs[0] = NullFC;
+            pAnimTrs[1] = NullFC;
+            pAnimTrs[2] = NullFC;
+            pAnimTrs[3] = NullFC;
+            pAnimTrs[4] = NullFC;
+            pAnimTrs[5] = NullFC;
+            
+
             osgExit(); 
             exit(0);
         case 'a':   
@@ -273,9 +293,9 @@ void key(unsigned char key, int x, int y)
 }
 
 
-NodePtr setupAnim(void)
+NodeTransitPtr setupAnim(void)
 {
-    NodePtr returnValue = Node::create();
+    NodeTransitPtr returnValue = Node::create();
 
     returnValue->setCore(Group::create());
 
@@ -301,16 +321,16 @@ NodePtr setupAnim(void)
 
     for(UInt32 i = 0; i < 6; ++i)
     {
-        NodePtr pTN                = Node::create();
+        NodeUnrecPtr pTN                = Node::create();
         
         pAnimTrs[i] = ComponentTransform::create();
         
-        GeometryPtr pGeo     = makeBoxGeo(1.f, 1.f, 1.f, 2, 2, 2);
-        NodePtr     pGeoNode = Node::create();
+        GeometryUnrecPtr pGeo     = makeBoxGeo(1.f, 1.f, 1.f, 2, 2, 2);
+        NodeUnrecPtr     pGeoNode = Node::create();
         
         pGeoNode->setCore(pGeo);
 
-        SimpleMaterialPtr pMat = SimpleMaterial::create();
+        SimpleMaterialUnrecPtr pMat = SimpleMaterial::create();
         
         pMat->setDiffuse(Color3r(aDiffuse[i][0],
                                  aDiffuse[i][1],
@@ -363,14 +383,14 @@ int main (int argc, char **argv)
     // create the graph
 
     // beacon for camera and light  
-    NodePtr  b1n = Node::create();
-    GroupPtr b1  = Group::create();
+    NodeUnrecPtr  b1n = Node::create();
+    GroupUnrecPtr b1  = Group::create();
 
     b1n->setCore( b1 );
 
     // transformation
-    NodePtr      t1n = Node::create();
-    TransformPtr t1  = Transform::create();
+    NodeUnrecPtr      t1n = Node::create();
+    TransformUnrecPtr t1  = Transform::create();
 
     t1n->setCore (t1 );
     t1n->addChild(b1n);
@@ -379,8 +399,8 @@ int main (int argc, char **argv)
 
     // light
     
-    NodePtr             dlight = Node::create();
-    DirectionalLightPtr dl     = DirectionalLight::create();
+    NodeUnrecPtr             dlight = Node::create();
+    DirectionalLightUnrecPtr dl     = DirectionalLight::create();
 
     {
         dlight->setCore(dl);
@@ -397,7 +417,7 @@ int main (int argc, char **argv)
     hdrroot->editVolume().getInstance().setInfinite();
     hdrroot->editVolume().getInstance().setStatic  ();
 
-    HDRStagePtr pHDR = HDRStage::create();
+    HDRStageUnrecPtr pHDR = HDRStage::create();
 
 //    pHDR->setUpdateMode(HDRStage::PerVisit);
     pHDR->setEffectAmount(0.0);
@@ -407,7 +427,7 @@ int main (int argc, char **argv)
     // root
     root         = Node:: create();
 
-    GroupPtr gr1 = Group::create();
+    GroupUnrecPtr gr1 = Group::create();
 
     root->setCore(gr1);
 
@@ -419,7 +439,7 @@ int main (int argc, char **argv)
 
     // Load the file
 
-    NodePtr file = NullFC;
+    NodeUnrecPtr file = NullFC;
     
     if(argc > 1)
     {
@@ -434,15 +454,15 @@ int main (int argc, char **argv)
         file = makeSphere(4, 2.0);
     }
 
-    NodePtr pCubeRoot            = Node::create();
-    CubeMapGeneratorPtr pCubeGen = CubeMapGenerator::create();
+    NodeUnrecPtr pCubeRoot            = Node::create();
+    CubeMapGeneratorUnrecPtr pCubeGen = CubeMapGenerator::create();
 
     pCubeRoot->addChild(file);
     pCubeRoot->setCore(pCubeGen);
 //    pCubeRoot->setCore(Group::create());
 
-    NodePtr         pCubeSceneRoot = Node::create();
-    VisitSubTreePtr pCubeVisit     = VisitSubTree::create();
+    NodeUnrecPtr         pCubeSceneRoot = Node::create();
+    VisitSubTreeUnrecPtr pCubeVisit     = VisitSubTree::create();
 
     pCubeSceneRoot->setCore(pCubeVisit);
     pCubeVisit->setSubTreeRoot(root);
@@ -453,10 +473,10 @@ int main (int argc, char **argv)
                                512           );
     pCubeGen->setTexUnit      (3);
 
-    NodePtr pAnimRoot = setupAnim();
+    NodeUnrecPtr pAnimRoot = setupAnim();
 
             scene_trans = Transform::create();
-    NodePtr sceneTrN    = Node::create();
+    NodeUnrecPtr sceneTrN    = Node::create();
 
     scene_trans->editMatrix()[3][2] = -50.f;
 
@@ -486,12 +506,12 @@ int main (int argc, char **argv)
     }
 
     // Background
-    SkyBackgroundPtr bkgnd = SkyBackground::create();
+    SkyBackgroundUnrecPtr bkgnd = SkyBackground::create();
     {
-        ImagePtr pBackImg = 
+        ImageUnrecPtr pBackImg = 
             ImageFileHandler::the()->read("grace_cross.chdr");
 
-        TextureObjChunkPtr pBackTex = TextureObjChunk::create();
+        TextureObjChunkUnrecPtr pBackTex = TextureObjChunk::create();
 
         pBackTex->setImage(pBackImg);
         pBackTex->setInternalFormat(GL_RGB32F_ARB);
@@ -516,7 +536,7 @@ int main (int argc, char **argv)
 
 
     // Window
-    GLUTWindowPtr gwin;
+    GLUTWindowUnrecPtr gwin;
 
     GLint glvp[4];
 

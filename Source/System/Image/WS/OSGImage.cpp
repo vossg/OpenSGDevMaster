@@ -683,9 +683,9 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
           UChar8   *data       = NULL;
     const UChar8   *sourceData = NULL;
           UInt32    srcI, destI, destSize = 0;
-          UInt32    sum;
-          Real64    sumReal;
-          ImagePtr  dest = destination;
+          UInt32         sum;
+          Real64         sumReal;
+          ImageUnrecPtr  dest(destination);
 
     if (hasCompressedData())
     {
@@ -696,7 +696,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
     if(destination == NullFC)
     {
         dest = Image::create();
-        addRefX(dest);
+//        addRefX(dest);
     }
 
     FINFO(("Try to reformat image from pixelDepth %d to %d\n",
@@ -2022,7 +2022,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
             if(destination == NullFC)
             {
                 this->set(dest);
-                subRefX(dest);
+//                subRefX(dest);
             }
         }
     }
@@ -2119,11 +2119,11 @@ bool Image::convertDataTypeTo(Int32 destDataType)
     FINFO(("Try to convert image from dataType %d to %d\n",
            getDataType(), destDataType));
 
-    ImagePtr dest;
+    ImageUnrecPtr dest;
 
     dest = Image::create();
 
-    addRefX(dest);
+//    addRefX(dest);
 
     dest->set(getPixelFormat(),
               getWidth      (),
@@ -2419,7 +2419,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
     {
         this->set(dest);
 
-        subRefX(dest);
+//        subRefX(dest);
     }
 
     return (getData() ? true : false);
@@ -2505,9 +2505,9 @@ UInt32 Image::attachmentCount(void) const
 void Image::setAttachmentField(const std::string &key,
                                const std::string &data)
 {
-    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
+    ImageGenericAttUnrecPtr att(dynamic_cast<ImageGenericAttPtr>(
         findAttachment(
-            ImageGenericAtt::getClassType().getGroupId()));
+            ImageGenericAtt::getClassType().getGroupId())));
 
 
     if(att == NullFC)
@@ -2709,8 +2709,8 @@ bool Image::subImage(Int32    offX,
                      Int32    destD,
                      ImagePtr destination)
 {
-    ImagePtr destImage = destination;
-    bool     retCode   = true;
+    ImageUnrecPtr destImage(destination);
+    bool          retCode   = true;
 
     if (hasCompressedData())
     {
@@ -2722,7 +2722,7 @@ bool Image::subImage(Int32    offX,
     {
         destImage = Image::create();
 
-        addRefX(destImage);
+//        addRefX(destImage);
     }
 
     destImage->set((PixelFormat) getPixelFormat(),
@@ -2781,7 +2781,7 @@ bool Image::subImage(Int32    offX,
     {
         this->set(destImage);
 
-        subRefX(destImage);
+//        subRefX(destImage);
     }
 
     return retCode;
@@ -2797,9 +2797,9 @@ bool Image::slice(Int32    offX,
                   Int32    offZ,
                   ImagePtr destination)
 {
-    ImagePtr destImage = destination;
-    bool     retCode   = true;
-    UInt32   counter   = 0;
+    ImageUnrecPtr destImage(destination);
+    bool          retCode   = true;
+    UInt32        counter   = 0;
 
     if (hasCompressedData())
     {
@@ -2811,7 +2811,7 @@ bool Image::slice(Int32    offX,
     {
         destImage = Image::create();
 
-        addRefX(destImage);
+//        addRefX(destImage);
     }
 
     FDEBUG(("Image::slice (%d %d %d)\n",
@@ -2915,7 +2915,7 @@ bool Image::slice(Int32    offX,
     {
         this->set(destImage);
 
-        subRefX(destImage);
+//        subRefX(destImage);
     }
 
     return retCode;
@@ -2973,7 +2973,7 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
 
     Int32   offsetSize[] = { 0, 2, 2, 4, 2, 4, 4, 8 };
 
-    ImagePtr destImage = destination;
+    ImageUnrecPtr destImage(destination);
 
     Int32   w = getWidth(), h = getHeight(), d = getDepth();
     Int32   wm, hm, dm, wi, hi, di;
@@ -2999,7 +2999,7 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
     {
         destImage = Image::create();
 
-        addRefX(destImage);
+//        addRefX(destImage);
     }
 
     Real32 valueFloat;
@@ -3392,7 +3392,7 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
     {
         this->set(destImage);
 
-        subRefX(destImage);
+//        subRefX(destImage);
     }
 
     return true;

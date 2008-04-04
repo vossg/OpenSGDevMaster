@@ -58,8 +58,6 @@ class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
 
   public:
 
-    typedef std::vector<FieldContainerPtr> FCPtrStore;
-
     /*---------------------------------------------------------------------*/
     /*! \name                Class Get                                     */
     /*! \{                                                                 */
@@ -84,8 +82,8 @@ class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
     /*! \name                   Read                                       */
     /*! \{                                                                 */
 
-    virtual NodePtr read(      std::istream &is,
-                         const Char8        *fileNameOrExtension) const;
+    virtual NodeTransitPtr read(      std::istream &is,
+                                const Char8        *fileNameOrExtension) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

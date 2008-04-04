@@ -69,7 +69,8 @@ public:
 
     virtual const Char8 *getName(void) const;
 
-    virtual NodePtr read(std::istream &is, const Char8 *fileNameOrExtension) const;
+    virtual NodeTransitPtr read(      std::istream &is, 
+                                const Char8        *fileNameOrExtension) const;
 
 protected:
 
@@ -86,11 +87,11 @@ protected:
 
 private:
 
-    NodePtr createMesh(L3DS &scene, LMesh &mesh) const;
-    MaterialPtr createMaterial(L3DS &scene, UInt32 id) const;
+    NodeTransitPtr     createMesh    (L3DS &scene, LMesh  &mesh) const;
+    MaterialTransitPtr createMaterial(L3DS &scene, UInt32  id  ) const;
 
-    mutable std::map<UInt32, MaterialPtr> _materials;
-    typedef std::map<UInt32, MaterialPtr>::iterator materialIt;
+    mutable std::map<UInt32, MaterialUnrecPtr> _materials;
+    typedef std::map<UInt32, MaterialUnrecPtr>::iterator materialIt;
 };
 
 typedef A3DSSceneFileType* A3DSSceneFileTypeP;

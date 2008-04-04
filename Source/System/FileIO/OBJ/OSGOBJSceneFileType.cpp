@@ -133,30 +133,30 @@ OBJSceneFileType  OBJSceneFileType::_the(_suffixA,
 //s:
 //
 //------------------------------
-NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
+NodeTransitPtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
 {
-    NodePtr rootPtr, nodePtr;
+    NodeUnrecPtr rootPtr, nodePtr;
     std::string elem;
     std::map<std::string, DataElem>::const_iterator elemI;
     Vec3r vec3r;
     Pnt3r pnt3r;
     Vec2r vec2r;
     Real32 x,y,z;
-    GeoPnt3rPropertyPtr coordPtr    = GeoPnt3rProperty::create();
-    GeoVec2rPropertyPtr texCoordPtr = GeoVec2rProperty::create();
-    GeoVec3rPropertyPtr normalPtr   = GeoVec3rProperty::create();
-    GeometryPtr geoPtr;
-    GeoIntegralPropertyPtr posIndexPtr, texIndexPtr, normalIndexPtr;
-    GeoIntegralPropertyPtr lensPtr;
-    GeoIntegralPropertyPtr typePtr;
+    GeoPnt3rPropertyUnrecPtr coordPtr    = GeoPnt3rProperty::create();
+    GeoVec2rPropertyUnrecPtr texCoordPtr = GeoVec2rProperty::create();
+    GeoVec3rPropertyUnrecPtr normalPtr   = GeoVec3rProperty::create();
+    GeometryUnrecPtr geoPtr;
+    GeoIntegralPropertyUnrecPtr posIndexPtr, texIndexPtr, normalIndexPtr;
+    GeoIntegralPropertyUnrecPtr lensPtr;
+    GeoIntegralPropertyUnrecPtr typePtr;
     DataElem dataElem;
     Char8 strBuf[8192], *token, *nextToken;
     Int32 strBufSize = sizeof(strBuf)/sizeof(Char8);
     Int32 index, posIndex = 0, indexType;
     Int32 i,j,n,primCount[3];
     std::list<Mesh> meshList;
-    std::map<std::string, SimpleTexturedMaterialPtr> mtlMap;
-    std::map<std::string, SimpleTexturedMaterialPtr>::iterator mtlI;
+    std::map<std::string, SimpleTexturedMaterialUnrecPtr> mtlMap;
+    std::map<std::string, SimpleTexturedMaterialUnrecPtr>::iterator mtlI;
     Mesh emptyMesh;
     Face emptyFace;
     TiePoint  emptyTie;
@@ -460,7 +460,10 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                     if (rootPtr == NullFC)
                     {
                         rootPtr = Node::create();
-                        rootPtr->setCore ( Group::create() );
+
+                        GroupUnrecPtr tmpPtr = Group::create();
+
+                        rootPtr->setCore ( tmpPtr );
                         rootPtr->addChild(nodePtr);
                     }
                     else
@@ -479,7 +482,7 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
 #ifndef OSG_WINCE
 	SceneFileHandler::the()->updateReadProgress(100);
 #endif
-    return rootPtr;
+    return NodeTransitPtr(rootPtr);
 }
 
 void OBJSceneFileType::write(const NodePtr &node,
@@ -758,7 +761,8 @@ void OBJSceneFileType::initElemMap(void)
 }
 
 Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
-                                  std::map<std::string, SimpleTexturedMaterialPtr> & mtlMap )
+                                  std::map<std::string, 
+                                  SimpleTexturedMaterialUnrecPtr> & mtlMap )
   const
 {
     if(fileName == NULL || strlen(fileName) == 0)
@@ -784,14 +788,14 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
     }
 
     std::ifstream in(fullFilePath.c_str());
-    SimpleTexturedMaterialPtr mtlPtr = NullFC;
+    SimpleTexturedMaterialUnrecPtr mtlPtr = NullFC;
     Real32 a,b,c;
     std::string elem;
     std::map<std::string, MaterialElem>::const_iterator elemI;
     MaterialElem mtlElem;
     std::map<std::string, OSG::ImagePtr> imageMap;
     std::map<std::string, OSG::ImagePtr>::iterator iI;
-    ImagePtr image = NullFC;
+    ImageUnrecPtr image = NullFC;
     bool constDiffuse = false, constAmbient = false, constSpecular = false;
 
     if (in)

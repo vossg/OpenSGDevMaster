@@ -57,7 +57,7 @@ BitVector ShadowMapEngine::bvLightPassMask   = 0;
 BitVector ShadowMapEngine::bvAmbientPassMask = 0;
 BitVector ShadowMapEngine::bvDiffusePassMask = 0;
 
-ChunkMaterialPtr ShadowMapEngine::_pLightPassMat = NullFC;
+ChunkMaterialUnrecPtr ShadowMapEngine::_pLightPassMat = NullFC;
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
@@ -122,7 +122,7 @@ void ShadowMapEngine::initMethod(InitPhase ePhase)
         {
             _pLightPassMat = ChunkMaterial::create();
 
-            MaterialChunkPtr pMatChunk = MaterialChunk::create();
+            MaterialChunkUnrecPtr pMatChunk = MaterialChunk::create();
 
             pMatChunk->setLit          (false  );
             pMatChunk->setColorMaterial(GL_NONE);
@@ -133,7 +133,7 @@ void ShadowMapEngine::initMethod(InitPhase ePhase)
                                     ChangedOrigin::Commit,
                                     0);
 
-            OSG::addRefX(_pLightPassMat);
+//            OSG::addRefX(_pLightPassMat);
         }
     }
 }
@@ -144,7 +144,7 @@ void ShadowMapEngine::exitMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        OSG::subRefX(_pLightPassMat);       
+//        OSG::subRefX(_pLightPassMat);       
         _pLightPassMat = NullFC;
     }
 }

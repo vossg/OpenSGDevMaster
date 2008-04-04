@@ -111,13 +111,13 @@ bool CHDRImageFileType::read(      ImagePtrArg   image,
                                    std::istream &is, 
                              const std::string  &mimetype)
 {
-    ImagePtr pTmpImage = Image::create();
+    ImageUnrecPtr pTmpImage = Image::create();
 
     bool returnValue   = Inherited::read(pTmpImage, is, mimetype);
 
     if(returnValue == false)
     {
-        OSG::subRefX(pTmpImage);
+        pTmpImage = NullFC;
 
         return returnValue;
     }
@@ -126,7 +126,7 @@ bool CHDRImageFileType::read(      ImagePtrArg   image,
     returnValue = convertCrossToCubeMap(pTmpImage,
                                         image);
 
-    subRefX(pTmpImage);
+    pTmpImage = NullFC;
 
     return returnValue;
 }

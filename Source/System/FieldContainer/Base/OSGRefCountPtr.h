@@ -88,10 +88,14 @@ class RefCountPtr
     RefCountPtr(void                          );
     RefCountPtr(Self              const &other);
    
+    RefCountPtr(ObjectTransitPtr  const &other);
+
+    template <class OtherObjectT>
+    RefCountPtr(TransitPtr<OtherObjectT> const &other);
+
     explicit
     RefCountPtr(ObjectTransitPtr        &other);
 
-    explicit
     RefCountPtr(ObjectPtrConstArg        pObj );
     
     /*! \}                                                                 */
@@ -108,6 +112,7 @@ class RefCountPtr
     
     Self &operator =(Self              const &other    );
     Self &operator =(ObjectPtrConstArg        objectPtr);
+    Self &operator =(ObjectTransitPtr  const &other);
 
     template <class OtherObjectT, class OtherRefCountPolicyT>
     Self &operator=(RefCountPtr<OtherObjectT,
@@ -172,7 +177,16 @@ class RefCountPtr
     /*---------------------------------------------------------------------*/
   
 };
-         
+       
+template <class TargetObjectT, class SourceObjectT, class RP> inline
+RefCountPtr<TargetObjectT, RP> dynamic_pointer_cast(
+    RefCountPtr<SourceObjectT, RP> const &source)
+{
+    TargetObjectT *pRet = dynamic_cast<TargetObjectT *>(source.get());
+
+    return RefCountPtr<TargetObjectT, RP>(pRet);
+}
+  
 OSG_END_NAMESPACE
 
 #include "OSGRefCountPtr.inl"

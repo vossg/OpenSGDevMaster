@@ -207,19 +207,21 @@ const Char8 *SceneFileType::getOptions(void)
 
 //---------------------------------------------------------
 
-NodePtr SceneFileType::read(
+NodeTransitPtr SceneFileType::read(
           std::istream &OSG_CHECK_ARG(is                 ),
     const Char8        *OSG_CHECK_ARG(fileNameOrExtension)) const
 {
     FWARNING (("STREAM INTERFACE NOT IMPLEMENTED!\n"));
-    return NullFC;
+
+    return NodeTransitPtr(NullFC);
 }
 
 #ifndef OSG_DISABLE_DEPRECATED
-NodePtr SceneFileType::readFile(const Char8 * OSG_CHECK_ARG(fileName)) const
+NodeTransitPtr SceneFileType::readFile(const Char8 *) const
 {
     FWARNING (("FILE INTERFACE NOT IMPLEMENTED!\n"));
-    return NullFC;
+
+    return NodeTransitPtr(NullFC);
 }
 #endif
 

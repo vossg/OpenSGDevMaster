@@ -319,22 +319,21 @@ std::string ImageFileHandlerBase::determineMimetypeFromSuffix(
     will try to use the fileName suffix to determine the mimeType
 */
 
-ImagePtr ImageFileHandlerBase::read(const Char8 *fileName, 
-                                    const Char8 *mimeType)
+
+ImageTransitPtr ImageFileHandlerBase::read(const Char8 *fileName, 
+                                           const Char8 *mimeType)
 {
     if(_pReadCallback != NULL)
         return _pReadCallback(fileName, mimeType);
 
-    ImagePtr image = Image::create();
+    ImageUnrecPtr image = Image::create();
     
     if(read(image, fileName, mimeType) == false)
     {
-        OSG::subRefX(image);
-
         image = NullFC;
     }
 
-    return image;
+    return ImageTransitPtr(image);
 }
 
 //-------------------------------------------------------------------------
@@ -490,10 +489,10 @@ bool ImageFileHandlerBase::write(      ImageConstPtrArg  pImage,
 
 //-------------------------------------------------------------------------
 
-ImagePtr ImageFileHandlerBase::read(      std::istream &is, 
-                                    const std::string  &mimeType)
+ImageTransitPtr ImageFileHandlerBase::read(      std::istream &is, 
+                                           const std::string  &mimeType)
 {
-    ImagePtr image = Image::create();
+    ImageUnrecPtr image = Image::create();
 
     if (read(image, is, mimeType) == false)
     {
@@ -501,7 +500,7 @@ ImagePtr ImageFileHandlerBase::read(      std::istream &is,
         image = NullFC;
     }
 
-    return image;
+    return ImageTransitPtr(image);
 }
 
 //-------------------------------------------------------------------------

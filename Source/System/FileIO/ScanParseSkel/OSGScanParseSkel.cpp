@@ -381,7 +381,7 @@ void ScanParseSkel::addFloatValue(Real32 f)
     addFieldValue(_pLexer->YYText());
 }
 
-void ScanParseSkel::addImageValue(ImagePtr &img)
+void ScanParseSkel::addImageValue(ImagePtr img)
 {
     UInt32 numComponents = img->getComponents();
     std::ostringstream os;
@@ -571,7 +571,7 @@ void ScanParseSkel::beginImage(Int32 width, Int32 height, Int32 components)
     {
         _image = Image::create();
 
-        addRefX(_image);
+//        addRefX(_image);
     }
     UInt32 pixelFormat;
     switch (components)
@@ -614,7 +614,7 @@ void ScanParseSkel::endImage()
 
     addImageValue(_image);
 
-    subRefX(_image);
+//    subRefX(_image);
 
     _image = NullFC;
 }

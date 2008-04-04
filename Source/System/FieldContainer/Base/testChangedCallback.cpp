@@ -28,7 +28,7 @@ int main (int argc, char **argv)
 
     OSG::Thread::getCurrentChangeList()->clear();
 
-    OSG::NodePtr pNode = OSG::Node::create();
+    OSG::NodeRefPtr pNode = OSG::Node::create();
 
     OSG::ChangedFunctor objCB = boost::bind(&Foo::testCB, &foo, _1, _2);
 
@@ -75,5 +75,5 @@ int main (int argc, char **argv)
     OSG::Thread::getCurrentChangeList()->commitChanges();
 
     fprintf(stderr, "Delete\n");
-    OSG::subRefX(pNode);
+    pNode = NullFC;
 }

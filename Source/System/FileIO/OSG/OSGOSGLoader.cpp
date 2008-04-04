@@ -343,8 +343,10 @@ OSGLoader::~OSGLoader(void)
 
 /*------------------------------ access -----------------------------------*/
 
-void OSGLoader::scanStream(std::istream &is)
+NodeTransitPtr OSGLoader::scanStream(std::istream &is)
 {
+    NodeTransitPtr returnValue(NullFC);
+
     if(is)
     {
         _pRootNode         = NullFC;
@@ -357,7 +359,14 @@ void OSGLoader::scanStream(std::istream &is)
         _defMap .clear();
 
         Inherited::scanStream(is);
+
+        returnValue = _pRootNode;
+
+        _pRootNode  = NullFC;
+        _pCurrentFC = NullFC;
     }
+
+    return returnValue;
 }
 
 #if defined(OSG_WIN32_ICL)
@@ -367,7 +376,7 @@ void OSGLoader::scanStream(std::istream &is)
 void OSGLoader::beginNode(const Char8 *szNodeTypename,
                           const Char8 *szNodename)
 {
-    FieldContainerPtr pNewNode;
+    FieldContainerUnrecPtr pNewNode;
 
     if(szNodeTypename == NULL)
         return;
@@ -415,7 +424,7 @@ void OSGLoader::beginNode(const Char8 *szNodeTypename,
 
     if(_fcStack.size() == 1)
     {
-        NodePtr pNode = NullFC;
+        NodeUnrecPtr pNode = NullFC;
 
         if(_pCurrentFC->getType().isNode())
         {
@@ -435,7 +444,7 @@ void OSGLoader::beginNode(const Char8 *szNodeTypename,
 
         if(_pRootNode == NullFC)
         {
-            GroupPtr pGroup = Group::create();
+            GroupUnrecPtr pGroup = Group::create();
 
             _pRootNode = Node::create();
 
@@ -466,7 +475,7 @@ void OSGLoader::endNode(void)
 
             if(pNode->getCore() == NullFC)
             {
-                GroupPtr pGroup = Group::create();
+                GroupUnrecPtr pGroup = Group::create();
 
                 pNode->setCore(pGroup);
             }
@@ -520,23 +529,6 @@ void OSGLoader::use(const Char8 *szName)
         // assign nodepointer to current sf|mf field
         setFieldContainerValue(pUseNode);
     }
-}
-
-NodePtr OSGLoader::getRootNode(void)
-{
-    return _pRootNode;
-}
-
-std::vector<FieldContainerPtr> OSGLoader::getRootNodes(void)
-{
-    std::vector<FieldContainerPtr> fcVec;
-
-    for( UInt32 i=0; i<_pRootNode->getNChildren(); ++i )
-    {
-        fcVec.push_back(_pRootNode->getChild(i));
-    }
-
-    return fcVec;
 }
 
 void OSGLoader::addFieldValue(const Char8 *szFieldVal)

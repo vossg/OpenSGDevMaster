@@ -132,12 +132,12 @@ UInt32  calcPrimitiveCount       (GeometryPtrArg  geo,
                                   UInt32         &point);
 
 OSG_DRAWABLE_DLLMAPPING 
-NodePtr calcVertexNormalsGeo    (GeometryPtrArg  geo, 
-                                 Real32          length);
+NodeTransitPtr calcVertexNormalsGeo    (GeometryPtrArg  geo, 
+                                        Real32          length);
 
 OSG_DRAWABLE_DLLMAPPING 
-NodePtr calcFaceNormalsGeo      (GeometryPtrArg  geo, 
-                                 Real32          length);
+NodeTransitPtr calcFaceNormalsGeo      (GeometryPtrArg  geo, 
+                                        Real32          length);
 
 OSG_DRAWABLE_DLLMAPPING 
 void    separateProperties      (GeometryPtrArg  geo);

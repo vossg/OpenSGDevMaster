@@ -65,19 +65,17 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
 {
     /*==========================  PUBLIC  =================================*/
 
-    typedef NodePtr (*FileIOReadCBF )(      SceneFileType *type,
-                                            std::istream  &is, 
-                                      const Char8         *ext );
+    typedef NodeTransitPtr (*FileIOReadCBF )(      SceneFileType *type,
+                                                   std::istream  &is, 
+                                             const Char8         *ext );
 
-    typedef bool    (*FileIOWriteCBF)(      SceneFileType *type,
-                                      const NodePtr       &node, 
-                                            std::ostream  &os,
-                                      const Char8         *ext, 
-                                            bool           compress);
+    typedef bool           (*FileIOWriteCBF)(      SceneFileType *type,
+                                             const NodePtr       &node, 
+                                                   std::ostream  &os,
+                                             const Char8         *ext, 
+                                                   bool           compress);
 
   public:
-
-    typedef std::vector<FieldContainerPtr> FCPtrStore;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Get                                        */
@@ -96,38 +94,31 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     /*! \{                                                                 */
 
     typedef void (*progresscbfp) (UInt32 p);
-    void setReadProgressCB(progresscbfp fp, bool use_thread = true);
-    progresscbfp getReadProgressCB(void);
 
-    void updateReadProgress(void);
-    void updateReadProgress(UInt32 p);
+    void          setReadProgressCB (progresscbfp fp,
+                                     bool         use_thread = true);
+    progresscbfp  getReadProgressCB (void                          );
 
-    void setWriteProgressCB(progresscbfp fp);
-    progresscbfp getWriteProgressCB(void);
+    void          updateReadProgress(void                          );
+    void          updateReadProgress(UInt32       p                );
 
-    void updateWriteProgress(UInt32 p);
+    void         setWriteProgressCB (progresscbfp fp               );
+    progresscbfp getWriteProgressCB (void                          );
+
+    void         updateWriteProgress(UInt32       p                );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Read                                       */
     /*! \{                                                                 */
 
-    virtual NodePtr    read        (      std::istream &is, 
-                                    const Char8        *ext,
-                                          GraphOpSeq   *graphOpSeq = 
+    virtual NodeTransitPtr read(      std::istream &is, 
+                                const Char8        *ext,
+                                      GraphOpSeq   *graphOpSeq = 
                                                            _defaultgraphOpSeq);
 
-    virtual FCPtrStore readTopNodes(      std::istream &is, 
-                                    const Char8        *ext,
-                                          GraphOpSeq   *graphOpSeq = 
-                                                           _defaultgraphOpSeq);
-
-    virtual NodePtr    read        (const  Char8       *fileName,
-                                           GraphOpSeq  *graphOpSeq = 
-                                                           _defaultgraphOpSeq);
-
-    virtual FCPtrStore readTopNodes(const  Char8       *fileName,
-                                           GraphOpSeq  *graphOpSeq = 
+    virtual NodeTransitPtr read(const  Char8       *fileName,
+                                       GraphOpSeq  *graphOpSeq = 
                                                            _defaultgraphOpSeq);
 
     /*! \}                                                                 */

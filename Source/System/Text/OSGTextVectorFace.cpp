@@ -128,13 +128,13 @@ const TextVectorGlyph &TextVectorFace::getVectorGlyph(TextGlyph::Index glyphInde
 // Fills a geometry with a new text
 // Author: afischle, pdaehne
 //----------------------------------------------------------------------
-void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layoutResult,
+void TextVectorFace::fillGeo(GeometryPtr geoPtr, const TextLayoutResult &layoutResult,
                              Real32 scale, Real32 depth, UInt32 level,
                              Real32 creaseAngle)
 {
     // cast the field containers down to the needed type and create them
     // when they have the wrong type
-    GeoPnt3fPropertyPtr posPtr = 
+    GeoPnt3fPropertyUnrecPtr posPtr = 
         dynamic_cast<GeoPnt3fPropertyPtr>(geoPtr->getPositions());
 
     if (posPtr == NullFC)
@@ -144,7 +144,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
     }
     else
         posPtr->clear();
-    GeoVec3fPropertyPtr normalsPtr = 
+    GeoVec3fPropertyUnrecPtr normalsPtr = 
         dynamic_cast<GeoVec3fPropertyPtr>(geoPtr->getNormals());
 
     if (normalsPtr == NullFC)
@@ -155,7 +155,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
     else
         normalsPtr->clear();
 
-    GeoVec2fPropertyPtr texPtr = 
+    GeoVec2fPropertyUnrecPtr texPtr = 
         dynamic_cast<GeoVec2fPropertyPtr>(geoPtr->getTexCoords());
 
     if (texPtr == NullFC)
@@ -166,7 +166,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
     else
         texPtr->clear();
 
-    GeoUInt32PropertyPtr lensPtr = 
+    GeoUInt32PropertyUnrecPtr lensPtr = 
         dynamic_cast<GeoUInt32PropertyPtr>(geoPtr->getLengths());
 
     if (lensPtr == NullFC)
@@ -177,7 +177,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
     else
         lensPtr->clear();
 
-    GeoUInt32PropertyPtr posIndicesPtr = 
+    GeoUInt32PropertyUnrecPtr posIndicesPtr = 
         dynamic_cast<GeoUInt32PropertyPtr>(
             geoPtr->getIndex(Geometry::PositionsIndex));
 
@@ -189,7 +189,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
     else
         posIndicesPtr->clear();
 
-    GeoUInt32PropertyPtr normalIndicesPtr = 
+    GeoUInt32PropertyUnrecPtr normalIndicesPtr = 
         dynamic_cast<GeoUInt32PropertyPtr>(
             geoPtr->getIndex(Geometry::NormalsIndex));
 
@@ -201,7 +201,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
     else
         normalIndicesPtr->clear();
 
-    GeoUInt32PropertyPtr texCoordIndicesPtr = 
+    GeoUInt32PropertyUnrecPtr texCoordIndicesPtr = 
         dynamic_cast<GeoUInt32PropertyPtr>(
             geoPtr->getIndex(Geometry::TexCoordsIndex));
 
@@ -213,7 +213,7 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
     else
         texCoordIndicesPtr->clear();
 
-    GeoUInt8PropertyPtr typesPtr = 
+    GeoUInt8PropertyUnrecPtr typesPtr = 
         dynamic_cast<GeoUInt8PropertyPtr>(geoPtr->getTypes());
 
     if (typesPtr == NullFC)
@@ -538,12 +538,12 @@ void TextVectorFace::fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layout
 // Creates a new text geometry
 // Author: pdaehne
 //----------------------------------------------------------------------
-GeometryPtr TextVectorFace::makeGeo(const TextLayoutResult &layoutResult, Real32 scale,
+GeometryTransitPtr TextVectorFace::makeGeo(const TextLayoutResult &layoutResult, Real32 scale,
                                     Real32 depth, UInt32 level, Real32 creaseAngle)
 {
-    GeometryPtr geo = Geometry::create();
+    GeometryUnrecPtr geo = Geometry::create();
     fillGeo(geo, layoutResult, scale, depth, level, creaseAngle);
-    return geo;
+    return GeometryTransitPtr(geo);
 }
 
 
@@ -551,11 +551,11 @@ GeometryPtr TextVectorFace::makeGeo(const TextLayoutResult &layoutResult, Real32
 // Creates a new node with a text geometry
 // Author: pdaehne
 //----------------------------------------------------------------------
-NodePtr TextVectorFace::makeNode(const TextLayoutResult &layoutResult, Real32 scale,
+NodeTransitPtr TextVectorFace::makeNode(const TextLayoutResult &layoutResult, Real32 scale,
                                  Real32 depth, UInt32 level, Real32 creaseAngle)
 {
-    GeometryPtr geo = makeGeo(layoutResult, scale, depth, level, creaseAngle);
-    NodePtr node = Node::create();
+    GeometryTransitPtr geo = makeGeo(layoutResult, scale, depth, level, creaseAngle);
+    NodeTransitPtr node = Node::create();
 
     node->setCore(geo);
 

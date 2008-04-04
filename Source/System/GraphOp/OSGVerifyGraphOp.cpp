@@ -130,7 +130,7 @@ void VerifyGraphOp::setVerbose(bool verbose)
     _verbose = verbose;
 }
 
-bool VerifyGraphOp::traverse(NodePtr& node)
+bool VerifyGraphOp::traverse(NodePtr node)
 {
     // Clean up
     

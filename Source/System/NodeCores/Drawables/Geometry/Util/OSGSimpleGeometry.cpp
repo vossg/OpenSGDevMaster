@@ -78,16 +78,16 @@ OSG_BEGIN_NAMESPACE
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-NodePtr makePlane(Real32 xsize, Real32 ysize, UInt16 hor, UInt16 vert)
+NodeTransitPtr makePlane(Real32 xsize, Real32 ysize, UInt16 hor, UInt16 vert)
 {
-    GeometryPtr pGeo = makePlaneGeo(xsize, ysize, hor, vert);
+    GeometryTransitPtr pGeo = makePlaneGeo(xsize, ysize, hor, vert);
 
     if(pGeo == NullFC)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr node = Node::create();
+    NodeTransitPtr node = Node::create();
 
     node->setCore(pGeo);
 
@@ -106,22 +106,22 @@ NodePtr makePlane(Real32 xsize, Real32 ysize, UInt16 hor, UInt16 vert)
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize,
-                         UInt16 hor,   UInt16 vert)
+GeometryTransitPtr makePlaneGeo(Real32 xsize, Real32 ysize,
+                                UInt16 hor,   UInt16 vert)
 {
     if(! hor || ! vert)
     {
         SWARNING << "makePlane: illegal parameters hor=" << hor << ", vert="
                  << vert << std::endl;
-        return NullFC;
+        return GeometryTransitPtr(NullFC);
     }
 
-    GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
-    GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
-    GeoVec2fPropertyPtr  tex   = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
+    GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
+    GeoVec3fPropertyUnrecPtr  norms = GeoVec3fProperty ::create();
+    GeoVec2fPropertyUnrecPtr  tex   = GeoVec2fProperty ::create();
+    GeoUInt32PropertyUnrecPtr index = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr  types = GeoUInt8Property ::create();
 
     UInt16 x,y;
     Real32 xstep,ystep;
@@ -164,7 +164,7 @@ GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize,
 
     // create the geometry
 
-    GeometryPtr geo = Geometry::create();
+    GeometryTransitPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
     geo->setPositions(pnts);
@@ -192,11 +192,11 @@ GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
 */
-NodePtr makeCone(Real32 height,
-                 Real32 botradius,
-                 UInt16 sides,
-                 bool   doSide,
-                 bool   doBottom)
+NodeTransitPtr makeCone(Real32 height,
+                        Real32 botradius,
+                        UInt16 sides,
+                        bool   doSide,
+                        bool   doBottom)
 {
     return makeConicalFrustum(height,
                               0,
@@ -220,11 +220,11 @@ NodePtr makeCone(Real32 height,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
 */
-GeometryPtr makeConeGeo(Real32 height,
-                        Real32 botradius,
-                        UInt16 sides,
-                        bool   doSide,
-                        bool   doBottom)
+GeometryTransitPtr makeConeGeo(Real32 height,
+                               Real32 botradius,
+                               UInt16 sides,
+                               bool   doSide,
+                               bool   doBottom)
 {
     return makeConicalFrustumGeo(height,
                                  0,
@@ -252,12 +252,12 @@ GeometryPtr makeConeGeo(Real32 height,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
 */
-NodePtr makeCylinder(Real32 height,
-                     Real32 radius,
-                     UInt16 sides,
-                     bool   doSide,
-                     bool   doTop,
-                     bool   doBottom)
+NodeTransitPtr makeCylinder(Real32 height,
+                            Real32 radius,
+                            UInt16 sides,
+                            bool   doSide,
+                            bool   doTop,
+                            bool   doBottom)
 {
     return makeConicalFrustum(height,
                               radius,
@@ -282,12 +282,12 @@ NodePtr makeCylinder(Real32 height,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
 */
-GeometryPtr makeCylinderGeo(Real32 height,
-                            Real32 radius,
-                            UInt16 sides,
-                            bool   doSide,
-                            bool   doTop,
-                            bool   doBottom)
+GeometryTransitPtr makeCylinderGeo(Real32 height,
+                                   Real32 radius,
+                                   UInt16 sides,
+                                   bool   doSide,
+                                   bool   doTop,
+                                   bool   doBottom)
 {
     return makeConicalFrustumGeo(height,
                                  radius,
@@ -318,28 +318,28 @@ GeometryPtr makeCylinderGeo(Real32 height,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-NodePtr makeConicalFrustum(Real32 height,
-                           Real32 topradius,
-                           Real32 botradius,
-                           UInt16 sides,
-                           bool   doSide,
-                           bool   doTop,
-                           bool   doBottom)
+NodeTransitPtr makeConicalFrustum(Real32 height,
+                                  Real32 topradius,
+                                  Real32 botradius,
+                                  UInt16 sides,
+                                  bool   doSide,
+                                  bool   doTop,
+                                  bool   doBottom)
 {
-    GeometryPtr pGeo = makeConicalFrustumGeo(height,
-                                             topradius,
-                                             botradius,
-                                             sides,
-                                             doSide,
-                                             doTop,
-                                             doBottom);
-
+    GeometryTransitPtr pGeo = makeConicalFrustumGeo(height,
+                                                    topradius,
+                                                    botradius,
+                                                    sides,
+                                                    doSide,
+                                                    doTop,
+                                                    doBottom);
+    
     if(pGeo == NullFC)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr node = Node::create();
+    NodeTransitPtr node = Node::create();
 
     node->setCore(pGeo);
 
@@ -359,13 +359,13 @@ NodePtr makeConicalFrustum(Real32 height,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-GeometryPtr makeConicalFrustumGeo(Real32 height,
-                                  Real32 topradius,
-                                  Real32 botradius,
-                                  UInt16 sides,
-                                  bool   doSide,
-                                  bool   doTop,
-                                  bool   doBottom)
+GeometryTransitPtr makeConicalFrustumGeo(Real32 height,
+                                         Real32 topradius,
+                                         Real32 botradius,
+                                         UInt16 sides,
+                                         bool   doSide,
+                                         bool   doTop,
+                                         bool   doBottom)
 {
     if(height <= 0 || topradius < 0 || botradius < 0 || sides < 3)
     {
@@ -374,15 +374,15 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
                  << ", botradius=" << botradius
                  << ", sides=" << sides
                  << std::endl;
-        return NullFC;
+        return GeometryTransitPtr(NullFC);
     }
 
-    GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
-    GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
-    GeoVec2fPropertyPtr  tex   = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
+    GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
+    GeoVec3fPropertyUnrecPtr  norms = GeoVec3fProperty ::create();
+    GeoVec2fPropertyUnrecPtr  tex   = GeoVec2fProperty ::create();
+    GeoUInt32PropertyUnrecPtr index = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr  types = GeoUInt8Property ::create();
 
     Int16  j;
     Real32 delta = 2.f * Pi / sides;
@@ -492,7 +492,7 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
 
     // create the geometry
 
-    GeometryPtr geo = Geometry::create();
+    GeometryTransitPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
     geo->setPositions(pnts);
@@ -516,17 +516,22 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-NodePtr makeTorus(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
-                  UInt16 rings)
+NodeTransitPtr makeTorus(Real32 innerRadius, 
+                         Real32 outerRadius, 
+                         UInt16 sides,
+                         UInt16 rings)
 {
-    GeometryPtr pGeo = makeTorusGeo(innerRadius, outerRadius, sides, rings);
+    GeometryTransitPtr pGeo = makeTorusGeo(innerRadius, 
+                                           outerRadius, 
+                                           sides, 
+                                           rings);
 
     if(pGeo == NullFC)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr node = Node::create();
+    NodeTransitPtr node = Node::create();
 
     node->setCore(pGeo);
 
@@ -545,8 +550,10 @@ NodePtr makeTorus(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-GeometryPtr makeTorusGeo(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
-                         UInt16 rings)
+GeometryTransitPtr makeTorusGeo(Real32 innerRadius, 
+                                Real32 outerRadius, 
+                                UInt16 sides,
+                                UInt16 rings)
 {
     if(innerRadius <= 0 || outerRadius <= 0 || sides < 3 || rings < 3)
     {
@@ -555,15 +562,15 @@ GeometryPtr makeTorusGeo(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
                  << ", sides=" << sides
                  << ", rings=" << rings
                  << std::endl;
-        return NullFC;
+        return GeometryTransitPtr(NullFC);
     }
 
-    GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
-    GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
-    GeoVec2fPropertyPtr  tex   = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
+    GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
+    GeoVec3fPropertyUnrecPtr  norms = GeoVec3fProperty ::create();
+    GeoVec2fPropertyUnrecPtr  tex   = GeoVec2fProperty ::create();
+    GeoUInt32PropertyUnrecPtr index = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr  types = GeoUInt8Property ::create();
 
     UInt16 a, b;
     Real32 theta, phi;
@@ -622,7 +629,7 @@ GeometryPtr makeTorusGeo(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
 
     // create the geometry
 
-    GeometryPtr geo = Geometry::create();
+    GeometryTransitPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
     geo->setPositions(pnts);
@@ -757,16 +764,16 @@ void subdivideTriangle( UInt32 i1,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-NodePtr makeSphere(UInt16 depth, Real32 radius)
+NodeTransitPtr makeSphere(UInt16 depth, Real32 radius)
 {
-    GeometryPtr pGeo = makeSphereGeo(depth, radius);
+    GeometryTransitPtr pGeo = makeSphereGeo(depth, radius);
 
     if(pGeo == NullFC)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr node = Node::create();
+    NodeTransitPtr node = Node::create();
 
     node->setCore(pGeo);
 
@@ -783,19 +790,19 @@ NodePtr makeSphere(UInt16 depth, Real32 radius)
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
+GeometryTransitPtr makeSphereGeo(UInt16 depth, Real32 radius)
 {
     const Real32 X = .525731112119133606;
     const Real32 Z = .850650808352039932;
     const Real32 HalfPi = 1.570796326794897;
 
-    GeoPnt3fPropertyPtr  pnts    = GeoPnt3fProperty ::create();
-    GeoVec3fPropertyPtr  norms   = GeoVec3fProperty ::create();
-    GeoVec2fPropertyPtr  tex     = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index   = GeoUInt32Property::create();
-    GeoUInt32PropertyPtr tcindex = GeoUInt32Property::create();
-    GeoUInt32PropertyPtr lens    = GeoUInt32Property::create();
-    GeoUInt8PropertyPtr  types   = GeoUInt8Property ::create();
+    GeoPnt3fPropertyUnrecPtr  pnts    = GeoPnt3fProperty ::create();
+    GeoVec3fPropertyUnrecPtr  norms   = GeoVec3fProperty ::create();
+    GeoVec2fPropertyUnrecPtr  tex     = GeoVec2fProperty ::create();
+    GeoUInt32PropertyUnrecPtr index   = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr tcindex = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr lens    = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr  types   = GeoUInt8Property ::create();
 
     UInt32              j,z;
 
@@ -876,7 +883,7 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
     lens->push_back(i->size());
 
     // create the geometry
-    GeometryPtr geo = Geometry::create();
+    GeometryTransitPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
     geo->setPositions(pnts);
@@ -958,16 +965,16 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-NodePtr makeLatLongSphere(UInt16 latres, UInt16 longres, Real32 radius)
+NodeTransitPtr makeLatLongSphere(UInt16 latres, UInt16 longres, Real32 radius)
 {
-    GeometryPtr pGeo = makeLatLongSphereGeo(latres, longres, radius);
+    GeometryTransitPtr pGeo = makeLatLongSphereGeo(latres, longres, radius);
 
     if(pGeo == NullFC)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr node = Node::create();
+    NodeTransitPtr node = Node::create();
 
     node->setCore(pGeo);
 
@@ -985,8 +992,9 @@ NodePtr makeLatLongSphere(UInt16 latres, UInt16 longres, Real32 radius)
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
-                                      Real32 radius)
+GeometryTransitPtr makeLatLongSphereGeo(UInt16 latres, 
+                                        UInt16 longres,
+                                        Real32 radius)
 {
     if(radius <= 0 || latres < 4 || longres < 4)
     {
@@ -995,15 +1003,15 @@ GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
                  << ", longres=" << longres
                  << ", radius=" << radius
                  << std::endl;
-        return NullFC;
+        return GeometryTransitPtr(NullFC);
     }
 
-    GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
-    GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
-    GeoVec2fPropertyPtr  tex   = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
+    GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
+    GeoVec3fPropertyUnrecPtr  norms = GeoVec3fProperty ::create();
+    GeoVec2fPropertyUnrecPtr  tex   = GeoVec2fProperty ::create();
+    GeoUInt32PropertyUnrecPtr index = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr  types = GeoUInt8Property ::create();
 
     UInt16 a, b;
     Real32 theta, phi;
@@ -1064,7 +1072,7 @@ GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
 
     // create the geometry
 
-    GeometryPtr geo = Geometry::create();
+    GeometryTransitPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
     geo->setPositions(pnts);
@@ -1089,22 +1097,22 @@ GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-NodePtr makeLatLongEllipsoid(UInt16 latres,
-                             UInt16 longres,
-                             Real32 rSemiMajorAxis,
-                             Real32 rSemiMinorAxis)
+NodeTransitPtr makeLatLongEllipsoid(UInt16 latres,
+                                    UInt16 longres,
+                                    Real32 rSemiMajorAxis,
+                                    Real32 rSemiMinorAxis)
 {
-    GeometryPtr pGeo = makeLatLongEllipsoidGeo(latres, 
-                                               longres,
-                                               rSemiMajorAxis,
-                                               rSemiMinorAxis);
-
+    GeometryTransitPtr pGeo = makeLatLongEllipsoidGeo(latres, 
+                                                      longres,
+                                                      rSemiMajorAxis,
+                                                      rSemiMinorAxis);
+    
     if(pGeo == NullFC)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr node = Node::create();
+    NodeTransitPtr node = Node::create();
 
     node->setCore(pGeo);
 
@@ -1122,10 +1130,10 @@ NodePtr makeLatLongEllipsoid(UInt16 latres,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-GeometryPtr makeLatLongEllipsoidGeo(UInt16 latres, 
-                                    UInt16 longres,
-                                    Real32 rSemiMajorAxis,
-                                    Real32 rSemiMinorAxis)
+GeometryTransitPtr makeLatLongEllipsoidGeo(UInt16 latres, 
+                                           UInt16 longres,
+                                           Real32 rSemiMajorAxis,
+                                           Real32 rSemiMinorAxis)
 {
     if(rSemiMajorAxis <= 0 || rSemiMinorAxis <= 0 || latres < 4 || longres < 4)
     {
@@ -1135,15 +1143,15 @@ GeometryPtr makeLatLongEllipsoidGeo(UInt16 latres,
                  << ", rSemiMajorAxis=" << rSemiMajorAxis
                  << ", rSemiMinorAxis=" << rSemiMinorAxis
                  << std::endl;
-        return NullFC;
+        return GeometryTransitPtr(NullFC);
     }
 
-    GeoPnt3fPropertyPtr   pnts  = GeoPnt3fProperty  ::create();
-    GeoVec3fPropertyPtr   norms = GeoVec3fProperty  ::create();
-    GeoVec2fPropertyPtr   tex   = GeoVec2fProperty  ::create();
-    GeoUInt32PropertyPtr  index = GeoUInt32Property ::create();
-    GeoUInt32PropertyPtr  lens  = GeoUInt32Property ::create();
-    GeoUInt8PropertyPtr   types = GeoUInt8Property  ::create();
+    GeoPnt3fPropertyUnrecPtr   pnts  = GeoPnt3fProperty  ::create();
+    GeoVec3fPropertyUnrecPtr   norms = GeoVec3fProperty  ::create();
+    GeoVec2fPropertyUnrecPtr   tex   = GeoVec2fProperty  ::create();
+    GeoUInt32PropertyUnrecPtr  index = GeoUInt32Property ::create();
+    GeoUInt32PropertyUnrecPtr  lens  = GeoUInt32Property ::create();
+    GeoUInt8PropertyUnrecPtr   types = GeoUInt8Property  ::create();
 
     UInt16 a, b;
     Real32 theta, phi;
@@ -1216,7 +1224,7 @@ GeometryPtr makeLatLongEllipsoidGeo(UInt16 latres,
 
     // create the geometry
 
-    GeometryPtr geo = Geometry::create();
+    GeometryTransitPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
     geo->setPositions(pnts);
@@ -1242,30 +1250,30 @@ GeometryPtr makeLatLongEllipsoidGeo(UInt16 latres,
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
 
-NodePtr makeLatLongEllipsoidSeg(UInt16 latres,
-                                UInt16 longres,
-                                Real32 rSemiMajorAxis,
-                                Real32 rSemiMinorAxis,
-                                Real32 rStartLatRad,
-                                Real32 rStartLongRad,
-                                Real32 rStopLatRad,
-                                Real32 rStopLongRad)
+NodeTransitPtr makeLatLongEllipsoidSeg(UInt16 latres,
+                                       UInt16 longres,
+                                       Real32 rSemiMajorAxis,
+                                       Real32 rSemiMinorAxis,
+                                       Real32 rStartLatRad,
+                                       Real32 rStartLongRad,
+                                       Real32 rStopLatRad,
+                                       Real32 rStopLongRad)
 {
-    GeometryPtr pGeo = makeLatLongEllipsoidGeoSeg(latres, 
-                                                  longres,
-                                                  rSemiMajorAxis,
-                                                  rSemiMinorAxis,
-                                                  rStartLatRad,
-                                                  rStartLongRad,
-                                                  rStopLatRad,
-                                                  rStopLongRad );
-
+    GeometryTransitPtr pGeo = makeLatLongEllipsoidGeoSeg(latres, 
+                                                         longres,
+                                                         rSemiMajorAxis,
+                                                         rSemiMinorAxis,
+                                                         rStartLatRad,
+                                                         rStartLongRad,
+                                                         rStopLatRad,
+                                                         rStopLongRad );
+    
     if(pGeo == NullFC)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr node = Node::create();
+    NodeTransitPtr node = Node::create();
 
     node->setCore(pGeo);
 
@@ -1283,14 +1291,14 @@ NodePtr makeLatLongEllipsoidSeg(UInt16 latres,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-GeometryPtr makeLatLongEllipsoidGeoSeg(UInt16 latres, 
-                                       UInt16 longres,
-                                       Real32 rSemiMajorAxis,
-                                       Real32 rSemiMinorAxis,
-                                       Real32 rStartLatRad,
-                                       Real32 rStartLongRad,
-                                       Real32 rStopLatRad,
-                                       Real32 rStopLongRad)
+GeometryTransitPtr makeLatLongEllipsoidGeoSeg(UInt16 latres, 
+                                              UInt16 longres,
+                                              Real32 rSemiMajorAxis,
+                                              Real32 rSemiMinorAxis,
+                                              Real32 rStartLatRad,
+                                              Real32 rStartLongRad,
+                                              Real32 rStopLatRad,
+                                              Real32 rStopLongRad)
 {
     if(rSemiMajorAxis <= 0 || rSemiMinorAxis <= 0 || latres < 4 || longres < 4)
     {
@@ -1300,15 +1308,15 @@ GeometryPtr makeLatLongEllipsoidGeoSeg(UInt16 latres,
                  << ", rSemiMajorAxis=" << rSemiMajorAxis
                  << ", rSemiMinorAxis=" << rSemiMinorAxis
                  << std::endl;
-        return NullFC;
+        return GeometryTransitPtr(NullFC);
     }
 
-    GeoPnt3fPropertyPtr   pnts  = GeoPnt3fProperty  ::create();
-    GeoVec3fPropertyPtr   norms = GeoVec3fProperty  ::create();
-    GeoVec2fPropertyPtr   tex   = GeoVec2fProperty  ::create();
-    GeoUInt32PropertyPtr  index = GeoUInt32Property ::create();
-    GeoUInt32PropertyPtr  lens  = GeoUInt32Property ::create();
-    GeoUInt8PropertyPtr   types = GeoUInt8Property  ::create();
+    GeoPnt3fPropertyUnrecPtr   pnts  = GeoPnt3fProperty  ::create();
+    GeoVec3fPropertyUnrecPtr   norms = GeoVec3fProperty  ::create();
+    GeoVec2fPropertyUnrecPtr   tex   = GeoVec2fProperty  ::create();
+    GeoUInt32PropertyUnrecPtr  index = GeoUInt32Property ::create();
+    GeoUInt32PropertyUnrecPtr  lens  = GeoUInt32Property ::create();
+    GeoUInt8PropertyUnrecPtr   types = GeoUInt8Property  ::create();
 
     UInt16 a, b;
     Real32 theta, phi;
@@ -1384,7 +1392,7 @@ GeometryPtr makeLatLongEllipsoidGeoSeg(UInt16 latres,
 
     // create the geometry
 
-    GeometryPtr geo = Geometry::create();
+    GeometryTransitPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
     geo->setPositions(pnts);
@@ -1398,10 +1406,10 @@ GeometryPtr makeLatLongEllipsoidGeoSeg(UInt16 latres,
 }
 
 
-GeometryPtr makeEllipsoidAxisGeo(UInt16 latres,
-                                 UInt16 longres,
-                                 Real32 rSemiMajorAxis,
-                                 Real32 rSemiMinorAxis)
+GeometryTransitPtr makeEllipsoidAxisGeo(UInt16 latres,
+                                        UInt16 longres,
+                                        Real32 rSemiMajorAxis,
+                                        Real32 rSemiMinorAxis)
 {
     if(rSemiMajorAxis <= 0 || rSemiMinorAxis <= 0 || latres < 4 || longres < 4)
     {
@@ -1411,14 +1419,14 @@ GeometryPtr makeEllipsoidAxisGeo(UInt16 latres,
                  << ", rSemiMajorAxis=" << rSemiMajorAxis
                  << ", rSemiMinorAxis=" << rSemiMinorAxis
                  << std::endl;
-        return NullFC;
+        return GeometryTransitPtr(NullFC);
     }
 
-    GeoPnt3fPropertyPtr   pnts  = GeoPnt3fProperty  ::create();
-    GeoColor3fPropertyPtr color = GeoColor3fProperty::create(); 
-    GeoUInt32PropertyPtr  index = GeoUInt32Property ::create();
-    GeoUInt32PropertyPtr  lens  = GeoUInt32Property ::create();
-    GeoUInt8PropertyPtr   types = GeoUInt8Property  ::create();
+    GeoPnt3fPropertyUnrecPtr   pnts  = GeoPnt3fProperty  ::create();
+    GeoColor3fPropertyUnrecPtr color = GeoColor3fProperty::create(); 
+    GeoUInt32PropertyUnrecPtr  index = GeoUInt32Property ::create();
+    GeoUInt32PropertyUnrecPtr  lens  = GeoUInt32Property ::create();
+    GeoUInt8PropertyUnrecPtr   types = GeoUInt8Property  ::create();
 
     UInt16 a, b;
     Real32 theta, phi;
@@ -1510,7 +1518,7 @@ GeometryPtr makeEllipsoidAxisGeo(UInt16 latres,
 
     // create the geometry
 
-    GeometryPtr geo = Geometry::create();
+    GeometryUnrecPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultUnlitMaterial());
     geo->setPositions(pnts);
@@ -1519,25 +1527,25 @@ GeometryPtr makeEllipsoidAxisGeo(UInt16 latres,
     geo->setTypes(types);
     geo->setLengths(lens);
 
-    return geo;
+    return GeometryTransitPtr(geo);
 }
 
-NodePtr makeEllipsoidAxis(UInt16 latres,
-                          UInt16 longres,
-                          Real32 rSemiMajorAxis,
-                          Real32 rSemiMinorAxis)
+NodeTransitPtr makeEllipsoidAxis(UInt16 latres,
+                                 UInt16 longres,
+                                 Real32 rSemiMajorAxis,
+                                 Real32 rSemiMinorAxis)
 {
-    GeometryPtr pGeo = makeEllipsoidAxisGeo(latres, 
-                                            longres,
-                                            rSemiMajorAxis,
-                                            rSemiMinorAxis);
+    GeometryTransitPtr pGeo = makeEllipsoidAxisGeo(latres, 
+                                                   longres,
+                                                   rSemiMajorAxis,
+                                                   rSemiMinorAxis);
     
     if(pGeo == NullFC)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr node = Node::create();
+    NodeTransitPtr node = Node::create();
 
     node->setCore(pGeo);
 
@@ -1558,17 +1566,17 @@ NodePtr makeEllipsoidAxis(UInt16 latres,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-NodePtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize,
-                     UInt16 hor  , UInt16 vert , UInt16 depth)
+NodeTransitPtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize,
+                       UInt16 hor  , UInt16 vert , UInt16 depth)
 {
-    GeometryPtr pGeo = makeBoxGeo(xsize, ysize, zsize, hor, vert, depth);
+    GeometryTransitPtr pGeo = makeBoxGeo(xsize, ysize, zsize, hor, vert, depth);
 
     if(pGeo == NullFC)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr node = Node::create();
+    NodeTransitPtr node = Node::create();
 
     node->setCore(pGeo);
 
@@ -1589,22 +1597,22 @@ NodePtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-GeometryPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
-                       UInt16 hor  , UInt16 vert , UInt16 depth)
+GeometryTransitPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
+                              UInt16 hor  , UInt16 vert , UInt16 depth)
 {
     if(! hor || ! vert || ! depth)
     {
         SWARNING << "makeBox: illegal parameters hor=" << hor << ", vert="
                  << vert << ", depth=" << depth << std::endl;
-        return NullFC;
+        return GeometryTransitPtr(NullFC);
     }
 
-    GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
-    GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
-    GeoVec2fPropertyPtr  tex   = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
+    GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
+    GeoVec3fPropertyUnrecPtr  norms = GeoVec3fProperty ::create();
+    GeoVec2fPropertyUnrecPtr  tex   = GeoVec2fProperty ::create();
+    GeoUInt32PropertyUnrecPtr index = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr  types = GeoUInt8Property ::create();
 
     UInt16 x,y,pl;
     Vec3f size(xsize,  ysize,  zsize);
@@ -1675,7 +1683,7 @@ GeometryPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
 
     // create the geometry
 
-    GeometryPtr geo = Geometry::create();
+    GeometryTransitPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
     geo->setPositions(pnts);
@@ -1696,16 +1704,16 @@ GeometryPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-NodePtr makeTeapot(UInt16 depth)
+NodeTransitPtr makeTeapot(UInt16 depth)
 {
-    GeometryPtr pGeo = makeTeapotGeo(depth);
+    GeometryTransitPtr pGeo = makeTeapotGeo(depth);
 
     if(pGeo == NullFC)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr node = Node::create();
+    NodeTransitPtr node = Node::create();
 
     node->setCore(pGeo);
 
@@ -2177,12 +2185,12 @@ points_from_basis(int tot_vert, Real64 s[], Real64 t[], Matrix mgm[3],
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-GeometryPtr makeTeapotGeo(UInt16 depth)
+GeometryTransitPtr makeTeapotGeo(UInt16 depth)
 {
-    GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
-    GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
+    GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
+    GeoVec3fPropertyUnrecPtr  norms = GeoVec3fProperty ::create();
+    GeoUInt32PropertyUnrecPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr  types = GeoUInt8Property ::create();
 
     // calc the triangles
 
@@ -2268,7 +2276,7 @@ GeometryPtr makeTeapotGeo(UInt16 depth)
 
     // create the geometry
 
-    GeometryPtr geo = Geometry::create();
+    GeometryTransitPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
     geo->setPositions(pnts);
@@ -2279,28 +2287,30 @@ GeometryPtr makeTeapotGeo(UInt16 depth)
     return geo;
 }
 
-NodePtr makeCoordAxis(Real32 length, Real32 lineWidth, bool showAxisName)
+NodeTransitPtr makeCoordAxis(Real32 length, Real32 lineWidth, bool showAxisName)
 {
-    GeometryPtr pGeo = makeCoordAxisGeo(length, lineWidth, showAxisName);
+    GeometryTransitPtr pGeo = makeCoordAxisGeo(length, lineWidth, showAxisName);
 
     if(pGeo == NullFC)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    NodePtr node = Node::create();
+    NodeTransitPtr node = Node::create();
 
     node->setCore(pGeo);
 
     return node;
 }
 
-GeometryPtr makeCoordAxisGeo(Real32 length, Real32 lineWidth, bool showAxisName)
+GeometryTransitPtr makeCoordAxisGeo(Real32 length, 
+                                    Real32 lineWidth, 
+                                    bool   showAxisName)
 {
-    GeoPnt3fPropertyPtr   pnts    = GeoPnt3fProperty ::create();
-    GeoUInt32PropertyPtr  lens    = GeoUInt32Property::create();
-    GeoUInt8PropertyPtr   types   = GeoUInt8Property ::create();
-    GeoColor3fPropertyPtr colors  = GeoColor3fProperty::create();
+    GeoPnt3fPropertyUnrecPtr   pnts    = GeoPnt3fProperty ::create();
+    GeoUInt32PropertyUnrecPtr  lens    = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr   types   = GeoUInt8Property ::create();
+    GeoColor3fPropertyUnrecPtr colors  = GeoColor3fProperty::create();
 
     Int32 pntCnt=0;
 
@@ -2367,16 +2377,18 @@ GeometryPtr makeCoordAxisGeo(Real32 length, Real32 lineWidth, bool showAxisName)
     t->push_back(GL_LINES);
     l->push_back(pntCnt);
 
-    LineChunkPtr        lineChunk = LineChunk::create();
+    LineChunkUnrecPtr      lineChunk = LineChunk::create();
+
     lineChunk->setWidth(lineWidth);
 
-    SimpleMaterialPtr    mat      = SimpleMaterial::create();
+    SimpleMaterialUnrecPtr mat      = SimpleMaterial::create();
+
     mat->setLit(false);
     mat->addChunk(lineChunk);
     mat->setColorMaterial(GL_AMBIENT_AND_DIFFUSE);
 
 
-    GeometryPtr geo = Geometry::create();
+    GeometryTransitPtr geo = Geometry::create();
     geo->setMaterial(mat);
     geo->setPositions(pnts);
     geo->setTypes(types);
@@ -2385,5 +2397,4 @@ GeometryPtr makeCoordAxisGeo(Real32 length, Real32 lineWidth, bool showAxisName)
 
     return geo;
 }
-
 OSG_END_NAMESPACE

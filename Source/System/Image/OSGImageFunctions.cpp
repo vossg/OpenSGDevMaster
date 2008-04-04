@@ -76,7 +76,7 @@ bool createComposedImage ( std::vector<ImagePtr> imageVec,
   Image::PixelFormat pf = Image::OSG_INVALID_PF;
   Image::Type        dt = Image::OSG_INVALID_IMAGEDATATYPE;
   bool needColor = false, needAlpha = false, needCopy = false;
-  ImagePtr copy = Image::create();
+  ImageUnrecPtr copy = Image::create();
   UInt32 depth, frameCount, sideCount;
 
   if (n) {
@@ -175,8 +175,6 @@ bool createComposedImage ( std::vector<ImagePtr> imageVec,
     }
   }
 
-  OSG::subRefX(copy);
-
   imageVec[0]->dump();
   image->dump();
 
@@ -187,7 +185,7 @@ bool createComposedImage ( std::vector<ImagePtr> imageVec,
 /*! convert bumpmap to normalmap */
 
 bool createNormalMapFromBump ( ImagePtr image,
-                               ImagePtr dst,
+                               ImagePtr dstImg,
                                Vec3f    normalMapScale)
 {
     if (image == NullFC || image->getDepth() > 1 ||
@@ -199,10 +197,16 @@ bool createNormalMapFromBump ( ImagePtr image,
 
     bool cpImg = false;
 
-    if (dst == NullFC)
+    ImageUnrecPtr dst;
+
+    if(dstImg == NullFC)
     {
         dst = Image::create();
         cpImg = true;
+    }
+    else
+    {
+        dst = dstImg;
     }
     
     Int32 w = image->getWidth();
@@ -291,9 +295,9 @@ bool createNormalMapFromBump ( ImagePtr image,
 //---------------------------------------------------------------------------//
 /*!  creates a Normal Volume from the given data */
 
-bool createNormalVolume ( ImagePtr inImage,
-                          ImagePtr outImage,
-                          const std::string &outputFormat )
+bool createNormalVolume (      ImagePtr     inImage,
+                               ImagePtr     outImage,
+                         const std::string &outputFormat)
 {
   const Real32 gMax = 441.67295593, gF = 255.0/gMax;
   const OSG::Real32 TwoPi = 2 * OSG::Pi;
@@ -316,7 +320,7 @@ bool createNormalVolume ( ImagePtr inImage,
   std::vector<UInt32> dataIndex;
   Real32 u, v, length;
   Vec3f normal;
-  ImagePtr copy;
+  ImageUnrecPtr copy;
   Image::PixelFormat pf;
   bool calcGradient = false, calcThetaPhi = false;
   char validFormat[END_DI];
@@ -334,6 +338,11 @@ bool createNormalVolume ( ImagePtr inImage,
   validFormat[THETA_DI]            = 't';
   validFormat[PHI_DI]              = 'p';
      
+  if(inImage == NULL || outImage == NULL)
+  {
+      return false;
+  }
+
   // check if we have a valid input image
   if ( inImage->getBpp() != 1 ) {
 
@@ -508,9 +517,6 @@ bool createNormalVolume ( ImagePtr inImage,
     }
   }
 
-  if (copy != NullFC)
-      OSG::subRefX(copy);
-
   return true;
 }
 
@@ -522,8 +528,8 @@ bool createNormalVolume ( ImagePtr inImage,
 */
 
 bool create2DPreIntegrationLUT ( ImagePtr dst,
-                                      ImagePtr src,
-                                      Real32   thickness)
+                                 ImagePtr src,
+                                 Real32   thickness)
 {
     if (src == NullFC || dst == NullFC ||
         src->getHeight() > 1 || src->getDepth() > 1 ||
@@ -602,10 +608,11 @@ bool splitRGBA(ImagePtr rgba,
         return false;
     }
 
-    if (rgb == NullFC)
-        rgb = Image::create();
-    if (alpha == NullFC)
-        alpha = Image::create();
+    if(rgb == NullFC || alpha == NullFC)
+    {
+        FFATAL(("No appropriate target given!\n"));
+        return false;
+    }
 
     Int32 w = rgba->getWidth();
     Int32 h = rgba->getHeight();
@@ -651,6 +658,13 @@ bool mergeRGBA(ImagePtr rgb,
         return false;
     }
 
+    if(rgba == NULL)
+    {
+        FFATAL(("No appropriate target given!\n"));
+        return false;
+    }
+
+
     Int32 w = rgb->getWidth();
     Int32 h = rgb->getHeight();
 
@@ -660,9 +674,6 @@ bool mergeRGBA(ImagePtr rgb,
         return false;
     }
 
-    if (rgba == NullFC)
-        rgba = Image::create();
-    
     rgba->set(Image::OSG_RGBA_PF, w, h);
     
     unsigned char *data = rgba->editData();
@@ -701,6 +712,12 @@ bool blendImage ( ImagePtr canvas,
   const UChar8 *s = 0;
   UInt8 *d = 0;
   
+  if(canvas == NULL || brush == NULL)
+  {
+      FFATAL(("No appropriate images given!\n"));
+      return false;
+  }
+
   const OSG::UChar8 *src  = brush->getData();
         OSG::UChar8 *dest = canvas->editData();
   
@@ -845,8 +862,11 @@ bool createPhongTexture(ImagePtr image,
                         Real32   kd,
                         Real32   ks)
 {
-    if (image == NullFC)
-        image = Image::create();
+    if(image == NullFC)
+    {
+        FFATAL(("No appropriate target given!\n"));
+        return false;
+    }
     
     image->set(Image::OSG_L_PF, size, size);
     unsigned char *textureMap = image->editData();
@@ -897,6 +917,12 @@ bool createPhongVolume ( ImagePtr image,
 	OSG::UInt8 *ds;
 	OSG::Real32 min = OSG::Inf, max = -OSG::Inf;
 	
+    if(image == NullFC)
+    {
+        FFATAL(("No appropriate target given!\n"));
+        return false;
+    }
+
 	image->set( OSG::Image::OSG_RGB_PF, lutFSize, lutFSize, lutFSize );
 
   ds = image->editData();
@@ -1560,6 +1586,12 @@ bool createVignette(ImagePtr pImg,
 bool convertCrossToCubeMap(ImageConstPtrArg pIn,
                            ImagePtr         pOut)
 {
+    if(pIn == NULL || pOut == NULL)
+    {
+        FFATAL (("No appropriate images given\n"));
+        return false;
+    }
+
     int face_width =  pIn->getWidth()  / 3;
     int face_height = pIn->getHeight() / 4;
 

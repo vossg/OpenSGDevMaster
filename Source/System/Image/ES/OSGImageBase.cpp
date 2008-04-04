@@ -1434,14 +1434,16 @@ void ImageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ImagePtr ImageBase::create(void)
+ImageTransitPtr ImageBase::create(void)
 {
-    ImagePtr fc;
+    ImageTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<Image::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Image>(tmpPtr);
     }
 
     return fc;
@@ -1457,11 +1459,13 @@ ImagePtr ImageBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ImageBase::shallowCopy(void) const
+FieldContainerTransitPtr ImageBase::shallowCopy(void) const
 {
-    ImagePtr returnValue;
+    ImagePtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const Image *>(this));
+    newPtr(tmpPtr, dynamic_cast<const Image *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

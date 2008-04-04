@@ -51,24 +51,24 @@ using namespace OSG;
 
 RenderAction *rentravact = NULL;
 
-NodePtr  root;
-NodePtr  animRoot;
+NodeRefPtr  root;
+NodeRefPtr  animRoot;
 
-NodePtr  file;
+NodeRefPtr  file;
 
-FBOViewportPtr vpScene;
-ViewportPtr    vpPlane;
+FBOViewportRefPtr vpScene;
+ViewportRefPtr    vpPlane;
 
-WindowPtr    win;
+WindowRefPtr    win;
 
 Vec3f        sceneTrans;
-TransformPtr cam_transScene;
-TransformPtr scene_trans;
+TransformRefPtr cam_transScene;
+TransformRefPtr scene_trans;
 
-TransformPtr cam_transPlane;
+TransformRefPtr cam_transPlane;
 
-TextureObjChunkPtr tx1o;
-TextureEnvChunkPtr tx1e;
+TextureObjChunkRefPtr tx1o;
+TextureEnvChunkRefPtr tx1e;
 
 Trackball    tball;
 
@@ -209,7 +209,28 @@ void key(unsigned char key, int x, int y)
 {
     switch(key)
     {
-        case 27:    
+        case 27:   
+            delete rentravact;
+
+            root     = NullFC;
+            animRoot = NullFC;
+
+            file     = NullFC;
+
+            vpScene  = NullFC;
+            vpPlane  = NullFC;
+
+            win      = NullFC;
+
+            cam_transScene = NullFC;
+            scene_trans    = NullFC;
+
+            cam_transPlane = NullFC;
+
+            tx1o           = NullFC;
+            tx1e           = NullFC;
+
+
             osgExit(); 
             exit(0);
 
@@ -239,15 +260,15 @@ void key(unsigned char key, int x, int y)
 void initAnimSetup(int argc, char **argv)
 {
     // beacon for camera and light  
-    NodePtr  b1n = Node ::create();
-    GroupPtr b1  = Group::create();
+    NodeUnrecPtr  b1n = Node ::create();
+    GroupUnrecPtr b1  = Group::create();
 
     b1n->setCore(b1);
 
     // transformation
 
-    NodePtr      t1n = Node     ::create();
-    TransformPtr t1  = Transform::create();
+    NodeUnrecPtr      t1n = Node     ::create();
+    TransformUnrecPtr t1  = Transform::create();
 
     t1n->setCore (t1 );
     t1n->addChild(b1n);
@@ -256,8 +277,8 @@ void initAnimSetup(int argc, char **argv)
 
     // light
     
-    NodePtr             dlight = Node::create();
-    DirectionalLightPtr dl     = DirectionalLight::create();
+    NodeUnrecPtr             dlight = Node::create();
+    DirectionalLightUnrecPtr dl     = DirectionalLight::create();
 
     dlight->setCore(dl);
     
@@ -267,8 +288,8 @@ void initAnimSetup(int argc, char **argv)
     dl->setBeacon   (b1n          );
 
     // root
-    NodePtr  root = Node::create();
-    GroupPtr gr1  = Group::create();
+    NodeUnrecPtr  root = Node::create();
+    GroupUnrecPtr gr1  = Group::create();
 
     root->setCore (gr1   );
 
@@ -277,7 +298,7 @@ void initAnimSetup(int argc, char **argv)
 
     // Load the file
 
-    NodePtr file = NullFC;
+    NodeUnrecPtr file = NullFC;
     
     if(argc > 1)
     {
@@ -321,8 +342,8 @@ void initAnimSetup(int argc, char **argv)
 
     std::cout << "Volume: from " << min << " to " << max << std::endl;
 
-             scene_trans = Transform::create();
-    NodePtr  sceneTrN    = Node     ::create();
+                  scene_trans = Transform::create();
+    NodeUnrecPtr  sceneTrN    = Node     ::create();
 
     sceneTrN->setCore (scene_trans);
     sceneTrN->addChild(file       );
@@ -332,7 +353,7 @@ void initAnimSetup(int argc, char **argv)
 
     // Camera
     
-    PerspectiveCameraPtr cam = PerspectiveCamera::create();
+    PerspectiveCameraUnrecPtr cam = PerspectiveCamera::create();
 
     cam->setBeacon(b1n);
     cam->setFov   (osgDegree2Rad(90));
@@ -340,7 +361,7 @@ void initAnimSetup(int argc, char **argv)
     cam->setFar   (100000);
 
     // Background
-    SolidBackgroundPtr bkgnd = SolidBackground::create();
+    SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
 
     bkgnd->setColor(Color3f(0,1,0));
     
@@ -353,12 +374,12 @@ void initAnimSetup(int argc, char **argv)
     vpScene->setRoot      (root          );
     vpScene->setSize      (0, 0, 1, 1);
 
-    FrameBufferObjectPtr pFBO = FrameBufferObject::create();
+    FrameBufferObjectUnrecPtr pFBO = FrameBufferObject::create();
 
 //    vpScene->setFrameBufferObject(pFBO);
 
-    TextureBufferPtr pTexBuffer   = TextureBuffer::create();
-    RenderBufferPtr  pDepthBuffer = RenderBuffer ::create();
+    TextureBufferUnrecPtr pTexBuffer   = TextureBuffer::create();
+    RenderBufferUnrecPtr  pDepthBuffer = RenderBuffer ::create();
 
     pDepthBuffer->setInternalFormat(GL_DEPTH_COMPONENT24   );
 
@@ -379,17 +400,17 @@ void initAnimSetup(int argc, char **argv)
 
     animRoot = root;
 
-    NodePtr pStageNode = Node::create();
+    NodeUnrecPtr pStageNode = Node::create();
 
-    StagePtr pStage = Stage::create();
+    StageUnrecPtr pStage = Stage::create();
 
     pStageNode->setCore(pStage);
 
     pStage->setRenderTarget(pFBO  );
 
   
-    VisitSubTreePtr pVisit     = VisitSubTree::create();
-    NodePtr         pVisitNode = Node::create();
+    VisitSubTreeUnrecPtr pVisit     = VisitSubTree::create();
+    NodeUnrecPtr         pVisitNode = Node::create();
 
     pVisit    ->setSubTreeRoot(dlight);
     pVisitNode->setCore       (pVisit);
@@ -405,15 +426,15 @@ void initAnimSetup(int argc, char **argv)
 void initPlaneSetup(void)
 {
     // beacon for camera and light  
-    NodePtr  b1n = Node ::create();
-    GroupPtr b1  = Group::create();
+    NodeUnrecPtr  b1n = Node ::create();
+    GroupUnrecPtr b1  = Group::create();
 
     b1n->setCore(b1);
 
     // transformation
 
-    NodePtr      t1n = Node     ::create();
-    TransformPtr t1  = Transform::create();
+    NodeUnrecPtr      t1n = Node     ::create();
+    TransformUnrecPtr t1  = Transform::create();
 
     t1n->setCore (t1 );
     t1n->addChild(b1n);
@@ -422,8 +443,8 @@ void initPlaneSetup(void)
 
     // light
     
-    NodePtr             dlight = Node::create();
-    DirectionalLightPtr dl     = DirectionalLight::create();
+    NodeUnrecPtr             dlight = Node::create();
+    DirectionalLightUnrecPtr dl     = DirectionalLight::create();
 
     dlight->setCore(dl);
     
@@ -433,8 +454,8 @@ void initPlaneSetup(void)
     dl->setBeacon   (b1n          );
 
     // root
-    NodePtr  root = Node::create();
-    GroupPtr gr1  = Group::create();
+    NodeUnrecPtr  root = Node::create();
+    GroupUnrecPtr gr1  = Group::create();
 
     root->setCore (gr1   );
 
@@ -444,7 +465,7 @@ void initPlaneSetup(void)
 
     // Load the file
 
-    NodePtr file = NullFC;
+    NodeUnrecPtr file = NullFC;
     
     file = makePlane(10, 10, 5, 5);
     
@@ -453,14 +474,14 @@ void initPlaneSetup(void)
 
     file->dump();
 
-    GeometryPtr pGeo = dynamic_cast<GeometryPtr>(file->getCore());
+    GeometryUnrecPtr pGeo = dynamic_cast<GeometryPtr>(file->getCore());
 
     UChar8 imgdata[] =
     {  
         64,64,64, 128,128,128, 192,192,192, 255,255,255 
     };
 
-    ImagePtr pImg = Image::create();
+    ImageUnrecPtr pImg = Image::create();
 
     pImg->set(Image::OSG_RGB_PF, 512, 512);
 
@@ -471,7 +492,7 @@ void initPlaneSetup(void)
     tx1o->setWrapT    (GL_REPEAT );
     tx1e->setEnvMode  (GL_REPLACE);
 
-    SimpleMaterialPtr mat = SimpleMaterial::create();
+    SimpleMaterialUnrecPtr mat = SimpleMaterial::create();
     
     mat->setDiffuse(Color3f(1,1,1));
     mat->setLit    (false         );
@@ -505,8 +526,8 @@ void initPlaneSetup(void)
 
     std::cout << "Volume: from " << min << " to " << max << std::endl;
 
-    TransformPtr scene_trans = Transform::create();
-    NodePtr      sceneTrN    = Node     ::create();
+    TransformUnrecPtr scene_trans = Transform::create();
+    NodeUnrecPtr      sceneTrN    = Node     ::create();
 
     sceneTrN->setCore (scene_trans);
     sceneTrN->addChild(file       );
@@ -516,7 +537,7 @@ void initPlaneSetup(void)
 
     // Camera
     
-    PerspectiveCameraPtr cam = PerspectiveCamera::create();
+    PerspectiveCameraUnrecPtr cam = PerspectiveCamera::create();
 
     cam->setBeacon(b1n);
     cam->setFov   (osgDegree2Rad(90));
@@ -524,7 +545,7 @@ void initPlaneSetup(void)
     cam->setFar   (100000);
 
     // Background
-    SolidBackgroundPtr bkgnd = SolidBackground::create();
+    SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
 
     bkgnd->setColor(Color3f(1, 0, 0));
     
@@ -581,7 +602,7 @@ int main (int argc, char **argv)
     // Window
     std::cout << "GLUT winid: " << winid << std::endl;
 
-    GLUTWindowPtr gwin;
+    GLUTWindowUnrecPtr gwin;
 
     GLint glvp[4];
 

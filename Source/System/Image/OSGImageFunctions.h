@@ -73,8 +73,8 @@ bool createNormalMapFromBump ( ImagePtr srcImage,
                                Vec3f    normalMapScale);
 
 OSG_SYSTEM_DLLMAPPING
-bool createNormalVolume ( ImagePtr srcImage,
-                          ImagePtr dstImage,
+bool createNormalVolume (       ImagePtr     srcImage,
+                                ImagePtr     dstImage,
                           const std::string &outputFormat );
 
 OSG_SYSTEM_DLLMAPPING 
@@ -100,12 +100,12 @@ bool blendImage ( ImagePtr canvas,
                   Real32   paintZ  = 0 );
 
 OSG_SYSTEM_DLLMAPPING 
-bool createPhongTexture ( ImagePtr image,
-                          UInt32   size = 512,
-                          Real32   specular_exponent = 10,
-                          Real32   ka = 0,
-                          Real32   kd = 0,
-                          Real32   ks = 1);
+bool createPhongTexture (ImagePtr image,
+                         UInt32   size = 512,
+                         Real32   specular_exponent = 10,
+                         Real32   ka = 0,
+                         Real32   kd = 0,
+                         Real32   ks = 1);
 
 OSG_SYSTEM_DLLMAPPING 
 bool createPhongVolume ( ImagePtr image,

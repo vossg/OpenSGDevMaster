@@ -325,19 +325,19 @@ CubeMapGeneratorStageDataP CubeMapGenerator::setupStageData(
     if(returnValue == NULL)
         return returnValue;
 
-    FrameBufferObjectPtr pCubeTarget  = FrameBufferObject::create();
+    FrameBufferObjectUnrecPtr pCubeTarget  = FrameBufferObject::create();
 
-    RenderBufferPtr      pDepthBuffer = RenderBuffer     ::create();
+    RenderBufferUnrecPtr      pDepthBuffer = RenderBuffer     ::create();
 
     pDepthBuffer->setInternalFormat(GL_DEPTH_COMPONENT24   );
 
-    TextureObjChunkPtr pCubeTex     = NullFC;
+    TextureObjChunkUnrecPtr   pCubeTex     = NullFC;
 
     if(0x0000 != (_sfSetupMode.getValue() & SetupTexture))
     {
         pCubeTex = TextureObjChunk::create();
 
-        ImagePtr           pImg         = Image          ::create();
+        ImageUnrecPtr pImg = Image::create();
     
         pImg->set(Image::OSG_RGB_PF, 
                   getWidth (), 
@@ -363,7 +363,7 @@ CubeMapGeneratorStageDataP CubeMapGenerator::setupStageData(
         pCubeTex = _sfTexture.getValue();
     }
 
-    TextureEnvChunkPtr pCubeTexEnv  = NullFC;
+    TextureEnvChunkUnrecPtr pCubeTexEnv  = NullFC;
 
     if(0x0000 != (_sfSetupMode.getValue() & SetupTexEnv))
     {
@@ -372,7 +372,7 @@ CubeMapGeneratorStageDataP CubeMapGenerator::setupStageData(
         pCubeTexEnv->setEnvMode       (GL_REPLACE       );
     }
 
-    TexGenChunkPtr     pCubeTexGen  = NullFC;
+    TexGenChunkUnrecPtr     pCubeTexGen  = NullFC;
 
     if(0x0000 != (_sfSetupMode.getValue() & SetupTexGen))
     {
@@ -400,7 +400,7 @@ CubeMapGeneratorStageDataP CubeMapGenerator::setupStageData(
 
     for(UInt32 i = 0; i < 6; ++i)
     {
-        TextureBufferPtr pCubeTexBuffer = TextureBuffer::create();
+        TextureBufferUnrecPtr pCubeTexBuffer = TextureBuffer::create();
     
         pCubeTexBuffer->setTexture  (pCubeTex  );
         pCubeTexBuffer->setTexTarget(targets[i]);

@@ -43,59 +43,78 @@
 
 OSG_USING_NAMESPACE
 
-int                      winid;
-Trackball                tball;
-int                      mouseb = 0;
-int                      lastx=0, lasty=0;
-int                      winwidth=300, winheight=300;
-int                      winx=-1, winy=-1;
-NodePtr		            root;
-TransformPtr             cam_trans;
-PerspectiveCameraPtr     cam;
-ClusterWindowPtr         clusterWindow;
+int                           winid;
+Trackball                     tball;
+int                           mouseb = 0;
+int                           lastx=0, lasty=0;
+int                           winwidth=300, winheight=300;
+int                           winx=-1, winy=-1;
+NodeRefPtr                    root;
+TransformRefPtr               cam_trans;
+PerspectiveCameraRefPtr       cam;
+ClusterWindowRefPtr           clusterWindow;
 RenderAction   *ract;
-GLUTWindowPtr            clientWindow;
-SortFirstWindowPtr       sortfirst;
-SortLastWindowPtr        sortlast;
+GLUTWindowRefPtr              clientWindow;
+SortFirstWindowRefPtr         sortfirst;
+SortLastWindowRefPtr          sortlast;
 #ifdef FRAMEINTERLEAVE
-FrameInterleaveWindowPtr frameinterleave;
+FrameInterleaveWindowRefPtr   frameinterleave;
 #endif
-MultiDisplayWindowPtr    multidisplay;
-BalancedMultiWindowPtr   balancedmultidisplay;
-bool                     animate=false;
-int                      animLoops=-1;
-int                      frameCount=0;
-int                      animLength=30;
-bool                     multiport=false;
-float                    ca=-1,cb=-1,cc=-1;
-Int32                    stereoMode=0;
-float                    eyedistance=1,zeroparallax=10;
-int                      serverx=-1,servery=-1;
-std::vector<Quaternion>  animOri;
-std::vector<Vec3f     >  animPos;
-std::string              animName="animation.txt";
-Real32                   animTime=0;
-std::string              serviceInterface;
-bool                     serviceInterfaceValid = false;
-std::string              serviceAddress;
-bool                     serviceAddressValid = false;
-UInt32                   interleave=0;
-Real32                   _dsFactor = 1.0; // scale down factor.
-bool                     _enablecc = true; // enable color correction.
-PolygonChunkPtr          polygonChunk;
-bool                     prepared=false;
-bool                     showInfo=false;
-Time                     frame_time=0;
-UInt32                   sum_positions=0;
-UInt32                   sum_geometries=0;
-UInt32                   sum_triangles=0;
-bool                     info = false;
-std::string              connectionDestination="";
-std::string              connectionInterface="";
-OSG::SolidBackgroundPtr  bkgnd;
-Int32                    subtilesize=-1;
-bool                     pipelinedBufferRead = false;
+MultiDisplayWindowRefPtr      multidisplay;
+BalancedMultiWindowRefPtr     balancedmultidisplay;
+bool                          animate=false;
+int                           animLoops=-1;
+int                           frameCount=0;
+int                           animLength=30;
+bool                          multiport=false;
+float                         ca=-1,cb=-1,cc=-1;
+Int32                         stereoMode=0;
+float                         eyedistance=1,zeroparallax=10;
+int                           serverx=-1,servery=-1;
+std::vector<Quaternion>       animOri;
+std::vector<Vec3f     >       animPos;
+std::string                   animName="animation.txt";
+Real32                        animTime=0;
+std::string                   serviceInterface;
+bool                          serviceInterfaceValid = false;
+std::string                   serviceAddress;
+bool                          serviceAddressValid = false;
+UInt32                        interleave=0;
+Real32                       _dsFactor = 1.0; // scale down factor.
+bool                         _enablecc = true; // enable color correction.
+PolygonChunkRefPtr            polygonChunk;
+bool                          prepared=false;
+bool                          showInfo=false;
+Time                          frame_time=0;
+UInt32                        sum_positions=0;
+UInt32                        sum_geometries=0;
+UInt32                        sum_triangles=0;
+bool                          info = false;
+std::string                   connectionDestination="";
+std::string                   connectionInterface="";
+OSG::SolidBackgroundRefPtr    bkgnd;
+Int32                         subtilesize=-1;
+bool                          pipelinedBufferRead = false;
 
+void cleanup(void)
+{
+    root                 = NullFC;
+    cam_trans            = NullFC;
+    cam                  = NullFC;
+    clusterWindow        = NullFC;
+    clientWindow         = NullFC;
+    sortfirst            = NullFC;
+    sortlast             = NullFC;
+#ifdef FRAMEINTERLEAVE
+    frameinterleave      = NullFC;
+#endif
+    multidisplay         = NullFC;
+    balancedmultidisplay = NullFC;
+    polygonChunk         = NullFC;
+    bkgnd                = NullFC;
+
+    osgExit(); 
+}
 
 /*! Simple show text function
  */
@@ -178,7 +197,7 @@ void prepareSceneGraph(NodePtrConstArg &node)
     if(!prepared)
     {
         polygonChunk = PolygonChunk::create();
-        addRefX(polygonChunk);
+//        addRefX(polygonChunk);
         prepared = true;
     }
 
@@ -327,6 +346,7 @@ void display(void)
     catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
     {
         std::cout << e.what() << std::endl;
+        cleanup();
         exit(0);
     }
     
@@ -353,8 +373,7 @@ void display(void)
                 animLoops--;
                 if(!animLoops) 
                 {
-                    subRefX(clusterWindow);
-                    osgExit(); 
+                    cleanup();
                     exit(0);
                 }
             }
@@ -435,7 +454,7 @@ void setHEyeWallParameter(Real32 dsFactor, bool enablecc)
 {
     static char str[1024];
     
-    NamePtr parameters = dynamic_cast<NamePtr>(clusterWindow->findAttachment(Name::getClassType()));
+    NameUnrecPtr parameters = dynamic_cast<NamePtr>(clusterWindow->findAttachment(Name::getClassType()));
 
     if(parameters == NullFC)
     {
@@ -612,6 +631,7 @@ void key(unsigned char key, int /*x*/, int /*y*/)
         case 27:	// should kill the clients here
             // exit
 //            subRefCP(clusterWindow);
+            cleanup();
             osgExit(); 
             exit(0);
 	}
@@ -622,7 +642,7 @@ void key(unsigned char key, int /*x*/, int /*y*/)
 void init(std::vector<std::string> &filenames)
 {
     size_t i;
-    OSG::DirectionalLightPtr dl;
+    OSG::DirectionalLightUnrecPtr dl;
     Real32 x,y,z;
     DynamicVolume volume;
     OSG::Vec3f min,max;
@@ -638,22 +658,22 @@ void init(std::vector<std::string> &filenames)
     // create the graph
 
     // beacon for camera and light
-    OSG::NodePtr b1n = OSG::Node::create();
-    OSG::GroupPtr b1 = OSG::Group::create();
+    OSG::NodeUnrecPtr b1n = OSG::Node::create();
+    OSG::GroupUnrecPtr b1 = OSG::Group::create();
     b1n->setCore( b1 );
 
     // transformation
-    OSG::NodePtr t1n = OSG::Node::create();
-    OSG::TransformPtr t1 = OSG::Transform::create();
+    OSG::NodeUnrecPtr t1n = OSG::Node::create();
+    OSG::TransformUnrecPtr t1 = OSG::Transform::create();
     t1n->setCore( t1 );
     t1n->addChild( b1n );
 
     cam_trans = t1;
-    addRefX(t1n);
+//    addRefX(t1n);
 
     // light
 
-    OSG::NodePtr dlight = OSG::Node::create();
+    OSG::NodeUnrecPtr dlight = OSG::Node::create();
     dl = OSG::DirectionalLight::create();
 
     dlight->setCore( dl );
@@ -665,18 +685,20 @@ void init(std::vector<std::string> &filenames)
 
     // root
     root = OSG::Node::create();
-    addRefX(root);
-    OSG::GroupPtr gr1 = OSG::Group::create();
+//    addRefX(root);
+
+    OSG::GroupUnrecPtr gr1 = OSG::Group::create();
+
     root->setCore( gr1 );
     root->addChild( t1n );
     root->addChild( dlight );
 
     // Load the file
-    OSG::NodePtr scene = OSG::Node::create();
-    addRefX(scene);
+    OSG::NodeUnrecPtr scene = OSG::Node::create();
+//    addRefX(scene);
     scene->setCore(OSG::Group::create());
 
-    NodePtr file;
+    NodeUnrecPtr file;
     for(i=0;i<filenames.size();i++)
     {
         file = SceneFileHandler::the()->read(filenames[i].c_str(),0);
@@ -687,7 +709,8 @@ void init(std::vector<std::string> &filenames)
     }
 	if ( filenames.size()==0 )
 	{
-        scene->addChild(makeTorus( .5, 2, 16, 16 ));
+        file = makeTorus( .5, 2, 16, 16 );
+        scene->addChild(file);
 //        scene->addChild(makeBox(.6,.6,.6,5,5,5));
     }
 
@@ -708,9 +731,9 @@ void init(std::vector<std::string> &filenames)
         if(cc==-1)
             cc=cb;
             
-        NodePtr node;
-        NodePtr geoNode;
-        TransformPtr trans;
+        NodeUnrecPtr node;
+        NodeUnrecPtr geoNode;
+        TransformUnrecPtr trans;
         for(x=-ca/2.0 ; x<ca/2.0 ; x++)
             for(y=-cb/2.0 ; y<cb/2.0 ; y++)
                 for(z=-cc/2.0 ; z<cc/2.0 ; z++)
@@ -734,7 +757,7 @@ void init(std::vector<std::string> &filenames)
     {
         dlight->addChild(scene);
 	}
-    subRefX(scene);
+//    subRefX(scene);
 
     if(ca>0)
     {
@@ -762,7 +785,7 @@ void init(std::vector<std::string> &filenames)
 
     // Camera
 
-    OSG::PerspectiveCameraPtr cam = OSG::PerspectiveCamera::create();
+    OSG::PerspectiveCameraUnrecPtr cam = OSG::PerspectiveCamera::create();
     cam->setBeacon( b1n );
     cam->setFov( OSG::osgDegree2Rad( 60 ) );
     cam->setNear( 10 );
@@ -775,8 +798,8 @@ void init(std::vector<std::string> &filenames)
 //    bkgnd->setColor( OSG::Color3f(1,1,1) );
 
     // Viewport
-    OSG::ViewportPtr vp1;
-    OSG::ViewportPtr vp2;
+    OSG::ViewportUnrecPtr vp1;
+    OSG::ViewportUnrecPtr vp2;
     if(stereoMode == 0)
     {
         vp1 = OSG::Viewport::create();
@@ -796,7 +819,7 @@ void init(std::vector<std::string> &filenames)
     }
     else if(stereoMode == 1)
     {
-        OSG::ShearedStereoCameraDecoratorPtr deco;
+        OSG::ShearedStereoCameraDecoratorUnrecPtr deco;
         // left
         deco=OSG::ShearedStereoCameraDecorator::create();
         deco->setLeftEye(true);
@@ -822,7 +845,7 @@ void init(std::vector<std::string> &filenames)
     }
     else if(stereoMode == 2)
     {
-        OSG::ShearedStereoCameraDecoratorPtr deco;
+        OSG::ShearedStereoCameraDecoratorUnrecPtr deco;
         // left
         deco=OSG::ShearedStereoCameraDecorator::create();
         deco->setLeftEye(true);
@@ -830,7 +853,7 @@ void init(std::vector<std::string> &filenames)
         deco->setDecoratee(cam);
         deco->setZeroParallaxDistance(zeroparallax);
         
-        ColorBufferViewportPtr cvp1 = ColorBufferViewport::create();
+        ColorBufferViewportUnrecPtr cvp1 = ColorBufferViewport::create();
         cvp1->setCamera    ( deco );
         cvp1->setBackground( bkgnd );
         cvp1->setRoot      ( root );
@@ -848,7 +871,7 @@ void init(std::vector<std::string> &filenames)
         deco->setDecoratee(cam);
         deco->setZeroParallaxDistance(zeroparallax);
         
-        ColorBufferViewportPtr cvp2 = ColorBufferViewport::create();
+        ColorBufferViewportUnrecPtr cvp2 = ColorBufferViewport::create();
         cvp2->setCamera    ( deco );
         cvp2->setBackground( bkgnd );
         cvp2->setRoot      ( root );
@@ -1167,10 +1190,12 @@ int main(int argc,char **argv)
                 sortlast=SortLastWindow::create();
                 if(!composerType.empty())
                 {
-                    FieldContainerPtr fcPtr = 
+                    FieldContainerUnrecPtr fcPtr = 
                         FieldContainerFactory::the()->
                             createContainer(composerType.c_str());
-                    ImageComposerPtr icPtr = dynamic_cast<ImageComposerPtr>(fcPtr);
+                    ImageComposerPtr icPtr = 
+                        dynamic_cast<ImageComposerPtr>(fcPtr.get());
+
                     if(icPtr != NullFC)
                     {
                         if(dynamic_cast<PipelineComposerPtr>(icPtr) != NullFC)

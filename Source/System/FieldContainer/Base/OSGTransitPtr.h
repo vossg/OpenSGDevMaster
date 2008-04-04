@@ -67,6 +67,9 @@ class TransitPtr
     template <class ObjT, class RefCountPolicyT>
     friend class RefCountPtr;
 
+    template<class OtherT>
+    friend class TransitPtr;
+
   public:
 
     /*---------------------------------------------------------------------*/
@@ -83,11 +86,16 @@ class TransitPtr
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
   
-    TransitPtr(Self                    &other);
+    TransitPtr(      void        );
+    TransitPtr(      Self  &other);
+    TransitPtr(const Self  &other);
    
     explicit
-    TransitPtr(ObjectPtrConstArg        pObj );
+    TransitPtr(ObjectPtrConstArg   pObj );
     
+    template<class OtherObjT> explicit 
+    TransitPtr(TransitPtr<OtherObjT> const &other);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Desctructor                                                  */
@@ -100,18 +108,28 @@ class TransitPtr
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
     
-    Self &operator =(Self &other);
+    Self &operator =(      Self              &other);
+    Self &operator =(const Self              &other);
+    Self &operator =(      ObjectPtrConstArg  pObj );
+
+    template<class OtherObjT> 
+    Self &operator =(TransitPtr<OtherObjT> const &other);
   
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Conversion                                                   */
     /*! \{                                                                 */
-    
+
+    ObjectPtr operator->(void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
     
+    bool operator ==(const FieldContainerCPtr rhs);
+    bool operator !=(const FieldContainerCPtr rhs);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
@@ -125,6 +143,19 @@ class TransitPtr
     }
 #endif
 
+    template<class SourceObjectT>
+    void dynamic_cast_set(TransitPtr<SourceObjectT> const &source)
+    {
+        ObjectPtr pObj = dynamic_cast<ObjectPtr>(source._pObj);
+
+        if(pObj != NULL)
+        {
+            _pObj = pObj;
+
+            source._pObj = NULL;
+        }
+    }
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -136,7 +167,7 @@ class TransitPtr
     /*! \name Member                                                       */
     /*! \{                                                                 */
     
-    ObjectPtr _pObj;
+    mutable ObjectPtr _pObj;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -151,8 +182,40 @@ class TransitPtr
     /*---------------------------------------------------------------------*/
   
 };
-         
+
+template <class TargetObjectT, class SourceObjectT> inline
+TransitPtr<TargetObjectT> dynamic_pointer_cast(
+    TransitPtr<SourceObjectT> const &source)
+{
+    TransitPtr<TargetObjectT> returnValue;
+
+    returnValue.dynamic_cast_set(source);
+
+    return returnValue;
+}
+       
+
 OSG_END_NAMESPACE
+
+
+#if 0
+namespace boost
+{
+
+template <class TargetObjectT, class SourceObjectT, class BaseObjectT>
+OSG::TransitPointer<TargetObjectT, BaseObjectT>
+static_pointer_cast(OSG::TransitPointer<SourceObjectT, BaseObjectT> const &source);
+
+template <class TargetObjectT, class SourceObjectT, class BaseObjectT>
+OSG::TransitPointer<TargetObjectT, BaseObjectT>
+const_pointer_cast(OSG::TransitPointer<SourceObjectT, BaseObjectT> const &source);
+
+template <class TargetObjectT, class SourceObjectT, class BaseObjectT>
+OSG::TransitPointer<TargetObjectT, BaseObjectT>
+dynamic_pointer_cast(OSG::TransitPointer<SourceObjectT, BaseObjectT> const &source);
+          
+} // namespace boost
+#endif
 
 #include "OSGTransitPtr.inl"
 

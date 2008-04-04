@@ -855,7 +855,7 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
 {
     Int32 cleft,cright,ctop,cbottom;
     ViewportPtr serverPort,clientPort;
-    TileCameraDecoratorPtr deco;
+    TileCameraDecoratorUnrecPtr deco;
     UInt32 cv,sv=0;
 
     // calculate visible area;
@@ -928,7 +928,11 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
     // create port and deco for visualization, only if necessary
     if(port.serverPort == NullFC)
     {
-        port.serverPort = dynamic_cast<ViewportPtr>(getPort()[port.id]->shallowCopy());
+        ViewportUnrecPtr pTmpPort = 
+            dynamic_pointer_cast<Viewport>(getPort()[port.id]->shallowCopy());
+
+        port.serverPort = pTmpPort;
+
         addRefX(port.serverPort);
         deco = TileCameraDecorator::create();
         port.serverPort->setCamera(deco);

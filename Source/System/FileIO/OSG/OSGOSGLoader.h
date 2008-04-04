@@ -92,7 +92,12 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     /*! \name                Skel replacements                             */
     /*! \{                                                                 */
 
-    virtual void scanStream       (std::istream &is);
+    NodeTransitPtr scanStream(std::istream &is);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Skel replacements                             */
+    /*! \{                                                                 */
 
     virtual void    beginNode         (const Char8  *szNodeTypename,
                                        const Char8  *szNodename       );
@@ -120,9 +125,6 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual      NodePtr                   getRootNode (void);
-    virtual std::vector<FieldContainerPtr> getRootNodes(void);
-
     virtual      FieldContainerPtr         getReference (const Char8 *szName);
 
     /*! \}                                                                 */
@@ -135,7 +137,7 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     /*! \{                                                                 */
 
           FieldContainerPtr                     _pCurrentFC;
-          NodePtr                               _pRootNode;
+          NodeUnrecPtr                          _pRootNode;
           EditFieldHandlePtr                    _pCurrentField;
     const FieldDescriptionBase                 *_pCurrentFieldDesc;
           NamedFCMap                            _defMap;

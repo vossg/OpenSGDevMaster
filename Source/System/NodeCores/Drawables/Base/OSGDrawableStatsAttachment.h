@@ -86,7 +86,8 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachment :
 
     void                              reset(void);
 
-    static DrawableStatsAttachmentPtr calcStatic(DrawablePtrArg pDrawable);
+    static 
+       DrawableStatsAttachmentTransitPtr calcStatic(DrawablePtrArg pDrawable);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -101,7 +102,7 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachment :
     /*! \name                    Updating                                  */
     /*! \{                                                                 */
 
-    static DrawableStatsAttachmentPtr addTo(AttachmentContainerPtr obj);
+    static DrawableStatsAttachmentTransitPtr addTo(AttachmentContainerPtr obj);
 
     void attachTo(AttachmentContainerPtr obj);
 

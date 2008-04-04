@@ -84,8 +84,9 @@ class OSG_FILEIO_DLLMAPPING OBJSceneFileType : public SceneFileType
     /*! \name                   Read                                       */
     /*! \{                                                                 */
 
-    virtual NodePtr read(std::istream &is,
-                         const Char8 *fileNameOrExtension) const;
+    virtual 
+    NodeTransitPtr read(      std::istream &is,
+                        const Char8        *fileNameOrExtension) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -178,15 +179,15 @@ class OSG_FILEIO_DLLMAPPING OBJSceneFileType : public SceneFileType
     };
 
     struct Mesh {
-      std::string name;
-      std::list<Face> faceList;
-      SimpleMaterialPtr mtlPtr;
+      std::string            name;
+      std::list<Face>        faceList;
+      SimpleMaterialUnrecPtr mtlPtr;
     };
 
 
     Int32 readMTL (const Char8 *fileName,
                    std::map<std::string,
-                   SimpleTexturedMaterialPtr> &mtlMap  ) const;
+                   SimpleTexturedMaterialUnrecPtr> &mtlMap  ) const;
 
     void write(const NodePtr &node,
                std::ostream &os,

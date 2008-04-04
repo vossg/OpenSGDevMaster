@@ -297,8 +297,8 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
                                     UInt32            id,
                                     RenderActionBase *action )
 {
-    TileCameraDecoratorPtr deco;
-    ViewportPtr serverPort;
+    TileCameraDecoratorUnrecPtr deco;
+    ViewportUnrecPtr serverPort;
     ViewportPtr clientPort;
     UInt32 sv,cv,regionStart;
     UInt32 vpWidth;
@@ -312,7 +312,8 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
         {
             // create new port
             //serverPort = StereoBufferViewport::create();
-            serverPort = dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
+            serverPort = 
+                dynamic_pointer_cast<Viewport>(clientPort->shallowCopy());
             deco=TileCameraDecorator::create();
 
             serverWindow->addPort(serverPort);
@@ -326,7 +327,9 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
                clientPort->getType())
             {
                 // there is a viewport with the wrong type
-                serverPort = dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
+                serverPort = dynamic_pointer_cast<Viewport>(
+                    clientPort->shallowCopy());
+
                 serverWindow->replacePort(sv, serverPort);//[sv] = serverPort;
                 serverPort->setCamera(deco);
             }

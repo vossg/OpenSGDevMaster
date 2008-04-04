@@ -117,9 +117,9 @@ class OSG_SYSTEM_DLLMAPPING Light : public LightBase
 
   protected:
 
-    typedef LightBase          Inherited;
+    typedef LightBase           Inherited;
 
-            LightChunkPtr     _pChunk;
+            LightChunkUnrecPtr _pChunk;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -145,6 +145,13 @@ class OSG_SYSTEM_DLLMAPPING Light : public LightBase
                                 
     Action::ResultE renderLeave(LightEngine::LightTypeE  eType,
                                 Action                  *action);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Init                                   */
+    /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

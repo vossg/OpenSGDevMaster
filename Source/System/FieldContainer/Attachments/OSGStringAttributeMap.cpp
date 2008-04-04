@@ -195,15 +195,16 @@ OSG_BEGIN_NAMESPACE
     attached OSG::StringAttributeMapPtr is returned.
  */
 
-StringAttributeMapPtr stringAttributeMap(AttachmentContainerPtr container)
+StringAttributeMapTransitPtr stringAttributeMap(
+    AttachmentContainerPtr container)
 {
     if ( NullFC == container )
     {
         FFATAL(("stringAttributeMap: no container?!?\n"));
-        return NullFC;
+        return StringAttributeMapTransitPtr(NullFC);
     }
 
-    StringAttributeMapPtr attr_map = NullFC;
+    StringAttributeMapUnrecPtr attr_map = NullFC;
     FieldContainerAttachmentPtr attach_ptr =
         container->findAttachment(StringAttributeMap::getClassType().getGroupId());
 
@@ -219,11 +220,11 @@ StringAttributeMapPtr stringAttributeMap(AttachmentContainerPtr container)
         if ( NullFC == attr_map )
         {
             FFATAL(("stringAttributeMap: StringAttributeMap Attachment is not castable to StringAttributeMap?!?\n"));
-            return NullFC;
+            return StringAttributeMapTransitPtr(NullFC);
         }
     }
 
-    return attr_map;
+    return StringAttributeMapTransitPtr(attr_map);
 }
 
 OSG_END_NAMESPACE

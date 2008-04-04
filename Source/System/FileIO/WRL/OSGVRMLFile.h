@@ -106,7 +106,12 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
     /*! \name                   Skel replacements                          */
     /*! \{                                                                 */
 
-    virtual void   scanStream    (std::istream &is);
+    virtual NodeTransitPtr scanStream(std::istream &is);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Skel replacements                          */
+    /*! \{                                                                 */
 
     virtual void   handleError   (const Char8  *szErrorText);
 
@@ -153,8 +158,6 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
 
     void    createStandardPrototypes(void);
 
-    NodePtr getRoot                 (void);
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
@@ -165,10 +168,7 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-               NodePtr                        _pSceneRootNode;
-
-               NodePtr                        _pLightRoot;
-               NodePtr                        _pCurrentGlobalLight;
+               NodeUnrecPtr                   _pSceneRootNode;
 
                VRMLNodeHelper *               _pCurrNodeHelper;
     std::stack<VRMLNodeHelper *>              _sNodeHelpers;

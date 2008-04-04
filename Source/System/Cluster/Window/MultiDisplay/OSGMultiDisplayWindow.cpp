@@ -291,8 +291,8 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
                                       UInt32            id,
                                       RenderActionBase *action)
 {
-    TileCameraDecoratorPtr deco;
-    ViewportPtr serverPort;
+    TileCameraDecoratorUnrecPtr deco;
+    ViewportUnrecPtr serverPort;
     ViewportPtr clientPort;
     StereoBufferViewportPtr clientStereoPort;
     UInt32 sv,cv;
@@ -364,7 +364,8 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
 
         if(window->getPort().size() <= sv)
         {
-            serverPort = dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
+            serverPort = dynamic_pointer_cast<Viewport>(
+                clientPort->shallowCopy());
 
             deco = TileCameraDecorator::create();
 
@@ -385,7 +386,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
                 //subRef(window->getPort()[sv]);
 
                 serverPort =
-                    dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
+                    dynamic_pointer_cast<Viewport>(clientPort->shallowCopy());
 
                 window->replacePort(sv, serverPort);//[sv] = serverPort;
                 serverPort->setCamera(deco);
@@ -398,7 +399,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
         }
 
         // update changed viewport fields
-        updateViewport(serverPort,clientPort);
+        updateViewport(serverPort, clientPort);
 
         // set viewport size
         serverPort->setSize(Real32(l),Real32(b),Real32(r),Real32(t));
@@ -530,8 +531,10 @@ void MultiDisplayWindow::clientInit(void)
         // duplicate viewports
         for(UInt32 v=0 ; v<getPort().size() ;v++)
         {
-            getClientWindow()->addPort(
-                dynamic_cast<ViewportPtr>(getPort(v)->shallowCopy()));
+            ViewportUnrecPtr pTmpPort = 
+                dynamic_pointer_cast<Viewport>(getPort(v)->shallowCopy());
+
+            getClientWindow()->addPort(pTmpPort);
         }
     }
 }
@@ -564,8 +567,8 @@ void MultiDisplayWindow::clientSwap( void )
 /*! update all changed viewport field from the client port
  */
 
-void MultiDisplayWindow::updateViewport(ViewportPtr &serverPort,
-                                        ViewportPtr &clientPort)
+void MultiDisplayWindow::updateViewport(ViewportPtr serverPort,
+                                        ViewportPtr clientPort)
 {
     bool equal;
 

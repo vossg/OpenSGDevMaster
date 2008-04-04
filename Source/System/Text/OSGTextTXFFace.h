@@ -205,7 +205,7 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
      * @param offset Amount to offset the positions in the layout.
      * @param color  The color to use for the text.  If not specified, then we will not add color container.
      */
-    void fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layoutResult, Real32 scale = 1.f,
+    void fillGeo(GeometryPtr geoPtr, const TextLayoutResult &layoutResult, Real32 scale = 1.f,
                  Vec2f offset = Vec2f(0,0), Color3f color = Color3f(-1,-1,-1));
 
     /**
@@ -217,7 +217,7 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
      * @param color  The color to use for the text.
      * @note  Iff initial fill or add call used non-default color, the color parameter will be used.
      */
-    void addToGeom(GeometryPtr &geoPtr, const TextLayoutResult &layoutResult, Real32 scale = 1.f,
+    void addToGeom(GeometryPtr geoPtr, const TextLayoutResult &layoutResult, Real32 scale = 1.f,
                  Vec2f offset = Vec2f(0,0), Color3f color = Color3f(-1,-1,-1));
 
     /**
@@ -228,7 +228,7 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
      * @param color  The color to use for the text.
      * @return A new text geometry.
      */
-    GeometryPtr makeGeo(const TextLayoutResult &layoutResult, Real32 scale = 1.f,
+    GeometryTransitPtr makeGeo(const TextLayoutResult &layoutResult, Real32 scale = 1.f,
                         Vec2f offset = Vec2f(0,0), Color3f color = Color3f(-1,-1,-1));
 
     /**
@@ -239,7 +239,7 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
      * @param color  The color to use for the text.
      * @return A new node containing a text geometry.
      */
-    NodePtr makeNode(const TextLayoutResult &layoutResult, Real32 scale = 1.f,
+    NodeTransitPtr makeNode(const TextLayoutResult &layoutResult, Real32 scale = 1.f,
                      Vec2f offset = Vec2f(0,0), Color3f color = Color3f(-1,-1,-1));
 
     /**
@@ -302,7 +302,7 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
     TextTXFParam _param;
 
     /** The texture that contains all glyphs */
-    ImagePtr _texture;
+    ImageUnrecPtr _texture;
 
     /** Defines a map of glyphs */
     typedef std::map<TextGlyph::Index, TextTXFGlyph*> GlyphMap;

@@ -221,10 +221,10 @@ UInt32 ContainerFactory<DescT>::getNumTypes(void) const
 }
 
 template <class DescT> inline
-typename ContainerFactory<DescT>::ContainerPtr
+typename ContainerFactory<DescT>::ContainerTransitPtr
     ContainerFactory<DescT>::createContainer(const Char8 *szName)
 {
-    ContainerPtr returnValue = NULL;
+    ContainerTransitPtr returnValue(NULL);
 
     const ContainerType *pType = Self::findType(szName);
 
@@ -238,7 +238,7 @@ typename ContainerFactory<DescT>::ContainerPtr
 
 #ifdef OSG_1_COMPAT
 template <class DescT> inline
-typename ContainerFactory<DescT>::ContainerPtr
+typename ContainerFactory<DescT>::ContainerTransitPtr
     ContainerFactory<DescT>::createFieldContainer(const Char8 *szName)
 {
     return createContainer(szName);

@@ -74,8 +74,8 @@ struct RecordedRefCounts
         return *pIn;
     }
 
-    template<class T>
-    static void convertTransitPtr(T *&pOut, T*&pIn)
+    template<class T, class U>
+    static void convertTransitPtr(T *&pOut, U *&pIn)
     {
         pOut = pIn;
         pIn  = NULL;
@@ -112,10 +112,11 @@ struct UnrecordedRefCounts
         return *pIn;
     }
 
-    template<class T>
-    static void convertTransitPtr(T *&pOut, T*&pIn)
+    template<class T, class U>
+    static void convertTransitPtr(T *&pOut, U *&pIn)
     {
-        OSG_ASSERT(false);
+        pOut = pIn;
+        pIn  = NULL;
     } 
 };
 
@@ -141,8 +142,8 @@ struct NoRefCounts
         return pIn;
     }
 
-    template<class T>
-    static void convertTransitPtr(T *&pOut, T*&pIn)
+    template<class T, class U>
+    static void convertTransitPtr(T *&pOut, T *&pIn)
     {
         OSG_ASSERT(false);
     } 
@@ -202,8 +203,8 @@ struct WeakRefCounts
         return *returnValue;
     }
 
-    template<class T>
-    static void convertTransitPtr(T *&pOut, T*&pIn)
+    template<class T, class U>
+    static void convertTransitPtr(T *&pOut, U *&pIn)
     {
         OSG_ASSERT(false);
     } 

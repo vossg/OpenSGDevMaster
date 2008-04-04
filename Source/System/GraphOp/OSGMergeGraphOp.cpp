@@ -124,7 +124,7 @@ UInt32 countNodes(const NodePtr& node)
     return total;
 }
 
-bool MergeGraphOp::traverse(NodePtr& node)
+bool MergeGraphOp::traverse(NodePtr node)
 {
     // This is a hack and should be treated as such.
     // The fact that it helps means there is something wrong with
@@ -190,7 +190,7 @@ std::string MergeGraphOp::usage(void)
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-bool MergeGraphOp::mergeOnce(NodePtr& node)
+bool MergeGraphOp::mergeOnce(NodePtr node)
 {
     std::list<NodeConstPtr> tempList;
     tempList.clear();
@@ -451,8 +451,8 @@ void MergeGraphOp::processTransformations(NodePtrConst node)
                                     dynamic_cast<GeometryPtr>(
                                         (*it2)->getCore());
                                 //GeometryPtr geo = geo_old->clone();
-                                GeometryPtr geo = 
-                                    dynamic_cast<GeometryPtr>(
+                                GeometryUnrecPtr geo = 
+                                    dynamic_pointer_cast<Geometry>(
                                         OSG::deepClone(geo_old, "Material"));
 
                                 TransformPtr  t = 
@@ -611,8 +611,8 @@ void MergeGraphOp::processGeometries(NodePtrConst node)
     MFNodePtr::const_iterator mfit = node->getMFChildren()->begin();
     MFNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
 
-    std::vector<NodePtr> toSub;
-    std::vector<NodePtr> toAdd;
+    std::vector<NodePtr     > toSub;
+    std::vector<NodeUnrecPtr> toAdd;
     
     for ( ; mfit != mfen; ++mfit )
     {
@@ -674,7 +674,7 @@ void MergeGraphOp::processGeometries(NodePtrConst node)
                 }
                 if (new_geo!=NullFC)
                 {
-                    NodePtr new_node=Node::create();
+                    NodeUnrecPtr new_node=Node::create();
                     new_node->setCore(new_geo);
 
                     toAdd.push_back(new_node);
@@ -687,19 +687,19 @@ void MergeGraphOp::processGeometries(NodePtrConst node)
         }
     }
     
-    std::vector<NodePtr>::const_iterator vit = toAdd.begin();
-    std::vector<NodePtr>::const_iterator ven = toAdd.end  ();
+    std::vector<NodeUnrecPtr>::const_iterator ait = toAdd.begin();
+    std::vector<NodeUnrecPtr>::const_iterator aen = toAdd.end  ();
     
-    for ( ; vit != ven; ++vit )
+    for ( ; ait != aen; ++ait )
     {
-        node->addChild(*vit);
+        node->addChild(*ait);
     }
 
-    vit = toSub.begin();
-    ven = toSub.end  ();
+    std::vector<NodePtr>::const_iterator sit = toSub.begin();
+    std::vector<NodePtr>::const_iterator sen = toSub.end  ();
     
-    for ( ; vit != ven; ++vit )
+    for ( ; sit != sen; ++sit )
     {
-        node->subChild(*vit);
+        node->subChild(*sit);
     }
 }

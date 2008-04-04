@@ -94,7 +94,7 @@ GraphOp::~GraphOp(void)
 {
 }
 
-bool GraphOp::traverse(NodePtr& node)
+bool GraphOp::traverse(NodePtr node)
 {
     Action::ResultE res;
     /*

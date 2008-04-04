@@ -44,7 +44,8 @@ template<class ParameterType, class ValueType> inline
 bool ShaderParameterAccess::setParameter(const Char8     *name, 
                                          const ValueType &value)
 {
-    typedef typename ParameterType::ObjPtr ParamPtr;
+    typedef typename ParameterType::ObjPtr      ParamPtr;
+    typedef typename ParameterType::ObjUnrecPtr ParamUnrecPtr;
 
     if(name == NULL)
         return false;
@@ -72,9 +73,7 @@ bool ShaderParameterAccess::setParameter(const Char8     *name,
     }
     else
     {
-        //ParameterType::Ptr p = ParameterType::create();
-
-        ParamPtr p = ParameterType::create();
+        ParamUnrecPtr p = ParameterType::create();
 
         if(p != NullFC)
         {
@@ -99,7 +98,8 @@ template<class ParameterType, class ValueType> inline
 bool ShaderParameterAccess::setMParameter(const char      *name, 
                                           const ValueType &value)
 {
-    typedef typename ParameterType::ObjPtr ParamPtr;
+    typedef typename ParameterType::ObjPtr      ParamPtr;
+    typedef typename ParameterType::ObjUnrecPtr ParamUnrecPtr;
 
     if(name == NULL)
         return false;
@@ -110,7 +110,6 @@ bool ShaderParameterAccess::setMParameter(const char      *name,
     
     if(it != _parametermap.end())
     {
-        //ParameterType::Ptr p = ParameterType::Ptr::dcast(_parameters[(*it).second]);
         ParamPtr p = dynamic_cast<ParamPtr>(
             _parameters.getParameters()[(*it).second]);
 
@@ -126,8 +125,7 @@ bool ShaderParameterAccess::setMParameter(const char      *name,
     }
     else
     {
-        //ParameterType::Ptr p = ParameterType::create();
-        ParamPtr p = ParameterType::create();
+        ParamUnrecPtr p = ParameterType::create();
 
         if(p != NullFC)
         {

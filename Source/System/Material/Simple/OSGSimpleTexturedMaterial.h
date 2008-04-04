@@ -104,9 +104,9 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterial :
 
     // these chunks are used for rendering the material
 
-    TextureObjChunkPtr _textureChunk;
-    TexGenChunkPtr     _texGenChunk;
-    TextureEnvChunkPtr _texEnvChunk;
+    TextureObjChunkUnrecPtr _textureChunk;
+    TexGenChunkUnrecPtr     _texGenChunk;
+    TextureEnvChunkUnrecPtr _texEnvChunk;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

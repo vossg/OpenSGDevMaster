@@ -46,14 +46,14 @@
 OSG_BEGIN_NAMESPACE
 
 OSG_STATE_DLLMAPPING
-SHLChunkPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
-                                          bool   vertical, 
-                                          bool   tex2D, 
-                                          Int32  imgWidth, 
-                                          Int32  imgHeight);
+SHLChunkTransitPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
+                                                 bool   vertical, 
+                                                 bool   tex2D, 
+                                                 Int32  imgWidth, 
+                                                 Int32  imgHeight);
 
 OSG_STATE_DLLMAPPING
-SHLChunkPtr generate2DShrinkHalfFilterFP(UInt32 uiTexCoord = 0);
+SHLChunkTransitPtr generate2DShrinkHalfFilterFP(UInt32 uiTexCoord = 0);
 
 OSG_END_NAMESPACE
 

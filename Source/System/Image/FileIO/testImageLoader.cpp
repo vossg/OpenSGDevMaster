@@ -27,9 +27,9 @@ using namespace std;
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager *mgr;
 
-NodePtr scene;
+NodeRefPtr scene;
 
-SimpleStatisticsForegroundPtr statfg;
+SimpleStatisticsForegroundRefPtr statfg;
 StatElemDesc<OSG::StatStringElem> textureFormatDesc("textureFormat", "The format of the texture");
 StatElemDesc<OSG::StatStringElem> textureDataTypeDesc("textureDataType", "The data type of the texture");
 StatElemDesc<OSG::StatStringElem> textureSizeDesc("textureSize", "The size of the texture");
@@ -44,7 +44,7 @@ int setupGLUT( int *argc, char *argv[] );
 void updateScene(const std::string &filename)
 {
     // Try to create the new image
-    ImagePtr imagePtr = ImageFileHandler::the()->read(filename.c_str());
+    ImageRefPtr imagePtr = ImageFileHandler::the()->read(filename.c_str());
     if (imagePtr == NullFC)
         return;
 
@@ -123,34 +123,34 @@ void updateScene(const std::string &filename)
     statfg->editCollector()->getElem(textureFrameCountDesc)->set(imagePtr->getFrameCount());
 
     // Put it all together into a Geometry NodeCore.
-    GeometryPtr geo = makePlaneGeo(imagePtr->getWidth(), imagePtr->getHeight(), 1, 1);
-    NodePtr imageNode = Node::create();
+    GeometryRefPtr geo = makePlaneGeo(imagePtr->getWidth(), imagePtr->getHeight(), 1, 1);
+    NodeRefPtr imageNode = Node::create();
     imageNode->setCore(geo);
-    NodePtr transNodePtr = Node::create();
-    TransformPtr transPtr = Transform::create();
+    NodeRefPtr transNodePtr = Node::create();
+    TransformRefPtr transPtr = Transform::create();
     Matrix transMatrix;
     transMatrix.setTranslate(0.f, 0.f, -1.f);
     transPtr->setMatrix(transMatrix);
     transNodePtr->setCore(transPtr);
     transNodePtr->addChild(imageNode);
 
-    TextureObjChunkPtr texObjChunk = TextureObjChunk::create();
+    TextureObjChunkRefPtr texObjChunk = TextureObjChunk::create();
     texObjChunk->setImage(imagePtr);
     texObjChunk->setWrapS(GL_CLAMP);
     texObjChunk->setWrapT(GL_CLAMP);
     texObjChunk->setMagFilter(GL_NEAREST);
     texObjChunk->setMinFilter(GL_NEAREST);
-    TextureEnvChunkPtr texEnvChunk = TextureEnvChunk::create();
+    TextureEnvChunkRefPtr texEnvChunk = TextureEnvChunk::create();
     texEnvChunk->setEnvMode(GL_MODULATE);
 
-    MaterialChunkPtr matChunk = MaterialChunk::create();
+    MaterialChunkRefPtr matChunk = MaterialChunk::create();
     matChunk->setAmbient(Color4f(1.f, 1.f, 1.f, 1.f));
     matChunk->setDiffuse(Color4f(1.f, 1.f, 1.f, 1.f));
     matChunk->setEmission(Color4f(0.f, 0.f, 0.f, 1.f));
     matChunk->setSpecular(Color4f(0.f, 0.f, 0.f, 1.f));
     matChunk->setShininess(0);
 
-    ChunkMaterialPtr m = ChunkMaterial::create();
+    ChunkMaterialRefPtr m = ChunkMaterial::create();
     m->addChunk(texObjChunk);
     m->addChunk(texEnvChunk);
     m->addChunk(matChunk);
@@ -171,13 +171,13 @@ int main(int argc, char **argv)
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
+    GLUTWindowRefPtr gwin= GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->init();
 
     // put the geometry core into a node
     scene = Node::create();
-    GroupPtr groupPtr = Group::create();
+    GroupRefPtr groupPtr = Group::create();
     scene->setCore(groupPtr);
 
     statfg = SimpleStatisticsForeground::create();
@@ -192,7 +192,7 @@ int main(int argc, char **argv)
     statfg->addElement(textureFrameCountDesc, "FrameCount: %i");
 
     // Create the background
-    SolidBackgroundPtr bg = SolidBackground::create();
+    SolidBackgroundRefPtr bg = SolidBackground::create();
     bg->setColor(Color3f(0.1, 0.1, 0.5));
 
     if (argc < 2)
@@ -266,6 +266,9 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:
         {
+            delete mgr;
+            scene  = NullFC;
+            statfg = NullFC;
             osgExit();
             exit(0);
         }

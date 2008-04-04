@@ -201,40 +201,40 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    WindowPtr                    _win;
-    NodePtr                      _root;
+    WindowRefPtr               _win;
+    NodeRefPtr                 _root;
 
-    ImageForegroundPtr           _foreground;
-    StatisticsForegroundPtr      _statforeground;
-    bool                         _statstate;
+    ImageForegroundRefPtr      _foreground;
+    StatisticsForegroundRefPtr _statforeground;
+    bool                       _statstate;
 
-    NodePtr                      _highlight;
-    NodePtr                      _highlightNode;
+    NodePtr                    _highlight;
+    NodeRefPtr                 _highlightNode;
     //GeoPositions3fPtr            _highlightPoints;
-    GeoPnt3fPropertyPtr          _highlightPoints;
+    GeoPnt3fPropertyRefPtr     _highlightPoints;
 
-    NodePtr                      _internalRoot;
-    DirectionalLightPtr          _headlight;
+    NodeRefPtr                 _internalRoot;
+    DirectionalLightRefPtr     _headlight;
 #ifdef OSG_OLD_RENDER_ACTION
-    RenderAction *               _renderAction;   /**< The RenderAction to use if using RenderActions. */
-    RenderAction *               _ownAction;
+    RenderAction *             _renderAction;   /**< The RenderAction to use if using RenderActions. */
+    RenderAction *             _ownAction;
 #endif
 
     /** The RenderAction to use if using render traversals. */
-    RenderAction *      _rtaction;
+    RenderAction *             _rtaction;
 
-    TransformPtr                 _cart;
-    CameraPtr                    _camera;
+    TransformRefPtr            _cart;
+    CameraRefPtr               _camera;
 
-    Navigator                    _navigator;
+    Navigator                  _navigator;
 
-    Int16                        _lastx;
-    Int16                        _lasty;
-    UInt16                       _mousebuttons;
+    Int16                      _lastx;
+    Int16                      _lasty;
+    UInt16                     _mousebuttons;
 
-    bool                         _traversalAction;
+    bool                       _traversalAction;
 
-    static  SimpleMaterialPtr    _highlightMaterial;
+    SimpleMaterialRefPtr       _highlightMaterial;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

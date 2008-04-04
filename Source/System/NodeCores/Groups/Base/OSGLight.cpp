@@ -100,8 +100,6 @@ void Light::makeChunk(void)
     if(_pChunk == NullFC)
     {
         _pChunk = LightChunk::create();
-
-        addRefX(_pChunk);
     }
 
     _pChunk->setBeacon  (getBeacon  ());
@@ -152,7 +150,6 @@ Light::Light(const Light &source) :
 
 Light::~Light(void)
 {
-    OSG::subRefX(_pChunk     );
 }
 
 /*-------------------------------------------------------------------------*/
@@ -225,6 +222,14 @@ Action::ResultE Light::renderLeave(LightEngine::LightTypeE  eType,
 
 /*-------------------------------------------------------------------------*/
 /*                               Init                                      */
+
+void Light::resolveLinks(void)
+{
+    Inherited::resolveLinks();
+
+    _pChunk = NullFC;
+}
+     
 
 //! initialize the static features of the class, e.g. action callbacks
 

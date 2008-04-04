@@ -144,7 +144,9 @@ class OSG_TEXT_DLLMAPPING TextPixmapFace: public TextFace
      * @param border The number of clear pixels around the text
      * @return The image filled with the text.
      */
-    ImagePtr makeImage(const TextLayoutResult &layoutResult, Vec2f &offset, UInt32 border = 1);
+    ImageTransitPtr makeImage(const TextLayoutResult &layoutResult, 
+                                    Vec2f &offset, 
+                                    UInt32 border = 1);
 
     /**
      * Tries to create a pixmap face.

@@ -69,34 +69,35 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
 
   public:
 
-    typedef ImagePtr (*ReadCB) (const Char8 *fileName, const Char8 *mimeType);
+    typedef ImageTransitPtr (*ReadCB) (const Char8 *fileName, 
+                                       const Char8 *mimeType);
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
-    virtual ImagePtr read (const Char8            *fileName, 
-                           const Char8            *mimeType = 0);
+    virtual ImageTransitPtr read (const Char8            *fileName, 
+                                  const Char8            *mimeType = 0);
 
-    virtual bool     read (      ImagePtrArg       pImage,
-                           const Char8            *fileName, 
-                           const Char8            *mimeType = 0);
+    virtual bool            read (      ImagePtrArg       pImage,
+                                  const Char8            *fileName, 
+                                  const Char8            *mimeType = 0);
 
-    virtual bool     write(      ImageConstPtrArg  pImage,
-                           const Char8            *fileName, 
-                           const Char8            *mimeType = 0);
+    virtual bool            write(      ImageConstPtrArg  pImage,
+                                  const Char8            *fileName, 
+                                  const Char8            *mimeType = 0);
 
 
-    virtual ImagePtr read (      std::istream     &is,
-                           const std::string      &mimeType    );
+    virtual ImageTransitPtr read (      std::istream     &is,
+                                  const std::string      &mimeType    );
 
-    virtual bool     read (      ImagePtrArg       pImage,
-                                 std::istream     &is,
-                           const std::string      &mimeType    );
+    virtual bool            read (      ImagePtrArg       pImage,
+                                        std::istream     &is,
+                                  const std::string      &mimeType    );
 
-    virtual bool     write(      ImageConstPtrArg  pImage,
-                                 std::ostream     &os,
-                           const std::string      &mimeType    );
+    virtual bool            write(      ImageConstPtrArg  pImage,
+                                        std::ostream     &os,
+                                  const std::string      &mimeType    );
 
     
     /*! \}                                                                 */

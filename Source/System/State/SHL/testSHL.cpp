@@ -36,7 +36,7 @@ OSG_USING_NAMESPACE
 // The SimpleSceneManager to manage simple applications
 static SimpleSceneManager *_mgr;
 // The scene
-static NodePtr _scene;
+static NodeRefPtr _scene;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -56,15 +56,15 @@ int main(int argc, char **argv)
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
+    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->setSize( 800, 800 );
     gwin->init();
 
     // Create the shader material
-    ChunkMaterialPtr cmat = ChunkMaterial::create();
+    ChunkMaterialUnrecPtr cmat = ChunkMaterial::create();
 
-    MaterialChunkPtr matc = MaterialChunk::create();
+    MaterialChunkUnrecPtr matc = MaterialChunk::create();
 
     matc->setAmbient(Color4f(0.1, 0.1, 0.1, 1.0));
     matc->setDiffuse(Color4f(0.3, 0.3, 0.3, 1.0));
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
     matc->setShininess(100);
     matc->setLit(true);
 
-    SHLChunkPtr shl = SHLChunk::create();
+    SHLChunkUnrecPtr shl = SHLChunk::create();
 
     shl->readVertexProgram(argv[1]);
     shl->readFragmentProgram(argv[2]);
@@ -84,14 +84,14 @@ int main(int argc, char **argv)
     _scene = Node::create();
 
     // create torus
-    GeometryPtr geo = makeTorusGeo(.8, 1.8, 128, 128);
+    GeometryUnrecPtr geo = makeTorusGeo(.8, 1.8, 128, 128);
     geo->setMaterial(cmat);
 
-    NodePtr torus = Node::create();
+    NodeUnrecPtr torus = Node::create();
     torus->setCore(geo);
 
     // add torus to scene
-    GroupPtr group = Group::create();
+    GroupUnrecPtr group = Group::create();
     _scene->setCore(group);
     _scene->addChild(torus);
 
@@ -170,6 +170,11 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:
         case 'q':
+            delete _mgr;
+
+            _scene = NullFC;
+
+            osgExit();
             exit(1);
         break;
         case 'w':

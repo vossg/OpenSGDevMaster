@@ -318,16 +318,16 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
 
     // Scene Target
 
-    FrameBufferObjectPtr pSceneFBO    = FrameBufferObject::create();
+    FrameBufferObjectUnrecPtr pSceneFBO    = FrameBufferObject::create();
 
-    RenderBufferPtr      pDepthBuffer = RenderBuffer     ::create();
+    RenderBufferUnrecPtr      pDepthBuffer = RenderBuffer     ::create();
 
     pDepthBuffer->setInternalFormat(GL_DEPTH_COMPONENT24   );
 
         
-    TextureObjChunkPtr pSceneTex     = TextureObjChunk::create();
-    TextureEnvChunkPtr pSceneTexEnv  = TextureEnvChunk::create();
-    ImagePtr           pImg          = Image          ::create();
+    TextureObjChunkUnrecPtr pSceneTex     = TextureObjChunk::create();
+    TextureEnvChunkUnrecPtr pSceneTexEnv  = TextureEnvChunk::create();
+    ImageUnrecPtr           pImg          = Image          ::create();
     
     pImg->set(Image::OSG_RGB_PF, 
               iPixelWidth, 
@@ -349,7 +349,7 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
 
     pSceneTexEnv->setEnvMode       (GL_REPLACE       );
     
-    TextureBufferPtr pSceneTexBuffer   = TextureBuffer::create();
+    TextureBufferUnrecPtr pSceneTexBuffer   = TextureBuffer::create();
     
     pSceneTexBuffer->setTexture(pSceneTex);
     
@@ -369,11 +369,11 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
 
     // Shrink Target (w/2, h/2)
 
-    FrameBufferObjectPtr pShrinkFBO     = FrameBufferObject::create();
+    FrameBufferObjectUnrecPtr pShrinkFBO     = FrameBufferObject::create();
 
-    TextureObjChunkPtr   pShrinkTex     = TextureObjChunk::create();
-    TextureEnvChunkPtr   pShrinkTexEnv  = TextureEnvChunk::create();
-                         pImg           = Image          ::create();
+    TextureObjChunkUnrecPtr   pShrinkTex     = TextureObjChunk::create();
+    TextureEnvChunkUnrecPtr   pShrinkTexEnv  = TextureEnvChunk::create();
+                              pImg           = Image          ::create();
     
     pImg->set(Image::OSG_RGB_PF, 
               iPixelWidth  / 2, 
@@ -395,7 +395,7 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
 
     pShrinkTexEnv->setEnvMode       (GL_REPLACE       );
     
-    TextureBufferPtr pShrinkTexBuffer   = TextureBuffer::create();
+    TextureBufferUnrecPtr pShrinkTexBuffer   = TextureBuffer::create();
     
     pShrinkTexBuffer->setTexture(pShrinkTex);
     
@@ -416,10 +416,10 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
     // blur (w/4, h/4)
 
 
-    FrameBufferObjectPtr pBlurFBO     = FrameBufferObject::create();
+    FrameBufferObjectUnrecPtr pBlurFBO     = FrameBufferObject::create();
 
-    TextureObjChunkPtr   pBlurTex1    = TextureObjChunk  ::create();
-    TextureEnvChunkPtr   pBlurTex1Env = TextureEnvChunk  ::create();
+    TextureObjChunkUnrecPtr   pBlurTex1    = TextureObjChunk  ::create();
+    TextureEnvChunkUnrecPtr   pBlurTex1Env = TextureEnvChunk  ::create();
     
     
     pImg = Image::create();
@@ -444,14 +444,14 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
 
     pBlurTex1Env->setEnvMode       (GL_REPLACE       );
     
-    TextureBufferPtr pBlurTexBuffer1 = TextureBuffer::create();
+    TextureBufferUnrecPtr pBlurTexBuffer1 = TextureBuffer::create();
     
     pBlurTexBuffer1->setTexture(pBlurTex1);
     
     
     
-    TextureObjChunkPtr pBlurTex2    = TextureObjChunk::create();
-    TextureEnvChunkPtr pBlurTex2Env = TextureEnvChunk::create();
+    TextureObjChunkUnrecPtr pBlurTex2    = TextureObjChunk::create();
+    TextureEnvChunkUnrecPtr pBlurTex2Env = TextureEnvChunk::create();
     
     
     pImg = Image::create();
@@ -476,7 +476,7 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
 
     pBlurTex2Env->setEnvMode       (GL_REPLACE       );
     
-    TextureBufferPtr pBlurTexBuffer2 = TextureBuffer::create();
+    TextureBufferUnrecPtr pBlurTexBuffer2 = TextureBuffer::create();
 
     pBlurTexBuffer2->setTexture(pBlurTex2);
 
@@ -493,7 +493,7 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
     // general mat chunk
 
 
-    MaterialChunkPtr pMatChunk = MaterialChunk::create();
+    MaterialChunkUnrecPtr pMatChunk = MaterialChunk::create();
         
     pMatChunk->setLit(false);
 
@@ -502,7 +502,7 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
 
     // tone map material
 
-    ChunkMaterialPtr    pTonemapMat  = ChunkMaterial  ::create();
+    ChunkMaterialUnrecPtr    pTonemapMat  = ChunkMaterial  ::create();
     
     pTonemapMat->addChunk(pMatChunk         );
     pTonemapMat->addChunk(pSceneTex,       0);
@@ -510,7 +510,7 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
     pTonemapMat->addChunk(pBlurTex1,       1);
     pTonemapMat->addChunk(pBlurTex1Env,    1);
 
-    SHLChunkPtr pTonemapShader = generateHDRFragmentProgram();
+    SHLChunkUnrecPtr pTonemapShader = generateHDRFragmentProgram();
     
     pTonemapShader->setUniformParameter("sceneTex",     0);
     pTonemapShader->setUniformParameter("blurTex",      1);
@@ -528,7 +528,7 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
 
     // Shrink material
 
-    ChunkMaterialPtr pShrinkMat = ChunkMaterial::create();
+    ChunkMaterialUnrecPtr pShrinkMat = ChunkMaterial::create();
     
     pShrinkMat->addChunk(pMatChunk   );
     
@@ -536,7 +536,7 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
     pShrinkMat->addChunk(pSceneTexEnv,  0);
 
     
-    SHLChunkPtr pShrinkShader = generate2DShrinkHalfFilterFP();
+    SHLChunkUnrecPtr pShrinkShader = generate2DShrinkHalfFilterFP();
         
     pShrinkShader->setUniformParameter("inputTex", 0);
     
@@ -549,7 +549,7 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
 
     // Blur material
 
-    ChunkMaterialPtr pBlurMat = ChunkMaterial::create();
+    ChunkMaterialUnrecPtr pBlurMat = ChunkMaterial::create();
     
     pBlurMat->addChunk(pMatChunk   );
     
@@ -566,12 +566,13 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
 
 
     // generate blur fragment programs
-    SHLChunkPtr pHBlurShader = generate1DConvolutionFilterFP(getBlurWidth(), 
-                                                             false, 
-                                                             true, 
-                                                             iPixelWidth  / 2, 
-                                                             iPixelHeight / 2);
-
+    SHLChunkUnrecPtr pHBlurShader = 
+        generate1DConvolutionFilterFP(getBlurWidth(), 
+                                      false, 
+                                      true, 
+                                      iPixelWidth  / 2, 
+                                      iPixelHeight / 2);
+    
    
     pHBlurShader->setUniformParameter("inputTex", 0);
 
@@ -582,11 +583,12 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
     // VBlur Override
 
 
-    SHLChunkPtr pVBlurShader = generate1DConvolutionFilterFP(getBlurWidth(),  
-                                                             true, 
-                                                             true, 
-                                                             iPixelWidth  / 2, 
-                                                             iPixelHeight / 2);
+    SHLChunkUnrecPtr pVBlurShader = 
+        generate1DConvolutionFilterFP(getBlurWidth(),  
+                                      true, 
+                                      true, 
+                                      iPixelWidth  / 2, 
+                                      iPixelHeight / 2);
     
     pVBlurShader->setUniformParameter("inputTex", 1);
     
@@ -847,7 +849,7 @@ void HDRStage::initData(Viewport         *pViewport,
 
 #define OSGHDRL << std::endl
 
-SHLChunkPtr HDRStage::generateHDRFragmentProgram(void)
+SHLChunkTransitPtr HDRStage::generateHDRFragmentProgram(void)
 {
     std::ostringstream ost;
 
@@ -916,7 +918,7 @@ SHLChunkPtr HDRStage::generateHDRFragmentProgram(void)
         << "}"                                                           OSGHDRL
         << "";
 
-    SHLChunkPtr returnValue = SHLChunk::create();
+    SHLChunkTransitPtr returnValue = SHLChunk::create();
 
     returnValue->setFragmentProgram(ost.str());
 

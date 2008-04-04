@@ -168,6 +168,7 @@ void Node::setCore(NodeCorePtrConstArg core)
     }
 }
 
+
 /*-------------------------------------------------------------------------*/
 /*                             Children                                    */
 
@@ -188,6 +189,28 @@ void Node::addChild(NodePtrConstArg childP)
         }
 
         childP->setParent(this);
+    }
+}
+
+void Node::addChild(NodeTransitPtr childP)
+{
+    if(childP != NullFC)
+    {
+        // do the ref early, to prevent destroys on getParent(a)->addChild(a)
+//        addRef(childP);
+        editMField(ChildrenFieldMask, _mfChildren);
+
+        NodeUnrecPtr tmpChild = childP;
+
+        _mfChildren.push_back(tmpChild);
+
+        // already somebody else's child?
+        if(tmpChild->getParent() != NullFC)
+        {
+            tmpChild->getParent()->subChild(tmpChild);
+        }
+
+        tmpChild->setParent(this);
     }
 }
 
@@ -923,7 +946,11 @@ EditFieldHandlePtr Node::editHandleCore(void)
              &_sfCore, 
              this->getType().getFieldDesc(CoreFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Node::setCore, this, _1));
+    typedef void (Node::*SetCoreF)(NodeCorePtrConstArg);
+    
+    SetCoreF fFunc = &Node::setCore;
+
+    returnValue->setSetMethod(boost::bind(fFunc, this, _1));
 
     editSField(CoreFieldMask);
 
@@ -947,7 +974,11 @@ EditFieldHandlePtr Node::editHandleChildren(void)
              &_mfChildren, 
              this->getType().getFieldDesc(ChildrenFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&Node::addChild, this, _1));
+    typedef void (Node::*AddChildF)(NodePtrConstArg);
+
+    AddChildF fFunc = &Node::addChild;
+
+    returnValue->setAddMethod(boost::bind(fFunc, this, _1));
 
     editMField(ChildrenFieldMask, _mfChildren);
 
@@ -1009,11 +1040,11 @@ void Node::resolveLinks(void)
     \return The root Node of the cloned scene.
  */
 
-NodePtr cloneTree(      NodePtrConstArg           rootNode,
-                  const std::vector<std::string> &cloneTypeNames,
-                  const std::vector<std::string> &ignoreTypeNames,
-                  const std::vector<std::string> &cloneGroupNames,
-                  const std::vector<std::string> &ignoreGroupNames)
+NodeTransitPtr cloneTree(      NodePtrConstArg           rootNode,
+                         const std::vector<std::string> &cloneTypeNames,
+                         const std::vector<std::string> &ignoreTypeNames,
+                         const std::vector<std::string> &cloneGroupNames,
+                         const std::vector<std::string> &ignoreGroupNames)
 {
     std::vector<const ReflexiveContainerType *> cloneTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -1040,9 +1071,9 @@ NodePtr cloneTree(      NodePtrConstArg           rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodePtr cloneTree(      NodePtrConstArg      rootNode,
-                  const std::vector<UInt16> &cloneGroupIds,
-                  const std::vector<UInt16> &ignoreGroupIds)
+NodeTransitPtr cloneTree(      NodePtrConstArg      rootNode,
+                         const std::vector<UInt16> &cloneGroupIds,
+                         const std::vector<UInt16> &ignoreGroupIds)
 {
     std::vector<const ReflexiveContainerType *> cloneTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -1064,9 +1095,9 @@ NodePtr cloneTree(      NodePtrConstArg      rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodePtr cloneTree(      NodePtrConstArg  rootNode,
-                  const std::string     &cloneTypesString,
-                  const std::string     &ignoreTypesString)
+NodeTransitPtr cloneTree(      NodePtrConstArg  rootNode,
+                         const std::string     &cloneTypesString,
+                         const std::string     &ignoreTypesString)
 {
     std::vector<const ReflexiveContainerType *> cloneTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -1094,19 +1125,19 @@ NodePtr cloneTree(      NodePtrConstArg  rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodePtr cloneTree(      
+NodeTransitPtr cloneTree(      
           NodePtrConstArg                              rootNode,
     const std::vector<const ReflexiveContainerType *> &cloneTypes,
     const std::vector<const ReflexiveContainerType *> &ignoreTypes,
     const std::vector<UInt16>                         &cloneGroupIds,
     const std::vector<UInt16>                         &ignoreGroupIds)
 {
-    NodePtr rootClone = NullFC;
+    NodeUnrecPtr rootClone(NULL);
 
     if(rootNode != NullFC)
     {
-        NodePtr     childClone;
-        NodeCorePtr core       = rootNode->getCore();
+        NodeUnrecPtr childClone;
+        NodeCorePtr  core       = rootNode->getCore();
 
         rootClone = Node::create();
         rootClone->setTravMask(rootNode->getTravMask());
@@ -1117,7 +1148,7 @@ NodePtr cloneTree(
 
         if(core != NullFC)
         {
-                  NodeCorePtr         coreClone  = NullFC;
+                  NodeCoreUnrecPtr    coreClone  = NullFC;
             const FieldContainerType &coreType   = core->getType();
 
             // test if core type should NOT be ignored
@@ -1138,7 +1169,7 @@ NodePtr cloneTree(
                 {
                     // clone core
                     coreClone = 
-                        dynamic_cast<NodeCorePtr>(
+                        dynamic_pointer_cast<NodeCore>(
                             deepClone(core,
                                       cloneTypes,    ignoreTypes,
                                       cloneGroupIds, ignoreGroupIds));
@@ -1163,7 +1194,7 @@ NodePtr cloneTree(
         }
     }
 
-    return rootClone;
+    return NodeTransitPtr(rootClone);
 }
 
 /*! Clones the scene starting at \a rootNode. By default FieldContainers,
@@ -1180,11 +1211,11 @@ NodePtr cloneTree(
     \return The root Node of the cloned scene.
  */
 
-NodePtr deepCloneTree(      NodePtrConstArg           rootNode,
-                      const std::vector<std::string> &shareTypeNames,
-                      const std::vector<std::string> &ignoreTypeNames,
-                      const std::vector<std::string> &shareGroupNames,
-                      const std::vector<std::string> &ignoreGroupNames)
+NodeTransitPtr deepCloneTree(      NodePtrConstArg           rootNode,
+                             const std::vector<std::string> &shareTypeNames,
+                             const std::vector<std::string> &ignoreTypeNames,
+                             const std::vector<std::string> &shareGroupNames,
+                             const std::vector<std::string> &ignoreGroupNames)
 {
     std::vector<const ReflexiveContainerType *> shareTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -1211,9 +1242,9 @@ NodePtr deepCloneTree(      NodePtrConstArg           rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodePtr deepCloneTree(      NodePtrConstArg      rootNode,
-                      const std::vector<UInt16> &shareGroupIds,
-                      const std::vector<UInt16> &ignoreGroupIds)
+NodeTransitPtr deepCloneTree(      NodePtrConstArg      rootNode,
+                             const std::vector<UInt16> &shareGroupIds,
+                             const std::vector<UInt16> &ignoreGroupIds)
 {
     std::vector<const ReflexiveContainerType *> shareTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -1235,9 +1266,9 @@ NodePtr deepCloneTree(      NodePtrConstArg      rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodePtr deepCloneTree(      NodePtrConstArg  rootNode,
-                      const std::string     &shareTypesString,
-                      const std::string     &ignoreTypesString)
+NodeTransitPtr deepCloneTree(      NodePtrConstArg  rootNode,
+                             const std::string     &shareTypesString,
+                             const std::string     &ignoreTypesString)
 {
     std::vector<const ReflexiveContainerType *> shareTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -1265,19 +1296,19 @@ NodePtr deepCloneTree(      NodePtrConstArg  rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodePtr deepCloneTree(      
+NodeTransitPtr deepCloneTree(      
           NodePtrConstArg                              rootNode,
     const std::vector<const ReflexiveContainerType *> &shareTypes,
     const std::vector<const ReflexiveContainerType *> &ignoreTypes,
     const std::vector<UInt16>                         &shareGroupIds,
     const std::vector<UInt16>                         &ignoreGroupIds)
 {
-    NodePtr rootClone = NullFC;
+    NodeUnrecPtr rootClone(NULL);
 
     if(rootNode != NullFC)
     {
-        NodePtr     childClone;
-        NodeCorePtr core       = rootNode->getCore();
+        NodeUnrecPtr childClone;
+        NodeCorePtr  core       = rootNode->getCore();
 
         rootClone = Node::create();
         rootClone->setTravMask(rootNode->getTravMask());
@@ -1288,7 +1319,7 @@ NodePtr deepCloneTree(
 
         if(core != NullFC)
         {
-                  NodeCorePtr         coreClone  = NullFC;
+                  NodeCoreUnrecPtr    coreClone(NULL);
             const FieldContainerType &coreType   = core->getType();
 
             // test if core type should NOT be ignored
@@ -1314,7 +1345,7 @@ NodePtr deepCloneTree(
                 {
                     // clone core
                     coreClone = 
-                        dynamic_cast<NodeCorePtr>(
+                        dynamic_pointer_cast<NodeCore>(
                             deepClone(core,
                                       shareTypes,    ignoreTypes,
                                       shareGroupIds, ignoreGroupIds));
@@ -1334,7 +1365,7 @@ NodePtr deepCloneTree(
         }
     }
 
-    return rootClone;
+    return NodeTransitPtr(rootClone);
 }
 
 OSG_END_NAMESPACE

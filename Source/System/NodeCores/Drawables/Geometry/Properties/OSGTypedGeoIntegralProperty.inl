@@ -298,16 +298,16 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::reference
     \return A copy of this property.
  */
 template <class GeoPropertyDesc> inline
-GeoIntegralPropertyPtr
+GeoIntegralPropertyTransitPtr
 TypedGeoIntegralProperty<GeoPropertyDesc>::clone(void)
 {
-    ObjPtr obj = TypedGeoIntegralProperty<GeoPropertyDesc>::create();
+    ObjTransitPtr obj = TypedGeoIntegralProperty<GeoPropertyDesc>::create();
 
     editMField(GeoPropDataFieldMask, obj->_field);
     
     obj->_field.setValues(_field);
 
-    return obj;
+    return GeoIntegralPropertyTransitPtr(obj);
 }
 
 /*! \copydoc OSG::GeoIntegralProperty::getFormat

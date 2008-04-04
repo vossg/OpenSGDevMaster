@@ -179,7 +179,7 @@ OSG_USING_NAMESPACE
 /*! \var SimpleSceneManager::_highlightMaterial
     The material used by the highlight object.
  */
-SimpleMaterialPtr SimpleSceneManager::_highlightMaterial;
+
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
@@ -212,7 +212,8 @@ SimpleSceneManager::SimpleSceneManager(void) :
     _lastx          (TypeTraits<Int16>::getMax()),
     _lasty          (TypeTraits<Int16>::getMax()),
     _mousebuttons   (0                             ),
-    _traversalAction(true                         )
+    _traversalAction(true                         ),
+    _highlightMaterial(NullFC)
 {
 }
 
@@ -241,12 +242,20 @@ SimpleSceneManager::~SimpleSceneManager(void)
 
     setRoot(NullFC); // sub root
 
-    if(_internalRoot != NullFC)
-        subRefX(_internalRoot);
+    _internalRoot = NullFC;
 
-    if(_camera != NullFC)
-        subRefX(_camera);
+    _camera            = NullFC;
+    _cart              = NullFC;
+    _headlight         = NullFC;
+    _statforeground    = NullFC;
+    _foreground        = NullFC;
+    _highlightMaterial = NullFC;
+    _highlightPoints   = NullFC;
+    _highlightNode     = NullFC;
+    _win               = NullFC;
+    _root              = NullFC;
 }
+
 
 
 /*! get the window to be used for display
@@ -436,11 +445,15 @@ void SimpleSceneManager::setCamera(CameraPtr camera)
 
     camera->setBeacon(_camera->getBeacon());
 
-    PerspectiveCameraPtr oldPer  = dynamic_cast<PerspectiveCameraPtr>(_camera);
-    PerspectiveCameraPtr newPer  = dynamic_cast<PerspectiveCameraPtr>(camera);
+    PerspectiveCameraPtr oldPer  = 
+        dynamic_pointer_cast<PerspectiveCamera>(_camera);
+    PerspectiveCameraPtr newPer  = 
+        dynamic_cast<PerspectiveCameraPtr>(camera);
 
-    OrthographicCameraPtr oldOrt =dynamic_cast<OrthographicCameraPtr>(_camera);
-    OrthographicCameraPtr newOrt =dynamic_cast<OrthographicCameraPtr>(camera);
+    OrthographicCameraPtr oldOrt =
+        dynamic_pointer_cast<OrthographicCamera>(_camera);
+
+    OrthographicCameraPtr newOrt = dynamic_cast<OrthographicCameraPtr>(camera);
 
 
     if (oldPer && newPer) {
@@ -470,8 +483,8 @@ void SimpleSceneManager::setCamera(CameraPtr camera)
     }
 
     // destroy old camera.
-    addRefX( camera);
-    subRefX(_camera);
+//    addRefX( camera);
+//    subRefX(_camera);
 
     _camera = camera;
 }
@@ -545,7 +558,7 @@ void SimpleSceneManager::initialize(void)
     _rtaction = RenderAction::create();
 
     // the camera and light beacon
-    NodePtr cartN = Node::create();
+    NodeUnrecPtr cartN = Node::create();
     _cart = Transform::create();
 
     cartN->setCore(_cart);
@@ -554,7 +567,7 @@ void SimpleSceneManager::initialize(void)
     _internalRoot = Node::create();
     _headlight    = DirectionalLight::create();
 
-    addRefX(_internalRoot);
+//    addRefX(_internalRoot);
 
     _internalRoot->setCore(_headlight);
     _internalRoot->addChild(cartN);
@@ -569,23 +582,30 @@ void SimpleSceneManager::initialize(void)
     // the camera
     _camera = PerspectiveCamera::create();
 
-    addRefX(_camera);
+//    addRefX(_camera);
 
     _camera->setBeacon(cartN);
-    static_cast<PerspectiveCameraPtr>(_camera)->setFov(osgDegree2Rad(60.f));
+
+    PerspectiveCameraPtr pPerspCam = 
+        dynamic_pointer_cast<PerspectiveCamera>(_camera);
+
+    if(pPerspCam != NULL)
+        pPerspCam->setFov(osgDegree2Rad(60.f));
+
     _camera->setNear (0.1f);
     _camera->setFar  (10000.f);
 
     // need a viewport?
     if(_win->getPort().size() == 0)
     {
-        SolidBackgroundPtr bg = SolidBackground::create();
+        SolidBackgroundUnrecPtr bg = SolidBackground::create();
 
         bg->setColor(Color3f(0.2, 0.2, 0.2));
 
         _foreground = ImageForeground::create();
 
-        SimpleStatisticsForegroundPtr sf = SimpleStatisticsForeground::create();
+        SimpleStatisticsForegroundUnrecPtr sf = 
+            SimpleStatisticsForeground::create();
 
         sf->setSize(25);
         sf->setColor(Color4f(0,1,0,0.7));
@@ -683,9 +703,9 @@ void SimpleSceneManager::initialize(void)
 #endif
 
         _statforeground = sf;
-        addRefX(_statforeground);
+//        addRefX(_statforeground);
 
-        ViewportPtr vp = Viewport::create();
+        ViewportUnrecPtr vp = Viewport::create();
 
         vp->setCamera    (_camera);
         vp->setRoot      (_internalRoot);
@@ -723,8 +743,12 @@ void SimpleSceneManager::showAll(void)
         d = max - min;
     }
 
-    PerspectiveCameraPtr  perCam = dynamic_cast<PerspectiveCameraPtr>(_camera);
-    OrthographicCameraPtr ortCam =dynamic_cast<OrthographicCameraPtr>(_camera);
+    PerspectiveCameraPtr  perCam = 
+        dynamic_pointer_cast<PerspectiveCamera>(_camera);
+
+    OrthographicCameraPtr ortCam =
+        dynamic_pointer_cast<OrthographicCamera>(_camera);
+
     Real32 dist = osgMax(d[0],d[1]);
 
     if (perCam) {
@@ -759,7 +783,8 @@ void SimpleSceneManager::showAll(void)
  */
 void SimpleSceneManager::useOpenSGLogo(void)
 {
-    ImagePtr lo = Image::create();
+    ImageUnrecPtr lo = Image::create();
+
     ImageFileType::restore( lo, (UChar8*)LogoData, -1 );
 
     _foreground->addImage( lo, Pnt2f( 0,0 ) );
@@ -832,17 +857,17 @@ void SimpleSceneManager::highlightChanged(void)
     }
     if(_highlightNode == NullFC)
     {
-        GeoUInt8PropertyPtr type = GeoUInt8Property::create();
+        GeoUInt8PropertyUnrecPtr type = GeoUInt8Property::create();
         GeoUInt8Property::StoredFieldType* t = type->editFieldPtr();
         t->push_back(GL_LINE_STRIP);
         t->push_back(GL_LINES);
 
-        GeoUInt32PropertyPtr lens = GeoUInt32Property::create();
+        GeoUInt32PropertyUnrecPtr lens = GeoUInt32Property::create();
         GeoUInt32Property::StoredFieldType* l = lens->editFieldPtr();
         l->push_back(10);
         l->push_back(6);
 
-        GeoUInt32PropertyPtr index = OSG::GeoUInt32Property::create();
+        GeoUInt32PropertyUnrecPtr index = OSG::GeoUInt32Property::create();
         GeoUInt32Property::StoredFieldType* idx = index->editFieldPtr();
         idx->push_back(0);
         idx->push_back(1);
@@ -873,17 +898,17 @@ void SimpleSceneManager::highlightChanged(void)
         p->push_back(Pnt3f(-1,  1,  1));
         p->push_back(Pnt3f( 1,  1,  1));
 
-        GeometryPtr geo = Geometry::create();
+        GeometryUnrecPtr geo = Geometry::create();
         geo->setTypes     (type);
         geo->setLengths   (lens);
         geo->setIndices   (index);
         geo->setPositions (_highlightPoints);
         geo->setMaterial  (_highlightMaterial);
-        addRefX(geo);
+//        addRefX(geo);
 
         _highlightNode = Node::create();
         _highlightNode->setCore(geo);
-        addRefX(_highlightNode);
+//        addRefX(_highlightNode);
     }
 
     // attach the hightlight node to the root if the highlight is active

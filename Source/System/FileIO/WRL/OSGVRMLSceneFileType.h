@@ -84,8 +84,8 @@ class OSG_FILEIO_DLLMAPPING VRMLSceneFileType : public SceneFileType
     /*! \name                   Read                                       */
     /*! \{                                                                 */
 
-    virtual NodePtr    read        (std::istream &is,
-                                    const Char8 *fileNameOrExtension) const;
+    virtual NodeTransitPtr read(      std::istream &is,
+                                const Char8        *fileNameOrExtension) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

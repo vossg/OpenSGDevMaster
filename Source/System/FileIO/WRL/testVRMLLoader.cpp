@@ -7,8 +7,8 @@ int main (int argc, char **argv)
 {
     OSG::osgInit(argc,argv);
 
-    OSG::NodePtr              file;
-    std::vector<OSG::NodePtr> vFile;
+    OSG::NodeRefPtr              file;
+    std::vector<OSG::NodeRefPtr> vFile;
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
     OSG::UInt32 iPre = 
@@ -25,6 +25,7 @@ int main (int argc, char **argv)
             
             vFile.push_back(file);
             OSG::commitChanges();
+            file = NullFC;
         }
 
 #if 0
@@ -49,9 +50,11 @@ int main (int argc, char **argv)
         }
 #endif
         
+        OSG::commitChanges();
+
         for(OSG::UInt32 i = 0; i < vFile.size(); ++i)
         {
-            OSG::subRefX(vFile[i]);
+            vFile[i] = NullFC;
         }
     }
 

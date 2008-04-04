@@ -531,9 +531,9 @@ void cloneAttachments(
 
     for(; mapIt != mapEnd; ++mapIt)
     {
-        FieldContainerAttachmentPtr att       = mapIt->second;
-        UInt16                      uiBinding = UInt16(mapIt->first &
-                                                       0x0000FFFF    );
+        FieldContainerAttachmentUnrecPtr att       = mapIt->second;
+        UInt16                           uiBinding = UInt16(mapIt->first &
+                                                            0x0000FFFF    );
 
         if(att != NullFC)
         {
@@ -555,7 +555,7 @@ void cloneAttachments(
                                                    cloneTypes.end(),
                                                    attType               )   )
                 {
-                    att = dynamic_cast<FieldContainerAttachmentPtr>(
+                    att = dynamic_pointer_cast<FieldContainerAttachment>(
                         OSG::deepClone(att, cloneTypes,    ignoreTypes,
                                             cloneGroupIds, ignoreGroupIds));
                 }
@@ -703,9 +703,9 @@ void deepCloneAttachments(
 
     for(; mapIt != mapEnd; ++mapIt)
     {
-        FieldContainerAttachmentPtr att       = mapIt->second;
-        UInt16                      uiBinding = UInt16(mapIt->first &
-                                                       0x0000FFFF    );
+        FieldContainerAttachmentUnrecPtr att       = mapIt->second;
+        UInt16                           uiBinding = UInt16(mapIt->first &
+                                                            0x0000FFFF    );
 
         if(att != NullFC)
         {
@@ -727,7 +727,7 @@ void deepCloneAttachments(
                                                     shareTypes.end(),
                                                     attType               )   )
                 {
-                    att = dynamic_cast<FieldContainerAttachmentPtr>(
+                    att = dynamic_pointer_cast<FieldContainerAttachment>(
                         OSG::deepClone(att, shareTypes,    ignoreTypes,
                                             shareGroupIds, ignoreGroupIds));
                 }

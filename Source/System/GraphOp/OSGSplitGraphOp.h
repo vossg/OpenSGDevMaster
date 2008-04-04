@@ -76,7 +76,7 @@ public:
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool traverse(NodePtr& root);
+    bool traverse(NodePtr root);
 
     //virtual const std::string getName(void) { return _name; };
 

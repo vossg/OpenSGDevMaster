@@ -119,6 +119,9 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     NodeCorePtr getCore(void                    ) const;
 
     void        setCore(NodeCorePtrConstArg core);
+    
+    template <class ObjectT>
+    void        setCore(TransitPtr<ObjectT>  core);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -135,6 +138,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     UInt32  getNChildren  (void                      ) const;
 
     void    addChild      (NodePtrConstArg childP    );
+    void    addChild      (NodeTransitPtr  childP    );
 
     void    insertChild   (UInt32          childIndex,
                            NodePtrConstArg childP    );
@@ -400,7 +404,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
 };
 
 OSG_SYSTEM_DLLMAPPING
-NodePtr cloneTree(      
+NodeTransitPtr cloneTree(      
           NodePtrConstArg                          rootNode,
     const std::vector<std::string>                &cloneTypeNames,
 
@@ -414,14 +418,14 @@ NodePtr cloneTree(
               std::vector<std::string>()                              );
 
 OSG_SYSTEM_DLLMAPPING
-NodePtr cloneTree(      
+NodeTransitPtr cloneTree(      
           NodePtrConstArg                          rootNode,
     const std::vector<UInt16>                     &cloneGroupIds,
     const std::vector<UInt16>                     &ignoreGroupIds    =
               std::vector<UInt16>()                                   );
 
 OSG_SYSTEM_DLLMAPPING
-NodePtr cloneTree(      
+NodeTransitPtr cloneTree(      
           NodePtrConstArg                          rootNode,
     const std::string                             &cloneTypesString,
     const std::string                             &ignoreTypesString =
@@ -429,7 +433,7 @@ NodePtr cloneTree(
 
 #ifdef OSG_1_COMPAT
 OSG_SYSTEM_DLLMAPPING
-NodePtr cloneTree(      
+NodeTransitPtr cloneTree(      
           NodePtrConstArg                              rootNode,
 
     const std::vector<const ReflexiveContainerType *> &cloneTypes        =
@@ -445,7 +449,7 @@ NodePtr cloneTree(
               std::vector<UInt16>()                                          );
 #else
 OSG_SYSTEM_DLLMAPPING
-NodePtr cloneTree(      
+NodeTransitPtr cloneTree(      
           NodePtrConstArg                          rootNode,
 
     const std::vector<const ReflexiveContainerType *> &cloneTypes        =
@@ -462,7 +466,7 @@ NodePtr cloneTree(
 #endif
 
 OSG_SYSTEM_DLLMAPPING
-NodePtr deepCloneTree(
+NodeTransitPtr deepCloneTree(
           NodePtrConstArg                          rootNode,
     const std::vector<std::string>                &shareTypeNames,
 
@@ -476,7 +480,7 @@ NodePtr deepCloneTree(
               std::vector<std::string>()                                  );
 
 OSG_SYSTEM_DLLMAPPING
-NodePtr deepCloneTree(      
+NodeTransitPtr deepCloneTree(      
           NodePtrConstArg                          rootNode,
     const std::vector<UInt16>                     &shareGroupIds,
 
@@ -484,7 +488,7 @@ NodePtr deepCloneTree(
               std::vector<UInt16>()                                       );
 
 OSG_SYSTEM_DLLMAPPING
-NodePtr deepCloneTree(      
+NodeTransitPtr deepCloneTree(      
           NodePtrConstArg                          rootNode,
     const std::string                             &shareTypesString,
 
@@ -492,7 +496,7 @@ NodePtr deepCloneTree(
               std::string()                                               );
 
 OSG_SYSTEM_DLLMAPPING
-NodePtr deepCloneTree(      
+NodeTransitPtr deepCloneTree(      
           NodePtrConstArg                          rootNode,
 
     const std::vector<const ReflexiveContainerType *> &shareTypes     =
@@ -507,13 +511,14 @@ NodePtr deepCloneTree(
               std::vector<UInt16>()                                       );
 
 template <class Core> inline
-NodePtr makeCoredNode(typename Core::ObjPtr *coreP = NULL);
+NodeTransitPtr makeCoredNode(typename Core::ObjRefPtr *coreP = NULL);
 
 template <class CorePtr> inline
-NodePtr makeNodeFor(CorePtr core);
+NodeTransitPtr makeNodeFor(CorePtr core);
 
 OSG_END_NAMESPACE
 
+#include "OSGNodeCore.h"
 #include "OSGNode.inl"
 #if 0
 #include "OSGCoredNodePtr.h"

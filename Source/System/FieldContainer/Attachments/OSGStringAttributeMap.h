@@ -138,7 +138,10 @@ typedef StringAttributeMap *StringAttributeMapP;
 /*---------------------------------------------------------------------*/
 /*! \name              StringAttributeMap Util                         */
 /*! \{                                                                 */
-StringAttributeMapPtr stringAttributeMap(AttachmentContainerPtr container);
+
+StringAttributeMapTransitPtr stringAttributeMap(
+    AttachmentContainerPtr container);
+
 /*! \}                                                                 */
 
 OSG_END_NAMESPACE

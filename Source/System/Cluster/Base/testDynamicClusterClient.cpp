@@ -32,9 +32,9 @@ OSG_USING_NAMESPACE
 
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager          *_mgr = NULL;
-GLUTWindowPtr               _client_win = NullFC;
-MultiDisplayWindowPtr       _cluster_win = NullFC;
-NodePtr                     _root = NullFC;
+GLUTWindowRefPtr            _client_win = NullFC;
+MultiDisplayWindowRefPtr    _cluster_win = NullFC;
+NodeRefPtr                  _root = NullFC;
 std::vector<std::string>    _pipenames;
 UInt32                      _first_fc = 0;
 
@@ -89,7 +89,7 @@ int main(int argc, char **argv)
     _root->setCore(Group::create());
     
     // create default scene
-    NodePtr scene = makeTorus(.5, 2, 16, 16);
+    NodeUnrecPtr scene = makeTorus(.5, 2, 16, 16);
 
     _root->addChild(scene);
 
@@ -117,7 +117,7 @@ static void connectCluster(void)
     ViewportPtr clientvp = _client_win->getPort()[0];
     
     // create the viewports for the cluster just a simple one ...
-    ViewportPtr vp = Viewport::create();
+    ViewportUnrecPtr vp = Viewport::create();
 
     vp->setCamera    (_mgr->getCamera());
     vp->setBackground(clientvp->getBackground());
@@ -195,7 +195,7 @@ void display(void)
         //printf("error: '%s'\n", e.what());
         printf("ClusterServer was killed!\n");
 
-        subRefX(_cluster_win);
+//        subRefX(_cluster_win);
 
         _cluster_win = NullFC;
     } 
@@ -236,6 +236,12 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:    
         {
+            delete _mgr;
+
+            _client_win  = NullFC;
+            _cluster_win = NullFC;
+            _root        = NullFC;
+
             OSG::osgExit();
             exit(0);
         }
@@ -247,7 +253,7 @@ void keyboard(unsigned char k, int x, int y)
         break;
         case 'l':
         {
-            NodePtr scene = SceneFileHandler::the()->read("tie.wrl");
+            NodeUnrecPtr scene = SceneFileHandler::the()->read("tie.wrl", NULL);
 
             if(scene != NullFC)
             {
@@ -261,7 +267,7 @@ void keyboard(unsigned char k, int x, int y)
         break;
         case 't':
         {
-            NodePtr scene = makeTorus(.5, 2, 16, 16);
+            NodeUnrecPtr scene = makeTorus(.5, 2, 16, 16);
 
             _root->addChild(scene);
 

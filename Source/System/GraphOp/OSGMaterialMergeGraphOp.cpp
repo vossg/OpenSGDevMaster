@@ -228,7 +228,7 @@ bool equal(MaterialPtr a, MaterialPtr b) {
 }
 
 
-bool MaterialMergeGraphOp::traverse(NodePtr& node)
+bool MaterialMergeGraphOp::traverse(NodePtr node)
 {
     // Find the materials.
     if (!GraphOp::traverse(node)) {

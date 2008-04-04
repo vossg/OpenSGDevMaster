@@ -10,15 +10,22 @@
 
 OSG_USING_NAMESPACE
 
-int             winid;
-ClusterServer  *server;
-GLUTWindowPtr   window;
-RenderAction   *ract;
-bool            running=false;
-bool            exitOnError=false;
-UInt32          servicePort=8437;
-std::string     serviceGroup="224.245.211.234";
-int             winWidth=0,winHeight=0;
+int                 winid;
+ClusterServer      *server;
+GLUTWindowRefPtr    window;
+RenderAction       *ract;
+bool                running=false;
+bool                exitOnError=false;
+UInt32              servicePort=8437;
+std::string         serviceGroup="224.245.211.234";
+int                 winWidth=0,winHeight=0;
+
+void cleanup(void)
+{
+    window = NullFC;
+
+    osgExit();
+}
 
 void display()
 {
@@ -51,7 +58,7 @@ void display()
             {
             }
             printf("Exit on error %s",e.what());
-            osgExit();
+            cleanup();
             exit(0);
         }
         else
@@ -88,6 +95,7 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             break;
         case 's':
             SceneFileHandler::the()->write(window->getPort()[0]->getRoot(),"server.osg");
+            cleanup();
             exit(0);
             break;
 	}
@@ -135,6 +143,7 @@ int main(int argc,char **argv)
                     {
                         SWARNING << "Wrong args in -g. Use -gw,h,x,y" 
                                  << std::endl;
+                        cleanup();
                         exit(0);
                     }
                     break;
@@ -240,6 +249,7 @@ int main(int argc,char **argv)
     {
         SLOG << e.what() << std::endl;
         delete server;
+        cleanup();
         osgExit(); 
     }
     return 0;

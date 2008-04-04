@@ -54,19 +54,19 @@ OSG_BEGIN_NAMESPACE
 /*! \{                                                                 */
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makePlaneGeo          (Real32 xsize,
+GeometryTransitPtr        makePlaneGeo          (Real32 xsize,
                                                  Real32 ysize,
                                                  UInt16 hor,
                                                  UInt16 vert);
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makePlane             (Real32 xsize,
+NodeTransitPtr            makePlane             (Real32 xsize,
                                                  Real32 ysize,
                                                  UInt16 hor,
                                                  UInt16 vert);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeBoxGeo            (Real32 xsize,
+GeometryTransitPtr        makeBoxGeo            (Real32 xsize,
                                                  Real32 ysize,
                                                  Real32 zsize,
                                                  UInt16 hor,
@@ -74,7 +74,7 @@ GeometryPtr               makeBoxGeo            (Real32 xsize,
                                                  UInt16 depth);
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeBox               (Real32 xsize,
+NodeTransitPtr            makeBox               (Real32 xsize,
                                                  Real32 ysize,
                                                  Real32 zsize,
                                                  UInt16 hor,
@@ -82,21 +82,21 @@ NodePtr                   makeBox               (Real32 xsize,
                                                  UInt16 depth);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeConeGeo           (Real32 height,
+GeometryTransitPtr        makeConeGeo           (Real32 height,
                                                  Real32 botradius,
                                                  UInt16 sides,
                                                  bool   doSide,
                                                  bool   doBottom);
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeCone              (Real32 height,
+NodeTransitPtr            makeCone              (Real32 height,
                                                  Real32 botradius,
                                                  UInt16 sides,
                                                  bool   doSide,
                                                  bool   doBottom);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeCylinderGeo       (Real32 height,
+GeometryTransitPtr        makeCylinderGeo       (Real32 height,
                                                  Real32 radius,
                                                  UInt16 sides,
                                                  bool   doSide,
@@ -104,7 +104,7 @@ GeometryPtr               makeCylinderGeo       (Real32 height,
                                                  bool   doBottom);
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeCylinder          (Real32 height,
+NodeTransitPtr            makeCylinder          (Real32 height,
                                                  Real32 radius,
                                                  UInt16 sides,
                                                  bool   doSide,
@@ -112,50 +112,50 @@ NodePtr                   makeCylinder          (Real32 height,
                                                  bool   doBottom);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeTorusGeo          (Real32 innerRadius,
+GeometryTransitPtr        makeTorusGeo          (Real32 innerRadius,
                                                  Real32 outerRadius,
                                                  UInt16 sides,
                                                  UInt16 rings );
 
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeTorus             (Real32 innerRadius,
+NodeTransitPtr            makeTorus             (Real32 innerRadius,
                                                  Real32 outerRadius,
                                                  UInt16 sides,
                                                  UInt16 rings);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeSphereGeo         (UInt16 depth,
+GeometryTransitPtr        makeSphereGeo         (UInt16 depth,
                                                  Real32 radius);
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeSphere            (UInt16 depth,
+NodeTransitPtr            makeSphere            (UInt16 depth,
                                                  Real32 radius);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeLatLongSphereGeo  (UInt16 latres,
+GeometryTransitPtr        makeLatLongSphereGeo  (UInt16 latres,
                                                  UInt16 longres,
                                                  Real32 radius);
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeLatLongSphere     (UInt16 latres,
+NodeTransitPtr            makeLatLongSphere     (UInt16 latres,
                                                  UInt16 longres,
                                                  Real32 radius);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeLatLongEllipsoidGeo(UInt16 latres,
+GeometryTransitPtr        makeLatLongEllipsoidGeo(UInt16 latres,
                                                   UInt16 longres,
                                                   Real32 rSemiMajorAxis,
                                                   Real32 rSemiMinorAxis);
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeLatLongEllipsoid   (UInt16 latres,
+NodeTransitPtr            makeLatLongEllipsoid   (UInt16 latres,
                                                   UInt16 longres,
                                                   Real32 rSemiMajorAxis,
                                                   Real32 rSemiMinorAxis);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeLatLongEllipsoidGeoSeg(UInt16 latres,
+GeometryTransitPtr        makeLatLongEllipsoidGeoSeg(UInt16 latres,
                                                      UInt16 longres,
                                                      Real32 rSemiMajorAxis,
                                                      Real32 rSemiMinorAxis,
@@ -165,7 +165,7 @@ GeometryPtr               makeLatLongEllipsoidGeoSeg(UInt16 latres,
                                                      Real32 rStopLongRad );
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeLatLongEllipsoidSeg   (UInt16 latres,
+NodeTransitPtr            makeLatLongEllipsoidSeg   (UInt16 latres,
                                                      UInt16 longres,
                                                      Real32 rSemiMajorAxis,
                                                      Real32 rSemiMinorAxis,
@@ -175,19 +175,19 @@ NodePtr                   makeLatLongEllipsoidSeg   (UInt16 latres,
                                                      Real32 rStopLongRad );
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeEllipsoidAxisGeo   (UInt16 latres,
+GeometryTransitPtr         makeEllipsoidAxisGeo   (UInt16 latres,
                                                   UInt16 longres,
                                                   Real32 rSemiMajorAxis,
                                                   Real32 rSemiMinorAxis);
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeEllipsoidAxis      (UInt16 latres,
+NodeTransitPtr            makeEllipsoidAxis      (UInt16 latres,
                                                   UInt16 longres,
                                                   Real32 rSemiMajorAxis,
                                                   Real32 rSemiMinorAxis);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeConicalFrustumGeo (Real32 height,
+GeometryTransitPtr        makeConicalFrustumGeo (Real32 height,
                                                  Real32 topradius,
                                                  Real32 botradius,
                                                  UInt16 sides,
@@ -196,7 +196,7 @@ GeometryPtr               makeConicalFrustumGeo (Real32 height,
                                                  bool   doBottom);
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeConicalFrustum    (Real32 height,
+NodeTransitPtr            makeConicalFrustum    (Real32 height,
                                                  Real32 topradius,
                                                  Real32 botradius,
                                                  UInt16 sides,
@@ -204,20 +204,20 @@ NodePtr                   makeConicalFrustum    (Real32 height,
                                                  bool   doTop,
                                                  bool   doBottom);
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeCoordAxis(Real32 length,
+NodeTransitPtr            makeCoordAxis(Real32 length,
                                         Real32 lineWidth    = 2.0f,
                                         bool   showAxisName = true);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeCoordAxisGeo(Real32 length,
+GeometryTransitPtr        makeCoordAxisGeo(Real32 length,
                                            Real32 lineWidth    = 2.0f,
                                            bool   showAxisName = true);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryPtr               makeTeapotGeo(UInt16 depth);
+GeometryTransitPtr        makeTeapotGeo(UInt16 depth);
 
 OSG_DRAWABLE_DLLMAPPING
-NodePtr                   makeTeapot         (UInt16 depth);
+NodeTransitPtr            makeTeapot         (UInt16 depth);
 
 /*! \}                                                                 */
 

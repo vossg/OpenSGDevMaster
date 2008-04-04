@@ -274,11 +274,11 @@ static std::string _fp_program =
 "}\n";
 
 // SHLChunk initialized in QuadTreeTerrain::changed
-static SHLChunkPtr s_shlChunk;
+static SHLChunkUnrecPtr s_shlChunk;
 
-SHLChunkPtr QuadTreeTerrain::createSHLChunk () const
+SHLChunkTransitPtr QuadTreeTerrain::createSHLChunk () const
 {
-   SHLChunkPtr shl = SHLChunk::create();
+   SHLChunkTransitPtr shl = SHLChunk::create();
 
    shl->setVertexProgram  (_vp_program);
    shl->setFragmentProgram(_fp_program);
@@ -286,7 +286,7 @@ SHLChunkPtr QuadTreeTerrain::createSHLChunk () const
    // CF without the following addRefCP, 
    // it crashes on changing SHLParameterChunks in Terrain::addMaterialChunks
 
-   addRefX(shl);
+   //addRefX(shl);
 
    return shl;
 }
@@ -345,16 +345,16 @@ static std::string _avp_program =
 "END\n"
 "# 31 instructions, 6 R-regs\n";
 
-VertexProgramChunkPtr QuadTreeTerrain::createVPChunk () const
+VertexProgramChunkTransitPtr QuadTreeTerrain::createVPChunk () const
 {
    std::istringstream vpcode(_avp_program.c_str());
 
-   VertexProgramChunkPtr vp = VertexProgramChunk::create();
+   VertexProgramChunkTransitPtr vp = VertexProgramChunk::create();
    vp->read(vpcode);
 
    // parameter come here
 
-   addRefX(vp);
+   //addRefX(vp);
 
    return vp;
 }
@@ -390,11 +390,11 @@ static std::string _afp_program =
 "END\n"
 "# 22 instructions, 2 R-regs\n";
 
-FragmentProgramChunkPtr QuadTreeTerrain::createFPChunk () const
+FragmentProgramChunkTransitPtr QuadTreeTerrain::createFPChunk () const
 {
    std::istringstream fpcode(_afp_program.c_str());
 
-   FragmentProgramChunkPtr fp = FragmentProgramChunk::create();
+   FragmentProgramChunkTransitPtr fp = FragmentProgramChunk::create();
 
    fp->read(fpcode);
    // parameter come here
@@ -448,7 +448,7 @@ FragmentProgramChunkPtr QuadTreeTerrain::createFPChunk () const
    fp->addParameter("specularFactor",   8, Vec4f(0.2f, 0.2f, 0.2f, 0.2f));
    fp->addParameter("basecolor",        0, Vec4f(1.0f, 1.0f, 1.0f, 1.0f));
 
-   addRefX(fp);
+//   addRefX(fp);
 
    return fp;
 }
@@ -458,7 +458,7 @@ void QuadTreeTerrain::addMaterialChunks(void) const
 #if 1
 #ifndef WITH_SINGLE_SHLCHUNK
 
-   SHLParameterChunkPtr shlp = SHLParameterChunk::create();
+   SHLParameterChunkUnrecPtr shlp = SHLParameterChunk::create();
 
    shlp->setSHLChunk(s_shlChunk);
    shlp->setUniformParameter("texSampler",  0);
@@ -485,7 +485,7 @@ void QuadTreeTerrain::addMaterialChunks(void) const
 
 #else
 
-   SHLChunkPtr shl = SHLChunk::create();
+   SHLChunkUnrecPtr shl = SHLChunk::create();
 
    shl->setVertexProgram  (_vp_program);
    shl->setFragmentProgram(_fp_program);
@@ -515,12 +515,12 @@ void QuadTreeTerrain::addMaterialChunks(void) const
 #endif
 
 #else
-   VertexProgramChunkPtr   vp = createVPChunk();
-   FragmentProgramChunkPtr fp = createFPChunk();
+   VertexProgramChunkUnrecPtr   vp = createVPChunk();
+   FragmentProgramChunkUnrecPtr fp = createFPChunk();
 #endif
 
-   ImagePtr           normal_map_img = createNormalMap();
-   TextureObjChunkPtr tex_normal_map = TextureObjChunk::create();
+   ImageUnrecPtr           normal_map_img = createNormalMap();
+   TextureObjChunkUnrecPtr tex_normal_map = TextureObjChunk::create();
 
    tex_normal_map->setImage(normal_map_img);
    tex_normal_map->setMinFilter(GL_LINEAR);
@@ -589,12 +589,12 @@ void QuadTreeTerrain::addMaterialChunks(void) const
    mat->addChunk(tex_normal_map, 1);
 }
 
-ImagePtr QuadTreeTerrain::createNormalMap () const
+ImageTransitPtr QuadTreeTerrain::createNormalMap () const
 {
-   ImagePtr out = Image::create();
+    ImageTransitPtr out = Image::create();
 
-   out->set(Image::OSG_RGB_PF, getWidth()-1, getWidth()-1, 1, 
-            1, 1, 0.0f, NULL, Image::OSG_UINT8_IMAGEDATA);
+    out->set(Image::OSG_RGB_PF, getWidth()-1, getWidth()-1, 1, 
+             1, 1, 0.0f, NULL, Image::OSG_UINT8_IMAGEDATA);
 
    UInt8* outData = (UInt8*) out->editData();
 
@@ -635,6 +635,7 @@ ImagePtr QuadTreeTerrain::createNormalMap () const
            inum += 3;
        }
    }
+
    return out;
 }
 
@@ -1892,10 +1893,10 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
             
             UInt32 x, z;
             
-            GeoPnt3fPropertyPtr  pos = GeoPnt3fProperty ::create();
-            GeoUInt32PropertyPtr ind = GeoUInt32Property::create();
-            GeoUInt8PropertyPtr  typ = GeoUInt8Property ::create();
-            GeoUInt32PropertyPtr len = GeoUInt32Property::create();
+            GeoPnt3fPropertyUnrecPtr  pos = GeoPnt3fProperty ::create();
+            GeoUInt32PropertyUnrecPtr ind = GeoUInt32Property::create();
+            GeoUInt8PropertyUnrecPtr  typ = GeoUInt8Property ::create();
+            GeoUInt32PropertyUnrecPtr len = GeoUInt32Property::create();
 
             Pnt3f boundMin(Inf, Inf, Inf);
             Pnt3f boundMax(NegInf, NegInf, NegInf);
@@ -1923,15 +1924,17 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
 
 	 // original heightfield points; Positions is used for geomorphing
 
-            GeoPnt3fPropertyPtr vert = 
-                dynamic_cast<GeoPnt3fPropertyPtr>(pos->clone());
+            GeoPnt3fPropertyUnrecPtr vert = 
+                dynamic_pointer_cast<GeoPnt3fProperty>(pos->clone());
 
+#if 0
             addRefX(vert);
 
             if(getHeightVertices() != NullFC) 
             {
                 subRefX(getHeightVertices());
             }
+#endif
 	 
 
             // geometry fields
@@ -1966,7 +1969,7 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
             tstep = getTexYSpacing() / (Real32)getWidth();
        }
 
-        GeoVec2fPropertyPtr tex;
+        GeoVec2fPropertyUnrecPtr tex;
 
         if(getTexCoords() == NullFC) 
         {
@@ -2011,7 +2014,7 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
            GeoPnt3fPropertyPtr pos  = 
                dynamic_cast<GeoPnt3fPropertyPtr>(getPositions());
 
-           GeoVec3fPropertyPtr norm = GeoVec3fProperty::create();
+           GeoVec3fPropertyUnrecPtr norm = GeoVec3fProperty::create();
            
            norm->editFieldPtr()->clear();
  

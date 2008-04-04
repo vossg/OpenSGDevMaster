@@ -93,17 +93,13 @@ GeoBuilder::GeoBuilder(void) :
 
 GeoBuilder::~GeoBuilder()
 {
-    if(_geo != NullFC)
-        subRefX(_geo);
 }
 
 void GeoBuilder::reset(void)
 {
-    if(_geo != NullFC)
-        subRefX(_geo);
+    _geo = NullFC;
 
     _geo = Geometry::create();
-    addRefX(_geo);
 
     MaterialPtr mat = getDefaultMaterial();
 
@@ -116,12 +112,12 @@ void GeoBuilder::reset(void)
 // Property Helper
 GeoVectorPropertyPtr GeoBuilder::getProperty(UInt32 index)
 {
-    GeoVectorPropertyPtr att;
+    GeoVectorPropertyUnrecPtr att;
 
     if(index >= _geo->getProperties().size() ||
        _geo->getProperty(index) == NullFC)
     {
-        att = dynamic_cast<GeoVectorPropertyPtr>(
+        att = dynamic_pointer_cast<GeoVectorProperty>(
                 FieldContainerFactory::the()->createContainer(
                     _defaultPropTypes[index]));
 
@@ -172,7 +168,7 @@ void GeoBuilder::addType(Int32 type)
 {
     if(_geo->getTypes() == NullFC)
     {
-        GeoIntegralPropertyPtr t = GeoUInt8Property::create();
+        GeoIntegralPropertyUnrecPtr t = GeoUInt8Property::create();
         _geo->setTypes(t);
 
     }
@@ -183,7 +179,7 @@ void GeoBuilder::addLength(UInt32 length)
 {
     if(_geo->getLengths() == NullFC)
     {
-        GeoIntegralPropertyPtr l = GeoUInt32Property::create();
+        GeoIntegralPropertyUnrecPtr l = GeoUInt32Property::create();
         _geo->setLengths(l);
     }
     _geo->getLengths()->addValue(length);
@@ -199,7 +195,7 @@ void GeoBuilder::index(UInt32 index)
 
     if(_geo->getIndices() == NullFC)
     {
-        GeoIntegralPropertyPtr i = GeoUInt32Property::create();
+        GeoIntegralPropertyUnrecPtr i = GeoUInt32Property::create();
         _geo->setIndices(i);
     }
 

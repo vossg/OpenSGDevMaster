@@ -97,7 +97,7 @@ public:
 
     GraphOp* create();
 
-    bool traverse(NodePtr& node);
+    bool traverse(NodePtr node);
 
     void setParams(const std::string params);
     

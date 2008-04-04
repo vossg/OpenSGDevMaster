@@ -58,8 +58,9 @@ OSG_BEGIN_NAMESPACE
 
 struct FieldContainerFactoryDesc
 {
-    typedef FieldContainerType ContainerType;
-    typedef FieldContainerPtr  ContainerPtr;
+    typedef FieldContainerType       ContainerType;
+    typedef FieldContainerPtr        ContainerPtr;
+    typedef FieldContainerTransitPtr ContainerTransitPtr;
 
     static Char8 *getContainerFactoryLockName(void)
     {

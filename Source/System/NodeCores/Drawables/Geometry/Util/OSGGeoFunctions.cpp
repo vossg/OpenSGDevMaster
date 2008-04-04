@@ -164,11 +164,11 @@ void calcVertexNormals(GeometryPtrArg geo)
 {
     typedef std::set<UInt32> IndexSet;
 
-    GeoVectorPropertyPtr   norms;
-    GeoIntegralPropertyPtr normsIndex;
-    GeoIntegralPropertyPtr posIndex;
+    GeoVectorPropertyUnrecPtr   norms;
+    GeoIntegralPropertyUnrecPtr normsIndex;
+    GeoIntegralPropertyUnrecPtr posIndex;
 
-    IndexSet               used_indices;
+    IndexSet                    used_indices;
 
     posIndex = geo->getIndex(Geometry::PositionsIndex);
 
@@ -291,10 +291,10 @@ merged.
 void calcVertexNormals(GeometryPtrArg geo,
                        Real32         creaseAngle)
 {
-    GeoVectorPropertyPtr   norms;
-    GeoVectorPropertyPtr   positions;
-    GeoIntegralPropertyPtr normsIndex;
-    GeoIntegralPropertyPtr posIndex;
+    GeoVectorPropertyUnrecPtr   norms;
+    GeoVectorPropertyUnrecPtr   positions;
+    GeoIntegralPropertyUnrecPtr normsIndex;
+    GeoIntegralPropertyUnrecPtr posIndex;
 
     if(creaseAngle >= Pi)
     {
@@ -532,9 +532,9 @@ void calcVertexTangentsProp(GeometryPtrArg geo,
                             UInt32         dstPropTan,
                             UInt32         dstPropBin)
 {
-    GeoVec4fPropertyPtr  tangentP;
-    GeoVec4fPropertyPtr  binormalP;
-    GeoUInt32PropertyPtr tanBinIndexP;
+    GeoVec4fPropertyUnrecPtr  tangentP;
+    GeoVec4fPropertyUnrecPtr  binormalP;
+    GeoUInt32PropertyUnrecPtr tanBinIndexP;
 
     std::vector<Vec3f> tangent, binormal, normal;
 
@@ -735,9 +735,9 @@ void calcVertexTexCoordsProp2D(GeometryPtr geo,
     Int32 S = -1, T = -1, n = 3, i, j; 
     Real32 sDenom, tDenom, sMin, tMin;
     
-    GeoIntegralPropertyPtr ip   = geo->getIndices  ();
-    GeoVectorPropertyPtr   posP = geo->getPositions();
-    GeoVectorPropertyPtr   texP;
+    GeoIntegralPropertyUnrecPtr ip   = geo->getIndices  ();
+    GeoVectorPropertyUnrecPtr   posP = geo->getPositions();
+    GeoVectorPropertyUnrecPtr   texP;
 
     if(posP == NullFC || !posP->size() || ip == NullFC || !ip->size())
     {
@@ -898,14 +898,14 @@ Int32 setIndexFromVRMLData(     GeometryPtrArg  geoPtr,
     };
 #endif
 
-    GeoVectorPropertyPtr   posPtr;
-    GeoVectorPropertyPtr   normalPtr;
-    GeoVectorPropertyPtr   colorPtr;
-    GeoVectorPropertyPtr   texCoordsPtr;
-    GeoIntegralPropertyPtr lensPtr;
-    GeoIntegralPropertyPtr geoTypePtr;
+    GeoVectorPropertyUnrecPtr   posPtr;
+    GeoVectorPropertyUnrecPtr   normalPtr;
+    GeoVectorPropertyUnrecPtr   colorPtr;
+    GeoVectorPropertyUnrecPtr   texCoordsPtr;
+    GeoIntegralPropertyUnrecPtr lensPtr;
+    GeoIntegralPropertyUnrecPtr geoTypePtr;
 
-    GeoIntegralPropertyPtr posIndexPtr  = NullFC;
+    GeoIntegralPropertyUnrecPtr posIndexPtr  = NullFC;
 
     Int32 index, i, pi, typei, mapi, primitiveN = 0, vN = 0;
     Int32 pType = 0, localPType;
@@ -932,7 +932,7 @@ Int32 setIndexFromVRMLData(     GeometryPtrArg  geoPtr,
         &texCoordIndex
     };
 
-    GeoIntegralPropertyPtr indexOutBag[4] =
+    GeoIntegralPropertyUnrecPtr indexOutBag[4] =
     {
         NullFC,
         NullFC,
@@ -1513,14 +1513,14 @@ Int32 setIndexFromIndexedX3DData ( GeometryPtr geoPtr,
         "PRIMITIVE_CREATE_IT"
     };
 
-    GeoVectorPropertyPtr   posPtr;
-    GeoVectorPropertyPtr   normalPtr;
-    GeoVectorPropertyPtr   colorPtr;
-    GeoVectorPropertyPtr   texCoordsPtr;
+    GeoVectorPropertyUnrecPtr   posPtr;
+    GeoVectorPropertyUnrecPtr   normalPtr;
+    GeoVectorPropertyUnrecPtr   colorPtr;
+    GeoVectorPropertyUnrecPtr   texCoordsPtr;
 
-    GeoIntegralPropertyPtr lensPtr;
-    GeoIntegralPropertyPtr geoTypePtr;
-    GeoIntegralPropertyPtr posIndexPtr  = NullFC;
+    GeoIntegralPropertyUnrecPtr lensPtr;
+    GeoIntegralPropertyUnrecPtr geoTypePtr;
+    GeoIntegralPropertyUnrecPtr posIndexPtr  = NullFC;
 
     //bool faceSet = (primitiveType == GL_POLYGON);
     Int32 index, i, pi, typei, mapi, primitiveN = 0, vN = 0;
@@ -1548,7 +1548,7 @@ Int32 setIndexFromIndexedX3DData ( GeometryPtr geoPtr,
         &texCoordIndex
     };
 
-    GeoIntegralPropertyPtr indexOutBag[4] =
+    GeoIntegralPropertyUnrecPtr indexOutBag[4] =
     {
         NullFC,
         NullFC,
@@ -2309,8 +2309,8 @@ Int32 createOptimizedPrimitives(GeometryPtrArg  geo,
     // valid result
     if(bestCost && (bestCost < startCost))
     {
-        GeoIntegralPropertyPtr lensPtr;
-        GeoIntegralPropertyPtr geoTypePtr;
+        GeoIntegralPropertyUnrecPtr lensPtr;
+        GeoIntegralPropertyUnrecPtr geoTypePtr;
 
         // check/create the indexPtr/lengthsPtr/geoTypePtr
 
@@ -2833,10 +2833,10 @@ the normals.
 it just uses them as if.
 
 */
-NodePtr calcVertexNormalsGeo(GeometryPtrArg  geo, 
-                             Real32          length)
+NodeTransitPtr calcVertexNormalsGeo(GeometryPtrArg  geo, 
+                                    Real32          length)
 {
-    GeoPnt3fPropertyPtr pnts = GeoPnt3fProperty::create();
+    GeoPnt3fPropertyUnrecPtr pnts = GeoPnt3fProperty::create();
 
     // calculate
 
@@ -2871,15 +2871,15 @@ NodePtr calcVertexNormalsGeo(GeometryPtrArg  geo,
         }
     }
 
-    GeoIntegralPropertyPtr type = GeoUInt8Property::create();
+    GeoIntegralPropertyUnrecPtr type = GeoUInt8Property::create();
 
     type->push_back(GL_LINES);
 
-    GeoIntegralPropertyPtr lens = GeoUInt32Property::create();
+    GeoIntegralPropertyUnrecPtr lens = GeoUInt32Property::create();
 
     lens->push_back(pnts->getSize());
 
-    GeometryPtr g = Geometry::create();
+    GeometryUnrecPtr g = Geometry::create();
 
     g->setTypes    (type);
     g->setLengths  (lens);
@@ -2897,15 +2897,15 @@ the normals.
 it just uses them as if.
 
 */
-NodePtr calcFaceNormalsGeo(GeometryPtrArg  geo, 
-                           Real32          length)
+NodeTransitPtr calcFaceNormalsGeo(GeometryPtrArg  geo, 
+                                  Real32          length)
 {
-    NodePtr              p     = Node::create();
-    GeometryPtr          g     = Geometry::create();
-    GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty::create();
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
-    GeoUInt8PropertyPtr  type  = GeoUInt8Property::create();
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
+    NodeTransitPtr            p     = Node::create();
+    GeometryUnrecPtr          g     = Geometry::create();
+    GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty::create();
+    GeoUInt32PropertyUnrecPtr index = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr  type  = GeoUInt8Property::create();
+    GeoUInt32PropertyUnrecPtr lens  = GeoUInt32Property::create();
 
     // calculate
 

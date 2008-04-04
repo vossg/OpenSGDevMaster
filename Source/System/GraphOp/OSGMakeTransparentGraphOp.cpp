@@ -78,7 +78,7 @@ T next(T t) // Iterator passed by value.
 }
 
 
-bool MakeTransparentGraphOp::traverse(NodePtr& node)
+bool MakeTransparentGraphOp::traverse(NodePtr node)
 {
     // Find the materials.
     if (!GraphOp::traverse(node)) {
@@ -89,8 +89,10 @@ bool MakeTransparentGraphOp::traverse(NodePtr& node)
     MaterialObjectMap::iterator itr = _materialObjects.begin();
     for (; itr != _materialObjects.end(); ++itr)
     {
-        MaterialPtr oldMaterial = itr->first;
-        MaterialPtr newMaterial = dynamic_cast<MaterialPtr>(deepClone(oldMaterial));
+        MaterialPtr      oldMaterial = itr->first;
+        MaterialUnrecPtr newMaterial = 
+            dynamic_pointer_cast<Material>(deepClone(oldMaterial));
+
         if (newMaterial != NullFC)
         {
             std::cout << "Applying transparency:  ";
@@ -179,11 +181,12 @@ struct Type2Type {
 
 
 template<typename Chunk>
-typename Chunk::ObjPtr getOrAddChunk(ChunkMaterialPtr cm,
+typename Chunk::ObjUnrecPtr getOrAddChunk(ChunkMaterialPtr cm,
                                      Type2Type<Chunk> = Type2Type<Chunk>()) {
     OSG::StateChunkPtr stateChunk = cm->find(Chunk::getClassType());
 
-    typename Chunk::ObjPtr chunk = dynamic_cast<typename Chunk::ObjPtr>(stateChunk);
+    typename Chunk::ObjUnrecPtr chunk = 
+        dynamic_cast<typename Chunk::ObjPtr>(stateChunk);
 
     if (!chunk) {
         chunk = Chunk::create();

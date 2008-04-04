@@ -276,11 +276,11 @@ void SortLastWindow::serverRender(WindowPtr         serverWindow,
                                   UInt32            id,
                                   RenderActionBase *action      )
 {
-    ViewportPtr serverPort  = NullFC;
-    ViewportPtr clientPort  = NullFC;
-    UInt32      sv          = 0;
-    UInt32      cv          = 0;
-    UInt32      regionStart = 0;
+    ViewportUnrecPtr serverPort  = NullFC;
+    ViewportPtr      clientPort  = NullFC;
+    UInt32           sv          = 0;
+    UInt32           cv          = 0;
+    UInt32           regionStart = 0;
 
     // duplicate viewports
     for(cv = 0, sv = 0; cv < getPort().size(); ++cv)

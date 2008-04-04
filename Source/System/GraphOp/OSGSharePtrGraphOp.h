@@ -79,7 +79,7 @@ public:
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
     
-    bool traverse(NodePtr& root);
+    bool traverse(NodePtr root);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

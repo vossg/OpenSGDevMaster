@@ -124,7 +124,7 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual ObjPtr shallowCopy(void) const = 0;
+    virtual ObjTransitPtr shallowCopy(void) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -461,7 +461,7 @@ void appendTypesString(
           std::vector<const ReflexiveContainerType *> &types      );
 
 OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr deepClone(      
+FieldContainerTransitPtr deepClone(      
           FieldContainerPtrConstArg                    src,
     const std::vector<std::string>                    &shareTypeNames,
 
@@ -475,7 +475,7 @@ FieldContainerPtr deepClone(
               std::vector<std::string>()                                  );
 
 OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr deepClone(
+FieldContainerTransitPtr deepClone(
           FieldContainerPtrConstArg                    src,
     const std::vector<UInt16>                         &shareGroupIds,
 
@@ -483,7 +483,7 @@ FieldContainerPtr deepClone(
               std::vector<UInt16>()                                       );
 
 OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr deepClone(      
+FieldContainerTransitPtr deepClone(      
           FieldContainerPtrConstArg                    src,
     const std::string                                 &shareTypesString,
 
@@ -491,7 +491,7 @@ FieldContainerPtr deepClone(
               std::string()                                               );
 
 OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr deepClone(
+FieldContainerTransitPtr deepClone(
           FieldContainerPtrConstArg                    src,
 
     const std::vector<const ReflexiveContainerType *> &shareTypes        =
@@ -513,6 +513,11 @@ ContainerPtr convertToCurrentAspect(ContainerPtr pFC);
 
 
 OSG_END_NAMESPACE
+
+#ifdef NEW_REFPTR
+#include "OSGTransitPtr.h"
+#include "OSGRefCountPtr.h"
+#endif
 
 #include "OSGFieldContainerFactory.h"
 #include "OSGFieldContainer.inl"

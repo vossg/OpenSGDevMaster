@@ -45,20 +45,20 @@ using namespace OSG;
 
 RenderAction *rentravact;
 
-NodePtr  root;
+NodeRefPtr  root;
 
-NodePtr  file;
+NodeRefPtr  file;
 
-PerspectiveCameraPtr cam;
-ViewportPtr vp;
-WindowPtr win;
+PerspectiveCameraRefPtr cam;
+ViewportRefPtr vp;
+WindowRefPtr win;
 
-TransformPtr cam_trans;
-TransformPtr scene_trans;
+TransformRefPtr cam_trans;
+TransformRefPtr scene_trans;
 
-PolygonChunkPtr pPoly;
-bool            bPolyActive = false;
-ChunkOverrideGroupPtr pCOver;
+PolygonChunkRefPtr       pPoly;
+bool                     bPolyActive = false;
+ChunkOverrideGroupRefPtr pCOver;
 
 Trackball tball;
 
@@ -211,8 +211,20 @@ void key(unsigned char key, int x, int y)
     switch ( key )
     {
         case 27:    
-            subRefX(win);
+            root        = NullFC;
+            file        = NullFC;
+            cam         = NullFC;
+            vp          = NullFC;
+            win         = NullFC;
+            cam_trans   = NullFC;
+            scene_trans = NullFC;
+            pPoly       = NullFC;
+            pCOver      = NullFC;
+
             delete rentravact;
+
+            
+
             osgExit(); 
             exit(0);
         case 'a':   
@@ -338,14 +350,14 @@ int main (int argc, char **argv)
     // create the graph
 
     // beacon for camera and light  
-    NodePtr b1n = Node::create();
-    GroupPtr b1 = Group::create();
+    NodeUnrecPtr b1n = Node::create();
+    GroupUnrecPtr b1 = Group::create();
 
     b1n->setCore( b1 );
 
     // transformation
-    NodePtr t1n = Node::create();
-    TransformPtr t1 = Transform::create();
+    NodeUnrecPtr t1n = Node::create();
+    TransformUnrecPtr t1 = Transform::create();
 
     t1n->setCore( t1 );
     t1n->addChild( b1n );
@@ -354,8 +366,8 @@ int main (int argc, char **argv)
 
     // light
     
-    NodePtr dlight = Node::create();
-    DirectionalLightPtr dl = DirectionalLight::create();
+    NodeUnrecPtr dlight = Node::create();
+    DirectionalLightUnrecPtr dl = DirectionalLight::create();
 
     dlight->setCore( dl );
 //    dlight->setCore( Group::create() );
@@ -367,7 +379,7 @@ int main (int argc, char **argv)
 
     // root
     root = Node::create();
-    GroupPtr gr1 = Group::create();
+    GroupUnrecPtr gr1 = Group::create();
 
     root->setCore( gr1 );
     root->addChild( t1n );
@@ -375,7 +387,7 @@ int main (int argc, char **argv)
 
     // Load the file
 
-    NodePtr file = NullFC;
+    NodeUnrecPtr file = NullFC;
     
     if(argc > 1)
         file = SceneFileHandler::the()->read(argv[1], NULL);
@@ -411,6 +423,7 @@ int main (int argc, char **argv)
     Thread::getCurrentChangeList()->commitChanges();
 
 //    file->dump();
+    file->updateVolume();
 
 #if 1
     char *outFileName = "/tmp/foo1.osg";
@@ -434,7 +447,6 @@ int main (int argc, char **argv)
     OSG::SceneFileHandler::the()->write(file, "/tmp/foo.osb");
 #endif    
 
-    file->updateVolume();
 
 //    subRefCP(file);
 
@@ -454,7 +466,7 @@ int main (int argc, char **argv)
 //    pChunkOverNode->setCore(pCOver);
 //    pChunkOverNode->addChild(file);
 
-    MultiCorePtr pMCore = MultiCore::create();
+    MultiCoreUnrecPtr pMCore = MultiCore::create();
 
     pCOver      = ChunkOverrideGroup::create();
     scene_trans = Transform::create();
@@ -462,7 +474,7 @@ int main (int argc, char **argv)
     pMCore->addCore(scene_trans);
     pMCore->addCore(pCOver     );
 
-    NodePtr sceneTrN = Node::create();
+    NodeUnrecPtr sceneTrN = Node::create();
 
     sceneTrN->setCore(pMCore);
     sceneTrN->addChild(file);
@@ -483,7 +495,7 @@ int main (int argc, char **argv)
     cam->setFar( 100000 );
 
     // Background
-    SolidBackgroundPtr bkgnd = SolidBackground::create();
+    SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
 
     bkgnd->setColor(Color3f(0,0,1));
     
@@ -501,7 +513,7 @@ int main (int argc, char **argv)
     // Window
     std::cout << "GLUT winid: " << winid << std::endl;
 
-    GLUTWindowPtr gwin;
+    GLUTWindowUnrecPtr gwin;
 
     GLint glvp[4];
 

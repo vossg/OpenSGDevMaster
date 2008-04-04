@@ -76,12 +76,12 @@ class ContainerFactory : public FactoryBase
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    typedef DescT                             Desc;
-    typedef ContainerFactory<DescT>           Self;
+    typedef DescT                                   Desc;
+    typedef ContainerFactory<DescT>                 Self;
 
-    typedef typename Desc     ::ContainerType ContainerType;
-    typedef typename Desc     ::ContainerPtr  ContainerPtr;
-
+    typedef typename Desc     ::ContainerType       ContainerType;
+    typedef typename Desc     ::ContainerPtr        ContainerPtr;
+    typedef typename Desc     ::ContainerTransitPtr ContainerTransitPtr;
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name        General Fieldcontainer Declaration                    */
@@ -114,7 +114,7 @@ class ContainerFactory : public FactoryBase
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
-    ContainerPtr createContainer(const Char8 *szName);
+    ContainerTransitPtr createContainer(const Char8 *szName);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -122,7 +122,7 @@ class ContainerFactory : public FactoryBase
     /*! \{                                                                 */
 
 #ifdef OSG_1_COMPAT
-    ContainerPtr createFieldContainer(const Char8 *szName);
+    ContainerTransitPtr createFieldContainer(const Char8 *szName);
 #endif
 
     /*! \}                                                                 */

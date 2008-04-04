@@ -60,7 +60,7 @@ void testSharing(void)
     fprintf(stderr, "sharing\n");
     fprintf(stderr, "%d\n", sizeof(OSG::TestFC));
 
-    OSG::TestFCPtr pTestFC = OSG::TestFC::create();
+    OSG::TestFCUnrecPtr pTestFC = OSG::TestFC::create();
 
     fprintf(stderr, "sharing | created\n");
 
@@ -71,8 +71,8 @@ void testSharing(void)
         dumpAspect(pTestFC, i);
     }
 
-    OSG::addRefX(pTestFC);
-    OSG::addRefX(pTestFC);
+//    OSG::addRefX(pTestFC);
+//    OSG::addRefX(pTestFC);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
@@ -98,7 +98,7 @@ void testSharing(void)
 
     OSG::Thread::getCurrentChangeList()->commitChanges();
 
-    OSG::subRefX(pTestFC);
+//    OSG::subRefX(pTestFC);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
@@ -145,7 +145,7 @@ void testSharing(void)
         dumpAspect(pTestFC, i);
     }
 
-    OSG::subRefX(pTestFC);
+    pTestFC = NullFC;
 }
 
 void testSharing1(void)
@@ -153,7 +153,7 @@ void testSharing1(void)
     fprintf(stderr, "sharing\n");
     fprintf(stderr, "%d\n", sizeof(OSG::TestFC));
 
-    OSG::TestFCPtr pTestFC = OSG::TestFC::create();
+    OSG::TestFCUnrecPtr pTestFC = OSG::TestFC::create();
 
     fprintf(stderr, "sharing | created\n");
 
@@ -164,8 +164,8 @@ void testSharing1(void)
         dumpAspect(pTestFC, i);
     }
 
-    OSG::addRefX(pTestFC);
-    OSG::addRefX(pTestFC);
+//    OSG::addRefX(pTestFC);
+//    OSG::addRefX(pTestFC);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
@@ -180,7 +180,7 @@ void testSharing1(void)
 
     OSG::Thread::getCurrentChangeList()->commitChanges();
 
-    OSG::subRefX(pTestFC);
+//    OSG::subRefX(pTestFC);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
@@ -205,7 +205,7 @@ void testSharing1(void)
     }
 
 
-    OSG::subRefX(pTestFC);
+    pTestFC = NullFC;
 }
 
 void testSharing2(void)
@@ -213,7 +213,7 @@ void testSharing2(void)
     fprintf(stderr, "sharing\n");
     fprintf(stderr, "%d\n", sizeof(OSG::TestFC));
 
-    OSG::TestFCPtr pTestFC = OSG::TestFC::create();
+    OSG::TestFCUnrecPtr pTestFC = OSG::TestFC::create();
 
     fprintf(stderr, "sharing | created\n");
 
@@ -224,8 +224,8 @@ void testSharing2(void)
         dumpAspect(pTestFC, i);
     }
 
-    OSG::addRefX(pTestFC);
-    OSG::addRefX(pTestFC);
+//    OSG::addRefX(pTestFC);
+//    OSG::addRefX(pTestFC);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
@@ -240,7 +240,7 @@ void testSharing2(void)
 
     OSG::Thread::getCurrentChangeList()->commitChanges();
 
-    OSG::subRefX(pTestFC);
+//    OSG::subRefX(pTestFC);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
@@ -258,13 +258,14 @@ void testSharing2(void)
 
 
 
-    OSG::subRefX(pTestFC);
+    pTestFC = NullFC;
 
     applyToAspect(1);
 }
 
 void testNode(void)
 {
+#if 0
     OSG::SFNodePtr sfNode;
     OSG::MFNodePtr mfNode;
 
@@ -318,11 +319,13 @@ void testNode(void)
     fprintf(stderr, "### FOO %p\n", getCPtr(pFC));
 
     OSG::subRefX(pFC);
+#endif
 }
 
 
 void testRefCount(void)
 {
+#if 0
     OSG::NodePtr pNode = OSG::Node::create();
 
     OSG::NodePtr pNode1 = OSG::Node::create();
@@ -389,6 +392,7 @@ void testRefCount(void)
     applyToAspect(2);
 
     fprintf(stderr, "7\n");
+#endif
 }
 
 void testChangeList(void)
@@ -396,7 +400,7 @@ void testChangeList(void)
     fprintf(stderr, "testChangeList\n");
     fprintf(stderr, "%d\n", sizeof(OSG::TestFC));
 
-    OSG::TestFCPtr pTestFC = OSG::TestFC::create();
+    OSG::TestFCUnrecPtr pTestFC = OSG::TestFC::create();
 
     fprintf(stderr, "sharing | created\n");
 
@@ -407,7 +411,7 @@ void testChangeList(void)
         dumpAspect(pTestFC, i);
     }
 
-    OSG::addRefX(pTestFC);
+//    OSG::addRefX(pTestFC);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
@@ -512,6 +516,7 @@ void testChangeList(void)
         dumpAspect(pTestFC, i);
     }
 
+    pTestFC = NullFC;
 }
 
 int main (int argc, char **argv)
@@ -528,9 +533,9 @@ int main (int argc, char **argv)
 //    testRefCount();
 //    testNode();
 
-//    testSharing();
+    testSharing();
 
-    testChangeList();
+//    testChangeList();
 
     fprintf(stderr, "exit\n");
 

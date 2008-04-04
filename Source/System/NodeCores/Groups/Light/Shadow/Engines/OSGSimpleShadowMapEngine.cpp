@@ -244,7 +244,7 @@ void SimpleShadowMapEngine::lightRenderEnter(LightPtr      pLight,
     
     if(iLightIndex >= 0)
     {
-        pAction->addOverride(uiSlot + iLightIndex, getCPtr(pChunk));
+        pAction->addOverride(uiSlot + iLightIndex, pChunk);
     }
     else
     {
@@ -266,7 +266,7 @@ void SimpleShadowMapEngine::setupCamera(LightPtr      pLight,
         DirectionalLightPtr pDLight = 
             dynamic_cast<DirectionalLightPtr>(pLight);
 
-        MatrixCameraPtr pCam = 
+        MatrixCameraUnrecPtr pCam = 
             dynamic_cast<MatrixCameraPtr>(pEngineData->getCamera());
         
         if(pCam == NullFC)
@@ -326,7 +326,7 @@ void SimpleShadowMapEngine::setupCamera(LightPtr      pLight,
     {
         PointLightPtr pPLight = dynamic_cast<PointLightPtr>(pLight);
 
-        MatrixCameraPtr pCam = 
+        MatrixCameraUnrecPtr pCam = 
             dynamic_cast<MatrixCameraPtr>(pEngineData->getCamera());
         
         if(pCam == NullFC)
@@ -399,7 +399,7 @@ void SimpleShadowMapEngine::setupLightChunk(LightPtr      pLight,
         DirectionalLightPtr pDLight = 
             dynamic_cast<DirectionalLightPtr>(pLight);
 
-        LightChunkPtr pChunk = pEngineData->getLightChunk();
+        LightChunkUnrecPtr  pChunk  = pEngineData->getLightChunk();
 
         if(pChunk == NullFC)
         {
@@ -430,9 +430,9 @@ void SimpleShadowMapEngine::setupLightChunk(LightPtr      pLight,
     }
     else if(eType == Point)
     {
-        PointLightPtr pPLight = dynamic_cast<PointLightPtr>(pLight);
+        PointLightPtr      pPLight = dynamic_cast<PointLightPtr>(pLight);
 
-        LightChunkPtr pChunk = pEngineData->getLightChunk();
+        LightChunkUnrecPtr pChunk  = pEngineData->getLightChunk();
         
         if(pChunk == NullFC)
         {
@@ -477,24 +477,24 @@ void SimpleShadowMapEngine::doLightPass(LightPtr      pLight,
     Viewport          *pPort   = pAction->getViewport       ();
     Background        *pBack   = pAction->getBackground     ();
 
-    FrameBufferObject *pTarget = getCPtr(this->getRenderTarget());
+    FrameBufferObject *pTarget = this->getRenderTarget();
 
     if(pTarget == NULL)
     {
-        FrameBufferObjectPtr pFBO = FrameBufferObject::create();
+        FrameBufferObjectUnrecPtr pFBO = FrameBufferObject::create();
 
         pFBO->setWidth (this->getWidth ());
         pFBO->setHeight(this->getHeight());
 
         setRenderTarget(pFBO);
 
-        pTarget = getCPtr(pFBO);
+        pTarget = pFBO;
     }
 
-    TextureObjChunkPtr pTexChunk = pEngineData->getTexChunk();
+    TextureObjChunkPtr    pTexChunk  = pEngineData->getTexChunk();
     
 
-    TextureBufferPtr pTexBuffer = pEngineData->getTexBuffer();
+    TextureBufferUnrecPtr pTexBuffer = pEngineData->getTexBuffer();
 
     if(pTexBuffer == NullFC)
     {
@@ -506,7 +506,7 @@ void SimpleShadowMapEngine::doLightPass(LightPtr      pLight,
         pTarget   ->setDepthAttachment(pTexBuffer);
     }
 
-    PolygonChunkPtr pPoly = pEngineData->getPolyChunk();
+    PolygonChunkUnrecPtr pPoly = pEngineData->getPolyChunk();
 
     if(pPoly == NullFC)
     {
@@ -567,13 +567,13 @@ void SimpleShadowMapEngine::doLightPass(LightPtr      pLight,
 
     NodePtr pActNode = pAction->getActNode();
 
-    pAction->overrideMaterial(getCPtr(_pLightPassMat), pActNode);
+    pAction->overrideMaterial(_pLightPassMat, pActNode);
 
     pAction->pushState();
 
     UInt32 uiPolySlot  = pPoly->getClassId();
 
-    pAction->addOverride     (uiPolySlot,     getCPtr(pPoly));
+    pAction->addOverride     (uiPolySlot,     pPoly);
 
 //    lightRenderEnter(pLight, pAction);
 
@@ -608,7 +608,7 @@ void SimpleShadowMapEngine::doAmbientPass(LightPtr      pLight,
     
     if(iLightIndex >= 0)
     {
-        pAction->addOverride(uiSlot + iLightIndex, getCPtr(pChunk));
+        pAction->addOverride(uiSlot + iLightIndex, pChunk);
     }
     else
     {
@@ -638,21 +638,21 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
                             RenderPartition::CopyFrustum      |
                             RenderPartition::CopyNearFar      ));
     
-    FrameBufferObject *pTarget = getCPtr(this->getRenderTarget());
+    FrameBufferObject *pTarget = this->getRenderTarget();
 
     if(pTarget == NULL)
     {
-        FrameBufferObjectPtr pFBO = FrameBufferObject::create();
+        FrameBufferObjectUnrecPtr pFBO = FrameBufferObject::create();
 
         pFBO->setWidth (this->getWidth ());
         pFBO->setHeight(this->getHeight());
 
         setRenderTarget(pFBO);
 
-        pTarget = getCPtr(pFBO);
+        pTarget = pFBO;
     }
 
-    BlendChunkPtr pBlender      = pEngineData->getBlendChunk();
+    BlendChunkUnrecPtr pBlender      = pEngineData->getBlendChunk();
 
     if(pBlender == NullFC)
     {
@@ -694,7 +694,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
     Vec4f pr = textureMatrix[2];
     Vec4f pq = textureMatrix[3];
     
-    TexGenChunkPtr pTexGen = pEngineData->getTexGenChunk();
+    TexGenChunkUnrecPtr pTexGen = pEngineData->getTexGenChunk();
 
     if(pTexGen == NullFC)
     {
@@ -702,12 +702,14 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
         
         pEngineData->setTexGenChunk(pTexGen);
         
-        NodePtr dummy = makeCoredNode<Group>();
+#if 0
+        NodeUnrecPtr dummy = makeCoredNode<Group>();
         
         pTexGen->setSBeacon(dummy);
         pTexGen->setTBeacon(dummy);
         pTexGen->setRBeacon(dummy);
         pTexGen->setQBeacon(dummy);
+#endif
         
         pTexGen->setGenFuncS(GL_EYE_LINEAR);
         pTexGen->setGenFuncT(GL_EYE_LINEAR);
@@ -720,7 +722,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
     pTexGen->setGenFuncRPlane(pr);
     pTexGen->setGenFuncQPlane(pq);
     
-    TextureObjChunkPtr pTexChunk = pEngineData->getTexChunk();
+    TextureObjChunkUnrecPtr pTexChunk = pEngineData->getTexChunk();
 
     if(pTexChunk == NullFC)
     {
@@ -728,7 +730,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
         
         pEngineData->setTexChunk(pTexChunk);
 
-        ImagePtr pImage = Image::create();
+        ImageUnrecPtr pImage = Image::create();
         
             // creates a image without allocating main memory.
         
@@ -776,9 +778,9 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
         uiTexGenSlot += 3;
     }
 
-    pAction->addOverride(uiBlendSlot,  getCPtr(pBlender ));
-    pAction->addOverride(uiTexSlot,    getCPtr(pTexChunk));
-    pAction->addOverride(uiTexGenSlot, getCPtr(pTexGen  ));
+    pAction->addOverride(uiBlendSlot,  pBlender );
+    pAction->addOverride(uiTexSlot,    pTexChunk);
+    pAction->addOverride(uiTexGenSlot, pTexGen  );
     
     lightRenderEnter(pLight, pAction);
 

@@ -113,13 +113,11 @@ const Char8 *OSGSceneFileType::getName(void) const
 }
 
 
-NodePtr OSGSceneFileType::read(std::istream &is, const Char8 *) const
+NodeTransitPtr OSGSceneFileType::read(std::istream &is, const Char8 *) const
 {
     OSGLoader *_pFile = new OSGLoader;
 
-    _pFile->scanStream(is);
-
-    NodePtr returnValue = _pFile->getRootNode();
+    NodeTransitPtr returnValue = _pFile->scanStream(is);
 
     delete _pFile;
 

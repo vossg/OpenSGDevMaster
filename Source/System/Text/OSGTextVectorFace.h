@@ -143,7 +143,7 @@ class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
      *                    exceeds the creaseAngle both of the two normals will 
      *                    be attached to the point. Otherwise their mean is used.
      */
-    void fillGeo(GeometryPtr &geoPtr, const TextLayoutResult &layoutResult,
+    void fillGeo(GeometryPtr geoPtr, const TextLayoutResult &layoutResult,
                  Real32 scale = 1.f, Real32 depth = 0.f, UInt32 level = 2, 
                  Real32 creaseAngle = Pi / 4.f);
 
@@ -161,7 +161,7 @@ class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
      *                    be attached to the point. Otherwise their mean is used.
      * @return A new text geometry.
      */
-    GeometryPtr makeGeo(const TextLayoutResult &layoutResult, Real32 scale = 1.f,
+    GeometryTransitPtr makeGeo(const TextLayoutResult &layoutResult, Real32 scale = 1.f,
                         Real32 depth = 0.f, UInt32 level = 2, Real32 creaseAngle = Pi / 4.f);
 
     /**
@@ -178,7 +178,7 @@ class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
      *                    be attached to the point. Otherwise their mean is used.
      * @return A new node containing a text geometry.
      */
-    NodePtr makeNode(const TextLayoutResult &layoutResult, Real32 scale = 1.f,
+    NodeTransitPtr makeNode(const TextLayoutResult &layoutResult, Real32 scale = 1.f,
                      Real32 depth = 0.f, UInt32 level = 2, Real32 creaseAngle = Pi / 4.f);
 
     /**

@@ -128,8 +128,8 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindow : public MultiDisplayWindowBase
     /*! \name                   Helper                                     */
     /*! \{                                                                 */
 
-    void updateViewport(ViewportPtr &serverPort, 
-                        ViewportPtr &clientPort); 
+    void updateViewport(ViewportPtr serverPort, 
+                        ViewportPtr clientPort); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

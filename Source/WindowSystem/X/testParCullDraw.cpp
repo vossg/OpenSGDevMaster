@@ -36,11 +36,11 @@
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE
 
-SimpleSceneManager *mgr;
-XWindowPtr          xwin;
-PassiveWindowPtr    pwin;
+SimpleSceneManager  *mgr;
+XWindowRefPtr        xwin;
+PassiveWindowRefPtr  pwin;
 
-NodePtr scene = NullFC;
+NodeRefPtr scene = NullFC;
 
 // Threading stuff
 
@@ -365,13 +365,13 @@ int main (int argc, char **argv)
         
         scene = makeCoredNode<Group>();
         
-        SimpleMaterialPtr sm = SimpleMaterial::create();
+        SimpleMaterialUnrecPtr sm = SimpleMaterial::create();
         
         sm->setDiffuse(Color3f(0,1,1));
         sm->setSpecular(Color3f(1,1,1));
         sm->setTransparency(.5);
        
-        GeometryPtr geo = makeTorusGeo( .5, 2, 16, 16 );
+        GeometryUnrecPtr geo = makeTorusGeo( .5, 2, 16, 16 );
         geo->setMaterial(sm);
         scene->addChild(makeNodeFor(geo));
        
@@ -478,6 +478,16 @@ int main (int argc, char **argv)
                             FNOTICE(("app: Waiting for exit\n"));
                             exitB->enter(numthreads);
                             FNOTICE(("app: Got exit\n"));
+                            
+
+                            delete mgr;
+
+                            xwin  = NullFC;
+                            pwin  = NullFC;
+                            scene = NullFC;
+
+                            osgExit();
+
                             exit(0);
                     }
                     break;

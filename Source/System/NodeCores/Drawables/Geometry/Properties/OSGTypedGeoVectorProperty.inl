@@ -293,16 +293,16 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::reference
     \return A copy of this property.
  */
 template <class GeoPropertyDesc> inline
-GeoVectorPropertyPtr
+GeoVectorPropertyTransitPtr
 TypedGeoVectorProperty<GeoPropertyDesc>::clone(void)
 {
-    ObjPtr obj = TypedGeoVectorProperty<GeoPropertyDesc>::create();
+    ObjTransitPtr obj = TypedGeoVectorProperty<GeoPropertyDesc>::create();
 
     editMField(GeoPropDataFieldMask, obj->_field);
 
     obj->_field.setValues(_field);
 
-    return obj;
+    return GeoVectorPropertyTransitPtr(obj);
 }
 
 

@@ -112,7 +112,7 @@ OSG_USING_NAMESPACE
 // The SimpleSceneManager to manage simple applications
 static SimpleSceneManager *_mgr;
 // The scene
-static NodePtr _scene;
+static NodeRefPtr _scene;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -135,7 +135,7 @@ int main(int argc, char **argv)
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
+    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->setSize( 800, 800 );
     gwin->init();
@@ -143,16 +143,16 @@ int main(int argc, char **argv)
     // Create the shader material
 
     // Read the image for the normal texture
-    ImagePtr normal_map_img = Image::create();
+    ImageUnrecPtr normal_map_img = Image::create();
     if(!normal_map_img->read(normal_map_img_name))
     {
         fprintf(stderr, "Couldn't read normalmap texture '%s'!\n", normal_map_img_name);
         return 1;
     }
 
-    ChunkMaterialPtr cmat = ChunkMaterial::create();
+    ChunkMaterialUnrecPtr cmat = ChunkMaterial::create();
 
-    MaterialChunkPtr matc = MaterialChunk::create();
+    MaterialChunkUnrecPtr matc = MaterialChunk::create();
 
     matc->setAmbient(Color4f(0.1, 0.1, 0.1, 1.0));
     matc->setDiffuse(Color4f(0.3, 0.3, 0.3, 1.0));
@@ -160,13 +160,13 @@ int main(int argc, char **argv)
     matc->setShininess(100);
     matc->setLit(true);
 
-    SHLChunkPtr shl = SHLChunk::create();
+    SHLChunkUnrecPtr shl = SHLChunk::create();
 
     shl->setVertexProgram(_vp_program);
     shl->setFragmentProgram(_fp_program);
 
-    TextureObjChunkPtr tex_normal_map     = TextureObjChunk::create();
-    TextureEnvChunkPtr tex_normal_map_env = TextureEnvChunk::create();
+    TextureObjChunkUnrecPtr tex_normal_map     = TextureObjChunk::create();
+    TextureEnvChunkUnrecPtr tex_normal_map_env = TextureEnvChunk::create();
 
     tex_normal_map->setImage(normal_map_img);
     tex_normal_map->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
@@ -186,15 +186,15 @@ int main(int argc, char **argv)
 
     // create geometry
     //GeometryPtr geo = makeLatLongSphereGeo (100, 100, 1.0);
-    GeometryPtr geo = makePlaneGeo(1.0, 1.0, 100, 100);
+    GeometryUnrecPtr geo = makePlaneGeo(1.0, 1.0, 100, 100);
 
     geo->setMaterial(cmat);
 
-    NodePtr torus = Node::create();
+    NodeUnrecPtr torus = Node::create();
     torus->setCore(geo);
 
     // add torus to scene
-    GroupPtr group = Group::create();
+    GroupUnrecPtr group = Group::create();
 
     _scene->setCore(group);
     _scene->addChild(torus);
@@ -274,6 +274,11 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:
         case 'q':
+            delete _mgr;
+
+            _scene = NullFC;
+
+            osgExit();
             exit(1);
         break;
         case 'w':

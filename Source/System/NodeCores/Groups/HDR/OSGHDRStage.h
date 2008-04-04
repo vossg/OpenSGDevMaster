@@ -161,7 +161,7 @@ class OSG_GROUP_DLLMAPPING HDRStage : public HDRStageBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    SHLChunkPtr generateHDRFragmentProgram(void);
+    SHLChunkTransitPtr generateHDRFragmentProgram(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

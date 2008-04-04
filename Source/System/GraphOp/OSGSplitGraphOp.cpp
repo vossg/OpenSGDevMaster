@@ -103,7 +103,7 @@ GraphOp* SplitGraphOp::create()
     return inst;
 }
 
-bool SplitGraphOp::traverse(NodePtr& root)
+bool SplitGraphOp::traverse(NodePtr root)
 {
     return GraphOp::traverse(root);
 }

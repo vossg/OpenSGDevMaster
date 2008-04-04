@@ -49,9 +49,9 @@ using namespace std;
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager *mgr;
 
-NodePtr scene;
+NodeRefPtr scene;
 
-SimpleStatisticsForegroundPtr statfg;
+SimpleStatisticsForegroundRefPtr statfg;
 StatElemDesc<OSG::StatStringElem> familyDesc("family", "The font family");
 StatElemDesc<OSG::StatStringElem> styleDesc("style", "The font style");
 StatElemDesc<OSG::StatStringElem> majorAlignDesc("majorAlignment", "The major alignment");
@@ -74,19 +74,19 @@ int mainMenuID;
 int setupGLUT( int *argc, char *argv[] );
 
 // Create the coordinate cross
-NodePtr createCoordinateCross()
+NodeTransitPtr createCoordinateCross()
 {
-    GeometryPtr geoPtr = Geometry::create();
+    GeometryUnrecPtr geoPtr = Geometry::create();
 
-    GeoUInt8PropertyPtr typesPtr = GeoUInt8Property::create();
+    GeoUInt8PropertyUnrecPtr typesPtr = GeoUInt8Property::create();
     typesPtr->push_back(GL_LINES);
     geoPtr->setTypes(typesPtr);
 
-    GeoUInt32PropertyPtr lensPtr = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr lensPtr = GeoUInt32Property::create();
     lensPtr->push_back(6);
     geoPtr->setLengths(lensPtr);
 
-    GeoPnt3fPropertyPtr posPtr = GeoPnt3fProperty::create();
+    GeoPnt3fPropertyUnrecPtr posPtr = GeoPnt3fProperty::create();
     posPtr->push_back(Vec3f(-0.1f, 0.f, 0.f));
     posPtr->push_back(Vec3f(1.f, 0.f, 0.f));
     posPtr->push_back(Vec3f(0.f, -0.1f, 0.f));
@@ -95,14 +95,14 @@ NodePtr createCoordinateCross()
     posPtr->push_back(Vec3f(0.f, 0.f, 1.f));
     geoPtr->setPositions(posPtr);
 
-    GeoColor3fPropertyPtr colorsPtr = GeoColor3fProperty::create();
+    GeoColor3fPropertyUnrecPtr colorsPtr = GeoColor3fProperty::create();
     colorsPtr->push_back(Color3f(1.f, 0.f, 0.f));
     colorsPtr->push_back(Color3f(0.f, 1.f, 0.f));
     colorsPtr->push_back(Color3f(0.f, 0.f, 1.f));
     geoPtr->setColors(colorsPtr);
 
-    GeoUInt32PropertyPtr posIndicesPtr = GeoUInt32Property::create();
-    GeoUInt32PropertyPtr colIndicesPtr = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr posIndicesPtr = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr colIndicesPtr = GeoUInt32Property::create();
     // X Axis
     posIndicesPtr->push_back(0);
     colIndicesPtr->push_back(0);
@@ -121,40 +121,40 @@ NodePtr createCoordinateCross()
     geoPtr->setIndex(posIndicesPtr, Geometry::PositionsIndex);
     geoPtr->setIndex(colIndicesPtr, Geometry::ColorsIndex);
 
-    SimpleMaterialPtr matPtr = SimpleMaterial::create();
+    SimpleMaterialUnrecPtr matPtr = SimpleMaterial::create();
     geoPtr->setMaterial(matPtr);
 
-    NodePtr nodePtr = Node::create();
+    NodeTransitPtr nodePtr = Node::create();
     nodePtr->setCore(geoPtr);
 
     return nodePtr;
 }
 
 // Create the metrics
-NodePtr createMetrics(TextFace *face, Real32 scale, const TextLayoutParam &layoutParam,
+NodeTransitPtr createMetrics(TextFace *face, Real32 scale, const TextLayoutParam &layoutParam,
                       const TextLayoutResult &layoutResult)
 {
-    GeometryPtr geoPtr = Geometry::create();
+    GeometryUnrecPtr geoPtr = Geometry::create();
 
-    GeoUInt8PropertyPtr typesPtr = GeoUInt8Property::create();
+    GeoUInt8PropertyUnrecPtr typesPtr = GeoUInt8Property::create();
     geoPtr->setTypes(typesPtr);
 
-    GeoUInt32PropertyPtr lensPtr = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr lensPtr = GeoUInt32Property::create();
     geoPtr->setLengths(lensPtr);
 
-    GeoPnt3fPropertyPtr posPtr = GeoPnt3fProperty::create();
+    GeoPnt3fPropertyUnrecPtr posPtr = GeoPnt3fProperty::create();
     geoPtr->setPositions(posPtr);
 
-    GeoColor3fPropertyPtr colorsPtr = GeoColor3fProperty::create();
+    GeoColor3fPropertyUnrecPtr colorsPtr = GeoColor3fProperty::create();
     colorsPtr->push_back(Color3f(0.f, 0.f, 1.f));
     colorsPtr->push_back(Color3f(1.f, 0.f, 0.f));
     colorsPtr->push_back(Color3f(0.f, 1.f, 0.f));
     colorsPtr->push_back(Color3f(1.f, 1.f, 0.f));
     geoPtr->setColors(colorsPtr);
 
-    GeoUInt32PropertyPtr posIndicesPtr = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr posIndicesPtr = GeoUInt32Property::create();
     geoPtr->setIndex(posIndicesPtr, Geometry::PositionsIndex);
-    GeoUInt32PropertyPtr colIndicesPtr = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr colIndicesPtr = GeoUInt32Property::create();
     geoPtr->setIndex(colIndicesPtr, Geometry::ColorsIndex);
 
     UInt32 i, numGlyphs = layoutResult.getNumGlyphs();
@@ -476,10 +476,10 @@ NodePtr createMetrics(TextFace *face, Real32 scale, const TextLayoutParam &layou
         pos += offset;
     }
 
-    SimpleMaterialPtr matPtr = SimpleMaterial::create();
+    SimpleMaterialUnrecPtr matPtr = SimpleMaterial::create();
     geoPtr->setMaterial(matPtr);
 
-    NodePtr nodePtr = Node::create();
+    NodeTransitPtr nodePtr = Node::create();
     nodePtr->setCore(geoPtr);
 
     return nodePtr;
@@ -571,44 +571,44 @@ void updateScene()
     Real32 scale = 2.f;
     face->layout(lines, layoutParam, layoutResult);
 #if 0
-    GeometryPtr geo = Geometry::create();
+    GeometryUnrecPtr geo = Geometry::create();
     face->fillGeo(geo, layoutResult, scale);
-    NodePtr textNode = Node::create();
+    NodeUnrecPtr textNode = Node::create();
     textNode->setCore(geo);
 #else
-    NodePtr textNode = face->makeNode(layoutResult, scale);
-    GeometryPtr geo = dynamic_cast<GeometryPtr>(textNode->getCore());
+    NodeUnrecPtr textNode = face->makeNode(layoutResult, scale);
+    GeometryUnrecPtr geo = dynamic_cast<GeometryPtr>(textNode->getCore());
 #endif
-    NodePtr transNodePtr = Node::create();
-    TransformPtr transPtr = Transform::create();
+    NodeUnrecPtr transNodePtr = Node::create();
+    TransformUnrecPtr transPtr = Transform::create();
     Matrix transMatrix;
     transMatrix.setTranslate(0.f, 0.f, -0.03f);
     transPtr->setMatrix(transMatrix);
     transNodePtr->setCore(transPtr);
     transNodePtr->addChild(textNode);
 
-    ImagePtr imagePtr = face->getTexture();
-    TextureObjChunkPtr texObjChunk = TextureObjChunk::create();
+    ImageUnrecPtr imagePtr = face->getTexture();
+    TextureObjChunkUnrecPtr texObjChunk = TextureObjChunk::create();
     texObjChunk->setImage(imagePtr);
     texObjChunk->setWrapS(GL_CLAMP);
     texObjChunk->setWrapT(GL_CLAMP);
     texObjChunk->setMagFilter(GL_NEAREST);
     texObjChunk->setMinFilter(GL_NEAREST);
-    TextureEnvChunkPtr texEnvChunk = TextureEnvChunk::create();
+    TextureEnvChunkUnrecPtr texEnvChunk = TextureEnvChunk::create();
     texEnvChunk->setEnvMode(GL_MODULATE);
 
-    MaterialChunkPtr matChunk = MaterialChunk::create();
+    MaterialChunkUnrecPtr matChunk = MaterialChunk::create();
     matChunk->setAmbient(Color4f(1.f, 1.f, 1.f, 1.f));
     matChunk->setDiffuse(Color4f(1.f, 1.f, 1.f, 1.f));
     matChunk->setEmission(Color4f(0.f, 0.f, 0.f, 1.f));
     matChunk->setSpecular(Color4f(0.f, 0.f, 0.f, 1.f));
     matChunk->setShininess(0);
 
-    BlendChunkPtr blendChunk = BlendChunk::create();
+    BlendChunkUnrecPtr blendChunk = BlendChunk::create();
     blendChunk->setSrcFactor(GL_SRC_ALPHA);
     blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
 
-    ChunkMaterialPtr m = ChunkMaterial::create();
+    ChunkMaterialUnrecPtr m = ChunkMaterial::create();
     m->addChunk(texObjChunk);
     m->addChunk(texEnvChunk);
     m->addChunk(matChunk);
@@ -635,7 +635,7 @@ int main(int argc, char **argv)
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
+    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->init();
 
@@ -649,7 +649,7 @@ int main(int argc, char **argv)
 
     // put the geometry core into a node
     scene = Node::create();
-    GroupPtr groupPtr = Group::create();
+    GroupUnrecPtr groupPtr = Group::create();
     scene->setCore(groupPtr);
 
     // create the SimpleSceneManager helper
@@ -671,7 +671,7 @@ int main(int argc, char **argv)
     statfg->addElement(vertDirDesc, "%s");
 
     // Create the background
-    SolidBackgroundPtr bg = SolidBackground::create();
+    SolidBackgroundUnrecPtr bg = SolidBackground::create();
     bg->setColor(Color3f(0.1, 0.1, 0.5));
 
     updateFace();
@@ -729,6 +729,11 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:
         {
+            delete mgr;
+
+            scene  = NullFC;
+            statfg = NullFC;
+
             osgExit();
             exit(0);
         }

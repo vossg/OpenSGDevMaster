@@ -124,7 +124,7 @@ void setName(      AttachmentContainerPtrConstArg  pContainer,
    
     // Get attachment pointer
 
-    NamePtr                     name = NullFC;
+    NameUnrecPtr                name = NullFC;
     FieldContainerAttachmentPtr att  = 
         pContainer->findAttachment(Name::getClassType().getGroupId());
     

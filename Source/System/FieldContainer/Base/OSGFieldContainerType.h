@@ -57,7 +57,7 @@ typedef void (*ExitContainerF) (ReflexiveContainerType::InitPhase);
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
-typedef FieldContainerPtr (*PrototypeCreateF)(void);
+typedef FieldContainerCPtr (*PrototypeCreateF)(void);
 
 /*! \ingroup GrpSystemFieldContainer
  */
@@ -118,7 +118,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    FieldContainerPtr getPrototype(void                        ) const;
+    FieldContainerCPtr getPrototype(void                        ) const;
     //bool              setPrototype(FieldContainerPtr pPrototype);
     std::string       getFcdXML() const;
     std::string       getDocumentation() const;
@@ -128,7 +128,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    FieldContainerPtr createContainer(void) const;
+    FieldContainerTransitPtr createContainer(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -198,16 +198,16 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    BaseType          _baseType;
+    BaseType                  _baseType;
 
-    FieldContainerPtr _pPrototype;
-    PrototypeCreateF  _fPrototypeCreate;
+    FieldContainerUnrecRefPtr _pPrototype;
+    PrototypeCreateF          _fPrototypeCreate;
 
-    InitContainerF    _fInitMethod;
-    ExitContainerF    _fExitMethod;
+    InitContainerF            _fInitMethod;
+    ExitContainerF            _fExitMethod;
 
-    std::string       _fcdXML;   /*!< The raw xml text of the fcd describing this type. */
-    std::string       _typeDoc;  /*!< The documentation string for this type. */
+    std::string               _fcdXML;
+    std::string               _typeDoc;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,7 +235,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    FieldContainerPtr createAspectCopy(UInt32 uiContainerId) const;
+    FieldContainerCPtr createAspectCopy(UInt32 uiContainerId) const;
 #endif
 
     /*! \}                                                                 */
