@@ -224,6 +224,20 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual void execSyncV(      FieldContainer           &oFrom,
+                                 ConstFieldMaskArg         whichField,
+                                 AspectOffsetStore        &oOffsets,
+                                 ConstFieldMaskArg         syncMode  ,
+                           const UInt32                    uiSyncInfo);
+
+            void execSync (      FieldContainerAttachment *pFrom,
+                                 ConstFieldMaskArg         whichField,
+                                 AspectOffsetStore        &oOffsets,
+                                 ConstFieldMaskArg         syncMode  ,
+                           const UInt32                    uiSyncInfo);
+#endif
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 

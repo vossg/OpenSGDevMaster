@@ -103,7 +103,8 @@ OSG::TexGenChunk::_sfGenFuncQPlane.
 	</Field>
 	<Field
 		name="sBeacon"
-		type="NodePtr"
+		type="Node"
+        category="weakpointer"
 		cardinality="single"
 		visibility="external"
 		access="public"
@@ -111,7 +112,8 @@ OSG::TexGenChunk::_sfGenFuncQPlane.
 	</Field>
 	<Field
 		name="tBeacon"
-		type="NodePtr"
+		type="Node"
+        category="weakpointer"
 		cardinality="single"
 		visibility="external"
 		access="public"
@@ -119,7 +121,8 @@ OSG::TexGenChunk::_sfGenFuncQPlane.
 	</Field>
 	<Field
 		name="rBeacon"
-		type="NodePtr"
+		type="Node"
+        category="weakpointer"
 		cardinality="single"
 		visibility="external"
 		access="public"
@@ -127,7 +130,8 @@ OSG::TexGenChunk::_sfGenFuncQPlane.
 	</Field>
 	<Field
 		name="qBeacon"
-		type="NodePtr"
+		type="Node"
+        category="weakpointer"
 		cardinality="single"
 		visibility="external"
 		access="public"

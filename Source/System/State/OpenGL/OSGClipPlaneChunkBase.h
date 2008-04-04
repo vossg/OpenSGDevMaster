@@ -145,7 +145,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
 #endif
                   SFBool              *editSFEnable         (void);
             const SFBool              *getSFEnable          (void) const;
-            const SFNodePtr           *getSFBeacon          (void) const;
+            const SFUncountedNodePtr  *getSFBeacon          (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -224,7 +224,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
 
     SFVec4f           _sfEquation;
     SFBool            _sfEnable;
-    SFNodePtr         _sfBeacon;
+    SFUncountedNodePtr _sfBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

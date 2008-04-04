@@ -41,7 +41,8 @@ system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.
 	</Field>
 	<Field
 		name="beacon"
-		type="NodePtr"
+		type="Node"
+        category="weakpointer"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"

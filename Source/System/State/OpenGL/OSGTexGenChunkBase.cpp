@@ -252,8 +252,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUncountedNodePtr::Description(
+        SFUncountedNodePtr::getClassType(),
         "sBeacon",
         "",
         SBeaconFieldId, SBeaconFieldMask,
@@ -264,8 +264,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUncountedNodePtr::Description(
+        SFUncountedNodePtr::getClassType(),
         "tBeacon",
         "",
         TBeaconFieldId, TBeaconFieldMask,
@@ -276,8 +276,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUncountedNodePtr::Description(
+        SFUncountedNodePtr::getClassType(),
         "rBeacon",
         "",
         RBeaconFieldId, RBeaconFieldMask,
@@ -288,8 +288,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUncountedNodePtr::Description(
+        SFUncountedNodePtr::getClassType(),
         "qBeacon",
         "",
         QBeaconFieldId, QBeaconFieldMask,
@@ -418,7 +418,8 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"sBeacon\"\n"
-    "\t\ttype=\"NodePtr\"\n"
+    "\t\ttype=\"Node\"\n"
+    "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -426,7 +427,8 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"tBeacon\"\n"
-    "\t\ttype=\"NodePtr\"\n"
+    "\t\ttype=\"Node\"\n"
+    "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -434,7 +436,8 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"rBeacon\"\n"
-    "\t\ttype=\"NodePtr\"\n"
+    "\t\ttype=\"Node\"\n"
+    "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -442,7 +445,8 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"qBeacon\"\n"
-    "\t\ttype=\"NodePtr\"\n"
+    "\t\ttype=\"Node\"\n"
+    "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -638,25 +642,25 @@ SFVec4f             *TexGenChunkBase::getSFGenFuncQPlane  (void)
 #endif
 
 //! Get the TexGenChunk::_sfSBeacon field.
-const SFNodePtr *TexGenChunkBase::getSFSBeacon(void) const
+const SFUncountedNodePtr *TexGenChunkBase::getSFSBeacon(void) const
 {
     return &_sfSBeacon;
 }
 
 //! Get the TexGenChunk::_sfTBeacon field.
-const SFNodePtr *TexGenChunkBase::getSFTBeacon(void) const
+const SFUncountedNodePtr *TexGenChunkBase::getSFTBeacon(void) const
 {
     return &_sfTBeacon;
 }
 
 //! Get the TexGenChunk::_sfRBeacon field.
-const SFNodePtr *TexGenChunkBase::getSFRBeacon(void) const
+const SFUncountedNodePtr *TexGenChunkBase::getSFRBeacon(void) const
 {
     return &_sfRBeacon;
 }
 
 //! Get the TexGenChunk::_sfQBeacon field.
-const SFNodePtr *TexGenChunkBase::getSFQBeacon(void) const
+const SFUncountedNodePtr *TexGenChunkBase::getSFQBeacon(void) const
 {
     return &_sfQBeacon;
 }
@@ -1106,8 +1110,8 @@ EditFieldHandlePtr TexGenChunkBase::editHandleGenFuncQPlane  (void)
 
 GetFieldHandlePtr TexGenChunkBase::getHandleSBeacon         (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new  SFUncountedNodePtr::GetHandle(
              &_sfSBeacon, 
              this->getType().getFieldDesc(SBeaconFieldId)));
 
@@ -1116,8 +1120,8 @@ GetFieldHandlePtr TexGenChunkBase::getHandleSBeacon         (void) const
 
 EditFieldHandlePtr TexGenChunkBase::editHandleSBeacon        (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUncountedNodePtr::EditHandlePtr returnValue(
+        new  SFUncountedNodePtr::EditHandle(
              &_sfSBeacon, 
              this->getType().getFieldDesc(SBeaconFieldId)));
 
@@ -1131,8 +1135,8 @@ EditFieldHandlePtr TexGenChunkBase::editHandleSBeacon        (void)
 
 GetFieldHandlePtr TexGenChunkBase::getHandleTBeacon         (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new  SFUncountedNodePtr::GetHandle(
              &_sfTBeacon, 
              this->getType().getFieldDesc(TBeaconFieldId)));
 
@@ -1141,8 +1145,8 @@ GetFieldHandlePtr TexGenChunkBase::getHandleTBeacon         (void) const
 
 EditFieldHandlePtr TexGenChunkBase::editHandleTBeacon        (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUncountedNodePtr::EditHandlePtr returnValue(
+        new  SFUncountedNodePtr::EditHandle(
              &_sfTBeacon, 
              this->getType().getFieldDesc(TBeaconFieldId)));
 
@@ -1156,8 +1160,8 @@ EditFieldHandlePtr TexGenChunkBase::editHandleTBeacon        (void)
 
 GetFieldHandlePtr TexGenChunkBase::getHandleRBeacon         (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new  SFUncountedNodePtr::GetHandle(
              &_sfRBeacon, 
              this->getType().getFieldDesc(RBeaconFieldId)));
 
@@ -1166,8 +1170,8 @@ GetFieldHandlePtr TexGenChunkBase::getHandleRBeacon         (void) const
 
 EditFieldHandlePtr TexGenChunkBase::editHandleRBeacon        (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUncountedNodePtr::EditHandlePtr returnValue(
+        new  SFUncountedNodePtr::EditHandle(
              &_sfRBeacon, 
              this->getType().getFieldDesc(RBeaconFieldId)));
 
@@ -1181,8 +1185,8 @@ EditFieldHandlePtr TexGenChunkBase::editHandleRBeacon        (void)
 
 GetFieldHandlePtr TexGenChunkBase::getHandleQBeacon         (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new  SFUncountedNodePtr::GetHandle(
              &_sfQBeacon, 
              this->getType().getFieldDesc(QBeaconFieldId)));
 
@@ -1191,8 +1195,8 @@ GetFieldHandlePtr TexGenChunkBase::getHandleQBeacon         (void) const
 
 EditFieldHandlePtr TexGenChunkBase::editHandleQBeacon        (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUncountedNodePtr::EditHandlePtr returnValue(
+        new  SFUncountedNodePtr::EditHandle(
              &_sfQBeacon, 
              this->getType().getFieldDesc(QBeaconFieldId)));
 

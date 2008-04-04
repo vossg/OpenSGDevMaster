@@ -217,10 +217,10 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
 #endif
                   SFVec4f             *editSFGenFuncQPlane  (void);
             const SFVec4f             *getSFGenFuncQPlane   (void) const;
-            const SFNodePtr           *getSFSBeacon         (void) const;
-            const SFNodePtr           *getSFTBeacon         (void) const;
-            const SFNodePtr           *getSFRBeacon         (void) const;
-            const SFNodePtr           *getSFQBeacon         (void) const;
+            const SFUncountedNodePtr  *getSFSBeacon         (void) const;
+            const SFUncountedNodePtr  *getSFTBeacon         (void) const;
+            const SFUncountedNodePtr  *getSFRBeacon         (void) const;
+            const SFUncountedNodePtr  *getSFQBeacon         (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -356,10 +356,10 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
     SFVec4f           _sfGenFuncTPlane;
     SFVec4f           _sfGenFuncRPlane;
     SFVec4f           _sfGenFuncQPlane;
-    SFNodePtr         _sfSBeacon;
-    SFNodePtr         _sfTBeacon;
-    SFNodePtr         _sfRBeacon;
-    SFNodePtr         _sfQBeacon;
+    SFUncountedNodePtr _sfSBeacon;
+    SFUncountedNodePtr _sfTBeacon;
+    SFUncountedNodePtr _sfRBeacon;
+    SFUncountedNodePtr _sfQBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

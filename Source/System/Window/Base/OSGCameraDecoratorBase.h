@@ -124,7 +124,7 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
     /*! \{                                                                 */
 
     virtual       const SFCameraPtr *getSFDecoratee(void) const;
-    virtual const SFNodePtr           *getSFBeacon          (void) const;
+    virtual const SFUncountedNodePtr  *getSFBeacon          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
     virtual       SFReal32            *getSFNear            (void);

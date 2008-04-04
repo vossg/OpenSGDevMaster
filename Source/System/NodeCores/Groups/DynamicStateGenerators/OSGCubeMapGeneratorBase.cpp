@@ -196,8 +196,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUncountedNodePtr::Description(
+        SFUncountedNodePtr::getClassType(),
         "beacon",
         "",
         BeaconFieldId, BeaconFieldMask,
@@ -342,7 +342,8 @@ CubeMapGeneratorBase::TypeObject CubeMapGeneratorBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"beacon\"\n"
-    "\t\ttype=\"NodePtr\"\n"
+    "\t\ttype=\"Node\"\n"
+    "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NullFC\"\n"
@@ -475,7 +476,7 @@ SFGLenum            *CubeMapGeneratorBase::getSFTextureFormat  (void)
 #endif
 
 //! Get the CubeMapGenerator::_sfBeacon field.
-const SFNodePtr *CubeMapGeneratorBase::getSFBeacon(void) const
+const SFUncountedNodePtr *CubeMapGeneratorBase::getSFBeacon(void) const
 {
     return &_sfBeacon;
 }
@@ -1087,8 +1088,8 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleTextureFormat  (void)
 
 GetFieldHandlePtr CubeMapGeneratorBase::getHandleBeacon          (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new  SFUncountedNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -1097,8 +1098,8 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr CubeMapGeneratorBase::editHandleBeacon         (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUncountedNodePtr::EditHandlePtr returnValue(
+        new  SFUncountedNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

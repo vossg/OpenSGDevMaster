@@ -408,8 +408,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUncountedNodePtr::Description(
+        SFUncountedNodePtr::getClassType(),
         "beacon",
         "The object that defines the orientation of the background, i.e. the\n"
         "local coordinate system it is drawn in.\n",
@@ -635,7 +635,8 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"beacon\"\n"
-    "\t\ttype=\"NodePtr\"\n"
+    "\t\ttype=\"Node\"\n"
+    "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -941,7 +942,7 @@ MFVec3f             *SkyBackgroundBase::getMFBackTexCoord   (void)
 #endif
 
 //! Get the SkyBackground::_sfBeacon field.
-const SFNodePtr *SkyBackgroundBase::getSFBeacon(void) const
+const SFUncountedNodePtr *SkyBackgroundBase::getSFBeacon(void) const
 {
     return &_sfBeacon;
 }
@@ -2553,8 +2554,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBackTexCoord   (void)
 
 GetFieldHandlePtr SkyBackgroundBase::getHandleBeacon          (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new  SFUncountedNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -2563,8 +2564,8 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr SkyBackgroundBase::editHandleBeacon         (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUncountedNodePtr::EditHandlePtr returnValue(
+        new  SFUncountedNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

@@ -17,7 +17,8 @@ The Camera base class, see \ref PageSystemWindowCamera for a description.
 The only common fields are _sfNear and _sfFar.
 	<Field
 		name="beacon"
-		type="NodePtr"
+		type="Node"
+        category="weakpointer"
 		cardinality="single"
 		visibility="external"
 	>

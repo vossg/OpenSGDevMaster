@@ -135,5 +135,31 @@ FieldContainerPtr FieldContainerAttachment::getParent(UInt32 uiIdx) const
     }
 }
 
+#ifdef OSG_MT_CPTR_ASPECT
+inline
+void FieldContainerAttachment::execSync (      
+          FieldContainerAttachment *pFrom,
+          ConstFieldMaskArg         whichField,
+          AspectOffsetStore        &oOffsets,
+          ConstFieldMaskArg         syncMode  ,
+    const UInt32                    uiSyncInfo)
+{
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (InternalFieldMask & whichField))
+    {
+        _sfInternal.syncWith(pFrom->_sfInternal);
+    }
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.syncWith(pFrom->_mfParents, 
+                            syncMode, 
+                            uiSyncInfo,
+                            oOffsets);
+    }
+}
+#endif
+
 OSG_END_NAMESPACE
 

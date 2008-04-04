@@ -105,8 +105,8 @@ void CameraBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUncountedNodePtr::Description(
+        SFUncountedNodePtr::getClassType(),
         "beacon",
         "The object that define's the camera's coordinate system. The camera is positioned\n"
         "at the origin of the system and looks down the negative z-axis (OpenGL-style).\n",
@@ -174,7 +174,8 @@ CameraBase::TypeObject CameraBase::_type(
     "The only common fields are _sfNear and _sfFar.\n"
     "\t<Field\n"
     "\t\tname=\"beacon\"\n"
-    "\t\ttype=\"NodePtr\"\n"
+    "\t\ttype=\"Node\"\n"
+    "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t>\n"
@@ -226,7 +227,7 @@ UInt32 CameraBase::getContainerSize(void) const
 
 
 //! Get the Camera::_sfBeacon field.
-const SFNodePtr *CameraBase::getSFBeacon(void) const
+const SFUncountedNodePtr *CameraBase::getSFBeacon(void) const
 {
     return &_sfBeacon;
 }
@@ -374,8 +375,8 @@ void CameraBase::onCreate(const Camera *source)
 
 GetFieldHandlePtr CameraBase::getHandleBeacon          (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new  SFUncountedNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -384,8 +385,8 @@ GetFieldHandlePtr CameraBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr CameraBase::editHandleBeacon         (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUncountedNodePtr::EditHandlePtr returnValue(
+        new  SFUncountedNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

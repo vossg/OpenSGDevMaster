@@ -775,16 +775,21 @@ void OSG::Window::refreshGLObject( UInt32 osgId )
         return;
     }
 
-    std::vector<WindowPtr>::iterator it;
+    std::vector<WindowPtr>::iterator winIt;
 
-    for(it = _allWindows.begin(); it != _allWindows.end(); ++it)
+    for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
-        (*it)->editMField(GlObjectLastRefreshFieldMask,
-                          (*it)->_mfGlObjectLastRefresh);
+        WindowPtr pWin = convertToCurrentAspect(*winIt);
 
-        UInt32    lastinv = (*it)->getGlObjectEventCounter() + 1;
+        if(pWin == NULL)
+            continue;
 
-        MFUInt32 &field   = (*it)->_mfGlObjectLastRefresh;
+        pWin->editMField(GlObjectLastRefreshFieldMask,
+                         pWin->_mfGlObjectLastRefresh);
+
+        UInt32    lastinv = pWin->getGlObjectEventCounter() + 1;
+
+        MFUInt32 &field   = pWin->_mfGlObjectLastRefresh;
 
         if(field.size() <= osgId)
         {
@@ -794,7 +799,7 @@ void OSG::Window::refreshGLObject( UInt32 osgId )
 
         field[osgId] = lastinv;
 
-        (*it)->setGlObjectEventCounter(lastinv);
+        pWin->setGlObjectEventCounter(lastinv);
     }
 }
 
@@ -825,16 +830,21 @@ void OSG::Window::reinitializeGLObject(UInt32 osgId)
         return;
     }
 
-    std::vector<WindowPtr>::iterator it;
+    std::vector<WindowPtr>::iterator winIt;
 
-    for(it = _allWindows.begin(); it != _allWindows.end(); ++it)
+    for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
-        (*it)->editMField(GlObjectLastReinitializeFieldMask,
-                          (*it)->_mfGlObjectLastReinitialize);
+        WindowPtr pWin = convertToCurrentAspect(*winIt);
 
-        UInt32    lastinv = (*it)->getGlObjectEventCounter() + 1;
+        if(pWin == NULL)
+            continue;
 
-        MFUInt32 &field   = (*it)->_mfGlObjectLastReinitialize;
+        pWin->editMField(GlObjectLastReinitializeFieldMask,
+                         pWin->_mfGlObjectLastReinitialize);
+
+        UInt32    lastinv = pWin->getGlObjectEventCounter() + 1;
+
+        MFUInt32 &field   = pWin->_mfGlObjectLastReinitialize;
 
         if(field.size() <= osgId)
             field.getValues().insert(field.end(), osgId - field.size() + 1, 0 );
@@ -845,7 +855,7 @@ void OSG::Window::reinitializeGLObject(UInt32 osgId)
 
         field[osgId] = lastinv;
 
-        (*it)->setGlObjectEventCounter(lastinv);
+        pWin->setGlObjectEventCounter(lastinv);
     }
 }
 
@@ -875,11 +885,16 @@ void OSG::Window::initRegisterGLObject(UInt32 osgId, UInt32 num)
         return;
     }
 
-    std::vector<WindowPtr>::iterator it;
+    std::vector<WindowPtr>::iterator winIt;
 
-    for(it = _allWindows.begin(); it != _allWindows.end(); ++it)
+    for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
-        (*it)->doInitRegisterGLObject(osgId, num);
+        WindowPtr pWin = convertToCurrentAspect(*winIt);
+
+        if(pWin == NULL)
+            continue;
+
+        pWin->doInitRegisterGLObject(osgId, num);
     }
 }
 
@@ -944,23 +959,28 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
         return;
     }
 
-    std::vector<WindowPtr>::iterator it;
+    std::vector<WindowPtr>::iterator winIt;
 
-    for(it = _allWindows.begin(); it != _allWindows.end(); ++it)
+    for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
+        WindowPtr pWin = convertToCurrentAspect(*winIt);
+
+        if(pWin == NULL)
+            continue;
+
 #ifdef OSG_DEBUG
-        if(osgId + num > (*it)->_mfGlObjectLastReinitialize.size())
+        if(osgId + num > pWin->_mfGlObjectLastReinitialize.size())
         {
             FWARNING(("Window::destroyGLObject: id %d + num %d exceed"
                       "registered objects size %d!\n", osgId, num, 
-                      (*it)->_mfGlObjectLastReinitialize.size()));
+                      pWin->_mfGlObjectLastReinitialize.size()));
             return;
         }
 #endif
 
         // has the object been used in this context at all?
-        if((*it)->getGlObjectLastReinitialize()[osgId] != 0) 
-            (*it)->_glObjectDestroyList.push_back(DestroyEntry(osgId,num));
+        if(pWin->getGlObjectLastReinitialize()[osgId] != 0) 
+            pWin->_glObjectDestroyList.push_back(DestroyEntry(osgId,num));
     }
 }
 

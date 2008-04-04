@@ -138,7 +138,8 @@ CameraDecoratorBase::TypeObject CameraDecoratorBase::_type(
     "The only common fields are _sfNear and _sfFar.\n"
     "\t<Field\n"
     "\t\tname=\"beacon\"\n"
-    "\t\ttype=\"NodePtr\"\n"
+    "\t\ttype=\"Node\"\n"
+    "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t>\n"
@@ -194,7 +195,7 @@ const SFCameraPtr *CameraDecoratorBase::getSFDecoratee(void) const
 }
 
 //! Get the CameraDecorator::_sfBeacon field.
-const SFNodePtr *CameraDecoratorBase::getSFBeacon(void) const
+const SFUncountedNodePtr *CameraDecoratorBase::getSFBeacon(void) const
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
@@ -369,8 +370,8 @@ EditFieldHandlePtr CameraDecoratorBase::editHandleDecoratee(void)
 
 GetFieldHandlePtr CameraDecoratorBase::getHandleBeacon          (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new  SFUncountedNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -379,8 +380,8 @@ GetFieldHandlePtr CameraDecoratorBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr CameraDecoratorBase::editHandleBeacon         (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUncountedNodePtr::EditHandlePtr returnValue(
+        new  SFUncountedNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

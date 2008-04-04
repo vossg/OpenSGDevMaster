@@ -180,7 +180,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
 #endif
                   SFGLenum            *editSFTextureFormat  (void);
             const SFGLenum            *getSFTextureFormat   (void) const;
-            const SFNodePtr           *getSFBeacon          (void) const;
+            const SFUncountedNodePtr  *getSFBeacon          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFPnt3f             *getSFOrigin          (void);
@@ -340,7 +340,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     SFTextureObjChunkPtr _sfTexture;
     SFVec2s           _sfTextureSize;
     SFGLenum          _sfTextureFormat;
-    SFNodePtr         _sfBeacon;
+    SFUncountedNodePtr _sfBeacon;
     SFPnt3f           _sfOrigin;
     SFUInt32          _sfOriginMode;
     SFUInt32          _sfTexUnit;

@@ -187,7 +187,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
         "Is used in glObjectLastRefresh and glObjectLastReinitialize.\n",
         GlObjectEventCounterFieldId, GlObjectEventCounterFieldMask,
         true,
-        (Field::FClusterLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectEventCounter),
         static_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectEventCounter));
 
@@ -199,7 +199,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
         "Indicates the last refresh for the GL object.\n",
         GlObjectLastRefreshFieldId, GlObjectLastRefreshFieldMask,
         true,
-        (Field::FClusterLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectLastRefresh),
         static_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectLastRefresh));
 
@@ -211,7 +211,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
         "Indicates the last reinit for the GL object.\n",
         GlObjectLastReinitializeFieldId, GlObjectLastReinitializeFieldMask,
         true,
-        (Field::FClusterLocal),
+        (Field::FClusterLocal | Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectLastReinitialize),
         static_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectLastReinitialize));
 
@@ -313,7 +313,7 @@ WindowBase::TypeObject WindowBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"1\"\n"
     "\t\taccess=\"protected\"\n"
-    "                fieldFlags=\"FClusterLocal\"\n"
+    "                fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
     "\t>\n"
     "\tCounter for GL object events. Needed for multi-aspect updates.\n"
     "        Is used in glObjectLastRefresh and glObjectLastReinitialize.\n"
@@ -324,7 +324,7 @@ WindowBase::TypeObject WindowBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"protected\"\n"
-    "                fieldFlags=\"FClusterLocal\"\n"
+    "                fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
     "\t>\n"
     "\tIndicates the last refresh for the GL object.\n"
     "\t</Field>\n"
@@ -334,7 +334,7 @@ WindowBase::TypeObject WindowBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"protected\"\n"
-    "                fieldFlags=\"FClusterLocal\"\n"
+    "                fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
     "\t>\n"
     "\tIndicates the last reinit for the GL object.\n"
     "\t</Field>\n"

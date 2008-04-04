@@ -199,7 +199,8 @@ and _sfBottomTexture fields.
 	</Field>
 	<Field
 		name="beacon"
-		type="NodePtr"
+		type="Node"
+        category="weakpointer"
 		cardinality="single"
 		visibility="external"
 		access="public"

@@ -134,8 +134,8 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUncountedNodePtr::Description(
+        SFUncountedNodePtr::getClassType(),
         "beacon",
         "The object that defines the clip planes's coordinate system. The clip\n"
         "plane is positioned relative to this system.\n",
@@ -203,7 +203,8 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"beacon\"\n"
-    "\t\ttype=\"NodePtr\"\n"
+    "\t\ttype=\"Node\"\n"
+    "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NullFC\"\n"
@@ -281,7 +282,7 @@ SFBool              *ClipPlaneChunkBase::getSFEnable         (void)
 #endif
 
 //! Get the ClipPlaneChunk::_sfBeacon field.
-const SFNodePtr *ClipPlaneChunkBase::getSFBeacon(void) const
+const SFUncountedNodePtr *ClipPlaneChunkBase::getSFBeacon(void) const
 {
     return &_sfBeacon;
 }
@@ -467,8 +468,8 @@ EditFieldHandlePtr ClipPlaneChunkBase::editHandleEnable         (void)
 
 GetFieldHandlePtr ClipPlaneChunkBase::getHandleBeacon          (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new  SFUncountedNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -477,8 +478,8 @@ GetFieldHandlePtr ClipPlaneChunkBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr ClipPlaneChunkBase::editHandleBeacon         (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUncountedNodePtr::EditHandlePtr returnValue(
+        new  SFUncountedNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

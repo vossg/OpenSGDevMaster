@@ -214,6 +214,22 @@ GetFieldHandlePtr FieldContainerAttachment::getHandleParents(void) const
     return returnValue;
 }
 
+#ifdef OSG_MT_CPTR_ASPECT
+void FieldContainerAttachment::execSyncV(      
+          FieldContainer           &oFrom,
+          ConstFieldMaskArg         whichField,
+          AspectOffsetStore        &oOffsets,
+          ConstFieldMaskArg         syncMode  ,
+    const UInt32                    uiSyncInfo)
+{
+    this->execSync(static_cast<FieldContainerAttachment *>(&oFrom),
+                   whichField,
+                   oOffsets,
+                   syncMode,
+                   uiSyncInfo);
+}
+#endif
+
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
 
