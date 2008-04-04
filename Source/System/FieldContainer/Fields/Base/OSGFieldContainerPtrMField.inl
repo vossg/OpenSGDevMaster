@@ -138,33 +138,72 @@ void FieldContainerPtrMField<ValueT,
 {
     UInt32 n;
 
-     pMem  .getValue(n);
-
-     this->clear();
-
-#ifdef __hpux
-    FieldTypeT tmpVal = NULL;
-
-    _values.resize(n, tmpVal);
-#else
-    _values.resize(n, NULL);
-#endif
+    pMem.getValue(n);
 
     if(n != 0)
     {
-        MFieldTraits::copyFromBin(   pMem, 
-                                  &(_values[0]),
-                                     n);
-
-        typename Inherited::const_iterator sIt  = _values.begin();
-        typename Inherited::const_iterator sEnd = _values.end  ();
-
-        while(sIt != sEnd)
+        if(_values.size() == 0)
         {
-            RefCountPolicy::addRef(*sIt);
+            _values.resize(n, NULL);
 
-            ++sIt;
+            MFieldTraits::copyFromBin(   pMem, 
+                                      &(_values[0]),
+                                         n);
+            
+            typename Inherited::const_iterator sIt  = _values.begin();
+            typename Inherited::const_iterator sEnd = _values.end  ();
+            
+            while(sIt != sEnd)
+            {
+                RefCountPolicy::addRef(*sIt);
+                
+                ++sIt;
+            }
         }
+        else
+        {
+            if(n > _values.size())
+            {
+                _values.resize(n, NullFC);
+            }
+            
+            typename Inherited::      iterator sIt  = _values.begin();
+            typename Inherited::const_iterator sEnd = _values.end  ();
+
+            FieldContainerPtr tmpVal;
+
+            for(UInt32 i = 0; i < n; ++i)
+            {
+                if(*sIt != NULL)
+                    Thread::getCurrentChangeList()->addSyncAddRef(*sIt);
+
+                MFieldTraits::copyFromBin(pMem, 
+                                          tmpVal);
+                
+                RefCountPolicy::setRefd(*sIt, tmpVal);
+                
+                ++sIt;
+            }
+
+            if(n < _values.size())
+            {
+                while(sIt != sEnd)
+                {
+                    if(*sIt != NULL)
+                        Thread::getCurrentChangeList()->addSyncAddRef(*sIt);
+
+                    RefCountPolicy::subRef(*sIt);
+
+                    ++sIt;
+                };
+
+                _values.resize(n);
+            }
+        }
+    }
+    else
+    {
+        this->clear();
     }
 }
 
@@ -367,6 +406,7 @@ typename FieldContainerPtrMField<ValueT,
     return RefCountPolicy::validate(returnValue);
 }
 
+#ifndef OSG_CLEAN_FCFIELDS
 template<class    ValueT, 
          typename RefCountPolicy, 
          Int32    iNamespace    > inline
@@ -379,6 +419,7 @@ typename FieldContainerPtrMField<ValueT,
 {
     return typename Self::reference(this->begin_nc() + index);
 }
+#endif
 
 template<class    ValueT, 
          typename RefCountPolicy, 

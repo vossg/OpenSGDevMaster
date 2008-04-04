@@ -173,36 +173,32 @@ void FieldContainerPtrParentMField<ValueT,
 {
     UInt32 n;
 
-     pMem  .getValue(n);
-
-     OSG_ASSERT(_values.size() == 0);
-
-#ifdef __hpux
-    FieldTypeT tmpVal;
-
-    _values.resize(n, tmpVal);
-#else
-    _values.resize(n);
-#endif
+    pMem  .getValue(n);
 
     if(n != 0)
     {
+        _values.resize(n, NullFC);
+
         PtrMFieldTraits::copyFromBin(   pMem, 
                                      &(_values[0]),
                                         n);
-    }
+        
+        pMem.getValue(n);
+       
+        OSG_ASSERT(_values.size() == n);
 
-     pMem.getValue(n);
-    
-     OSG_ASSERT(_vParentPos.size() == 0);
-    
-    _vParentPos.resize(n);
+        _vParentPos.resize(n);
 
-    if(n != 0)
-    {
         PosMFieldTraits::copyFromBin(   pMem, 
                                      &(_vParentPos[0]),
                                         n);        
+    }
+    else
+    {
+        pMem.getValue(n);
+
+        _values    .clear();
+        _vParentPos.clear();
     }
 }
 
@@ -392,7 +388,7 @@ void FieldContainerPtrParentMField<ValueT,
 {
     if(source.size() != 0)
     {
-        this->resize(source.size());
+        _values.resize(source.size(), NullFC);
 
         Inherited::iterator sIt  = source._values.begin();
         Inherited::iterator sEnd = source._values.end  ();
@@ -409,7 +405,7 @@ void FieldContainerPtrParentMField<ValueT,
     }
     else
     {
-        this->clear();
+        _values.clear();
     }
     
     _vParentPos = source._vParentPos;

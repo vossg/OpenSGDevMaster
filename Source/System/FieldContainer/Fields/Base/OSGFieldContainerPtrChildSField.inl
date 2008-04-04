@@ -206,10 +206,17 @@ void FieldContainerPtrChildSField<ValueT,
                                   iNamespace    >::copyFromBin(
     BinaryDataHandler &pMem)
 {
-    SFieldTraits::copyFromBin( pMem, 
-                              _fieldValue);
+    FieldContainerPtr tmpVal;
 
-    RefCountPolicy::addRef(_fieldValue);
+    SFieldTraits::copyFromBin(pMem, 
+                              tmpVal);
+
+    if(_fieldValue != NullFC)
+        Thread::getCurrentChangeList()->addSyncAddRef(_fieldValue);
+
+    RefCountPolicy::setRefd(_fieldValue, tmpVal);
+
+//    _fieldValue = tmpVal;
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -220,8 +227,13 @@ void FieldContainerPtrChildSField<ValueT,
                                   RefCountPolicy, 
                                   iNamespace    >::syncWith(Self &source)
 {
+    if(_fieldValue != NullFC)
+        Thread::getCurrentChangeList()->addSyncAddRef(_fieldValue);
+
     RefCountPolicy::setRefd(_fieldValue,
-                            convertToCurrentAspect(source.getValue()));
+                             convertToCurrentAspect(source.getValue()));
+
+//    _fieldValue = convertToCurrentAspect(source.getValue());
 }
 #endif
 

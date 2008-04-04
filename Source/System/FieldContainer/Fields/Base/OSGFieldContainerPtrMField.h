@@ -59,12 +59,17 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
   public:
 
+#ifndef OSG_CLEAN_FCFIELDS
     class                                                    ReferenceProxy;
+#endif
 
     typedef          MFieldVector <ValueT>                   StorageType;
     typedef typename StorageType::Inherited                  StorageTypeParent;
 
+#ifndef OSG_CLEAN_FCFIELDS
     typedef          ReferenceProxy                          reference;
+#endif
+
     typedef          ValueT                                  const_reference;
 
     typedef          FieldTraits            <ValueT, 
@@ -95,6 +100,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
     /*---------------------------------------------------------------------*/
 
+#ifndef OSG_CLEAN_FCFIELDS
     class ReferenceProxy
     {
       public:
@@ -146,7 +152,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
       private:
 
     };
-
+#endif
 
     template<class StorageTypeT, typename ItRefCountPolicy>
     class ptrfield_iterator;
@@ -265,11 +271,17 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
         {
         }
 
+#ifndef OSG_CLEAN_FCFIELDS
         reference operator*() const
         { 
             return ReferenceProxy(this);
-            //ItRefCountPolicy::validate(*Inherited::_M_current); 
         }
+#else
+        const_reference operator*() const
+        { 
+            return ItRefCountPolicy::validate(*Inherited::_M_current); 
+        }
+#endif
 
         bool operator ==(const ptrfield_iterator &rhs) const
         {
@@ -393,8 +405,10 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     iterator  begin_nc(void              );
     iterator  end_nc  (void              );
 
+#ifndef OSG_CLEAN_FCFIELDS
     reference front_nc(void              );
     reference back_nc (void              );
+#endif
 
     iterator  find_nc (ArgumentType value);
 
@@ -463,7 +477,9 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
+#ifndef OSG_CLEAN_FCFIELDS
           reference operator [](UInt32 index);
+#endif
     const_reference operator [](UInt32 index) const;
 
     /*! \}                                                                 */

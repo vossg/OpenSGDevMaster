@@ -174,8 +174,12 @@ void FieldContainerPtrParentSField<ValueT,
                                    iNamespace    >::copyFromBin(
     BinaryDataHandler &pMem)
 {
-    PtrSFieldTraits::copyFromBin( pMem, 
-                                 _fieldValue );
+    FieldContainerPtr tmpVal;
+
+    PtrSFieldTraits::copyFromBin(pMem, 
+                                 tmpVal );
+
+    RefCountPolicy::setRefd(_fieldValue, tmpVal);
 
     PosSFieldTraits::copyFromBin( pMem, 
                                  _uiParentFieldPos);

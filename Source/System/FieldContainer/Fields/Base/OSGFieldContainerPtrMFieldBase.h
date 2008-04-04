@@ -46,6 +46,8 @@
 #include "OSGMField.h"
 #include "OSGFieldContainerFieldTraits.h"
 
+#define OSG_CLEAN_FCFIELDS
+
 OSG_BEGIN_NAMESPACE
 
 class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
