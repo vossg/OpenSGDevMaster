@@ -90,26 +90,4 @@ bool FieldContainerPtrSFieldBase::operator ==(const Self &source) const
     return _fieldValue == source._fieldValue;
 }
 
-
-inline
-FieldContainerPtrSFieldBase::reference 
-    FieldContainerPtrSFieldBase::getValue(void)
-{
-    return _fieldValue;
-}
-
-#if 0
-inline
-void FieldContainerPtrSFieldBase::setValue(ArgumentType value)
-{
-    OSG::setRefdX(_fieldValue, value);
-}
-
-inline
-void FieldContainerPtrSFieldBase::setValue(const Self &obj)
-{
-    OSG::setRefdX(_fieldValue, obj._fieldValue);
-}
-#endif
-
 OSG_END_NAMESPACE

@@ -58,16 +58,9 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrSFieldBase : public Field
     typedef       FieldContainerPtrSFieldBase              Self;
 
     typedef       FieldContainerPtr                        StoredType;
-    typedef       FieldContainerPtr                       &reference;
     typedef const FieldContainerPtr                        const_reference;
 
-    typedef       FieldContainerPtr                        ArgumentType;
-
-//    typedef       SFieldTraits::ArgumentType               ArgumentType;
-
-//    typedef       FieldDescription<SFieldTraits,
-//                                   SingleField        >    Description;
-
+    typedef const FieldContainerPtr                        ArgumentType;
 
     typedef       EditSFieldHandle <Self      >            EditHandle;
     typedef       boost::shared_ptr<EditHandle>            EditHandlePtr;
@@ -76,8 +69,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrSFieldBase : public Field
     typedef       boost::shared_ptr<GetHandle>             GetHandlePtr;
 
     /*---------------------------------------------------------------------*/
-
-    static const Int32 Namespace = 0;
 
     static const bool isSField       = true;
     static const bool isMField       = false;
@@ -150,24 +141,15 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrSFieldBase : public Field
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    reference getValue(void);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-#if 0
-    void setValue           (      ArgumentType  value);
-    void setValue           (const Self         &obj  );
-#endif
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Interface                           */
     /*! \{                                                                 */
-
-//    void copyFromBin(BinaryDataHandler &pMem);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

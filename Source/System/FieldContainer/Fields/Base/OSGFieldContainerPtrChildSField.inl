@@ -68,55 +68,6 @@ const To FieldContainerPtrChildSField<ValueT,
 #pragma warning( default : 488 )
 #endif
 
-#if 0
-template<class    ValueT, 
-         typename RefCountPolicy, 
-         Int32    iNamespace    > inline
-FieldContainerPtrChildSField<ValueT, 
-                             RefCountPolicy, 
-                             iNamespace    >::FieldContainerPtrChildSField(
-                                 void) :
-     Inherited       (      ),
-    _pParent         (NullFC),
-    _uiParentFieldPos(0xFFFF)
-
-{
-}
-
-#if 0
-template<class    ValueT, 
-         typename RefCountPolicy, 
-         Int32    iNamespace    > inline
-FieldContainerPtrChildSField<ValueT, 
-                             RefCountPolicy, 
-                             iNamespace    >::FieldContainerPtrChildSField(
-    const Self &obj) :
-
-     Inherited       (      ),
-    _pParent         (NullFC),
-    _uiParentFieldPos(0xFFFF)
-{
-    RefCountPolicy::setRefd(_fieldValue, obj._fieldValue);   
-}
-#endif
-
-
-template<class    ValueT, 
-         typename RefCountPolicy, 
-         Int32    iNamespace    > inline
-FieldContainerPtrChildSField<ValueT, 
-                             RefCountPolicy, 
-                             iNamespace    >::FieldContainerPtrChildSField(
-    ArgumentType value) : 
-
-     Inherited       (      ),
-    _pParent         (NullFC),
-    _uiParentFieldPos(0xFFFF)
-{
-    RefCountPolicy::setRefd(_fieldValue, value);
-}
-#endif
-
 template<class    ValueT, 
          typename RefCountPolicy, 
          Int32    iNamespace    > inline

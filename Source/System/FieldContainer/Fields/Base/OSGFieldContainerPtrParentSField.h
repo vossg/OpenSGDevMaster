@@ -58,40 +58,34 @@ class FieldContainerPtrParentSField : public FieldContainerPtrSFieldBase
 
   public:
 
-    typedef          FieldTraits            <ValueT, 
-                                             iNamespace>  PtrSFieldTraits;
+    typedef       FieldTraits                  <ValueT, 
+                                                iNamespace    > PtrSFieldTraits;
 
-    typedef          FieldTraits            <UInt16,  0>  PosSFieldTraits;
+    typedef       FieldTraits                  <UInt16,  0    > PosSFieldTraits;
 
-    typedef          FieldContainerPtrParentSField<ValueT, 
-                                             RefCountPolicy,
-                                             iNamespace>  Self;
+    typedef       FieldContainerPtrParentSField<ValueT, 
+                                                RefCountPolicy,
+                                                iNamespace    > Self;
 
-    typedef          ValueT                               StoredType;
-    typedef          ValueT                              &reference;
-    typedef const    ValueT                              &const_reference;
+    typedef       ValueT                                        StoredType;
+    typedef const ValueT                                        const_reference;
   
-    typedef typename SFieldTraits::ArgumentType           ArgumentType;
+    typedef const ValueT                                        ArgumentType;
 
-    typedef           FieldDescription<PtrSFieldTraits,
-                                       SingleField,
-                                       RefCountPolicy,
-                                       ParentPtrField  >  Description;
+    typedef       FieldDescription             <PtrSFieldTraits,
+                                                SingleField,
+                                                RefCountPolicy,
+                                                ParentPtrField> Description;
 
-    typedef           EditFCPtrSFieldHandle<Self       >  EditHandle;
-    typedef           boost::shared_ptr    <EditHandle >  EditHandlePtr;
+    typedef       EditFCPtrSFieldHandle        <Self          > EditHandle;
+    typedef       boost::shared_ptr            <EditHandle    > EditHandlePtr;
 
-    typedef           GetFCPtrSFieldHandle <Self       >  GetHandle;
-    typedef           boost::shared_ptr    <GetHandle  >  GetHandlePtr;
+    typedef       GetFCPtrSFieldHandle         <Self          > GetHandle;
+    typedef       boost::shared_ptr            <GetHandle     > GetHandlePtr;
 
     /*---------------------------------------------------------------------*/
 
     static const Int32 Namespace     = iNamespace;
-
-    static const bool isSField       = true;
-    static const bool isMField       = false;
-
-    static const bool isPointerField = true;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */
@@ -121,9 +115,6 @@ class FieldContainerPtrParentSField : public FieldContainerPtrSFieldBase
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-/*
-          reference getValue(void);
- */
     const_reference getValue(void) const;
 
     /*! \}                                                                 */
@@ -135,20 +126,6 @@ class FieldContainerPtrParentSField : public FieldContainerPtrSFieldBase
                                    UInt16        uiPos);
     void setValue           (const Self         &obj  );
 
-#if 0
-    void setValueFromCString(const Char8        *str  );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Push                                    */
-    /*! \{                                                                 */
-
-    void pushValueToString  (std::string  &str) const;
-    void pushValueFromStream(std::istream &str);
-    void pushValueToStream  (OutStream    &str) const;
-    void pushSizeToStream   (OutStream    &str) const;
-#endif
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Interface                           */

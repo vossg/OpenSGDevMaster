@@ -110,15 +110,6 @@ FieldContainerPtrParentSField<ValueT,
     RefCountPolicy::subRef(_fieldValue);
 }
 
-#if 0
-template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
-typename FieldContainerPtrSField<ValueT, RefCountPolicy, iNamespace>::reference 
-    FieldContainerPtrSField<ValueT, RefCountPolicy, iNamespace>::getValue(void)
-{
-    return this->template dcast<typename Self::StoredType>();
-}
-#endif
-
 template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 typename FieldContainerPtrParentSField<ValueT, 
                                        RefCountPolicy, 
