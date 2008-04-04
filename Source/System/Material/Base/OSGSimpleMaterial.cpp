@@ -78,14 +78,14 @@ void SimpleMaterial::prepareLocalChunks(void)
 {
     if(_materialChunk == NullFC)
     {
-        _materialChunk = MaterialChunk::create();
+        _materialChunk = MaterialChunk::createLocal();
 
 //        addRefX(_materialChunk);
     }
 
     if(_blendChunk == NullFC)
     {
-        _blendChunk    = BlendChunk   ::create();
+        _blendChunk    = BlendChunk   ::createLocal();
 
         _blendChunk->setSrcFactor (GL_SRC_ALPHA);
         _blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
@@ -151,60 +151,6 @@ void SimpleMaterial::changed(ConstFieldMaskArg whichField,
 
 /*-------------------------- your_category---------------------------------*/
 
-#ifdef OLD
-StatePtr SimpleMaterial::makeState(void)
-{
-    StatePtr state = State::create();
-
-    Color3f v3;
-    Color4f v4;
-
-    float alpha = 1.f - getTransparency();
-
-    prepareLocalChunks();
-
-    v3 = getAmbient(); 
-    v4.setValuesRGBA(v3[0], v3[1], v3[2], alpha);
-    
-    _materialChunk->setAmbient(v4);
-
-    v3 = getDiffuse(); 
-    v4.setValuesRGBA(v3[0], v3[1], v3[2], alpha);
-    
-    _materialChunk->setDiffuse(v4);
-
-    v3 = getSpecular(); 
-    v4.setValuesRGBA(v3[0], v3[1], v3[2], alpha);
-    
-    _materialChunk->setSpecular(v4);
-
-    _materialChunk->setShininess(getShininess());
-
-    v3 = getEmission(); 
-    v4.setValuesRGBA(v3[0], v3[1], v3[2], alpha);
-    
-    _materialChunk->setEmission(v4);
-        
-    _materialChunk->setLit(getLit());
-    _materialChunk->setColorMaterial(getColorMaterial());
-
-    state->addChunk(_materialChunk);
-
-    if(isTransparent())
-    {
-        state->addChunk(_blendChunk);
-    }
-
-    for(MFStateChunkPtr::iterator i  = _mfChunks.begin();
-                                  i != _mfChunks.end(); 
-                                ++i)
-    {
-        state->addChunk(*i);
-    }
-
-    return state;
-}
-#endif
 
 void SimpleMaterial::rebuildState(void)
 {
@@ -219,7 +165,7 @@ void SimpleMaterial::rebuildState(void)
     }
     else
     {
-        _pState = State::create();
+        _pState = State::createLocal();
 
         _pState->setDefaultSortKey(getContainerId(this));
 
@@ -274,7 +220,6 @@ bool SimpleMaterial::isTransparent(void) const
 void SimpleMaterial::dump(      UInt32    uiIndent,
                           const BitVector OSG_CHECK_ARG(bvFlags )) const
 {
-
     indentLog(uiIndent, PLOG);
     PLOG << "SimpleMaterial at " << this << std::endl;
 

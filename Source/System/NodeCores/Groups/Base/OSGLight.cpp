@@ -99,7 +99,7 @@ void Light::makeChunk(void)
 {
     if(_pChunk == NullFC)
     {
-        _pChunk = LightChunk::create();
+        _pChunk = LightChunk::createLocal();
     }
 
     _pChunk->setBeacon  (getBeacon  ());

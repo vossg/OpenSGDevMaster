@@ -67,7 +67,7 @@ OSG_USING_NAMESPACE
 SimpleStatisticsForeground::SimpleStatisticsForeground(void) :
     Inherited(), _face(0), _texchunk(NullFC), _texenvchunk(NullFC)
 {
-    _texenvchunk = TextureEnvChunk::create();
+    _texenvchunk = TextureEnvChunk::createLocal();
 //    OSG::addRefX(_texenvchunk);
     _texenvchunk->setEnvMode(GL_MODULATE);
 }
@@ -182,7 +182,7 @@ void SimpleStatisticsForeground::initText(const std::string &family, Real32 size
         _face = TextTXFFace::create(family, TextFace::STYLE_PLAIN, param);
         if (_face != 0)
         {
-            _texchunk = TextureObjChunk::create();
+            _texchunk = TextureObjChunk::createLocal();
             ImageUnrecPtr texture = _face->getTexture();
             _texchunk->setImage(texture);
             _texchunk->setWrapS(GL_CLAMP);

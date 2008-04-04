@@ -277,7 +277,7 @@ void ChunkMaterial::rebuildState(void)
     }
     else
     {
-        _pState = State::create();
+        _pState = State::createLocal();
 
         _pState->setDefaultSortKey(getContainerId(this));
 

@@ -180,13 +180,17 @@
 /*---------------------------- create decl ----------------------------------*/
 
 #define OSG_RC_CREATE_DECL                                                    \
-    static ObjTransitPtr create(void)
+    static ObjTransitPtr create(void);                                        \
+    static ObjTransitPtr createLocal(BitVector bFlags = FCLocal::All)
 
 #define OSG_RC_CREATE_EMPTY_DECL                                              \
-    static ObjPtr createEmpty(void)
+    static ObjPtr createEmpty(void);                                          \
+    static ObjPtr createEmptyLocal(BitVector bFlags = FCLocal::All)
 
 #define OSG_FC_SHALLOWCOPY_DECL                                               \
-    virtual OSG::FieldContainerTransitPtr shallowCopy(void) const
+    virtual OSG::FieldContainerTransitPtr shallowCopy(void) const;            \
+    virtual OSG::FieldContainerTransitPtr shallowCopyLocal(                   \
+                                        BitVector uiFlags = FCLocal::All) const
 
 #define OSG_FB_SHALLOWCOPY_DECL                                               \
     virtual OSG::FieldBundleP shallowCopy(void) const
@@ -208,9 +212,26 @@
     {                                                                         \
         ObjPtr tmpPtr;                                                        \
                                                                               \
-        newPtr<Self>(tmpPtr, this);                                           \
+        newPtr<Self>(tmpPtr, this, Thread::getCurrentLocalFlags());           \
                                                                               \
         FieldContainerTransitPtr returnValue(tmpPtr);                         \
+                                                                              \
+        tmpPtr->_pFieldFlags->_bNamespaceMask &=                              \
+            ~Thread::getCurrentLocalFlags();                                  \
+                                                                              \
+        return returnValue;                                                   \
+    }                                                                         \
+                                                                              \
+    OSG::FieldContainerTransitPtr                                             \
+        OSG_CLASS::shallowCopyLocal(BitVector bvFlags) const                  \
+    {                                                                         \
+        ObjPtr    tmpPtr;                                                     \
+                                                                              \
+        newPtr<Self>(tmpPtr, this, bvFlags);                                  \
+                                                                              \
+        FieldContainerTransitPtr returnValue(tmpPtr);                         \
+                                                                              \
+        tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bvFlags;                    \
                                                                               \
         return returnValue;                                                   \
     } 
@@ -232,9 +253,29 @@
     {                                                                         \
         ObjPtr tmpPtr;                                                        \
                                                                               \
-        Self::template newPtr<Self>(tmpPtr, this);                            \
+        Self::template newPtr<Self>(tmpPtr,                                   \
+                                    this,                                     \
+                                    Thread::getCurrentLocalFlags());          \
                                                                               \
         FieldContainerTransitPtr returnValue(tmpPtr);                         \
+                                                                              \
+        tmpPtr->_pFieldFlags->_bNamespaceMask &=                              \
+            ~Thread::getCurrentLocalFlags();                                  \
+                                                                              \
+        return returnValue;                                                   \
+    }                                                                         \
+                                                                              \
+    template < class OSG_TMPL_PARAM > INLINE                                  \
+    OSG::FieldContainerTransitPtr                                             \
+       OSG_CLASS< OSG_TMPL_PARAM >::shallowCopyLocal(BitVector bvFlags) const \
+    {                                                                         \
+        ObjPtr    tmpPtr;                                                     \
+                                                                              \
+        Self::template newPtr<Self>(tmpPtr, this, bvFlags);                   \
+                                                                              \
+        FieldContainerTransitPtr returnValue(tmpPtr);                         \
+                                                                              \
+        tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bvFlags;                    \
                                                                               \
         return returnValue;                                                   \
     }
@@ -279,6 +320,22 @@
         }                                                                     \
                                                                               \
         return fc;                                                            \
+    }                                                                         \
+                                                                              \
+    inline                                                                    \
+    OSG_CLASS::ObjTransitPtr OSG_CLASS::createLocal(BitVector bFlags)         \
+    {                                                                         \
+        ObjTransitPtr fc;                                                     \
+                                                                              \
+        if(getClassType().getPrototype() != OSGNullFC)                        \
+        {                                                                     \
+         OSG::FieldContainerTransitPtr temp_ptr =                             \
+             getClassType().getPrototype()->shallowCopyLocal(bFlags);         \
+                                                                              \
+         fc = dynamic_pointer_cast<Self>(temp_ptr);                           \
+        }                                                                     \
+                                                                              \
+        return fc;                                                            \
     }
 
 #define OSG_FC_CREATE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)             \
@@ -292,6 +349,24 @@
         {                                                                     \
          OSG::FieldContainerTransitPtr temp_ptr =                             \
              getClassType().getPrototype()->shallowCopy();                    \
+                                                                              \
+         fc = dynamic_pointer_cast<Self>(temp_ptr);                           \
+        }                                                                     \
+                                                                              \
+        return fc;                                                            \
+    }                                                                         \
+                                                                              \
+    template < class OSG_TMPL_PARAM > INLINE                                  \
+    typename OSG_CLASS < OSG_TMPL_PARAM >::ObjTransitPtr                      \
+        OSG_CLASS< OSG_TMPL_PARAM >::createLocal(BitVector bFlags)            \
+    {                                                                         \
+        ObjTransitPtr fc;                                                     \
+                                                                              \
+        if(getClassType().getPrototype() != OSGNullFC)                        \
+        {                                                                     \
+         OSG::FieldContainerTransitPtr temp_ptr =                             \
+             getClassType().getPrototype()->shallowCopyLocal(bFlags);         \
+                                                                              \
          fc = dynamic_pointer_cast<Self>(temp_ptr);                           \
         }                                                                     \
                                                                               \
@@ -343,6 +418,23 @@
         }                                                                     \
                                                                               \
         return fc;                                                            \
+    }                                                                         \
+                                                                              \
+    template <> OSG_DLL_EXPORT                                                \
+    OSG_CLASS < OSG_TMPL_PARAM >::ObjTransitPtr                               \
+        OSG_CLASS< OSG_TMPL_PARAM >::createLocal(BitVector bFlags)            \
+    {                                                                         \
+        ObjTransitPtr fc;                                                     \
+                                                                              \
+        if(getClassType().getPrototype() != OSGNullFC)                        \
+        {                                                                     \
+         OSG::FieldContainerTransitPtr temp_ptr =                             \
+             getClassType().getPrototype()->shallowCopyLocal(bFlags);         \
+                                                                              \
+         fc = dynamic_pointer_cast<Self>(temp_ptr);                           \
+        }                                                                     \
+                                                                              \
+        return fc;                                                            \
     }
 
 #define OSG_FB_CREATE_SPECIALIZED_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)         \
@@ -368,7 +460,22 @@
     {                                                                         \
         ObjPtr returnValue;                                                   \
                                                                               \
-        newPtr<Self>(returnValue);                                            \
+        newPtr<Self>(returnValue, Thread::getCurrentLocalFlags());            \
+                                                                              \
+        returnValue->_pFieldFlags->_bNamespaceMask &=                         \
+            ~Thread::getCurrentLocalFlags();                                  \
+                                                                              \
+        return returnValue;                                                   \
+    }                                                                         \
+                                                                              \
+    inline                                                                    \
+    OSG_CLASS::ObjPtr OSG_CLASS::createEmptyLocal(BitVector bvFlags)          \
+    {                                                                         \
+        ObjPtr returnValue;                                                   \
+                                                                              \
+        newPtr<Self>(returnValue, bvFlags);                                   \
+                                                                              \
+        returnValue->_pFieldFlags->_bNamespaceMask &= ~bvFlags;               \
                                                                               \
         return returnValue;                                                   \
     }
@@ -380,10 +487,28 @@
     {                                                                         \
         ObjPtr returnValue;                                                   \
                                                                               \
-        Self::template newPtr<Self>(returnValue);                             \
+        Self::template newPtr<Self>(returnValue,                              \
+                                    Thread::getCurrentLocalFlags());          \
+                                                                              \
+        returnValue->_pFieldFlags->_bNamespaceMask &=                         \
+            ~Thread::getCurrentLocalFlags();                                  \
+                                                                              \
+        return returnValue;                                                   \
+    }                                                                         \
+                                                                              \
+    template < class OSG_TMPL_PARAM > INLINE                                  \
+    typename OSG_CLASS< OSG_TMPL_PARAM >::ObjPtr                              \
+        OSG_CLASS< OSG_TMPL_PARAM >::createEmptyLocal(BitVector bvFlags)      \
+    {                                                                         \
+        ObjPtr returnValue;                                                   \
+                                                                              \
+        Self::template newPtr<Self>(returnValue, bvFlags);                    \
+                                                                              \
+        returnValue->_pFieldFlags->_bNamespaceMask &= ~bvFlags;               \
                                                                               \
         return returnValue;                                                   \
     }
+
 #define OSG_RC_CREATE_EMPTY_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)        \
         OSG_RC_CREATE_EMPTY_TMPL_DEF(OSG_CLASS,OSG_TMPL_PARAM,BOOST_PP_EMPTY())
 
@@ -397,7 +522,20 @@
     {                                                                         \
         ObjPtr returnValue;                                                   \
                                                                               \
-        Self::newPtr<Self>(returnValue);                                      \
+        Self::newPtr<Self>(returnValue, TypeTraits<BitVector>::BitsClear);    \
+                                                                              \
+        return returnValue;                                                   \
+    }                                                                         \
+                                                                              \
+    template < >                                                              \
+    OSG_CLASS< OSG_TMPL_PARAM >::ObjPtr                                       \
+        OSG_CLASS< OSG_TMPL_PARAM >::createEmptyLocal(BitVector bvFlags)      \
+    {                                                                         \
+        ObjPtr returnValue;                                                   \
+                                                                              \
+        Self::newPtr<Self>(returnValue, bvFlags);                             \
+                                                                              \
+        returnValue->_pFieldFlags->_bNamespaceMask &= ~bvFlags;               \
                                                                               \
         return returnValue;                                                   \
     }

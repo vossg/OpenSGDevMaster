@@ -120,9 +120,9 @@ void ShadowMapEngine::initMethod(InitPhase ePhase)
     {
         if(_pLightPassMat == NullFC)
         {
-            _pLightPassMat = ChunkMaterial::create();
+            _pLightPassMat = ChunkMaterial::createLocal();
 
-            MaterialChunkUnrecPtr pMatChunk = MaterialChunk::create();
+            MaterialChunkUnrecPtr pMatChunk = MaterialChunk::createLocal();
 
             pMatChunk->setLit          (false  );
             pMatChunk->setColorMaterial(GL_NONE);

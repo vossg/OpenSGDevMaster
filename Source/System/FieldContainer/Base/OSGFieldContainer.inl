@@ -522,9 +522,10 @@ void FieldContainer::onCreateAspect(const FieldContainer *,
 
         _pFieldFlags->_bClusterLocalFlags = 
             ~(_pFieldFlags->_bClusterLocalFlags);
-
-        _pFieldFlags->_bNamespaceMask = Thread::getCurrentNamespaceMask();
     }
+
+    _pFieldFlags->_bNamespaceMask = 
+        (Thread::getCurrentNamespaceMask() | FCLocal::MT);
 }
 
 inline
@@ -581,7 +582,8 @@ ContainerPtr convertToCurrentAspect(ContainerPtr pFC)
 
 template <class ObjectT> inline
 void FieldContainer::newPtr(      typename ObjectT::ObjPtr &result, 
-                            const          ObjectT         *pPrototype)
+                            const          ObjectT         *pPrototype,
+                                           BitVector        bFlags    )
 {
     result = new ObjectT(*pPrototype);
 
@@ -591,14 +593,16 @@ void FieldContainer::newPtr(      typename ObjectT::ObjPtr &result,
 
     result->setId(FieldContainerFactory::the()->registerContainer(result));
     
-    Thread::getCurrentChangeList()->addCreated(result->getId());
+    if(bFlags != TypeTraits<BitVector>::BitsSet)
+        Thread::getCurrentChangeList()->addCreated(result->getId(), bFlags);
 
     result->onCreate      (        pPrototype);
     result->onCreateAspect(result, pPrototype);
 }
 
 template <class ObjectT> inline
-void FieldContainer::newPtr(typename ObjectT::ObjPtr &result)
+void FieldContainer::newPtr(typename ObjectT::ObjPtr &result,
+                                     BitVector        bFlags)
 {
     result = new ObjectT;
 
@@ -608,7 +612,8 @@ void FieldContainer::newPtr(typename ObjectT::ObjPtr &result)
 
     result->setId(FieldContainerFactory::the()->registerContainer(result));
     
-    Thread::getCurrentChangeList()->addCreated(result->getId());
+    if(bFlags != TypeTraits<BitVector>::BitsSet)
+        Thread::getCurrentChangeList()->addCreated(result->getId(), bFlags);
 
     result->onCreate      (      );
     result->onCreateAspect(result);

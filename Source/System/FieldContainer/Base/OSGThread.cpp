@@ -84,6 +84,13 @@ void ThreadCommonBase::setChangeList(ChangeList *pChangeList)
     OSG::setRefd(_pChangeList, pChangeList);
 }
 
+#ifdef OSG_THREAD_DEBUG_SETASPECTTO
+void ThreadCommonBase::replaceChangelist(ChangeList *pNewList)
+{
+    _pChangeList = pNewList;
+}
+#endif
+
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
@@ -95,7 +102,8 @@ ThreadCommonBase::ThreadCommonBase(const Char8  *szName,
 
     _uiAspectId    (0                                     ),
     _pChangeList   (NULL                                  ),
-    _bNamespaceMask(TypeTraits<BitVector>::getOneElement())
+    _bNamespaceMask(TypeTraits<BitVector>::getOneElement()),
+    _bLocalFlags   (TypeTraits<BitVector>::BitsClear      )
 {
 }
 
@@ -113,14 +121,18 @@ ThreadCommonBase::~ThreadCommonBase(void)
 #if defined (OSG_USE_PTHREADS)
 
 #if defined(OSG_PTHREAD_ELF_TLS)
-__thread UInt32      PThreadBase::_uiTLSAspectId  = 0;
-__thread ChangeList *PThreadBase::_pTLSChangeList = NULL;
 
+__thread UInt32      PThreadBase::_uiTLSAspectId     = 0;
+__thread ChangeList *PThreadBase::_pTLSChangeList    = NULL;
 __thread BitVector   PThreadBase::_bTLSNamespaceMask = 1;
+__thread BitVector   PThreadBase::_bTLSLocalFlags    = 
+    TypeTraits<BitVector>::BitsClear;
+
 #else
 pthread_key_t PThreadBase::_aspectKey;
 pthread_key_t PThreadBase::_changeListKey;
 pthread_key_t PThreadBase::_namespaceMaskKey;
+pthread_key_t PThreadBase::_localFlagsKey;
 #endif
 
 /*-------------------------------------------------------------------------*/
@@ -149,6 +161,14 @@ void PThreadBase::freeNamespaceMask(void *pNamespaceMask)
 
     if(pNM != NULL)
         delete pNM;
+}
+
+void PThreadBase::freeLocalFlags(void *pLocalFlags)
+{
+    BitVector *pLF = (BitVector *) pLocalFlags;
+
+    if(pLF != NULL)
+        delete pLF;
 }
 #endif
 
@@ -211,6 +231,19 @@ BitVector PThreadBase::getCurrentNamespaceMask(void)
 #endif
 }
 
+BitVector PThreadBase::getCurrentLocalFlags(void)
+{
+#if defined(OSG_PTHREAD_ELF_TLS)
+    return _bTLSLocalFlags;
+#else
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) pthread_getspecific(_localFlagsKey);
+
+    return *pBitVec;
+#endif
+}
+
 void PThreadBase::setAspectTo(UInt32 uiNewAspect)
 {
 #if defined(OSG_PTHREAD_ELF_TLS)
@@ -237,6 +270,33 @@ void PThreadBase::setNamespaceMaskTo(BitVector bNamespaceMask)
 #endif
 }
 
+void PThreadBase::setLocalFlagsTo(BitVector bFlags)
+{
+#if defined(OSG_PTHREAD_ELF_TLS)
+    _bTLSLocalFlags = bFlags;
+#else
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) pthread_getspecific(_localFlagsKey);
+
+    *pBitVec = bFlags;
+#endif
+}
+
+#ifdef OSG_THREAD_DEBUG_SETASPECTTO
+void PThreadBase::setChangelistTo(ChangeList *pNewList)
+{
+#if defined(OSG_PTHREAD_ELF_TLS)
+    _pTLSChangeList = pNewList;
+#else
+    ChangeList **pChangeList = pNewList;
+
+
+    pthread_setspecific(_changeListKey, (void *) pChangeList);  
+#endif
+}
+#endif
+
 /*-------------------------------------------------------------------------*/
 /*                               Setup                                     */
 
@@ -252,6 +312,7 @@ void PThreadBase::init(void)
         setupAspect    ();        
         setupChangeList();   
         setupMasks     ();
+        setupLocalFlags();
     }
 }
 
@@ -285,6 +346,14 @@ void PThreadBase::shutdown(void)
     delete pBitVec;
 
     pthread_setspecific(_namespaceMaskKey, NULL);  
+
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) pthread_getspecific(_localFlagsKey);
+
+    delete pBitVec;
+
+    pthread_setspecific(_localFlagsKey, NULL);  
 #endif
 }
 
@@ -350,6 +419,19 @@ void PThreadBase::setupMasks(void)
     *pBitVec = Inherited::_bNamespaceMask;
 
     pthread_setspecific(_namespaceMaskKey, (void *) pBitVec);  
+#endif
+}
+
+void PThreadBase::setupLocalFlags(void)
+{
+#if defined(OSG_PTHREAD_ELF_TLS)
+    _bTLSLocalFlags = Inherited::_bLocalFlags;
+#else
+    BitVector *pBitVec = new BitVector;
+
+    *pBitVec = Inherited::_bLocalFlags;
+
+    pthread_setspecific(_localFlagsKey, (void *) pBitVec);  
 #endif
 }
 

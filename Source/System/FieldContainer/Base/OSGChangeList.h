@@ -215,6 +215,10 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     static void setReadWriteDefault(void);
 #endif
 
+#ifdef OSG_THREAD_DEBUG_SETASPECTTO
+    void setAspectTo(UInt32 uiNewAspect);
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
@@ -282,7 +286,8 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     void addSubRefd  (const UInt32 uiContainerId,
                             bool   ignoreLevel = false);
 
-    void addCreated  (const UInt32 uiContainerId);
+    void addCreated  (const UInt32    uiContainerId,
+                            BitVector bFlags       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

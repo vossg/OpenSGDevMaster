@@ -60,6 +60,12 @@ BitVector ThreadCommonBase::getNamespaceMask(void)
 }
 
 inline
+BitVector ThreadCommonBase::getLocalFlags(void)
+{
+    return _bLocalFlags;
+}
+
+inline
 void ThreadCommonBase::setAspect(UInt32 uiAspectId)
 {
     _uiAspectId = uiAspectId;
@@ -69,6 +75,12 @@ inline
 void ThreadCommonBase::setNamespaceMask(BitVector bNamespaceMask)
 {
     _bNamespaceMask = bNamespaceMask; 
+}
+
+inline
+void ThreadCommonBase::setLocalFlags(BitVector bFlags)
+{
+    _bLocalFlags = bFlags;
 }
 
 #if defined (OSG_USE_PTHREADS)
@@ -254,6 +266,29 @@ void Thread::setCurrentNamespaceMask(BitVector bMask)
 }
 
 inline
+void Thread::setCurrentLocalFlags(BitVector  bFlags)
+{
+    Inherited::setLocalFlagsTo(bFlags);
+
+    Self::getCurrent()->setLocalFlags(bFlags);
+}
+
+inline
+void Thread::resetCurrentLocalFlags(void)
+{
+    Inherited::setLocalFlagsTo(TypeTraits<BitVector>::BitsClear);
+
+    Self::getCurrent()->setLocalFlags(TypeTraits<BitVector>::BitsClear);
+}
+
+inline
+BitVector Thread::getCurrentLocalFlags(void)
+{
+    return Inherited::getCurrentLocalFlags();
+}
+
+
+inline
 Thread *Thread::getCurrent(void)
 {
     return static_cast<Thread *>(Inherited::getCurrent());
@@ -266,6 +301,14 @@ void Thread::setAspectTo(UInt32 uiNewAspect)
     Inherited::setAspectTo(uiNewAspect);
 
     Self::getCurrent()->setAspect(uiNewAspect);
+}
+
+inline
+void Thread::setChangelistTo(ChangeList *pNewList)
+{
+    Inherited::setChangelistTo(pNewList);
+
+    Self::getCurrent()->replaceChangelist(pNewList);
 }
 #endif
 

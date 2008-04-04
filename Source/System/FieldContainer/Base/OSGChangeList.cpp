@@ -105,7 +105,8 @@ void ChangeList::addSubRefd(const UInt32 uiContainerId,
     pEntry->uiContainerId = uiContainerId;
 }
 
-void ChangeList::addCreated(const UInt32 uiContainerId)
+void ChangeList::addCreated(const UInt32 uiContainerId, 
+                                  BitVector bFlags    )
 {
 #ifdef OSG_ENABLE_VALGRIND_CHECKS
     VALGRIND_CHECK_VALUE_IS_DEFINED(uiContainerId);
@@ -120,6 +121,7 @@ void ChangeList::addCreated(const UInt32 uiContainerId)
 
     pEntry->uiEntryDesc   = ContainerChangeEntry::Create;
     pEntry->uiContainerId = uiContainerId;
+    pEntry->whichField    = bFlags;
 }
 
 void ChangeList::addUncommited(ContainerChangeEntry *pEntry)
@@ -403,20 +405,23 @@ void ChangeList::doApply(bool bClear)
 
         if(pDst == NULL)
         {
-            pDst = pSrc->getType().createAspectCopy((*ccIt)->uiContainerId);
+            if(0x0000 == ((*ccIt)->whichField & FCLocal::MTMask))
+            {
+                pDst = pSrc->getType().createAspectCopy((*ccIt)->uiContainerId);
 
 #ifndef SILENT_CPTR
-            fprintf(stderr, "Setup store for %d %p \n",
-                    (*ccIt)->uiContainerId,
-                   pDst);
+                fprintf(stderr, "Setup store for %d %p \n",
+                        (*ccIt)->uiContainerId,
+                        pDst);
 #endif
 
-            if(pDst != NULL)
-                pDst->setupAspectStore(pHandler);
-
+                if(pDst != NULL)
+                    pDst->setupAspectStore(pHandler);
+                
 #ifndef SILENT_CPTR
-            pHandler->dump();
+                pHandler->dump();
 #endif
+            }
         }
 
         ++ccIt;
@@ -461,16 +466,26 @@ void ChangeList::doApply(bool bClear)
                 pDst != NULL ? pSrc->getType().getCName() : "null");
 #endif
 
-        if(pDst == NULL && pSrc != NULL)
+        if(pDst == NULL && 
+           pSrc != NULL)
         {
-            pDst = pSrc->getType().createAspectCopy((*cIt)->uiContainerId);
-
-            if(pDst != NULL) 
-                pDst->setupAspectStore(pHandler);
+            if((pSrc->getFieldFlags()->_bNamespaceMask & FCLocal::MTMask) != 
+               TypeTraits<BitVector>::BitsClear             )
+            {
+                pDst = pSrc->getType().createAspectCopy((*cIt)->uiContainerId);
+            
+                if(pDst != NULL) 
+                    pDst->setupAspectStore(pHandler);
 
 #ifndef SILENT_CPTR
-            pHandler->dump();
+                pHandler->dump();
 #endif
+            }
+            else
+            {
+                ++cIt;
+                continue;
+            }
         }
 
 #ifndef SILENT_CPTR
@@ -646,7 +661,7 @@ void ChangeList::fillFromCurrentState(UInt32 uiFieldContainerId)
 
         if(pContainer != NullFC)
         {
-            this->addCreated(i);
+            this->addCreated(i, TypeTraits<BitVector>::BitsClear);
 
             for(UInt32 j = 0; j < pContainer->getRefCount(); ++j)
                 this->addAddRefd(i);
@@ -664,6 +679,13 @@ void ChangeList::fillFromCurrentState(UInt32 uiFieldContainerId)
 #ifdef OSG_1_COMPAT
 void ChangeList::setReadWriteDefault(void)
 {
+}
+#endif
+
+#ifdef OSG_THREAD_DEBUG_SETASPECTTO
+void ChangeList::setAspectTo(UInt32 uiNewAspect)
+{
+    _uiAspect = uiNewAspect;
 }
 #endif
 
@@ -716,7 +738,7 @@ void ChangeList::dump(      UInt32    uiIndent,
 
         BitVector tmpChanges = 0xDEADBEEF;
 
-        if((*cIt)->bvUncommittedChanges != NULL)
+        if((*cIt)->bvUncommittedChanges != NULL && pTmp != NULL)
         { 
             tmpChanges = *((*cIt)->bvUncommittedChanges); 
         }
@@ -745,14 +767,6 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
-        BitVector tmpChanges = 0xDEADBEEF;
-
-        if((*cIt)->bvUncommittedChanges != NULL)
-        { 
-            tmpChanges = *((*cIt)->bvUncommittedChanges); 
-        }
-
-
         FieldContainerPtr pTmp =
             FieldContainerFactory::the()->getContainer((*cIt)->uiContainerId);
 
@@ -761,6 +775,13 @@ void ChangeList::dump(      UInt32    uiIndent,
         if(pTmp != NULL)
         {
             szTmp.assign(pTmp->getType().getCName());
+        }
+
+        BitVector tmpChanges = 0xDEADBEEF;
+
+        if((*cIt)->bvUncommittedChanges != NULL && pTmp != NULL)
+        { 
+            tmpChanges = *((*cIt)->bvUncommittedChanges); 
         }
 
         fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx (%p|%p) | %s\n",
@@ -787,9 +808,12 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
+        FieldContainerPtr pTmp =
+            FieldContainerFactory::the()->getContainer((*cIt)->uiContainerId);
+
         BitVector tmpChanges = 0xDEADBEEF;
 
-        if((*cIt)->bvUncommittedChanges != NULL)
+        if((*cIt)->bvUncommittedChanges != NULL && pTmp != NULL)
         { 
             tmpChanges = *((*cIt)->bvUncommittedChanges); 
         }

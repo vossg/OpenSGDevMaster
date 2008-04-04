@@ -232,21 +232,21 @@ void SimpleTexturedMaterial::prepareLocalChunks(void)
 {
     if(_textureChunk == NullFC)
     {
-        _textureChunk = TextureObjChunk::create();
+        _textureChunk = TextureObjChunk::createLocal();
 
 //         addRefX(_textureChunk);
     }
 
     if(_texGenChunk == NullFC)
     {
-        _texGenChunk  = TexGenChunk::create();
+        _texGenChunk  = TexGenChunk::createLocal();
 
 //        addRefX(_texGenChunk);
     }
 
     if(_texEnvChunk == NullFC)
     {
-        _texEnvChunk  = TextureEnvChunk::create();
+        _texEnvChunk  = TextureEnvChunk::createLocal();
 
 //        addRefX(_texEnvChunk);
     }

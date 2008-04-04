@@ -57,7 +57,7 @@ typedef void (*ExitContainerF) (ReflexiveContainerType::InitPhase);
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
-typedef FieldContainerCPtr (*PrototypeCreateF)(void);
+typedef FieldContainerCPtr (*PrototypeCreateF)(BitVector);
 
 /*! \ingroup GrpSystemFieldContainer
  */

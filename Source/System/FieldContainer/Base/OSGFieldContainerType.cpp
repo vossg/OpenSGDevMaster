@@ -201,7 +201,7 @@ bool FieldContainerType::initPrototype(void)
 {
     if(_fPrototypeCreate != NULL && _pPrototype == NullFC)
     {
-        _pPrototype = _fPrototypeCreate();
+        _pPrototype = _fPrototypeCreate(FCLocal::All);
 
         addRefX(_pPrototype);
     }

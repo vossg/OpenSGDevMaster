@@ -124,7 +124,8 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual ObjTransitPtr shallowCopy(void) const = 0;
+    virtual ObjTransitPtr shallowCopy     (void             ) const = 0;
+    virtual ObjTransitPtr shallowCopyLocal(BitVector uiFlags) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -386,10 +387,12 @@ class FieldContainer : public ReflexiveContainer
 
     template <class ObjectT>
     static void newPtr       (      typename ObjectT::ObjPtr &result, 
-                              const          ObjectT         *prototypeP);
+                              const          ObjectT         *prototypeP,
+                                             BitVector        bFlags    );
 
     template <class ObjectT>
-    static void newPtr       (      typename ObjectT::ObjPtr &result);
+    static void newPtr       (      typename ObjectT::ObjPtr &result, 
+                                             BitVector        bFlags);
 
 #ifdef OSG_MT_CPTR_ASPECT
     template <class ObjectT>

@@ -50,6 +50,7 @@
 
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
+#include "OSGContainerForwards.h"
 
 #ifndef OSG_WINCE
 
@@ -109,7 +110,17 @@ class OSG_SYSTEM_DLLMAPPING ThreadCommonBase : public BaseThread
     UInt32      getAspect       (void);
     ChangeList *getChangeList   (void);
     BitVector   getNamespaceMask(void);
- 
+    BitVector   getLocalFlags   (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+#ifdef OSG_THREAD_DEBUG_SETASPECTTO
+    void replaceChangelist(ChangeList *pNewList);
+#endif
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -124,6 +135,7 @@ class OSG_SYSTEM_DLLMAPPING ThreadCommonBase : public BaseThread
     UInt32      _uiAspectId;
     ChangeList *_pChangeList;
     BitVector   _bNamespaceMask;
+    BitVector   _bLocalFlags;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -148,6 +160,7 @@ class OSG_SYSTEM_DLLMAPPING ThreadCommonBase : public BaseThread
     void setAspect       (UInt32      uiAspectId    );
     void setChangeList   (ChangeList *pChangeList   );
     void setNamespaceMask(BitVector   bNamespaceMask);
+    void setLocalFlags   (BitVector   bFlags        );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -194,10 +207,12 @@ class PThreadBase : public ThreadCommonBase
     static __thread UInt32      _uiTLSAspectId;
     static __thread ChangeList *_pTLSChangeList;
     static __thread BitVector   _bTLSNamespaceMask;
+    static __thread BitVector   _bTLSLocalFlags;
 #else
     static pthread_key_t  _aspectKey;
     static pthread_key_t  _changeListKey;
     static pthread_key_t  _namespaceMaskKey;
+    static pthread_key_t  _localFlagsKey;
 #endif
 
 #if !defined(OSG_PTHREAD_ELF_TLS)
@@ -209,6 +224,7 @@ class PThreadBase : public ThreadCommonBase
     static void  freeAspect       (void *pAspect       );
     static void  freeChangeList   (void *pChangeList   );
     static void  freeNamespaceMask(void *pNamespaceMask);
+    static void  freeLocalFlags   (void *pLocalFlags   );
 #endif
 
     /*! \}                                                                 */
@@ -219,6 +235,7 @@ class PThreadBase : public ThreadCommonBase
     static UInt32       getCurrentAspect       (void);
     static ChangeList  *getCurrentChangeList   (void);
     static BitVector    getCurrentNamespaceMask(void);
+    static BitVector    getCurrentLocalFlags   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -245,14 +262,18 @@ class PThreadBase : public ThreadCommonBase
             void setupAspect    (void);
             void setupChangeList(void);
             void setupMasks     (void);
-
+            void setupLocalFlags(void);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Debug                                   */
     /*! \{                                                                 */
 
-    static void setAspectTo       (UInt32    uiNewAspect   );
-    static void setNamespaceMaskTo(BitVector bNamespaceMask);
+    static void setAspectTo       (UInt32      uiNewAspect   );
+    static void setNamespaceMaskTo(BitVector   bNamespaceMask);
+    static void setLocalFlagsTo   (BitVector   bNamespaceMask);
+#ifdef OSG_THREAD_DEBUG_SETASPECTTO
+    static void setChangelistTo   (ChangeList *pNewList      );
+#endif
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -518,8 +539,21 @@ class OSG_SYSTEM_DLLMAPPING Thread : public ThreadBase
     static ChangeList *getCurrentChangeList       (      void             );
 
     static BitVector   getCurrentNamespaceMask    (      void             );
-
     static void        setCurrentNamespaceMask    (      BitVector  bMask );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Run                                     */
+    /*! \{                                                                 */
+
+    static void      setCurrentLocalFlags  (BitVector  bFlags = FCLocal::All);
+    static void      resetCurrentLocalFlags(void                            );
+    static BitVector getCurrentLocalFlags  (void                            );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Run                                     */
+    /*! \{                                                                 */
 
     static Thread     *getCurrent                 (      void             );
 
@@ -545,7 +579,8 @@ class OSG_SYSTEM_DLLMAPPING Thread : public ThreadBase
     /*! \{                                                                 */
 
 #ifdef OSG_THREAD_DEBUG_SETASPECTTO
-    static void setAspectTo(UInt32 uiNewAspect);
+    static void setAspectTo    (UInt32      uiNewAspect);
+    static void setChangelistTo(ChangeList *pNewList   );
 #endif
 
     /*! \}                                                                 */

@@ -254,6 +254,16 @@ TargetT *dynamic_pointer_cast(SourceT *pIn)
     return dynamic_cast<TargetT *>(pIn);
 }
 
+namespace FCLocal
+{
+    static const BitVector MT           = OSGLL(0x8000000000000000);
+    static const BitVector Cluster      = OSGLL(0x7FFFFFFFFFFFFFFF);
+    static const BitVector All          = (MT | Cluster);
+
+    static const BitVector MTMask       = OSGLL(0x8000000000000000);
+    static const BitVector NamspaceMask = ~MTMask;
+}
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGFIELDCONTAINERFORWARDS_H_ */

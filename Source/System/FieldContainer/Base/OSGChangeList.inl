@@ -78,7 +78,8 @@ void ChangeList::addSubRefd(const UInt32 uiContainerId)
 }
 
 inline
-void ChangeList::addCreated(const UInt32 uiContainerId)
+void ChangeList::addCreated(const UInt32    uiContainerId,
+                                  BitVector bFlags       )
 {
     FieldContainerPtr pTmp = 
         FieldContainerFactory::the()->getContainer(uiContainerId);
@@ -90,6 +91,7 @@ void ChangeList::addCreated(const UInt32 uiContainerId)
 
     pEntry->uiEntryDesc   = ContainerChangeEntry::Create;
     pEntry->uiContainerId = uiContainerId;
+    pEntry->whichField    = bFlags;
 }
 
 inline

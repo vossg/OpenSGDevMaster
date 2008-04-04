@@ -271,7 +271,7 @@ void SimpleShadowMapEngine::setupCamera(LightPtr      pLight,
         
         if(pCam == NullFC)
         {
-            pCam = MatrixCamera::create();
+            pCam = MatrixCamera::createLocal();
             
             pEngineData->setCamera(pCam);
         }
@@ -331,7 +331,7 @@ void SimpleShadowMapEngine::setupCamera(LightPtr      pLight,
         
         if(pCam == NullFC)
         {
-            pCam = MatrixCamera::create();
+            pCam = MatrixCamera::createLocal();
             
             pEngineData->setCamera(pCam);
         }
@@ -403,7 +403,7 @@ void SimpleShadowMapEngine::setupLightChunk(LightPtr      pLight,
 
         if(pChunk == NullFC)
         {
-            pChunk = LightChunk::create();
+            pChunk = LightChunk::createLocal();
             
             pEngineData->setLightChunk(pChunk);
         }
@@ -436,7 +436,7 @@ void SimpleShadowMapEngine::setupLightChunk(LightPtr      pLight,
         
         if(pChunk == NullFC)
         {
-            pChunk = LightChunk::create();
+            pChunk = LightChunk::createLocal();
             
             pEngineData->setLightChunk(pChunk);
         }
@@ -481,7 +481,7 @@ void SimpleShadowMapEngine::doLightPass(LightPtr      pLight,
 
     if(pTarget == NULL)
     {
-        FrameBufferObjectUnrecPtr pFBO = FrameBufferObject::create();
+        FrameBufferObjectUnrecPtr pFBO = FrameBufferObject::createLocal();
 
         pFBO->setWidth (this->getWidth ());
         pFBO->setHeight(this->getHeight());
@@ -498,7 +498,7 @@ void SimpleShadowMapEngine::doLightPass(LightPtr      pLight,
 
     if(pTexBuffer == NullFC)
     {
-        pTexBuffer = TextureBuffer::create();
+        pTexBuffer = TextureBuffer::createLocal();
         
         pEngineData->setTexBuffer     (pTexBuffer);
 
@@ -510,7 +510,7 @@ void SimpleShadowMapEngine::doLightPass(LightPtr      pLight,
 
     if(pPoly == NullFC)
     {
-        pPoly = PolygonChunk::create();
+        pPoly = PolygonChunk::createLocal();
         
         pPoly->setOffsetBias  (this->getOffsetBias  ());
         pPoly->setOffsetFactor(this->getOffsetFactor());
@@ -642,7 +642,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
 
     if(pTarget == NULL)
     {
-        FrameBufferObjectUnrecPtr pFBO = FrameBufferObject::create();
+        FrameBufferObjectUnrecPtr pFBO = FrameBufferObject::createLocal();
 
         pFBO->setWidth (this->getWidth ());
         pFBO->setHeight(this->getHeight());
@@ -656,7 +656,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
 
     if(pBlender == NullFC)
     {
-        pBlender = BlendChunk::create();
+        pBlender = BlendChunk::createLocal();
         
         pBlender->setSrcFactor(GL_ONE);
         pBlender->setDestFactor(GL_ONE);
@@ -698,7 +698,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
 
     if(pTexGen == NullFC)
     {
-        pTexGen = TexGenChunk::create();
+        pTexGen = TexGenChunk::createLocal();
         
         pEngineData->setTexGenChunk(pTexGen);
         
@@ -726,11 +726,11 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
 
     if(pTexChunk == NullFC)
     {
-        pTexChunk = TextureObjChunk::create();
+        pTexChunk = TextureObjChunk::createLocal();
         
         pEngineData->setTexChunk(pTexChunk);
 
-        ImageUnrecPtr pImage = Image::create();
+        ImageUnrecPtr pImage = Image::createLocal();
         
             // creates a image without allocating main memory.
         
