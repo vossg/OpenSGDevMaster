@@ -308,16 +308,6 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
 
 typedef ContainerPoolBase *ContainerPoolBaseP;
 
-/** Type specific RefPtr type for ContainerPool. */
-typedef RefPtr<ContainerPoolPtr> ContainerPoolRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ContainerPoolBase::isNodeCore>,
-    CoredNodePtr<ContainerPool>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ContainerPoolNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGCONTAINERPOOLBASE_H_ */

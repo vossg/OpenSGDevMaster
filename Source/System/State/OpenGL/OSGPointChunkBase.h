@@ -458,16 +458,6 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
 
 typedef PointChunkBase *PointChunkBaseP;
 
-/** Type specific RefPtr type for PointChunk. */
-typedef RefPtr<PointChunkPtr> PointChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<PointChunkBase::isNodeCore>,
-    CoredNodePtr<PointChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        PointChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGPOINTCHUNKBASE_H_ */

@@ -247,16 +247,6 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
 
 typedef CallbackAlgorithmBase *CallbackAlgorithmBaseP;
 
-/** Type specific RefPtr type for CallbackAlgorithm. */
-typedef RefPtr<CallbackAlgorithmPtr> CallbackAlgorithmRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<CallbackAlgorithmBase::isNodeCore>,
-    CoredNodePtr<CallbackAlgorithm>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        CallbackAlgorithmNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGCALLBACKALGORITHMBASE_H_ */

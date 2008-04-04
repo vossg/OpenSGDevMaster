@@ -259,16 +259,6 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
 
 typedef ForegroundBase *ForegroundBaseP;
 
-/** Type specific RefPtr type for Foreground. */
-typedef RefPtr<ForegroundPtr> ForegroundRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ForegroundBase::isNodeCore>,
-    CoredNodePtr<Foreground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ForegroundNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGFOREGROUNDBASE_H_ */

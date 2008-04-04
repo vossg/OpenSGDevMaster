@@ -335,16 +335,6 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
 
 typedef TextureGrabForegroundBase *TextureGrabForegroundBaseP;
 
-/** Type specific RefPtr type for TextureGrabForeground. */
-typedef RefPtr<TextureGrabForegroundPtr> TextureGrabForegroundRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TextureGrabForegroundBase::isNodeCore>,
-    CoredNodePtr<TextureGrabForeground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TextureGrabForegroundNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTEXTUREGRABFOREGROUNDBASE_H_ */

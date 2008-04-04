@@ -323,16 +323,6 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
 
 typedef ImageForegroundBase *ImageForegroundBaseP;
 
-/** Type specific RefPtr type for ImageForeground. */
-typedef RefPtr<ImageForegroundPtr> ImageForegroundRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ImageForegroundBase::isNodeCore>,
-    CoredNodePtr<ImageForeground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ImageForegroundNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGIMAGEFOREGROUNDBASE_H_ */

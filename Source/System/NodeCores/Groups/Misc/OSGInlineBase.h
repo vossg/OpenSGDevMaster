@@ -313,16 +313,6 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
 
 typedef InlineBase *InlineBaseP;
 
-/** Type specific RefPtr type for Inline. */
-typedef RefPtr<InlinePtr> InlineRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<InlineBase::isNodeCore>,
-    CoredNodePtr<Inline>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        InlineNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGINLINEBASE_H_ */

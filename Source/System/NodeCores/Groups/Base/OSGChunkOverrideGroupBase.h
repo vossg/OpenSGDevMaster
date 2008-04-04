@@ -284,16 +284,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
 
 typedef ChunkOverrideGroupBase *ChunkOverrideGroupBaseP;
 
-/** Type specific RefPtr type for ChunkOverrideGroup. */
-typedef RefPtr<ChunkOverrideGroupPtr> ChunkOverrideGroupRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ChunkOverrideGroupBase::isNodeCore>,
-    CoredNodePtr<ChunkOverrideGroup>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ChunkOverrideGroupNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGCHUNKOVERRIDEGROUPBASE_H_ */

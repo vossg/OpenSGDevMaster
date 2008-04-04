@@ -288,16 +288,6 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
 
 typedef MultiCoreBase *MultiCoreBaseP;
 
-/** Type specific RefPtr type for MultiCore. */
-typedef RefPtr<MultiCorePtr> MultiCoreRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<MultiCoreBase::isNodeCore>,
-    CoredNodePtr<MultiCore>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        MultiCoreNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGMULTICOREBASE_H_ */

@@ -513,16 +513,6 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
 
 typedef SimpleStatisticsForegroundBase *SimpleStatisticsForegroundBaseP;
 
-/** Type specific RefPtr type for SimpleStatisticsForeground. */
-typedef RefPtr<SimpleStatisticsForegroundPtr> SimpleStatisticsForegroundRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SimpleStatisticsForegroundBase::isNodeCore>,
-    CoredNodePtr<SimpleStatisticsForeground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SimpleStatisticsForegroundNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSIMPLESTATISTICSFOREGROUNDBASE_H_ */

@@ -278,16 +278,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterPnt2fBase : public ShaderParameter
 
 typedef ShaderParameterPnt2fBase *ShaderParameterPnt2fBaseP;
 
-/** Type specific RefPtr type for ShaderParameterPnt2f. */
-typedef RefPtr<ShaderParameterPnt2fPtr> ShaderParameterPnt2fRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ShaderParameterPnt2fBase::isNodeCore>,
-    CoredNodePtr<ShaderParameterPnt2f>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ShaderParameterPnt2fNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSHADERPARAMETERPNT2FBASE_H_ */

@@ -249,11 +249,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
 
 OSG_GEN_CONTAINERPTR(FieldContainerAttachment);
 
-typedef RefPtr<FieldContainerAttachmentPtr>     
-    FieldContainerAttachmentRefPtr;
-typedef WeakPtr<FieldContainerAttachmentPtr>     
-    FieldContainerAttachmentWeakPtr;
-
 #ifdef OSG_1_COMPAT
 typedef FieldContainerAttachment            Attachment;
 

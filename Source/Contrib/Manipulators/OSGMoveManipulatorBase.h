@@ -227,16 +227,6 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
 
 typedef MoveManipulatorBase *MoveManipulatorBaseP;
 
-/** Type specific RefPtr type for MoveManipulator. */
-typedef RefPtr<MoveManipulatorPtr> MoveManipulatorRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<MoveManipulatorBase::isNodeCore>,
-    CoredNodePtr<MoveManipulator>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        MoveManipulatorNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGMOVEMANIPULATORBASE_H_ */

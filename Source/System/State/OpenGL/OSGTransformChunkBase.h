@@ -278,16 +278,6 @@ class OSG_STATE_DLLMAPPING TransformChunkBase : public StateChunk
 
 typedef TransformChunkBase *TransformChunkBaseP;
 
-/** Type specific RefPtr type for TransformChunk. */
-typedef RefPtr<TransformChunkPtr> TransformChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TransformChunkBase::isNodeCore>,
-    CoredNodePtr<TransformChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TransformChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTRANSFORMCHUNKBASE_H_ */

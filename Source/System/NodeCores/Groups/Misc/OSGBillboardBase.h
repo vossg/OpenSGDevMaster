@@ -358,16 +358,6 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
 
 typedef BillboardBase *BillboardBaseP;
 
-/** Type specific RefPtr type for Billboard. */
-typedef RefPtr<BillboardPtr> BillboardRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<BillboardBase::isNodeCore>,
-    CoredNodePtr<Billboard>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        BillboardNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGBILLBOARDBASE_H_ */

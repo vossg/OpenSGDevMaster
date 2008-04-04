@@ -378,16 +378,6 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
 
 typedef HDRStageBase *HDRStageBaseP;
 
-/** Type specific RefPtr type for HDRStage. */
-typedef RefPtr<HDRStagePtr> HDRStageRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<HDRStageBase::isNodeCore>,
-    CoredNodePtr<HDRStage>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        HDRStageNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGHDRSTAGEBASE_H_ */

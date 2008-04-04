@@ -361,10 +361,6 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     void operator =(const HDRStageDataBase &source);
 };
 
-/** Type specific RefPtr type for HDRStageData. */
-typedef RefPtr<HDRStageDataP> HDRStageDataRefP;
-
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGHDRSTAGEDATABASE_H_ */

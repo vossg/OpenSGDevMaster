@@ -208,16 +208,6 @@ class OSG_SYSTEM_DLLMAPPING DrawableBase : public NodeCore
 
 typedef DrawableBase *DrawableBaseP;
 
-/** Type specific RefPtr type for Drawable. */
-typedef RefPtr<DrawablePtr> DrawableRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<DrawableBase::isNodeCore>,
-    CoredNodePtr<Drawable>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        DrawableNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGDRAWABLEBASE_H_ */

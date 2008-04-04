@@ -536,16 +536,6 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
 
 typedef ClusterWindowBase *ClusterWindowBaseP;
 
-/** Type specific RefPtr type for ClusterWindow. */
-typedef RefPtr<ClusterWindowPtr> ClusterWindowRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ClusterWindowBase::isNodeCore>,
-    CoredNodePtr<ClusterWindow>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ClusterWindowNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGCLUSTERWINDOWBASE_H_ */

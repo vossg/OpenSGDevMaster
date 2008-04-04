@@ -227,16 +227,6 @@ class OSG_CLUSTER_DLLMAPPING SepiaComposerBase : public ImageComposer
 
 typedef SepiaComposerBase *SepiaComposerBaseP;
 
-/** Type specific RefPtr type for SepiaComposer. */
-typedef RefPtr<SepiaComposerPtr> SepiaComposerRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SepiaComposerBase::isNodeCore>,
-    CoredNodePtr<SepiaComposer>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SepiaComposerNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSEPIACOMPOSERBASE_H_ */

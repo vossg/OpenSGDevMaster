@@ -418,16 +418,6 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
 
 typedef SimpleMaterialBase *SimpleMaterialBaseP;
 
-/** Type specific RefPtr type for SimpleMaterial. */
-typedef RefPtr<SimpleMaterialPtr> SimpleMaterialRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SimpleMaterialBase::isNodeCore>,
-    CoredNodePtr<SimpleMaterial>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SimpleMaterialNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSIMPLEMATERIALBASE_H_ */

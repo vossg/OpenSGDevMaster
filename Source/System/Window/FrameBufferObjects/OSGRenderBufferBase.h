@@ -298,16 +298,6 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
 
 typedef RenderBufferBase *RenderBufferBaseP;
 
-/** Type specific RefPtr type for RenderBuffer. */
-typedef RefPtr<RenderBufferPtr> RenderBufferRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<RenderBufferBase::isNodeCore>,
-    CoredNodePtr<RenderBuffer>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        RenderBufferNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGRENDERBUFFERBASE_H_ */

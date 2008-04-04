@@ -398,16 +398,6 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
 
 typedef DrawableStatsAttachmentBase *DrawableStatsAttachmentBaseP;
 
-/** Type specific RefPtr type for DrawableStatsAttachment. */
-typedef RefPtr<DrawableStatsAttachmentPtr> DrawableStatsAttachmentRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<DrawableStatsAttachmentBase::isNodeCore>,
-    CoredNodePtr<DrawableStatsAttachment>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        DrawableStatsAttachmentNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGDRAWABLESTATSATTACHMENTBASE_H_ */

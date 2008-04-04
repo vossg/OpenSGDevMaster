@@ -708,16 +708,6 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
 
 typedef ImageBase *ImageBaseP;
 
-/** Type specific RefPtr type for Image. */
-typedef RefPtr<ImagePtr> ImageRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ImageBase::isNodeCore>,
-    CoredNodePtr<Image>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ImageNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGIMAGEBASE_H_ */

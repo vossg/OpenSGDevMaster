@@ -318,16 +318,6 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
 
 typedef ParallelComposerBase *ParallelComposerBaseP;
 
-/** Type specific RefPtr type for ParallelComposer. */
-typedef RefPtr<ParallelComposerPtr> ParallelComposerRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ParallelComposerBase::isNodeCore>,
-    CoredNodePtr<ParallelComposer>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ParallelComposerNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGPARALLELCOMPOSERBASE_H_ */

@@ -795,16 +795,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
 
 typedef TextureObjChunkBase *TextureObjChunkBaseP;
 
-/** Type specific RefPtr type for TextureObjChunk. */
-typedef RefPtr<TextureObjChunkPtr> TextureObjChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TextureObjChunkBase::isNodeCore>,
-    CoredNodePtr<TextureObjChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TextureObjChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTEXTUREOBJCHUNKBASE_H_ */

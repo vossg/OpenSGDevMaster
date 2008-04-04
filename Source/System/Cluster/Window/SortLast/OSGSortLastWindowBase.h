@@ -343,16 +343,6 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
 
 typedef SortLastWindowBase *SortLastWindowBaseP;
 
-/** Type specific RefPtr type for SortLastWindow. */
-typedef RefPtr<SortLastWindowPtr> SortLastWindowRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SortLastWindowBase::isNodeCore>,
-    CoredNodePtr<SortLastWindow>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SortLastWindowNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSORTLASTWINDOWBASE_H_ */

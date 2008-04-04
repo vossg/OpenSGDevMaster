@@ -298,10 +298,6 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
     void operator =(const StageDataBase &source);
 };
 
-/** Type specific RefPtr type for StageData. */
-typedef RefPtr<StageDataP> StageDataRefP;
-
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSTAGEDATABASE_H_ */

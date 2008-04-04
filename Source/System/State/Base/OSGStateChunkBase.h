@@ -259,16 +259,6 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
 
 typedef StateChunkBase *StateChunkBaseP;
 
-/** Type specific RefPtr type for StateChunk. */
-typedef RefPtr<StateChunkPtr> StateChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<StateChunkBase::isNodeCore>,
-    CoredNodePtr<StateChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        StateChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSTATECHUNKBASE_H_ */

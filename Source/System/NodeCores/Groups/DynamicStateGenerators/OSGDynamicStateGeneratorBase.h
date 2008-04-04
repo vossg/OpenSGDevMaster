@@ -273,16 +273,6 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
 
 typedef DynamicStateGeneratorBase *DynamicStateGeneratorBaseP;
 
-/** Type specific RefPtr type for DynamicStateGenerator. */
-typedef RefPtr<DynamicStateGeneratorPtr> DynamicStateGeneratorRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<DynamicStateGeneratorBase::isNodeCore>,
-    CoredNodePtr<DynamicStateGenerator>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        DynamicStateGeneratorNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGDYNAMICSTATEGENERATORBASE_H_ */

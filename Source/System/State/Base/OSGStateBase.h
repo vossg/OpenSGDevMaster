@@ -288,16 +288,6 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
 
 typedef StateBase *StateBaseP;
 
-/** Type specific RefPtr type for State. */
-typedef RefPtr<StatePtr> StateRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<StateBase::isNodeCore>,
-    CoredNodePtr<State>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        StateNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSTATEBASE_H_ */

@@ -278,16 +278,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterIntBase : public ShaderParameter
 
 typedef ShaderParameterIntBase *ShaderParameterIntBaseP;
 
-/** Type specific RefPtr type for ShaderParameterInt. */
-typedef RefPtr<ShaderParameterIntPtr> ShaderParameterIntRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ShaderParameterIntBase::isNodeCore>,
-    CoredNodePtr<ShaderParameterInt>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ShaderParameterIntNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSHADERPARAMETERINTBASE_H_ */

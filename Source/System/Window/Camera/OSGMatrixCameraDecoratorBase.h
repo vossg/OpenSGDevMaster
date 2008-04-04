@@ -378,16 +378,6 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
 
 typedef MatrixCameraDecoratorBase *MatrixCameraDecoratorBaseP;
 
-/** Type specific RefPtr type for MatrixCameraDecorator. */
-typedef RefPtr<MatrixCameraDecoratorPtr> MatrixCameraDecoratorRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<MatrixCameraDecoratorBase::isNodeCore>,
-    CoredNodePtr<MatrixCameraDecorator>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        MatrixCameraDecoratorNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGMATRIXCAMERADECORATORBASE_H_ */

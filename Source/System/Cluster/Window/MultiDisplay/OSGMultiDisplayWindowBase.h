@@ -358,16 +358,6 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
 
 typedef MultiDisplayWindowBase *MultiDisplayWindowBaseP;
 
-/** Type specific RefPtr type for MultiDisplayWindow. */
-typedef RefPtr<MultiDisplayWindowPtr> MultiDisplayWindowRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<MultiDisplayWindowBase::isNodeCore>,
-    CoredNodePtr<MultiDisplayWindow>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        MultiDisplayWindowNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGMULTIDISPLAYWINDOWBASE_H_ */

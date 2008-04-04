@@ -293,16 +293,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec3fBase : public ShaderParameter
 
 typedef ShaderParameterMVec3fBase *ShaderParameterMVec3fBaseP;
 
-/** Type specific RefPtr type for ShaderParameterMVec3f. */
-typedef RefPtr<ShaderParameterMVec3fPtr> ShaderParameterMVec3fRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ShaderParameterMVec3fBase::isNodeCore>,
-    CoredNodePtr<ShaderParameterMVec3f>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ShaderParameterMVec3fNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSHADERPARAMETERMVEC3FBASE_H_ */

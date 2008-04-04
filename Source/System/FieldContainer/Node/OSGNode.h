@@ -399,8 +399,6 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     void operator =(const Node &source);
 };
 
-typedef RefPtr<NodePtr>        NodeRefPtr;
-
 OSG_SYSTEM_DLLMAPPING
 NodePtr cloneTree(      
           NodePtrConstArg                          rootNode,
@@ -517,6 +515,8 @@ NodePtr makeNodeFor(CorePtr core);
 OSG_END_NAMESPACE
 
 #include "OSGNode.inl"
+#if 0
 #include "OSGCoredNodePtr.h"
+#endif
 
 #endif /* _OSGNODE_H_ */

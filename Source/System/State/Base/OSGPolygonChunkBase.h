@@ -493,16 +493,6 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
 
 typedef PolygonChunkBase *PolygonChunkBaseP;
 
-/** Type specific RefPtr type for PolygonChunk. */
-typedef RefPtr<PolygonChunkPtr> PolygonChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<PolygonChunkBase::isNodeCore>,
-    CoredNodePtr<PolygonChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        PolygonChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGPOLYGONCHUNKBASE_H_ */

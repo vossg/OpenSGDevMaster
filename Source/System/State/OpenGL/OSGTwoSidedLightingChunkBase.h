@@ -227,16 +227,6 @@ class OSG_STATE_DLLMAPPING TwoSidedLightingChunkBase : public StateChunk
 
 typedef TwoSidedLightingChunkBase *TwoSidedLightingChunkBaseP;
 
-/** Type specific RefPtr type for TwoSidedLightingChunk. */
-typedef RefPtr<TwoSidedLightingChunkPtr> TwoSidedLightingChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TwoSidedLightingChunkBase::isNodeCore>,
-    CoredNodePtr<TwoSidedLightingChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TwoSidedLightingChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTWOSIDEDLIGHTINGCHUNKBASE_H_ */

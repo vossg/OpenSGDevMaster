@@ -468,16 +468,6 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
 
 typedef TexGenChunkBase *TexGenChunkBaseP;
 
-/** Type specific RefPtr type for TexGenChunk. */
-typedef RefPtr<TexGenChunkPtr> TexGenChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TexGenChunkBase::isNodeCore>,
-    CoredNodePtr<TexGenChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TexGenChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTEXGENCHUNKBASE_H_ */

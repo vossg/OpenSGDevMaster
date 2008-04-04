@@ -465,16 +465,6 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
 
 typedef PolygonForegroundBase *PolygonForegroundBaseP;
 
-/** Type specific RefPtr type for PolygonForeground. */
-typedef RefPtr<PolygonForegroundPtr> PolygonForegroundRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<PolygonForegroundBase::isNodeCore>,
-    CoredNodePtr<PolygonForeground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        PolygonForegroundNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGPOLYGONFOREGROUNDBASE_H_ */

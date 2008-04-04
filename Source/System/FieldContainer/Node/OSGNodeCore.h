@@ -312,9 +312,6 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
 
 OSG_GEN_CONTAINERPTR(NodeCore);
 
-typedef RefPtr<NodeCorePtr>        NodeCoreRefPtr;
-typedef WeakPtr<NodeCorePtr>       NodeCoreWeakPtr;
-
 OSG_END_NAMESPACE
 
 #include "OSGNodeCore.inl"

@@ -308,16 +308,6 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
 
 typedef SwitchMaterialBase *SwitchMaterialBaseP;
 
-/** Type specific RefPtr type for SwitchMaterial. */
-typedef RefPtr<SwitchMaterialPtr> SwitchMaterialRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SwitchMaterialBase::isNodeCore>,
-    CoredNodePtr<SwitchMaterial>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SwitchMaterialNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSWITCHMATERIALBASE_H_ */

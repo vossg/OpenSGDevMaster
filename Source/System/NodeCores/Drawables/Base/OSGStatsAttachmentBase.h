@@ -208,16 +208,6 @@ class OSG_SYSTEM_DLLMAPPING StatsAttachmentBase : public FieldContainerAttachmen
 
 typedef StatsAttachmentBase *StatsAttachmentBaseP;
 
-/** Type specific RefPtr type for StatsAttachment. */
-typedef RefPtr<StatsAttachmentPtr> StatsAttachmentRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<StatsAttachmentBase::isNodeCore>,
-    CoredNodePtr<StatsAttachment>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        StatsAttachmentNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSTATSATTACHMENTBASE_H_ */

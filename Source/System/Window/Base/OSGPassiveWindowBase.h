@@ -227,16 +227,6 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
 
 typedef PassiveWindowBase *PassiveWindowBaseP;
 
-/** Type specific RefPtr type for PassiveWindow. */
-typedef RefPtr<PassiveWindowPtr> PassiveWindowRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<PassiveWindowBase::isNodeCore>,
-    CoredNodePtr<PassiveWindow>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        PassiveWindowNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGPASSIVEWINDOWBASE_H_ */

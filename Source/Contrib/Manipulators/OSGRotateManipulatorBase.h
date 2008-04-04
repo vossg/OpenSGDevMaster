@@ -227,16 +227,6 @@ class OSG_CONTRIBGUI_DLLMAPPING RotateManipulatorBase : public Manipulator
 
 typedef RotateManipulatorBase *RotateManipulatorBaseP;
 
-/** Type specific RefPtr type for RotateManipulator. */
-typedef RefPtr<RotateManipulatorPtr> RotateManipulatorRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<RotateManipulatorBase::isNodeCore>,
-    CoredNodePtr<RotateManipulator>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        RotateManipulatorNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGROTATEMANIPULATORBASE_H_ */

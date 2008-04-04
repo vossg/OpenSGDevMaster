@@ -355,16 +355,6 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
 
 typedef SimpleTexturedMaterialBase *SimpleTexturedMaterialBaseP;
 
-/** Type specific RefPtr type for SimpleTexturedMaterial. */
-typedef RefPtr<SimpleTexturedMaterialPtr> SimpleTexturedMaterialRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SimpleTexturedMaterialBase::isNodeCore>,
-    CoredNodePtr<SimpleTexturedMaterial>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SimpleTexturedMaterialNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSIMPLETEXTUREDMATERIALBASE_H_ */

@@ -298,16 +298,6 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
 
 typedef SolidBackgroundBase *SolidBackgroundBaseP;
 
-/** Type specific RefPtr type for SolidBackground. */
-typedef RefPtr<SolidBackgroundPtr> SolidBackgroundRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SolidBackgroundBase::isNodeCore>,
-    CoredNodePtr<SolidBackground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SolidBackgroundNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSOLIDBACKGROUNDBASE_H_ */

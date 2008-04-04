@@ -407,16 +407,6 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
 
 typedef LightBase *LightBaseP;
 
-/** Type specific RefPtr type for Light. */
-typedef RefPtr<LightPtr> LightRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<LightBase::isNodeCore>,
-    CoredNodePtr<Light>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        LightNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGLIGHTBASE_H_ */

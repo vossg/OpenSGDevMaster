@@ -319,16 +319,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
 
 typedef ChunkMaterialBase *ChunkMaterialBaseP;
 
-/** Type specific RefPtr type for ChunkMaterial. */
-typedef RefPtr<ChunkMaterialPtr> ChunkMaterialRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ChunkMaterialBase::isNodeCore>,
-    CoredNodePtr<ChunkMaterial>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ChunkMaterialNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGCHUNKMATERIALBASE_H_ */

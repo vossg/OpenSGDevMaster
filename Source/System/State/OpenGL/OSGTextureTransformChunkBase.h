@@ -278,16 +278,6 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
 
 typedef TextureTransformChunkBase *TextureTransformChunkBaseP;
 
-/** Type specific RefPtr type for TextureTransformChunk. */
-typedef RefPtr<TextureTransformChunkPtr> TextureTransformChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TextureTransformChunkBase::isNodeCore>,
-    CoredNodePtr<TextureTransformChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TextureTransformChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTEXTURETRANSFORMCHUNKBASE_H_ */

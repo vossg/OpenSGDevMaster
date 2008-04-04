@@ -298,16 +298,6 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
 
 typedef PerspectiveCameraBase *PerspectiveCameraBaseP;
 
-/** Type specific RefPtr type for PerspectiveCamera. */
-typedef RefPtr<PerspectiveCameraPtr> PerspectiveCameraRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<PerspectiveCameraBase::isNodeCore>,
-    CoredNodePtr<PerspectiveCamera>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        PerspectiveCameraNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGPERSPECTIVECAMERABASE_H_ */

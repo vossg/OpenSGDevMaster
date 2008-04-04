@@ -288,16 +288,6 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
 
 typedef MultiPassMaterialBase *MultiPassMaterialBaseP;
 
-/** Type specific RefPtr type for MultiPassMaterial. */
-typedef RefPtr<MultiPassMaterialPtr> MultiPassMaterialRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<MultiPassMaterialBase::isNodeCore>,
-    CoredNodePtr<MultiPassMaterial>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        MultiPassMaterialNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGMULTIPASSMATERIALBASE_H_ */

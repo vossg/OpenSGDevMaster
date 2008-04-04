@@ -275,16 +275,6 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
 
 typedef FBOViewportBase *FBOViewportBaseP;
 
-/** Type specific RefPtr type for FBOViewport. */
-typedef RefPtr<FBOViewportPtr> FBOViewportRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<FBOViewportBase::isNodeCore>,
-    CoredNodePtr<FBOViewport>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        FBOViewportNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGFBOVIEWPORTBASE_H_ */

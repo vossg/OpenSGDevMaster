@@ -278,16 +278,6 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
 
 typedef DepthClearBackgroundBase *DepthClearBackgroundBaseP;
 
-/** Type specific RefPtr type for DepthClearBackground. */
-typedef RefPtr<DepthClearBackgroundPtr> DepthClearBackgroundRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<DepthClearBackgroundBase::isNodeCore>,
-    CoredNodePtr<DepthClearBackground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        DepthClearBackgroundNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGDEPTHCLEARBACKGROUNDBASE_H_ */

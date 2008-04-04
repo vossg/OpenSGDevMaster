@@ -358,16 +358,6 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindowBase : public MultiDisplayWindow
 
 typedef BalancedMultiWindowBase *BalancedMultiWindowBaseP;
 
-/** Type specific RefPtr type for BalancedMultiWindow. */
-typedef RefPtr<BalancedMultiWindowPtr> BalancedMultiWindowRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<BalancedMultiWindowBase::isNodeCore>,
-    CoredNodePtr<BalancedMultiWindow>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        BalancedMultiWindowNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGBALANCEDMULTIWINDOWBASE_H_ */

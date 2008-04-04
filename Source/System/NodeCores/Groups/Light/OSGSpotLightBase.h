@@ -318,16 +318,6 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
 
 typedef SpotLightBase *SpotLightBaseP;
 
-/** Type specific RefPtr type for SpotLight. */
-typedef RefPtr<SpotLightPtr> SpotLightRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SpotLightBase::isNodeCore>,
-    CoredNodePtr<SpotLight>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SpotLightNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSPOTLIGHTBASE_H_ */

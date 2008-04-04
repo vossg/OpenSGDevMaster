@@ -278,16 +278,6 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
 
 typedef TestStageBase *TestStageBaseP;
 
-/** Type specific RefPtr type for TestStage. */
-typedef RefPtr<TestStagePtr> TestStageRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TestStageBase::isNodeCore>,
-    CoredNodePtr<TestStage>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TestStageNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTESTSTAGEBASE_H_ */

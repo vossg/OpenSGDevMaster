@@ -208,16 +208,6 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public FieldContainer
 
 typedef AlgorithmBase *AlgorithmBaseP;
 
-/** Type specific RefPtr type for Algorithm. */
-typedef RefPtr<AlgorithmPtr> AlgorithmRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<AlgorithmBase::isNodeCore>,
-    CoredNodePtr<Algorithm>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        AlgorithmNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGALGORITHMBASE_H_ */

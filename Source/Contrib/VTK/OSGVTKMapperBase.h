@@ -491,16 +491,6 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 
 typedef VTKMapperBase *VTKMapperBaseP;
 
-/** Type specific RefPtr type for VTKMapper. */
-typedef RefPtr<VTKMapperPtr> VTKMapperRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<VTKMapperBase::isNodeCore>,
-    CoredNodePtr<VTKMapper>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        VTKMapperNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGVTKMAPPERBASE_H_ */

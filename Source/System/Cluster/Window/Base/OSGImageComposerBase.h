@@ -279,16 +279,6 @@ class OSG_CLUSTER_DLLMAPPING ImageComposerBase : public AttachmentContainer
 
 typedef ImageComposerBase *ImageComposerBaseP;
 
-/** Type specific RefPtr type for ImageComposer. */
-typedef RefPtr<ImageComposerPtr> ImageComposerRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ImageComposerBase::isNodeCore>,
-    CoredNodePtr<ImageComposer>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ImageComposerNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGIMAGECOMPOSERBASE_H_ */

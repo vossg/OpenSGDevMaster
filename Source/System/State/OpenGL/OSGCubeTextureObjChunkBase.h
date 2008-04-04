@@ -339,16 +339,6 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
 
 typedef CubeTextureObjChunkBase *CubeTextureObjChunkBaseP;
 
-/** Type specific RefPtr type for CubeTextureObjChunk. */
-typedef RefPtr<CubeTextureObjChunkPtr> CubeTextureObjChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<CubeTextureObjChunkBase::isNodeCore>,
-    CoredNodePtr<CubeTextureObjChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        CubeTextureObjChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGCUBETEXTUREOBJCHUNKBASE_H_ */

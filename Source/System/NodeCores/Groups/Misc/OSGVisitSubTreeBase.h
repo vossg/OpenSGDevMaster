@@ -275,16 +275,6 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
 
 typedef VisitSubTreeBase *VisitSubTreeBaseP;
 
-/** Type specific RefPtr type for VisitSubTree. */
-typedef RefPtr<VisitSubTreePtr> VisitSubTreeRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<VisitSubTreeBase::isNodeCore>,
-    CoredNodePtr<VisitSubTree>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        VisitSubTreeNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGVISITSUBTREEBASE_H_ */

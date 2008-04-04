@@ -298,16 +298,6 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
 
 typedef OrthographicCameraBase *OrthographicCameraBaseP;
 
-/** Type specific RefPtr type for OrthographicCamera. */
-typedef RefPtr<OrthographicCameraPtr> OrthographicCameraRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<OrthographicCameraBase::isNodeCore>,
-    CoredNodePtr<OrthographicCamera>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        OrthographicCameraNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGORTHOGRAPHICCAMERABASE_H_ */

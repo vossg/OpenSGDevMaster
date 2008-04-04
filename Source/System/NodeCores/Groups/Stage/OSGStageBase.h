@@ -297,16 +297,6 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
 
 typedef StageBase *StageBaseP;
 
-/** Type specific RefPtr type for Stage. */
-typedef RefPtr<StagePtr> StageRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<StageBase::isNodeCore>,
-    CoredNodePtr<Stage>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        StageNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSTAGEBASE_H_ */

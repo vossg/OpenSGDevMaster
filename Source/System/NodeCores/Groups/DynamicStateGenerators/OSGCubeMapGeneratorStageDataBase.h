@@ -207,10 +207,6 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public StageData
     void operator =(const CubeMapGeneratorStageDataBase &source);
 };
 
-/** Type specific RefPtr type for CubeMapGeneratorStageData. */
-typedef RefPtr<CubeMapGeneratorStageDataP> CubeMapGeneratorStageDataRefP;
-
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGCUBEMAPGENERATORSTAGEDATABASE_H_ */

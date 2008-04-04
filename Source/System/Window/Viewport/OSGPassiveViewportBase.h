@@ -227,16 +227,6 @@ class OSG_WINDOW_DLLMAPPING PassiveViewportBase : public Viewport
 
 typedef PassiveViewportBase *PassiveViewportBaseP;
 
-/** Type specific RefPtr type for PassiveViewport. */
-typedef RefPtr<PassiveViewportPtr> PassiveViewportRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<PassiveViewportBase::isNodeCore>,
-    CoredNodePtr<PassiveViewport>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        PassiveViewportNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGPASSIVEVIEWPORTBASE_H_ */

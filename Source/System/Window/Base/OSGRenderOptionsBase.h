@@ -678,16 +678,6 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
 
 typedef RenderOptionsBase *RenderOptionsBaseP;
 
-/** Type specific RefPtr type for RenderOptions. */
-typedef RefPtr<RenderOptionsPtr> RenderOptionsRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<RenderOptionsBase::isNodeCore>,
-    CoredNodePtr<RenderOptions>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        RenderOptionsNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGRENDEROPTIONSBASE_H_ */

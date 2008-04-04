@@ -448,16 +448,6 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
 
 typedef ViewportBase *ViewportBaseP;
 
-/** Type specific RefPtr type for Viewport. */
-typedef RefPtr<ViewportPtr> ViewportRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ViewportBase::isNodeCore>,
-    CoredNodePtr<Viewport>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ViewportNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGVIEWPORTBASE_H_ */

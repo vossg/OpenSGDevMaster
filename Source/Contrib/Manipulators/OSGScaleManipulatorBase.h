@@ -227,16 +227,6 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
 
 typedef ScaleManipulatorBase *ScaleManipulatorBaseP;
 
-/** Type specific RefPtr type for ScaleManipulator. */
-typedef RefPtr<ScaleManipulatorPtr> ScaleManipulatorRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ScaleManipulatorBase::isNodeCore>,
-    CoredNodePtr<ScaleManipulator>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ScaleManipulatorNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSCALEMANIPULATORBASE_H_ */

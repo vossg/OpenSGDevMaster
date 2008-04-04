@@ -227,16 +227,6 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
 
 typedef GroupBase *GroupBaseP;
 
-/** Type specific RefPtr type for Group. */
-typedef RefPtr<GroupPtr> GroupRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<GroupBase::isNodeCore>,
-    CoredNodePtr<Group>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        GroupNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGGROUPBASE_H_ */

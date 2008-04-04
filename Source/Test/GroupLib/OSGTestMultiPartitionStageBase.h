@@ -353,16 +353,6 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
 
 typedef TestMultiPartitionStageBase *TestMultiPartitionStageBaseP;
 
-/** Type specific RefPtr type for TestMultiPartitionStage. */
-typedef RefPtr<TestMultiPartitionStagePtr> TestMultiPartitionStageRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TestMultiPartitionStageBase::isNodeCore>,
-    CoredNodePtr<TestMultiPartitionStage>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TestMultiPartitionStageNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTESTMULTIPARTITIONSTAGEBASE_H_ */

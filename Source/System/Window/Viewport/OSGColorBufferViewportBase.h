@@ -338,16 +338,6 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
 
 typedef ColorBufferViewportBase *ColorBufferViewportBaseP;
 
-/** Type specific RefPtr type for ColorBufferViewport. */
-typedef RefPtr<ColorBufferViewportPtr> ColorBufferViewportRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ColorBufferViewportBase::isNodeCore>,
-    CoredNodePtr<ColorBufferViewport>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ColorBufferViewportNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGCOLORBUFFERVIEWPORTBASE_H_ */

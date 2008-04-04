@@ -295,16 +295,6 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
 
 typedef GrabForegroundBase *GrabForegroundBaseP;
 
-/** Type specific RefPtr type for GrabForeground. */
-typedef RefPtr<GrabForegroundPtr> GrabForegroundRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<GrabForegroundBase::isNodeCore>,
-    CoredNodePtr<GrabForeground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        GrabForegroundNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGGRABFOREGROUNDBASE_H_ */

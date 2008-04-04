@@ -338,16 +338,6 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposerBase : public ImageComposer
 
 typedef PipelineComposerBase *PipelineComposerBaseP;
 
-/** Type specific RefPtr type for PipelineComposer. */
-typedef RefPtr<PipelineComposerPtr> PipelineComposerRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<PipelineComposerBase::isNodeCore>,
-    CoredNodePtr<PipelineComposer>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        PipelineComposerNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGPIPELINECOMPOSERBASE_H_ */

@@ -299,16 +299,6 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
 
 typedef ShaderChunkBase *ShaderChunkBaseP;
 
-/** Type specific RefPtr type for ShaderChunk. */
-typedef RefPtr<ShaderChunkPtr> ShaderChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ShaderChunkBase::isNodeCore>,
-    CoredNodePtr<ShaderChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ShaderChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSHADERCHUNKBASE_H_ */

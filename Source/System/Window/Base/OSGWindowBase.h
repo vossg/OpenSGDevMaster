@@ -461,16 +461,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
 typedef WindowBase *WindowBaseP;
 
-/** Type specific RefPtr type for Window. */
-typedef RefPtr<WindowPtr> WindowRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<WindowBase::isNodeCore>,
-    CoredNodePtr<Window>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        WindowNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGWINDOWBASE_H_ */

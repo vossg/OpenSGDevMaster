@@ -293,16 +293,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterMRealBase : public ShaderParameter
 
 typedef ShaderParameterMRealBase *ShaderParameterMRealBaseP;
 
-/** Type specific RefPtr type for ShaderParameterMReal. */
-typedef RefPtr<ShaderParameterMRealPtr> ShaderParameterMRealRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<ShaderParameterMRealBase::isNodeCore>,
-    CoredNodePtr<ShaderParameterMReal>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        ShaderParameterMRealNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSHADERPARAMETERMREALBASE_H_ */

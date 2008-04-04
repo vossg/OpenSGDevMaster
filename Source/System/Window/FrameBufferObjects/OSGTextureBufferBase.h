@@ -335,16 +335,6 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
 
 typedef TextureBufferBase *TextureBufferBaseP;
 
-/** Type specific RefPtr type for TextureBuffer. */
-typedef RefPtr<TextureBufferPtr> TextureBufferRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TextureBufferBase::isNodeCore>,
-    CoredNodePtr<TextureBuffer>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TextureBufferNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTEXTUREBUFFERBASE_H_ */

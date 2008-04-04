@@ -405,16 +405,6 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
 
 typedef FrameBufferObjectBase *FrameBufferObjectBaseP;
 
-/** Type specific RefPtr type for FrameBufferObject. */
-typedef RefPtr<FrameBufferObjectPtr> FrameBufferObjectRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<FrameBufferObjectBase::isNodeCore>,
-    CoredNodePtr<FrameBufferObject>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        FrameBufferObjectNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGFRAMEBUFFEROBJECTBASE_H_ */

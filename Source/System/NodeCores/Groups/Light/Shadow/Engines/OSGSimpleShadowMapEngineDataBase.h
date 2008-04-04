@@ -321,10 +321,6 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     void operator =(const SimpleShadowMapEngineDataBase &source);
 };
 
-/** Type specific RefPtr type for SimpleShadowMapEngineData. */
-typedef RefPtr<SimpleShadowMapEngineDataP> SimpleShadowMapEngineDataRefP;
-
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSIMPLESHADOWMAPENGINEDATABASE_H_ */

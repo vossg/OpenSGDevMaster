@@ -738,10 +738,6 @@ class @!Classname!@Base : public @!Parent!@
     void operator =(const @!Classname!@Base &source);
 };
 
-/** Type specific RefPtr type for @!Classname!@. */
-typedef RefPtr<@!Classname!@P> @!Classname!@RefP;
-
-
 OSG_END_NAMESPACE
 
 #endif /* _OSG@!CLASSNAME!@BASE_H_ */

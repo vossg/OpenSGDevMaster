@@ -208,16 +208,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralPropertyBase : public GeoProperty
 
 typedef GeoIntegralPropertyBase *GeoIntegralPropertyBaseP;
 
-/** Type specific RefPtr type for GeoIntegralProperty. */
-typedef RefPtr<GeoIntegralPropertyPtr> GeoIntegralPropertyRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<GeoIntegralPropertyBase::isNodeCore>,
-    CoredNodePtr<GeoIntegralProperty>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        GeoIntegralPropertyNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGGEOINTEGRALPROPERTYBASE_H_ */

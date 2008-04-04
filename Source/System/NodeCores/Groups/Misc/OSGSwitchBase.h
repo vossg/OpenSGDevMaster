@@ -278,16 +278,6 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
 
 typedef SwitchBase *SwitchBaseP;
 
-/** Type specific RefPtr type for Switch. */
-typedef RefPtr<SwitchPtr> SwitchRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SwitchBase::isNodeCore>,
-    CoredNodePtr<Switch>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SwitchNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSWITCHBASE_H_ */

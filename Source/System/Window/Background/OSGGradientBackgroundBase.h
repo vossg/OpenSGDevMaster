@@ -329,16 +329,6 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
 
 typedef GradientBackgroundBase *GradientBackgroundBaseP;
 
-/** Type specific RefPtr type for GradientBackground. */
-typedef RefPtr<GradientBackgroundPtr> GradientBackgroundRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<GradientBackgroundBase::isNodeCore>,
-    CoredNodePtr<GradientBackground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        GradientBackgroundNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGGRADIENTBACKGROUNDBASE_H_ */

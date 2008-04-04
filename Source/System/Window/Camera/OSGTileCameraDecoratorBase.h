@@ -378,16 +378,6 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
 
 typedef TileCameraDecoratorBase *TileCameraDecoratorBaseP;
 
-/** Type specific RefPtr type for TileCameraDecorator. */
-typedef RefPtr<TileCameraDecoratorPtr> TileCameraDecoratorRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TileCameraDecoratorBase::isNodeCore>,
-    CoredNodePtr<TileCameraDecorator>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TileCameraDecoratorNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTILECAMERADECORATORBASE_H_ */

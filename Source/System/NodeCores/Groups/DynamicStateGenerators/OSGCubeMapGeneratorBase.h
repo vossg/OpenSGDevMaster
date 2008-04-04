@@ -452,16 +452,6 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
 
 typedef CubeMapGeneratorBase *CubeMapGeneratorBaseP;
 
-/** Type specific RefPtr type for CubeMapGenerator. */
-typedef RefPtr<CubeMapGeneratorPtr> CubeMapGeneratorRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<CubeMapGeneratorBase::isNodeCore>,
-    CoredNodePtr<CubeMapGenerator>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        CubeMapGeneratorNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGCUBEMAPGENERATORBASE_H_ */

@@ -382,16 +382,6 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
 
 typedef SimpleStageBase *SimpleStageBaseP;
 
-/** Type specific RefPtr type for SimpleStage. */
-typedef RefPtr<SimpleStagePtr> SimpleStageRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SimpleStageBase::isNodeCore>,
-    CoredNodePtr<SimpleStage>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SimpleStageNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSIMPLESTAGEBASE_H_ */

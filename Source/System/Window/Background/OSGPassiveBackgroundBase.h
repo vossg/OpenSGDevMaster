@@ -227,16 +227,6 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
 
 typedef PassiveBackgroundBase *PassiveBackgroundBaseP;
 
-/** Type specific RefPtr type for PassiveBackground. */
-typedef RefPtr<PassiveBackgroundPtr> PassiveBackgroundRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<PassiveBackgroundBase::isNodeCore>,
-    CoredNodePtr<PassiveBackground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        PassiveBackgroundNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGPASSIVEBACKGROUNDBASE_H_ */

@@ -552,16 +552,6 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
 
 typedef TiledQuadTreeTerrainBase *TiledQuadTreeTerrainBaseP;
 
-/** Type specific RefPtr type for TiledQuadTreeTerrain. */
-typedef RefPtr<TiledQuadTreeTerrainPtr> TiledQuadTreeTerrainRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TiledQuadTreeTerrainBase::isNodeCore>,
-    CoredNodePtr<TiledQuadTreeTerrain>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TiledQuadTreeTerrainNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTILEDQUADTREETERRAINBASE_H_ */

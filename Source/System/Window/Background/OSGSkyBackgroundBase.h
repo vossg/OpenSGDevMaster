@@ -731,16 +731,6 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
 
 typedef SkyBackgroundBase *SkyBackgroundBaseP;
 
-/** Type specific RefPtr type for SkyBackground. */
-typedef RefPtr<SkyBackgroundPtr> SkyBackgroundRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SkyBackgroundBase::isNodeCore>,
-    CoredNodePtr<SkyBackground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SkyBackgroundNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSKYBACKGROUNDBASE_H_ */

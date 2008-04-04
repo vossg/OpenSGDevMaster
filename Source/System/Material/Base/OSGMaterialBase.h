@@ -279,16 +279,6 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
 
 typedef MaterialBase *MaterialBaseP;
 
-/** Type specific RefPtr type for Material. */
-typedef RefPtr<MaterialPtr> MaterialRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<MaterialBase::isNodeCore>,
-    CoredNodePtr<Material>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        MaterialNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGMATERIALBASE_H_ */

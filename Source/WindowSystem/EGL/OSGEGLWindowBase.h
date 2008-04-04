@@ -318,16 +318,6 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
 
 typedef EGLWindowBase *EGLWindowBaseP;
 
-/** Type specific RefPtr type for EGLWindow. */
-typedef RefPtr<EGLWindowPtr> EGLWindowRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<EGLWindowBase::isNodeCore>,
-    CoredNodePtr<EGLWindow>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        EGLWindowNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGEGLWINDOWBASE_H_ */

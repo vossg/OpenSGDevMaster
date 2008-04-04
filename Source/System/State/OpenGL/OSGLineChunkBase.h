@@ -338,16 +338,6 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
 
 typedef LineChunkBase *LineChunkBaseP;
 
-/** Type specific RefPtr type for LineChunk. */
-typedef RefPtr<LineChunkPtr> LineChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<LineChunkBase::isNodeCore>,
-    CoredNodePtr<LineChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        LineChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGLINECHUNKBASE_H_ */

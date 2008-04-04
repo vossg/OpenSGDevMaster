@@ -278,16 +278,6 @@ class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveC
 
 typedef OffCenterPerspectiveCameraBase *OffCenterPerspectiveCameraBaseP;
 
-/** Type specific RefPtr type for OffCenterPerspectiveCamera. */
-typedef RefPtr<OffCenterPerspectiveCameraPtr> OffCenterPerspectiveCameraRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<OffCenterPerspectiveCameraBase::isNodeCore>,
-    CoredNodePtr<OffCenterPerspectiveCamera>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        OffCenterPerspectiveCameraNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGOFFCENTERPERSPECTIVECAMERABASE_H_ */

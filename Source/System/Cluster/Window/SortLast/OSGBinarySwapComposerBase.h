@@ -318,16 +318,6 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
 
 typedef BinarySwapComposerBase *BinarySwapComposerBaseP;
 
-/** Type specific RefPtr type for BinarySwapComposer. */
-typedef RefPtr<BinarySwapComposerPtr> BinarySwapComposerRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<BinarySwapComposerBase::isNodeCore>,
-    CoredNodePtr<BinarySwapComposer>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        BinarySwapComposerNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGBINARYSWAPCOMPOSERBASE_H_ */

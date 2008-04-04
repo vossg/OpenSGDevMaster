@@ -278,16 +278,6 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
 
 typedef TransformBase *TransformBaseP;
 
-/** Type specific RefPtr type for Transform. */
-typedef RefPtr<TransformPtr> TransformRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<TransformBase::isNodeCore>,
-    CoredNodePtr<Transform>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        TransformNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGTRANSFORMBASE_H_ */

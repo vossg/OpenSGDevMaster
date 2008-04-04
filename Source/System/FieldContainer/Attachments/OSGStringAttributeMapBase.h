@@ -329,16 +329,6 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
 
 typedef StringAttributeMapBase *StringAttributeMapBaseP;
 
-/** Type specific RefPtr type for StringAttributeMap. */
-typedef RefPtr<StringAttributeMapPtr> StringAttributeMapRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<StringAttributeMapBase::isNodeCore>,
-    CoredNodePtr<StringAttributeMap>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        StringAttributeMapNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSTRINGATTRIBUTEMAPBASE_H_ */

@@ -777,16 +777,6 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
 
 typedef QuadTreeTerrainBase *QuadTreeTerrainBaseP;
 
-/** Type specific RefPtr type for QuadTreeTerrain. */
-typedef RefPtr<QuadTreeTerrainPtr> QuadTreeTerrainRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<QuadTreeTerrainBase::isNodeCore>,
-    CoredNodePtr<QuadTreeTerrain>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        QuadTreeTerrainNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGQUADTREETERRAINBASE_H_ */

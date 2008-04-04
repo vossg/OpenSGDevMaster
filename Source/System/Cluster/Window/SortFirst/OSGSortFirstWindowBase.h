@@ -373,16 +373,6 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
 
 typedef SortFirstWindowBase *SortFirstWindowBaseP;
 
-/** Type specific RefPtr type for SortFirstWindow. */
-typedef RefPtr<SortFirstWindowPtr> SortFirstWindowRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<SortFirstWindowBase::isNodeCore>,
-    CoredNodePtr<SortFirstWindow>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        SortFirstWindowNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSORTFIRSTWINDOWBASE_H_ */

@@ -290,16 +290,6 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
 
 typedef CameraDecoratorBase *CameraDecoratorBaseP;
 
-/** Type specific RefPtr type for CameraDecorator. */
-typedef RefPtr<CameraDecoratorPtr> CameraDecoratorRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<CameraDecoratorBase::isNodeCore>,
-    CoredNodePtr<CameraDecorator>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        CameraDecoratorNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGCAMERADECORATORBASE_H_ */

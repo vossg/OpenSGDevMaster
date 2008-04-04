@@ -418,16 +418,6 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
 
 typedef StencilChunkBase *StencilChunkBaseP;
 
-/** Type specific RefPtr type for StencilChunk. */
-typedef RefPtr<StencilChunkPtr> StencilChunkRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<StencilChunkBase::isNodeCore>,
-    CoredNodePtr<StencilChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        StencilChunkNodePtr;
-
 OSG_END_NAMESPACE
 
 #endif /* _OSGSTENCILCHUNKBASE_H_ */
