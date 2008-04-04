@@ -383,6 +383,8 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
     } 
     while(!finish);
 
+    Thread::getCurrentChangeList()->clearSyncAddRef();
+
     if(applyToChangelist)
     {
         commitChanges();

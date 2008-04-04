@@ -217,7 +217,8 @@ ChangeList::ChangeList(void) :
     _workStore         (                   ),
     _uiAspect          (                  0),
     _iSubRefLevel      (                  0),
-    _bExternal         (false              )
+    _bExternal         (false              ),
+    _vSyncAddRef       (                   )
 {
     _entryPool.push_back(ChangeEntryStore());
 
@@ -688,6 +689,28 @@ void ChangeList::setAspectTo(UInt32 uiNewAspect)
     _uiAspect = uiNewAspect;
 }
 #endif
+
+void ChangeList::addSyncAddRef(FieldContainerPtr pFC)
+{
+    pFC->addReferenceUnrecordedX();
+
+    _vSyncAddRef.push_back(pFC);
+}
+
+void ChangeList::clearSyncAddRef(void)
+{
+    std::vector<FieldContainerPtr>::      iterator vIt  = _vSyncAddRef.begin();
+    std::vector<FieldContainerPtr>::const_iterator vEnd = _vSyncAddRef.end  ();
+
+    while(vIt != vEnd)
+    {
+        (*vIt)->subReferenceUnrecordedX();
+
+        ++vIt;
+    }
+
+    _vSyncAddRef.clear();
+}
 
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */

@@ -224,6 +224,14 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
+    void addSyncAddRef  (FieldContainerPtr pFC);
+    void clearSyncAddRef(void                 );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
     virtual void dump         (      UInt32    uiIndent = 0,
                                const BitVector bvFlags  = 0) const;
 
@@ -242,21 +250,23 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    ChangeEntryPool    _entryPool;
+    ChangeEntryPool                _entryPool;
 
-    ChangeEntryPoolIt  _currentPoolElement;
-    ChangeEntryStoreIt _currentEntry;
+    ChangeEntryPoolIt              _currentPoolElement;
+    ChangeEntryStoreIt             _currentEntry;
 
-    ChangedStore       _changedStore;
-    ChangedStore       _createdStore;
+    ChangedStore                   _changedStore;
+    ChangedStore                   _createdStore;
 
-    ChangedStore       _uncommitedChanges;
-    ChangedStore       _workStore;
+    ChangedStore                   _uncommitedChanges;
+    ChangedStore                   _workStore;
 
-    UInt32             _uiAspect;
-    Int32              _iSubRefLevel;
+    UInt32                         _uiAspect;
+    Int32                          _iSubRefLevel;
 
-    bool               _bExternal;
+    bool                           _bExternal;
+    
+    std::vector<FieldContainerPtr> _vSyncAddRef;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
