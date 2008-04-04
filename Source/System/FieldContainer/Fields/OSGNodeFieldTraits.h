@@ -81,37 +81,62 @@ struct FieldTraits<NodePtr> : public FieldTraitsFCPtrBase<NodePtr>
     static OSG_SYSTEM_DLLMAPPING
                  DataType &getType      (void);
 
-    static const Char8    *getSName     (void) { return "SFNodePtr";   }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
 
-    static const Char8    *getMName     (void) { return "MFNodePtr";   }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
 };
 
-template <>
-struct FieldTraits<NodePtr, 1> : public FieldTraitsFCPtrBase<NodePtr, 1>
+template<> inline
+const Char8 *FieldTraits<NodePtr, 0>::getSName<RecordedRefCounts>(void)
 {
-  private:
+    return "SFNodePtr"; 
+}
 
-    static  DataType                _type;
+template<> inline
+const Char8 *FieldTraits<NodePtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecNodePtr"; 
+}
 
-  public:
+template<> inline
+const Char8 *FieldTraits<NodePtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakNodePtr"; 
+}
 
-    typedef FieldTraits<NodePtr, 1>  Self;
-    typedef NodePtr                  ParentContainerPtr;
+template<> inline
+const Char8 *FieldTraits<NodePtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdNodePtr"; 
+}
 
-    enum             { Convertible = Self::NotConvertible              };
 
-    static OSG_SYSTEM_DLLMAPPING
-                 DataType &getType      (void);
 
-    static const Char8    *getSName     (void) { return "SFUnrefdNodePtr";   }
+template<> inline
+const Char8 *FieldTraits<NodePtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFNodePtr"; 
+}
 
-    static const Char8    *getMName     (void) { return "MFUnrefdNodePtr";   }
-};
+template<> inline
+const Char8 *FieldTraits<NodePtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecNodePtr"; 
+}
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<NodePtr> */
-/*! \hideinhierarchy                         */
-#endif
+template<> inline
+const Char8 *FieldTraits<NodePtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakNodePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodePtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdNodePtr"; 
+}
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 

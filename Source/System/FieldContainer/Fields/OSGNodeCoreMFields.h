@@ -50,7 +50,16 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef FieldContainerPtrMField<NodeCorePtr> MFNodeCorePtr;
+typedef FieldContainerPtrMField<NodeCorePtr, 
+                                RecordedRefCounts  > MFNodeCorePtr;
+typedef FieldContainerPtrMField<NodeCorePtr, 
+                                UnrecordedRefCounts> MFUnrecNodeCorePtr;
+typedef FieldContainerPtrMField<NodeCorePtr, 
+                                WeakRefCounts      > MFWeakNodeCorePtr;
+typedef FieldContainerPtrMField<NodeCorePtr, 
+                                NoRefCounts        > MFUncountedNodeCorePtr;
+
+typedef MFNodeCorePtr MFRecNodeCorePtr;
 #endif
 
 

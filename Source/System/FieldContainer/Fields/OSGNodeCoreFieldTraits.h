@@ -83,22 +83,62 @@ struct FieldTraits<NodeCorePtr> :
     static OSG_SYSTEM_DLLMAPPING
                  DataType &getType      (void);
 
-    static const Char8    *getSName     (void) { return "SFNodeCorePtr";   }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
 
-    static const Char8    *getMName     (void) { return "MFNodeCorePtr";   }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<NodeCorePtr> */
-/*! \hideinhierarchy                         */
-#endif
-
-#ifdef FDFOO
-struct NodeCorePtrFieldDesc : public FieldDescBase
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 0>::getSName<RecordedRefCounts>(void)
 {
-    typedef NodeCorePtr ValueType;
-};
-#endif
+    return "SFNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdNodeCorePtr"; 
+}
+
+
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdNodeCorePtr"; 
+}
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 

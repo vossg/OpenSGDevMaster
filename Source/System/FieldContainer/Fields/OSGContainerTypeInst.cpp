@@ -69,74 +69,7 @@
 #include "OSGNodeCoreSFields.h"
 #include "OSGNodeCoreMFields.h"
 
-#define OSG_SFIELDTYPE_INST2(CLASSNAME, T1, T2)          \
-template<>                                               \
-FieldType CLASSNAME< T1 , T2 >::_fieldType(              \
-    SFieldTraits::getSName(),                            \
-    SFieldTraits::getSPName(),                           \
-    SFieldTraits::getType (),                            \
-    FieldType::SINGLE_FIELD)
-
 OSG_BEGIN_NAMESPACE
-
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    FieldContainerPtr, 
-                    RecordedRefCounts,
-                    0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    FieldContainerPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    NodePtr, 
-                    RecordedRefCounts,
-                    0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    NodePtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    NodePtr, 
-                    NoRefCounts,
-                    1);
-
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    NodeCorePtr, 
-                    RecordedRefCounts,
-                    0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    NodeCorePtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    AttachmentContainerPtr, 
-                    RecordedRefCounts,
-                    0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    AttachmentContainerPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    FieldContainerAttachmentPtr, 
-                    RecordedRefCounts,
-                    0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    FieldContainerAttachmentPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_SFIELDTYPE_INST(FieldContainerPtrParentSField,
-                    FieldContainerPtr, 
-                    NoRefCounts,
-                    1);
-OSG_MFIELDTYPE_INST(FieldContainerPtrParentMField, 
-                    FieldContainerPtr, 
-                    NoRefCounts,
-                    1);
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
@@ -177,21 +110,68 @@ DataType &FieldTraits< FieldContainerPtr, 1 >::getType(void)
     return FieldTraits<FieldContainerPtr, 0>::getType();
 }
 
-DataType &FieldTraits< NodePtr, 1 >::getType(void)
-{                                                           
-    return FieldTraits<NodePtr, 0>::getType();
-}
-
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         FieldContainerPtr, 
-                         RecordedRefCounts,
-                         0);
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         FieldContainerPtr, 
-                         RecordedRefCounts,
-                         0);
+// FieldContainer
+
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           FieldContainerPtr, 
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           FieldContainerPtr, 
+                           0);
+
+// Node
+
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           NodePtr, 
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           NodePtr, 
+                           0);
+
+// NodeCore
+
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           NodeCorePtr, 
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           NodeCorePtr, 
+                           0);
+
+// AttachmentContainer
+
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           AttachmentContainerPtr, 
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           AttachmentContainerPtr, 
+                           0);
+
+// FieldContainerAttachment
+
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           FieldContainerAttachmentPtr, 
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           FieldContainerAttachmentPtr, 
+                           0);
+
+// ParentFieldContainer
+
+OSG_SFIELDTYPE_INST(FieldContainerPtrParentSField,
+                    FieldContainerPtr, 
+                    NoRefCounts,
+                    1);
+OSG_MFIELDTYPE_INST(FieldContainerPtrParentMField, 
+                    FieldContainerPtr, 
+                    NoRefCounts,
+                    1);
 
 OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrParentSField, 
                          FieldContainerPtr, 
@@ -202,22 +182,8 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrParentMField,
                          NoRefCounts,
                          1);
 
-OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, FieldContainerAttachmentPtr);
-OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, FieldContainerAttachmentPtr);
 
-OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, NodeCorePtr);
-OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, NodeCorePtr);
-
-OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, NodePtr);
-OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, NodePtr);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         NodePtr,
-                         NoRefCounts,
-                         1);
-
-//OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, NodeRefPtr);
-//OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, NodeRefPtr, );
+// ChangeFunctor
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, ChangedFunctorCallback);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ChangedFunctorCallback);

@@ -44,7 +44,6 @@
 
 #include "OSGFieldContainerPtrSFieldBase.h"
 
-#include "OSGFieldContainerFieldTraits.h"
 #include <boost/function.hpp>  
 
 OSG_BEGIN_NAMESPACE

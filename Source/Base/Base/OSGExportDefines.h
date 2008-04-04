@@ -150,6 +150,14 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
     SFieldTraits::getType (),                            \
     FieldType::SINGLE_FIELD)
 
+#define OSG_SFIELDTYPE_INST_X(CLASSNAME, T1, T2, T3)     \
+template<>                                               \
+FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
+    SFieldTraits::getSName< T2 >(),                      \
+    SFieldTraits::getSPName(),                           \
+    SFieldTraits::getType (),                            \
+    FieldType::SINGLE_FIELD)
+
 
 #define OSG_MFIELDTYPE_INST(CLASSNAME, T1, T2, T3)       \
 template<>                                               \
@@ -159,7 +167,38 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
     MFieldTraits::getType (),                            \
     FieldType::MULTI_FIELD)
 
+#define OSG_MFIELDTYPE_INST_X(CLASSNAME, T1, T2, T3)     \
+template<>                                               \
+FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
+    MFieldTraits::getMName< T2 >(),                      \
+    MFieldTraits::getMPName(),                           \
+    MFieldTraits::getType (),                            \
+    FieldType::MULTI_FIELD)
+
 #endif
+
+
+#define OSG_EXPORT_PTR_SFIELD(CLASS, T1, T2, T3) \
+    OSG_SFIELDTYPE_INST_X(CLASS, T1, T2, T3);    \
+    OSG_FIELD_DLLEXPORT_DEF3(CLASS, T1, T2, T3)  
+
+#define OSG_EXPORT_PTR_MFIELD(CLASS, T1, T2, T3) \
+    OSG_MFIELDTYPE_INST_X(CLASS, T1, T2, T3);    \
+    OSG_FIELD_DLLEXPORT_DEF3(CLASS, T1, T2, T3)  
+
+#define OSG_EXPORT_PTR_SFIELD_FULL(CLASS, T1, T3)              \
+    OSG_EXPORT_PTR_SFIELD(CLASS, T1, RecordedRefCounts,   T3); \
+    OSG_EXPORT_PTR_SFIELD(CLASS, T1, UnrecordedRefCounts, T3); \
+    OSG_EXPORT_PTR_SFIELD(CLASS, T1, WeakRefCounts,       T3); \
+    OSG_EXPORT_PTR_SFIELD(CLASS, T1, NoRefCounts,         T3);
+
+#define OSG_EXPORT_PTR_MFIELD_FULL(CLASS, T1, T3)              \
+    OSG_EXPORT_PTR_MFIELD(CLASS, T1, RecordedRefCounts,   T3); \
+    OSG_EXPORT_PTR_MFIELD(CLASS, T1, UnrecordedRefCounts, T3); \
+    OSG_EXPORT_PTR_MFIELD(CLASS, T1, WeakRefCounts,       T3); \
+    OSG_EXPORT_PTR_MFIELD(CLASS, T1, NoRefCounts,         T3);
+
+
 
 #endif /* _OSGEXPORTDEFINES_H_ */
 

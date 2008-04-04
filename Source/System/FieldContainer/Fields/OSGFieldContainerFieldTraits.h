@@ -48,6 +48,7 @@
 #include "OSGContainerForwards.h"
 #include "OSGFieldContainerFactory.h"
 #include "OSGContainerPtrFuncs.h"
+#include "OSGRefCountPolicies.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -146,86 +147,6 @@ struct FieldTraitsFCPtrBase :
     }   
 };
 
-#if 0
-template<>
-struct FieldTraitsFCPtrBase<ParentFieldContainerPtr> : 
-    public FieldTraitsTemplateBase<ParentFieldContainerPtr>
-{
-    static const bool bIsPointerField = true;
-
-    static UInt32 getBinSize(const ParentFieldContainerPtr &)
-    {
-        return sizeof(UInt32) + sizeof(UInt16);
-    }
-
-    static UInt32 getBinSize(const ParentFieldContainerPtr *,
-                                   UInt32                   uiNumObjects)
-    {
-        return (sizeof(UInt32) + sizeof(UInt16)) * uiNumObjects;
-    }
-
-    static void copyToBin(      BinaryDataHandler       &pMem, 
-                          const ParentFieldContainerPtr &pObject)
-    {
-        UInt32 containerId;
-
-        if(pObject == NullFC)
-        {
-            // containerId=0 indicates an Null Ptr
-            containerId = 0;
-        }
-        else
-        {
-            containerId = getContainerId(pObject);
-        }
-
-        pMem.putValue(containerId);
-        pMem.putValue(pObject.getParentFieldPos());
-    }
-
-    static void copyToBin(      BinaryDataHandler       &pMem, 
-                          const ParentFieldContainerPtr *pObjectStore,
-                                UInt32                   uiNumObjects)
-    {
-        for(UInt32 i = 0; i < uiNumObjects; i++)
-        {
-            copyToBin(pMem, pObjectStore[i]);
-        }
-    }
-
-    static void copyFromBin(BinaryDataHandler       &pMem, 
-                            ParentFieldContainerPtr &pObject)
-    {
-        UInt32 containerId;
-        UInt16 parentFieldPos;
-
-        pMem.getValue(containerId   );
-        pMem.getValue(parentFieldPos);
-
-        if(0 != containerId)
-        {
-            pObject.set(
-                FieldContainerFactory::the()->getMappedContainer(containerId),
-                parentFieldPos);
-        }
-        else
-        {
-            pObject = NullFC;
-        }
-    }
-
-    static void copyFromBin(BinaryDataHandler       &pMem, 
-                            ParentFieldContainerPtr *pObjectStore,
-                            UInt32                   uiNumObjects)
-    {
-        for(UInt32 i = 0; i < uiNumObjects; i++)
-        {
-            copyFromBin(pMem, pObjectStore[i]);
-        }
-    }
-};
-#endif
-
 /*! \ingroup 
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
@@ -252,10 +173,72 @@ struct FieldTraits<FieldContainerPtr> :
     static OSG_SYSTEM_DLLMAPPING
                  DataType &getType (void);
 
-    static const Char8    *getSName(void) { return "SFFieldContainerPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName(void);
 
-    static const Char8    *getMName(void) { return "MFFieldContainerPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName(void);
 };
+
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerPtr, 
+                         0                >::getSName<RecordedRefCounts>(void)
+{
+    return "SFFieldContainerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerPtr, 
+                         0                >::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFieldContainerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerPtr, 
+                         0                >::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFieldContainerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerPtr, 
+                         0                >::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFieldContainerPtr"; 
+}
+
+
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerPtr, 
+                         0               >::getMName<RecordedRefCounts>(void)
+{
+    return "MFFieldContainerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerPtr, 
+                         0                >::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFieldContainerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerPtr, 
+                         0                >::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFieldContainerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerPtr, 
+                         0                >::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFieldContainerPtr"; 
+}
+
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<FieldContainerPtr> */
@@ -306,64 +289,6 @@ struct FieldTraits<FieldContainerPtr, 1> :
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-struct RecordedRefCounts
-{
-    static void addRef(FieldContainerPtrConst objectP)
-    {
-        OSG::addRefX(objectP);
-    }
-    static void subRef(FieldContainerPtrConst objectP)
-    {
-        OSG::subRefX(objectP);
-    }
-
-    template <class StoreT, class SourceT> 
-    static void setRefd(StoreT  &pTarget,
-                        SourceT  pSource)
-    {
-        OSG::setRefdX(pTarget, pSource);
-    }
-
-    template<class T>
-    static T *validate(T *pIn)
-    {
-        return pIn;
-    }
-
-    template<class T>
-    static T &dereference(T *pIn)
-    {
-        return *pIn;
-    }
-};
-
-struct UnrecordedRefCounts
-{
-};
-
-struct NoRefCounts
-{
-    static void addRef(FieldContainerPtrConst)
-    {
-    }
-    static void subRef(FieldContainerPtrConst)
-    {
-    }
-
-    template <class StoreT, class SourceT> 
-    static void setRefd(StoreT  &pTarget,
-                        SourceT  pSource)
-    {
-        pTarget = pSource;
-    }
-
-    template<class T>
-    static T *validate(T *pIn)
-    {
-        return pIn;
-    }
-
-};
 
 OSG_END_NAMESPACE
 

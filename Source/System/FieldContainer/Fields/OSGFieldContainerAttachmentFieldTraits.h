@@ -82,16 +82,71 @@ struct FieldTraits<FieldContainerAttachmentPtr>
     static OSG_SYSTEM_DLLMAPPING
                  DataType &getType      (void);
 
-    static const Char8    *getSName     (void)
-    {
-        return "SFFieldContainerAttachmentPtr";
-    }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName(void);
 
-    static const Char8    *getMName     (void)
-    {
-        return "MFFieldContainerAttachmentPtr";
-    }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName(void);
 };
+
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
+                         0                >::getSName<RecordedRefCounts>(void)
+{
+    return "SFFieldContainerAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
+                         0                >::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFieldContainerAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
+                         0                >::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFieldContainerAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
+                         0                >::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFieldContainerAttachmentPtr"; 
+}
+
+
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
+                         0               >::getMName<RecordedRefCounts>(void)
+{
+    return "MFFieldContainerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
+                         0                >::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFieldContainerAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
+                         0                >::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFieldContainerAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
+                         0                >::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFieldContainerAttachmentPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<FieldContainerAttachmentPtr>

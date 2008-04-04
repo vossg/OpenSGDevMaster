@@ -36,33 +36,156 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNODEMFIELDS_H_
-#define _OSGNODEMFIELDS_H_
+#ifndef _OSGREFCOUNTPOLICIES_H_
+#define _OSGREFCOUNTPOLICIES_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGNodeFieldTraits.h"
-#include "OSGFieldContainerPtrMField.h"
-
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+struct RecordedRefCounts
+{
+    static void addRef(FieldContainerPtrConst objectP)
+    {
+        OSG::addRefX(objectP);
+    }
+    static void subRef(FieldContainerPtrConst objectP)
+    {
+        OSG::subRefX(objectP);
+    }
 
-typedef FieldContainerPtrMField<NodePtr, 
-                                RecordedRefCounts  > MFNodePtr;
-typedef FieldContainerPtrMField<NodePtr, 
-                                UnrecordedRefCounts> MFUnrecNodePtr;
-typedef FieldContainerPtrMField<NodePtr, 
-                                WeakRefCounts      > MFWeakNodePtr;
-typedef FieldContainerPtrMField<NodePtr, 
-                                NoRefCounts        > MFUncountedNodePtr;
+    template <class StoreT, class SourceT> 
+    static void setRefd(StoreT  &pTarget,
+                        SourceT  pSource)
+    {
+        OSG::setRefdX(pTarget, pSource);
+    }
 
-typedef MFNodePtr MFRecNodePtr;
+    template<class T>
+    static T *validate(T *pIn)
+    {
+        return pIn;
+    }
 
-#endif
+    template<class T>
+    static T &dereference(T *pIn)
+    {
+        return *pIn;
+    }
+};
+
+struct UnrecordedRefCounts
+{
+    static void addRef(FieldContainerPtrConst objectP)
+    {
+        OSG::addRefX(objectP);
+    }
+    static void subRef(FieldContainerPtrConst objectP)
+    {
+        OSG::subRefX(objectP);
+    }
+
+    template <class StoreT, class SourceT> 
+    static void setRefd(StoreT  &pTarget,
+                        SourceT  pSource)
+    {
+        OSG::setRefdX(pTarget, pSource);
+    }
+
+    template<class T>
+    static T *validate(T *pIn)
+    {
+        return pIn;
+    }
+
+    template<class T>
+    static T &dereference(T *pIn)
+    {
+        return *pIn;
+    }
+};
+
+struct NoRefCounts
+{
+    static void addRef(FieldContainerPtrConst)
+    {
+    }
+    static void subRef(FieldContainerPtrConst)
+    {
+    }
+
+    template <class StoreT, class SourceT> 
+    static void setRefd(StoreT  &pTarget,
+                        SourceT  pSource)
+    {
+        pTarget = pSource;
+    }
+
+    template<class T>
+    static T *validate(T *pIn)
+    {
+        return pIn;
+    }
+
+};
+
+struct WeakRefCounts
+{
+    static void addRef(FieldContainerPtrConst objectP)
+    {
+        if(objectP != NULL)
+            objectP->addWeakReference();
+    }
+    static void subRef(FieldContainerPtrConst objectP)
+    {
+        if(objectP != NULL)
+            objectP->subWeakReference();
+
+    }
+
+    template <class StoreT, class SourceT> 
+    static void setRefd(StoreT  &pTarget,
+                        SourceT  pSource)
+    {
+        WeakRefCounts::addRef(pSource);
+        WeakRefCounts::subRef(pTarget);
+    
+        pTarget = pSource;
+    }
+
+    template<class T>
+    static T *validate(T *pIn)
+    {
+        if(pIn == NULL) 
+        {
+            return NULL;
+        }
+        else
+        {
+            return (pIn->getRefCount() > 0) ? pIn : NULL;
+        }
+    }
+
+    template<class T>
+    static T &dereference(T *pIn)
+    {
+        T *returnValue;
+        
+        if(pIn == NULL)
+        {
+            returnValue = NULL;
+        }
+        else
+        {
+            returnValue = (pIn->getRefCount() > 0) ? pIn : NULL;
+        }
+
+        return *returnValue;
+    }
+};
+
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGNODEMFIELDS_H_ */
+#endif /* _OSGFIELDCONTAINERFIELDTRAITS_H_ */

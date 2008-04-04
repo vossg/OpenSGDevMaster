@@ -88,7 +88,7 @@ FieldContainerPtrMField<ValueT,
 {
     if(obj._values.size() > 0)
     {
-        _values.resize(obj._values.size());
+        _values.resize(obj._values.size(), NULL);
 
         typename StorageType::const_iterator sIt  = obj._values.begin();
         typename StorageType::const_iterator sEnd = obj._values.end  ();
@@ -97,7 +97,7 @@ FieldContainerPtrMField<ValueT,
         
         while(sIt != sEnd)
         {
-            setRefdX((*fIt), *sIt);
+            RefCountPolicy::setRefd((*fIt), *sIt);
 
             ++sIt;
             ++fIt;
@@ -143,11 +143,11 @@ void FieldContainerPtrMField<ValueT,
      this->clear();
 
 #ifdef __hpux
-    FieldTypeT tmpVal;
+    FieldTypeT tmpVal = NULL;
 
     _values.resize(n, tmpVal);
 #else
-    _values.resize(n);
+    _values.resize(n, NULL);
 #endif
 
     if(n != 0)
@@ -162,7 +162,7 @@ void FieldContainerPtrMField<ValueT,
 
         while(sIt != sEnd)
         {
-            OSG::addRefX(*sIt);
+            RefCountPolicy::addRef(*sIt);
 
             ++sIt;
         }
@@ -229,7 +229,7 @@ typename FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::iterator
                             iNamespace    >::insert(iterator     pos, 
                                                     ArgumentType value)
 {
-    OSG::addRefX(value);
+    RefCountPolicy::addRef(value);
 
     return (this->template dcast<typename Self::StorageType>()).insert(pos, 
                                                                        value);
@@ -263,11 +263,31 @@ typename FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::iterator
 {
     typename StorageType::iterator tmpIt(pos);
     
-    OSG::subRefX(*tmpIt);
+    RefCountPolicy::subRef(*tmpIt);
 
     return (this->template dcast<typename Self::StorageType>()).erase(pos);
 }
 
+template<class    ValueT, 
+         typename RefCountPolicy, 
+         Int32    iNamespace    > inline
+typename FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::iterator
+     FieldContainerPtrMField<ValueT, 
+                             RefCountPolicy, 
+                             iNamespace    >::erase(iterator     first,
+                                                    iterator     last )
+{
+    typename StorageType::iterator tmpFirst(first);
+    typename StorageType::iterator tmpLast (last );
+
+    for(; first != last; ++first)
+    {
+        RefCountPolicy::subRef(*first);
+    }
+    
+    return (this->template dcast<typename Self::StorageType>()).erase(tmpFirst,
+                                                                      tmpLast);
+}
 
 template<class    ValueT, 
          typename RefCountPolicy, 
@@ -289,7 +309,24 @@ void FieldContainerPtrMField<ValueT,
                              iNamespace    >::resize(size_t     newsize, 
                                                      StoredType t)
 {
-    _values.resize(newsize, t);
+    size_t oldSize = _values.size();
+
+    if(newsize < oldSize)
+    {
+        this->erase(this->begin() + newsize, this->end());
+    }
+    else
+    {
+        _values.resize(newsize, t);
+        
+        typename Inherited::iterator       vI = _values.begin() + oldSize;
+        typename Inherited::const_iterator vE = _values.end  ();
+        
+        for(; vI != vE; ++vI)
+        {
+            RefCountPolicy::addRef(*vI);
+        }
+    }
 }
 
 template<class    ValueT, 
@@ -300,8 +337,9 @@ void FieldContainerPtrMField<ValueT,
                              iNamespace    >::replace(UInt32       uiIdx, 
                                                       ArgumentType value)
 {
-    OSG::setRefdX((this->template dcast<typename Self::StorageType>())[uiIdx],
-                  value);
+    RefCountPolicy::setRefd(
+        (this->template dcast<typename Self::StorageType>())[uiIdx],
+        value);
 }
 
 template<class    ValueT, 
@@ -314,7 +352,7 @@ void FieldContainerPtrMField<ValueT,
 {
     typename StorageType::iterator tmpIt(pos);
 
-    OSG::setRefdX(*tmpIt, value);
+    RefCountPolicy::setRefd(*tmpIt, value);
 }
 
 template<class    ValueT, 
@@ -327,7 +365,10 @@ typename FieldContainerPtrMField<ValueT,
                             RefCountPolicy, 
                             iNamespace    >::operator [](UInt32 index) const
 {
-    return (this->template dcast<typename Self::StorageType>())[index];
+    ValueT returnValue = 
+        (this->template dcast<typename Self::StorageType>())[index];
+
+    return RefCountPolicy::validate(returnValue);
 }
 
 template<class    ValueT, 

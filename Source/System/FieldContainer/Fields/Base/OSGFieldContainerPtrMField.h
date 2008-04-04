@@ -44,7 +44,8 @@
 
 #include "OSGFieldContainerPtrMFieldBase.h"
 
-#include "OSGFieldContainerFieldTraits.h"
+#include "OSGRefCountPolicies.h"
+
 #include <boost/function.hpp>  
 
 OSG_BEGIN_NAMESPACE
@@ -66,7 +67,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
 
     typedef typename StorageType::reference                reference;
-    typedef typename StorageType::const_reference          const_reference;
+    typedef          ValueT                                const_reference;
 
     typedef          FieldTraits            <ValueT, 
                                              iNamespace>   MFieldTraits;
@@ -101,16 +102,23 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
     /*---------------------------------------------------------------------*/
 
-    template<class StorageTypeT>
+    template<class StorageTypeT, typename ItRefCountPolicy>
     class ptrfield_iterator;
 
-    template<class StorageTypeT>
+    template<class StorageTypeT, typename ItRefCountPolicy>
     class const_ptrfield_iterator : protected StorageTypeT::const_iterator
     {
+        typedef           FieldContainerPtrMField<ValueT, 
+                                                  RefCountPolicy,
+                                                  iNamespace    > PtrMField;
+
+
         typedef typename StorageTypeT::const_iterator  Inherited;
         typedef typename StorageTypeT::difference_type difference_type;
+        typedef typename PtrMField   ::const_reference const_reference;
 
-        friend class ptrfield_iterator<StorageTypeT>;
+
+        friend class ptrfield_iterator<StorageTypeT, ItRefCountPolicy>;
 
         friend class FieldContainerPtrMField<ValueT, 
                                              RefCountPolicy,
@@ -129,7 +137,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
         }
 
         const_ptrfield_iterator(
-            const ptrfield_iterator<StorageTypeT> &i) : 
+            const ptrfield_iterator<StorageTypeT, ItRefCountPolicy> &i) : 
 
             Inherited(i)
         {
@@ -137,7 +145,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
         const_reference operator*() const
         { 
-            return *Inherited::_M_current; 
+            return ItRefCountPolicy::validate(*Inherited::_M_current); 
         }
 
         bool operator ==(const const_ptrfield_iterator &rhs) const
@@ -169,11 +177,16 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
       protected:
     };
 
-    template<class StorageTypeT>
+    template<class StorageTypeT, typename ItRefCountPolicy>
     class ptrfield_iterator : protected StorageTypeT::iterator
     {
+        typedef           FieldContainerPtrMField<ValueT, 
+                                                  RefCountPolicy,
+                                                  iNamespace    > PtrMField;
+
         typedef typename StorageTypeT::iterator        Inherited;
         typedef typename StorageTypeT::difference_type difference_type;
+        typedef typename PtrMField   ::const_reference const_reference;
 
         friend class FieldContainerPtrMField<ValueT, 
                                              RefCountPolicy,
@@ -191,7 +204,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
         const_reference operator*() const
         { 
-            return *Inherited::_M_current; 
+            return ItRefCountPolicy::validate(*Inherited::_M_current); 
         }
 
         bool operator ==(const ptrfield_iterator &rhs) const
@@ -204,12 +217,16 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
             return ! (*this == rhs);
         }
 
-        bool operator ==(const const_ptrfield_iterator<StorageTypeT> &rhs) const
+        bool operator ==(
+            const const_ptrfield_iterator<StorageTypeT,
+                                          ItRefCountPolicy> &rhs) const
         {
             return *(static_cast<const Inherited *>(this)) == rhs;
         }
 
-        bool operator !=(const const_ptrfield_iterator<StorageTypeT> &rhs) const
+        bool operator !=(
+            const const_ptrfield_iterator<StorageTypeT,
+                                          ItRefCountPolicy> &rhs) const
         {
             return ! (*this == rhs);
         }
@@ -240,8 +257,10 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
       protected:
     };
 
-    typedef       ptrfield_iterator<StorageType>       iterator;
-    typedef const_ptrfield_iterator<StorageType> const_iterator;
+    typedef       ptrfield_iterator<StorageType, 
+                                    RefCountPolicy>       iterator;
+    typedef const_ptrfield_iterator<StorageType,
+                                    RefCountPolicy> const_iterator;
     
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */
@@ -325,6 +344,8 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     void                   clear    (void                              );
 
     iterator               erase    (iterator     pos                  );
+    iterator               erase    (iterator     first,
+                                     iterator     last                 );
     
 #if 0
     iterator               find     (ArgumentType value                );

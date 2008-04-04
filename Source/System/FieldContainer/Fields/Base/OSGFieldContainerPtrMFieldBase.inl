@@ -173,7 +173,7 @@ FieldContainerPtrMFieldBase::FieldContainerPtrMFieldBase(const UInt32 size) :
      Inherited(),
     _values   ()
 {
-    _values.resize(size);
+    _values.resize(size, NULL);
 }
 
 inline
