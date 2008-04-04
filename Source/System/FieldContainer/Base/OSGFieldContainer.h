@@ -209,13 +209,13 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING
-    void  addReference        (void);
+    void  addReferenceX        (void);
 
     OSG_SYSTEM_DLLMAPPING
-    void  subReference        (void);
+    void  subReferenceX        (void);
 
     OSG_SYSTEM_DLLMAPPING
-    void  subReferenceLocalVar(void);
+    void  subReferenceLocalVarX(void);
 
     OSG_SYSTEM_DLLMAPPING
     Int32 getRefCount         (void) const;

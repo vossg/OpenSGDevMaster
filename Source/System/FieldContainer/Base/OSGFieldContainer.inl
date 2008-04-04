@@ -85,7 +85,7 @@ void FieldContainer::callChangedFunctors(ConstFieldMaskArg whichField)
 }
 
 inline
-void FieldContainer::addReference(void)
+void FieldContainer::addReferenceX(void)
 {
     ++_iRefCount;
     
@@ -94,7 +94,7 @@ void FieldContainer::addReference(void)
 }
 
 inline
-void FieldContainer::subReference(void)
+void FieldContainer::subReferenceX(void)
 {
     --_iRefCount;
 
@@ -137,7 +137,7 @@ void FieldContainer::subReference(void)
 
 
 inline
-void FieldContainer::subReferenceLocalVar(void)
+void FieldContainer::subReferenceLocalVarX(void)
 {
     --_iRefCount;
 

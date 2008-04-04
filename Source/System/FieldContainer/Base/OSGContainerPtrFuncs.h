@@ -60,16 +60,16 @@ OSG_BEGIN_NAMESPACE
 struct PointerFuncs
 {
     template <class PtrT> 
-    static void addRef        (const PtrT objectP);
+    static void addRefX        (const PtrT objectP);
 
     template <class PtrT> 
-    static void subRef        (const PtrT objectP);
+    static void subRefX        (const PtrT objectP);
 
     template <class PtrT> 
-    static void subRefLocalVar(const PtrT objectP);
+    static void subRefLocalVarX(const PtrT objectP);
 
     template <class PtrT> 
-    static void shallowSubRef (const PtrT objectP);
+    static void shallowSubRefX (const PtrT objectP);
 
     template <class PtrT> 
     static void beginEdit(const PtrT      objectP,
@@ -104,45 +104,45 @@ struct PointerFuncs
  */
 
 inline
-void addRef(FieldBundlePConst objectP);
+void addRefX(FieldBundlePConst objectP);
 
 inline
-void addRef(FieldContainerPtrConst objectP);
+void addRefX(FieldContainerPtrConst objectP);
 
 inline 
-void addRef(ParentFieldContainerPtrConst objectP);
+void addRefX(ParentFieldContainerPtrConst objectP);
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
 inline
-void subRef(FieldBundlePConst objectP);
+void subRefX(FieldBundlePConst objectP);
 
 inline
-void subRef(FieldContainerPtrConst objectP);
+void subRefX(FieldContainerPtrConst objectP);
 
 inline
-void subRefLocalVar(FieldContainerPtrConst objectP);
+void subRefLocalVarX(FieldContainerPtrConst objectP);
 
 inline 
-void subRef(ParentFieldContainerPtrConst objectP);
+void subRefX(ParentFieldContainerPtrConst objectP);
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
 inline
-void shallowSubRef(FieldBundlePConst      objectP);
+void shallowSubRefX(FieldBundlePConst      objectP);
 
 inline
-void shallowSubRef(FieldContainerPtrConst objectP);
+void shallowSubRefX(FieldContainerPtrConst objectP);
 
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
 template <class StoreT, class SourceT> inline
-void setRefd(StoreT  &pTarget,
-             SourceT  pSource);
+void setRefdX(StoreT  &pTarget,
+              SourceT  pSource);
 
 
 inline
@@ -175,15 +175,15 @@ typename PtrStripper<Ptr>::ConstObject *getConstCPtr(Ptr objectP);
 
 #ifdef OSG_1_COMPAT
 inline
-void addRefCP(FieldContainerPtrConst objectP)
+void addRefCPX(FieldContainerPtrConst objectP)
 {
-    addRef(objectP);
+    addRefX(objectP);
 }
 
 inline
-void subRefCP(FieldContainerPtrConst objectP)
+void subRefCPX(FieldContainerPtrConst objectP)
 {
-    subRef(objectP);
+    subRefX(objectP);
 }
 
 template <class PtrT> inline
@@ -201,10 +201,10 @@ void endEditCP(const PtrT      objectP,
 }
 
 template <class StoreT, class SourceT> inline
-void setRefdCP(StoreT  &pTarget,
+void setRefdCPX(StoreT  &pTarget,
                SourceT  pSource)
 {
-    setRefd(pTarget, pSource);
+    setRefdX(pTarget, pSource);
 }
 
 template <class OutPtrT> inline

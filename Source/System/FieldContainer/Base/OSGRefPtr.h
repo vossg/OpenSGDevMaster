@@ -37,6 +37,8 @@
 #ifndef _OSGREFPTR_H_
 #define _OSGREFPTR_H_
 
+#if 0
+
 #ifdef __sgi
 #pragma once
 #endif
@@ -139,5 +141,18 @@ typedef RefPtr<FieldContainerPtr> FieldContainerRefPtr;
 OSG_END_NAMESPACE
 
 #include "OSGRefPtr.inl"
+
+#else
+
+#include "OSGConfig.h"
+
+OSG_BEGIN_NAMESPACE
+
+template<class ContainerPtr>
+class RefPtr;
+
+OSG_END_NAMESPACE
+
+#endif
 
 #endif /* _OSGCOREDNODEPTR_H_ */

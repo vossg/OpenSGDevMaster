@@ -37,6 +37,8 @@
 #ifndef _OSGWEAKPTR_H_
 #define _OSGWEAKPTR_H_
 
+#if 0
+
 #ifdef __sgi
 #pragma once
 #endif
@@ -137,5 +139,18 @@ typedef WeakPtr<FieldContainerPtr> FieldContainerWeakPtr;
 OSG_END_NAMESPACE
 
 #include "OSGWeakPtr.inl"
+
+#else
+
+#include "OSGConfig.h"
+
+OSG_BEGIN_NAMESPACE
+
+template<class ContainerPtr>
+class WeakPtr;
+
+OSG_END_NAMESPACE
+
+#endif
 
 #endif /* _OSGCOREDNODEPTR_H_ */

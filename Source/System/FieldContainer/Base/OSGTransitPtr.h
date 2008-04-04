@@ -37,6 +37,8 @@
 #ifndef _OSGTRANSITPTR_H_
 #define _OSGTRANSITPTR_H_
 
+#if 0
+
 #ifdef __sgi
 #pragma once
 #endif
@@ -94,6 +96,13 @@ class TransitPtr
     void swap(SelfRefPtr  &other);
     
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Access                                  */
+    /*! \{                                                                 */
+
+    SelfRefPtr &debugFoo(void) { return _pRef; }
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -111,5 +120,18 @@ typedef TransitPtr<FieldContainerPtr> FieldContainerTransitPtr;
 OSG_END_NAMESPACE
 
 #include "OSGTransitPtr.inl"
+
+#else
+
+#include "OSGConfig.h"
+
+OSG_BEGIN_NAMESPACE
+
+template<class ContainerPtr>
+class TransitPtr;
+
+OSG_END_NAMESPACE
+
+#endif
 
 #endif /* _OSGCOREDNODEPTR_H_ */

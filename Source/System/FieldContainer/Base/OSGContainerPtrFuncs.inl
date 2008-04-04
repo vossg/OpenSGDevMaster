@@ -41,24 +41,24 @@ OSG_BEGIN_NAMESPACE
 
 
 template <class PtrT> inline
-void PointerFuncs::addRef(const PtrT objectP)
+void PointerFuncs::addRefX(const PtrT objectP)
 {
     if(objectP != NilP)
-        objectP->addReference();
+        objectP->addReferenceX();
 }
 
 template <class PtrT> inline
-void PointerFuncs::subRef(const PtrT objectP)
+void PointerFuncs::subRefX(const PtrT objectP)
 {
     if(objectP != NilP)
-        objectP->subReference();
+        objectP->subReferenceX();
 }
 
 template <class PtrT> inline
-void PointerFuncs::subRefLocalVar(const PtrT objectP)
+void PointerFuncs::subRefLocalVarX(const PtrT objectP)
 {
     if(objectP != NilP)
-        objectP->subReferenceLocalVar();
+        objectP->subReferenceLocalVarX();
 }
 
 template <class PtrT> inline
@@ -130,67 +130,67 @@ Ptr PointerFuncs::getCPtr(Ptr pObject)
 
 
 inline
-void addRef(FieldBundlePConst objectP)
+void addRefX(FieldBundlePConst objectP)
 {
-    PointerFuncs::addRef(objectP);
+    PointerFuncs::addRefX(objectP);
 
 }
 
 inline
-void addRef(FieldContainerPtrConst objectP)
+void addRefX(FieldContainerPtrConst objectP)
 {
-    PointerFuncs::addRef(objectP);
+    PointerFuncs::addRefX(objectP);
 }
 
 inline 
-void addRef(ParentFieldContainerPtrConst objectP)
+void addRefX(ParentFieldContainerPtrConst objectP)
 {
-    PointerFuncs::addRef(objectP);
+    PointerFuncs::addRefX(objectP);
 }
 
 
 inline
-void subRef(FieldBundlePConst objectP)
+void subRefX(FieldBundlePConst objectP)
 {
-    PointerFuncs::subRef(objectP);
+    PointerFuncs::subRefX(objectP);
 }
 
 inline
-void subRef(FieldContainerPtrConst objectP)
+void subRefX(FieldContainerPtrConst objectP)
 {
-    PointerFuncs::subRef(objectP);
+    PointerFuncs::subRefX(objectP);
 }
 
 inline
-void subRefLocalVar(FieldContainerPtrConst objectP)
+void subRefLocalVarX(FieldContainerPtrConst objectP)
 {
-    PointerFuncs::subRefLocalVar(objectP);
+    PointerFuncs::subRefLocalVarX(objectP);
 }
 
 inline 
-void subRef(ParentFieldContainerPtrConst objectP)
+void subRefX(ParentFieldContainerPtrConst objectP)
 {
-    PointerFuncs::subRef(objectP);
+    PointerFuncs::subRefX(objectP);
 }
 
 inline
-void shallowSubRef(FieldBundlePConst objectP)
+void shallowSubRefX(FieldBundlePConst objectP)
 {
-    PointerFuncs::shallowSubRef(objectP);
+    PointerFuncs::shallowSubRefX(objectP);
 }
 
 inline
-void shallowSubRef(FieldContainerPtrConst objectP)
+void shallowSubRefX(FieldContainerPtrConst objectP)
 {
-    PointerFuncs::shallowSubRef(objectP);
+    PointerFuncs::shallowSubRefX(objectP);
 }
 
 template <class StoreT, class SourceT> inline
-void setRefd(StoreT  &pTarget,
-             SourceT  pSource)
+void setRefdX(StoreT  &pTarget,
+              SourceT  pSource)
 {
-    OSG::addRef(pSource);
-    OSG::subRef(pTarget);
+    OSG::addRefX(pSource);
+    OSG::subRefX(pTarget);
     
     pTarget = pSource;
 }

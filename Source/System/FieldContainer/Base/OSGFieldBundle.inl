@@ -73,7 +73,7 @@ void FieldBundle::changed(ConstFieldMaskArg,
 }
 
 inline
-void FieldBundle::addReference(void)
+void FieldBundle::addReferenceX(void)
 {
     ++_iRefCount;
     
@@ -82,7 +82,7 @@ void FieldBundle::addReference(void)
 }
 
 inline
-void FieldBundle::subReference(void)
+void FieldBundle::subReferenceX(void)
 {
 //    Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 

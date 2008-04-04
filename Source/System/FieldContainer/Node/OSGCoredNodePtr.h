@@ -40,6 +40,8 @@
 #pragma once
 #endif
 
+#if 0
+
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGCoredNodePtr.h
     \ingroup GrpSystemFieldContainer
@@ -194,5 +196,18 @@ class CoredNodePtr : public CoredNodePtrBase
 OSG_END_NAMESPACE
 
 #include "OSGCoredNodePtr.inl"
+
+#else
+
+#include "OSGConfig.h"
+
+OSG_BEGIN_NAMESPACE
+
+template<class Core>
+class CoredNodePtr;
+
+OSG_END_NAMESPACE
+
+#endif
 
 #endif /* _OSGCOREDNODEPTR_H_ */
