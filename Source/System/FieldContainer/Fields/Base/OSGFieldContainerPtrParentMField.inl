@@ -315,6 +315,15 @@ void FieldContainerPtrParentMField<ValueT,
     _vParentPos.push_back(parentFieldPos);
 }
 
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrParentMField<ValueT, 
+                                   RefCountPolicy, 
+                                   iNamespace    >::reserve(size_t newsize)
+{
+    _values    .reserve(newsize);
+    _vParentPos.reserve(newsize);
+}
+
 #if 0
 template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 void FieldContainerPtrMField<ValueT, 

@@ -130,7 +130,11 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
 
         const_reference operator*() const
         { 
+#ifndef WIN32
             return *Inherited::_M_current; 
+#else
+            return *Inherited::_Myptr; 
+#endif
         }
 
         UInt16 getParentFieldPos(void) const
@@ -203,7 +207,11 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
 
         const_reference operator*() const
         { 
+#ifndef WIN32
             return *Inherited::_M_current; 
+#else
+            return *Inherited::_Myptr; 
+#endif
         }
 
         UInt16 getParentFieldPos(void) const

@@ -328,14 +328,6 @@ StatCollector &StatCollector::operator += (const StatCollector &other)
 #include <OSGMField.h>
 #include <OSGMField.ins>
 
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#include "OSGMFieldFuncs.ins"
-
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 #ifndef OSG_DO_DOC

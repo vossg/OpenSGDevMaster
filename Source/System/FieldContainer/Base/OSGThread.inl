@@ -210,6 +210,20 @@ BitVector WinThreadBase::getCurrentNamespaceMask(void)
 }
 
 inline
+BitVector WinThreadBase::getCurrentLocalFlags(void)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) TlsGetValue(_localFlagsKey);
+
+    return *pBitVec;
+#else
+    return _bLocalFlagsLocal;
+#endif
+}
+
+inline
 void WinThreadBase::setAspectTo(UInt32 uiNewAspect)
 {
 #ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
@@ -234,6 +248,36 @@ void WinThreadBase::setNamespaceMaskTo(BitVector bNamespaceMask)
     *pBitVec = bNamespaceMask;
 #else
     _bNamespaceMaskLocal = bNamespaceMask;
+#endif
+}
+
+inline
+void WinThreadBase::setLocalFlagsTo(BitVector bLocalFlags)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) TlsGetValue(_localFlagsKey);
+
+    *pBitVec = bLocalFlags;
+#else
+    _bLocalFlagsLocal = bLocalFlags;
+#endif
+}
+#endif
+
+#ifdef OSG_THREAD_DEBUG_SETASPECTTO
+inline
+void WinThreadBase::setChangelistTo(ChangeList *pNewList)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    ChangeList **pChangeList = NULL;
+
+    pChangeList = (ChangeList **) TlsGetValue(_namespaceMaskKey);
+
+    *pChangeList = pNewList;
+#else
+    _pChangeListLocal = pNewList;
 #endif
 }
 #endif

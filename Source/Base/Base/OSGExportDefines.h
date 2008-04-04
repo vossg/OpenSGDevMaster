@@ -126,6 +126,38 @@ FieldType MField< T1, T2 >::_fieldType = FieldType(      \
     MFieldTraits::getType (),                            \
     FieldType::MULTI_FIELD)
 
+#define OSG_SFIELDTYPE_INST(CLASSNAME, T1, T2, T3)           \
+template<>                                                   \
+FieldType CLASSNAME< T1 , T2, T3 >::_fieldType = FieldType(  \
+    SFieldTraits::getSName(),                                \
+    SFieldTraits::getSPName(),                               \
+    SFieldTraits::getType (),                                \
+    FieldType::SINGLE_FIELD)
+
+#define OSG_SFIELDTYPE_INST_X(CLASSNAME, T1, T2, T3)        \
+template<>                                                  \
+FieldType CLASSNAME< T1 , T2, T3 >::_fieldType = FieldType( \
+    SFieldTraits::getSName< T2 >(),                         \
+    SFieldTraits::getSPName(),                              \
+    SFieldTraits::getType (),                               \
+    FieldType::SINGLE_FIELD)
+
+#define OSG_MFIELDTYPE_INST(CLASSNAME, T1, T2, T3)          \
+template<>                                                  \
+FieldType CLASSNAME< T1 , T2, T3 >::_fieldType = FieldType( \
+    MFieldTraits::getMName(),                               \
+    MFieldTraits::getMPName(),                              \
+    MFieldTraits::getType (),                               \
+    FieldType::MULTI_FIELD)
+
+#define OSG_MFIELDTYPE_INST_X(CLASSNAME, T1, T2, T3)        \
+template<>                                                  \
+FieldType CLASSNAME< T1 , T2, T3 >::_fieldType = FieldType( \
+    MFieldTraits::getMName< T2 >(),                         \
+    MFieldTraits::getMPName(),                              \
+    MFieldTraits::getType (),                               \
+    FieldType::MULTI_FIELD)
+
 #else
 
 #define OSG_SFIELDTYPE_SPEZ_INST(T1, T2)                 \

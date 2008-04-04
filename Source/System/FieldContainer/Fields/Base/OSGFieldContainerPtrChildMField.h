@@ -103,15 +103,21 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
 
     /*---------------------------------------------------------------------*/
 
-    template<class StorageTypeT, typename ItRefCountPolicy>
+    template<class    StorageTypeT, 
+             typename ItRefCountPolicy,
+             typename Value,
+             Int32    INamespace>
     class ptrfield_iterator;
 
-    template<class StorageTypeT, typename ItRefCountPolicy>
+    template<class    StorageTypeT, 
+             typename ItRefCountPolicy,
+             class    Value,
+             Int32    INamespace>
     class const_ptrfield_iterator : protected StorageTypeT::const_iterator
     {
-        typedef           FieldContainerPtrChildMField<ValueT, 
+        typedef           FieldContainerPtrChildMField<Value, 
                                                        RefCountPolicy,
-                                                       iNamespace   > PtrMField;
+                                                       INamespace   > PtrMField;
 
 
         typedef typename StorageTypeT::const_iterator  Inherited;
@@ -119,11 +125,14 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
         typedef typename PtrMField   ::const_reference const_reference;
 
 
-        friend class ptrfield_iterator<StorageTypeT, ItRefCountPolicy>;
+        friend class ptrfield_iterator<StorageTypeT, 
+                                       ItRefCountPolicy,
+                                       Value,
+                                       INamespace>;
 
-        friend class FieldContainerPtrChildMField<ValueT, 
+        friend class FieldContainerPtrChildMField<Value, 
                                                   RefCountPolicy,
-                                                  iNamespace>;
+                                                  INamespace>;
 
       public:
 
@@ -138,7 +147,10 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
         }
 
         const_ptrfield_iterator(
-            const ptrfield_iterator<StorageTypeT, ItRefCountPolicy> &i) : 
+            const ptrfield_iterator<StorageTypeT, 
+                                    ItRefCountPolicy,
+                                    Value,
+                                    INamespace> &i) : 
 
             Inherited(i)
         {
@@ -151,7 +163,11 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
 
         const_reference operator*() const
         { 
+#ifndef WIN32
             return ItRefCountPolicy::validate(*Inherited::_M_current); 
+#else
+            return ItRefCountPolicy::validate(*Inherited::_Myptr); 
+#endif
         }
 
         bool operator ==(const const_ptrfield_iterator &rhs) const
@@ -191,20 +207,23 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
       protected:
     };
 
-    template<class StorageTypeT, typename ItRefCountPolicy>
+    template<class    StorageTypeT, 
+             typename ItRefCountPolicy,
+             class    Value,
+             Int32    INamespace>
     class ptrfield_iterator : protected StorageTypeT::iterator
     {
-        typedef           FieldContainerPtrChildMField<ValueT, 
-                                                  RefCountPolicy,
-                                                  iNamespace    > PtrMField;
+        typedef           FieldContainerPtrChildMField<Value, 
+                                                  ItRefCountPolicy,
+                                                  INamespace    > PtrMField;
 
         typedef typename StorageTypeT::iterator        Inherited;
         typedef typename StorageTypeT::difference_type difference_type;
         typedef typename PtrMField   ::const_reference const_reference;
 
-        friend class FieldContainerPtrChildMField<ValueT, 
-                                                  RefCountPolicy,
-                                                  iNamespace>;
+        friend class FieldContainerPtrChildMField<Value, 
+                                                  ItRefCountPolicy,
+                                                  INamespace>;
 
       public:
 
@@ -235,7 +254,11 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
 #else
         const_reference operator*() const
         { 
+#ifndef WIN32
             return ItRefCountPolicy::validate(*Inherited::_M_current); 
+#else
+            return ItRefCountPolicy::validate(*Inherited::_Myptr); 
+#endif
         }
 #endif
 
@@ -251,14 +274,18 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
 
         bool operator ==(
             const const_ptrfield_iterator<StorageTypeT,
-                                          ItRefCountPolicy> &rhs) const
+                                          ItRefCountPolicy,
+                                          Value,
+                                          INamespace> &rhs) const
         {
             return *(static_cast<const Inherited *>(this)) == rhs;
         }
 
         bool operator !=(
             const const_ptrfield_iterator<StorageTypeT,
-                                          ItRefCountPolicy> &rhs) const
+                                          ItRefCountPolicy,
+                                          Value,
+                                          INamespace> &rhs) const
         {
             return ! (*this == rhs);
         }
@@ -288,7 +315,11 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
 
         const_reference deref(void) const
         { 
+#ifndef WIN32
             return ItRefCountPolicy::validate(*Inherited::_M_current); 
+#else
+            return ItRefCountPolicy::validate(*Inherited::_Myptr); 
+#endif
         }
 
         void operator =(const ptrfield_iterator &rhs)
@@ -307,9 +338,13 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
     };
 
     typedef       ptrfield_iterator<StorageType, 
-                                    RefCountPolicy>       iterator;
+                                    RefCountPolicy,
+                                    ValueT,
+                                    iNamespace>       iterator;
     typedef const_ptrfield_iterator<StorageType,
-                                    RefCountPolicy> const_iterator;
+                                    RefCountPolicy,
+                                    ValueT,
+                                    iNamespace> const_iterator;
 #ifndef OSG_CLEAN_FCFIELDS
     class ReferenceProxy
     {

@@ -516,10 +516,13 @@ void SprocBase::setupChangeListInternal(void)
 UInt32 WinThreadBase::_aspectKey        = 0;
 UInt32 WinThreadBase::_changeListKey    = 0;
 UInt32 WinThreadBase::_namespaceMaskKey = 0;
+UInt32 WinThreadBase::_localFlagsKey    = 0;
 #else
 __declspec (thread) UInt32      WinThreadBase::_uiAspectLocal       = 0;
 __declspec (thread) ChangeList *WinThreadBase::_pChangeListLocal    = NULL;
 __declspec (thread) BitVector   WinThreadBase::_bNamespaceMaskLocal = 1;
+__declspec (thread) BitVector   WinThreadBase::_bLocalFlagsLocal    =
+    TypeTraits<BitVector>::BitsClear;
 #endif
 
 /*-------------------------------------------------------------------------*/
@@ -549,6 +552,15 @@ void WinThreadBase::freeNamespaceMask(void)
     BitVector *pBitVec;
 
     pBitVec = (BitVector *) TlsGetValue(_namespaceMaskKey);
+
+    delete pBitVec;
+}
+
+void WinThreadBase::freeLocalFlags(void)
+{
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) TlsGetValue(_localFlagsKey);
 
     delete pBitVec;
 }
@@ -588,6 +600,7 @@ void WinThreadBase::init(void)
         setupAspect    ();
         setupChangeList();        
         setupMasks     ();
+        setupLocalFlags();
     }
 }
 
@@ -651,6 +664,19 @@ void WinThreadBase::setupMasks(void)
     TlsSetValue(_namespaceMaskKey, pBitVec);
 #else
     _bNamespaceMaskLocal = Inherited::_bNamespaceMask;
+#endif
+}
+
+void WinThreadBase::setupLocalFlags(void)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BitVector *pBitVec = new BitVector;
+
+    *pBitVec = Inherited::_bLocalFlags;
+
+    TlsSetValue(_localFlagsKey, pBitVec);
+#else
+    _bLocalFlagsLocal = Inherited::_bLocalFlags;
 #endif
 }
 

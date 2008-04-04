@@ -67,9 +67,11 @@ _Function for_each_iterator(_InputIterator __first,
                             _InputIterator __last, 
                             _Function      __f)
 {
+#ifndef WIN32
     // concept requirements
     __glibcxx_function_requires(_InputIteratorConcept<_InputIterator>)
     __glibcxx_requires_valid_range(__first, __last);
+#endif
 
     for ( ; __first != __last; ++__first)
         __f(__first);

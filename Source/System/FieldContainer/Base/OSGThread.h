@@ -263,6 +263,7 @@ class PThreadBase : public ThreadCommonBase
             void setupChangeList(void);
             void setupMasks     (void);
             void setupLocalFlags(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Debug                                   */
@@ -409,10 +410,12 @@ class WinThreadBase : public ThreadCommonBase
     static UInt32 _aspectKey;
     static UInt32 _changeListKey;
     static UInt32 _namespaceMaskKey;
+    static UInt32 _localFlagsKey;
 #else
     static __declspec (thread) UInt32      _uiAspectLocal;
     static __declspec (thread) ChangeList *_pChangeListLocal;
     static __declspec (thread) BitVector   _bNamespaceMaskLocal;
+    static __declspec (thread) BitVector   _bLocalFlagsLocal;
 #endif
 
 #ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
@@ -429,6 +432,9 @@ class WinThreadBase : public ThreadCommonBase
 
     OSG_SYSTEM_DLLMAPPING 
     static void freeNamespaceMask(void);
+
+    OSG_SYSTEM_DLLMAPPING 
+    static void freeLocalFlags   (void);
 #endif
 
     /*! \}                                                                 */
@@ -444,6 +450,9 @@ class WinThreadBase : public ThreadCommonBase
 
     OSG_SYSTEM_DLLMAPPING 
     static BitVector    getCurrentNamespaceMask(void);
+
+    OSG_SYSTEM_DLLMAPPING
+    static BitVector    getCurrentLocalFlags   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -478,16 +487,27 @@ class WinThreadBase : public ThreadCommonBase
             OSG_SYSTEM_DLLMAPPING 
             void setupMasks      (void);
 
+            OSG_SYSTEM_DLLMAPPING 
+            void setupLocalFlags(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Debug                                   */
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING 
-    static void setAspectTo       (UInt32    uiNewAspect   );
+    static void setAspectTo       (UInt32      uiNewAspect   );
 
     OSG_SYSTEM_DLLMAPPING 
-    static void setNamespaceMaskTo(BitVector bNamespaceMask);
+    static void setNamespaceMaskTo(BitVector   bNamespaceMask);
+
+    OSG_SYSTEM_DLLMAPPING
+    static void setLocalFlagsTo   (BitVector   bLocalFlags   );
+
+#ifdef OSG_THREAD_DEBUG_SETASPECTTO
+    OSG_SYSTEM_DLLMAPPING
+    static void setChangelistTo   (ChangeList *pNewList      );
+#endif
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

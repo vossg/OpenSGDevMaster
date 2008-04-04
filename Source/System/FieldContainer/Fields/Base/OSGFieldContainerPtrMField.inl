@@ -369,6 +369,16 @@ template<class    ValueT,
          Int32    iNamespace    > inline
 void FieldContainerPtrMField<ValueT, 
                              RefCountPolicy, 
+                             iNamespace    >::reserve(size_t newsize)
+{
+    _values.reserve(newsize);
+}
+
+template<class    ValueT, 
+         typename RefCountPolicy, 
+         Int32    iNamespace    > inline
+void FieldContainerPtrMField<ValueT, 
+                             RefCountPolicy, 
                              iNamespace    >::replace(UInt32       uiIdx, 
                                                       ArgumentType value)
 {
