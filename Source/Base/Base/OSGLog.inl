@@ -107,15 +107,19 @@ void LogBuf::setEnabled(bool value)
 inline
 void Log::lock(void)
 {
+#if 0
     if(_pLogLock != NULL)
         _pLogLock->acquire();
+#endif
 }
 
 inline
 void Log::unlock(void)
 {
+#if 0
     if(_pLogLock != NULL)
         _pLogLock->release();
+#endif
 }
 
 inline 
