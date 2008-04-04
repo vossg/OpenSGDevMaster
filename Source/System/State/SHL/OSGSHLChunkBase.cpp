@@ -936,9 +936,15 @@ DataType FieldTraits<SHLChunkPtr>::_type("SHLChunkPtr", "ShaderChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(SHLChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, SHLChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    SHLChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, SHLChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         SHLChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, SHLChunkPtr, 0);
 

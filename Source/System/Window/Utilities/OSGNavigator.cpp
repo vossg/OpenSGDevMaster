@@ -179,7 +179,7 @@ Navigator::Navigator() :
 
 Navigator::~Navigator()
 {
-    OSG::subRef(_cartN);
+    OSG::subRefX(_cartN);
 
     subRef(_engine);
     subRef(_trackballEngine);
@@ -379,7 +379,7 @@ void Navigator::setCameraTransformation(const NodePtr & new_cartn)
         FWARNING (("Set _cartN in Navigator to NullFC\n"));
     }
 
-    OSG::setRefd(_cartN, new_cartn);
+    OSG::setRefdX(_cartN, new_cartn);
 }
 
 /*------------------------------ get --------------------------------------*/

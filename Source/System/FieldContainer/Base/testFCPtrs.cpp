@@ -18,8 +18,8 @@ int main (int argc, char **argv)
     OSG::Node* node_cptr = getCPtr(node_ptr);
 #endif
     
-    OSG::NodeRefPtr node_rptr(OSG::Node::create());
 #ifdef OSG_MT_FIELDCONTAINERPTRX
+    OSG::NodeRefPtr node_rptr(OSG::Node::create());
     node_cptr = get_pointer(node_rptr);
 #endif
 }

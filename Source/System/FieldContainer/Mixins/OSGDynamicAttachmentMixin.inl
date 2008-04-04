@@ -390,12 +390,14 @@ void DynFieldAttachment<AttachmentDescT>::addPointerValue(
     FieldContainerPtr pVal, 
     UInt32            uiFieldId)
 {
+#if 0
     MFFieldContainerPtr *pField = static_cast<MFFieldContainerPtr *>(
         _dynFieldsV[uiFieldId - Inherited::NextFieldId]);
     
     OSG::addRef(pVal);
 
     pField->push_back(pVal);
+#endif
 }
 
 template <class AttachmentDescT> inline
@@ -403,10 +405,12 @@ void DynFieldAttachment<AttachmentDescT>::setPointerValue(
     FieldContainerPtr pVal, 
     UInt32            uiFieldId)
 {
+#if 0
     SFFieldContainerPtr *pField = static_cast<SFFieldContainerPtr *>(
         _dynFieldsV[uiFieldId - Inherited::NextFieldId]);
 
     OSG::setRefd(pField->getValue(), pVal);
+#endif
 }
 
 OSG_END_NAMESPACE

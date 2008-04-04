@@ -417,9 +417,15 @@ DataType FieldTraits<BackgroundPtr>::_type("BackgroundPtr", "AttachmentContainer
 
 OSG_FIELDTRAITS_GETTYPE(BackgroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, BackgroundPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    BackgroundPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, BackgroundPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         BackgroundPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, BackgroundPtr, 0);
 

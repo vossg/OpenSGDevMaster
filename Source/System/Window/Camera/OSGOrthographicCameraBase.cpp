@@ -421,9 +421,15 @@ DataType FieldTraits<OrthographicCameraPtr>::_type("OrthographicCameraPtr", "Cam
 
 OSG_FIELDTRAITS_GETTYPE(OrthographicCameraPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, OrthographicCameraPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    OrthographicCameraPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, OrthographicCameraPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         OrthographicCameraPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, OrthographicCameraPtr, 0);
 

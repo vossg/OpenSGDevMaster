@@ -759,9 +759,15 @@ DataType FieldTraits<CubeTextureChunkPtr>::_type("CubeTextureChunkPtr", "Texture
 
 OSG_FIELDTRAITS_GETTYPE(CubeTextureChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, CubeTextureChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    CubeTextureChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, CubeTextureChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         CubeTextureChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, CubeTextureChunkPtr, 0);
 

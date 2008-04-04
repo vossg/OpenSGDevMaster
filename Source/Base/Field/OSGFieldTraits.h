@@ -471,15 +471,17 @@ struct FieldDescBase
     typedef       FieldDescriptionBase Parent;
 };
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass = ValueField>
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy   = NoRefCounts, 
+         enum     FieldClass       eFieldClass = ValueField>
 class FieldDescription : public DescT::FieldDescParent
 {
   protected:
 
     typedef          FieldDescription<DescT,
                                       eFieldCard,
+                                      RefCountPolicy,
                                       eFieldClass> Self;
 
 
@@ -496,6 +498,7 @@ class FieldDescription : public DescT::FieldDescParent
     typedef typename
       boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
               FieldContainerPtrSField<typename DescT::ValueType,
+                                      RefCountPolicy,
                                       DescT::iNamespace>,
               FieldContainerPtrMField<typename DescT::ValueType,
                                       DescT::iNamespace> >::type HandledPField;

@@ -87,7 +87,7 @@ void ProjectionCameraDecoratorBase::setUser(NodePtrConstArg value)
 {
     editSField(UserFieldMask);
 
-    setRefd(_sfUser.getValue(), value);
+    _sfUser.setValue(value);
 
 }
 //! Get the value of the ProjectionCameraDecorator::_sfLeft field.

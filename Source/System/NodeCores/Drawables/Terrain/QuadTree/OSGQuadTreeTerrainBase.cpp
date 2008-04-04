@@ -2375,9 +2375,15 @@ DataType FieldTraits<QuadTreeTerrainPtr>::_type("QuadTreeTerrainPtr", "GeometryP
 
 OSG_FIELDTRAITS_GETTYPE(QuadTreeTerrainPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, QuadTreeTerrainPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    QuadTreeTerrainPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, QuadTreeTerrainPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         QuadTreeTerrainPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, QuadTreeTerrainPtr, 0);
 

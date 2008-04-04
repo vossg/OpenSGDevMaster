@@ -239,7 +239,7 @@ void TextureSelectChunkBase::pushToTextures(TextureBaseChunkPtrConstArg value)
 
     editMField(TexturesFieldMask, _mfTextures);
 
-    addRef(value);
+    //addRef(value);
 
     _mfTextures.push_back(value);
 }
@@ -271,7 +271,7 @@ void TextureSelectChunkBase::insertIntoTextures(UInt32                uiIndex,
 
     MFTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -289,11 +289,13 @@ void TextureSelectChunkBase::replaceInTextures(UInt32                uiIndex,
 
     editMField(TexturesFieldMask, _mfTextures);
 
-    addRef(value);
 
-    subRef(_mfTextures[uiIndex]);
+//    addRef(value);
+//    subRef(_mfTextures[uiIndex]);
 
-    _mfTextures[uiIndex] = value;
+//    _mfTextures[uiIndex] = value;
+
+      _mfTextures.replace(uiIndex, value);
 }
 
 void TextureSelectChunkBase::replaceInTextures(TextureBaseChunkPtrConstArg pOldElem,
@@ -308,14 +310,14 @@ void TextureSelectChunkBase::replaceInTextures(TextureBaseChunkPtrConstArg pOldE
     {
         editMField(TexturesFieldMask, _mfTextures);
 
-        MFTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
+//        MFTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfTextures.replace(elemIdx, pNewElem);
     }
 }
 
@@ -329,7 +331,7 @@ void TextureSelectChunkBase::removeFromTextures(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfTextures.erase(fieldIt);
     }
@@ -347,7 +349,7 @@ void TextureSelectChunkBase::removeFromTextures(TextureBaseChunkPtrConstArg valu
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfTextures.erase(fieldIt);
     }
@@ -361,7 +363,7 @@ void TextureSelectChunkBase::clearTextures(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -589,9 +591,15 @@ DataType FieldTraits<TextureSelectChunkPtr>::_type("TextureSelectChunkPtr", "Tex
 
 OSG_FIELDTRAITS_GETTYPE(TextureSelectChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TextureSelectChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    TextureSelectChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TextureSelectChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         TextureSelectChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TextureSelectChunkPtr, 0);
 

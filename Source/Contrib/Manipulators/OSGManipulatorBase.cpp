@@ -1446,9 +1446,15 @@ DataType FieldTraits<ManipulatorPtr>::_type("ManipulatorPtr", "TransformPtr");
 
 OSG_FIELDTRAITS_GETTYPE(ManipulatorPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ManipulatorPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ManipulatorPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ManipulatorPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ManipulatorPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ManipulatorPtr, 0);
 

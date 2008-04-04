@@ -117,7 +117,7 @@ bool CHDRImageFileType::read(      ImagePtrArg   image,
 
     if(returnValue == false)
     {
-        OSG::subRef(pTmpImage);
+        OSG::subRefX(pTmpImage);
 
         return returnValue;
     }
@@ -126,7 +126,7 @@ bool CHDRImageFileType::read(      ImagePtrArg   image,
     returnValue = convertCrossToCubeMap(pTmpImage,
                                         image);
 
-    subRef(pTmpImage);
+    subRefX(pTmpImage);
 
     return returnValue;
 }

@@ -465,9 +465,15 @@ DataType FieldTraits<GeoPropertyPtr>::_type("GeoPropertyPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(GeoPropertyPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoPropertyPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    GeoPropertyPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, GeoPropertyPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         GeoPropertyPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoPropertyPtr, 0);
 

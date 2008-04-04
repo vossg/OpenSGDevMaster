@@ -609,7 +609,7 @@ StatisticsDefaultFontBase::StatisticsDefaultFontBase():
     OSG::addRef(_face);
 
     _texObjChunk = TextureObjChunk::create();
-    addRef(_texObjChunk);
+    addRefX(_texObjChunk);
     ImagePtr texture = _face->getTexture();
     _texObjChunk->setImage(texture);
     _texObjChunk->setWrapS(GL_CLAMP);
@@ -625,7 +625,7 @@ StatisticsDefaultFontBase::StatisticsDefaultFontBase():
 StatisticsDefaultFontBase::~StatisticsDefaultFontBase()
 {
     if (_texObjChunk != NullFC)
-        subRef(_texObjChunk);
+        subRefX(_texObjChunk);
     if (_face != 0)
     {
         OSG::subRef(_face);

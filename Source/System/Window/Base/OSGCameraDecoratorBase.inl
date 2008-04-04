@@ -83,7 +83,7 @@ void CameraDecoratorBase::setDecoratee(const CameraPtr &value)
 {
     editSField(DecorateeFieldMask);
 
-    setRefd(_sfDecoratee.getValue(), value);
+    _sfDecoratee.setValue(value);
 }
 
 #ifdef OSG_MT_CPTR_ASPECT

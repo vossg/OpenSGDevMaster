@@ -215,9 +215,15 @@ DataType FieldTraits<GeoVectorPropertyPtr>::_type("GeoVectorPropertyPtr", "GeoPr
 
 OSG_FIELDTRAITS_GETTYPE(GeoVectorPropertyPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoVectorPropertyPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    GeoVectorPropertyPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, GeoVectorPropertyPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         GeoVectorPropertyPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoVectorPropertyPtr, 0);
 

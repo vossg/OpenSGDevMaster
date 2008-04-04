@@ -87,7 +87,7 @@ void CubeMapGeneratorBase::setRoot(NodePtrConstArg value)
 {
     editSField(RootFieldMask);
 
-    setRefd(_sfRoot.getValue(), value);
+    _sfRoot.setValue(value);
 
 }
 
@@ -104,7 +104,7 @@ void CubeMapGeneratorBase::setTexture(TextureObjChunkPtrConstArg value)
 {
     editSField(TextureFieldMask);
 
-    setRefd(_sfTexture.getValue(), value);
+    _sfTexture.setValue(value);
 
 }
 //! Get the value of the CubeMapGenerator::_sfTextureSize field.
@@ -187,7 +187,7 @@ void CubeMapGeneratorBase::setBeacon(NodePtrConstArg value)
 {
     editSField(BeaconFieldMask);
 
-    setRefd(_sfBeacon.getValue(), value);
+    _sfBeacon.setValue(value);
 
 }
 //! Get the value of the CubeMapGenerator::_sfOrigin field.
@@ -336,7 +336,7 @@ void CubeMapGeneratorBase::setBackground(BackgroundPtrConstArg value)
 {
     editSField(BackgroundFieldMask);
 
-    setRefd(_sfBackground.getValue(), value);
+    _sfBackground.setValue(value);
 
 }
 

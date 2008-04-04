@@ -153,7 +153,7 @@ void ProxyGroupBase::setRoot(NodePtrConstArg value)
 {
     editSField(RootFieldMask);
 
-    setRefd(_sfRoot.getValue(), value);
+    _sfRoot.setValue(value);
 
 }
 //! Get the value of the ProxyGroup::_sfState field.

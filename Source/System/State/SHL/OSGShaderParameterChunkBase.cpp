@@ -187,7 +187,7 @@ void ShaderParameterChunkBase::addParameter(ShaderParameterPtrConstArg value)
 
     editMField(ParametersFieldMask, _mfParameters);
 
-    addRef(value);
+    //addRef(value);
 
     _mfParameters.push_back(value);
 
@@ -221,7 +221,7 @@ void ShaderParameterChunkBase::insertParameter(UInt32                uiIndex,
 
     MFShaderParameterPtr::iterator fieldIt = _mfParameters.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -241,16 +241,18 @@ void ShaderParameterChunkBase::replaceParameter(UInt32                uiIndex,
 
     editMField(ParametersFieldMask, _mfParameters);
 
-    addRef(value);
 
     if(_mfParameters[uiIndex] != NullFC)
     {
         _mfParameters[uiIndex]->subParent(this);
     }
 
-    subRef(_mfParameters[uiIndex]);
+//    addRef(value);
+//    subRef(_mfParameters[uiIndex]);
 
-    _mfParameters[uiIndex] = value;
+//    _mfParameters[uiIndex] = value;
+
+      _mfParameters.replace(uiIndex, value);
 
     value->addParent(this, ParametersFieldMask);
 }
@@ -267,10 +269,6 @@ void ShaderParameterChunkBase::replaceParameterBy(ShaderParameterPtrConstArg pOl
     {
         editMField(ParametersFieldMask, _mfParameters);
 
-        MFShaderParameterPtr::iterator fieldIt = _mfParameters.begin();
-
-        fieldIt += elemIdx;
-
 
         if(pOldElem != NullFC)
         {
@@ -279,10 +277,14 @@ void ShaderParameterChunkBase::replaceParameterBy(ShaderParameterPtrConstArg pOl
 
         pNewElem->addParent(this, ParametersFieldMask);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
+//        MFShaderParameterPtr::iterator fieldIt = _mfParameters.begin();
 
-        (*fieldIt) = pNewElem;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
+
+//        (*fieldIt) = pNewElem;
+          _mfParameters.replace(elemIdx, pNewElem);
     }
 }
 
@@ -302,7 +304,7 @@ void ShaderParameterChunkBase::subParameter(UInt32 uiIndex)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfParameters.erase(fieldIt);
     }
@@ -326,7 +328,7 @@ void ShaderParameterChunkBase::subParameter(ShaderParameterPtrConstArg value)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfParameters.erase(fieldIt);
     }
@@ -345,7 +347,7 @@ void ShaderParameterChunkBase::clearParameters(void)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -494,9 +496,15 @@ DataType FieldTraits<ShaderParameterChunkPtr>::_type("ShaderParameterChunkPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ShaderParameterChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ShaderParameterChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ShaderParameterChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ShaderParameterChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ShaderParameterChunkPtr, 0);
 

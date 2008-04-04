@@ -437,9 +437,15 @@ DataType FieldTraits<GrabForegroundPtr>::_type("GrabForegroundPtr", "ForegroundP
 
 OSG_FIELDTRAITS_GETTYPE(GrabForegroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GrabForegroundPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    GrabForegroundPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, GrabForegroundPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         GrabForegroundPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GrabForegroundPtr, 0);
 

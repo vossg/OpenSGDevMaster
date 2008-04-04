@@ -208,9 +208,15 @@ DataType FieldTraits<DrawablePtr>::_type("DrawablePtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(DrawablePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, DrawablePtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    DrawablePtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, DrawablePtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         DrawablePtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, DrawablePtr, 0);
 

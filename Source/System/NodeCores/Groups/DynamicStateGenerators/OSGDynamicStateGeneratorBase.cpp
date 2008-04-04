@@ -352,9 +352,15 @@ DataType FieldTraits<DynamicStateGeneratorPtr>::_type("DynamicStateGeneratorPtr"
 
 OSG_FIELDTRAITS_GETTYPE(DynamicStateGeneratorPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, DynamicStateGeneratorPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    DynamicStateGeneratorPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, DynamicStateGeneratorPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         DynamicStateGeneratorPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, DynamicStateGeneratorPtr, 0);
 

@@ -78,7 +78,7 @@ ScanParseSkel::ScanParseSkel(void) :
 ScanParseSkel::~ScanParseSkel(void)
 {
     if (_image != NullFC)
-        subRef(_image);
+        subRefX(_image);
 
     delete _pLexer;
 
@@ -571,7 +571,7 @@ void ScanParseSkel::beginImage(Int32 width, Int32 height, Int32 components)
     {
         _image = Image::create();
 
-        addRef(_image);
+        addRefX(_image);
     }
     UInt32 pixelFormat;
     switch (components)
@@ -614,7 +614,7 @@ void ScanParseSkel::endImage()
 
     addImageValue(_image);
 
-    subRef(_image);
+    subRefX(_image);
 
     _image = NullFC;
 }

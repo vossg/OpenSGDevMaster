@@ -730,9 +730,15 @@ DataType FieldTraits<SimpleTexturedMaterialPtr>::_type("SimpleTexturedMaterialPt
 
 OSG_FIELDTRAITS_GETTYPE(SimpleTexturedMaterialPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, SimpleTexturedMaterialPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    SimpleTexturedMaterialPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, SimpleTexturedMaterialPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         SimpleTexturedMaterialPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, SimpleTexturedMaterialPtr, 0);
 

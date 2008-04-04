@@ -524,7 +524,7 @@ void ChangeList::doApply(bool bClear)
 #endif
 
             if(pDst != NULL)
-                pDst->addReference();
+                pDst->addReferenceX();
         }
         else if((*cIt)->uiEntryDesc == ContainerChangeEntry::SubReference)// ||
 //            (*cIt)->uiEntryDesc == ContainerChangeEntry::DepSubReference)
@@ -535,7 +535,7 @@ void ChangeList::doApply(bool bClear)
 #endif
             
             if(pDst != NULL)
-                pDst->subReference();
+                pDst->subReferenceX();
         }
 
         ++cIt;

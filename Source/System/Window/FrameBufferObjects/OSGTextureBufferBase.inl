@@ -87,7 +87,7 @@ void TextureBufferBase::setTexture(TextureObjChunkPtrConstArg value)
 {
     editSField(TextureFieldMask);
 
-    setRefd(_sfTexture.getValue(), value);
+    _sfTexture.setValue(value);
 
 }
 //! Get the value of the TextureBuffer::_sfTexTarget field.

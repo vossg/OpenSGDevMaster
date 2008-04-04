@@ -351,7 +351,7 @@ void TexGenChunkBase::setSBeacon(NodePtrConstArg value)
 {
     editSField(SBeaconFieldMask);
 
-    setRefd(_sfSBeacon.getValue(), value);
+    _sfSBeacon.setValue(value);
 
 }
 
@@ -368,7 +368,7 @@ void TexGenChunkBase::setTBeacon(NodePtrConstArg value)
 {
     editSField(TBeaconFieldMask);
 
-    setRefd(_sfTBeacon.getValue(), value);
+    _sfTBeacon.setValue(value);
 
 }
 
@@ -385,7 +385,7 @@ void TexGenChunkBase::setRBeacon(NodePtrConstArg value)
 {
     editSField(RBeaconFieldMask);
 
-    setRefd(_sfRBeacon.getValue(), value);
+    _sfRBeacon.setValue(value);
 
 }
 
@@ -402,7 +402,7 @@ void TexGenChunkBase::setQBeacon(NodePtrConstArg value)
 {
     editSField(QBeaconFieldMask);
 
-    setRefd(_sfQBeacon.getValue(), value);
+    _sfQBeacon.setValue(value);
 
 }
 

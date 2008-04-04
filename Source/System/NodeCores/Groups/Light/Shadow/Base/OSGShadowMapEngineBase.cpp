@@ -705,9 +705,15 @@ DataType FieldTraits<ShadowMapEnginePtr>::_type("ShadowMapEnginePtr", "LightEngi
 
 OSG_FIELDTRAITS_GETTYPE(ShadowMapEnginePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ShadowMapEnginePtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ShadowMapEnginePtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ShadowMapEnginePtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ShadowMapEnginePtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ShadowMapEnginePtr, 0);
 

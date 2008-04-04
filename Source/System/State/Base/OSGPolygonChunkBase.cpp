@@ -1304,9 +1304,15 @@ DataType FieldTraits<PolygonChunkPtr>::_type("PolygonChunkPtr", "StateChunkPtr")
 
 OSG_FIELDTRAITS_GETTYPE(PolygonChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, PolygonChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    PolygonChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, PolygonChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         PolygonChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, PolygonChunkPtr, 0);
 

@@ -278,7 +278,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
           SFUInt32        *editSFTravMask(void);
     const SFUInt32        *getSFTravMask (void) const;
 
-    const SFNodePtr       *getSFParent   (void) const;
+    const SFUnrefdNodePtr *getSFParent   (void) const;
     const SFNodeCorePtr   *getSFCore     (void) const;
     const MFNodePtr       *getMFChildren (void) const;
 
@@ -305,7 +305,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
 
     SFUInt32        _sfTravMask;
 
-    SFNodePtr       _sfParent;
+    SFUnrefdNodePtr _sfParent;
     MFNodePtr       _mfChildren;
 
     SFNodeCorePtr   _sfCore;

@@ -87,7 +87,7 @@ void PolygonBackgroundBase::setMaterial(MaterialPtrConstArg value)
 {
     editSField(MaterialFieldMask);
 
-    setRefd(_sfMaterial.getValue(), value);
+    _sfMaterial.setValue(value);
 
 }
 //! Get the value of the PolygonBackground::_sfNormalizedX field.

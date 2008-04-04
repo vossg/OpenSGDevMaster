@@ -112,7 +112,7 @@ FieldContainerType::FieldContainerType(const FieldContainerType &source) :
     _typeDoc         (source._typeDoc    )
 {
     if(_pPrototype != NullFC)
-        addRef(_pPrototype);
+        addRefX(_pPrototype);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -183,7 +183,7 @@ void FieldContainerType::terminate(void)
     if(_fExitMethod != NULL)
         _fExitMethod(SystemPre);
 
-    subRef(_pPrototype);
+    subRefX(_pPrototype);
 
     if(_fExitMethod != NULL)
         _fExitMethod(SystemPost);
@@ -203,7 +203,7 @@ bool FieldContainerType::initPrototype(void)
     {
         _pPrototype = _fPrototypeCreate();
 
-        addRef(_pPrototype);
+        addRefX(_pPrototype);
     }
 
     return true;

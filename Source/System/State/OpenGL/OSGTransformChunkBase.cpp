@@ -352,9 +352,15 @@ DataType FieldTraits<TransformChunkPtr>::_type("TransformChunkPtr", "StateChunkP
 
 OSG_FIELDTRAITS_GETTYPE(TransformChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TransformChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    TransformChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TransformChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         TransformChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TransformChunkPtr, 0);
 

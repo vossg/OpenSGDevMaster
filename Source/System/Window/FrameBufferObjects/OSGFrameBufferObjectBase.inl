@@ -120,7 +120,7 @@ void FrameBufferObjectBase::setDepthAttachment(FrameBufferAttachmentPtrConstArg 
 {
     editSField(DepthAttachmentFieldMask);
 
-    setRefd(_sfDepthAttachment.getValue(), value);
+    _sfDepthAttachment.setValue(value);
 
 }
 
@@ -137,7 +137,7 @@ void FrameBufferObjectBase::setStencilAttachment(FrameBufferAttachmentPtrConstAr
 {
     editSField(StencilAttachmentFieldMask);
 
-    setRefd(_sfStencilAttachment.getValue(), value);
+    _sfStencilAttachment.setValue(value);
 
 }
 //! Get the value of the FrameBufferObject::_sfWidth field.

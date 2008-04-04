@@ -185,7 +185,7 @@ void MultiPassMaterialBase::addMaterial(MaterialPtrConstArg value)
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    addRef(value);
+    //addRef(value);
 
     _mfMaterials.push_back(value);
 }
@@ -217,7 +217,7 @@ void MultiPassMaterialBase::insertMaterial(UInt32                uiIndex,
 
     MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -235,11 +235,13 @@ void MultiPassMaterialBase::replaceMaterial(UInt32                uiIndex,
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    addRef(value);
 
-    subRef(_mfMaterials[uiIndex]);
+//    addRef(value);
+//    subRef(_mfMaterials[uiIndex]);
 
-    _mfMaterials[uiIndex] = value;
+//    _mfMaterials[uiIndex] = value;
+
+      _mfMaterials.replace(uiIndex, value);
 }
 
 void MultiPassMaterialBase::replaceMaterial(MaterialPtrConstArg pOldElem,
@@ -254,14 +256,14 @@ void MultiPassMaterialBase::replaceMaterial(MaterialPtrConstArg pOldElem,
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+//        MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfMaterials.replace(elemIdx, pNewElem);
     }
 }
 
@@ -275,7 +277,7 @@ void MultiPassMaterialBase::subMaterial(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfMaterials.erase(fieldIt);
     }
@@ -293,7 +295,7 @@ void MultiPassMaterialBase::subMaterial(MaterialPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfMaterials.erase(fieldIt);
     }
@@ -307,7 +309,7 @@ void MultiPassMaterialBase::clearMaterials(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -499,9 +501,15 @@ DataType FieldTraits<MultiPassMaterialPtr>::_type("MultiPassMaterialPtr", "Mater
 
 OSG_FIELDTRAITS_GETTYPE(MultiPassMaterialPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MultiPassMaterialPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    MultiPassMaterialPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MultiPassMaterialPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         MultiPassMaterialPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MultiPassMaterialPtr, 0);
 

@@ -662,7 +662,7 @@ void ViewportBase::addForeground(ForegroundPtrConstArg value)
 
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
-    addRef(value);
+    //addRef(value);
 
     _mfForegrounds.push_back(value);
 }
@@ -694,7 +694,7 @@ void ViewportBase::insertIntoForegrounds(UInt32                uiIndex,
 
     MFForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -712,11 +712,13 @@ void ViewportBase::replaceInForegrounds(UInt32                uiIndex,
 
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
-    addRef(value);
 
-    subRef(_mfForegrounds[uiIndex]);
+//    addRef(value);
+//    subRef(_mfForegrounds[uiIndex]);
 
-    _mfForegrounds[uiIndex] = value;
+//    _mfForegrounds[uiIndex] = value;
+
+      _mfForegrounds.replace(uiIndex, value);
 }
 
 void ViewportBase::replaceInForegrounds(ForegroundPtrConstArg pOldElem,
@@ -731,14 +733,14 @@ void ViewportBase::replaceInForegrounds(ForegroundPtrConstArg pOldElem,
     {
         editMField(ForegroundsFieldMask, _mfForegrounds);
 
-        MFForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
+//        MFForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfForegrounds.replace(elemIdx, pNewElem);
     }
 }
 
@@ -752,7 +754,7 @@ void ViewportBase::removeFromForegrounds(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfForegrounds.erase(fieldIt);
     }
@@ -770,7 +772,7 @@ void ViewportBase::removeFromForegrounds(ForegroundPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfForegrounds.erase(fieldIt);
     }
@@ -784,7 +786,7 @@ void ViewportBase::clearForegrounds(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -1352,9 +1354,15 @@ DataType FieldTraits<ViewportPtr>::_type("ViewportPtr", "AttachmentContainerPtr"
 
 OSG_FIELDTRAITS_GETTYPE(ViewportPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ViewportPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ViewportPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ViewportPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ViewportPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ViewportPtr, 0);
 

@@ -217,7 +217,7 @@ void key(unsigned char key, int x, int y)
     switch ( key )
     {
         case 27:    
-            subRef(win);
+            subRefX(win);
             delete rentravact;
             osgExit(); 
             exit(0);

@@ -87,7 +87,7 @@ void TextureObjChunkBase::setImage(ImagePtrConstArg value)
 {
     editSField(ImageFieldMask);
 
-    setRefd(_sfImage.getValue(), value);
+    _sfImage.setValue(value);
 
 }
 //! Get the value of the TextureObjChunk::_sfInternalFormat field.

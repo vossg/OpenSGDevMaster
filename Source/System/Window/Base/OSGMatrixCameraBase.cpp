@@ -518,9 +518,15 @@ DataType FieldTraits<MatrixCameraPtr>::_type("MatrixCameraPtr", "CameraPtr");
 
 OSG_FIELDTRAITS_GETTYPE(MatrixCameraPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MatrixCameraPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    MatrixCameraPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MatrixCameraPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         MatrixCameraPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MatrixCameraPtr, 0);
 

@@ -259,9 +259,15 @@ DataType FieldTraits<GroupPtr>::_type("GroupPtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(GroupPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GroupPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    GroupPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, GroupPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         GroupPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GroupPtr, 0);
 

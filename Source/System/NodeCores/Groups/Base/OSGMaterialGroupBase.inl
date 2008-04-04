@@ -87,7 +87,7 @@ void MaterialGroupBase::setMaterial(MaterialPtrConstArg value)
 {
     editSField(MaterialFieldMask);
 
-    setRefd(_sfMaterial.getValue(), value);
+    _sfMaterial.setValue(value);
 
 }
 

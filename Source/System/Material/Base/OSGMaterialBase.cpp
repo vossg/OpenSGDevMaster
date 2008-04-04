@@ -421,9 +421,15 @@ DataType FieldTraits<MaterialPtr>::_type("MaterialPtr", "AttachmentContainerPtr"
 
 OSG_FIELDTRAITS_GETTYPE(MaterialPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MaterialPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    MaterialPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MaterialPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         MaterialPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MaterialPtr, 0);
 

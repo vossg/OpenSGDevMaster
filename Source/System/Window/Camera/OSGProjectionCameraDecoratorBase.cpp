@@ -956,9 +956,15 @@ DataType FieldTraits<ProjectionCameraDecoratorPtr>::_type("ProjectionCameraDecor
 
 OSG_FIELDTRAITS_GETTYPE(ProjectionCameraDecoratorPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ProjectionCameraDecoratorPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ProjectionCameraDecoratorPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ProjectionCameraDecoratorPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ProjectionCameraDecoratorPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ProjectionCameraDecoratorPtr, 0);
 

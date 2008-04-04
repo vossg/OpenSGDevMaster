@@ -347,9 +347,15 @@ DataType FieldTraits<SwitchPtr>::_type("SwitchPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(SwitchPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, SwitchPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    SwitchPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, SwitchPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         SwitchPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, SwitchPtr, 0);
 

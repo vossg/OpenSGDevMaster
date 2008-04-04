@@ -345,9 +345,15 @@ DataType FieldTraits<TransformPtr>::_type("TransformPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(TransformPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TransformPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    TransformPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TransformPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         TransformPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TransformPtr, 0);
 

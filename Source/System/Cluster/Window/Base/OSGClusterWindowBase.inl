@@ -318,7 +318,7 @@ void ClusterWindowBase::setClientWindow(WindowPtrConstArg value)
 {
     editSField(ClientWindowFieldMask);
 
-    setRefd(_sfClientWindow.getValue(), value);
+    _sfClientWindow.setValue(value);
 
 }
 //! Get the value of the ClusterWindow::_sfInterleave field.
@@ -401,7 +401,7 @@ void ClusterWindowBase::setComposer(ImageComposerPtrConstArg value)
 {
     editSField(ComposerFieldMask);
 
-    setRefd(_sfComposer.getValue(), value);
+    _sfComposer.setValue(value);
 
 }
 

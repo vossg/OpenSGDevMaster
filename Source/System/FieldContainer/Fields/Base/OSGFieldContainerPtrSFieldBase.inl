@@ -98,23 +98,27 @@ FieldContainerPtrSFieldBase::reference
     return _fieldValue;
 }
 
+#if 0
 inline
 void FieldContainerPtrSFieldBase::setValue(ArgumentType value)
 {
-    _fieldValue = value;
+    OSG::setRefdX(_fieldValue, value);
 }
 
 inline
 void FieldContainerPtrSFieldBase::setValue(const Self &obj)
 {
-    _fieldValue = obj._fieldValue;
+    OSG::setRefdX(_fieldValue, obj._fieldValue);
 }
+#endif
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void FieldContainerPtrSFieldBase::syncWith(Self &source)
 {
-    setValue(convertToCurrentAspect(source.getValue()));
+//    setValue(convertToCurrentAspect(source.getValue()));
+
+    _fieldValue = convertToCurrentAspect(source.getValue());
 }
 #endif
 

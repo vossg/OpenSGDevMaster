@@ -304,6 +304,46 @@ struct FieldTraits<ParentFieldContainerPtr> :
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
+struct RecordedRefCounts
+{
+    static void addRef(FieldContainerPtrConst objectP)
+    {
+        OSG::addRefX(objectP);
+    }
+    static void subRef(FieldContainerPtrConst objectP)
+    {
+        OSG::subRefX(objectP);
+    }
+
+    template <class StoreT, class SourceT> 
+    static void setRefd(StoreT  &pTarget,
+                        SourceT  pSource)
+    {
+        OSG::setRefdX(pTarget, pSource);
+    }
+};
+
+struct UnrecordedRefCounts
+{
+};
+
+struct NoRefCounts
+{
+    static void addRef(FieldContainerPtrConst)
+    {
+    }
+    static void subRef(FieldContainerPtrConst)
+    {
+    }
+
+    template <class StoreT, class SourceT> 
+    static void setRefd(StoreT  &pTarget,
+                        SourceT  pSource)
+    {
+        pTarget = pSource;
+    }
+};
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGFIELDCONTAINERFIELDTRAITS_H_ */

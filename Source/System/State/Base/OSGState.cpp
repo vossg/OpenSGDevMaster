@@ -62,15 +62,37 @@ OSG_BEGIN_NAMESPACE
     \hideinhierarchy
     Helper struct to remove chunks from a state.
 */
+template<typename _InputIterator, typename _Function>
+_Function for_each_iterator(_InputIterator __first, 
+                            _InputIterator __last, 
+                            _Function      __f)
+{
+    // concept requirements
+    __glibcxx_function_requires(_InputIteratorConcept<_InputIterator>)
+    __glibcxx_requires_valid_range(__first, __last);
 
-struct ClearSlot : public std::unary_function<StateChunkPtr &, 
+    for ( ; __first != __last; ++__first)
+        __f(__first);
+
+    return __f;
+}
+
+struct ClearSlot : public std::unary_function<MFStateChunkPtr::iterator &, 
                                               void>
 {
-    void operator() (StateChunkPtr &slotPtr) 
+    MFStateChunkPtr &_mfChunks;
+
+    ClearSlot(MFStateChunkPtr &mfChunks) :
+        _mfChunks(mfChunks)
+    {
+    }
+
+    void operator() (MFStateChunkPtr::iterator &slotIt) 
     { 
-        subRef(slotPtr);
+//        subRef(slotPtr);
         
-        slotPtr = NullFC;
+//        slotPtr = NullFC;
+        _mfChunks.replace(slotIt, NullFC);
     }
 };
 
@@ -447,11 +469,13 @@ bool State::addChunk(StateChunkPtr chunk, Int32 index)
 
         for(UInt32 i = oldsize; i < newsize; i++)
         {
-            _mfChunks[i] = NullFC;
+//            _mfChunks[i] = NullFC;
+            _mfChunks.replace(i, NullFC);
         }
     }
 
-    setRefd(_mfChunks[cindex], chunk);
+//    setRefd(_mfChunks[cindex], chunk);
+    _mfChunks.replace(cindex, chunk);
     
     return false;
 }
@@ -495,9 +519,10 @@ bool State::subChunk(StateChunkPtr chunk)
 
     // remove the chunk from the state
 
-    subRef(_mfChunks[ci]);
+//    subRef(_mfChunks[ci]);
 
-    _mfChunks[ci] = NullFC;
+//    _mfChunks[ci] = NullFC;
+    _mfChunks.replace(ci, NullFC);
     
     return false;
 }
@@ -524,9 +549,10 @@ bool State::subChunk(UInt32 classid, Int32 index)
 
     // remove the chunk from the state
 
-    subRef(_mfChunks[classid + index]);
+//    subRef(_mfChunks[classid + index]);
 
-    _mfChunks[classid + index] = NullFC;
+//    _mfChunks[classid + index] = NullFC;
+    _mfChunks.replace(classid + index, NullFC);
     
     return false;
 }
@@ -538,9 +564,9 @@ void State::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    std::for_each(_mfChunks.begin(), 
-                  _mfChunks.end  (),
-                   ClearSlot());
+    OSG::for_each_iterator(_mfChunks.begin(), 
+                           _mfChunks.end  (),
+                           ClearSlot(_mfChunks));
 }
 
 bool State::isTransparent(void) const

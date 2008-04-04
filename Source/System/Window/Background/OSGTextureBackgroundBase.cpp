@@ -926,9 +926,15 @@ DataType FieldTraits<TextureBackgroundPtr>::_type("TextureBackgroundPtr", "Backg
 
 OSG_FIELDTRAITS_GETTYPE(TextureBackgroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TextureBackgroundPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    TextureBackgroundPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TextureBackgroundPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         TextureBackgroundPtr, 
+                         RecordedRefCounts,
+                         0);
 
 
 OSG_END_NAMESPACE

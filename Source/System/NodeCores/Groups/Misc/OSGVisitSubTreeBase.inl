@@ -87,7 +87,7 @@ void VisitSubTreeBase::setSubTreeRoot(NodePtrConstArg value)
 {
     editSField(SubTreeRootFieldMask);
 
-    setRefd(_sfSubTreeRoot.getValue(), value);
+    _sfSubTreeRoot.setValue(value);
 
 }
 

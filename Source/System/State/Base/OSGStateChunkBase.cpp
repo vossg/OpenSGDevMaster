@@ -308,9 +308,15 @@ DataType FieldTraits<StateChunkPtr>::_type("StateChunkPtr", "FieldContainerAttac
 
 OSG_FIELDTRAITS_GETTYPE(StateChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, StateChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    StateChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, StateChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         StateChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, StateChunkPtr, 0);
 

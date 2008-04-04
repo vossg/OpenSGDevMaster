@@ -266,9 +266,15 @@ DataType FieldTraits<FragmentProgramChunkPtr>::_type("FragmentProgramChunkPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(FragmentProgramChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, FragmentProgramChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    FragmentProgramChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, FragmentProgramChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         FragmentProgramChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FragmentProgramChunkPtr, 0);
 

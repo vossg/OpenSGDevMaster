@@ -571,7 +571,7 @@ void CubeMapGeneratorBase::pushToExclude(NodePtrConstArg value)
 
     editMField(ExcludeFieldMask, _mfExclude);
 
-    addRef(value);
+    //addRef(value);
 
     _mfExclude.push_back(value);
 }
@@ -603,7 +603,7 @@ void CubeMapGeneratorBase::insertIntoExclude(UInt32                uiIndex,
 
     MFNodePtr::iterator fieldIt = _mfExclude.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -621,11 +621,13 @@ void CubeMapGeneratorBase::replaceInExclude(UInt32                uiIndex,
 
     editMField(ExcludeFieldMask, _mfExclude);
 
-    addRef(value);
 
-    subRef(_mfExclude[uiIndex]);
+//    addRef(value);
+//    subRef(_mfExclude[uiIndex]);
 
-    _mfExclude[uiIndex] = value;
+//    _mfExclude[uiIndex] = value;
+
+      _mfExclude.replace(uiIndex, value);
 }
 
 void CubeMapGeneratorBase::replaceInExclude(NodePtrConstArg pOldElem,
@@ -640,14 +642,14 @@ void CubeMapGeneratorBase::replaceInExclude(NodePtrConstArg pOldElem,
     {
         editMField(ExcludeFieldMask, _mfExclude);
 
-        MFNodePtr::iterator fieldIt = _mfExclude.begin();
+//        MFNodePtr::iterator fieldIt = _mfExclude.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfExclude.replace(elemIdx, pNewElem);
     }
 }
 
@@ -661,7 +663,7 @@ void CubeMapGeneratorBase::removeFromExclude(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfExclude.erase(fieldIt);
     }
@@ -679,7 +681,7 @@ void CubeMapGeneratorBase::removeFromExclude(NodePtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfExclude.erase(fieldIt);
     }
@@ -693,7 +695,7 @@ void CubeMapGeneratorBase::clearExclude(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }

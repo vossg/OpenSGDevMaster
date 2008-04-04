@@ -355,9 +355,15 @@ DataType FieldTraits<MaterialGroupPtr>::_type("MaterialGroupPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(MaterialGroupPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MaterialGroupPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    MaterialGroupPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MaterialGroupPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         MaterialGroupPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MaterialGroupPtr, 0);
 

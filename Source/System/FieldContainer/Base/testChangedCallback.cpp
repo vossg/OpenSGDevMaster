@@ -75,5 +75,5 @@ int main (int argc, char **argv)
     OSG::Thread::getCurrentChangeList()->commitChanges();
 
     fprintf(stderr, "Delete\n");
-    OSG::subRef(pNode);
+    OSG::subRefX(pNode);
 }

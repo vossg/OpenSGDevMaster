@@ -87,7 +87,7 @@ void FBOViewportBase::setFrameBufferObject(FrameBufferObjectPtrConstArg value)
 {
     editSField(FrameBufferObjectFieldMask);
 
-    setRefd(_sfFrameBufferObject.getValue(), value);
+    _sfFrameBufferObject.setValue(value);
 
 }
 

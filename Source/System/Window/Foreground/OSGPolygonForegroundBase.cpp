@@ -1197,9 +1197,15 @@ DataType FieldTraits<PolygonForegroundPtr>::_type("PolygonForegroundPtr", "Foreg
 
 OSG_FIELDTRAITS_GETTYPE(PolygonForegroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, PolygonForegroundPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    PolygonForegroundPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, PolygonForegroundPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         PolygonForegroundPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, PolygonForegroundPtr, 0);
 

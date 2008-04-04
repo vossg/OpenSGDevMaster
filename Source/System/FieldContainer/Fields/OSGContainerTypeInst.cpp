@@ -72,19 +72,39 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, FieldContainerPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    FieldContainerPtr, 
+                    RecordedRefCounts,
+                    0);
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FieldContainerPtr, 0);
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, NodePtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    NodePtr, 
+                    RecordedRefCounts,
+                    0);
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, NodePtr, 0);
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, NodeCorePtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    NodePtr, 
+                    NoRefCounts,
+                    1);
+
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    NodeCorePtr, 
+                    RecordedRefCounts,
+                    0);
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, NodeCorePtr, 0);
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, AttachmentContainerPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    AttachmentContainerPtr, 
+                    RecordedRefCounts,
+                    0);
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, AttachmentContainerPtr, 0);
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, FieldContainerAttachmentPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    FieldContainerAttachmentPtr, 
+                    RecordedRefCounts,
+                    0);
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FieldContainerAttachmentPtr, 0);
 
 OSG_SFIELDTYPE_SPEZ_INST(ParentFieldContainerPtr, 0);
@@ -134,9 +154,17 @@ OSG_FIELDTRAITS_GETTYPE   (NodePtr                    )
 OSG_FIELDTRAITS_GETTYPE   (NodeRefPtr                 )
 OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback     )
 
+DataType &FieldTraits< NodePtr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<NodePtr>::getType();
+}
+
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, FieldContainerPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         FieldContainerPtr, 
+                         RecordedRefCounts,
+                         0);
 OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, FieldContainerPtr, 0);
 
 OSG_FIELD_SPEZ_DLLEXPORT_DEF2(SField, ParentFieldContainerPtr, 0);
@@ -150,6 +178,11 @@ OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, NodeCorePtr);
 
 OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, NodePtr);
 OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, NodePtr);
+
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         NodePtr,
+                         NoRefCounts,
+                         1);
 
 //OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, NodeRefPtr);
 //OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, NodeRefPtr, );

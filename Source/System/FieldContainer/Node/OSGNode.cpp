@@ -151,13 +151,13 @@ void Node::setCore(NodeCorePtrConstArg core)
 {
     editSField(CoreFieldMask);
 
-    addRef(core);
+//    addRef(core);
 
     if(_sfCore.getValue() != NullFC)
     {
         _sfCore.getValue()->subParent(this);
 
-        subRef(_sfCore.getValue());
+//        subRef(_sfCore.getValue());
     }
 
     _sfCore.setValue(core);
@@ -176,17 +176,16 @@ void Node::addChild(NodePtrConstArg childP)
     if(childP != NullFC)
     {
         // do the ref early, to prevent destroys on getParent(a)->addChild(a)
-        addRef(childP);
+//        addRef(childP);
+        editMField(ChildrenFieldMask, _mfChildren);
+
+        _mfChildren.push_back(childP);
 
         // already somebody else's child?
         if(childP->getParent() != NullFC)
         {
             childP->getParent()->subChild(childP);
         }
-
-        editMField(ChildrenFieldMask, _mfChildren);
-
-        _mfChildren.push_back(childP);
 
         childP->setParent(this);
     }
@@ -209,21 +208,23 @@ void Node::insertChild(UInt32 childIndex, NodePtrConstArg childP)
     if(childP != NullFC)
     {
         // do the ref early, to prevent destroys on getParent(a)->addChild(a)
-        addRef(childP);
+//        addRef(childP);
+
+        editMField(ChildrenFieldMask, _mfChildren);
+
+//        MFNodePtr::iterator childIt = _mfChildren.begin();
+
+//        childIt += childIndex;
+
+//        _mfChildren.insert(childIt, childP);
+
+        _mfChildren.replace(childIndex, childP);
 
         // already somebody else's child?
         if(childP->getParent() != NullFC)
         {
             childP->getParent()->subChild(childP);
         }
-
-        editMField(ChildrenFieldMask, _mfChildren);
-
-        MFNodePtr::iterator childIt = _mfChildren.begin();
-
-        childIt += childIndex;
-
-        _mfChildren.insert(childIt, childP);
 
         childP->setParent(this);
     }
@@ -231,26 +232,28 @@ void Node::insertChild(UInt32 childIndex, NodePtrConstArg childP)
 
 void Node::replaceChild(UInt32 childIndex, NodePtrConstArg childP)
 {
-    if(childP != NullFC && childIndex < _mfChildren.size())
+    if(childP     != NullFC                  && 
+       childIndex <  _mfChildren.size()      && 
+       childP     != _mfChildren[childIndex]  )
     {
         // do the ref early, to prevent destroys on getParent(a)->addChild(a)
-        addRef(childP);
+//        addRef(childP);
 
         // remove the current child
         _mfChildren[childIndex]->setParent(NullFC);
 
-        subRef(_mfChildren[childIndex]);
+//        subRef(_mfChildren[childIndex]);
+
+        editMField(ChildrenFieldMask, _mfChildren);
+
+        // set the new child
+//        _mfChildren[childIndex] = childP;
 
         // already somebody else's child?
         if(childP->getParent() != NullFC)
         {
             childP->getParent()->subChild(childP);
         }
-
-        editMField(ChildrenFieldMask, _mfChildren);
-
-        // set the new child
-        _mfChildren[childIndex] = childP;
 
         childP->setParent(this);
     }
@@ -261,7 +264,7 @@ void Node::replaceChild(UInt32 childIndex, NodePtrConstArg childP)
 bool Node::replaceChildBy(NodePtrConstArg childP,
                           NodePtrConstArg newChildP)
 {
-    if(newChildP != NullFC)
+    if(newChildP != NullFC && childP != newChildP)
     {
         Int32 childIdx = findChild(childP);
 
@@ -270,21 +273,23 @@ bool Node::replaceChildBy(NodePtrConstArg childP,
             // do the ref early, to prevent destroys on
             // getParent(a)->addChild(a)
 
-            addRef(newChildP);
+//            addRef(newChildP);
 
             childP->setParent(NullFC);
 
-            subRef(childP);
+//            subRef(childP);
+
+            editMField(ChildrenFieldMask, _mfChildren);
+
+//            _mfChildren[childIdx] = newChildP;
+
+            _mfChildren.replace(childIdx, newChildP);
 
             // already somebody else's child?
             if(newChildP->getParent() != NullFC)
             {
                 newChildP->getParent()->subChild(newChildP);
             }
-
-            editMField(ChildrenFieldMask, _mfChildren);
-
-            _mfChildren[childIdx] = newChildP;
 
             newChildP->setParent(this);
 
@@ -329,7 +334,7 @@ void Node::subChild(NodePtrConstArg childP)
 
         childP->setParent(NullFC);
 
-        subRef(childP);
+//        subRef(childP);
 
         _mfChildren.erase(childIt);
     }
@@ -352,7 +357,7 @@ void Node::subChild(UInt32 childIndex)
 
         (*childIt)->setParent(NullFC);
 
-        subRef(*childIt);
+//        subRef(*childIt);
 
         _mfChildren.erase(childIt);
     }
@@ -815,7 +820,7 @@ const SFUInt32 *Node::getSFTravMask(void) const
     return &_sfTravMask;
 }
 
-const SFNodePtr *Node::getSFParent(void) const
+const SFUnrefdNodePtr *Node::getSFParent(void) const
 {
     return &_sfParent;
 }
@@ -903,8 +908,8 @@ GetFieldHandlePtr Node::getHandleTravMask(void) const
 
 GetFieldHandlePtr Node::getHandleParent(void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUnrefdNodePtr::GetHandlePtr returnValue(
+        new SFUnrefdNodePtr::GetHandle(
              &_sfParent, 
              this->getType().getFieldDesc(ParentFieldId)));
 
@@ -967,7 +972,8 @@ void Node::resolveLinks(void)
     {
         _sfCore.getValue()->subParent(this);
 
-        subRef(_sfCore.getValue());
+//        subRef(_sfCore.getValue());
+        _sfCore.setValue(NullFC);
     }
 
     MFNodePtr::iterator       vChildIt    = _mfChildren.begin();
@@ -977,7 +983,8 @@ void Node::resolveLinks(void)
     {
         (*vChildIt)->setParent(NullFC);
 
-        subRef(*vChildIt);
+//        subRef(*vChildIt);
+        _mfChildren.replace(vChildIt, NullFC);
 
         ++vChildIt;
     }

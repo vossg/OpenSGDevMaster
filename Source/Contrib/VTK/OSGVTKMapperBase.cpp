@@ -464,7 +464,7 @@ void VTKMapperBase::pushToGeoRoots(NodePtrConstArg value)
 
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
-    addRef(value);
+    //addRef(value);
 
     _mfGeoRoots.push_back(value);
 }
@@ -496,7 +496,7 @@ void VTKMapperBase::insertIntoGeoRoots(UInt32                uiIndex,
 
     MFNodePtr::iterator fieldIt = _mfGeoRoots.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -514,11 +514,13 @@ void VTKMapperBase::replaceInGeoRoots(UInt32                uiIndex,
 
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
-    addRef(value);
 
-    subRef(_mfGeoRoots[uiIndex]);
+//    addRef(value);
+//    subRef(_mfGeoRoots[uiIndex]);
 
-    _mfGeoRoots[uiIndex] = value;
+//    _mfGeoRoots[uiIndex] = value;
+
+      _mfGeoRoots.replace(uiIndex, value);
 }
 
 void VTKMapperBase::replaceInGeoRoots(NodePtrConstArg pOldElem,
@@ -533,14 +535,14 @@ void VTKMapperBase::replaceInGeoRoots(NodePtrConstArg pOldElem,
     {
         editMField(GeoRootsFieldMask, _mfGeoRoots);
 
-        MFNodePtr::iterator fieldIt = _mfGeoRoots.begin();
+//        MFNodePtr::iterator fieldIt = _mfGeoRoots.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfGeoRoots.replace(elemIdx, pNewElem);
     }
 }
 
@@ -554,7 +556,7 @@ void VTKMapperBase::removeFromGeoRoots(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfGeoRoots.erase(fieldIt);
     }
@@ -572,7 +574,7 @@ void VTKMapperBase::removeFromGeoRoots(NodePtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfGeoRoots.erase(fieldIt);
     }
@@ -586,7 +588,7 @@ void VTKMapperBase::clearGeoRoots(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -601,7 +603,7 @@ void VTKMapperBase::pushToGeometries(GeometryPtrConstArg value)
 
     editMField(GeometriesFieldMask, _mfGeometries);
 
-    addRef(value);
+    //addRef(value);
 
     _mfGeometries.push_back(value);
 }
@@ -633,7 +635,7 @@ void VTKMapperBase::insertIntoGeometries(UInt32                uiIndex,
 
     MFGeometryPtr::iterator fieldIt = _mfGeometries.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -651,11 +653,13 @@ void VTKMapperBase::replaceInGeometries(UInt32                uiIndex,
 
     editMField(GeometriesFieldMask, _mfGeometries);
 
-    addRef(value);
 
-    subRef(_mfGeometries[uiIndex]);
+//    addRef(value);
+//    subRef(_mfGeometries[uiIndex]);
 
-    _mfGeometries[uiIndex] = value;
+//    _mfGeometries[uiIndex] = value;
+
+      _mfGeometries.replace(uiIndex, value);
 }
 
 void VTKMapperBase::replaceInGeometries(GeometryPtrConstArg pOldElem,
@@ -670,14 +674,14 @@ void VTKMapperBase::replaceInGeometries(GeometryPtrConstArg pOldElem,
     {
         editMField(GeometriesFieldMask, _mfGeometries);
 
-        MFGeometryPtr::iterator fieldIt = _mfGeometries.begin();
+//        MFGeometryPtr::iterator fieldIt = _mfGeometries.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfGeometries.replace(elemIdx, pNewElem);
     }
 }
 
@@ -691,7 +695,7 @@ void VTKMapperBase::removeFromGeometries(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfGeometries.erase(fieldIt);
     }
@@ -709,7 +713,7 @@ void VTKMapperBase::removeFromGeometries(GeometryPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfGeometries.erase(fieldIt);
     }
@@ -723,7 +727,7 @@ void VTKMapperBase::clearGeometries(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -738,7 +742,7 @@ void VTKMapperBase::pushToMaterials(ChunkMaterialPtrConstArg value)
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    addRef(value);
+    //addRef(value);
 
     _mfMaterials.push_back(value);
 }
@@ -770,7 +774,7 @@ void VTKMapperBase::insertIntoMaterials(UInt32                uiIndex,
 
     MFChunkMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -788,11 +792,13 @@ void VTKMapperBase::replaceInMaterials(UInt32                uiIndex,
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    addRef(value);
 
-    subRef(_mfMaterials[uiIndex]);
+//    addRef(value);
+//    subRef(_mfMaterials[uiIndex]);
 
-    _mfMaterials[uiIndex] = value;
+//    _mfMaterials[uiIndex] = value;
+
+      _mfMaterials.replace(uiIndex, value);
 }
 
 void VTKMapperBase::replaceInMaterials(ChunkMaterialPtrConstArg pOldElem,
@@ -807,14 +813,14 @@ void VTKMapperBase::replaceInMaterials(ChunkMaterialPtrConstArg pOldElem,
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFChunkMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+//        MFChunkMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfMaterials.replace(elemIdx, pNewElem);
     }
 }
 
@@ -828,7 +834,7 @@ void VTKMapperBase::removeFromMaterials(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfMaterials.erase(fieldIt);
     }
@@ -846,7 +852,7 @@ void VTKMapperBase::removeFromMaterials(ChunkMaterialPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfMaterials.erase(fieldIt);
     }
@@ -860,7 +866,7 @@ void VTKMapperBase::clearMaterials(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -875,7 +881,7 @@ void VTKMapperBase::pushToMaterialChunks(MaterialChunkPtrConstArg value)
 
     editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
-    addRef(value);
+    //addRef(value);
 
     _mfMaterialChunks.push_back(value);
 }
@@ -907,7 +913,7 @@ void VTKMapperBase::insertIntoMaterialChunks(UInt32                uiIndex,
 
     MFMaterialChunkPtr::iterator fieldIt = _mfMaterialChunks.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -925,11 +931,13 @@ void VTKMapperBase::replaceInMaterialChunks(UInt32                uiIndex,
 
     editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
-    addRef(value);
 
-    subRef(_mfMaterialChunks[uiIndex]);
+//    addRef(value);
+//    subRef(_mfMaterialChunks[uiIndex]);
 
-    _mfMaterialChunks[uiIndex] = value;
+//    _mfMaterialChunks[uiIndex] = value;
+
+      _mfMaterialChunks.replace(uiIndex, value);
 }
 
 void VTKMapperBase::replaceInMaterialChunks(MaterialChunkPtrConstArg pOldElem,
@@ -944,14 +952,14 @@ void VTKMapperBase::replaceInMaterialChunks(MaterialChunkPtrConstArg pOldElem,
     {
         editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
-        MFMaterialChunkPtr::iterator fieldIt = _mfMaterialChunks.begin();
+//        MFMaterialChunkPtr::iterator fieldIt = _mfMaterialChunks.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfMaterialChunks.replace(elemIdx, pNewElem);
     }
 }
 
@@ -965,7 +973,7 @@ void VTKMapperBase::removeFromMaterialChunks(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfMaterialChunks.erase(fieldIt);
     }
@@ -983,7 +991,7 @@ void VTKMapperBase::removeFromMaterialChunks(MaterialChunkPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfMaterialChunks.erase(fieldIt);
     }
@@ -997,7 +1005,7 @@ void VTKMapperBase::clearMaterialChunks(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -1012,7 +1020,7 @@ void VTKMapperBase::pushToPositions(GeoPnt3fPropertyPtrConstArg value)
 
     editMField(PositionsFieldMask, _mfPositions);
 
-    addRef(value);
+    //addRef(value);
 
     _mfPositions.push_back(value);
 }
@@ -1044,7 +1052,7 @@ void VTKMapperBase::insertIntoPositions(UInt32                uiIndex,
 
     MFGeoPnt3fPropertyPtr::iterator fieldIt = _mfPositions.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -1062,11 +1070,13 @@ void VTKMapperBase::replaceInPositions(UInt32                uiIndex,
 
     editMField(PositionsFieldMask, _mfPositions);
 
-    addRef(value);
 
-    subRef(_mfPositions[uiIndex]);
+//    addRef(value);
+//    subRef(_mfPositions[uiIndex]);
 
-    _mfPositions[uiIndex] = value;
+//    _mfPositions[uiIndex] = value;
+
+      _mfPositions.replace(uiIndex, value);
 }
 
 void VTKMapperBase::replaceInPositions(GeoPnt3fPropertyPtrConstArg pOldElem,
@@ -1081,14 +1091,14 @@ void VTKMapperBase::replaceInPositions(GeoPnt3fPropertyPtrConstArg pOldElem,
     {
         editMField(PositionsFieldMask, _mfPositions);
 
-        MFGeoPnt3fPropertyPtr::iterator fieldIt = _mfPositions.begin();
+//        MFGeoPnt3fPropertyPtr::iterator fieldIt = _mfPositions.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfPositions.replace(elemIdx, pNewElem);
     }
 }
 
@@ -1102,7 +1112,7 @@ void VTKMapperBase::removeFromPositions(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfPositions.erase(fieldIt);
     }
@@ -1120,7 +1130,7 @@ void VTKMapperBase::removeFromPositions(GeoPnt3fPropertyPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfPositions.erase(fieldIt);
     }
@@ -1134,7 +1144,7 @@ void VTKMapperBase::clearPositions(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -1149,7 +1159,7 @@ void VTKMapperBase::pushToLength(GeoUInt32PropertyPtrConstArg value)
 
     editMField(LengthFieldMask, _mfLength);
 
-    addRef(value);
+    //addRef(value);
 
     _mfLength.push_back(value);
 }
@@ -1181,7 +1191,7 @@ void VTKMapperBase::insertIntoLength(UInt32                uiIndex,
 
     MFGeoUInt32PropertyPtr::iterator fieldIt = _mfLength.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -1199,11 +1209,13 @@ void VTKMapperBase::replaceInLength(UInt32                uiIndex,
 
     editMField(LengthFieldMask, _mfLength);
 
-    addRef(value);
 
-    subRef(_mfLength[uiIndex]);
+//    addRef(value);
+//    subRef(_mfLength[uiIndex]);
 
-    _mfLength[uiIndex] = value;
+//    _mfLength[uiIndex] = value;
+
+      _mfLength.replace(uiIndex, value);
 }
 
 void VTKMapperBase::replaceInLength(GeoUInt32PropertyPtrConstArg pOldElem,
@@ -1218,14 +1230,14 @@ void VTKMapperBase::replaceInLength(GeoUInt32PropertyPtrConstArg pOldElem,
     {
         editMField(LengthFieldMask, _mfLength);
 
-        MFGeoUInt32PropertyPtr::iterator fieldIt = _mfLength.begin();
+//        MFGeoUInt32PropertyPtr::iterator fieldIt = _mfLength.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfLength.replace(elemIdx, pNewElem);
     }
 }
 
@@ -1239,7 +1251,7 @@ void VTKMapperBase::removeFromLength(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfLength.erase(fieldIt);
     }
@@ -1257,7 +1269,7 @@ void VTKMapperBase::removeFromLength(GeoUInt32PropertyPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfLength.erase(fieldIt);
     }
@@ -1271,7 +1283,7 @@ void VTKMapperBase::clearLength(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -1286,7 +1298,7 @@ void VTKMapperBase::pushToTypes(GeoUInt8PropertyPtrConstArg value)
 
     editMField(TypesFieldMask, _mfTypes);
 
-    addRef(value);
+    //addRef(value);
 
     _mfTypes.push_back(value);
 }
@@ -1318,7 +1330,7 @@ void VTKMapperBase::insertIntoTypes(UInt32                uiIndex,
 
     MFGeoUInt8PropertyPtr::iterator fieldIt = _mfTypes.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -1336,11 +1348,13 @@ void VTKMapperBase::replaceInTypes(UInt32                uiIndex,
 
     editMField(TypesFieldMask, _mfTypes);
 
-    addRef(value);
 
-    subRef(_mfTypes[uiIndex]);
+//    addRef(value);
+//    subRef(_mfTypes[uiIndex]);
 
-    _mfTypes[uiIndex] = value;
+//    _mfTypes[uiIndex] = value;
+
+      _mfTypes.replace(uiIndex, value);
 }
 
 void VTKMapperBase::replaceInTypes(GeoUInt8PropertyPtrConstArg pOldElem,
@@ -1355,14 +1369,14 @@ void VTKMapperBase::replaceInTypes(GeoUInt8PropertyPtrConstArg pOldElem,
     {
         editMField(TypesFieldMask, _mfTypes);
 
-        MFGeoUInt8PropertyPtr::iterator fieldIt = _mfTypes.begin();
+//        MFGeoUInt8PropertyPtr::iterator fieldIt = _mfTypes.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfTypes.replace(elemIdx, pNewElem);
     }
 }
 
@@ -1376,7 +1390,7 @@ void VTKMapperBase::removeFromTypes(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfTypes.erase(fieldIt);
     }
@@ -1394,7 +1408,7 @@ void VTKMapperBase::removeFromTypes(GeoUInt8PropertyPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfTypes.erase(fieldIt);
     }
@@ -1408,7 +1422,7 @@ void VTKMapperBase::clearTypes(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -1423,7 +1437,7 @@ void VTKMapperBase::pushToColors(GeoColor4fPropertyPtrConstArg value)
 
     editMField(ColorsFieldMask, _mfColors);
 
-    addRef(value);
+    //addRef(value);
 
     _mfColors.push_back(value);
 }
@@ -1455,7 +1469,7 @@ void VTKMapperBase::insertIntoColors(UInt32                uiIndex,
 
     MFGeoColor4fPropertyPtr::iterator fieldIt = _mfColors.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -1473,11 +1487,13 @@ void VTKMapperBase::replaceInColors(UInt32                uiIndex,
 
     editMField(ColorsFieldMask, _mfColors);
 
-    addRef(value);
 
-    subRef(_mfColors[uiIndex]);
+//    addRef(value);
+//    subRef(_mfColors[uiIndex]);
 
-    _mfColors[uiIndex] = value;
+//    _mfColors[uiIndex] = value;
+
+      _mfColors.replace(uiIndex, value);
 }
 
 void VTKMapperBase::replaceInColors(GeoColor4fPropertyPtrConstArg pOldElem,
@@ -1492,14 +1508,14 @@ void VTKMapperBase::replaceInColors(GeoColor4fPropertyPtrConstArg pOldElem,
     {
         editMField(ColorsFieldMask, _mfColors);
 
-        MFGeoColor4fPropertyPtr::iterator fieldIt = _mfColors.begin();
+//        MFGeoColor4fPropertyPtr::iterator fieldIt = _mfColors.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfColors.replace(elemIdx, pNewElem);
     }
 }
 
@@ -1513,7 +1529,7 @@ void VTKMapperBase::removeFromColors(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfColors.erase(fieldIt);
     }
@@ -1531,7 +1547,7 @@ void VTKMapperBase::removeFromColors(GeoColor4fPropertyPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfColors.erase(fieldIt);
     }
@@ -1545,7 +1561,7 @@ void VTKMapperBase::clearColors(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -1560,7 +1576,7 @@ void VTKMapperBase::pushToNormals(GeoVec3fPropertyPtrConstArg value)
 
     editMField(NormalsFieldMask, _mfNormals);
 
-    addRef(value);
+    //addRef(value);
 
     _mfNormals.push_back(value);
 }
@@ -1592,7 +1608,7 @@ void VTKMapperBase::insertIntoNormals(UInt32                uiIndex,
 
     MFGeoVec3fPropertyPtr::iterator fieldIt = _mfNormals.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -1610,11 +1626,13 @@ void VTKMapperBase::replaceInNormals(UInt32                uiIndex,
 
     editMField(NormalsFieldMask, _mfNormals);
 
-    addRef(value);
 
-    subRef(_mfNormals[uiIndex]);
+//    addRef(value);
+//    subRef(_mfNormals[uiIndex]);
 
-    _mfNormals[uiIndex] = value;
+//    _mfNormals[uiIndex] = value;
+
+      _mfNormals.replace(uiIndex, value);
 }
 
 void VTKMapperBase::replaceInNormals(GeoVec3fPropertyPtrConstArg pOldElem,
@@ -1629,14 +1647,14 @@ void VTKMapperBase::replaceInNormals(GeoVec3fPropertyPtrConstArg pOldElem,
     {
         editMField(NormalsFieldMask, _mfNormals);
 
-        MFGeoVec3fPropertyPtr::iterator fieldIt = _mfNormals.begin();
+//        MFGeoVec3fPropertyPtr::iterator fieldIt = _mfNormals.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfNormals.replace(elemIdx, pNewElem);
     }
 }
 
@@ -1650,7 +1668,7 @@ void VTKMapperBase::removeFromNormals(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfNormals.erase(fieldIt);
     }
@@ -1668,7 +1686,7 @@ void VTKMapperBase::removeFromNormals(GeoVec3fPropertyPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfNormals.erase(fieldIt);
     }
@@ -1682,7 +1700,7 @@ void VTKMapperBase::clearNormals(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -2333,9 +2351,15 @@ DataType FieldTraits<VTKMapperPtr>::_type("VTKMapperPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(VTKMapperPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, VTKMapperPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    VTKMapperPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, VTKMapperPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         VTKMapperPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, VTKMapperPtr, 0);
 

@@ -460,9 +460,15 @@ DataType FieldTraits<ShaderChunkPtr>::_type("ShaderChunkPtr", "ShaderParameterCh
 
 OSG_FIELDTRAITS_GETTYPE(ShaderChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ShaderChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ShaderChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ShaderChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ShaderChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ShaderChunkPtr, 0);
 

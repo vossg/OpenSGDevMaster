@@ -142,9 +142,9 @@ FieldType MField< T1 , T2 >::_fieldType(                 \
     MFieldTraits::getType (),                            \
     FieldType::MULTI_FIELD)
 
-#define OSG_SFIELDTYPE_INST(CLASSNAME, T1, T2)           \
+#define OSG_SFIELDTYPE_INST(CLASSNAME, T1, T2, T3)       \
 template<>                                               \
-FieldType CLASSNAME< T1 , T2 >::_fieldType(              \
+FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
     SFieldTraits::getSName(),                            \
     SFieldTraits::getSPName(),                           \
     SFieldTraits::getType (),                            \

@@ -431,7 +431,7 @@ void FrameBufferObjectBase::pushToColorAttachments(FrameBufferAttachmentPtrConst
 
     editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
-    addRef(value);
+    //addRef(value);
 
     _mfColorAttachments.push_back(value);
 }
@@ -463,7 +463,7 @@ void FrameBufferObjectBase::insertIntoColorAttachments(UInt32                uiI
 
     MFFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -481,11 +481,13 @@ void FrameBufferObjectBase::replaceInColorAttachments(UInt32                uiIn
 
     editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
-    addRef(value);
 
-    subRef(_mfColorAttachments[uiIndex]);
+//    addRef(value);
+//    subRef(_mfColorAttachments[uiIndex]);
 
-    _mfColorAttachments[uiIndex] = value;
+//    _mfColorAttachments[uiIndex] = value;
+
+      _mfColorAttachments.replace(uiIndex, value);
 }
 
 void FrameBufferObjectBase::replaceInColorAttachments(FrameBufferAttachmentPtrConstArg pOldElem,
@@ -500,14 +502,14 @@ void FrameBufferObjectBase::replaceInColorAttachments(FrameBufferAttachmentPtrCo
     {
         editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
-        MFFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin();
+//        MFFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfColorAttachments.replace(elemIdx, pNewElem);
     }
 }
 
@@ -521,7 +523,7 @@ void FrameBufferObjectBase::removeFromColorAttachments(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfColorAttachments.erase(fieldIt);
     }
@@ -539,7 +541,7 @@ void FrameBufferObjectBase::removeFromColorAttachments(FrameBufferAttachmentPtrC
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfColorAttachments.erase(fieldIt);
     }
@@ -553,7 +555,7 @@ void FrameBufferObjectBase::clearColorAttachments(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -1066,9 +1068,15 @@ DataType FieldTraits<FrameBufferObjectPtr>::_type("FrameBufferObjectPtr", "Attac
 
 OSG_FIELDTRAITS_GETTYPE(FrameBufferObjectPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, FrameBufferObjectPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    FrameBufferObjectPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, FrameBufferObjectPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         FrameBufferObjectPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FrameBufferObjectPtr, 0);
 

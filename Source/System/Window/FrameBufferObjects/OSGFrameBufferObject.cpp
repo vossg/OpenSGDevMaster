@@ -162,7 +162,8 @@ void FrameBufferObject::setColorAttachment(
         _mfColorAttachments.resize(uiSlot + 1, NullFC);
     }
 
-    setRefd(_mfColorAttachments[uiSlot], pAttachment);
+//    setRefd(_mfColorAttachments[uiSlot], pAttachment);
+    _mfColorAttachments.replace(uiSlot, pAttachment);
 }
 
 void FrameBufferObject::setSize(UInt32 uiWidth, UInt32 uiHeight)

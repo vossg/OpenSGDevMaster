@@ -2072,7 +2072,7 @@ else
                                     if(indexOutBag[typei] == NullFC)
                                     {
                                         indexOutBag[typei] = GeoUInt32Property::create();
-                                        addRef(indexOutBag[typei]);
+                                        addRefX(indexOutBag[typei]);
                                     }
                                     
                                     indexOutBag[typei]->push_back(index);
@@ -2131,7 +2131,7 @@ else
     
     for(UInt32 i = 1; i < 4; ++i)
     {
-        subRef(indexOutBag[i]);
+        subRefX(indexOutBag[i]);
     }
 
     return triCount;

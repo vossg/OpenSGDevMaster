@@ -87,7 +87,7 @@ void SHLParameterChunkBase::setSHLChunk(SHLChunkPtrConstArg value)
 {
     editSField(SHLChunkFieldMask);
 
-    setRefd(_sfSHLChunk.getValue(), value);
+    _sfSHLChunk.setValue(value);
 
 }
 

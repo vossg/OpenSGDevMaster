@@ -93,7 +93,7 @@ void GeometryBase::setTypes(GeoIntegralPropertyPtrConstArg value)
         _sfTypes.getValue()->subParent(this);
     }
 
-    setRefd(_sfTypes.getValue(), value);
+    _sfTypes.setValue(value);
 
     if(_sfTypes.getValue() != NullFC)
     {
@@ -121,7 +121,7 @@ void GeometryBase::setLengths(GeoIntegralPropertyPtrConstArg value)
         _sfLengths.getValue()->subParent(this);
     }
 
-    setRefd(_sfLengths.getValue(), value);
+    _sfLengths.setValue(value);
 
     if(_sfLengths.getValue() != NullFC)
     {

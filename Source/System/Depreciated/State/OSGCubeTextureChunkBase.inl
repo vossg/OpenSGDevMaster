@@ -87,7 +87,7 @@ void CubeTextureChunkBase::setPosZImage(ImagePtrConstArg value)
 {
     editSField(PosZImageFieldMask);
 
-    setRefd(_sfPosZImage.getValue(), value);
+    _sfPosZImage.setValue(value);
 
 }
 
@@ -104,7 +104,7 @@ void CubeTextureChunkBase::setPosXImage(ImagePtrConstArg value)
 {
     editSField(PosXImageFieldMask);
 
-    setRefd(_sfPosXImage.getValue(), value);
+    _sfPosXImage.setValue(value);
 
 }
 
@@ -121,7 +121,7 @@ void CubeTextureChunkBase::setNegXImage(ImagePtrConstArg value)
 {
     editSField(NegXImageFieldMask);
 
-    setRefd(_sfNegXImage.getValue(), value);
+    _sfNegXImage.setValue(value);
 
 }
 
@@ -138,7 +138,7 @@ void CubeTextureChunkBase::setPosYImage(ImagePtrConstArg value)
 {
     editSField(PosYImageFieldMask);
 
-    setRefd(_sfPosYImage.getValue(), value);
+    _sfPosYImage.setValue(value);
 
 }
 
@@ -155,7 +155,7 @@ void CubeTextureChunkBase::setNegYImage(ImagePtrConstArg value)
 {
     editSField(NegYImageFieldMask);
 
-    setRefd(_sfNegYImage.getValue(), value);
+    _sfNegYImage.setValue(value);
 
 }
 //! Get the value of the CubeTextureChunk::_sfIsReflectionMap field.

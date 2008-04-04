@@ -239,7 +239,7 @@ void ImageForegroundBase::pushToImages(ImagePtrConstArg value)
 
     editMField(ImagesFieldMask, _mfImages);
 
-    addRef(value);
+    //addRef(value);
 
     _mfImages.push_back(value);
 }
@@ -271,7 +271,7 @@ void ImageForegroundBase::insertIntoImages(UInt32                uiIndex,
 
     MFImagePtr::iterator fieldIt = _mfImages.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -289,11 +289,13 @@ void ImageForegroundBase::replaceInImages(UInt32                uiIndex,
 
     editMField(ImagesFieldMask, _mfImages);
 
-    addRef(value);
 
-    subRef(_mfImages[uiIndex]);
+//    addRef(value);
+//    subRef(_mfImages[uiIndex]);
 
-    _mfImages[uiIndex] = value;
+//    _mfImages[uiIndex] = value;
+
+      _mfImages.replace(uiIndex, value);
 }
 
 void ImageForegroundBase::replaceInImages(ImagePtrConstArg pOldElem,
@@ -308,14 +310,14 @@ void ImageForegroundBase::replaceInImages(ImagePtrConstArg pOldElem,
     {
         editMField(ImagesFieldMask, _mfImages);
 
-        MFImagePtr::iterator fieldIt = _mfImages.begin();
+//        MFImagePtr::iterator fieldIt = _mfImages.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfImages.replace(elemIdx, pNewElem);
     }
 }
 
@@ -329,7 +331,7 @@ void ImageForegroundBase::removeFromImages(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfImages.erase(fieldIt);
     }
@@ -347,7 +349,7 @@ void ImageForegroundBase::removeFromImages(ImagePtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfImages.erase(fieldIt);
     }
@@ -361,7 +363,7 @@ void ImageForegroundBase::clearImages(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -680,9 +682,15 @@ DataType FieldTraits<ImageForegroundPtr>::_type("ImageForegroundPtr", "Foregroun
 
 OSG_FIELDTRAITS_GETTYPE(ImageForegroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ImageForegroundPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ImageForegroundPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ImageForegroundPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ImageForegroundPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ImageForegroundPtr, 0);
 

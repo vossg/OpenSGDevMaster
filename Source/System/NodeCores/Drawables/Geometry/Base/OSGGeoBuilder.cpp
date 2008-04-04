@@ -94,16 +94,16 @@ GeoBuilder::GeoBuilder(void) :
 GeoBuilder::~GeoBuilder()
 {
     if(_geo != NullFC)
-        subRef(_geo);
+        subRefX(_geo);
 }
 
 void GeoBuilder::reset(void)
 {
     if(_geo != NullFC)
-        subRef(_geo);
+        subRefX(_geo);
 
     _geo = Geometry::create();
-    addRef(_geo);
+    addRefX(_geo);
 
     MaterialPtr mat = getDefaultMaterial();
 

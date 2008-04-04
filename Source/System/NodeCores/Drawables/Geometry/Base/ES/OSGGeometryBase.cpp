@@ -383,7 +383,7 @@ void GeometryBase::pushToProperties(GeoVectorPropertyPtrConstArg value)
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
-    addRef(value);
+    //addRef(value);
 
     _mfProperties.push_back(value);
 
@@ -417,7 +417,7 @@ void GeometryBase::insertIntoProperties(UInt32                uiIndex,
 
     MFGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -437,16 +437,18 @@ void GeometryBase::replaceInProperties(UInt32                uiIndex,
 
     editMField(PropertiesFieldMask, _mfProperties);
 
-    addRef(value);
 
     if(_mfProperties[uiIndex] != NullFC)
     {
         _mfProperties[uiIndex]->subParent(this);
     }
 
-    subRef(_mfProperties[uiIndex]);
+//    addRef(value);
+//    subRef(_mfProperties[uiIndex]);
 
-    _mfProperties[uiIndex] = value;
+//    _mfProperties[uiIndex] = value;
+
+      _mfProperties.replace(uiIndex, value);
 
     if(value == NullFC)
         return;
@@ -463,10 +465,6 @@ void GeometryBase::replaceInProperties(GeoVectorPropertyPtrConstArg pOldElem,
     {
         editMField(PropertiesFieldMask, _mfProperties);
 
-        MFGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
-
-        fieldIt += elemIdx;
-
 
         if(pOldElem != NullFC)
         {
@@ -478,10 +476,14 @@ void GeometryBase::replaceInProperties(GeoVectorPropertyPtrConstArg pOldElem,
             pNewElem->addParent(this, PropertiesFieldMask);
         }
 
-        addRef(pNewElem);
-        subRef(pOldElem);
+//        MFGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
 
-        (*fieldIt) = pNewElem;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
+
+//        (*fieldIt) = pNewElem;
+          _mfProperties.replace(elemIdx, pNewElem);
     }
 }
 
@@ -501,7 +503,7 @@ void GeometryBase::removeFromProperties(UInt32 uiIndex)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfProperties.erase(fieldIt);
     }
@@ -525,7 +527,7 @@ void GeometryBase::removeFromProperties(GeoVectorPropertyPtrConstArg value)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfProperties.erase(fieldIt);
     }
@@ -544,7 +546,7 @@ void GeometryBase::clearProperties(void)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -556,7 +558,7 @@ void GeometryBase::pushToPropIndices(GeoIntegralPropertyPtrConstArg value)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
-    addRef(value);
+    //addRef(value);
 
     _mfPropIndices.push_back(value);
 
@@ -590,7 +592,7 @@ void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,
 
     MFGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -610,16 +612,18 @@ void GeometryBase::replaceInPropIndices(UInt32                uiIndex,
 
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
-    addRef(value);
 
     if(_mfPropIndices[uiIndex] != NullFC)
     {
         _mfPropIndices[uiIndex]->subParent(this);
     }
 
-    subRef(_mfPropIndices[uiIndex]);
+//    addRef(value);
+//    subRef(_mfPropIndices[uiIndex]);
 
-    _mfPropIndices[uiIndex] = value;
+//    _mfPropIndices[uiIndex] = value;
+
+      _mfPropIndices.replace(uiIndex, value);
 
     if(value == NullFC)
         return;
@@ -636,10 +640,6 @@ void GeometryBase::replaceInPropIndices(GeoIntegralPropertyPtrConstArg pOldElem,
     {
         editMField(PropIndicesFieldMask, _mfPropIndices);
 
-        MFGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
-
-        fieldIt += elemIdx;
-
 
         if(pOldElem != NullFC)
         {
@@ -651,10 +651,14 @@ void GeometryBase::replaceInPropIndices(GeoIntegralPropertyPtrConstArg pOldElem,
             pNewElem->addParent(this, PropIndicesFieldMask);
         }
 
-        addRef(pNewElem);
-        subRef(pOldElem);
+//        MFGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
 
-        (*fieldIt) = pNewElem;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
+
+//        (*fieldIt) = pNewElem;
+          _mfPropIndices.replace(elemIdx, pNewElem);
     }
 }
 
@@ -674,7 +678,7 @@ void GeometryBase::removeFromPropIndices(UInt32 uiIndex)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfPropIndices.erase(fieldIt);
     }
@@ -698,7 +702,7 @@ void GeometryBase::removeFromPropIndices(GeoIntegralPropertyPtrConstArg value)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfPropIndices.erase(fieldIt);
     }
@@ -717,7 +721,7 @@ void GeometryBase::clearPropIndices(void)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -1119,9 +1123,15 @@ DataType FieldTraits<GeometryPtr>::_type("GeometryPtr", "MaterialDrawablePtr");
 
 OSG_FIELDTRAITS_GETTYPE(GeometryPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeometryPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    GeometryPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, GeometryPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         GeometryPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeometryPtr, 0);
 

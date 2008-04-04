@@ -87,7 +87,7 @@ void SimpleShadowMapEngineDataBase::setCamera(CameraPtrConstArg value)
 {
     editSField(CameraFieldMask);
 
-    setRefd(_sfCamera.getValue(), value);
+    _sfCamera.setValue(value);
 
 }
 
@@ -104,7 +104,7 @@ void SimpleShadowMapEngineDataBase::setTexChunk(TextureObjChunkPtrConstArg value
 {
     editSField(TexChunkFieldMask);
 
-    setRefd(_sfTexChunk.getValue(), value);
+    _sfTexChunk.setValue(value);
 
 }
 
@@ -121,7 +121,7 @@ void SimpleShadowMapEngineDataBase::setTexBuffer(TextureBufferPtrConstArg value)
 {
     editSField(TexBufferFieldMask);
 
-    setRefd(_sfTexBuffer.getValue(), value);
+    _sfTexBuffer.setValue(value);
 
 }
 
@@ -138,7 +138,7 @@ void SimpleShadowMapEngineDataBase::setLightChunk(LightChunkPtrConstArg value)
 {
     editSField(LightChunkFieldMask);
 
-    setRefd(_sfLightChunk.getValue(), value);
+    _sfLightChunk.setValue(value);
 
 }
 
@@ -155,7 +155,7 @@ void SimpleShadowMapEngineDataBase::setBlendChunk(BlendChunkPtrConstArg value)
 {
     editSField(BlendChunkFieldMask);
 
-    setRefd(_sfBlendChunk.getValue(), value);
+    _sfBlendChunk.setValue(value);
 
 }
 
@@ -172,7 +172,7 @@ void SimpleShadowMapEngineDataBase::setTexGenChunk(TexGenChunkPtrConstArg value)
 {
     editSField(TexGenChunkFieldMask);
 
-    setRefd(_sfTexGenChunk.getValue(), value);
+    _sfTexGenChunk.setValue(value);
 
 }
 
@@ -189,7 +189,7 @@ void SimpleShadowMapEngineDataBase::setPolyChunk(PolygonChunkPtrConstArg value)
 {
     editSField(PolyChunkFieldMask);
 
-    setRefd(_sfPolyChunk.getValue(), value);
+    _sfPolyChunk.setValue(value);
 
 }
 

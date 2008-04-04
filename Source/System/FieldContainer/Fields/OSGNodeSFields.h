@@ -50,7 +50,8 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef FieldContainerPtrSField<NodePtr> SFNodePtr;
+typedef FieldContainerPtrSField<NodePtr>                 SFNodePtr;
+typedef FieldContainerPtrSField<NodePtr, NoRefCounts, 1> SFUnrefdNodePtr;
 #endif
 
 

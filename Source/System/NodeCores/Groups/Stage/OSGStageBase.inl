@@ -87,7 +87,7 @@ void StageBase::setRenderTarget(FrameBufferObjectPtrConstArg value)
 {
     editSField(RenderTargetFieldMask);
 
-    setRefd(_sfRenderTarget.getValue(), value);
+    _sfRenderTarget.setValue(value);
 
 }
 //! Get the value of the Stage::_sfInheritedTarget field.

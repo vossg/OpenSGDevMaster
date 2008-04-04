@@ -605,9 +605,15 @@ DataType FieldTraits<StringAttributeMapPtr>::_type("StringAttributeMapPtr", "Fie
 
 OSG_FIELDTRAITS_GETTYPE(StringAttributeMapPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, StringAttributeMapPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    StringAttributeMapPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, StringAttributeMapPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         StringAttributeMapPtr, 
+                         RecordedRefCounts,
+                         0);
 
 
 OSG_END_NAMESPACE

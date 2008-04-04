@@ -113,7 +113,7 @@ ClusterServer::ClusterServer(           WindowPtr  window,
     _serverId(0),
     _interface("")
 {
-    addRef(_window);
+    addRefX(_window);
     char localhost[256];
 
     // default is hostname
@@ -138,6 +138,7 @@ ClusterServer::ClusterServer(           WindowPtr  window,
 
 ClusterServer::~ClusterServer(void)
 {
+    OSG::subRefX(_window);
     try
     {
         delete _connection;

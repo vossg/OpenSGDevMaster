@@ -186,7 +186,7 @@ void ChunkOverrideGroupBase::pushToChunks(StateChunkPtrConstArg value)
 
     editMField(ChunksFieldMask, _mfChunks);
 
-    addRef(value);
+    //addRef(value);
 
     _mfChunks.push_back(value);
 }
@@ -218,7 +218,7 @@ void ChunkOverrideGroupBase::insertIntoChunks(UInt32                uiIndex,
 
     MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -236,11 +236,13 @@ void ChunkOverrideGroupBase::replaceInChunks(UInt32                uiIndex,
 
     editMField(ChunksFieldMask, _mfChunks);
 
-    addRef(value);
 
-    subRef(_mfChunks[uiIndex]);
+//    addRef(value);
+//    subRef(_mfChunks[uiIndex]);
 
-    _mfChunks[uiIndex] = value;
+//    _mfChunks[uiIndex] = value;
+
+      _mfChunks.replace(uiIndex, value);
 }
 
 void ChunkOverrideGroupBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
@@ -255,14 +257,14 @@ void ChunkOverrideGroupBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+//        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfChunks.replace(elemIdx, pNewElem);
     }
 }
 
@@ -276,7 +278,7 @@ void ChunkOverrideGroupBase::removeFromChunks(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfChunks.erase(fieldIt);
     }
@@ -294,7 +296,7 @@ void ChunkOverrideGroupBase::removeFromChunks(StateChunkPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfChunks.erase(fieldIt);
     }
@@ -308,7 +310,7 @@ void ChunkOverrideGroupBase::clearChunks(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -500,9 +502,15 @@ DataType FieldTraits<ChunkOverrideGroupPtr>::_type("ChunkOverrideGroupPtr", "Gro
 
 OSG_FIELDTRAITS_GETTYPE(ChunkOverrideGroupPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ChunkOverrideGroupPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ChunkOverrideGroupPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ChunkOverrideGroupPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ChunkOverrideGroupPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ChunkOverrideGroupPtr, 0);
 

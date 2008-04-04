@@ -219,7 +219,7 @@ void SimpleStageBase::setCamera(CameraPtrConstArg value)
 {
     editSField(CameraFieldMask);
 
-    setRefd(_sfCamera.getValue(), value);
+    _sfCamera.setValue(value);
 
 }
 
@@ -236,7 +236,7 @@ void SimpleStageBase::setBackground(BackgroundPtrConstArg value)
 {
     editSField(BackgroundFieldMask);
 
-    setRefd(_sfBackground.getValue(), value);
+    _sfBackground.setValue(value);
 
 }
 

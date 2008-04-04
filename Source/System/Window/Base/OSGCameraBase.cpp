@@ -482,7 +482,7 @@ void CameraBase::setBeacon(NodePtrConstArg value)
 {
     editSField(BeaconFieldMask);
 
-    setRefd(_sfBeacon.getValue(), value);
+    _sfBeacon.setValue(value);
 }
 //! Get the value of the Camera::_sfNear field.
 
@@ -550,9 +550,15 @@ DataType FieldTraits<CameraPtr>::_type("CameraPtr", "AttachmentContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(CameraPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, CameraPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    CameraPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, CameraPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         CameraPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, CameraPtr, 0);
 

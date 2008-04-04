@@ -129,7 +129,7 @@ bool ChunkMaterial::addChunk(StateChunkPtr chunk, Int32 slot)
         _mfSlots.push_back(slot);
     }
    
-    addRef(chunk);
+    //addRef(chunk);
 
     return true;
 }
@@ -150,7 +150,7 @@ bool ChunkMaterial::subChunk(StateChunkPtr chunk, Int32 slot)
         {
             editMField(ChunksFieldMask, _mfChunks);
 
-            subRef(chunk);
+            //subRef(chunk);
 
             _mfChunks.erase(_mfChunks.begin() + i);
 
@@ -234,15 +234,15 @@ void ChunkMaterial::clearChunks(void)
     editMField(ChunksFieldMask, _mfChunks);
     editMField(SlotsFieldMask,  _mfSlots );
 
-    MFStateChunkPtr::iterator       fieldIt  = _mfChunks.begin();
-    MFStateChunkPtr::const_iterator fieldEnd = _mfChunks.end  ();
+//    MFStateChunkPtr::iterator       fieldIt  = _mfChunks.begin();
+//    MFStateChunkPtr::const_iterator fieldEnd = _mfChunks.end  ();
 
-    while(fieldIt != fieldEnd)
-    {
-        subRef(*fieldIt);
-
-        ++fieldIt;
-    }
+//    while(fieldIt != fieldEnd)
+//    {
+//        subRef(*fieldIt);
+//
+//        ++fieldIt;
+//    }
 
     _mfChunks.clear();
     _mfSlots .clear();
@@ -340,7 +340,7 @@ void ChunkMaterial::rebuildState(void)
 
         _pState->setDefaultSortKey(getContainerId(this));
 
-        addRef(_pState);
+        addRefX(_pState);
     }
 
     addChunks(_pState);

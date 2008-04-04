@@ -284,7 +284,8 @@ void Geometry::setMaterial(const MaterialPtr &value)
 {
     editSField(MaterialFieldMask);
 
-    setRefd(_sfMaterial.getValue(), value);
+//    setRefd(_sfMaterial.getValue(), value);
+    _sfMaterial.setValue(value);
 }
 
 

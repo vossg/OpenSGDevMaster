@@ -220,7 +220,7 @@ void ContainerPoolBase::pushToContainers(FieldContainerPtrConstArg value)
 
     editMField(ContainersFieldMask, _mfContainers);
 
-    addRef(value);
+    //addRef(value);
 
     _mfContainers.push_back(value);
 }
@@ -252,7 +252,7 @@ void ContainerPoolBase::insertIntoContainers(UInt32                uiIndex,
 
     MFFieldContainerPtr::iterator fieldIt = _mfContainers.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -270,11 +270,13 @@ void ContainerPoolBase::replaceInContainers(UInt32                uiIndex,
 
     editMField(ContainersFieldMask, _mfContainers);
 
-    addRef(value);
 
-    subRef(_mfContainers[uiIndex]);
+//    addRef(value);
+//    subRef(_mfContainers[uiIndex]);
 
-    _mfContainers[uiIndex] = value;
+//    _mfContainers[uiIndex] = value;
+
+      _mfContainers.replace(uiIndex, value);
 }
 
 void ContainerPoolBase::replaceInContainers(FieldContainerPtrConstArg pOldElem,
@@ -289,14 +291,14 @@ void ContainerPoolBase::replaceInContainers(FieldContainerPtrConstArg pOldElem,
     {
         editMField(ContainersFieldMask, _mfContainers);
 
-        MFFieldContainerPtr::iterator fieldIt = _mfContainers.begin();
+//        MFFieldContainerPtr::iterator fieldIt = _mfContainers.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfContainers.replace(elemIdx, pNewElem);
     }
 }
 
@@ -310,7 +312,7 @@ void ContainerPoolBase::removeFromContainers(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfContainers.erase(fieldIt);
     }
@@ -328,7 +330,7 @@ void ContainerPoolBase::removeFromContainers(FieldContainerPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfContainers.erase(fieldIt);
     }
@@ -342,7 +344,7 @@ void ContainerPoolBase::clearContainers(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -570,9 +572,15 @@ DataType FieldTraits<ContainerPoolPtr>::_type("ContainerPoolPtr", "FieldContaine
 
 OSG_FIELDTRAITS_GETTYPE(ContainerPoolPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ContainerPoolPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ContainerPoolPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ContainerPoolPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ContainerPoolPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ContainerPoolPtr, 0);
 

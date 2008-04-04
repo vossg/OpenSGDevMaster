@@ -96,9 +96,9 @@ void SimpleTexturedMaterial::initMethod(InitPhase ePhase)
 
 void SimpleTexturedMaterial::resolveLinks(void)
 {
-    subRefLocalVar(_textureChunk);
-    subRefLocalVar(_texGenChunk );
-    subRefLocalVar(_texEnvChunk );
+    subRefLocalVarX(_textureChunk);
+    subRefLocalVarX(_texGenChunk );
+    subRefLocalVarX(_texEnvChunk );
 }
 
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)
@@ -228,21 +228,21 @@ void SimpleTexturedMaterial::prepareLocalChunks(void)
     {
         _textureChunk = TextureObjChunk::create();
 
-         addRef(_textureChunk);
+         addRefX(_textureChunk);
     }
 
     if(_texGenChunk == NullFC)
     {
         _texGenChunk  = TexGenChunk::create();
 
-        addRef(_texGenChunk);
+        addRefX(_texGenChunk);
     }
 
     if(_texEnvChunk == NullFC)
     {
         _texEnvChunk  = TextureEnvChunk::create();
 
-        addRef(_texEnvChunk);
+        addRefX(_texEnvChunk);
     }
 }
 

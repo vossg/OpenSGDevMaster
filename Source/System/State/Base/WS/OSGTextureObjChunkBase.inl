@@ -93,7 +93,7 @@ void TextureObjChunkBase::setImage(ImagePtrConstArg value)
         _sfImage.getValue()->subParent(this);
     }
 
-    setRefd(_sfImage.getValue(), value);
+    _sfImage.setValue(value);
 
     if(_sfImage.getValue() != NullFC)
     {

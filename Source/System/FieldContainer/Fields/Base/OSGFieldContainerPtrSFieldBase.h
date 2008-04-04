@@ -157,8 +157,10 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrSFieldBase : public Field
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
+#if 0
     void setValue           (      ArgumentType  value);
     void setValue           (const Self         &obj  );
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

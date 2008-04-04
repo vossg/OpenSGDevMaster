@@ -343,9 +343,15 @@ DataType FieldTraits<ShaderParameterRealPtr>::_type("ShaderParameterRealPtr", "S
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterRealPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ShaderParameterRealPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ShaderParameterRealPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ShaderParameterRealPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ShaderParameterRealPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ShaderParameterRealPtr, 0);
 

@@ -1821,6 +1821,7 @@ void OSG::Window::resizeGL( void )
 
 /*-------------------------- assignment -----------------------------------*/
 
+#if 0 // This is wrong, the vp parents are not setup correctly
 /*! Assignment
 */
 
@@ -1848,7 +1849,7 @@ OSG::Window& OSG::Window::operator = (const OSG::Window &source)
     
     return *this;
 }
-
+#endif
 
 /*------------------------------- dump ----------------------------------*/
 

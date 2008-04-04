@@ -153,7 +153,7 @@ void ClipPlaneChunkBase::setBeacon(NodePtrConstArg value)
 {
     editSField(BeaconFieldMask);
 
-    setRefd(_sfBeacon.getValue(), value);
+    _sfBeacon.setValue(value);
 
 }
 

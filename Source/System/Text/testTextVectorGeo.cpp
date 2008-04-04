@@ -589,7 +589,7 @@ int main(int argc, char **argv)
             texture[3 * (j + (i << 8)) + 2] = baseLum;
         }
     imPtr = Image::create();
-    addRef(imPtr);
+    addRefX(imPtr);
     //imPtr->read(argv[2]);
     imPtr->set(Image::OSG_RGB_PF,
                 256, 256,
@@ -597,7 +597,7 @@ int main(int argc, char **argv)
                 texture, Image::OSG_UINT8_IMAGEDATA,true);
     delete [] texture;
     matPtr = SimpleTexturedMaterial::create();
-    addRef(matPtr);
+    addRefX(matPtr);
     matPtr->setAmbient      (Color3f(0.2, 0.2, 0.2));
     matPtr->setDiffuse      (Color3f(1.0, 1.0, 1.0));
     matPtr->setEmission     (Color3f(0.2, 0.2, 0.2));

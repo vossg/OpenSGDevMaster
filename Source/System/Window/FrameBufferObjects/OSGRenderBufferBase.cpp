@@ -434,9 +434,15 @@ DataType FieldTraits<RenderBufferPtr>::_type("RenderBufferPtr", "FrameBufferAtta
 
 OSG_FIELDTRAITS_GETTYPE(RenderBufferPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, RenderBufferPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    RenderBufferPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, RenderBufferPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         RenderBufferPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, RenderBufferPtr, 0);
 

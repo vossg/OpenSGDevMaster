@@ -210,9 +210,15 @@ DataType FieldTraits<AlgorithmPtr>::_type("AlgorithmPtr", "FieldContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(AlgorithmPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, AlgorithmPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    AlgorithmPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, AlgorithmPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         AlgorithmPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, AlgorithmPtr, 0);
 

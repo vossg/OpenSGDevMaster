@@ -302,9 +302,15 @@ DataType FieldTraits<MaterialDrawablePtr>::_type("MaterialDrawablePtr", "Drawabl
 
 OSG_FIELDTRAITS_GETTYPE(MaterialDrawablePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MaterialDrawablePtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    MaterialDrawablePtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MaterialDrawablePtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         MaterialDrawablePtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MaterialDrawablePtr, 0);
 

@@ -242,10 +242,10 @@ SimpleSceneManager::~SimpleSceneManager(void)
     setRoot(NullFC); // sub root
 
     if(_internalRoot != NullFC)
-        subRef(_internalRoot);
+        subRefX(_internalRoot);
 
     if(_camera != NullFC)
-        subRef(_camera);
+        subRefX(_camera);
 }
 
 
@@ -470,8 +470,8 @@ void SimpleSceneManager::setCamera(CameraPtr camera)
     }
 
     // destroy old camera.
-    addRef( camera);
-    subRef(_camera);
+    addRefX( camera);
+    subRefX(_camera);
 
     _camera = camera;
 }
@@ -554,7 +554,7 @@ void SimpleSceneManager::initialize(void)
     _internalRoot = Node::create();
     _headlight    = DirectionalLight::create();
 
-    addRef(_internalRoot);
+    addRefX(_internalRoot);
 
     _internalRoot->setCore(_headlight);
     _internalRoot->addChild(cartN);
@@ -569,7 +569,7 @@ void SimpleSceneManager::initialize(void)
     // the camera
     _camera = PerspectiveCamera::create();
 
-    addRef(_camera);
+    addRefX(_camera);
 
     _camera->setBeacon(cartN);
     static_cast<PerspectiveCameraPtr>(_camera)->setFov(osgDegree2Rad(60.f));
@@ -683,7 +683,7 @@ void SimpleSceneManager::initialize(void)
 #endif
 
         _statforeground = sf;
-        addRef(_statforeground);
+        addRefX(_statforeground);
 
         ViewportPtr vp = Viewport::create();
 
@@ -879,11 +879,11 @@ void SimpleSceneManager::highlightChanged(void)
         geo->setIndices   (index);
         geo->setPositions (_highlightPoints);
         geo->setMaterial  (_highlightMaterial);
-        addRef(geo);
+        addRefX(geo);
 
         _highlightNode = Node::create();
         _highlightNode->setCore(geo);
-        addRef(_highlightNode);
+        addRefX(_highlightNode);
     }
 
     // attach the hightlight node to the root if the highlight is active

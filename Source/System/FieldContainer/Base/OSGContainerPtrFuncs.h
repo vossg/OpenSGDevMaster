@@ -202,7 +202,7 @@ void endEditCP(const PtrT      objectP,
 
 template <class StoreT, class SourceT> inline
 void setRefdCPX(StoreT  &pTarget,
-               SourceT  pSource)
+                SourceT  pSource)
 {
     setRefdX(pTarget, pSource);
 }

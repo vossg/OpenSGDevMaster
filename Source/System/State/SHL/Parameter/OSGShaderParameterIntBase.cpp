@@ -343,9 +343,15 @@ DataType FieldTraits<ShaderParameterIntPtr>::_type("ShaderParameterIntPtr", "Sha
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterIntPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ShaderParameterIntPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ShaderParameterIntPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ShaderParameterIntPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ShaderParameterIntPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ShaderParameterIntPtr, 0);
 

@@ -247,9 +247,9 @@ VRMLNodeHelper::VRMLNodeHelper(void) :
 
 VRMLNodeHelper::~VRMLNodeHelper(void)
 {
-    subRef(_pNodeProto    );
-    subRef(_pNodeCoreProto);
-    subRef(_pGenAttProto  );
+    subRefX(_pNodeProto    );
+    subRefX(_pNodeCoreProto);
+    subRefX(_pGenAttProto  );
 }
 
 /*-------------------------------------------------------------------------*/
@@ -314,7 +314,7 @@ FieldContainerPtr VRMLNodeHelper::beginNode(
                 }
                 else
                 {
-                    subRef(pAttClone);
+                    subRefX(pAttClone);
                 }
             }
         }
@@ -909,9 +909,9 @@ void VRMLDefaultHelper::init(const Char8 *szName)
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
 
-    addRef(_pNodeProto    );
-    addRef(_pNodeCoreProto);
-    addRef(_pGenAttProto  );
+    addRefX(_pNodeProto    );
+    addRefX(_pNodeCoreProto);
+    addRefX(_pGenAttProto  );
 }
 
 
@@ -973,9 +973,9 @@ void VRMLGroupHelper::init(const Char8 *szName)
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
 
-    addRef(_pNodeProto    );
-    addRef(_pNodeCoreProto);
-    addRef(_pGenAttProto  );
+    addRefX(_pNodeProto    );
+    addRefX(_pNodeCoreProto);
+    addRefX(_pGenAttProto  );
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1087,9 +1087,9 @@ void VRMLTransformHelper::init(const Char8 *szName)
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
 
-    addRef(_pNodeProto    );
-    addRef(_pNodeCoreProto);
-    addRef(_pGenAttProto  );
+    addRefX(_pNodeProto    );
+    addRefX(_pNodeCoreProto);
+    addRefX(_pGenAttProto  );
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1197,7 +1197,7 @@ VRMLMaterialHelper::VRMLMaterialHelper(void) :
 
 VRMLMaterialHelper::~VRMLMaterialHelper(void)
 {
-    subRef(_pDefMat);
+    subRefX(_pDefMat);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1293,7 +1293,7 @@ void VRMLMaterialHelper::endProtoInterface(void)
                        1.f - _defaultTransparency    .getValue());
 
     _pDefMat = ChunkMaterial::create();
-    addRef(_pDefMat);
+    addRefX(_pDefMat);
 
     pMatChunk = MaterialChunk::create();
 
@@ -1548,9 +1548,9 @@ void VRMLShapeHelper::init(const Char8 *szName)
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
 
-    addRef(_pNodeProto    );
-    addRef(_pNodeCoreProto);
-    addRef(_pGenAttProto  );
+    addRefX(_pNodeProto    );
+    addRefX(_pNodeCoreProto);
+    addRefX(_pGenAttProto  );
 }
 
 void VRMLShapeHelper::setMaterialHelper(VRMLMaterialHelper *pMaterialHelper)
@@ -1810,8 +1810,8 @@ void VRMLAppearanceHelper::init(const Char8 *szName)
     _pGenAttProto  = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
 
-    addRef(_pNodeProto    );
-    addRef(_pGenAttProto  );
+    addRefX(_pNodeProto    );
+    addRefX(_pGenAttProto  );
 }
 
 void VRMLAppearanceHelper::setMaterialHelper(
@@ -2078,9 +2078,9 @@ void VRMLIndexedGeometryHelper::init(const Char8 *szName)
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
 
-    addRef(_pNodeProto    );
-    addRef(_pNodeCoreProto);
-    addRef(_pGenAttProto  );
+    addRefX(_pNodeProto    );
+    addRefX(_pNodeCoreProto);
+    addRefX(_pGenAttProto  );
 
     if(osgStringCaseCmp("IndexedFaceSet", szName) == 0)
     {
@@ -2706,8 +2706,8 @@ void VRMLGeometryPartHelper::init(const Char8 *szName)
     _pGenAttProto = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
 
-    addRef(_pNodeProto    );
-    addRef(_pGenAttProto  );
+    addRefX(_pNodeProto    );
+    addRefX(_pGenAttProto  );
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2909,8 +2909,8 @@ void VRMLGeometryObjectHelper::init(const Char8 *szName)
     _pGenAttProto = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
 
-    addRef(_pNodeProto    );
-    addRef(_pGenAttProto  );
+    addRefX(_pNodeProto    );
+    addRefX(_pGenAttProto  );
 }
 
 /*-------------------------------------------------------------------------*/

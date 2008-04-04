@@ -593,9 +593,15 @@ DataType FieldTraits<CameraDecoratorPtr>::_type("CameraDecoratorPtr", "CameraPtr
 
 OSG_FIELDTRAITS_GETTYPE(CameraDecoratorPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, CameraDecoratorPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    CameraDecoratorPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, CameraDecoratorPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         CameraDecoratorPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, CameraDecoratorPtr, 0);
 

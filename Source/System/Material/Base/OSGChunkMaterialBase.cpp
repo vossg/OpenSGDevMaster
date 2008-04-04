@@ -243,7 +243,7 @@ void ChunkMaterialBase::pushToChunks(StateChunkPtrConstArg value)
 
     editMField(ChunksFieldMask, _mfChunks);
 
-    addRef(value);
+    //addRef(value);
 
     _mfChunks.push_back(value);
 }
@@ -275,7 +275,7 @@ void ChunkMaterialBase::insertIntoChunks(UInt32                uiIndex,
 
     MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -293,11 +293,13 @@ void ChunkMaterialBase::replaceInChunks(UInt32                uiIndex,
 
     editMField(ChunksFieldMask, _mfChunks);
 
-    addRef(value);
 
-    subRef(_mfChunks[uiIndex]);
+//    addRef(value);
+//    subRef(_mfChunks[uiIndex]);
 
-    _mfChunks[uiIndex] = value;
+//    _mfChunks[uiIndex] = value;
+
+      _mfChunks.replace(uiIndex, value);
 }
 
 void ChunkMaterialBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
@@ -312,14 +314,14 @@ void ChunkMaterialBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+//        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfChunks.replace(elemIdx, pNewElem);
     }
 }
 
@@ -333,7 +335,7 @@ void ChunkMaterialBase::removeFromChunks(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfChunks.erase(fieldIt);
     }
@@ -351,7 +353,7 @@ void ChunkMaterialBase::removeFromChunks(StateChunkPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfChunks.erase(fieldIt);
     }
@@ -365,7 +367,7 @@ void ChunkMaterialBase::clearChunks(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -684,9 +686,15 @@ DataType FieldTraits<ChunkMaterialPtr>::_type("ChunkMaterialPtr", "MaterialPtr")
 
 OSG_FIELDTRAITS_GETTYPE(ChunkMaterialPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ChunkMaterialPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ChunkMaterialPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ChunkMaterialPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ChunkMaterialPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ChunkMaterialPtr, 0);
 

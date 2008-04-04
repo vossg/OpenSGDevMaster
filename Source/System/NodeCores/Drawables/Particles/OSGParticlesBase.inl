@@ -126,7 +126,7 @@ void ParticlesBase::setPositions(GeoVectorPropertyPtrConstArg value)
         _sfPositions.getValue()->subParent(this);
     }
 
-    setRefd(_sfPositions.getValue(), value);
+    _sfPositions.setValue(value);
 
     if(_sfPositions.getValue() != NullFC)
     {
@@ -154,7 +154,7 @@ void ParticlesBase::setSecPositions(GeoVectorPropertyPtrConstArg value)
         _sfSecPositions.getValue()->subParent(this);
     }
 
-    setRefd(_sfSecPositions.getValue(), value);
+    _sfSecPositions.setValue(value);
 
     if(_sfSecPositions.getValue() != NullFC)
     {
@@ -182,7 +182,7 @@ void ParticlesBase::setColors(GeoVectorPropertyPtrConstArg value)
         _sfColors.getValue()->subParent(this);
     }
 
-    setRefd(_sfColors.getValue(), value);
+    _sfColors.setValue(value);
 
     if(_sfColors.getValue() != NullFC)
     {
@@ -210,7 +210,7 @@ void ParticlesBase::setNormals(GeoVectorPropertyPtrConstArg value)
         _sfNormals.getValue()->subParent(this);
     }
 
-    setRefd(_sfNormals.getValue(), value);
+    _sfNormals.setValue(value);
 
     if(_sfNormals.getValue() != NullFC)
     {

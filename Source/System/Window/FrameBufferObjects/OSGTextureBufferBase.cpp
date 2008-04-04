@@ -598,9 +598,15 @@ DataType FieldTraits<TextureBufferPtr>::_type("TextureBufferPtr", "FrameBufferAt
 
 OSG_FIELDTRAITS_GETTYPE(TextureBufferPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TextureBufferPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    TextureBufferPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TextureBufferPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         TextureBufferPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TextureBufferPtr, 0);
 

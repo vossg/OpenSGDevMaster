@@ -38,10 +38,14 @@
 
 OSG_BEGIN_NAMESPACE
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
-FieldDescription<DescT, eFieldCard, eFieldClass>::FieldDescription(
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
+FieldDescription<DescT, 
+                 eFieldCard, 
+                 RefCountPolicy, 
+                 eFieldClass   >::FieldDescription(
     const FieldType       &elementType,
     const Char8           *szName,
           std::string      documentation,
@@ -66,10 +70,14 @@ FieldDescription<DescT, eFieldCard, eFieldClass>::FieldDescription(
 {
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
-FieldDescription<DescT, eFieldCard, eFieldClass>::FieldDescription(
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
+FieldDescription<DescT, 
+                 eFieldCard, 
+                 RefCountPolicy, 
+                 eFieldClass   >::FieldDescription(
     const FieldType            &elementType,
     const Char8                *szName,
     std::string                 documentation,
@@ -94,80 +102,110 @@ FieldDescription<DescT, eFieldCard, eFieldClass>::FieldDescription(
 {
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
-FieldDescription<DescT, eFieldCard, eFieldClass>::FieldDescription(
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
+FieldDescription<DescT, 
+                 eFieldCard, 
+                 RefCountPolicy, 
+                 eFieldClass   >::FieldDescription(
     const FieldDescription &source) :
 
     Inherited(source)
 {
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
-FieldDescription<DescT, eFieldCard, eFieldClass>::~FieldDescription(void)
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
+FieldDescription<DescT, 
+                 eFieldCard, 
+                 RefCountPolicy, 
+                 eFieldClass   >::~FieldDescription(void)
 {
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
-const typename FieldDescription<DescT, eFieldCard, eFieldClass>::HandledField *
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
+const typename FieldDescription<DescT, 
+                                eFieldCard, 
+                                RefCountPolicy, 
+                                eFieldClass   >::HandledField *
     FieldDescription<DescT, 
-                     eFieldCard, 
-                     eFieldClass>::dcast_const(const Field *pField) const
+                     eFieldCard,  
+                     RefCountPolicy,
+                     eFieldClass   >::dcast_const(const Field *pField) const
 {
     return static_cast<const HandledField *>(pField);
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
-typename FieldDescription<DescT, eFieldCard, eFieldClass>::HandledField *
-    FieldDescription<DescT, eFieldCard, eFieldClass>::dcast(Field *pField) const
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
+typename FieldDescription<DescT, 
+                          eFieldCard, 
+                          RefCountPolicy, 
+                          eFieldClass   >::HandledField *
+    FieldDescription<DescT, 
+                     eFieldCard, 
+                     RefCountPolicy, 
+                     eFieldClass   >::dcast(Field *pField) const
 {
     return static_cast<HandledField *>(pField);
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
-Field *FieldDescription<DescT, eFieldCard, eFieldClass>::createField(void) const
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
+Field *FieldDescription<DescT, 
+                        eFieldCard, 
+                        RefCountPolicy, 
+                        eFieldClass   >::createField(void) const
 {
     return new HandledField();
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
 void FieldDescription<DescT, 
-                      eFieldCard, 
-                      eFieldClass>::destroyField(Field *pField) const
+                      eFieldCard,  
+                      RefCountPolicy,
+                      eFieldClass   >::destroyField(Field *pField) const
 {
     HandledField *pDelField = dcast(pField);
 
     delete pDelField;
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
 FieldDescriptionBase *FieldDescription<DescT, 
-                                       eFieldCard, 
-                                       eFieldClass>::clone(void) const
+                                       eFieldCard,  
+                                       RefCountPolicy,
+                                       eFieldClass   >::clone(void) const
 {
     return new Self(*this);
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
 GetFieldHandlePtr 
     FieldDescription<DescT, 
-                     eFieldCard, 
-                     eFieldClass>::createGetHandler(const Field *pField)
+                     eFieldCard,  
+                     RefCountPolicy,
+                     eFieldClass   >::createGetHandler(const Field *pField)
 {
     const HandledField *pTypedField = dcast_const(pField);
 
@@ -176,13 +214,15 @@ GetFieldHandlePtr
     return returnValue;
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
 EditFieldHandlePtr 
     FieldDescription<DescT, 
-                     eFieldCard, 
-                     eFieldClass>::createEditHandler(Field *pField)
+                     eFieldCard,  
+                     RefCountPolicy,
+                     eFieldClass   >::createEditHandler(Field *pField)
 {
     HandledField *pTypedField = dcast(pField);
 
@@ -192,24 +232,28 @@ EditFieldHandlePtr
 }
 
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
 void FieldDescription<DescT,
-                     eFieldCard,
-                     eFieldClass>::SFieldFunctions::beginEdit(
+                     eFieldCard, 
+                     RefCountPolicy,
+                     eFieldClass   >::SFieldFunctions::beginEdit(
                           HandledField       *,
                           UInt32              ,
                           AspectOffsetStore  &)
 {
 }
 
-template<class DescT,
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
+template<class    DescT,
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
 void FieldDescription<DescT,
-                      eFieldCard,
-                      eFieldClass>::MFieldFunctions::beginEdit(
+                      eFieldCard, 
+                      RefCountPolicy,
+                      eFieldClass   >::MFieldFunctions::beginEdit(
                           HandledField       *pField,
                           UInt32              uiAspect,
                           AspectOffsetStore  &oOffsets)
@@ -218,23 +262,27 @@ void FieldDescription<DescT,
 }
 
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
 bool FieldDescription<DescT,
-                      eFieldCard, 
-                      eFieldClass>::SFieldFunctions::isShared(
+                      eFieldCard,
+                      RefCountPolicy,
+                      eFieldClass   >::SFieldFunctions::isShared(
                           HandledField *)
 {
     return false;
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
 bool FieldDescription<DescT,
-                      eFieldCard, 
-                      eFieldClass>::MFieldFunctions::isShared(
+                      eFieldCard,  
+                      RefCountPolicy,
+                      eFieldClass   >::MFieldFunctions::isShared(
                           HandledField *pField)
 {
     return pField->isShared();
@@ -242,26 +290,30 @@ bool FieldDescription<DescT,
 
 
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
 void FieldDescription<DescT,
-                      eFieldCard,
-                      eFieldClass>::beginEdit(Field              *pField,
-                                              UInt32              uiAspect,
-                                              AspectOffsetStore  &oOffsets)
+                      eFieldCard, 
+                      RefCountPolicy,
+                      eFieldClass   >::beginEdit(Field              *pField,
+                                                 UInt32              uiAspect,
+                                                 AspectOffsetStore  &oOffsets)
 {
     HandledField *pTypedField = dcast(pField);
     
     FieldFunctions::beginEdit(pTypedField, uiAspect, oOffsets);
 }
 
-template<class DescT, 
-         enum  FieldCardinality eFieldCard, 
-         enum  FieldClass       eFieldClass> inline
+template<class    DescT, 
+         enum     FieldCardinality eFieldCard, 
+         typename RefCountPolicy,
+         enum     FieldClass       eFieldClass> inline
 bool FieldDescription<DescT,
-                      eFieldCard,
-                      eFieldClass>::isShared(Field *pField)
+                      eFieldCard, 
+                      RefCountPolicy,
+                      eFieldClass   >::isShared(Field *pField)
 {
     HandledField *pTypedField = dcast(pField);
     

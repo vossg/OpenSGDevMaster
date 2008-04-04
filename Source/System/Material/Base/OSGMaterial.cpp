@@ -106,7 +106,7 @@ void Material::initMethod(InitPhase ePhase)
 
 void Material::resolveLinks(void)
 {
-    subRefLocalVar(_pState);
+    subRefLocalVarX(_pState);
 }
 
 /***************************************************************************\
@@ -240,7 +240,7 @@ MaterialPtr getDefaultMaterial(void)
 		_defaultMaterial->setSpecular (Color3r(1.f,1.f,1.f));
         _defaultMaterial->setShininess(20.f);
 
-        addRef(_defaultMaterial);
+        addRefX(_defaultMaterial);
 
         addPreFactoryExitFunction(subRefDefaultMaterial);
 
@@ -269,7 +269,7 @@ MaterialPtr getDefaultUnlitMaterial(void)
 		_defaultUnlitMaterial->setDiffuse(Color3r(1.f,1.f,.5f));
         _defaultUnlitMaterial->setLit(false);
 
-        addRef(_defaultUnlitMaterial);
+        addRefX(_defaultUnlitMaterial);
 
         addPreFactoryExitFunction(subRefDefaultUnlitMaterial);
 
@@ -281,14 +281,14 @@ MaterialPtr getDefaultUnlitMaterial(void)
 
 bool subRefDefaultMaterial     (void)
 {
-    subRef(_defaultMaterial);
+    subRefX(_defaultMaterial);
 
     return true;
 }
 
 bool subRefDefaultUnlitMaterial(void)
 {
-    subRef(_defaultUnlitMaterial);
+    subRefX(_defaultUnlitMaterial);
 
     return true;
 }

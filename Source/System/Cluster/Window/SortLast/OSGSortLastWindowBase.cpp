@@ -264,7 +264,7 @@ void SortLastWindowBase::pushToGroupNodes(NodePtrConstArg value)
 
     editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-    addRef(value);
+    //addRef(value);
 
     _mfGroupNodes.push_back(value);
 }
@@ -296,7 +296,7 @@ void SortLastWindowBase::insertIntoGroupNodes(UInt32                uiIndex,
 
     MFNodePtr::iterator fieldIt = _mfGroupNodes.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -314,11 +314,13 @@ void SortLastWindowBase::replaceInGroupNodes(UInt32                uiIndex,
 
     editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-    addRef(value);
 
-    subRef(_mfGroupNodes[uiIndex]);
+//    addRef(value);
+//    subRef(_mfGroupNodes[uiIndex]);
 
-    _mfGroupNodes[uiIndex] = value;
+//    _mfGroupNodes[uiIndex] = value;
+
+      _mfGroupNodes.replace(uiIndex, value);
 }
 
 void SortLastWindowBase::replaceInGroupNodes(NodePtrConstArg pOldElem,
@@ -333,14 +335,14 @@ void SortLastWindowBase::replaceInGroupNodes(NodePtrConstArg pOldElem,
     {
         editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-        MFNodePtr::iterator fieldIt = _mfGroupNodes.begin();
+//        MFNodePtr::iterator fieldIt = _mfGroupNodes.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfGroupNodes.replace(elemIdx, pNewElem);
     }
 }
 
@@ -354,7 +356,7 @@ void SortLastWindowBase::removeFromGroupNodes(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfGroupNodes.erase(fieldIt);
     }
@@ -372,7 +374,7 @@ void SortLastWindowBase::removeFromGroupNodes(NodePtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfGroupNodes.erase(fieldIt);
     }
@@ -386,7 +388,7 @@ void SortLastWindowBase::clearGroupNodes(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }

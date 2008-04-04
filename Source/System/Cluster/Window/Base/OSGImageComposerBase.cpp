@@ -382,9 +382,15 @@ DataType FieldTraits<ImageComposerPtr>::_type("ImageComposerPtr", "AttachmentCon
 
 OSG_FIELDTRAITS_GETTYPE(ImageComposerPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ImageComposerPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ImageComposerPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ImageComposerPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ImageComposerPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ImageComposerPtr, 0);
 

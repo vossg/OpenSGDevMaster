@@ -437,9 +437,15 @@ DataType FieldTraits<SolidBackgroundPtr>::_type("SolidBackgroundPtr", "Backgroun
 
 OSG_FIELDTRAITS_GETTYPE(SolidBackgroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, SolidBackgroundPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    SolidBackgroundPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, SolidBackgroundPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         SolidBackgroundPtr, 
+                         RecordedRefCounts,
+                         0);
 
 
 OSG_END_NAMESPACE

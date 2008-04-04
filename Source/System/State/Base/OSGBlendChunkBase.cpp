@@ -966,9 +966,15 @@ DataType FieldTraits<BlendChunkPtr>::_type("BlendChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(BlendChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, BlendChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    BlendChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, BlendChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         BlendChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, BlendChunkPtr, 0);
 

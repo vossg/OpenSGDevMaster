@@ -395,9 +395,15 @@ DataType FieldTraits<StereoCameraDecoratorPtr>::_type("StereoCameraDecoratorPtr"
 
 OSG_FIELDTRAITS_GETTYPE(StereoCameraDecoratorPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, StereoCameraDecoratorPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    StereoCameraDecoratorPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, StereoCameraDecoratorPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         StereoCameraDecoratorPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, StereoCameraDecoratorPtr, 0);
 

@@ -588,9 +588,15 @@ DataType FieldTraits<ColorMaskChunkPtr>::_type("ColorMaskChunkPtr", "StateChunkP
 
 OSG_FIELDTRAITS_GETTYPE(ColorMaskChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ColorMaskChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ColorMaskChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ColorMaskChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ColorMaskChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ColorMaskChunkPtr, 0);
 

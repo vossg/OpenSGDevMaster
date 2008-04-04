@@ -1111,9 +1111,15 @@ DataType FieldTraits<PointChunkPtr>::_type("PointChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(PointChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, PointChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    PointChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, PointChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         PointChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, PointChunkPtr, 0);
 

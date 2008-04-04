@@ -175,7 +175,7 @@ bool createComposedImage ( std::vector<ImagePtr> imageVec,
     }
   }
 
-  OSG::subRef(copy);
+  OSG::subRefX(copy);
 
   imageVec[0]->dump();
   image->dump();
@@ -509,7 +509,7 @@ bool createNormalVolume ( ImagePtr inImage,
   }
 
   if (copy != NullFC)
-      OSG::subRef(copy);
+      OSG::subRefX(copy);
 
   return true;
 }

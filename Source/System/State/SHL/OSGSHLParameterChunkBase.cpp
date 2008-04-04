@@ -346,9 +346,15 @@ DataType FieldTraits<SHLParameterChunkPtr>::_type("SHLParameterChunkPtr", "Shade
 
 OSG_FIELDTRAITS_GETTYPE(SHLParameterChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, SHLParameterChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    SHLParameterChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, SHLParameterChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         SHLParameterChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, SHLParameterChunkPtr, 0);
 

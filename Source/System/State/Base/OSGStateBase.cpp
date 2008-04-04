@@ -189,7 +189,7 @@ void StateBase::pushToChunks(StateChunkPtrConstArg value)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    addRef(value);
+    //addRef(value);
 
     _mfChunks.push_back(value);
 
@@ -221,7 +221,7 @@ void StateBase::insertIntoChunks(UInt32                uiIndex,
 
     MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -239,11 +239,13 @@ void StateBase::replaceInChunks(UInt32                uiIndex,
 
     editMField(ChunksFieldMask, _mfChunks);
 
-    addRef(value);
 
-    subRef(_mfChunks[uiIndex]);
+//    addRef(value);
+//    subRef(_mfChunks[uiIndex]);
 
-    _mfChunks[uiIndex] = value;
+//    _mfChunks[uiIndex] = value;
+
+      _mfChunks.replace(uiIndex, value);
 
     if(value == NullFC)
         return;
@@ -258,14 +260,14 @@ void StateBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+//        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfChunks.replace(elemIdx, pNewElem);
     }
 }
 
@@ -279,9 +281,10 @@ void StateBase::removeFromChunks(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
-        *fieldIt = NullFC;
+        //*fieldIt = NullFC;
+        _mfChunks.replace(uiIndex, NullFC);
     }
 }
 
@@ -297,9 +300,10 @@ void StateBase::removeFromChunks(StateChunkPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
-        *fieldIt = NullFC;
+        //*fieldIt = NullFC;
+        _mfChunks.replace(iElemIdx, NullFC);
     }
 }
 void StateBase::clearChunks(void)
@@ -311,9 +315,9 @@ void StateBase::clearChunks(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
-        *fieldIt = NullFC;
+        //*fieldIt = NullFC;
 
         ++fieldIt;
     }
@@ -505,9 +509,15 @@ DataType FieldTraits<StatePtr>::_type("StatePtr", "FieldContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(StatePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, StatePtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    StatePtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, StatePtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         StatePtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, StatePtr, 0);
 

@@ -505,9 +505,15 @@ DataType FieldTraits<WIN32WindowPtr>::_type("WIN32WindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(WIN32WindowPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, WIN32WindowPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    WIN32WindowPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, WIN32WindowPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         WIN32WindowPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, WIN32WindowPtr, 0);
 

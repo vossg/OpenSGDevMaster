@@ -87,7 +87,7 @@ void TextureGrabBackgroundBase::setTexture(TextureObjChunkPtrConstArg value)
 {
     editSField(TextureFieldMask);
 
-    setRefd(_sfTexture.getValue(), value);
+    _sfTexture.setValue(value);
 
 }
 //! Get the value of the TextureGrabBackground::_sfAutoResize field.

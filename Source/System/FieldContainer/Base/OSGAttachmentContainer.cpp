@@ -243,7 +243,7 @@ void AttachmentContainer::addAttachment(
 
     key = (UInt32 (pAttachment->getGroupId()) << 16) | binding;
 
-    addRef(pAttachment);
+    addRefX(pAttachment);
 
     pAttachment->addParent(this);
 
@@ -255,7 +255,7 @@ void AttachmentContainer::addAttachment(
     {
         (*fcI).second->subParent(this);
 
-        subRef((*fcI).second);
+        subRefX((*fcI).second);
 
         (*fcI).second = pAttachment;
     }
@@ -297,7 +297,7 @@ void AttachmentContainer::subAttachment(
     {
         (*fcI).second->subParent(this);
 
-        subRef((*fcI).second);
+        subRefX((*fcI).second);
 
         _sfAttachments.getValue().erase(fcI);
     }
@@ -356,7 +356,7 @@ void AttachmentContainer::resolveLinks(void)
     {
         (*fcI).second->subParent(this);
 
-        subRef((*fcI).second);
+        subRefX((*fcI).second);
 
         ++fcI;
     }

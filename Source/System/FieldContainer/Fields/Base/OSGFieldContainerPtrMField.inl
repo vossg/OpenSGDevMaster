@@ -165,6 +165,8 @@ typename FieldContainerPtrMField<ValueT, iNamespace>::iterator
     FieldContainerPtrMField<ValueT, iNamespace>::insert(iterator     pos, 
                                                         ArgumentType value)
 {
+    OSG::addRefX(value);
+
     return (this->template dcast<typename Self::StorageType>()).insert(pos, 
                                                                        value);
 }
@@ -173,6 +175,10 @@ template<class ValueT, Int32 iNamespace> inline
 typename FieldContainerPtrMField<ValueT, iNamespace>::iterator 
     FieldContainerPtrMField<ValueT, iNamespace>::erase(iterator pos)
 {
+    typename StorageType::iterator tmpIt(pos);
+    
+    OSG::subRefX(*tmpIt);
+
     return (this->template dcast<typename Self::StorageType>()).erase(pos);
 }
 
@@ -190,11 +196,30 @@ void FieldContainerPtrMField<ValueT, iNamespace>::resize(size_t     newsize,
 }
 
 template<class ValueT, Int32 iNamespace> inline
+void FieldContainerPtrMField<ValueT, iNamespace>::replace(UInt32       uiIdx, 
+                                                          ArgumentType value)
+{
+    OSG::setRefdX((this->template dcast<typename Self::StorageType>())[uiIdx],
+                  value);
+}
+
+template<class ValueT, Int32 iNamespace> inline
+void FieldContainerPtrMField<ValueT, iNamespace>::replace(iterator     pos, 
+                                                          ArgumentType value)
+{
+    typename StorageType::iterator tmpIt(pos);
+
+    OSG::setRefdX(*tmpIt, value);
+}
+
+#if 0
+template<class ValueT, Int32 iNamespace> inline
 typename FieldContainerPtrMField<ValueT, iNamespace>::reference 
     FieldContainerPtrMField<ValueT, iNamespace>::operator [](UInt32 index)
 {
     return (this->template dcast<typename Self::StorageType>())[index];
 }
+#endif
 
 template<class ValueT, Int32 iNamespace> inline
 typename FieldContainerPtrMField<ValueT, iNamespace>::const_reference 

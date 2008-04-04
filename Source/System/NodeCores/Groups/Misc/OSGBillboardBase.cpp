@@ -662,9 +662,15 @@ DataType FieldTraits<BillboardPtr>::_type("BillboardPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(BillboardPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, BillboardPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    BillboardPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, BillboardPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         BillboardPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, BillboardPtr, 0);
 

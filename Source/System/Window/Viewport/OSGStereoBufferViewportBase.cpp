@@ -443,9 +443,15 @@ DataType FieldTraits<StereoBufferViewportPtr>::_type("StereoBufferViewportPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(StereoBufferViewportPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, StereoBufferViewportPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    StereoBufferViewportPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, StereoBufferViewportPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         StereoBufferViewportPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, StereoBufferViewportPtr, 0);
 

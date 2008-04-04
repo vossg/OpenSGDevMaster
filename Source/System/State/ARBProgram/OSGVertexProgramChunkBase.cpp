@@ -274,9 +274,15 @@ DataType FieldTraits<VertexProgramChunkPtr>::_type("VertexProgramChunkPtr", "Pro
 
 OSG_FIELDTRAITS_GETTYPE(VertexProgramChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, VertexProgramChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    VertexProgramChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, VertexProgramChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         VertexProgramChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, VertexProgramChunkPtr, 0);
 

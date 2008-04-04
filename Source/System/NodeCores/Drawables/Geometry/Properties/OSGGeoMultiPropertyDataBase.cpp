@@ -515,9 +515,15 @@ DataType FieldTraits<GeoMultiPropertyDataPtr>::_type("GeoMultiPropertyDataPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(GeoMultiPropertyDataPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoMultiPropertyDataPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    GeoMultiPropertyDataPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, GeoMultiPropertyDataPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         GeoMultiPropertyDataPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoMultiPropertyDataPtr, 0);
 

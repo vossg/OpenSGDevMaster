@@ -252,9 +252,15 @@ DataType FieldTraits<PassiveViewportPtr>::_type("PassiveViewportPtr", "ViewportP
 
 OSG_FIELDTRAITS_GETTYPE(PassiveViewportPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, PassiveViewportPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    PassiveViewportPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, PassiveViewportPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         PassiveViewportPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, PassiveViewportPtr, 0);
 

@@ -1409,9 +1409,15 @@ DataType FieldTraits<MaterialChunkPtr>::_type("MaterialChunkPtr", "StateChunkPtr
 
 OSG_FIELDTRAITS_GETTYPE(MaterialChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MaterialChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    MaterialChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MaterialChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         MaterialChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MaterialChunkPtr, 0);
 

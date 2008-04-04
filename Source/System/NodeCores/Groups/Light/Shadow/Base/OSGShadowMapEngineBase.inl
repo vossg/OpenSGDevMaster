@@ -87,7 +87,7 @@ void ShadowMapEngineBase::setRenderTarget(FrameBufferObjectPtrConstArg value)
 {
     editSField(RenderTargetFieldMask);
 
-    setRefd(_sfRenderTarget.getValue(), value);
+    _sfRenderTarget.setValue(value);
 
 }
 //! Get the value of the ShadowMapEngine::_sfWidth field.

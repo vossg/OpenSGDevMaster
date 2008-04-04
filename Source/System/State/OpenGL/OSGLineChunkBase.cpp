@@ -618,9 +618,15 @@ DataType FieldTraits<LineChunkPtr>::_type("LineChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(LineChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, LineChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    LineChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, LineChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         LineChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, LineChunkPtr, 0);
 

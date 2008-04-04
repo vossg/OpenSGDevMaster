@@ -49,7 +49,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-template<class ValueT, Int32 iNamespace = 0>
+template<class    ValueT, 
+         typename RefCountPolicy = RecordedRefCounts, 
+         Int32    iNamespace     = 0>
 class FieldContainerPtrSField : public FieldContainerPtrSFieldBase
 {
     /*==========================  PUBLIC  =================================*/
@@ -58,7 +60,9 @@ class FieldContainerPtrSField : public FieldContainerPtrSFieldBase
 
     typedef          FieldTraits            <ValueT, 
                                              iNamespace>  SFieldTraits;
+
     typedef          FieldContainerPtrSField<ValueT, 
+                                             RefCountPolicy,
                                              iNamespace>  Self;
 
     typedef          ValueT                               StoredType;
@@ -69,6 +73,7 @@ class FieldContainerPtrSField : public FieldContainerPtrSFieldBase
 
     typedef           FieldDescription<SFieldTraits,
                                        SingleField,
+                                       RefCountPolicy,
                                        PtrField        >  Description;
 
     typedef           EditFCPtrSFieldHandle<Self       >  EditHandle;
@@ -113,7 +118,9 @@ class FieldContainerPtrSField : public FieldContainerPtrSFieldBase
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
+/*
           reference getValue(void);
+ */
     const_reference getValue(void) const;
 
     /*! \}                                                                 */

@@ -87,7 +87,7 @@ void DynamicStateGeneratorBase::setRenderTarget(FrameBufferObjectPtrConstArg val
 {
     editSField(RenderTargetFieldMask);
 
-    setRefd(_sfRenderTarget.getValue(), value);
+    _sfRenderTarget.setValue(value);
 
 }
 

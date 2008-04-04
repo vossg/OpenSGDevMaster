@@ -87,7 +87,7 @@ void QuadTreeTerrainBase::setHeightData(ImagePtrConstArg value)
 {
     editSField(HeightDataFieldMask);
 
-    setRefd(_sfHeightData.getValue(), value);
+    _sfHeightData.setValue(value);
 
 }
 //! Get the value of the QuadTreeTerrain::_sfHeightScale field.
@@ -302,7 +302,7 @@ void QuadTreeTerrainBase::setHeightVertices(GeoVectorPropertyPtrConstArg value)
 {
     editSField(HeightVerticesFieldMask);
 
-    setRefd(_sfHeightVertices.getValue(), value);
+    _sfHeightVertices.setValue(value);
 
 }
 //! Get the value of the QuadTreeTerrain::_sfGeoMorphing field.

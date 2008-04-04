@@ -343,9 +343,15 @@ DataType FieldTraits<CoreGLWindowPtr>::_type("CoreGLWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(CoreGLWindowPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, CoreGLWindowPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    CoreGLWindowPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, CoreGLWindowPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         CoreGLWindowPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, CoreGLWindowPtr, 0);
 

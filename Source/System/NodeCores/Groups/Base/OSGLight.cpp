@@ -100,6 +100,8 @@ void Light::makeChunk(void)
     if(_pChunk == NullFC)
     {
         _pChunk = LightChunk::create();
+
+        addRefX(_pChunk);
     }
 
     _pChunk->setBeacon  (getBeacon  ());
@@ -150,7 +152,7 @@ Light::Light(const Light &source) :
 
 Light::~Light(void)
 {
-    OSG::subRef(_pChunk     );
+    OSG::subRefX(_pChunk     );
 }
 
 /*-------------------------------------------------------------------------*/

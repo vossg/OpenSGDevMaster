@@ -78,17 +78,27 @@ OSG_FIELDTRAITS_GETTYPE(GeoColor4fPropertyPtr)
 
 #endif //!defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoPnt3fPropertyPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    GeoPnt3fPropertyPtr, 
+                    RecordedRefCounts,
+                    0);
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoPnt3fPropertyPtr, 0);
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoVec3fPropertyPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    GeoVec3fPropertyPtr, 
+                    RecordedRefCounts,
+                    0);
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoVec3fPropertyPtr, 0);
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoColor4fPropertyPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    GeoColor4fPropertyPtr, 
+                    RecordedRefCounts,
+                    0);
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoColor4fPropertyPtr, 0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField,
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          GeoPnt3fPropertyPtr, 
+                         RecordedRefCounts,
                          0);
 
 OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField,
@@ -96,8 +106,9 @@ OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField,
                          0);
 
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField,
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          GeoVec3fPropertyPtr, 
+                         RecordedRefCounts,
                          0);
 
 OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField,
@@ -105,8 +116,9 @@ OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField,
                          0);
 
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField,
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          GeoColor4fPropertyPtr, 
+                         RecordedRefCounts,
                          0);
 
 OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField,

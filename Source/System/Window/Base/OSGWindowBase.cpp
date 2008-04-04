@@ -531,7 +531,7 @@ void WindowBase::addPort(ViewportPtrConstArg value)
 
     editMField(PortFieldMask, _mfPort);
 
-    addRef(value);
+    //addRef(value);
 
     _mfPort.push_back(value);
 
@@ -565,7 +565,7 @@ void WindowBase::insertPort(UInt32                uiIndex,
 
     MFViewportPtr::iterator fieldIt = _mfPort.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -585,16 +585,18 @@ void WindowBase::replacePort(UInt32                uiIndex,
 
     editMField(PortFieldMask, _mfPort);
 
-    addRef(value);
 
     if(_mfPort[uiIndex] != NullFC)
     {
         _mfPort[uiIndex]->setParent(this, PortFieldMask);
     }
 
-    subRef(_mfPort[uiIndex]);
+//    addRef(value);
+//    subRef(_mfPort[uiIndex]);
 
-    _mfPort[uiIndex] = value;
+//    _mfPort[uiIndex] = value;
+
+      _mfPort.replace(uiIndex, value);
 
     value->setParent(this, PortFieldMask);
 }
@@ -611,10 +613,6 @@ void WindowBase::replacePortBy(ViewportPtrConstArg pOldElem,
     {
         editMField(PortFieldMask, _mfPort);
 
-        MFViewportPtr::iterator fieldIt = _mfPort.begin();
-
-        fieldIt += elemIdx;
-
         if(pOldElem != NullFC)
         {
             pOldElem->setParent(NullFC, PortFieldMask);
@@ -625,10 +623,14 @@ void WindowBase::replacePortBy(ViewportPtrConstArg pOldElem,
             pNewElem->setParent(this, PortFieldMask);
         }
 
-        addRef(pNewElem);
-        subRef(pOldElem);
+//        MFViewportPtr::iterator fieldIt = _mfPort.begin();
 
-        (*fieldIt) = pNewElem;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
+
+//        (*fieldIt) = pNewElem;
+          _mfPort.replace(elemIdx, pNewElem);
     }
 }
 
@@ -647,7 +649,7 @@ void WindowBase::subPort(UInt32 uiIndex)
             (*fieldIt)->setParent(NullFC, PortFieldMask);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfPort.erase(fieldIt);
     }
@@ -670,7 +672,7 @@ void WindowBase::subPort(ViewportPtrConstArg value)
             (*fieldIt)->setParent(NullFC, PortFieldMask);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfPort.erase(fieldIt);
     }
@@ -689,7 +691,7 @@ void WindowBase::clearPorts(void)
             (*fieldIt)->setParent(NullFC, PortFieldMask);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -1267,9 +1269,15 @@ DataType FieldTraits<WindowPtr>::_type("WindowPtr", "AttachmentContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(WindowPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, WindowPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    WindowPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, WindowPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         WindowPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, WindowPtr, 0);
 

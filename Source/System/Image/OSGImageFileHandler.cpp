@@ -329,7 +329,7 @@ ImagePtr ImageFileHandlerBase::read(const Char8 *fileName,
     
     if(read(image, fileName, mimeType) == false)
     {
-        OSG::subRef(image);
+        OSG::subRefX(image);
 
         image = NullFC;
     }
@@ -497,7 +497,7 @@ ImagePtr ImageFileHandlerBase::read(      std::istream &is,
 
     if (read(image, is, mimeType) == false)
     {
-        subRef(image);
+        subRefX(image);
         image = NullFC;
     }
 

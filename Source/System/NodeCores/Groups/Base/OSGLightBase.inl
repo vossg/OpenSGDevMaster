@@ -335,7 +335,7 @@ void LightBase::setLightEngine(LightEnginePtrConstArg value)
 {
     editSField(LightEngineFieldMask);
 
-    setRefd(_sfLightEngine.getValue(), value);
+    _sfLightEngine.setValue(value);
 
 }
 

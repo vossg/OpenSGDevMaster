@@ -51,7 +51,7 @@ int main (int argc, char **argv)
         
         for(OSG::UInt32 i = 0; i < vFile.size(); ++i)
         {
-            OSG::subRef(vFile[i]);
+            OSG::subRefX(vFile[i]);
         }
     }
 

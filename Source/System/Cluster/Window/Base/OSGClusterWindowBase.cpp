@@ -1508,9 +1508,15 @@ DataType FieldTraits<ClusterWindowPtr>::_type("ClusterWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(ClusterWindowPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ClusterWindowPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ClusterWindowPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ClusterWindowPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ClusterWindowPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ClusterWindowPtr, 0);
 

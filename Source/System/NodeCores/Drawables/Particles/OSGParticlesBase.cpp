@@ -1608,9 +1608,15 @@ DataType FieldTraits<ParticlesPtr>::_type("ParticlesPtr", "MaterialDrawablePtr")
 
 OSG_FIELDTRAITS_GETTYPE(ParticlesPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ParticlesPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ParticlesPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ParticlesPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ParticlesPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ParticlesPtr, 0);
 

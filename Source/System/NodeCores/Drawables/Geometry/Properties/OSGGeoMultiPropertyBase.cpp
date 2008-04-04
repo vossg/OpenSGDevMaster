@@ -845,9 +845,15 @@ DataType FieldTraits<GeoMultiPropertyPtr>::_type("GeoMultiPropertyPtr", "GeoVect
 
 OSG_FIELDTRAITS_GETTYPE(GeoMultiPropertyPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoMultiPropertyPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    GeoMultiPropertyPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, GeoMultiPropertyPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         GeoMultiPropertyPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoMultiPropertyPtr, 0);
 

@@ -2681,9 +2681,15 @@ DataType FieldTraits<TextureEnvChunkPtr>::_type("TextureEnvChunkPtr", "StateChun
 
 OSG_FIELDTRAITS_GETTYPE(TextureEnvChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TextureEnvChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    TextureEnvChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TextureEnvChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         TextureEnvChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TextureEnvChunkPtr, 0);
 

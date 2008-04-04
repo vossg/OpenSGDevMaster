@@ -352,9 +352,15 @@ DataType FieldTraits<FBOViewportPtr>::_type("FBOViewportPtr", "ViewportPtr");
 
 OSG_FIELDTRAITS_GETTYPE(FBOViewportPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, FBOViewportPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    FBOViewportPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, FBOViewportPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         FBOViewportPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FBOViewportPtr, 0);
 

@@ -219,7 +219,7 @@ void ViewportBase::setCamera(CameraPtrConstArg value)
 {
     editSField(CameraFieldMask);
 
-    setRefd(_sfCamera.getValue(), value);
+    _sfCamera.setValue(value);
 
 }
 
@@ -236,7 +236,7 @@ void ViewportBase::setRoot(NodePtrConstArg value)
 {
     editSField(RootFieldMask);
 
-    setRefd(_sfRoot.getValue(), value);
+    _sfRoot.setValue(value);
 
 }
 
@@ -253,7 +253,7 @@ void ViewportBase::setBackground(BackgroundPtrConstArg value)
 {
     editSField(BackgroundFieldMask);
 
-    setRefd(_sfBackground.getValue(), value);
+    _sfBackground.setValue(value);
 
 }
 //! Get the value of the Viewport::_sfTravMask field.

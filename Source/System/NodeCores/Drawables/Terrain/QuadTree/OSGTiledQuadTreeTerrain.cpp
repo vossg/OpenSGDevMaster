@@ -183,7 +183,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
 
                     NodePtr node = Node::create();
                     
-                    addRef(node);
+                    addRefX(node);
 
                     node->setCore(terrain);
                     // activate the roi*roi tiles for current point

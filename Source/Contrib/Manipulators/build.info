@@ -21,3 +21,5 @@ else:
             test_cpppath.append(option.incDir)
          if option.libDir:
             test_libpath.append(option.libDir)
+
+stop_traversal = True

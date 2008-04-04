@@ -87,7 +87,7 @@ void GeoMultiPropertyBase::setContainer(GeoMultiPropertyDataPtrConstArg value)
 {
     editSField(ContainerFieldMask);
 
-    setRefd(_sfContainer.getValue(), value);
+    _sfContainer.setValue(value);
 
 }
 //! Get the value of the GeoMultiProperty::_sfOffset field.

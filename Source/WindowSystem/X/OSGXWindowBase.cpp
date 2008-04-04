@@ -503,9 +503,15 @@ DataType FieldTraits<XWindowPtr>::_type("XWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(XWindowPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, XWindowPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    XWindowPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, XWindowPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         XWindowPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, XWindowPtr, 0);
 

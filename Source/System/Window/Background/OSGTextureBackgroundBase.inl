@@ -120,7 +120,7 @@ void TextureBackgroundBase::setTexture(TextureBaseChunkPtrConstArg value)
 {
     editSField(TextureFieldMask);
 
-    setRefd(_sfTexture.getValue(), value);
+    _sfTexture.setValue(value);
 
 }
 //! Get the value of the TextureBackground::_sfRadialDistortion field.

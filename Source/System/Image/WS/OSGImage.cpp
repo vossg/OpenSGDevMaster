@@ -696,7 +696,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
     if(destination == NullFC)
     {
         dest = Image::create();
-        addRef(dest);
+        addRefX(dest);
     }
 
     FINFO(("Try to reformat image from pixelDepth %d to %d\n",
@@ -2022,7 +2022,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
             if(destination == NullFC)
             {
                 this->set(dest);
-                subRef(dest);
+                subRefX(dest);
             }
         }
     }
@@ -2123,7 +2123,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
     dest = Image::create();
 
-    addRef(dest);
+    addRefX(dest);
 
     dest->set(getPixelFormat(),
               getWidth      (),
@@ -2419,7 +2419,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
     {
         this->set(dest);
 
-        subRef(dest);
+        subRefX(dest);
     }
 
     return (getData() ? true : false);
@@ -2722,7 +2722,7 @@ bool Image::subImage(Int32    offX,
     {
         destImage = Image::create();
 
-        addRef(destImage);
+        addRefX(destImage);
     }
 
     destImage->set((PixelFormat) getPixelFormat(),
@@ -2781,7 +2781,7 @@ bool Image::subImage(Int32    offX,
     {
         this->set(destImage);
 
-        subRef(destImage);
+        subRefX(destImage);
     }
 
     return retCode;
@@ -2811,7 +2811,7 @@ bool Image::slice(Int32    offX,
     {
         destImage = Image::create();
 
-        addRef(destImage);
+        addRefX(destImage);
     }
 
     FDEBUG(("Image::slice (%d %d %d)\n",
@@ -2915,7 +2915,7 @@ bool Image::slice(Int32    offX,
     {
         this->set(destImage);
 
-        subRef(destImage);
+        subRefX(destImage);
     }
 
     return retCode;
@@ -2999,7 +2999,7 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
     {
         destImage = Image::create();
 
-        addRef(destImage);
+        addRefX(destImage);
     }
 
     Real32 valueFloat;
@@ -3392,7 +3392,7 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
     {
         this->set(destImage);
 
-        subRef(destImage);
+        subRefX(destImage);
     }
 
     return true;

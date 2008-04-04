@@ -59,7 +59,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     typedef          MFieldVector <ValueT>                 StorageType;
     typedef typename StorageType::Inherited                StorageTypeParent;
 
-    typedef typename StorageType::iterator                 iterator;
+//    typedef typename StorageType::iterator                 iterator;
     typedef typename StorageType::const_iterator           const_iterator;
 
     typedef typename StorageType::reverse_iterator         reverse_iterator;
@@ -81,6 +81,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
     typedef          FieldDescription       <MFieldTraits,
                                              MultiField,
+                                             RecordedRefCounts,
                                              PtrField    > Description;
 
     typedef          EditFCPtrMFieldHandle  <Self        > EditHandle;
@@ -98,6 +99,39 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
     static const bool isPointerField = true;
 
+    /*---------------------------------------------------------------------*/
+
+    template<class StorageTypeT>
+    class ptrfield_iterator : public StorageTypeT::iterator
+    {
+        typedef typename StorageTypeT::iterator Inherited;
+
+      public:
+
+        ptrfield_iterator(void) : Inherited()
+        {
+        }
+
+        ptrfield_iterator(const Inherited &i) : Inherited(i)
+        {
+        }
+
+        const_reference operator*() const
+        { 
+            return *Inherited::_M_current; 
+        }
+
+      protected:
+/*
+        reference operator*() const
+        { 
+            return *Inherited::_M_current; 
+        }
+ */
+    };
+
+    typedef ptrfield_iterator<StorageType> iterator;
+    
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */
     /*! \{                                                                 */
@@ -203,7 +237,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     void                   push_back(ArgumentType value                );
 
     void                   resize   (size_t       newsize, 
-                                     StoredType   t      = StoredType());
+                                     StoredType   t      = NullFC      );
     void                   reserve  (size_t       newsize              );
 
     void                   swap     (Self                        &right);
@@ -217,7 +251,20 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
+    void replace(UInt32       uiIdx, 
+                 ArgumentType value);
+
+    void replace(iterator     pos, 
+                 ArgumentType value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Index Operator                              */
+    /*! \{                                                                 */
+
+#if 0
           reference operator [](UInt32 index);
+#endif
     const_reference operator [](UInt32 index) const;
 
     /*! \}                                                                 */

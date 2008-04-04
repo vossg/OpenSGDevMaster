@@ -226,7 +226,7 @@ void SwitchMaterialBase::pushToMaterials(MaterialPtrConstArg value)
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    addRef(value);
+    //addRef(value);
 
     _mfMaterials.push_back(value);
 }
@@ -258,7 +258,7 @@ void SwitchMaterialBase::insertIntoMaterials(UInt32                uiIndex,
 
     MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -276,11 +276,13 @@ void SwitchMaterialBase::replaceInMaterials(UInt32                uiIndex,
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    addRef(value);
 
-    subRef(_mfMaterials[uiIndex]);
+//    addRef(value);
+//    subRef(_mfMaterials[uiIndex]);
 
-    _mfMaterials[uiIndex] = value;
+//    _mfMaterials[uiIndex] = value;
+
+      _mfMaterials.replace(uiIndex, value);
 }
 
 void SwitchMaterialBase::replaceInMaterials(MaterialPtrConstArg pOldElem,
@@ -295,14 +297,14 @@ void SwitchMaterialBase::replaceInMaterials(MaterialPtrConstArg pOldElem,
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+//        MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfMaterials.replace(elemIdx, pNewElem);
     }
 }
 
@@ -316,7 +318,7 @@ void SwitchMaterialBase::removeFromMaterials(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfMaterials.erase(fieldIt);
     }
@@ -334,7 +336,7 @@ void SwitchMaterialBase::removeFromMaterials(MaterialPtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfMaterials.erase(fieldIt);
     }
@@ -348,7 +350,7 @@ void SwitchMaterialBase::clearMaterials(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -576,9 +578,15 @@ DataType FieldTraits<SwitchMaterialPtr>::_type("SwitchMaterialPtr", "MaterialPtr
 
 OSG_FIELDTRAITS_GETTYPE(SwitchMaterialPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, SwitchMaterialPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    SwitchMaterialPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, SwitchMaterialPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         SwitchMaterialPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, SwitchMaterialPtr, 0);
 

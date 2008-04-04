@@ -120,7 +120,7 @@ void SkyBackgroundBase::setBackTexture(TextureBaseChunkPtrConstArg value)
 {
     editSField(BackTextureFieldMask);
 
-    setRefd(_sfBackTexture.getValue(), value);
+    _sfBackTexture.setValue(value);
 
 }
 
@@ -137,7 +137,7 @@ void SkyBackgroundBase::setBottomTexture(TextureBaseChunkPtrConstArg value)
 {
     editSField(BottomTextureFieldMask);
 
-    setRefd(_sfBottomTexture.getValue(), value);
+    _sfBottomTexture.setValue(value);
 
 }
 
@@ -154,7 +154,7 @@ void SkyBackgroundBase::setFrontTexture(TextureBaseChunkPtrConstArg value)
 {
     editSField(FrontTextureFieldMask);
 
-    setRefd(_sfFrontTexture.getValue(), value);
+    _sfFrontTexture.setValue(value);
 
 }
 
@@ -171,7 +171,7 @@ void SkyBackgroundBase::setLeftTexture(TextureBaseChunkPtrConstArg value)
 {
     editSField(LeftTextureFieldMask);
 
-    setRefd(_sfLeftTexture.getValue(), value);
+    _sfLeftTexture.setValue(value);
 
 }
 
@@ -188,7 +188,7 @@ void SkyBackgroundBase::setRightTexture(TextureBaseChunkPtrConstArg value)
 {
     editSField(RightTextureFieldMask);
 
-    setRefd(_sfRightTexture.getValue(), value);
+    _sfRightTexture.setValue(value);
 
 }
 
@@ -205,7 +205,7 @@ void SkyBackgroundBase::setTopTexture(TextureBaseChunkPtrConstArg value)
 {
     editSField(TopTextureFieldMask);
 
-    setRefd(_sfTopTexture.getValue(), value);
+    _sfTopTexture.setValue(value);
 
 }
 //! Get the value of the SkyBackground::_sfBoxInside field.
@@ -255,7 +255,7 @@ void SkyBackgroundBase::setBeacon(NodePtrConstArg value)
 {
     editSField(BeaconFieldMask);
 
-    setRefd(_sfBeacon.getValue(), value);
+    _sfBeacon.setValue(value);
 
 }
 

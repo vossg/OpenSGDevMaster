@@ -436,9 +436,15 @@ DataType FieldTraits<PerspectiveCameraPtr>::_type("PerspectiveCameraPtr", "Camer
 
 OSG_FIELDTRAITS_GETTYPE(PerspectiveCameraPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, PerspectiveCameraPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    PerspectiveCameraPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, PerspectiveCameraPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         PerspectiveCameraPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, PerspectiveCameraPtr, 0);
 

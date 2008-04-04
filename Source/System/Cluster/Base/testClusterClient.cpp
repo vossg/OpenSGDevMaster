@@ -178,7 +178,7 @@ void prepareSceneGraph(NodePtrConstArg &node)
     if(!prepared)
     {
         polygonChunk = PolygonChunk::create();
-        addRef(polygonChunk);
+        addRefX(polygonChunk);
         prepared = true;
     }
 
@@ -353,7 +353,7 @@ void display(void)
                 animLoops--;
                 if(!animLoops) 
                 {
-                    subRef(clusterWindow);
+                    subRefX(clusterWindow);
                     osgExit(); 
                     exit(0);
                 }
@@ -649,7 +649,7 @@ void init(std::vector<std::string> &filenames)
     t1n->addChild( b1n );
 
     cam_trans = t1;
-    addRef(t1n);
+    addRefX(t1n);
 
     // light
 
@@ -665,7 +665,7 @@ void init(std::vector<std::string> &filenames)
 
     // root
     root = OSG::Node::create();
-    addRef(root);
+    addRefX(root);
     OSG::GroupPtr gr1 = OSG::Group::create();
     root->setCore( gr1 );
     root->addChild( t1n );
@@ -673,7 +673,7 @@ void init(std::vector<std::string> &filenames)
 
     // Load the file
     OSG::NodePtr scene = OSG::Node::create();
-    addRef(scene);
+    addRefX(scene);
     scene->setCore(OSG::Group::create());
 
     NodePtr file;
@@ -734,7 +734,7 @@ void init(std::vector<std::string> &filenames)
     {
         dlight->addChild(scene);
 	}
-    subRef(scene);
+    subRefX(scene);
 
     if(ca>0)
     {

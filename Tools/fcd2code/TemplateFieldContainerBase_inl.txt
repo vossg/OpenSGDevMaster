@@ -112,11 +112,7 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ConstArg value)
     }
 
             @@endif // field.linkSParent
-            @@if field.doRefCount
-    setRefd(_@!field.VarName!@.getValue(), value);
-            @@else // field.doRefCount
     _@!field.VarName!@.setValue(value);
-            @@endif // field.doRefCount
             @@if field.linkMParent
 
     if(_@!field.VarName!@.getValue() != NullFC)
@@ -249,7 +245,7 @@ void @!Classname!@Base::setDecoratee(const @!Parent!@Ptr &value)
 {
     editSField(DecorateeFieldMask);
 
-    setRefd(_sfDecoratee.getValue(), value);
+    _sfDecoratee.setValue(value);
 }
 @@endif // !isDecorator
 

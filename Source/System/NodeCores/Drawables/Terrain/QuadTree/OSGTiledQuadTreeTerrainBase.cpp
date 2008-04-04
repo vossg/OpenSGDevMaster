@@ -746,7 +746,7 @@ void TiledQuadTreeTerrainBase::pushToHeightTiles(ImagePtrConstArg value)
 
     editMField(HeightTilesFieldMask, _mfHeightTiles);
 
-    addRef(value);
+    //addRef(value);
 
     _mfHeightTiles.push_back(value);
 }
@@ -778,7 +778,7 @@ void TiledQuadTreeTerrainBase::insertIntoHeightTiles(UInt32                uiInd
 
     MFImagePtr::iterator fieldIt = _mfHeightTiles.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -796,11 +796,13 @@ void TiledQuadTreeTerrainBase::replaceInHeightTiles(UInt32                uiInde
 
     editMField(HeightTilesFieldMask, _mfHeightTiles);
 
-    addRef(value);
 
-    subRef(_mfHeightTiles[uiIndex]);
+//    addRef(value);
+//    subRef(_mfHeightTiles[uiIndex]);
 
-    _mfHeightTiles[uiIndex] = value;
+//    _mfHeightTiles[uiIndex] = value;
+
+      _mfHeightTiles.replace(uiIndex, value);
 }
 
 void TiledQuadTreeTerrainBase::replaceInHeightTiles(ImagePtrConstArg pOldElem,
@@ -815,14 +817,14 @@ void TiledQuadTreeTerrainBase::replaceInHeightTiles(ImagePtrConstArg pOldElem,
     {
         editMField(HeightTilesFieldMask, _mfHeightTiles);
 
-        MFImagePtr::iterator fieldIt = _mfHeightTiles.begin();
+//        MFImagePtr::iterator fieldIt = _mfHeightTiles.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfHeightTiles.replace(elemIdx, pNewElem);
     }
 }
 
@@ -836,7 +838,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTiles(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfHeightTiles.erase(fieldIt);
     }
@@ -854,7 +856,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTiles(ImagePtrConstArg value)
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfHeightTiles.erase(fieldIt);
     }
@@ -868,7 +870,7 @@ void TiledQuadTreeTerrainBase::clearHeightTiles(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -883,7 +885,7 @@ void TiledQuadTreeTerrainBase::pushToHeightTextures(MaterialPtrConstArg value)
 
     editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
-    addRef(value);
+    //addRef(value);
 
     _mfHeightTextures.push_back(value);
 }
@@ -915,7 +917,7 @@ void TiledQuadTreeTerrainBase::insertIntoHeightTextures(UInt32                ui
 
     MFMaterialPtr::iterator fieldIt = _mfHeightTextures.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -933,11 +935,13 @@ void TiledQuadTreeTerrainBase::replaceInHeightTextures(UInt32                uiI
 
     editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
-    addRef(value);
 
-    subRef(_mfHeightTextures[uiIndex]);
+//    addRef(value);
+//    subRef(_mfHeightTextures[uiIndex]);
 
-    _mfHeightTextures[uiIndex] = value;
+//    _mfHeightTextures[uiIndex] = value;
+
+      _mfHeightTextures.replace(uiIndex, value);
 }
 
 void TiledQuadTreeTerrainBase::replaceInHeightTextures(MaterialPtrConstArg pOldElem,
@@ -952,14 +956,14 @@ void TiledQuadTreeTerrainBase::replaceInHeightTextures(MaterialPtrConstArg pOldE
     {
         editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
-        MFMaterialPtr::iterator fieldIt = _mfHeightTextures.begin();
+//        MFMaterialPtr::iterator fieldIt = _mfHeightTextures.begin();
 
-        fieldIt += elemIdx;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
-
-        (*fieldIt) = pNewElem;
+//        (*fieldIt) = pNewElem;
+          _mfHeightTextures.replace(elemIdx, pNewElem);
     }
 }
 
@@ -973,7 +977,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTextures(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfHeightTextures.erase(fieldIt);
     }
@@ -991,7 +995,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTextures(MaterialPtrConstArg valu
 
         fieldIt += iElemIdx;
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfHeightTextures.erase(fieldIt);
     }
@@ -1005,7 +1009,7 @@ void TiledQuadTreeTerrainBase::clearHeightTextures(void)
 
     while(fieldIt != fieldEnd)
     {
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -1681,9 +1685,15 @@ DataType FieldTraits<TiledQuadTreeTerrainPtr>::_type("TiledQuadTreeTerrainPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(TiledQuadTreeTerrainPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TiledQuadTreeTerrainPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    TiledQuadTreeTerrainPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TiledQuadTreeTerrainPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         TiledQuadTreeTerrainPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TiledQuadTreeTerrainPtr, 0);
 

@@ -87,7 +87,7 @@ void AlgorithmStageBase::setAlgorithm(AlgorithmPtrConstArg value)
 {
     editSField(AlgorithmFieldMask);
 
-    setRefd(_sfAlgorithm.getValue(), value);
+    _sfAlgorithm.setValue(value);
 
 }
 //! Get the value of the AlgorithmStage::_sfProjectionMode field.

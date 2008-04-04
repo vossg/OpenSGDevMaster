@@ -185,7 +185,7 @@ void MultiCoreBase::addCore(NodeCorePtrConstArg value)
 
     editMField(CoresFieldMask, _mfCores);
 
-    addRef(value);
+    //addRef(value);
 
     _mfCores.push_back(value);
 
@@ -219,7 +219,7 @@ void MultiCoreBase::insertCore(UInt32                uiIndex,
 
     MFNodeCorePtr::iterator fieldIt = _mfCores.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -239,16 +239,18 @@ void MultiCoreBase::replaceCore(UInt32                uiIndex,
 
     editMField(CoresFieldMask, _mfCores);
 
-    addRef(value);
 
     if(_mfCores[uiIndex] != NullFC)
     {
         _mfCores[uiIndex]->subParent(this);
     }
 
-    subRef(_mfCores[uiIndex]);
+//    addRef(value);
+//    subRef(_mfCores[uiIndex]);
 
-    _mfCores[uiIndex] = value;
+//    _mfCores[uiIndex] = value;
+
+      _mfCores.replace(uiIndex, value);
 
     value->addParent(this, CoresFieldMask);
 }
@@ -265,10 +267,6 @@ void MultiCoreBase::replaceCore(NodeCorePtrConstArg pOldElem,
     {
         editMField(CoresFieldMask, _mfCores);
 
-        MFNodeCorePtr::iterator fieldIt = _mfCores.begin();
-
-        fieldIt += elemIdx;
-
 
         if(pOldElem != NullFC)
         {
@@ -277,10 +275,14 @@ void MultiCoreBase::replaceCore(NodeCorePtrConstArg pOldElem,
 
         pNewElem->addParent(this, CoresFieldMask);
 
-        addRef(pNewElem);
-        subRef(pOldElem);
+//        MFNodeCorePtr::iterator fieldIt = _mfCores.begin();
 
-        (*fieldIt) = pNewElem;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
+
+//        (*fieldIt) = pNewElem;
+          _mfCores.replace(elemIdx, pNewElem);
     }
 }
 
@@ -300,7 +302,7 @@ void MultiCoreBase::subCore(UInt32 uiIndex)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfCores.erase(fieldIt);
     }
@@ -324,7 +326,7 @@ void MultiCoreBase::subCore(NodeCorePtrConstArg value)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         _mfCores.erase(fieldIt);
     }
@@ -343,7 +345,7 @@ void MultiCoreBase::clearCores(void)
             (*fieldIt)->subParent(this);
         }
 
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
         ++fieldIt;
     }
@@ -535,9 +537,15 @@ DataType FieldTraits<MultiCorePtr>::_type("MultiCorePtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(MultiCorePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MultiCorePtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    MultiCorePtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MultiCorePtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         MultiCorePtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MultiCorePtr, 0);
 

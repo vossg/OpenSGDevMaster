@@ -83,7 +83,7 @@ TextTXFFace::~TextTXFFace()
     }
 
     // Delete the texture
-    OSG::subRef(_texture);
+    OSG::subRefX(_texture);
 }
 
 
@@ -496,7 +496,7 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
 
     // Create the texture
     face->_texture = Image::create();
-    OSG::addRef(face->_texture);
+    OSG::addRefX(face->_texture);
 
     face->_texture->set(Image::OSG_A_PF, textureWidth, textureHeight);
     face->_texture->clear();
@@ -867,7 +867,7 @@ void TextTXFFace::prepareTexture(const TextTXFParam &param)
 
     // Create the texture
     _texture = Image::create();
-    OSG::addRef(_texture);
+    OSG::addRefX(_texture);
 
     _texture->set(Image::OSG_A_PF, textureWidth, textureHeight);
     _texture->clear();

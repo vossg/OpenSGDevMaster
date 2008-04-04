@@ -180,11 +180,11 @@ bool ChunkOverrideGroup::addChunk(StateChunkPtr chunk,
 
         for(UInt32 i = oldsize; i < newsize; i++)
         {
-            _mfChunks[i] = NullFC;
+            _mfChunks.replace(i, NullFC);
         }
     }
 
-    setRefd(_mfChunks[cindex], chunk);
+    _mfChunks.replace(cindex, chunk);
     
     return true;
 }
@@ -227,9 +227,10 @@ bool ChunkOverrideGroup::subChunk(StateChunkPtr chunk,
         
         // remove the chunk from the state
         
-        subRef(_mfChunks[ci]);
+//        subRef(_mfChunks[ci]);
         
-        _mfChunks[ci] = NullFC;
+//        _mfChunks[ci] = NullFC;
+        _mfChunks.replace(ci, NullFC);
     }
     else
     {
@@ -252,9 +253,10 @@ bool ChunkOverrideGroup::subChunk(StateChunkPtr chunk,
         
         // remove the chunk from the state
         
-        subRef(_mfChunks[ci]);
+//        subRef(_mfChunks[ci]);
         
-        _mfChunks[ci] = NullFC;
+//        _mfChunks[ci] = NullFC;
+        _mfChunks.replace(ci, NullFC);
     }
 
     return true;

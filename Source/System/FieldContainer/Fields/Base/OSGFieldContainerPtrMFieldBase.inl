@@ -80,6 +80,16 @@ FieldContainerPtrMFieldBase::const_iterator
 inline
 void FieldContainerPtrMFieldBase::clear(void)
 {
+    iterator       fieldIt  = _values.begin();
+    const_iterator fieldEnd = _values.end  ();
+
+    while(fieldIt != fieldEnd)
+    {
+        OSG::subRefX(*fieldIt);
+
+        ++fieldIt;
+    }
+
     _values.clear();
 }
 
@@ -190,6 +200,8 @@ FieldContainerPtrMFieldBase::~FieldContainerPtrMFieldBase(void)
 inline
 void FieldContainerPtrMFieldBase::push_back(ArgumentType value)
 {
+    OSG::addRefX(value);
+
     _values.push_back(value);
 }
 

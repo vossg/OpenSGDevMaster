@@ -310,7 +310,7 @@ void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ConstArg value)
             @@endif // field.checkNilPtr
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-    addRef(value);
+    //addRef(value);
 
     _mf@!field.Name!@.push_back(value);
             @@if !field.checkNilPtr
@@ -361,7 +361,7 @@ void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32                uiIndex
 
     MF@!field.TypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin();
 
-    addRef(value);
+    //addRef(value);
 
     fieldIt += uiIndex;
 
@@ -396,7 +396,6 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32                uiI
 
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-    addRef(value);
             @@if field.linkMParent
 
     if(_mf@!field.Name!@[uiIndex] != NullFC)
@@ -412,9 +411,12 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32                uiI
     }
             @@endif // field.linkSParent
 
-    subRef(_mf@!field.Name!@[uiIndex]);
+//    addRef(value);
+//    subRef(_mf@!field.Name!@[uiIndex]);
 
-    _mf@!field.Name!@[uiIndex] = value;
+//    _mf@!field.Name!@[uiIndex] = value;
+
+      _mf@!field.Name!@.replace(uiIndex, value);
             @@if !field.checkNilPtr
 
     if(value == NullFC)
@@ -446,10 +448,6 @@ void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(@!field.Type!@ConstArg p
     {
         editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-        MF@!field.TypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin();
-
-        fieldIt += elemIdx;
-
             @@if field.linkMParent
 
         if(pOldElem != NullFC)
@@ -479,10 +477,14 @@ void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(@!field.Type!@ConstArg p
         }
 
             @@endif // field.linkSParent
-        addRef(pNewElem);
-        subRef(pOldElem);
+//        MF@!field.TypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin();
 
-        (*fieldIt) = pNewElem;
+//        fieldIt += elemIdx;
+//        addRef(pNewElem);
+//        subRef(pOldElem);
+
+//        (*fieldIt) = pNewElem;
+          _mf@!field.Name!@.replace(elemIdx, pNewElem);
     }
 }
 
@@ -513,10 +515,11 @@ void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
         }
 
             @@endif // field.linkSParent
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
             @@if field.isRemoveToSet
-        *fieldIt = @!field.RemoveTo!@;
+        //*fieldIt = @!field.RemoveTo!@;
+        _mf@!field.Name!@.replace(uiIndex, @!field.RemoveTo!@);
             @@else // field.isRemoveToSet
         _mf@!field.Name!@.erase(fieldIt);
             @@endif // field.isRemoveToSet
@@ -552,10 +555,11 @@ void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(@!field.Type!@ConstArg 
         }
 
             @@endif // field.linkSParent
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
             @@if field.isRemoveToSet
-        *fieldIt = @!field.RemoveTo!@;
+        //*fieldIt = @!field.RemoveTo!@;
+        _mf@!field.Name!@.replace(iElemIdx, @!field.RemoveTo!@);
             @@else // field.isRemoveToSet
         _mf@!field.Name!@.erase(fieldIt);
             @@endif // field.isRemoveToSet
@@ -586,10 +590,10 @@ void @!Classname!@Base::@!field.ClearField!@(void)
         }
 
             @@endif // field.linkSParent
-        subRef(*fieldIt);
+        //subRef(*fieldIt);
 
             @@if field.isRemoveToSet
-        *fieldIt = @!field.RemoveTo!@;
+        //*fieldIt = @!field.RemoveTo!@;
 
             @@endif // field.isRemoveToSet
         ++fieldIt;
@@ -1043,7 +1047,7 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ConstArg value)
 {
     editSField(@!field.Name!@FieldMask);
 
-    setRefd(_@!field.VarName!@.getValue(), value);
+    _@!field.VarName!@.setValue(value);
 }
             @@else // field.isPtrField
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
@@ -1282,9 +1286,15 @@ DataType FieldTraits<@!Classname!@Ptr>::_type("@!Classname!@Ptr", "@!Parent!@Ptr
 OSG_FIELDTRAITS_GETTYPE(@!Classname!@Ptr)
 
     @@if SFPointerField
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, @!Classname!@Ptr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    @!Classname!@Ptr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, @!Classname!@Ptr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         @!Classname!@Ptr, 
+                         RecordedRefCounts,
+                         0);
     @@endif // SFPointerField
 
     @@if MFPointerField

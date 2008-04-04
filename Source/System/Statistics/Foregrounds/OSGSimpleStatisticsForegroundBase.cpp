@@ -1381,9 +1381,15 @@ DataType FieldTraits<SimpleStatisticsForegroundPtr>::_type("SimpleStatisticsFore
 
 OSG_FIELDTRAITS_GETTYPE(SimpleStatisticsForegroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, SimpleStatisticsForegroundPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    SimpleStatisticsForegroundPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, SimpleStatisticsForegroundPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         SimpleStatisticsForegroundPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, SimpleStatisticsForegroundPtr, 0);
 

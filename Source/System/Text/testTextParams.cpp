@@ -1,3 +1,4 @@
+#if 0
 // Test for UI code
 //
 // Just use simple scene manager and create a ui
@@ -511,3 +512,9 @@ int setupGLUT(int *argc, char *argv[])
 
     return winid;
 }
+#else
+int main(void)
+{
+    return 0;
+}
+#endif

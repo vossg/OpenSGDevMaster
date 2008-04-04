@@ -255,9 +255,15 @@ DataType FieldTraits<PassiveBackgroundPtr>::_type("PassiveBackgroundPtr", "Backg
 
 OSG_FIELDTRAITS_GETTYPE(PassiveBackgroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, PassiveBackgroundPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    PassiveBackgroundPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, PassiveBackgroundPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         PassiveBackgroundPtr, 
+                         RecordedRefCounts,
+                         0);
 
 
 OSG_END_NAMESPACE

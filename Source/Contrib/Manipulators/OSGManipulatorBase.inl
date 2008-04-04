@@ -87,7 +87,7 @@ void ManipulatorBase::setTarget(NodePtrConstArg value)
 {
     editSField(TargetFieldMask);
 
-    setRefd(_sfTarget.getValue(), value);
+    _sfTarget.setValue(value);
 
 }
 
@@ -104,7 +104,7 @@ void ManipulatorBase::setActiveSubHandle(NodePtrConstArg value)
 {
     editSField(ActiveSubHandleFieldMask);
 
-    setRefd(_sfActiveSubHandle.getValue(), value);
+    _sfActiveSubHandle.setValue(value);
 
 }
 //! Get the value of the Manipulator::_sfLastMousePos field.
@@ -154,7 +154,7 @@ void ManipulatorBase::setViewport(ViewportPtrConstArg value)
 {
     editSField(ViewportFieldMask);
 
-    setRefd(_sfViewport.getValue(), value);
+    _sfViewport.setValue(value);
 
 }
 //! Get the value of the Manipulator::_sfActive field.
@@ -237,7 +237,7 @@ void ManipulatorBase::setHandleXNode(NodePtrConstArg value)
 {
     editSField(HandleXNodeFieldMask);
 
-    setRefd(_sfHandleXNode.getValue(), value);
+    _sfHandleXNode.setValue(value);
 
 }
 
@@ -254,7 +254,7 @@ void ManipulatorBase::setHandleYNode(NodePtrConstArg value)
 {
     editSField(HandleYNodeFieldMask);
 
-    setRefd(_sfHandleYNode.getValue(), value);
+    _sfHandleYNode.setValue(value);
 
 }
 
@@ -271,7 +271,7 @@ void ManipulatorBase::setHandleZNode(NodePtrConstArg value)
 {
     editSField(HandleZNodeFieldMask);
 
-    setRefd(_sfHandleZNode.getValue(), value);
+    _sfHandleZNode.setValue(value);
 
 }
 
@@ -288,7 +288,7 @@ void ManipulatorBase::setTransXNode(NodePtrConstArg value)
 {
     editSField(TransXNodeFieldMask);
 
-    setRefd(_sfTransXNode.getValue(), value);
+    _sfTransXNode.setValue(value);
 
 }
 
@@ -305,7 +305,7 @@ void ManipulatorBase::setTransYNode(NodePtrConstArg value)
 {
     editSField(TransYNodeFieldMask);
 
-    setRefd(_sfTransYNode.getValue(), value);
+    _sfTransYNode.setValue(value);
 
 }
 
@@ -322,7 +322,7 @@ void ManipulatorBase::setTransZNode(NodePtrConstArg value)
 {
     editSField(TransZNodeFieldMask);
 
-    setRefd(_sfTransZNode.getValue(), value);
+    _sfTransZNode.setValue(value);
 
 }
 
@@ -339,7 +339,7 @@ void ManipulatorBase::setMaterialX(MaterialPtrConstArg value)
 {
     editSField(MaterialXFieldMask);
 
-    setRefd(_sfMaterialX.getValue(), value);
+    _sfMaterialX.setValue(value);
 
 }
 
@@ -356,7 +356,7 @@ void ManipulatorBase::setMaterialY(MaterialPtrConstArg value)
 {
     editSField(MaterialYFieldMask);
 
-    setRefd(_sfMaterialY.getValue(), value);
+    _sfMaterialY.setValue(value);
 
 }
 
@@ -373,7 +373,7 @@ void ManipulatorBase::setMaterialZ(MaterialPtrConstArg value)
 {
     editSField(MaterialZFieldMask);
 
-    setRefd(_sfMaterialZ.getValue(), value);
+    _sfMaterialZ.setValue(value);
 
 }
 
@@ -390,7 +390,7 @@ void ManipulatorBase::setAxisLinesN(NodePtrConstArg value)
 {
     editSField(AxisLinesNFieldMask);
 
-    setRefd(_sfAxisLinesN.getValue(), value);
+    _sfAxisLinesN.setValue(value);
 
 }
 

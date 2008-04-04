@@ -686,9 +686,15 @@ DataType FieldTraits<DepthChunkPtr>::_type("DepthChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(DepthChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, DepthChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    DepthChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, DepthChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         DepthChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, DepthChunkPtr, 0);
 

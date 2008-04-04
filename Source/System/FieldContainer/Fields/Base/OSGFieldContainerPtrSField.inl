@@ -42,16 +42,18 @@ OSG_BEGIN_NAMESPACE
 #pragma warning( disable : 488 )
 #endif
 
-template<class ValueT, Int32 iNamespace> 
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> 
 template<class To> inline
-To &FieldContainerPtrSField<ValueT, iNamespace>::dcast(void)
+To &FieldContainerPtrSField<ValueT, RefCountPolicy, iNamespace>::dcast(void)
 {
     return reinterpret_cast<To &>(Self::_fieldValue); 
 }
 
-template<class ValueT, Int32 iNamespace> 
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> 
 template<class To> inline
-const To &FieldContainerPtrSField<ValueT, iNamespace>::dcast(void) const 
+const To &FieldContainerPtrSField<ValueT, 
+                                  RefCountPolicy, 
+                                  iNamespace    >::dcast(void) const 
 {
     return reinterpret_cast<const To &>(Self::_fieldValue); 
 }
@@ -60,63 +62,87 @@ const To &FieldContainerPtrSField<ValueT, iNamespace>::dcast(void) const
 #pragma warning( default : 488 )
 #endif
 
-template<class ValueT, Int32 iNamespace> inline
-FieldContainerPtrSField<ValueT, iNamespace>::FieldContainerPtrSField(void) :
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+FieldContainerPtrSField<ValueT, 
+                        RefCountPolicy, 
+                        iNamespace    >::FieldContainerPtrSField(void) :
     Inherited()
 {
 }
 
-template<class ValueT, Int32 iNamespace> inline
-FieldContainerPtrSField<ValueT, iNamespace>::FieldContainerPtrSField(
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+FieldContainerPtrSField<ValueT, 
+                        RefCountPolicy, 
+                        iNamespace    >::FieldContainerPtrSField(
     const FieldContainerPtrSField &obj) :
 
-    Inherited(obj)
+    Inherited()
 {
-    
+    RefCountPolicy::setRefd(_fieldValue, obj._fieldValue);   
 }
 
-template<class ValueT, Int32 iNamespace> inline
-FieldContainerPtrSField<ValueT, iNamespace>::FieldContainerPtrSField(
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+FieldContainerPtrSField<ValueT, 
+                        RefCountPolicy, 
+                        iNamespace    >::FieldContainerPtrSField(
     ArgumentType value) : 
 
-    Inherited(value)
+    Inherited()
 {
+    RefCountPolicy::setRefd(_fieldValue, value);
 }
 
-template<class ValueT, Int32 iNamespace> inline
-FieldContainerPtrSField<ValueT, iNamespace>::~FieldContainerPtrSField(void)
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+FieldContainerPtrSField<ValueT, 
+                        RefCountPolicy, 
+                        iNamespace    >::~FieldContainerPtrSField(void)
 {
+    RefCountPolicy::subRef(_fieldValue);
 }
 
-template<class ValueT, Int32 iNamespace> inline
-typename FieldContainerPtrSField<ValueT, iNamespace>::reference 
-    FieldContainerPtrSField<ValueT, iNamespace>::getValue(void)
+#if 0
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+typename FieldContainerPtrSField<ValueT, RefCountPolicy, iNamespace>::reference 
+    FieldContainerPtrSField<ValueT, RefCountPolicy, iNamespace>::getValue(void)
+{
+    return this->template dcast<typename Self::StoredType>();
+}
+#endif
+
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+typename FieldContainerPtrSField<ValueT, 
+                                 RefCountPolicy, 
+                                 iNamespace    >::const_reference 
+    FieldContainerPtrSField<ValueT, 
+                            RefCountPolicy, 
+                            iNamespace    >::getValue(void) const
 {
     return this->template dcast<typename Self::StoredType>();
 }
 
-template<class ValueT, Int32 iNamespace> inline
-typename FieldContainerPtrSField<ValueT, iNamespace>::const_reference 
-    FieldContainerPtrSField<ValueT, iNamespace>::getValue(void) const
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrSField<ValueT, 
+                             RefCountPolicy, 
+                             iNamespace    >::setValue(ArgumentType value)
 {
-    return this->template dcast<typename Self::StoredType>();
+//    Inherited::setValue(value);
+    RefCountPolicy::setRefd(_fieldValue, value);
 }
 
-template<class ValueT, Int32 iNamespace> inline
-void FieldContainerPtrSField<ValueT, iNamespace>::setValue(ArgumentType value)
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrSField<ValueT, 
+                             RefCountPolicy, 
+                             iNamespace    >::setValue(const Self &obj)
 {
-    Inherited::setValue(value);
-}
-
-template<class ValueT, Int32 iNamespace> inline
-void FieldContainerPtrSField<ValueT, iNamespace>::setValue(const Self &obj)
-{
-    Inherited::setValue(obj);
+//    Inherited::setValue(obj);
+    RefCountPolicy::setRefd(_fieldValue, obj._fieldValue);
 }
 
 
-template<class ValueT, Int32 iNamespace> inline
-void FieldContainerPtrSField<ValueT, iNamespace>::copyFromBin(
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrSField<ValueT, 
+                             RefCountPolicy, 
+                             iNamespace    >::copyFromBin(
     BinaryDataHandler &pMem)
 {
     SFieldTraits::copyFromBin( pMem, 
@@ -124,8 +150,10 @@ void FieldContainerPtrSField<ValueT, iNamespace>::copyFromBin(
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
-template<class ValueT, Int32 iNamespace> inline
-void FieldContainerPtrSField<ValueT, iNamespace>::syncWith(Self &source)
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+void FieldContainerPtrSField<ValueT, 
+                             RefCountPolicy, 
+                             iNamespace    >::syncWith(Self &source)
 {
     Inherited::syncWith(source);
 }

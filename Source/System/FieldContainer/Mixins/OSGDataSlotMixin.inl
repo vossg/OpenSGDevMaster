@@ -65,7 +65,7 @@ void DataSlotMixin<ParentT>::setData(FieldBundleP pBundle, Int32 iSlotId)
         _mfData.resize(iSlotId + 1, NULL);
     }
 
-    OSG::setRefd(_mfData[iSlotId], pBundle);
+    OSG::setRefdX(_mfData[iSlotId], pBundle);
 }
 
 template <class ParentT> inline
@@ -87,7 +87,7 @@ DataSlotMixin<ParentT>::~DataSlotMixin(void)
 {
     for(UInt32 i = 0; i < _mfData.size(); ++i)
     {
-        OSG::subRef(_mfData[i]);
+        OSG::subRefX(_mfData[i]);
     }
 }
 

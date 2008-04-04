@@ -343,9 +343,15 @@ DataType FieldTraits<ShaderParameterVec4fPtr>::_type("ShaderParameterVec4fPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterVec4fPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ShaderParameterVec4fPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    ShaderParameterVec4fPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ShaderParameterVec4fPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         ShaderParameterVec4fPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ShaderParameterVec4fPtr, 0);
 

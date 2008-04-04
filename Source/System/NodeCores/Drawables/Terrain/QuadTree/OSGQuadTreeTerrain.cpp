@@ -286,7 +286,7 @@ SHLChunkPtr QuadTreeTerrain::createSHLChunk () const
    // CF without the following addRefCP, 
    // it crashes on changing SHLParameterChunks in Terrain::addMaterialChunks
 
-   addRef(shl);
+   addRefX(shl);
 
    return shl;
 }
@@ -354,7 +354,7 @@ VertexProgramChunkPtr QuadTreeTerrain::createVPChunk () const
 
    // parameter come here
 
-   addRef(vp);
+   addRefX(vp);
 
    return vp;
 }
@@ -448,7 +448,7 @@ FragmentProgramChunkPtr QuadTreeTerrain::createFPChunk () const
    fp->addParameter("specularFactor",   8, Vec4f(0.2f, 0.2f, 0.2f, 0.2f));
    fp->addParameter("basecolor",        0, Vec4f(1.0f, 1.0f, 1.0f, 1.0f));
 
-   addRef(fp);
+   addRefX(fp);
 
    return fp;
 }
@@ -1926,11 +1926,11 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
             GeoPnt3fPropertyPtr vert = 
                 dynamic_cast<GeoPnt3fPropertyPtr>(pos->clone());
 
-            addRef(vert);
+            addRefX(vert);
 
             if(getHeightVertices() != NullFC) 
             {
-                subRef(getHeightVertices());
+                subRefX(getHeightVertices());
             }
 	 
 

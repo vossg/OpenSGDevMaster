@@ -790,9 +790,15 @@ DataType FieldTraits<MatrixCameraDecoratorPtr>::_type("MatrixCameraDecoratorPtr"
 
 OSG_FIELDTRAITS_GETTYPE(MatrixCameraDecoratorPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MatrixCameraDecoratorPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    MatrixCameraDecoratorPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MatrixCameraDecoratorPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         MatrixCameraDecoratorPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MatrixCameraDecoratorPtr, 0);
 

@@ -87,7 +87,7 @@ void VTKMapperBase::setRoot(NodePtrConstArg value)
 {
     editSField(RootFieldMask);
 
-    setRefd(_sfRoot.getValue(), value);
+    _sfRoot.setValue(value);
 
 }
 

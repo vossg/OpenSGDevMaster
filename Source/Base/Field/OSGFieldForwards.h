@@ -58,10 +58,13 @@ class SField;
 template<class ValueT, Int32 iNamespace, class AllocT>
 class MField;
 
-template<class ValueT, Int32 iNamespace>
+template<class    ValueT, 
+         typename RefCountPolicy,
+         Int32    iNamespace>
 class FieldContainerPtrSField;
 
-template<class ValueT, Int32 iNamespace>
+template<class  ValueT, 
+         Int32  iNamespace>
 class FieldContainerPtrMField;
 
 class FieldDescriptionBase;
@@ -101,6 +104,8 @@ enum FieldClass
     ValueField,
     PtrField
 };
+
+struct NoRefCounts;
 
 OSG_END_NAMESPACE
 

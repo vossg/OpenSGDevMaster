@@ -120,7 +120,7 @@ bool FieldBundleType::initialize(void)
 
 void FieldBundleType::terminate(void)
 {
-    subRef(_pPrototype);
+    subRefX(_pPrototype);
 }
 
 bool FieldBundleType::initialize(InitPhase ePhase)
@@ -137,7 +137,7 @@ bool FieldBundleType::initPrototype(void)
     {
         _pPrototype = _fPrototypeCreate();
 
-        addRef(_pPrototype);
+        addRefX(_pPrototype);
     }
 
     return true;

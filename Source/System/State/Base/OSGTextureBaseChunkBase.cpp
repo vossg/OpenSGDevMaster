@@ -319,9 +319,15 @@ DataType FieldTraits<TextureBaseChunkPtr>::_type("TextureBaseChunkPtr", "StateCh
 
 OSG_FIELDTRAITS_GETTYPE(TextureBaseChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TextureBaseChunkPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    TextureBaseChunkPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TextureBaseChunkPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         TextureBaseChunkPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TextureBaseChunkPtr, 0);
 

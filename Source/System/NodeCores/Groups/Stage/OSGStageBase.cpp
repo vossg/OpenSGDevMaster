@@ -433,9 +433,15 @@ DataType FieldTraits<StagePtr>::_type("StagePtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(StagePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, StagePtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    StagePtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, StagePtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         StagePtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, StagePtr, 0);
 

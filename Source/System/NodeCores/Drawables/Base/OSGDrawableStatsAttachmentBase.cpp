@@ -860,9 +860,15 @@ DataType FieldTraits<DrawableStatsAttachmentPtr>::_type("DrawableStatsAttachment
 
 OSG_FIELDTRAITS_GETTYPE(DrawableStatsAttachmentPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, DrawableStatsAttachmentPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
+                    DrawableStatsAttachmentPtr, 
+                    RecordedRefCounts,
+                    0);
 
-OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, DrawableStatsAttachmentPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
+                         DrawableStatsAttachmentPtr, 
+                         RecordedRefCounts,
+                         0);
 
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, DrawableStatsAttachmentPtr, 0);
 

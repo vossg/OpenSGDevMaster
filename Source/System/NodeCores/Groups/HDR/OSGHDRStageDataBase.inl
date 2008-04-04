@@ -87,7 +87,7 @@ void HDRStageDataBase::setToneMappingMaterial(ChunkMaterialPtrConstArg value)
 {
     editSField(ToneMappingMaterialFieldMask);
 
-    setRefd(_sfToneMappingMaterial.getValue(), value);
+    _sfToneMappingMaterial.setValue(value);
 
 }
 
@@ -104,7 +104,7 @@ void HDRStageDataBase::setBlurRenderTarget(FrameBufferObjectPtrConstArg value)
 {
     editSField(BlurRenderTargetFieldMask);
 
-    setRefd(_sfBlurRenderTarget.getValue(), value);
+    _sfBlurRenderTarget.setValue(value);
 
 }
 
@@ -121,7 +121,7 @@ void HDRStageDataBase::setBlurMaterial(ChunkMaterialPtrConstArg value)
 {
     editSField(BlurMaterialFieldMask);
 
-    setRefd(_sfBlurMaterial.getValue(), value);
+    _sfBlurMaterial.setValue(value);
 
 }
 
@@ -138,7 +138,7 @@ void HDRStageDataBase::setHBlurShader(SHLChunkPtrConstArg value)
 {
     editSField(HBlurShaderFieldMask);
 
-    setRefd(_sfHBlurShader.getValue(), value);
+    _sfHBlurShader.setValue(value);
 
 }
 
@@ -155,7 +155,7 @@ void HDRStageDataBase::setVBlurShader(SHLChunkPtrConstArg value)
 {
     editSField(VBlurShaderFieldMask);
 
-    setRefd(_sfVBlurShader.getValue(), value);
+    _sfVBlurShader.setValue(value);
 
 }
 //! Get the value of the HDRStageData::_sfWidth field.
@@ -238,7 +238,7 @@ void HDRStageDataBase::setShrinkRenderTarget(FrameBufferObjectPtrConstArg value)
 {
     editSField(ShrinkRenderTargetFieldMask);
 
-    setRefd(_sfShrinkRenderTarget.getValue(), value);
+    _sfShrinkRenderTarget.setValue(value);
 
 }
 
@@ -255,7 +255,7 @@ void HDRStageDataBase::setShrinkMaterial(ChunkMaterialPtrConstArg value)
 {
     editSField(ShrinkMaterialFieldMask);
 
-    setRefd(_sfShrinkMaterial.getValue(), value);
+    _sfShrinkMaterial.setValue(value);
 
 }
 
