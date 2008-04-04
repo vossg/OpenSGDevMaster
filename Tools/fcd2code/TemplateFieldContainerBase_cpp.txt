@@ -359,7 +359,7 @@ void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32                uiIndex
             @@endif // field.checkNilPtr
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-    MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.beginNC();
+    MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin_nc();
 
     //addRef(value);
 
@@ -496,7 +496,7 @@ void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
     {
         editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-        MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.beginNC();
+        MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -536,7 +536,7 @@ void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(@!field.Type!@ConstArg 
     {
         editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-        MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.beginNC();
+        MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin_nc();
 
         fieldIt += iElemIdx;
 
@@ -572,7 +572,7 @@ void @!Classname!@Base::@!field.ClearField!@(void)
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
             @@if field.isRemoveToSet
-    MF@!field.FieldTypeCaps!@::iterator       fieldIt  = _mf@!field.Name!@.begin();
+    MF@!field.FieldTypeCaps!@::iterator       fieldIt  = _mf@!field.Name!@.begin_nc();
     MF@!field.FieldTypeCaps!@::const_iterator fieldEnd = _mf@!field.Name!@.end  ();
 
     while(fieldIt != fieldEnd)

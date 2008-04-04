@@ -200,9 +200,11 @@ typename FieldContainerPtrChildMField<ValueT,
                                       iNamespace    >::iterator
     FieldContainerPtrChildMField<ValueT, 
                                  RefCountPolicy, 
-                                 iNamespace    >::beginNC(void)
+                                 iNamespace    >::begin_nc(void)
 {
-    return (this->template dcast<typename Self::StorageType>()).begin();
+    return typename Self::iterator(
+        (this->template dcast<typename Self::StorageType>()).begin(),
+        this);
 }
 
 template<class    ValueT, 
@@ -213,9 +215,11 @@ typename FieldContainerPtrChildMField<ValueT,
                                       iNamespace    >::iterator
     FieldContainerPtrChildMField<ValueT, 
                                  RefCountPolicy, 
-                                 iNamespace    >::endNC(void)
+                                 iNamespace    >::end_nc(void)
 {
-    return (this->template dcast<typename Self::StorageType>()).end();
+    return typename Self::iterator(
+        (this->template dcast<typename Self::StorageType>()).end(),
+        this);
 }
 
 template<class    ValueT, 
@@ -257,10 +261,14 @@ typename FieldContainerPtrChildMField<ValueT,
 {
     RefCountPolicy::addRef(value);
 
-    return (this->template dcast<typename Self::StorageType>()).insert(pos, 
-                                                                       value);
+    typename Self::iterator returnValue(
+        (this->template dcast<typename Self::StorageType>()).insert(pos, 
+                                                                    value),
+        this);
 
     ParentHandler::updateParentLinking(value, _pParent, _usParentFieldPos);
+
+    return returnValue;
 }
 
 template<class    ValueT, 
@@ -270,8 +278,8 @@ void FieldContainerPtrChildMField<ValueT,
                                   RefCountPolicy, 
                                   iNamespace    >::clear(void)
 {
-    typename StorageType::iterator       fieldIt  = this->beginNC();
-    typename StorageType::const_iterator fieldEnd = this->end    ();
+    typename StorageType::iterator       fieldIt  = this->begin_nc();
+    typename StorageType::const_iterator fieldEnd = this->end     ();
 
     while(fieldIt != fieldEnd)
     {
@@ -303,7 +311,9 @@ typename FieldContainerPtrChildMField<ValueT,
     
     RefCountPolicy::subRef(*tmpIt);
 
-    return (this->template dcast<typename Self::StorageType>()).erase(pos);
+    return typename Self::iterator(
+        (this->template dcast<typename Self::StorageType>()).erase(pos),
+        this);
 }
 
 template<class    ValueT, 
@@ -329,9 +339,11 @@ typename FieldContainerPtrChildMField<ValueT,
         RefCountPolicy::subRef(first.deref());
     }
     
-
-    return (this->template dcast<typename Self::StorageType>()).erase(tmpFirst,
-                                                                      tmpLast );
+    return typename Self::iterator(
+        (this->template dcast<typename Self::StorageType>()).erase(tmpFirst,
+                                                                   tmpLast ),
+        this);
+    
 }
 
 template<class    ValueT, 
@@ -360,7 +372,7 @@ void FieldContainerPtrChildMField<ValueT,
 
     if(newsize < oldSize)
     {
-        this->erase(this->beginNC() + newsize, this->endNC());
+        this->erase(this->begin_nc() + newsize, this->end_nc());
     }
     else
     {
@@ -429,6 +441,19 @@ typename FieldContainerPtrChildMField<ValueT,
         (this->template dcast<typename Self::StorageType>())[index];
 
     return RefCountPolicy::validate(returnValue);
+}
+
+template<class    ValueT, 
+         typename RefCountPolicy, 
+         Int32    iNamespace    > inline
+typename FieldContainerPtrChildMField<ValueT, 
+                                      RefCountPolicy, 
+                                      iNamespace    >::reference 
+    FieldContainerPtrChildMField<ValueT, 
+                                 RefCountPolicy, 
+                                 iNamespace    >::operator [](UInt32 index) 
+{
+    return typename Self::reference(this->begin_nc() + index, this);
 }
 
 template<class    ValueT, 

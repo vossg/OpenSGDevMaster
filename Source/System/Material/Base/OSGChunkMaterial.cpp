@@ -152,7 +152,7 @@ bool ChunkMaterial::subChunk(StateChunkPtr chunk, Int32 slot)
 
             //subRef(chunk);
 
-            _mfChunks.erase(_mfChunks.beginNC() + i);
+            _mfChunks.erase(_mfChunks.begin_nc() + i);
 
             if(i < _mfSlots.size())
             {

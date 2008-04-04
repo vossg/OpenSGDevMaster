@@ -139,6 +139,11 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
         {
         }
 
+        const_ptrfield_iterator(const const_ptrfield_iterator &source) :
+            Inherited(source)
+        {
+        }
+
         const_reference operator*() const
         { 
             return ItRefCountPolicy::validate(*Inherited::_M_current); 
@@ -170,6 +175,14 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
             return returnValue;
         }
 
+        void operator =(const const_ptrfield_iterator &rhs)
+        {
+            if(this != &rhs)
+            {
+                Inherited::operator =(rhs);
+            }
+        }
+
       protected:
     };
 
@@ -190,17 +203,28 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
 
       public:
 
-        ptrfield_iterator(void) : Inherited()
+        ptrfield_iterator(void) : 
+             Inherited(    ), 
+            _pField   (NULL)
         {
         }
 
-        ptrfield_iterator(const Inherited &i) : Inherited(i)
+        ptrfield_iterator(const Inherited &i,
+                                PtrMField *pField) : 
+             Inherited(i     ), 
+            _pField   (pField)
+        {
+        }
+           
+        ptrfield_iterator(const ptrfield_iterator &source) :
+             Inherited(source        ), 
+            _pField   (source._pField)
         {
         }
 
         reference operator*() const
         { 
-            return ReferenceProxy();
+            return ReferenceProxy(this, _pField);
             //return ItRefCountPolicy::validate(*Inherited::_M_current); 
         }
 
@@ -256,18 +280,80 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
             return ItRefCountPolicy::validate(*Inherited::_M_current); 
         }
 
+        void operator =(const ptrfield_iterator &rhs)
+        {
+            if(this != &rhs)
+            {
+                Inherited::operator =(rhs);
+                
+                _pField = rhs._pField;
+            }
+        }
+
       protected:
+
+        PtrMField *_pField;
     };
 
     typedef       ptrfield_iterator<StorageType, 
                                     RefCountPolicy>       iterator;
     typedef const_ptrfield_iterator<StorageType,
                                     RefCountPolicy> const_iterator;
-
     class ReferenceProxy
     {
+      public:
+
+        typedef ReferenceProxy                               Self;
+
+        typedef iterator                                     StorageIt;
+        typedef StoredType                                   ValueType;
+
+        typedef FieldContainerPtrChildMField<ValueT, 
+                                             RefCountPolicy,
+                                             iNamespace    > PtrMField;
+
+        typedef RefCountPolicy                               RefCountPolicyT;
+
+        ReferenceProxy(StorageIt  iIt,
+                       PtrMField *pField) : _storeIt(iIt), _pField(pField)
+        {
+        }
+
+        ReferenceProxy(const ReferenceProxy &source) :
+            _storeIt(source._storeIt),
+            _pField (source._pField )
+        {
+        }
+
+        ~ReferenceProxy(void)
+        {
+        }        
+
+        operator typename Self::ValueType (void) const
+        {
+            return RefCountPolicyT::validate(_storeIt.deref());
+        }
+        
+        typename Self::ValueType operator->(void) const
+        {
+            return RefCountPolicyT::validate(_storeIt.deref());
+        }
+
+        void operator =(Self::ValueType pNewElement)
+        {
+            if(pNewElement != *_storeIt)
+            {
+                _pField->replace(_storeIt, pNewElement);
+            }
+        }
+
+      protected:
+
+        StorageIt  _storeIt;
+        PtrMField *_pField;
     };
-    
+
+   
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */
     /*! \{                                                                 */
@@ -315,16 +401,16 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
     /*! \name                   STL Interface                              */
     /*! \{                                                                 */
 
-    iterator               beginNC  (void                              );
-    iterator               endNC    (void                              );
+    iterator               begin_nc (void                              );
+    iterator               end_nc   (void                              );
 
     const_iterator         begin    (void                              ) const;
     const_iterator         end      (void                              ) const;
     
-    reference              frontNC  (void                              );
+    reference              front_nc (void                              );
     const_reference        front    (void                              ) const;
 
-    reference              backNC   (void                              );
+    reference              back_nc  (void                              );
     const_reference        back     (void                              ) const;
     
    
@@ -348,7 +434,7 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
     iterator               erase    (iterator     first,
                                      iterator     last                 );
     
-    iterator               findNC   (ArgumentType value                );
+    iterator               find_nc  (ArgumentType value                );
     const_iterator         find     (ArgumentType value                ) const;
 
     void                   push_back(ArgumentType value                );
@@ -379,9 +465,7 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
-#if 0
           reference operator [](UInt32 index);
-#endif
     const_reference operator [](UInt32 index) const;
 
     /*! \}                                                                 */

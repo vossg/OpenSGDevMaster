@@ -157,8 +157,17 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
             return *this;
         }
              
-      protected:
+        void operator =(const ptrfield_iterator &rhs)
+        {
+            if(this != &rhs)
+            {
+                Inherited::operator =(rhs);
+                
+                _posIt = rhs._posIt;
+            }
+        }
 
+      protected:
     };
 
     template<class StorageTypeT>
@@ -221,8 +230,17 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
             return *this;
         }
              
-      protected:
+        void operator =(const const_ptrfield_iterator &rhs)
+        {
+            if(this != &rhs)
+            {
+                Inherited::operator =(rhs);
+                
+                _posIt = rhs._posIt;
+            }
+        }
 
+      protected:
     };
 
     typedef       ptrfield_iterator<StorageType>       iterator;
@@ -274,8 +292,8 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
     /*! \name                   STL Interface                              */
     /*! \{                                                                 */
 
-    iterator               beginNC  (void                              );
-    iterator               endNC    (void                              );
+    iterator               begin_nc (void                              );
+    iterator               end_nc   (void                              );
 
     const_iterator         begin    (void                              ) const;
     const_iterator         end      (void                              ) const;

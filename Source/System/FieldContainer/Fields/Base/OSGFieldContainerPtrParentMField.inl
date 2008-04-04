@@ -215,7 +215,7 @@ typename FieldContainerPtrParentMField<ValueT,
                                        iNamespace    >::iterator
     FieldContainerPtrParentMField<ValueT, 
                                   RefCountPolicy, 
-                                  iNamespace    >::beginNC(void)
+                                  iNamespace    >::begin_nc(void)
 {
     return iterator(
         (this->template dcast<typename Self::StorageType>()).begin(),
@@ -228,7 +228,7 @@ typename FieldContainerPtrParentMField<ValueT,
                                        iNamespace    >::iterator
     FieldContainerPtrParentMField<ValueT, 
                                   RefCountPolicy, 
-                                  iNamespace    >::endNC(void)
+                                  iNamespace    >::end_nc(void)
 {
     return iterator(
         (this->template dcast<typename Self::StorageType>()).end(),

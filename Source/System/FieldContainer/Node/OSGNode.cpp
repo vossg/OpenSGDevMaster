@@ -235,7 +235,7 @@ void Node::insertChild(UInt32 childIndex, NodePtrConstArg childP)
 
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.beginNC();
+        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.begin_nc();
 
         childIt += childIndex;
 
@@ -354,7 +354,7 @@ void Node::subChild(NodePtrConstArg childP)
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.beginNC();
+        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.begin_nc();
 
         childIt += childIdx;
 
@@ -377,7 +377,7 @@ void Node::subChild(UInt32 childIndex)
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.beginNC();
+        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.begin_nc();
 
         childIt += childIndex;
 

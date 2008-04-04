@@ -564,8 +564,8 @@ void State::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    OSG::for_each_iterator(_mfChunks.beginNC(), 
-                           _mfChunks.endNC  (),
+    OSG::for_each_iterator(_mfChunks.begin_nc(), 
+                           _mfChunks.end_nc  (),
                            ClearSlot(_mfChunks));
 }
 
