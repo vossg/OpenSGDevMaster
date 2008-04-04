@@ -186,16 +186,16 @@ class @!Classname!@Base : public @!Parent!@
     @@BeginFieldLoop@@
         @@if field.isPublic
             @@if field.isPtrField
-    @!field.MethodType:7!@ const @!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
+    @!field.MethodType:7!@ const @!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
             @@else // field.isPtrField
 
                 @@if CompatOneSix
 #ifdef OSG_1_GET_COMPAT
-    @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void);
+    @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void);
 #endif
                 @@endif // CompatOneSix
-    @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
-    @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
+    @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
+    @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
             @@endif // field.isPtrField
         @@endif // field.isPublic
     @@EndFieldLoop@@
@@ -385,7 +385,7 @@ class @!Classname!@Base : public @!Parent!@
     @@else // isDecorator
         @@BeginFieldLoop@@
             @@if !field.isPrivate
-    @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:15!@ _@!field.VarName!@;
+    @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@ _@!field.VarName!@;
             @@endif // !field.isPrivate
         @@EndFieldLoop@@
     @@endif // isDecorator

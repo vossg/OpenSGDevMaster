@@ -133,8 +133,8 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
     @@else // isDecorator
         @@BeginFieldLoop@@
 
-    pDesc = new @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@::Description(
-        @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@::getClassType(),
+    pDesc = new @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@::Description(
+        @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@::getClassType(),
         "@!field.DescName!@",
         @!field.SafeDescription!@,
         @!field.Name!@FieldId, @!field.Name!@FieldMask,
@@ -207,7 +207,7 @@ const SF@!Parent!@Ptr *@!Classname!@Base::getSFDecoratee(void) const
         @@if !field.noAccess
         @@if field.isPtrField
 //! Get the @!Classname!@::_@!field.VarName!@ field.
-const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
+const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
@@ -219,7 +219,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::
     }
 }
         @@else // field.isPtrField
-@!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
+@!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
@@ -231,7 +231,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::
     }
 }
 
-const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
+const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
@@ -244,7 +244,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::
 }
             @@if CompatOneSix
 #ifdef OSG_1_GET_COMPAT
-@!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
+@!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
 {
     return this->edit@!field.CARD!@@!field.Name:15!@();
 }
@@ -261,12 +261,12 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::
         @@if !field.noAccess
         @@if field.isPtrField
 //! Get the @!Classname!@::_@!field.VarName!@ field.
-const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
+const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
     return &_@!field.VarName!@;
 }
         @@else // field.isPtrField
-@!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
+@!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
 {
             @@if field.isMField
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
@@ -277,14 +277,14 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::
     return &_@!field.VarName!@;
 }
 
-const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
+const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
     return &_@!field.VarName!@;
 }
 
             @@if CompatOneSix
 #ifdef OSG_1_GET_COMPAT
-@!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
+@!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
 {
     return this->edit@!field.CARD!@@!field.Name:15!@();
 }
@@ -924,8 +924,8 @@ EditFieldHandlePtr @!Classname!@Base::editHandleDecoratee(void)
 @@BeginFieldLoop@@
 GetFieldHandlePtr @!Classname!@Base::getHandle@!field.Name:15!@ (void) const
 {
-    @!field.CARD!@@!field.TypeCaps!@::GetHandlePtr returnValue(
-        new  @!field.CARD!@@!field.TypeCaps!@::GetHandle(
+    @!field.CARD!@@!field.FieldTypeCaps!@::GetHandlePtr returnValue(
+        new  @!field.CARD!@@!field.FieldTypeCaps!@::GetHandle(
              &_@!field.VarName!@, 
              this->getType().getFieldDesc(@!field.Name!@FieldId)));
 
@@ -935,8 +935,8 @@ GetFieldHandlePtr @!Classname!@Base::getHandle@!field.Name:15!@ (void) const
 EditFieldHandlePtr @!Classname!@Base::editHandle@!field.Name:15!@(void)
 {
 @@if !field.noAccess
-    @!field.CARD!@@!field.TypeCaps!@::EditHandlePtr returnValue(
-        new  @!field.CARD!@@!field.TypeCaps!@::EditHandle(
+    @!field.CARD!@@!field.FieldTypeCaps!@::EditHandlePtr returnValue(
+        new  @!field.CARD!@@!field.FieldTypeCaps!@::EditHandle(
              &_@!field.VarName!@, 
              this->getType().getFieldDesc(@!field.Name!@FieldId)));
 @@if field.isMField

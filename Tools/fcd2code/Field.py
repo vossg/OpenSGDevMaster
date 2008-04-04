@@ -133,9 +133,9 @@ class Field(FCDElement):
          
             Type          = Type + "Ptr";
             TypeCaps      = self._upcaseFirst(Type);
-            FieldType     = TypeRaw + "InternalPtr";
+            FieldType     = TypeRaw + "Ptr"; # + "InternalPtr";
             FieldTypeNS   = TypeNS;
-            FieldTypeCaps = TypeRawCaps + "InternalPtr";
+            FieldTypeCaps = TypeRawCaps + "Ptr"; # + "InternalPtr";
             
         elif self.getFCD("category") == "childpointer":
             self["category"]        = "pointer";
@@ -164,9 +164,9 @@ class Field(FCDElement):
          
             Type          = Type + "Ptr";
             TypeCaps      = self._upcaseFirst(Type);
-            FieldType     = TypeRaw + "WeakPtr";
+            FieldType     = "Uncounted" + TypeRaw + "Ptr"; #TypeRaw + "WeakPtr";
             FieldTypeNS   = TypeNS;
-            FieldTypeCaps = TypeRawCaps + "WeakPtr";
+            FieldTypeCaps = "Uncounted" + TypeRawCaps + "Ptr"; #TypeRawCaps + "WeakPtr";
             
         else:
             self.m_log.warning("finalize: \"category\" has invalid value: >%s<",

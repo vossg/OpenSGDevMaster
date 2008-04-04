@@ -368,7 +368,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     SFReal            _sfConstantAttenuation;
     SFReal            _sfLinearAttenuation;
     SFReal            _sfQuadraticAttenuation;
-    SFUncountedNodePtr         _sfBeacon;
+    SFUncountedNodePtr _sfBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

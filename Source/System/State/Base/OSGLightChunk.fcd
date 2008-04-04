@@ -115,7 +115,8 @@ OSG::LightChunk::_sfQuadraticAttenuation).
 	</Field>
 	<Field
 		name="beacon"
-		type="NodePtr"
+		type="Node"
+        category="weakpointer"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"
