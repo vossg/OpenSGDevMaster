@@ -131,7 +131,7 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SolidBackgroundBase::createEmpty,
+    (PrototypeCreateF) &SolidBackgroundBase::createEmptyLocal,
     SolidBackground::initMethod,
     SolidBackground::exitMethod,
     (InitalInsertDescFunc) &SolidBackgroundBase::classDescInserter,
@@ -307,12 +307,42 @@ SolidBackgroundTransitPtr SolidBackgroundBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+SolidBackgroundTransitPtr SolidBackgroundBase::createLocal(BitVector bFlags)
+{
+    SolidBackgroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SolidBackground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SolidBackgroundPtr SolidBackgroundBase::createEmpty(void)
 {
     SolidBackgroundPtr returnValue;
 
-    newPtr<SolidBackground>(returnValue);
+    newPtr<SolidBackground>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+SolidBackgroundPtr SolidBackgroundBase::createEmptyLocal(BitVector bFlags)
+{
+    SolidBackgroundPtr returnValue;
+
+    newPtr<SolidBackground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -321,9 +351,27 @@ FieldContainerTransitPtr SolidBackgroundBase::shallowCopy(void) const
 {
     SolidBackgroundPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const SolidBackground *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const SolidBackground *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SolidBackgroundBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SolidBackgroundPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SolidBackground *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

@@ -83,7 +83,7 @@ SepiaComposerBase::TypeObject SepiaComposerBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SepiaComposerBase::createEmpty,
+    (PrototypeCreateF) &SepiaComposerBase::createEmptyLocal,
     SepiaComposer::initMethod,
     SepiaComposer::exitMethod,
     NULL,
@@ -170,12 +170,42 @@ SepiaComposerTransitPtr SepiaComposerBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+SepiaComposerTransitPtr SepiaComposerBase::createLocal(BitVector bFlags)
+{
+    SepiaComposerTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SepiaComposer>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SepiaComposerPtr SepiaComposerBase::createEmpty(void)
 {
     SepiaComposerPtr returnValue;
 
-    newPtr<SepiaComposer>(returnValue);
+    newPtr<SepiaComposer>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+SepiaComposerPtr SepiaComposerBase::createEmptyLocal(BitVector bFlags)
+{
+    SepiaComposerPtr returnValue;
+
+    newPtr<SepiaComposer>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -184,9 +214,27 @@ FieldContainerTransitPtr SepiaComposerBase::shallowCopy(void) const
 {
     SepiaComposerPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const SepiaComposer *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const SepiaComposer *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SepiaComposerBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SepiaComposerPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SepiaComposer *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

@@ -168,15 +168,23 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CoreGLWindowTransitPtr create     (void);
-    static  CoreGLWindowPtr        createEmpty(void);
+    static  CoreGLWindowTransitPtr create          (void);
+    static  CoreGLWindowPtr        createEmpty     (void);
+
+    static  CoreGLWindowTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  CoreGLWindowPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

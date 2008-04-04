@@ -168,15 +168,23 @@ class OSG_STATE_DLLMAPPING ShaderParameterVec3fBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterVec3fTransitPtr create     (void);
-    static  ShaderParameterVec3fPtr        createEmpty(void);
+    static  ShaderParameterVec3fTransitPtr create          (void);
+    static  ShaderParameterVec3fPtr        createEmpty     (void);
+
+    static  ShaderParameterVec3fTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ShaderParameterVec3fPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

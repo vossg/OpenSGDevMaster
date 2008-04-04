@@ -181,15 +181,23 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GrabForegroundTransitPtr create     (void);
-    static  GrabForegroundPtr        createEmpty(void);
+    static  GrabForegroundTransitPtr create          (void);
+    static  GrabForegroundPtr        createEmpty     (void);
+
+    static  GrabForegroundTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  GrabForegroundPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

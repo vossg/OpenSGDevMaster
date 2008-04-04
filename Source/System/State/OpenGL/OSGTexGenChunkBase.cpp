@@ -307,7 +307,7 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TexGenChunkBase::createEmpty,
+    (PrototypeCreateF) &TexGenChunkBase::createEmptyLocal,
     TexGenChunk::initMethod,
     TexGenChunk::exitMethod,
     (InitalInsertDescFunc) &TexGenChunkBase::classDescInserter,
@@ -853,12 +853,42 @@ TexGenChunkTransitPtr TexGenChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+TexGenChunkTransitPtr TexGenChunkBase::createLocal(BitVector bFlags)
+{
+    TexGenChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<TexGenChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TexGenChunkPtr TexGenChunkBase::createEmpty(void)
 {
     TexGenChunkPtr returnValue;
 
-    newPtr<TexGenChunk>(returnValue);
+    newPtr<TexGenChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+TexGenChunkPtr TexGenChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    TexGenChunkPtr returnValue;
+
+    newPtr<TexGenChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -867,9 +897,27 @@ FieldContainerTransitPtr TexGenChunkBase::shallowCopy(void) const
 {
     TexGenChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TexGenChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const TexGenChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TexGenChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    TexGenChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TexGenChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

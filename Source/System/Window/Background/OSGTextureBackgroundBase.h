@@ -281,15 +281,23 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureBackgroundTransitPtr create     (void);
-    static  TextureBackgroundPtr        createEmpty(void);
+    static  TextureBackgroundTransitPtr create          (void);
+    static  TextureBackgroundPtr        createEmpty     (void);
+
+    static  TextureBackgroundTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  TextureBackgroundPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

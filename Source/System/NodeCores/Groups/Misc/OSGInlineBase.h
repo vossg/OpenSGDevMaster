@@ -200,15 +200,23 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  InlineTransitPtr create     (void);
-    static  InlinePtr        createEmpty(void);
+    static  InlineTransitPtr create          (void);
+    static  InlinePtr        createEmpty     (void);
+
+    static  InlineTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  InlinePtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

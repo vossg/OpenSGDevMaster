@@ -566,15 +566,23 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SkyBackgroundTransitPtr create     (void);
-    static  SkyBackgroundPtr        createEmpty(void);
+    static  SkyBackgroundTransitPtr create          (void);
+    static  SkyBackgroundPtr        createEmpty     (void);
+
+    static  SkyBackgroundTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  SkyBackgroundPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

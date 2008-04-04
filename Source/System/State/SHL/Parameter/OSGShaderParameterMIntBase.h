@@ -183,15 +183,23 @@ class OSG_STATE_DLLMAPPING ShaderParameterMIntBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterMIntTransitPtr create     (void);
-    static  ShaderParameterMIntPtr        createEmpty(void);
+    static  ShaderParameterMIntTransitPtr create          (void);
+    static  ShaderParameterMIntPtr        createEmpty     (void);
+
+    static  ShaderParameterMIntTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ShaderParameterMIntPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

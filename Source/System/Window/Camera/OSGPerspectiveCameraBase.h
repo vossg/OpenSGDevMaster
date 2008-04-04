@@ -185,15 +185,23 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PerspectiveCameraTransitPtr create     (void);
-    static  PerspectiveCameraPtr        createEmpty(void);
+    static  PerspectiveCameraTransitPtr create          (void);
+    static  PerspectiveCameraPtr        createEmpty     (void);
+
+    static  PerspectiveCameraTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  PerspectiveCameraPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -141,15 +141,23 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StringAttributeMapTransitPtr create     (void);
-    static  StringAttributeMapPtr        createEmpty(void);
+    static  StringAttributeMapTransitPtr create          (void);
+    static  StringAttributeMapPtr        createEmpty     (void);
+
+    static  StringAttributeMapTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  StringAttributeMapPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

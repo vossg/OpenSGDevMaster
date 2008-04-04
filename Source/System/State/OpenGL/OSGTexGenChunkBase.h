@@ -324,15 +324,23 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TexGenChunkTransitPtr create     (void);
-    static  TexGenChunkPtr        createEmpty(void);
+    static  TexGenChunkTransitPtr create          (void);
+    static  TexGenChunkPtr        createEmpty     (void);
+
+    static  TexGenChunkTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  TexGenChunkPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

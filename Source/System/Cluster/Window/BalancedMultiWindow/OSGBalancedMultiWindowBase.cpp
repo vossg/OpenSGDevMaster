@@ -174,7 +174,7 @@ BalancedMultiWindowBase::TypeObject BalancedMultiWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &BalancedMultiWindowBase::createEmpty,
+    (PrototypeCreateF) &BalancedMultiWindowBase::createEmptyLocal,
     BalancedMultiWindow::initMethod,
     BalancedMultiWindow::exitMethod,
     (InitalInsertDescFunc) &BalancedMultiWindowBase::classDescInserter,
@@ -465,12 +465,42 @@ BalancedMultiWindowTransitPtr BalancedMultiWindowBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+BalancedMultiWindowTransitPtr BalancedMultiWindowBase::createLocal(BitVector bFlags)
+{
+    BalancedMultiWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<BalancedMultiWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 BalancedMultiWindowPtr BalancedMultiWindowBase::createEmpty(void)
 {
     BalancedMultiWindowPtr returnValue;
 
-    newPtr<BalancedMultiWindow>(returnValue);
+    newPtr<BalancedMultiWindow>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+BalancedMultiWindowPtr BalancedMultiWindowBase::createEmptyLocal(BitVector bFlags)
+{
+    BalancedMultiWindowPtr returnValue;
+
+    newPtr<BalancedMultiWindow>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -479,9 +509,27 @@ FieldContainerTransitPtr BalancedMultiWindowBase::shallowCopy(void) const
 {
     BalancedMultiWindowPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const BalancedMultiWindow *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const BalancedMultiWindow *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr BalancedMultiWindowBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    BalancedMultiWindowPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const BalancedMultiWindow *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

@@ -1097,15 +1097,23 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureChunkTransitPtr create     (void);
-    static  TextureChunkPtr        createEmpty(void);
+    static  TextureChunkTransitPtr create          (void);
+    static  TextureChunkPtr        createEmpty     (void);
+
+    static  TextureChunkTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  TextureChunkPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

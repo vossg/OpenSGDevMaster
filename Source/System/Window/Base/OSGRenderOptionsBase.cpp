@@ -431,7 +431,7 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     Inherited::getClassname(),
     "RenderOptions",
     0,
-    (PrototypeCreateF) &RenderOptionsBase::createEmpty,
+    (PrototypeCreateF) &RenderOptionsBase::createEmptyLocal,
     RenderOptions::initMethod,
     RenderOptions::exitMethod,
     (InitalInsertDescFunc) &RenderOptionsBase::classDescInserter,
@@ -1358,12 +1358,42 @@ RenderOptionsTransitPtr RenderOptionsBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+RenderOptionsTransitPtr RenderOptionsBase::createLocal(BitVector bFlags)
+{
+    RenderOptionsTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<RenderOptions>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 RenderOptionsPtr RenderOptionsBase::createEmpty(void)
 {
     RenderOptionsPtr returnValue;
 
-    newPtr<RenderOptions>(returnValue);
+    newPtr<RenderOptions>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+RenderOptionsPtr RenderOptionsBase::createEmptyLocal(BitVector bFlags)
+{
+    RenderOptionsPtr returnValue;
+
+    newPtr<RenderOptions>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -1372,9 +1402,27 @@ FieldContainerTransitPtr RenderOptionsBase::shallowCopy(void) const
 {
     RenderOptionsPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const RenderOptions *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const RenderOptions *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr RenderOptionsBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    RenderOptionsPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const RenderOptions *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

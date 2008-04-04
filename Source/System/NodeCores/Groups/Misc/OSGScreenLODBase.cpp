@@ -121,7 +121,7 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ScreenLODBase::createEmpty,
+    (PrototypeCreateF) &ScreenLODBase::createEmptyLocal,
     ScreenLOD::initMethod,
     ScreenLOD::exitMethod,
     (InitalInsertDescFunc) &ScreenLODBase::classDescInserter,
@@ -340,12 +340,42 @@ ScreenLODTransitPtr ScreenLODBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+ScreenLODTransitPtr ScreenLODBase::createLocal(BitVector bFlags)
+{
+    ScreenLODTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<ScreenLOD>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ScreenLODPtr ScreenLODBase::createEmpty(void)
 {
     ScreenLODPtr returnValue;
 
-    newPtr<ScreenLOD>(returnValue);
+    newPtr<ScreenLOD>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ScreenLODPtr ScreenLODBase::createEmptyLocal(BitVector bFlags)
+{
+    ScreenLODPtr returnValue;
+
+    newPtr<ScreenLOD>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -354,9 +384,27 @@ FieldContainerTransitPtr ScreenLODBase::shallowCopy(void) const
 {
     ScreenLODPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ScreenLOD *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const ScreenLOD *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ScreenLODBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ScreenLODPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ScreenLOD *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

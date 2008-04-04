@@ -183,15 +183,23 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec2fBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterMVec2fTransitPtr create     (void);
-    static  ShaderParameterMVec2fPtr        createEmpty(void);
+    static  ShaderParameterMVec2fTransitPtr create          (void);
+    static  ShaderParameterMVec2fPtr        createEmpty     (void);
+
+    static  ShaderParameterMVec2fTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ShaderParameterMVec2fPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

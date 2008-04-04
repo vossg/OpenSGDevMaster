@@ -83,7 +83,7 @@ TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TwoSidedLightingChunkBase::createEmpty,
+    (PrototypeCreateF) &TwoSidedLightingChunkBase::createEmptyLocal,
     TwoSidedLightingChunk::initMethod,
     TwoSidedLightingChunk::exitMethod,
     NULL,
@@ -170,12 +170,42 @@ TwoSidedLightingChunkTransitPtr TwoSidedLightingChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+TwoSidedLightingChunkTransitPtr TwoSidedLightingChunkBase::createLocal(BitVector bFlags)
+{
+    TwoSidedLightingChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<TwoSidedLightingChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::createEmpty(void)
 {
     TwoSidedLightingChunkPtr returnValue;
 
-    newPtr<TwoSidedLightingChunk>(returnValue);
+    newPtr<TwoSidedLightingChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    TwoSidedLightingChunkPtr returnValue;
+
+    newPtr<TwoSidedLightingChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -184,9 +214,27 @@ FieldContainerTransitPtr TwoSidedLightingChunkBase::shallowCopy(void) const
 {
     TwoSidedLightingChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TwoSidedLightingChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const TwoSidedLightingChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TwoSidedLightingChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    TwoSidedLightingChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TwoSidedLightingChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

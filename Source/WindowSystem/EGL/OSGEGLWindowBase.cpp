@@ -142,7 +142,7 @@ EGLWindowBase::TypeObject EGLWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &EGLWindowBase::createEmpty,
+    (PrototypeCreateF) &EGLWindowBase::createEmptyLocal,
     EGLWindow::initMethod,
     EGLWindow::exitMethod,
     (InitalInsertDescFunc) &EGLWindowBase::classDescInserter,
@@ -351,12 +351,42 @@ EGLWindowTransitPtr EGLWindowBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+EGLWindowTransitPtr EGLWindowBase::createLocal(BitVector bFlags)
+{
+    EGLWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<EGLWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 EGLWindowPtr EGLWindowBase::createEmpty(void)
 {
     EGLWindowPtr returnValue;
 
-    newPtr<EGLWindow>(returnValue);
+    newPtr<EGLWindow>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+EGLWindowPtr EGLWindowBase::createEmptyLocal(BitVector bFlags)
+{
+    EGLWindowPtr returnValue;
+
+    newPtr<EGLWindow>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -365,9 +395,27 @@ FieldContainerTransitPtr EGLWindowBase::shallowCopy(void) const
 {
     EGLWindowPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const EGLWindow *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const EGLWindow *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr EGLWindowBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    EGLWindowPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const EGLWindow *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

@@ -185,15 +185,23 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShearedStereoCameraDecoratorTransitPtr create     (void);
-    static  ShearedStereoCameraDecoratorPtr        createEmpty(void);
+    static  ShearedStereoCameraDecoratorTransitPtr create          (void);
+    static  ShearedStereoCameraDecoratorPtr        createEmpty     (void);
+
+    static  ShearedStereoCameraDecoratorTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ShearedStereoCameraDecoratorPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

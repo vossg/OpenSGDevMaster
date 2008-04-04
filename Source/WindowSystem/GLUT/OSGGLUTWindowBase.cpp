@@ -110,7 +110,7 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &GLUTWindowBase::createEmpty,
+    (PrototypeCreateF) &GLUTWindowBase::createEmptyLocal,
     GLUTWindow::initMethod,
     GLUTWindow::exitMethod,
     (InitalInsertDescFunc) &GLUTWindowBase::classDescInserter,
@@ -237,12 +237,42 @@ GLUTWindowTransitPtr GLUTWindowBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+GLUTWindowTransitPtr GLUTWindowBase::createLocal(BitVector bFlags)
+{
+    GLUTWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<GLUTWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 GLUTWindowPtr GLUTWindowBase::createEmpty(void)
 {
     GLUTWindowPtr returnValue;
 
-    newPtr<GLUTWindow>(returnValue);
+    newPtr<GLUTWindow>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+GLUTWindowPtr GLUTWindowBase::createEmptyLocal(BitVector bFlags)
+{
+    GLUTWindowPtr returnValue;
+
+    newPtr<GLUTWindow>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -251,9 +281,27 @@ FieldContainerTransitPtr GLUTWindowBase::shallowCopy(void) const
 {
     GLUTWindowPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const GLUTWindow *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const GLUTWindow *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GLUTWindowBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    GLUTWindowPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const GLUTWindow *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

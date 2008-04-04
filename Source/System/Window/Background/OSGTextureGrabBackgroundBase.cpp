@@ -167,7 +167,7 @@ TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TextureGrabBackgroundBase::createEmpty,
+    (PrototypeCreateF) &TextureGrabBackgroundBase::createEmptyLocal,
     TextureGrabBackground::initMethod,
     TextureGrabBackground::exitMethod,
     (InitalInsertDescFunc) &TextureGrabBackgroundBase::classDescInserter,
@@ -417,12 +417,42 @@ TextureGrabBackgroundTransitPtr TextureGrabBackgroundBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+TextureGrabBackgroundTransitPtr TextureGrabBackgroundBase::createLocal(BitVector bFlags)
+{
+    TextureGrabBackgroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<TextureGrabBackground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TextureGrabBackgroundPtr TextureGrabBackgroundBase::createEmpty(void)
 {
     TextureGrabBackgroundPtr returnValue;
 
-    newPtr<TextureGrabBackground>(returnValue);
+    newPtr<TextureGrabBackground>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+TextureGrabBackgroundPtr TextureGrabBackgroundBase::createEmptyLocal(BitVector bFlags)
+{
+    TextureGrabBackgroundPtr returnValue;
+
+    newPtr<TextureGrabBackground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -431,9 +461,27 @@ FieldContainerTransitPtr TextureGrabBackgroundBase::shallowCopy(void) const
 {
     TextureGrabBackgroundPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TextureGrabBackground *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const TextureGrabBackground *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TextureGrabBackgroundBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    TextureGrabBackgroundPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TextureGrabBackground *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

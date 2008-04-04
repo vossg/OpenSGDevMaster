@@ -163,7 +163,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
 @@if isAbstract
     NULL,
 @@else // isAbstract
-    (PrototypeCreateF) &@!Classname!@Base::createEmpty,
+    (PrototypeCreateF) &@!Classname!@Base::createEmptyLocal,
 @@endif // isAbstract
     @!Classname!@::initMethod,
     @!Classname!@::exitMethod,
@@ -788,6 +788,22 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 
     return fc;
 }
+
+//! create a new instance of the class
+@!Classname!@TransitPtr @!Classname!@Base::createLocal(BitVector bFlags)
+{
+    @!Classname!@TransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<@!Classname!@>(tmpPtr);
+    }
+
+    return fc;
+}
 @@endif // !isAbstract
 
 @@if !isAbstract
@@ -796,7 +812,21 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 {
     @!Classname!@Ptr returnValue;
 
-    newPtr<@!Classname!@>(returnValue);
+    newPtr<@!Classname!@>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+@!Classname!@Ptr @!Classname!@Base::createEmptyLocal(BitVector bFlags)
+{
+    @!Classname!@Ptr returnValue;
+
+    newPtr<@!Classname!@>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -805,9 +835,27 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopy(void) const
 {
     @!Classname!@Ptr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const @!Classname!@ *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const @!Classname!@ *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr @!Classname!@Base::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    @!Classname!@Ptr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const @!Classname!@ *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

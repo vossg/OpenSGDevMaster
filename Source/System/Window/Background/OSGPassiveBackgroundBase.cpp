@@ -83,7 +83,7 @@ PassiveBackgroundBase::TypeObject PassiveBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PassiveBackgroundBase::createEmpty,
+    (PrototypeCreateF) &PassiveBackgroundBase::createEmptyLocal,
     PassiveBackground::initMethod,
     PassiveBackground::exitMethod,
     NULL,
@@ -173,12 +173,42 @@ PassiveBackgroundTransitPtr PassiveBackgroundBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+PassiveBackgroundTransitPtr PassiveBackgroundBase::createLocal(BitVector bFlags)
+{
+    PassiveBackgroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<PassiveBackground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PassiveBackgroundPtr PassiveBackgroundBase::createEmpty(void)
 {
     PassiveBackgroundPtr returnValue;
 
-    newPtr<PassiveBackground>(returnValue);
+    newPtr<PassiveBackground>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+PassiveBackgroundPtr PassiveBackgroundBase::createEmptyLocal(BitVector bFlags)
+{
+    PassiveBackgroundPtr returnValue;
+
+    newPtr<PassiveBackground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -187,9 +217,27 @@ FieldContainerTransitPtr PassiveBackgroundBase::shallowCopy(void) const
 {
     PassiveBackgroundPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const PassiveBackground *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const PassiveBackground *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PassiveBackgroundBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    PassiveBackgroundPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PassiveBackground *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

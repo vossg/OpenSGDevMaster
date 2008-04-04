@@ -170,7 +170,7 @@ LineChunkBase::TypeObject LineChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &LineChunkBase::createEmpty,
+    (PrototypeCreateF) &LineChunkBase::createEmptyLocal,
     LineChunk::initMethod,
     LineChunk::exitMethod,
     (InitalInsertDescFunc) &LineChunkBase::classDescInserter,
@@ -440,12 +440,42 @@ LineChunkTransitPtr LineChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+LineChunkTransitPtr LineChunkBase::createLocal(BitVector bFlags)
+{
+    LineChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<LineChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 LineChunkPtr LineChunkBase::createEmpty(void)
 {
     LineChunkPtr returnValue;
 
-    newPtr<LineChunk>(returnValue);
+    newPtr<LineChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+LineChunkPtr LineChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    LineChunkPtr returnValue;
+
+    newPtr<LineChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -454,9 +484,27 @@ FieldContainerTransitPtr LineChunkBase::shallowCopy(void) const
 {
     LineChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const LineChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const LineChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr LineChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    LineChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const LineChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

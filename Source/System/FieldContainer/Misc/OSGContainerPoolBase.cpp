@@ -127,7 +127,7 @@ ContainerPoolBase::TypeObject ContainerPoolBase::_type(
     Inherited::getClassname(),
     "ContainerPool",
     0,
-    (PrototypeCreateF) &ContainerPoolBase::createEmpty,
+    (PrototypeCreateF) &ContainerPoolBase::createEmptyLocal,
     ContainerPool::initMethod,
     ContainerPool::exitMethod,
     (InitalInsertDescFunc) &ContainerPoolBase::classDescInserter,
@@ -418,12 +418,42 @@ ContainerPoolTransitPtr ContainerPoolBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+ContainerPoolTransitPtr ContainerPoolBase::createLocal(BitVector bFlags)
+{
+    ContainerPoolTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<ContainerPool>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ContainerPoolPtr ContainerPoolBase::createEmpty(void)
 {
     ContainerPoolPtr returnValue;
 
-    newPtr<ContainerPool>(returnValue);
+    newPtr<ContainerPool>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ContainerPoolPtr ContainerPoolBase::createEmptyLocal(BitVector bFlags)
+{
+    ContainerPoolPtr returnValue;
+
+    newPtr<ContainerPool>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -432,9 +462,27 @@ FieldContainerTransitPtr ContainerPoolBase::shallowCopy(void) const
 {
     ContainerPoolPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ContainerPool *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const ContainerPool *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ContainerPoolBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ContainerPoolPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ContainerPool *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

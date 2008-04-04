@@ -507,15 +507,23 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  QuadTreeTerrainTransitPtr create     (void);
-    static  QuadTreeTerrainPtr        createEmpty(void);
+    static  QuadTreeTerrainTransitPtr create          (void);
+    static  QuadTreeTerrainPtr        createEmpty     (void);
+
+    static  QuadTreeTerrainTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  QuadTreeTerrainPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

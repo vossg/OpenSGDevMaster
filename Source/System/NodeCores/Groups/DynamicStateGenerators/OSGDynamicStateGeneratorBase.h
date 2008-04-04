@@ -139,15 +139,23 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DynamicStateGeneratorTransitPtr create     (void);
-    static  DynamicStateGeneratorPtr        createEmpty(void);
+    static  DynamicStateGeneratorTransitPtr create          (void);
+    static  DynamicStateGeneratorPtr        createEmpty     (void);
+
+    static  DynamicStateGeneratorTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  DynamicStateGeneratorPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

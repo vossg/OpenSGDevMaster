@@ -87,7 +87,7 @@ VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &VertexProgramChunkBase::createEmpty,
+    (PrototypeCreateF) &VertexProgramChunkBase::createEmptyLocal,
     VertexProgramChunk::initMethod,
     VertexProgramChunk::exitMethod,
     NULL,
@@ -192,12 +192,42 @@ VertexProgramChunkTransitPtr VertexProgramChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+VertexProgramChunkTransitPtr VertexProgramChunkBase::createLocal(BitVector bFlags)
+{
+    VertexProgramChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<VertexProgramChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 VertexProgramChunkPtr VertexProgramChunkBase::createEmpty(void)
 {
     VertexProgramChunkPtr returnValue;
 
-    newPtr<VertexProgramChunk>(returnValue);
+    newPtr<VertexProgramChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+VertexProgramChunkPtr VertexProgramChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    VertexProgramChunkPtr returnValue;
+
+    newPtr<VertexProgramChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -206,9 +236,27 @@ FieldContainerTransitPtr VertexProgramChunkBase::shallowCopy(void) const
 {
     VertexProgramChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const VertexProgramChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const VertexProgramChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr VertexProgramChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    VertexProgramChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const VertexProgramChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

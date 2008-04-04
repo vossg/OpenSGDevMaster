@@ -242,15 +242,23 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ProjectionCameraDecoratorTransitPtr create     (void);
-    static  ProjectionCameraDecoratorPtr        createEmpty(void);
+    static  ProjectionCameraDecoratorTransitPtr create          (void);
+    static  ProjectionCameraDecoratorPtr        createEmpty     (void);
+
+    static  ProjectionCameraDecoratorTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ProjectionCameraDecoratorPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

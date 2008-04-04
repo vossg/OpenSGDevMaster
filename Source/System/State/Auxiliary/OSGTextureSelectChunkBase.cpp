@@ -132,7 +132,7 @@ TextureSelectChunkBase::TypeObject TextureSelectChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TextureSelectChunkBase::createEmpty,
+    (PrototypeCreateF) &TextureSelectChunkBase::createEmptyLocal,
     TextureSelectChunk::initMethod,
     TextureSelectChunk::exitMethod,
     (InitalInsertDescFunc) &TextureSelectChunkBase::classDescInserter,
@@ -437,12 +437,42 @@ TextureSelectChunkTransitPtr TextureSelectChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+TextureSelectChunkTransitPtr TextureSelectChunkBase::createLocal(BitVector bFlags)
+{
+    TextureSelectChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<TextureSelectChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TextureSelectChunkPtr TextureSelectChunkBase::createEmpty(void)
 {
     TextureSelectChunkPtr returnValue;
 
-    newPtr<TextureSelectChunk>(returnValue);
+    newPtr<TextureSelectChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+TextureSelectChunkPtr TextureSelectChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    TextureSelectChunkPtr returnValue;
+
+    newPtr<TextureSelectChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -451,9 +481,27 @@ FieldContainerTransitPtr TextureSelectChunkBase::shallowCopy(void) const
 {
     TextureSelectChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TextureSelectChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const TextureSelectChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TextureSelectChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    TextureSelectChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TextureSelectChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

@@ -126,15 +126,23 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  VertexProgramChunkTransitPtr create     (void);
-    static  VertexProgramChunkPtr        createEmpty(void);
+    static  VertexProgramChunkTransitPtr create          (void);
+    static  VertexProgramChunkPtr        createEmpty     (void);
+
+    static  VertexProgramChunkTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  VertexProgramChunkPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

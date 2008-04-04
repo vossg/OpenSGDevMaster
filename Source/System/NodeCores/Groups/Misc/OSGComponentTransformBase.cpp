@@ -174,7 +174,7 @@ ComponentTransformBase::TypeObject ComponentTransformBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ComponentTransformBase::createEmpty,
+    (PrototypeCreateF) &ComponentTransformBase::createEmptyLocal,
     ComponentTransform::initMethod,
     ComponentTransform::exitMethod,
     (InitalInsertDescFunc) &ComponentTransformBase::classDescInserter,
@@ -450,12 +450,42 @@ ComponentTransformTransitPtr ComponentTransformBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+ComponentTransformTransitPtr ComponentTransformBase::createLocal(BitVector bFlags)
+{
+    ComponentTransformTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<ComponentTransform>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ComponentTransformPtr ComponentTransformBase::createEmpty(void)
 {
     ComponentTransformPtr returnValue;
 
-    newPtr<ComponentTransform>(returnValue);
+    newPtr<ComponentTransform>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ComponentTransformPtr ComponentTransformBase::createEmptyLocal(BitVector bFlags)
+{
+    ComponentTransformPtr returnValue;
+
+    newPtr<ComponentTransform>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -464,9 +494,27 @@ FieldContainerTransitPtr ComponentTransformBase::shallowCopy(void) const
 {
     ComponentTransformPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ComponentTransform *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const ComponentTransform *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ComponentTransformBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ComponentTransformPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ComponentTransform *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

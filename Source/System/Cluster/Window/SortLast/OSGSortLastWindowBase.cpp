@@ -143,7 +143,7 @@ SortLastWindowBase::TypeObject SortLastWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SortLastWindowBase::createEmpty,
+    (PrototypeCreateF) &SortLastWindowBase::createEmptyLocal,
     SortLastWindow::initMethod,
     SortLastWindow::exitMethod,
     (InitalInsertDescFunc) &SortLastWindowBase::classDescInserter,
@@ -556,12 +556,42 @@ SortLastWindowTransitPtr SortLastWindowBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+SortLastWindowTransitPtr SortLastWindowBase::createLocal(BitVector bFlags)
+{
+    SortLastWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SortLastWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SortLastWindowPtr SortLastWindowBase::createEmpty(void)
 {
     SortLastWindowPtr returnValue;
 
-    newPtr<SortLastWindow>(returnValue);
+    newPtr<SortLastWindow>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+SortLastWindowPtr SortLastWindowBase::createEmptyLocal(BitVector bFlags)
+{
+    SortLastWindowPtr returnValue;
+
+    newPtr<SortLastWindow>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -570,9 +600,27 @@ FieldContainerTransitPtr SortLastWindowBase::shallowCopy(void) const
 {
     SortLastWindowPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const SortLastWindow *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const SortLastWindow *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SortLastWindowBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SortLastWindowPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SortLastWindow *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

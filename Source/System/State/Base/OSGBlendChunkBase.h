@@ -287,15 +287,23 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  BlendChunkTransitPtr create     (void);
-    static  BlendChunkPtr        createEmpty(void);
+    static  BlendChunkTransitPtr create          (void);
+    static  BlendChunkPtr        createEmpty     (void);
+
+    static  BlendChunkTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  BlendChunkPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

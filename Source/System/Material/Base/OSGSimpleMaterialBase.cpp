@@ -234,7 +234,7 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SimpleMaterialBase::createEmpty,
+    (PrototypeCreateF) &SimpleMaterialBase::createEmptyLocal,
     SimpleMaterial::initMethod,
     SimpleMaterial::exitMethod,
     (InitalInsertDescFunc) &SimpleMaterialBase::classDescInserter,
@@ -668,12 +668,42 @@ SimpleMaterialTransitPtr SimpleMaterialBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+SimpleMaterialTransitPtr SimpleMaterialBase::createLocal(BitVector bFlags)
+{
+    SimpleMaterialTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SimpleMaterial>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SimpleMaterialPtr SimpleMaterialBase::createEmpty(void)
 {
     SimpleMaterialPtr returnValue;
 
-    newPtr<SimpleMaterial>(returnValue);
+    newPtr<SimpleMaterial>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+SimpleMaterialPtr SimpleMaterialBase::createEmptyLocal(BitVector bFlags)
+{
+    SimpleMaterialPtr returnValue;
+
+    newPtr<SimpleMaterial>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -682,9 +712,27 @@ FieldContainerTransitPtr SimpleMaterialBase::shallowCopy(void) const
 {
     SimpleMaterialPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const SimpleMaterial *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const SimpleMaterial *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SimpleMaterialBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SimpleMaterialPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SimpleMaterial *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

@@ -85,7 +85,7 @@ GroupBase::TypeObject GroupBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &GroupBase::createEmpty,
+    (PrototypeCreateF) &GroupBase::createEmptyLocal,
     Group::initMethod,
     Group::exitMethod,
     NULL,
@@ -177,12 +177,42 @@ GroupTransitPtr GroupBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+GroupTransitPtr GroupBase::createLocal(BitVector bFlags)
+{
+    GroupTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<Group>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 GroupPtr GroupBase::createEmpty(void)
 {
     GroupPtr returnValue;
 
-    newPtr<Group>(returnValue);
+    newPtr<Group>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+GroupPtr GroupBase::createEmptyLocal(BitVector bFlags)
+{
+    GroupPtr returnValue;
+
+    newPtr<Group>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -191,9 +221,27 @@ FieldContainerTransitPtr GroupBase::shallowCopy(void) const
 {
     GroupPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const Group *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const Group *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GroupBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    GroupPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Group *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

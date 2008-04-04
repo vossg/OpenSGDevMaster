@@ -131,7 +131,7 @@ PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PerspectiveCameraBase::createEmpty,
+    (PrototypeCreateF) &PerspectiveCameraBase::createEmptyLocal,
     PerspectiveCamera::initMethod,
     PerspectiveCamera::exitMethod,
     (InitalInsertDescFunc) &PerspectiveCameraBase::classDescInserter,
@@ -306,12 +306,42 @@ PerspectiveCameraTransitPtr PerspectiveCameraBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+PerspectiveCameraTransitPtr PerspectiveCameraBase::createLocal(BitVector bFlags)
+{
+    PerspectiveCameraTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<PerspectiveCamera>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PerspectiveCameraPtr PerspectiveCameraBase::createEmpty(void)
 {
     PerspectiveCameraPtr returnValue;
 
-    newPtr<PerspectiveCamera>(returnValue);
+    newPtr<PerspectiveCamera>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+PerspectiveCameraPtr PerspectiveCameraBase::createEmptyLocal(BitVector bFlags)
+{
+    PerspectiveCameraPtr returnValue;
+
+    newPtr<PerspectiveCamera>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -320,9 +350,27 @@ FieldContainerTransitPtr PerspectiveCameraBase::shallowCopy(void) const
 {
     PerspectiveCameraPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const PerspectiveCamera *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const PerspectiveCamera *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PerspectiveCameraBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    PerspectiveCameraPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PerspectiveCamera *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

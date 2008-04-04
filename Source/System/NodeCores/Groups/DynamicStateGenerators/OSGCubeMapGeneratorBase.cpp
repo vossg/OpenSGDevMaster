@@ -275,7 +275,7 @@ CubeMapGeneratorBase::TypeObject CubeMapGeneratorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &CubeMapGeneratorBase::createEmpty,
+    (PrototypeCreateF) &CubeMapGeneratorBase::createEmptyLocal,
     CubeMapGenerator::initMethod,
     CubeMapGenerator::exitMethod,
     (InitalInsertDescFunc) &CubeMapGeneratorBase::classDescInserter,
@@ -878,12 +878,42 @@ CubeMapGeneratorTransitPtr CubeMapGeneratorBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+CubeMapGeneratorTransitPtr CubeMapGeneratorBase::createLocal(BitVector bFlags)
+{
+    CubeMapGeneratorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<CubeMapGenerator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 CubeMapGeneratorPtr CubeMapGeneratorBase::createEmpty(void)
 {
     CubeMapGeneratorPtr returnValue;
 
-    newPtr<CubeMapGenerator>(returnValue);
+    newPtr<CubeMapGenerator>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+CubeMapGeneratorPtr CubeMapGeneratorBase::createEmptyLocal(BitVector bFlags)
+{
+    CubeMapGeneratorPtr returnValue;
+
+    newPtr<CubeMapGenerator>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -892,9 +922,27 @@ FieldContainerTransitPtr CubeMapGeneratorBase::shallowCopy(void) const
 {
     CubeMapGeneratorPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const CubeMapGenerator *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const CubeMapGenerator *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CubeMapGeneratorBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    CubeMapGeneratorPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CubeMapGenerator *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

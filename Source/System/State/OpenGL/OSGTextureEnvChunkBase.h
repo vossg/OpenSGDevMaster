@@ -642,15 +642,23 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureEnvChunkTransitPtr create     (void);
-    static  TextureEnvChunkPtr        createEmpty(void);
+    static  TextureEnvChunkTransitPtr create          (void);
+    static  TextureEnvChunkPtr        createEmpty     (void);
+
+    static  TextureEnvChunkTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  TextureEnvChunkPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

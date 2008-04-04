@@ -287,15 +287,23 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StencilChunkTransitPtr create     (void);
-    static  StencilChunkPtr        createEmpty(void);
+    static  StencilChunkTransitPtr create          (void);
+    static  StencilChunkPtr        createEmpty     (void);
+
+    static  StencilChunkTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  StencilChunkPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

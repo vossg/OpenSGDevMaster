@@ -114,7 +114,7 @@ PointLightBase::TypeObject PointLightBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PointLightBase::createEmpty,
+    (PrototypeCreateF) &PointLightBase::createEmptyLocal,
     PointLight::initMethod,
     PointLight::exitMethod,
     (InitalInsertDescFunc) &PointLightBase::classDescInserter,
@@ -248,12 +248,42 @@ PointLightTransitPtr PointLightBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+PointLightTransitPtr PointLightBase::createLocal(BitVector bFlags)
+{
+    PointLightTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<PointLight>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PointLightPtr PointLightBase::createEmpty(void)
 {
     PointLightPtr returnValue;
 
-    newPtr<PointLight>(returnValue);
+    newPtr<PointLight>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+PointLightPtr PointLightBase::createEmptyLocal(BitVector bFlags)
+{
+    PointLightPtr returnValue;
+
+    newPtr<PointLight>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -262,9 +292,27 @@ FieldContainerTransitPtr PointLightBase::shallowCopy(void) const
 {
     PointLightPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const PointLight *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const PointLight *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PointLightBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    PointLightPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PointLight *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

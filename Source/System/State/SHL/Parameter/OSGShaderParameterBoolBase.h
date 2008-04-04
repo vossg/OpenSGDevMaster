@@ -168,15 +168,23 @@ class OSG_STATE_DLLMAPPING ShaderParameterBoolBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterBoolTransitPtr create     (void);
-    static  ShaderParameterBoolPtr        createEmpty(void);
+    static  ShaderParameterBoolTransitPtr create          (void);
+    static  ShaderParameterBoolPtr        createEmpty     (void);
+
+    static  ShaderParameterBoolTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ShaderParameterBoolPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

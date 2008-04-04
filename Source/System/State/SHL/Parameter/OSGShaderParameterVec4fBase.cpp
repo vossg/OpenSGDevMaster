@@ -110,7 +110,7 @@ ShaderParameterVec4fBase::TypeObject ShaderParameterVec4fBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ShaderParameterVec4fBase::createEmpty,
+    (PrototypeCreateF) &ShaderParameterVec4fBase::createEmptyLocal,
     ShaderParameterVec4f::initMethod,
     ShaderParameterVec4f::exitMethod,
     (InitalInsertDescFunc) &ShaderParameterVec4fBase::classDescInserter,
@@ -237,12 +237,42 @@ ShaderParameterVec4fTransitPtr ShaderParameterVec4fBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+ShaderParameterVec4fTransitPtr ShaderParameterVec4fBase::createLocal(BitVector bFlags)
+{
+    ShaderParameterVec4fTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<ShaderParameterVec4f>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ShaderParameterVec4fPtr ShaderParameterVec4fBase::createEmpty(void)
 {
     ShaderParameterVec4fPtr returnValue;
 
-    newPtr<ShaderParameterVec4f>(returnValue);
+    newPtr<ShaderParameterVec4f>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ShaderParameterVec4fPtr ShaderParameterVec4fBase::createEmptyLocal(BitVector bFlags)
+{
+    ShaderParameterVec4fPtr returnValue;
+
+    newPtr<ShaderParameterVec4f>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -251,9 +281,27 @@ FieldContainerTransitPtr ShaderParameterVec4fBase::shallowCopy(void) const
 {
     ShaderParameterVec4fPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ShaderParameterVec4f *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const ShaderParameterVec4f *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ShaderParameterVec4fBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ShaderParameterVec4fPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ShaderParameterVec4f *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

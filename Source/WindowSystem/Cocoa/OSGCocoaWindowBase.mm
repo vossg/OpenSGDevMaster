@@ -110,7 +110,7 @@ CocoaWindowBase::TypeObject CocoaWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &CocoaWindowBase::createEmpty,
+    (PrototypeCreateF) &CocoaWindowBase::createEmptyLocal,
     CocoaWindow::initMethod,
     (InitalInsertDescFunc) &CocoaWindowBase::classDescInserter,
     false,

@@ -251,15 +251,23 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SortFirstWindowTransitPtr create     (void);
-    static  SortFirstWindowPtr        createEmpty(void);
+    static  SortFirstWindowTransitPtr create          (void);
+    static  SortFirstWindowPtr        createEmpty     (void);
+
+    static  SortFirstWindowTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  SortFirstWindowPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

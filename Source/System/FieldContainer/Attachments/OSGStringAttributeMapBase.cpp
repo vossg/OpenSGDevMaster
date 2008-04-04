@@ -128,7 +128,7 @@ StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(
     Inherited::getClassname(),
     "StringAttributeMap",
     0,
-    (PrototypeCreateF) &StringAttributeMapBase::createEmpty,
+    (PrototypeCreateF) &StringAttributeMapBase::createEmptyLocal,
     StringAttributeMap::initMethod,
     StringAttributeMap::exitMethod,
     (InitalInsertDescFunc) &StringAttributeMapBase::classDescInserter,
@@ -462,12 +462,42 @@ StringAttributeMapTransitPtr StringAttributeMapBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+StringAttributeMapTransitPtr StringAttributeMapBase::createLocal(BitVector bFlags)
+{
+    StringAttributeMapTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<StringAttributeMap>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 StringAttributeMapPtr StringAttributeMapBase::createEmpty(void)
 {
     StringAttributeMapPtr returnValue;
 
-    newPtr<StringAttributeMap>(returnValue);
+    newPtr<StringAttributeMap>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+StringAttributeMapPtr StringAttributeMapBase::createEmptyLocal(BitVector bFlags)
+{
+    StringAttributeMapPtr returnValue;
+
+    newPtr<StringAttributeMap>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -476,9 +506,27 @@ FieldContainerTransitPtr StringAttributeMapBase::shallowCopy(void) const
 {
     StringAttributeMapPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const StringAttributeMap *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const StringAttributeMap *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr StringAttributeMapBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    StringAttributeMapPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const StringAttributeMap *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

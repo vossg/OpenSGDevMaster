@@ -354,15 +354,23 @@ class @!Classname!@Base : public @!Parent!@
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  @!Classname!@TransitPtr create     (void);
-    static  @!Classname!@Ptr        createEmpty(void);
+    static  @!Classname!@TransitPtr create          (void);
+    static  @!Classname!@Ptr        createEmpty     (void);
+
+    static  @!Classname!@TransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  @!Classname!@Ptr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
 @@endif // !isAbstract

@@ -126,15 +126,23 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  LightEnvTransitPtr create     (void);
-    static  LightEnvPtr        createEmpty(void);
+    static  LightEnvTransitPtr create          (void);
+    static  LightEnvPtr        createEmpty     (void);
+
+    static  LightEnvTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  LightEnvPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

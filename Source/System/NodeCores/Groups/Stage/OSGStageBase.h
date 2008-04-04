@@ -183,15 +183,23 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StageTransitPtr create     (void);
-    static  StagePtr        createEmpty(void);
+    static  StageTransitPtr create          (void);
+    static  StagePtr        createEmpty     (void);
+
+    static  StageTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  StagePtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

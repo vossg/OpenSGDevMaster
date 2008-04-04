@@ -168,15 +168,23 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SwitchTransitPtr create     (void);
-    static  SwitchPtr        createEmpty(void);
+    static  SwitchTransitPtr create          (void);
+    static  SwitchPtr        createEmpty     (void);
+
+    static  SwitchTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  SwitchPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

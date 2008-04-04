@@ -142,7 +142,7 @@ BinarySwapComposerBase::TypeObject BinarySwapComposerBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &BinarySwapComposerBase::createEmpty,
+    (PrototypeCreateF) &BinarySwapComposerBase::createEmptyLocal,
     BinarySwapComposer::initMethod,
     BinarySwapComposer::exitMethod,
     (InitalInsertDescFunc) &BinarySwapComposerBase::classDescInserter,
@@ -349,12 +349,42 @@ BinarySwapComposerTransitPtr BinarySwapComposerBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+BinarySwapComposerTransitPtr BinarySwapComposerBase::createLocal(BitVector bFlags)
+{
+    BinarySwapComposerTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<BinarySwapComposer>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 BinarySwapComposerPtr BinarySwapComposerBase::createEmpty(void)
 {
     BinarySwapComposerPtr returnValue;
 
-    newPtr<BinarySwapComposer>(returnValue);
+    newPtr<BinarySwapComposer>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+BinarySwapComposerPtr BinarySwapComposerBase::createEmptyLocal(BitVector bFlags)
+{
+    BinarySwapComposerPtr returnValue;
+
+    newPtr<BinarySwapComposer>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -363,9 +393,27 @@ FieldContainerTransitPtr BinarySwapComposerBase::shallowCopy(void) const
 {
     BinarySwapComposerPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const BinarySwapComposer *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const BinarySwapComposer *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr BinarySwapComposerBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    BinarySwapComposerPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const BinarySwapComposer *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

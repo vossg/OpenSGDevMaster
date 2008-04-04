@@ -85,7 +85,7 @@ FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &FragmentProgramChunkBase::createEmpty,
+    (PrototypeCreateF) &FragmentProgramChunkBase::createEmptyLocal,
     FragmentProgramChunk::initMethod,
     FragmentProgramChunk::exitMethod,
     NULL,
@@ -184,12 +184,42 @@ FragmentProgramChunkTransitPtr FragmentProgramChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+FragmentProgramChunkTransitPtr FragmentProgramChunkBase::createLocal(BitVector bFlags)
+{
+    FragmentProgramChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<FragmentProgramChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 FragmentProgramChunkPtr FragmentProgramChunkBase::createEmpty(void)
 {
     FragmentProgramChunkPtr returnValue;
 
-    newPtr<FragmentProgramChunk>(returnValue);
+    newPtr<FragmentProgramChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+FragmentProgramChunkPtr FragmentProgramChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    FragmentProgramChunkPtr returnValue;
+
+    newPtr<FragmentProgramChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -198,9 +228,27 @@ FieldContainerTransitPtr FragmentProgramChunkBase::shallowCopy(void) const
 {
     FragmentProgramChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const FragmentProgramChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const FragmentProgramChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr FragmentProgramChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    FragmentProgramChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const FragmentProgramChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

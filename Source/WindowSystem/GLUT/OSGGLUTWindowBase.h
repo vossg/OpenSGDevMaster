@@ -168,15 +168,23 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GLUTWindowTransitPtr create     (void);
-    static  GLUTWindowPtr        createEmpty(void);
+    static  GLUTWindowTransitPtr create          (void);
+    static  GLUTWindowPtr        createEmpty     (void);
+
+    static  GLUTWindowTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  GLUTWindowPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

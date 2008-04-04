@@ -209,15 +209,23 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ImageForegroundTransitPtr create     (void);
-    static  ImageForegroundPtr        createEmpty(void);
+    static  ImageForegroundTransitPtr create          (void);
+    static  ImageForegroundPtr        createEmpty     (void);
+
+    static  ImageForegroundTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ImageForegroundPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

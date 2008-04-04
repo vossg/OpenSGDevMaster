@@ -129,7 +129,7 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(
     Inherited::getClassname(),
     "RenderBuffer",
     0,
-    (PrototypeCreateF) &RenderBufferBase::createEmpty,
+    (PrototypeCreateF) &RenderBufferBase::createEmptyLocal,
     RenderBuffer::initMethod,
     RenderBuffer::exitMethod,
     (InitalInsertDescFunc) &RenderBufferBase::classDescInserter,
@@ -304,12 +304,42 @@ RenderBufferTransitPtr RenderBufferBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+RenderBufferTransitPtr RenderBufferBase::createLocal(BitVector bFlags)
+{
+    RenderBufferTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<RenderBuffer>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 RenderBufferPtr RenderBufferBase::createEmpty(void)
 {
     RenderBufferPtr returnValue;
 
-    newPtr<RenderBuffer>(returnValue);
+    newPtr<RenderBuffer>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+RenderBufferPtr RenderBufferBase::createEmptyLocal(BitVector bFlags)
+{
+    RenderBufferPtr returnValue;
+
+    newPtr<RenderBuffer>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -318,9 +348,27 @@ FieldContainerTransitPtr RenderBufferBase::shallowCopy(void) const
 {
     RenderBufferPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const RenderBuffer *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const RenderBuffer *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr RenderBufferBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    RenderBufferPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const RenderBuffer *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

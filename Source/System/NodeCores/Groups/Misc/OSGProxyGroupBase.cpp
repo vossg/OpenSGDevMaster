@@ -292,7 +292,7 @@ ProxyGroupBase::TypeObject ProxyGroupBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ProxyGroupBase::createEmpty,
+    (PrototypeCreateF) &ProxyGroupBase::createEmptyLocal,
     ProxyGroup::initMethod,
     ProxyGroup::exitMethod,
     (InitalInsertDescFunc) &ProxyGroupBase::classDescInserter,
@@ -934,12 +934,42 @@ ProxyGroupTransitPtr ProxyGroupBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+ProxyGroupTransitPtr ProxyGroupBase::createLocal(BitVector bFlags)
+{
+    ProxyGroupTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<ProxyGroup>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ProxyGroupPtr ProxyGroupBase::createEmpty(void)
 {
     ProxyGroupPtr returnValue;
 
-    newPtr<ProxyGroup>(returnValue);
+    newPtr<ProxyGroup>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ProxyGroupPtr ProxyGroupBase::createEmptyLocal(BitVector bFlags)
+{
+    ProxyGroupPtr returnValue;
+
+    newPtr<ProxyGroup>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -948,9 +978,27 @@ FieldContainerTransitPtr ProxyGroupBase::shallowCopy(void) const
 {
     ProxyGroupPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ProxyGroup *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const ProxyGroup *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ProxyGroupBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ProxyGroupPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ProxyGroup *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

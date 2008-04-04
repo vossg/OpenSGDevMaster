@@ -126,15 +126,23 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FragmentProgramChunkTransitPtr create     (void);
-    static  FragmentProgramChunkPtr        createEmpty(void);
+    static  FragmentProgramChunkTransitPtr create          (void);
+    static  FragmentProgramChunkPtr        createEmpty     (void);
+
+    static  FragmentProgramChunkTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  FragmentProgramChunkPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

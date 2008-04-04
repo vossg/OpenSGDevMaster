@@ -236,15 +236,23 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  BillboardTransitPtr create     (void);
-    static  BillboardPtr        createEmpty(void);
+    static  BillboardTransitPtr create          (void);
+    static  BillboardPtr        createEmpty     (void);
+
+    static  BillboardTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  BillboardPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

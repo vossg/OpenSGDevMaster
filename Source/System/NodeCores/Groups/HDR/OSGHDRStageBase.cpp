@@ -191,7 +191,7 @@ HDRStageBase::TypeObject HDRStageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &HDRStageBase::createEmpty,
+    (PrototypeCreateF) &HDRStageBase::createEmptyLocal,
     HDRStage::initMethod,
     HDRStage::exitMethod,
     (InitalInsertDescFunc) &HDRStageBase::classDescInserter,
@@ -520,12 +520,42 @@ HDRStageTransitPtr HDRStageBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+HDRStageTransitPtr HDRStageBase::createLocal(BitVector bFlags)
+{
+    HDRStageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<HDRStage>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 HDRStagePtr HDRStageBase::createEmpty(void)
 {
     HDRStagePtr returnValue;
 
-    newPtr<HDRStage>(returnValue);
+    newPtr<HDRStage>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+HDRStagePtr HDRStageBase::createEmptyLocal(BitVector bFlags)
+{
+    HDRStagePtr returnValue;
+
+    newPtr<HDRStage>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -534,9 +564,27 @@ FieldContainerTransitPtr HDRStageBase::shallowCopy(void) const
 {
     HDRStagePtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const HDRStage *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const HDRStage *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr HDRStageBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    HDRStagePtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const HDRStage *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

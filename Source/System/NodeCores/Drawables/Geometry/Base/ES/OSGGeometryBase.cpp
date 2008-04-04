@@ -204,7 +204,7 @@ GeometryBase::TypeObject GeometryBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &GeometryBase::createEmpty,
+    (PrototypeCreateF) &GeometryBase::createEmptyLocal,
     Geometry::initMethod,
     Geometry::exitMethod,
     (InitalInsertDescFunc) &GeometryBase::classDescInserter,
@@ -843,12 +843,42 @@ GeometryTransitPtr GeometryBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+GeometryTransitPtr GeometryBase::createLocal(BitVector bFlags)
+{
+    GeometryTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<Geometry>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 GeometryPtr GeometryBase::createEmpty(void)
 {
     GeometryPtr returnValue;
 
-    newPtr<Geometry>(returnValue);
+    newPtr<Geometry>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+GeometryPtr GeometryBase::createEmptyLocal(BitVector bFlags)
+{
+    GeometryPtr returnValue;
+
+    newPtr<Geometry>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -857,9 +887,27 @@ FieldContainerTransitPtr GeometryBase::shallowCopy(void) const
 {
     GeometryPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const Geometry *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const Geometry *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GeometryBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    GeometryPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Geometry *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

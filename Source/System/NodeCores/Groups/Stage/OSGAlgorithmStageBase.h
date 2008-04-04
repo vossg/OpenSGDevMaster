@@ -215,15 +215,23 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  AlgorithmStageTransitPtr create     (void);
-    static  AlgorithmStagePtr        createEmpty(void);
+    static  AlgorithmStageTransitPtr create          (void);
+    static  AlgorithmStagePtr        createEmpty     (void);
+
+    static  AlgorithmStageTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  AlgorithmStagePtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

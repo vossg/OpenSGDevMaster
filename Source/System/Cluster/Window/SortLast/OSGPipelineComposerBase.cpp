@@ -158,7 +158,7 @@ PipelineComposerBase::TypeObject PipelineComposerBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PipelineComposerBase::createEmpty,
+    (PrototypeCreateF) &PipelineComposerBase::createEmptyLocal,
     PipelineComposer::initMethod,
     PipelineComposer::exitMethod,
     (InitalInsertDescFunc) &PipelineComposerBase::classDescInserter,
@@ -405,12 +405,42 @@ PipelineComposerTransitPtr PipelineComposerBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+PipelineComposerTransitPtr PipelineComposerBase::createLocal(BitVector bFlags)
+{
+    PipelineComposerTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<PipelineComposer>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PipelineComposerPtr PipelineComposerBase::createEmpty(void)
 {
     PipelineComposerPtr returnValue;
 
-    newPtr<PipelineComposer>(returnValue);
+    newPtr<PipelineComposer>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+PipelineComposerPtr PipelineComposerBase::createEmptyLocal(BitVector bFlags)
+{
+    PipelineComposerPtr returnValue;
+
+    newPtr<PipelineComposer>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -419,9 +449,27 @@ FieldContainerTransitPtr PipelineComposerBase::shallowCopy(void) const
 {
     PipelineComposerPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const PipelineComposer *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const PipelineComposer *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PipelineComposerBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    PipelineComposerPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PipelineComposer *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

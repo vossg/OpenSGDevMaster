@@ -118,7 +118,7 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &VisitSubTreeBase::createEmpty,
+    (PrototypeCreateF) &VisitSubTreeBase::createEmptyLocal,
     VisitSubTree::initMethod,
     VisitSubTree::exitMethod,
     (InitalInsertDescFunc) &VisitSubTreeBase::classDescInserter,
@@ -243,12 +243,42 @@ VisitSubTreeTransitPtr VisitSubTreeBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+VisitSubTreeTransitPtr VisitSubTreeBase::createLocal(BitVector bFlags)
+{
+    VisitSubTreeTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<VisitSubTree>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 VisitSubTreePtr VisitSubTreeBase::createEmpty(void)
 {
     VisitSubTreePtr returnValue;
 
-    newPtr<VisitSubTree>(returnValue);
+    newPtr<VisitSubTree>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+VisitSubTreePtr VisitSubTreeBase::createEmptyLocal(BitVector bFlags)
+{
+    VisitSubTreePtr returnValue;
+
+    newPtr<VisitSubTree>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -257,9 +287,27 @@ FieldContainerTransitPtr VisitSubTreeBase::shallowCopy(void) const
 {
     VisitSubTreePtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const VisitSubTree *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const VisitSubTree *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr VisitSubTreeBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    VisitSubTreePtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const VisitSubTree *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

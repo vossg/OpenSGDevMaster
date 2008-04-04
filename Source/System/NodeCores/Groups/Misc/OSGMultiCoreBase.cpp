@@ -111,7 +111,7 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &MultiCoreBase::createEmpty,
+    (PrototypeCreateF) &MultiCoreBase::createEmptyLocal,
     MultiCore::initMethod,
     MultiCore::exitMethod,
     (InitalInsertDescFunc) &MultiCoreBase::classDescInserter,
@@ -407,12 +407,42 @@ MultiCoreTransitPtr MultiCoreBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+MultiCoreTransitPtr MultiCoreBase::createLocal(BitVector bFlags)
+{
+    MultiCoreTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<MultiCore>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MultiCorePtr MultiCoreBase::createEmpty(void)
 {
     MultiCorePtr returnValue;
 
-    newPtr<MultiCore>(returnValue);
+    newPtr<MultiCore>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+MultiCorePtr MultiCoreBase::createEmptyLocal(BitVector bFlags)
+{
+    MultiCorePtr returnValue;
+
+    newPtr<MultiCore>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -421,9 +451,27 @@ FieldContainerTransitPtr MultiCoreBase::shallowCopy(void) const
 {
     MultiCorePtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const MultiCore *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const MultiCore *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr MultiCoreBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    MultiCorePtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const MultiCore *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

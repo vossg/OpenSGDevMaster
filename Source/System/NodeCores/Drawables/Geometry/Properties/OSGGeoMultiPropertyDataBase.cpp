@@ -126,7 +126,7 @@ GeoMultiPropertyDataBase::TypeObject GeoMultiPropertyDataBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &GeoMultiPropertyDataBase::createEmpty,
+    (PrototypeCreateF) &GeoMultiPropertyDataBase::createEmptyLocal,
     GeoMultiPropertyData::initMethod,
     GeoMultiPropertyData::exitMethod,
     (InitalInsertDescFunc) &GeoMultiPropertyDataBase::classDescInserter,
@@ -376,12 +376,42 @@ GeoMultiPropertyDataTransitPtr GeoMultiPropertyDataBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+GeoMultiPropertyDataTransitPtr GeoMultiPropertyDataBase::createLocal(BitVector bFlags)
+{
+    GeoMultiPropertyDataTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<GeoMultiPropertyData>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 GeoMultiPropertyDataPtr GeoMultiPropertyDataBase::createEmpty(void)
 {
     GeoMultiPropertyDataPtr returnValue;
 
-    newPtr<GeoMultiPropertyData>(returnValue);
+    newPtr<GeoMultiPropertyData>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+GeoMultiPropertyDataPtr GeoMultiPropertyDataBase::createEmptyLocal(BitVector bFlags)
+{
+    GeoMultiPropertyDataPtr returnValue;
+
+    newPtr<GeoMultiPropertyData>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -390,9 +420,27 @@ FieldContainerTransitPtr GeoMultiPropertyDataBase::shallowCopy(void) const
 {
     GeoMultiPropertyDataPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const GeoMultiPropertyData *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const GeoMultiPropertyData *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GeoMultiPropertyDataBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    GeoMultiPropertyDataPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const GeoMultiPropertyData *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

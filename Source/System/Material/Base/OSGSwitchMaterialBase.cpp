@@ -128,7 +128,7 @@ SwitchMaterialBase::TypeObject SwitchMaterialBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SwitchMaterialBase::createEmpty,
+    (PrototypeCreateF) &SwitchMaterialBase::createEmptyLocal,
     SwitchMaterial::initMethod,
     SwitchMaterial::exitMethod,
     (InitalInsertDescFunc) &SwitchMaterialBase::classDescInserter,
@@ -424,12 +424,42 @@ SwitchMaterialTransitPtr SwitchMaterialBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+SwitchMaterialTransitPtr SwitchMaterialBase::createLocal(BitVector bFlags)
+{
+    SwitchMaterialTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SwitchMaterial>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SwitchMaterialPtr SwitchMaterialBase::createEmpty(void)
 {
     SwitchMaterialPtr returnValue;
 
-    newPtr<SwitchMaterial>(returnValue);
+    newPtr<SwitchMaterial>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+SwitchMaterialPtr SwitchMaterialBase::createEmptyLocal(BitVector bFlags)
+{
+    SwitchMaterialPtr returnValue;
+
+    newPtr<SwitchMaterial>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -438,9 +468,27 @@ FieldContainerTransitPtr SwitchMaterialBase::shallowCopy(void) const
 {
     SwitchMaterialPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const SwitchMaterial *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const SwitchMaterial *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SwitchMaterialBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SwitchMaterialPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SwitchMaterial *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

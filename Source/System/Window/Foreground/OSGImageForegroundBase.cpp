@@ -133,7 +133,7 @@ ImageForegroundBase::TypeObject ImageForegroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ImageForegroundBase::createEmpty,
+    (PrototypeCreateF) &ImageForegroundBase::createEmptyLocal,
     ImageForeground::initMethod,
     ImageForeground::exitMethod,
     (InitalInsertDescFunc) &ImageForegroundBase::classDescInserter,
@@ -519,12 +519,42 @@ ImageForegroundTransitPtr ImageForegroundBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+ImageForegroundTransitPtr ImageForegroundBase::createLocal(BitVector bFlags)
+{
+    ImageForegroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<ImageForeground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ImageForegroundPtr ImageForegroundBase::createEmpty(void)
 {
     ImageForegroundPtr returnValue;
 
-    newPtr<ImageForeground>(returnValue);
+    newPtr<ImageForeground>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ImageForegroundPtr ImageForegroundBase::createEmptyLocal(BitVector bFlags)
+{
+    ImageForegroundPtr returnValue;
+
+    newPtr<ImageForeground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -533,9 +563,27 @@ FieldContainerTransitPtr ImageForegroundBase::shallowCopy(void) const
 {
     ImageForegroundPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ImageForeground *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const ImageForeground *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ImageForegroundBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ImageForegroundPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ImageForeground *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

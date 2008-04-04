@@ -111,7 +111,7 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &MultiPassMaterialBase::createEmpty,
+    (PrototypeCreateF) &MultiPassMaterialBase::createEmptyLocal,
     MultiPassMaterial::initMethod,
     MultiPassMaterial::exitMethod,
     (InitalInsertDescFunc) &MultiPassMaterialBase::classDescInserter,
@@ -371,12 +371,42 @@ MultiPassMaterialTransitPtr MultiPassMaterialBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+MultiPassMaterialTransitPtr MultiPassMaterialBase::createLocal(BitVector bFlags)
+{
+    MultiPassMaterialTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<MultiPassMaterial>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MultiPassMaterialPtr MultiPassMaterialBase::createEmpty(void)
 {
     MultiPassMaterialPtr returnValue;
 
-    newPtr<MultiPassMaterial>(returnValue);
+    newPtr<MultiPassMaterial>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+MultiPassMaterialPtr MultiPassMaterialBase::createEmptyLocal(BitVector bFlags)
+{
+    MultiPassMaterialPtr returnValue;
+
+    newPtr<MultiPassMaterial>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -385,9 +415,27 @@ FieldContainerTransitPtr MultiPassMaterialBase::shallowCopy(void) const
 {
     MultiPassMaterialPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const MultiPassMaterial *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const MultiPassMaterial *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr MultiPassMaterialBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    MultiPassMaterialPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const MultiPassMaterial *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

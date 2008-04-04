@@ -159,7 +159,7 @@ AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &AlgorithmStageBase::createEmpty,
+    (PrototypeCreateF) &AlgorithmStageBase::createEmptyLocal,
     AlgorithmStage::initMethod,
     AlgorithmStage::exitMethod,
     (InitalInsertDescFunc) &AlgorithmStageBase::classDescInserter,
@@ -394,12 +394,42 @@ AlgorithmStageTransitPtr AlgorithmStageBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+AlgorithmStageTransitPtr AlgorithmStageBase::createLocal(BitVector bFlags)
+{
+    AlgorithmStageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<AlgorithmStage>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 AlgorithmStagePtr AlgorithmStageBase::createEmpty(void)
 {
     AlgorithmStagePtr returnValue;
 
-    newPtr<AlgorithmStage>(returnValue);
+    newPtr<AlgorithmStage>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+AlgorithmStagePtr AlgorithmStageBase::createEmptyLocal(BitVector bFlags)
+{
+    AlgorithmStagePtr returnValue;
+
+    newPtr<AlgorithmStage>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -408,9 +438,27 @@ FieldContainerTransitPtr AlgorithmStageBase::shallowCopy(void) const
 {
     AlgorithmStagePtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const AlgorithmStage *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const AlgorithmStage *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr AlgorithmStageBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    AlgorithmStagePtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const AlgorithmStage *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

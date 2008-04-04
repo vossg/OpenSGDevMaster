@@ -218,7 +218,7 @@ DrawableStatsAttachmentBase::TypeObject DrawableStatsAttachmentBase::_type(
     Inherited::getClassname(),
     "DrawableStatsAttachment",
     0,
-    (PrototypeCreateF) &DrawableStatsAttachmentBase::createEmpty,
+    (PrototypeCreateF) &DrawableStatsAttachmentBase::createEmptyLocal,
     DrawableStatsAttachment::initMethod,
     DrawableStatsAttachment::exitMethod,
     (InitalInsertDescFunc) &DrawableStatsAttachmentBase::classDescInserter,
@@ -610,12 +610,42 @@ DrawableStatsAttachmentTransitPtr DrawableStatsAttachmentBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+DrawableStatsAttachmentTransitPtr DrawableStatsAttachmentBase::createLocal(BitVector bFlags)
+{
+    DrawableStatsAttachmentTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<DrawableStatsAttachment>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 DrawableStatsAttachmentPtr DrawableStatsAttachmentBase::createEmpty(void)
 {
     DrawableStatsAttachmentPtr returnValue;
 
-    newPtr<DrawableStatsAttachment>(returnValue);
+    newPtr<DrawableStatsAttachment>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+DrawableStatsAttachmentPtr DrawableStatsAttachmentBase::createEmptyLocal(BitVector bFlags)
+{
+    DrawableStatsAttachmentPtr returnValue;
+
+    newPtr<DrawableStatsAttachment>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -624,9 +654,27 @@ FieldContainerTransitPtr DrawableStatsAttachmentBase::shallowCopy(void) const
 {
     DrawableStatsAttachmentPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const DrawableStatsAttachment *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const DrawableStatsAttachment *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr DrawableStatsAttachmentBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    DrawableStatsAttachmentPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const DrawableStatsAttachment *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

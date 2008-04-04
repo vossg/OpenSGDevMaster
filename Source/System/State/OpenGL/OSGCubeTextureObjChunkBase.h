@@ -213,15 +213,23 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CubeTextureObjChunkTransitPtr create     (void);
-    static  CubeTextureObjChunkPtr        createEmpty(void);
+    static  CubeTextureObjChunkTransitPtr create          (void);
+    static  CubeTextureObjChunkPtr        createEmpty     (void);
+
+    static  CubeTextureObjChunkTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  CubeTextureObjChunkPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

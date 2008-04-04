@@ -137,15 +137,23 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CallbackAlgorithmTransitPtr create     (void);
-    static  CallbackAlgorithmPtr        createEmpty(void);
+    static  CallbackAlgorithmTransitPtr create          (void);
+    static  CallbackAlgorithmPtr        createEmpty     (void);
+
+    static  CallbackAlgorithmTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  CallbackAlgorithmPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

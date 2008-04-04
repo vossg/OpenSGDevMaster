@@ -389,15 +389,23 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ClusterWindowTransitPtr create     (void);
-    static  ClusterWindowPtr        createEmpty(void);
+    static  ClusterWindowTransitPtr create          (void);
+    static  ClusterWindowPtr        createEmpty     (void);
+
+    static  ClusterWindowTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ClusterWindowPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

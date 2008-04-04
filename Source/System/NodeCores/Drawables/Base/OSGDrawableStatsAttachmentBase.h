@@ -270,15 +270,23 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DrawableStatsAttachmentTransitPtr create     (void);
-    static  DrawableStatsAttachmentPtr        createEmpty(void);
+    static  DrawableStatsAttachmentTransitPtr create          (void);
+    static  DrawableStatsAttachmentPtr        createEmpty     (void);
+
+    static  DrawableStatsAttachmentTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  DrawableStatsAttachmentPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -129,7 +129,7 @@ StageBase::TypeObject StageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &StageBase::createEmpty,
+    (PrototypeCreateF) &StageBase::createEmptyLocal,
     Stage::initMethod,
     Stage::exitMethod,
     (InitalInsertDescFunc) &StageBase::classDescInserter,
@@ -288,12 +288,42 @@ StageTransitPtr StageBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+StageTransitPtr StageBase::createLocal(BitVector bFlags)
+{
+    StageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<Stage>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 StagePtr StageBase::createEmpty(void)
 {
     StagePtr returnValue;
 
-    newPtr<Stage>(returnValue);
+    newPtr<Stage>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+StagePtr StageBase::createEmptyLocal(BitVector bFlags)
+{
+    StagePtr returnValue;
+
+    newPtr<Stage>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -302,9 +332,27 @@ FieldContainerTransitPtr StageBase::shallowCopy(void) const
 {
     StagePtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const Stage *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const Stage *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr StageBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    StagePtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Stage *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

@@ -238,7 +238,7 @@ StencilChunkBase::TypeObject StencilChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &StencilChunkBase::createEmpty,
+    (PrototypeCreateF) &StencilChunkBase::createEmptyLocal,
     StencilChunk::initMethod,
     StencilChunk::exitMethod,
     (InitalInsertDescFunc) &StencilChunkBase::classDescInserter,
@@ -664,12 +664,42 @@ StencilChunkTransitPtr StencilChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+StencilChunkTransitPtr StencilChunkBase::createLocal(BitVector bFlags)
+{
+    StencilChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<StencilChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 StencilChunkPtr StencilChunkBase::createEmpty(void)
 {
     StencilChunkPtr returnValue;
 
-    newPtr<StencilChunk>(returnValue);
+    newPtr<StencilChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+StencilChunkPtr StencilChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    StencilChunkPtr returnValue;
+
+    newPtr<StencilChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -678,9 +708,27 @@ FieldContainerTransitPtr StencilChunkBase::shallowCopy(void) const
 {
     StencilChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const StencilChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const StencilChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr StencilChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    StencilChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const StencilChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

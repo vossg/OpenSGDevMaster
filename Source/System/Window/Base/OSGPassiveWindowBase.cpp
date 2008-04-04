@@ -83,7 +83,7 @@ PassiveWindowBase::TypeObject PassiveWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PassiveWindowBase::createEmpty,
+    (PrototypeCreateF) &PassiveWindowBase::createEmptyLocal,
     PassiveWindow::initMethod,
     PassiveWindow::exitMethod,
     NULL,
@@ -175,12 +175,42 @@ PassiveWindowTransitPtr PassiveWindowBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+PassiveWindowTransitPtr PassiveWindowBase::createLocal(BitVector bFlags)
+{
+    PassiveWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<PassiveWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PassiveWindowPtr PassiveWindowBase::createEmpty(void)
 {
     PassiveWindowPtr returnValue;
 
-    newPtr<PassiveWindow>(returnValue);
+    newPtr<PassiveWindow>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+PassiveWindowPtr PassiveWindowBase::createEmptyLocal(BitVector bFlags)
+{
+    PassiveWindowPtr returnValue;
+
+    newPtr<PassiveWindow>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -189,9 +219,27 @@ FieldContainerTransitPtr PassiveWindowBase::shallowCopy(void) const
 {
     PassiveWindowPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const PassiveWindow *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const PassiveWindow *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PassiveWindowBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    PassiveWindowPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PassiveWindow *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

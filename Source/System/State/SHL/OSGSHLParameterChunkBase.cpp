@@ -111,7 +111,7 @@ SHLParameterChunkBase::TypeObject SHLParameterChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SHLParameterChunkBase::createEmpty,
+    (PrototypeCreateF) &SHLParameterChunkBase::createEmptyLocal,
     SHLParameterChunk::initMethod,
     SHLParameterChunk::exitMethod,
     (InitalInsertDescFunc) &SHLParameterChunkBase::classDescInserter,
@@ -225,12 +225,42 @@ SHLParameterChunkTransitPtr SHLParameterChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+SHLParameterChunkTransitPtr SHLParameterChunkBase::createLocal(BitVector bFlags)
+{
+    SHLParameterChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SHLParameterChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SHLParameterChunkPtr SHLParameterChunkBase::createEmpty(void)
 {
     SHLParameterChunkPtr returnValue;
 
-    newPtr<SHLParameterChunk>(returnValue);
+    newPtr<SHLParameterChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+SHLParameterChunkPtr SHLParameterChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    SHLParameterChunkPtr returnValue;
+
+    newPtr<SHLParameterChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -239,9 +269,27 @@ FieldContainerTransitPtr SHLParameterChunkBase::shallowCopy(void) const
 {
     SHLParameterChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const SHLParameterChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const SHLParameterChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SHLParameterChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SHLParameterChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SHLParameterChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

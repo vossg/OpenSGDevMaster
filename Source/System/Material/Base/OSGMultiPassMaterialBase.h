@@ -177,15 +177,23 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MultiPassMaterialTransitPtr create     (void);
-    static  MultiPassMaterialPtr        createEmpty(void);
+    static  MultiPassMaterialTransitPtr create          (void);
+    static  MultiPassMaterialPtr        createEmpty     (void);
+
+    static  MultiPassMaterialTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  MultiPassMaterialPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -113,7 +113,7 @@ DynamicStateGeneratorBase::TypeObject DynamicStateGeneratorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &DynamicStateGeneratorBase::createEmpty,
+    (PrototypeCreateF) &DynamicStateGeneratorBase::createEmptyLocal,
     DynamicStateGenerator::initMethod,
     DynamicStateGenerator::exitMethod,
     (InitalInsertDescFunc) &DynamicStateGeneratorBase::classDescInserter,
@@ -231,12 +231,42 @@ DynamicStateGeneratorTransitPtr DynamicStateGeneratorBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+DynamicStateGeneratorTransitPtr DynamicStateGeneratorBase::createLocal(BitVector bFlags)
+{
+    DynamicStateGeneratorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<DynamicStateGenerator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 DynamicStateGeneratorPtr DynamicStateGeneratorBase::createEmpty(void)
 {
     DynamicStateGeneratorPtr returnValue;
 
-    newPtr<DynamicStateGenerator>(returnValue);
+    newPtr<DynamicStateGenerator>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+DynamicStateGeneratorPtr DynamicStateGeneratorBase::createEmptyLocal(BitVector bFlags)
+{
+    DynamicStateGeneratorPtr returnValue;
+
+    newPtr<DynamicStateGenerator>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -245,9 +275,27 @@ FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopy(void) const
 {
     DynamicStateGeneratorPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const DynamicStateGenerator *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const DynamicStateGenerator *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    DynamicStateGeneratorPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const DynamicStateGenerator *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

@@ -336,7 +336,7 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ParticlesBase::createEmpty,
+    (PrototypeCreateF) &ParticlesBase::createEmptyLocal,
     Particles::initMethod,
     Particles::exitMethod,
     (InitalInsertDescFunc) &ParticlesBase::classDescInserter,
@@ -1161,12 +1161,42 @@ ParticlesTransitPtr ParticlesBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+ParticlesTransitPtr ParticlesBase::createLocal(BitVector bFlags)
+{
+    ParticlesTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<Particles>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ParticlesPtr ParticlesBase::createEmpty(void)
 {
     ParticlesPtr returnValue;
 
-    newPtr<Particles>(returnValue);
+    newPtr<Particles>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ParticlesPtr ParticlesBase::createEmptyLocal(BitVector bFlags)
+{
+    ParticlesPtr returnValue;
+
+    newPtr<Particles>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -1175,9 +1205,27 @@ FieldContainerTransitPtr ParticlesBase::shallowCopy(void) const
 {
     ParticlesPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const Particles *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const Particles *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ParticlesBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ParticlesPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Particles *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

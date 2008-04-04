@@ -202,15 +202,23 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  BinarySwapComposerTransitPtr create     (void);
-    static  BinarySwapComposerPtr        createEmpty(void);
+    static  BinarySwapComposerTransitPtr create          (void);
+    static  BinarySwapComposerPtr        createEmpty     (void);
+
+    static  BinarySwapComposerTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  BinarySwapComposerPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

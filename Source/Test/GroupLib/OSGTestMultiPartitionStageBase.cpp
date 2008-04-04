@@ -158,7 +158,7 @@ TestMultiPartitionStageBase::TypeObject TestMultiPartitionStageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TestMultiPartitionStageBase::createEmpty,
+    (PrototypeCreateF) &TestMultiPartitionStageBase::createEmptyLocal,
     TestMultiPartitionStage::initMethod,
     TestMultiPartitionStage::exitMethod,
     (InitalInsertDescFunc) &TestMultiPartitionStageBase::classDescInserter,
@@ -486,12 +486,42 @@ TestMultiPartitionStageTransitPtr TestMultiPartitionStageBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+TestMultiPartitionStageTransitPtr TestMultiPartitionStageBase::createLocal(BitVector bFlags)
+{
+    TestMultiPartitionStageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<TestMultiPartitionStage>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TestMultiPartitionStagePtr TestMultiPartitionStageBase::createEmpty(void)
 {
     TestMultiPartitionStagePtr returnValue;
 
-    newPtr<TestMultiPartitionStage>(returnValue);
+    newPtr<TestMultiPartitionStage>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+TestMultiPartitionStagePtr TestMultiPartitionStageBase::createEmptyLocal(BitVector bFlags)
+{
+    TestMultiPartitionStagePtr returnValue;
+
+    newPtr<TestMultiPartitionStage>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -500,9 +530,27 @@ FieldContainerTransitPtr TestMultiPartitionStageBase::shallowCopy(void) const
 {
     TestMultiPartitionStagePtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TestMultiPartitionStage *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const TestMultiPartitionStage *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TestMultiPartitionStageBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    TestMultiPartitionStagePtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TestMultiPartitionStage *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

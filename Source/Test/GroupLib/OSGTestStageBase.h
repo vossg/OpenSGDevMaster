@@ -168,15 +168,23 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TestStageTransitPtr create     (void);
-    static  TestStagePtr        createEmpty(void);
+    static  TestStageTransitPtr create          (void);
+    static  TestStagePtr        createEmpty     (void);
+
+    static  TestStageTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  TestStagePtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

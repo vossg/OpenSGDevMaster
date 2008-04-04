@@ -239,15 +239,23 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeometryTransitPtr create     (void);
-    static  GeometryPtr        createEmpty(void);
+    static  GeometryTransitPtr create          (void);
+    static  GeometryPtr        createEmpty     (void);
+
+    static  GeometryTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  GeometryPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

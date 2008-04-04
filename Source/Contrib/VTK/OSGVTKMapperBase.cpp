@@ -264,7 +264,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &VTKMapperBase::createEmpty,
+    (PrototypeCreateF) &VTKMapperBase::createEmptyLocal,
     VTKMapper::initMethod,
     VTKMapper::exitMethod,
     (InitalInsertDescFunc) &VTKMapperBase::classDescInserter,
@@ -1870,12 +1870,42 @@ VTKMapperTransitPtr VTKMapperBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+VTKMapperTransitPtr VTKMapperBase::createLocal(BitVector bFlags)
+{
+    VTKMapperTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<VTKMapper>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 VTKMapperPtr VTKMapperBase::createEmpty(void)
 {
     VTKMapperPtr returnValue;
 
-    newPtr<VTKMapper>(returnValue);
+    newPtr<VTKMapper>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+VTKMapperPtr VTKMapperBase::createEmptyLocal(BitVector bFlags)
+{
+    VTKMapperPtr returnValue;
+
+    newPtr<VTKMapper>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -1884,9 +1914,27 @@ FieldContainerTransitPtr VTKMapperBase::shallowCopy(void) const
 {
     VTKMapperPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const VTKMapper *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const VTKMapper *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr VTKMapperBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    VTKMapperPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const VTKMapper *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

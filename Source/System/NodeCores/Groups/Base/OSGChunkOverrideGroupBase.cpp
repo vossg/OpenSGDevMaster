@@ -114,7 +114,7 @@ ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ChunkOverrideGroupBase::createEmpty,
+    (PrototypeCreateF) &ChunkOverrideGroupBase::createEmptyLocal,
     ChunkOverrideGroup::initMethod,
     ChunkOverrideGroup::exitMethod,
     (InitalInsertDescFunc) &ChunkOverrideGroupBase::classDescInserter,
@@ -372,12 +372,42 @@ ChunkOverrideGroupTransitPtr ChunkOverrideGroupBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+ChunkOverrideGroupTransitPtr ChunkOverrideGroupBase::createLocal(BitVector bFlags)
+{
+    ChunkOverrideGroupTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<ChunkOverrideGroup>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ChunkOverrideGroupPtr ChunkOverrideGroupBase::createEmpty(void)
 {
     ChunkOverrideGroupPtr returnValue;
 
-    newPtr<ChunkOverrideGroup>(returnValue);
+    newPtr<ChunkOverrideGroup>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ChunkOverrideGroupPtr ChunkOverrideGroupBase::createEmptyLocal(BitVector bFlags)
+{
+    ChunkOverrideGroupPtr returnValue;
+
+    newPtr<ChunkOverrideGroup>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -386,9 +416,27 @@ FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopy(void) const
 {
     ChunkOverrideGroupPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ChunkOverrideGroup *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const ChunkOverrideGroup *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ChunkOverrideGroupPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ChunkOverrideGroup *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

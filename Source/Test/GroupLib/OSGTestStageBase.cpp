@@ -110,7 +110,7 @@ TestStageBase::TypeObject TestStageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TestStageBase::createEmpty,
+    (PrototypeCreateF) &TestStageBase::createEmptyLocal,
     TestStage::initMethod,
     TestStage::exitMethod,
     (InitalInsertDescFunc) &TestStageBase::classDescInserter,
@@ -238,12 +238,42 @@ TestStageTransitPtr TestStageBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+TestStageTransitPtr TestStageBase::createLocal(BitVector bFlags)
+{
+    TestStageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<TestStage>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TestStagePtr TestStageBase::createEmpty(void)
 {
     TestStagePtr returnValue;
 
-    newPtr<TestStage>(returnValue);
+    newPtr<TestStage>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+TestStagePtr TestStageBase::createEmptyLocal(BitVector bFlags)
+{
+    TestStagePtr returnValue;
+
+    newPtr<TestStage>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -252,9 +282,27 @@ FieldContainerTransitPtr TestStageBase::shallowCopy(void) const
 {
     TestStagePtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TestStage *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const TestStage *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TestStageBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    TestStagePtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TestStage *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

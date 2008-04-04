@@ -234,15 +234,23 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TestMultiPartitionStageTransitPtr create     (void);
-    static  TestMultiPartitionStagePtr        createEmpty(void);
+    static  TestMultiPartitionStageTransitPtr create          (void);
+    static  TestMultiPartitionStagePtr        createEmpty     (void);
+
+    static  TestMultiPartitionStageTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  TestMultiPartitionStagePtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

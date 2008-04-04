@@ -370,15 +370,23 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleStatisticsForegroundTransitPtr create     (void);
-    static  SimpleStatisticsForegroundPtr        createEmpty(void);
+    static  SimpleStatisticsForegroundTransitPtr create          (void);
+    static  SimpleStatisticsForegroundPtr        createEmpty     (void);
+
+    static  SimpleStatisticsForegroundTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  SimpleStatisticsForegroundPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

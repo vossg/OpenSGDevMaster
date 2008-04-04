@@ -554,15 +554,23 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ImageTransitPtr create     (void);
-    static  ImagePtr        createEmpty(void);
+    static  ImageTransitPtr create          (void);
+    static  ImagePtr        createEmpty     (void);
+
+    static  ImageTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ImagePtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -202,15 +202,23 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  XWindowTransitPtr create     (void);
-    static  XWindowPtr        createEmpty(void);
+    static  XWindowTransitPtr create          (void);
+    static  XWindowPtr        createEmpty     (void);
+
+    static  XWindowTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  XWindowPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

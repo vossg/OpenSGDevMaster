@@ -177,15 +177,23 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StateTransitPtr create     (void);
-    static  StatePtr        createEmpty(void);
+    static  StateTransitPtr create          (void);
+    static  StatePtr        createEmpty     (void);
+
+    static  StateTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  StatePtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

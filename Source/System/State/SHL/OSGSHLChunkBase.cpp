@@ -206,7 +206,7 @@ SHLChunkBase::TypeObject SHLChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SHLChunkBase::createEmpty,
+    (PrototypeCreateF) &SHLChunkBase::createEmptyLocal,
     SHLChunk::initMethod,
     SHLChunk::exitMethod,
     (InitalInsertDescFunc) &SHLChunkBase::classDescInserter,
@@ -721,12 +721,42 @@ SHLChunkTransitPtr SHLChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+SHLChunkTransitPtr SHLChunkBase::createLocal(BitVector bFlags)
+{
+    SHLChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SHLChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SHLChunkPtr SHLChunkBase::createEmpty(void)
 {
     SHLChunkPtr returnValue;
 
-    newPtr<SHLChunk>(returnValue);
+    newPtr<SHLChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+SHLChunkPtr SHLChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    SHLChunkPtr returnValue;
+
+    newPtr<SHLChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -735,9 +765,27 @@ FieldContainerTransitPtr SHLChunkBase::shallowCopy(void) const
 {
     SHLChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const SHLChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const SHLChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SHLChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SHLChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SHLChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

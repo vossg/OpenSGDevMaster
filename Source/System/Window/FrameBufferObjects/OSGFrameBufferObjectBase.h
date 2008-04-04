@@ -276,15 +276,23 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FrameBufferObjectTransitPtr create     (void);
-    static  FrameBufferObjectPtr        createEmpty(void);
+    static  FrameBufferObjectTransitPtr create          (void);
+    static  FrameBufferObjectPtr        createEmpty     (void);
+
+    static  FrameBufferObjectTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  FrameBufferObjectPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

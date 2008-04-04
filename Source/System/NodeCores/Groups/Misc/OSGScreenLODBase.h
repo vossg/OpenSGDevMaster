@@ -183,15 +183,23 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ScreenLODTransitPtr create     (void);
-    static  ScreenLODPtr        createEmpty(void);
+    static  ScreenLODTransitPtr create          (void);
+    static  ScreenLODPtr        createEmpty     (void);
+
+    static  ScreenLODTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ScreenLODPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

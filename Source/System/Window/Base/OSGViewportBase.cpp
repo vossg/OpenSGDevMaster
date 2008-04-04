@@ -314,7 +314,7 @@ ViewportBase::TypeObject ViewportBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ViewportBase::createEmpty,
+    (PrototypeCreateF) &ViewportBase::createEmptyLocal,
     Viewport::initMethod,
     Viewport::exitMethod,
     (InitalInsertDescFunc) &ViewportBase::classDescInserter,
@@ -968,12 +968,42 @@ ViewportTransitPtr ViewportBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+ViewportTransitPtr ViewportBase::createLocal(BitVector bFlags)
+{
+    ViewportTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<Viewport>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ViewportPtr ViewportBase::createEmpty(void)
 {
     ViewportPtr returnValue;
 
-    newPtr<Viewport>(returnValue);
+    newPtr<Viewport>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ViewportPtr ViewportBase::createEmptyLocal(BitVector bFlags)
+{
+    ViewportPtr returnValue;
+
+    newPtr<Viewport>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -982,9 +1012,27 @@ FieldContainerTransitPtr ViewportBase::shallowCopy(void) const
 {
     ViewportPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const Viewport *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const Viewport *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ViewportBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ViewportPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Viewport *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

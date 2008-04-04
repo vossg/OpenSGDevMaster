@@ -129,7 +129,7 @@ ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ShearedStereoCameraDecoratorBase::createEmpty,
+    (PrototypeCreateF) &ShearedStereoCameraDecoratorBase::createEmptyLocal,
     ShearedStereoCameraDecorator::initMethod,
     ShearedStereoCameraDecorator::exitMethod,
     (InitalInsertDescFunc) &ShearedStereoCameraDecoratorBase::classDescInserter,
@@ -304,12 +304,42 @@ ShearedStereoCameraDecoratorTransitPtr ShearedStereoCameraDecoratorBase::create(
     return fc;
 }
 
+//! create a new instance of the class
+ShearedStereoCameraDecoratorTransitPtr ShearedStereoCameraDecoratorBase::createLocal(BitVector bFlags)
+{
+    ShearedStereoCameraDecoratorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<ShearedStereoCameraDecorator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::createEmpty(void)
 {
     ShearedStereoCameraDecoratorPtr returnValue;
 
-    newPtr<ShearedStereoCameraDecorator>(returnValue);
+    newPtr<ShearedStereoCameraDecorator>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
+{
+    ShearedStereoCameraDecoratorPtr returnValue;
+
+    newPtr<ShearedStereoCameraDecorator>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -318,9 +348,27 @@ FieldContainerTransitPtr ShearedStereoCameraDecoratorBase::shallowCopy(void) con
 {
     ShearedStereoCameraDecoratorPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ShearedStereoCameraDecorator *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const ShearedStereoCameraDecorator *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ShearedStereoCameraDecoratorBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ShearedStereoCameraDecoratorPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ShearedStereoCameraDecorator *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

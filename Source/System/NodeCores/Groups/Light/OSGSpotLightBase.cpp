@@ -149,7 +149,7 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SpotLightBase::createEmpty,
+    (PrototypeCreateF) &SpotLightBase::createEmptyLocal,
     SpotLight::initMethod,
     SpotLight::exitMethod,
     (InitalInsertDescFunc) &SpotLightBase::classDescInserter,
@@ -369,12 +369,42 @@ SpotLightTransitPtr SpotLightBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+SpotLightTransitPtr SpotLightBase::createLocal(BitVector bFlags)
+{
+    SpotLightTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SpotLight>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SpotLightPtr SpotLightBase::createEmpty(void)
 {
     SpotLightPtr returnValue;
 
-    newPtr<SpotLight>(returnValue);
+    newPtr<SpotLight>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+SpotLightPtr SpotLightBase::createEmptyLocal(BitVector bFlags)
+{
+    SpotLightPtr returnValue;
+
+    newPtr<SpotLight>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -383,9 +413,27 @@ FieldContainerTransitPtr SpotLightBase::shallowCopy(void) const
 {
     SpotLightPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const SpotLight *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const SpotLight *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SpotLightBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SpotLightPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SpotLight *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

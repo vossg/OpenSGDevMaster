@@ -194,15 +194,23 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ContainerPoolTransitPtr create     (void);
-    static  ContainerPoolPtr        createEmpty(void);
+    static  ContainerPoolTransitPtr create          (void);
+    static  ContainerPoolPtr        createEmpty     (void);
+
+    static  ContainerPoolTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ContainerPoolPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

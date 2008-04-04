@@ -200,15 +200,23 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeoMultiPropertyDataTransitPtr create     (void);
-    static  GeoMultiPropertyDataPtr        createEmpty(void);
+    static  GeoMultiPropertyDataTransitPtr create          (void);
+    static  GeoMultiPropertyDataPtr        createEmpty     (void);
+
+    static  GeoMultiPropertyDataTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  GeoMultiPropertyDataPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -311,15 +311,23 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CubeMapGeneratorTransitPtr create     (void);
-    static  CubeMapGeneratorPtr        createEmpty(void);
+    static  CubeMapGeneratorTransitPtr create          (void);
+    static  CubeMapGeneratorPtr        createEmpty     (void);
+
+    static  CubeMapGeneratorTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  CubeMapGeneratorPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

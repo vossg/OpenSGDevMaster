@@ -353,15 +353,23 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PolygonChunkTransitPtr create     (void);
-    static  PolygonChunkPtr        createEmpty(void);
+    static  PolygonChunkTransitPtr create          (void);
+    static  PolygonChunkPtr        createEmpty     (void);
+
+    static  PolygonChunkTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  PolygonChunkPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

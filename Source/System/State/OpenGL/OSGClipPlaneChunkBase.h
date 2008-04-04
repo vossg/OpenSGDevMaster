@@ -198,15 +198,23 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ClipPlaneChunkTransitPtr create     (void);
-    static  ClipPlaneChunkPtr        createEmpty(void);
+    static  ClipPlaneChunkTransitPtr create          (void);
+    static  ClipPlaneChunkPtr        createEmpty     (void);
+
+    static  ClipPlaneChunkTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ClipPlaneChunkPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

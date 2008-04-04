@@ -126,15 +126,23 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MoveManipulatorTransitPtr create     (void);
-    static  MoveManipulatorPtr        createEmpty(void);
+    static  MoveManipulatorTransitPtr create          (void);
+    static  MoveManipulatorPtr        createEmpty     (void);
+
+    static  MoveManipulatorTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  MoveManipulatorPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

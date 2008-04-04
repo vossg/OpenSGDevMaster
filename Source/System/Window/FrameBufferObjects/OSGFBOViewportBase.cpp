@@ -113,7 +113,7 @@ FBOViewportBase::TypeObject FBOViewportBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &FBOViewportBase::createEmpty,
+    (PrototypeCreateF) &FBOViewportBase::createEmptyLocal,
     FBOViewport::initMethod,
     FBOViewport::exitMethod,
     (InitalInsertDescFunc) &FBOViewportBase::classDescInserter,
@@ -231,12 +231,42 @@ FBOViewportTransitPtr FBOViewportBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+FBOViewportTransitPtr FBOViewportBase::createLocal(BitVector bFlags)
+{
+    FBOViewportTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<FBOViewport>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 FBOViewportPtr FBOViewportBase::createEmpty(void)
 {
     FBOViewportPtr returnValue;
 
-    newPtr<FBOViewport>(returnValue);
+    newPtr<FBOViewport>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+FBOViewportPtr FBOViewportBase::createEmptyLocal(BitVector bFlags)
+{
+    FBOViewportPtr returnValue;
+
+    newPtr<FBOViewport>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -245,9 +275,27 @@ FieldContainerTransitPtr FBOViewportBase::shallowCopy(void) const
 {
     FBOViewportPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const FBOViewport *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const FBOViewport *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr FBOViewportBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    FBOViewportPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const FBOViewport *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

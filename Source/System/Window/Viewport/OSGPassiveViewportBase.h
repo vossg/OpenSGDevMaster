@@ -126,15 +126,23 @@ class OSG_WINDOW_DLLMAPPING PassiveViewportBase : public Viewport
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PassiveViewportTransitPtr create     (void);
-    static  PassiveViewportPtr        createEmpty(void);
+    static  PassiveViewportTransitPtr create          (void);
+    static  PassiveViewportPtr        createEmpty     (void);
+
+    static  PassiveViewportTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  PassiveViewportPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

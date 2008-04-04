@@ -137,15 +137,23 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ChunkOverrideGroupTransitPtr create     (void);
-    static  ChunkOverrideGroupPtr        createEmpty(void);
+    static  ChunkOverrideGroupTransitPtr create          (void);
+    static  ChunkOverrideGroupPtr        createEmpty     (void);
+
+    static  ChunkOverrideGroupTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  ChunkOverrideGroupPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

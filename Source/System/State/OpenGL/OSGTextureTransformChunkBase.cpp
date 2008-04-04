@@ -115,7 +115,7 @@ TextureTransformChunkBase::TypeObject TextureTransformChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TextureTransformChunkBase::createEmpty,
+    (PrototypeCreateF) &TextureTransformChunkBase::createEmptyLocal,
     TextureTransformChunk::initMethod,
     TextureTransformChunk::exitMethod,
     (InitalInsertDescFunc) &TextureTransformChunkBase::classDescInserter,
@@ -254,12 +254,42 @@ TextureTransformChunkTransitPtr TextureTransformChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+TextureTransformChunkTransitPtr TextureTransformChunkBase::createLocal(BitVector bFlags)
+{
+    TextureTransformChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<TextureTransformChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TextureTransformChunkPtr TextureTransformChunkBase::createEmpty(void)
 {
     TextureTransformChunkPtr returnValue;
 
-    newPtr<TextureTransformChunk>(returnValue);
+    newPtr<TextureTransformChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+TextureTransformChunkPtr TextureTransformChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    TextureTransformChunkPtr returnValue;
+
+    newPtr<TextureTransformChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -268,9 +298,27 @@ FieldContainerTransitPtr TextureTransformChunkBase::shallowCopy(void) const
 {
     TextureTransformChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TextureTransformChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const TextureTransformChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TextureTransformChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    TextureTransformChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TextureTransformChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

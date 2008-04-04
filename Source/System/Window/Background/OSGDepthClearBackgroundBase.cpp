@@ -113,7 +113,7 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &DepthClearBackgroundBase::createEmpty,
+    (PrototypeCreateF) &DepthClearBackgroundBase::createEmptyLocal,
     DepthClearBackground::initMethod,
     DepthClearBackground::exitMethod,
     (InitalInsertDescFunc) &DepthClearBackgroundBase::classDescInserter,
@@ -246,12 +246,42 @@ DepthClearBackgroundTransitPtr DepthClearBackgroundBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+DepthClearBackgroundTransitPtr DepthClearBackgroundBase::createLocal(BitVector bFlags)
+{
+    DepthClearBackgroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<DepthClearBackground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 DepthClearBackgroundPtr DepthClearBackgroundBase::createEmpty(void)
 {
     DepthClearBackgroundPtr returnValue;
 
-    newPtr<DepthClearBackground>(returnValue);
+    newPtr<DepthClearBackground>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+DepthClearBackgroundPtr DepthClearBackgroundBase::createEmptyLocal(BitVector bFlags)
+{
+    DepthClearBackgroundPtr returnValue;
+
+    newPtr<DepthClearBackground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -260,9 +290,27 @@ FieldContainerTransitPtr DepthClearBackgroundBase::shallowCopy(void) const
 {
     DepthClearBackgroundPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const DepthClearBackground *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const DepthClearBackground *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr DepthClearBackgroundBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    DepthClearBackgroundPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const DepthClearBackground *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

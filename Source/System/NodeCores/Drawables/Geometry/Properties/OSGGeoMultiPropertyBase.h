@@ -266,15 +266,23 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeoMultiPropertyTransitPtr create     (void);
-    static  GeoMultiPropertyPtr        createEmpty(void);
+    static  GeoMultiPropertyTransitPtr create          (void);
+    static  GeoMultiPropertyPtr        createEmpty     (void);
+
+    static  GeoMultiPropertyTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  GeoMultiPropertyPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -198,7 +198,7 @@ TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TileCameraDecoratorBase::createEmpty,
+    (PrototypeCreateF) &TileCameraDecoratorBase::createEmptyLocal,
     TileCameraDecorator::initMethod,
     TileCameraDecorator::exitMethod,
     (InitalInsertDescFunc) &TileCameraDecoratorBase::classDescInserter,
@@ -546,12 +546,42 @@ TileCameraDecoratorTransitPtr TileCameraDecoratorBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+TileCameraDecoratorTransitPtr TileCameraDecoratorBase::createLocal(BitVector bFlags)
+{
+    TileCameraDecoratorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<TileCameraDecorator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TileCameraDecoratorPtr TileCameraDecoratorBase::createEmpty(void)
 {
     TileCameraDecoratorPtr returnValue;
 
-    newPtr<TileCameraDecorator>(returnValue);
+    newPtr<TileCameraDecorator>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+TileCameraDecoratorPtr TileCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
+{
+    TileCameraDecoratorPtr returnValue;
+
+    newPtr<TileCameraDecorator>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -560,9 +590,27 @@ FieldContainerTransitPtr TileCameraDecoratorBase::shallowCopy(void) const
 {
     TileCameraDecoratorPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TileCameraDecorator *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const TileCameraDecorator *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TileCameraDecoratorBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    TileCameraDecoratorPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TileCameraDecorator *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

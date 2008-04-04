@@ -247,7 +247,7 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &BlendChunkBase::createEmpty,
+    (PrototypeCreateF) &BlendChunkBase::createEmptyLocal,
     BlendChunk::initMethod,
     BlendChunk::exitMethod,
     (InitalInsertDescFunc) &BlendChunkBase::classDescInserter,
@@ -692,12 +692,42 @@ BlendChunkTransitPtr BlendChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+BlendChunkTransitPtr BlendChunkBase::createLocal(BitVector bFlags)
+{
+    BlendChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<BlendChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 BlendChunkPtr BlendChunkBase::createEmpty(void)
 {
     BlendChunkPtr returnValue;
 
-    newPtr<BlendChunk>(returnValue);
+    newPtr<BlendChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+BlendChunkPtr BlendChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    BlendChunkPtr returnValue;
+
+    newPtr<BlendChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -706,9 +736,27 @@ FieldContainerTransitPtr BlendChunkBase::shallowCopy(void) const
 {
     BlendChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const BlendChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const BlendChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr BlendChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    BlendChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const BlendChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

@@ -111,7 +111,7 @@ TransformBase::TypeObject TransformBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TransformBase::createEmpty,
+    (PrototypeCreateF) &TransformBase::createEmptyLocal,
     Transform::initMethod,
     Transform::exitMethod,
     (InitalInsertDescFunc) &TransformBase::classDescInserter,
@@ -239,12 +239,42 @@ TransformTransitPtr TransformBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+TransformTransitPtr TransformBase::createLocal(BitVector bFlags)
+{
+    TransformTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<Transform>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TransformPtr TransformBase::createEmpty(void)
 {
     TransformPtr returnValue;
 
-    newPtr<Transform>(returnValue);
+    newPtr<Transform>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+TransformPtr TransformBase::createEmptyLocal(BitVector bFlags)
+{
+    TransformPtr returnValue;
+
+    newPtr<Transform>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -253,9 +283,27 @@ FieldContainerTransitPtr TransformBase::shallowCopy(void) const
 {
     TransformPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const Transform *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const Transform *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TransformBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    TransformPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Transform *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

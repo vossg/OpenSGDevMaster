@@ -232,15 +232,23 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleTexturedMaterialTransitPtr create     (void);
-    static  SimpleTexturedMaterialPtr        createEmpty(void);
+    static  SimpleTexturedMaterialTransitPtr create          (void);
+    static  SimpleTexturedMaterialPtr        createEmpty     (void);
+
+    static  SimpleTexturedMaterialTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  SimpleTexturedMaterialPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

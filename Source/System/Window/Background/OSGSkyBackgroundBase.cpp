@@ -428,7 +428,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SkyBackgroundBase::createEmpty,
+    (PrototypeCreateF) &SkyBackgroundBase::createEmptyLocal,
     SkyBackground::initMethod,
     SkyBackground::exitMethod,
     (InitalInsertDescFunc) &SkyBackgroundBase::classDescInserter,
@@ -2039,12 +2039,42 @@ SkyBackgroundTransitPtr SkyBackgroundBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+SkyBackgroundTransitPtr SkyBackgroundBase::createLocal(BitVector bFlags)
+{
+    SkyBackgroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SkyBackground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SkyBackgroundPtr SkyBackgroundBase::createEmpty(void)
 {
     SkyBackgroundPtr returnValue;
 
-    newPtr<SkyBackground>(returnValue);
+    newPtr<SkyBackground>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+SkyBackgroundPtr SkyBackgroundBase::createEmptyLocal(BitVector bFlags)
+{
+    SkyBackgroundPtr returnValue;
+
+    newPtr<SkyBackground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -2053,9 +2083,27 @@ FieldContainerTransitPtr SkyBackgroundBase::shallowCopy(void) const
 {
     SkyBackgroundPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const SkyBackground *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const SkyBackground *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SkyBackgroundBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SkyBackgroundPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SkyBackground *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

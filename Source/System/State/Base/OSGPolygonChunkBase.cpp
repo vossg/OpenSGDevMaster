@@ -297,7 +297,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PolygonChunkBase::createEmpty,
+    (PrototypeCreateF) &PolygonChunkBase::createEmptyLocal,
     PolygonChunk::initMethod,
     PolygonChunk::exitMethod,
     (InitalInsertDescFunc) &PolygonChunkBase::classDescInserter,
@@ -949,12 +949,42 @@ PolygonChunkTransitPtr PolygonChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+PolygonChunkTransitPtr PolygonChunkBase::createLocal(BitVector bFlags)
+{
+    PolygonChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<PolygonChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PolygonChunkPtr PolygonChunkBase::createEmpty(void)
 {
     PolygonChunkPtr returnValue;
 
-    newPtr<PolygonChunk>(returnValue);
+    newPtr<PolygonChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+PolygonChunkPtr PolygonChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    PolygonChunkPtr returnValue;
+
+    newPtr<PolygonChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -963,9 +993,27 @@ FieldContainerTransitPtr PolygonChunkBase::shallowCopy(void) const
 {
     PolygonChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const PolygonChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const PolygonChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PolygonChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    PolygonChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PolygonChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

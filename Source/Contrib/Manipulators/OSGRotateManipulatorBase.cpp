@@ -83,7 +83,7 @@ RotateManipulatorBase::TypeObject RotateManipulatorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &RotateManipulatorBase::createEmpty,
+    (PrototypeCreateF) &RotateManipulatorBase::createEmptyLocal,
     RotateManipulator::initMethod,
     RotateManipulator::exitMethod,
     NULL,
@@ -171,12 +171,42 @@ RotateManipulatorTransitPtr RotateManipulatorBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+RotateManipulatorTransitPtr RotateManipulatorBase::createLocal(BitVector bFlags)
+{
+    RotateManipulatorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<RotateManipulator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 RotateManipulatorPtr RotateManipulatorBase::createEmpty(void)
 {
     RotateManipulatorPtr returnValue;
 
-    newPtr<RotateManipulator>(returnValue);
+    newPtr<RotateManipulator>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+RotateManipulatorPtr RotateManipulatorBase::createEmptyLocal(BitVector bFlags)
+{
+    RotateManipulatorPtr returnValue;
+
+    newPtr<RotateManipulator>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -185,9 +215,27 @@ FieldContainerTransitPtr RotateManipulatorBase::shallowCopy(void) const
 {
     RotateManipulatorPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const RotateManipulator *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const RotateManipulator *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr RotateManipulatorBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    RotateManipulatorPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const RotateManipulator *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

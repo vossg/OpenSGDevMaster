@@ -83,7 +83,7 @@ MoveManipulatorBase::TypeObject MoveManipulatorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &MoveManipulatorBase::createEmpty,
+    (PrototypeCreateF) &MoveManipulatorBase::createEmptyLocal,
     MoveManipulator::initMethod,
     MoveManipulator::exitMethod,
     NULL,
@@ -171,12 +171,42 @@ MoveManipulatorTransitPtr MoveManipulatorBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+MoveManipulatorTransitPtr MoveManipulatorBase::createLocal(BitVector bFlags)
+{
+    MoveManipulatorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<MoveManipulator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MoveManipulatorPtr MoveManipulatorBase::createEmpty(void)
 {
     MoveManipulatorPtr returnValue;
 
-    newPtr<MoveManipulator>(returnValue);
+    newPtr<MoveManipulator>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+MoveManipulatorPtr MoveManipulatorBase::createEmptyLocal(BitVector bFlags)
+{
+    MoveManipulatorPtr returnValue;
+
+    newPtr<MoveManipulator>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -185,9 +215,27 @@ FieldContainerTransitPtr MoveManipulatorBase::shallowCopy(void) const
 {
     MoveManipulatorPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const MoveManipulator *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const MoveManipulator *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr MoveManipulatorBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    MoveManipulatorPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const MoveManipulator *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

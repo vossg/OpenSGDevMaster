@@ -163,7 +163,7 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(
     Inherited::getClassname(),
     "TextureBuffer",
     0,
-    (PrototypeCreateF) &TextureBufferBase::createEmpty,
+    (PrototypeCreateF) &TextureBufferBase::createEmptyLocal,
     TextureBuffer::initMethod,
     TextureBuffer::exitMethod,
     (InitalInsertDescFunc) &TextureBufferBase::classDescInserter,
@@ -405,12 +405,42 @@ TextureBufferTransitPtr TextureBufferBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+TextureBufferTransitPtr TextureBufferBase::createLocal(BitVector bFlags)
+{
+    TextureBufferTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<TextureBuffer>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TextureBufferPtr TextureBufferBase::createEmpty(void)
 {
     TextureBufferPtr returnValue;
 
-    newPtr<TextureBuffer>(returnValue);
+    newPtr<TextureBuffer>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+TextureBufferPtr TextureBufferBase::createEmptyLocal(BitVector bFlags)
+{
+    TextureBufferPtr returnValue;
+
+    newPtr<TextureBuffer>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -419,9 +449,27 @@ FieldContainerTransitPtr TextureBufferBase::shallowCopy(void) const
 {
     TextureBufferPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TextureBuffer *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const TextureBuffer *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TextureBufferBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    TextureBufferPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TextureBuffer *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

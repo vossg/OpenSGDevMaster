@@ -142,7 +142,7 @@ ParallelComposerBase::TypeObject ParallelComposerBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ParallelComposerBase::createEmpty,
+    (PrototypeCreateF) &ParallelComposerBase::createEmptyLocal,
     ParallelComposer::initMethod,
     ParallelComposer::exitMethod,
     (InitalInsertDescFunc) &ParallelComposerBase::classDescInserter,
@@ -349,12 +349,42 @@ ParallelComposerTransitPtr ParallelComposerBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+ParallelComposerTransitPtr ParallelComposerBase::createLocal(BitVector bFlags)
+{
+    ParallelComposerTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<ParallelComposer>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ParallelComposerPtr ParallelComposerBase::createEmpty(void)
 {
     ParallelComposerPtr returnValue;
 
-    newPtr<ParallelComposer>(returnValue);
+    newPtr<ParallelComposer>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ParallelComposerPtr ParallelComposerBase::createEmptyLocal(BitVector bFlags)
+{
+    ParallelComposerPtr returnValue;
+
+    newPtr<ParallelComposer>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -363,9 +393,27 @@ FieldContainerTransitPtr ParallelComposerBase::shallowCopy(void) const
 {
     ParallelComposerPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ParallelComposer *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const ParallelComposer *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ParallelComposerBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ParallelComposerPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ParallelComposer *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

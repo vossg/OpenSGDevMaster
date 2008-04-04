@@ -126,7 +126,7 @@ OrthographicCameraBase::TypeObject OrthographicCameraBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &OrthographicCameraBase::createEmpty,
+    (PrototypeCreateF) &OrthographicCameraBase::createEmptyLocal,
     OrthographicCamera::initMethod,
     OrthographicCamera::exitMethod,
     (InitalInsertDescFunc) &OrthographicCameraBase::classDescInserter,
@@ -291,12 +291,42 @@ OrthographicCameraTransitPtr OrthographicCameraBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+OrthographicCameraTransitPtr OrthographicCameraBase::createLocal(BitVector bFlags)
+{
+    OrthographicCameraTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<OrthographicCamera>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 OrthographicCameraPtr OrthographicCameraBase::createEmpty(void)
 {
     OrthographicCameraPtr returnValue;
 
-    newPtr<OrthographicCamera>(returnValue);
+    newPtr<OrthographicCamera>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+OrthographicCameraPtr OrthographicCameraBase::createEmptyLocal(BitVector bFlags)
+{
+    OrthographicCameraPtr returnValue;
+
+    newPtr<OrthographicCamera>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -305,9 +335,27 @@ FieldContainerTransitPtr OrthographicCameraBase::shallowCopy(void) const
 {
     OrthographicCameraPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const OrthographicCamera *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const OrthographicCamera *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr OrthographicCameraBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    OrthographicCameraPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const OrthographicCamera *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

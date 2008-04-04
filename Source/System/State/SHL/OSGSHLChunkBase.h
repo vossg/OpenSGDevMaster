@@ -266,15 +266,23 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SHLChunkTransitPtr create     (void);
-    static  SHLChunkPtr        createEmpty(void);
+    static  SHLChunkTransitPtr create          (void);
+    static  SHLChunkPtr        createEmpty     (void);
+
+    static  SHLChunkTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  SHLChunkPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

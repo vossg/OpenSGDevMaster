@@ -174,7 +174,7 @@ BillboardBase::TypeObject BillboardBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &BillboardBase::createEmpty,
+    (PrototypeCreateF) &BillboardBase::createEmptyLocal,
     Billboard::initMethod,
     Billboard::exitMethod,
     (InitalInsertDescFunc) &BillboardBase::classDescInserter,
@@ -460,12 +460,42 @@ BillboardTransitPtr BillboardBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+BillboardTransitPtr BillboardBase::createLocal(BitVector bFlags)
+{
+    BillboardTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<Billboard>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 BillboardPtr BillboardBase::createEmpty(void)
 {
     BillboardPtr returnValue;
 
-    newPtr<Billboard>(returnValue);
+    newPtr<Billboard>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+BillboardPtr BillboardBase::createEmptyLocal(BitVector bFlags)
+{
+    BillboardPtr returnValue;
+
+    newPtr<Billboard>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -474,9 +504,27 @@ FieldContainerTransitPtr BillboardBase::shallowCopy(void) const
 {
     BillboardPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const Billboard *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const Billboard *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr BillboardBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    BillboardPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Billboard *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

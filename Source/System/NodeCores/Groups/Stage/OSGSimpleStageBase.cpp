@@ -240,7 +240,7 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SimpleStageBase::createEmpty,
+    (PrototypeCreateF) &SimpleStageBase::createEmptyLocal,
     SimpleStage::initMethod,
     SimpleStage::exitMethod,
     (InitalInsertDescFunc) &SimpleStageBase::classDescInserter,
@@ -602,12 +602,42 @@ SimpleStageTransitPtr SimpleStageBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+SimpleStageTransitPtr SimpleStageBase::createLocal(BitVector bFlags)
+{
+    SimpleStageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SimpleStage>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SimpleStagePtr SimpleStageBase::createEmpty(void)
 {
     SimpleStagePtr returnValue;
 
-    newPtr<SimpleStage>(returnValue);
+    newPtr<SimpleStage>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+SimpleStagePtr SimpleStageBase::createEmptyLocal(BitVector bFlags)
+{
+    SimpleStagePtr returnValue;
+
+    newPtr<SimpleStage>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -616,9 +646,27 @@ FieldContainerTransitPtr SimpleStageBase::shallowCopy(void) const
 {
     SimpleStagePtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const SimpleStage *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const SimpleStage *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SimpleStageBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SimpleStagePtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SimpleStage *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

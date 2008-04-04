@@ -508,15 +508,23 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  RenderOptionsTransitPtr create     (void);
-    static  RenderOptionsPtr        createEmpty(void);
+    static  RenderOptionsTransitPtr create          (void);
+    static  RenderOptionsPtr        createEmpty     (void);
+
+    static  RenderOptionsTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  RenderOptionsPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

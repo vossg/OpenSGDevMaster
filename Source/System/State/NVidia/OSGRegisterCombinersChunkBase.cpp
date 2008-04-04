@@ -620,7 +620,7 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &RegisterCombinersChunkBase::createEmpty,
+    (PrototypeCreateF) &RegisterCombinersChunkBase::createEmptyLocal,
     RegisterCombinersChunk::initMethod,
     RegisterCombinersChunk::exitMethod,
     (InitalInsertDescFunc) &RegisterCombinersChunkBase::classDescInserter,
@@ -4192,12 +4192,42 @@ RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::createLocal(BitVector bFlags)
+{
+    RegisterCombinersChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<RegisterCombinersChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 RegisterCombinersChunkPtr RegisterCombinersChunkBase::createEmpty(void)
 {
     RegisterCombinersChunkPtr returnValue;
 
-    newPtr<RegisterCombinersChunk>(returnValue);
+    newPtr<RegisterCombinersChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+RegisterCombinersChunkPtr RegisterCombinersChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    RegisterCombinersChunkPtr returnValue;
+
+    newPtr<RegisterCombinersChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -4206,9 +4236,27 @@ FieldContainerTransitPtr RegisterCombinersChunkBase::shallowCopy(void) const
 {
     RegisterCombinersChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const RegisterCombinersChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const RegisterCombinersChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr RegisterCombinersChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    RegisterCombinersChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const RegisterCombinersChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

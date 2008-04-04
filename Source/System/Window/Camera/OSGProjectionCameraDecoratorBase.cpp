@@ -221,7 +221,7 @@ ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ProjectionCameraDecoratorBase::createEmpty,
+    (PrototypeCreateF) &ProjectionCameraDecoratorBase::createEmptyLocal,
     ProjectionCameraDecorator::initMethod,
     ProjectionCameraDecorator::exitMethod,
     (InitalInsertDescFunc) &ProjectionCameraDecoratorBase::classDescInserter,
@@ -682,12 +682,42 @@ ProjectionCameraDecoratorTransitPtr ProjectionCameraDecoratorBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+ProjectionCameraDecoratorTransitPtr ProjectionCameraDecoratorBase::createLocal(BitVector bFlags)
+{
+    ProjectionCameraDecoratorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<ProjectionCameraDecorator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::createEmpty(void)
 {
     ProjectionCameraDecoratorPtr returnValue;
 
-    newPtr<ProjectionCameraDecorator>(returnValue);
+    newPtr<ProjectionCameraDecorator>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
+{
+    ProjectionCameraDecoratorPtr returnValue;
+
+    newPtr<ProjectionCameraDecorator>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -696,9 +726,27 @@ FieldContainerTransitPtr ProjectionCameraDecoratorBase::shallowCopy(void) const
 {
     ProjectionCameraDecoratorPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ProjectionCameraDecorator *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const ProjectionCameraDecorator *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ProjectionCameraDecoratorBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    ProjectionCameraDecoratorPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ProjectionCameraDecorator *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

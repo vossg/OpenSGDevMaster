@@ -268,7 +268,7 @@ PointChunkBase::TypeObject PointChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PointChunkBase::createEmpty,
+    (PrototypeCreateF) &PointChunkBase::createEmptyLocal,
     PointChunk::initMethod,
     PointChunk::exitMethod,
     (InitalInsertDescFunc) &PointChunkBase::classDescInserter,
@@ -789,12 +789,42 @@ PointChunkTransitPtr PointChunkBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+PointChunkTransitPtr PointChunkBase::createLocal(BitVector bFlags)
+{
+    PointChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<PointChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PointChunkPtr PointChunkBase::createEmpty(void)
 {
     PointChunkPtr returnValue;
 
-    newPtr<PointChunk>(returnValue);
+    newPtr<PointChunk>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+PointChunkPtr PointChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    PointChunkPtr returnValue;
+
+    newPtr<PointChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -803,9 +833,27 @@ FieldContainerTransitPtr PointChunkBase::shallowCopy(void) const
 {
     PointChunkPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const PointChunk *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const PointChunk *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PointChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    PointChunkPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PointChunk *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

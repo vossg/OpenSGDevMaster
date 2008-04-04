@@ -305,7 +305,7 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SimpleStatisticsForegroundBase::createEmpty,
+    (PrototypeCreateF) &SimpleStatisticsForegroundBase::createEmptyLocal,
     SimpleStatisticsForeground::initMethod,
     SimpleStatisticsForeground::exitMethod,
     (InitalInsertDescFunc) &SimpleStatisticsForegroundBase::classDescInserter,
@@ -1002,12 +1002,42 @@ SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::create(void
     return fc;
 }
 
+//! create a new instance of the class
+SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::createLocal(BitVector bFlags)
+{
+    SimpleStatisticsForegroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SimpleStatisticsForeground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::createEmpty(void)
 {
     SimpleStatisticsForegroundPtr returnValue;
 
-    newPtr<SimpleStatisticsForeground>(returnValue);
+    newPtr<SimpleStatisticsForeground>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::createEmptyLocal(BitVector bFlags)
+{
+    SimpleStatisticsForegroundPtr returnValue;
+
+    newPtr<SimpleStatisticsForeground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -1016,9 +1046,27 @@ FieldContainerTransitPtr SimpleStatisticsForegroundBase::shallowCopy(void) const
 {
     SimpleStatisticsForegroundPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const SimpleStatisticsForeground *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const SimpleStatisticsForeground *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SimpleStatisticsForegroundBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SimpleStatisticsForegroundPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SimpleStatisticsForeground *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

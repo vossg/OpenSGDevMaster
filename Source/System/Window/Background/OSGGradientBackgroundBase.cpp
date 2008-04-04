@@ -133,7 +133,7 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &GradientBackgroundBase::createEmpty,
+    (PrototypeCreateF) &GradientBackgroundBase::createEmptyLocal,
     GradientBackground::initMethod,
     GradientBackground::exitMethod,
     (InitalInsertDescFunc) &GradientBackgroundBase::classDescInserter,
@@ -478,12 +478,42 @@ GradientBackgroundTransitPtr GradientBackgroundBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+GradientBackgroundTransitPtr GradientBackgroundBase::createLocal(BitVector bFlags)
+{
+    GradientBackgroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<GradientBackground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 GradientBackgroundPtr GradientBackgroundBase::createEmpty(void)
 {
     GradientBackgroundPtr returnValue;
 
-    newPtr<GradientBackground>(returnValue);
+    newPtr<GradientBackground>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+GradientBackgroundPtr GradientBackgroundBase::createEmptyLocal(BitVector bFlags)
+{
+    GradientBackgroundPtr returnValue;
+
+    newPtr<GradientBackground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -492,9 +522,27 @@ FieldContainerTransitPtr GradientBackgroundBase::shallowCopy(void) const
 {
     GradientBackgroundPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const GradientBackground *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const GradientBackground *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GradientBackgroundBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    GradientBackgroundPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const GradientBackground *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

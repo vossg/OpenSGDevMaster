@@ -164,15 +164,23 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FBOViewportTransitPtr create     (void);
-    static  FBOViewportPtr        createEmpty(void);
+    static  FBOViewportTransitPtr create          (void);
+    static  FBOViewportPtr        createEmpty     (void);
+
+    static  FBOViewportTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  FBOViewportPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -216,7 +216,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &FrameBufferObjectBase::createEmpty,
+    (PrototypeCreateF) &FrameBufferObjectBase::createEmptyLocal,
     FrameBufferObject::initMethod,
     FrameBufferObject::exitMethod,
     (InitalInsertDescFunc) &FrameBufferObjectBase::classDescInserter,
@@ -771,12 +771,42 @@ FrameBufferObjectTransitPtr FrameBufferObjectBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+FrameBufferObjectTransitPtr FrameBufferObjectBase::createLocal(BitVector bFlags)
+{
+    FrameBufferObjectTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<FrameBufferObject>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 FrameBufferObjectPtr FrameBufferObjectBase::createEmpty(void)
 {
     FrameBufferObjectPtr returnValue;
 
-    newPtr<FrameBufferObject>(returnValue);
+    newPtr<FrameBufferObject>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+FrameBufferObjectPtr FrameBufferObjectBase::createEmptyLocal(BitVector bFlags)
+{
+    FrameBufferObjectPtr returnValue;
+
+    newPtr<FrameBufferObject>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -785,9 +815,27 @@ FieldContainerTransitPtr FrameBufferObjectBase::shallowCopy(void) const
 {
     FrameBufferObjectPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const FrameBufferObject *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const FrameBufferObject *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr FrameBufferObjectBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    FrameBufferObjectPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const FrameBufferObject *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }

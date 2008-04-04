@@ -126,15 +126,23 @@ class OSG_GROUP_DLLMAPPING InverseTransformBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  InverseTransformTransitPtr create     (void);
-    static  InverseTransformPtr        createEmpty(void);
+    static  InverseTransformTransitPtr create          (void);
+    static  InverseTransformPtr        createEmpty     (void);
+
+    static  InverseTransformTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  InverseTransformPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerTransitPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

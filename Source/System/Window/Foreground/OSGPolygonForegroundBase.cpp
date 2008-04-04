@@ -248,7 +248,7 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PolygonForegroundBase::createEmpty,
+    (PrototypeCreateF) &PolygonForegroundBase::createEmptyLocal,
     PolygonForeground::initMethod,
     PolygonForeground::exitMethod,
     (InitalInsertDescFunc) &PolygonForegroundBase::classDescInserter,
@@ -871,12 +871,42 @@ PolygonForegroundTransitPtr PolygonForegroundBase::create(void)
     return fc;
 }
 
+//! create a new instance of the class
+PolygonForegroundTransitPtr PolygonForegroundBase::createLocal(BitVector bFlags)
+{
+    PolygonForegroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<PolygonForeground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PolygonForegroundPtr PolygonForegroundBase::createEmpty(void)
 {
     PolygonForegroundPtr returnValue;
 
-    newPtr<PolygonForeground>(returnValue);
+    newPtr<PolygonForeground>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
+
+    return returnValue;
+}
+
+PolygonForegroundPtr PolygonForegroundBase::createEmptyLocal(BitVector bFlags)
+{
+    PolygonForegroundPtr returnValue;
+
+    newPtr<PolygonForeground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -885,9 +915,27 @@ FieldContainerTransitPtr PolygonForegroundBase::shallowCopy(void) const
 {
     PolygonForegroundPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const PolygonForeground *>(this));
+    newPtr(tmpPtr, 
+           dynamic_cast<const PolygonForeground *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
 
     FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PolygonForegroundBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    PolygonForegroundPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PolygonForeground *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
