@@ -206,6 +206,7 @@ CubeTextureObjChunkBase::TypeObject CubeTextureObjChunkBase::_type(
     0,
     (PrototypeCreateF) &CubeTextureObjChunkBase::createEmpty,
     CubeTextureObjChunk::initMethod,
+    CubeTextureObjChunk::exitMethod,
     (InitalInsertDescFunc) &CubeTextureObjChunkBase::classDescInserter,
     false,
     0,

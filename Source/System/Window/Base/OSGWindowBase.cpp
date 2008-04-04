@@ -239,6 +239,7 @@ WindowBase::TypeObject WindowBase::_type(
     0,
     NULL,
     Window::initMethod,
+    Window::exitMethod,
     (InitalInsertDescFunc) &WindowBase::classDescInserter,
     false,
     0,

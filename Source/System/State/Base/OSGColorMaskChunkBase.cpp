@@ -160,6 +160,7 @@ ColorMaskChunkBase::TypeObject ColorMaskChunkBase::_type(
     0,
     (PrototypeCreateF) &ColorMaskChunkBase::createEmpty,
     ColorMaskChunk::initMethod,
+    ColorMaskChunk::exitMethod,
     (InitalInsertDescFunc) &ColorMaskChunkBase::classDescInserter,
     false,
     0,

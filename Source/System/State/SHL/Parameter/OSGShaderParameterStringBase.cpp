@@ -112,6 +112,7 @@ ShaderParameterStringBase::TypeObject ShaderParameterStringBase::_type(
     0,
     (PrototypeCreateF) &ShaderParameterStringBase::createEmpty,
     ShaderParameterString::initMethod,
+    ShaderParameterString::exitMethod,
     (InitalInsertDescFunc) &ShaderParameterStringBase::classDescInserter,
     false,
     0,

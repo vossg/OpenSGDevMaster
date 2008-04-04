@@ -150,6 +150,7 @@ MatrixCameraBase::TypeObject MatrixCameraBase::_type(
     0,
     (PrototypeCreateF) &MatrixCameraBase::createEmpty,
     MatrixCamera::initMethod,
+    MatrixCamera::exitMethod,
     (InitalInsertDescFunc) &MatrixCameraBase::classDescInserter,
     false,
     0,

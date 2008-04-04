@@ -151,6 +151,7 @@ CameraBase::TypeObject CameraBase::_type(
     0,
     NULL,
     Camera::initMethod,
+    Camera::exitMethod,
     (InitalInsertDescFunc) &CameraBase::classDescInserter,
     false,
     0,

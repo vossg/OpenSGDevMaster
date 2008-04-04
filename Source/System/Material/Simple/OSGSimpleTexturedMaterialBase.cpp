@@ -200,6 +200,7 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(
     0,
     (PrototypeCreateF) &SimpleTexturedMaterialBase::createEmpty,
     SimpleTexturedMaterial::initMethod,
+    SimpleTexturedMaterial::exitMethod,
     (InitalInsertDescFunc) &SimpleTexturedMaterialBase::classDescInserter,
     false,
     0,

@@ -115,6 +115,7 @@ CameraDecoratorBase::TypeObject CameraDecoratorBase::_type(
     0,
     NULL,
     CameraDecorator::initMethod,
+    CameraDecorator::exitMethod,
     (InitalInsertDescFunc) &CameraDecoratorBase::classDescInserter,
     false,
     0,

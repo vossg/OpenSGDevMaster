@@ -338,6 +338,7 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     0,
     (PrototypeCreateF) &ParticlesBase::createEmpty,
     Particles::initMethod,
+    Particles::exitMethod,
     (InitalInsertDescFunc) &ParticlesBase::classDescInserter,
     false,
     0,

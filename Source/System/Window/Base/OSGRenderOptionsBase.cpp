@@ -433,6 +433,7 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     0,
     (PrototypeCreateF) &RenderOptionsBase::createEmpty,
     RenderOptions::initMethod,
+    RenderOptions::exitMethod,
     (InitalInsertDescFunc) &RenderOptionsBase::classDescInserter,
     false,
     0,

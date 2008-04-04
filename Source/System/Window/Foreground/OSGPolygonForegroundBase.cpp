@@ -250,6 +250,7 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(
     0,
     (PrototypeCreateF) &PolygonForegroundBase::createEmpty,
     PolygonForeground::initMethod,
+    PolygonForeground::exitMethod,
     (InitalInsertDescFunc) &PolygonForegroundBase::classDescInserter,
     false,
     0,

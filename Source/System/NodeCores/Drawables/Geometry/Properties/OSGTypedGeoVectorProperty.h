@@ -386,6 +386,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     static void classDescInserter(TypeObject &oType);
 
     static void initMethod(InitPhase ePhase);
+    static void exitMethod(InitPhase ePhase);
 
     static const ObjPtr NullPtr;
 
@@ -406,6 +407,7 @@ struct TypedGeoVectorPropertyDescBase
     }
 
     static void initMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
+    static void exitMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
 
     static UInt32             getStride    (void) { return 0;               }
 
@@ -433,6 +435,7 @@ struct TypedNormGeoVectorPropertyDescBase
     }
 
     static void initMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
+    static void exitMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
 
     static UInt32             getStride    (void) { return 0;               }
 

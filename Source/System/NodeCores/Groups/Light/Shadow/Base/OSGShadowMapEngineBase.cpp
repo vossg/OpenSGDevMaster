@@ -195,6 +195,7 @@ ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(
     0,
     NULL,
     ShadowMapEngine::initMethod,
+    ShadowMapEngine::exitMethod,
     (InitalInsertDescFunc) &ShadowMapEngineBase::classDescInserter,
     false,
     0,

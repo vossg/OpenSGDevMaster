@@ -482,6 +482,7 @@ QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(
     0,
     (PrototypeCreateF) &QuadTreeTerrainBase::createEmpty,
     QuadTreeTerrain::initMethod,
+    QuadTreeTerrain::exitMethod,
     (InitalInsertDescFunc) &QuadTreeTerrainBase::classDescInserter,
     false,
     0,

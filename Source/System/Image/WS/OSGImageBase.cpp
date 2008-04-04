@@ -493,6 +493,7 @@ ImageBase::TypeObject ImageBase::_type(
     0,
     (PrototypeCreateF) &ImageBase::createEmpty,
     Image::initMethod,
+    Image::exitMethod,
     (InitalInsertDescFunc) &ImageBase::classDescInserter,
     false,
     (ComponentSizeFieldMask | SideSizeFieldMask | FrameSizeFieldMask),

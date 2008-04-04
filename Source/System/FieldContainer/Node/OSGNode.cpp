@@ -133,6 +133,7 @@ Node::TypeObject Node::_type(
     0,
     (PrototypeCreateF) &Node::createEmpty,
     NULL,
+    NULL,
     (InitalInsertDescFunc) &Node::classDescInserter,
     false,
     0);

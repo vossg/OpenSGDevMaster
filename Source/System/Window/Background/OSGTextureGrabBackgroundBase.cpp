@@ -169,6 +169,7 @@ TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(
     0,
     (PrototypeCreateF) &TextureGrabBackgroundBase::createEmpty,
     TextureGrabBackground::initMethod,
+    TextureGrabBackground::exitMethod,
     (InitalInsertDescFunc) &TextureGrabBackgroundBase::classDescInserter,
     false,
     0,

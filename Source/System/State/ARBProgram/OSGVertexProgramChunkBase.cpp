@@ -89,6 +89,7 @@ VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(
     0,
     (PrototypeCreateF) &VertexProgramChunkBase::createEmpty,
     VertexProgramChunk::initMethod,
+    VertexProgramChunk::exitMethod,
     NULL,
     false,
     0,

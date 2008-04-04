@@ -73,6 +73,7 @@ NodeCore::TypeObject NodeCore::_type(
     0,
     NULL,
     NULL,
+    NULL,
     (InitalInsertDescFunc) &NodeCore::classDescInserter,
     false,
     0,

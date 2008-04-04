@@ -575,6 +575,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     0,
     (PrototypeCreateF) &TextureEnvChunkBase::createEmpty,
     TextureEnvChunk::initMethod,
+    TextureEnvChunk::exitMethod,
     (InitalInsertDescFunc) &TextureEnvChunkBase::classDescInserter,
     false,
     0,

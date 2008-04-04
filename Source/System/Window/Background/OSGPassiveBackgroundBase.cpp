@@ -85,6 +85,7 @@ PassiveBackgroundBase::TypeObject PassiveBackgroundBase::_type(
     0,
     (PrototypeCreateF) &PassiveBackgroundBase::createEmpty,
     PassiveBackground::initMethod,
+    PassiveBackground::exitMethod,
     NULL,
     false,
     0,

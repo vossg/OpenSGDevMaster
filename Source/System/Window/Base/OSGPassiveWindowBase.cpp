@@ -85,6 +85,7 @@ PassiveWindowBase::TypeObject PassiveWindowBase::_type(
     0,
     (PrototypeCreateF) &PassiveWindowBase::createEmpty,
     PassiveWindow::initMethod,
+    PassiveWindow::exitMethod,
     NULL,
     false,
     0,

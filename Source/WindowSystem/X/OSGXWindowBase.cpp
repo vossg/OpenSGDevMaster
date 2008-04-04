@@ -144,6 +144,7 @@ XWindowBase::TypeObject XWindowBase::_type(
     0,
     (PrototypeCreateF) &XWindowBase::createEmpty,
     XWindow::initMethod,
+    XWindow::exitMethod,
     (InitalInsertDescFunc) &XWindowBase::classDescInserter,
     false,
     0,

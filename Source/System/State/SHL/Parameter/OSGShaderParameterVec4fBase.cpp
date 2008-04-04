@@ -112,6 +112,7 @@ ShaderParameterVec4fBase::TypeObject ShaderParameterVec4fBase::_type(
     0,
     (PrototypeCreateF) &ShaderParameterVec4fBase::createEmpty,
     ShaderParameterVec4f::initMethod,
+    ShaderParameterVec4f::exitMethod,
     (InitalInsertDescFunc) &ShaderParameterVec4fBase::classDescInserter,
     false,
     0,

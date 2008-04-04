@@ -113,6 +113,7 @@ DirectionalLightBase::TypeObject DirectionalLightBase::_type(
     0,
     (PrototypeCreateF) &DirectionalLightBase::createEmpty,
     DirectionalLight::initMethod,
+    DirectionalLight::exitMethod,
     (InitalInsertDescFunc) &DirectionalLightBase::classDescInserter,
     false,
     0,

@@ -430,6 +430,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     0,
     (PrototypeCreateF) &SkyBackgroundBase::createEmpty,
     SkyBackground::initMethod,
+    SkyBackground::exitMethod,
     (InitalInsertDescFunc) &SkyBackgroundBase::classDescInserter,
     false,
     0,

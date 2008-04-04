@@ -121,6 +121,7 @@ TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(
     0,
     NULL,
     TextureBaseChunk::initMethod,
+    TextureBaseChunk::exitMethod,
     (InitalInsertDescFunc) &TextureBaseChunkBase::classDescInserter,
     false,
     0,

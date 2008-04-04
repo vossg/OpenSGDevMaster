@@ -217,6 +217,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+    static void exitMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

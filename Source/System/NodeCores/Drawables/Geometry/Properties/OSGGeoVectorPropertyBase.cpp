@@ -87,6 +87,7 @@ GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(
     0,
     NULL,
     GeoVectorProperty::initMethod,
+    GeoVectorProperty::exitMethod,
     NULL,
     false,
     0,

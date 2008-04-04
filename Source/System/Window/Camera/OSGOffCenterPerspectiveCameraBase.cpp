@@ -112,6 +112,7 @@ OffCenterPerspectiveCameraBase::TypeObject OffCenterPerspectiveCameraBase::_type
     0,
     (PrototypeCreateF) &OffCenterPerspectiveCameraBase::createEmpty,
     OffCenterPerspectiveCamera::initMethod,
+    OffCenterPerspectiveCamera::exitMethod,
     (InitalInsertDescFunc) &OffCenterPerspectiveCameraBase::classDescInserter,
     false,
     0,

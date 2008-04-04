@@ -117,6 +117,7 @@ TextureTransformChunkBase::TypeObject TextureTransformChunkBase::_type(
     0,
     (PrototypeCreateF) &TextureTransformChunkBase::createEmpty,
     TextureTransformChunk::initMethod,
+    TextureTransformChunk::exitMethod,
     (InitalInsertDescFunc) &TextureTransformChunkBase::classDescInserter,
     false,
     0,

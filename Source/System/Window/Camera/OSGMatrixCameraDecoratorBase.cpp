@@ -212,6 +212,7 @@ MatrixCameraDecoratorBase::TypeObject MatrixCameraDecoratorBase::_type(
     0,
     (PrototypeCreateF) &MatrixCameraDecoratorBase::createEmpty,
     MatrixCameraDecorator::initMethod,
+    MatrixCameraDecorator::exitMethod,
     (InitalInsertDescFunc) &MatrixCameraDecoratorBase::classDescInserter,
     false,
     0,

@@ -112,6 +112,7 @@ ShaderParameterMatrixBase::TypeObject ShaderParameterMatrixBase::_type(
     0,
     (PrototypeCreateF) &ShaderParameterMatrixBase::createEmpty,
     ShaderParameterMatrix::initMethod,
+    ShaderParameterMatrix::exitMethod,
     (InitalInsertDescFunc) &ShaderParameterMatrixBase::classDescInserter,
     false,
     0,

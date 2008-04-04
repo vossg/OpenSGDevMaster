@@ -134,6 +134,7 @@ StereoBufferViewportBase::TypeObject StereoBufferViewportBase::_type(
     0,
     (PrototypeCreateF) &StereoBufferViewportBase::createEmpty,
     StereoBufferViewport::initMethod,
+    StereoBufferViewport::exitMethod,
     (InitalInsertDescFunc) &StereoBufferViewportBase::classDescInserter,
     false,
     0,

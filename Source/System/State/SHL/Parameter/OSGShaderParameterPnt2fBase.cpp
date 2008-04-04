@@ -112,6 +112,7 @@ ShaderParameterPnt2fBase::TypeObject ShaderParameterPnt2fBase::_type(
     0,
     (PrototypeCreateF) &ShaderParameterPnt2fBase::createEmpty,
     ShaderParameterPnt2f::initMethod,
+    ShaderParameterPnt2f::exitMethod,
     (InitalInsertDescFunc) &ShaderParameterPnt2fBase::classDescInserter,
     false,
     0,

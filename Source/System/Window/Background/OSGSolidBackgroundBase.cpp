@@ -133,6 +133,7 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(
     0,
     (PrototypeCreateF) &SolidBackgroundBase::createEmpty,
     SolidBackground::initMethod,
+    SolidBackground::exitMethod,
     (InitalInsertDescFunc) &SolidBackgroundBase::classDescInserter,
     false,
     0,

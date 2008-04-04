@@ -309,6 +309,7 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     0,
     (PrototypeCreateF) &TexGenChunkBase::createEmpty,
     TexGenChunk::initMethod,
+    TexGenChunk::exitMethod,
     (InitalInsertDescFunc) &TexGenChunkBase::classDescInserter,
     false,
     0,

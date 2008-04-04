@@ -99,6 +99,7 @@ TestFC::TypeObject TestFC::_type(
     0,
     (PrototypeCreateF) &TestFC::createEmpty,
     NULL,
+    NULL,
     (InitalInsertDescFunc) &TestFC::classDescInserter,
     false,
     0);

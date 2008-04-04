@@ -85,6 +85,7 @@ GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(
     0,
     NULL,
     GeoIntegralProperty::initMethod,
+    GeoIntegralProperty::exitMethod,
     NULL,
     false,
     0,

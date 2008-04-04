@@ -113,6 +113,7 @@ MaterialDrawableBase::TypeObject MaterialDrawableBase::_type(
     0,
     NULL,
     MaterialDrawable::initMethod,
+    MaterialDrawable::exitMethod,
     (InitalInsertDescFunc) &MaterialDrawableBase::classDescInserter,
     false,
     0,

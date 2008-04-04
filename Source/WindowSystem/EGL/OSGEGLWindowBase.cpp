@@ -144,6 +144,7 @@ EGLWindowBase::TypeObject EGLWindowBase::_type(
     0,
     (PrototypeCreateF) &EGLWindowBase::createEmpty,
     EGLWindow::initMethod,
+    EGLWindow::exitMethod,
     (InitalInsertDescFunc) &EGLWindowBase::classDescInserter,
     false,
     0,

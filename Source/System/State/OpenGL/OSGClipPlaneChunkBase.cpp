@@ -156,6 +156,7 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(
     0,
     (PrototypeCreateF) &ClipPlaneChunkBase::createEmpty,
     ClipPlaneChunk::initMethod,
+    ClipPlaneChunk::exitMethod,
     (InitalInsertDescFunc) &ClipPlaneChunkBase::classDescInserter,
     false,
     0,

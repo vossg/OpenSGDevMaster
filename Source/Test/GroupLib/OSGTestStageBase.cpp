@@ -112,6 +112,7 @@ TestStageBase::TypeObject TestStageBase::_type(
     0,
     (PrototypeCreateF) &TestStageBase::createEmpty,
     TestStage::initMethod,
+    TestStage::exitMethod,
     (InitalInsertDescFunc) &TestStageBase::classDescInserter,
     false,
     0,

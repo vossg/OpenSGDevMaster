@@ -1091,6 +1091,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     0,
     (PrototypeCreateF) &TextureChunkBase::createEmpty,
     TextureChunk::initMethod,
+    TextureChunk::exitMethod,
     (InitalInsertDescFunc) &TextureChunkBase::classDescInserter,
     false,
     0,

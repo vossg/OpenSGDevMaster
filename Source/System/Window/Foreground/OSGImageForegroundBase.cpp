@@ -135,6 +135,7 @@ ImageForegroundBase::TypeObject ImageForegroundBase::_type(
     0,
     (PrototypeCreateF) &ImageForegroundBase::createEmpty,
     ImageForeground::initMethod,
+    ImageForeground::exitMethod,
     (InitalInsertDescFunc) &ImageForegroundBase::classDescInserter,
     false,
     0,

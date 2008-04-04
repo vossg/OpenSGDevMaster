@@ -223,6 +223,7 @@ ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(
     0,
     (PrototypeCreateF) &ProjectionCameraDecoratorBase::createEmpty,
     ProjectionCameraDecorator::initMethod,
+    ProjectionCameraDecorator::exitMethod,
     (InitalInsertDescFunc) &ProjectionCameraDecoratorBase::classDescInserter,
     false,
     0,

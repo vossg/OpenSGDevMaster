@@ -113,6 +113,7 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     0,
     (PrototypeCreateF) &MultiCoreBase::createEmpty,
     MultiCore::initMethod,
+    MultiCore::exitMethod,
     (InitalInsertDescFunc) &MultiCoreBase::classDescInserter,
     false,
     0,

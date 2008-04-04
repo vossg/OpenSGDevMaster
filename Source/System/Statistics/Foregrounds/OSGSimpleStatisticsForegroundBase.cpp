@@ -307,6 +307,7 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     0,
     (PrototypeCreateF) &SimpleStatisticsForegroundBase::createEmpty,
     SimpleStatisticsForeground::initMethod,
+    SimpleStatisticsForeground::exitMethod,
     (InitalInsertDescFunc) &SimpleStatisticsForegroundBase::classDescInserter,
     false,
     0,

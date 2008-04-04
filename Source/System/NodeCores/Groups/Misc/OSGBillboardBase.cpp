@@ -176,6 +176,7 @@ BillboardBase::TypeObject BillboardBase::_type(
     0,
     (PrototypeCreateF) &BillboardBase::createEmpty,
     Billboard::initMethod,
+    Billboard::exitMethod,
     (InitalInsertDescFunc) &BillboardBase::classDescInserter,
     false,
     0,

@@ -132,6 +132,19 @@ void ShadowMapEngine::initMethod(InitPhase ePhase)
             _pLightPassMat->changed(FieldBits::AllFields,
                                     ChangedOrigin::Commit,
                                     0);
+
+            OSG::addRef(_pLightPassMat);
         }
+    }
+}
+
+void ShadowMapEngine::exitMethod(InitPhase ePhase)
+{
+    Inherited::exitMethod(ePhase);
+
+    if(ePhase == TypeObject::SystemPost)
+    {
+        OSG::subRef(_pLightPassMat);       
+        _pLightPassMat = NullFC;
     }
 }

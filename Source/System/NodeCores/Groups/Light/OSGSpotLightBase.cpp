@@ -151,6 +151,7 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     0,
     (PrototypeCreateF) &SpotLightBase::createEmpty,
     SpotLight::initMethod,
+    SpotLight::exitMethod,
     (InitalInsertDescFunc) &SpotLightBase::classDescInserter,
     false,
     0,

@@ -153,6 +153,7 @@ FileGrabForegroundBase::TypeObject FileGrabForegroundBase::_type(
     0,
     (PrototypeCreateF) &FileGrabForegroundBase::createEmpty,
     FileGrabForeground::initMethod,
+    FileGrabForeground::exitMethod,
     (InitalInsertDescFunc) &FileGrabForegroundBase::classDescInserter,
     false,
     0,

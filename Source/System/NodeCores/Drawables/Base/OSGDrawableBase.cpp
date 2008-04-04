@@ -85,6 +85,7 @@ DrawableBase::TypeObject DrawableBase::_type(
     0,
     NULL,
     Drawable::initMethod,
+    Drawable::exitMethod,
     NULL,
     false,
     0,

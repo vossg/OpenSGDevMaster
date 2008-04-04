@@ -137,6 +137,7 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(
     0,
     (PrototypeCreateF) &ChunkMaterialBase::createEmpty,
     ChunkMaterial::initMethod,
+    ChunkMaterial::exitMethod,
     (InitalInsertDescFunc) &ChunkMaterialBase::classDescInserter,
     false,
     0,

@@ -115,6 +115,7 @@ FBOViewportBase::TypeObject FBOViewportBase::_type(
     0,
     (PrototypeCreateF) &FBOViewportBase::createEmpty,
     FBOViewport::initMethod,
+    FBOViewport::exitMethod,
     (InitalInsertDescFunc) &FBOViewportBase::classDescInserter,
     false,
     0,

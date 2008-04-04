@@ -306,6 +306,7 @@ ClusterWindowBase::TypeObject ClusterWindowBase::_type(
     0,
     (PrototypeCreateF) &ClusterWindowBase::createEmpty,
     ClusterWindow::initMethod,
+    ClusterWindow::exitMethod,
     (InitalInsertDescFunc) &ClusterWindowBase::classDescInserter,
     false,
     0,

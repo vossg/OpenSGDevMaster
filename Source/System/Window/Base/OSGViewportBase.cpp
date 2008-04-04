@@ -316,6 +316,7 @@ ViewportBase::TypeObject ViewportBase::_type(
     0,
     (PrototypeCreateF) &ViewportBase::createEmpty,
     Viewport::initMethod,
+    Viewport::exitMethod,
     (InitalInsertDescFunc) &ViewportBase::classDescInserter,
     false,
     0,

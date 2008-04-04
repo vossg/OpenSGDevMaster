@@ -52,6 +52,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 typedef void (*InitContainerF) (ReflexiveContainerType::InitPhase);
+typedef void (*ExitContainerF) (ReflexiveContainerType::InitPhase);
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
@@ -87,6 +88,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
                        const UInt32                uiNameSpace        =    0,
                              PrototypeCreateF      fPrototypeCreate   = NULL,
                              InitContainerF        fInitMethod        = NULL,
+                             ExitContainerF        fExitMethod        = NULL,
                              InitalInsertDescFunc  descInsertFunc     = NULL,
                              bool                  bDescsAddable      = false,
                              BitVector             bvUnmarkedOnCreate = 0,
@@ -202,6 +204,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     PrototypeCreateF  _fPrototypeCreate;
 
     InitContainerF    _fInitMethod;
+    ExitContainerF    _fExitMethod;
 
     std::string       _fcdXML;   /*!< The raw xml text of the fcd describing this type. */
     std::string       _typeDoc;  /*!< The documentation string for this type. */

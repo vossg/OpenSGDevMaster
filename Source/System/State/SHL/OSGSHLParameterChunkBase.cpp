@@ -113,6 +113,7 @@ SHLParameterChunkBase::TypeObject SHLParameterChunkBase::_type(
     0,
     (PrototypeCreateF) &SHLParameterChunkBase::createEmpty,
     SHLParameterChunk::initMethod,
+    SHLParameterChunk::exitMethod,
     (InitalInsertDescFunc) &SHLParameterChunkBase::classDescInserter,
     false,
     0,

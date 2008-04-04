@@ -112,6 +112,7 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(
     0,
     (PrototypeCreateF) &GLUTWindowBase::createEmpty,
     GLUTWindow::initMethod,
+    GLUTWindow::exitMethod,
     (InitalInsertDescFunc) &GLUTWindowBase::classDescInserter,
     false,
     0,

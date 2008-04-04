@@ -622,6 +622,7 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(
     0,
     (PrototypeCreateF) &RegisterCombinersChunkBase::createEmpty,
     RegisterCombinersChunk::initMethod,
+    RegisterCombinersChunk::exitMethod,
     (InitalInsertDescFunc) &RegisterCombinersChunkBase::classDescInserter,
     false,
     0,

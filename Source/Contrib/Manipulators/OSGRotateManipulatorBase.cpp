@@ -85,6 +85,7 @@ RotateManipulatorBase::TypeObject RotateManipulatorBase::_type(
     0,
     (PrototypeCreateF) &RotateManipulatorBase::createEmpty,
     RotateManipulator::initMethod,
+    RotateManipulator::exitMethod,
     NULL,
     false,
     0,

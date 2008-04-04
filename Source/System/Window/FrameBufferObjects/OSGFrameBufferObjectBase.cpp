@@ -218,6 +218,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     0,
     (PrototypeCreateF) &FrameBufferObjectBase::createEmpty,
     FrameBufferObject::initMethod,
+    FrameBufferObject::exitMethod,
     (InitalInsertDescFunc) &FrameBufferObjectBase::classDescInserter,
     false,
     0,

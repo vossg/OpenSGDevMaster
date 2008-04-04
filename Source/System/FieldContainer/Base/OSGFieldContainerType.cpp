@@ -69,6 +69,7 @@ FieldContainerType::FieldContainerType(
     const UInt32                uiNameSpace,
           PrototypeCreateF      fPrototypeCreate,
           InitContainerF        fInitMethod,
+          ExitContainerF        fExitMethod,
           InitalInsertDescFunc  descInsertFunc,
           bool                  bDescsAddable,
           BitVector             bvUnmarkedOnCreate,
@@ -88,6 +89,7 @@ FieldContainerType::FieldContainerType(
     _pPrototype      (NullFC            ),
     _fPrototypeCreate(fPrototypeCreate  ),
     _fInitMethod     (fInitMethod       ),
+    _fExitMethod     (fExitMethod       ),
     _fcdXML          (fcdXML            ),
     _typeDoc         (typeDoc           )
 {
@@ -105,6 +107,7 @@ FieldContainerType::FieldContainerType(const FieldContainerType &source) :
     _pPrototype      (source._pPrototype ),
     _fPrototypeCreate(NULL               ),
     _fInitMethod     (source._fInitMethod),
+    _fExitMethod     (source._fExitMethod),
     _fcdXML          (source._fcdXML     ),
     _typeDoc         (source._typeDoc    )
 {
@@ -177,7 +180,13 @@ bool FieldContainerType::initialize(void)
 
 void FieldContainerType::terminate(void)
 {
+    if(_fExitMethod != NULL)
+        _fExitMethod(SystemPre);
+
     subRef(_pPrototype);
+
+    if(_fExitMethod != NULL)
+        _fExitMethod(SystemPost);
 }
 
 bool FieldContainerType::initialize(InitPhase ePhase)

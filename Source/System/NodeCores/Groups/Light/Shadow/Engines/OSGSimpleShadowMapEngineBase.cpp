@@ -112,6 +112,7 @@ SimpleShadowMapEngineBase::TypeObject SimpleShadowMapEngineBase::_type(
     0,
     (PrototypeCreateF) &SimpleShadowMapEngineBase::createEmpty,
     SimpleShadowMapEngine::initMethod,
+    SimpleShadowMapEngine::exitMethod,
     (InitalInsertDescFunc) &SimpleShadowMapEngineBase::classDescInserter,
     false,
     0,

@@ -112,6 +112,7 @@ ShaderParameterMVec3fBase::TypeObject ShaderParameterMVec3fBase::_type(
     0,
     (PrototypeCreateF) &ShaderParameterMVec3fBase::createEmpty,
     ShaderParameterMVec3f::initMethod,
+    ShaderParameterMVec3f::exitMethod,
     (InitalInsertDescFunc) &ShaderParameterMVec3fBase::classDescInserter,
     false,
     0,

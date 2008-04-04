@@ -115,6 +115,7 @@ DynamicStateGeneratorBase::TypeObject DynamicStateGeneratorBase::_type(
     0,
     (PrototypeCreateF) &DynamicStateGeneratorBase::createEmpty,
     DynamicStateGenerator::initMethod,
+    DynamicStateGenerator::exitMethod,
     (InitalInsertDescFunc) &DynamicStateGeneratorBase::classDescInserter,
     false,
     0,

@@ -270,6 +270,7 @@ PointChunkBase::TypeObject PointChunkBase::_type(
     0,
     (PrototypeCreateF) &PointChunkBase::createEmpty,
     PointChunk::initMethod,
+    PointChunk::exitMethod,
     (InitalInsertDescFunc) &PointChunkBase::classDescInserter,
     false,
     0,

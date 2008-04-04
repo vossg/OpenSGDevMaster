@@ -79,6 +79,7 @@ FieldContainer::TypeObject FieldContainer::_type(
     0,
     NULL,
     NULL,
+    NULL,
     (InitalInsertDescFunc) &FieldContainer::classDescInserter,
     false,
     0);

@@ -112,6 +112,7 @@ LightEngineBase::TypeObject LightEngineBase::_type(
     0,
     NULL,
     LightEngine::initMethod,
+    LightEngine::exitMethod,
     (InitalInsertDescFunc) &LightEngineBase::classDescInserter,
     false,
     0,

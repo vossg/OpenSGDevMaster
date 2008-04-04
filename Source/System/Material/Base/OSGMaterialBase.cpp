@@ -141,6 +141,7 @@ MaterialBase::TypeObject MaterialBase::_type(
     0,
     NULL,
     Material::initMethod,
+    Material::exitMethod,
     (InitalInsertDescFunc) &MaterialBase::classDescInserter,
     false,
     0,

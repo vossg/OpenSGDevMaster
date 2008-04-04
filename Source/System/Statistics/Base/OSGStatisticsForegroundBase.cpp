@@ -148,6 +148,7 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(
     0,
     NULL,
     StatisticsForeground::initMethod,
+    StatisticsForeground::exitMethod,
     (InitalInsertDescFunc) &StatisticsForegroundBase::classDescInserter,
     false,
     0,

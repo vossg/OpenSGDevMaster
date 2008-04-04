@@ -98,6 +98,7 @@ FieldContainerAttachment::TypeObject FieldContainerAttachment::_type(
     0,
     NULL,
     NULL,
+    NULL,
     (InitalInsertDescFunc) &FieldContainerAttachment::classDescInserter,
     false,
     0);

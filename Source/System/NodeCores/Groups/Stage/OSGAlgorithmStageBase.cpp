@@ -161,6 +161,7 @@ AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(
     0,
     (PrototypeCreateF) &AlgorithmStageBase::createEmpty,
     AlgorithmStage::initMethod,
+    AlgorithmStage::exitMethod,
     (InitalInsertDescFunc) &AlgorithmStageBase::classDescInserter,
     false,
     0,

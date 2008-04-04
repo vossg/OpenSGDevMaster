@@ -129,6 +129,7 @@ ShaderParameterBase::TypeObject ShaderParameterBase::_type(
     0,
     NULL,
     ShaderParameter::initMethod,
+    ShaderParameter::exitMethod,
     (InitalInsertDescFunc) &ShaderParameterBase::classDescInserter,
     false,
     0,

@@ -169,6 +169,7 @@ class OSG_CLUSTER_DLLMAPPING ImageComposer : public ImageComposerBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+    static void exitMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

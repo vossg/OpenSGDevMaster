@@ -112,6 +112,7 @@ CallbackAlgorithmBase::TypeObject CallbackAlgorithmBase::_type(
     0,
     (PrototypeCreateF) &CallbackAlgorithmBase::createEmpty,
     CallbackAlgorithm::initMethod,
+    CallbackAlgorithm::exitMethod,
     (InitalInsertDescFunc) &CallbackAlgorithmBase::classDescInserter,
     false,
     0,

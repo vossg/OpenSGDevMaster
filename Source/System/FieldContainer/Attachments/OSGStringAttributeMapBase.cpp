@@ -130,6 +130,7 @@ StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(
     0,
     (PrototypeCreateF) &StringAttributeMapBase::createEmpty,
     StringAttributeMap::initMethod,
+    StringAttributeMap::exitMethod,
     (InitalInsertDescFunc) &StringAttributeMapBase::classDescInserter,
     false,
     0,

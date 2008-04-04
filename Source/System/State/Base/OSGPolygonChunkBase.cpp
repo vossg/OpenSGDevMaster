@@ -299,6 +299,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     0,
     (PrototypeCreateF) &PolygonChunkBase::createEmpty,
     PolygonChunk::initMethod,
+    PolygonChunk::exitMethod,
     (InitalInsertDescFunc) &PolygonChunkBase::classDescInserter,
     false,
     0,

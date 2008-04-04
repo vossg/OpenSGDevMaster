@@ -115,6 +115,7 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
     0,
     (PrototypeCreateF) &DepthClearBackgroundBase::createEmpty,
     DepthClearBackground::initMethod,
+    DepthClearBackground::exitMethod,
     (InitalInsertDescFunc) &DepthClearBackgroundBase::classDescInserter,
     false,
     0,

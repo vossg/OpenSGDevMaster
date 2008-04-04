@@ -114,6 +114,7 @@ StateChunkBase::TypeObject StateChunkBase::_type(
     0,
     NULL,
     StateChunk::initMethod,
+    StateChunk::exitMethod,
     (InitalInsertDescFunc) &StateChunkBase::classDescInserter,
     false,
     0,

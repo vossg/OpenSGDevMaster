@@ -85,6 +85,7 @@ StatsAttachmentBase::TypeObject StatsAttachmentBase::_type(
     0,
     NULL,
     StatsAttachment::initMethod,
+    StatsAttachment::exitMethod,
     NULL,
     false,
     0,

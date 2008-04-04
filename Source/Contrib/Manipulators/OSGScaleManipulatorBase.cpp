@@ -85,6 +85,7 @@ ScaleManipulatorBase::TypeObject ScaleManipulatorBase::_type(
     0,
     (PrototypeCreateF) &ScaleManipulatorBase::createEmpty,
     ScaleManipulator::initMethod,
+    ScaleManipulator::exitMethod,
     NULL,
     false,
     0,

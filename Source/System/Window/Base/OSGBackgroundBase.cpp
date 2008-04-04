@@ -141,6 +141,7 @@ BackgroundBase::TypeObject BackgroundBase::_type(
     0,
     NULL,
     Background::initMethod,
+    Background::exitMethod,
     (InitalInsertDescFunc) &BackgroundBase::classDescInserter,
     false,
     0,

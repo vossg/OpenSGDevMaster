@@ -163,6 +163,7 @@ DistanceLODBase::TypeObject DistanceLODBase::_type(
     0,
     (PrototypeCreateF) &DistanceLODBase::createEmpty,
     DistanceLOD::initMethod,
+    DistanceLOD::exitMethod,
     (InitalInsertDescFunc) &DistanceLODBase::classDescInserter,
     false,
     0,

@@ -220,6 +220,7 @@ DrawableStatsAttachmentBase::TypeObject DrawableStatsAttachmentBase::_type(
     0,
     (PrototypeCreateF) &DrawableStatsAttachmentBase::createEmpty,
     DrawableStatsAttachment::initMethod,
+    DrawableStatsAttachment::exitMethod,
     (InitalInsertDescFunc) &DrawableStatsAttachmentBase::classDescInserter,
     false,
     0,

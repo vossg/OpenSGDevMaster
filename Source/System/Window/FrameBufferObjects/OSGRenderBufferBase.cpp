@@ -131,6 +131,7 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(
     0,
     (PrototypeCreateF) &RenderBufferBase::createEmpty,
     RenderBuffer::initMethod,
+    RenderBuffer::exitMethod,
     (InitalInsertDescFunc) &RenderBufferBase::classDescInserter,
     false,
     0,

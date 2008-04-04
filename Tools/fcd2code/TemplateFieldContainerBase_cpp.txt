@@ -166,6 +166,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
     (PrototypeCreateF) &@!Classname!@Base::createEmpty,
 @@endif // isAbstract
     @!Classname!@::initMethod,
+    @!Classname!@::exitMethod,
 @@if hasFields
     (InitalInsertDescFunc) &@!Classname!@Base::classDescInserter,
 @@else // hasFields

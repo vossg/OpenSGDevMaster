@@ -242,6 +242,7 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     0,
     (PrototypeCreateF) &SimpleStageBase::createEmpty,
     SimpleStage::initMethod,
+    SimpleStage::exitMethod,
     (InitalInsertDescFunc) &SimpleStageBase::classDescInserter,
     false,
     0,

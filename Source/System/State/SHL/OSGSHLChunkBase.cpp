@@ -208,6 +208,7 @@ SHLChunkBase::TypeObject SHLChunkBase::_type(
     0,
     (PrototypeCreateF) &SHLChunkBase::createEmpty,
     SHLChunk::initMethod,
+    SHLChunk::exitMethod,
     (InitalInsertDescFunc) &SHLChunkBase::classDescInserter,
     false,
     0,

@@ -144,6 +144,7 @@ BinarySwapComposerBase::TypeObject BinarySwapComposerBase::_type(
     0,
     (PrototypeCreateF) &BinarySwapComposerBase::createEmpty,
     BinarySwapComposer::initMethod,
+    BinarySwapComposer::exitMethod,
     (InitalInsertDescFunc) &BinarySwapComposerBase::classDescInserter,
     false,
     0,

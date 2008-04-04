@@ -200,6 +200,7 @@ TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(
     0,
     (PrototypeCreateF) &TileCameraDecoratorBase::createEmpty,
     TileCameraDecorator::initMethod,
+    TileCameraDecorator::exitMethod,
     (InitalInsertDescFunc) &TileCameraDecoratorBase::classDescInserter,
     false,
     0,

@@ -249,6 +249,7 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(
     0,
     (PrototypeCreateF) &BlendChunkBase::createEmpty,
     BlendChunk::initMethod,
+    BlendChunk::exitMethod,
     (InitalInsertDescFunc) &BlendChunkBase::classDescInserter,
     false,
     0,

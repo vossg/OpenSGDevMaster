@@ -134,6 +134,7 @@ TextureSelectChunkBase::TypeObject TextureSelectChunkBase::_type(
     0,
     (PrototypeCreateF) &TextureSelectChunkBase::createEmpty,
     TextureSelectChunk::initMethod,
+    TextureSelectChunk::exitMethod,
     (InitalInsertDescFunc) &TextureSelectChunkBase::classDescInserter,
     false,
     0,

@@ -85,6 +85,7 @@ LightEnvBase::TypeObject LightEnvBase::_type(
     0,
     (PrototypeCreateF) &LightEnvBase::createEmpty,
     LightEnv::initMethod,
+    LightEnv::exitMethod,
     NULL,
     false,
     0,

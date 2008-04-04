@@ -131,6 +131,7 @@ ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_
     0,
     (PrototypeCreateF) &ShearedStereoCameraDecoratorBase::createEmpty,
     ShearedStereoCameraDecorator::initMethod,
+    ShearedStereoCameraDecorator::exitMethod,
     (InitalInsertDescFunc) &ShearedStereoCameraDecoratorBase::classDescInserter,
     false,
     0,

@@ -67,6 +67,7 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::TypeObject
         0,
         (PrototypeCreateF) &Self::createEmpty,
         &Self::initMethod,
+        &Self::exitMethod,
         (InitalInsertDescFunc) &Self::classDescInserter,
         false,
         0);

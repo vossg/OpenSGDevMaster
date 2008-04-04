@@ -85,6 +85,7 @@ PassiveViewportBase::TypeObject PassiveViewportBase::_type(
     0,
     (PrototypeCreateF) &PassiveViewportBase::createEmpty,
     PassiveViewport::initMethod,
+    PassiveViewport::exitMethod,
     NULL,
     false,
     0,

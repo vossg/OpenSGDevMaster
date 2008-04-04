@@ -166,6 +166,7 @@ ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(
     0,
     (PrototypeCreateF) &ColorBufferViewportBase::createEmpty,
     ColorBufferViewport::initMethod,
+    ColorBufferViewport::exitMethod,
     (InitalInsertDescFunc) &ColorBufferViewportBase::classDescInserter,
     false,
     0,

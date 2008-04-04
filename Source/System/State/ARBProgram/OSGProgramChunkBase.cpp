@@ -171,6 +171,7 @@ ProgramChunkBase::TypeObject ProgramChunkBase::_type(
     0,
     NULL,
     ProgramChunk::initMethod,
+    ProgramChunk::exitMethod,
     (InitalInsertDescFunc) &ProgramChunkBase::classDescInserter,
     false,
     0,

@@ -85,6 +85,7 @@ InverseTransformBase::TypeObject InverseTransformBase::_type(
     0,
     (PrototypeCreateF) &InverseTransformBase::createEmpty,
     InverseTransform::initMethod,
+    InverseTransform::exitMethod,
     NULL,
     false,
     0,

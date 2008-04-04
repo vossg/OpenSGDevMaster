@@ -176,6 +176,7 @@ SortFirstWindowBase::TypeObject SortFirstWindowBase::_type(
     0,
     (PrototypeCreateF) &SortFirstWindowBase::createEmpty,
     SortFirstWindow::initMethod,
+    SortFirstWindow::exitMethod,
     (InitalInsertDescFunc) &SortFirstWindowBase::classDescInserter,
     false,
     0,

@@ -144,6 +144,7 @@ WIN32WindowBase::TypeObject WIN32WindowBase::_type(
     0,
     (PrototypeCreateF) &WIN32WindowBase::createEmpty,
     WIN32Window::initMethod,
+    WIN32Window::exitMethod,
     (InitalInsertDescFunc) &WIN32WindowBase::classDescInserter,
     false,
     0,

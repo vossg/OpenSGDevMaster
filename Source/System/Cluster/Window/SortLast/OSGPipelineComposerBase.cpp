@@ -160,6 +160,7 @@ PipelineComposerBase::TypeObject PipelineComposerBase::_type(
     0,
     (PrototypeCreateF) &PipelineComposerBase::createEmpty,
     PipelineComposer::initMethod,
+    PipelineComposer::exitMethod,
     (InitalInsertDescFunc) &PipelineComposerBase::classDescInserter,
     false,
     0,

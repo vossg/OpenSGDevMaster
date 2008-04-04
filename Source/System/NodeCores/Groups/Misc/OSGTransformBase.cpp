@@ -113,6 +113,7 @@ TransformBase::TypeObject TransformBase::_type(
     0,
     (PrototypeCreateF) &TransformBase::createEmpty,
     Transform::initMethod,
+    Transform::exitMethod,
     (InitalInsertDescFunc) &TransformBase::classDescInserter,
     false,
     0,

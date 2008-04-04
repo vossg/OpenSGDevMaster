@@ -113,6 +113,7 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     0,
     (PrototypeCreateF) &MultiPassMaterialBase::createEmpty,
     MultiPassMaterial::initMethod,
+    MultiPassMaterial::exitMethod,
     (InitalInsertDescFunc) &MultiPassMaterialBase::classDescInserter,
     false,
     0,

@@ -116,6 +116,7 @@ MaterialGroupBase::TypeObject MaterialGroupBase::_type(
     0,
     (PrototypeCreateF) &MaterialGroupBase::createEmpty,
     MaterialGroup::initMethod,
+    MaterialGroup::exitMethod,
     (InitalInsertDescFunc) &MaterialGroupBase::classDescInserter,
     false,
     0,

@@ -212,6 +212,7 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(
     0,
     (PrototypeCreateF) &TextureBackgroundBase::createEmpty,
     TextureBackground::initMethod,
+    TextureBackground::exitMethod,
     (InitalInsertDescFunc) &TextureBackgroundBase::classDescInserter,
     false,
     0,

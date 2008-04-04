@@ -116,6 +116,7 @@ TransformChunkBase::TypeObject TransformChunkBase::_type(
     0,
     (PrototypeCreateF) &TransformChunkBase::createEmpty,
     TransformChunk::initMethod,
+    TransformChunk::exitMethod,
     (InitalInsertDescFunc) &TransformChunkBase::classDescInserter,
     false,
     0,

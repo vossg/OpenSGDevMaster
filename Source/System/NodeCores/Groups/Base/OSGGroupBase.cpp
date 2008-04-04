@@ -87,6 +87,7 @@ GroupBase::TypeObject GroupBase::_type(
     0,
     (PrototypeCreateF) &GroupBase::createEmpty,
     Group::initMethod,
+    Group::exitMethod,
     NULL,
     false,
     0,

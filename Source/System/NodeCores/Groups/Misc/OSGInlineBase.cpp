@@ -128,6 +128,7 @@ InlineBase::TypeObject InlineBase::_type(
     0,
     (PrototypeCreateF) &InlineBase::createEmpty,
     Inline::initMethod,
+    Inline::exitMethod,
     (InitalInsertDescFunc) &InlineBase::classDescInserter,
     false,
     0,

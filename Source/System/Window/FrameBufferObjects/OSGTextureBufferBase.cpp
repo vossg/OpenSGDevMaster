@@ -165,6 +165,7 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(
     0,
     (PrototypeCreateF) &TextureBufferBase::createEmpty,
     TextureBuffer::initMethod,
+    TextureBuffer::exitMethod,
     (InitalInsertDescFunc) &TextureBufferBase::classDescInserter,
     false,
     0,

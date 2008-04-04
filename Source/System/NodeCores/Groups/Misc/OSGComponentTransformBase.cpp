@@ -176,6 +176,7 @@ ComponentTransformBase::TypeObject ComponentTransformBase::_type(
     0,
     (PrototypeCreateF) &ComponentTransformBase::createEmpty,
     ComponentTransform::initMethod,
+    ComponentTransform::exitMethod,
     (InitalInsertDescFunc) &ComponentTransformBase::classDescInserter,
     false,
     0,

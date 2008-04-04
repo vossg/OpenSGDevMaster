@@ -115,6 +115,7 @@ StateBase::TypeObject StateBase::_type(
     0,
     (PrototypeCreateF) &StateBase::createEmpty,
     State::initMethod,
+    State::exitMethod,
     (InitalInsertDescFunc) &StateBase::classDescInserter,
     false,
     0,

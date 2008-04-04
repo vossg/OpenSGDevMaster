@@ -128,6 +128,7 @@ OrthographicCameraBase::TypeObject OrthographicCameraBase::_type(
     0,
     (PrototypeCreateF) &OrthographicCameraBase::createEmpty,
     OrthographicCamera::initMethod,
+    OrthographicCamera::exitMethod,
     (InitalInsertDescFunc) &OrthographicCameraBase::classDescInserter,
     false,
     0,

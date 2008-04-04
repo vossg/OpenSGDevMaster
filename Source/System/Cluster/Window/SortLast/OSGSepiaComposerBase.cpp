@@ -85,6 +85,7 @@ SepiaComposerBase::TypeObject SepiaComposerBase::_type(
     0,
     (PrototypeCreateF) &SepiaComposerBase::createEmpty,
     SepiaComposer::initMethod,
+    SepiaComposer::exitMethod,
     NULL,
     false,
     0,

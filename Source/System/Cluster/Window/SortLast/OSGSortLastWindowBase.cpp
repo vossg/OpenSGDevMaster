@@ -145,6 +145,7 @@ SortLastWindowBase::TypeObject SortLastWindowBase::_type(
     0,
     (PrototypeCreateF) &SortLastWindowBase::createEmpty,
     SortLastWindow::initMethod,
+    SortLastWindow::exitMethod,
     (InitalInsertDescFunc) &SortLastWindowBase::classDescInserter,
     false,
     0,

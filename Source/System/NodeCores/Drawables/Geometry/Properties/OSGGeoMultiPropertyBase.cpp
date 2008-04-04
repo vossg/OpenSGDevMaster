@@ -209,6 +209,7 @@ GeoMultiPropertyBase::TypeObject GeoMultiPropertyBase::_type(
     0,
     (PrototypeCreateF) &GeoMultiPropertyBase::createEmpty,
     GeoMultiProperty::initMethod,
+    GeoMultiProperty::exitMethod,
     (InitalInsertDescFunc) &GeoMultiPropertyBase::classDescInserter,
     false,
     0,

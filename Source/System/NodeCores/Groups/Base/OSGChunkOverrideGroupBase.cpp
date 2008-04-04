@@ -116,6 +116,7 @@ ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
     0,
     (PrototypeCreateF) &ChunkOverrideGroupBase::createEmpty,
     ChunkOverrideGroup::initMethod,
+    ChunkOverrideGroup::exitMethod,
     (InitalInsertDescFunc) &ChunkOverrideGroupBase::classDescInserter,
     false,
     0,

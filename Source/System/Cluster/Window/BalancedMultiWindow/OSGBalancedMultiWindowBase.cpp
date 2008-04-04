@@ -176,6 +176,7 @@ BalancedMultiWindowBase::TypeObject BalancedMultiWindowBase::_type(
     0,
     (PrototypeCreateF) &BalancedMultiWindowBase::createEmpty,
     BalancedMultiWindow::initMethod,
+    BalancedMultiWindow::exitMethod,
     (InitalInsertDescFunc) &BalancedMultiWindowBase::classDescInserter,
     false,
     0,

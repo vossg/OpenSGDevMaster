@@ -133,6 +133,7 @@ PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(
     0,
     (PrototypeCreateF) &PerspectiveCameraBase::createEmpty,
     PerspectiveCamera::initMethod,
+    PerspectiveCamera::exitMethod,
     (InitalInsertDescFunc) &PerspectiveCameraBase::classDescInserter,
     false,
     0,

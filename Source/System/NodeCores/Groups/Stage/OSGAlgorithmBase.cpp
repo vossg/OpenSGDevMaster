@@ -85,6 +85,7 @@ AlgorithmBase::TypeObject AlgorithmBase::_type(
     0,
     NULL,
     Algorithm::initMethod,
+    Algorithm::exitMethod,
     NULL,
     false,
     0,

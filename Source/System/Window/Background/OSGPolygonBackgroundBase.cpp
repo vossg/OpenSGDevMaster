@@ -257,6 +257,7 @@ PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(
     0,
     (PrototypeCreateF) &PolygonBackgroundBase::createEmpty,
     PolygonBackground::initMethod,
+    PolygonBackground::exitMethod,
     (InitalInsertDescFunc) &PolygonBackgroundBase::classDescInserter,
     false,
     0,

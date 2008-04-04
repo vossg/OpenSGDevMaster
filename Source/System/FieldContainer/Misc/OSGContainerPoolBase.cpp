@@ -129,6 +129,7 @@ ContainerPoolBase::TypeObject ContainerPoolBase::_type(
     0,
     (PrototypeCreateF) &ContainerPoolBase::createEmpty,
     ContainerPool::initMethod,
+    ContainerPool::exitMethod,
     (InitalInsertDescFunc) &ContainerPoolBase::classDescInserter,
     false,
     0,

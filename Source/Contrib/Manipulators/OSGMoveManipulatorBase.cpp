@@ -85,6 +85,7 @@ MoveManipulatorBase::TypeObject MoveManipulatorBase::_type(
     0,
     (PrototypeCreateF) &MoveManipulatorBase::createEmpty,
     MoveManipulator::initMethod,
+    MoveManipulator::exitMethod,
     NULL,
     false,
     0,

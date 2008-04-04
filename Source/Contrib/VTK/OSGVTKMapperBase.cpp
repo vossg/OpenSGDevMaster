@@ -266,6 +266,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
     0,
     (PrototypeCreateF) &VTKMapperBase::createEmpty,
     VTKMapper::initMethod,
+    VTKMapper::exitMethod,
     (InitalInsertDescFunc) &VTKMapperBase::classDescInserter,
     false,
     0,

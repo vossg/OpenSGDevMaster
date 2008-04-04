@@ -113,6 +113,7 @@ SwitchBase::TypeObject SwitchBase::_type(
     0,
     (PrototypeCreateF) &SwitchBase::createEmpty,
     Switch::initMethod,
+    Switch::exitMethod,
     (InitalInsertDescFunc) &SwitchBase::classDescInserter,
     false,
     0,

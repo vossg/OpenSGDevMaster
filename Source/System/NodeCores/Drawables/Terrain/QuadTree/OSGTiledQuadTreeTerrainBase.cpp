@@ -322,6 +322,7 @@ TiledQuadTreeTerrainBase::TypeObject TiledQuadTreeTerrainBase::_type(
     0,
     (PrototypeCreateF) &TiledQuadTreeTerrainBase::createEmpty,
     TiledQuadTreeTerrain::initMethod,
+    TiledQuadTreeTerrain::exitMethod,
     (InitalInsertDescFunc) &TiledQuadTreeTerrainBase::classDescInserter,
     false,
     0,

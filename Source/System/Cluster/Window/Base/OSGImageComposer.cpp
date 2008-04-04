@@ -69,6 +69,11 @@ void ImageComposer::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
+void ImageComposer::exitMethod(InitPhase ePhase)
+{
+    Inherited::exitMethod(ePhase);
+}
+
 
 /***************************************************************************\
  *                           Instance methods                              *

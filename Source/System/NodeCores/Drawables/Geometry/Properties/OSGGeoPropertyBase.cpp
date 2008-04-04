@@ -145,6 +145,7 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     0,
     NULL,
     GeoProperty::initMethod,
+    GeoProperty::exitMethod,
     (InitalInsertDescFunc) &GeoPropertyBase::classDescInserter,
     false,
     0,

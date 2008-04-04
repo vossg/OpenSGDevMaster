@@ -365,6 +365,7 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     0,
     NULL,
     Manipulator::initMethod,
+    Manipulator::exitMethod,
     (InitalInsertDescFunc) &ManipulatorBase::classDescInserter,
     false,
     0,

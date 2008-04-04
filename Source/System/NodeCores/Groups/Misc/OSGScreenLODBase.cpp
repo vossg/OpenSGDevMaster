@@ -123,6 +123,7 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(
     0,
     (PrototypeCreateF) &ScreenLODBase::createEmpty,
     ScreenLOD::initMethod,
+    ScreenLOD::exitMethod,
     (InitalInsertDescFunc) &ScreenLODBase::classDescInserter,
     false,
     0,

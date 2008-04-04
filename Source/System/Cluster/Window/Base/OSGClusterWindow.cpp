@@ -1386,7 +1386,13 @@ ClusterNetwork *ClusterWindow::getNetwork(void)
 
 /*! initialize the static features of the class, e.g. action callbacks
  */
+
 void ClusterWindow::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
+}
+
+void ClusterWindow::exitMethod(InitPhase ePhase)
+{
+    Inherited::exitMethod(ePhase);
 }

@@ -549,6 +549,13 @@ void FieldContainer::initMethod(InitPhase ePhase)
 }
 
 inline
+void FieldContainer::exitMethod(InitPhase ePhase)
+{
+    FINFO(("FieldContainer initMethod called (%d)\n", 
+           ePhase));
+}
+
+inline
 const Char8 *FieldContainer::getClassname(void)
 {
     return "FieldContainer";

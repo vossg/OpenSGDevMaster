@@ -128,6 +128,7 @@ ImageComposerBase::TypeObject ImageComposerBase::_type(
     0,
     NULL,
     ImageComposer::initMethod,
+    ImageComposer::exitMethod,
     (InitalInsertDescFunc) &ImageComposerBase::classDescInserter,
     false,
     0,

@@ -133,6 +133,7 @@ StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(
     0,
     NULL,
     StereoCameraDecorator::initMethod,
+    StereoCameraDecorator::exitMethod,
     (InitalInsertDescFunc) &StereoCameraDecoratorBase::classDescInserter,
     false,
     0,

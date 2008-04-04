@@ -123,6 +123,7 @@ ForegroundBase::TypeObject ForegroundBase::_type(
     0,
     NULL,
     Foreground::initMethod,
+    Foreground::exitMethod,
     (InitalInsertDescFunc) &ForegroundBase::classDescInserter,
     false,
     0,

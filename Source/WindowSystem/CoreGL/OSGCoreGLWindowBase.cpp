@@ -112,6 +112,7 @@ CoreGLWindowBase::TypeObject CoreGLWindowBase::_type(
     0,
     (PrototypeCreateF) &CoreGLWindowBase::createEmpty,
     CoreGLWindow::initMethod,
+    CoreGLWindow::exitMethod,
     (InitalInsertDescFunc) &CoreGLWindowBase::classDescInserter,
     false,
     0,

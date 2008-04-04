@@ -294,6 +294,7 @@ ProxyGroupBase::TypeObject ProxyGroupBase::_type(
     0,
     (PrototypeCreateF) &ProxyGroupBase::createEmpty,
     ProxyGroup::initMethod,
+    ProxyGroup::exitMethod,
     (InitalInsertDescFunc) &ProxyGroupBase::classDescInserter,
     false,
     0,

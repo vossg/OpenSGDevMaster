@@ -112,6 +112,7 @@ ShaderParameterPnt3fBase::TypeObject ShaderParameterPnt3fBase::_type(
     0,
     (PrototypeCreateF) &ShaderParameterPnt3fBase::createEmpty,
     ShaderParameterPnt3f::initMethod,
+    ShaderParameterPnt3f::exitMethod,
     (InitalInsertDescFunc) &ShaderParameterPnt3fBase::classDescInserter,
     false,
     0,

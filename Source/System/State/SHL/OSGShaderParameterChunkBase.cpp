@@ -113,6 +113,7 @@ ShaderParameterChunkBase::TypeObject ShaderParameterChunkBase::_type(
     0,
     NULL,
     ShaderParameterChunk::initMethod,
+    ShaderParameterChunk::exitMethod,
     (InitalInsertDescFunc) &ShaderParameterChunkBase::classDescInserter,
     false,
     0,

@@ -160,6 +160,7 @@ TestMultiPartitionStageBase::TypeObject TestMultiPartitionStageBase::_type(
     0,
     (PrototypeCreateF) &TestMultiPartitionStageBase::createEmpty,
     TestMultiPartitionStage::initMethod,
+    TestMultiPartitionStage::exitMethod,
     (InitalInsertDescFunc) &TestMultiPartitionStageBase::classDescInserter,
     false,
     0,

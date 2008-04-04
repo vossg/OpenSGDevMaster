@@ -87,6 +87,7 @@ FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(
     0,
     (PrototypeCreateF) &FragmentProgramChunkBase::createEmpty,
     FragmentProgramChunk::initMethod,
+    FragmentProgramChunk::exitMethod,
     NULL,
     false,
     0,

@@ -112,6 +112,7 @@ CarbonWindowBase::TypeObject CarbonWindowBase::_type(
     0,
     (PrototypeCreateF) &CarbonWindowBase::createEmpty,
     CarbonWindow::initMethod,
+    CarbonWindow::exitMethod,
     (InitalInsertDescFunc) &CarbonWindowBase::classDescInserter,
     false,
     0,

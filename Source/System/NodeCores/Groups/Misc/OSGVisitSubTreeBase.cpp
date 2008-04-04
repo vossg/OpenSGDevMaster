@@ -120,6 +120,7 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     0,
     (PrototypeCreateF) &VisitSubTreeBase::createEmpty,
     VisitSubTree::initMethod,
+    VisitSubTree::exitMethod,
     (InitalInsertDescFunc) &VisitSubTreeBase::classDescInserter,
     false,
     0,

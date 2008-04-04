@@ -131,6 +131,7 @@ StageBase::TypeObject StageBase::_type(
     0,
     (PrototypeCreateF) &StageBase::createEmpty,
     Stage::initMethod,
+    Stage::exitMethod,
     (InitalInsertDescFunc) &StageBase::classDescInserter,
     false,
     0,

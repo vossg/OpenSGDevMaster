@@ -85,6 +85,7 @@ TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(
     0,
     (PrototypeCreateF) &TwoSidedLightingChunkBase::createEmpty,
     TwoSidedLightingChunk::initMethod,
+    TwoSidedLightingChunk::exitMethod,
     NULL,
     false,
     0,

@@ -172,6 +172,7 @@ LineChunkBase::TypeObject LineChunkBase::_type(
     0,
     (PrototypeCreateF) &LineChunkBase::createEmpty,
     LineChunk::initMethod,
+    LineChunk::exitMethod,
     (InitalInsertDescFunc) &LineChunkBase::classDescInserter,
     false,
     0,

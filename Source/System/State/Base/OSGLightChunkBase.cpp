@@ -286,6 +286,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     0,
     (PrototypeCreateF) &LightChunkBase::createEmpty,
     LightChunk::initMethod,
+    LightChunk::exitMethod,
     (InitalInsertDescFunc) &LightChunkBase::classDescInserter,
     false,
     0,

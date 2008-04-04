@@ -182,6 +182,7 @@ DepthChunkBase::TypeObject DepthChunkBase::_type(
     0,
     (PrototypeCreateF) &DepthChunkBase::createEmpty,
     DepthChunk::initMethod,
+    DepthChunk::exitMethod,
     (InitalInsertDescFunc) &DepthChunkBase::classDescInserter,
     false,
     0,

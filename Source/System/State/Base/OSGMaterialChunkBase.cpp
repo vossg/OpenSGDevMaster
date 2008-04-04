@@ -336,6 +336,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     0,
     (PrototypeCreateF) &MaterialChunkBase::createEmpty,
     MaterialChunk::initMethod,
+    MaterialChunk::exitMethod,
     (InitalInsertDescFunc) &MaterialChunkBase::classDescInserter,
     false,
     0,

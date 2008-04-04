@@ -176,6 +176,7 @@ MultiDisplayWindowBase::TypeObject MultiDisplayWindowBase::_type(
     0,
     (PrototypeCreateF) &MultiDisplayWindowBase::createEmpty,
     MultiDisplayWindow::initMethod,
+    MultiDisplayWindow::exitMethod,
     (InitalInsertDescFunc) &MultiDisplayWindowBase::classDescInserter,
     false,
     0,

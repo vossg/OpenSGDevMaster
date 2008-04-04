@@ -132,6 +132,7 @@ GrabForegroundBase::TypeObject GrabForegroundBase::_type(
     0,
     (PrototypeCreateF) &GrabForegroundBase::createEmpty,
     GrabForeground::initMethod,
+    GrabForeground::exitMethod,
     (InitalInsertDescFunc) &GrabForegroundBase::classDescInserter,
     false,
     0,

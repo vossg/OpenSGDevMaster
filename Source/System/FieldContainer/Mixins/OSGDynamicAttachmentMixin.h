@@ -197,6 +197,7 @@ class DynFieldAttachment : public AttachmentDescT::Parent
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+    static void exitMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -223,6 +224,7 @@ DynFieldAttachment< DESC >::TypeObject                                        \
         Desc::getGroupName     (),                                            \
         0,                                                                    \
         (PrototypeCreateF) &Self::createEmpty,                                \
+        NULL,                                                                 \
         NULL,                                                                 \
         NULL,                                                                 \
         true,                                                                 \

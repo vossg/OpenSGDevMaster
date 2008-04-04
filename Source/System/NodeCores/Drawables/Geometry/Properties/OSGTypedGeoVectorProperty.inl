@@ -531,6 +531,14 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::initMethod(InitPhase ePhase)
 }
 
 template <class GeoPropertyDesc> inline
+void TypedGeoVectorProperty<GeoPropertyDesc>::exitMethod(InitPhase ePhase)
+{
+    GeoPropertyDesc::exitMethod(ePhase);
+
+    Inherited::exitMethod(ePhase);
+}
+
+template <class GeoPropertyDesc> inline
 EditFieldHandlePtr TypedGeoVectorProperty<GeoPropertyDesc>::editHandleField(
     void)
 {

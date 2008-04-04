@@ -130,6 +130,7 @@ SwitchMaterialBase::TypeObject SwitchMaterialBase::_type(
     0,
     (PrototypeCreateF) &SwitchMaterialBase::createEmpty,
     SwitchMaterial::initMethod,
+    SwitchMaterial::exitMethod,
     (InitalInsertDescFunc) &SwitchMaterialBase::classDescInserter,
     false,
     0,

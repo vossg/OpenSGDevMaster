@@ -112,6 +112,7 @@ ShaderParameterMRealBase::TypeObject ShaderParameterMRealBase::_type(
     0,
     (PrototypeCreateF) &ShaderParameterMRealBase::createEmpty,
     ShaderParameterMReal::initMethod,
+    ShaderParameterMReal::exitMethod,
     (InitalInsertDescFunc) &ShaderParameterMRealBase::classDescInserter,
     false,
     0,

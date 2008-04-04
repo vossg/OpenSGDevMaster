@@ -144,6 +144,7 @@ ShaderChunkBase::TypeObject ShaderChunkBase::_type(
     0,
     NULL,
     ShaderChunk::initMethod,
+    ShaderChunk::exitMethod,
     (InitalInsertDescFunc) &ShaderChunkBase::classDescInserter,
     false,
     0,

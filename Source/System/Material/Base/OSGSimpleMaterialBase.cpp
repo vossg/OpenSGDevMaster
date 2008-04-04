@@ -236,6 +236,7 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(
     0,
     (PrototypeCreateF) &SimpleMaterialBase::createEmpty,
     SimpleMaterial::initMethod,
+    SimpleMaterial::exitMethod,
     (InitalInsertDescFunc) &SimpleMaterialBase::classDescInserter,
     false,
     0,

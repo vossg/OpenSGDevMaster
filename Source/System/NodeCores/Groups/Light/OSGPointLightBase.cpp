@@ -116,6 +116,7 @@ PointLightBase::TypeObject PointLightBase::_type(
     0,
     (PrototypeCreateF) &PointLightBase::createEmpty,
     PointLight::initMethod,
+    PointLight::exitMethod,
     (InitalInsertDescFunc) &PointLightBase::classDescInserter,
     false,
     0,

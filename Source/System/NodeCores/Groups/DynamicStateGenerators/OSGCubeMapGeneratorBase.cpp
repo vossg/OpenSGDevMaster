@@ -277,6 +277,7 @@ CubeMapGeneratorBase::TypeObject CubeMapGeneratorBase::_type(
     0,
     (PrototypeCreateF) &CubeMapGeneratorBase::createEmpty,
     CubeMapGenerator::initMethod,
+    CubeMapGenerator::exitMethod,
     (InitalInsertDescFunc) &CubeMapGeneratorBase::classDescInserter,
     false,
     0,

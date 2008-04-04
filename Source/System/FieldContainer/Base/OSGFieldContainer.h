@@ -421,6 +421,7 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+    static void exitMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

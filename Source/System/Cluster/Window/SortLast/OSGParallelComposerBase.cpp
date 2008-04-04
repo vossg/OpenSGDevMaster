@@ -144,6 +144,7 @@ ParallelComposerBase::TypeObject ParallelComposerBase::_type(
     0,
     (PrototypeCreateF) &ParallelComposerBase::createEmpty,
     ParallelComposer::initMethod,
+    ParallelComposer::exitMethod,
     (InitalInsertDescFunc) &ParallelComposerBase::classDescInserter,
     false,
     0,

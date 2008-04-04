@@ -193,6 +193,7 @@ HDRStageBase::TypeObject HDRStageBase::_type(
     0,
     (PrototypeCreateF) &HDRStageBase::createEmpty,
     HDRStage::initMethod,
+    HDRStage::exitMethod,
     (InitalInsertDescFunc) &HDRStageBase::classDescInserter,
     false,
     0,

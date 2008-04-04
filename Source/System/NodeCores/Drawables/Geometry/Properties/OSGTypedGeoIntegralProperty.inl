@@ -519,6 +519,14 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::initMethod(InitPhase ePhase)
 }
 
 template <class GeoPropertyDesc> inline
+void TypedGeoIntegralProperty<GeoPropertyDesc>::exitMethod(InitPhase ePhase)
+{
+    GeoPropertyDesc::exitMethod(ePhase);
+
+    Inherited::exitMethod(ePhase);
+}
+
+template <class GeoPropertyDesc> inline
 EditFieldHandlePtr TypedGeoIntegralProperty<GeoPropertyDesc>::editHandleField(
     void)
 {

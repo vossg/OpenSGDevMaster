@@ -112,6 +112,7 @@ TextureObjRefChunkBase::TypeObject TextureObjRefChunkBase::_type(
     0,
     (PrototypeCreateF) &TextureObjRefChunkBase::createEmpty,
     TextureObjRefChunk::initMethod,
+    TextureObjRefChunk::exitMethod,
     (InitalInsertDescFunc) &TextureObjRefChunkBase::classDescInserter,
     false,
     0,

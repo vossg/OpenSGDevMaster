@@ -206,6 +206,7 @@ GeometryBase::TypeObject GeometryBase::_type(
     0,
     (PrototypeCreateF) &GeometryBase::createEmpty,
     Geometry::initMethod,
+    Geometry::exitMethod,
     (InitalInsertDescFunc) &GeometryBase::classDescInserter,
     false,
     0,

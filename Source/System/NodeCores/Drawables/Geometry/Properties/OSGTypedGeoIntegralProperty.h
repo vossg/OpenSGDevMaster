@@ -292,6 +292,7 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     static void classDescInserter(TypeObject &oType);
 
     static void initMethod(InitPhase ePhase);
+    static void exitMethod(InitPhase ePhase);
 
 //    static const ObjPtr NullPtr;
 
@@ -311,6 +312,7 @@ struct TypedGeoIntegralPropertyDescBase
     }
 
     static void initMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
+    static void exitMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
 
     static UInt32         getStride    (void) { return 0; }
 

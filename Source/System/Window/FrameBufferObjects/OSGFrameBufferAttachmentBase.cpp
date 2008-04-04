@@ -128,6 +128,7 @@ FrameBufferAttachmentBase::TypeObject FrameBufferAttachmentBase::_type(
     0,
     NULL,
     FrameBufferAttachment::initMethod,
+    FrameBufferAttachment::exitMethod,
     (InitalInsertDescFunc) &FrameBufferAttachmentBase::classDescInserter,
     false,
     0,

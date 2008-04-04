@@ -248,6 +248,7 @@ LightBase::TypeObject LightBase::_type(
     0,
     NULL,
     Light::initMethod,
+    Light::exitMethod,
     (InitalInsertDescFunc) &LightBase::classDescInserter,
     false,
     0,

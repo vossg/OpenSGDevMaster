@@ -240,6 +240,7 @@ StencilChunkBase::TypeObject StencilChunkBase::_type(
     0,
     (PrototypeCreateF) &StencilChunkBase::createEmpty,
     StencilChunk::initMethod,
+    StencilChunk::exitMethod,
     (InitalInsertDescFunc) &StencilChunkBase::classDescInserter,
     false,
     0,

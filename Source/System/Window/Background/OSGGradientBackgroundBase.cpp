@@ -135,6 +135,7 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(
     0,
     (PrototypeCreateF) &GradientBackgroundBase::createEmpty,
     GradientBackground::initMethod,
+    GradientBackground::exitMethod,
     (InitalInsertDescFunc) &GradientBackgroundBase::classDescInserter,
     false,
     0,
