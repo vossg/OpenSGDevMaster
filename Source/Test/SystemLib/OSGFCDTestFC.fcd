@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="FCDTestFC"
+	parent="NodeCore"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+    isNodeCore="true"
+>
+    <Field
+        name = "fieldSFPub"
+        type = "UInt32"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "public"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPro"
+        type = "UInt32"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPri"
+        type = "UInt32"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "private"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFNo"
+        type = "UInt32"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "none"
+    >
+    </Field>
+
+
+
+    <Field
+        name = "fieldMFPub"
+        type = "UInt32"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "public"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPro"
+        type = "UInt32"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPri"
+        type = "UInt32"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "private"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFNo"
+        type = "UInt32"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "none"
+    >
+    </Field>
+
+</FieldContainer>
