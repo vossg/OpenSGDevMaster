@@ -57,7 +57,7 @@
 #include <valgrind/memcheck.h>
 #endif
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 #define SILENT
 #define SILENT_CPTR
@@ -218,7 +218,9 @@ ChangeList::ChangeList(void) :
     _uiAspect          (                  0),
     _iSubRefLevel      (                  0),
     _bExternal         (false              ),
-    _vSyncAddRef       (                   )
+    _vSyncUnrecAddRef  (                   ),
+    _vSyncRecAddRef    (                   ),
+    _vSyncWeakAddRef   (                   )
 {
     _entryPool.push_back(ChangeEntryStore());
 
@@ -690,17 +692,37 @@ void ChangeList::setAspectTo(UInt32 uiNewAspect)
 }
 #endif
 
-void ChangeList::addSyncAddRef(FieldContainerPtr pFC)
-{
-    pFC->addReferenceUnrecordedX();
 
-    _vSyncAddRef.push_back(pFC);
+template<>
+void ChangeList::addSyncAddRef<NoRefCounts>(FieldContainerPtr)
+{
+}
+
+template<>
+void ChangeList::addSyncAddRef<RecordedRefCounts>(FieldContainerPtr pFC)
+{
+    _vSyncRecAddRef.push_back(pFC);
+}
+
+template<>
+void ChangeList::addSyncAddRef<UnrecordedRefCounts>(FieldContainerPtr pFC)
+{
+    _vSyncUnrecAddRef.push_back(pFC);
+}
+
+template<>
+void ChangeList::addSyncAddRef<WeakRefCounts>(FieldContainerPtr pFC)
+{
+    _vSyncWeakAddRef.push_back(pFC);
 }
 
 void ChangeList::clearSyncAddRef(void)
 {
-    std::vector<FieldContainerPtr>::      iterator vIt  = _vSyncAddRef.begin();
-    std::vector<FieldContainerPtr>::const_iterator vEnd = _vSyncAddRef.end  ();
+    std::vector<FieldContainerPtr>::      iterator vIt  = 
+        _vSyncUnrecAddRef.begin();
+
+    std::vector<FieldContainerPtr>::const_iterator vEnd = 
+        _vSyncUnrecAddRef.end  ();
 
     while(vIt != vEnd)
     {
@@ -709,7 +731,33 @@ void ChangeList::clearSyncAddRef(void)
         ++vIt;
     }
 
-    _vSyncAddRef.clear();
+    _vSyncUnrecAddRef.clear();
+
+
+    vIt  = _vSyncRecAddRef.begin();
+    vEnd = _vSyncRecAddRef.end  ();
+
+    while(vIt != vEnd)
+    {
+        (*vIt)->subReferenceX();
+
+        ++vIt;
+    }
+
+    _vSyncRecAddRef.clear();
+
+
+    vIt  = _vSyncWeakAddRef.begin();
+    vEnd = _vSyncWeakAddRef.end  ();
+
+    while(vIt != vEnd)
+    {
+        (*vIt)->subWeakReference();
+
+        ++vIt;
+    }
+
+    _vSyncWeakAddRef.clear();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -872,3 +920,4 @@ void ChangeList::fillStatistic(StatCollector *pColl) const
 
 }
 
+OSG_END_NAMESPACE

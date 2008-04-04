@@ -175,12 +175,17 @@ void FieldContainerPtrMField<ValueT,
             for(UInt32 i = 0; i < n; ++i)
             {
                 if(*sIt != NULL)
-                    Thread::getCurrentChangeList()->addSyncAddRef(*sIt);
+                {
+                    Thread::getCurrentChangeList()->addSyncAddRef<
+                        RefCountPolicy>(*sIt);
+                }
 
                 MFieldTraits::copyFromBin(pMem, 
                                           tmpVal);
                 
-                RefCountPolicy::setRefd(*sIt, tmpVal);
+                RefCountPolicy::addRef(tmpVal);
+
+                *sIt = tmpVal;
                 
                 ++sIt;
             }
@@ -190,9 +195,10 @@ void FieldContainerPtrMField<ValueT,
                 while(sIt != sEnd)
                 {
                     if(*sIt != NULL)
-                        Thread::getCurrentChangeList()->addSyncAddRef(*sIt);
-
-                    RefCountPolicy::subRef(*sIt);
+                    {
+                        Thread::getCurrentChangeList()->addSyncAddRef
+                            <RefCountPolicy>(*sIt);
+                    }
 
                     ++sIt;
                 };

@@ -143,11 +143,14 @@ void FieldContainerPtrSField<ValueT,
                               tmpVal);
 
     if(_fieldValue != NullFC)
-        Thread::getCurrentChangeList()->addSyncAddRef(_fieldValue);
+    {
+        Thread::getCurrentChangeList()->addSyncAddRef<
+            RefCountPolicy>(_fieldValue);
+    }
 
-    RefCountPolicy::setRefd(_fieldValue, tmpVal);
+    RefCountPolicy::addRef(tmpVal);
 
-//    _fieldValue = tmpVal;
+    _fieldValue = tmpVal;
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -157,12 +160,16 @@ void FieldContainerPtrSField<ValueT,
                              iNamespace    >::syncWith(Self &source)
 {
     if(_fieldValue != NullFC)
-        Thread::getCurrentChangeList()->addSyncAddRef(_fieldValue);
+    {
+        Thread::getCurrentChangeList()->addSyncAddRef<
+            RefCountPolicy>(_fieldValue);
+    }
 
-    RefCountPolicy::setRefd(_fieldValue,
-                            convertToCurrentAspect(source.getValue()));
+    FieldContainerPtr tmpVal = convertToCurrentAspect(source.getValue());
 
-//    _fieldValue = convertToCurrentAspect(source.getValue());
+    RefCountPolicy::addRef(tmpVal);
+
+    _fieldValue = tmpVal;
 }
 #endif
 
