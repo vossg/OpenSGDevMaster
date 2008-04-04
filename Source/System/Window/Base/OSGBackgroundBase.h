@@ -67,6 +67,8 @@
 
 #include "OSGInt32Fields.h" // ClearStencilBit type
 #include "OSGReal32Fields.h" // Depth type
+#include "OSGBoolFields.h" // ClearDepth type
+#include "OSGBoolFields.h" // ClearColor type
 
 #include "OSGBackgroundFields.h"
 
@@ -96,13 +98,19 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
     {
         ClearStencilBitFieldId = Inherited::NextFieldId,
         DepthFieldId = ClearStencilBitFieldId + 1,
-        NextFieldId = DepthFieldId + 1
+        ClearDepthFieldId = DepthFieldId + 1,
+        ClearColorFieldId = ClearDepthFieldId + 1,
+        NextFieldId = ClearColorFieldId + 1
     };
 
     static const OSG::BitVector ClearStencilBitFieldMask =
         (TypeTraits<BitVector>::One << ClearStencilBitFieldId);
     static const OSG::BitVector DepthFieldMask =
         (TypeTraits<BitVector>::One << DepthFieldId);
+    static const OSG::BitVector ClearDepthFieldMask =
+        (TypeTraits<BitVector>::One << ClearDepthFieldId);
+    static const OSG::BitVector ClearColorFieldMask =
+        (TypeTraits<BitVector>::One << ClearColorFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -142,6 +150,18 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
                   SFReal32            *editSFDepth          (void);
             const SFReal32            *getSFDepth           (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  SFBool              *getSFClearDepth      (void);
+#endif
+                  SFBool              *editSFClearDepth     (void);
+            const SFBool              *getSFClearDepth      (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFBool              *getSFClearColor      (void);
+#endif
+                  SFBool              *editSFClearColor     (void);
+            const SFBool              *getSFClearColor      (void) const;
+
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getClearStencilBit (void);
@@ -155,6 +175,18 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
                   Real32              &editDepth          (void);
             const Real32              &getDepth           (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  bool                &getClearDepth      (void);
+#endif
+                  bool                &editClearDepth     (void);
+            const bool                &getClearDepth      (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  bool                &getClearColor      (void);
+#endif
+                  bool                &editClearColor     (void);
+            const bool                &getClearColor      (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -162,6 +194,8 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
 
             void setClearStencilBit(const Int32 &value);
             void setDepth          (const Real32 &value);
+            void setClearDepth     (const bool &value);
+            void setClearColor     (const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -195,6 +229,8 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
 
     SFInt32           _sfClearStencilBit;
     SFReal32          _sfDepth;
+    SFBool            _sfClearDepth;
+    SFBool            _sfClearColor;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -226,6 +262,10 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
     EditFieldHandlePtr editHandleClearStencilBit(void);
     GetFieldHandlePtr  getHandleDepth           (void) const;
     EditFieldHandlePtr editHandleDepth          (void);
+    GetFieldHandlePtr  getHandleClearDepth      (void) const;
+    EditFieldHandlePtr editHandleClearDepth     (void);
+    GetFieldHandlePtr  getHandleClearColor      (void) const;
+    EditFieldHandlePtr editHandleClearColor     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

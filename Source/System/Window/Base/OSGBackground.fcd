@@ -42,4 +42,24 @@ commands, but should restore the state after it's done.
  	>
  	Depth value for clear, defaults to 1.
  	</Field>
+    <Field
+        name="clearDepth"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="true"
+        access="public"
+    >
+    Whether to clear the depth buffer or not
+    </Field>
+    <Field
+        name="clearColor"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="true"
+        access="public"
+    >
+    Whether to clear the color buffer or not
+    </Field>
 </FieldContainer>

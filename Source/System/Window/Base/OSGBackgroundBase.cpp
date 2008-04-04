@@ -101,6 +101,14 @@ OSG_BEGIN_NAMESPACE
     Depth value for clear, defaults to 1.
 */
 
+/*! \var bool            BackgroundBase::_sfClearDepth
+    Whether to clear the depth buffer or not
+*/
+
+/*! \var bool            BackgroundBase::_sfClearColor
+    Whether to clear the color buffer or not
+*/
+
 
 void BackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -129,6 +137,30 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&BackgroundBase::editHandleDepth),
         static_cast<FieldGetMethodSig >(&BackgroundBase::getHandleDepth));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "clearDepth",
+        "Whether to clear the depth buffer or not\n",
+        ClearDepthFieldId, ClearDepthFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&BackgroundBase::editHandleClearDepth),
+        static_cast<FieldGetMethodSig >(&BackgroundBase::getHandleClearDepth));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "clearColor",
+        "Whether to clear the color buffer or not\n",
+        ClearColorFieldId, ClearColorFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&BackgroundBase::editHandleClearColor),
+        static_cast<FieldGetMethodSig >(&BackgroundBase::getHandleClearColor));
 
     oType.addInitialDesc(pDesc);
 }
@@ -189,6 +221,26 @@ BackgroundBase::TypeObject BackgroundBase::_type(
     " \t>\n"
     " \tDepth value for clear, defaults to 1.\n"
     " \t</Field>\n"
+    "    <Field\n"
+    "        name=\"clearDepth\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"true\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    Whether to clear the depth buffer or not\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"clearColor\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"true\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    Whether to clear the color buffer or not\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
     "\n"
@@ -262,6 +314,44 @@ SFReal32            *BackgroundBase::getSFDepth          (void)
 }
 #endif
 
+SFBool *BackgroundBase::editSFClearDepth(void)
+{
+    editSField(ClearDepthFieldMask);
+
+    return &_sfClearDepth;
+}
+
+const SFBool *BackgroundBase::getSFClearDepth(void) const
+{
+    return &_sfClearDepth;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFBool              *BackgroundBase::getSFClearDepth     (void)
+{
+    return this->editSFClearDepth     ();
+}
+#endif
+
+SFBool *BackgroundBase::editSFClearColor(void)
+{
+    editSField(ClearColorFieldMask);
+
+    return &_sfClearColor;
+}
+
+const SFBool *BackgroundBase::getSFClearColor(void) const
+{
+    return &_sfClearColor;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFBool              *BackgroundBase::getSFClearColor     (void)
+{
+    return this->editSFClearColor     ();
+}
+#endif
+
 
 
 
@@ -280,6 +370,14 @@ UInt32 BackgroundBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfDepth.getBinSize();
     }
+    if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
+    {
+        returnValue += _sfClearDepth.getBinSize();
+    }
+    if(FieldBits::NoField != (ClearColorFieldMask & whichField))
+    {
+        returnValue += _sfClearColor.getBinSize();
+    }
 
     return returnValue;
 }
@@ -297,6 +395,14 @@ void BackgroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfDepth.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
+    {
+        _sfClearDepth.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ClearColorFieldMask & whichField))
+    {
+        _sfClearColor.copyToBin(pMem);
+    }
 }
 
 void BackgroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -312,6 +418,14 @@ void BackgroundBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfDepth.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
+    {
+        _sfClearDepth.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ClearColorFieldMask & whichField))
+    {
+        _sfClearColor.copyFromBin(pMem);
+    }
 }
 
 
@@ -322,14 +436,18 @@ void BackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 BackgroundBase::BackgroundBase(void) :
     Inherited(),
     _sfClearStencilBit        (Int32(-1)),
-    _sfDepth                  (Real32(1.f))
+    _sfDepth                  (Real32(1.f)),
+    _sfClearDepth             (bool(true)),
+    _sfClearColor             (bool(true))
 {
 }
 
 BackgroundBase::BackgroundBase(const BackgroundBase &source) :
     Inherited(source),
     _sfClearStencilBit        (source._sfClearStencilBit        ),
-    _sfDepth                  (source._sfDepth                  )
+    _sfDepth                  (source._sfDepth                  ),
+    _sfClearDepth             (source._sfClearDepth             ),
+    _sfClearColor             (source._sfClearColor             )
 {
 }
 
@@ -381,6 +499,50 @@ EditFieldHandlePtr BackgroundBase::editHandleDepth          (void)
              this->getType().getFieldDesc(DepthFieldId)));
 
     editSField(DepthFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr BackgroundBase::getHandleClearDepth      (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfClearDepth, 
+             this->getType().getFieldDesc(ClearDepthFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr BackgroundBase::editHandleClearDepth     (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfClearDepth, 
+             this->getType().getFieldDesc(ClearDepthFieldId)));
+
+    editSField(ClearDepthFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr BackgroundBase::getHandleClearColor      (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfClearColor, 
+             this->getType().getFieldDesc(ClearColorFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr BackgroundBase::editHandleClearColor     (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfClearColor, 
+             this->getType().getFieldDesc(ClearColorFieldId)));
+
+    editSField(ClearColorFieldMask);
 
     return returnValue;
 }

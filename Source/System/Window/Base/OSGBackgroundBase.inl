@@ -139,6 +139,72 @@ void BackgroundBase::setDepth(const Real32 &value)
 
     _sfDepth.setValue(value);
 }
+//! Get the value of the Background::_sfClearDepth field.
+
+inline
+bool &BackgroundBase::editClearDepth(void)
+{
+    editSField(ClearDepthFieldMask);
+
+    return _sfClearDepth.getValue();
+}
+
+//! Get the value of the Background::_sfClearDepth field.
+inline
+const bool &BackgroundBase::getClearDepth(void) const
+{
+    return _sfClearDepth.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+bool                &BackgroundBase::getClearDepth     (void)
+{
+    return this->editClearDepth     ();
+}
+#endif
+
+//! Set the value of the Background::_sfClearDepth field.
+inline
+void BackgroundBase::setClearDepth(const bool &value)
+{
+    editSField(ClearDepthFieldMask);
+
+    _sfClearDepth.setValue(value);
+}
+//! Get the value of the Background::_sfClearColor field.
+
+inline
+bool &BackgroundBase::editClearColor(void)
+{
+    editSField(ClearColorFieldMask);
+
+    return _sfClearColor.getValue();
+}
+
+//! Get the value of the Background::_sfClearColor field.
+inline
+const bool &BackgroundBase::getClearColor(void) const
+{
+    return _sfClearColor.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+bool                &BackgroundBase::getClearColor     (void)
+{
+    return this->editClearColor     ();
+}
+#endif
+
+//! Set the value of the Background::_sfClearColor field.
+inline
+void BackgroundBase::setClearColor(const bool &value)
+{
+    editSField(ClearColorFieldMask);
+
+    _sfClearColor.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -156,6 +222,12 @@ void BackgroundBase::execSync (      BackgroundBase *pFrom,
 
     if(FieldBits::NoField != (DepthFieldMask & whichField))
         _sfDepth.syncWith(pFrom->_sfDepth);
+
+    if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
+        _sfClearDepth.syncWith(pFrom->_sfClearDepth);
+
+    if(FieldBits::NoField != (ClearColorFieldMask & whichField))
+        _sfClearColor.syncWith(pFrom->_sfClearColor);
 }
 #endif
 
