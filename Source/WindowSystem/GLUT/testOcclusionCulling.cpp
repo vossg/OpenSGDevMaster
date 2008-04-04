@@ -51,13 +51,13 @@ RenderAction *tact = NULL;
 RenderAction *debugact = NULL;
 
 // create the scene
-NodeRefPtr scene;
+NodeRecPtr scene;
 
-GLUTWindowRefPtr mainwin;
-GLUTWindowRefPtr debugwin;
+GLUTWindowRecPtr mainwin;
+GLUTWindowRecPtr debugwin;
 int mainwinid = -1, debugwinid = -1;
 
-SimpleStatisticsForegroundRefPtr statfg;
+SimpleStatisticsForegroundRecPtr statfg;
 StatCollector         *collector;
 
 bool show = true;

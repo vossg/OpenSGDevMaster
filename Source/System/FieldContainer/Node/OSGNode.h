@@ -52,7 +52,6 @@
 
 #include "OSGNodeFields.h"
 #include "OSGNodeCoreFields.h"
-#include "OSGContainerPtrFuncs.h"
 #include "OSGFieldContainerFactory.h"
 
 #include <boost/assign/list_of.hpp>
@@ -396,9 +395,6 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
 
     friend class  FieldContainer;
 
-    friend struct PointerFuncs;
-    friend struct CPointerFuncs;
-
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const Node &source);
 };
@@ -511,7 +507,7 @@ NodeTransitPtr deepCloneTree(
               std::vector<UInt16>()                                       );
 
 template <class Core> inline
-NodeTransitPtr makeCoredNode(typename Core::ObjRefPtr *coreP = NULL);
+NodeTransitPtr makeCoredNode(typename Core::ObjRecPtr *coreP = NULL);
 
 template <class CorePtr> inline
 NodeTransitPtr makeNodeFor(CorePtr core);

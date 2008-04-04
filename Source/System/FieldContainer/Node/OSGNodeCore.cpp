@@ -246,7 +246,7 @@ void NodeCore::dump(      UInt32    uiIndent,
     PLOG << "Core"
          << "("
          << std::dec
-         << getContainerId(this)
+         << this->getId()
          << ") : "
          << getType().getName()
          << " "

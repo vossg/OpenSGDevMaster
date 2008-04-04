@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
-
+#if 0
 struct PointerFuncs
 {
     template <class PtrT> 
@@ -134,7 +134,7 @@ typename PtrStripper<Ptr>::Object      *getCPtr     (Ptr objectP);
 template <class Ptr> inline 
 typename PtrStripper<Ptr>::ConstObject *getConstCPtr(Ptr objectP);
 
-
+#endif
 
 
 #ifdef OSG_1_COMPAT

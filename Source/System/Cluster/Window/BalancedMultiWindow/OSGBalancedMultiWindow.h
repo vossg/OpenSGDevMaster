@@ -179,8 +179,8 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
 
     struct LoadGroup 
     {
-        NodePtr                root;
-        NodePtr                node;
+        NodeUnrecPtr           root;
+        NodeUnrecPtr                node;
         Real32                 pixel;
         Real32                 constant;
         Real32                 ratio;
@@ -193,8 +193,8 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     struct VPort 
     {
         UInt32                 serverId;
-        ViewportPtr            serverPort;
-        NodePtr                root;
+        ViewportUnrecPtr       serverPort;
+        NodeUnrecPtr           root;
         UInt16                 id;
         Real32                 load;
         Int32                  rect[4];
@@ -206,7 +206,7 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         UInt16                 id;
         Real32                 load;
         std::vector<VPort>     viewports;
-        WindowPtr              window;
+        WindowUnrecPtr         window;
     };
     struct WorkPackage 
     {
@@ -235,7 +235,7 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     struct Cluster 
     {
         UInt32                     load;
-        std::vector<NodePtr>       rootNodes;
+        std::vector<NodeUnrecPtr>  rootNodes;
         std::vector<LoadGroup>     loadGroups;
         std::vector<Server>        servers;
         std::vector<WorkPackage>   workpackages;

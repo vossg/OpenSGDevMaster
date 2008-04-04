@@ -28,7 +28,7 @@ int main (int argc, char **argv)
 
     OSG::Thread::getCurrentChangeList()->clear();
 
-    OSG::NodeRefPtr pNode = OSG::Node::create();
+    OSG::NodeRecPtr pNode = OSG::Node::create();
 
     OSG::ChangedFunctor objCB = boost::bind(&Foo::testCB, &foo, _1, _2);
 

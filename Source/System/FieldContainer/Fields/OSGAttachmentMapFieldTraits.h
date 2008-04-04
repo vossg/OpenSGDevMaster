@@ -44,7 +44,6 @@
 
 #include "OSGFieldTraits.h"
 #include "OSGContainerForwards.h"
-#include "OSGContainerPtrFuncs.h"
 
 #include "OSGFieldContainerAttachment.h"
 
@@ -157,7 +156,7 @@ struct FieldTraits<FieldContainerAttachmentMap> :
             if(mapIt->second->getInternal().getValue() == false)
             {
                 binding = mapIt->first & 0xFFFF;
-                fcId    = OSG::getContainerId(mapIt->second);
+                fcId    = mapIt->second->getId();
                 
                 pMem.putValue(binding);
                 pMem.putValue(fcId   );

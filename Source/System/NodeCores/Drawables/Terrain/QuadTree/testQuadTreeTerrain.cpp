@@ -69,7 +69,7 @@ OSG_USING_NAMESPACE
 
 SimpleSceneManager *mgr;
 
-NodeRefPtr scene;
+NodeRecPtr scene;
 
 Real32 speed = 1.;
 

@@ -130,7 +130,7 @@ void FieldContainer::registerChangedContainer(void)
 
         _pContainerChanges->uiEntryDesc   = ContainerChangeEntry::Change;
         _pContainerChanges->pFieldFlags   = _pFieldFlags;
-        _pContainerChanges->uiContainerId = getContainerId(this);
+        _pContainerChanges->uiContainerId = this->getId();
         _pContainerChanges->bvUncommittedChanges = &_bvChanged;
     }
 

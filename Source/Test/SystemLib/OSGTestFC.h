@@ -48,7 +48,6 @@
 
 #include "OSGUInt32Fields.h"
 
-#include "OSGContainerPtrFuncs.h"
 #include "OSGFieldContainerFactory.h"
 
 OSG_BEGIN_NAMESPACE
@@ -272,9 +271,6 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
   private:
 
     friend class FieldContainer;
-
-    friend class PointerFuncs;
-    friend class CPointerFuncs;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const TestFC &source);

@@ -51,24 +51,24 @@ using namespace OSG;
 
 RenderAction *rentravact = NULL;
 
-NodeRefPtr  root;
-NodeRefPtr  animRoot;
+NodeRecPtr  root;
+NodeRecPtr  animRoot;
 
-NodeRefPtr  file;
+NodeRecPtr  file;
 
-FBOViewportRefPtr vpScene;
-ViewportRefPtr    vpPlane;
+FBOViewportRecPtr vpScene;
+ViewportRecPtr    vpPlane;
 
-WindowRefPtr    win;
+WindowRecPtr    win;
 
 Vec3f        sceneTrans;
-TransformRefPtr cam_transScene;
-TransformRefPtr scene_trans;
+TransformRecPtr cam_transScene;
+TransformRecPtr scene_trans;
 
-TransformRefPtr cam_transPlane;
+TransformRecPtr cam_transPlane;
 
-TextureObjChunkRefPtr tx1o;
-TextureEnvChunkRefPtr tx1e;
+TextureObjChunkRecPtr tx1o;
+TextureEnvChunkRecPtr tx1e;
 
 Trackball    tball;
 

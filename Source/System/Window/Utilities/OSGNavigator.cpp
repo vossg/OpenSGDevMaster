@@ -179,7 +179,8 @@ Navigator::Navigator() :
 
 Navigator::~Navigator()
 {
-    OSG::subRefX(_cartN);
+    _cartN = NullFC;
+    _vp    = NullFC;
 
     subRef(_engine);
     subRef(_trackballEngine);
@@ -322,7 +323,7 @@ void Navigator::setMotionFactor(Real32 new_factor)
 */
 void Navigator::setViewport(ViewportPtr new_viewport)
 {
-    _vp=new_viewport;
+    _vp = new_viewport;
     _engine->onViewportChanged(this);
 }
 
@@ -379,7 +380,7 @@ void Navigator::setCameraTransformation(const NodePtr & new_cartn)
         FWARNING (("Set _cartN in Navigator to NullFC\n"));
     }
 
-    OSG::setRefdX(_cartN, new_cartn);
+    _cartN = new_cartn;
 }
 
 /*------------------------------ get --------------------------------------*/

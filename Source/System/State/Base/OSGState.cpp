@@ -328,7 +328,7 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
         {
             if(o != NullFC && o->getIgnore() == false)
             {
-                n->changeFrom(pEnv, getCPtr(o), UInt32(ind));
+                n->changeFrom(pEnv, o, UInt32(ind));
             }
             else
             {

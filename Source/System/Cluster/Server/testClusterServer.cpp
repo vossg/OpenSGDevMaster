@@ -12,7 +12,7 @@ OSG_USING_NAMESPACE
 
 int                 winid;
 ClusterServer      *server;
-GLUTWindowRefPtr    window;
+GLUTWindowRecPtr    window;
 RenderAction       *ract;
 bool                running=false;
 bool                exitOnError=false;

@@ -109,7 +109,7 @@ ActionBase::ResultE Switch::render(Action *action)
     {
         da->useNodeList();
 
-        if(da->isVisible(getCPtr(action->getNode(getChoice()))))
+        if(da->isVisible(action->getNode(getChoice())))
         {
             da->addNode(action->getNode(getChoice()));
         }
@@ -142,7 +142,7 @@ ActionBase::ResultE Switch::renderEnter(Action *action)
     {
         pAction->useNodeList();
         
-        if(pAction->isVisible(getCPtr(pAction->getNode(this->getChoice()))))
+        if(pAction->isVisible(pAction->getNode(this->getChoice())))
         {
             pAction->addNode(pAction->getNode(this->getChoice()));
         }

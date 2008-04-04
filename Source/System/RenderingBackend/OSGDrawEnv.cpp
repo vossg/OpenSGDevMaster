@@ -199,8 +199,8 @@ void DrawEnv::changeTo(State         *pState,
           it != pState->getChunks().end();
         ++it, ++cind)
     {
-        StateChunk *o = getCPtr(pOld->getChunk(cind));
-        StateChunk *n = getCPtr(*it);
+        StateChunk *o = pOld->getChunk(cind);
+        StateChunk *n = *it;
 
         if(overIt != pOldOverride->end() && overIt->first == cind)
         {
@@ -264,7 +264,7 @@ void DrawEnv::changeTo(State         *pState,
         ++it, ++cind)
     {
         StateChunkPtr  o = pOld->getChunk(cind);
-                       n = getCPtr(*it);
+                       n = *it;
 
         if(overIt != pOverride->end() && overIt->first == cind)
         {
@@ -276,7 +276,7 @@ void DrawEnv::changeTo(State         *pState,
         {
             if(o != NullFC)
             {
-                n->changeFrom(this, getCPtr(o), UInt32(ind));
+                n->changeFrom(this, o, UInt32(ind));
             }
             else
             {
@@ -313,7 +313,7 @@ void DrawEnv::changeTo(State         *pState,
         {
             if(o != NullFC)
             {
-                n->changeFrom(this, getCPtr(o), UInt32(ind));
+                n->changeFrom(this, o, UInt32(ind));
             }
             else
             {
@@ -372,8 +372,8 @@ void DrawEnv::changeTo(State         *pState,
           it != pState->getChunks().end();
         ++it, ++cind)
     {
-        StateChunk *o = getCPtr(pOld->getChunk(cind));
-                    n = getCPtr(*it);
+        StateChunk *o = pOld->getChunk(cind);
+                    n = *it;
 
         if(oldOverIt != pOldOverride->end() && oldOverIt->first == cind)
         {
@@ -416,7 +416,7 @@ void DrawEnv::changeTo(State         *pState,
 
     for(i = cind; i < pOld->getChunks().size(); ++i)
     {
-        StateChunk *o = getCPtr(pOld->getChunk(i));
+        StateChunk *o = pOld->getChunk(i);
         n = NULL;
 
         if(oldOverIt != pOldOverride->end() && oldOverIt->first == cind)

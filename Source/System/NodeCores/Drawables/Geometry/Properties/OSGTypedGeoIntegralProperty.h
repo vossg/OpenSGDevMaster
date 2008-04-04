@@ -341,7 +341,7 @@ struct GeoUInt8PropertyDesc : public TypedGeoIntegralPropertyDescBase
 typedef TypedGeoIntegralProperty<GeoUInt8PropertyDesc> GeoUInt8Property;
 
 typedef GeoUInt8Property::ObjPtr                       GeoUInt8PropertyPtr;
-typedef GeoUInt8Property::ObjRefPtr                    GeoUInt8PropertyRefPtr;
+typedef GeoUInt8Property::ObjRecPtr                    GeoUInt8PropertyRecPtr;
 typedef GeoUInt8Property::ObjUnrecPtr                  GeoUInt8PropertyUnrecPtr;
 
 #endif
@@ -368,7 +368,7 @@ struct GeoUInt16PropertyDesc : public TypedGeoIntegralPropertyDescBase
 typedef TypedGeoIntegralProperty<GeoUInt16PropertyDesc> GeoUInt16Property;
 
 typedef GeoUInt16Property::ObjPtr                    GeoUInt16PropertyPtr;
-typedef GeoUInt16Property::ObjRefPtr                 GeoUInt16PropertyRefPtr;
+typedef GeoUInt16Property::ObjRecPtr                 GeoUInt16PropertyRecPtr;
 typedef GeoUInt16Property::ObjUnrecPtr               GeoUInt16PropertyUnrecPtr;
 
 #endif
@@ -395,7 +395,7 @@ struct GeoUInt32PropertyDesc : public TypedGeoIntegralPropertyDescBase
 typedef TypedGeoIntegralProperty<GeoUInt32PropertyDesc> GeoUInt32Property;
 
 typedef GeoUInt32Property::ObjPtr                     GeoUInt32PropertyPtr;
-typedef GeoUInt32Property::ObjRefPtr                  GeoUInt32PropertyRefPtr;
+typedef GeoUInt32Property::ObjRecPtr                  GeoUInt32PropertyRecPtr;
 typedef GeoUInt32Property::ObjUnrecPtr                GeoUInt32PropertyUnrecPtr;
 
 #endif

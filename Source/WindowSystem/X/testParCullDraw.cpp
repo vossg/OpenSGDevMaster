@@ -37,10 +37,10 @@
 OSG_USING_NAMESPACE
 
 SimpleSceneManager  *mgr;
-XWindowRefPtr        xwin;
-PassiveWindowRefPtr  pwin;
+XWindowRecPtr        xwin;
+PassiveWindowRecPtr  pwin;
 
-NodeRefPtr scene = NullFC;
+NodeRecPtr scene = NullFC;
 
 // Threading stuff
 

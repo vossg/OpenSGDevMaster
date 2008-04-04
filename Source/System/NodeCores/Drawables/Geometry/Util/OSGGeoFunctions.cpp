@@ -2071,8 +2071,8 @@ else
                                 {
                                     if(indexOutBag[typei] == NullFC)
                                     {
-                                        indexOutBag[typei] = GeoUInt32Property::create();
-                                        addRefX(indexOutBag[typei]);
+                                        indexOutBag[typei] = 
+                                            GeoUInt32Property::create();
                                     }
                                     
                                     indexOutBag[typei]->push_back(index);
@@ -2131,7 +2131,7 @@ else
     
     for(UInt32 i = 1; i < 4; ++i)
     {
-        subRefX(indexOutBag[i]);
+        indexOutBag[i] = NullFC;
     }
 
     return triCount;
@@ -2702,7 +2702,7 @@ Int32 createSharedIndex(GeometryPtrArg geoPtr)
         else
         {
             FWARNING(("Invalid masterProp %p, mask: %d, block: %d\n",
-                      getCPtr(masterProp), propMask, indexBlock));
+                      masterProp, propMask, indexBlock));
         }
         
         FINFO(("Create sharedIndex: %d/%d pass; "

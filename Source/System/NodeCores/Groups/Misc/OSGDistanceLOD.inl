@@ -85,7 +85,7 @@ ActionBase::ResultE DistanceLOD::render(Action *action)
             index = osgMin(i, limit-1);
         } 
         
-        if(ra->isVisible(getCPtr(action->getNode(index))))
+        if(ra->isVisible(action->getNode(index)))
         {
             ra->addNode(action->getNode(index));
         }

@@ -1377,7 +1377,7 @@ ClusterNetwork *ClusterWindow::getNetwork(void)
 {
     if(!_network)
     {
-        _network = ClusterNetwork::getInstance(getContainerId(this));
+        _network = ClusterNetwork::getInstance(this->getId());
 
         addRef(_network);
     }

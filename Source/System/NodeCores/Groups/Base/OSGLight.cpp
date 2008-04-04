@@ -181,7 +181,7 @@ Action::ResultE Light::renderEnter(LightEngine::LightTypeE  eType,
         
         if(iLightIndex >= 0)
         {
-            action->addOverride(uiSlot + iLightIndex, getCPtr(pChunk));
+            action->addOverride(uiSlot + iLightIndex, pChunk);
         }
         else
         {

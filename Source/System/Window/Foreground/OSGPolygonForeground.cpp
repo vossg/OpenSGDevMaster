@@ -178,7 +178,7 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 	UInt32 width  = pPort->getPixelWidth(),
 		   height = pPort->getPixelHeight();
     
-    Camera              *cP  = getCPtr(pPort->getCamera());
+    Camera              *cP  = pPort->getCamera();
     TileCameraDecorator *cdP = dynamic_cast<TileCameraDecorator*>(cP);
 	
 	while (cdP != NULL)
@@ -186,11 +186,11 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 		width  = cdP->getFullWidth()  ? cdP->getFullWidth()  : width;
 		height = cdP->getFullHeight() ? cdP->getFullHeight() : height;
 		
-		cP  = getCPtr(cdP->getDecoratee());
+		cP  = cdP->getDecoratee();
 		cdP = dynamic_cast<TileCameraDecorator*>(cP);
 	}
 	
-	cP  = getCPtr(pPort->getCamera());
+	cP  = pPort->getCamera();
 	cdP = dynamic_cast<TileCameraDecorator*>(cP);
 
 

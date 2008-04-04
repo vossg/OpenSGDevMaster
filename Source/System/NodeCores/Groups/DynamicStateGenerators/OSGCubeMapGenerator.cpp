@@ -175,13 +175,13 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
 
     a->beginPartitionGroup();
     {
-        FrameBufferObject *pTarget  = getCPtr(this->getRenderTarget());
+        FrameBufferObject *pTarget  = this->getRenderTarget();
                 
         if(pTarget == NULL)
         {
             this->initData(a);
             
-            pTarget  = getCPtr(this->getRenderTarget());
+            pTarget  = this->getRenderTarget();
         }
 
         NodePtr pActNode = a->getActNode();

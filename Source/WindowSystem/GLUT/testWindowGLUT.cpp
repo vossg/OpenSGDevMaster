@@ -45,20 +45,20 @@ using namespace OSG;
 
 RenderAction *rentravact;
 
-NodeRefPtr  root;
+NodeRecPtr  root;
 
-NodeRefPtr  file;
+NodeRecPtr  file;
 
-PerspectiveCameraRefPtr cam;
-ViewportRefPtr vp;
-WindowRefPtr win;
+PerspectiveCameraRecPtr cam;
+ViewportRecPtr vp;
+WindowRecPtr win;
 
-TransformRefPtr cam_trans;
-TransformRefPtr scene_trans;
+TransformRecPtr cam_trans;
+TransformRecPtr scene_trans;
 
-PolygonChunkRefPtr       pPoly;
+PolygonChunkRecPtr       pPoly;
 bool                     bPolyActive = false;
-ChunkOverrideGroupRefPtr pCOver;
+ChunkOverrideGroupRecPtr pCOver;
 
 Trackball tball;
 

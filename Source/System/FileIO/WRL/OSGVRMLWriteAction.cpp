@@ -1869,14 +1869,14 @@ void VRMLWriteAction::addNodeUse(NodePtr &pNode)
 
     NodeCorePtr pCore = pNode->getCore();
 
-    if(_vFCInfos.find(getContainerId(pNode)) == _vFCInfos.end())
-        _vFCInfos.insert(std::make_pair(getContainerId(pNode), new FCInfo));
+    if(_vFCInfos.find(pNode->getId()) == _vFCInfos.end())
+        _vFCInfos.insert(std::make_pair(pNode->getId(), new FCInfo));
 
-    if(_vFCInfos.find(getContainerId(pCore)) == _vFCInfos.end())
-        _vFCInfos.insert(std::make_pair(getContainerId(pCore), new FCInfo));
+    if(_vFCInfos.find(pCore->getId()) == _vFCInfos.end())
+        _vFCInfos.insert(std::make_pair(pCore->getId(), new FCInfo));
 
-    FCInfo *pInfoNode = _vFCInfos[getContainerId(pNode)];
-    FCInfo *pInfoCore = _vFCInfos[getContainerId(pCore)];
+    FCInfo *pInfoNode = _vFCInfos[pNode->getId()];
+    FCInfo *pInfoCore = _vFCInfos[pCore->getId()];
 
     NamePtr pNodename =
         dynamic_cast<NamePtr>(pNode->findAttachment(
@@ -1904,7 +1904,7 @@ void VRMLWriteAction::addNodeUse(NodePtr &pNode)
         if(pCorename != NullFC)
         {
             pInfoCore->buildName(pCore->getTypeName(), 
-                                 getContainerId(pCore));
+                                 pCore->getId());
         }
     }
 
@@ -1916,17 +1916,17 @@ void VRMLWriteAction::addContainerUse(FieldContainerPtr pContainer)
     if(pContainer == NullFC)
         return;
 
-    if(_vFCInfos.find(getContainerId(pContainer)) == _vFCInfos.end())
-        _vFCInfos.insert(std::make_pair(getContainerId(pContainer), new FCInfo));
+    if(_vFCInfos.find(pContainer->getId()) == _vFCInfos.end())
+        _vFCInfos.insert(std::make_pair(pContainer->getId(), new FCInfo));
 
-    FCInfo *pInfo = _vFCInfos[getContainerId(pContainer)];
+    FCInfo *pInfo = _vFCInfos[pContainer->getId()];
 
     pInfo->incUse();
 
     if(pInfo->getUse() > 1)
     {
         pInfo->buildName(pContainer->getTypeName(), 
-                         getContainerId(pContainer));
+                         pContainer->getId());
     }
 }
 
@@ -1943,10 +1943,10 @@ VRMLWriteAction::FCInfo *VRMLWriteAction::getInfo(
     if(pContainer == NullFC)
         return NULL;
 
-    if(_vFCInfos.find(getContainerId(pContainer)) == _vFCInfos.end())
+    if(_vFCInfos.find(pContainer->getId()) == _vFCInfos.end())
         return NULL;
 
-    return _vFCInfos[getContainerId(pContainer)];
+    return _vFCInfos[pContainer->getId()];
 }
 
 void VRMLWriteAction::updateProgress(void)

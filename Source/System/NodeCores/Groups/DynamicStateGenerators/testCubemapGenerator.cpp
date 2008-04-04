@@ -28,18 +28,18 @@ using namespace OSG;
 
 RenderAction *rentravact = NullFC;
 
-NodeRefPtr  hdrroot = NullFC;
-NodeRefPtr  root    = NullFC;
-NodeRefPtr  file    = NullFC;
+NodeRecPtr  hdrroot = NullFC;
+NodeRecPtr  root    = NullFC;
+NodeRecPtr  file    = NullFC;
 
-PerspectiveCameraRefPtr cam = NullFC;
-ViewportRefPtr          vp  = NullFC;
-WindowRefPtr            win = NullFC;
+PerspectiveCameraRecPtr cam = NullFC;
+ViewportRecPtr          vp  = NullFC;
+WindowRecPtr            win = NullFC;
 
-TransformRefPtr cam_trans   = NullFC;
-TransformRefPtr scene_trans = NullFC;
+TransformRecPtr cam_trans   = NullFC;
+TransformRecPtr scene_trans = NullFC;
 
-ComponentTransformRefPtr pAnimTrs[6] = 
+ComponentTransformRecPtr pAnimTrs[6] = 
 {
     NullFC,
     NullFC,
@@ -217,7 +217,6 @@ void key(unsigned char key, int x, int y)
     switch ( key )
     {
         case 27:    
-            subRefX(win);
             delete rentravact;
 
             hdrroot = NullFC;

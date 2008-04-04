@@ -47,7 +47,7 @@
 
 #include "OSGContainerForwards.h"
 #include "OSGFieldContainerFactory.h"
-#include "OSGContainerPtrFuncs.h"
+#include "OSGFieldContainer.h"
 #include "OSGRefCountPolicies.h"
 
 OSG_BEGIN_NAMESPACE
@@ -102,7 +102,7 @@ struct FieldTraitsFCPtrBase :
         }
         else
         {
-            containerId = getContainerId(pObject);
+            containerId = pObject->getId();
         }
 
         pMem.putValue(containerId);

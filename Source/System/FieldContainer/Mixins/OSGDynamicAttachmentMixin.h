@@ -49,7 +49,6 @@
 #endif
 
 #include "OSGSystemDef.h"
-#include "OSGContainerPtrFuncs.h"
 
 #include "OSGFieldContainerSFields.h"
 #include "OSGFieldContainerMFields.h"

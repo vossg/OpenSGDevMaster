@@ -7,8 +7,8 @@ int main (int argc, char **argv)
 {
     OSG::osgInit(argc,argv);
 
-    OSG::NodeRefPtr              file;
-    std::vector<OSG::NodeRefPtr> vFile;
+    OSG::NodeRecPtr              file;
+    std::vector<OSG::NodeRecPtr> vFile;
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
     OSG::UInt32 iPre = 

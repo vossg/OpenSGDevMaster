@@ -52,9 +52,9 @@ using namespace std;
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager *mgr;
 
-NodeRefPtr scene;
+NodeRecPtr scene;
 
-SimpleStatisticsForegroundRefPtr statfg;
+SimpleStatisticsForegroundRecPtr statfg;
 StatElemDesc<OSG::StatStringElem> familyDesc("family", "The font family");
 StatElemDesc<OSG::StatStringElem> styleDesc("style", "The font style");
 StatElemDesc<OSG::StatIntElem> sizeDesc("size", "The height of the characters");

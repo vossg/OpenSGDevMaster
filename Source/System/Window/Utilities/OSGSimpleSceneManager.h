@@ -201,20 +201,20 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    WindowRefPtr               _win;
-    NodeRefPtr                 _root;
+    WindowRecPtr               _win;
+    NodeRecPtr                 _root;
 
-    ImageForegroundRefPtr      _foreground;
-    StatisticsForegroundRefPtr _statforeground;
+    ImageForegroundRecPtr      _foreground;
+    StatisticsForegroundRecPtr _statforeground;
     bool                       _statstate;
 
-    NodePtr                    _highlight;
-    NodeRefPtr                 _highlightNode;
+    NodeRecPtr                 _highlight;
+    NodeRecPtr                 _highlightNode;
     //GeoPositions3fPtr            _highlightPoints;
-    GeoPnt3fPropertyRefPtr     _highlightPoints;
+    GeoPnt3fPropertyRecPtr     _highlightPoints;
 
-    NodeRefPtr                 _internalRoot;
-    DirectionalLightRefPtr     _headlight;
+    NodeRecPtr                 _internalRoot;
+    DirectionalLightRecPtr     _headlight;
 #ifdef OSG_OLD_RENDER_ACTION
     RenderAction *             _renderAction;   /**< The RenderAction to use if using RenderActions. */
     RenderAction *             _ownAction;
@@ -223,8 +223,8 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     /** The RenderAction to use if using render traversals. */
     RenderAction *             _rtaction;
 
-    TransformRefPtr            _cart;
-    CameraRefPtr               _camera;
+    TransformRecPtr            _cart;
+    CameraRecPtr               _camera;
 
     Navigator                  _navigator;
 
@@ -234,7 +234,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
 
     bool                       _traversalAction;
 
-    SimpleMaterialRefPtr       _highlightMaterial;
+    SimpleMaterialRecPtr       _highlightMaterial;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

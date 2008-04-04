@@ -762,7 +762,7 @@ void Node::dump(      UInt32    uiIndent,
 
     PLOG << "Node"
          << "("
-         << getContainerId(this)
+         << this->getId()
          << ") : "
          << _mfChildren.size()
          << " children | "
@@ -772,7 +772,7 @@ void Node::dump(      UInt32    uiIndent,
 
     if(_sfParent.getValue() != NullFC)
     {
-        PLOG << getContainerId(_sfParent.getValue()) << " | ";
+        PLOG << _sfParent.getValue()->getId() << " | ";
     }
     else
     {

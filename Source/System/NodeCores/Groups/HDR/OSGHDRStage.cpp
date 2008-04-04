@@ -144,7 +144,7 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
         a->pushPartition();
         {
             RenderPartition   *pPart    = a->getActivePartition();
-            FrameBufferObject *pTarget  = getCPtr(this->getRenderTarget());
+            FrameBufferObject *pTarget  = this->getRenderTarget();
             Viewport          *pPort    = a->getViewport();
             Camera            *pCam     = a->getCamera  ();
             Background        *pBack    = a->getBackground();
@@ -153,7 +153,7 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
             {
                 this->initData(pPort, a);
 
-                pTarget  = getCPtr(this->getRenderTarget());
+                pTarget  = this->getRenderTarget();
             }
 
             pPart->setRenderTarget(pTarget);
@@ -664,7 +664,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
                pEnv->getPixelHeight() / 2);
 
 
-    State *pShrinkState = getCPtr(pSHM->getState());
+    State *pShrinkState = pSHM->getState();
 
     pEnv->activateState(pShrinkState, NULL);
     
@@ -704,7 +704,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     ChunkMaterialPtr  pBLM       = pData->getBlurMaterial();
 
-    State            *pBlurState = getCPtr(pBLM->getState());
+    State            *pBlurState = pBLM->getState();
 
     pEnv->activateState(pBlurState, NULL);
 
@@ -731,7 +731,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     GLenum aDrawBuffers[] = { GL_COLOR_ATTACHMENT1_EXT };
 
     oOverride.addOverride(pData->getHBlurShader()->getClassId(), 
-                          getCPtr(pData->getHBlurShader()));
+                          pData->getHBlurShader());
 
 
     pEnv->activateState(pBlurState, &oOverride);
@@ -762,7 +762,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     StateOverride oOverride1;        
 
     oOverride1.addOverride(pData->getVBlurShader()->getClassId(), 
-                           getCPtr(pData->getVBlurShader()));
+                           pData->getVBlurShader());
     
 
     pEnv->activateState(pBlurState, &oOverride1);
@@ -803,7 +803,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     ChunkMaterialPtr pTCM = pData->getToneMappingMaterial();
 
-    State *pTState = getCPtr(pTCM->getState());
+    State *pTState = pTCM->getState();
         
     pEnv->activateState(pTState, NULL);
             

@@ -101,8 +101,8 @@ ActionBase::ResultE MaterialGroup::renderEnter(Action *action)
     if(pAction             != NULL   && 
        this->getMaterial() != NullFC  )
     {
-        pAction->overrideMaterial(getCPtr(this->getMaterial()), 
-                                  pAction->getActNode()      );
+        pAction->overrideMaterial(this->getMaterial(), 
+                                  pAction->getActNode());
     }
 
     return Group::renderEnter(action);

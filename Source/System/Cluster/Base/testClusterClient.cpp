@@ -49,19 +49,19 @@ int                           mouseb = 0;
 int                           lastx=0, lasty=0;
 int                           winwidth=300, winheight=300;
 int                           winx=-1, winy=-1;
-NodeRefPtr                    root;
-TransformRefPtr               cam_trans;
-PerspectiveCameraRefPtr       cam;
-ClusterWindowRefPtr           clusterWindow;
+NodeRecPtr                    root;
+TransformRecPtr               cam_trans;
+PerspectiveCameraRecPtr       cam;
+ClusterWindowRecPtr           clusterWindow;
 RenderAction   *ract;
-GLUTWindowRefPtr              clientWindow;
-SortFirstWindowRefPtr         sortfirst;
-SortLastWindowRefPtr          sortlast;
+GLUTWindowRecPtr              clientWindow;
+SortFirstWindowRecPtr         sortfirst;
+SortLastWindowRecPtr          sortlast;
 #ifdef FRAMEINTERLEAVE
-FrameInterleaveWindowRefPtr   frameinterleave;
+FrameInterleaveWindowRecPtr   frameinterleave;
 #endif
-MultiDisplayWindowRefPtr      multidisplay;
-BalancedMultiWindowRefPtr     balancedmultidisplay;
+MultiDisplayWindowRecPtr      multidisplay;
+BalancedMultiWindowRecPtr     balancedmultidisplay;
 bool                          animate=false;
 int                           animLoops=-1;
 int                           frameCount=0;
@@ -82,7 +82,7 @@ bool                          serviceAddressValid = false;
 UInt32                        interleave=0;
 Real32                       _dsFactor = 1.0; // scale down factor.
 bool                         _enablecc = true; // enable color correction.
-PolygonChunkRefPtr            polygonChunk;
+PolygonChunkRecPtr            polygonChunk;
 bool                          prepared=false;
 bool                          showInfo=false;
 Time                          frame_time=0;
@@ -92,7 +92,7 @@ UInt32                        sum_triangles=0;
 bool                          info = false;
 std::string                   connectionDestination="";
 std::string                   connectionInterface="";
-OSG::SolidBackgroundRefPtr    bkgnd;
+OSG::SolidBackgroundRecPtr    bkgnd;
 Int32                         subtilesize=-1;
 bool                          pipelinedBufferRead = false;
 

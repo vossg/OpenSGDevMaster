@@ -36,9 +36,9 @@ OSG_USING_NAMESPACE
 // The SimpleSceneManager to manage simple applications
 static SimpleSceneManager *_mgr;
 // The scene
-static NodeRefPtr _scene;
+static NodeRecPtr _scene;
 
-static SHLChunkRefPtr _shl = NullFC;
+static SHLChunkRecPtr _shl = NullFC;
 static Int32 _animation = 1;
 
 // forward declaration so we can have the interesting stuff upfront

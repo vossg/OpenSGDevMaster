@@ -252,6 +252,7 @@ SimpleSceneManager::~SimpleSceneManager(void)
     _highlightMaterial = NullFC;
     _highlightPoints   = NullFC;
     _highlightNode     = NullFC;
+    _highlight         = NullFC;
     _win               = NullFC;
     _root              = NullFC;
 }

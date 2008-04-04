@@ -38,7 +38,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-
+#if 0
 
 template <class PtrT> inline
 void PointerFuncs::addRefX(const PtrT objectP)
@@ -179,6 +179,7 @@ typename PtrStripper<Ptr>::ConstObject *getCConstPtr(Ptr objectP)
 {
     return PointerFuncs::getCPtr(objectP);
 }
+#endif
 
 OSG_END_NAMESPACE
 

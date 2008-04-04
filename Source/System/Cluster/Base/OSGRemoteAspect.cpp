@@ -239,18 +239,18 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                         fcPtr = fcType->createContainer();
                         
                         // remove this node, when aspect is removed
-                        _receivedFC.insert(getContainerId(fcPtr));
+                        _receivedFC.insert(fcPtr->getId());
 
-/*
+
                         fprintf(stderr, "create :%d %s\n",
-                                getContainerId(fcPtr),
+                                fcPtr->getId(),
                                 fcType->getCName()); 
- */
+
                         
                         // local <-> remote mapping
-                        _localFC[fullRemoteId] = getContainerId(fcPtr);
+                        _localFC[fullRemoteId] = fcPtr->getId();
 
-                        _remoteFC[getContainerId(fcPtr)] = fullRemoteId;
+                        _remoteFC[fcPtr->getId()] = fullRemoteId;
                         
                         callCreated(fcPtr);
 
@@ -258,7 +258,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
 
 /*
                         fprintf(stderr, "   Res %p %d\n",
-                                factory->getContainer(getContainerId(fcPtr)),
+                                factory->getContainer(fcPtr->getId()),
                                 fcPtr->getRefCount());
  */
                     }
@@ -322,9 +322,9 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
 
                     FDEBUG(("AddRef: %s ID:%d\n", 
                             fcPtr->getType().getName().str(),
-                            getContainerId(fcPtr)));
+                            fcPtr->getId()));
 
-                    addRefX(fcPtr);
+                    fcPtr->addReferenceX();
                 }
                 else
                 {
@@ -345,9 +345,9 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
 
                     FDEBUG(("SubRef: %s ID:%d\n", 
                             fcPtr->getType().getName().str(),
-                            getContainerId(fcPtr)));
+                            fcPtr->getId()));
                     
-                    subRefX(fcPtr);
+                    fcPtr->subReferenceX();
                 }
                 else
                 {
@@ -535,7 +535,7 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
 
                 FDEBUG(("Changed: %s ID:%d Mask:%lld\n", 
                         fcPtr->getType().getName().str(),
-                        getContainerId(fcPtr), 
+                        fcPtr->getId(), 
                         mask));
             }
         }
@@ -832,7 +832,7 @@ bool RemoteAspect::_defaultCreatedFunction(const FieldContainerPtr &fcp,
 {
     FDEBUG(("Created:%s %d\n", 
             fcp->getType().getName().str(),
-            getContainerId(fcp)))
+            fcp->getId()))
 
     return true;
 }
@@ -845,7 +845,7 @@ bool RemoteAspect::_defaultDestroyedFunction(const FieldContainerPtr &fcp,
 {
     FDEBUG(("Destroyed:%s %d\n",
             fcp->getType().getName().str(),
-            getContainerId(fcp)))
+            fcp->getId()))
 
     return true;
 }
@@ -858,7 +858,7 @@ bool RemoteAspect::_defaultChangedFunction(const FieldContainerPtr &fcp,
 {
     FDEBUG(("Changed:%s %d\n", 
             fcp->getType().getName().str(),
-            getContainerId(fcp)))
+            fcp->getId()))
 
     return true;
 }

@@ -245,7 +245,7 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
     //}
 
     ra->useNodeList();
-    if(ra->isVisible(getCPtr(action->getNode(index))))
+    if(ra->isVisible(action->getNode(index)))
     {
         ra->addNode(action->getNode(index));
     }

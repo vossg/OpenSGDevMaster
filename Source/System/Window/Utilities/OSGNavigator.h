@@ -210,8 +210,8 @@ class OSG_UTIL_DLLMAPPING Navigator
     Real32             _rMotionFactor;
     bool               _absolute;
 
-    ViewportPtr        _vp;
-    NodePtr            _cartN;
+    ViewportRecPtr     _vp;
+    NodeRecPtr         _cartN;
 
     bool               _moved;
     bool               _clickCenter;

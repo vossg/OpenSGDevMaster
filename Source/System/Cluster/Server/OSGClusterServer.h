@@ -130,18 +130,18 @@ class OSG_CLUSTER_DLLMAPPING ClusterServer
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    WindowPtr         _window;
-    PointConnection  *_connection;
-    std::string       _requestAddress;
-    std::string       _boundAddress;
-    ClusterWindowPtr  _clusterWindow;
-    RemoteAspect     *_aspect;
-    std::string       _serviceName;
-    std::string       _connectionType;
-    UInt32            _servicePort;
-    std::string       _serviceGroup;
-    UInt32            _serverId;
-    std::string       _interface;
+    WindowUnrecPtr         _window;
+    PointConnection       *_connection;
+    std::string            _requestAddress;
+    std::string            _boundAddress;
+    ClusterWindowUnrecPtr  _clusterWindow;
+    RemoteAspect          *_aspect;
+    std::string            _serviceName;
+    std::string            _connectionType;
+    UInt32                 _servicePort;
+    std::string            _serviceGroup;
+    UInt32                 _serverId;
+    std::string            _interface;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

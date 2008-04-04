@@ -124,6 +124,9 @@ class ReflexiveContainer
 
     virtual UInt32 getContainerSize(void) const = 0;
 
+    OSG_SYSTEM_DLLMAPPING       
+            UInt32 getId           (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Helper                                    */
@@ -354,9 +357,6 @@ class ReflexiveContainer
     OSG_SYSTEM_DLLMAPPING       
     void   setId(UInt32 uiContainerId);
 
-    OSG_SYSTEM_DLLMAPPING       
-    UInt32 getId(void                ) const;
-
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
@@ -364,7 +364,6 @@ class ReflexiveContainer
 
     friend class  ChangeList;
     friend struct ContainerChangeEntry;
-    friend struct PointerFuncs;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const ReflexiveContainer &source);

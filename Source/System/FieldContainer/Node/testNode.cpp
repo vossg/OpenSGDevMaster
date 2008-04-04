@@ -26,7 +26,7 @@ struct TestAttDesc
 
 typedef OSG::DynFieldAttachment<TestAttDesc>  TestAtt;
 typedef TestAtt::ObjPtr                       TestAttPtr;
-typedef TestAtt::ObjRefPtr                    TestAttRefPtr;
+typedef TestAtt::ObjRecPtr                    TestAttRecPtr;
 
 OSG_DYNFIELDATTACHMENT_INST(TestAttDesc)
 
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 {
     OSG::osgInit(argc, argv);
 
-    OSG::TestAttRefPtr tp = OSG::TestAtt::create();
+    OSG::TestAttRecPtr tp = OSG::TestAtt::create();
 
     OSG::FieldDescriptionBase *pDesc = NULL;
 

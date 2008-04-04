@@ -129,7 +129,7 @@ ActionBase::ResultE VisitSubTree::render(Action *action)
 
     da->useNodeList();
     
-    if(da->isVisible(getCPtr(getSubTreeRoot())))
+    if(da->isVisible(getSubTreeRoot()))
         da->addNode(getSubTreeRoot());
 
     return Action::Continue;
@@ -142,7 +142,7 @@ ActionBase::ResultE VisitSubTree::render(Action *action)
 
     a->useNodeList();
     
-    if(a->isVisible(getCPtr(this->getSubTreeRoot())))
+    if(a->isVisible(this->getSubTreeRoot()))
         a->addNode(this->getSubTreeRoot());
 
     return Action::Continue;

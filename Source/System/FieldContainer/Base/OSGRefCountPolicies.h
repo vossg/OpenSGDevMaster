@@ -48,18 +48,23 @@ struct RecordedRefCounts
 {
     static void addRef(FieldContainerPtrConst objectP)
     {
-        OSG::addRefX(objectP);
+        if(objectP != NullFC)
+            objectP->addReferenceX();
     }
     static void subRef(FieldContainerPtrConst objectP)
     {
-        OSG::subRefX(objectP);
+        if(objectP != NullFC)
+            objectP->subReferenceX();
     }
 
     template <class StoreT, class SourceT> 
     static void setRefd(StoreT  &pTarget,
                         SourceT  pSource)
     {
-        OSG::setRefdX(pTarget, pSource);
+        RecordedRefCounts::addRef(pSource);
+        RecordedRefCounts::subRef(pTarget);
+    
+        pTarget = pSource;
     }
 
     template<class T>
@@ -99,8 +104,8 @@ struct UnrecordedRefCounts
     static void setRefd(StoreT  &pTarget,
                         SourceT  pSource)
     {
-        addRef(pSource);
-        subRef(pTarget);
+        UnrecordedRefCounts::addRef(pSource);
+        UnrecordedRefCounts::subRef(pTarget);
     
         pTarget = pSource;
     }

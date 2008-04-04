@@ -226,7 +226,7 @@ Char8 *Node::getClassname(void)
 }
 
 template <class Core> inline
-NodeTransitPtr makeCoredNode(typename Core::ObjRefPtr *pCore)
+NodeTransitPtr makeCoredNode(typename Core::ObjRecPtr *pCore)
 {
              NodeTransitPtr    n = Node::create();
     typename Core::ObjUnrecPtr c = Core::create();

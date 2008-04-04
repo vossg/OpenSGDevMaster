@@ -307,7 +307,7 @@ Action::ResultE SplitGraphOp::traverseLeave(NodePtrConstArg node, Action::Result
     
     for ( ; vit != ven; ++vit )
     {
-        OSG::addRefX(*vit);
+//        OSG::addRefX(*vit);
         node->subChild(*vit);
     }
     return res;

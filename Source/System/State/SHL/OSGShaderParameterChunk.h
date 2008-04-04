@@ -49,6 +49,7 @@
 #include "OSGSysMFields.h"
 #include "OSGVecMFields.h"
 #include "OSGMathMFields.h"
+#include "OSGShaderParameter.h"
 
 OSG_BEGIN_NAMESPACE
 

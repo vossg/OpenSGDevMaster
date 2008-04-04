@@ -21,8 +21,8 @@ OSG_USING_NAMESPACE
 SimpleSceneManager    *mgr(NULL);
 RenderAction *tact = NULL;
 
-PassiveWindowRefPtr              pwin;
-SimpleStatisticsForegroundRefPtr statfg;
+PassiveWindowRecPtr              pwin;
+SimpleStatisticsForegroundRecPtr statfg;
 
 StatCollector         *collector(NULL);
 
@@ -300,7 +300,7 @@ int main(int argc, char **argv)
     // add the statistics forground
 
     statfg = SimpleStatisticsForeground::create();
-    addRefX(statfg);
+//    addRefX(statfg);
 
     statfg->setSize(25);
     statfg->setColor(Color4f(0,1,0,0.7));

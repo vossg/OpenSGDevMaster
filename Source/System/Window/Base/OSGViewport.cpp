@@ -287,10 +287,10 @@ void Viewport::render(DrawActionBase *action)
     activate();
 #endif
 
-    action->setCamera    (getCPtr(getCamera    ()));
-    action->setBackground(getCPtr(getBackground()));
-    action->setViewport  (this                     );
-    action->setTravMask  (getTravMask()            );
+    action->setCamera    (getCamera    ());
+    action->setBackground(getBackground());
+    action->setViewport  (this           );
+    action->setTravMask  (getTravMask()  );
 
     action->apply(getRoot());
 
@@ -331,10 +331,10 @@ void Viewport::render(RenderActionBase *action)
     activate();
 #endif
 
-    action->setCamera    (getCPtr(getCamera    ()));
-    action->setBackground(getCPtr(getBackground()));
-    action->setViewport  (this                     );
-    action->setTravMask  (getTravMask()            );
+    action->setCamera    (getCamera    ());
+    action->setBackground(getBackground());
+    action->setViewport  (this           );
+    action->setTravMask  (getTravMask()  );
 
     action->apply(getRoot());
 
@@ -359,8 +359,8 @@ void Viewport::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 
     fprintf(stderr, "%p %p %p\n", 
             this, 
-            getCPtr(_sfCamera.getValue()),
-            getCPtr(getCamera()));
+            _sfCamera.getValue(),
+            getCamera());
 }
 
 

@@ -124,7 +124,7 @@ void TileLoadBalancer::update(NodePtr node)
     for(TileGeometryLoadLstT::iterator gI=_tileGeometryLoad.begin();gI!=_tileGeometryLoad.end();++gI)
     {
         if(gI->getNode() != NullFC)
-            loadMap[getContainerId(gI->getNode())] = gI;
+            loadMap[gI->getNode()->getId()] = gI;
         else
             gI->setValid(false);
     }
@@ -354,10 +354,10 @@ void TileLoadBalancer::updateSubtree(NodePtrConstArg &node,TileGeometryLoadMapT 
        dynamic_cast<GeometryPtr>(node->getCore()) != NullFC)
     {
         // is this a new node
-        TileGeometryLoadMapT::iterator mI=loadMap.find(getContainerId(node));
+        TileGeometryLoadMapT::iterator mI=loadMap.find(node->getId());
         if(mI==loadMap.end())
         {
-            _tileGeometryLoad.push_back(TileGeometryLoad(getContainerId(node),
+            _tileGeometryLoad.push_back(TileGeometryLoad(node->getId(),
                                                          _useFaceDistribution));
         }
         else

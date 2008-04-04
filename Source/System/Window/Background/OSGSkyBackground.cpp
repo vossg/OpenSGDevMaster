@@ -146,7 +146,7 @@ void SkyBackground::drawFace(      DrawEnv             * pEnv,
             glDisable(GL_BLEND);
         }
         
-        oldtex = getCPtr(tex);
+        oldtex = tex;
     }
    
 }

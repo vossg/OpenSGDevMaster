@@ -712,7 +712,7 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func,
         if(st != NullFC)
         {
             this->dropFunctor(func, 
-                              getCPtr(st), 
+                              st, 
                               pMat->getSortKey() + uiPass);
         }
         else

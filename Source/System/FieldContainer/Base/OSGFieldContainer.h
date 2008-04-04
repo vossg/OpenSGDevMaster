@@ -438,9 +438,6 @@ class FieldContainer : public ReflexiveContainer
     friend class FieldContainerFactoryBase;
     friend class RemoteAspect;
 
-    friend struct PointerFuncs;
-    friend struct CPointerFuncs;
-
     template<class ContainerPtr>
     friend ContainerPtr convertToCurrentAspect(ContainerPtr pFC);
 

@@ -32,9 +32,9 @@ OSG_USING_NAMESPACE
 
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager          *_mgr = NULL;
-GLUTWindowRefPtr            _client_win = NullFC;
-MultiDisplayWindowRefPtr    _cluster_win = NullFC;
-NodeRefPtr                  _root = NullFC;
+GLUTWindowRecPtr            _client_win = NullFC;
+MultiDisplayWindowRecPtr    _cluster_win = NullFC;
+NodeRecPtr                  _root = NullFC;
 std::vector<std::string>    _pipenames;
 UInt32                      _first_fc = 0;
 
@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 
     // this is our first created fieldcontainer pointer we need this
     // to skip the prototypes in createCurrentStateChangeList().
-    _first_fc = getContainerId(_client_win);
+    _first_fc = _client_win->getId();
 
     fprintf(stderr, "%d -> %d\n", 
             _first_fc,

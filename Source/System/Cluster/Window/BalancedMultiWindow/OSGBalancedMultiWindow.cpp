@@ -919,7 +919,7 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
         {
             // this must not happen very frequently, otherwise, memory leak may occur
             //subRefX(port.serverPort->getCamera());
-            subRefX(port.serverPort);
+            //subRefX(port.serverPort);
             port.serverPort = NullFC;
         }
 
@@ -933,7 +933,7 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
 
         port.serverPort = pTmpPort;
 
-        addRefX(port.serverPort);
+        //addRefX(port.serverPort);
         deco = TileCameraDecorator::create();
         port.serverPort->setCamera(deco);
     }
@@ -2047,15 +2047,15 @@ void BalancedMultiWindow::preloadCache(WindowPtr window,
 
         // create camera
         PerspectiveCameraPtr cam = PerspectiveCamera::create();
-        addRefX(cam);
+        //addRefX(cam);
         cam->setBeacon( cartN );
         cam->setFov   ( osgDegree2Rad( 60 ) );
         // background
         SolidBackgroundPtr bkgnd = SolidBackground::create();
-        addRefX(bkgnd);
+        //addRefX(bkgnd);
         // create viewport
         ViewportPtr vp = Viewport::create();
-        addRefX(vp);
+        //addRefX(vp);
         vp->setCamera( cam );
         vp->setBackground( bkgnd );
         vp->setRoot( root );
@@ -2087,9 +2087,9 @@ void BalancedMultiWindow::preloadCache(WindowPtr window,
         // remove port
         window->subPort(vp);
         // remove all
-        subRefX(bkgnd);
-        subRefX(vp);
-        subRefX(cam);
+        //subRefX(bkgnd);
+        //subRefX(vp);
+        //subRefX(cam);
         root->subChild(cartN);
     }
 }

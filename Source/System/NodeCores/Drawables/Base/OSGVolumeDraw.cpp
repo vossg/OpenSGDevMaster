@@ -299,7 +299,7 @@ class VolumeDrawWrapper
     
         RenderActionT *ra = dynamic_cast<RenderActionT *>(action);
         
-        ra->dropFunctor(func, getCPtr(getDefaultUnlitMaterial()));
+        ra->dropFunctor(func, getDefaultUnlitMaterial());
     }
 
     template<class RenderActionT>

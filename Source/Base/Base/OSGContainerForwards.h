@@ -77,36 +77,21 @@
 
 #define NEW_REFPTR
 
-#ifdef NEW_REFPTR
 
 #define TMP_INTERNAL_PTR(CLASST)                                          \
     typedef       TransitPtr< CLASST                     > ObjTransitPtr; \
-    typedef       RefCountPtr<CLASST, RecordedRefCounts  > ObjRefPtr;     \
+    typedef       RefCountPtr<CLASST, RecordedRefCounts  > ObjRecPtr;     \
     typedef       RefCountPtr<CLASST, UnrecordedRefCounts> ObjUnrecPtr;   \
     typedef       RefCountPtr<CLASST, WeakRefCounts      > ObjWeakPtr;  
 
 #define TMP_PTR(CLASST)                                                   \
     typedef       TransitPtr < CLASST             > CLASST##TransitPtr;   \
     typedef       RefCountPtr< CLASST,                                    \
-                               RecordedRefCounts  > CLASST##RefPtr;       \
+                               RecordedRefCounts  > CLASST##RecPtr;       \
     typedef       RefCountPtr< CLASST,                                    \
                                UnrecordedRefCounts> CLASST##UnrecPtr;     \
     typedef       RefCountPtr< CLASST,                                    \
                                WeakRefCounts> CLASST##WeakPtr;  
-
-#else
-
-#define TMP_INTERNAL_PTR(CLASST)                            \
-    typedef       CLASST *       ObjTransitPtr;             \
-    typedef       CLASST *       ObjRefPtr;                 \
-    typedef       CLASST *       ObjUnrecPtr;             
-
-#define TMP_PTR(CLASST)                                     \
-    typedef       CLASST *       CLASST##TransitPtr;        \
-    typedef       CLASST *       CLASST##RefPtr;            \
-    typedef       CLASST *       CLASST##UnrecPtr;
-
-#endif
 
 
 #define OSG_GEN_INTERNALPTR(CLASST)                         \

@@ -77,8 +77,7 @@ ScanParseSkel::ScanParseSkel(void) :
 
 ScanParseSkel::~ScanParseSkel(void)
 {
-    if (_image != NullFC)
-        subRefX(_image);
+    _image = NullFC;
 
     delete _pLexer;
 

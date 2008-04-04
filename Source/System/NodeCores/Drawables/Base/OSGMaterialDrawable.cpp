@@ -92,11 +92,11 @@ Action::ResultE MaterialDrawable::renderActionHandler(Action *action)
     {
         if(this->getMaterial() != NullFC)
         {
-            m = getCPtr(this->getMaterial());
+            m = this->getMaterial();
         }
         else
         {
-            m = getCPtr(getDefaultMaterial());
+            m = getDefaultMaterial();
             
             FNOTICE(("MaterialDrawable::render: no Material!?!\n"));
         }
@@ -111,7 +111,7 @@ Action::ResultE MaterialDrawable::renderActionHandler(Action *action)
         if(st != NullFC)
         {
             a->dropFunctor(func, 
-                           getCPtr(st), 
+                           st, 
                            m->getSortKey() + uiPass);
         }
         else

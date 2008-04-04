@@ -11,7 +11,7 @@ int main (int argc, char **argv)
 
 
     // Test getting pointers
-    OSG::NodeRefPtr node_ptr = OSG::Node::create();
+    OSG::NodeRecPtr node_ptr = OSG::Node::create();
 #ifdef OSG_MT_FIELDCONTAINERPTRX
     OSG::Node* node_cptr = get_pointer(node_ptr);
 #else
@@ -19,7 +19,7 @@ int main (int argc, char **argv)
 #endif
     
 #ifdef OSG_MT_FIELDCONTAINERPTRX
-    OSG::NodeRefPtr node_rptr(OSG::Node::create());
+    OSG::NodeRecPtr node_rptr(OSG::Node::create());
     node_cptr = get_pointer(node_rptr);
 #endif
 

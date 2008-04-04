@@ -26,11 +26,11 @@ using namespace std;
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager *mgr;
 
-ImageRefPtr imPtr;
-SimpleTexturedMaterialRefPtr matPtr;
-NodeRefPtr scene;
+ImageRecPtr imPtr;
+SimpleTexturedMaterialRecPtr matPtr;
+NodeRecPtr scene;
 
-SimpleStatisticsForegroundRefPtr statfg;
+SimpleStatisticsForegroundRecPtr statfg;
 StatElemDesc<OSG::StatStringElem> familyDesc("family", "The font family");
 StatElemDesc<OSG::StatStringElem> styleDesc("style", "The font style");
 StatElemDesc<OSG::StatStringElem> majorAlignDesc("majorAlignment", "The major alignment");

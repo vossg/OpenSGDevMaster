@@ -44,7 +44,6 @@
 #endif
 
 #include "OSGFieldContainerAttachment.h"
-#include "OSGContainerPtrFuncs.h"
 
 #include "boost/bind.hpp"
 
