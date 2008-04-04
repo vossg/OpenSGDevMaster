@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFIELDCONTAINERPTRMFIELD_H_
-#define _OSGFIELDCONTAINERPTRMFIELD_H_
+#ifndef _OSGFIELDCONTAINERPTRPARENTMFIELD_H_
+#define _OSGFIELDCONTAINERPTRPARENTMFIELD_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -50,7 +50,7 @@
 OSG_BEGIN_NAMESPACE
 
 template<class ValueT, Int32 iNamespace = 0>
-class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
+class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -60,7 +60,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     typedef typename StorageType::Inherited                StorageTypeParent;
 
 //    typedef typename StorageType::iterator                 iterator;
-    typedef typename StorageType::const_iterator           const_iterator;
+//    typedef typename StorageType::const_iterator           const_iterator;
 
     typedef typename StorageType::reverse_iterator         reverse_iterator;
     typedef typename StorageType::const_reverse_iterator const_reverse_iterator;
@@ -69,20 +69,24 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     typedef typename StorageType::reference                reference;
     typedef typename StorageType::const_reference          const_reference;
 
+    typedef typename StorageType::size_type                size_type;
+
     typedef          FieldTraits            <ValueT, 
-                                             iNamespace>   MFieldTraits;
+                                             iNamespace>   PtrMFieldTraits;
+
+    typedef          FieldTraits            <UInt16, 0>    PosMFieldTraits;
  
-    typedef          FieldContainerPtrMField<ValueT, 
-                                             iNamespace>   Self;
+    typedef          FieldContainerPtrParentMField<ValueT, 
+                                                   iNamespace>   Self;
 
     typedef          ValueT                                StoredType;
 
     typedef typename MFieldTraits::ArgumentType            ArgumentType;
 
-    typedef          FieldDescription       <MFieldTraits,
+    typedef          FieldDescription       <PtrMFieldTraits,
                                              MultiField,
                                              RecordedRefCounts,
-                                             PtrField    > Description;
+                                             ParentPtrField  > Description;
 
     typedef          EditFCPtrMFieldHandle  <Self        > EditHandle;
     typedef          boost::shared_ptr      <EditHandle  > EditHandlePtr;
@@ -102,9 +106,14 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*---------------------------------------------------------------------*/
 
     template<class StorageTypeT>
-    class ptrfield_iterator : public StorageTypeT::iterator
+    class ptrfield_iterator : protected StorageTypeT::iterator
     {
         typedef typename StorageTypeT::iterator Inherited;
+
+        typedef std::vector<UInt16>           PosStorage;
+        typedef std::vector<UInt16>::iterator PosStorageIt;
+
+        PosStorageIt _posIt;
 
       public:
 
@@ -112,7 +121,18 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
         {
         }
 
-        ptrfield_iterator(const Inherited &i) : Inherited(i)
+        ptrfield_iterator(const Inherited     &i,
+                          const PosStorageIt &ip) : 
+             Inherited( i),
+            _posIt    (ip)
+            
+        {
+        }
+
+        ptrfield_iterator(const ptrfield_iterator &i) : 
+             Inherited(i       ),
+            _posIt    (i._posIt)
+            
         {
         }
 
@@ -121,16 +141,100 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
             return *Inherited::_M_current; 
         }
 
+        UInt16 getParentFieldPos(void) const
+        {
+            return *_posIt;
+        }
+
+        bool operator ==(const ptrfield_iterator &rhs) const
+        {
+            return *(static_cast<const Inherited *>(this)) == rhs;
+        }
+
+        bool operator !=(const ptrfield_iterator &rhs) const
+        {
+            return ! (*this == rhs);
+        }
+
+        ptrfield_iterator &operator ++(void)
+        {
+            Inherited::operator ++();
+
+            ++_posIt;
+
+            return *this;
+        }
+             
       protected:
-/*
-        reference operator*() const
+
+    };
+
+    template<class StorageTypeT>
+    class const_ptrfield_iterator : protected StorageTypeT::const_iterator
+    {
+        typedef typename StorageTypeT::const_iterator Inherited;
+
+        typedef std::vector<UInt16>                 PosStorage;
+        typedef std::vector<UInt16>::const_iterator PosStorageIt;
+
+        PosStorageIt _posIt;
+
+      public:
+
+        const_ptrfield_iterator(void) : Inherited()
+        {
+        }
+
+        const_ptrfield_iterator(const Inherited     &i,
+                                const PosStorageIt &ip) : 
+             Inherited( i),
+            _posIt    (ip)
+            
+        {
+        }
+
+        const_ptrfield_iterator(const const_ptrfield_iterator &i) : 
+             Inherited(i       ),
+            _posIt    (i._posIt)
+            
+        {
+        }
+
+        const_reference operator*() const
         { 
             return *Inherited::_M_current; 
         }
- */
+
+        UInt16 getParentFieldPos(void) const
+        {
+            return *_posIt;
+        }
+
+        bool operator ==(const const_ptrfield_iterator &rhs) const
+        {
+            return *(static_cast<const Inherited *>(this)) == rhs;
+        }
+
+        bool operator !=(const const_ptrfield_iterator &rhs) const
+        {
+            return ! (*this == rhs);
+        }
+        
+        const_ptrfield_iterator &operator ++(void)
+        {
+            Inherited::operator ++();
+
+            ++_posIt;
+
+            return *this;
+        }
+             
+      protected:
+
     };
 
-    typedef ptrfield_iterator<StorageType> iterator;
+    typedef       ptrfield_iterator<StorageType>       iterator;
+    typedef const_ptrfield_iterator<StorageType> const_iterator;
     
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */
@@ -143,16 +247,15 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-             FieldContainerPtrMField(void);
-             FieldContainerPtrMField(const Self   &obj );
-    explicit FieldContainerPtrMField(const UInt32  size);
+    FieldContainerPtrParentMField(void);
+    FieldContainerPtrParentMField(const Self   &obj );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    ~FieldContainerPtrMField(void); 
+    ~FieldContainerPtrParentMField(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -161,18 +264,19 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
 #if 0
           StorageType &getValues(void);
-#endif
-
     const StorageType &getValues(void) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
+#if 0
     void setValues          (const StorageType       &value);
     void setValues          (const StorageTypeParent &value);
     void setValues          (const Self              &obj  );
+#endif
     
 #if 0
     void addValueFromCString(const Char8             *str  );
@@ -193,6 +297,9 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*! \name                   Binary Interface                           */
     /*! \{                                                                 */
 
+    UInt32 getBinSize (void                   ) const;
+    
+    void   copyToBin  (BinaryDataHandler &pMem) const;
     void   copyFromBin(BinaryDataHandler &pMem);
 
     /*! \}                                                                 */
@@ -203,12 +310,15 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     iterator               begin    (void                              );
     iterator               end      (void                              );
 
+#if 0
     reverse_iterator       rbegin   (void                              );
     reverse_iterator       rend     (void                              );
+#endif
 
     const_iterator         begin    (void                              ) const;
     const_iterator         end      (void                              ) const;
     
+#if 0
     const_reverse_iterator rbegin   (void                              ) const;
     const_reverse_iterator rend     (void                              ) const;
 
@@ -231,16 +341,20 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
                                      iterator      first,
                                      iterator      last                );
 #endif /* __STL_MEMBER_TEMPLATES */
-
-    void                   clear    (void                              );
-
+ 
     iterator               erase    (iterator     pos                  );
+#endif
+    void                   erase    (size_type    pos                  );
     
+#if 0
     iterator               find     (ArgumentType value                );
     const_iterator         find     (ArgumentType value                ) const;
+#endif
 
-    void                   push_back(ArgumentType value                );
+    void                   push_back(ArgumentType value,
+                                     UInt16       parentFieldPos       );
 
+#if 0
     void                   resize   (size_t       newsize, 
                                      StoredType   t      = NullFC      );
     void                   reserve  (size_t       newsize              );
@@ -250,17 +364,20 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 #ifdef OSG_1_COMPAT
     void                   addValue (ArgumentType value                );
 #endif
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
+#if 0
     void replace(UInt32       uiIdx, 
                  ArgumentType value);
 
     void replace(iterator     pos, 
                  ArgumentType value);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -283,8 +400,6 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*---------------------------------------------------------------------*/
     /*! \name                  Assignment                                  */
     /*! \{                                                                 */
-
-    void operator =(const Self &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -346,6 +461,13 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
+    std::vector<UInt16> _vParentPos;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
     static FieldType   _fieldType;
 
 #if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_HELPER_FCT)
@@ -356,12 +478,16 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    typedef PtrMFieldTraits MFieldTraits;
+
+    void operator =(const Self &source);
 };
 
 OSG_END_NAMESPACE
 
 #ifndef OSG_COMPILECONTAINERFIELDINST
-#include "OSGFieldContainerPtrMField.inl"
+#include "OSGFieldContainerPtrParentMField.inl"
 #endif
 
-#endif /* _OSGFIELDCONTAINERPTRMFIELD_H_ */
+#endif /* _OSGFIELDCONTAINERPTRPARENTMFIELD_H_ */

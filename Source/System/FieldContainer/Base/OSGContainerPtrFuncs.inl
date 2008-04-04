@@ -142,11 +142,6 @@ void addRefX(FieldContainerPtrConst objectP)
     PointerFuncs::addRefX(objectP);
 }
 
-inline 
-void addRefX(ParentFieldContainerPtrConst objectP)
-{
-    PointerFuncs::addRefX(objectP);
-}
 
 
 inline
@@ -167,11 +162,6 @@ void subRefLocalVarX(FieldContainerPtrConst objectP)
     PointerFuncs::subRefLocalVarX(objectP);
 }
 
-inline 
-void subRefX(ParentFieldContainerPtrConst objectP)
-{
-    PointerFuncs::subRefX(objectP);
-}
 
 inline
 void shallowSubRefX(FieldBundlePConst objectP)

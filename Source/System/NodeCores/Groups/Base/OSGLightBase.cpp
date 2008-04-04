@@ -167,8 +167,8 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUncountedNodePtr::Description(
+        SFUncountedNodePtr::getClassType(),
         "beacon",
         "",
         BeaconFieldId, BeaconFieldMask,
@@ -445,7 +445,7 @@ SFColor4r           *LightBase::getSFSpecular       (void)
 #endif
 
 //! Get the Light::_sfBeacon field.
-const SFNodePtr *LightBase::getSFBeacon(void) const
+const SFUncountedNodePtr *LightBase::getSFBeacon(void) const
 {
     return &_sfBeacon;
 }
@@ -789,8 +789,8 @@ EditFieldHandlePtr LightBase::editHandleSpecular       (void)
 
 GetFieldHandlePtr LightBase::getHandleBeacon          (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new  SFUncountedNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -799,8 +799,8 @@ GetFieldHandlePtr LightBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr LightBase::editHandleBeacon         (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUncountedNodePtr::EditHandlePtr returnValue(
+        new  SFUncountedNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

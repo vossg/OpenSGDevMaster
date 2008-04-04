@@ -294,6 +294,8 @@ FieldContainerPtr VRMLNodeHelper::beginNode(
 
             pAtt = dynamic_cast<VRMLGenericAttPtr>(pAttClone);
 
+            OSG_ASSERT(pAttClone == pAtt);
+
             if(pAtt != NullFC)
             {
                 pAtt->setInternal(true);

@@ -48,6 +48,7 @@
 #include "OSGContainerForwards.h"
 #include "OSGFieldBundleFactory.h"
 #include "OSGContainerPtrFuncs.h"
+#include "OSGParentContainer.h"
 
 OSG_BEGIN_NAMESPACE
 

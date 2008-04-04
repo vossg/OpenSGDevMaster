@@ -324,7 +324,7 @@ void DrawableStatsAttachment::invalidate(FieldContainerPtrArg obj)
                   pnI != c->getMFParents()->end  ();
                 ++pnI)
             {
-                NodePtr node = dynamic_cast<NodePtr>((*pnI).getCPtr());
+                NodePtr node = dynamic_cast<NodePtr>(*pnI);
                 invalidate(node);
             }
         }

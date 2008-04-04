@@ -67,6 +67,15 @@ template<class  ValueT,
          Int32  iNamespace>
 class FieldContainerPtrMField;
 
+template<class    ValueT, 
+         typename RefCountPolicy,
+         Int32    iNamespace>
+class FieldContainerPtrParentSField;
+
+template<class  ValueT, 
+         Int32  iNamespace>
+class FieldContainerPtrParentMField;
+
 class FieldDescriptionBase;
 class ReflexiveContainer;
 
@@ -102,7 +111,8 @@ enum FieldCardinality
 enum FieldClass
 {
     ValueField,
-    PtrField
+    PtrField,
+    ParentPtrField
 };
 
 struct NoRefCounts;

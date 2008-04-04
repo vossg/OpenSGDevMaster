@@ -36,128 +36,148 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFIELDCONTAINERATTACHMENT_H_
-#define _OSGFIELDCONTAINERATTACHMENT_H_
+#ifndef _OSGFIELDCONTAINERPTRPARENTSFIELD_H_
+#define _OSGFIELDCONTAINERPTRPARENTSFIELD_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGFieldContainer.h"
-#include "OSGFieldContainerMFields.h"
-#include "OSGSysSFields.h"
+#include "OSGFieldContainerPtrSFieldBase.h"
+
+#include "OSGFieldContainerFieldTraits.h"
+#include <boost/function.hpp>  
 
 OSG_BEGIN_NAMESPACE
 
-//! Brief
-//! \ingroup baselib
-
-class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
+template<class    ValueT, 
+         typename RefCountPolicy = NoRefCounts, 
+         Int32    iNamespace     = 0>
+class FieldContainerPtrParentSField : public FieldContainerPtrSFieldBase
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef FieldContainer Inherited;
+    typedef          FieldTraits            <ValueT, 
+                                             iNamespace>  PtrSFieldTraits;
+
+    typedef          FieldTraits            <UInt16,  0>  PosSFieldTraits;
+
+    typedef          FieldContainerPtrParentSField<ValueT, 
+                                             RefCountPolicy,
+                                             iNamespace>  Self;
+
+    typedef          ValueT                               StoredType;
+    typedef          ValueT                              &reference;
+    typedef const    ValueT                              &const_reference;
+  
+    typedef typename SFieldTraits::ArgumentType           ArgumentType;
+
+    typedef           FieldDescription<PtrSFieldTraits,
+                                       SingleField,
+                                       RefCountPolicy,
+                                       ParentPtrField  >  Description;
+
+    typedef           EditFCPtrSFieldHandle<Self       >  EditHandle;
+    typedef           boost::shared_ptr    <EditHandle >  EditHandlePtr;
+
+    typedef           GetFCPtrSFieldHandle <Self       >  GetHandle;
+    typedef           boost::shared_ptr    <GetHandle  >  GetHandlePtr;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                      dcast                                   */
-    /*! \{                                                                 */
 
-    OSG_GEN_INTERNALPTR(FieldContainerAttachment);
+    static const Int32 Namespace     = iNamespace;
 
-    /*! \}                                                                 */
+    static const bool isSField       = true;
+    static const bool isMField       = false;
+
+    static const bool isPointerField = true;
+
     /*---------------------------------------------------------------------*/
-    /*! \name        General Fieldcontainer Declaration                    */
+    /*! \name                   Class Get                                  */
     /*! \{                                                                 */
 
-    OSG_ABSTR_FIELD_CONTAINER_DECL;
+    static const FieldType &getClassType(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    OSG_RC_FIRST_FIELD_DECL(Parents          );
-
-    OSG_RC_FIELD_DECL      (Internal, Parents);
-
-    OSG_RC_LAST_FIELD_DECL (Internal         );
+             FieldContainerPtrParentSField(void                     );
+             FieldContainerPtrParentSField(const Self         &obj  );
+    explicit FieldContainerPtrParentSField(      ArgumentType  value,
+                                                 UInt16        uiPos = 0xFFFF);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Helper                                    */
-    /*! \{                                                                 */
+    ~FieldContainerPtrParentSField(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-          SFBool &editInternal  (void);
-    const SFBool &getInternal   (void) const;
-
-          SFBool *editSFInternal(void);
-    const SFBool *getSFInternal (void) const;
+/*
+          reference getValue(void);
+ */
+    const_reference getValue(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    void setInternal(bool bVal);
+    void setValue           (      ArgumentType  value,
+                                   UInt16        uiPos);
+    void setValue           (const Self         &obj  );
+
+#if 0
+    void setValueFromCString(const Char8        *str  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   your_category                              */
+    /*! \name                      Push                                    */
     /*! \{                                                                 */
 
-    void addParent(      FieldContainerPtrConst parent, 
-                   const UInt16                 uiStoredInFieldId = 
-                                                            InvalidParentEPos);
-
-    void subParent(FieldContainerPtrConst       parent                       );
-
+    void pushValueToString  (std::string  &str) const;
+    void pushValueFromStream(std::istream &str);
+    void pushValueToStream  (OutStream    &str) const;
+    void pushSizeToStream   (OutStream    &str) const;
+#endif
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                 Container Access                             */
+    /*! \name                   Binary Interface                           */
     /*! \{                                                                 */
 
-    FieldContainerPtr getParent(UInt32 uiIdx) const;
+    UInt32 getBinSize (void                   ) const;
+    
+    void   copyToBin  (BinaryDataHandler &pMem) const;
+    void   copyFromBin(BinaryDataHandler &pMem);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Binary Access                              */
+    /*! \name                      MT Sync                                 */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
-    virtual void   copyToBin  (BinaryDataHandler &pMem,
-                               ConstFieldMaskArg  whichField);
-    virtual void   copyFromBin(BinaryDataHandler &pMem,
-                               ConstFieldMaskArg  whichField);
+#ifdef OSG_MT_CPTR_ASPECT
+    void syncWith(Self &source);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   your_operators                             */
+    /*! \name                      Compare                                 */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Assignment                                */
-    /*! \{                                                                 */
+    bool operator ==(const Self &source) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Comparison                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
+    /*! \name                      Assign                                  */
     /*! \{                                                                 */
 
     /*! \}                                                                 */
@@ -165,97 +185,58 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
 
   protected:
 
-    typedef FieldContainerAttachment  Self;
-    typedef MFParentFieldContainerPtr ParentField;
+    UInt16 _uiParentFieldPos;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    static TypeObject _type;
+    typedef FieldContainerPtrSFieldBase Inherited;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFParentFieldContainerPtr _mfParents;
-    SFBool                    _sfInternal;
+#ifdef OSG_LINUX_ICC
+#pragma warning( disable : 488 )
+#endif
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
-    /*! \{                                                                 */
+    template<class To>
+          To &dcast(void);
 
-    static void   classDescInserter(TypeObject &oType);
-    static Char8 *getClassname     (void             );
+    template<class To>
+    const To &dcast(void) const;
+
+#ifdef OSG_LINUX_ICC
+#pragma warning( default : 488 )
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    FieldContainerAttachment(void);
-    FieldContainerAttachment(const FieldContainerAttachment &source);
-
-    virtual ~FieldContainerAttachment(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Changed                                 */
-    /*! \{                                                                 */
-
-    const MFParentFieldContainerPtr &getParents   (void) const;
-
-    const MFParentFieldContainerPtr *getMFParents (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   MT Destruction                             */
-    /*! \{                                                                 */
-
-    EditFieldHandlePtr editInternalHandler(void);
-    GetFieldHandlePtr  getInternalHandler (void) const;
-
-    GetFieldHandlePtr  getHandleParents   (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
+    static FieldType            _fieldType;
+     
+#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_HELPER_FCT)
+    const FieldType &fieldTypeExportHelper(void);
+#endif
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const FieldContainerAttachment &source);
+    typedef PtrSFieldTraits SFieldTraits;
+
+    void operator =(const Self &source);
 };
-
-OSG_GEN_CONTAINERPTR(FieldContainerAttachment);
-
-typedef RefPtr<FieldContainerAttachmentPtr>     
-    FieldContainerAttachmentRefPtr;
-typedef WeakPtr<FieldContainerAttachmentPtr>     
-    FieldContainerAttachmentWeakPtr;
-
-#ifdef OSG_1_COMPAT
-typedef FieldContainerAttachment            Attachment;
-
-typedef FieldContainerAttachmentPtr         AttachmentPtr;
-typedef FieldContainerAttachmentPtrConst    AttachmentPtrConst;
-typedef FieldContainerAttachmentConstPtr    AttachmentConstPtr;
-
-typedef FieldContainerAttachmentPtrArg      AttachmentPtrArg;
-typedef FieldContainerAttachmentConstPtrArg AttachmentConstPtrArg;
-typedef FieldContainerAttachmentPtrConstArg AttachmentPtrConstArg;
-
-typedef FieldContainerAttachmentRefPtr      AttachmentRefPtr;
-#endif
 
 OSG_END_NAMESPACE
 
-#include "OSGFieldContainerAttachment.inl"
+#ifndef OSG_COMPILECONTAINERFIELDINST
+#include "OSGFieldContainerPtrParentSField.inl"
+#endif
 
-#endif /* _OSGFIELDCONTAINERATTACHMENT_H_ */
+#endif /* _OSGFIELDCONTAINERPTRPARENTSFIELD_H_ */

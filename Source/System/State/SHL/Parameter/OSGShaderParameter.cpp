@@ -108,8 +108,9 @@ void ShaderParameter::addParent(
 {
     editMField(ParentsFieldMask, _mfParents);
 
-    _mfParents.push_back(parent);
-    _mfParents.back().setParentFieldPos(uiStoredInFieldMask);
+//    _mfParents.push_back(parent);
+//    _mfParents.back().setParentFieldPos(uiStoredInFieldMask);
+    _mfParents.push_back(parent, uiStoredInFieldMask);
 }
 
 void ShaderParameter::subParent(FieldContainerPtrConst &parent)
@@ -120,11 +121,14 @@ void ShaderParameter::subParent(FieldContainerPtrConst &parent)
     {
         editMField(ParentsFieldMask, _mfParents);
 
+#if 0
         MFParentFieldContainerPtr::iterator parentIt = _mfParents.begin();
 
         parentIt += iParentIdx;
 
         _mfParents.erase(parentIt);
+#endif
+        _mfParents.erase(iParentIdx);
     }
 }
 
@@ -137,7 +141,7 @@ void ShaderParameter::changed(ConstFieldMaskArg whichField,
     
     while(parentsIt != parentsEnd)
     {
-        (*parentsIt)->changed(parentsIt->getParentFieldPos(),
+        (*parentsIt)->changed(parentsIt.getParentFieldPos(),
                               ChangedOrigin::Child,
                               0);
         

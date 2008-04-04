@@ -225,7 +225,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
 #endif
                   SFReal              *editSFQuadraticAttenuation(void);
             const SFReal              *getSFQuadraticAttenuation (void) const;
-            const SFNodePtr           *getSFBeacon          (void) const;
+            const SFUncountedNodePtr  *getSFBeacon          (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -368,7 +368,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     SFReal            _sfConstantAttenuation;
     SFReal            _sfLinearAttenuation;
     SFReal            _sfQuadraticAttenuation;
-    SFNodePtr         _sfBeacon;
+    SFUncountedNodePtr         _sfBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

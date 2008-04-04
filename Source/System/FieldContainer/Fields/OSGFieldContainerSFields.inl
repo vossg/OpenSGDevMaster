@@ -40,7 +40,7 @@ OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
-
+#if 0
 inline
 SField<ParentFieldContainerPtr, 0>::SField(void) : 
      Inherited (),
@@ -222,7 +222,7 @@ void SField<ParentFieldContainerPtr, 0>::operator =(const SField &source)
     }
 }
 
-
+#endif
 
 /*---------------------------------------------------------------------*/
 

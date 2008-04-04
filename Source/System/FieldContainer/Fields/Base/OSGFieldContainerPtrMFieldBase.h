@@ -140,8 +140,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
 //    reference              back     (void                              );
 //    const_reference        back     (void                              ) const;
     
-    void                   clear    (void                              );
-    
+   
 #ifdef __STL_MEMBER_TEMPLATES
 //    template <class InputIterator>
 //    void                   insert   (iterator      pos, 
@@ -244,8 +243,14 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
 
     void push_back(ArgumentType value);
 
+    void clear    (void                              );
+
     void resize   (size_t       newsize, 
                    StoredType   t);
+
+    void push_back_nc(ArgumentType value);
+
+    void clear_nc    (void                              );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -272,15 +272,15 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-          SFDynamicVolume *editSFVolume  (void);
-    const SFDynamicVolume *getSFVolume   (void) const;
+          SFDynamicVolume    *editSFVolume  (void);
+    const SFDynamicVolume    *getSFVolume   (void) const;
 
-          SFUInt32        *editSFTravMask(void);
-    const SFUInt32        *getSFTravMask (void) const;
+          SFUInt32           *editSFTravMask(void);
+    const SFUInt32           *getSFTravMask (void) const;
 
-    const SFUnrefdNodePtr *getSFParent   (void) const;
-    const SFNodeCorePtr   *getSFCore     (void) const;
-    const MFNodePtr       *getMFChildren (void) const;
+    const SFUncountedNodePtr *getSFParent   (void) const;
+    const SFNodeCorePtr      *getSFCore     (void) const;
+    const MFNodePtr          *getMFChildren (void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -301,14 +301,14 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFDynamicVolume _sfVolume;
+    SFDynamicVolume    _sfVolume;
 
-    SFUInt32        _sfTravMask;
+    SFUInt32           _sfTravMask;
 
-    SFUnrefdNodePtr _sfParent;
-    MFNodePtr       _mfChildren;
+    SFUncountedNodePtr _sfParent;
+    MFNodePtr          _mfChildren;
 
-    SFNodeCorePtr   _sfCore;
+    SFNodeCorePtr      _sfCore;
 
 #ifdef OSG_1_COMPAT
     UInt8           _occlusionMask;

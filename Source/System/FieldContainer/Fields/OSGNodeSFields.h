@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup  */
 
 typedef FieldContainerPtrSField<NodePtr>                 SFNodePtr;
-typedef FieldContainerPtrSField<NodePtr, NoRefCounts, 1> SFUnrefdNodePtr;
+typedef FieldContainerPtrSField<NodePtr, NoRefCounts, 1> SFUncountedNodePtr;
 #endif
 
 

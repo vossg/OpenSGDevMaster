@@ -450,7 +450,8 @@ bool VerifyGraphOp::repairGeometry(void)
             // now replace corrupted geometry core with a group core.
             for (UInt32 j=0;j<_corruptedGeos[i]->getParents().size();++j)
             {
-                NodePtr parent = dynamic_cast<NodePtr>(_corruptedGeos[i]->getParents()[j].getCPtr());
+                NodePtr parent = dynamic_cast<NodePtr>(
+                    _corruptedGeos[i]->getParents()[j]);
                 if (parent != NullFC)
                 {
                     std::string nname;

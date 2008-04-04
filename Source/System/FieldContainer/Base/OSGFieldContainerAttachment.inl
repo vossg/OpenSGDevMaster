@@ -97,8 +97,8 @@ void FieldContainerAttachment::addParent(
 {
     Inherited::editMField(ParentsFieldMask, _mfParents);
 
-    _mfParents.push_back(parent);
-    _mfParents.back().setParentFieldPos(uiStoredInFieldId);
+    _mfParents.push_back(parent, uiStoredInFieldId);
+//    _mfParents.back().setParentFieldPos(uiStoredInFieldId);
 }
 
 inline
@@ -110,20 +110,24 @@ void FieldContainerAttachment::subParent(FieldContainerPtrConst parent)
     {
         Inherited::editMField(ParentsFieldMask, _mfParents);
 
+#if 0
         MFParentFieldContainerPtr::iterator parentIt = _mfParents.begin();
 
         parentIt += iParentIdx;
 
         _mfParents.erase(parentIt);
+#endif
+        _mfParents.erase(iParentIdx);
+
     }
 }
 
 inline
-FieldContainerPtr FieldContainerAttachment::getParent(UInt32 uiIdx)
+FieldContainerPtr FieldContainerAttachment::getParent(UInt32 uiIdx) const
 {
     if(uiIdx < _mfParents.size())
     {
-        return _mfParents[uiIdx].getCPtr();
+        return _mfParents[uiIdx];
     }
     else
     {

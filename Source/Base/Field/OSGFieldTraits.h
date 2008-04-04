@@ -504,9 +504,23 @@ class FieldDescription : public DescT::FieldDescParent
                                       DescT::iNamespace> >::type HandledPField;
 
     typedef typename
+      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
+              FieldContainerPtrParentSField<typename DescT::ValueType,
+                                            RefCountPolicy,
+                                            DescT::iNamespace>,
+              FieldContainerPtrParentMField<typename DescT::ValueType,
+                                            DescT::iNamespace> 
+              >::type HandledPPField;
+
+    typedef typename
       boost::mpl::if_<boost::mpl::bool_<(eFieldClass == ValueField)>,
               HandledVField,
-              HandledPField>::type HandledField;
+              HandledPField>::type HandledFieldA;
+
+    typedef typename
+      boost::mpl::if_<boost::mpl::bool_<(eFieldClass == ParentPtrField)>,
+              HandledPPField,
+              HandledFieldA>::type HandledField;
 
     typedef typename HandledField::GetHandle    GetHandle;
     typedef typename HandledField::GetHandlePtr GetHandlePtr;

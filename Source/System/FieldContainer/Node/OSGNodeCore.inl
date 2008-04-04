@@ -44,8 +44,12 @@ void NodeCore::addParent(      FieldContainerPtrConst &parent,
 {
     editMField(ParentsFieldMask, _mfParents);
 
+#if 0
     _mfParents.push_back(parent);
     _mfParents.back().setParentFieldPos(uiStoredInFieldId);
+#endif
+
+    _mfParents.push_back(parent, uiStoredInFieldId);
 }
 
 inline
@@ -57,11 +61,15 @@ void NodeCore::subParent(FieldContainerPtrConst &parent)
     {
         editMField(ParentsFieldMask, _mfParents);
 
+#if 0
         MFParentFieldContainerPtr::iterator parentIt = _mfParents.begin();
 
         parentIt += iParentIdx;
 
         _mfParents.erase(parentIt);
+#endif
+
+        _mfParents.erase(iParentIdx);
     }
 }
 

@@ -131,7 +131,7 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::changed(
     while(parentsIt != parentsEnd)
     {
         (*parentsIt)->changed(
-                TypeTraits<BitVector>::One << parentsIt->getParentFieldPos(),
+                TypeTraits<BitVector>::One << parentsIt.getParentFieldPos(),
                 ChangedOrigin::Child,
                 0);
 

@@ -48,36 +48,36 @@
 OSG_BEGIN_NAMESPACE
 
 template <class Object, class Ptr>
-struct PtrWrapper
+struct PtrWrapperX
 {
-    typedef PtrWrapper<Object, Ptr> Self;
-    typedef Ptr                     Pointer;
-    typedef Object                  StoredObject;
+    typedef PtrWrapperX<Object, Ptr> Self;
+    typedef Ptr                      Pointer;
+    typedef Object                   StoredObject;
 
     Ptr    _ptr;
 
     UInt16 _parentFPos;
 
-    PtrWrapper(void) : 
+    PtrWrapperX(void) : 
         _ptr       (NULL),
         _parentFPos(0xFFFF)
       
     {
     }
     
-    PtrWrapper(Ptr ptr) :
+    PtrWrapperX(Ptr ptr) :
         _ptr(ptr),
         _parentFPos(0xFFFF)
     {
     } 
 
-    PtrWrapper(Ptr ptr, UInt16 parentFPos) :
+    PtrWrapperX(Ptr ptr, UInt16 parentFPos) :
         _ptr       (ptr),
         _parentFPos(parentFPos)
     {
     } 
 
-    ~PtrWrapper(void) 
+    ~PtrWrapperX(void) 
     {
     }
 
@@ -166,6 +166,7 @@ struct PtrWrapper
  */
 };
 
+/*
 typedef PtrWrapper<FieldContainer,
                    FieldContainerPtr>        ParentFieldContainerPtr;
 
@@ -177,15 +178,16 @@ typedef PtrWrapper<FieldContainer,
 
 typedef PtrWrapper<Node,
                    NodePtr          >        ParentNodePtr;
+ */
 
-typedef PtrWrapper<FieldBundle,
-                   FieldBundleP>             ParentFieldBundleP;
+typedef PtrWrapperX<FieldBundle,
+                    FieldBundleP>             ParentFieldBundleP;
 
-typedef PtrWrapper<FieldBundle,
-                   FieldBundleP> const      &ParentFieldBundlePConstArg;
+typedef PtrWrapperX<FieldBundle,
+                    FieldBundleP> const      &ParentFieldBundlePConstArg;
 
-typedef PtrWrapper<FieldBundle,
-                   FieldBundleP> const       ParentFieldBundlePConst;
+typedef PtrWrapperX<FieldBundle,
+                    FieldBundleP> const       ParentFieldBundlePConst;
 
 OSG_END_NAMESPACE
 

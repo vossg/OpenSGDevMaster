@@ -41,7 +41,7 @@ OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
-
+#if 0
 inline
 MField<ParentFieldContainerPtr, 0>::MField(void) :
      Inherited   ( ),
@@ -641,6 +641,7 @@ void MField<ParentFieldContainerPtr, 0>::dump(      UInt32    uiIndent,
 
 
 
+#endif
 
 /*---------------------------------------------------------------------*/
 

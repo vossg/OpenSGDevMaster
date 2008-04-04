@@ -43,7 +43,9 @@
 #endif
 
 #include "OSGSField.h"
+
 #include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrParentSField.h"
 
 #include "OSGFieldContainerFieldTraits.h"
 #include "OSGFieldContainerSFieldHandle.h"
@@ -55,7 +57,7 @@ OSG_BEGIN_NAMESPACE
 typedef FieldContainerPtrSField<FieldContainerPtr> SFFieldContainerPtr;
 #endif
 
-
+#if 0
 template<>
 class OSG_SYSTEM_DLLMAPPING SField<ParentFieldContainerPtr, 0> : public Field
 {
@@ -203,12 +205,15 @@ class OSG_SYSTEM_DLLMAPPING SField<ParentFieldContainerPtr, 0> : public Field
 
   private:
 };
-
+#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef SField<ParentFieldContainerPtr> SFParentFieldContainerPtr;
+typedef 
+    FieldContainerPtrParentSField<FieldContainerPtr, 
+                                  NoRefCounts,
+                                  1                > SFParentFieldContainerPtr;
 #endif
 
 

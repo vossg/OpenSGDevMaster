@@ -78,22 +78,6 @@ FieldContainerPtrMFieldBase::const_iterator
 }
 
 inline
-void FieldContainerPtrMFieldBase::clear(void)
-{
-    iterator       fieldIt  = _values.begin();
-    const_iterator fieldEnd = _values.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        OSG::subRefX(*fieldIt);
-
-        ++fieldIt;
-    }
-
-    _values.clear();
-}
-
-inline
 Int32 FieldContainerPtrMFieldBase::findIndex(ArgumentType value) const
 {
     const_iterator it = std::find(_values.begin(), _values.end(), value);
@@ -206,10 +190,46 @@ void FieldContainerPtrMFieldBase::push_back(ArgumentType value)
 }
 
 inline
+void FieldContainerPtrMFieldBase::clear(void)
+{
+    iterator       fieldIt  = _values.begin();
+    const_iterator fieldEnd = _values.end  ();
+
+    while(fieldIt != fieldEnd)
+    {
+        OSG::subRefX(*fieldIt);
+
+        ++fieldIt;
+    }
+
+    _values.clear();
+}
+
+inline
 void FieldContainerPtrMFieldBase::resize(size_t       newsize, 
                                          StoredType   t)
 {
     _values.resize(newsize, t);
+}
+
+inline
+void FieldContainerPtrMFieldBase::push_back_nc(ArgumentType value)
+{
+    _values.push_back(value);
+}
+
+inline
+void FieldContainerPtrMFieldBase::clear_nc(void)
+{
+    iterator       fieldIt  = _values.begin();
+    const_iterator fieldEnd = _values.end  ();
+
+    while(fieldIt != fieldEnd)
+    {
+        ++fieldIt;
+    }
+
+    _values.clear();
 }
 
 #ifdef OSG_MT_CPTR_ASPECT

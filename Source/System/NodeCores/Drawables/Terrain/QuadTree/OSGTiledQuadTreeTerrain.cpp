@@ -148,7 +148,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
     {
         if(getParents().size() > 0 && getParents()[0] != NullFC)
         { // parent must be set!
-            NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+            NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0]);
 
             while(pParent->getNChildren() > 0) 
             {
@@ -222,7 +222,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
             {
                 for(i=0; i<roi; ++i) 
                 {
-                    NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                    NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0]);
                     
                     NodePtr node = pParent->getChild(j*roi+i);
                     
@@ -268,7 +268,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
             
             for(UInt32 i=0; i<roi2; ++i) 
             {
-                NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0]);
                 
                 NodePtr node = pParent->getChild(i);
                 
@@ -294,7 +294,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
 
             for (UInt32 i=0; i<roi2; ++i) 
             {
-                NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0]);
                 
                 NodePtr    node = pParent->getChild(i);
                 
@@ -520,7 +520,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
       
       for(UInt32 i=0; i<roi2; ++i) 
       {
-          NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+          NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0]);
           node = pParent->getChild(i);
 
           core = dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
@@ -579,7 +579,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case -1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_n1n1(pParent, order, roi);
                           
@@ -670,7 +670,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case 0: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_n10(pParent, order, roi);
 
@@ -722,7 +722,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case 1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_n1p1(pParent, order, roi);
 
@@ -821,7 +821,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case -1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_0n1(pParent, order, roi);
 
@@ -870,7 +870,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case 1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_0p1(pParent, order, roi);
                           
@@ -922,7 +922,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case -1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_p1n1(pParent, order, roi);
                           
@@ -1012,7 +1012,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case 0: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_p10(pParent, order, roi);
 
@@ -1063,7 +1063,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                       case 1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_p1p1(pParent, order, roi);
 
@@ -1164,7 +1164,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
           UInt32 dup;
           for (UInt32 i=0; i<roi2; ++i) 
           {
-              NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+              NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0]);
               node = pParent->getChild(i);
 
               core = dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
@@ -1179,7 +1179,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
                   for(UInt32 j=0; j<roi2; ++j) 
                   {
                       NodePtr            pParent2 = 
-                          dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                          dynamic_cast<NodePtr>(getParents()[0]);
                       NodePtr            node2 = pParent2->getChild(j);
                       QuadTreeTerrainPtr core2 = 
                           dynamic_cast<QuadTreeTerrainPtr>(node2->getCore());
@@ -1208,7 +1208,7 @@ Action::ResultE TiledQuadTreeTerrain::renderEnter (Action* action)
    
    UInt32 numIndis = 0;
    UInt32 numFans = 0;
-   NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+   NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0]);
               
    for(UInt32 i=0; i<pParent->getNChildren(); ++i) 
    {
@@ -1280,7 +1280,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
       
       for(UInt32 i=0; i<roi2; ++i) 
       {
-          NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+          NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0]);
           node = pParent->getChild(i);
 
           core = dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
@@ -1339,7 +1339,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                       case -1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_n1n1(pParent, order, roi);
                           
@@ -1430,7 +1430,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                       case 0: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_n10(pParent, order, roi);
 
@@ -1482,7 +1482,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                       case 1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_n1p1(pParent, order, roi);
 
@@ -1581,7 +1581,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                       case -1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_0n1(pParent, order, roi);
 
@@ -1630,7 +1630,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                       case 1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_0p1(pParent, order, roi);
                           
@@ -1682,7 +1682,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                       case -1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_p1n1(pParent, order, roi);
                           
@@ -1772,7 +1772,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                       case 0: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_p10(pParent, order, roi);
 
@@ -1823,7 +1823,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                       case 1: 
                       {
                           NodePtr pParent = 
-                              dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                              dynamic_cast<NodePtr>(getParents()[0]);
 
                           caseChilds_p1p1(pParent, order, roi);
 
@@ -1924,7 +1924,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
           UInt32 dup;
           for (UInt32 i=0; i<roi2; ++i) 
           {
-              NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+              NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0]);
               node = pParent->getChild(i);
 
               core = dynamic_cast<QuadTreeTerrainPtr>(node->getCore());
@@ -1939,7 +1939,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                   for(UInt32 j=0; j<roi2; ++j) 
                   {
                       NodePtr            pParent2 = 
-                          dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+                          dynamic_cast<NodePtr>(getParents()[0]);
                       NodePtr            node2 = pParent2->getChild(j);
                       QuadTreeTerrainPtr core2 = 
                           dynamic_cast<QuadTreeTerrainPtr>(node2->getCore());
@@ -1968,7 +1968,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
    
    UInt32 numIndis = 0;
    UInt32 numFans = 0;
-   NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0].getCPtr());
+   NodePtr pParent = dynamic_cast<NodePtr>(getParents()[0]);
               
    for(UInt32 i=0; i<pParent->getNChildren(); ++i) 
    {

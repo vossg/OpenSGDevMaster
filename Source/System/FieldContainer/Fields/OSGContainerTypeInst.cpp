@@ -69,6 +69,13 @@
 #include "OSGNodeCoreSFields.h"
 #include "OSGNodeCoreMFields.h"
 
+#define OSG_SFIELDTYPE_INST2(CLASSNAME, T1, T2)          \
+template<>                                               \
+FieldType CLASSNAME< T1 , T2 >::_fieldType(              \
+    SFieldTraits::getSName(),                            \
+    SFieldTraits::getSPName(),                           \
+    SFieldTraits::getType (),                            \
+    FieldType::SINGLE_FIELD)
 
 OSG_BEGIN_NAMESPACE
 
@@ -107,17 +114,18 @@ OSG_SFIELDTYPE_INST(FieldContainerPtrSField,
                     0);
 OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FieldContainerAttachmentPtr, 0);
 
-OSG_SFIELDTYPE_SPEZ_INST(ParentFieldContainerPtr, 0);
-OSG_MFIELDTYPE_SPEZ_INST(ParentFieldContainerPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrParentSField,
+                    FieldContainerPtr, 
+                    NoRefCounts,
+                    1);
+OSG_MFIELDTYPE_INST(FieldContainerPtrParentMField, 
+                    FieldContainerPtr, 
+                    1);
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 DataType FieldTraits<FieldContainerPtr          >::_type(
     "FieldContainerPtr",
-    NULL);
-
-DataType FieldTraits<ParentFieldContainerPtr    >::_type(
-    "ParentFieldContainerPtr",
     NULL);
 
 DataType FieldTraits<FieldContainerAttachmentPtr>::_type(
@@ -145,7 +153,6 @@ DataType FieldTraits<ChangedFunctorCallback     >::_type(
     NULL);
  
 OSG_FIELDTRAITS_GETTYPE   (FieldContainerPtr          )
-OSG_FIELDTRAITS_GETTYPE   (ParentFieldContainerPtr    )
 
 OSG_FIELDTRAITS_GETTYPE   (FieldContainerAttachmentPtr)
 OSG_FIELDTRAITS_GETTYPE   (AttachmentContainerPtr     )
@@ -154,9 +161,14 @@ OSG_FIELDTRAITS_GETTYPE   (NodePtr                    )
 OSG_FIELDTRAITS_GETTYPE   (NodeRefPtr                 )
 OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback     )
 
+DataType &FieldTraits< FieldContainerPtr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<FieldContainerPtr, 0>::getType();
+}
+
 DataType &FieldTraits< NodePtr, 1 >::getType(void)
 {                                                           
-    return FieldTraits<NodePtr>::getType();
+    return FieldTraits<NodePtr, 0>::getType();
 }
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
@@ -167,8 +179,13 @@ OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField,
                          0);
 OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, FieldContainerPtr, 0);
 
-OSG_FIELD_SPEZ_DLLEXPORT_DEF2(SField, ParentFieldContainerPtr, 0);
-OSG_FIELD_SPEZ_DLLEXPORT_DEF2(MField, ParentFieldContainerPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrParentSField, 
+                         FieldContainerPtr, 
+                         NoRefCounts,
+                         1);
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrParentMField, 
+                         FieldContainerPtr, 
+                         1);
 
 OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, FieldContainerAttachmentPtr);
 OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, FieldContainerAttachmentPtr);

@@ -126,7 +126,8 @@ struct FieldTraitsFCPtrBase :
 
         if(0 != containerId)
         {
-            pObject = FieldContainerFactory::the()->getMappedContainer(containerId);
+            pObject = 
+                FieldContainerFactory::the()->getMappedContainer(containerId);
         }
         else
         {
@@ -145,6 +146,7 @@ struct FieldTraitsFCPtrBase :
     }   
 };
 
+#if 0
 template<>
 struct FieldTraitsFCPtrBase<ParentFieldContainerPtr> : 
     public FieldTraitsTemplateBase<ParentFieldContainerPtr>
@@ -222,6 +224,7 @@ struct FieldTraitsFCPtrBase<ParentFieldContainerPtr> :
         }
     }
 };
+#endif
 
 /*! \ingroup 
  */
@@ -265,10 +268,9 @@ struct FieldTraits<FieldContainerPtr> :
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
 #endif
-
 template <>
-struct FieldTraits<ParentFieldContainerPtr> : 
-    public FieldTraitsFCPtrBase<ParentFieldContainerPtr>
+struct FieldTraits<FieldContainerPtr, 1> : 
+    public FieldTraitsFCPtrBase<FieldContainerPtr, 1>
 {
   private:
 
@@ -278,7 +280,7 @@ struct FieldTraits<ParentFieldContainerPtr> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<ParentFieldContainerPtr>     Self;
+    typedef FieldTraits<FieldContainerPtr, 1>        Self;
 
 
     enum             { Convertible = Self::NotConvertible };

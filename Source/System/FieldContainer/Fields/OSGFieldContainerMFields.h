@@ -46,6 +46,7 @@
 #include "OSGFieldContainerFieldTraits.h"
 
 #include "OSGFieldContainerPtrMField.h"
+#include "OSGFieldContainerPtrParentMField.h"
 
 #include "OSGFieldContainerMFieldHandle.h"  
 
@@ -60,7 +61,7 @@ typedef FieldContainerPtrMField<FieldContainerPtr> MFFieldContainerPtr;
 
 
 
-
+#if 0
 template<>
 class OSG_SYSTEM_DLLMAPPING MField<ParentFieldContainerPtr, 0> : public Field
 {
@@ -320,11 +321,14 @@ class OSG_SYSTEM_DLLMAPPING MField<ParentFieldContainerPtr, 0> : public Field
   private:
 };
 
+#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef MField<ParentFieldContainerPtr> MFParentFieldContainerPtr;
+typedef 
+    FieldContainerPtrParentMField<FieldContainerPtr, 
+                                  1                > MFParentFieldContainerPtr;
 #endif
 
 

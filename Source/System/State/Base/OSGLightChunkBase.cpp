@@ -265,8 +265,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUncountedNodePtr::Description(
+        SFUncountedNodePtr::getClassType(),
         "beacon",
         "",
         BeaconFieldId, BeaconFieldMask,
@@ -643,7 +643,7 @@ SFReal              *LightChunkBase::getSFQuadraticAttenuation(void)
 #endif
 
 //! Get the LightChunk::_sfBeacon field.
-const SFNodePtr *LightChunkBase::getSFBeacon(void) const
+const SFUncountedNodePtr *LightChunkBase::getSFBeacon(void) const
 {
     return &_sfBeacon;
 }
@@ -1117,8 +1117,8 @@ EditFieldHandlePtr LightChunkBase::editHandleQuadraticAttenuation(void)
 
 GetFieldHandlePtr LightChunkBase::getHandleBeacon          (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new  SFUncountedNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -1127,8 +1127,8 @@ GetFieldHandlePtr LightChunkBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandleBeacon         (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUncountedNodePtr::EditHandlePtr returnValue(
+        new  SFUncountedNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

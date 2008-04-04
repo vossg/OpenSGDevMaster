@@ -50,7 +50,6 @@
 #endif
 
 #include "OSGFieldContainer.h"
-#include "OSGParentContainer.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -109,8 +108,6 @@ void addRefX(FieldBundlePConst objectP);
 inline
 void addRefX(FieldContainerPtrConst objectP);
 
-inline 
-void addRefX(ParentFieldContainerPtrConst objectP);
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
@@ -124,8 +121,6 @@ void subRefX(FieldContainerPtrConst objectP);
 inline
 void subRefLocalVarX(FieldContainerPtrConst objectP);
 
-inline 
-void subRefX(ParentFieldContainerPtrConst objectP);
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */

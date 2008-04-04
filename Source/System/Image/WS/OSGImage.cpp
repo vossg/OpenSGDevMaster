@@ -130,7 +130,7 @@ void Image::changed(ConstFieldMaskArg whichField,
     while(parentsIt != parentsEnd)
     {
         (*parentsIt)->changed(
-            TypeTraits<BitVector>::One << parentsIt->getParentFieldPos(),
+            TypeTraits<BitVector>::One << parentsIt.getParentFieldPos(),
             ChangedOrigin::Child,
             whichField);
 
@@ -3987,8 +3987,12 @@ void Image::addParent(      FieldContainerPtrConst &parent,
 {
     editMField(ParentsFieldMask, _mfParents);
 
+/*
     _mfParents.push_back(parent);
     _mfParents.back().setParentFieldPos(uiStoredInFieldId);
+ */
+
+    _mfParents.push_back(parent, uiStoredInFieldId);
 }
 
 void Image::subParent(FieldContainerPtrConst &parent)
@@ -3999,10 +4003,14 @@ void Image::subParent(FieldContainerPtrConst &parent)
     {
         editMField(ParentsFieldMask, _mfParents);
 
+/*
         MFParentFieldContainerPtr::iterator parentIt = _mfParents.begin();
 
         parentIt += iParentIdx;
 
         _mfParents.erase(parentIt);
+ */
+
+        _mfParents.erase(iParentIdx);
     }
 }

@@ -114,9 +114,19 @@ RemoteAspect::~RemoteAspect(void)
         {
             callDestroyed(fcPtr);
 
+            fcPtr->resolveLinks();
+        }
+    }
+
+    // subRef received field container
+    for(i = _receivedFC.begin(); i != _receivedFC.end(); i++)
+    {
+        fcPtr = pFactory->getContainer(*i);
+
+        if(fcPtr != NullFC)
+        {
             do
             {
-
                 fcPtr->subReferenceUnresolved();
                 fcPtr = pFactory->getContainer(*i);
 

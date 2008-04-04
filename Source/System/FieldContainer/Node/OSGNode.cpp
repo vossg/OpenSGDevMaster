@@ -820,7 +820,7 @@ const SFUInt32 *Node::getSFTravMask(void) const
     return &_sfTravMask;
 }
 
-const SFUnrefdNodePtr *Node::getSFParent(void) const
+const SFUncountedNodePtr *Node::getSFParent(void) const
 {
     return &_sfParent;
 }
@@ -908,8 +908,8 @@ GetFieldHandlePtr Node::getHandleTravMask(void) const
 
 GetFieldHandlePtr Node::getHandleParent(void) const
 {
-    SFUnrefdNodePtr::GetHandlePtr returnValue(
-        new SFUnrefdNodePtr::GetHandle(
+    SFUncountedNodePtr::GetHandlePtr returnValue(
+        new SFUncountedNodePtr::GetHandle(
              &_sfParent, 
              this->getType().getFieldDesc(ParentFieldId)));
 
