@@ -66,7 +66,16 @@ class FCDElement(object):
         """Emulate a mapping type, returns if m_tmplDict contains <key>.
         """
         return key in self.m_tmplDict;
-    
+
+    def _upcaseFirst(self, textValue):
+        """Returns a copy of textValue with the first character converted to
+           upper case.
+        """
+        if len(textValue) > 1:
+            return textValue[0].upper() + textValue[1:];
+        else:
+            return textValue.upper();
+      
     def _extractParagraphs(self, descText):
         """Splits descText into a list of paragraphs.
         """

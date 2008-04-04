@@ -101,7 +101,7 @@ OSG_BEGIN_NAMESPACE
 */
     @@else // isDecorator
         @@BeginFieldLoop@@
-/*! \var @!field.Type:15!@ @!Classname!@Base::_@!field.VarName!@
+/*! \var @!field.FullType:15!@ @!Classname!@Base::_@!field.VarName!@
     @!field.Description!@
 */
 
@@ -133,8 +133,8 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
     @@else // isDecorator
         @@BeginFieldLoop@@
 
-    pDesc = new @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@::Description(
-        @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@::getClassType(),
+    pDesc = new @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@::Description(
+        @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@::getClassType(),
         "@!field.DescName!@",
         @!field.SafeDescription!@,
         @!field.Name!@FieldId, @!field.Name!@FieldMask,
@@ -207,7 +207,7 @@ const SF@!Parent!@Ptr *@!Classname!@Base::getSFDecoratee(void) const
         @@if !field.noAccess
         @@if field.isPtrField
 //! Get the @!Classname!@::_@!field.VarName!@ field.
-const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
+const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
@@ -219,7 +219,7 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base
     }
 }
         @@else // field.isPtrField
-@!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
+@!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
@@ -231,7 +231,7 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base
     }
 }
 
-const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
+const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
@@ -244,7 +244,7 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base
 }
             @@if CompatOneSix
 #ifdef OSG_1_GET_COMPAT
-@!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
+@!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
 {
     return this->edit@!field.CARD!@@!field.Name:15!@();
 }
@@ -261,12 +261,12 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base
         @@if !field.noAccess
         @@if field.isPtrField
 //! Get the @!Classname!@::_@!field.VarName!@ field.
-const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
+const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
     return &_@!field.VarName!@;
 }
         @@else // field.isPtrField
-@!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
+@!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
 {
             @@if field.isMField
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
@@ -277,14 +277,14 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base
     return &_@!field.VarName!@;
 }
 
-const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
+const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
     return &_@!field.VarName!@;
 }
 
             @@if CompatOneSix
 #ifdef OSG_1_GET_COMPAT
-@!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
+@!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
 {
     return this->edit@!field.CARD!@@!field.Name:15!@();
 }
@@ -330,11 +330,11 @@ void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ConstArg value)
 
         @@endif // field.writePushToField
         @@if field.writeAssignMField
-void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:15!@ &value)
+void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:15!@ &value)
 {
-    @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:15!@::const_iterator elemIt  =
+    @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:15!@::const_iterator elemIt  =
         value.begin();
-    @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:15!@::const_iterator elemEnd =
+    @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:15!@::const_iterator elemEnd =
         value.end  ();
 
     static_cast<@!Classname!@ *>(this)->@!field.ClearField!@();
@@ -610,7 +610,7 @@ void @!Classname!@Base::@!field.ClearField!@(void)
 /*********************************** Non-ptr code ********************************/
     @@if !field.noAccess
         @@if field.writePushToField
-void @!Classname!@Base::@!field.PushToField!@(const @!field.Type!@& value)
+void @!Classname!@Base::@!field.PushToField!@(const @!field.FullType!@& value)
 {
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
     _mf@!field.Name!@.push_back(value);
@@ -619,7 +619,7 @@ void @!Classname!@Base::@!field.PushToField!@(const @!field.Type!@& value)
         @@endif // field.writePushToField
         @@if field.writeInsertIntoMField
 void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32                uiIndex,
-                                                   const @!field.Type!@& value   )
+                                                   const @!field.FullType!@& value   )
 {
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
@@ -633,7 +633,7 @@ void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32                uiIndex
         @@endif // field.writeInsertIntoMField
         @@if field.writeReplaceInMFieldIndex
 void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32                uiIndex,
-                                                       const @!field.Type!@& value   )
+                                                       const @!field.FullType!@& value   )
 {
     if(uiIndex >= _mf@!field.Name!@.size())
         return;
@@ -645,8 +645,8 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32                uiI
 
         @@endif // field.writeReplaceInMFieldIndex
         @@if field.writeReplaceInMFieldObject
-void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(const @!field.Type!@& pOldElem,
-                                                        const @!field.Type!@& pNewElem)
+void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(const @!field.FullType!@& pOldElem,
+                                                        const @!field.FullType!@& pNewElem)
 {
     Int32  elemIdx = _mf@!field.Name!@.findIndex(pOldElem);
 
@@ -679,7 +679,7 @@ void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
 
         @@endif // field.writeRemoveFromMFieldIndex
         @@if field.writeRemoveFromMFieldObject
-void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(const @!field.Type!@& value)
+void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(const @!field.FullType!@& value)
 {
     Int32 iElemIdx = _mf@!field.Name!@.findIndex(value);
 
@@ -1104,7 +1104,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) c
 }
 
 //! Get the @!Classname!@::_@!field.VarName!@ field.
-@!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::edit@!field.Name!@(void)
+@!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::edit@!field.Name!@(void)
 {
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
@@ -1128,7 +1128,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) c
             @@endif // !field.isPtrField
 
 //! Get the @!Classname!@::_@!field.VarName!@ field.
-const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::get@!field.Name!@(void) const
+const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::get@!field.Name!@(void) const
 {
     return _@!field.VarName!@;
 }
@@ -1248,7 +1248,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) c
 }
 
 //! Get the @!Classname!@::_@!field.VarName!@ field.
-@!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::edit@!field.Name!@(void)
+@!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::edit@!field.Name!@(void)
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
@@ -1262,7 +1262,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) c
             @@endif // !field.isPtrField
 
 //! Get the @!Classname!@::_@!field.VarName!@ field.
-const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::get@!field.Name!@(void) const
+const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::get@!field.Name!@(void) const
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
