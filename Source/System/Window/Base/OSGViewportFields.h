@@ -96,9 +96,63 @@ struct FieldTraits<ViewportPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFViewportPtr"; }
-    static const char *getMName(void) { return "MFViewportPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFViewportPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFViewportPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdViewportPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ViewportPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ViewportPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ViewportPtr> SFViewportPtr;
+typedef FieldContainerPtrSField<ViewportPtr,
+                                RecordedRefCounts  > SFRecViewportPtr;
+typedef FieldContainerPtrSField<ViewportPtr,
+                                UnrecordedRefCounts> SFUnrecViewportPtr;
+typedef FieldContainerPtrSField<ViewportPtr,
+                                WeakRefCounts      > SFWeakViewportPtr;
+typedef FieldContainerPtrSField<ViewportPtr,
+                                NoRefCounts        > SFUncountedViewportPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ViewportPtr> MFViewportPtr;
+typedef FieldContainerPtrMField<ViewportPtr,
+                                RecordedRefCounts  > MFRecViewportPtr;
+typedef FieldContainerPtrMField<ViewportPtr,
+                                UnrecordedRefCounts> MFUnrecViewportPtr;
+typedef FieldContainerPtrMField<ViewportPtr,
+                                WeakRefCounts      > MFWeakViewportPtr;
+typedef FieldContainerPtrMField<ViewportPtr,
+                                NoRefCounts        > MFUncountedViewportPtr;
 #endif
 
 

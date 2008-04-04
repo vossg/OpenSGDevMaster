@@ -95,6 +95,8 @@ struct FieldTraits<SepiaComposerPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SepiaComposerPtr, 0>
     \hideinhierarchy

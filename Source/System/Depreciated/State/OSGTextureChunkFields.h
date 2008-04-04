@@ -96,9 +96,63 @@ struct FieldTraits<TextureChunkPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFTextureChunkPtr"; }
-    static const char *getMName(void) { return "MFTextureChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFTextureChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFTextureChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<TextureChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecTextureChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecTextureChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakTextureChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdTextureChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecTextureChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecTextureChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakTextureChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdTextureChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<TextureChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<TextureChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<TextureChunkPtr> SFTextureChunkPtr;
+typedef FieldContainerPtrSField<TextureChunkPtr,
+                                RecordedRefCounts  > SFRecTextureChunkPtr;
+typedef FieldContainerPtrSField<TextureChunkPtr,
+                                UnrecordedRefCounts> SFUnrecTextureChunkPtr;
+typedef FieldContainerPtrSField<TextureChunkPtr,
+                                WeakRefCounts      > SFWeakTextureChunkPtr;
+typedef FieldContainerPtrSField<TextureChunkPtr,
+                                NoRefCounts        > SFUncountedTextureChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<TextureChunkPtr> MFTextureChunkPtr;
+typedef FieldContainerPtrMField<TextureChunkPtr,
+                                RecordedRefCounts  > MFRecTextureChunkPtr;
+typedef FieldContainerPtrMField<TextureChunkPtr,
+                                UnrecordedRefCounts> MFUnrecTextureChunkPtr;
+typedef FieldContainerPtrMField<TextureChunkPtr,
+                                WeakRefCounts      > MFWeakTextureChunkPtr;
+typedef FieldContainerPtrMField<TextureChunkPtr,
+                                NoRefCounts        > MFUncountedTextureChunkPtr;
 #endif
 
 

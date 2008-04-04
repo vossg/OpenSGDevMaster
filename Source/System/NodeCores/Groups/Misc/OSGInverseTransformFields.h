@@ -96,9 +96,63 @@ struct FieldTraits<InverseTransformPtr> :
 
     static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFInverseTransformPtr"; }
-    static const char *getMName(void) { return "MFInverseTransformPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFInverseTransformPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFInverseTransformPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecInverseTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecInverseTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakInverseTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdInverseTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecInverseTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecInverseTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakInverseTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdInverseTransformPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<InverseTransformPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<InverseTransformPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<InverseTransformPtr> SFInverseTransformPtr;
+typedef FieldContainerPtrSField<InverseTransformPtr,
+                                RecordedRefCounts  > SFRecInverseTransformPtr;
+typedef FieldContainerPtrSField<InverseTransformPtr,
+                                UnrecordedRefCounts> SFUnrecInverseTransformPtr;
+typedef FieldContainerPtrSField<InverseTransformPtr,
+                                WeakRefCounts      > SFWeakInverseTransformPtr;
+typedef FieldContainerPtrSField<InverseTransformPtr,
+                                NoRefCounts        > SFUncountedInverseTransformPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<InverseTransformPtr> MFInverseTransformPtr;
+typedef FieldContainerPtrMField<InverseTransformPtr,
+                                RecordedRefCounts  > MFRecInverseTransformPtr;
+typedef FieldContainerPtrMField<InverseTransformPtr,
+                                UnrecordedRefCounts> MFUnrecInverseTransformPtr;
+typedef FieldContainerPtrMField<InverseTransformPtr,
+                                WeakRefCounts      > MFWeakInverseTransformPtr;
+typedef FieldContainerPtrMField<InverseTransformPtr,
+                                NoRefCounts        > MFUncountedInverseTransformPtr;
 #endif
 
 

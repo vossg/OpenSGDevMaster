@@ -395,24 +395,12 @@ DataType FieldTraits<GLUTWindowPtr>::_type("GLUTWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(GLUTWindowPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    GLUTWindowPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           GLUTWindowPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         GLUTWindowPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    GLUTWindowPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         GLUTWindowPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           GLUTWindowPtr, 
+                           0);
 
 OSG_END_NAMESPACE

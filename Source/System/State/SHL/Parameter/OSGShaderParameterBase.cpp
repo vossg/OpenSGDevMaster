@@ -158,10 +158,11 @@ ShaderParameterBase::TypeObject ShaderParameterBase::_type(
     "\n"
     "\t<Field\n"
     "\t\tname=\"parents\"\n"
-    "\t\ttype=\"ParentFieldContainerPtr\"\n"
+    "\t\ttype=\"FieldContainer\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"none\"\n"
+    "        category=\"parentpointer\"\n"
     "\t>\n"
     "\tparameter name\n"
     "\t</Field>\n"
@@ -368,24 +369,12 @@ DataType FieldTraits<ShaderParameterPtr>::_type("ShaderParameterPtr", "Attachmen
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ShaderParameterPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ShaderParameterPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ShaderParameterPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ShaderParameterPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ShaderParameterPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ShaderParameterPtr, 
+                           0);
 
 OSG_END_NAMESPACE

@@ -1311,24 +1311,12 @@ DataType FieldTraits<TexGenChunkPtr>::_type("TexGenChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(TexGenChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    TexGenChunkPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           TexGenChunkPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         TexGenChunkPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    TexGenChunkPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         TexGenChunkPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           TexGenChunkPtr, 
+                           0);
 
 OSG_END_NAMESPACE

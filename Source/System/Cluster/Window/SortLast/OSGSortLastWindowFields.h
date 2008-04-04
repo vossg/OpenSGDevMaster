@@ -95,6 +95,8 @@ struct FieldTraits<SortLastWindowPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SortLastWindowPtr, 0>
     \hideinhierarchy

@@ -557,24 +557,12 @@ DataType FieldTraits<EGLWindowPtr>::_type("EGLWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(EGLWindowPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    EGLWindowPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           EGLWindowPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         EGLWindowPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    EGLWindowPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         EGLWindowPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           EGLWindowPtr, 
+                           0);
 
 OSG_END_NAMESPACE

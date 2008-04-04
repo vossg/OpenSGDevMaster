@@ -96,9 +96,63 @@ struct FieldTraits<MatrixCameraPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFMatrixCameraPtr"; }
-    static const char *getMName(void) { return "MFMatrixCameraPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFMatrixCameraPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFMatrixCameraPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<MatrixCameraPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecMatrixCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MatrixCameraPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecMatrixCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MatrixCameraPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakMatrixCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MatrixCameraPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdMatrixCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MatrixCameraPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecMatrixCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MatrixCameraPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecMatrixCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MatrixCameraPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakMatrixCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MatrixCameraPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdMatrixCameraPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<MatrixCameraPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<MatrixCameraPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<MatrixCameraPtr> SFMatrixCameraPtr;
+typedef FieldContainerPtrSField<MatrixCameraPtr,
+                                RecordedRefCounts  > SFRecMatrixCameraPtr;
+typedef FieldContainerPtrSField<MatrixCameraPtr,
+                                UnrecordedRefCounts> SFUnrecMatrixCameraPtr;
+typedef FieldContainerPtrSField<MatrixCameraPtr,
+                                WeakRefCounts      > SFWeakMatrixCameraPtr;
+typedef FieldContainerPtrSField<MatrixCameraPtr,
+                                NoRefCounts        > SFUncountedMatrixCameraPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<MatrixCameraPtr> MFMatrixCameraPtr;
+typedef FieldContainerPtrMField<MatrixCameraPtr,
+                                RecordedRefCounts  > MFRecMatrixCameraPtr;
+typedef FieldContainerPtrMField<MatrixCameraPtr,
+                                UnrecordedRefCounts> MFUnrecMatrixCameraPtr;
+typedef FieldContainerPtrMField<MatrixCameraPtr,
+                                WeakRefCounts      > MFWeakMatrixCameraPtr;
+typedef FieldContainerPtrMField<MatrixCameraPtr,
+                                NoRefCounts        > MFUncountedMatrixCameraPtr;
 #endif
 
 

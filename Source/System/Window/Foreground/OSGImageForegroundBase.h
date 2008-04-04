@@ -129,7 +129,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFImagePtr          *getMFImages          (void) const;
+            const MFUnrecImagePtr     *getMFImages          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   MFPnt2f             *getMFPositions       (void);
@@ -139,7 +139,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
 
 
                   ImagePtrConst getImages         (const UInt32 index) const;
-            const MFImagePtr          &getImages         (void) const;
+            const MFUnrecImagePtr     &getImages         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt2f               &getPositions       (const UInt32 index);
@@ -167,7 +167,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \{                                                                 */
 
     void pushToImages              (ImagePtrConstArg value   );
-    void assignImages              (const MFImagePtr        &value);
+    void assignImages              (const MFUnrecImagePtr   &value);
     void insertIntoImages      (UInt32                uiIndex,
                                              ImagePtrConstArg value   );
     void replaceInImages  (UInt32                uiIndex,
@@ -241,7 +241,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFImagePtr        _mfImages;
+    MFUnrecImagePtr   _mfImages;
     MFPnt2f           _mfPositions;
 
     /*! \}                                                                 */

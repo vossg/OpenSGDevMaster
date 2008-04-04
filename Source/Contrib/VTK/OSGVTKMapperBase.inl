@@ -100,7 +100,7 @@ NodePtrConst VTKMapperBase::getGeoRoots(const UInt32 index) const
 
 //! Get the VTKMapper::_mfGeoRoots field.
 inline
-const MFNodePtr &VTKMapperBase::getGeoRoots(void) const
+const MFUnrecNodePtr &VTKMapperBase::getGeoRoots(void) const
 {
     return _mfGeoRoots;
 }
@@ -114,7 +114,7 @@ GeometryPtrConst VTKMapperBase::getGeometries(const UInt32 index) const
 
 //! Get the VTKMapper::_mfGeometries field.
 inline
-const MFGeometryPtr &VTKMapperBase::getGeometries(void) const
+const MFUnrecGeometryPtr &VTKMapperBase::getGeometries(void) const
 {
     return _mfGeometries;
 }
@@ -128,7 +128,7 @@ ChunkMaterialPtrConst VTKMapperBase::getMaterials(const UInt32 index) const
 
 //! Get the VTKMapper::_mfMaterials field.
 inline
-const MFChunkMaterialPtr &VTKMapperBase::getMaterials(void) const
+const MFUnrecChunkMaterialPtr &VTKMapperBase::getMaterials(void) const
 {
     return _mfMaterials;
 }
@@ -142,7 +142,7 @@ MaterialChunkPtrConst VTKMapperBase::getMaterialChunks(const UInt32 index) const
 
 //! Get the VTKMapper::_mfMaterialChunks field.
 inline
-const MFMaterialChunkPtr &VTKMapperBase::getMaterialChunks(void) const
+const MFUnrecMaterialChunkPtr &VTKMapperBase::getMaterialChunks(void) const
 {
     return _mfMaterialChunks;
 }
@@ -156,7 +156,7 @@ GeoPnt3fPropertyPtrConst VTKMapperBase::getPositions(const UInt32 index) const
 
 //! Get the VTKMapper::_mfPositions field.
 inline
-const MFGeoPnt3fPropertyPtr &VTKMapperBase::getPositions(void) const
+const MFUnrecGeoPnt3fPropertyPtr &VTKMapperBase::getPositions(void) const
 {
     return _mfPositions;
 }
@@ -170,7 +170,7 @@ GeoUInt32PropertyPtrConst VTKMapperBase::getLength(const UInt32 index) const
 
 //! Get the VTKMapper::_mfLength field.
 inline
-const MFGeoUInt32PropertyPtr &VTKMapperBase::getLength(void) const
+const MFUnrecGeoUInt32PropertyPtr &VTKMapperBase::getLength(void) const
 {
     return _mfLength;
 }
@@ -184,7 +184,7 @@ GeoUInt8PropertyPtrConst VTKMapperBase::getTypes(const UInt32 index) const
 
 //! Get the VTKMapper::_mfTypes field.
 inline
-const MFGeoUInt8PropertyPtr &VTKMapperBase::getTypes(void) const
+const MFUnrecGeoUInt8PropertyPtr &VTKMapperBase::getTypes(void) const
 {
     return _mfTypes;
 }
@@ -198,7 +198,7 @@ GeoColor4fPropertyPtrConst VTKMapperBase::getColors(const UInt32 index) const
 
 //! Get the VTKMapper::_mfColors field.
 inline
-const MFGeoColor4fPropertyPtr &VTKMapperBase::getColors(void) const
+const MFUnrecGeoColor4fPropertyPtr &VTKMapperBase::getColors(void) const
 {
     return _mfColors;
 }
@@ -212,7 +212,7 @@ GeoVec3fPropertyPtrConst VTKMapperBase::getNormals(const UInt32 index) const
 
 //! Get the VTKMapper::_mfNormals field.
 inline
-const MFGeoVec3fPropertyPtr &VTKMapperBase::getNormals(void) const
+const MFUnrecGeoVec3fPropertyPtr &VTKMapperBase::getNormals(void) const
 {
     return _mfNormals;
 }

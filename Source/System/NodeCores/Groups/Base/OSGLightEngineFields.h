@@ -96,9 +96,63 @@ struct FieldTraits<LightEnginePtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFLightEnginePtr"; }
-    static const char *getMName(void) { return "MFLightEnginePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFLightEnginePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFLightEnginePtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecLightEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecLightEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakLightEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdLightEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecLightEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecLightEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakLightEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdLightEnginePtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<LightEnginePtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<LightEnginePtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<LightEnginePtr> SFLightEnginePtr;
+typedef FieldContainerPtrSField<LightEnginePtr,
+                                RecordedRefCounts  > SFRecLightEnginePtr;
+typedef FieldContainerPtrSField<LightEnginePtr,
+                                UnrecordedRefCounts> SFUnrecLightEnginePtr;
+typedef FieldContainerPtrSField<LightEnginePtr,
+                                WeakRefCounts      > SFWeakLightEnginePtr;
+typedef FieldContainerPtrSField<LightEnginePtr,
+                                NoRefCounts        > SFUncountedLightEnginePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<LightEnginePtr> MFLightEnginePtr;
+typedef FieldContainerPtrMField<LightEnginePtr,
+                                RecordedRefCounts  > MFRecLightEnginePtr;
+typedef FieldContainerPtrMField<LightEnginePtr,
+                                UnrecordedRefCounts> MFUnrecLightEnginePtr;
+typedef FieldContainerPtrMField<LightEnginePtr,
+                                WeakRefCounts      > MFWeakLightEnginePtr;
+typedef FieldContainerPtrMField<LightEnginePtr,
+                                NoRefCounts        > MFUncountedLightEnginePtr;
 #endif
 
 

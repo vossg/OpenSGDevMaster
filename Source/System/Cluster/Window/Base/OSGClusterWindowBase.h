@@ -221,7 +221,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
 #endif
                   SFString            *editSFServiceInterface(void);
             const SFString            *getSFServiceInterface (void) const;
-            const SFWindowPtr         *getSFClientWindow    (void) const;
+            const SFUnrecWindowPtr    *getSFClientWindow    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFInterleave      (void);
@@ -234,7 +234,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
 #endif
                   SFUInt32            *editSFFrameCount     (void);
             const SFUInt32            *getSFFrameCount      (void) const;
-            const SFImageComposerPtr  *getSFComposer        (void) const;
+            const SFUnrecImageComposerPtr *getSFComposer        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   MFString            *getMFAutostart       (void);
@@ -429,10 +429,10 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     SFUInt32          _sfServicePort;
     SFString          _sfServiceAddress;
     SFString          _sfServiceInterface;
-    SFWindowPtr       _sfClientWindow;
+    SFUnrecWindowPtr  _sfClientWindow;
     SFUInt32          _sfInterleave;
     SFUInt32          _sfFrameCount;
-    SFImageComposerPtr _sfComposer;
+    SFUnrecImageComposerPtr _sfComposer;
     MFString          _mfAutostart;
 
     /*! \}                                                                 */

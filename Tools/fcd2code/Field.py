@@ -133,9 +133,9 @@ class Field(FCDElement):
          
             Type          = Type + "Ptr";
             TypeCaps      = self._upcaseFirst(Type);
-            FieldType     = TypeRaw + "Ptr"; # + "InternalPtr";
+            FieldType     = "Unrec" + TypeRaw + "Ptr"; # + "InternalPtr";
             FieldTypeNS   = TypeNS;
-            FieldTypeCaps = TypeRawCaps + "Ptr"; # + "InternalPtr";
+            FieldTypeCaps = "Unrec" + TypeRawCaps + "Ptr"; # + "InternalPtr";
             
         elif self.getFCD("category") == "childpointer":
             self["category"]        = "pointer";
@@ -152,11 +152,11 @@ class Field(FCDElement):
             self["category"]        = "pointer";
             self["pointertype"]     = "parent";
          
-            Type          = Type + "ParentPtr";
+            Type          = "Parent" + Type + "Ptr";
             TypeCaps      = self._upcaseFirst(Type);
-            FieldType     = TypeRaw + "ParentPtr";
+            FieldType     = "Parent" + TypeRaw + "Ptr";
             FieldTypeNS   = TypeNS;
-            FieldTypeCaps = TypeRawCaps + "ParentPtr";
+            FieldTypeCaps = "Parent" + TypeRawCaps + "Ptr";
         
         elif self.getFCD("category") == "weakpointer":
             self["category"]        = "pointer";

@@ -114,8 +114,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
     Inherited::classDescInserter(oType);
 
 
-    pDesc = new SFFrameBufferObjectPtr::Description(
-        SFFrameBufferObjectPtr::getClassType(),
+    pDesc = new SFUnrecFrameBufferObjectPtr::Description(
+        SFUnrecFrameBufferObjectPtr::getClassType(),
         "renderTarget",
         "",
         RenderTargetFieldId, RenderTargetFieldMask,
@@ -291,7 +291,7 @@ UInt32 ShadowMapEngineBase::getContainerSize(void) const
 
 
 //! Get the ShadowMapEngine::_sfRenderTarget field.
-const SFFrameBufferObjectPtr *ShadowMapEngineBase::getSFRenderTarget(void) const
+const SFUnrecFrameBufferObjectPtr *ShadowMapEngineBase::getSFRenderTarget(void) const
 {
     return &_sfRenderTarget;
 }
@@ -538,8 +538,8 @@ void ShadowMapEngineBase::onCreate(const ShadowMapEngine *source)
 
 GetFieldHandlePtr ShadowMapEngineBase::getHandleRenderTarget    (void) const
 {
-    SFFrameBufferObjectPtr::GetHandlePtr returnValue(
-        new  SFFrameBufferObjectPtr::GetHandle(
+    SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
+        new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfRenderTarget, 
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
@@ -548,8 +548,8 @@ GetFieldHandlePtr ShadowMapEngineBase::getHandleRenderTarget    (void) const
 
 EditFieldHandlePtr ShadowMapEngineBase::editHandleRenderTarget   (void)
 {
-    SFFrameBufferObjectPtr::EditHandlePtr returnValue(
-        new  SFFrameBufferObjectPtr::EditHandle(
+    SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
+        new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfRenderTarget, 
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
@@ -705,24 +705,12 @@ DataType FieldTraits<ShadowMapEnginePtr>::_type("ShadowMapEnginePtr", "LightEngi
 
 OSG_FIELDTRAITS_GETTYPE(ShadowMapEnginePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ShadowMapEnginePtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ShadowMapEnginePtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ShadowMapEnginePtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ShadowMapEnginePtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ShadowMapEnginePtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ShadowMapEnginePtr, 
+                           0);
 
 OSG_END_NAMESPACE

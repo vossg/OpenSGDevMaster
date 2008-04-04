@@ -299,24 +299,12 @@ DataType FieldTraits<LightEnginePtr>::_type("LightEnginePtr", "AttachmentContain
 
 OSG_FIELDTRAITS_GETTYPE(LightEnginePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    LightEnginePtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           LightEnginePtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         LightEnginePtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    LightEnginePtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         LightEnginePtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           LightEnginePtr, 
+                           0);
 
 OSG_END_NAMESPACE

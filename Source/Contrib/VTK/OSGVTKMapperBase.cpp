@@ -137,8 +137,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUnrecNodePtr::Description(
+        SFUnrecNodePtr::getClassType(),
         "root",
         "",
         RootFieldId, RootFieldMask,
@@ -149,8 +149,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFNodePtr::Description(
-        MFNodePtr::getClassType(),
+    pDesc = new MFUnrecNodePtr::Description(
+        MFUnrecNodePtr::getClassType(),
         "geoRoots",
         "",
         GeoRootsFieldId, GeoRootsFieldMask,
@@ -161,8 +161,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFGeometryPtr::Description(
-        MFGeometryPtr::getClassType(),
+    pDesc = new MFUnrecGeometryPtr::Description(
+        MFUnrecGeometryPtr::getClassType(),
         "geometries",
         "",
         GeometriesFieldId, GeometriesFieldMask,
@@ -173,8 +173,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFChunkMaterialPtr::Description(
-        MFChunkMaterialPtr::getClassType(),
+    pDesc = new MFUnrecChunkMaterialPtr::Description(
+        MFUnrecChunkMaterialPtr::getClassType(),
         "materials",
         "",
         MaterialsFieldId, MaterialsFieldMask,
@@ -185,8 +185,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFMaterialChunkPtr::Description(
-        MFMaterialChunkPtr::getClassType(),
+    pDesc = new MFUnrecMaterialChunkPtr::Description(
+        MFUnrecMaterialChunkPtr::getClassType(),
         "materialChunks",
         "",
         MaterialChunksFieldId, MaterialChunksFieldMask,
@@ -197,8 +197,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFGeoPnt3fPropertyPtr::Description(
-        MFGeoPnt3fPropertyPtr::getClassType(),
+    pDesc = new MFUnrecGeoPnt3fPropertyPtr::Description(
+        MFUnrecGeoPnt3fPropertyPtr::getClassType(),
         "positions",
         "",
         PositionsFieldId, PositionsFieldMask,
@@ -209,8 +209,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFGeoUInt32PropertyPtr::Description(
-        MFGeoUInt32PropertyPtr::getClassType(),
+    pDesc = new MFUnrecGeoUInt32PropertyPtr::Description(
+        MFUnrecGeoUInt32PropertyPtr::getClassType(),
         "length",
         "",
         LengthFieldId, LengthFieldMask,
@@ -221,8 +221,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFGeoUInt8PropertyPtr::Description(
-        MFGeoUInt8PropertyPtr::getClassType(),
+    pDesc = new MFUnrecGeoUInt8PropertyPtr::Description(
+        MFUnrecGeoUInt8PropertyPtr::getClassType(),
         "types",
         "",
         TypesFieldId, TypesFieldMask,
@@ -233,8 +233,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFGeoColor4fPropertyPtr::Description(
-        MFGeoColor4fPropertyPtr::getClassType(),
+    pDesc = new MFUnrecGeoColor4fPropertyPtr::Description(
+        MFUnrecGeoColor4fPropertyPtr::getClassType(),
         "Colors",
         "",
         ColorsFieldId, ColorsFieldMask,
@@ -245,8 +245,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFGeoVec3fPropertyPtr::Description(
-        MFGeoVec3fPropertyPtr::getClassType(),
+    pDesc = new MFUnrecGeoVec3fPropertyPtr::Description(
+        MFUnrecGeoVec3fPropertyPtr::getClassType(),
         "normals",
         "",
         NormalsFieldId, NormalsFieldMask,
@@ -396,61 +396,61 @@ UInt32 VTKMapperBase::getContainerSize(void) const
 
 
 //! Get the VTKMapper::_sfRoot field.
-const SFNodePtr *VTKMapperBase::getSFRoot(void) const
+const SFUnrecNodePtr *VTKMapperBase::getSFRoot(void) const
 {
     return &_sfRoot;
 }
 
 //! Get the VTKMapper::_mfGeoRoots field.
-const MFNodePtr *VTKMapperBase::getMFGeoRoots(void) const
+const MFUnrecNodePtr *VTKMapperBase::getMFGeoRoots(void) const
 {
     return &_mfGeoRoots;
 }
 
 //! Get the VTKMapper::_mfGeometries field.
-const MFGeometryPtr *VTKMapperBase::getMFGeometries(void) const
+const MFUnrecGeometryPtr *VTKMapperBase::getMFGeometries(void) const
 {
     return &_mfGeometries;
 }
 
 //! Get the VTKMapper::_mfMaterials field.
-const MFChunkMaterialPtr *VTKMapperBase::getMFMaterials(void) const
+const MFUnrecChunkMaterialPtr *VTKMapperBase::getMFMaterials(void) const
 {
     return &_mfMaterials;
 }
 
 //! Get the VTKMapper::_mfMaterialChunks field.
-const MFMaterialChunkPtr *VTKMapperBase::getMFMaterialChunks(void) const
+const MFUnrecMaterialChunkPtr *VTKMapperBase::getMFMaterialChunks(void) const
 {
     return &_mfMaterialChunks;
 }
 
 //! Get the VTKMapper::_mfPositions field.
-const MFGeoPnt3fPropertyPtr *VTKMapperBase::getMFPositions(void) const
+const MFUnrecGeoPnt3fPropertyPtr *VTKMapperBase::getMFPositions(void) const
 {
     return &_mfPositions;
 }
 
 //! Get the VTKMapper::_mfLength field.
-const MFGeoUInt32PropertyPtr *VTKMapperBase::getMFLength(void) const
+const MFUnrecGeoUInt32PropertyPtr *VTKMapperBase::getMFLength(void) const
 {
     return &_mfLength;
 }
 
 //! Get the VTKMapper::_mfTypes field.
-const MFGeoUInt8PropertyPtr *VTKMapperBase::getMFTypes(void) const
+const MFUnrecGeoUInt8PropertyPtr *VTKMapperBase::getMFTypes(void) const
 {
     return &_mfTypes;
 }
 
 //! Get the VTKMapper::_mfColors field.
-const MFGeoColor4fPropertyPtr *VTKMapperBase::getMFColors(void) const
+const MFUnrecGeoColor4fPropertyPtr *VTKMapperBase::getMFColors(void) const
 {
     return &_mfColors;
 }
 
 //! Get the VTKMapper::_mfNormals field.
-const MFGeoVec3fPropertyPtr *VTKMapperBase::getMFNormals(void) const
+const MFUnrecGeoVec3fPropertyPtr *VTKMapperBase::getMFNormals(void) const
 {
     return &_mfNormals;
 }
@@ -469,11 +469,11 @@ void VTKMapperBase::pushToGeoRoots(NodePtrConstArg value)
     _mfGeoRoots.push_back(value);
 }
 
-void VTKMapperBase::assignGeoRoots (const MFNodePtr         &value)
+void VTKMapperBase::assignGeoRoots (const MFUnrecNodePtr    &value)
 {
-    MFNodePtr        ::const_iterator elemIt  =
+    MFUnrecNodePtr   ::const_iterator elemIt  =
         value.begin();
-    MFNodePtr        ::const_iterator elemEnd =
+    MFUnrecNodePtr   ::const_iterator elemEnd =
         value.end  ();
 
     static_cast<VTKMapper *>(this)->clearGeoRoots();
@@ -494,7 +494,7 @@ void VTKMapperBase::insertIntoGeoRoots(UInt32                uiIndex,
 
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
-    MFNodePtr::iterator fieldIt = _mfGeoRoots.begin();
+    MFUnrecNodePtr::iterator fieldIt = _mfGeoRoots.begin();
 
     //addRef(value);
 
@@ -552,7 +552,7 @@ void VTKMapperBase::removeFromGeoRoots(UInt32 uiIndex)
     {
         editMField(GeoRootsFieldMask, _mfGeoRoots);
 
-        MFNodePtr::iterator fieldIt = _mfGeoRoots.begin();
+        MFUnrecNodePtr::iterator fieldIt = _mfGeoRoots.begin();
 
         fieldIt += uiIndex;
 
@@ -570,7 +570,7 @@ void VTKMapperBase::removeFromGeoRoots(NodePtrConstArg value)
     {
         editMField(GeoRootsFieldMask, _mfGeoRoots);
 
-        MFNodePtr::iterator fieldIt = _mfGeoRoots.begin();
+        MFUnrecNodePtr::iterator fieldIt = _mfGeoRoots.begin();
 
         fieldIt += iElemIdx;
 
@@ -583,8 +583,8 @@ void VTKMapperBase::clearGeoRoots(void)
 {
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
-    MFNodePtr::iterator       fieldIt  = _mfGeoRoots.begin();
-    MFNodePtr::const_iterator fieldEnd = _mfGeoRoots.end  ();
+    MFUnrecNodePtr::iterator       fieldIt  = _mfGeoRoots.begin();
+    MFUnrecNodePtr::const_iterator fieldEnd = _mfGeoRoots.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -608,11 +608,11 @@ void VTKMapperBase::pushToGeometries(GeometryPtrConstArg value)
     _mfGeometries.push_back(value);
 }
 
-void VTKMapperBase::assignGeometries(const MFGeometryPtr     &value)
+void VTKMapperBase::assignGeometries(const MFUnrecGeometryPtr &value)
 {
-    MFGeometryPtr    ::const_iterator elemIt  =
+    MFUnrecGeometryPtr::const_iterator elemIt  =
         value.begin();
-    MFGeometryPtr    ::const_iterator elemEnd =
+    MFUnrecGeometryPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<VTKMapper *>(this)->clearGeometries();
@@ -633,7 +633,7 @@ void VTKMapperBase::insertIntoGeometries(UInt32                uiIndex,
 
     editMField(GeometriesFieldMask, _mfGeometries);
 
-    MFGeometryPtr::iterator fieldIt = _mfGeometries.begin();
+    MFUnrecGeometryPtr::iterator fieldIt = _mfGeometries.begin();
 
     //addRef(value);
 
@@ -691,7 +691,7 @@ void VTKMapperBase::removeFromGeometries(UInt32 uiIndex)
     {
         editMField(GeometriesFieldMask, _mfGeometries);
 
-        MFGeometryPtr::iterator fieldIt = _mfGeometries.begin();
+        MFUnrecGeometryPtr::iterator fieldIt = _mfGeometries.begin();
 
         fieldIt += uiIndex;
 
@@ -709,7 +709,7 @@ void VTKMapperBase::removeFromGeometries(GeometryPtrConstArg value)
     {
         editMField(GeometriesFieldMask, _mfGeometries);
 
-        MFGeometryPtr::iterator fieldIt = _mfGeometries.begin();
+        MFUnrecGeometryPtr::iterator fieldIt = _mfGeometries.begin();
 
         fieldIt += iElemIdx;
 
@@ -722,8 +722,8 @@ void VTKMapperBase::clearGeometries(void)
 {
     editMField(GeometriesFieldMask, _mfGeometries);
 
-    MFGeometryPtr::iterator       fieldIt  = _mfGeometries.begin();
-    MFGeometryPtr::const_iterator fieldEnd = _mfGeometries.end  ();
+    MFUnrecGeometryPtr::iterator       fieldIt  = _mfGeometries.begin();
+    MFUnrecGeometryPtr::const_iterator fieldEnd = _mfGeometries.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -747,11 +747,11 @@ void VTKMapperBase::pushToMaterials(ChunkMaterialPtrConstArg value)
     _mfMaterials.push_back(value);
 }
 
-void VTKMapperBase::assignMaterials(const MFChunkMaterialPtr &value)
+void VTKMapperBase::assignMaterials(const MFUnrecChunkMaterialPtr &value)
 {
-    MFChunkMaterialPtr::const_iterator elemIt  =
+    MFUnrecChunkMaterialPtr::const_iterator elemIt  =
         value.begin();
-    MFChunkMaterialPtr::const_iterator elemEnd =
+    MFUnrecChunkMaterialPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<VTKMapper *>(this)->clearMaterials();
@@ -772,7 +772,7 @@ void VTKMapperBase::insertIntoMaterials(UInt32                uiIndex,
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    MFChunkMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+    MFUnrecChunkMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
     //addRef(value);
 
@@ -830,7 +830,7 @@ void VTKMapperBase::removeFromMaterials(UInt32 uiIndex)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFChunkMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+        MFUnrecChunkMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
         fieldIt += uiIndex;
 
@@ -848,7 +848,7 @@ void VTKMapperBase::removeFromMaterials(ChunkMaterialPtrConstArg value)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFChunkMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+        MFUnrecChunkMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
         fieldIt += iElemIdx;
 
@@ -861,8 +861,8 @@ void VTKMapperBase::clearMaterials(void)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    MFChunkMaterialPtr::iterator       fieldIt  = _mfMaterials.begin();
-    MFChunkMaterialPtr::const_iterator fieldEnd = _mfMaterials.end  ();
+    MFUnrecChunkMaterialPtr::iterator       fieldIt  = _mfMaterials.begin();
+    MFUnrecChunkMaterialPtr::const_iterator fieldEnd = _mfMaterials.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -886,11 +886,11 @@ void VTKMapperBase::pushToMaterialChunks(MaterialChunkPtrConstArg value)
     _mfMaterialChunks.push_back(value);
 }
 
-void VTKMapperBase::assignMaterialChunks(const MFMaterialChunkPtr &value)
+void VTKMapperBase::assignMaterialChunks(const MFUnrecMaterialChunkPtr &value)
 {
-    MFMaterialChunkPtr::const_iterator elemIt  =
+    MFUnrecMaterialChunkPtr::const_iterator elemIt  =
         value.begin();
-    MFMaterialChunkPtr::const_iterator elemEnd =
+    MFUnrecMaterialChunkPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<VTKMapper *>(this)->clearMaterialChunks();
@@ -911,7 +911,7 @@ void VTKMapperBase::insertIntoMaterialChunks(UInt32                uiIndex,
 
     editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
-    MFMaterialChunkPtr::iterator fieldIt = _mfMaterialChunks.begin();
+    MFUnrecMaterialChunkPtr::iterator fieldIt = _mfMaterialChunks.begin();
 
     //addRef(value);
 
@@ -969,7 +969,7 @@ void VTKMapperBase::removeFromMaterialChunks(UInt32 uiIndex)
     {
         editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
-        MFMaterialChunkPtr::iterator fieldIt = _mfMaterialChunks.begin();
+        MFUnrecMaterialChunkPtr::iterator fieldIt = _mfMaterialChunks.begin();
 
         fieldIt += uiIndex;
 
@@ -987,7 +987,7 @@ void VTKMapperBase::removeFromMaterialChunks(MaterialChunkPtrConstArg value)
     {
         editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
-        MFMaterialChunkPtr::iterator fieldIt = _mfMaterialChunks.begin();
+        MFUnrecMaterialChunkPtr::iterator fieldIt = _mfMaterialChunks.begin();
 
         fieldIt += iElemIdx;
 
@@ -1000,8 +1000,8 @@ void VTKMapperBase::clearMaterialChunks(void)
 {
     editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
-    MFMaterialChunkPtr::iterator       fieldIt  = _mfMaterialChunks.begin();
-    MFMaterialChunkPtr::const_iterator fieldEnd = _mfMaterialChunks.end  ();
+    MFUnrecMaterialChunkPtr::iterator       fieldIt  = _mfMaterialChunks.begin();
+    MFUnrecMaterialChunkPtr::const_iterator fieldEnd = _mfMaterialChunks.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -1025,11 +1025,11 @@ void VTKMapperBase::pushToPositions(GeoPnt3fPropertyPtrConstArg value)
     _mfPositions.push_back(value);
 }
 
-void VTKMapperBase::assignPositions(const MFGeoPnt3fPropertyPtr &value)
+void VTKMapperBase::assignPositions(const MFUnrecGeoPnt3fPropertyPtr &value)
 {
-    MFGeoPnt3fPropertyPtr::const_iterator elemIt  =
+    MFUnrecGeoPnt3fPropertyPtr::const_iterator elemIt  =
         value.begin();
-    MFGeoPnt3fPropertyPtr::const_iterator elemEnd =
+    MFUnrecGeoPnt3fPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<VTKMapper *>(this)->clearPositions();
@@ -1050,7 +1050,7 @@ void VTKMapperBase::insertIntoPositions(UInt32                uiIndex,
 
     editMField(PositionsFieldMask, _mfPositions);
 
-    MFGeoPnt3fPropertyPtr::iterator fieldIt = _mfPositions.begin();
+    MFUnrecGeoPnt3fPropertyPtr::iterator fieldIt = _mfPositions.begin();
 
     //addRef(value);
 
@@ -1108,7 +1108,7 @@ void VTKMapperBase::removeFromPositions(UInt32 uiIndex)
     {
         editMField(PositionsFieldMask, _mfPositions);
 
-        MFGeoPnt3fPropertyPtr::iterator fieldIt = _mfPositions.begin();
+        MFUnrecGeoPnt3fPropertyPtr::iterator fieldIt = _mfPositions.begin();
 
         fieldIt += uiIndex;
 
@@ -1126,7 +1126,7 @@ void VTKMapperBase::removeFromPositions(GeoPnt3fPropertyPtrConstArg value)
     {
         editMField(PositionsFieldMask, _mfPositions);
 
-        MFGeoPnt3fPropertyPtr::iterator fieldIt = _mfPositions.begin();
+        MFUnrecGeoPnt3fPropertyPtr::iterator fieldIt = _mfPositions.begin();
 
         fieldIt += iElemIdx;
 
@@ -1139,8 +1139,8 @@ void VTKMapperBase::clearPositions(void)
 {
     editMField(PositionsFieldMask, _mfPositions);
 
-    MFGeoPnt3fPropertyPtr::iterator       fieldIt  = _mfPositions.begin();
-    MFGeoPnt3fPropertyPtr::const_iterator fieldEnd = _mfPositions.end  ();
+    MFUnrecGeoPnt3fPropertyPtr::iterator       fieldIt  = _mfPositions.begin();
+    MFUnrecGeoPnt3fPropertyPtr::const_iterator fieldEnd = _mfPositions.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -1164,11 +1164,11 @@ void VTKMapperBase::pushToLength(GeoUInt32PropertyPtrConstArg value)
     _mfLength.push_back(value);
 }
 
-void VTKMapperBase::assignLength   (const MFGeoUInt32PropertyPtr &value)
+void VTKMapperBase::assignLength   (const MFUnrecGeoUInt32PropertyPtr &value)
 {
-    MFGeoUInt32PropertyPtr::const_iterator elemIt  =
+    MFUnrecGeoUInt32PropertyPtr::const_iterator elemIt  =
         value.begin();
-    MFGeoUInt32PropertyPtr::const_iterator elemEnd =
+    MFUnrecGeoUInt32PropertyPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<VTKMapper *>(this)->clearLength();
@@ -1189,7 +1189,7 @@ void VTKMapperBase::insertIntoLength(UInt32                uiIndex,
 
     editMField(LengthFieldMask, _mfLength);
 
-    MFGeoUInt32PropertyPtr::iterator fieldIt = _mfLength.begin();
+    MFUnrecGeoUInt32PropertyPtr::iterator fieldIt = _mfLength.begin();
 
     //addRef(value);
 
@@ -1247,7 +1247,7 @@ void VTKMapperBase::removeFromLength(UInt32 uiIndex)
     {
         editMField(LengthFieldMask, _mfLength);
 
-        MFGeoUInt32PropertyPtr::iterator fieldIt = _mfLength.begin();
+        MFUnrecGeoUInt32PropertyPtr::iterator fieldIt = _mfLength.begin();
 
         fieldIt += uiIndex;
 
@@ -1265,7 +1265,7 @@ void VTKMapperBase::removeFromLength(GeoUInt32PropertyPtrConstArg value)
     {
         editMField(LengthFieldMask, _mfLength);
 
-        MFGeoUInt32PropertyPtr::iterator fieldIt = _mfLength.begin();
+        MFUnrecGeoUInt32PropertyPtr::iterator fieldIt = _mfLength.begin();
 
         fieldIt += iElemIdx;
 
@@ -1278,8 +1278,8 @@ void VTKMapperBase::clearLength(void)
 {
     editMField(LengthFieldMask, _mfLength);
 
-    MFGeoUInt32PropertyPtr::iterator       fieldIt  = _mfLength.begin();
-    MFGeoUInt32PropertyPtr::const_iterator fieldEnd = _mfLength.end  ();
+    MFUnrecGeoUInt32PropertyPtr::iterator       fieldIt  = _mfLength.begin();
+    MFUnrecGeoUInt32PropertyPtr::const_iterator fieldEnd = _mfLength.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -1303,11 +1303,11 @@ void VTKMapperBase::pushToTypes(GeoUInt8PropertyPtrConstArg value)
     _mfTypes.push_back(value);
 }
 
-void VTKMapperBase::assignTypes    (const MFGeoUInt8PropertyPtr &value)
+void VTKMapperBase::assignTypes    (const MFUnrecGeoUInt8PropertyPtr &value)
 {
-    MFGeoUInt8PropertyPtr::const_iterator elemIt  =
+    MFUnrecGeoUInt8PropertyPtr::const_iterator elemIt  =
         value.begin();
-    MFGeoUInt8PropertyPtr::const_iterator elemEnd =
+    MFUnrecGeoUInt8PropertyPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<VTKMapper *>(this)->clearTypes();
@@ -1328,7 +1328,7 @@ void VTKMapperBase::insertIntoTypes(UInt32                uiIndex,
 
     editMField(TypesFieldMask, _mfTypes);
 
-    MFGeoUInt8PropertyPtr::iterator fieldIt = _mfTypes.begin();
+    MFUnrecGeoUInt8PropertyPtr::iterator fieldIt = _mfTypes.begin();
 
     //addRef(value);
 
@@ -1386,7 +1386,7 @@ void VTKMapperBase::removeFromTypes(UInt32 uiIndex)
     {
         editMField(TypesFieldMask, _mfTypes);
 
-        MFGeoUInt8PropertyPtr::iterator fieldIt = _mfTypes.begin();
+        MFUnrecGeoUInt8PropertyPtr::iterator fieldIt = _mfTypes.begin();
 
         fieldIt += uiIndex;
 
@@ -1404,7 +1404,7 @@ void VTKMapperBase::removeFromTypes(GeoUInt8PropertyPtrConstArg value)
     {
         editMField(TypesFieldMask, _mfTypes);
 
-        MFGeoUInt8PropertyPtr::iterator fieldIt = _mfTypes.begin();
+        MFUnrecGeoUInt8PropertyPtr::iterator fieldIt = _mfTypes.begin();
 
         fieldIt += iElemIdx;
 
@@ -1417,8 +1417,8 @@ void VTKMapperBase::clearTypes(void)
 {
     editMField(TypesFieldMask, _mfTypes);
 
-    MFGeoUInt8PropertyPtr::iterator       fieldIt  = _mfTypes.begin();
-    MFGeoUInt8PropertyPtr::const_iterator fieldEnd = _mfTypes.end  ();
+    MFUnrecGeoUInt8PropertyPtr::iterator       fieldIt  = _mfTypes.begin();
+    MFUnrecGeoUInt8PropertyPtr::const_iterator fieldEnd = _mfTypes.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -1442,11 +1442,11 @@ void VTKMapperBase::pushToColors(GeoColor4fPropertyPtrConstArg value)
     _mfColors.push_back(value);
 }
 
-void VTKMapperBase::assignColors   (const MFGeoColor4fPropertyPtr &value)
+void VTKMapperBase::assignColors   (const MFUnrecGeoColor4fPropertyPtr &value)
 {
-    MFGeoColor4fPropertyPtr::const_iterator elemIt  =
+    MFUnrecGeoColor4fPropertyPtr::const_iterator elemIt  =
         value.begin();
-    MFGeoColor4fPropertyPtr::const_iterator elemEnd =
+    MFUnrecGeoColor4fPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<VTKMapper *>(this)->clearColors();
@@ -1467,7 +1467,7 @@ void VTKMapperBase::insertIntoColors(UInt32                uiIndex,
 
     editMField(ColorsFieldMask, _mfColors);
 
-    MFGeoColor4fPropertyPtr::iterator fieldIt = _mfColors.begin();
+    MFUnrecGeoColor4fPropertyPtr::iterator fieldIt = _mfColors.begin();
 
     //addRef(value);
 
@@ -1525,7 +1525,7 @@ void VTKMapperBase::removeFromColors(UInt32 uiIndex)
     {
         editMField(ColorsFieldMask, _mfColors);
 
-        MFGeoColor4fPropertyPtr::iterator fieldIt = _mfColors.begin();
+        MFUnrecGeoColor4fPropertyPtr::iterator fieldIt = _mfColors.begin();
 
         fieldIt += uiIndex;
 
@@ -1543,7 +1543,7 @@ void VTKMapperBase::removeFromColors(GeoColor4fPropertyPtrConstArg value)
     {
         editMField(ColorsFieldMask, _mfColors);
 
-        MFGeoColor4fPropertyPtr::iterator fieldIt = _mfColors.begin();
+        MFUnrecGeoColor4fPropertyPtr::iterator fieldIt = _mfColors.begin();
 
         fieldIt += iElemIdx;
 
@@ -1556,8 +1556,8 @@ void VTKMapperBase::clearColors(void)
 {
     editMField(ColorsFieldMask, _mfColors);
 
-    MFGeoColor4fPropertyPtr::iterator       fieldIt  = _mfColors.begin();
-    MFGeoColor4fPropertyPtr::const_iterator fieldEnd = _mfColors.end  ();
+    MFUnrecGeoColor4fPropertyPtr::iterator       fieldIt  = _mfColors.begin();
+    MFUnrecGeoColor4fPropertyPtr::const_iterator fieldEnd = _mfColors.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -1581,11 +1581,11 @@ void VTKMapperBase::pushToNormals(GeoVec3fPropertyPtrConstArg value)
     _mfNormals.push_back(value);
 }
 
-void VTKMapperBase::assignNormals  (const MFGeoVec3fPropertyPtr &value)
+void VTKMapperBase::assignNormals  (const MFUnrecGeoVec3fPropertyPtr &value)
 {
-    MFGeoVec3fPropertyPtr::const_iterator elemIt  =
+    MFUnrecGeoVec3fPropertyPtr::const_iterator elemIt  =
         value.begin();
-    MFGeoVec3fPropertyPtr::const_iterator elemEnd =
+    MFUnrecGeoVec3fPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<VTKMapper *>(this)->clearNormals();
@@ -1606,7 +1606,7 @@ void VTKMapperBase::insertIntoNormals(UInt32                uiIndex,
 
     editMField(NormalsFieldMask, _mfNormals);
 
-    MFGeoVec3fPropertyPtr::iterator fieldIt = _mfNormals.begin();
+    MFUnrecGeoVec3fPropertyPtr::iterator fieldIt = _mfNormals.begin();
 
     //addRef(value);
 
@@ -1664,7 +1664,7 @@ void VTKMapperBase::removeFromNormals(UInt32 uiIndex)
     {
         editMField(NormalsFieldMask, _mfNormals);
 
-        MFGeoVec3fPropertyPtr::iterator fieldIt = _mfNormals.begin();
+        MFUnrecGeoVec3fPropertyPtr::iterator fieldIt = _mfNormals.begin();
 
         fieldIt += uiIndex;
 
@@ -1682,7 +1682,7 @@ void VTKMapperBase::removeFromNormals(GeoVec3fPropertyPtrConstArg value)
     {
         editMField(NormalsFieldMask, _mfNormals);
 
-        MFGeoVec3fPropertyPtr::iterator fieldIt = _mfNormals.begin();
+        MFUnrecGeoVec3fPropertyPtr::iterator fieldIt = _mfNormals.begin();
 
         fieldIt += iElemIdx;
 
@@ -1695,8 +1695,8 @@ void VTKMapperBase::clearNormals(void)
 {
     editMField(NormalsFieldMask, _mfNormals);
 
-    MFGeoVec3fPropertyPtr::iterator       fieldIt  = _mfNormals.begin();
-    MFGeoVec3fPropertyPtr::const_iterator fieldEnd = _mfNormals.end  ();
+    MFUnrecGeoVec3fPropertyPtr::iterator       fieldIt  = _mfNormals.begin();
+    MFUnrecGeoVec3fPropertyPtr::const_iterator fieldEnd = _mfNormals.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -1989,9 +1989,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
 
         this->setRoot(source->getRoot());
 
-        MFNodePtr::const_iterator GeoRootsIt  =
+        MFUnrecNodePtr::const_iterator GeoRootsIt  =
             source->_mfGeoRoots.begin();
-        MFNodePtr::const_iterator GeoRootsEnd =
+        MFUnrecNodePtr::const_iterator GeoRootsEnd =
             source->_mfGeoRoots.end  ();
 
         while(GeoRootsIt != GeoRootsEnd)
@@ -2001,9 +2001,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++GeoRootsIt;
         }
 
-        MFGeometryPtr::const_iterator GeometriesIt  =
+        MFUnrecGeometryPtr::const_iterator GeometriesIt  =
             source->_mfGeometries.begin();
-        MFGeometryPtr::const_iterator GeometriesEnd =
+        MFUnrecGeometryPtr::const_iterator GeometriesEnd =
             source->_mfGeometries.end  ();
 
         while(GeometriesIt != GeometriesEnd)
@@ -2013,9 +2013,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++GeometriesIt;
         }
 
-        MFChunkMaterialPtr::const_iterator MaterialsIt  =
+        MFUnrecChunkMaterialPtr::const_iterator MaterialsIt  =
             source->_mfMaterials.begin();
-        MFChunkMaterialPtr::const_iterator MaterialsEnd =
+        MFUnrecChunkMaterialPtr::const_iterator MaterialsEnd =
             source->_mfMaterials.end  ();
 
         while(MaterialsIt != MaterialsEnd)
@@ -2025,9 +2025,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++MaterialsIt;
         }
 
-        MFMaterialChunkPtr::const_iterator MaterialChunksIt  =
+        MFUnrecMaterialChunkPtr::const_iterator MaterialChunksIt  =
             source->_mfMaterialChunks.begin();
-        MFMaterialChunkPtr::const_iterator MaterialChunksEnd =
+        MFUnrecMaterialChunkPtr::const_iterator MaterialChunksEnd =
             source->_mfMaterialChunks.end  ();
 
         while(MaterialChunksIt != MaterialChunksEnd)
@@ -2037,9 +2037,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++MaterialChunksIt;
         }
 
-        MFGeoPnt3fPropertyPtr::const_iterator PositionsIt  =
+        MFUnrecGeoPnt3fPropertyPtr::const_iterator PositionsIt  =
             source->_mfPositions.begin();
-        MFGeoPnt3fPropertyPtr::const_iterator PositionsEnd =
+        MFUnrecGeoPnt3fPropertyPtr::const_iterator PositionsEnd =
             source->_mfPositions.end  ();
 
         while(PositionsIt != PositionsEnd)
@@ -2049,9 +2049,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++PositionsIt;
         }
 
-        MFGeoUInt32PropertyPtr::const_iterator LengthIt  =
+        MFUnrecGeoUInt32PropertyPtr::const_iterator LengthIt  =
             source->_mfLength.begin();
-        MFGeoUInt32PropertyPtr::const_iterator LengthEnd =
+        MFUnrecGeoUInt32PropertyPtr::const_iterator LengthEnd =
             source->_mfLength.end  ();
 
         while(LengthIt != LengthEnd)
@@ -2061,9 +2061,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++LengthIt;
         }
 
-        MFGeoUInt8PropertyPtr::const_iterator TypesIt  =
+        MFUnrecGeoUInt8PropertyPtr::const_iterator TypesIt  =
             source->_mfTypes.begin();
-        MFGeoUInt8PropertyPtr::const_iterator TypesEnd =
+        MFUnrecGeoUInt8PropertyPtr::const_iterator TypesEnd =
             source->_mfTypes.end  ();
 
         while(TypesIt != TypesEnd)
@@ -2073,9 +2073,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++TypesIt;
         }
 
-        MFGeoColor4fPropertyPtr::const_iterator ColorsIt  =
+        MFUnrecGeoColor4fPropertyPtr::const_iterator ColorsIt  =
             source->_mfColors.begin();
-        MFGeoColor4fPropertyPtr::const_iterator ColorsEnd =
+        MFUnrecGeoColor4fPropertyPtr::const_iterator ColorsEnd =
             source->_mfColors.end  ();
 
         while(ColorsIt != ColorsEnd)
@@ -2085,9 +2085,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++ColorsIt;
         }
 
-        MFGeoVec3fPropertyPtr::const_iterator NormalsIt  =
+        MFUnrecGeoVec3fPropertyPtr::const_iterator NormalsIt  =
             source->_mfNormals.begin();
-        MFGeoVec3fPropertyPtr::const_iterator NormalsEnd =
+        MFUnrecGeoVec3fPropertyPtr::const_iterator NormalsEnd =
             source->_mfNormals.end  ();
 
         while(NormalsIt != NormalsEnd)
@@ -2101,8 +2101,8 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
 
 GetFieldHandlePtr VTKMapperBase::getHandleRoot            (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUnrecNodePtr::GetHandlePtr returnValue(
+        new  SFUnrecNodePtr::GetHandle(
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 
@@ -2111,8 +2111,8 @@ GetFieldHandlePtr VTKMapperBase::getHandleRoot            (void) const
 
 EditFieldHandlePtr VTKMapperBase::editHandleRoot           (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUnrecNodePtr::EditHandlePtr returnValue(
+        new  SFUnrecNodePtr::EditHandle(
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 
@@ -2126,8 +2126,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleRoot           (void)
 
 GetFieldHandlePtr VTKMapperBase::getHandleGeoRoots        (void) const
 {
-    MFNodePtr::GetHandlePtr returnValue(
-        new  MFNodePtr::GetHandle(
+    MFUnrecNodePtr::GetHandlePtr returnValue(
+        new  MFUnrecNodePtr::GetHandle(
              &_mfGeoRoots, 
              this->getType().getFieldDesc(GeoRootsFieldId)));
 
@@ -2136,8 +2136,8 @@ GetFieldHandlePtr VTKMapperBase::getHandleGeoRoots        (void) const
 
 EditFieldHandlePtr VTKMapperBase::editHandleGeoRoots       (void)
 {
-    MFNodePtr::EditHandlePtr returnValue(
-        new  MFNodePtr::EditHandle(
+    MFUnrecNodePtr::EditHandlePtr returnValue(
+        new  MFUnrecNodePtr::EditHandle(
              &_mfGeoRoots, 
              this->getType().getFieldDesc(GeoRootsFieldId)));
 
@@ -2151,8 +2151,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleGeoRoots       (void)
 
 GetFieldHandlePtr VTKMapperBase::getHandleGeometries      (void) const
 {
-    MFGeometryPtr::GetHandlePtr returnValue(
-        new  MFGeometryPtr::GetHandle(
+    MFUnrecGeometryPtr::GetHandlePtr returnValue(
+        new  MFUnrecGeometryPtr::GetHandle(
              &_mfGeometries, 
              this->getType().getFieldDesc(GeometriesFieldId)));
 
@@ -2161,8 +2161,8 @@ GetFieldHandlePtr VTKMapperBase::getHandleGeometries      (void) const
 
 EditFieldHandlePtr VTKMapperBase::editHandleGeometries     (void)
 {
-    MFGeometryPtr::EditHandlePtr returnValue(
-        new  MFGeometryPtr::EditHandle(
+    MFUnrecGeometryPtr::EditHandlePtr returnValue(
+        new  MFUnrecGeometryPtr::EditHandle(
              &_mfGeometries, 
              this->getType().getFieldDesc(GeometriesFieldId)));
 
@@ -2176,8 +2176,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleGeometries     (void)
 
 GetFieldHandlePtr VTKMapperBase::getHandleMaterials       (void) const
 {
-    MFChunkMaterialPtr::GetHandlePtr returnValue(
-        new  MFChunkMaterialPtr::GetHandle(
+    MFUnrecChunkMaterialPtr::GetHandlePtr returnValue(
+        new  MFUnrecChunkMaterialPtr::GetHandle(
              &_mfMaterials, 
              this->getType().getFieldDesc(MaterialsFieldId)));
 
@@ -2186,8 +2186,8 @@ GetFieldHandlePtr VTKMapperBase::getHandleMaterials       (void) const
 
 EditFieldHandlePtr VTKMapperBase::editHandleMaterials      (void)
 {
-    MFChunkMaterialPtr::EditHandlePtr returnValue(
-        new  MFChunkMaterialPtr::EditHandle(
+    MFUnrecChunkMaterialPtr::EditHandlePtr returnValue(
+        new  MFUnrecChunkMaterialPtr::EditHandle(
              &_mfMaterials, 
              this->getType().getFieldDesc(MaterialsFieldId)));
 
@@ -2201,8 +2201,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleMaterials      (void)
 
 GetFieldHandlePtr VTKMapperBase::getHandleMaterialChunks  (void) const
 {
-    MFMaterialChunkPtr::GetHandlePtr returnValue(
-        new  MFMaterialChunkPtr::GetHandle(
+    MFUnrecMaterialChunkPtr::GetHandlePtr returnValue(
+        new  MFUnrecMaterialChunkPtr::GetHandle(
              &_mfMaterialChunks, 
              this->getType().getFieldDesc(MaterialChunksFieldId)));
 
@@ -2211,8 +2211,8 @@ GetFieldHandlePtr VTKMapperBase::getHandleMaterialChunks  (void) const
 
 EditFieldHandlePtr VTKMapperBase::editHandleMaterialChunks (void)
 {
-    MFMaterialChunkPtr::EditHandlePtr returnValue(
-        new  MFMaterialChunkPtr::EditHandle(
+    MFUnrecMaterialChunkPtr::EditHandlePtr returnValue(
+        new  MFUnrecMaterialChunkPtr::EditHandle(
              &_mfMaterialChunks, 
              this->getType().getFieldDesc(MaterialChunksFieldId)));
 
@@ -2226,8 +2226,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleMaterialChunks (void)
 
 GetFieldHandlePtr VTKMapperBase::getHandlePositions       (void) const
 {
-    MFGeoPnt3fPropertyPtr::GetHandlePtr returnValue(
-        new  MFGeoPnt3fPropertyPtr::GetHandle(
+    MFUnrecGeoPnt3fPropertyPtr::GetHandlePtr returnValue(
+        new  MFUnrecGeoPnt3fPropertyPtr::GetHandle(
              &_mfPositions, 
              this->getType().getFieldDesc(PositionsFieldId)));
 
@@ -2236,8 +2236,8 @@ GetFieldHandlePtr VTKMapperBase::getHandlePositions       (void) const
 
 EditFieldHandlePtr VTKMapperBase::editHandlePositions      (void)
 {
-    MFGeoPnt3fPropertyPtr::EditHandlePtr returnValue(
-        new  MFGeoPnt3fPropertyPtr::EditHandle(
+    MFUnrecGeoPnt3fPropertyPtr::EditHandlePtr returnValue(
+        new  MFUnrecGeoPnt3fPropertyPtr::EditHandle(
              &_mfPositions, 
              this->getType().getFieldDesc(PositionsFieldId)));
 
@@ -2251,8 +2251,8 @@ EditFieldHandlePtr VTKMapperBase::editHandlePositions      (void)
 
 GetFieldHandlePtr VTKMapperBase::getHandleLength          (void) const
 {
-    MFGeoUInt32PropertyPtr::GetHandlePtr returnValue(
-        new  MFGeoUInt32PropertyPtr::GetHandle(
+    MFUnrecGeoUInt32PropertyPtr::GetHandlePtr returnValue(
+        new  MFUnrecGeoUInt32PropertyPtr::GetHandle(
              &_mfLength, 
              this->getType().getFieldDesc(LengthFieldId)));
 
@@ -2261,8 +2261,8 @@ GetFieldHandlePtr VTKMapperBase::getHandleLength          (void) const
 
 EditFieldHandlePtr VTKMapperBase::editHandleLength         (void)
 {
-    MFGeoUInt32PropertyPtr::EditHandlePtr returnValue(
-        new  MFGeoUInt32PropertyPtr::EditHandle(
+    MFUnrecGeoUInt32PropertyPtr::EditHandlePtr returnValue(
+        new  MFUnrecGeoUInt32PropertyPtr::EditHandle(
              &_mfLength, 
              this->getType().getFieldDesc(LengthFieldId)));
 
@@ -2276,8 +2276,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleLength         (void)
 
 GetFieldHandlePtr VTKMapperBase::getHandleTypes           (void) const
 {
-    MFGeoUInt8PropertyPtr::GetHandlePtr returnValue(
-        new  MFGeoUInt8PropertyPtr::GetHandle(
+    MFUnrecGeoUInt8PropertyPtr::GetHandlePtr returnValue(
+        new  MFUnrecGeoUInt8PropertyPtr::GetHandle(
              &_mfTypes, 
              this->getType().getFieldDesc(TypesFieldId)));
 
@@ -2286,8 +2286,8 @@ GetFieldHandlePtr VTKMapperBase::getHandleTypes           (void) const
 
 EditFieldHandlePtr VTKMapperBase::editHandleTypes          (void)
 {
-    MFGeoUInt8PropertyPtr::EditHandlePtr returnValue(
-        new  MFGeoUInt8PropertyPtr::EditHandle(
+    MFUnrecGeoUInt8PropertyPtr::EditHandlePtr returnValue(
+        new  MFUnrecGeoUInt8PropertyPtr::EditHandle(
              &_mfTypes, 
              this->getType().getFieldDesc(TypesFieldId)));
 
@@ -2301,8 +2301,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleTypes          (void)
 
 GetFieldHandlePtr VTKMapperBase::getHandleColors          (void) const
 {
-    MFGeoColor4fPropertyPtr::GetHandlePtr returnValue(
-        new  MFGeoColor4fPropertyPtr::GetHandle(
+    MFUnrecGeoColor4fPropertyPtr::GetHandlePtr returnValue(
+        new  MFUnrecGeoColor4fPropertyPtr::GetHandle(
              &_mfColors, 
              this->getType().getFieldDesc(ColorsFieldId)));
 
@@ -2311,8 +2311,8 @@ GetFieldHandlePtr VTKMapperBase::getHandleColors          (void) const
 
 EditFieldHandlePtr VTKMapperBase::editHandleColors         (void)
 {
-    MFGeoColor4fPropertyPtr::EditHandlePtr returnValue(
-        new  MFGeoColor4fPropertyPtr::EditHandle(
+    MFUnrecGeoColor4fPropertyPtr::EditHandlePtr returnValue(
+        new  MFUnrecGeoColor4fPropertyPtr::EditHandle(
              &_mfColors, 
              this->getType().getFieldDesc(ColorsFieldId)));
 
@@ -2326,8 +2326,8 @@ EditFieldHandlePtr VTKMapperBase::editHandleColors         (void)
 
 GetFieldHandlePtr VTKMapperBase::getHandleNormals         (void) const
 {
-    MFGeoVec3fPropertyPtr::GetHandlePtr returnValue(
-        new  MFGeoVec3fPropertyPtr::GetHandle(
+    MFUnrecGeoVec3fPropertyPtr::GetHandlePtr returnValue(
+        new  MFUnrecGeoVec3fPropertyPtr::GetHandle(
              &_mfNormals, 
              this->getType().getFieldDesc(NormalsFieldId)));
 
@@ -2336,8 +2336,8 @@ GetFieldHandlePtr VTKMapperBase::getHandleNormals         (void) const
 
 EditFieldHandlePtr VTKMapperBase::editHandleNormals        (void)
 {
-    MFGeoVec3fPropertyPtr::EditHandlePtr returnValue(
-        new  MFGeoVec3fPropertyPtr::EditHandle(
+    MFUnrecGeoVec3fPropertyPtr::EditHandlePtr returnValue(
+        new  MFUnrecGeoVec3fPropertyPtr::EditHandle(
              &_mfNormals, 
              this->getType().getFieldDesc(NormalsFieldId)));
 
@@ -2403,24 +2403,12 @@ DataType FieldTraits<VTKMapperPtr>::_type("VTKMapperPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(VTKMapperPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    VTKMapperPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           VTKMapperPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         VTKMapperPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    VTKMapperPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         VTKMapperPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           VTKMapperPtr, 
+                           0);
 
 OSG_END_NAMESPACE

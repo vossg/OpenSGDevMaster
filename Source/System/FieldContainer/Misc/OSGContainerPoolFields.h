@@ -96,9 +96,63 @@ struct FieldTraits<ContainerPoolPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFContainerPoolPtr"; }
-    static const char *getMName(void) { return "MFContainerPoolPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFContainerPoolPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFContainerPoolPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecContainerPoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecContainerPoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakContainerPoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdContainerPoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecContainerPoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecContainerPoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakContainerPoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdContainerPoolPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ContainerPoolPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ContainerPoolPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ContainerPoolPtr> SFContainerPoolPtr;
+typedef FieldContainerPtrSField<ContainerPoolPtr,
+                                RecordedRefCounts  > SFRecContainerPoolPtr;
+typedef FieldContainerPtrSField<ContainerPoolPtr,
+                                UnrecordedRefCounts> SFUnrecContainerPoolPtr;
+typedef FieldContainerPtrSField<ContainerPoolPtr,
+                                WeakRefCounts      > SFWeakContainerPoolPtr;
+typedef FieldContainerPtrSField<ContainerPoolPtr,
+                                NoRefCounts        > SFUncountedContainerPoolPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ContainerPoolPtr> MFContainerPoolPtr;
+typedef FieldContainerPtrMField<ContainerPoolPtr,
+                                RecordedRefCounts  > MFRecContainerPoolPtr;
+typedef FieldContainerPtrMField<ContainerPoolPtr,
+                                UnrecordedRefCounts> MFUnrecContainerPoolPtr;
+typedef FieldContainerPtrMField<ContainerPoolPtr,
+                                WeakRefCounts      > MFWeakContainerPoolPtr;
+typedef FieldContainerPtrMField<ContainerPoolPtr,
+                                NoRefCounts        > MFUncountedContainerPoolPtr;
 #endif
 
 

@@ -83,7 +83,7 @@ NodeCorePtrConst MultiCoreBase::getCores(const UInt32 index) const
 
 //! Get the MultiCore::_mfCores field.
 inline
-const MFNodeCorePtr &MultiCoreBase::getCores(void) const
+const MFUnrecNodeCorePtr &MultiCoreBase::getCores(void) const
 {
     return _mfCores;
 }

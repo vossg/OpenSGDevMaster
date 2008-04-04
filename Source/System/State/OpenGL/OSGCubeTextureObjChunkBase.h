@@ -145,11 +145,11 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFImagePtr          *getSFPosZImage       (void) const;
-            const SFImagePtr          *getSFPosXImage       (void) const;
-            const SFImagePtr          *getSFNegXImage       (void) const;
-            const SFImagePtr          *getSFPosYImage       (void) const;
-            const SFImagePtr          *getSFNegYImage       (void) const;
+            const SFUnrecImagePtr     *getSFPosZImage       (void) const;
+            const SFUnrecImagePtr     *getSFPosXImage       (void) const;
+            const SFUnrecImagePtr     *getSFNegXImage       (void) const;
+            const SFUnrecImagePtr     *getSFPosYImage       (void) const;
+            const SFUnrecImagePtr     *getSFNegYImage       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFIsReflectionMap (void);
@@ -245,11 +245,11 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFImagePtr        _sfPosZImage;
-    SFImagePtr        _sfPosXImage;
-    SFImagePtr        _sfNegXImage;
-    SFImagePtr        _sfPosYImage;
-    SFImagePtr        _sfNegYImage;
+    SFUnrecImagePtr   _sfPosZImage;
+    SFUnrecImagePtr   _sfPosXImage;
+    SFUnrecImagePtr   _sfNegXImage;
+    SFUnrecImagePtr   _sfPosYImage;
+    SFUnrecImagePtr   _sfNegYImage;
     SFBool            _sfIsReflectionMap;
 
     /*! \}                                                                 */

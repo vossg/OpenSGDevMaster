@@ -96,9 +96,63 @@ struct FieldTraits<FBOViewportPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFFBOViewportPtr"; }
-    static const char *getMName(void) { return "MFFBOViewportPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFFBOViewportPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFFBOViewportPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecFBOViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFBOViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFBOViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFBOViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecFBOViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFBOViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFBOViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFBOViewportPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<FBOViewportPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<FBOViewportPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<FBOViewportPtr> SFFBOViewportPtr;
+typedef FieldContainerPtrSField<FBOViewportPtr,
+                                RecordedRefCounts  > SFRecFBOViewportPtr;
+typedef FieldContainerPtrSField<FBOViewportPtr,
+                                UnrecordedRefCounts> SFUnrecFBOViewportPtr;
+typedef FieldContainerPtrSField<FBOViewportPtr,
+                                WeakRefCounts      > SFWeakFBOViewportPtr;
+typedef FieldContainerPtrSField<FBOViewportPtr,
+                                NoRefCounts        > SFUncountedFBOViewportPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<FBOViewportPtr> MFFBOViewportPtr;
+typedef FieldContainerPtrMField<FBOViewportPtr,
+                                RecordedRefCounts  > MFRecFBOViewportPtr;
+typedef FieldContainerPtrMField<FBOViewportPtr,
+                                UnrecordedRefCounts> MFUnrecFBOViewportPtr;
+typedef FieldContainerPtrMField<FBOViewportPtr,
+                                WeakRefCounts      > MFWeakFBOViewportPtr;
+typedef FieldContainerPtrMField<FBOViewportPtr,
+                                NoRefCounts        > MFUncountedFBOViewportPtr;
 #endif
 
 

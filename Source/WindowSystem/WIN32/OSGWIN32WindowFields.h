@@ -96,9 +96,63 @@ struct FieldTraits<WIN32WindowPtr> :
 
     static OSG_WINDOWWIN32_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFWIN32WindowPtr"; }
-    static const char *getMName(void) { return "MFWIN32WindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFWIN32WindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFWIN32WindowPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<WIN32WindowPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecWIN32WindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<WIN32WindowPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecWIN32WindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<WIN32WindowPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakWIN32WindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<WIN32WindowPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdWIN32WindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<WIN32WindowPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecWIN32WindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<WIN32WindowPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecWIN32WindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<WIN32WindowPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakWIN32WindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<WIN32WindowPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdWIN32WindowPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<WIN32WindowPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<WIN32WindowPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowWIN32FieldSingle */
 
-typedef FieldContainerPtrSField<WIN32WindowPtr> SFWIN32WindowPtr;
+typedef FieldContainerPtrSField<WIN32WindowPtr,
+                                RecordedRefCounts  > SFRecWIN32WindowPtr;
+typedef FieldContainerPtrSField<WIN32WindowPtr,
+                                UnrecordedRefCounts> SFUnrecWIN32WindowPtr;
+typedef FieldContainerPtrSField<WIN32WindowPtr,
+                                WeakRefCounts      > SFWeakWIN32WindowPtr;
+typedef FieldContainerPtrSField<WIN32WindowPtr,
+                                NoRefCounts        > SFUncountedWIN32WindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowWIN32FieldMulti */
 
-typedef FieldContainerPtrMField<WIN32WindowPtr> MFWIN32WindowPtr;
+typedef FieldContainerPtrMField<WIN32WindowPtr,
+                                RecordedRefCounts  > MFRecWIN32WindowPtr;
+typedef FieldContainerPtrMField<WIN32WindowPtr,
+                                UnrecordedRefCounts> MFUnrecWIN32WindowPtr;
+typedef FieldContainerPtrMField<WIN32WindowPtr,
+                                WeakRefCounts      > MFWeakWIN32WindowPtr;
+typedef FieldContainerPtrMField<WIN32WindowPtr,
+                                NoRefCounts        > MFUncountedWIN32WindowPtr;
 #endif
 
 

@@ -96,9 +96,63 @@ struct FieldTraits<ImageForegroundPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFImageForegroundPtr"; }
-    static const char *getMName(void) { return "MFImageForegroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFImageForegroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFImageForegroundPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ImageForegroundPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecImageForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageForegroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecImageForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageForegroundPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakImageForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageForegroundPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdImageForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageForegroundPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecImageForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageForegroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecImageForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageForegroundPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakImageForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageForegroundPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdImageForegroundPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ImageForegroundPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ImageForegroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<ImageForegroundPtr> SFImageForegroundPtr;
+typedef FieldContainerPtrSField<ImageForegroundPtr,
+                                RecordedRefCounts  > SFRecImageForegroundPtr;
+typedef FieldContainerPtrSField<ImageForegroundPtr,
+                                UnrecordedRefCounts> SFUnrecImageForegroundPtr;
+typedef FieldContainerPtrSField<ImageForegroundPtr,
+                                WeakRefCounts      > SFWeakImageForegroundPtr;
+typedef FieldContainerPtrSField<ImageForegroundPtr,
+                                NoRefCounts        > SFUncountedImageForegroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<ImageForegroundPtr> MFImageForegroundPtr;
+typedef FieldContainerPtrMField<ImageForegroundPtr,
+                                RecordedRefCounts  > MFRecImageForegroundPtr;
+typedef FieldContainerPtrMField<ImageForegroundPtr,
+                                UnrecordedRefCounts> MFUnrecImageForegroundPtr;
+typedef FieldContainerPtrMField<ImageForegroundPtr,
+                                WeakRefCounts      > MFWeakImageForegroundPtr;
+typedef FieldContainerPtrMField<ImageForegroundPtr,
+                                NoRefCounts        > MFUncountedImageForegroundPtr;
 #endif
 
 

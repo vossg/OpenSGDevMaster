@@ -185,9 +185,9 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFNodePtr           *getSFTarget          (void) const;
-            const SFNodePtr           *getSFActiveSubHandle (void) const;
-            const SFViewportPtr       *getSFViewport        (void) const;
+            const SFUnrecNodePtr      *getSFTarget          (void) const;
+            const SFUnrecNodePtr      *getSFActiveSubHandle (void) const;
+            const SFUnrecViewportPtr  *getSFViewport        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFActive          (void);
@@ -200,16 +200,16 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
 #endif
                   SFVec3f             *editSFLength         (void);
             const SFVec3f             *getSFLength          (void) const;
-            const SFNodePtr           *getSFHandleXNode     (void) const;
-            const SFNodePtr           *getSFHandleYNode     (void) const;
-            const SFNodePtr           *getSFHandleZNode     (void) const;
-            const SFNodePtr           *getSFTransXNode      (void) const;
-            const SFNodePtr           *getSFTransYNode      (void) const;
-            const SFNodePtr           *getSFTransZNode      (void) const;
-            const SFMaterialPtr       *getSFMaterialX       (void) const;
-            const SFMaterialPtr       *getSFMaterialY       (void) const;
-            const SFMaterialPtr       *getSFMaterialZ       (void) const;
-            const SFNodePtr           *getSFAxisLinesN      (void) const;
+            const SFUnrecNodePtr      *getSFHandleXNode     (void) const;
+            const SFUnrecNodePtr      *getSFHandleYNode     (void) const;
+            const SFUnrecNodePtr      *getSFHandleZNode     (void) const;
+            const SFUnrecNodePtr      *getSFTransXNode      (void) const;
+            const SFUnrecNodePtr      *getSFTransYNode      (void) const;
+            const SFUnrecNodePtr      *getSFTransZNode      (void) const;
+            const SFUnrecMaterialPtr  *getSFMaterialX       (void) const;
+            const SFUnrecMaterialPtr  *getSFMaterialY       (void) const;
+            const SFUnrecMaterialPtr  *getSFMaterialZ       (void) const;
+            const SFUnrecNodePtr      *getSFAxisLinesN      (void) const;
 
 
                   NodePtrConst getTarget         (void) const;
@@ -307,22 +307,22 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFNodePtr         _sfTarget;
-    SFNodePtr         _sfActiveSubHandle;
+    SFUnrecNodePtr    _sfTarget;
+    SFUnrecNodePtr    _sfActiveSubHandle;
     SFPnt2f           _sfLastMousePos;
-    SFViewportPtr     _sfViewport;
+    SFUnrecViewportPtr _sfViewport;
     SFBool            _sfActive;
     SFVec3f           _sfLength;
-    SFNodePtr         _sfHandleXNode;
-    SFNodePtr         _sfHandleYNode;
-    SFNodePtr         _sfHandleZNode;
-    SFNodePtr         _sfTransXNode;
-    SFNodePtr         _sfTransYNode;
-    SFNodePtr         _sfTransZNode;
-    SFMaterialPtr     _sfMaterialX;
-    SFMaterialPtr     _sfMaterialY;
-    SFMaterialPtr     _sfMaterialZ;
-    SFNodePtr         _sfAxisLinesN;
+    SFUnrecNodePtr    _sfHandleXNode;
+    SFUnrecNodePtr    _sfHandleYNode;
+    SFUnrecNodePtr    _sfHandleZNode;
+    SFUnrecNodePtr    _sfTransXNode;
+    SFUnrecNodePtr    _sfTransYNode;
+    SFUnrecNodePtr    _sfTransZNode;
+    SFUnrecMaterialPtr _sfMaterialX;
+    SFUnrecMaterialPtr _sfMaterialY;
+    SFUnrecMaterialPtr _sfMaterialZ;
+    SFUnrecNodePtr    _sfAxisLinesN;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -113,8 +113,8 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFTextureBaseChunkPtr::Description(
-        MFTextureBaseChunkPtr::getClassType(),
+    pDesc = new MFUnrecTextureBaseChunkPtr::Description(
+        MFUnrecTextureBaseChunkPtr::getClassType(),
         "textures",
         "Texture chunks to choose from \n",
         TexturesFieldId, TexturesFieldMask,
@@ -225,7 +225,7 @@ SFUInt32            *TextureSelectChunkBase::getSFChoice         (void)
 #endif
 
 //! Get the TextureSelectChunk::_mfTextures field.
-const MFTextureBaseChunkPtr *TextureSelectChunkBase::getMFTextures(void) const
+const MFUnrecTextureBaseChunkPtr *TextureSelectChunkBase::getMFTextures(void) const
 {
     return &_mfTextures;
 }
@@ -244,11 +244,11 @@ void TextureSelectChunkBase::pushToTextures(TextureBaseChunkPtrConstArg value)
     _mfTextures.push_back(value);
 }
 
-void TextureSelectChunkBase::assignTextures (const MFTextureBaseChunkPtr &value)
+void TextureSelectChunkBase::assignTextures (const MFUnrecTextureBaseChunkPtr &value)
 {
-    MFTextureBaseChunkPtr::const_iterator elemIt  =
+    MFUnrecTextureBaseChunkPtr::const_iterator elemIt  =
         value.begin();
-    MFTextureBaseChunkPtr::const_iterator elemEnd =
+    MFUnrecTextureBaseChunkPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<TextureSelectChunk *>(this)->clearTextures();
@@ -269,7 +269,7 @@ void TextureSelectChunkBase::insertIntoTextures(UInt32                uiIndex,
 
     editMField(TexturesFieldMask, _mfTextures);
 
-    MFTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
+    MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
 
     //addRef(value);
 
@@ -327,7 +327,7 @@ void TextureSelectChunkBase::removeFromTextures(UInt32 uiIndex)
     {
         editMField(TexturesFieldMask, _mfTextures);
 
-        MFTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
+        MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
 
         fieldIt += uiIndex;
 
@@ -345,7 +345,7 @@ void TextureSelectChunkBase::removeFromTextures(TextureBaseChunkPtrConstArg valu
     {
         editMField(TexturesFieldMask, _mfTextures);
 
-        MFTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
+        MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
 
         fieldIt += iElemIdx;
 
@@ -358,8 +358,8 @@ void TextureSelectChunkBase::clearTextures(void)
 {
     editMField(TexturesFieldMask, _mfTextures);
 
-    MFTextureBaseChunkPtr::iterator       fieldIt  = _mfTextures.begin();
-    MFTextureBaseChunkPtr::const_iterator fieldEnd = _mfTextures.end  ();
+    MFUnrecTextureBaseChunkPtr::iterator       fieldIt  = _mfTextures.begin();
+    MFUnrecTextureBaseChunkPtr::const_iterator fieldEnd = _mfTextures.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -538,9 +538,9 @@ void TextureSelectChunkBase::onCreate(const TextureSelectChunk *source)
     if(source != NULL)
     {
 
-        MFTextureBaseChunkPtr::const_iterator TexturesIt  =
+        MFUnrecTextureBaseChunkPtr::const_iterator TexturesIt  =
             source->_mfTextures.begin();
-        MFTextureBaseChunkPtr::const_iterator TexturesEnd =
+        MFUnrecTextureBaseChunkPtr::const_iterator TexturesEnd =
             source->_mfTextures.end  ();
 
         while(TexturesIt != TexturesEnd)
@@ -576,8 +576,8 @@ EditFieldHandlePtr TextureSelectChunkBase::editHandleChoice         (void)
 
 GetFieldHandlePtr TextureSelectChunkBase::getHandleTextures        (void) const
 {
-    MFTextureBaseChunkPtr::GetHandlePtr returnValue(
-        new  MFTextureBaseChunkPtr::GetHandle(
+    MFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  MFUnrecTextureBaseChunkPtr::GetHandle(
              &_mfTextures, 
              this->getType().getFieldDesc(TexturesFieldId)));
 
@@ -586,8 +586,8 @@ GetFieldHandlePtr TextureSelectChunkBase::getHandleTextures        (void) const
 
 EditFieldHandlePtr TextureSelectChunkBase::editHandleTextures       (void)
 {
-    MFTextureBaseChunkPtr::EditHandlePtr returnValue(
-        new  MFTextureBaseChunkPtr::EditHandle(
+    MFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  MFUnrecTextureBaseChunkPtr::EditHandle(
              &_mfTextures, 
              this->getType().getFieldDesc(TexturesFieldId)));
 
@@ -643,24 +643,12 @@ DataType FieldTraits<TextureSelectChunkPtr>::_type("TextureSelectChunkPtr", "Tex
 
 OSG_FIELDTRAITS_GETTYPE(TextureSelectChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    TextureSelectChunkPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           TextureSelectChunkPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         TextureSelectChunkPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    TextureSelectChunkPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         TextureSelectChunkPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           TextureSelectChunkPtr, 
+                           0);
 
 OSG_END_NAMESPACE

@@ -96,9 +96,63 @@ struct FieldTraits<TextureBufferPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFTextureBufferPtr"; }
-    static const char *getMName(void) { return "MFTextureBufferPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFTextureBufferPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFTextureBufferPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<TextureBufferPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecTextureBufferPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureBufferPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecTextureBufferPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureBufferPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakTextureBufferPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureBufferPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdTextureBufferPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureBufferPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecTextureBufferPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureBufferPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecTextureBufferPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureBufferPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakTextureBufferPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureBufferPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdTextureBufferPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<TextureBufferPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<TextureBufferPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<TextureBufferPtr> SFTextureBufferPtr;
+typedef FieldContainerPtrSField<TextureBufferPtr,
+                                RecordedRefCounts  > SFRecTextureBufferPtr;
+typedef FieldContainerPtrSField<TextureBufferPtr,
+                                UnrecordedRefCounts> SFUnrecTextureBufferPtr;
+typedef FieldContainerPtrSField<TextureBufferPtr,
+                                WeakRefCounts      > SFWeakTextureBufferPtr;
+typedef FieldContainerPtrSField<TextureBufferPtr,
+                                NoRefCounts        > SFUncountedTextureBufferPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<TextureBufferPtr> MFTextureBufferPtr;
+typedef FieldContainerPtrMField<TextureBufferPtr,
+                                RecordedRefCounts  > MFRecTextureBufferPtr;
+typedef FieldContainerPtrMField<TextureBufferPtr,
+                                UnrecordedRefCounts> MFUnrecTextureBufferPtr;
+typedef FieldContainerPtrMField<TextureBufferPtr,
+                                WeakRefCounts      > MFWeakTextureBufferPtr;
+typedef FieldContainerPtrMField<TextureBufferPtr,
+                                NoRefCounts        > MFUncountedTextureBufferPtr;
 #endif
 
 

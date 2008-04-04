@@ -486,24 +486,12 @@ DataType FieldTraits<ShearedStereoCameraDecoratorPtr>::_type("ShearedStereoCamer
 
 OSG_FIELDTRAITS_GETTYPE(ShearedStereoCameraDecoratorPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ShearedStereoCameraDecoratorPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ShearedStereoCameraDecoratorPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ShearedStereoCameraDecoratorPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ShearedStereoCameraDecoratorPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ShearedStereoCameraDecoratorPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ShearedStereoCameraDecoratorPtr, 
+                           0);
 
 OSG_END_NAMESPACE

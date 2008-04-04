@@ -96,9 +96,63 @@ struct FieldTraits<ShaderParameterBoolPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFShaderParameterBoolPtr"; }
-    static const char *getMName(void) { return "MFShaderParameterBoolPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFShaderParameterBoolPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFShaderParameterBoolPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecShaderParameterBoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecShaderParameterBoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakShaderParameterBoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdShaderParameterBoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecShaderParameterBoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecShaderParameterBoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakShaderParameterBoolPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdShaderParameterBoolPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ShaderParameterBoolPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ShaderParameterBoolPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<ShaderParameterBoolPtr> SFShaderParameterBoolPtr;
+typedef FieldContainerPtrSField<ShaderParameterBoolPtr,
+                                RecordedRefCounts  > SFRecShaderParameterBoolPtr;
+typedef FieldContainerPtrSField<ShaderParameterBoolPtr,
+                                UnrecordedRefCounts> SFUnrecShaderParameterBoolPtr;
+typedef FieldContainerPtrSField<ShaderParameterBoolPtr,
+                                WeakRefCounts      > SFWeakShaderParameterBoolPtr;
+typedef FieldContainerPtrSField<ShaderParameterBoolPtr,
+                                NoRefCounts        > SFUncountedShaderParameterBoolPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<ShaderParameterBoolPtr> MFShaderParameterBoolPtr;
+typedef FieldContainerPtrMField<ShaderParameterBoolPtr,
+                                RecordedRefCounts  > MFRecShaderParameterBoolPtr;
+typedef FieldContainerPtrMField<ShaderParameterBoolPtr,
+                                UnrecordedRefCounts> MFUnrecShaderParameterBoolPtr;
+typedef FieldContainerPtrMField<ShaderParameterBoolPtr,
+                                WeakRefCounts      > MFWeakShaderParameterBoolPtr;
+typedef FieldContainerPtrMField<ShaderParameterBoolPtr,
+                                NoRefCounts        > MFUncountedShaderParameterBoolPtr;
 #endif
 
 

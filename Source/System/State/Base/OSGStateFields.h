@@ -96,9 +96,63 @@ struct FieldTraits<StatePtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFStatePtr"; }
-    static const char *getMName(void) { return "MFStatePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFStatePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFStatePtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<StatePtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecStatePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatePtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecStatePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatePtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakStatePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatePtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdStatePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatePtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecStatePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatePtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecStatePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatePtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakStatePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatePtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdStatePtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<StatePtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<StatePtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<StatePtr> SFStatePtr;
+typedef FieldContainerPtrSField<StatePtr,
+                                RecordedRefCounts  > SFRecStatePtr;
+typedef FieldContainerPtrSField<StatePtr,
+                                UnrecordedRefCounts> SFUnrecStatePtr;
+typedef FieldContainerPtrSField<StatePtr,
+                                WeakRefCounts      > SFWeakStatePtr;
+typedef FieldContainerPtrSField<StatePtr,
+                                NoRefCounts        > SFUncountedStatePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<StatePtr> MFStatePtr;
+typedef FieldContainerPtrMField<StatePtr,
+                                RecordedRefCounts  > MFRecStatePtr;
+typedef FieldContainerPtrMField<StatePtr,
+                                UnrecordedRefCounts> MFUnrecStatePtr;
+typedef FieldContainerPtrMField<StatePtr,
+                                WeakRefCounts      > MFWeakStatePtr;
+typedef FieldContainerPtrMField<StatePtr,
+                                NoRefCounts        > MFUncountedStatePtr;
 #endif
 
 

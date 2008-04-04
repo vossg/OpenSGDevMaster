@@ -96,9 +96,63 @@ struct FieldTraits<TileCameraDecoratorPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFTileCameraDecoratorPtr"; }
-    static const char *getMName(void) { return "MFTileCameraDecoratorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFTileCameraDecoratorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFTileCameraDecoratorPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecTileCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecTileCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakTileCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdTileCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecTileCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecTileCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakTileCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdTileCameraDecoratorPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<TileCameraDecoratorPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<TileCameraDecoratorPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<TileCameraDecoratorPtr> SFTileCameraDecoratorPtr;
+typedef FieldContainerPtrSField<TileCameraDecoratorPtr,
+                                RecordedRefCounts  > SFRecTileCameraDecoratorPtr;
+typedef FieldContainerPtrSField<TileCameraDecoratorPtr,
+                                UnrecordedRefCounts> SFUnrecTileCameraDecoratorPtr;
+typedef FieldContainerPtrSField<TileCameraDecoratorPtr,
+                                WeakRefCounts      > SFWeakTileCameraDecoratorPtr;
+typedef FieldContainerPtrSField<TileCameraDecoratorPtr,
+                                NoRefCounts        > SFUncountedTileCameraDecoratorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<TileCameraDecoratorPtr> MFTileCameraDecoratorPtr;
+typedef FieldContainerPtrMField<TileCameraDecoratorPtr,
+                                RecordedRefCounts  > MFRecTileCameraDecoratorPtr;
+typedef FieldContainerPtrMField<TileCameraDecoratorPtr,
+                                UnrecordedRefCounts> MFUnrecTileCameraDecoratorPtr;
+typedef FieldContainerPtrMField<TileCameraDecoratorPtr,
+                                WeakRefCounts      > MFWeakTileCameraDecoratorPtr;
+typedef FieldContainerPtrMField<TileCameraDecoratorPtr,
+                                NoRefCounts        > MFUncountedTileCameraDecoratorPtr;
 #endif
 
 

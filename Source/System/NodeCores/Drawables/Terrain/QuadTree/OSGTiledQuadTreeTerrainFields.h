@@ -96,9 +96,63 @@ struct FieldTraits<TiledQuadTreeTerrainPtr> :
 
     static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFTiledQuadTreeTerrainPtr"; }
-    static const char *getMName(void) { return "MFTiledQuadTreeTerrainPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFTiledQuadTreeTerrainPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFTiledQuadTreeTerrainPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecTiledQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecTiledQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakTiledQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdTiledQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecTiledQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecTiledQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakTiledQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdTiledQuadTreeTerrainPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<TiledQuadTreeTerrainPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<TiledQuadTreeTerrainPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr> SFTiledQuadTreeTerrainPtr;
+typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
+                                RecordedRefCounts  > SFRecTiledQuadTreeTerrainPtr;
+typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
+                                UnrecordedRefCounts> SFUnrecTiledQuadTreeTerrainPtr;
+typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
+                                WeakRefCounts      > SFWeakTiledQuadTreeTerrainPtr;
+typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
+                                NoRefCounts        > SFUncountedTiledQuadTreeTerrainPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr> MFTiledQuadTreeTerrainPtr;
+typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
+                                RecordedRefCounts  > MFRecTiledQuadTreeTerrainPtr;
+typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
+                                UnrecordedRefCounts> MFUnrecTiledQuadTreeTerrainPtr;
+typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
+                                WeakRefCounts      > MFWeakTiledQuadTreeTerrainPtr;
+typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
+                                NoRefCounts        > MFUncountedTiledQuadTreeTerrainPtr;
 #endif
 
 

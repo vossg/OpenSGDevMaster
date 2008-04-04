@@ -96,9 +96,63 @@ struct FieldTraits<MultiCorePtr> :
 
     static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFMultiCorePtr"; }
-    static const char *getMName(void) { return "MFMultiCorePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFMultiCorePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFMultiCorePtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecMultiCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecMultiCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakMultiCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdMultiCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecMultiCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecMultiCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakMultiCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdMultiCorePtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<MultiCorePtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<MultiCorePtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<MultiCorePtr> SFMultiCorePtr;
+typedef FieldContainerPtrSField<MultiCorePtr,
+                                RecordedRefCounts  > SFRecMultiCorePtr;
+typedef FieldContainerPtrSField<MultiCorePtr,
+                                UnrecordedRefCounts> SFUnrecMultiCorePtr;
+typedef FieldContainerPtrSField<MultiCorePtr,
+                                WeakRefCounts      > SFWeakMultiCorePtr;
+typedef FieldContainerPtrSField<MultiCorePtr,
+                                NoRefCounts        > SFUncountedMultiCorePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<MultiCorePtr> MFMultiCorePtr;
+typedef FieldContainerPtrMField<MultiCorePtr,
+                                RecordedRefCounts  > MFRecMultiCorePtr;
+typedef FieldContainerPtrMField<MultiCorePtr,
+                                UnrecordedRefCounts> MFUnrecMultiCorePtr;
+typedef FieldContainerPtrMField<MultiCorePtr,
+                                WeakRefCounts      > MFWeakMultiCorePtr;
+typedef FieldContainerPtrMField<MultiCorePtr,
+                                NoRefCounts        > MFUncountedMultiCorePtr;
 #endif
 
 

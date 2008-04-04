@@ -129,7 +129,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFMaterialPtr       *getMFMaterials       (void) const;
+            const MFUnrecMaterialPtr  *getMFMaterials       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFChoice          (void);
@@ -139,7 +139,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
 
 
                   MaterialPtrConst getMaterials      (const UInt32 index) const;
-            const MFMaterialPtr       &getMaterials      (void) const;
+            const MFUnrecMaterialPtr  &getMaterials      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getChoice          (void);
@@ -165,7 +165,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*! \{                                                                 */
 
     void pushToMaterials           (MaterialPtrConstArg value   );
-    void assignMaterials           (const MFMaterialPtr     &value);
+    void assignMaterials           (const MFUnrecMaterialPtr &value);
     void insertIntoMaterials      (UInt32                uiIndex,
                                              MaterialPtrConstArg value   );
     void replaceInMaterials  (UInt32                uiIndex,
@@ -226,7 +226,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFMaterialPtr     _mfMaterials;
+    MFUnrecMaterialPtr _mfMaterials;
     SFUInt32          _sfChoice;
 
     /*! \}                                                                 */

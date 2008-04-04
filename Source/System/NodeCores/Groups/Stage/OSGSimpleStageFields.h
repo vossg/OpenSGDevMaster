@@ -95,6 +95,8 @@ struct FieldTraits<SimpleStagePtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SimpleStagePtr, 0>
     \hideinhierarchy

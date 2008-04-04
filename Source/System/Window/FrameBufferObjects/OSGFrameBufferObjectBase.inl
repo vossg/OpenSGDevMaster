@@ -216,7 +216,7 @@ FrameBufferAttachmentPtrConst FrameBufferObjectBase::getColorAttachments(const U
 
 //! Get the FrameBufferObject::_mfColorAttachments field.
 inline
-const MFFrameBufferAttachmentPtr &FrameBufferObjectBase::getColorAttachments(void) const
+const MFUnrecFrameBufferAttachmentPtr &FrameBufferObjectBase::getColorAttachments(void) const
 {
     return _mfColorAttachments;
 }

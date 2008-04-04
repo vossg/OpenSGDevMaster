@@ -116,7 +116,7 @@ MaterialPtrConst SwitchMaterialBase::getMaterials(const UInt32 index) const
 
 //! Get the SwitchMaterial::_mfMaterials field.
 inline
-const MFMaterialPtr &SwitchMaterialBase::getMaterials(void) const
+const MFUnrecMaterialPtr &SwitchMaterialBase::getMaterials(void) const
 {
     return _mfMaterials;
 }

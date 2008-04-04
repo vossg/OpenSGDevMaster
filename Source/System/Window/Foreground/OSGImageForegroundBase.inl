@@ -83,7 +83,7 @@ ImagePtrConst ImageForegroundBase::getImages(const UInt32 index) const
 
 //! Get the ImageForeground::_mfImages field.
 inline
-const MFImagePtr &ImageForegroundBase::getImages(void) const
+const MFUnrecImagePtr &ImageForegroundBase::getImages(void) const
 {
     return _mfImages;
 }

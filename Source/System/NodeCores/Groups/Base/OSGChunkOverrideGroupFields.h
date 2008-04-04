@@ -96,9 +96,63 @@ struct FieldTraits<ChunkOverrideGroupPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFChunkOverrideGroupPtr"; }
-    static const char *getMName(void) { return "MFChunkOverrideGroupPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFChunkOverrideGroupPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFChunkOverrideGroupPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecChunkOverrideGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecChunkOverrideGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakChunkOverrideGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdChunkOverrideGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecChunkOverrideGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecChunkOverrideGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakChunkOverrideGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdChunkOverrideGroupPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ChunkOverrideGroupPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ChunkOverrideGroupPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ChunkOverrideGroupPtr> SFChunkOverrideGroupPtr;
+typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
+                                RecordedRefCounts  > SFRecChunkOverrideGroupPtr;
+typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
+                                UnrecordedRefCounts> SFUnrecChunkOverrideGroupPtr;
+typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
+                                WeakRefCounts      > SFWeakChunkOverrideGroupPtr;
+typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
+                                NoRefCounts        > SFUncountedChunkOverrideGroupPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ChunkOverrideGroupPtr> MFChunkOverrideGroupPtr;
+typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
+                                RecordedRefCounts  > MFRecChunkOverrideGroupPtr;
+typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
+                                UnrecordedRefCounts> MFUnrecChunkOverrideGroupPtr;
+typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
+                                WeakRefCounts      > MFWeakChunkOverrideGroupPtr;
+typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
+                                NoRefCounts        > MFUncountedChunkOverrideGroupPtr;
 #endif
 
 

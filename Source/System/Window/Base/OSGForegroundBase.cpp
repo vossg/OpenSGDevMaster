@@ -333,24 +333,12 @@ DataType FieldTraits<ForegroundPtr>::_type("ForegroundPtr", "AttachmentContainer
 
 OSG_FIELDTRAITS_GETTYPE(ForegroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ForegroundPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ForegroundPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ForegroundPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ForegroundPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ForegroundPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ForegroundPtr, 
+                           0);
 
 OSG_END_NAMESPACE

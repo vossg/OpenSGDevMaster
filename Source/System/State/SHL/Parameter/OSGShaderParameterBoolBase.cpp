@@ -395,24 +395,12 @@ DataType FieldTraits<ShaderParameterBoolPtr>::_type("ShaderParameterBoolPtr", "S
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterBoolPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ShaderParameterBoolPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ShaderParameterBoolPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ShaderParameterBoolPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ShaderParameterBoolPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ShaderParameterBoolPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ShaderParameterBoolPtr, 
+                           0);
 
 OSG_END_NAMESPACE

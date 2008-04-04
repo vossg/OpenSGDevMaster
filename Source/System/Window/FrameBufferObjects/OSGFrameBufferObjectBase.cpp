@@ -134,8 +134,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFFrameBufferAttachmentPtr::Description(
-        MFFrameBufferAttachmentPtr::getClassType(),
+    pDesc = new MFUnrecFrameBufferAttachmentPtr::Description(
+        MFUnrecFrameBufferAttachmentPtr::getClassType(),
         "colorAttachments",
         "GL_COLOR_ATTACHMENTX_EXT slots, position defines X. \n"
         "This defines the target buffers for color attachments.\n",
@@ -161,8 +161,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFFrameBufferAttachmentPtr::Description(
-        SFFrameBufferAttachmentPtr::getClassType(),
+    pDesc = new SFUnrecFrameBufferAttachmentPtr::Description(
+        SFUnrecFrameBufferAttachmentPtr::getClassType(),
         "depthAttachment",
         "GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.\n",
         DepthAttachmentFieldId, DepthAttachmentFieldMask,
@@ -173,8 +173,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFFrameBufferAttachmentPtr::Description(
-        SFFrameBufferAttachmentPtr::getClassType(),
+    pDesc = new SFUnrecFrameBufferAttachmentPtr::Description(
+        SFUnrecFrameBufferAttachmentPtr::getClassType(),
         "stencilAttachment",
         "GL_STENCIL_ATTACHMENT_EXT slot.\n",
         StencilAttachmentFieldId, StencilAttachmentFieldMask,
@@ -348,7 +348,7 @@ SFGLenum            *FrameBufferObjectBase::getSFGLId           (void)
 #endif
 
 //! Get the FrameBufferObject::_mfColorAttachments field.
-const MFFrameBufferAttachmentPtr *FrameBufferObjectBase::getMFColorAttachments(void) const
+const MFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getMFColorAttachments(void) const
 {
     return &_mfColorAttachments;
 }
@@ -373,13 +373,13 @@ MFGLenum            *FrameBufferObjectBase::getMFDrawBuffers    (void)
 #endif
 
 //! Get the FrameBufferObject::_sfDepthAttachment field.
-const SFFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFDepthAttachment(void) const
+const SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFDepthAttachment(void) const
 {
     return &_sfDepthAttachment;
 }
 
 //! Get the FrameBufferObject::_sfStencilAttachment field.
-const SFFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFStencilAttachment(void) const
+const SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFStencilAttachment(void) const
 {
     return &_sfStencilAttachment;
 }
@@ -436,11 +436,11 @@ void FrameBufferObjectBase::pushToColorAttachments(FrameBufferAttachmentPtrConst
     _mfColorAttachments.push_back(value);
 }
 
-void FrameBufferObjectBase::assignColorAttachments(const MFFrameBufferAttachmentPtr &value)
+void FrameBufferObjectBase::assignColorAttachments(const MFUnrecFrameBufferAttachmentPtr &value)
 {
-    MFFrameBufferAttachmentPtr::const_iterator elemIt  =
+    MFUnrecFrameBufferAttachmentPtr::const_iterator elemIt  =
         value.begin();
-    MFFrameBufferAttachmentPtr::const_iterator elemEnd =
+    MFUnrecFrameBufferAttachmentPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<FrameBufferObject *>(this)->clearColorAttachments();
@@ -461,7 +461,7 @@ void FrameBufferObjectBase::insertIntoColorAttachments(UInt32                uiI
 
     editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
-    MFFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin();
+    MFUnrecFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin();
 
     //addRef(value);
 
@@ -519,7 +519,7 @@ void FrameBufferObjectBase::removeFromColorAttachments(UInt32 uiIndex)
     {
         editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
-        MFFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin();
+        MFUnrecFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin();
 
         fieldIt += uiIndex;
 
@@ -537,7 +537,7 @@ void FrameBufferObjectBase::removeFromColorAttachments(FrameBufferAttachmentPtrC
     {
         editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
-        MFFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin();
+        MFUnrecFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin();
 
         fieldIt += iElemIdx;
 
@@ -550,8 +550,8 @@ void FrameBufferObjectBase::clearColorAttachments(void)
 {
     editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
-    MFFrameBufferAttachmentPtr::iterator       fieldIt  = _mfColorAttachments.begin();
-    MFFrameBufferAttachmentPtr::const_iterator fieldEnd = _mfColorAttachments.end  ();
+    MFUnrecFrameBufferAttachmentPtr::iterator       fieldIt  = _mfColorAttachments.begin();
+    MFUnrecFrameBufferAttachmentPtr::const_iterator fieldEnd = _mfColorAttachments.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -882,9 +882,9 @@ void FrameBufferObjectBase::onCreate(const FrameBufferObject *source)
     if(source != NULL)
     {
 
-        MFFrameBufferAttachmentPtr::const_iterator ColorAttachmentsIt  =
+        MFUnrecFrameBufferAttachmentPtr::const_iterator ColorAttachmentsIt  =
             source->_mfColorAttachments.begin();
-        MFFrameBufferAttachmentPtr::const_iterator ColorAttachmentsEnd =
+        MFUnrecFrameBufferAttachmentPtr::const_iterator ColorAttachmentsEnd =
             source->_mfColorAttachments.end  ();
 
         while(ColorAttachmentsIt != ColorAttachmentsEnd)
@@ -924,8 +924,8 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleGLId           (void)
 
 GetFieldHandlePtr FrameBufferObjectBase::getHandleColorAttachments (void) const
 {
-    MFFrameBufferAttachmentPtr::GetHandlePtr returnValue(
-        new  MFFrameBufferAttachmentPtr::GetHandle(
+    MFUnrecFrameBufferAttachmentPtr::GetHandlePtr returnValue(
+        new  MFUnrecFrameBufferAttachmentPtr::GetHandle(
              &_mfColorAttachments, 
              this->getType().getFieldDesc(ColorAttachmentsFieldId)));
 
@@ -934,8 +934,8 @@ GetFieldHandlePtr FrameBufferObjectBase::getHandleColorAttachments (void) const
 
 EditFieldHandlePtr FrameBufferObjectBase::editHandleColorAttachments(void)
 {
-    MFFrameBufferAttachmentPtr::EditHandlePtr returnValue(
-        new  MFFrameBufferAttachmentPtr::EditHandle(
+    MFUnrecFrameBufferAttachmentPtr::EditHandlePtr returnValue(
+        new  MFUnrecFrameBufferAttachmentPtr::EditHandle(
              &_mfColorAttachments, 
              this->getType().getFieldDesc(ColorAttachmentsFieldId)));
 
@@ -971,8 +971,8 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleDrawBuffers    (void)
 
 GetFieldHandlePtr FrameBufferObjectBase::getHandleDepthAttachment (void) const
 {
-    SFFrameBufferAttachmentPtr::GetHandlePtr returnValue(
-        new  SFFrameBufferAttachmentPtr::GetHandle(
+    SFUnrecFrameBufferAttachmentPtr::GetHandlePtr returnValue(
+        new  SFUnrecFrameBufferAttachmentPtr::GetHandle(
              &_sfDepthAttachment, 
              this->getType().getFieldDesc(DepthAttachmentFieldId)));
 
@@ -981,8 +981,8 @@ GetFieldHandlePtr FrameBufferObjectBase::getHandleDepthAttachment (void) const
 
 EditFieldHandlePtr FrameBufferObjectBase::editHandleDepthAttachment(void)
 {
-    SFFrameBufferAttachmentPtr::EditHandlePtr returnValue(
-        new  SFFrameBufferAttachmentPtr::EditHandle(
+    SFUnrecFrameBufferAttachmentPtr::EditHandlePtr returnValue(
+        new  SFUnrecFrameBufferAttachmentPtr::EditHandle(
              &_sfDepthAttachment, 
              this->getType().getFieldDesc(DepthAttachmentFieldId)));
 
@@ -996,8 +996,8 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleDepthAttachment(void)
 
 GetFieldHandlePtr FrameBufferObjectBase::getHandleStencilAttachment (void) const
 {
-    SFFrameBufferAttachmentPtr::GetHandlePtr returnValue(
-        new  SFFrameBufferAttachmentPtr::GetHandle(
+    SFUnrecFrameBufferAttachmentPtr::GetHandlePtr returnValue(
+        new  SFUnrecFrameBufferAttachmentPtr::GetHandle(
              &_sfStencilAttachment, 
              this->getType().getFieldDesc(StencilAttachmentFieldId)));
 
@@ -1006,8 +1006,8 @@ GetFieldHandlePtr FrameBufferObjectBase::getHandleStencilAttachment (void) const
 
 EditFieldHandlePtr FrameBufferObjectBase::editHandleStencilAttachment(void)
 {
-    SFFrameBufferAttachmentPtr::EditHandlePtr returnValue(
-        new  SFFrameBufferAttachmentPtr::EditHandle(
+    SFUnrecFrameBufferAttachmentPtr::EditHandlePtr returnValue(
+        new  SFUnrecFrameBufferAttachmentPtr::EditHandle(
              &_sfStencilAttachment, 
              this->getType().getFieldDesc(StencilAttachmentFieldId)));
 
@@ -1120,24 +1120,12 @@ DataType FieldTraits<FrameBufferObjectPtr>::_type("FrameBufferObjectPtr", "Attac
 
 OSG_FIELDTRAITS_GETTYPE(FrameBufferObjectPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    FrameBufferObjectPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           FrameBufferObjectPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         FrameBufferObjectPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    FrameBufferObjectPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         FrameBufferObjectPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           FrameBufferObjectPtr, 
+                           0);
 
 OSG_END_NAMESPACE

@@ -912,24 +912,12 @@ DataType FieldTraits<DrawableStatsAttachmentPtr>::_type("DrawableStatsAttachment
 
 OSG_FIELDTRAITS_GETTYPE(DrawableStatsAttachmentPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    DrawableStatsAttachmentPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           DrawableStatsAttachmentPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         DrawableStatsAttachmentPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    DrawableStatsAttachmentPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         DrawableStatsAttachmentPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           DrawableStatsAttachmentPtr, 
+                           0);
 
 OSG_END_NAMESPACE

@@ -96,9 +96,63 @@ struct FieldTraits<TextureTransformChunkPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFTextureTransformChunkPtr"; }
-    static const char *getMName(void) { return "MFTextureTransformChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFTextureTransformChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFTextureTransformChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<TextureTransformChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecTextureTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureTransformChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecTextureTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureTransformChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakTextureTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureTransformChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdTextureTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureTransformChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecTextureTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureTransformChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecTextureTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureTransformChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakTextureTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureTransformChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdTextureTransformChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<TextureTransformChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<TextureTransformChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<TextureTransformChunkPtr> SFTextureTransformChunkPtr;
+typedef FieldContainerPtrSField<TextureTransformChunkPtr,
+                                RecordedRefCounts  > SFRecTextureTransformChunkPtr;
+typedef FieldContainerPtrSField<TextureTransformChunkPtr,
+                                UnrecordedRefCounts> SFUnrecTextureTransformChunkPtr;
+typedef FieldContainerPtrSField<TextureTransformChunkPtr,
+                                WeakRefCounts      > SFWeakTextureTransformChunkPtr;
+typedef FieldContainerPtrSField<TextureTransformChunkPtr,
+                                NoRefCounts        > SFUncountedTextureTransformChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<TextureTransformChunkPtr> MFTextureTransformChunkPtr;
+typedef FieldContainerPtrMField<TextureTransformChunkPtr,
+                                RecordedRefCounts  > MFRecTextureTransformChunkPtr;
+typedef FieldContainerPtrMField<TextureTransformChunkPtr,
+                                UnrecordedRefCounts> MFUnrecTextureTransformChunkPtr;
+typedef FieldContainerPtrMField<TextureTransformChunkPtr,
+                                WeakRefCounts      > MFWeakTextureTransformChunkPtr;
+typedef FieldContainerPtrMField<TextureTransformChunkPtr,
+                                NoRefCounts        > MFUncountedTextureTransformChunkPtr;
 #endif
 
 

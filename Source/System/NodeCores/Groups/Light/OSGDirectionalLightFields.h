@@ -95,6 +95,8 @@ struct FieldTraits<DirectionalLightPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<DirectionalLightPtr, 0>
     \hideinhierarchy

@@ -95,6 +95,8 @@ struct FieldTraits<ScreenLODPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ScreenLODPtr, 0>
     \hideinhierarchy

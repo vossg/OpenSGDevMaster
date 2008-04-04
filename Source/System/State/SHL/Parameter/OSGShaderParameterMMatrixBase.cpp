@@ -486,24 +486,12 @@ DataType FieldTraits<ShaderParameterMMatrixPtr>::_type("ShaderParameterMMatrixPt
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterMMatrixPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ShaderParameterMMatrixPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ShaderParameterMMatrixPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ShaderParameterMMatrixPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ShaderParameterMMatrixPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ShaderParameterMMatrixPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ShaderParameterMMatrixPtr, 
+                           0);
 
 OSG_END_NAMESPACE

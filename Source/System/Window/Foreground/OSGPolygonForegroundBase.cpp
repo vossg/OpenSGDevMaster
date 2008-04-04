@@ -133,8 +133,8 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFMaterialPtr::Description(
-        SFMaterialPtr::getClassType(),
+    pDesc = new SFUnrecMaterialPtr::Description(
+        SFUnrecMaterialPtr::getClassType(),
         "material",
         "The material used to display.\n",
         MaterialFieldId, MaterialFieldMask,
@@ -398,7 +398,7 @@ UInt32 PolygonForegroundBase::getContainerSize(void) const
 
 
 //! Get the PolygonForeground::_sfMaterial field.
-const SFMaterialPtr *PolygonForegroundBase::getSFMaterial(void) const
+const SFUnrecMaterialPtr *PolygonForegroundBase::getSFMaterial(void) const
 {
     return &_sfMaterial;
 }
@@ -992,8 +992,8 @@ void PolygonForegroundBase::onCreate(const PolygonForeground *source)
 
 GetFieldHandlePtr PolygonForegroundBase::getHandleMaterial        (void) const
 {
-    SFMaterialPtr::GetHandlePtr returnValue(
-        new  SFMaterialPtr::GetHandle(
+    SFUnrecMaterialPtr::GetHandlePtr returnValue(
+        new  SFUnrecMaterialPtr::GetHandle(
              &_sfMaterial, 
              this->getType().getFieldDesc(MaterialFieldId)));
 
@@ -1002,8 +1002,8 @@ GetFieldHandlePtr PolygonForegroundBase::getHandleMaterial        (void) const
 
 EditFieldHandlePtr PolygonForegroundBase::editHandleMaterial       (void)
 {
-    SFMaterialPtr::EditHandlePtr returnValue(
-        new  SFMaterialPtr::EditHandle(
+    SFUnrecMaterialPtr::EditHandlePtr returnValue(
+        new  SFUnrecMaterialPtr::EditHandle(
              &_sfMaterial, 
              this->getType().getFieldDesc(MaterialFieldId)));
 
@@ -1249,24 +1249,12 @@ DataType FieldTraits<PolygonForegroundPtr>::_type("PolygonForegroundPtr", "Foreg
 
 OSG_FIELDTRAITS_GETTYPE(PolygonForegroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    PolygonForegroundPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           PolygonForegroundPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         PolygonForegroundPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    PolygonForegroundPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         PolygonForegroundPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           PolygonForegroundPtr, 
+                           0);
 
 OSG_END_NAMESPACE

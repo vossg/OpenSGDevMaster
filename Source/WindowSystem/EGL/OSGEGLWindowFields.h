@@ -96,9 +96,63 @@ struct FieldTraits<EGLWindowPtr> :
 
     static OSG_WINDOWEGL_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFEGLWindowPtr"; }
-    static const char *getMName(void) { return "MFEGLWindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFEGLWindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFEGLWindowPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<EGLWindowPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecEGLWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<EGLWindowPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecEGLWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<EGLWindowPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakEGLWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<EGLWindowPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdEGLWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<EGLWindowPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecEGLWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<EGLWindowPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecEGLWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<EGLWindowPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakEGLWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<EGLWindowPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdEGLWindowPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<EGLWindowPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<EGLWindowPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowEGLFieldSingle */
 
-typedef FieldContainerPtrSField<EGLWindowPtr> SFEGLWindowPtr;
+typedef FieldContainerPtrSField<EGLWindowPtr,
+                                RecordedRefCounts  > SFRecEGLWindowPtr;
+typedef FieldContainerPtrSField<EGLWindowPtr,
+                                UnrecordedRefCounts> SFUnrecEGLWindowPtr;
+typedef FieldContainerPtrSField<EGLWindowPtr,
+                                WeakRefCounts      > SFWeakEGLWindowPtr;
+typedef FieldContainerPtrSField<EGLWindowPtr,
+                                NoRefCounts        > SFUncountedEGLWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowEGLFieldMulti */
 
-typedef FieldContainerPtrMField<EGLWindowPtr> MFEGLWindowPtr;
+typedef FieldContainerPtrMField<EGLWindowPtr,
+                                RecordedRefCounts  > MFRecEGLWindowPtr;
+typedef FieldContainerPtrMField<EGLWindowPtr,
+                                UnrecordedRefCounts> MFUnrecEGLWindowPtr;
+typedef FieldContainerPtrMField<EGLWindowPtr,
+                                WeakRefCounts      > MFWeakEGLWindowPtr;
+typedef FieldContainerPtrMField<EGLWindowPtr,
+                                NoRefCounts        > MFUncountedEGLWindowPtr;
 #endif
 
 

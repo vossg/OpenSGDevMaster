@@ -332,7 +332,7 @@ ForegroundPtrConst ViewportBase::getForegrounds(const UInt32 index) const
 
 //! Get the Viewport::_mfForegrounds field.
 inline
-const MFForegroundPtr &ViewportBase::getForegrounds(void) const
+const MFUnrecForegroundPtr &ViewportBase::getForegrounds(void) const
 {
     return _mfForegrounds;
 }

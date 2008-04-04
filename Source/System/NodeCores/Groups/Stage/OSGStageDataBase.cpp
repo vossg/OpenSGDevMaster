@@ -56,7 +56,6 @@
 #include <cstdlib>
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
-#include "boost/bind.hpp"
 
 #include <OSGConfig.h>
 
@@ -65,6 +64,8 @@
 
 #include "OSGStageDataBase.h"
 #include "OSGStageData.h"
+
+#include "boost/bind.hpp"
 
 OSG_BEGIN_NAMESPACE
 
@@ -141,8 +142,9 @@ StageDataBase::TypeObject StageDataBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (ProtoBundleCreateF) &StageDataBase::createEmpty,
+    (PrototypeCreateF) &StageDataBase::createEmptyLocal,
     StageData::initMethod,
+    StageData::exitMethod,
     (InitalInsertDescFunc) &StageDataBase::classDescInserter,
     false,
     0,
@@ -150,7 +152,7 @@ StageDataBase::TypeObject StageDataBase::_type(
     "\n"
     "<FieldContainer\n"
     "    name=\"StageData\"\n"
-    "    parent=\"FieldBundle\"\n"
+    "    parent=\"FieldContainer\"\n"
     "    library=\"Group\"\n"
     "    pointerfieldtypes=\"none\"\n"
     "    structure=\"concrete\"\n"
@@ -159,6 +161,7 @@ StageDataBase::TypeObject StageDataBase::_type(
     "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
+    "    isBundle=\"true\"\n"
     ">\n"
     "Data use for rendering by the any stage, holds bookkeeping data\n"
     "\t<Field\n"
@@ -194,12 +197,12 @@ StageDataBase::TypeObject StageDataBase::_type(
 
 /*------------------------------ get -----------------------------------*/
 
-FieldBundleType &StageDataBase::getType(void)
+FieldContainerType &StageDataBase::getType(void)
 {
     return _type;
 }
 
-const FieldBundleType &StageDataBase::getType(void) const
+const FieldContainerType &StageDataBase::getType(void) const
 {
     return _type;
 }
@@ -333,21 +336,87 @@ void StageDataBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
-//! create an empty new instance of the class, do not copy the prototype
-StageDataP StageDataBase::createEmpty(void)
+//! create a new instance of the class
+StageDataTransitPtr StageDataBase::create(void)
 {
-    StageDataP returnValue;
+    StageDataTransitPtr fc;
 
-    newPtr<StageData>(returnValue);
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<StageData>(tmpPtr);
+    }
+
+    return fc;
+}
+
+//! create a new instance of the class
+StageDataTransitPtr StageDataBase::createLocal(BitVector bFlags)
+{
+    StageDataTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<StageData>(tmpPtr);
+    }
+
+    return fc;
+}
+
+//! create an empty new instance of the class, do not copy the prototype
+StageDataPtr StageDataBase::createEmpty(void)
+{
+    StageDataPtr returnValue;
+
+    newPtr<StageData>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
 
     return returnValue;
 }
 
-FieldBundleP StageDataBase::shallowCopy(void) const
+StageDataPtr StageDataBase::createEmptyLocal(BitVector bFlags)
 {
-    StageDataP returnValue;
+    StageDataPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const StageData *>(this));
+    newPtr<StageData>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr StageDataBase::shallowCopy(void) const
+{
+    StageDataPtr tmpPtr;
+
+    newPtr(tmpPtr, 
+           dynamic_cast<const StageData *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr StageDataBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    StageDataPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const StageData *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -372,17 +441,13 @@ StageDataBase::StageDataBase(const StageDataBase &source) :
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 StageDataBase::~StageDataBase(void)
 {
 }
 
-
-void StageDataBase::resolveLinks(void)
-{
-    Inherited::resolveLinks();
-}
 
 GetFieldHandlePtr StageDataBase::getHandlePartitionRangeBegin (void) const
 {
@@ -451,11 +516,45 @@ EditFieldHandlePtr StageDataBase::editHandleGroupMode      (void)
 }
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StageDataP>::_type("StageDataP", "FieldBundleP");
+#ifdef OSG_MT_CPTR_ASPECT
+void StageDataBase::execSyncV(      FieldContainer    &oFrom,
+                                        ConstFieldMaskArg  whichField,
+                                        AspectOffsetStore &oOffsets,
+                                        ConstFieldMaskArg  syncMode,
+                                  const UInt32             uiSyncInfo)
+{
+    this->execSync(static_cast<StageDataBase *>(&oFrom),
+                   whichField,
+                   oOffsets,
+                   syncMode,
+                   uiSyncInfo);
+}
 #endif
 
+
+#ifdef OSG_MT_CPTR_ASPECT
+FieldContainerPtr StageDataBase::createAspectCopy(void) const
+{
+    StageDataPtr returnValue;
+
+    newAspectCopy(returnValue,
+                  dynamic_cast<const StageData *>(this));
+
+    return returnValue;
+}
+#endif
+
+void StageDataBase::resolveLinks(void)
+{
+    Inherited::resolveLinks();
+
+
+}
+
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<StageDataPtr>::_type("StageDataPtr", "FieldContainerPtr");
+#endif
 
 
 OSG_END_NAMESPACE

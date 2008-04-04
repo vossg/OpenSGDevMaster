@@ -394,24 +394,12 @@ DataType FieldTraits<SimpleShadowMapEnginePtr>::_type("SimpleShadowMapEnginePtr"
 
 OSG_FIELDTRAITS_GETTYPE(SimpleShadowMapEnginePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    SimpleShadowMapEnginePtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           SimpleShadowMapEnginePtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         SimpleShadowMapEnginePtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    SimpleShadowMapEnginePtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         SimpleShadowMapEnginePtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           SimpleShadowMapEnginePtr, 
+                           0);
 
 OSG_END_NAMESPACE

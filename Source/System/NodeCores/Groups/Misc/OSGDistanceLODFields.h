@@ -95,6 +95,8 @@ struct FieldTraits<DistanceLODPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<DistanceLODPtr, 0>
     \hideinhierarchy

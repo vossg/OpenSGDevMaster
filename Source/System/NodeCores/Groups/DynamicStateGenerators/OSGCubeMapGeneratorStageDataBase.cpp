@@ -56,7 +56,6 @@
 #include <cstdlib>
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
-#include "boost/bind.hpp"
 
 #include <OSGConfig.h>
 
@@ -65,6 +64,8 @@
 
 #include "OSGCubeMapGeneratorStageDataBase.h"
 #include "OSGCubeMapGeneratorStageData.h"
+
+#include "boost/bind.hpp"
 
 OSG_BEGIN_NAMESPACE
 
@@ -82,8 +83,9 @@ CubeMapGeneratorStageDataBase::TypeObject CubeMapGeneratorStageDataBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (ProtoBundleCreateF) &CubeMapGeneratorStageDataBase::createEmpty,
+    (PrototypeCreateF) &CubeMapGeneratorStageDataBase::createEmptyLocal,
     CubeMapGeneratorStageData::initMethod,
+    CubeMapGeneratorStageData::exitMethod,
     NULL,
     false,
     0,
@@ -100,6 +102,7 @@ CubeMapGeneratorStageDataBase::TypeObject CubeMapGeneratorStageDataBase::_type(
     "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
+    "    isBundle=\"true\"\n"
     ">\n"
     "Data use for rendering by the cubemap generator stage\n"
     "</FieldContainer>\n",
@@ -108,12 +111,12 @@ CubeMapGeneratorStageDataBase::TypeObject CubeMapGeneratorStageDataBase::_type(
 
 /*------------------------------ get -----------------------------------*/
 
-FieldBundleType &CubeMapGeneratorStageDataBase::getType(void)
+FieldContainerType &CubeMapGeneratorStageDataBase::getType(void)
 {
     return _type;
 }
 
-const FieldBundleType &CubeMapGeneratorStageDataBase::getType(void) const
+const FieldContainerType &CubeMapGeneratorStageDataBase::getType(void) const
 {
     return _type;
 }
@@ -154,21 +157,87 @@ void CubeMapGeneratorStageDataBase::copyFromBin(BinaryDataHandler &pMem,
 
 }
 
-//! create an empty new instance of the class, do not copy the prototype
-CubeMapGeneratorStageDataP CubeMapGeneratorStageDataBase::createEmpty(void)
+//! create a new instance of the class
+CubeMapGeneratorStageDataTransitPtr CubeMapGeneratorStageDataBase::create(void)
 {
-    CubeMapGeneratorStageDataP returnValue;
+    CubeMapGeneratorStageDataTransitPtr fc;
 
-    newPtr<CubeMapGeneratorStageData>(returnValue);
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<CubeMapGeneratorStageData>(tmpPtr);
+    }
+
+    return fc;
+}
+
+//! create a new instance of the class
+CubeMapGeneratorStageDataTransitPtr CubeMapGeneratorStageDataBase::createLocal(BitVector bFlags)
+{
+    CubeMapGeneratorStageDataTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<CubeMapGeneratorStageData>(tmpPtr);
+    }
+
+    return fc;
+}
+
+//! create an empty new instance of the class, do not copy the prototype
+CubeMapGeneratorStageDataPtr CubeMapGeneratorStageDataBase::createEmpty(void)
+{
+    CubeMapGeneratorStageDataPtr returnValue;
+
+    newPtr<CubeMapGeneratorStageData>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
 
     return returnValue;
 }
 
-FieldBundleP CubeMapGeneratorStageDataBase::shallowCopy(void) const
+CubeMapGeneratorStageDataPtr CubeMapGeneratorStageDataBase::createEmptyLocal(BitVector bFlags)
 {
-    CubeMapGeneratorStageDataP returnValue;
+    CubeMapGeneratorStageDataPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const CubeMapGeneratorStageData *>(this));
+    newPtr<CubeMapGeneratorStageData>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CubeMapGeneratorStageDataBase::shallowCopy(void) const
+{
+    CubeMapGeneratorStageDataPtr tmpPtr;
+
+    newPtr(tmpPtr, 
+           dynamic_cast<const CubeMapGeneratorStageData *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CubeMapGeneratorStageDataBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    CubeMapGeneratorStageDataPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CubeMapGeneratorStageData *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -187,6 +256,7 @@ CubeMapGeneratorStageDataBase::CubeMapGeneratorStageDataBase(const CubeMapGenera
 {
 }
 
+
 /*-------------------------- destructors ----------------------------------*/
 
 CubeMapGeneratorStageDataBase::~CubeMapGeneratorStageDataBase(void)
@@ -194,17 +264,46 @@ CubeMapGeneratorStageDataBase::~CubeMapGeneratorStageDataBase(void)
 }
 
 
+
+#ifdef OSG_MT_CPTR_ASPECT
+void CubeMapGeneratorStageDataBase::execSyncV(      FieldContainer    &oFrom,
+                                        ConstFieldMaskArg  whichField,
+                                        AspectOffsetStore &oOffsets,
+                                        ConstFieldMaskArg  syncMode,
+                                  const UInt32             uiSyncInfo)
+{
+    this->execSync(static_cast<CubeMapGeneratorStageDataBase *>(&oFrom),
+                   whichField,
+                   oOffsets,
+                   syncMode,
+                   uiSyncInfo);
+}
+#endif
+
+
+#ifdef OSG_MT_CPTR_ASPECT
+FieldContainerPtr CubeMapGeneratorStageDataBase::createAspectCopy(void) const
+{
+    CubeMapGeneratorStageDataPtr returnValue;
+
+    newAspectCopy(returnValue,
+                  dynamic_cast<const CubeMapGeneratorStageData *>(this));
+
+    return returnValue;
+}
+#endif
+
 void CubeMapGeneratorStageDataBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeMapGeneratorStageDataP>::_type("CubeMapGeneratorStageDataP", "StageDataP");
+DataType FieldTraits<CubeMapGeneratorStageDataPtr>::_type("CubeMapGeneratorStageDataPtr", "StageDataPtr");
 #endif
-
 
 
 OSG_END_NAMESPACE

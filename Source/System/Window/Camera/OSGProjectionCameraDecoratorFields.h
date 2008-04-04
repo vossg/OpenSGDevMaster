@@ -96,9 +96,63 @@ struct FieldTraits<ProjectionCameraDecoratorPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFProjectionCameraDecoratorPtr"; }
-    static const char *getMName(void) { return "MFProjectionCameraDecoratorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFProjectionCameraDecoratorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFProjectionCameraDecoratorPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecProjectionCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecProjectionCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakProjectionCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdProjectionCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecProjectionCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecProjectionCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakProjectionCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdProjectionCameraDecoratorPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ProjectionCameraDecoratorPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ProjectionCameraDecoratorPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr> SFProjectionCameraDecoratorPtr;
+typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
+                                RecordedRefCounts  > SFRecProjectionCameraDecoratorPtr;
+typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
+                                UnrecordedRefCounts> SFUnrecProjectionCameraDecoratorPtr;
+typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
+                                WeakRefCounts      > SFWeakProjectionCameraDecoratorPtr;
+typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
+                                NoRefCounts        > SFUncountedProjectionCameraDecoratorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr> MFProjectionCameraDecoratorPtr;
+typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
+                                RecordedRefCounts  > MFRecProjectionCameraDecoratorPtr;
+typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
+                                UnrecordedRefCounts> MFUnrecProjectionCameraDecoratorPtr;
+typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
+                                WeakRefCounts      > MFWeakProjectionCameraDecoratorPtr;
+typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
+                                NoRefCounts        > MFUncountedProjectionCameraDecoratorPtr;
 #endif
 
 

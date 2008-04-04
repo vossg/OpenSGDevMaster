@@ -96,9 +96,63 @@ struct FieldTraits<GeometryPtr> :
 
     static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFGeometryPtr"; }
-    static const char *getMName(void) { return "MFGeometryPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFGeometryPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFGeometryPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<GeometryPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecGeometryPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeometryPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecGeometryPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeometryPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakGeometryPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeometryPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdGeometryPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeometryPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecGeometryPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeometryPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecGeometryPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeometryPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakGeometryPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeometryPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdGeometryPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<GeometryPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<GeometryPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<GeometryPtr> SFGeometryPtr;
+typedef FieldContainerPtrSField<GeometryPtr,
+                                RecordedRefCounts  > SFRecGeometryPtr;
+typedef FieldContainerPtrSField<GeometryPtr,
+                                UnrecordedRefCounts> SFUnrecGeometryPtr;
+typedef FieldContainerPtrSField<GeometryPtr,
+                                WeakRefCounts      > SFWeakGeometryPtr;
+typedef FieldContainerPtrSField<GeometryPtr,
+                                NoRefCounts        > SFUncountedGeometryPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<GeometryPtr> MFGeometryPtr;
+typedef FieldContainerPtrMField<GeometryPtr,
+                                RecordedRefCounts  > MFRecGeometryPtr;
+typedef FieldContainerPtrMField<GeometryPtr,
+                                UnrecordedRefCounts> MFUnrecGeometryPtr;
+typedef FieldContainerPtrMField<GeometryPtr,
+                                WeakRefCounts      > MFWeakGeometryPtr;
+typedef FieldContainerPtrMField<GeometryPtr,
+                                NoRefCounts        > MFUncountedGeometryPtr;
 #endif
 
 

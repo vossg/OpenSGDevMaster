@@ -129,7 +129,7 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFImagePtr          *getSFImage           (void) const;
+            const SFUnrecImagePtr     *getSFImage           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFAutoResize      (void);
@@ -213,7 +213,7 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFImagePtr        _sfImage;
+    SFUnrecImagePtr   _sfImage;
     SFBool            _sfAutoResize;
 
     /*! \}                                                                 */

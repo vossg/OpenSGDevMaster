@@ -1996,24 +1996,12 @@ DataType FieldTraits<RenderOptionsPtr>::_type("RenderOptionsPtr", "FieldContaine
 
 OSG_FIELDTRAITS_GETTYPE(RenderOptionsPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    RenderOptionsPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           RenderOptionsPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         RenderOptionsPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    RenderOptionsPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         RenderOptionsPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           RenderOptionsPtr, 
+                           0);
 
 OSG_END_NAMESPACE

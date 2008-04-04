@@ -185,8 +185,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFCameraPtr::Description(
-        SFCameraPtr::getClassType(),
+    pDesc = new SFUnrecCameraPtr::Description(
+        SFUnrecCameraPtr::getClassType(),
         "camera",
         "The Camera used to render the viewport.\n",
         CameraFieldId, CameraFieldMask,
@@ -197,8 +197,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFBackgroundPtr::Description(
-        SFBackgroundPtr::getClassType(),
+    pDesc = new SFUnrecBackgroundPtr::Description(
+        SFUnrecBackgroundPtr::getClassType(),
         "background",
         "The background used to clear this viewport.\n",
         BackgroundFieldId, BackgroundFieldMask,
@@ -447,13 +447,13 @@ SFReal32            *SimpleStageBase::getSFTop            (void)
 #endif
 
 //! Get the SimpleStage::_sfCamera field.
-const SFCameraPtr *SimpleStageBase::getSFCamera(void) const
+const SFUnrecCameraPtr *SimpleStageBase::getSFCamera(void) const
 {
     return &_sfCamera;
 }
 
 //! Get the SimpleStage::_sfBackground field.
-const SFBackgroundPtr *SimpleStageBase::getSFBackground(void) const
+const SFUnrecBackgroundPtr *SimpleStageBase::getSFBackground(void) const
 {
     return &_sfBackground;
 }
@@ -811,8 +811,8 @@ EditFieldHandlePtr SimpleStageBase::editHandleTop            (void)
 
 GetFieldHandlePtr SimpleStageBase::getHandleCamera          (void) const
 {
-    SFCameraPtr::GetHandlePtr returnValue(
-        new  SFCameraPtr::GetHandle(
+    SFUnrecCameraPtr::GetHandlePtr returnValue(
+        new  SFUnrecCameraPtr::GetHandle(
              &_sfCamera, 
              this->getType().getFieldDesc(CameraFieldId)));
 
@@ -821,8 +821,8 @@ GetFieldHandlePtr SimpleStageBase::getHandleCamera          (void) const
 
 EditFieldHandlePtr SimpleStageBase::editHandleCamera         (void)
 {
-    SFCameraPtr::EditHandlePtr returnValue(
-        new  SFCameraPtr::EditHandle(
+    SFUnrecCameraPtr::EditHandlePtr returnValue(
+        new  SFUnrecCameraPtr::EditHandle(
              &_sfCamera, 
              this->getType().getFieldDesc(CameraFieldId)));
 
@@ -836,8 +836,8 @@ EditFieldHandlePtr SimpleStageBase::editHandleCamera         (void)
 
 GetFieldHandlePtr SimpleStageBase::getHandleBackground      (void) const
 {
-    SFBackgroundPtr::GetHandlePtr returnValue(
-        new  SFBackgroundPtr::GetHandle(
+    SFUnrecBackgroundPtr::GetHandlePtr returnValue(
+        new  SFUnrecBackgroundPtr::GetHandle(
              &_sfBackground, 
              this->getType().getFieldDesc(BackgroundFieldId)));
 
@@ -846,8 +846,8 @@ GetFieldHandlePtr SimpleStageBase::getHandleBackground      (void) const
 
 EditFieldHandlePtr SimpleStageBase::editHandleBackground     (void)
 {
-    SFBackgroundPtr::EditHandlePtr returnValue(
-        new  SFBackgroundPtr::EditHandle(
+    SFUnrecBackgroundPtr::EditHandlePtr returnValue(
+        new  SFUnrecBackgroundPtr::EditHandle(
              &_sfBackground, 
              this->getType().getFieldDesc(BackgroundFieldId)));
 

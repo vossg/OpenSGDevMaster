@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldBundleType &CubeMapGeneratorStageDataBase::getClassType(void)
+OSG::FieldContainerType &CubeMapGeneratorStageDataBase::getClassType(void)
 {
     return _type;
 }
@@ -74,21 +74,18 @@ OSG::UInt16 CubeMapGeneratorStageDataBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! create a new instance of the class
+
+#ifdef OSG_MT_CPTR_ASPECT
 inline
-CubeMapGeneratorStageDataP CubeMapGeneratorStageDataBase::create(void)
+void CubeMapGeneratorStageDataBase::execSync (      CubeMapGeneratorStageDataBase *pFrom,
+                                        ConstFieldMaskArg  whichField,
+                                        AspectOffsetStore &oOffsets,
+                                        ConstFieldMaskArg  syncMode,
+                                  const UInt32             uiSyncInfo)
 {
-    CubeMapGeneratorStageDataP fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        fc = dynamic_cast<CubeMapGeneratorStageData::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
-
-    return fc;
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 }
-
+#endif
 
 
 inline
@@ -96,8 +93,7 @@ Char8 *CubeMapGeneratorStageDataBase::getClassname(void)
 {
     return "CubeMapGeneratorStageData";
 }
-
-OSG_GEN_BUNDLEP(CubeMapGeneratorStageData);
+OSG_GEN_CONTAINERPTR(CubeMapGeneratorStageData);
 
 OSG_END_NAMESPACE
 

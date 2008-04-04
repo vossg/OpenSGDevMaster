@@ -396,24 +396,12 @@ DataType FieldTraits<TextureObjRefChunkPtr>::_type("TextureObjRefChunkPtr", "Tex
 
 OSG_FIELDTRAITS_GETTYPE(TextureObjRefChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    TextureObjRefChunkPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           TextureObjRefChunkPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         TextureObjRefChunkPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    TextureObjRefChunkPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         TextureObjRefChunkPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           TextureObjRefChunkPtr, 
+                           0);
 
 OSG_END_NAMESPACE

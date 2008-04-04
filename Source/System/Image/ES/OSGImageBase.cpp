@@ -179,8 +179,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFParentFieldContainerPtr::Description(
-        MFParentFieldContainerPtr::getClassType(),
+    pDesc = new MFUnrecParentFieldContainerPtr::Description(
+        MFUnrecParentFieldContainerPtr::getClassType(),
         "parents",
         "",
         ParentsFieldId, ParentsFieldMask,
@@ -1592,8 +1592,8 @@ void ImageBase::onCreate(const Image *source)
 
 GetFieldHandlePtr ImageBase::getHandleParents         (void) const
 {
-    MFParentFieldContainerPtr::GetHandlePtr returnValue(
-        new  MFParentFieldContainerPtr::GetHandle(
+    MFUnrecParentFieldContainerPtr::GetHandlePtr returnValue(
+        new  MFUnrecParentFieldContainerPtr::GetHandle(
              &_mfParents, 
              this->getType().getFieldDesc(ParentsFieldId)));
 
@@ -2099,24 +2099,12 @@ DataType FieldTraits<ImagePtr>::_type("ImagePtr", "AttachmentContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(ImagePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ImagePtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ImagePtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ImagePtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ImagePtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ImagePtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ImagePtr, 
+                           0);
 
 OSG_END_NAMESPACE

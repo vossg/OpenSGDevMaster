@@ -83,7 +83,7 @@ StateChunkPtrConst StateBase::getChunks(const UInt32 index) const
 
 //! Get the State::_mfChunks field.
 inline
-const MFStateChunkPtr &StateBase::getChunks(void) const
+const MFUnrecStateChunkPtr &StateBase::getChunks(void) const
 {
     return _mfChunks;
 }

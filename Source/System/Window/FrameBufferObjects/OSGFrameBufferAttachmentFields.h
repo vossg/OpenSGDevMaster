@@ -96,9 +96,63 @@ struct FieldTraits<FrameBufferAttachmentPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFFrameBufferAttachmentPtr"; }
-    static const char *getMName(void) { return "MFFrameBufferAttachmentPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFFrameBufferAttachmentPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFFrameBufferAttachmentPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecFrameBufferAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFrameBufferAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFrameBufferAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFrameBufferAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecFrameBufferAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFrameBufferAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFrameBufferAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFrameBufferAttachmentPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<FrameBufferAttachmentPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<FrameBufferAttachmentPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<FrameBufferAttachmentPtr> SFFrameBufferAttachmentPtr;
+typedef FieldContainerPtrSField<FrameBufferAttachmentPtr,
+                                RecordedRefCounts  > SFRecFrameBufferAttachmentPtr;
+typedef FieldContainerPtrSField<FrameBufferAttachmentPtr,
+                                UnrecordedRefCounts> SFUnrecFrameBufferAttachmentPtr;
+typedef FieldContainerPtrSField<FrameBufferAttachmentPtr,
+                                WeakRefCounts      > SFWeakFrameBufferAttachmentPtr;
+typedef FieldContainerPtrSField<FrameBufferAttachmentPtr,
+                                NoRefCounts        > SFUncountedFrameBufferAttachmentPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<FrameBufferAttachmentPtr> MFFrameBufferAttachmentPtr;
+typedef FieldContainerPtrMField<FrameBufferAttachmentPtr,
+                                RecordedRefCounts  > MFRecFrameBufferAttachmentPtr;
+typedef FieldContainerPtrMField<FrameBufferAttachmentPtr,
+                                UnrecordedRefCounts> MFUnrecFrameBufferAttachmentPtr;
+typedef FieldContainerPtrMField<FrameBufferAttachmentPtr,
+                                WeakRefCounts      > MFWeakFrameBufferAttachmentPtr;
+typedef FieldContainerPtrMField<FrameBufferAttachmentPtr,
+                                NoRefCounts        > MFUncountedFrameBufferAttachmentPtr;
 #endif
 
 

@@ -155,7 +155,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
 #endif
                   SFColor4f           *editSFColor          (void);
             const SFColor4f           *getSFColor           (void) const;
-            const SFTextureBaseChunkPtr *getSFTexture         (void) const;
+            const SFUnrecTextureBaseChunkPtr *getSFTexture         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   MFPnt2f             *getMFTexCoords       (void);
@@ -314,7 +314,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \{                                                                 */
 
     SFColor4f         _sfColor;
-    SFTextureBaseChunkPtr _sfTexture;
+    SFUnrecTextureBaseChunkPtr _sfTexture;
     MFPnt2f           _mfTexCoords;
     SFReal32          _sfRadialDistortion;
     SFVec2f           _sfCenterOfDistortion;

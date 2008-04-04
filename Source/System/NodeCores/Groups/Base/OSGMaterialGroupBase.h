@@ -125,7 +125,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFMaterialPtr       *getSFMaterial        (void) const;
+            const SFUnrecMaterialPtr  *getSFMaterial        (void) const;
 
 
                   MaterialPtrConst getMaterial       (void) const;
@@ -196,7 +196,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFMaterialPtr     _sfMaterial;
+    SFUnrecMaterialPtr _sfMaterial;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

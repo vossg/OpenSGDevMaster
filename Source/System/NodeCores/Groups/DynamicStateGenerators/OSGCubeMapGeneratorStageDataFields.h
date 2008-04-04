@@ -57,16 +57,19 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGStageDataFields.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
+
 
 OSG_BEGIN_NAMESPACE
 
 class CubeMapGeneratorStageData;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CubeMapGeneratorStageDataP
+//! CubeMapGeneratorStageDataPtr
 
-OSG_GEN_BUNDLEP(CubeMapGeneratorStageData);
+OSG_GEN_CONTAINERPTR(CubeMapGeneratorStageData);
 
 #endif
 
@@ -78,8 +81,8 @@ OSG_GEN_BUNDLEP(CubeMapGeneratorStageData);
 #endif
 
 template <>
-struct FieldTraits<CubeMapGeneratorStageDataP> :
-    public FieldTraitsTemplateBase<CubeMapGeneratorStageDataP>
+struct FieldTraits<CubeMapGeneratorStageDataPtr> :
+    public FieldTraitsFCPtrBase<CubeMapGeneratorStageDataPtr>
 {
   private:
 
@@ -87,13 +90,15 @@ struct FieldTraits<CubeMapGeneratorStageDataP> :
 
   public:
 
-    typedef FieldTraits<CubeMapGeneratorStageDataP>  Self;
+    typedef FieldTraits<CubeMapGeneratorStageDataPtr>  Self;
 
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CubeMapGeneratorStageDataP, 0>
+/*! \class  FieldTraitsTemplateBase<CubeMapGeneratorStageDataPtr, 0>
     \hideinhierarchy
  */
 #endif

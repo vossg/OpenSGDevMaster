@@ -185,8 +185,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(),
+    pDesc = new SFUnrecImagePtr::Description(
+        SFUnrecImagePtr::getClassType(),
         "heightData",
         "Terrain height as image.\n",
         HeightDataFieldId, HeightDataFieldMask,
@@ -293,8 +293,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFGeoVectorPropertyPtr::Description(
-        SFGeoVectorPropertyPtr::getClassType(),
+    pDesc = new SFUnrecGeoVectorPropertyPtr::Description(
+        SFUnrecGeoVectorPropertyPtr::getClassType(),
         "heightVertices",
         "Precomputed terrain vertices.\n",
         HeightVerticesFieldId, HeightVerticesFieldMask,
@@ -757,7 +757,7 @@ UInt32 QuadTreeTerrainBase::getContainerSize(void) const
 
 
 //! Get the QuadTreeTerrain::_sfHeightData field.
-const SFImagePtr *QuadTreeTerrainBase::getSFHeightData(void) const
+const SFUnrecImagePtr *QuadTreeTerrainBase::getSFHeightData(void) const
 {
     return &_sfHeightData;
 }
@@ -915,7 +915,7 @@ SFReal32            *QuadTreeTerrainBase::getSFVertexSpacing  (void)
 #endif
 
 //! Get the QuadTreeTerrain::_sfHeightVertices field.
-const SFGeoVectorPropertyPtr *QuadTreeTerrainBase::getSFHeightVertices(void) const
+const SFUnrecGeoVectorPropertyPtr *QuadTreeTerrainBase::getSFHeightVertices(void) const
 {
     return &_sfHeightVertices;
 }
@@ -1835,8 +1835,8 @@ void QuadTreeTerrainBase::onCreate(const QuadTreeTerrain *source)
 
 GetFieldHandlePtr QuadTreeTerrainBase::getHandleHeightData      (void) const
 {
-    SFImagePtr::GetHandlePtr returnValue(
-        new  SFImagePtr::GetHandle(
+    SFUnrecImagePtr::GetHandlePtr returnValue(
+        new  SFUnrecImagePtr::GetHandle(
              &_sfHeightData, 
              this->getType().getFieldDesc(HeightDataFieldId)));
 
@@ -1845,8 +1845,8 @@ GetFieldHandlePtr QuadTreeTerrainBase::getHandleHeightData      (void) const
 
 EditFieldHandlePtr QuadTreeTerrainBase::editHandleHeightData     (void)
 {
-    SFImagePtr::EditHandlePtr returnValue(
-        new  SFImagePtr::EditHandle(
+    SFUnrecImagePtr::EditHandlePtr returnValue(
+        new  SFUnrecImagePtr::EditHandle(
              &_sfHeightData, 
              this->getType().getFieldDesc(HeightDataFieldId)));
 
@@ -2036,8 +2036,8 @@ EditFieldHandlePtr QuadTreeTerrainBase::editHandleVertexSpacing  (void)
 
 GetFieldHandlePtr QuadTreeTerrainBase::getHandleHeightVertices  (void) const
 {
-    SFGeoVectorPropertyPtr::GetHandlePtr returnValue(
-        new  SFGeoVectorPropertyPtr::GetHandle(
+    SFUnrecGeoVectorPropertyPtr::GetHandlePtr returnValue(
+        new  SFUnrecGeoVectorPropertyPtr::GetHandle(
              &_sfHeightVertices, 
              this->getType().getFieldDesc(HeightVerticesFieldId)));
 
@@ -2046,8 +2046,8 @@ GetFieldHandlePtr QuadTreeTerrainBase::getHandleHeightVertices  (void) const
 
 EditFieldHandlePtr QuadTreeTerrainBase::editHandleHeightVertices (void)
 {
-    SFGeoVectorPropertyPtr::EditHandlePtr returnValue(
-        new  SFGeoVectorPropertyPtr::EditHandle(
+    SFUnrecGeoVectorPropertyPtr::EditHandlePtr returnValue(
+        new  SFUnrecGeoVectorPropertyPtr::EditHandle(
              &_sfHeightVertices, 
              this->getType().getFieldDesc(HeightVerticesFieldId)));
 
@@ -2427,24 +2427,12 @@ DataType FieldTraits<QuadTreeTerrainPtr>::_type("QuadTreeTerrainPtr", "GeometryP
 
 OSG_FIELDTRAITS_GETTYPE(QuadTreeTerrainPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    QuadTreeTerrainPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           QuadTreeTerrainPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         QuadTreeTerrainPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    QuadTreeTerrainPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         QuadTreeTerrainPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           QuadTreeTerrainPtr, 
+                           0);
 
 OSG_END_NAMESPACE

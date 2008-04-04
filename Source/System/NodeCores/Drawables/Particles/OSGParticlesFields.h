@@ -96,9 +96,63 @@ struct FieldTraits<ParticlesPtr> :
 
     static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFParticlesPtr"; }
-    static const char *getMName(void) { return "MFParticlesPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFParticlesPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFParticlesPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ParticlesPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecParticlesPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ParticlesPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecParticlesPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ParticlesPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakParticlesPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ParticlesPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdParticlesPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ParticlesPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecParticlesPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ParticlesPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecParticlesPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ParticlesPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakParticlesPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ParticlesPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdParticlesPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ParticlesPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ParticlesPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<ParticlesPtr> SFParticlesPtr;
+typedef FieldContainerPtrSField<ParticlesPtr,
+                                RecordedRefCounts  > SFRecParticlesPtr;
+typedef FieldContainerPtrSField<ParticlesPtr,
+                                UnrecordedRefCounts> SFUnrecParticlesPtr;
+typedef FieldContainerPtrSField<ParticlesPtr,
+                                WeakRefCounts      > SFWeakParticlesPtr;
+typedef FieldContainerPtrSField<ParticlesPtr,
+                                NoRefCounts        > SFUncountedParticlesPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<ParticlesPtr> MFParticlesPtr;
+typedef FieldContainerPtrMField<ParticlesPtr,
+                                RecordedRefCounts  > MFRecParticlesPtr;
+typedef FieldContainerPtrMField<ParticlesPtr,
+                                UnrecordedRefCounts> MFUnrecParticlesPtr;
+typedef FieldContainerPtrMField<ParticlesPtr,
+                                WeakRefCounts      > MFWeakParticlesPtr;
+typedef FieldContainerPtrMField<ParticlesPtr,
+                                NoRefCounts        > MFUncountedParticlesPtr;
 #endif
 
 

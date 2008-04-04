@@ -535,7 +535,7 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFParentFieldContainerPtr _mfParents;
+    MFUnrecParentFieldContainerPtr _mfParents;
     SFInt32           _sfDimension;
     SFInt32           _sfWidth;
     SFInt32           _sfHeight;

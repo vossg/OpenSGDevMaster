@@ -138,17 +138,17 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldBundleType &getClassType   (void);
-    static UInt32           getClassTypeId (void);
-    static UInt16           getClassGroupId(void);
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
+    static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldBundleType &getType         (void);
-    virtual const FieldBundleType &getType         (void) const;
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -157,11 +157,11 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFChunkMaterialPtr  *getSFToneMappingMaterial (void) const;
-            const SFFrameBufferObjectPtr *getSFBlurRenderTarget (void) const;
-            const SFChunkMaterialPtr  *getSFBlurMaterial    (void) const;
-            const SFSHLChunkPtr       *getSFHBlurShader     (void) const;
-            const SFSHLChunkPtr       *getSFVBlurShader     (void) const;
+            const SFUnrecChunkMaterialPtr *getSFToneMappingMaterial (void) const;
+            const SFUnrecFrameBufferObjectPtr *getSFBlurRenderTarget (void) const;
+            const SFUnrecChunkMaterialPtr *getSFBlurMaterial    (void) const;
+            const SFUnrecSHLChunkPtr  *getSFHBlurShader     (void) const;
+            const SFUnrecSHLChunkPtr  *getSFVBlurShader     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFWidth           (void);
@@ -174,8 +174,8 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
 #endif
                   SFUInt32            *editSFHeight         (void);
             const SFUInt32            *getSFHeight          (void) const;
-            const SFFrameBufferObjectPtr *getSFShrinkRenderTarget (void) const;
-            const SFChunkMaterialPtr  *getSFShrinkMaterial  (void) const;
+            const SFUnrecFrameBufferObjectPtr *getSFShrinkRenderTarget (void) const;
+            const SFUnrecChunkMaterialPtr *getSFShrinkMaterial  (void) const;
 
 
                   ChunkMaterialPtrConst getToneMappingMaterial(void) const;
@@ -246,15 +246,23 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  HDRStageDataP create     (void);
-    static  HDRStageDataP createEmpty(void);
+    static  HDRStageDataTransitPtr create          (void);
+    static  HDRStageDataPtr        createEmpty     (void);
+
+    static  HDRStageDataTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  HDRStageDataPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldBundleP shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -270,15 +278,15 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFChunkMaterialPtr _sfToneMappingMaterial;
-    SFFrameBufferObjectPtr _sfBlurRenderTarget;
-    SFChunkMaterialPtr _sfBlurMaterial;
-    SFSHLChunkPtr     _sfHBlurShader;
-    SFSHLChunkPtr     _sfVBlurShader;
+    SFUnrecChunkMaterialPtr _sfToneMappingMaterial;
+    SFUnrecFrameBufferObjectPtr _sfBlurRenderTarget;
+    SFUnrecChunkMaterialPtr _sfBlurMaterial;
+    SFUnrecSHLChunkPtr _sfHBlurShader;
+    SFUnrecSHLChunkPtr _sfVBlurShader;
     SFUInt32          _sfWidth;
     SFUInt32          _sfHeight;
-    SFFrameBufferObjectPtr _sfShrinkRenderTarget;
-    SFChunkMaterialPtr _sfShrinkMaterial;
+    SFUnrecFrameBufferObjectPtr _sfShrinkRenderTarget;
+    SFUnrecChunkMaterialPtr _sfShrinkMaterial;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -331,6 +339,20 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual void execSyncV(      FieldContainer    &oFrom,
+                                 ConstFieldMaskArg  whichField,
+                                 AspectOffsetStore &oOffsets,
+                                 ConstFieldMaskArg  syncMode  ,
+                           const UInt32             uiSyncInfo);
+
+            void execSync (      HDRStageDataBase *pFrom,
+                                 ConstFieldMaskArg  whichField,
+                                 AspectOffsetStore &oOffsets,
+                                 ConstFieldMaskArg  syncMode  ,
+                           const UInt32             uiSyncInfo);
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
@@ -340,6 +362,10 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainerPtr createAspectCopy(void) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -360,6 +386,8 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const HDRStageDataBase &source);
 };
+
+typedef HDRStageDataBase *HDRStageDataBaseP;
 
 OSG_END_NAMESPACE
 

@@ -83,7 +83,7 @@ MaterialPtrConst MultiPassMaterialBase::getMaterials(const UInt32 index) const
 
 //! Get the MultiPassMaterial::_mfMaterials field.
 inline
-const MFMaterialPtr &MultiPassMaterialBase::getMaterials(void) const
+const MFUnrecMaterialPtr &MultiPassMaterialBase::getMaterials(void) const
 {
     return _mfMaterials;
 }

@@ -130,17 +130,17 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldBundleType &getClassType   (void);
-    static UInt32           getClassTypeId (void);
-    static UInt16           getClassGroupId(void);
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
+    static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldBundleType &getType         (void);
-    virtual const FieldBundleType &getType         (void) const;
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,13 +149,13 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFCameraPtr         *getSFCamera          (void) const;
-            const SFTextureObjChunkPtr *getSFTexChunk        (void) const;
-            const SFTextureBufferPtr  *getSFTexBuffer       (void) const;
-            const SFLightChunkPtr     *getSFLightChunk      (void) const;
-            const SFBlendChunkPtr     *getSFBlendChunk      (void) const;
-            const SFTexGenChunkPtr    *getSFTexGenChunk     (void) const;
-            const SFPolygonChunkPtr   *getSFPolyChunk       (void) const;
+            const SFUnrecCameraPtr    *getSFCamera          (void) const;
+            const SFUnrecTextureObjChunkPtr *getSFTexChunk        (void) const;
+            const SFUnrecTextureBufferPtr *getSFTexBuffer       (void) const;
+            const SFUnrecLightChunkPtr *getSFLightChunk      (void) const;
+            const SFUnrecBlendChunkPtr *getSFBlendChunk      (void) const;
+            const SFUnrecTexGenChunkPtr *getSFTexGenChunk     (void) const;
+            const SFUnrecPolygonChunkPtr *getSFPolyChunk       (void) const;
 
 
                   CameraPtrConst getCamera         (void) const;
@@ -212,15 +212,23 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleShadowMapEngineDataP create     (void);
-    static  SimpleShadowMapEngineDataP createEmpty(void);
+    static  SimpleShadowMapEngineDataTransitPtr create          (void);
+    static  SimpleShadowMapEngineDataPtr        createEmpty     (void);
+
+    static  SimpleShadowMapEngineDataTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  SimpleShadowMapEngineDataPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldBundleP shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -236,13 +244,13 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFCameraPtr       _sfCamera;
-    SFTextureObjChunkPtr _sfTexChunk;
-    SFTextureBufferPtr _sfTexBuffer;
-    SFLightChunkPtr   _sfLightChunk;
-    SFBlendChunkPtr   _sfBlendChunk;
-    SFTexGenChunkPtr  _sfTexGenChunk;
-    SFPolygonChunkPtr _sfPolyChunk;
+    SFUnrecCameraPtr  _sfCamera;
+    SFUnrecTextureObjChunkPtr _sfTexChunk;
+    SFUnrecTextureBufferPtr _sfTexBuffer;
+    SFUnrecLightChunkPtr _sfLightChunk;
+    SFUnrecBlendChunkPtr _sfBlendChunk;
+    SFUnrecTexGenChunkPtr _sfTexGenChunk;
+    SFUnrecPolygonChunkPtr _sfPolyChunk;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -291,6 +299,20 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual void execSyncV(      FieldContainer    &oFrom,
+                                 ConstFieldMaskArg  whichField,
+                                 AspectOffsetStore &oOffsets,
+                                 ConstFieldMaskArg  syncMode  ,
+                           const UInt32             uiSyncInfo);
+
+            void execSync (      SimpleShadowMapEngineDataBase *pFrom,
+                                 ConstFieldMaskArg  whichField,
+                                 AspectOffsetStore &oOffsets,
+                                 ConstFieldMaskArg  syncMode  ,
+                           const UInt32             uiSyncInfo);
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
@@ -300,6 +322,10 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainerPtr createAspectCopy(void) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -320,6 +346,8 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SimpleShadowMapEngineDataBase &source);
 };
+
+typedef SimpleShadowMapEngineDataBase *SimpleShadowMapEngineDataBaseP;
 
 OSG_END_NAMESPACE
 

@@ -96,9 +96,63 @@ struct FieldTraits<ShearedStereoCameraDecoratorPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFShearedStereoCameraDecoratorPtr"; }
-    static const char *getMName(void) { return "MFShearedStereoCameraDecoratorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFShearedStereoCameraDecoratorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFShearedStereoCameraDecoratorPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecShearedStereoCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecShearedStereoCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakShearedStereoCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdShearedStereoCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecShearedStereoCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecShearedStereoCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakShearedStereoCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdShearedStereoCameraDecoratorPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ShearedStereoCameraDecoratorPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ShearedStereoCameraDecoratorPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<ShearedStereoCameraDecoratorPtr> SFShearedStereoCameraDecoratorPtr;
+typedef FieldContainerPtrSField<ShearedStereoCameraDecoratorPtr,
+                                RecordedRefCounts  > SFRecShearedStereoCameraDecoratorPtr;
+typedef FieldContainerPtrSField<ShearedStereoCameraDecoratorPtr,
+                                UnrecordedRefCounts> SFUnrecShearedStereoCameraDecoratorPtr;
+typedef FieldContainerPtrSField<ShearedStereoCameraDecoratorPtr,
+                                WeakRefCounts      > SFWeakShearedStereoCameraDecoratorPtr;
+typedef FieldContainerPtrSField<ShearedStereoCameraDecoratorPtr,
+                                NoRefCounts        > SFUncountedShearedStereoCameraDecoratorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<ShearedStereoCameraDecoratorPtr> MFShearedStereoCameraDecoratorPtr;
+typedef FieldContainerPtrMField<ShearedStereoCameraDecoratorPtr,
+                                RecordedRefCounts  > MFRecShearedStereoCameraDecoratorPtr;
+typedef FieldContainerPtrMField<ShearedStereoCameraDecoratorPtr,
+                                UnrecordedRefCounts> MFUnrecShearedStereoCameraDecoratorPtr;
+typedef FieldContainerPtrMField<ShearedStereoCameraDecoratorPtr,
+                                WeakRefCounts      > MFWeakShearedStereoCameraDecoratorPtr;
+typedef FieldContainerPtrMField<ShearedStereoCameraDecoratorPtr,
+                                NoRefCounts        > MFUncountedShearedStereoCameraDecoratorPtr;
 #endif
 
 

@@ -28,6 +28,7 @@ class FieldContainer(FCDElement):
         self.setFCD("decoratable",            "false");
         self.setFCD("useLocalIncludes",       "false");
         self.setFCD("isNodeCore",             "false");
+        self.setFCD("isBundle",               "false");
         self.setFCD("description",            "");
         self.setFCD("group",                  "");
         self.setFCD("namespace",              "");
@@ -114,6 +115,11 @@ class FieldContainer(FCDElement):
             self["isDecoratable"] = True;
         else:
             self["isDecoratable"] = False;
+
+        if self.getFCD("isBundle") == "true":
+            self["isBundle"] = True;
+        else:
+            self["isBundle"] = False;
         
         if self.getFCD("systemcomponent") == "true":
             self["isSystemComponent"] = True;

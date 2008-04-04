@@ -394,24 +394,12 @@ DataType FieldTraits<OffCenterPerspectiveCameraPtr>::_type("OffCenterPerspective
 
 OSG_FIELDTRAITS_GETTYPE(OffCenterPerspectiveCameraPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    OffCenterPerspectiveCameraPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           OffCenterPerspectiveCameraPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         OffCenterPerspectiveCameraPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    OffCenterPerspectiveCameraPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         OffCenterPerspectiveCameraPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           OffCenterPerspectiveCameraPtr, 
+                           0);
 
 OSG_END_NAMESPACE

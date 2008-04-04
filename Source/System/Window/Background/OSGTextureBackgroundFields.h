@@ -96,8 +96,36 @@ struct FieldTraits<TextureBackgroundPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFTextureBackgroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFTextureBackgroundPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<TextureBackgroundPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecTextureBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureBackgroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecTextureBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureBackgroundPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakTextureBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TextureBackgroundPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdTextureBackgroundPtr"; 
+}
+
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<TextureBackgroundPtr, 0>
@@ -111,7 +139,14 @@ struct FieldTraits<TextureBackgroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<TextureBackgroundPtr> SFTextureBackgroundPtr;
+typedef FieldContainerPtrSField<TextureBackgroundPtr,
+                                RecordedRefCounts  > SFRecTextureBackgroundPtr;
+typedef FieldContainerPtrSField<TextureBackgroundPtr,
+                                UnrecordedRefCounts> SFUnrecTextureBackgroundPtr;
+typedef FieldContainerPtrSField<TextureBackgroundPtr,
+                                WeakRefCounts      > SFWeakTextureBackgroundPtr;
+typedef FieldContainerPtrSField<TextureBackgroundPtr,
+                                NoRefCounts        > SFUncountedTextureBackgroundPtr;
 #endif
 
 

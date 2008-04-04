@@ -94,8 +94,8 @@ void CameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
-    pDesc = new SFCameraPtr::Description(
-        SFCameraPtr::getClassType(),
+    pDesc = new SFUnrecCameraPtr::Description(
+        SFUnrecCameraPtr::getClassType(),
         "decoratee",
         "undocumented decoratee",
         DecorateeFieldId, DecorateeFieldMask,
@@ -189,7 +189,7 @@ UInt32 CameraDecoratorBase::getContainerSize(void) const
 
 /*------------------------- decorator get ------------------------------*/
 
-const SFCameraPtr *CameraDecoratorBase::getSFDecoratee(void) const
+const SFUnrecCameraPtr *CameraDecoratorBase::getSFDecoratee(void) const
 {
     return &_sfDecoratee;
 }
@@ -345,8 +345,8 @@ void CameraDecoratorBase::onCreate(const CameraDecorator *source)
 
 GetFieldHandlePtr  CameraDecoratorBase::getHandleDecoratee (void) const
 {
-    SFCameraPtr::GetHandlePtr returnValue(
-        new SFCameraPtr::GetHandle(
+    SFUnrecCameraPtr::GetHandlePtr returnValue(
+        new SFUnrecCameraPtr::GetHandle(
             &_sfDecoratee,
             this->getType().getFieldDesc(DecorateeFieldId)));
 
@@ -355,8 +355,8 @@ GetFieldHandlePtr  CameraDecoratorBase::getHandleDecoratee (void) const
 
 EditFieldHandlePtr CameraDecoratorBase::editHandleDecoratee(void)
 {
-    SFCameraPtr::EditHandlePtr returnValue(
-        new SFCameraPtr::EditHandle(
+    SFUnrecCameraPtr::EditHandlePtr returnValue(
+        new SFUnrecCameraPtr::EditHandle(
             &_sfDecoratee,
             this->getType().getFieldDesc(DecorateeFieldId)));
 
@@ -594,24 +594,12 @@ DataType FieldTraits<CameraDecoratorPtr>::_type("CameraDecoratorPtr", "CameraPtr
 
 OSG_FIELDTRAITS_GETTYPE(CameraDecoratorPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    CameraDecoratorPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           CameraDecoratorPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         CameraDecoratorPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    CameraDecoratorPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         CameraDecoratorPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           CameraDecoratorPtr, 
+                           0);
 
 OSG_END_NAMESPACE

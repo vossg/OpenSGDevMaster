@@ -95,6 +95,8 @@ struct FieldTraits<SpotLightPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SpotLightPtr, 0>
     \hideinhierarchy

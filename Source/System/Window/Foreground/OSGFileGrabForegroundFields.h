@@ -96,9 +96,63 @@ struct FieldTraits<FileGrabForegroundPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFFileGrabForegroundPtr"; }
-    static const char *getMName(void) { return "MFFileGrabForegroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFFileGrabForegroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFFileGrabForegroundPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecFileGrabForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFileGrabForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFileGrabForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFileGrabForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecFileGrabForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFileGrabForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFileGrabForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFileGrabForegroundPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<FileGrabForegroundPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<FileGrabForegroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<FileGrabForegroundPtr> SFFileGrabForegroundPtr;
+typedef FieldContainerPtrSField<FileGrabForegroundPtr,
+                                RecordedRefCounts  > SFRecFileGrabForegroundPtr;
+typedef FieldContainerPtrSField<FileGrabForegroundPtr,
+                                UnrecordedRefCounts> SFUnrecFileGrabForegroundPtr;
+typedef FieldContainerPtrSField<FileGrabForegroundPtr,
+                                WeakRefCounts      > SFWeakFileGrabForegroundPtr;
+typedef FieldContainerPtrSField<FileGrabForegroundPtr,
+                                NoRefCounts        > SFUncountedFileGrabForegroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<FileGrabForegroundPtr> MFFileGrabForegroundPtr;
+typedef FieldContainerPtrMField<FileGrabForegroundPtr,
+                                RecordedRefCounts  > MFRecFileGrabForegroundPtr;
+typedef FieldContainerPtrMField<FileGrabForegroundPtr,
+                                UnrecordedRefCounts> MFUnrecFileGrabForegroundPtr;
+typedef FieldContainerPtrMField<FileGrabForegroundPtr,
+                                WeakRefCounts      > MFWeakFileGrabForegroundPtr;
+typedef FieldContainerPtrMField<FileGrabForegroundPtr,
+                                NoRefCounts        > MFUncountedFileGrabForegroundPtr;
 #endif
 
 

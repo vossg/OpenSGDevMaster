@@ -235,8 +235,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFCameraPtr::Description(
-        SFCameraPtr::getClassType(),
+    pDesc = new SFUnrecCameraPtr::Description(
+        SFUnrecCameraPtr::getClassType(),
         "camera",
         "The Camera used to render the viewport.\n",
         CameraFieldId, CameraFieldMask,
@@ -247,8 +247,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUnrecNodePtr::Description(
+        SFUnrecNodePtr::getClassType(),
         "root",
         "The root of the tree that is displayed in this viewport.\n",
         RootFieldId, RootFieldMask,
@@ -259,8 +259,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFBackgroundPtr::Description(
-        SFBackgroundPtr::getClassType(),
+    pDesc = new SFUnrecBackgroundPtr::Description(
+        SFUnrecBackgroundPtr::getClassType(),
         "background",
         "The background used to clear this viewport.\n",
         BackgroundFieldId, BackgroundFieldMask,
@@ -271,8 +271,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFForegroundPtr::Description(
-        MFForegroundPtr::getClassType(),
+    pDesc = new MFUnrecForegroundPtr::Description(
+        MFUnrecForegroundPtr::getClassType(),
         "foregrounds",
         "The foreground additions to the rendered image.\n",
         ForegroundsFieldId, ForegroundsFieldMask,
@@ -401,12 +401,13 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"parent\"\n"
-    "\t\ttype=\"ParentFieldContainerPtr\"\n"
+    "\t\ttype=\"FieldContainer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"none\"\n"
     "        doRefCount=\"false\"\n"
     "        passFieldMask=\"true\"\n"
+    "        category=\"parentpointer\"\n"
     "\t>\n"
     "\tThe Window this viewport is contained in.\n"
     "\t</Field>\n"
@@ -592,25 +593,25 @@ SFReal32            *ViewportBase::getSFTop            (void)
 
 
 //! Get the Viewport::_sfCamera field.
-const SFCameraPtr *ViewportBase::getSFCamera(void) const
+const SFUnrecCameraPtr *ViewportBase::getSFCamera(void) const
 {
     return &_sfCamera;
 }
 
 //! Get the Viewport::_sfRoot field.
-const SFNodePtr *ViewportBase::getSFRoot(void) const
+const SFUnrecNodePtr *ViewportBase::getSFRoot(void) const
 {
     return &_sfRoot;
 }
 
 //! Get the Viewport::_sfBackground field.
-const SFBackgroundPtr *ViewportBase::getSFBackground(void) const
+const SFUnrecBackgroundPtr *ViewportBase::getSFBackground(void) const
 {
     return &_sfBackground;
 }
 
 //! Get the Viewport::_mfForegrounds field.
-const MFForegroundPtr *ViewportBase::getMFForegrounds(void) const
+const MFUnrecForegroundPtr *ViewportBase::getMFForegrounds(void) const
 {
     return &_mfForegrounds;
 }
@@ -667,11 +668,11 @@ void ViewportBase::addForeground(ForegroundPtrConstArg value)
     _mfForegrounds.push_back(value);
 }
 
-void ViewportBase::assignForegrounds(const MFForegroundPtr   &value)
+void ViewportBase::assignForegrounds(const MFUnrecForegroundPtr &value)
 {
-    MFForegroundPtr  ::const_iterator elemIt  =
+    MFUnrecForegroundPtr::const_iterator elemIt  =
         value.begin();
-    MFForegroundPtr  ::const_iterator elemEnd =
+    MFUnrecForegroundPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Viewport *>(this)->clearForegrounds();
@@ -692,7 +693,7 @@ void ViewportBase::insertIntoForegrounds(UInt32                uiIndex,
 
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
-    MFForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
+    MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
 
     //addRef(value);
 
@@ -750,7 +751,7 @@ void ViewportBase::removeFromForegrounds(UInt32 uiIndex)
     {
         editMField(ForegroundsFieldMask, _mfForegrounds);
 
-        MFForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
+        MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
 
         fieldIt += uiIndex;
 
@@ -768,7 +769,7 @@ void ViewportBase::removeFromForegrounds(ForegroundPtrConstArg value)
     {
         editMField(ForegroundsFieldMask, _mfForegrounds);
 
-        MFForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
+        MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
 
         fieldIt += iElemIdx;
 
@@ -781,8 +782,8 @@ void ViewportBase::clearForegrounds(void)
 {
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
-    MFForegroundPtr::iterator       fieldIt  = _mfForegrounds.begin();
-    MFForegroundPtr::const_iterator fieldEnd = _mfForegrounds.end  ();
+    MFUnrecForegroundPtr::iterator       fieldIt  = _mfForegrounds.begin();
+    MFUnrecForegroundPtr::const_iterator fieldEnd = _mfForegrounds.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -1093,9 +1094,9 @@ void ViewportBase::onCreate(const Viewport *source)
 
         this->setBackground(source->getBackground());
 
-        MFForegroundPtr::const_iterator ForegroundsIt  =
+        MFUnrecForegroundPtr::const_iterator ForegroundsIt  =
             source->_mfForegrounds.begin();
-        MFForegroundPtr::const_iterator ForegroundsEnd =
+        MFUnrecForegroundPtr::const_iterator ForegroundsEnd =
             source->_mfForegrounds.end  ();
 
         while(ForegroundsIt != ForegroundsEnd)
@@ -1214,8 +1215,8 @@ EditFieldHandlePtr ViewportBase::editHandleParent         (void)
 
 GetFieldHandlePtr ViewportBase::getHandleCamera          (void) const
 {
-    SFCameraPtr::GetHandlePtr returnValue(
-        new  SFCameraPtr::GetHandle(
+    SFUnrecCameraPtr::GetHandlePtr returnValue(
+        new  SFUnrecCameraPtr::GetHandle(
              &_sfCamera, 
              this->getType().getFieldDesc(CameraFieldId)));
 
@@ -1224,8 +1225,8 @@ GetFieldHandlePtr ViewportBase::getHandleCamera          (void) const
 
 EditFieldHandlePtr ViewportBase::editHandleCamera         (void)
 {
-    SFCameraPtr::EditHandlePtr returnValue(
-        new  SFCameraPtr::EditHandle(
+    SFUnrecCameraPtr::EditHandlePtr returnValue(
+        new  SFUnrecCameraPtr::EditHandle(
              &_sfCamera, 
              this->getType().getFieldDesc(CameraFieldId)));
 
@@ -1239,8 +1240,8 @@ EditFieldHandlePtr ViewportBase::editHandleCamera         (void)
 
 GetFieldHandlePtr ViewportBase::getHandleRoot            (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUnrecNodePtr::GetHandlePtr returnValue(
+        new  SFUnrecNodePtr::GetHandle(
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 
@@ -1249,8 +1250,8 @@ GetFieldHandlePtr ViewportBase::getHandleRoot            (void) const
 
 EditFieldHandlePtr ViewportBase::editHandleRoot           (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUnrecNodePtr::EditHandlePtr returnValue(
+        new  SFUnrecNodePtr::EditHandle(
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 
@@ -1264,8 +1265,8 @@ EditFieldHandlePtr ViewportBase::editHandleRoot           (void)
 
 GetFieldHandlePtr ViewportBase::getHandleBackground      (void) const
 {
-    SFBackgroundPtr::GetHandlePtr returnValue(
-        new  SFBackgroundPtr::GetHandle(
+    SFUnrecBackgroundPtr::GetHandlePtr returnValue(
+        new  SFUnrecBackgroundPtr::GetHandle(
              &_sfBackground, 
              this->getType().getFieldDesc(BackgroundFieldId)));
 
@@ -1274,8 +1275,8 @@ GetFieldHandlePtr ViewportBase::getHandleBackground      (void) const
 
 EditFieldHandlePtr ViewportBase::editHandleBackground     (void)
 {
-    SFBackgroundPtr::EditHandlePtr returnValue(
-        new  SFBackgroundPtr::EditHandle(
+    SFUnrecBackgroundPtr::EditHandlePtr returnValue(
+        new  SFUnrecBackgroundPtr::EditHandle(
              &_sfBackground, 
              this->getType().getFieldDesc(BackgroundFieldId)));
 
@@ -1289,8 +1290,8 @@ EditFieldHandlePtr ViewportBase::editHandleBackground     (void)
 
 GetFieldHandlePtr ViewportBase::getHandleForegrounds     (void) const
 {
-    MFForegroundPtr::GetHandlePtr returnValue(
-        new  MFForegroundPtr::GetHandle(
+    MFUnrecForegroundPtr::GetHandlePtr returnValue(
+        new  MFUnrecForegroundPtr::GetHandle(
              &_mfForegrounds, 
              this->getType().getFieldDesc(ForegroundsFieldId)));
 
@@ -1299,8 +1300,8 @@ GetFieldHandlePtr ViewportBase::getHandleForegrounds     (void) const
 
 EditFieldHandlePtr ViewportBase::editHandleForegrounds    (void)
 {
-    MFForegroundPtr::EditHandlePtr returnValue(
-        new  MFForegroundPtr::EditHandle(
+    MFUnrecForegroundPtr::EditHandlePtr returnValue(
+        new  MFUnrecForegroundPtr::EditHandle(
              &_mfForegrounds, 
              this->getType().getFieldDesc(ForegroundsFieldId)));
 
@@ -1406,24 +1407,12 @@ DataType FieldTraits<ViewportPtr>::_type("ViewportPtr", "AttachmentContainerPtr"
 
 OSG_FIELDTRAITS_GETTYPE(ViewportPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ViewportPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ViewportPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ViewportPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ViewportPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ViewportPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ViewportPtr, 
+                           0);
 
 OSG_END_NAMESPACE

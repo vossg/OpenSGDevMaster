@@ -96,9 +96,63 @@ struct FieldTraits<BillboardPtr> :
 
     static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFBillboardPtr"; }
-    static const char *getMName(void) { return "MFBillboardPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFBillboardPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFBillboardPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<BillboardPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecBillboardPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BillboardPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecBillboardPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BillboardPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakBillboardPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BillboardPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdBillboardPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BillboardPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecBillboardPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BillboardPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecBillboardPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BillboardPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakBillboardPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BillboardPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdBillboardPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<BillboardPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<BillboardPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<BillboardPtr> SFBillboardPtr;
+typedef FieldContainerPtrSField<BillboardPtr,
+                                RecordedRefCounts  > SFRecBillboardPtr;
+typedef FieldContainerPtrSField<BillboardPtr,
+                                UnrecordedRefCounts> SFUnrecBillboardPtr;
+typedef FieldContainerPtrSField<BillboardPtr,
+                                WeakRefCounts      > SFWeakBillboardPtr;
+typedef FieldContainerPtrSField<BillboardPtr,
+                                NoRefCounts        > SFUncountedBillboardPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<BillboardPtr> MFBillboardPtr;
+typedef FieldContainerPtrMField<BillboardPtr,
+                                RecordedRefCounts  > MFRecBillboardPtr;
+typedef FieldContainerPtrMField<BillboardPtr,
+                                UnrecordedRefCounts> MFUnrecBillboardPtr;
+typedef FieldContainerPtrMField<BillboardPtr,
+                                WeakRefCounts      > MFWeakBillboardPtr;
+typedef FieldContainerPtrMField<BillboardPtr,
+                                NoRefCounts        > MFUncountedBillboardPtr;
 #endif
 
 

@@ -149,7 +149,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFGeoMultiPropertyDataPtr *getSFContainer       (void) const;
+            const SFUnrecGeoMultiPropertyDataPtr *getSFContainer       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFOffset          (void);
@@ -298,7 +298,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGeoMultiPropertyDataPtr _sfContainer;
+    SFUnrecGeoMultiPropertyDataPtr _sfContainer;
     SFUInt32          _sfOffset;
     SFGLenum          _sfIFormat;
     SFUInt32          _sfIDimension;

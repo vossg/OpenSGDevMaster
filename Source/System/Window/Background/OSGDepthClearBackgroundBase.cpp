@@ -404,15 +404,9 @@ DataType FieldTraits<DepthClearBackgroundPtr>::_type("DepthClearBackgroundPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(DepthClearBackgroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    DepthClearBackgroundPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         DepthClearBackgroundPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           DepthClearBackgroundPtr, 
+                           0);
 
 
 OSG_END_NAMESPACE

@@ -116,8 +116,8 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFGeoMultiPropertyDataPtr::Description(
-        SFGeoMultiPropertyDataPtr::getClassType(),
+    pDesc = new SFUnrecGeoMultiPropertyDataPtr::Description(
+        SFUnrecGeoMultiPropertyDataPtr::getClassType(),
         "container",
         "The data container to source off of.\n",
         ContainerFieldId, ContainerFieldMask,
@@ -333,7 +333,7 @@ UInt32 GeoMultiPropertyBase::getContainerSize(void) const
 
 
 //! Get the GeoMultiProperty::_sfContainer field.
-const SFGeoMultiPropertyDataPtr *GeoMultiPropertyBase::getSFContainer(void) const
+const SFUnrecGeoMultiPropertyDataPtr *GeoMultiPropertyBase::getSFContainer(void) const
 {
     return &_sfContainer;
 }
@@ -697,8 +697,8 @@ void GeoMultiPropertyBase::onCreate(const GeoMultiProperty *source)
 
 GetFieldHandlePtr GeoMultiPropertyBase::getHandleContainer       (void) const
 {
-    SFGeoMultiPropertyDataPtr::GetHandlePtr returnValue(
-        new  SFGeoMultiPropertyDataPtr::GetHandle(
+    SFUnrecGeoMultiPropertyDataPtr::GetHandlePtr returnValue(
+        new  SFUnrecGeoMultiPropertyDataPtr::GetHandle(
              &_sfContainer, 
              this->getType().getFieldDesc(ContainerFieldId)));
 
@@ -707,8 +707,8 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleContainer       (void) const
 
 EditFieldHandlePtr GeoMultiPropertyBase::editHandleContainer      (void)
 {
-    SFGeoMultiPropertyDataPtr::EditHandlePtr returnValue(
-        new  SFGeoMultiPropertyDataPtr::EditHandle(
+    SFUnrecGeoMultiPropertyDataPtr::EditHandlePtr returnValue(
+        new  SFUnrecGeoMultiPropertyDataPtr::EditHandle(
              &_sfContainer, 
              this->getType().getFieldDesc(ContainerFieldId)));
 
@@ -897,24 +897,12 @@ DataType FieldTraits<GeoMultiPropertyPtr>::_type("GeoMultiPropertyPtr", "GeoVect
 
 OSG_FIELDTRAITS_GETTYPE(GeoMultiPropertyPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    GeoMultiPropertyPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           GeoMultiPropertyPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         GeoMultiPropertyPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    GeoMultiPropertyPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         GeoMultiPropertyPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           GeoMultiPropertyPtr, 
+                           0);
 
 OSG_END_NAMESPACE

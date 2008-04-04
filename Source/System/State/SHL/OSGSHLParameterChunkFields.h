@@ -96,9 +96,63 @@ struct FieldTraits<SHLParameterChunkPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFSHLParameterChunkPtr"; }
-    static const char *getMName(void) { return "MFSHLParameterChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFSHLParameterChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFSHLParameterChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecSHLParameterChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecSHLParameterChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakSHLParameterChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdSHLParameterChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecSHLParameterChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecSHLParameterChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakSHLParameterChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdSHLParameterChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SHLParameterChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<SHLParameterChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<SHLParameterChunkPtr> SFSHLParameterChunkPtr;
+typedef FieldContainerPtrSField<SHLParameterChunkPtr,
+                                RecordedRefCounts  > SFRecSHLParameterChunkPtr;
+typedef FieldContainerPtrSField<SHLParameterChunkPtr,
+                                UnrecordedRefCounts> SFUnrecSHLParameterChunkPtr;
+typedef FieldContainerPtrSField<SHLParameterChunkPtr,
+                                WeakRefCounts      > SFWeakSHLParameterChunkPtr;
+typedef FieldContainerPtrSField<SHLParameterChunkPtr,
+                                NoRefCounts        > SFUncountedSHLParameterChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<SHLParameterChunkPtr> MFSHLParameterChunkPtr;
+typedef FieldContainerPtrMField<SHLParameterChunkPtr,
+                                RecordedRefCounts  > MFRecSHLParameterChunkPtr;
+typedef FieldContainerPtrMField<SHLParameterChunkPtr,
+                                UnrecordedRefCounts> MFUnrecSHLParameterChunkPtr;
+typedef FieldContainerPtrMField<SHLParameterChunkPtr,
+                                WeakRefCounts      > MFWeakSHLParameterChunkPtr;
+typedef FieldContainerPtrMField<SHLParameterChunkPtr,
+                                NoRefCounts        > MFUncountedSHLParameterChunkPtr;
 #endif
 
 

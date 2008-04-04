@@ -96,9 +96,63 @@ struct FieldTraits<PointChunkPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFPointChunkPtr"; }
-    static const char *getMName(void) { return "MFPointChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFPointChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFPointChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecPointChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecPointChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakPointChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdPointChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecPointChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecPointChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakPointChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdPointChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<PointChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<PointChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<PointChunkPtr> SFPointChunkPtr;
+typedef FieldContainerPtrSField<PointChunkPtr,
+                                RecordedRefCounts  > SFRecPointChunkPtr;
+typedef FieldContainerPtrSField<PointChunkPtr,
+                                UnrecordedRefCounts> SFUnrecPointChunkPtr;
+typedef FieldContainerPtrSField<PointChunkPtr,
+                                WeakRefCounts      > SFWeakPointChunkPtr;
+typedef FieldContainerPtrSField<PointChunkPtr,
+                                NoRefCounts        > SFUncountedPointChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<PointChunkPtr> MFPointChunkPtr;
+typedef FieldContainerPtrMField<PointChunkPtr,
+                                RecordedRefCounts  > MFRecPointChunkPtr;
+typedef FieldContainerPtrMField<PointChunkPtr,
+                                UnrecordedRefCounts> MFUnrecPointChunkPtr;
+typedef FieldContainerPtrMField<PointChunkPtr,
+                                WeakRefCounts      > MFWeakPointChunkPtr;
+typedef FieldContainerPtrMField<PointChunkPtr,
+                                NoRefCounts        > MFUncountedPointChunkPtr;
 #endif
 
 

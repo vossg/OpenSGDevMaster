@@ -96,9 +96,63 @@ struct FieldTraits<ClusterWindowPtr> :
 
     static OSG_CLUSTER_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFClusterWindowPtr"; }
-    static const char *getMName(void) { return "MFClusterWindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFClusterWindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFClusterWindowPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecClusterWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecClusterWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakClusterWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdClusterWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecClusterWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecClusterWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakClusterWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdClusterWindowPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ClusterWindowPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ClusterWindowPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldSingle */
 
-typedef FieldContainerPtrSField<ClusterWindowPtr> SFClusterWindowPtr;
+typedef FieldContainerPtrSField<ClusterWindowPtr,
+                                RecordedRefCounts  > SFRecClusterWindowPtr;
+typedef FieldContainerPtrSField<ClusterWindowPtr,
+                                UnrecordedRefCounts> SFUnrecClusterWindowPtr;
+typedef FieldContainerPtrSField<ClusterWindowPtr,
+                                WeakRefCounts      > SFWeakClusterWindowPtr;
+typedef FieldContainerPtrSField<ClusterWindowPtr,
+                                NoRefCounts        > SFUncountedClusterWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldMulti */
 
-typedef FieldContainerPtrMField<ClusterWindowPtr> MFClusterWindowPtr;
+typedef FieldContainerPtrMField<ClusterWindowPtr,
+                                RecordedRefCounts  > MFRecClusterWindowPtr;
+typedef FieldContainerPtrMField<ClusterWindowPtr,
+                                UnrecordedRefCounts> MFUnrecClusterWindowPtr;
+typedef FieldContainerPtrMField<ClusterWindowPtr,
+                                WeakRefCounts      > MFWeakClusterWindowPtr;
+typedef FieldContainerPtrMField<ClusterWindowPtr,
+                                NoRefCounts        > MFUncountedClusterWindowPtr;
 #endif
 
 

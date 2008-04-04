@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldBundleType &HDRStageDataBase::getClassType(void)
+OSG::FieldContainerType &HDRStageDataBase::getClassType(void)
 {
     return _type;
 }
@@ -259,21 +259,45 @@ void HDRStageDataBase::setShrinkMaterial(ChunkMaterialPtrConstArg value)
 
 }
 
-//! create a new instance of the class
+
+#ifdef OSG_MT_CPTR_ASPECT
 inline
-HDRStageDataP HDRStageDataBase::create(void)
+void HDRStageDataBase::execSync (      HDRStageDataBase *pFrom,
+                                        ConstFieldMaskArg  whichField,
+                                        AspectOffsetStore &oOffsets,
+                                        ConstFieldMaskArg  syncMode,
+                                  const UInt32             uiSyncInfo)
 {
-    HDRStageDataP fc;
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(getClassType().getPrototype() != NULL)
-    {
-        fc = dynamic_cast<HDRStageData::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
+    if(FieldBits::NoField != (ToneMappingMaterialFieldMask & whichField))
+        _sfToneMappingMaterial.syncWith(pFrom->_sfToneMappingMaterial);
 
-    return fc;
+    if(FieldBits::NoField != (BlurRenderTargetFieldMask & whichField))
+        _sfBlurRenderTarget.syncWith(pFrom->_sfBlurRenderTarget);
+
+    if(FieldBits::NoField != (BlurMaterialFieldMask & whichField))
+        _sfBlurMaterial.syncWith(pFrom->_sfBlurMaterial);
+
+    if(FieldBits::NoField != (HBlurShaderFieldMask & whichField))
+        _sfHBlurShader.syncWith(pFrom->_sfHBlurShader);
+
+    if(FieldBits::NoField != (VBlurShaderFieldMask & whichField))
+        _sfVBlurShader.syncWith(pFrom->_sfVBlurShader);
+
+    if(FieldBits::NoField != (WidthFieldMask & whichField))
+        _sfWidth.syncWith(pFrom->_sfWidth);
+
+    if(FieldBits::NoField != (HeightFieldMask & whichField))
+        _sfHeight.syncWith(pFrom->_sfHeight);
+
+    if(FieldBits::NoField != (ShrinkRenderTargetFieldMask & whichField))
+        _sfShrinkRenderTarget.syncWith(pFrom->_sfShrinkRenderTarget);
+
+    if(FieldBits::NoField != (ShrinkMaterialFieldMask & whichField))
+        _sfShrinkMaterial.syncWith(pFrom->_sfShrinkMaterial);
 }
-
+#endif
 
 
 inline
@@ -281,8 +305,7 @@ Char8 *HDRStageDataBase::getClassname(void)
 {
     return "HDRStageData";
 }
-
-OSG_GEN_BUNDLEP(HDRStageData);
+OSG_GEN_CONTAINERPTR(HDRStageData);
 
 OSG_END_NAMESPACE
 

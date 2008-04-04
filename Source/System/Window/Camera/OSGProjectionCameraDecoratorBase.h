@@ -149,7 +149,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFNodePtr           *getSFUser            (void) const;
+            const SFUnrecNodePtr      *getSFUser            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   MFPnt3f             *getMFSurface         (void);
@@ -274,7 +274,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFNodePtr         _sfUser;
+    SFUnrecNodePtr    _sfUser;
     MFPnt3f           _mfSurface;
     SFPlane           _sfLeft;
     SFPlane           _sfBottom;

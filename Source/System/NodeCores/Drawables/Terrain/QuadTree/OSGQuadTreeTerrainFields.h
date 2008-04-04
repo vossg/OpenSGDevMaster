@@ -96,9 +96,63 @@ struct FieldTraits<QuadTreeTerrainPtr> :
 
     static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFQuadTreeTerrainPtr"; }
-    static const char *getMName(void) { return "MFQuadTreeTerrainPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFQuadTreeTerrainPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFQuadTreeTerrainPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakQuadTreeTerrainPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdQuadTreeTerrainPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<QuadTreeTerrainPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<QuadTreeTerrainPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<QuadTreeTerrainPtr> SFQuadTreeTerrainPtr;
+typedef FieldContainerPtrSField<QuadTreeTerrainPtr,
+                                RecordedRefCounts  > SFRecQuadTreeTerrainPtr;
+typedef FieldContainerPtrSField<QuadTreeTerrainPtr,
+                                UnrecordedRefCounts> SFUnrecQuadTreeTerrainPtr;
+typedef FieldContainerPtrSField<QuadTreeTerrainPtr,
+                                WeakRefCounts      > SFWeakQuadTreeTerrainPtr;
+typedef FieldContainerPtrSField<QuadTreeTerrainPtr,
+                                NoRefCounts        > SFUncountedQuadTreeTerrainPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<QuadTreeTerrainPtr> MFQuadTreeTerrainPtr;
+typedef FieldContainerPtrMField<QuadTreeTerrainPtr,
+                                RecordedRefCounts  > MFRecQuadTreeTerrainPtr;
+typedef FieldContainerPtrMField<QuadTreeTerrainPtr,
+                                UnrecordedRefCounts> MFUnrecQuadTreeTerrainPtr;
+typedef FieldContainerPtrMField<QuadTreeTerrainPtr,
+                                WeakRefCounts      > MFWeakQuadTreeTerrainPtr;
+typedef FieldContainerPtrMField<QuadTreeTerrainPtr,
+                                NoRefCounts        > MFUncountedQuadTreeTerrainPtr;
 #endif
 
 

@@ -96,9 +96,63 @@ struct FieldTraits<PolygonChunkPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFPolygonChunkPtr"; }
-    static const char *getMName(void) { return "MFPolygonChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFPolygonChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFPolygonChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecPolygonChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecPolygonChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakPolygonChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdPolygonChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecPolygonChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecPolygonChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakPolygonChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdPolygonChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<PolygonChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<PolygonChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<PolygonChunkPtr> SFPolygonChunkPtr;
+typedef FieldContainerPtrSField<PolygonChunkPtr,
+                                RecordedRefCounts  > SFRecPolygonChunkPtr;
+typedef FieldContainerPtrSField<PolygonChunkPtr,
+                                UnrecordedRefCounts> SFUnrecPolygonChunkPtr;
+typedef FieldContainerPtrSField<PolygonChunkPtr,
+                                WeakRefCounts      > SFWeakPolygonChunkPtr;
+typedef FieldContainerPtrSField<PolygonChunkPtr,
+                                NoRefCounts        > SFUncountedPolygonChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<PolygonChunkPtr> MFPolygonChunkPtr;
+typedef FieldContainerPtrMField<PolygonChunkPtr,
+                                RecordedRefCounts  > MFRecPolygonChunkPtr;
+typedef FieldContainerPtrMField<PolygonChunkPtr,
+                                UnrecordedRefCounts> MFUnrecPolygonChunkPtr;
+typedef FieldContainerPtrMField<PolygonChunkPtr,
+                                WeakRefCounts      > MFWeakPolygonChunkPtr;
+typedef FieldContainerPtrMField<PolygonChunkPtr,
+                                NoRefCounts        > MFUncountedPolygonChunkPtr;
 #endif
 
 

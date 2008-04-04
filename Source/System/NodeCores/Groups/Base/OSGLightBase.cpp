@@ -227,8 +227,8 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFLightEnginePtr::Description(
-        SFLightEnginePtr::getClassType(),
+    pDesc = new SFUnrecLightEnginePtr::Description(
+        SFUnrecLightEnginePtr::getClassType(),
         "lightEngine",
         "",
         LightEngineFieldId, LightEngineFieldMask,
@@ -528,7 +528,7 @@ SFReal              *LightBase::getSFQuadraticAttenuation(void)
 #endif
 
 //! Get the Light::_sfLightEngine field.
-const SFLightEnginePtr *LightBase::getSFLightEngine(void) const
+const SFUnrecLightEnginePtr *LightBase::getSFLightEngine(void) const
 {
     return &_sfLightEngine;
 }
@@ -903,8 +903,8 @@ EditFieldHandlePtr LightBase::editHandleQuadraticAttenuation(void)
 
 GetFieldHandlePtr LightBase::getHandleLightEngine     (void) const
 {
-    SFLightEnginePtr::GetHandlePtr returnValue(
-        new  SFLightEnginePtr::GetHandle(
+    SFUnrecLightEnginePtr::GetHandlePtr returnValue(
+        new  SFUnrecLightEnginePtr::GetHandle(
              &_sfLightEngine, 
              this->getType().getFieldDesc(LightEngineFieldId)));
 
@@ -913,8 +913,8 @@ GetFieldHandlePtr LightBase::getHandleLightEngine     (void) const
 
 EditFieldHandlePtr LightBase::editHandleLightEngine    (void)
 {
-    SFLightEnginePtr::EditHandlePtr returnValue(
-        new  SFLightEnginePtr::EditHandle(
+    SFUnrecLightEnginePtr::EditHandlePtr returnValue(
+        new  SFUnrecLightEnginePtr::EditHandle(
              &_sfLightEngine, 
              this->getType().getFieldDesc(LightEngineFieldId)));
 

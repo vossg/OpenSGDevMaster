@@ -95,6 +95,8 @@ struct FieldTraits<TextureGrabForegroundPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<TextureGrabForegroundPtr, 0>
     \hideinhierarchy

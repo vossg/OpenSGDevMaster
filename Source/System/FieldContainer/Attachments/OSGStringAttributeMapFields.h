@@ -96,8 +96,36 @@ struct FieldTraits<StringAttributeMapPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFStringAttributeMapPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFStringAttributeMapPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecStringAttributeMapPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecStringAttributeMapPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakStringAttributeMapPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdStringAttributeMapPtr"; 
+}
+
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<StringAttributeMapPtr, 0>
@@ -111,7 +139,14 @@ struct FieldTraits<StringAttributeMapPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<StringAttributeMapPtr> SFStringAttributeMapPtr;
+typedef FieldContainerPtrSField<StringAttributeMapPtr,
+                                RecordedRefCounts  > SFRecStringAttributeMapPtr;
+typedef FieldContainerPtrSField<StringAttributeMapPtr,
+                                UnrecordedRefCounts> SFUnrecStringAttributeMapPtr;
+typedef FieldContainerPtrSField<StringAttributeMapPtr,
+                                WeakRefCounts      > SFWeakStringAttributeMapPtr;
+typedef FieldContainerPtrSField<StringAttributeMapPtr,
+                                NoRefCounts        > SFUncountedStringAttributeMapPtr;
 #endif
 
 

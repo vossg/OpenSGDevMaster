@@ -96,9 +96,63 @@ struct FieldTraits<CocoaWindowPtr> :
 
     static OSG_WINDOWCOCOA_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFCocoaWindowPtr"; }
-    static const char *getMName(void) { return "MFCocoaWindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFCocoaWindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFCocoaWindowPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecCocoaWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecCocoaWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakCocoaWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdCocoaWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecCocoaWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecCocoaWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakCocoaWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdCocoaWindowPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<CocoaWindowPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<CocoaWindowPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCocoaFieldSingle */
 
-typedef FieldContainerPtrSField<CocoaWindowPtr> SFCocoaWindowPtr;
+typedef FieldContainerPtrSField<CocoaWindowPtr,
+                                RecordedRefCounts  > SFRecCocoaWindowPtr;
+typedef FieldContainerPtrSField<CocoaWindowPtr,
+                                UnrecordedRefCounts> SFUnrecCocoaWindowPtr;
+typedef FieldContainerPtrSField<CocoaWindowPtr,
+                                WeakRefCounts      > SFWeakCocoaWindowPtr;
+typedef FieldContainerPtrSField<CocoaWindowPtr,
+                                NoRefCounts        > SFUncountedCocoaWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCocoaFieldMulti */
 
-typedef FieldContainerPtrMField<CocoaWindowPtr> MFCocoaWindowPtr;
+typedef FieldContainerPtrMField<CocoaWindowPtr,
+                                RecordedRefCounts  > MFRecCocoaWindowPtr;
+typedef FieldContainerPtrMField<CocoaWindowPtr,
+                                UnrecordedRefCounts> MFUnrecCocoaWindowPtr;
+typedef FieldContainerPtrMField<CocoaWindowPtr,
+                                WeakRefCounts      > MFWeakCocoaWindowPtr;
+typedef FieldContainerPtrMField<CocoaWindowPtr,
+                                NoRefCounts        > MFUncountedCocoaWindowPtr;
 #endif
 
 

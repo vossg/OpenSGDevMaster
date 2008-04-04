@@ -96,9 +96,63 @@ struct FieldTraits<VertexProgramChunkPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFVertexProgramChunkPtr"; }
-    static const char *getMName(void) { return "MFVertexProgramChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFVertexProgramChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFVertexProgramChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecVertexProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecVertexProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakVertexProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdVertexProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecVertexProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecVertexProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakVertexProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdVertexProgramChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<VertexProgramChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<VertexProgramChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<VertexProgramChunkPtr> SFVertexProgramChunkPtr;
+typedef FieldContainerPtrSField<VertexProgramChunkPtr,
+                                RecordedRefCounts  > SFRecVertexProgramChunkPtr;
+typedef FieldContainerPtrSField<VertexProgramChunkPtr,
+                                UnrecordedRefCounts> SFUnrecVertexProgramChunkPtr;
+typedef FieldContainerPtrSField<VertexProgramChunkPtr,
+                                WeakRefCounts      > SFWeakVertexProgramChunkPtr;
+typedef FieldContainerPtrSField<VertexProgramChunkPtr,
+                                NoRefCounts        > SFUncountedVertexProgramChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<VertexProgramChunkPtr> MFVertexProgramChunkPtr;
+typedef FieldContainerPtrMField<VertexProgramChunkPtr,
+                                RecordedRefCounts  > MFRecVertexProgramChunkPtr;
+typedef FieldContainerPtrMField<VertexProgramChunkPtr,
+                                UnrecordedRefCounts> MFUnrecVertexProgramChunkPtr;
+typedef FieldContainerPtrMField<VertexProgramChunkPtr,
+                                WeakRefCounts      > MFWeakVertexProgramChunkPtr;
+typedef FieldContainerPtrMField<VertexProgramChunkPtr,
+                                NoRefCounts        > MFUncountedVertexProgramChunkPtr;
 #endif
 
 

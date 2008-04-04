@@ -96,9 +96,63 @@ struct FieldTraits<ShadowMapEnginePtr> :
 
     static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFShadowMapEnginePtr"; }
-    static const char *getMName(void) { return "MFShadowMapEnginePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFShadowMapEnginePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFShadowMapEnginePtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ShadowMapEnginePtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShadowMapEnginePtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShadowMapEnginePtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShadowMapEnginePtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShadowMapEnginePtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShadowMapEnginePtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShadowMapEnginePtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShadowMapEnginePtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdShadowMapEnginePtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ShadowMapEnginePtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ShadowMapEnginePtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<ShadowMapEnginePtr> SFShadowMapEnginePtr;
+typedef FieldContainerPtrSField<ShadowMapEnginePtr,
+                                RecordedRefCounts  > SFRecShadowMapEnginePtr;
+typedef FieldContainerPtrSField<ShadowMapEnginePtr,
+                                UnrecordedRefCounts> SFUnrecShadowMapEnginePtr;
+typedef FieldContainerPtrSField<ShadowMapEnginePtr,
+                                WeakRefCounts      > SFWeakShadowMapEnginePtr;
+typedef FieldContainerPtrSField<ShadowMapEnginePtr,
+                                NoRefCounts        > SFUncountedShadowMapEnginePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<ShadowMapEnginePtr> MFShadowMapEnginePtr;
+typedef FieldContainerPtrMField<ShadowMapEnginePtr,
+                                RecordedRefCounts  > MFRecShadowMapEnginePtr;
+typedef FieldContainerPtrMField<ShadowMapEnginePtr,
+                                UnrecordedRefCounts> MFUnrecShadowMapEnginePtr;
+typedef FieldContainerPtrMField<ShadowMapEnginePtr,
+                                WeakRefCounts      > MFWeakShadowMapEnginePtr;
+typedef FieldContainerPtrMField<ShadowMapEnginePtr,
+                                NoRefCounts        > MFUncountedShadowMapEnginePtr;
 #endif
 
 

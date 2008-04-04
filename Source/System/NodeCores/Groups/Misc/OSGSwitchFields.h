@@ -96,9 +96,63 @@ struct FieldTraits<SwitchPtr> :
 
     static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFSwitchPtr"; }
-    static const char *getMName(void) { return "MFSwitchPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFSwitchPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFSwitchPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<SwitchPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecSwitchPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecSwitchPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakSwitchPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdSwitchPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecSwitchPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecSwitchPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakSwitchPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdSwitchPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SwitchPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<SwitchPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<SwitchPtr> SFSwitchPtr;
+typedef FieldContainerPtrSField<SwitchPtr,
+                                RecordedRefCounts  > SFRecSwitchPtr;
+typedef FieldContainerPtrSField<SwitchPtr,
+                                UnrecordedRefCounts> SFUnrecSwitchPtr;
+typedef FieldContainerPtrSField<SwitchPtr,
+                                WeakRefCounts      > SFWeakSwitchPtr;
+typedef FieldContainerPtrSField<SwitchPtr,
+                                NoRefCounts        > SFUncountedSwitchPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<SwitchPtr> MFSwitchPtr;
+typedef FieldContainerPtrMField<SwitchPtr,
+                                RecordedRefCounts  > MFRecSwitchPtr;
+typedef FieldContainerPtrMField<SwitchPtr,
+                                UnrecordedRefCounts> MFUnrecSwitchPtr;
+typedef FieldContainerPtrMField<SwitchPtr,
+                                WeakRefCounts      > MFWeakSwitchPtr;
+typedef FieldContainerPtrMField<SwitchPtr,
+                                NoRefCounts        > MFUncountedSwitchPtr;
 #endif
 
 

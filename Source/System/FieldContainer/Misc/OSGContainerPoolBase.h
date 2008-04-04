@@ -135,7 +135,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
 #endif
                   SFString            *editSFName           (void);
             const SFString            *getSFName            (void) const;
-            const MFFieldContainerPtr *getMFContainers      (void) const;
+            const MFUnrecFieldContainerPtr *getMFContainers      (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -145,7 +145,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
             const std::string         &getName            (void) const;
 
                   FieldContainerPtrConst getContainers     (const UInt32 index) const;
-            const MFFieldContainerPtr &getContainers     (void) const;
+            const MFUnrecFieldContainerPtr &getContainers     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -165,7 +165,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \{                                                                 */
 
     void pushToContainers           (FieldContainerPtrConstArg value   );
-    void assignContainers           (const MFFieldContainerPtr &value);
+    void assignContainers           (const MFUnrecFieldContainerPtr &value);
     void insertIntoContainers      (UInt32                uiIndex,
                                              FieldContainerPtrConstArg value   );
     void replaceInContainers  (UInt32                uiIndex,
@@ -227,7 +227,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \{                                                                 */
 
     SFString          _sfName;
-    MFFieldContainerPtr _mfContainers;
+    MFUnrecFieldContainerPtr _mfContainers;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

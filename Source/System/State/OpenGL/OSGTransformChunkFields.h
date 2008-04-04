@@ -96,9 +96,63 @@ struct FieldTraits<TransformChunkPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFTransformChunkPtr"; }
-    static const char *getMName(void) { return "MFTransformChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFTransformChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFTransformChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<TransformChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakTransformChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdTransformChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<TransformChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<TransformChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<TransformChunkPtr> SFTransformChunkPtr;
+typedef FieldContainerPtrSField<TransformChunkPtr,
+                                RecordedRefCounts  > SFRecTransformChunkPtr;
+typedef FieldContainerPtrSField<TransformChunkPtr,
+                                UnrecordedRefCounts> SFUnrecTransformChunkPtr;
+typedef FieldContainerPtrSField<TransformChunkPtr,
+                                WeakRefCounts      > SFWeakTransformChunkPtr;
+typedef FieldContainerPtrSField<TransformChunkPtr,
+                                NoRefCounts        > SFUncountedTransformChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<TransformChunkPtr> MFTransformChunkPtr;
+typedef FieldContainerPtrMField<TransformChunkPtr,
+                                RecordedRefCounts  > MFRecTransformChunkPtr;
+typedef FieldContainerPtrMField<TransformChunkPtr,
+                                UnrecordedRefCounts> MFUnrecTransformChunkPtr;
+typedef FieldContainerPtrMField<TransformChunkPtr,
+                                WeakRefCounts      > MFWeakTransformChunkPtr;
+typedef FieldContainerPtrMField<TransformChunkPtr,
+                                NoRefCounts        > MFUncountedTransformChunkPtr;
 #endif
 
 

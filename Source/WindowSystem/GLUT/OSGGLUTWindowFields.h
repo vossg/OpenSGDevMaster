@@ -96,9 +96,63 @@ struct FieldTraits<GLUTWindowPtr> :
 
     static OSG_WINDOWGLUT_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFGLUTWindowPtr"; }
-    static const char *getMName(void) { return "MFGLUTWindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFGLUTWindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFGLUTWindowPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecGLUTWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecGLUTWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakGLUTWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdGLUTWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecGLUTWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecGLUTWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakGLUTWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdGLUTWindowPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<GLUTWindowPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<GLUTWindowPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowGLUTFieldSingle */
 
-typedef FieldContainerPtrSField<GLUTWindowPtr> SFGLUTWindowPtr;
+typedef FieldContainerPtrSField<GLUTWindowPtr,
+                                RecordedRefCounts  > SFRecGLUTWindowPtr;
+typedef FieldContainerPtrSField<GLUTWindowPtr,
+                                UnrecordedRefCounts> SFUnrecGLUTWindowPtr;
+typedef FieldContainerPtrSField<GLUTWindowPtr,
+                                WeakRefCounts      > SFWeakGLUTWindowPtr;
+typedef FieldContainerPtrSField<GLUTWindowPtr,
+                                NoRefCounts        > SFUncountedGLUTWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowGLUTFieldMulti */
 
-typedef FieldContainerPtrMField<GLUTWindowPtr> MFGLUTWindowPtr;
+typedef FieldContainerPtrMField<GLUTWindowPtr,
+                                RecordedRefCounts  > MFRecGLUTWindowPtr;
+typedef FieldContainerPtrMField<GLUTWindowPtr,
+                                UnrecordedRefCounts> MFUnrecGLUTWindowPtr;
+typedef FieldContainerPtrMField<GLUTWindowPtr,
+                                WeakRefCounts      > MFWeakGLUTWindowPtr;
+typedef FieldContainerPtrMField<GLUTWindowPtr,
+                                NoRefCounts        > MFUncountedGLUTWindowPtr;
 #endif
 
 

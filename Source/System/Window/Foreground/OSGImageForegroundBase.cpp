@@ -102,8 +102,8 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFImagePtr::Description(
-        MFImagePtr::getClassType(),
+    pDesc = new MFUnrecImagePtr::Description(
+        MFUnrecImagePtr::getClassType(),
         "images",
         "The images to display.\n",
         ImagesFieldId, ImagesFieldMask,
@@ -206,7 +206,7 @@ UInt32 ImageForegroundBase::getContainerSize(void) const
 
 
 //! Get the ImageForeground::_mfImages field.
-const MFImagePtr *ImageForegroundBase::getMFImages(void) const
+const MFUnrecImagePtr *ImageForegroundBase::getMFImages(void) const
 {
     return &_mfImages;
 }
@@ -244,11 +244,11 @@ void ImageForegroundBase::pushToImages(ImagePtrConstArg value)
     _mfImages.push_back(value);
 }
 
-void ImageForegroundBase::assignImages   (const MFImagePtr        &value)
+void ImageForegroundBase::assignImages   (const MFUnrecImagePtr   &value)
 {
-    MFImagePtr       ::const_iterator elemIt  =
+    MFUnrecImagePtr  ::const_iterator elemIt  =
         value.begin();
-    MFImagePtr       ::const_iterator elemEnd =
+    MFUnrecImagePtr  ::const_iterator elemEnd =
         value.end  ();
 
     static_cast<ImageForeground *>(this)->clearImages();
@@ -269,7 +269,7 @@ void ImageForegroundBase::insertIntoImages(UInt32                uiIndex,
 
     editMField(ImagesFieldMask, _mfImages);
 
-    MFImagePtr::iterator fieldIt = _mfImages.begin();
+    MFUnrecImagePtr::iterator fieldIt = _mfImages.begin();
 
     //addRef(value);
 
@@ -327,7 +327,7 @@ void ImageForegroundBase::removeFromImages(UInt32 uiIndex)
     {
         editMField(ImagesFieldMask, _mfImages);
 
-        MFImagePtr::iterator fieldIt = _mfImages.begin();
+        MFUnrecImagePtr::iterator fieldIt = _mfImages.begin();
 
         fieldIt += uiIndex;
 
@@ -345,7 +345,7 @@ void ImageForegroundBase::removeFromImages(ImagePtrConstArg value)
     {
         editMField(ImagesFieldMask, _mfImages);
 
-        MFImagePtr::iterator fieldIt = _mfImages.begin();
+        MFUnrecImagePtr::iterator fieldIt = _mfImages.begin();
 
         fieldIt += iElemIdx;
 
@@ -358,8 +358,8 @@ void ImageForegroundBase::clearImages(void)
 {
     editMField(ImagesFieldMask, _mfImages);
 
-    MFImagePtr::iterator       fieldIt  = _mfImages.begin();
-    MFImagePtr::const_iterator fieldEnd = _mfImages.end  ();
+    MFUnrecImagePtr::iterator       fieldIt  = _mfImages.begin();
+    MFUnrecImagePtr::const_iterator fieldEnd = _mfImages.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -620,9 +620,9 @@ void ImageForegroundBase::onCreate(const ImageForeground *source)
     if(source != NULL)
     {
 
-        MFImagePtr::const_iterator ImagesIt  =
+        MFUnrecImagePtr::const_iterator ImagesIt  =
             source->_mfImages.begin();
-        MFImagePtr::const_iterator ImagesEnd =
+        MFUnrecImagePtr::const_iterator ImagesEnd =
             source->_mfImages.end  ();
 
         while(ImagesIt != ImagesEnd)
@@ -636,8 +636,8 @@ void ImageForegroundBase::onCreate(const ImageForeground *source)
 
 GetFieldHandlePtr ImageForegroundBase::getHandleImages          (void) const
 {
-    MFImagePtr::GetHandlePtr returnValue(
-        new  MFImagePtr::GetHandle(
+    MFUnrecImagePtr::GetHandlePtr returnValue(
+        new  MFUnrecImagePtr::GetHandle(
              &_mfImages, 
              this->getType().getFieldDesc(ImagesFieldId)));
 
@@ -646,8 +646,8 @@ GetFieldHandlePtr ImageForegroundBase::getHandleImages          (void) const
 
 EditFieldHandlePtr ImageForegroundBase::editHandleImages         (void)
 {
-    MFImagePtr::EditHandlePtr returnValue(
-        new  MFImagePtr::EditHandle(
+    MFUnrecImagePtr::EditHandlePtr returnValue(
+        new  MFUnrecImagePtr::EditHandle(
              &_mfImages, 
              this->getType().getFieldDesc(ImagesFieldId)));
 
@@ -734,24 +734,12 @@ DataType FieldTraits<ImageForegroundPtr>::_type("ImageForegroundPtr", "Foregroun
 
 OSG_FIELDTRAITS_GETTYPE(ImageForegroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ImageForegroundPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ImageForegroundPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ImageForegroundPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ImageForegroundPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ImageForegroundPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ImageForegroundPtr, 
+                           0);
 
 OSG_END_NAMESPACE

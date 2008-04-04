@@ -95,6 +95,8 @@ struct FieldTraits<SimpleMaterialPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SimpleMaterialPtr, 0>
     \hideinhierarchy

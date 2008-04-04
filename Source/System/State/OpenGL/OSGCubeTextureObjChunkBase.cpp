@@ -125,8 +125,8 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(),
+    pDesc = new SFUnrecImagePtr::Description(
+        SFUnrecImagePtr::getClassType(),
         "posZImage",
         "The image for the positive Z direction of the cube texture.\n",
         PosZImageFieldId, PosZImageFieldMask,
@@ -137,8 +137,8 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(),
+    pDesc = new SFUnrecImagePtr::Description(
+        SFUnrecImagePtr::getClassType(),
         "posXImage",
         "The image for the positive X direction of the cube texture.\n",
         PosXImageFieldId, PosXImageFieldMask,
@@ -149,8 +149,8 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(),
+    pDesc = new SFUnrecImagePtr::Description(
+        SFUnrecImagePtr::getClassType(),
         "negXImage",
         "The image for the negative X direction of the cube texture.\n",
         NegXImageFieldId, NegXImageFieldMask,
@@ -161,8 +161,8 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(),
+    pDesc = new SFUnrecImagePtr::Description(
+        SFUnrecImagePtr::getClassType(),
         "posYImage",
         "The image for the positive Y direction of the cube texture.\n",
         PosYImageFieldId, PosYImageFieldMask,
@@ -173,8 +173,8 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(),
+    pDesc = new SFUnrecImagePtr::Description(
+        SFUnrecImagePtr::getClassType(),
         "negYImage",
         "The image for the negative Y direction of the cube texture.\n",
         NegYImageFieldId, NegYImageFieldMask,
@@ -320,31 +320,31 @@ UInt32 CubeTextureObjChunkBase::getContainerSize(void) const
 
 
 //! Get the CubeTextureObjChunk::_sfPosZImage field.
-const SFImagePtr *CubeTextureObjChunkBase::getSFPosZImage(void) const
+const SFUnrecImagePtr *CubeTextureObjChunkBase::getSFPosZImage(void) const
 {
     return &_sfPosZImage;
 }
 
 //! Get the CubeTextureObjChunk::_sfPosXImage field.
-const SFImagePtr *CubeTextureObjChunkBase::getSFPosXImage(void) const
+const SFUnrecImagePtr *CubeTextureObjChunkBase::getSFPosXImage(void) const
 {
     return &_sfPosXImage;
 }
 
 //! Get the CubeTextureObjChunk::_sfNegXImage field.
-const SFImagePtr *CubeTextureObjChunkBase::getSFNegXImage(void) const
+const SFUnrecImagePtr *CubeTextureObjChunkBase::getSFNegXImage(void) const
 {
     return &_sfNegXImage;
 }
 
 //! Get the CubeTextureObjChunk::_sfPosYImage field.
-const SFImagePtr *CubeTextureObjChunkBase::getSFPosYImage(void) const
+const SFUnrecImagePtr *CubeTextureObjChunkBase::getSFPosYImage(void) const
 {
     return &_sfPosYImage;
 }
 
 //! Get the CubeTextureObjChunk::_sfNegYImage field.
-const SFImagePtr *CubeTextureObjChunkBase::getSFNegYImage(void) const
+const SFUnrecImagePtr *CubeTextureObjChunkBase::getSFNegYImage(void) const
 {
     return &_sfNegYImage;
 }
@@ -607,8 +607,8 @@ void CubeTextureObjChunkBase::onCreate(const CubeTextureObjChunk *source)
 
 GetFieldHandlePtr CubeTextureObjChunkBase::getHandlePosZImage       (void) const
 {
-    SFImagePtr::GetHandlePtr returnValue(
-        new  SFImagePtr::GetHandle(
+    SFUnrecImagePtr::GetHandlePtr returnValue(
+        new  SFUnrecImagePtr::GetHandle(
              &_sfPosZImage, 
              this->getType().getFieldDesc(PosZImageFieldId)));
 
@@ -617,8 +617,8 @@ GetFieldHandlePtr CubeTextureObjChunkBase::getHandlePosZImage       (void) const
 
 EditFieldHandlePtr CubeTextureObjChunkBase::editHandlePosZImage      (void)
 {
-    SFImagePtr::EditHandlePtr returnValue(
-        new  SFImagePtr::EditHandle(
+    SFUnrecImagePtr::EditHandlePtr returnValue(
+        new  SFUnrecImagePtr::EditHandle(
              &_sfPosZImage, 
              this->getType().getFieldDesc(PosZImageFieldId)));
 
@@ -632,8 +632,8 @@ EditFieldHandlePtr CubeTextureObjChunkBase::editHandlePosZImage      (void)
 
 GetFieldHandlePtr CubeTextureObjChunkBase::getHandlePosXImage       (void) const
 {
-    SFImagePtr::GetHandlePtr returnValue(
-        new  SFImagePtr::GetHandle(
+    SFUnrecImagePtr::GetHandlePtr returnValue(
+        new  SFUnrecImagePtr::GetHandle(
              &_sfPosXImage, 
              this->getType().getFieldDesc(PosXImageFieldId)));
 
@@ -642,8 +642,8 @@ GetFieldHandlePtr CubeTextureObjChunkBase::getHandlePosXImage       (void) const
 
 EditFieldHandlePtr CubeTextureObjChunkBase::editHandlePosXImage      (void)
 {
-    SFImagePtr::EditHandlePtr returnValue(
-        new  SFImagePtr::EditHandle(
+    SFUnrecImagePtr::EditHandlePtr returnValue(
+        new  SFUnrecImagePtr::EditHandle(
              &_sfPosXImage, 
              this->getType().getFieldDesc(PosXImageFieldId)));
 
@@ -657,8 +657,8 @@ EditFieldHandlePtr CubeTextureObjChunkBase::editHandlePosXImage      (void)
 
 GetFieldHandlePtr CubeTextureObjChunkBase::getHandleNegXImage       (void) const
 {
-    SFImagePtr::GetHandlePtr returnValue(
-        new  SFImagePtr::GetHandle(
+    SFUnrecImagePtr::GetHandlePtr returnValue(
+        new  SFUnrecImagePtr::GetHandle(
              &_sfNegXImage, 
              this->getType().getFieldDesc(NegXImageFieldId)));
 
@@ -667,8 +667,8 @@ GetFieldHandlePtr CubeTextureObjChunkBase::getHandleNegXImage       (void) const
 
 EditFieldHandlePtr CubeTextureObjChunkBase::editHandleNegXImage      (void)
 {
-    SFImagePtr::EditHandlePtr returnValue(
-        new  SFImagePtr::EditHandle(
+    SFUnrecImagePtr::EditHandlePtr returnValue(
+        new  SFUnrecImagePtr::EditHandle(
              &_sfNegXImage, 
              this->getType().getFieldDesc(NegXImageFieldId)));
 
@@ -682,8 +682,8 @@ EditFieldHandlePtr CubeTextureObjChunkBase::editHandleNegXImage      (void)
 
 GetFieldHandlePtr CubeTextureObjChunkBase::getHandlePosYImage       (void) const
 {
-    SFImagePtr::GetHandlePtr returnValue(
-        new  SFImagePtr::GetHandle(
+    SFUnrecImagePtr::GetHandlePtr returnValue(
+        new  SFUnrecImagePtr::GetHandle(
              &_sfPosYImage, 
              this->getType().getFieldDesc(PosYImageFieldId)));
 
@@ -692,8 +692,8 @@ GetFieldHandlePtr CubeTextureObjChunkBase::getHandlePosYImage       (void) const
 
 EditFieldHandlePtr CubeTextureObjChunkBase::editHandlePosYImage      (void)
 {
-    SFImagePtr::EditHandlePtr returnValue(
-        new  SFImagePtr::EditHandle(
+    SFUnrecImagePtr::EditHandlePtr returnValue(
+        new  SFUnrecImagePtr::EditHandle(
              &_sfPosYImage, 
              this->getType().getFieldDesc(PosYImageFieldId)));
 
@@ -707,8 +707,8 @@ EditFieldHandlePtr CubeTextureObjChunkBase::editHandlePosYImage      (void)
 
 GetFieldHandlePtr CubeTextureObjChunkBase::getHandleNegYImage       (void) const
 {
-    SFImagePtr::GetHandlePtr returnValue(
-        new  SFImagePtr::GetHandle(
+    SFUnrecImagePtr::GetHandlePtr returnValue(
+        new  SFUnrecImagePtr::GetHandle(
              &_sfNegYImage, 
              this->getType().getFieldDesc(NegYImageFieldId)));
 
@@ -717,8 +717,8 @@ GetFieldHandlePtr CubeTextureObjChunkBase::getHandleNegYImage       (void) const
 
 EditFieldHandlePtr CubeTextureObjChunkBase::editHandleNegYImage      (void)
 {
-    SFImagePtr::EditHandlePtr returnValue(
-        new  SFImagePtr::EditHandle(
+    SFUnrecImagePtr::EditHandlePtr returnValue(
+        new  SFUnrecImagePtr::EditHandle(
              &_sfNegYImage, 
              this->getType().getFieldDesc(NegYImageFieldId)));
 
@@ -805,24 +805,12 @@ DataType FieldTraits<CubeTextureObjChunkPtr>::_type("CubeTextureObjChunkPtr", "T
 
 OSG_FIELDTRAITS_GETTYPE(CubeTextureObjChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    CubeTextureObjChunkPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           CubeTextureObjChunkPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         CubeTextureObjChunkPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    CubeTextureObjChunkPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         CubeTextureObjChunkPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           CubeTextureObjChunkPtr, 
+                           0);
 
 OSG_END_NAMESPACE

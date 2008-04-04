@@ -217,7 +217,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFImagePtr          *getSFHeightData      (void) const;
+            const SFUnrecImagePtr     *getSFHeightData      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFHeightScale     (void);
@@ -539,7 +539,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFImagePtr        _sfHeightData;
+    SFUnrecImagePtr   _sfHeightData;
     SFReal32          _sfHeightScale;
     MFReal32          _mfHeightError;
     MFReal32          _mfHeightQuad;
@@ -548,7 +548,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     SFReal32          _sfDetail;
     SFInt32           _sfBorderDetail;
     SFReal32          _sfVertexSpacing;
-    SFGeoVectorPropertyPtr _sfHeightVertices;
+    SFUnrecGeoVectorPropertyPtr _sfHeightVertices;
     SFBool            _sfGeoMorphing;
     SFPnt3f           _sfBoundMin;
     SFPnt3f           _sfBoundMax;
@@ -657,7 +657,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
 #endif
                   SFUInt32            *editSFLevel          (void);
             const SFUInt32            *getSFLevel           (void) const;
-            const SFGeoVectorPropertyPtr *getSFHeightVertices  (void) const;
+            const SFUnrecGeoVectorPropertyPtr *getSFHeightVertices  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFPnt3f             *getSFBoundMin        (void);

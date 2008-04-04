@@ -116,7 +116,7 @@ NodePtrConst SortLastWindowBase::getGroupNodes(const UInt32 index) const
 
 //! Get the SortLastWindow::_mfGroupNodes field.
 inline
-const MFNodePtr &SortLastWindowBase::getGroupNodes(void) const
+const MFUnrecNodePtr &SortLastWindowBase::getGroupNodes(void) const
 {
     return _mfGroupNodes;
 }

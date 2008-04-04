@@ -96,9 +96,63 @@ struct FieldTraits<GroupPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFGroupPtr"; }
-    static const char *getMName(void) { return "MFGroupPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFGroupPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFGroupPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<GroupPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GroupPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GroupPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GroupPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GroupPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GroupPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GroupPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakGroupPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GroupPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdGroupPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<GroupPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<GroupPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<GroupPtr> SFGroupPtr;
+typedef FieldContainerPtrSField<GroupPtr,
+                                RecordedRefCounts  > SFRecGroupPtr;
+typedef FieldContainerPtrSField<GroupPtr,
+                                UnrecordedRefCounts> SFUnrecGroupPtr;
+typedef FieldContainerPtrSField<GroupPtr,
+                                WeakRefCounts      > SFWeakGroupPtr;
+typedef FieldContainerPtrSField<GroupPtr,
+                                NoRefCounts        > SFUncountedGroupPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<GroupPtr> MFGroupPtr;
+typedef FieldContainerPtrMField<GroupPtr,
+                                RecordedRefCounts  > MFRecGroupPtr;
+typedef FieldContainerPtrMField<GroupPtr,
+                                UnrecordedRefCounts> MFUnrecGroupPtr;
+typedef FieldContainerPtrMField<GroupPtr,
+                                WeakRefCounts      > MFWeakGroupPtr;
+typedef FieldContainerPtrMField<GroupPtr,
+                                NoRefCounts        > MFUncountedGroupPtr;
 #endif
 
 

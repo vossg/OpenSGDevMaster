@@ -2,7 +2,7 @@
 
 <FieldContainer
     name="StageData"
-    parent="FieldBundle"
+    parent="FieldContainer"
     library="Group"
     pointerfieldtypes="none"
     structure="concrete"
@@ -11,6 +11,7 @@
     decoratable="false"
     useLocalIncludes="false"
     isNodeCore="false"
+    isBundle="true"
 >
 Data use for rendering by the any stage, holds bookkeeping data
 	<Field

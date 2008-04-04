@@ -117,7 +117,7 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineData :
 
   private:
 
-    friend class FieldBundle;
+    friend class FieldContainer;
     friend class SimpleShadowMapEngineDataBase;
 
     // prohibit default functions (move to 'public' if you need one)

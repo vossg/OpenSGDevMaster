@@ -99,8 +99,8 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(),
+    pDesc = new SFUnrecImagePtr::Description(
+        SFUnrecImagePtr::getClassType(),
         "image",
         "The image to write to.\n",
         ImageFieldId, ImageFieldMask,
@@ -200,7 +200,7 @@ UInt32 GrabForegroundBase::getContainerSize(void) const
 
 
 //! Get the GrabForeground::_sfImage field.
-const SFImagePtr *GrabForegroundBase::getSFImage(void) const
+const SFUnrecImagePtr *GrabForegroundBase::getSFImage(void) const
 {
     return &_sfImage;
 }
@@ -399,8 +399,8 @@ void GrabForegroundBase::onCreate(const GrabForeground *source)
 
 GetFieldHandlePtr GrabForegroundBase::getHandleImage           (void) const
 {
-    SFImagePtr::GetHandlePtr returnValue(
-        new  SFImagePtr::GetHandle(
+    SFUnrecImagePtr::GetHandlePtr returnValue(
+        new  SFUnrecImagePtr::GetHandle(
              &_sfImage, 
              this->getType().getFieldDesc(ImageFieldId)));
 
@@ -409,8 +409,8 @@ GetFieldHandlePtr GrabForegroundBase::getHandleImage           (void) const
 
 EditFieldHandlePtr GrabForegroundBase::editHandleImage          (void)
 {
-    SFImagePtr::EditHandlePtr returnValue(
-        new  SFImagePtr::EditHandle(
+    SFUnrecImagePtr::EditHandlePtr returnValue(
+        new  SFUnrecImagePtr::EditHandle(
              &_sfImage, 
              this->getType().getFieldDesc(ImageFieldId)));
 
@@ -489,24 +489,12 @@ DataType FieldTraits<GrabForegroundPtr>::_type("GrabForegroundPtr", "ForegroundP
 
 OSG_FIELDTRAITS_GETTYPE(GrabForegroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    GrabForegroundPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           GrabForegroundPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         GrabForegroundPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    GrabForegroundPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         GrabForegroundPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           GrabForegroundPtr, 
+                           0);
 
 OSG_END_NAMESPACE

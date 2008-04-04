@@ -252,8 +252,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureBaseChunkPtr::Description(
-        SFTextureBaseChunkPtr::getClassType(),
+    pDesc = new SFUnrecTextureBaseChunkPtr::Description(
+        SFUnrecTextureBaseChunkPtr::getClassType(),
         "backTexture",
         "Texture for the back (+Z) side of the sky cube.\n",
         BackTextureFieldId, BackTextureFieldMask,
@@ -264,8 +264,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureBaseChunkPtr::Description(
-        SFTextureBaseChunkPtr::getClassType(),
+    pDesc = new SFUnrecTextureBaseChunkPtr::Description(
+        SFUnrecTextureBaseChunkPtr::getClassType(),
         "bottomTexture",
         "Texture for the bottom (-Y) side of the sky cube.\n",
         BottomTextureFieldId, BottomTextureFieldMask,
@@ -276,8 +276,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureBaseChunkPtr::Description(
-        SFTextureBaseChunkPtr::getClassType(),
+    pDesc = new SFUnrecTextureBaseChunkPtr::Description(
+        SFUnrecTextureBaseChunkPtr::getClassType(),
         "frontTexture",
         "Texture for the front (-Z) side of the sky cube.\n",
         FrontTextureFieldId, FrontTextureFieldMask,
@@ -288,8 +288,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureBaseChunkPtr::Description(
-        SFTextureBaseChunkPtr::getClassType(),
+    pDesc = new SFUnrecTextureBaseChunkPtr::Description(
+        SFUnrecTextureBaseChunkPtr::getClassType(),
         "leftTexture",
         "Texture for the left (-X) side of the sky cube.\n",
         LeftTextureFieldId, LeftTextureFieldMask,
@@ -300,8 +300,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureBaseChunkPtr::Description(
-        SFTextureBaseChunkPtr::getClassType(),
+    pDesc = new SFUnrecTextureBaseChunkPtr::Description(
+        SFUnrecTextureBaseChunkPtr::getClassType(),
         "rightTexture",
         "Texture for the right (+X) side of the sky cube.\n",
         RightTextureFieldId, RightTextureFieldMask,
@@ -312,8 +312,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureBaseChunkPtr::Description(
-        SFTextureBaseChunkPtr::getClassType(),
+    pDesc = new SFUnrecTextureBaseChunkPtr::Description(
+        SFUnrecTextureBaseChunkPtr::getClassType(),
         "topTexture",
         "Texture for the top (+Y) side of the sky cube.\n",
         TopTextureFieldId, TopTextureFieldMask,
@@ -773,37 +773,37 @@ SFUInt32            *SkyBackgroundBase::getSFSphereRes      (void)
 #endif
 
 //! Get the SkyBackground::_sfBackTexture field.
-const SFTextureBaseChunkPtr *SkyBackgroundBase::getSFBackTexture(void) const
+const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFBackTexture(void) const
 {
     return &_sfBackTexture;
 }
 
 //! Get the SkyBackground::_sfBottomTexture field.
-const SFTextureBaseChunkPtr *SkyBackgroundBase::getSFBottomTexture(void) const
+const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFBottomTexture(void) const
 {
     return &_sfBottomTexture;
 }
 
 //! Get the SkyBackground::_sfFrontTexture field.
-const SFTextureBaseChunkPtr *SkyBackgroundBase::getSFFrontTexture(void) const
+const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFFrontTexture(void) const
 {
     return &_sfFrontTexture;
 }
 
 //! Get the SkyBackground::_sfLeftTexture field.
-const SFTextureBaseChunkPtr *SkyBackgroundBase::getSFLeftTexture(void) const
+const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFLeftTexture(void) const
 {
     return &_sfLeftTexture;
 }
 
 //! Get the SkyBackground::_sfRightTexture field.
-const SFTextureBaseChunkPtr *SkyBackgroundBase::getSFRightTexture(void) const
+const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFRightTexture(void) const
 {
     return &_sfRightTexture;
 }
 
 //! Get the SkyBackground::_sfTopTexture field.
-const SFTextureBaseChunkPtr *SkyBackgroundBase::getSFTopTexture(void) const
+const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFTopTexture(void) const
 {
     return &_sfTopTexture;
 }
@@ -2302,8 +2302,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleSphereRes      (void)
 
 GetFieldHandlePtr SkyBackgroundBase::getHandleBackTexture     (void) const
 {
-    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::GetHandle(
+    SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::GetHandle(
              &_sfBackTexture, 
              this->getType().getFieldDesc(BackTextureFieldId)));
 
@@ -2312,8 +2312,8 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleBackTexture     (void) const
 
 EditFieldHandlePtr SkyBackgroundBase::editHandleBackTexture    (void)
 {
-    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::EditHandle(
+    SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::EditHandle(
              &_sfBackTexture, 
              this->getType().getFieldDesc(BackTextureFieldId)));
 
@@ -2327,8 +2327,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBackTexture    (void)
 
 GetFieldHandlePtr SkyBackgroundBase::getHandleBottomTexture   (void) const
 {
-    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::GetHandle(
+    SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::GetHandle(
              &_sfBottomTexture, 
              this->getType().getFieldDesc(BottomTextureFieldId)));
 
@@ -2337,8 +2337,8 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleBottomTexture   (void) const
 
 EditFieldHandlePtr SkyBackgroundBase::editHandleBottomTexture  (void)
 {
-    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::EditHandle(
+    SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::EditHandle(
              &_sfBottomTexture, 
              this->getType().getFieldDesc(BottomTextureFieldId)));
 
@@ -2352,8 +2352,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBottomTexture  (void)
 
 GetFieldHandlePtr SkyBackgroundBase::getHandleFrontTexture    (void) const
 {
-    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::GetHandle(
+    SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::GetHandle(
              &_sfFrontTexture, 
              this->getType().getFieldDesc(FrontTextureFieldId)));
 
@@ -2362,8 +2362,8 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleFrontTexture    (void) const
 
 EditFieldHandlePtr SkyBackgroundBase::editHandleFrontTexture   (void)
 {
-    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::EditHandle(
+    SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::EditHandle(
              &_sfFrontTexture, 
              this->getType().getFieldDesc(FrontTextureFieldId)));
 
@@ -2377,8 +2377,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleFrontTexture   (void)
 
 GetFieldHandlePtr SkyBackgroundBase::getHandleLeftTexture     (void) const
 {
-    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::GetHandle(
+    SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::GetHandle(
              &_sfLeftTexture, 
              this->getType().getFieldDesc(LeftTextureFieldId)));
 
@@ -2387,8 +2387,8 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleLeftTexture     (void) const
 
 EditFieldHandlePtr SkyBackgroundBase::editHandleLeftTexture    (void)
 {
-    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::EditHandle(
+    SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::EditHandle(
              &_sfLeftTexture, 
              this->getType().getFieldDesc(LeftTextureFieldId)));
 
@@ -2402,8 +2402,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleLeftTexture    (void)
 
 GetFieldHandlePtr SkyBackgroundBase::getHandleRightTexture    (void) const
 {
-    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::GetHandle(
+    SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::GetHandle(
              &_sfRightTexture, 
              this->getType().getFieldDesc(RightTextureFieldId)));
 
@@ -2412,8 +2412,8 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleRightTexture    (void) const
 
 EditFieldHandlePtr SkyBackgroundBase::editHandleRightTexture   (void)
 {
-    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::EditHandle(
+    SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::EditHandle(
              &_sfRightTexture, 
              this->getType().getFieldDesc(RightTextureFieldId)));
 
@@ -2427,8 +2427,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleRightTexture   (void)
 
 GetFieldHandlePtr SkyBackgroundBase::getHandleTopTexture      (void) const
 {
-    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::GetHandle(
+    SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::GetHandle(
              &_sfTopTexture, 
              this->getType().getFieldDesc(TopTextureFieldId)));
 
@@ -2437,8 +2437,8 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleTopTexture      (void) const
 
 EditFieldHandlePtr SkyBackgroundBase::editHandleTopTexture     (void)
 {
-    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::EditHandle(
+    SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::EditHandle(
              &_sfTopTexture, 
              this->getType().getFieldDesc(TopTextureFieldId)));
 
@@ -2732,14 +2732,8 @@ DataType FieldTraits<SkyBackgroundPtr>::_type("SkyBackgroundPtr", "BackgroundPtr
 OSG_FIELDTRAITS_GETTYPE(SkyBackgroundPtr)
 
 
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    SkyBackgroundPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         SkyBackgroundPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           SkyBackgroundPtr, 
+                           0);
 
 OSG_END_NAMESPACE

@@ -96,9 +96,63 @@ struct FieldTraits<SwitchMaterialPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFSwitchMaterialPtr"; }
-    static const char *getMName(void) { return "MFSwitchMaterialPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFSwitchMaterialPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFSwitchMaterialPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecSwitchMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecSwitchMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakSwitchMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdSwitchMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecSwitchMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecSwitchMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakSwitchMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdSwitchMaterialPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SwitchMaterialPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<SwitchMaterialPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<SwitchMaterialPtr> SFSwitchMaterialPtr;
+typedef FieldContainerPtrSField<SwitchMaterialPtr,
+                                RecordedRefCounts  > SFRecSwitchMaterialPtr;
+typedef FieldContainerPtrSField<SwitchMaterialPtr,
+                                UnrecordedRefCounts> SFUnrecSwitchMaterialPtr;
+typedef FieldContainerPtrSField<SwitchMaterialPtr,
+                                WeakRefCounts      > SFWeakSwitchMaterialPtr;
+typedef FieldContainerPtrSField<SwitchMaterialPtr,
+                                NoRefCounts        > SFUncountedSwitchMaterialPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<SwitchMaterialPtr> MFSwitchMaterialPtr;
+typedef FieldContainerPtrMField<SwitchMaterialPtr,
+                                RecordedRefCounts  > MFRecSwitchMaterialPtr;
+typedef FieldContainerPtrMField<SwitchMaterialPtr,
+                                UnrecordedRefCounts> MFUnrecSwitchMaterialPtr;
+typedef FieldContainerPtrMField<SwitchMaterialPtr,
+                                WeakRefCounts      > MFWeakSwitchMaterialPtr;
+typedef FieldContainerPtrMField<SwitchMaterialPtr,
+                                NoRefCounts        > MFUncountedSwitchMaterialPtr;
 #endif
 
 

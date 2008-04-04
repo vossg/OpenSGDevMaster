@@ -96,9 +96,63 @@ struct FieldTraits<OrthographicCameraPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFOrthographicCameraPtr"; }
-    static const char *getMName(void) { return "MFOrthographicCameraPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFOrthographicCameraPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFOrthographicCameraPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecOrthographicCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecOrthographicCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakOrthographicCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdOrthographicCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecOrthographicCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecOrthographicCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakOrthographicCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdOrthographicCameraPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<OrthographicCameraPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<OrthographicCameraPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<OrthographicCameraPtr> SFOrthographicCameraPtr;
+typedef FieldContainerPtrSField<OrthographicCameraPtr,
+                                RecordedRefCounts  > SFRecOrthographicCameraPtr;
+typedef FieldContainerPtrSField<OrthographicCameraPtr,
+                                UnrecordedRefCounts> SFUnrecOrthographicCameraPtr;
+typedef FieldContainerPtrSField<OrthographicCameraPtr,
+                                WeakRefCounts      > SFWeakOrthographicCameraPtr;
+typedef FieldContainerPtrSField<OrthographicCameraPtr,
+                                NoRefCounts        > SFUncountedOrthographicCameraPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<OrthographicCameraPtr> MFOrthographicCameraPtr;
+typedef FieldContainerPtrMField<OrthographicCameraPtr,
+                                RecordedRefCounts  > MFRecOrthographicCameraPtr;
+typedef FieldContainerPtrMField<OrthographicCameraPtr,
+                                UnrecordedRefCounts> MFUnrecOrthographicCameraPtr;
+typedef FieldContainerPtrMField<OrthographicCameraPtr,
+                                WeakRefCounts      > MFWeakOrthographicCameraPtr;
+typedef FieldContainerPtrMField<OrthographicCameraPtr,
+                                NoRefCounts        > MFUncountedOrthographicCameraPtr;
 #endif
 
 

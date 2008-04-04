@@ -96,9 +96,63 @@ struct FieldTraits<LineChunkPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFLineChunkPtr"; }
-    static const char *getMName(void) { return "MFLineChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFLineChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFLineChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecLineChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecLineChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakLineChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdLineChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecLineChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecLineChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakLineChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdLineChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<LineChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<LineChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<LineChunkPtr> SFLineChunkPtr;
+typedef FieldContainerPtrSField<LineChunkPtr,
+                                RecordedRefCounts  > SFRecLineChunkPtr;
+typedef FieldContainerPtrSField<LineChunkPtr,
+                                UnrecordedRefCounts> SFUnrecLineChunkPtr;
+typedef FieldContainerPtrSField<LineChunkPtr,
+                                WeakRefCounts      > SFWeakLineChunkPtr;
+typedef FieldContainerPtrSField<LineChunkPtr,
+                                NoRefCounts        > SFUncountedLineChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<LineChunkPtr> MFLineChunkPtr;
+typedef FieldContainerPtrMField<LineChunkPtr,
+                                RecordedRefCounts  > MFRecLineChunkPtr;
+typedef FieldContainerPtrMField<LineChunkPtr,
+                                UnrecordedRefCounts> MFUnrecLineChunkPtr;
+typedef FieldContainerPtrMField<LineChunkPtr,
+                                WeakRefCounts      > MFWeakLineChunkPtr;
+typedef FieldContainerPtrMField<LineChunkPtr,
+                                NoRefCounts        > MFUncountedLineChunkPtr;
 #endif
 
 

@@ -305,24 +305,12 @@ DataType FieldTraits<InverseTransformPtr>::_type("InverseTransformPtr", "GroupPt
 
 OSG_FIELDTRAITS_GETTYPE(InverseTransformPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    InverseTransformPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           InverseTransformPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         InverseTransformPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    InverseTransformPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         InverseTransformPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           InverseTransformPtr, 
+                           0);
 
 OSG_END_NAMESPACE

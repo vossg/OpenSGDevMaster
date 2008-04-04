@@ -181,7 +181,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
 #endif
                   SFString            *editSFUrl            (void);
             const SFString            *getSFUrl             (void) const;
-            const SFNodePtr           *getSFRoot            (void) const;
+            const SFUnrecNodePtr      *getSFRoot            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFState           (void);
@@ -387,7 +387,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
 
     SFBool            _sfEnabled;
     SFString          _sfUrl;
-    SFNodePtr         _sfRoot;
+    SFUnrecNodePtr    _sfRoot;
     SFUInt32          _sfState;
     SFBool            _sfConcurrentLoad;
     SFDynamicVolume   _sfVolume;

@@ -135,7 +135,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
 #endif
                   SFUInt32            *editSFChoice         (void);
             const SFUInt32            *getSFChoice          (void) const;
-            const MFTextureBaseChunkPtr *getMFTextures        (void) const;
+            const MFUnrecTextureBaseChunkPtr *getMFTextures        (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -145,7 +145,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
             const UInt32              &getChoice          (void) const;
 
                   TextureBaseChunkPtrConst getTextures       (const UInt32 index) const;
-            const MFTextureBaseChunkPtr &getTextures       (void) const;
+            const MFUnrecTextureBaseChunkPtr &getTextures       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -165,7 +165,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
     void pushToTextures            (TextureBaseChunkPtrConstArg value   );
-    void assignTextures            (const MFTextureBaseChunkPtr &value);
+    void assignTextures            (const MFUnrecTextureBaseChunkPtr &value);
     void insertIntoTextures      (UInt32                uiIndex,
                                              TextureBaseChunkPtrConstArg value   );
     void replaceInTextures  (UInt32                uiIndex,
@@ -227,7 +227,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
     SFUInt32          _sfChoice;
-    MFTextureBaseChunkPtr _mfTextures;
+    MFUnrecTextureBaseChunkPtr _mfTextures;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

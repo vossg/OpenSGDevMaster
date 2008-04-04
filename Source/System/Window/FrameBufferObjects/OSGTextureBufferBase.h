@@ -137,7 +137,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFTextureObjChunkPtr *getSFTexture         (void) const;
+            const SFUnrecTextureObjChunkPtr *getSFTexture         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFTexTarget       (void);
@@ -247,7 +247,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFTextureObjChunkPtr _sfTexture;
+    SFUnrecTextureObjChunkPtr _sfTexture;
     SFGLenum          _sfTexTarget;
     SFUInt32          _sfLevel;
     SFUInt32          _sfZoffset;

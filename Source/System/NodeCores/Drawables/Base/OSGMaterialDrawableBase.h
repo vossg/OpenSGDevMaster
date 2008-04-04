@@ -125,7 +125,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawableBase : public Drawable
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFMaterialPtr       *getSFMaterial        (void) const;
+            const SFUnrecMaterialPtr  *getSFMaterial        (void) const;
 
 
                   MaterialPtrConst getMaterial       (void) const;
@@ -173,7 +173,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawableBase : public Drawable
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFMaterialPtr     _sfMaterial;
+    SFUnrecMaterialPtr _sfMaterial;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

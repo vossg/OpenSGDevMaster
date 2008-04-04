@@ -96,9 +96,63 @@ struct FieldTraits<StatsAttachmentPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFStatsAttachmentPtr"; }
-    static const char *getMName(void) { return "MFStatsAttachmentPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFStatsAttachmentPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFStatsAttachmentPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdStatsAttachmentPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<StatsAttachmentPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<StatsAttachmentPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<StatsAttachmentPtr> SFStatsAttachmentPtr;
+typedef FieldContainerPtrSField<StatsAttachmentPtr,
+                                RecordedRefCounts  > SFRecStatsAttachmentPtr;
+typedef FieldContainerPtrSField<StatsAttachmentPtr,
+                                UnrecordedRefCounts> SFUnrecStatsAttachmentPtr;
+typedef FieldContainerPtrSField<StatsAttachmentPtr,
+                                WeakRefCounts      > SFWeakStatsAttachmentPtr;
+typedef FieldContainerPtrSField<StatsAttachmentPtr,
+                                NoRefCounts        > SFUncountedStatsAttachmentPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<StatsAttachmentPtr> MFStatsAttachmentPtr;
+typedef FieldContainerPtrMField<StatsAttachmentPtr,
+                                RecordedRefCounts  > MFRecStatsAttachmentPtr;
+typedef FieldContainerPtrMField<StatsAttachmentPtr,
+                                UnrecordedRefCounts> MFUnrecStatsAttachmentPtr;
+typedef FieldContainerPtrMField<StatsAttachmentPtr,
+                                WeakRefCounts      > MFWeakStatsAttachmentPtr;
+typedef FieldContainerPtrMField<StatsAttachmentPtr,
+                                NoRefCounts        > MFUncountedStatsAttachmentPtr;
 #endif
 
 

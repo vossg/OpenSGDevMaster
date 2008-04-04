@@ -238,7 +238,7 @@ GeoVectorPropertyPtrConst GeometryBase::getProperties(const UInt32 index) const
 
 //! Get the Geometry::_mfProperties field.
 inline
-const MFGeoVectorPropertyPtr &GeometryBase::getProperties(void) const
+const MFUnrecGeoVectorPropertyPtr &GeometryBase::getProperties(void) const
 {
     return _mfProperties;
 }
@@ -252,7 +252,7 @@ GeoIntegralPropertyPtrConst GeometryBase::getPropIndices(const UInt32 index) con
 
 //! Get the Geometry::_mfPropIndices field.
 inline
-const MFGeoIntegralPropertyPtr &GeometryBase::getPropIndices(void) const
+const MFUnrecGeoIntegralPropertyPtr &GeometryBase::getPropIndices(void) const
 {
     return _mfPropIndices;
 }

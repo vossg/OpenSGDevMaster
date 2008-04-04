@@ -104,8 +104,8 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFStateChunkPtr::Description(
-        MFStateChunkPtr::getClassType(),
+    pDesc = new MFUnrecStateChunkPtr::Description(
+        MFUnrecStateChunkPtr::getClassType(),
         "chunks",
         "",
         ChunksFieldId, ChunksFieldMask,
@@ -210,7 +210,7 @@ UInt32 ChunkMaterialBase::getContainerSize(void) const
 
 
 //! Get the ChunkMaterial::_mfChunks field.
-const MFStateChunkPtr *ChunkMaterialBase::getMFChunks(void) const
+const MFUnrecStateChunkPtr *ChunkMaterialBase::getMFChunks(void) const
 {
     return &_mfChunks;
 }
@@ -248,11 +248,11 @@ void ChunkMaterialBase::pushToChunks(StateChunkPtrConstArg value)
     _mfChunks.push_back(value);
 }
 
-void ChunkMaterialBase::assignChunks   (const MFStateChunkPtr   &value)
+void ChunkMaterialBase::assignChunks   (const MFUnrecStateChunkPtr &value)
 {
-    MFStateChunkPtr  ::const_iterator elemIt  =
+    MFUnrecStateChunkPtr::const_iterator elemIt  =
         value.begin();
-    MFStateChunkPtr  ::const_iterator elemEnd =
+    MFUnrecStateChunkPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<ChunkMaterial *>(this)->clearChunks();
@@ -273,7 +273,7 @@ void ChunkMaterialBase::insertIntoChunks(UInt32                uiIndex,
 
     editMField(ChunksFieldMask, _mfChunks);
 
-    MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+    MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
     //addRef(value);
 
@@ -331,7 +331,7 @@ void ChunkMaterialBase::removeFromChunks(UInt32 uiIndex)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
         fieldIt += uiIndex;
 
@@ -349,7 +349,7 @@ void ChunkMaterialBase::removeFromChunks(StateChunkPtrConstArg value)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
         fieldIt += iElemIdx;
 
@@ -362,8 +362,8 @@ void ChunkMaterialBase::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    MFStateChunkPtr::iterator       fieldIt  = _mfChunks.begin();
-    MFStateChunkPtr::const_iterator fieldEnd = _mfChunks.end  ();
+    MFUnrecStateChunkPtr::iterator       fieldIt  = _mfChunks.begin();
+    MFUnrecStateChunkPtr::const_iterator fieldEnd = _mfChunks.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -624,9 +624,9 @@ void ChunkMaterialBase::onCreate(const ChunkMaterial *source)
     if(source != NULL)
     {
 
-        MFStateChunkPtr::const_iterator ChunksIt  =
+        MFUnrecStateChunkPtr::const_iterator ChunksIt  =
             source->_mfChunks.begin();
-        MFStateChunkPtr::const_iterator ChunksEnd =
+        MFUnrecStateChunkPtr::const_iterator ChunksEnd =
             source->_mfChunks.end  ();
 
         while(ChunksIt != ChunksEnd)
@@ -640,8 +640,8 @@ void ChunkMaterialBase::onCreate(const ChunkMaterial *source)
 
 GetFieldHandlePtr ChunkMaterialBase::getHandleChunks          (void) const
 {
-    MFStateChunkPtr::GetHandlePtr returnValue(
-        new  MFStateChunkPtr::GetHandle(
+    MFUnrecStateChunkPtr::GetHandlePtr returnValue(
+        new  MFUnrecStateChunkPtr::GetHandle(
              &_mfChunks, 
              this->getType().getFieldDesc(ChunksFieldId)));
 
@@ -650,8 +650,8 @@ GetFieldHandlePtr ChunkMaterialBase::getHandleChunks          (void) const
 
 EditFieldHandlePtr ChunkMaterialBase::editHandleChunks         (void)
 {
-    MFStateChunkPtr::EditHandlePtr returnValue(
-        new  MFStateChunkPtr::EditHandle(
+    MFUnrecStateChunkPtr::EditHandlePtr returnValue(
+        new  MFUnrecStateChunkPtr::EditHandle(
              &_mfChunks, 
              this->getType().getFieldDesc(ChunksFieldId)));
 
@@ -738,24 +738,12 @@ DataType FieldTraits<ChunkMaterialPtr>::_type("ChunkMaterialPtr", "MaterialPtr")
 
 OSG_FIELDTRAITS_GETTYPE(ChunkMaterialPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ChunkMaterialPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ChunkMaterialPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ChunkMaterialPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ChunkMaterialPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ChunkMaterialPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ChunkMaterialPtr, 
+                           0);
 
 OSG_END_NAMESPACE

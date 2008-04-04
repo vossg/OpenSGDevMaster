@@ -107,8 +107,8 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(),
+    pDesc = new SFUnrecTextureObjChunkPtr::Description(
+        SFUnrecTextureObjChunkPtr::getClassType(),
         "texture",
         "The texture object to target.\n",
         TextureFieldId, TextureFieldMask,
@@ -251,7 +251,7 @@ UInt32 TextureBufferBase::getContainerSize(void) const
 
 
 //! Get the TextureBuffer::_sfTexture field.
-const SFTextureObjChunkPtr *TextureBufferBase::getSFTexture(void) const
+const SFUnrecTextureObjChunkPtr *TextureBufferBase::getSFTexture(void) const
 {
     return &_sfTexture;
 }
@@ -516,8 +516,8 @@ void TextureBufferBase::onCreate(const TextureBuffer *source)
 
 GetFieldHandlePtr TextureBufferBase::getHandleTexture         (void) const
 {
-    SFTextureObjChunkPtr::GetHandlePtr returnValue(
-        new  SFTextureObjChunkPtr::GetHandle(
+    SFUnrecTextureObjChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureObjChunkPtr::GetHandle(
              &_sfTexture, 
              this->getType().getFieldDesc(TextureFieldId)));
 
@@ -526,8 +526,8 @@ GetFieldHandlePtr TextureBufferBase::getHandleTexture         (void) const
 
 EditFieldHandlePtr TextureBufferBase::editHandleTexture        (void)
 {
-    SFTextureObjChunkPtr::EditHandlePtr returnValue(
-        new  SFTextureObjChunkPtr::EditHandle(
+    SFUnrecTextureObjChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureObjChunkPtr::EditHandle(
              &_sfTexture, 
              this->getType().getFieldDesc(TextureFieldId)));
 
@@ -650,24 +650,12 @@ DataType FieldTraits<TextureBufferPtr>::_type("TextureBufferPtr", "FrameBufferAt
 
 OSG_FIELDTRAITS_GETTYPE(TextureBufferPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    TextureBufferPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           TextureBufferPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         TextureBufferPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    TextureBufferPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         TextureBufferPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           TextureBufferPtr, 
+                           0);
 
 OSG_END_NAMESPACE

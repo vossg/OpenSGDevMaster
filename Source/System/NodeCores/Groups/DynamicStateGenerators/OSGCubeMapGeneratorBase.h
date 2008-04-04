@@ -165,9 +165,9 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFNodePtr           *getSFRoot            (void) const;
-            const MFNodePtr           *getMFExclude         (void) const;
-            const SFTextureObjChunkPtr *getSFTexture         (void) const;
+            const SFUnrecNodePtr      *getSFRoot            (void) const;
+            const MFUnrecNodePtr      *getMFExclude         (void) const;
+            const SFUnrecTextureObjChunkPtr *getSFTexture         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFVec2s             *getSFTextureSize     (void);
@@ -205,13 +205,13 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
 #endif
                   SFUInt32            *editSFSetupMode      (void);
             const SFUInt32            *getSFSetupMode       (void) const;
-            const SFBackgroundPtr     *getSFBackground      (void) const;
+            const SFUnrecBackgroundPtr *getSFBackground      (void) const;
 
 
                   NodePtrConst getRoot           (void) const;
 
                   NodePtrConst getExclude        (const UInt32 index) const;
-            const MFNodePtr           &getExclude        (void) const;
+            const MFUnrecNodePtr      &getExclude        (void) const;
 
                   TextureObjChunkPtrConst getTexture        (void) const;
 
@@ -282,7 +282,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \{                                                                 */
 
     void pushToExclude             (NodePtrConstArg value   );
-    void assignExclude             (const MFNodePtr         &value);
+    void assignExclude             (const MFUnrecNodePtr    &value);
     void insertIntoExclude      (UInt32                uiIndex,
                                              NodePtrConstArg value   );
     void replaceInExclude  (UInt32                uiIndex,
@@ -343,9 +343,9 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFNodePtr         _sfRoot;
-    MFNodePtr         _mfExclude;
-    SFTextureObjChunkPtr _sfTexture;
+    SFUnrecNodePtr    _sfRoot;
+    MFUnrecNodePtr    _mfExclude;
+    SFUnrecTextureObjChunkPtr _sfTexture;
     SFVec2s           _sfTextureSize;
     SFGLenum          _sfTextureFormat;
     SFWeakNodePtr     _sfBeacon;
@@ -353,7 +353,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     SFUInt32          _sfOriginMode;
     SFUInt32          _sfTexUnit;
     SFUInt32          _sfSetupMode;
-    SFBackgroundPtr   _sfBackground;
+    SFUnrecBackgroundPtr _sfBackground;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

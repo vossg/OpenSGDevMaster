@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGFieldBundle.h" // Parent
+#include "OSGFieldContainer.h" // Parent
 
 #include "OSGInt32Fields.h" // PartitionRangeBegin type
 #include "OSGInt32Fields.h" // PartitionRangeEnd type
@@ -77,12 +77,12 @@ class StageData;
 
 //! \brief StageData Base Class.
 
-class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
+class OSG_GROUP_DLLMAPPING StageDataBase : public FieldContainer
 {
   public:
 
-    typedef FieldBundle Inherited;
-    typedef FieldBundle ParentContainer;
+    typedef FieldContainer Inherited;
+    typedef FieldContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -114,17 +114,17 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldBundleType &getClassType   (void);
-    static UInt32           getClassTypeId (void);
-    static UInt16           getClassGroupId(void);
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
+    static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldBundleType &getType         (void);
-    virtual const FieldBundleType &getType         (void) const;
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -202,15 +202,23 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StageDataP create     (void);
-    static  StageDataP createEmpty(void);
+    static  StageDataTransitPtr create          (void);
+    static  StageDataPtr        createEmpty     (void);
+
+    static  StageDataTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  StageDataPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldBundleP shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -268,6 +276,20 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual void execSyncV(      FieldContainer    &oFrom,
+                                 ConstFieldMaskArg  whichField,
+                                 AspectOffsetStore &oOffsets,
+                                 ConstFieldMaskArg  syncMode  ,
+                           const UInt32             uiSyncInfo);
+
+            void execSync (      StageDataBase *pFrom,
+                                 ConstFieldMaskArg  whichField,
+                                 AspectOffsetStore &oOffsets,
+                                 ConstFieldMaskArg  syncMode  ,
+                           const UInt32             uiSyncInfo);
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
@@ -277,6 +299,10 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainerPtr createAspectCopy(void) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -297,6 +323,8 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const StageDataBase &source);
 };
+
+typedef StageDataBase *StageDataBaseP;
 
 OSG_END_NAMESPACE
 

@@ -237,8 +237,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFWindowPtr::Description(
-        SFWindowPtr::getClassType(),
+    pDesc = new SFUnrecWindowPtr::Description(
+        SFUnrecWindowPtr::getClassType(),
         "clientWindow",
         "Window for client rendering\n",
         ClientWindowFieldId, ClientWindowFieldMask,
@@ -273,8 +273,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFImageComposerPtr::Description(
-        SFImageComposerPtr::getClassType(),
+    pDesc = new SFUnrecImageComposerPtr::Description(
+        SFUnrecImageComposerPtr::getClassType(),
         "composer",
         "",
         ComposerFieldId, ComposerFieldMask,
@@ -647,7 +647,7 @@ SFString            *ClusterWindowBase::getSFServiceInterface(void)
 #endif
 
 //! Get the ClusterWindow::_sfClientWindow field.
-const SFWindowPtr *ClusterWindowBase::getSFClientWindow(void) const
+const SFUnrecWindowPtr *ClusterWindowBase::getSFClientWindow(void) const
 {
     return &_sfClientWindow;
 }
@@ -691,7 +691,7 @@ SFUInt32            *ClusterWindowBase::getSFFrameCount     (void)
 #endif
 
 //! Get the ClusterWindow::_sfComposer field.
-const SFImageComposerPtr *ClusterWindowBase::getSFComposer(void) const
+const SFUnrecImageComposerPtr *ClusterWindowBase::getSFComposer(void) const
 {
     return &_sfComposer;
 }
@@ -1386,8 +1386,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleServiceInterface(void)
 
 GetFieldHandlePtr ClusterWindowBase::getHandleClientWindow    (void) const
 {
-    SFWindowPtr::GetHandlePtr returnValue(
-        new  SFWindowPtr::GetHandle(
+    SFUnrecWindowPtr::GetHandlePtr returnValue(
+        new  SFUnrecWindowPtr::GetHandle(
              &_sfClientWindow, 
              this->getType().getFieldDesc(ClientWindowFieldId)));
 
@@ -1396,8 +1396,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleClientWindow    (void) const
 
 EditFieldHandlePtr ClusterWindowBase::editHandleClientWindow   (void)
 {
-    SFWindowPtr::EditHandlePtr returnValue(
-        new  SFWindowPtr::EditHandle(
+    SFUnrecWindowPtr::EditHandlePtr returnValue(
+        new  SFUnrecWindowPtr::EditHandle(
              &_sfClientWindow, 
              this->getType().getFieldDesc(ClientWindowFieldId)));
 
@@ -1455,8 +1455,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleFrameCount     (void)
 
 GetFieldHandlePtr ClusterWindowBase::getHandleComposer        (void) const
 {
-    SFImageComposerPtr::GetHandlePtr returnValue(
-        new  SFImageComposerPtr::GetHandle(
+    SFUnrecImageComposerPtr::GetHandlePtr returnValue(
+        new  SFUnrecImageComposerPtr::GetHandle(
              &_sfComposer, 
              this->getType().getFieldDesc(ComposerFieldId)));
 
@@ -1465,8 +1465,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleComposer        (void) const
 
 EditFieldHandlePtr ClusterWindowBase::editHandleComposer       (void)
 {
-    SFImageComposerPtr::EditHandlePtr returnValue(
-        new  SFImageComposerPtr::EditHandle(
+    SFUnrecImageComposerPtr::EditHandlePtr returnValue(
+        new  SFUnrecImageComposerPtr::EditHandle(
              &_sfComposer, 
              this->getType().getFieldDesc(ComposerFieldId)));
 
@@ -1560,24 +1560,12 @@ DataType FieldTraits<ClusterWindowPtr>::_type("ClusterWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(ClusterWindowPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ClusterWindowPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ClusterWindowPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ClusterWindowPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ClusterWindowPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ClusterWindowPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ClusterWindowPtr, 
+                           0);
 
 OSG_END_NAMESPACE

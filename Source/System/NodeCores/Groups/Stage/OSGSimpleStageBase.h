@@ -177,8 +177,8 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
 #endif
                   SFReal32            *editSFTop            (void);
             const SFReal32            *getSFTop             (void) const;
-            const SFCameraPtr         *getSFCamera          (void) const;
-            const SFBackgroundPtr     *getSFBackground      (void) const;
+            const SFUnrecCameraPtr    *getSFCamera          (void) const;
+            const SFUnrecBackgroundPtr *getSFBackground      (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -286,8 +286,8 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     SFReal32          _sfRight;
     SFReal32          _sfBottom;
     SFReal32          _sfTop;
-    SFCameraPtr       _sfCamera;
-    SFBackgroundPtr   _sfBackground;
+    SFUnrecCameraPtr  _sfCamera;
+    SFUnrecBackgroundPtr _sfBackground;
     MFRenderFunctorCallback _mfPreRenderCallbacks;
     MFRenderFunctorCallback _mfPostRenderCallbacks;
 

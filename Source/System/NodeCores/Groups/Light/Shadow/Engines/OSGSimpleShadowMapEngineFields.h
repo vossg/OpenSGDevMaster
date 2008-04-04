@@ -96,9 +96,63 @@ struct FieldTraits<SimpleShadowMapEnginePtr> :
 
     static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFSimpleShadowMapEnginePtr"; }
-    static const char *getMName(void) { return "MFSimpleShadowMapEnginePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFSimpleShadowMapEnginePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFSimpleShadowMapEnginePtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecSimpleShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecSimpleShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakSimpleShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdSimpleShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecSimpleShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecSimpleShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakSimpleShadowMapEnginePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdSimpleShadowMapEnginePtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SimpleShadowMapEnginePtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<SimpleShadowMapEnginePtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr> SFSimpleShadowMapEnginePtr;
+typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
+                                RecordedRefCounts  > SFRecSimpleShadowMapEnginePtr;
+typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
+                                UnrecordedRefCounts> SFUnrecSimpleShadowMapEnginePtr;
+typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
+                                WeakRefCounts      > SFWeakSimpleShadowMapEnginePtr;
+typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
+                                NoRefCounts        > SFUncountedSimpleShadowMapEnginePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr> MFSimpleShadowMapEnginePtr;
+typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
+                                RecordedRefCounts  > MFRecSimpleShadowMapEnginePtr;
+typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
+                                UnrecordedRefCounts> MFUnrecSimpleShadowMapEnginePtr;
+typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
+                                WeakRefCounts      > MFWeakSimpleShadowMapEnginePtr;
+typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
+                                NoRefCounts        > MFUncountedSimpleShadowMapEnginePtr;
 #endif
 
 

@@ -209,24 +209,12 @@ DataType FieldTraits<StatsAttachmentPtr>::_type("StatsAttachmentPtr", "FieldCont
 
 OSG_FIELDTRAITS_GETTYPE(StatsAttachmentPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    StatsAttachmentPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           StatsAttachmentPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         StatsAttachmentPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    StatsAttachmentPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         StatsAttachmentPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           StatsAttachmentPtr, 
+                           0);
 
 OSG_END_NAMESPACE

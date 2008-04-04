@@ -96,9 +96,63 @@ struct FieldTraits<SimpleTexturedMaterialPtr> :
 
     static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFSimpleTexturedMaterialPtr"; }
-    static const char *getMName(void) { return "MFSimpleTexturedMaterialPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFSimpleTexturedMaterialPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFSimpleTexturedMaterialPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecSimpleTexturedMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecSimpleTexturedMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakSimpleTexturedMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdSimpleTexturedMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecSimpleTexturedMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecSimpleTexturedMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakSimpleTexturedMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdSimpleTexturedMaterialPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SimpleTexturedMaterialPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<SimpleTexturedMaterialPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr> SFSimpleTexturedMaterialPtr;
+typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
+                                RecordedRefCounts  > SFRecSimpleTexturedMaterialPtr;
+typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
+                                UnrecordedRefCounts> SFUnrecSimpleTexturedMaterialPtr;
+typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
+                                WeakRefCounts      > SFWeakSimpleTexturedMaterialPtr;
+typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
+                                NoRefCounts        > SFUncountedSimpleTexturedMaterialPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr> MFSimpleTexturedMaterialPtr;
+typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
+                                RecordedRefCounts  > MFRecSimpleTexturedMaterialPtr;
+typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
+                                UnrecordedRefCounts> MFUnrecSimpleTexturedMaterialPtr;
+typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
+                                WeakRefCounts      > MFWeakSimpleTexturedMaterialPtr;
+typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
+                                NoRefCounts        > MFUncountedSimpleTexturedMaterialPtr;
 #endif
 
 

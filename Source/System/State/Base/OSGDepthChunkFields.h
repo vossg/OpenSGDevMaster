@@ -96,9 +96,63 @@ struct FieldTraits<DepthChunkPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFDepthChunkPtr"; }
-    static const char *getMName(void) { return "MFDepthChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFDepthChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFDepthChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecDepthChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecDepthChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakDepthChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdDepthChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecDepthChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecDepthChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakDepthChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdDepthChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<DepthChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<DepthChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<DepthChunkPtr> SFDepthChunkPtr;
+typedef FieldContainerPtrSField<DepthChunkPtr,
+                                RecordedRefCounts  > SFRecDepthChunkPtr;
+typedef FieldContainerPtrSField<DepthChunkPtr,
+                                UnrecordedRefCounts> SFUnrecDepthChunkPtr;
+typedef FieldContainerPtrSField<DepthChunkPtr,
+                                WeakRefCounts      > SFWeakDepthChunkPtr;
+typedef FieldContainerPtrSField<DepthChunkPtr,
+                                NoRefCounts        > SFUncountedDepthChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<DepthChunkPtr> MFDepthChunkPtr;
+typedef FieldContainerPtrMField<DepthChunkPtr,
+                                RecordedRefCounts  > MFRecDepthChunkPtr;
+typedef FieldContainerPtrMField<DepthChunkPtr,
+                                UnrecordedRefCounts> MFUnrecDepthChunkPtr;
+typedef FieldContainerPtrMField<DepthChunkPtr,
+                                WeakRefCounts      > MFWeakDepthChunkPtr;
+typedef FieldContainerPtrMField<DepthChunkPtr,
+                                NoRefCounts        > MFUncountedDepthChunkPtr;
 #endif
 
 

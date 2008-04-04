@@ -657,24 +657,12 @@ DataType FieldTraits<ColorBufferViewportPtr>::_type("ColorBufferViewportPtr", "V
 
 OSG_FIELDTRAITS_GETTYPE(ColorBufferViewportPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ColorBufferViewportPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ColorBufferViewportPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ColorBufferViewportPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ColorBufferViewportPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ColorBufferViewportPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ColorBufferViewportPtr, 
+                           0);
 
 OSG_END_NAMESPACE

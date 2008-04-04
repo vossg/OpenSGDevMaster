@@ -57,16 +57,19 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGStageDataFields.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
+
 
 OSG_BEGIN_NAMESPACE
 
 class SimpleShadowMapEngineData;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SimpleShadowMapEngineDataP
+//! SimpleShadowMapEngineDataPtr
 
-OSG_GEN_BUNDLEP(SimpleShadowMapEngineData);
+OSG_GEN_CONTAINERPTR(SimpleShadowMapEngineData);
 
 #endif
 
@@ -78,8 +81,8 @@ OSG_GEN_BUNDLEP(SimpleShadowMapEngineData);
 #endif
 
 template <>
-struct FieldTraits<SimpleShadowMapEngineDataP> :
-    public FieldTraitsTemplateBase<SimpleShadowMapEngineDataP>
+struct FieldTraits<SimpleShadowMapEngineDataPtr> :
+    public FieldTraitsFCPtrBase<SimpleShadowMapEngineDataPtr>
 {
   private:
 
@@ -87,13 +90,15 @@ struct FieldTraits<SimpleShadowMapEngineDataP> :
 
   public:
 
-    typedef FieldTraits<SimpleShadowMapEngineDataP>  Self;
+    typedef FieldTraits<SimpleShadowMapEngineDataPtr>  Self;
 
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SimpleShadowMapEngineDataP, 0>
+/*! \class  FieldTraitsTemplateBase<SimpleShadowMapEngineDataPtr, 0>
     \hideinhierarchy
  */
 #endif

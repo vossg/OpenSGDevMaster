@@ -200,7 +200,7 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
 #endif
                   SFReal              *editSFQuadraticAttenuation(void);
             const SFReal              *getSFQuadraticAttenuation (void) const;
-            const SFLightEnginePtr    *getSFLightEngine     (void) const;
+            const SFUnrecLightEnginePtr *getSFLightEngine     (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -308,7 +308,7 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
     SFReal            _sfConstantAttenuation;
     SFReal            _sfLinearAttenuation;
     SFReal            _sfQuadraticAttenuation;
-    SFLightEnginePtr  _sfLightEngine;
+    SFUnrecLightEnginePtr _sfLightEngine;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

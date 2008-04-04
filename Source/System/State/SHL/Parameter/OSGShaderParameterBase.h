@@ -66,7 +66,7 @@
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGStringFields.h" // Name type
-#include "OSGParentFieldContainerFields.h" // Parents type
+#include "OSGFieldContainerFields.h" // Parents type
 
 #include "OSGShaderParameterFields.h"
 

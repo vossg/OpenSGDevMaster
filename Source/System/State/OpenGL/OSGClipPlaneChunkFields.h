@@ -96,9 +96,63 @@ struct FieldTraits<ClipPlaneChunkPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFClipPlaneChunkPtr"; }
-    static const char *getMName(void) { return "MFClipPlaneChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFClipPlaneChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFClipPlaneChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecClipPlaneChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecClipPlaneChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakClipPlaneChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdClipPlaneChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecClipPlaneChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecClipPlaneChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakClipPlaneChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdClipPlaneChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ClipPlaneChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ClipPlaneChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<ClipPlaneChunkPtr> SFClipPlaneChunkPtr;
+typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
+                                RecordedRefCounts  > SFRecClipPlaneChunkPtr;
+typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
+                                UnrecordedRefCounts> SFUnrecClipPlaneChunkPtr;
+typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
+                                WeakRefCounts      > SFWeakClipPlaneChunkPtr;
+typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
+                                NoRefCounts        > SFUncountedClipPlaneChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<ClipPlaneChunkPtr> MFClipPlaneChunkPtr;
+typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
+                                RecordedRefCounts  > MFRecClipPlaneChunkPtr;
+typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
+                                UnrecordedRefCounts> MFUnrecClipPlaneChunkPtr;
+typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
+                                WeakRefCounts      > MFWeakClipPlaneChunkPtr;
+typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
+                                NoRefCounts        > MFUncountedClipPlaneChunkPtr;
 #endif
 
 

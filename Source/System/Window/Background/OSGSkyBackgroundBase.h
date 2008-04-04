@@ -227,12 +227,12 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
 #endif
                   SFUInt32            *editSFSphereRes      (void);
             const SFUInt32            *getSFSphereRes       (void) const;
-            const SFTextureBaseChunkPtr *getSFBackTexture     (void) const;
-            const SFTextureBaseChunkPtr *getSFBottomTexture   (void) const;
-            const SFTextureBaseChunkPtr *getSFFrontTexture    (void) const;
-            const SFTextureBaseChunkPtr *getSFLeftTexture     (void) const;
-            const SFTextureBaseChunkPtr *getSFRightTexture    (void) const;
-            const SFTextureBaseChunkPtr *getSFTopTexture      (void) const;
+            const SFUnrecTextureBaseChunkPtr *getSFBackTexture     (void) const;
+            const SFUnrecTextureBaseChunkPtr *getSFBottomTexture   (void) const;
+            const SFUnrecTextureBaseChunkPtr *getSFFrontTexture    (void) const;
+            const SFUnrecTextureBaseChunkPtr *getSFLeftTexture     (void) const;
+            const SFUnrecTextureBaseChunkPtr *getSFRightTexture    (void) const;
+            const SFUnrecTextureBaseChunkPtr *getSFTopTexture      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFBoxInside       (void);
@@ -603,12 +603,12 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     MFColor4f         _mfGroundColor;
     MFReal32          _mfGroundAngle;
     SFUInt32          _sfSphereRes;
-    SFTextureBaseChunkPtr _sfBackTexture;
-    SFTextureBaseChunkPtr _sfBottomTexture;
-    SFTextureBaseChunkPtr _sfFrontTexture;
-    SFTextureBaseChunkPtr _sfLeftTexture;
-    SFTextureBaseChunkPtr _sfRightTexture;
-    SFTextureBaseChunkPtr _sfTopTexture;
+    SFUnrecTextureBaseChunkPtr _sfBackTexture;
+    SFUnrecTextureBaseChunkPtr _sfBottomTexture;
+    SFUnrecTextureBaseChunkPtr _sfFrontTexture;
+    SFUnrecTextureBaseChunkPtr _sfLeftTexture;
+    SFUnrecTextureBaseChunkPtr _sfRightTexture;
+    SFUnrecTextureBaseChunkPtr _sfTopTexture;
     SFBool            _sfBoxInside;
     MFVec3f           _mfTopTexCoord;
     MFVec3f           _mfBottomTexCoord;

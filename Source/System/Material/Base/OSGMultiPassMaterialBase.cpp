@@ -92,8 +92,8 @@ void MultiPassMaterialBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFMaterialPtr::Description(
-        MFMaterialPtr::getClassType(),
+    pDesc = new MFUnrecMaterialPtr::Description(
+        MFUnrecMaterialPtr::getClassType(),
         "materials",
         "",
         MaterialsFieldId, MaterialsFieldMask,
@@ -171,7 +171,7 @@ UInt32 MultiPassMaterialBase::getContainerSize(void) const
 
 
 //! Get the MultiPassMaterial::_mfMaterials field.
-const MFMaterialPtr *MultiPassMaterialBase::getMFMaterials(void) const
+const MFUnrecMaterialPtr *MultiPassMaterialBase::getMFMaterials(void) const
 {
     return &_mfMaterials;
 }
@@ -190,11 +190,11 @@ void MultiPassMaterialBase::addMaterial(MaterialPtrConstArg value)
     _mfMaterials.push_back(value);
 }
 
-void MultiPassMaterialBase::assignMaterialsFrom(const MFMaterialPtr     &value)
+void MultiPassMaterialBase::assignMaterialsFrom(const MFUnrecMaterialPtr &value)
 {
-    MFMaterialPtr    ::const_iterator elemIt  =
+    MFUnrecMaterialPtr::const_iterator elemIt  =
         value.begin();
-    MFMaterialPtr    ::const_iterator elemEnd =
+    MFUnrecMaterialPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<MultiPassMaterial *>(this)->clearMaterials();
@@ -215,7 +215,7 @@ void MultiPassMaterialBase::insertMaterial(UInt32                uiIndex,
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+    MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
     //addRef(value);
 
@@ -273,7 +273,7 @@ void MultiPassMaterialBase::subMaterial(UInt32 uiIndex)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
         fieldIt += uiIndex;
 
@@ -291,7 +291,7 @@ void MultiPassMaterialBase::subMaterial(MaterialPtrConstArg value)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
         fieldIt += iElemIdx;
 
@@ -304,8 +304,8 @@ void MultiPassMaterialBase::clearMaterials(void)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    MFMaterialPtr::iterator       fieldIt  = _mfMaterials.begin();
-    MFMaterialPtr::const_iterator fieldEnd = _mfMaterials.end  ();
+    MFUnrecMaterialPtr::iterator       fieldIt  = _mfMaterials.begin();
+    MFUnrecMaterialPtr::const_iterator fieldEnd = _mfMaterials.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -470,9 +470,9 @@ void MultiPassMaterialBase::onCreate(const MultiPassMaterial *source)
     if(source != NULL)
     {
 
-        MFMaterialPtr::const_iterator MaterialsIt  =
+        MFUnrecMaterialPtr::const_iterator MaterialsIt  =
             source->_mfMaterials.begin();
-        MFMaterialPtr::const_iterator MaterialsEnd =
+        MFUnrecMaterialPtr::const_iterator MaterialsEnd =
             source->_mfMaterials.end  ();
 
         while(MaterialsIt != MaterialsEnd)
@@ -486,8 +486,8 @@ void MultiPassMaterialBase::onCreate(const MultiPassMaterial *source)
 
 GetFieldHandlePtr MultiPassMaterialBase::getHandleMaterials       (void) const
 {
-    MFMaterialPtr::GetHandlePtr returnValue(
-        new  MFMaterialPtr::GetHandle(
+    MFUnrecMaterialPtr::GetHandlePtr returnValue(
+        new  MFUnrecMaterialPtr::GetHandle(
              &_mfMaterials, 
              this->getType().getFieldDesc(MaterialsFieldId)));
 
@@ -496,8 +496,8 @@ GetFieldHandlePtr MultiPassMaterialBase::getHandleMaterials       (void) const
 
 EditFieldHandlePtr MultiPassMaterialBase::editHandleMaterials      (void)
 {
-    MFMaterialPtr::EditHandlePtr returnValue(
-        new  MFMaterialPtr::EditHandle(
+    MFUnrecMaterialPtr::EditHandlePtr returnValue(
+        new  MFUnrecMaterialPtr::EditHandle(
              &_mfMaterials, 
              this->getType().getFieldDesc(MaterialsFieldId)));
 
@@ -553,24 +553,12 @@ DataType FieldTraits<MultiPassMaterialPtr>::_type("MultiPassMaterialPtr", "Mater
 
 OSG_FIELDTRAITS_GETTYPE(MultiPassMaterialPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    MultiPassMaterialPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           MultiPassMaterialPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         MultiPassMaterialPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    MultiPassMaterialPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         MultiPassMaterialPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           MultiPassMaterialPtr, 
+                           0);
 
 OSG_END_NAMESPACE

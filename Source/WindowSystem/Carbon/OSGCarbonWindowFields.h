@@ -96,9 +96,63 @@ struct FieldTraits<CarbonWindowPtr> :
 
     static OSG_WINDOWCARBON_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFCarbonWindowPtr"; }
-    static const char *getMName(void) { return "MFCarbonWindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFCarbonWindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFCarbonWindowPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecCarbonWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecCarbonWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakCarbonWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdCarbonWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecCarbonWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecCarbonWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakCarbonWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdCarbonWindowPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<CarbonWindowPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<CarbonWindowPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCarbonFieldSingle */
 
-typedef FieldContainerPtrSField<CarbonWindowPtr> SFCarbonWindowPtr;
+typedef FieldContainerPtrSField<CarbonWindowPtr,
+                                RecordedRefCounts  > SFRecCarbonWindowPtr;
+typedef FieldContainerPtrSField<CarbonWindowPtr,
+                                UnrecordedRefCounts> SFUnrecCarbonWindowPtr;
+typedef FieldContainerPtrSField<CarbonWindowPtr,
+                                WeakRefCounts      > SFWeakCarbonWindowPtr;
+typedef FieldContainerPtrSField<CarbonWindowPtr,
+                                NoRefCounts        > SFUncountedCarbonWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCarbonFieldMulti */
 
-typedef FieldContainerPtrMField<CarbonWindowPtr> MFCarbonWindowPtr;
+typedef FieldContainerPtrMField<CarbonWindowPtr,
+                                RecordedRefCounts  > MFRecCarbonWindowPtr;
+typedef FieldContainerPtrMField<CarbonWindowPtr,
+                                UnrecordedRefCounts> MFUnrecCarbonWindowPtr;
+typedef FieldContainerPtrMField<CarbonWindowPtr,
+                                WeakRefCounts      > MFWeakCarbonWindowPtr;
+typedef FieldContainerPtrMField<CarbonWindowPtr,
+                                NoRefCounts        > MFUncountedCarbonWindowPtr;
 #endif
 
 

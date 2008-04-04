@@ -97,8 +97,8 @@ void VisitSubTreeBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUnrecNodePtr::Description(
+        SFUnrecNodePtr::getClassType(),
         "subTreeRoot",
         "Reference to the sub-graph to draw in place of this node.\n"
         "Whatever node is pointed to will be drawn here as if it was duplicated\n"
@@ -182,7 +182,7 @@ UInt32 VisitSubTreeBase::getContainerSize(void) const
 
 
 //! Get the VisitSubTree::_sfSubTreeRoot field.
-const SFNodePtr *VisitSubTreeBase::getSFSubTreeRoot(void) const
+const SFUnrecNodePtr *VisitSubTreeBase::getSFSubTreeRoot(void) const
 {
     return &_sfSubTreeRoot;
 }
@@ -348,8 +348,8 @@ void VisitSubTreeBase::onCreate(const VisitSubTree *source)
 
 GetFieldHandlePtr VisitSubTreeBase::getHandleSubTreeRoot     (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUnrecNodePtr::GetHandlePtr returnValue(
+        new  SFUnrecNodePtr::GetHandle(
              &_sfSubTreeRoot, 
              this->getType().getFieldDesc(SubTreeRootFieldId)));
 
@@ -358,8 +358,8 @@ GetFieldHandlePtr VisitSubTreeBase::getHandleSubTreeRoot     (void) const
 
 EditFieldHandlePtr VisitSubTreeBase::editHandleSubTreeRoot    (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUnrecNodePtr::EditHandlePtr returnValue(
+        new  SFUnrecNodePtr::EditHandle(
              &_sfSubTreeRoot, 
              this->getType().getFieldDesc(SubTreeRootFieldId)));
 

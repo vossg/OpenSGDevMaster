@@ -96,9 +96,63 @@ struct FieldTraits<PassiveViewportPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFPassiveViewportPtr"; }
-    static const char *getMName(void) { return "MFPassiveViewportPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFPassiveViewportPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFPassiveViewportPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<PassiveViewportPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecPassiveViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PassiveViewportPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecPassiveViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PassiveViewportPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakPassiveViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PassiveViewportPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdPassiveViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PassiveViewportPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecPassiveViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PassiveViewportPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecPassiveViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PassiveViewportPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakPassiveViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PassiveViewportPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdPassiveViewportPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<PassiveViewportPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<PassiveViewportPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<PassiveViewportPtr> SFPassiveViewportPtr;
+typedef FieldContainerPtrSField<PassiveViewportPtr,
+                                RecordedRefCounts  > SFRecPassiveViewportPtr;
+typedef FieldContainerPtrSField<PassiveViewportPtr,
+                                UnrecordedRefCounts> SFUnrecPassiveViewportPtr;
+typedef FieldContainerPtrSField<PassiveViewportPtr,
+                                WeakRefCounts      > SFWeakPassiveViewportPtr;
+typedef FieldContainerPtrSField<PassiveViewportPtr,
+                                NoRefCounts        > SFUncountedPassiveViewportPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<PassiveViewportPtr> MFPassiveViewportPtr;
+typedef FieldContainerPtrMField<PassiveViewportPtr,
+                                RecordedRefCounts  > MFRecPassiveViewportPtr;
+typedef FieldContainerPtrMField<PassiveViewportPtr,
+                                UnrecordedRefCounts> MFUnrecPassiveViewportPtr;
+typedef FieldContainerPtrMField<PassiveViewportPtr,
+                                WeakRefCounts      > MFWeakPassiveViewportPtr;
+typedef FieldContainerPtrMField<PassiveViewportPtr,
+                                NoRefCounts        > MFUncountedPassiveViewportPtr;
 #endif
 
 

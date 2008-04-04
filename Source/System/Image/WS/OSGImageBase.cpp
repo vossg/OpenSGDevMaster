@@ -515,10 +515,11 @@ ImageBase::TypeObject ImageBase::_type(
     "mipMap and simple multi-frame data.\n"
     "\t<Field\n"
     "\t\tname=\"parents\"\n"
-    "\t\ttype=\"ParentFieldContainerPtr\"\n"
+    "\t\ttype=\"FieldContainer\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"none\"\n"
+    "        category=\"parentpointer\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -2344,24 +2345,12 @@ DataType FieldTraits<ImagePtr>::_type("ImagePtr", "AttachmentContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(ImagePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ImagePtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ImagePtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ImagePtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ImagePtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ImagePtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ImagePtr, 
+                           0);
 
 OSG_END_NAMESPACE

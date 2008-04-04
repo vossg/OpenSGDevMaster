@@ -145,10 +145,10 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFGeoIntegralPropertyPtr *getSFTypes           (void) const;
-            const SFGeoIntegralPropertyPtr *getSFLengths         (void) const;
-            const MFGeoVectorPropertyPtr *getMFProperties      (void) const;
-            const MFGeoIntegralPropertyPtr *getMFPropIndices     (void) const;
+            const SFUnrecGeoIntegralPropertyPtr *getSFTypes           (void) const;
+            const SFUnrecGeoIntegralPropertyPtr *getSFLengths         (void) const;
+            const MFUnrecGeoVectorPropertyPtr *getMFProperties      (void) const;
+            const MFUnrecGeoIntegralPropertyPtr *getMFPropIndices     (void) const;
 
 
                   GeoIntegralPropertyPtrConst getTypes          (void) const;
@@ -156,10 +156,10 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
                   GeoIntegralPropertyPtrConst getLengths        (void) const;
 
                   GeoVectorPropertyPtrConst getProperties     (const UInt32 index) const;
-            const MFGeoVectorPropertyPtr &getProperties     (void) const;
+            const MFUnrecGeoVectorPropertyPtr &getProperties     (void) const;
 
                   GeoIntegralPropertyPtrConst getPropIndices    (const UInt32 index) const;
-            const MFGeoIntegralPropertyPtr &getPropIndices    (void) const;
+            const MFUnrecGeoIntegralPropertyPtr &getPropIndices    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -180,7 +180,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \{                                                                 */
 
     void pushToProperties           (GeoVectorPropertyPtrConstArg value   );
-    void assignProperties           (const MFGeoVectorPropertyPtr &value);
+    void assignProperties           (const MFUnrecGeoVectorPropertyPtr &value);
     void insertIntoProperties      (UInt32                uiIndex,
                                              GeoVectorPropertyPtrConstArg value   );
     void replaceInProperties  (UInt32                uiIndex,
@@ -193,7 +193,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
 
     void pushToPropIndices           (GeoIntegralPropertyPtrConstArg value   );
-    void assignPropIndices           (const MFGeoIntegralPropertyPtr &value);
+    void assignPropIndices           (const MFUnrecGeoIntegralPropertyPtr &value);
     void insertIntoPropIndices      (UInt32                uiIndex,
                                              GeoIntegralPropertyPtrConstArg value   );
     void replaceInPropIndices  (UInt32                uiIndex,
@@ -254,10 +254,10 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGeoIntegralPropertyPtr _sfTypes;
-    SFGeoIntegralPropertyPtr _sfLengths;
-    MFGeoVectorPropertyPtr _mfProperties;
-    MFGeoIntegralPropertyPtr _mfPropIndices;
+    SFUnrecGeoIntegralPropertyPtr _sfTypes;
+    SFUnrecGeoIntegralPropertyPtr _sfLengths;
+    MFUnrecGeoVectorPropertyPtr _mfProperties;
+    MFUnrecGeoIntegralPropertyPtr _mfPropIndices;
     SFInt32           _sfClassicGLId;
     SFInt32           _sfAttGLId;
 

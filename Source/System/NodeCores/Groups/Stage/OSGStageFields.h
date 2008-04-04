@@ -96,9 +96,63 @@ struct FieldTraits<StagePtr> :
 
     static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFStagePtr"; }
-    static const char *getMName(void) { return "MFStagePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFStagePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFStagePtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<StagePtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecStagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StagePtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecStagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StagePtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakStagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StagePtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdStagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StagePtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecStagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StagePtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecStagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StagePtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakStagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StagePtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdStagePtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<StagePtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<StagePtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<StagePtr> SFStagePtr;
+typedef FieldContainerPtrSField<StagePtr,
+                                RecordedRefCounts  > SFRecStagePtr;
+typedef FieldContainerPtrSField<StagePtr,
+                                UnrecordedRefCounts> SFUnrecStagePtr;
+typedef FieldContainerPtrSField<StagePtr,
+                                WeakRefCounts      > SFWeakStagePtr;
+typedef FieldContainerPtrSField<StagePtr,
+                                NoRefCounts        > SFUncountedStagePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<StagePtr> MFStagePtr;
+typedef FieldContainerPtrMField<StagePtr,
+                                RecordedRefCounts  > MFRecStagePtr;
+typedef FieldContainerPtrMField<StagePtr,
+                                UnrecordedRefCounts> MFUnrecStagePtr;
+typedef FieldContainerPtrMField<StagePtr,
+                                WeakRefCounts      > MFWeakStagePtr;
+typedef FieldContainerPtrMField<StagePtr,
+                                NoRefCounts        > MFUncountedStagePtr;
 #endif
 
 

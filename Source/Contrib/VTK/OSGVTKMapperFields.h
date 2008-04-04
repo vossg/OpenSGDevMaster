@@ -96,9 +96,63 @@ struct FieldTraits<VTKMapperPtr> :
 
     static OSG_CONTRIBVTK_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFVTKMapperPtr"; }
-    static const char *getMName(void) { return "MFVTKMapperPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFVTKMapperPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFVTKMapperPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecVTKMapperPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecVTKMapperPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakVTKMapperPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdVTKMapperPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecVTKMapperPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecVTKMapperPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakVTKMapperPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdVTKMapperPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<VTKMapperPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<VTKMapperPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribVTKFieldSingle */
 
-typedef FieldContainerPtrSField<VTKMapperPtr> SFVTKMapperPtr;
+typedef FieldContainerPtrSField<VTKMapperPtr,
+                                RecordedRefCounts  > SFRecVTKMapperPtr;
+typedef FieldContainerPtrSField<VTKMapperPtr,
+                                UnrecordedRefCounts> SFUnrecVTKMapperPtr;
+typedef FieldContainerPtrSField<VTKMapperPtr,
+                                WeakRefCounts      > SFWeakVTKMapperPtr;
+typedef FieldContainerPtrSField<VTKMapperPtr,
+                                NoRefCounts        > SFUncountedVTKMapperPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribVTKFieldMulti */
 
-typedef FieldContainerPtrMField<VTKMapperPtr> MFVTKMapperPtr;
+typedef FieldContainerPtrMField<VTKMapperPtr,
+                                RecordedRefCounts  > MFRecVTKMapperPtr;
+typedef FieldContainerPtrMField<VTKMapperPtr,
+                                UnrecordedRefCounts> MFUnrecVTKMapperPtr;
+typedef FieldContainerPtrMField<VTKMapperPtr,
+                                WeakRefCounts      > MFWeakVTKMapperPtr;
+typedef FieldContainerPtrMField<VTKMapperPtr,
+                                NoRefCounts        > MFUncountedVTKMapperPtr;
 #endif
 
 

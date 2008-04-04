@@ -119,8 +119,8 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
 @@endif
     @@endif // hasFields
     @@if isDecorator
-    pDesc = new SF@!Parent!@Ptr::Description(
-        SF@!Parent!@Ptr::getClassType(),
+    pDesc = new SFUnrec@!Parent!@Ptr::Description(
+        SFUnrec@!Parent!@Ptr::getClassType(),
         "decoratee",
         "undocumented decoratee",
         DecorateeFieldId, DecorateeFieldMask,
@@ -198,7 +198,7 @@ UInt32 @!Classname!@Base::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 @@if isDecorator
-const SF@!Parent!@Ptr *@!Classname!@Base::getSFDecoratee(void) const
+const SFUnrec@!Parent!@Ptr *@!Classname!@Base::getSFDecoratee(void) const
 {
     return &_sfDecoratee;
 }
@@ -330,11 +330,11 @@ void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ConstArg value)
 
         @@endif // field.writePushToField
         @@if field.writeAssignMField
-void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:15!@ &value)
+void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value)
 {
-    @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:15!@::const_iterator elemIt  =
+    @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@::const_iterator elemIt  =
         value.begin();
-    @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:15!@::const_iterator elemEnd =
+    @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@::const_iterator elemEnd =
         value.end  ();
 
     static_cast<@!Classname!@ *>(this)->@!field.ClearField!@();
@@ -359,7 +359,7 @@ void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32                uiIndex
             @@endif // field.checkNilPtr
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-    MF@!field.TypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin();
+    MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin();
 
     //addRef(value);
 
@@ -496,7 +496,7 @@ void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
     {
         editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-        MF@!field.TypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin();
+        MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin();
 
         fieldIt += uiIndex;
 
@@ -536,7 +536,7 @@ void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(@!field.Type!@ConstArg 
     {
         editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-        MF@!field.TypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin();
+        MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin();
 
         fieldIt += iElemIdx;
 
@@ -571,8 +571,8 @@ void @!Classname!@Base::@!field.ClearField!@(void)
 {
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-    MF@!field.TypeCaps!@::iterator       fieldIt  = _mf@!field.Name!@.begin();
-    MF@!field.TypeCaps!@::const_iterator fieldEnd = _mf@!field.Name!@.end  ();
+    MF@!field.FieldTypeCaps!@::iterator       fieldIt  = _mf@!field.Name!@.begin();
+    MF@!field.FieldTypeCaps!@::const_iterator fieldEnd = _mf@!field.Name!@.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -924,9 +924,9 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
         @@if !field.noAccess
             @@if field.isMField
 
-        MF@!field.TypeCaps!@::const_iterator @!field.Name!@It  =
+        MF@!field.FieldTypeCaps!@::const_iterator @!field.Name!@It  =
             source->_mf@!field.Name!@.begin();
-        MF@!field.TypeCaps!@::const_iterator @!field.Name!@End =
+        MF@!field.FieldTypeCaps!@::const_iterator @!field.Name!@End =
             source->_mf@!field.Name!@.end  ();
 
         while(@!field.Name!@It != @!field.Name!@End)
@@ -949,8 +949,8 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
 @@if isDecorator
 GetFieldHandlePtr  @!Classname!@Base::getHandleDecoratee (void) const
 {
-    SF@!Parent!@Ptr::GetHandlePtr returnValue(
-        new SF@!Parent!@Ptr::GetHandle(
+    SFUnrec@!Parent!@Ptr::GetHandlePtr returnValue(
+        new SFUnrec@!Parent!@Ptr::GetHandle(
             &_sfDecoratee,
             this->getType().getFieldDesc(DecorateeFieldId)));
 
@@ -959,8 +959,8 @@ GetFieldHandlePtr  @!Classname!@Base::getHandleDecoratee (void) const
 
 EditFieldHandlePtr @!Classname!@Base::editHandleDecoratee(void)
 {
-    SF@!Parent!@Ptr::EditHandlePtr returnValue(
-        new SF@!Parent!@Ptr::EditHandle(
+    SFUnrec@!Parent!@Ptr::EditHandlePtr returnValue(
+        new SFUnrec@!Parent!@Ptr::EditHandle(
             &_sfDecoratee,
             this->getType().getFieldDesc(DecorateeFieldId)));
 
@@ -1338,27 +1338,15 @@ DataType FieldTraits<@!Classname!@Ptr>::_type("@!Classname!@Ptr", "@!Parent!@Ptr
 OSG_FIELDTRAITS_GETTYPE(@!Classname!@Ptr)
 
     @@if SFPointerField
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    @!Classname!@Ptr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         @!Classname!@Ptr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           @!Classname!@Ptr, 
+                           0);
     @@endif // SFPointerField
 
     @@if MFPointerField
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    @!Classname!@Ptr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         @!Classname!@Ptr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           @!Classname!@Ptr, 
+                           0);
     @@endif // MFPointerField
 @@endif // PointerField
 

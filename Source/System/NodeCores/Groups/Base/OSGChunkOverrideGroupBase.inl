@@ -83,7 +83,7 @@ StateChunkPtrConst ChunkOverrideGroupBase::getChunks(const UInt32 index) const
 
 //! Get the ChunkOverrideGroup::_mfChunks field.
 inline
-const MFStateChunkPtr &ChunkOverrideGroupBase::getChunks(void) const
+const MFUnrecStateChunkPtr &ChunkOverrideGroupBase::getChunks(void) const
 {
     return _mfChunks;
 }

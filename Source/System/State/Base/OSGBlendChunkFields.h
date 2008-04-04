@@ -96,9 +96,63 @@ struct FieldTraits<BlendChunkPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFBlendChunkPtr"; }
-    static const char *getMName(void) { return "MFBlendChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFBlendChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFBlendChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecBlendChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecBlendChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakBlendChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdBlendChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecBlendChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecBlendChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakBlendChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdBlendChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<BlendChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<BlendChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<BlendChunkPtr> SFBlendChunkPtr;
+typedef FieldContainerPtrSField<BlendChunkPtr,
+                                RecordedRefCounts  > SFRecBlendChunkPtr;
+typedef FieldContainerPtrSField<BlendChunkPtr,
+                                UnrecordedRefCounts> SFUnrecBlendChunkPtr;
+typedef FieldContainerPtrSField<BlendChunkPtr,
+                                WeakRefCounts      > SFWeakBlendChunkPtr;
+typedef FieldContainerPtrSField<BlendChunkPtr,
+                                NoRefCounts        > SFUncountedBlendChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<BlendChunkPtr> MFBlendChunkPtr;
+typedef FieldContainerPtrMField<BlendChunkPtr,
+                                RecordedRefCounts  > MFRecBlendChunkPtr;
+typedef FieldContainerPtrMField<BlendChunkPtr,
+                                UnrecordedRefCounts> MFUnrecBlendChunkPtr;
+typedef FieldContainerPtrMField<BlendChunkPtr,
+                                WeakRefCounts      > MFWeakBlendChunkPtr;
+typedef FieldContainerPtrMField<BlendChunkPtr,
+                                NoRefCounts        > MFUncountedBlendChunkPtr;
 #endif
 
 

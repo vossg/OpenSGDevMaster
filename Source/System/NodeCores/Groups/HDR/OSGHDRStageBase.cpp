@@ -210,6 +210,7 @@ HDRStageBase::TypeObject HDRStageBase::_type(
     "\tdecoratable=\"false\"\n"
     "\tuseLocalIncludes=\"false\"\n"
     "    isNodeCore=\"true\"\n"
+    "    isBundle=\"true\"\n"
     ">\n"
     "    <Field\n"
     "\t\tname=\"exposure\"\n"

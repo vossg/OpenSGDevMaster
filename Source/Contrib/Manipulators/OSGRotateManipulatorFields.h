@@ -95,6 +95,8 @@ struct FieldTraits<RotateManipulatorPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<RotateManipulatorPtr, 0>
     \hideinhierarchy

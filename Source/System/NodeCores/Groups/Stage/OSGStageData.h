@@ -117,7 +117,7 @@ class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
 
   private:
 
-    friend class FieldBundle;
+    friend class FieldContainer;
     friend class StageDataBase;
 
     // prohibit default functions (move to 'public' if you need one)

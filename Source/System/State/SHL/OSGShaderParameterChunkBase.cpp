@@ -92,8 +92,8 @@ void ShaderParameterChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFShaderParameterPtr::Description(
-        MFShaderParameterPtr::getClassType(),
+    pDesc = new MFUnrecShaderParameterPtr::Description(
+        MFUnrecShaderParameterPtr::getClassType(),
         "parameters",
         "parameter list\n",
         ParametersFieldId, ParametersFieldMask,
@@ -173,7 +173,7 @@ UInt32 ShaderParameterChunkBase::getContainerSize(void) const
 
 
 //! Get the ShaderParameterChunk::_mfParameters field.
-const MFShaderParameterPtr *ShaderParameterChunkBase::getMFParameters(void) const
+const MFUnrecShaderParameterPtr *ShaderParameterChunkBase::getMFParameters(void) const
 {
     return &_mfParameters;
 }
@@ -194,11 +194,11 @@ void ShaderParameterChunkBase::addParameter(ShaderParameterPtrConstArg value)
     value->addParent(this, ParametersFieldMask);
 }
 
-void ShaderParameterChunkBase::assignParameters(const MFShaderParameterPtr &value)
+void ShaderParameterChunkBase::assignParameters(const MFUnrecShaderParameterPtr &value)
 {
-    MFShaderParameterPtr::const_iterator elemIt  =
+    MFUnrecShaderParameterPtr::const_iterator elemIt  =
         value.begin();
-    MFShaderParameterPtr::const_iterator elemEnd =
+    MFUnrecShaderParameterPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<ShaderParameterChunk *>(this)->clearParameters();
@@ -219,7 +219,7 @@ void ShaderParameterChunkBase::insertParameter(UInt32                uiIndex,
 
     editMField(ParametersFieldMask, _mfParameters);
 
-    MFShaderParameterPtr::iterator fieldIt = _mfParameters.begin();
+    MFUnrecShaderParameterPtr::iterator fieldIt = _mfParameters.begin();
 
     //addRef(value);
 
@@ -294,7 +294,7 @@ void ShaderParameterChunkBase::subParameter(UInt32 uiIndex)
     {
         editMField(ParametersFieldMask, _mfParameters);
 
-        MFShaderParameterPtr::iterator fieldIt = _mfParameters.begin();
+        MFUnrecShaderParameterPtr::iterator fieldIt = _mfParameters.begin();
 
         fieldIt += uiIndex;
 
@@ -318,7 +318,7 @@ void ShaderParameterChunkBase::subParameter(ShaderParameterPtrConstArg value)
     {
         editMField(ParametersFieldMask, _mfParameters);
 
-        MFShaderParameterPtr::iterator fieldIt = _mfParameters.begin();
+        MFUnrecShaderParameterPtr::iterator fieldIt = _mfParameters.begin();
 
         fieldIt += iElemIdx;
 
@@ -337,8 +337,8 @@ void ShaderParameterChunkBase::clearParameters(void)
 {
     editMField(ParametersFieldMask, _mfParameters);
 
-    MFShaderParameterPtr::iterator       fieldIt  = _mfParameters.begin();
-    MFShaderParameterPtr::const_iterator fieldEnd = _mfParameters.end  ();
+    MFUnrecShaderParameterPtr::iterator       fieldIt  = _mfParameters.begin();
+    MFUnrecShaderParameterPtr::const_iterator fieldEnd = _mfParameters.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -424,9 +424,9 @@ void ShaderParameterChunkBase::onCreate(const ShaderParameterChunk *source)
     if(source != NULL)
     {
 
-        MFShaderParameterPtr::const_iterator ParametersIt  =
+        MFUnrecShaderParameterPtr::const_iterator ParametersIt  =
             source->_mfParameters.begin();
-        MFShaderParameterPtr::const_iterator ParametersEnd =
+        MFUnrecShaderParameterPtr::const_iterator ParametersEnd =
             source->_mfParameters.end  ();
 
         while(ParametersIt != ParametersEnd)
@@ -440,8 +440,8 @@ void ShaderParameterChunkBase::onCreate(const ShaderParameterChunk *source)
 
 GetFieldHandlePtr ShaderParameterChunkBase::getHandleParameters      (void) const
 {
-    MFShaderParameterPtr::GetHandlePtr returnValue(
-        new  MFShaderParameterPtr::GetHandle(
+    MFUnrecShaderParameterPtr::GetHandlePtr returnValue(
+        new  MFUnrecShaderParameterPtr::GetHandle(
              &_mfParameters, 
              this->getType().getFieldDesc(ParametersFieldId)));
 
@@ -450,8 +450,8 @@ GetFieldHandlePtr ShaderParameterChunkBase::getHandleParameters      (void) cons
 
 EditFieldHandlePtr ShaderParameterChunkBase::editHandleParameters     (void)
 {
-    MFShaderParameterPtr::EditHandlePtr returnValue(
-        new  MFShaderParameterPtr::EditHandle(
+    MFUnrecShaderParameterPtr::EditHandlePtr returnValue(
+        new  MFUnrecShaderParameterPtr::EditHandle(
              &_mfParameters, 
              this->getType().getFieldDesc(ParametersFieldId)));
 
@@ -496,24 +496,12 @@ DataType FieldTraits<ShaderParameterChunkPtr>::_type("ShaderParameterChunkPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ShaderParameterChunkPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ShaderParameterChunkPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ShaderParameterChunkPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ShaderParameterChunkPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ShaderParameterChunkPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ShaderParameterChunkPtr, 
+                           0);
 
 OSG_END_NAMESPACE

@@ -95,6 +95,8 @@ struct FieldTraits<VisitSubTreePtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<VisitSubTreePtr, 0>
     \hideinhierarchy

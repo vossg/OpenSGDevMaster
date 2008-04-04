@@ -95,8 +95,8 @@ void MaterialGroupBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFMaterialPtr::Description(
-        SFMaterialPtr::getClassType(),
+    pDesc = new SFUnrecMaterialPtr::Description(
+        SFUnrecMaterialPtr::getClassType(),
         "material",
         "",
         MaterialFieldId, MaterialFieldMask,
@@ -173,7 +173,7 @@ UInt32 MaterialGroupBase::getContainerSize(void) const
 
 
 //! Get the MaterialGroup::_sfMaterial field.
-const SFMaterialPtr *MaterialGroupBase::getSFMaterial(void) const
+const SFUnrecMaterialPtr *MaterialGroupBase::getSFMaterial(void) const
 {
     return &_sfMaterial;
 }
@@ -339,8 +339,8 @@ void MaterialGroupBase::onCreate(const MaterialGroup *source)
 
 GetFieldHandlePtr MaterialGroupBase::getHandleMaterial        (void) const
 {
-    SFMaterialPtr::GetHandlePtr returnValue(
-        new  SFMaterialPtr::GetHandle(
+    SFUnrecMaterialPtr::GetHandlePtr returnValue(
+        new  SFUnrecMaterialPtr::GetHandle(
              &_sfMaterial, 
              this->getType().getFieldDesc(MaterialFieldId)));
 
@@ -349,8 +349,8 @@ GetFieldHandlePtr MaterialGroupBase::getHandleMaterial        (void) const
 
 EditFieldHandlePtr MaterialGroupBase::editHandleMaterial       (void)
 {
-    SFMaterialPtr::EditHandlePtr returnValue(
-        new  SFMaterialPtr::EditHandle(
+    SFUnrecMaterialPtr::EditHandlePtr returnValue(
+        new  SFUnrecMaterialPtr::EditHandle(
              &_sfMaterial, 
              this->getType().getFieldDesc(MaterialFieldId)));
 
@@ -407,24 +407,12 @@ DataType FieldTraits<MaterialGroupPtr>::_type("MaterialGroupPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(MaterialGroupPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    MaterialGroupPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           MaterialGroupPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         MaterialGroupPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    MaterialGroupPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         MaterialGroupPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           MaterialGroupPtr, 
+                           0);
 
 OSG_END_NAMESPACE

@@ -585,24 +585,12 @@ DataType FieldTraits<FileGrabForegroundPtr>::_type("FileGrabForegroundPtr", "Gra
 
 OSG_FIELDTRAITS_GETTYPE(FileGrabForegroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    FileGrabForegroundPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           FileGrabForegroundPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         FileGrabForegroundPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    FileGrabForegroundPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         FileGrabForegroundPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           FileGrabForegroundPtr, 
+                           0);
 
 OSG_END_NAMESPACE

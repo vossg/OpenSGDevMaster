@@ -94,8 +94,8 @@ void FBOViewportBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFFrameBufferObjectPtr::Description(
-        SFFrameBufferObjectPtr::getClassType(),
+    pDesc = new SFUnrecFrameBufferObjectPtr::Description(
+        SFUnrecFrameBufferObjectPtr::getClassType(),
         "frameBufferObject",
         "FramebufferObject to write to.\n",
         FrameBufferObjectFieldId, FrameBufferObjectFieldMask,
@@ -170,7 +170,7 @@ UInt32 FBOViewportBase::getContainerSize(void) const
 
 
 //! Get the FBOViewport::_sfFrameBufferObject field.
-const SFFrameBufferObjectPtr *FBOViewportBase::getSFFrameBufferObject(void) const
+const SFUnrecFrameBufferObjectPtr *FBOViewportBase::getSFFrameBufferObject(void) const
 {
     return &_sfFrameBufferObject;
 }
@@ -336,8 +336,8 @@ void FBOViewportBase::onCreate(const FBOViewport *source)
 
 GetFieldHandlePtr FBOViewportBase::getHandleFrameBufferObject (void) const
 {
-    SFFrameBufferObjectPtr::GetHandlePtr returnValue(
-        new  SFFrameBufferObjectPtr::GetHandle(
+    SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
+        new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfFrameBufferObject, 
              this->getType().getFieldDesc(FrameBufferObjectFieldId)));
 
@@ -346,8 +346,8 @@ GetFieldHandlePtr FBOViewportBase::getHandleFrameBufferObject (void) const
 
 EditFieldHandlePtr FBOViewportBase::editHandleFrameBufferObject(void)
 {
-    SFFrameBufferObjectPtr::EditHandlePtr returnValue(
-        new  SFFrameBufferObjectPtr::EditHandle(
+    SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
+        new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfFrameBufferObject, 
              this->getType().getFieldDesc(FrameBufferObjectFieldId)));
 
@@ -404,24 +404,12 @@ DataType FieldTraits<FBOViewportPtr>::_type("FBOViewportPtr", "ViewportPtr");
 
 OSG_FIELDTRAITS_GETTYPE(FBOViewportPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    FBOViewportPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           FBOViewportPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         FBOViewportPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    FBOViewportPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         FBOViewportPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           FBOViewportPtr, 
+                           0);
 
 OSG_END_NAMESPACE

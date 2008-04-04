@@ -165,7 +165,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 #endif
                   SFUInt16            *editSFHeight         (void);
             const SFUInt16            *getSFHeight          (void) const;
-            const MFViewportPtr       *getMFPort            (void) const;
+            const MFUnrecViewportPtr  *getMFPort            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFResizePending   (void);
@@ -193,7 +193,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
             const UInt16              &getHeight          (void) const;
 
                   ViewportPtrConst getPort           (const UInt32 index) const;
-            const MFViewportPtr       &getPort           (void) const;
+            const MFUnrecViewportPtr  &getPort           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getResizePending   (void);
@@ -228,7 +228,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void addPort                   (ViewportPtrConstArg value   );
-    void assignPort                (const MFViewportPtr     &value);
+    void assignPort                (const MFUnrecViewportPtr &value);
     void insertPort           (UInt32                uiIndex,
                                              ViewportPtrConstArg value   );
     void replacePort      (UInt32                uiIndex,
@@ -270,7 +270,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
     SFUInt16          _sfWidth;
     SFUInt16          _sfHeight;
-    MFViewportPtr     _mfPort;
+    MFUnrecViewportPtr _mfPort;
     SFBool            _sfResizePending;
     SFUInt32          _sfGlObjectEventCounter;
     MFUInt32          _mfGlObjectLastRefresh;

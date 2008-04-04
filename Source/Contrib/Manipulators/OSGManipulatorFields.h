@@ -96,9 +96,63 @@ struct FieldTraits<ManipulatorPtr> :
 
     static OSG_CONTRIBGUI_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFManipulatorPtr"; }
-    static const char *getMName(void) { return "MFManipulatorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFManipulatorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFManipulatorPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecManipulatorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecManipulatorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakManipulatorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdManipulatorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecManipulatorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecManipulatorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakManipulatorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdManipulatorPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ManipulatorPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ManipulatorPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribGUIFieldSingle */
 
-typedef FieldContainerPtrSField<ManipulatorPtr> SFManipulatorPtr;
+typedef FieldContainerPtrSField<ManipulatorPtr,
+                                RecordedRefCounts  > SFRecManipulatorPtr;
+typedef FieldContainerPtrSField<ManipulatorPtr,
+                                UnrecordedRefCounts> SFUnrecManipulatorPtr;
+typedef FieldContainerPtrSField<ManipulatorPtr,
+                                WeakRefCounts      > SFWeakManipulatorPtr;
+typedef FieldContainerPtrSField<ManipulatorPtr,
+                                NoRefCounts        > SFUncountedManipulatorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribGUIFieldMulti */
 
-typedef FieldContainerPtrMField<ManipulatorPtr> MFManipulatorPtr;
+typedef FieldContainerPtrMField<ManipulatorPtr,
+                                RecordedRefCounts  > MFRecManipulatorPtr;
+typedef FieldContainerPtrMField<ManipulatorPtr,
+                                UnrecordedRefCounts> MFUnrecManipulatorPtr;
+typedef FieldContainerPtrMField<ManipulatorPtr,
+                                WeakRefCounts      > MFWeakManipulatorPtr;
+typedef FieldContainerPtrMField<ManipulatorPtr,
+                                NoRefCounts        > MFUncountedManipulatorPtr;
 #endif
 
 

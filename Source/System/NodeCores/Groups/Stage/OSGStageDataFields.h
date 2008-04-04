@@ -57,16 +57,19 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGFieldBundleFields.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
+
 
 OSG_BEGIN_NAMESPACE
 
 class StageData;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! StageDataP
+//! StageDataPtr
 
-OSG_GEN_BUNDLEP(StageData);
+OSG_GEN_CONTAINERPTR(StageData);
 
 #endif
 
@@ -78,8 +81,8 @@ OSG_GEN_BUNDLEP(StageData);
 #endif
 
 template <>
-struct FieldTraits<StageDataP> :
-    public FieldTraitsTemplateBase<StageDataP>
+struct FieldTraits<StageDataPtr> :
+    public FieldTraitsFCPtrBase<StageDataPtr>
 {
   private:
 
@@ -87,13 +90,15 @@ struct FieldTraits<StageDataP> :
 
   public:
 
-    typedef FieldTraits<StageDataP>  Self;
+    typedef FieldTraits<StageDataPtr>  Self;
 
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<StageDataP, 0>
+/*! \class  FieldTraitsTemplateBase<StageDataPtr, 0>
     \hideinhierarchy
  */
 #endif

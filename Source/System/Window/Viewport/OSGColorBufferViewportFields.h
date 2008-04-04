@@ -96,9 +96,63 @@ struct FieldTraits<ColorBufferViewportPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFColorBufferViewportPtr"; }
-    static const char *getMName(void) { return "MFColorBufferViewportPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFColorBufferViewportPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFColorBufferViewportPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecColorBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecColorBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakColorBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdColorBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecColorBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecColorBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakColorBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdColorBufferViewportPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ColorBufferViewportPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ColorBufferViewportPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<ColorBufferViewportPtr> SFColorBufferViewportPtr;
+typedef FieldContainerPtrSField<ColorBufferViewportPtr,
+                                RecordedRefCounts  > SFRecColorBufferViewportPtr;
+typedef FieldContainerPtrSField<ColorBufferViewportPtr,
+                                UnrecordedRefCounts> SFUnrecColorBufferViewportPtr;
+typedef FieldContainerPtrSField<ColorBufferViewportPtr,
+                                WeakRefCounts      > SFWeakColorBufferViewportPtr;
+typedef FieldContainerPtrSField<ColorBufferViewportPtr,
+                                NoRefCounts        > SFUncountedColorBufferViewportPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<ColorBufferViewportPtr> MFColorBufferViewportPtr;
+typedef FieldContainerPtrMField<ColorBufferViewportPtr,
+                                RecordedRefCounts  > MFRecColorBufferViewportPtr;
+typedef FieldContainerPtrMField<ColorBufferViewportPtr,
+                                UnrecordedRefCounts> MFUnrecColorBufferViewportPtr;
+typedef FieldContainerPtrMField<ColorBufferViewportPtr,
+                                WeakRefCounts      > MFWeakColorBufferViewportPtr;
+typedef FieldContainerPtrMField<ColorBufferViewportPtr,
+                                NoRefCounts        > MFUncountedColorBufferViewportPtr;
 #endif
 
 

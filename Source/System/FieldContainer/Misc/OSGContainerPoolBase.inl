@@ -116,7 +116,7 @@ FieldContainerPtrConst ContainerPoolBase::getContainers(const UInt32 index) cons
 
 //! Get the ContainerPool::_mfContainers field.
 inline
-const MFFieldContainerPtr &ContainerPoolBase::getContainers(void) const
+const MFUnrecFieldContainerPtr &ContainerPoolBase::getContainers(void) const
 {
     return _mfContainers;
 }

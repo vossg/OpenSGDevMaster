@@ -145,8 +145,8 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFImagePtr::Description(
-        MFImagePtr::getClassType(),
+    pDesc = new MFUnrecImagePtr::Description(
+        MFUnrecImagePtr::getClassType(),
         "heightTiles",
         "Terrain tile array.\n",
         HeightTilesFieldId, HeightTilesFieldMask,
@@ -157,8 +157,8 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFMaterialPtr::Description(
-        MFMaterialPtr::getClassType(),
+    pDesc = new MFUnrecMaterialPtr::Description(
+        MFUnrecMaterialPtr::getClassType(),
         "heightTextures",
         "Terrain textures.\n",
         HeightTexturesFieldId, HeightTexturesFieldMask,
@@ -498,13 +498,13 @@ UInt32 TiledQuadTreeTerrainBase::getContainerSize(void) const
 
 
 //! Get the TiledQuadTreeTerrain::_mfHeightTiles field.
-const MFImagePtr *TiledQuadTreeTerrainBase::getMFHeightTiles(void) const
+const MFUnrecImagePtr *TiledQuadTreeTerrainBase::getMFHeightTiles(void) const
 {
     return &_mfHeightTiles;
 }
 
 //! Get the TiledQuadTreeTerrain::_mfHeightTextures field.
-const MFMaterialPtr *TiledQuadTreeTerrainBase::getMFHeightTextures(void) const
+const MFUnrecMaterialPtr *TiledQuadTreeTerrainBase::getMFHeightTextures(void) const
 {
     return &_mfHeightTextures;
 }
@@ -751,11 +751,11 @@ void TiledQuadTreeTerrainBase::pushToHeightTiles(ImagePtrConstArg value)
     _mfHeightTiles.push_back(value);
 }
 
-void TiledQuadTreeTerrainBase::assignHeightTiles(const MFImagePtr        &value)
+void TiledQuadTreeTerrainBase::assignHeightTiles(const MFUnrecImagePtr   &value)
 {
-    MFImagePtr       ::const_iterator elemIt  =
+    MFUnrecImagePtr  ::const_iterator elemIt  =
         value.begin();
-    MFImagePtr       ::const_iterator elemEnd =
+    MFUnrecImagePtr  ::const_iterator elemEnd =
         value.end  ();
 
     static_cast<TiledQuadTreeTerrain *>(this)->clearHeightTiles();
@@ -776,7 +776,7 @@ void TiledQuadTreeTerrainBase::insertIntoHeightTiles(UInt32                uiInd
 
     editMField(HeightTilesFieldMask, _mfHeightTiles);
 
-    MFImagePtr::iterator fieldIt = _mfHeightTiles.begin();
+    MFUnrecImagePtr::iterator fieldIt = _mfHeightTiles.begin();
 
     //addRef(value);
 
@@ -834,7 +834,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTiles(UInt32 uiIndex)
     {
         editMField(HeightTilesFieldMask, _mfHeightTiles);
 
-        MFImagePtr::iterator fieldIt = _mfHeightTiles.begin();
+        MFUnrecImagePtr::iterator fieldIt = _mfHeightTiles.begin();
 
         fieldIt += uiIndex;
 
@@ -852,7 +852,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTiles(ImagePtrConstArg value)
     {
         editMField(HeightTilesFieldMask, _mfHeightTiles);
 
-        MFImagePtr::iterator fieldIt = _mfHeightTiles.begin();
+        MFUnrecImagePtr::iterator fieldIt = _mfHeightTiles.begin();
 
         fieldIt += iElemIdx;
 
@@ -865,8 +865,8 @@ void TiledQuadTreeTerrainBase::clearHeightTiles(void)
 {
     editMField(HeightTilesFieldMask, _mfHeightTiles);
 
-    MFImagePtr::iterator       fieldIt  = _mfHeightTiles.begin();
-    MFImagePtr::const_iterator fieldEnd = _mfHeightTiles.end  ();
+    MFUnrecImagePtr::iterator       fieldIt  = _mfHeightTiles.begin();
+    MFUnrecImagePtr::const_iterator fieldEnd = _mfHeightTiles.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -890,11 +890,11 @@ void TiledQuadTreeTerrainBase::pushToHeightTextures(MaterialPtrConstArg value)
     _mfHeightTextures.push_back(value);
 }
 
-void TiledQuadTreeTerrainBase::assignHeightTextures(const MFMaterialPtr     &value)
+void TiledQuadTreeTerrainBase::assignHeightTextures(const MFUnrecMaterialPtr &value)
 {
-    MFMaterialPtr    ::const_iterator elemIt  =
+    MFUnrecMaterialPtr::const_iterator elemIt  =
         value.begin();
-    MFMaterialPtr    ::const_iterator elemEnd =
+    MFUnrecMaterialPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<TiledQuadTreeTerrain *>(this)->clearHeightTextures();
@@ -915,7 +915,7 @@ void TiledQuadTreeTerrainBase::insertIntoHeightTextures(UInt32                ui
 
     editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
-    MFMaterialPtr::iterator fieldIt = _mfHeightTextures.begin();
+    MFUnrecMaterialPtr::iterator fieldIt = _mfHeightTextures.begin();
 
     //addRef(value);
 
@@ -973,7 +973,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTextures(UInt32 uiIndex)
     {
         editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
-        MFMaterialPtr::iterator fieldIt = _mfHeightTextures.begin();
+        MFUnrecMaterialPtr::iterator fieldIt = _mfHeightTextures.begin();
 
         fieldIt += uiIndex;
 
@@ -991,7 +991,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTextures(MaterialPtrConstArg valu
     {
         editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
-        MFMaterialPtr::iterator fieldIt = _mfHeightTextures.begin();
+        MFUnrecMaterialPtr::iterator fieldIt = _mfHeightTextures.begin();
 
         fieldIt += iElemIdx;
 
@@ -1004,8 +1004,8 @@ void TiledQuadTreeTerrainBase::clearHeightTextures(void)
 {
     editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
-    MFMaterialPtr::iterator       fieldIt  = _mfHeightTextures.begin();
-    MFMaterialPtr::const_iterator fieldEnd = _mfHeightTextures.end  ();
+    MFUnrecMaterialPtr::iterator       fieldIt  = _mfHeightTextures.begin();
+    MFUnrecMaterialPtr::const_iterator fieldEnd = _mfHeightTextures.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -1352,9 +1352,9 @@ void TiledQuadTreeTerrainBase::onCreate(const TiledQuadTreeTerrain *source)
     if(source != NULL)
     {
 
-        MFImagePtr::const_iterator HeightTilesIt  =
+        MFUnrecImagePtr::const_iterator HeightTilesIt  =
             source->_mfHeightTiles.begin();
-        MFImagePtr::const_iterator HeightTilesEnd =
+        MFUnrecImagePtr::const_iterator HeightTilesEnd =
             source->_mfHeightTiles.end  ();
 
         while(HeightTilesIt != HeightTilesEnd)
@@ -1364,9 +1364,9 @@ void TiledQuadTreeTerrainBase::onCreate(const TiledQuadTreeTerrain *source)
             ++HeightTilesIt;
         }
 
-        MFMaterialPtr::const_iterator HeightTexturesIt  =
+        MFUnrecMaterialPtr::const_iterator HeightTexturesIt  =
             source->_mfHeightTextures.begin();
-        MFMaterialPtr::const_iterator HeightTexturesEnd =
+        MFUnrecMaterialPtr::const_iterator HeightTexturesEnd =
             source->_mfHeightTextures.end  ();
 
         while(HeightTexturesIt != HeightTexturesEnd)
@@ -1380,8 +1380,8 @@ void TiledQuadTreeTerrainBase::onCreate(const TiledQuadTreeTerrain *source)
 
 GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleHeightTiles     (void) const
 {
-    MFImagePtr::GetHandlePtr returnValue(
-        new  MFImagePtr::GetHandle(
+    MFUnrecImagePtr::GetHandlePtr returnValue(
+        new  MFUnrecImagePtr::GetHandle(
              &_mfHeightTiles, 
              this->getType().getFieldDesc(HeightTilesFieldId)));
 
@@ -1390,8 +1390,8 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleHeightTiles     (void) cons
 
 EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleHeightTiles    (void)
 {
-    MFImagePtr::EditHandlePtr returnValue(
-        new  MFImagePtr::EditHandle(
+    MFUnrecImagePtr::EditHandlePtr returnValue(
+        new  MFUnrecImagePtr::EditHandle(
              &_mfHeightTiles, 
              this->getType().getFieldDesc(HeightTilesFieldId)));
 
@@ -1405,8 +1405,8 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleHeightTiles    (void)
 
 GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleHeightTextures  (void) const
 {
-    MFMaterialPtr::GetHandlePtr returnValue(
-        new  MFMaterialPtr::GetHandle(
+    MFUnrecMaterialPtr::GetHandlePtr returnValue(
+        new  MFUnrecMaterialPtr::GetHandle(
              &_mfHeightTextures, 
              this->getType().getFieldDesc(HeightTexturesFieldId)));
 
@@ -1415,8 +1415,8 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleHeightTextures  (void) cons
 
 EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleHeightTextures (void)
 {
-    MFMaterialPtr::EditHandlePtr returnValue(
-        new  MFMaterialPtr::EditHandle(
+    MFUnrecMaterialPtr::EditHandlePtr returnValue(
+        new  MFUnrecMaterialPtr::EditHandle(
              &_mfHeightTextures, 
              this->getType().getFieldDesc(HeightTexturesFieldId)));
 
@@ -1737,24 +1737,12 @@ DataType FieldTraits<TiledQuadTreeTerrainPtr>::_type("TiledQuadTreeTerrainPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(TiledQuadTreeTerrainPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    TiledQuadTreeTerrainPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           TiledQuadTreeTerrainPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         TiledQuadTreeTerrainPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    TiledQuadTreeTerrainPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         TiledQuadTreeTerrainPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           TiledQuadTreeTerrainPtr, 
+                           0);
 
 OSG_END_NAMESPACE

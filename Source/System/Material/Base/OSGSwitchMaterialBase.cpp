@@ -97,8 +97,8 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFMaterialPtr::Description(
-        MFMaterialPtr::getClassType(),
+    pDesc = new MFUnrecMaterialPtr::Description(
+        MFUnrecMaterialPtr::getClassType(),
         "materials",
         "Materials to choose from.\n",
         MaterialsFieldId, MaterialsFieldMask,
@@ -193,7 +193,7 @@ UInt32 SwitchMaterialBase::getContainerSize(void) const
 
 
 //! Get the SwitchMaterial::_mfMaterials field.
-const MFMaterialPtr *SwitchMaterialBase::getMFMaterials(void) const
+const MFUnrecMaterialPtr *SwitchMaterialBase::getMFMaterials(void) const
 {
     return &_mfMaterials;
 }
@@ -231,11 +231,11 @@ void SwitchMaterialBase::pushToMaterials(MaterialPtrConstArg value)
     _mfMaterials.push_back(value);
 }
 
-void SwitchMaterialBase::assignMaterials(const MFMaterialPtr     &value)
+void SwitchMaterialBase::assignMaterials(const MFUnrecMaterialPtr &value)
 {
-    MFMaterialPtr    ::const_iterator elemIt  =
+    MFUnrecMaterialPtr::const_iterator elemIt  =
         value.begin();
-    MFMaterialPtr    ::const_iterator elemEnd =
+    MFUnrecMaterialPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<SwitchMaterial *>(this)->clearMaterials();
@@ -256,7 +256,7 @@ void SwitchMaterialBase::insertIntoMaterials(UInt32                uiIndex,
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+    MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
     //addRef(value);
 
@@ -314,7 +314,7 @@ void SwitchMaterialBase::removeFromMaterials(UInt32 uiIndex)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
         fieldIt += uiIndex;
 
@@ -332,7 +332,7 @@ void SwitchMaterialBase::removeFromMaterials(MaterialPtrConstArg value)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin();
 
         fieldIt += iElemIdx;
 
@@ -345,8 +345,8 @@ void SwitchMaterialBase::clearMaterials(void)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    MFMaterialPtr::iterator       fieldIt  = _mfMaterials.begin();
-    MFMaterialPtr::const_iterator fieldEnd = _mfMaterials.end  ();
+    MFUnrecMaterialPtr::iterator       fieldIt  = _mfMaterials.begin();
+    MFUnrecMaterialPtr::const_iterator fieldEnd = _mfMaterials.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -525,9 +525,9 @@ void SwitchMaterialBase::onCreate(const SwitchMaterial *source)
     if(source != NULL)
     {
 
-        MFMaterialPtr::const_iterator MaterialsIt  =
+        MFUnrecMaterialPtr::const_iterator MaterialsIt  =
             source->_mfMaterials.begin();
-        MFMaterialPtr::const_iterator MaterialsEnd =
+        MFUnrecMaterialPtr::const_iterator MaterialsEnd =
             source->_mfMaterials.end  ();
 
         while(MaterialsIt != MaterialsEnd)
@@ -541,8 +541,8 @@ void SwitchMaterialBase::onCreate(const SwitchMaterial *source)
 
 GetFieldHandlePtr SwitchMaterialBase::getHandleMaterials       (void) const
 {
-    MFMaterialPtr::GetHandlePtr returnValue(
-        new  MFMaterialPtr::GetHandle(
+    MFUnrecMaterialPtr::GetHandlePtr returnValue(
+        new  MFUnrecMaterialPtr::GetHandle(
              &_mfMaterials, 
              this->getType().getFieldDesc(MaterialsFieldId)));
 
@@ -551,8 +551,8 @@ GetFieldHandlePtr SwitchMaterialBase::getHandleMaterials       (void) const
 
 EditFieldHandlePtr SwitchMaterialBase::editHandleMaterials      (void)
 {
-    MFMaterialPtr::EditHandlePtr returnValue(
-        new  MFMaterialPtr::EditHandle(
+    MFUnrecMaterialPtr::EditHandlePtr returnValue(
+        new  MFUnrecMaterialPtr::EditHandle(
              &_mfMaterials, 
              this->getType().getFieldDesc(MaterialsFieldId)));
 
@@ -630,24 +630,12 @@ DataType FieldTraits<SwitchMaterialPtr>::_type("SwitchMaterialPtr", "MaterialPtr
 
 OSG_FIELDTRAITS_GETTYPE(SwitchMaterialPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    SwitchMaterialPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           SwitchMaterialPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         SwitchMaterialPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    SwitchMaterialPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         SwitchMaterialPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           SwitchMaterialPtr, 
+                           0);
 
 OSG_END_NAMESPACE

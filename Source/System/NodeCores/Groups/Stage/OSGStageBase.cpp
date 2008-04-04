@@ -98,8 +98,8 @@ void StageBase::classDescInserter(TypeObject &oType)
     Inherited::classDescInserter(oType);
 
 
-    pDesc = new SFFrameBufferObjectPtr::Description(
-        SFFrameBufferObjectPtr::getClassType(),
+    pDesc = new SFUnrecFrameBufferObjectPtr::Description(
+        SFUnrecFrameBufferObjectPtr::getClassType(),
         "renderTarget",
         "The FBO to target for rendering this subtree.\n",
         RenderTargetFieldId, RenderTargetFieldMask,
@@ -196,7 +196,7 @@ UInt32 StageBase::getContainerSize(void) const
 
 
 //! Get the Stage::_sfRenderTarget field.
-const SFFrameBufferObjectPtr *StageBase::getSFRenderTarget(void) const
+const SFUnrecFrameBufferObjectPtr *StageBase::getSFRenderTarget(void) const
 {
     return &_sfRenderTarget;
 }
@@ -395,8 +395,8 @@ void StageBase::onCreate(const Stage *source)
 
 GetFieldHandlePtr StageBase::getHandleRenderTarget    (void) const
 {
-    SFFrameBufferObjectPtr::GetHandlePtr returnValue(
-        new  SFFrameBufferObjectPtr::GetHandle(
+    SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
+        new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfRenderTarget, 
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
@@ -405,8 +405,8 @@ GetFieldHandlePtr StageBase::getHandleRenderTarget    (void) const
 
 EditFieldHandlePtr StageBase::editHandleRenderTarget   (void)
 {
-    SFFrameBufferObjectPtr::EditHandlePtr returnValue(
-        new  SFFrameBufferObjectPtr::EditHandle(
+    SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
+        new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfRenderTarget, 
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
@@ -485,24 +485,12 @@ DataType FieldTraits<StagePtr>::_type("StagePtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(StagePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    StagePtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           StagePtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         StagePtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    StagePtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         StagePtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           StagePtr, 
+                           0);
 
 OSG_END_NAMESPACE

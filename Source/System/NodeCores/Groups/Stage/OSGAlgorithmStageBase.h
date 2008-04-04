@@ -137,7 +137,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFAlgorithmPtr      *getSFAlgorithm       (void) const;
+            const SFUnrecAlgorithmPtr *getSFAlgorithm       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFProjectionMode  (void);
@@ -247,7 +247,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFAlgorithmPtr    _sfAlgorithm;
+    SFUnrecAlgorithmPtr _sfAlgorithm;
     SFUInt32          _sfProjectionMode;
     SFBool            _sfCopyViewing;
     SFMatrix          _sfProjectionMatrix;

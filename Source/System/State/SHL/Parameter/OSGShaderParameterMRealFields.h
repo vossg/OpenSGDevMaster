@@ -96,9 +96,63 @@ struct FieldTraits<ShaderParameterMRealPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFShaderParameterMRealPtr"; }
-    static const char *getMName(void) { return "MFShaderParameterMRealPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFShaderParameterMRealPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFShaderParameterMRealPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMRealPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecShaderParameterMRealPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMRealPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecShaderParameterMRealPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMRealPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakShaderParameterMRealPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMRealPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdShaderParameterMRealPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMRealPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecShaderParameterMRealPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMRealPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecShaderParameterMRealPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMRealPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakShaderParameterMRealPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMRealPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdShaderParameterMRealPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ShaderParameterMRealPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ShaderParameterMRealPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<ShaderParameterMRealPtr> SFShaderParameterMRealPtr;
+typedef FieldContainerPtrSField<ShaderParameterMRealPtr,
+                                RecordedRefCounts  > SFRecShaderParameterMRealPtr;
+typedef FieldContainerPtrSField<ShaderParameterMRealPtr,
+                                UnrecordedRefCounts> SFUnrecShaderParameterMRealPtr;
+typedef FieldContainerPtrSField<ShaderParameterMRealPtr,
+                                WeakRefCounts      > SFWeakShaderParameterMRealPtr;
+typedef FieldContainerPtrSField<ShaderParameterMRealPtr,
+                                NoRefCounts        > SFUncountedShaderParameterMRealPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<ShaderParameterMRealPtr> MFShaderParameterMRealPtr;
+typedef FieldContainerPtrMField<ShaderParameterMRealPtr,
+                                RecordedRefCounts  > MFRecShaderParameterMRealPtr;
+typedef FieldContainerPtrMField<ShaderParameterMRealPtr,
+                                UnrecordedRefCounts> MFUnrecShaderParameterMRealPtr;
+typedef FieldContainerPtrMField<ShaderParameterMRealPtr,
+                                WeakRefCounts      > MFWeakShaderParameterMRealPtr;
+typedef FieldContainerPtrMField<ShaderParameterMRealPtr,
+                                NoRefCounts        > MFUncountedShaderParameterMRealPtr;
 #endif
 
 

@@ -96,8 +96,36 @@ struct FieldTraits<SolidBackgroundPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFSolidBackgroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFSolidBackgroundPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecSolidBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecSolidBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakSolidBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdSolidBackgroundPtr"; 
+}
+
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SolidBackgroundPtr, 0>
@@ -111,7 +139,14 @@ struct FieldTraits<SolidBackgroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<SolidBackgroundPtr> SFSolidBackgroundPtr;
+typedef FieldContainerPtrSField<SolidBackgroundPtr,
+                                RecordedRefCounts  > SFRecSolidBackgroundPtr;
+typedef FieldContainerPtrSField<SolidBackgroundPtr,
+                                UnrecordedRefCounts> SFUnrecSolidBackgroundPtr;
+typedef FieldContainerPtrSField<SolidBackgroundPtr,
+                                WeakRefCounts      > SFWeakSolidBackgroundPtr;
+typedef FieldContainerPtrSField<SolidBackgroundPtr,
+                                NoRefCounts        > SFUncountedSolidBackgroundPtr;
 #endif
 
 

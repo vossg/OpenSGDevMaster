@@ -161,7 +161,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFMaterialPtr       *getSFMaterial        (void) const;
+            const SFUnrecMaterialPtr  *getSFMaterial        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFTexCoords       (void);
@@ -379,7 +379,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFMaterialPtr     _sfMaterial;
+    SFUnrecMaterialPtr _sfMaterial;
     MFVec3f           _mfTexCoords;
     MFPnt2f           _mfPositions;
     SFBool            _sfNormalizedX;

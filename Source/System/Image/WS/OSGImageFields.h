@@ -96,9 +96,63 @@ struct FieldTraits<ImagePtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFImagePtr"; }
-    static const char *getMName(void) { return "MFImagePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFImagePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFImagePtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdImagePtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ImagePtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ImagePtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ImagePtr> SFImagePtr;
+typedef FieldContainerPtrSField<ImagePtr,
+                                RecordedRefCounts  > SFRecImagePtr;
+typedef FieldContainerPtrSField<ImagePtr,
+                                UnrecordedRefCounts> SFUnrecImagePtr;
+typedef FieldContainerPtrSField<ImagePtr,
+                                WeakRefCounts      > SFWeakImagePtr;
+typedef FieldContainerPtrSField<ImagePtr,
+                                NoRefCounts        > SFUncountedImagePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ImagePtr> MFImagePtr;
+typedef FieldContainerPtrMField<ImagePtr,
+                                RecordedRefCounts  > MFRecImagePtr;
+typedef FieldContainerPtrMField<ImagePtr,
+                                UnrecordedRefCounts> MFUnrecImagePtr;
+typedef FieldContainerPtrMField<ImagePtr,
+                                WeakRefCounts      > MFWeakImagePtr;
+typedef FieldContainerPtrMField<ImagePtr,
+                                NoRefCounts        > MFUncountedImagePtr;
 #endif
 
 

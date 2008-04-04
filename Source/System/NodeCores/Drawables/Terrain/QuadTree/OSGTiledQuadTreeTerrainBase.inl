@@ -479,7 +479,7 @@ ImagePtrConst TiledQuadTreeTerrainBase::getHeightTiles(const UInt32 index) const
 
 //! Get the TiledQuadTreeTerrain::_mfHeightTiles field.
 inline
-const MFImagePtr &TiledQuadTreeTerrainBase::getHeightTiles(void) const
+const MFUnrecImagePtr &TiledQuadTreeTerrainBase::getHeightTiles(void) const
 {
     return _mfHeightTiles;
 }
@@ -493,7 +493,7 @@ MaterialPtrConst TiledQuadTreeTerrainBase::getHeightTextures(const UInt32 index)
 
 //! Get the TiledQuadTreeTerrain::_mfHeightTextures field.
 inline
-const MFMaterialPtr &TiledQuadTreeTerrainBase::getHeightTextures(void) const
+const MFUnrecMaterialPtr &TiledQuadTreeTerrainBase::getHeightTextures(void) const
 {
     return _mfHeightTextures;
 }

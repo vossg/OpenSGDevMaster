@@ -129,8 +129,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUnrecNodePtr::Description(
+        SFUnrecNodePtr::getClassType(),
         "user",
         "The coordinate system relative to the camera.\n",
         UserFieldId, UserFieldMask,
@@ -353,7 +353,7 @@ UInt32 ProjectionCameraDecoratorBase::getContainerSize(void) const
 
 
 //! Get the ProjectionCameraDecorator::_sfUser field.
-const SFNodePtr *ProjectionCameraDecoratorBase::getSFUser(void) const
+const SFUnrecNodePtr *ProjectionCameraDecoratorBase::getSFUser(void) const
 {
     return &_sfUser;
 }
@@ -799,8 +799,8 @@ void ProjectionCameraDecoratorBase::onCreate(const ProjectionCameraDecorator *so
 
 GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleUser            (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUnrecNodePtr::GetHandlePtr returnValue(
+        new  SFUnrecNodePtr::GetHandle(
              &_sfUser, 
              this->getType().getFieldDesc(UserFieldId)));
 
@@ -809,8 +809,8 @@ GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleUser            (void)
 
 EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleUser           (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUnrecNodePtr::EditHandlePtr returnValue(
+        new  SFUnrecNodePtr::EditHandle(
              &_sfUser, 
              this->getType().getFieldDesc(UserFieldId)));
 
@@ -1008,24 +1008,12 @@ DataType FieldTraits<ProjectionCameraDecoratorPtr>::_type("ProjectionCameraDecor
 
 OSG_FIELDTRAITS_GETTYPE(ProjectionCameraDecoratorPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ProjectionCameraDecoratorPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ProjectionCameraDecoratorPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ProjectionCameraDecoratorPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ProjectionCameraDecoratorPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ProjectionCameraDecoratorPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ProjectionCameraDecoratorPtr, 
+                           0);
 
 OSG_END_NAMESPACE

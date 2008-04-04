@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldBundleType &SimpleShadowMapEngineDataBase::getClassType(void)
+OSG::FieldContainerType &SimpleShadowMapEngineDataBase::getClassType(void)
 {
     return _type;
 }
@@ -193,21 +193,39 @@ void SimpleShadowMapEngineDataBase::setPolyChunk(PolygonChunkPtrConstArg value)
 
 }
 
-//! create a new instance of the class
+
+#ifdef OSG_MT_CPTR_ASPECT
 inline
-SimpleShadowMapEngineDataP SimpleShadowMapEngineDataBase::create(void)
+void SimpleShadowMapEngineDataBase::execSync (      SimpleShadowMapEngineDataBase *pFrom,
+                                        ConstFieldMaskArg  whichField,
+                                        AspectOffsetStore &oOffsets,
+                                        ConstFieldMaskArg  syncMode,
+                                  const UInt32             uiSyncInfo)
 {
-    SimpleShadowMapEngineDataP fc;
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(getClassType().getPrototype() != NULL)
-    {
-        fc = dynamic_cast<SimpleShadowMapEngineData::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
+    if(FieldBits::NoField != (CameraFieldMask & whichField))
+        _sfCamera.syncWith(pFrom->_sfCamera);
 
-    return fc;
+    if(FieldBits::NoField != (TexChunkFieldMask & whichField))
+        _sfTexChunk.syncWith(pFrom->_sfTexChunk);
+
+    if(FieldBits::NoField != (TexBufferFieldMask & whichField))
+        _sfTexBuffer.syncWith(pFrom->_sfTexBuffer);
+
+    if(FieldBits::NoField != (LightChunkFieldMask & whichField))
+        _sfLightChunk.syncWith(pFrom->_sfLightChunk);
+
+    if(FieldBits::NoField != (BlendChunkFieldMask & whichField))
+        _sfBlendChunk.syncWith(pFrom->_sfBlendChunk);
+
+    if(FieldBits::NoField != (TexGenChunkFieldMask & whichField))
+        _sfTexGenChunk.syncWith(pFrom->_sfTexGenChunk);
+
+    if(FieldBits::NoField != (PolyChunkFieldMask & whichField))
+        _sfPolyChunk.syncWith(pFrom->_sfPolyChunk);
 }
-
+#endif
 
 
 inline
@@ -215,8 +233,7 @@ Char8 *SimpleShadowMapEngineDataBase::getClassname(void)
 {
     return "SimpleShadowMapEngineData";
 }
-
-OSG_GEN_BUNDLEP(SimpleShadowMapEngineData);
+OSG_GEN_CONTAINERPTR(SimpleShadowMapEngineData);
 
 OSG_END_NAMESPACE
 

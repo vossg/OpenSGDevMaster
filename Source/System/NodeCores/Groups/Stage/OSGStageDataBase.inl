@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldBundleType &StageDataBase::getClassType(void)
+OSG::FieldContainerType &StageDataBase::getClassType(void)
 {
     return _type;
 }
@@ -173,21 +173,27 @@ void StageDataBase::setGroupMode(const Int32 &value)
     _sfGroupMode.setValue(value);
 }
 
-//! create a new instance of the class
+
+#ifdef OSG_MT_CPTR_ASPECT
 inline
-StageDataP StageDataBase::create(void)
+void StageDataBase::execSync (      StageDataBase *pFrom,
+                                        ConstFieldMaskArg  whichField,
+                                        AspectOffsetStore &oOffsets,
+                                        ConstFieldMaskArg  syncMode,
+                                  const UInt32             uiSyncInfo)
 {
-    StageDataP fc;
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(getClassType().getPrototype() != NULL)
-    {
-        fc = dynamic_cast<StageData::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
-    }
+    if(FieldBits::NoField != (PartitionRangeBeginFieldMask & whichField))
+        _sfPartitionRangeBegin.syncWith(pFrom->_sfPartitionRangeBegin);
 
-    return fc;
+    if(FieldBits::NoField != (PartitionRangeEndFieldMask & whichField))
+        _sfPartitionRangeEnd.syncWith(pFrom->_sfPartitionRangeEnd);
+
+    if(FieldBits::NoField != (GroupModeFieldMask & whichField))
+        _sfGroupMode.syncWith(pFrom->_sfGroupMode);
 }
-
+#endif
 
 
 inline
@@ -195,8 +201,7 @@ Char8 *StageDataBase::getClassname(void)
 {
     return "StageData";
 }
-
-OSG_GEN_BUNDLEP(StageData);
+OSG_GEN_CONTAINERPTR(StageData);
 
 OSG_END_NAMESPACE
 

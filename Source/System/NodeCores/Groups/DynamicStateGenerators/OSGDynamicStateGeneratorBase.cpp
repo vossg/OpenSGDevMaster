@@ -94,8 +94,8 @@ void DynamicStateGeneratorBase::classDescInserter(TypeObject &oType)
     Inherited::classDescInserter(oType);
 
 
-    pDesc = new SFFrameBufferObjectPtr::Description(
-        SFFrameBufferObjectPtr::getClassType(),
+    pDesc = new SFUnrecFrameBufferObjectPtr::Description(
+        SFUnrecFrameBufferObjectPtr::getClassType(),
         "renderTarget",
         "The FBO to target for rendering this subtree.\n",
         RenderTargetFieldId, RenderTargetFieldMask,
@@ -170,7 +170,7 @@ UInt32 DynamicStateGeneratorBase::getContainerSize(void) const
 
 
 //! Get the DynamicStateGenerator::_sfRenderTarget field.
-const SFFrameBufferObjectPtr *DynamicStateGeneratorBase::getSFRenderTarget(void) const
+const SFUnrecFrameBufferObjectPtr *DynamicStateGeneratorBase::getSFRenderTarget(void) const
 {
     return &_sfRenderTarget;
 }
@@ -336,8 +336,8 @@ void DynamicStateGeneratorBase::onCreate(const DynamicStateGenerator *source)
 
 GetFieldHandlePtr DynamicStateGeneratorBase::getHandleRenderTarget    (void) const
 {
-    SFFrameBufferObjectPtr::GetHandlePtr returnValue(
-        new  SFFrameBufferObjectPtr::GetHandle(
+    SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
+        new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfRenderTarget, 
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
@@ -346,8 +346,8 @@ GetFieldHandlePtr DynamicStateGeneratorBase::getHandleRenderTarget    (void) con
 
 EditFieldHandlePtr DynamicStateGeneratorBase::editHandleRenderTarget   (void)
 {
-    SFFrameBufferObjectPtr::EditHandlePtr returnValue(
-        new  SFFrameBufferObjectPtr::EditHandle(
+    SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
+        new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfRenderTarget, 
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
@@ -404,24 +404,12 @@ DataType FieldTraits<DynamicStateGeneratorPtr>::_type("DynamicStateGeneratorPtr"
 
 OSG_FIELDTRAITS_GETTYPE(DynamicStateGeneratorPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    DynamicStateGeneratorPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           DynamicStateGeneratorPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         DynamicStateGeneratorPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    DynamicStateGeneratorPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         DynamicStateGeneratorPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           DynamicStateGeneratorPtr, 
+                           0);
 
 OSG_END_NAMESPACE

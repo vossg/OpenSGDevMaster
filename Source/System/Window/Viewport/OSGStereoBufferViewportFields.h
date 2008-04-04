@@ -96,9 +96,63 @@ struct FieldTraits<StereoBufferViewportPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFStereoBufferViewportPtr"; }
-    static const char *getMName(void) { return "MFStereoBufferViewportPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFStereoBufferViewportPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFStereoBufferViewportPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<StereoBufferViewportPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecStereoBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StereoBufferViewportPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecStereoBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StereoBufferViewportPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakStereoBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StereoBufferViewportPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdStereoBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StereoBufferViewportPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecStereoBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StereoBufferViewportPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecStereoBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StereoBufferViewportPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakStereoBufferViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StereoBufferViewportPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdStereoBufferViewportPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<StereoBufferViewportPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<StereoBufferViewportPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<StereoBufferViewportPtr> SFStereoBufferViewportPtr;
+typedef FieldContainerPtrSField<StereoBufferViewportPtr,
+                                RecordedRefCounts  > SFRecStereoBufferViewportPtr;
+typedef FieldContainerPtrSField<StereoBufferViewportPtr,
+                                UnrecordedRefCounts> SFUnrecStereoBufferViewportPtr;
+typedef FieldContainerPtrSField<StereoBufferViewportPtr,
+                                WeakRefCounts      > SFWeakStereoBufferViewportPtr;
+typedef FieldContainerPtrSField<StereoBufferViewportPtr,
+                                NoRefCounts        > SFUncountedStereoBufferViewportPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<StereoBufferViewportPtr> MFStereoBufferViewportPtr;
+typedef FieldContainerPtrMField<StereoBufferViewportPtr,
+                                RecordedRefCounts  > MFRecStereoBufferViewportPtr;
+typedef FieldContainerPtrMField<StereoBufferViewportPtr,
+                                UnrecordedRefCounts> MFUnrecStereoBufferViewportPtr;
+typedef FieldContainerPtrMField<StereoBufferViewportPtr,
+                                WeakRefCounts      > MFWeakStereoBufferViewportPtr;
+typedef FieldContainerPtrMField<StereoBufferViewportPtr,
+                                NoRefCounts        > MFUncountedStereoBufferViewportPtr;
 #endif
 
 

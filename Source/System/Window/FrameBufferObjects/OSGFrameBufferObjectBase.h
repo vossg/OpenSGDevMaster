@@ -155,15 +155,15 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
 #endif
                   SFGLenum            *editSFGLId           (void);
             const SFGLenum            *getSFGLId            (void) const;
-            const MFFrameBufferAttachmentPtr *getMFColorAttachments (void) const;
+            const MFUnrecFrameBufferAttachmentPtr *getMFColorAttachments (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   MFGLenum            *getMFDrawBuffers     (void);
 #endif
                   MFGLenum            *editMFDrawBuffers    (void);
             const MFGLenum            *getMFDrawBuffers     (void) const;
-            const SFFrameBufferAttachmentPtr *getSFDepthAttachment (void) const;
-            const SFFrameBufferAttachmentPtr *getSFStencilAttachment (void) const;
+            const SFUnrecFrameBufferAttachmentPtr *getSFDepthAttachment (void) const;
+            const SFUnrecFrameBufferAttachmentPtr *getSFStencilAttachment (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt16            *getSFWidth           (void);
@@ -185,7 +185,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
             const GLenum              &getGLId            (void) const;
 
                   FrameBufferAttachmentPtrConst getColorAttachments(const UInt32 index) const;
-            const MFFrameBufferAttachmentPtr &getColorAttachments(void) const;
+            const MFUnrecFrameBufferAttachmentPtr &getColorAttachments(void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getDrawBuffers     (const UInt32 index);
@@ -234,7 +234,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void pushToColorAttachments           (FrameBufferAttachmentPtrConstArg value   );
-    void assignColorAttachments           (const MFFrameBufferAttachmentPtr &value);
+    void assignColorAttachments           (const MFUnrecFrameBufferAttachmentPtr &value);
     void insertIntoColorAttachments      (UInt32                uiIndex,
                                              FrameBufferAttachmentPtrConstArg value   );
     void replaceInColorAttachments  (UInt32                uiIndex,
@@ -309,10 +309,10 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \{                                                                 */
 
     SFGLenum          _sfGLId;
-    MFFrameBufferAttachmentPtr _mfColorAttachments;
+    MFUnrecFrameBufferAttachmentPtr _mfColorAttachments;
     MFGLenum          _mfDrawBuffers;
-    SFFrameBufferAttachmentPtr _sfDepthAttachment;
-    SFFrameBufferAttachmentPtr _sfStencilAttachment;
+    SFUnrecFrameBufferAttachmentPtr _sfDepthAttachment;
+    SFUnrecFrameBufferAttachmentPtr _sfStencilAttachment;
     SFUInt16          _sfWidth;
     SFUInt16          _sfHeight;
 

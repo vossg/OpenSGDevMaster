@@ -141,7 +141,7 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFImagePtr          *getSFImage           (void) const;
+            const SFUnrecImagePtr     *getSFImage           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFMinFilter       (void);
@@ -264,7 +264,7 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFImagePtr        _sfImage;
+    SFUnrecImagePtr   _sfImage;
     SFGLenum          _sfMinFilter;
     SFGLenum          _sfMagFilter;
     SFGLenum          _sfEnvMode;

@@ -156,8 +156,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFViewportPtr::Description(
-        MFViewportPtr::getClassType(),
+    pDesc = new MFUnrecViewportPtr::Description(
+        MFUnrecViewportPtr::getClassType(),
         "port",
         "",
         PortFieldId, PortFieldMask,
@@ -422,7 +422,7 @@ SFUInt16            *WindowBase::getSFHeight         (void)
 #endif
 
 //! Get the Window::_mfPort field.
-const MFViewportPtr *WindowBase::getMFPort(void) const
+const MFUnrecViewportPtr *WindowBase::getMFPort(void) const
 {
     return &_mfPort;
 }
@@ -538,11 +538,11 @@ void WindowBase::addPort(ViewportPtrConstArg value)
     value->setParent(this, PortFieldMask);
 }
 
-void WindowBase::assignPort     (const MFViewportPtr     &value)
+void WindowBase::assignPort     (const MFUnrecViewportPtr &value)
 {
-    MFViewportPtr    ::const_iterator elemIt  =
+    MFUnrecViewportPtr::const_iterator elemIt  =
         value.begin();
-    MFViewportPtr    ::const_iterator elemEnd =
+    MFUnrecViewportPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Window *>(this)->clearPorts();
@@ -563,7 +563,7 @@ void WindowBase::insertPort(UInt32                uiIndex,
 
     editMField(PortFieldMask, _mfPort);
 
-    MFViewportPtr::iterator fieldIt = _mfPort.begin();
+    MFUnrecViewportPtr::iterator fieldIt = _mfPort.begin();
 
     //addRef(value);
 
@@ -640,7 +640,7 @@ void WindowBase::subPort(UInt32 uiIndex)
     {
         editMField(PortFieldMask, _mfPort);
 
-        MFViewportPtr::iterator fieldIt = _mfPort.begin();
+        MFUnrecViewportPtr::iterator fieldIt = _mfPort.begin();
 
         fieldIt += uiIndex;
 
@@ -663,7 +663,7 @@ void WindowBase::subPort(ViewportPtrConstArg value)
     {
         editMField(PortFieldMask, _mfPort);
 
-        MFViewportPtr::iterator fieldIt = _mfPort.begin();
+        MFUnrecViewportPtr::iterator fieldIt = _mfPort.begin();
 
         fieldIt += iElemIdx;
 
@@ -681,8 +681,8 @@ void WindowBase::clearPorts(void)
 {
     editMField(PortFieldMask, _mfPort);
 
-    MFViewportPtr::iterator       fieldIt  = _mfPort.begin();
-    MFViewportPtr::const_iterator fieldEnd = _mfPort.end  ();
+    MFUnrecViewportPtr::iterator       fieldIt  = _mfPort.begin();
+    MFUnrecViewportPtr::const_iterator fieldEnd = _mfPort.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -1030,9 +1030,9 @@ void WindowBase::onCreate(const Window *source)
     if(source != NULL)
     {
 
-        MFViewportPtr::const_iterator PortIt  =
+        MFUnrecViewportPtr::const_iterator PortIt  =
             source->_mfPort.begin();
-        MFViewportPtr::const_iterator PortEnd =
+        MFUnrecViewportPtr::const_iterator PortEnd =
             source->_mfPort.end  ();
 
         while(PortIt != PortEnd)
@@ -1090,8 +1090,8 @@ EditFieldHandlePtr WindowBase::editHandleHeight         (void)
 
 GetFieldHandlePtr WindowBase::getHandlePort            (void) const
 {
-    MFViewportPtr::GetHandlePtr returnValue(
-        new  MFViewportPtr::GetHandle(
+    MFUnrecViewportPtr::GetHandlePtr returnValue(
+        new  MFUnrecViewportPtr::GetHandle(
              &_mfPort, 
              this->getType().getFieldDesc(PortFieldId)));
 
@@ -1100,8 +1100,8 @@ GetFieldHandlePtr WindowBase::getHandlePort            (void) const
 
 EditFieldHandlePtr WindowBase::editHandlePort           (void)
 {
-    MFViewportPtr::EditHandlePtr returnValue(
-        new  MFViewportPtr::EditHandle(
+    MFUnrecViewportPtr::EditHandlePtr returnValue(
+        new  MFUnrecViewportPtr::EditHandle(
              &_mfPort, 
              this->getType().getFieldDesc(PortFieldId)));
 
@@ -1269,24 +1269,12 @@ DataType FieldTraits<WindowPtr>::_type("WindowPtr", "AttachmentContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(WindowPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    WindowPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           WindowPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         WindowPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    WindowPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         WindowPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           WindowPtr, 
+                           0);
 
 OSG_END_NAMESPACE

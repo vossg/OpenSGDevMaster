@@ -96,9 +96,63 @@ struct FieldTraits<RegisterCombinersChunkPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFRegisterCombinersChunkPtr"; }
-    static const char *getMName(void) { return "MFRegisterCombinersChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFRegisterCombinersChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFRegisterCombinersChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecRegisterCombinersChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecRegisterCombinersChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakRegisterCombinersChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdRegisterCombinersChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecRegisterCombinersChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecRegisterCombinersChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakRegisterCombinersChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdRegisterCombinersChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<RegisterCombinersChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<RegisterCombinersChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<RegisterCombinersChunkPtr> SFRegisterCombinersChunkPtr;
+typedef FieldContainerPtrSField<RegisterCombinersChunkPtr,
+                                RecordedRefCounts  > SFRecRegisterCombinersChunkPtr;
+typedef FieldContainerPtrSField<RegisterCombinersChunkPtr,
+                                UnrecordedRefCounts> SFUnrecRegisterCombinersChunkPtr;
+typedef FieldContainerPtrSField<RegisterCombinersChunkPtr,
+                                WeakRefCounts      > SFWeakRegisterCombinersChunkPtr;
+typedef FieldContainerPtrSField<RegisterCombinersChunkPtr,
+                                NoRefCounts        > SFUncountedRegisterCombinersChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<RegisterCombinersChunkPtr> MFRegisterCombinersChunkPtr;
+typedef FieldContainerPtrMField<RegisterCombinersChunkPtr,
+                                RecordedRefCounts  > MFRecRegisterCombinersChunkPtr;
+typedef FieldContainerPtrMField<RegisterCombinersChunkPtr,
+                                UnrecordedRefCounts> MFUnrecRegisterCombinersChunkPtr;
+typedef FieldContainerPtrMField<RegisterCombinersChunkPtr,
+                                WeakRefCounts      > MFWeakRegisterCombinersChunkPtr;
+typedef FieldContainerPtrMField<RegisterCombinersChunkPtr,
+                                NoRefCounts        > MFUncountedRegisterCombinersChunkPtr;
 #endif
 
 

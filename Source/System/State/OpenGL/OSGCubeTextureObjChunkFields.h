@@ -96,9 +96,63 @@ struct FieldTraits<CubeTextureObjChunkPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFCubeTextureObjChunkPtr"; }
-    static const char *getMName(void) { return "MFCubeTextureObjChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFCubeTextureObjChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFCubeTextureObjChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<CubeTextureObjChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecCubeTextureObjChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CubeTextureObjChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecCubeTextureObjChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CubeTextureObjChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakCubeTextureObjChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CubeTextureObjChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdCubeTextureObjChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CubeTextureObjChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecCubeTextureObjChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CubeTextureObjChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecCubeTextureObjChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CubeTextureObjChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakCubeTextureObjChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CubeTextureObjChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdCubeTextureObjChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<CubeTextureObjChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<CubeTextureObjChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<CubeTextureObjChunkPtr> SFCubeTextureObjChunkPtr;
+typedef FieldContainerPtrSField<CubeTextureObjChunkPtr,
+                                RecordedRefCounts  > SFRecCubeTextureObjChunkPtr;
+typedef FieldContainerPtrSField<CubeTextureObjChunkPtr,
+                                UnrecordedRefCounts> SFUnrecCubeTextureObjChunkPtr;
+typedef FieldContainerPtrSField<CubeTextureObjChunkPtr,
+                                WeakRefCounts      > SFWeakCubeTextureObjChunkPtr;
+typedef FieldContainerPtrSField<CubeTextureObjChunkPtr,
+                                NoRefCounts        > SFUncountedCubeTextureObjChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<CubeTextureObjChunkPtr> MFCubeTextureObjChunkPtr;
+typedef FieldContainerPtrMField<CubeTextureObjChunkPtr,
+                                RecordedRefCounts  > MFRecCubeTextureObjChunkPtr;
+typedef FieldContainerPtrMField<CubeTextureObjChunkPtr,
+                                UnrecordedRefCounts> MFUnrecCubeTextureObjChunkPtr;
+typedef FieldContainerPtrMField<CubeTextureObjChunkPtr,
+                                WeakRefCounts      > MFWeakCubeTextureObjChunkPtr;
+typedef FieldContainerPtrMField<CubeTextureObjChunkPtr,
+                                NoRefCounts        > MFUncountedCubeTextureObjChunkPtr;
 #endif
 
 

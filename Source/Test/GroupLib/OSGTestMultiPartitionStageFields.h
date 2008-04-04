@@ -95,6 +95,8 @@ struct FieldTraits<TestMultiPartitionStagePtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<TestMultiPartitionStagePtr, 0>
     \hideinhierarchy

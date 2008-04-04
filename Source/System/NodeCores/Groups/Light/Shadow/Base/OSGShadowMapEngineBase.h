@@ -147,7 +147,7 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFFrameBufferObjectPtr *getSFRenderTarget    (void) const;
+            const SFUnrecFrameBufferObjectPtr *getSFRenderTarget    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFWidth           (void);
@@ -260,7 +260,7 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFFrameBufferObjectPtr _sfRenderTarget;
+    SFUnrecFrameBufferObjectPtr _sfRenderTarget;
     SFInt32           _sfWidth;
     SFInt32           _sfHeight;
     SFColor4f         _sfShadowColor;

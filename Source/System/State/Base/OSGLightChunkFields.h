@@ -96,9 +96,63 @@ struct FieldTraits<LightChunkPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFLightChunkPtr"; }
-    static const char *getMName(void) { return "MFLightChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFLightChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFLightChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecLightChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecLightChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakLightChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdLightChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecLightChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecLightChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakLightChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdLightChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<LightChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<LightChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<LightChunkPtr> SFLightChunkPtr;
+typedef FieldContainerPtrSField<LightChunkPtr,
+                                RecordedRefCounts  > SFRecLightChunkPtr;
+typedef FieldContainerPtrSField<LightChunkPtr,
+                                UnrecordedRefCounts> SFUnrecLightChunkPtr;
+typedef FieldContainerPtrSField<LightChunkPtr,
+                                WeakRefCounts      > SFWeakLightChunkPtr;
+typedef FieldContainerPtrSField<LightChunkPtr,
+                                NoRefCounts        > SFUncountedLightChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<LightChunkPtr> MFLightChunkPtr;
+typedef FieldContainerPtrMField<LightChunkPtr,
+                                RecordedRefCounts  > MFRecLightChunkPtr;
+typedef FieldContainerPtrMField<LightChunkPtr,
+                                UnrecordedRefCounts> MFUnrecLightChunkPtr;
+typedef FieldContainerPtrMField<LightChunkPtr,
+                                WeakRefCounts      > MFWeakLightChunkPtr;
+typedef FieldContainerPtrMField<LightChunkPtr,
+                                NoRefCounts        > MFUncountedLightChunkPtr;
 #endif
 
 

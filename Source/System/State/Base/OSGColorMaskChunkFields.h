@@ -96,9 +96,63 @@ struct FieldTraits<ColorMaskChunkPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFColorMaskChunkPtr"; }
-    static const char *getMName(void) { return "MFColorMaskChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFColorMaskChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFColorMaskChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecColorMaskChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecColorMaskChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakColorMaskChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdColorMaskChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecColorMaskChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecColorMaskChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakColorMaskChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdColorMaskChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ColorMaskChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ColorMaskChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ColorMaskChunkPtr> SFColorMaskChunkPtr;
+typedef FieldContainerPtrSField<ColorMaskChunkPtr,
+                                RecordedRefCounts  > SFRecColorMaskChunkPtr;
+typedef FieldContainerPtrSField<ColorMaskChunkPtr,
+                                UnrecordedRefCounts> SFUnrecColorMaskChunkPtr;
+typedef FieldContainerPtrSField<ColorMaskChunkPtr,
+                                WeakRefCounts      > SFWeakColorMaskChunkPtr;
+typedef FieldContainerPtrSField<ColorMaskChunkPtr,
+                                NoRefCounts        > SFUncountedColorMaskChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ColorMaskChunkPtr> MFColorMaskChunkPtr;
+typedef FieldContainerPtrMField<ColorMaskChunkPtr,
+                                RecordedRefCounts  > MFRecColorMaskChunkPtr;
+typedef FieldContainerPtrMField<ColorMaskChunkPtr,
+                                UnrecordedRefCounts> MFUnrecColorMaskChunkPtr;
+typedef FieldContainerPtrMField<ColorMaskChunkPtr,
+                                WeakRefCounts      > MFWeakColorMaskChunkPtr;
+typedef FieldContainerPtrMField<ColorMaskChunkPtr,
+                                NoRefCounts        > MFUncountedColorMaskChunkPtr;
 #endif
 
 

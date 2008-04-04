@@ -417,24 +417,12 @@ DataType FieldTraits<BackgroundPtr>::_type("BackgroundPtr", "AttachmentContainer
 
 OSG_FIELDTRAITS_GETTYPE(BackgroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    BackgroundPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           BackgroundPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         BackgroundPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    BackgroundPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         BackgroundPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           BackgroundPtr, 
+                           0);
 
 OSG_END_NAMESPACE

@@ -309,24 +309,12 @@ DataType FieldTraits<PassiveWindowPtr>::_type("PassiveWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(PassiveWindowPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    PassiveWindowPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           PassiveWindowPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         PassiveWindowPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    PassiveWindowPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         PassiveWindowPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           PassiveWindowPtr, 
+                           0);
 
 OSG_END_NAMESPACE

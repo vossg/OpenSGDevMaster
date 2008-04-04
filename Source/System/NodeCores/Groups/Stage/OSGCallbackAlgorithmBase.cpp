@@ -373,24 +373,12 @@ DataType FieldTraits<CallbackAlgorithmPtr>::_type("CallbackAlgorithmPtr", "Algor
 
 OSG_FIELDTRAITS_GETTYPE(CallbackAlgorithmPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    CallbackAlgorithmPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           CallbackAlgorithmPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         CallbackAlgorithmPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    CallbackAlgorithmPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         CallbackAlgorithmPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           CallbackAlgorithmPtr, 
+                           0);
 
 OSG_END_NAMESPACE

@@ -96,8 +96,36 @@ struct FieldTraits<PassiveBackgroundPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFPassiveBackgroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFPassiveBackgroundPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<PassiveBackgroundPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecPassiveBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PassiveBackgroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecPassiveBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PassiveBackgroundPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakPassiveBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PassiveBackgroundPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdPassiveBackgroundPtr"; 
+}
+
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<PassiveBackgroundPtr, 0>
@@ -111,7 +139,14 @@ struct FieldTraits<PassiveBackgroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<PassiveBackgroundPtr> SFPassiveBackgroundPtr;
+typedef FieldContainerPtrSField<PassiveBackgroundPtr,
+                                RecordedRefCounts  > SFRecPassiveBackgroundPtr;
+typedef FieldContainerPtrSField<PassiveBackgroundPtr,
+                                UnrecordedRefCounts> SFUnrecPassiveBackgroundPtr;
+typedef FieldContainerPtrSField<PassiveBackgroundPtr,
+                                WeakRefCounts      > SFWeakPassiveBackgroundPtr;
+typedef FieldContainerPtrSField<PassiveBackgroundPtr,
+                                NoRefCounts        > SFUncountedPassiveBackgroundPtr;
 #endif
 
 

@@ -96,9 +96,63 @@ struct FieldTraits<OffCenterPerspectiveCameraPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFOffCenterPerspectiveCameraPtr"; }
-    static const char *getMName(void) { return "MFOffCenterPerspectiveCameraPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFOffCenterPerspectiveCameraPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFOffCenterPerspectiveCameraPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecOffCenterPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecOffCenterPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakOffCenterPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdOffCenterPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecOffCenterPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecOffCenterPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakOffCenterPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdOffCenterPerspectiveCameraPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<OffCenterPerspectiveCameraPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<OffCenterPerspectiveCameraPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr> SFOffCenterPerspectiveCameraPtr;
+typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
+                                RecordedRefCounts  > SFRecOffCenterPerspectiveCameraPtr;
+typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
+                                UnrecordedRefCounts> SFUnrecOffCenterPerspectiveCameraPtr;
+typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
+                                WeakRefCounts      > SFWeakOffCenterPerspectiveCameraPtr;
+typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
+                                NoRefCounts        > SFUncountedOffCenterPerspectiveCameraPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr> MFOffCenterPerspectiveCameraPtr;
+typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
+                                RecordedRefCounts  > MFRecOffCenterPerspectiveCameraPtr;
+typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
+                                UnrecordedRefCounts> MFUnrecOffCenterPerspectiveCameraPtr;
+typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
+                                WeakRefCounts      > MFWeakOffCenterPerspectiveCameraPtr;
+typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
+                                NoRefCounts        > MFUncountedOffCenterPerspectiveCameraPtr;
 #endif
 
 

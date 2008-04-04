@@ -123,7 +123,7 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-    virtual       const SFCameraPtr *getSFDecoratee(void) const;
+    virtual       const SFUnrecCameraPtr *getSFDecoratee(void) const;
     virtual const SFWeakNodePtr       *getSFBeacon          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
@@ -200,7 +200,7 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFCameraPtr _sfDecoratee;
+    SFUnrecCameraPtr _sfDecoratee;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

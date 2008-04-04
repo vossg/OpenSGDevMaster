@@ -69,7 +69,7 @@
 #include "OSGReal32Fields.h" // Right type
 #include "OSGReal32Fields.h" // Bottom type
 #include "OSGReal32Fields.h" // Top type
-#include "OSGParentFieldContainerFields.h" // Parent type
+#include "OSGFieldContainerFields.h" // Parent type
 #include "OSGCameraFields.h" // Camera type
 #include "OSGNodeFields.h" // Root type
 #include "OSGBackgroundFields.h" // Background type
@@ -189,10 +189,10 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
 #endif
                   SFReal32            *editSFTop            (void);
             const SFReal32            *getSFTop             (void) const;
-            const SFCameraPtr         *getSFCamera          (void) const;
-            const SFNodePtr           *getSFRoot            (void) const;
-            const SFBackgroundPtr     *getSFBackground      (void) const;
-            const MFForegroundPtr     *getMFForegrounds     (void) const;
+            const SFUnrecCameraPtr    *getSFCamera          (void) const;
+            const SFUnrecNodePtr      *getSFRoot            (void) const;
+            const SFUnrecBackgroundPtr *getSFBackground      (void) const;
+            const MFUnrecForegroundPtr *getMFForegrounds     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFTravMask        (void);
@@ -238,7 +238,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                   BackgroundPtrConst getBackground     (void) const;
 
                   ForegroundPtrConst getForegrounds    (const UInt32 index) const;
-            const MFForegroundPtr     &getForegrounds    (void) const;
+            const MFUnrecForegroundPtr &getForegrounds    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getTravMask        (void);
@@ -278,7 +278,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void addForeground             (ForegroundPtrConstArg value   );
-    void assignForegrounds           (const MFForegroundPtr   &value);
+    void assignForegrounds           (const MFUnrecForegroundPtr &value);
     void insertIntoForegrounds      (UInt32                uiIndex,
                                              ForegroundPtrConstArg value   );
     void replaceInForegrounds  (UInt32                uiIndex,
@@ -344,10 +344,10 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     SFReal32          _sfBottom;
     SFReal32          _sfTop;
     SFParentFieldContainerPtr _sfParent;
-    SFCameraPtr       _sfCamera;
-    SFNodePtr         _sfRoot;
-    SFBackgroundPtr   _sfBackground;
-    MFForegroundPtr   _mfForegrounds;
+    SFUnrecCameraPtr  _sfCamera;
+    SFUnrecNodePtr    _sfRoot;
+    SFUnrecBackgroundPtr _sfBackground;
+    MFUnrecForegroundPtr _mfForegrounds;
     SFUInt32          _sfTravMask;
     SFReal32          _sfDrawTime;
 

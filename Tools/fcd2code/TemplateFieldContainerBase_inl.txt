@@ -224,7 +224,7 @@ inline
 
 //! Get the @!Classname!@::_@!field.VarName!@ field.
 inline
-const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::get@!field.Name!@(void) const
+const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ &@!Classname!@Base::get@!field.Name!@(void) const
 {
     return _@!field.VarName!@;
 }

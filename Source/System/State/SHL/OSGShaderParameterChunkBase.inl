@@ -83,7 +83,7 @@ ShaderParameterPtrConst ShaderParameterChunkBase::getParameters(const UInt32 ind
 
 //! Get the ShaderParameterChunk::_mfParameters field.
 inline
-const MFShaderParameterPtr &ShaderParameterChunkBase::getParameters(void) const
+const MFUnrecShaderParameterPtr &ShaderParameterChunkBase::getParameters(void) const
 {
     return _mfParameters;
 }

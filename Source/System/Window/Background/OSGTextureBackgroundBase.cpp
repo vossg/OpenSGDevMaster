@@ -131,8 +131,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureBaseChunkPtr::Description(
-        SFTextureBaseChunkPtr::getClassType(),
+    pDesc = new SFUnrecTextureBaseChunkPtr::Description(
+        SFUnrecTextureBaseChunkPtr::getClassType(),
         "texture",
         "",
         TextureFieldId, TextureFieldMask,
@@ -342,7 +342,7 @@ SFColor4f           *TextureBackgroundBase::getSFColor          (void)
 #endif
 
 //! Get the TextureBackground::_sfTexture field.
-const SFTextureBaseChunkPtr *TextureBackgroundBase::getSFTexture(void) const
+const SFUnrecTextureBaseChunkPtr *TextureBackgroundBase::getSFTexture(void) const
 {
     return &_sfTexture;
 }
@@ -791,8 +791,8 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleColor          (void)
 
 GetFieldHandlePtr TextureBackgroundBase::getHandleTexture         (void) const
 {
-    SFTextureBaseChunkPtr::GetHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::GetHandle(
+    SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::GetHandle(
              &_sfTexture, 
              this->getType().getFieldDesc(TextureFieldId)));
 
@@ -801,8 +801,8 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleTexture         (void) const
 
 EditFieldHandlePtr TextureBackgroundBase::editHandleTexture        (void)
 {
-    SFTextureBaseChunkPtr::EditHandlePtr returnValue(
-        new  SFTextureBaseChunkPtr::EditHandle(
+    SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureBaseChunkPtr::EditHandle(
              &_sfTexture, 
              this->getType().getFieldDesc(TextureFieldId)));
 
@@ -978,15 +978,9 @@ DataType FieldTraits<TextureBackgroundPtr>::_type("TextureBackgroundPtr", "Backg
 
 OSG_FIELDTRAITS_GETTYPE(TextureBackgroundPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    TextureBackgroundPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         TextureBackgroundPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           TextureBackgroundPtr, 
+                           0);
 
 
 OSG_END_NAMESPACE

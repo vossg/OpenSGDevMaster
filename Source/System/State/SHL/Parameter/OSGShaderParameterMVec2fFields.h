@@ -96,9 +96,63 @@ struct FieldTraits<ShaderParameterMVec2fPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFShaderParameterMVec2fPtr"; }
-    static const char *getMName(void) { return "MFShaderParameterMVec2fPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFShaderParameterMVec2fPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFShaderParameterMVec2fPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMVec2fPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecShaderParameterMVec2fPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMVec2fPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecShaderParameterMVec2fPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMVec2fPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakShaderParameterMVec2fPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMVec2fPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdShaderParameterMVec2fPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMVec2fPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecShaderParameterMVec2fPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMVec2fPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecShaderParameterMVec2fPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMVec2fPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakShaderParameterMVec2fPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterMVec2fPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdShaderParameterMVec2fPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ShaderParameterMVec2fPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ShaderParameterMVec2fPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<ShaderParameterMVec2fPtr> SFShaderParameterMVec2fPtr;
+typedef FieldContainerPtrSField<ShaderParameterMVec2fPtr,
+                                RecordedRefCounts  > SFRecShaderParameterMVec2fPtr;
+typedef FieldContainerPtrSField<ShaderParameterMVec2fPtr,
+                                UnrecordedRefCounts> SFUnrecShaderParameterMVec2fPtr;
+typedef FieldContainerPtrSField<ShaderParameterMVec2fPtr,
+                                WeakRefCounts      > SFWeakShaderParameterMVec2fPtr;
+typedef FieldContainerPtrSField<ShaderParameterMVec2fPtr,
+                                NoRefCounts        > SFUncountedShaderParameterMVec2fPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<ShaderParameterMVec2fPtr> MFShaderParameterMVec2fPtr;
+typedef FieldContainerPtrMField<ShaderParameterMVec2fPtr,
+                                RecordedRefCounts  > MFRecShaderParameterMVec2fPtr;
+typedef FieldContainerPtrMField<ShaderParameterMVec2fPtr,
+                                UnrecordedRefCounts> MFUnrecShaderParameterMVec2fPtr;
+typedef FieldContainerPtrMField<ShaderParameterMVec2fPtr,
+                                WeakRefCounts      > MFWeakShaderParameterMVec2fPtr;
+typedef FieldContainerPtrMField<ShaderParameterMVec2fPtr,
+                                NoRefCounts        > MFUncountedShaderParameterMVec2fPtr;
 #endif
 
 

@@ -96,9 +96,63 @@ struct FieldTraits<MaterialDrawablePtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFMaterialDrawablePtr"; }
-    static const char *getMName(void) { return "MFMaterialDrawablePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFMaterialDrawablePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFMaterialDrawablePtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecMaterialDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecMaterialDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakMaterialDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdMaterialDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecMaterialDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecMaterialDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakMaterialDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdMaterialDrawablePtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<MaterialDrawablePtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<MaterialDrawablePtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<MaterialDrawablePtr> SFMaterialDrawablePtr;
+typedef FieldContainerPtrSField<MaterialDrawablePtr,
+                                RecordedRefCounts  > SFRecMaterialDrawablePtr;
+typedef FieldContainerPtrSField<MaterialDrawablePtr,
+                                UnrecordedRefCounts> SFUnrecMaterialDrawablePtr;
+typedef FieldContainerPtrSField<MaterialDrawablePtr,
+                                WeakRefCounts      > SFWeakMaterialDrawablePtr;
+typedef FieldContainerPtrSField<MaterialDrawablePtr,
+                                NoRefCounts        > SFUncountedMaterialDrawablePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<MaterialDrawablePtr> MFMaterialDrawablePtr;
+typedef FieldContainerPtrMField<MaterialDrawablePtr,
+                                RecordedRefCounts  > MFRecMaterialDrawablePtr;
+typedef FieldContainerPtrMField<MaterialDrawablePtr,
+                                UnrecordedRefCounts> MFUnrecMaterialDrawablePtr;
+typedef FieldContainerPtrMField<MaterialDrawablePtr,
+                                WeakRefCounts      > MFWeakMaterialDrawablePtr;
+typedef FieldContainerPtrMField<MaterialDrawablePtr,
+                                NoRefCounts        > MFUncountedMaterialDrawablePtr;
 #endif
 
 

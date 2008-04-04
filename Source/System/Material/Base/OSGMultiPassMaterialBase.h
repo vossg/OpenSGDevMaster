@@ -125,11 +125,11 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFMaterialPtr       *getMFMaterials       (void) const;
+            const MFUnrecMaterialPtr  *getMFMaterials       (void) const;
 
 
                   MaterialPtrConst getMaterials      (const UInt32 index) const;
-            const MFMaterialPtr       &getMaterials      (void) const;
+            const MFUnrecMaterialPtr  &getMaterials      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -148,7 +148,7 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     /*! \{                                                                 */
 
     void addMaterial               (MaterialPtrConstArg value   );
-    void assignMaterialsFrom           (const MFMaterialPtr     &value);
+    void assignMaterialsFrom           (const MFUnrecMaterialPtr &value);
     void insertMaterial       (UInt32                uiIndex,
                                              MaterialPtrConstArg value   );
     void replaceMaterial  (UInt32                uiIndex,
@@ -209,7 +209,7 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFMaterialPtr     _mfMaterials;
+    MFUnrecMaterialPtr _mfMaterials;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

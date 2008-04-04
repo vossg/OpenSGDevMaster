@@ -96,9 +96,63 @@ struct FieldTraits<FragmentProgramChunkPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFFragmentProgramChunkPtr"; }
-    static const char *getMName(void) { return "MFFragmentProgramChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFFragmentProgramChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFFragmentProgramChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecFragmentProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFragmentProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFragmentProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFragmentProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecFragmentProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFragmentProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFragmentProgramChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFragmentProgramChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<FragmentProgramChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<FragmentProgramChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<FragmentProgramChunkPtr> SFFragmentProgramChunkPtr;
+typedef FieldContainerPtrSField<FragmentProgramChunkPtr,
+                                RecordedRefCounts  > SFRecFragmentProgramChunkPtr;
+typedef FieldContainerPtrSField<FragmentProgramChunkPtr,
+                                UnrecordedRefCounts> SFUnrecFragmentProgramChunkPtr;
+typedef FieldContainerPtrSField<FragmentProgramChunkPtr,
+                                WeakRefCounts      > SFWeakFragmentProgramChunkPtr;
+typedef FieldContainerPtrSField<FragmentProgramChunkPtr,
+                                NoRefCounts        > SFUncountedFragmentProgramChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<FragmentProgramChunkPtr> MFFragmentProgramChunkPtr;
+typedef FieldContainerPtrMField<FragmentProgramChunkPtr,
+                                RecordedRefCounts  > MFRecFragmentProgramChunkPtr;
+typedef FieldContainerPtrMField<FragmentProgramChunkPtr,
+                                UnrecordedRefCounts> MFUnrecFragmentProgramChunkPtr;
+typedef FieldContainerPtrMField<FragmentProgramChunkPtr,
+                                WeakRefCounts      > MFWeakFragmentProgramChunkPtr;
+typedef FieldContainerPtrMField<FragmentProgramChunkPtr,
+                                NoRefCounts        > MFUncountedFragmentProgramChunkPtr;
 #endif
 
 

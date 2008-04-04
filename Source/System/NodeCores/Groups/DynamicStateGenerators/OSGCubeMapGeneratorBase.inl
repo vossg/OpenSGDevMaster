@@ -349,7 +349,7 @@ NodePtrConst CubeMapGeneratorBase::getExclude(const UInt32 index) const
 
 //! Get the CubeMapGenerator::_mfExclude field.
 inline
-const MFNodePtr &CubeMapGeneratorBase::getExclude(void) const
+const MFUnrecNodePtr &CubeMapGeneratorBase::getExclude(void) const
 {
     return _mfExclude;
 }

@@ -96,9 +96,63 @@ struct FieldTraits<PolygonForegroundPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFPolygonForegroundPtr"; }
-    static const char *getMName(void) { return "MFPolygonForegroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFPolygonForegroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFPolygonForegroundPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecPolygonForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecPolygonForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakPolygonForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdPolygonForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecPolygonForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecPolygonForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakPolygonForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdPolygonForegroundPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<PolygonForegroundPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<PolygonForegroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<PolygonForegroundPtr> SFPolygonForegroundPtr;
+typedef FieldContainerPtrSField<PolygonForegroundPtr,
+                                RecordedRefCounts  > SFRecPolygonForegroundPtr;
+typedef FieldContainerPtrSField<PolygonForegroundPtr,
+                                UnrecordedRefCounts> SFUnrecPolygonForegroundPtr;
+typedef FieldContainerPtrSField<PolygonForegroundPtr,
+                                WeakRefCounts      > SFWeakPolygonForegroundPtr;
+typedef FieldContainerPtrSField<PolygonForegroundPtr,
+                                NoRefCounts        > SFUncountedPolygonForegroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<PolygonForegroundPtr> MFPolygonForegroundPtr;
+typedef FieldContainerPtrMField<PolygonForegroundPtr,
+                                RecordedRefCounts  > MFRecPolygonForegroundPtr;
+typedef FieldContainerPtrMField<PolygonForegroundPtr,
+                                UnrecordedRefCounts> MFUnrecPolygonForegroundPtr;
+typedef FieldContainerPtrMField<PolygonForegroundPtr,
+                                WeakRefCounts      > MFWeakPolygonForegroundPtr;
+typedef FieldContainerPtrMField<PolygonForegroundPtr,
+                                NoRefCounts        > MFUncountedPolygonForegroundPtr;
 #endif
 
 

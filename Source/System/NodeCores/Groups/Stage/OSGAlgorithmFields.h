@@ -96,9 +96,63 @@ struct FieldTraits<AlgorithmPtr> :
 
     static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFAlgorithmPtr"; }
-    static const char *getMName(void) { return "MFAlgorithmPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFAlgorithmPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFAlgorithmPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdAlgorithmPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<AlgorithmPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<AlgorithmPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<AlgorithmPtr> SFAlgorithmPtr;
+typedef FieldContainerPtrSField<AlgorithmPtr,
+                                RecordedRefCounts  > SFRecAlgorithmPtr;
+typedef FieldContainerPtrSField<AlgorithmPtr,
+                                UnrecordedRefCounts> SFUnrecAlgorithmPtr;
+typedef FieldContainerPtrSField<AlgorithmPtr,
+                                WeakRefCounts      > SFWeakAlgorithmPtr;
+typedef FieldContainerPtrSField<AlgorithmPtr,
+                                NoRefCounts        > SFUncountedAlgorithmPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<AlgorithmPtr> MFAlgorithmPtr;
+typedef FieldContainerPtrMField<AlgorithmPtr,
+                                RecordedRefCounts  > MFRecAlgorithmPtr;
+typedef FieldContainerPtrMField<AlgorithmPtr,
+                                UnrecordedRefCounts> MFUnrecAlgorithmPtr;
+typedef FieldContainerPtrMField<AlgorithmPtr,
+                                WeakRefCounts      > MFWeakAlgorithmPtr;
+typedef FieldContainerPtrMField<AlgorithmPtr,
+                                NoRefCounts        > MFUncountedAlgorithmPtr;
 #endif
 
 

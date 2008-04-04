@@ -96,9 +96,63 @@ struct FieldTraits<StatisticsForegroundPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFStatisticsForegroundPtr"; }
-    static const char *getMName(void) { return "MFStatisticsForegroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFStatisticsForegroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFStatisticsForegroundPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecStatisticsForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecStatisticsForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakStatisticsForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdStatisticsForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecStatisticsForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecStatisticsForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakStatisticsForegroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdStatisticsForegroundPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<StatisticsForegroundPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<StatisticsForegroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<StatisticsForegroundPtr> SFStatisticsForegroundPtr;
+typedef FieldContainerPtrSField<StatisticsForegroundPtr,
+                                RecordedRefCounts  > SFRecStatisticsForegroundPtr;
+typedef FieldContainerPtrSField<StatisticsForegroundPtr,
+                                UnrecordedRefCounts> SFUnrecStatisticsForegroundPtr;
+typedef FieldContainerPtrSField<StatisticsForegroundPtr,
+                                WeakRefCounts      > SFWeakStatisticsForegroundPtr;
+typedef FieldContainerPtrSField<StatisticsForegroundPtr,
+                                NoRefCounts        > SFUncountedStatisticsForegroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<StatisticsForegroundPtr> MFStatisticsForegroundPtr;
+typedef FieldContainerPtrMField<StatisticsForegroundPtr,
+                                RecordedRefCounts  > MFRecStatisticsForegroundPtr;
+typedef FieldContainerPtrMField<StatisticsForegroundPtr,
+                                UnrecordedRefCounts> MFUnrecStatisticsForegroundPtr;
+typedef FieldContainerPtrMField<StatisticsForegroundPtr,
+                                WeakRefCounts      > MFWeakStatisticsForegroundPtr;
+typedef FieldContainerPtrMField<StatisticsForegroundPtr,
+                                NoRefCounts        > MFUncountedStatisticsForegroundPtr;
 #endif
 
 

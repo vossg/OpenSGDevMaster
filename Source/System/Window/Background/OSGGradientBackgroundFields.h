@@ -96,8 +96,36 @@ struct FieldTraits<GradientBackgroundPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getMName(void) { return "MFGradientBackgroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFGradientBackgroundPtr"; }
 };
+
+
+template<> inline
+const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecGradientBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecGradientBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakGradientBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdGradientBackgroundPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<GradientBackgroundPtr, 0>
@@ -112,7 +140,14 @@ struct FieldTraits<GradientBackgroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<GradientBackgroundPtr> MFGradientBackgroundPtr;
+typedef FieldContainerPtrMField<GradientBackgroundPtr,
+                                RecordedRefCounts  > MFRecGradientBackgroundPtr;
+typedef FieldContainerPtrMField<GradientBackgroundPtr,
+                                UnrecordedRefCounts> MFUnrecGradientBackgroundPtr;
+typedef FieldContainerPtrMField<GradientBackgroundPtr,
+                                WeakRefCounts      > MFWeakGradientBackgroundPtr;
+typedef FieldContainerPtrMField<GradientBackgroundPtr,
+                                NoRefCounts        > MFUncountedGradientBackgroundPtr;
 #endif
 
 

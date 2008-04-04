@@ -136,8 +136,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUnrecNodePtr::Description(
+        SFUnrecNodePtr::getClassType(),
         "root",
         "",
         RootFieldId, RootFieldMask,
@@ -148,8 +148,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFNodePtr::Description(
-        MFNodePtr::getClassType(),
+    pDesc = new MFUnrecNodePtr::Description(
+        MFUnrecNodePtr::getClassType(),
         "exclude",
         "",
         ExcludeFieldId, ExcludeFieldMask,
@@ -160,8 +160,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(),
+    pDesc = new SFUnrecTextureObjChunkPtr::Description(
+        SFUnrecTextureObjChunkPtr::getClassType(),
         "texture",
         "",
         TextureFieldId, TextureFieldMask,
@@ -256,8 +256,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFBackgroundPtr::Description(
-        SFBackgroundPtr::getClassType(),
+    pDesc = new SFUnrecBackgroundPtr::Description(
+        SFUnrecBackgroundPtr::getClassType(),
         "background",
         "",
         BackgroundFieldId, BackgroundFieldMask,
@@ -420,19 +420,19 @@ UInt32 CubeMapGeneratorBase::getContainerSize(void) const
 
 
 //! Get the CubeMapGenerator::_sfRoot field.
-const SFNodePtr *CubeMapGeneratorBase::getSFRoot(void) const
+const SFUnrecNodePtr *CubeMapGeneratorBase::getSFRoot(void) const
 {
     return &_sfRoot;
 }
 
 //! Get the CubeMapGenerator::_mfExclude field.
-const MFNodePtr *CubeMapGeneratorBase::getMFExclude(void) const
+const MFUnrecNodePtr *CubeMapGeneratorBase::getMFExclude(void) const
 {
     return &_mfExclude;
 }
 
 //! Get the CubeMapGenerator::_sfTexture field.
-const SFTextureObjChunkPtr *CubeMapGeneratorBase::getSFTexture(void) const
+const SFUnrecTextureObjChunkPtr *CubeMapGeneratorBase::getSFTexture(void) const
 {
     return &_sfTexture;
 }
@@ -558,7 +558,7 @@ SFUInt32            *CubeMapGeneratorBase::getSFSetupMode      (void)
 #endif
 
 //! Get the CubeMapGenerator::_sfBackground field.
-const SFBackgroundPtr *CubeMapGeneratorBase::getSFBackground(void) const
+const SFUnrecBackgroundPtr *CubeMapGeneratorBase::getSFBackground(void) const
 {
     return &_sfBackground;
 }
@@ -577,11 +577,11 @@ void CubeMapGeneratorBase::pushToExclude(NodePtrConstArg value)
     _mfExclude.push_back(value);
 }
 
-void CubeMapGeneratorBase::assignExclude  (const MFNodePtr         &value)
+void CubeMapGeneratorBase::assignExclude  (const MFUnrecNodePtr    &value)
 {
-    MFNodePtr        ::const_iterator elemIt  =
+    MFUnrecNodePtr   ::const_iterator elemIt  =
         value.begin();
-    MFNodePtr        ::const_iterator elemEnd =
+    MFUnrecNodePtr   ::const_iterator elemEnd =
         value.end  ();
 
     static_cast<CubeMapGenerator *>(this)->clearExclude();
@@ -602,7 +602,7 @@ void CubeMapGeneratorBase::insertIntoExclude(UInt32                uiIndex,
 
     editMField(ExcludeFieldMask, _mfExclude);
 
-    MFNodePtr::iterator fieldIt = _mfExclude.begin();
+    MFUnrecNodePtr::iterator fieldIt = _mfExclude.begin();
 
     //addRef(value);
 
@@ -660,7 +660,7 @@ void CubeMapGeneratorBase::removeFromExclude(UInt32 uiIndex)
     {
         editMField(ExcludeFieldMask, _mfExclude);
 
-        MFNodePtr::iterator fieldIt = _mfExclude.begin();
+        MFUnrecNodePtr::iterator fieldIt = _mfExclude.begin();
 
         fieldIt += uiIndex;
 
@@ -678,7 +678,7 @@ void CubeMapGeneratorBase::removeFromExclude(NodePtrConstArg value)
     {
         editMField(ExcludeFieldMask, _mfExclude);
 
-        MFNodePtr::iterator fieldIt = _mfExclude.begin();
+        MFUnrecNodePtr::iterator fieldIt = _mfExclude.begin();
 
         fieldIt += iElemIdx;
 
@@ -691,8 +691,8 @@ void CubeMapGeneratorBase::clearExclude(void)
 {
     editMField(ExcludeFieldMask, _mfExclude);
 
-    MFNodePtr::iterator       fieldIt  = _mfExclude.begin();
-    MFNodePtr::const_iterator fieldEnd = _mfExclude.end  ();
+    MFUnrecNodePtr::iterator       fieldIt  = _mfExclude.begin();
+    MFUnrecNodePtr::const_iterator fieldEnd = _mfExclude.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -999,9 +999,9 @@ void CubeMapGeneratorBase::onCreate(const CubeMapGenerator *source)
 
         this->setRoot(source->getRoot());
 
-        MFNodePtr::const_iterator ExcludeIt  =
+        MFUnrecNodePtr::const_iterator ExcludeIt  =
             source->_mfExclude.begin();
-        MFNodePtr::const_iterator ExcludeEnd =
+        MFUnrecNodePtr::const_iterator ExcludeEnd =
             source->_mfExclude.end  ();
 
         while(ExcludeIt != ExcludeEnd)
@@ -1021,8 +1021,8 @@ void CubeMapGeneratorBase::onCreate(const CubeMapGenerator *source)
 
 GetFieldHandlePtr CubeMapGeneratorBase::getHandleRoot            (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUnrecNodePtr::GetHandlePtr returnValue(
+        new  SFUnrecNodePtr::GetHandle(
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 
@@ -1031,8 +1031,8 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleRoot            (void) const
 
 EditFieldHandlePtr CubeMapGeneratorBase::editHandleRoot           (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUnrecNodePtr::EditHandlePtr returnValue(
+        new  SFUnrecNodePtr::EditHandle(
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 
@@ -1046,8 +1046,8 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleRoot           (void)
 
 GetFieldHandlePtr CubeMapGeneratorBase::getHandleExclude         (void) const
 {
-    MFNodePtr::GetHandlePtr returnValue(
-        new  MFNodePtr::GetHandle(
+    MFUnrecNodePtr::GetHandlePtr returnValue(
+        new  MFUnrecNodePtr::GetHandle(
              &_mfExclude, 
              this->getType().getFieldDesc(ExcludeFieldId)));
 
@@ -1056,8 +1056,8 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleExclude         (void) const
 
 EditFieldHandlePtr CubeMapGeneratorBase::editHandleExclude        (void)
 {
-    MFNodePtr::EditHandlePtr returnValue(
-        new  MFNodePtr::EditHandle(
+    MFUnrecNodePtr::EditHandlePtr returnValue(
+        new  MFUnrecNodePtr::EditHandle(
              &_mfExclude, 
              this->getType().getFieldDesc(ExcludeFieldId)));
 
@@ -1071,8 +1071,8 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleExclude        (void)
 
 GetFieldHandlePtr CubeMapGeneratorBase::getHandleTexture         (void) const
 {
-    SFTextureObjChunkPtr::GetHandlePtr returnValue(
-        new  SFTextureObjChunkPtr::GetHandle(
+    SFUnrecTextureObjChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureObjChunkPtr::GetHandle(
              &_sfTexture, 
              this->getType().getFieldDesc(TextureFieldId)));
 
@@ -1081,8 +1081,8 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleTexture         (void) const
 
 EditFieldHandlePtr CubeMapGeneratorBase::editHandleTexture        (void)
 {
-    SFTextureObjChunkPtr::EditHandlePtr returnValue(
-        new  SFTextureObjChunkPtr::EditHandle(
+    SFUnrecTextureObjChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureObjChunkPtr::EditHandle(
              &_sfTexture, 
              this->getType().getFieldDesc(TextureFieldId)));
 
@@ -1253,8 +1253,8 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleSetupMode      (void)
 
 GetFieldHandlePtr CubeMapGeneratorBase::getHandleBackground      (void) const
 {
-    SFBackgroundPtr::GetHandlePtr returnValue(
-        new  SFBackgroundPtr::GetHandle(
+    SFUnrecBackgroundPtr::GetHandlePtr returnValue(
+        new  SFUnrecBackgroundPtr::GetHandle(
              &_sfBackground, 
              this->getType().getFieldDesc(BackgroundFieldId)));
 
@@ -1263,8 +1263,8 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleBackground      (void) const
 
 EditFieldHandlePtr CubeMapGeneratorBase::editHandleBackground     (void)
 {
-    SFBackgroundPtr::EditHandlePtr returnValue(
-        new  SFBackgroundPtr::EditHandle(
+    SFUnrecBackgroundPtr::EditHandlePtr returnValue(
+        new  SFUnrecBackgroundPtr::EditHandle(
              &_sfBackground, 
              this->getType().getFieldDesc(BackgroundFieldId)));
 

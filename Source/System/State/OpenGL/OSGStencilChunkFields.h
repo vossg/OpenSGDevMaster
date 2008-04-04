@@ -95,6 +95,8 @@ struct FieldTraits<StencilChunkPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<StencilChunkPtr, 0>
     \hideinhierarchy

@@ -96,9 +96,63 @@ struct FieldTraits<CallbackAlgorithmPtr> :
 
     static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFCallbackAlgorithmPtr"; }
-    static const char *getMName(void) { return "MFCallbackAlgorithmPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFCallbackAlgorithmPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFCallbackAlgorithmPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecCallbackAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecCallbackAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakCallbackAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdCallbackAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecCallbackAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecCallbackAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakCallbackAlgorithmPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdCallbackAlgorithmPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<CallbackAlgorithmPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<CallbackAlgorithmPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<CallbackAlgorithmPtr> SFCallbackAlgorithmPtr;
+typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
+                                RecordedRefCounts  > SFRecCallbackAlgorithmPtr;
+typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
+                                UnrecordedRefCounts> SFUnrecCallbackAlgorithmPtr;
+typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
+                                WeakRefCounts      > SFWeakCallbackAlgorithmPtr;
+typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
+                                NoRefCounts        > SFUncountedCallbackAlgorithmPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<CallbackAlgorithmPtr> MFCallbackAlgorithmPtr;
+typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
+                                RecordedRefCounts  > MFRecCallbackAlgorithmPtr;
+typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
+                                UnrecordedRefCounts> MFUnrecCallbackAlgorithmPtr;
+typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
+                                WeakRefCounts      > MFWeakCallbackAlgorithmPtr;
+typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
+                                NoRefCounts        > MFUncountedCallbackAlgorithmPtr;
 #endif
 
 

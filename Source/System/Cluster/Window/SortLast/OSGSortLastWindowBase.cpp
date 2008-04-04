@@ -100,8 +100,8 @@ void SortLastWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFNodePtr::Description(
-        MFNodePtr::getClassType(),
+    pDesc = new MFUnrecNodePtr::Description(
+        MFUnrecNodePtr::getClassType(),
         "groupNodes",
         "",
         GroupNodesFieldId, GroupNodesFieldMask,
@@ -212,7 +212,7 @@ UInt32 SortLastWindowBase::getContainerSize(void) const
 
 
 //! Get the SortLastWindow::_mfGroupNodes field.
-const MFNodePtr *SortLastWindowBase::getMFGroupNodes(void) const
+const MFUnrecNodePtr *SortLastWindowBase::getMFGroupNodes(void) const
 {
     return &_mfGroupNodes;
 }
@@ -269,11 +269,11 @@ void SortLastWindowBase::pushToGroupNodes(NodePtrConstArg value)
     _mfGroupNodes.push_back(value);
 }
 
-void SortLastWindowBase::assignGroupNodes(const MFNodePtr         &value)
+void SortLastWindowBase::assignGroupNodes(const MFUnrecNodePtr    &value)
 {
-    MFNodePtr        ::const_iterator elemIt  =
+    MFUnrecNodePtr   ::const_iterator elemIt  =
         value.begin();
-    MFNodePtr        ::const_iterator elemEnd =
+    MFUnrecNodePtr   ::const_iterator elemEnd =
         value.end  ();
 
     static_cast<SortLastWindow *>(this)->clearGroupNodes();
@@ -294,7 +294,7 @@ void SortLastWindowBase::insertIntoGroupNodes(UInt32                uiIndex,
 
     editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-    MFNodePtr::iterator fieldIt = _mfGroupNodes.begin();
+    MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.begin();
 
     //addRef(value);
 
@@ -352,7 +352,7 @@ void SortLastWindowBase::removeFromGroupNodes(UInt32 uiIndex)
     {
         editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-        MFNodePtr::iterator fieldIt = _mfGroupNodes.begin();
+        MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.begin();
 
         fieldIt += uiIndex;
 
@@ -370,7 +370,7 @@ void SortLastWindowBase::removeFromGroupNodes(NodePtrConstArg value)
     {
         editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-        MFNodePtr::iterator fieldIt = _mfGroupNodes.begin();
+        MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.begin();
 
         fieldIt += iElemIdx;
 
@@ -383,8 +383,8 @@ void SortLastWindowBase::clearGroupNodes(void)
 {
     editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-    MFNodePtr::iterator       fieldIt  = _mfGroupNodes.begin();
-    MFNodePtr::const_iterator fieldEnd = _mfGroupNodes.end  ();
+    MFUnrecNodePtr::iterator       fieldIt  = _mfGroupNodes.begin();
+    MFUnrecNodePtr::const_iterator fieldEnd = _mfGroupNodes.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -659,9 +659,9 @@ void SortLastWindowBase::onCreate(const SortLastWindow *source)
     if(source != NULL)
     {
 
-        MFNodePtr::const_iterator GroupNodesIt  =
+        MFUnrecNodePtr::const_iterator GroupNodesIt  =
             source->_mfGroupNodes.begin();
-        MFNodePtr::const_iterator GroupNodesEnd =
+        MFUnrecNodePtr::const_iterator GroupNodesEnd =
             source->_mfGroupNodes.end  ();
 
         while(GroupNodesIt != GroupNodesEnd)
@@ -675,8 +675,8 @@ void SortLastWindowBase::onCreate(const SortLastWindow *source)
 
 GetFieldHandlePtr SortLastWindowBase::getHandleGroupNodes      (void) const
 {
-    MFNodePtr::GetHandlePtr returnValue(
-        new  MFNodePtr::GetHandle(
+    MFUnrecNodePtr::GetHandlePtr returnValue(
+        new  MFUnrecNodePtr::GetHandle(
              &_mfGroupNodes, 
              this->getType().getFieldDesc(GroupNodesFieldId)));
 
@@ -685,8 +685,8 @@ GetFieldHandlePtr SortLastWindowBase::getHandleGroupNodes      (void) const
 
 EditFieldHandlePtr SortLastWindowBase::editHandleGroupNodes     (void)
 {
-    MFNodePtr::EditHandlePtr returnValue(
-        new  MFNodePtr::EditHandle(
+    MFUnrecNodePtr::EditHandlePtr returnValue(
+        new  MFUnrecNodePtr::EditHandle(
              &_mfGroupNodes, 
              this->getType().getFieldDesc(GroupNodesFieldId)));
 

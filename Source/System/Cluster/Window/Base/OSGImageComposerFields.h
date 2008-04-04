@@ -96,9 +96,63 @@ struct FieldTraits<ImageComposerPtr> :
 
     static OSG_CLUSTER_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFImageComposerPtr"; }
-    static const char *getMName(void) { return "MFImageComposerPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFImageComposerPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFImageComposerPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecImageComposerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecImageComposerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakImageComposerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdImageComposerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecImageComposerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecImageComposerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakImageComposerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdImageComposerPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ImageComposerPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ImageComposerPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldSingle */
 
-typedef FieldContainerPtrSField<ImageComposerPtr> SFImageComposerPtr;
+typedef FieldContainerPtrSField<ImageComposerPtr,
+                                RecordedRefCounts  > SFRecImageComposerPtr;
+typedef FieldContainerPtrSField<ImageComposerPtr,
+                                UnrecordedRefCounts> SFUnrecImageComposerPtr;
+typedef FieldContainerPtrSField<ImageComposerPtr,
+                                WeakRefCounts      > SFWeakImageComposerPtr;
+typedef FieldContainerPtrSField<ImageComposerPtr,
+                                NoRefCounts        > SFUncountedImageComposerPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldMulti */
 
-typedef FieldContainerPtrMField<ImageComposerPtr> MFImageComposerPtr;
+typedef FieldContainerPtrMField<ImageComposerPtr,
+                                RecordedRefCounts  > MFRecImageComposerPtr;
+typedef FieldContainerPtrMField<ImageComposerPtr,
+                                UnrecordedRefCounts> MFUnrecImageComposerPtr;
+typedef FieldContainerPtrMField<ImageComposerPtr,
+                                WeakRefCounts      > MFWeakImageComposerPtr;
+typedef FieldContainerPtrMField<ImageComposerPtr,
+                                NoRefCounts        > MFUncountedImageComposerPtr;
 #endif
 
 

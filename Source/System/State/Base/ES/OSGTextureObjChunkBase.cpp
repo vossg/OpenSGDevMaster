@@ -388,8 +388,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(),
+    pDesc = new SFUnrecImagePtr::Description(
+        SFUnrecImagePtr::getClassType(),
         "image",
         "",
         ImageFieldId, ImageFieldMask,
@@ -1748,7 +1748,7 @@ UInt32 TextureObjChunkBase::getContainerSize(void) const
 
 
 //! Get the TextureObjChunk::_sfImage field.
-const SFImagePtr *TextureObjChunkBase::getSFImage(void) const
+const SFUnrecImagePtr *TextureObjChunkBase::getSFImage(void) const
 {
     return &_sfImage;
 }
@@ -3712,8 +3712,8 @@ void TextureObjChunkBase::onCreate(const TextureObjChunk *source)
 
 GetFieldHandlePtr TextureObjChunkBase::getHandleImage           (void) const
 {
-    SFImagePtr::GetHandlePtr returnValue(
-        new  SFImagePtr::GetHandle(
+    SFUnrecImagePtr::GetHandlePtr returnValue(
+        new  SFUnrecImagePtr::GetHandle(
              &_sfImage, 
              this->getType().getFieldDesc(ImageFieldId)));
 
@@ -3722,8 +3722,8 @@ GetFieldHandlePtr TextureObjChunkBase::getHandleImage           (void) const
 
 EditFieldHandlePtr TextureObjChunkBase::editHandleImage          (void)
 {
-    SFImagePtr::EditHandlePtr returnValue(
-        new  SFImagePtr::EditHandle(
+    SFUnrecImagePtr::EditHandlePtr returnValue(
+        new  SFUnrecImagePtr::EditHandle(
              &_sfImage, 
              this->getType().getFieldDesc(ImageFieldId)));
 
@@ -4933,24 +4933,12 @@ DataType FieldTraits<TextureObjChunkPtr>::_type("TextureObjChunkPtr", "TextureBa
 
 OSG_FIELDTRAITS_GETTYPE(TextureObjChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    TextureObjChunkPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           TextureObjChunkPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         TextureObjChunkPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    TextureObjChunkPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         TextureObjChunkPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           TextureObjChunkPtr, 
+                           0);
 
 OSG_END_NAMESPACE

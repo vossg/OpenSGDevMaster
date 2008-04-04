@@ -96,9 +96,63 @@ struct FieldTraits<RenderOptionsPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFRenderOptionsPtr"; }
-    static const char *getMName(void) { return "MFRenderOptionsPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFRenderOptionsPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFRenderOptionsPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecRenderOptionsPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecRenderOptionsPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakRenderOptionsPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdRenderOptionsPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecRenderOptionsPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecRenderOptionsPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakRenderOptionsPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdRenderOptionsPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<RenderOptionsPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<RenderOptionsPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<RenderOptionsPtr> SFRenderOptionsPtr;
+typedef FieldContainerPtrSField<RenderOptionsPtr,
+                                RecordedRefCounts  > SFRecRenderOptionsPtr;
+typedef FieldContainerPtrSField<RenderOptionsPtr,
+                                UnrecordedRefCounts> SFUnrecRenderOptionsPtr;
+typedef FieldContainerPtrSField<RenderOptionsPtr,
+                                WeakRefCounts      > SFWeakRenderOptionsPtr;
+typedef FieldContainerPtrSField<RenderOptionsPtr,
+                                NoRefCounts        > SFUncountedRenderOptionsPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<RenderOptionsPtr> MFRenderOptionsPtr;
+typedef FieldContainerPtrMField<RenderOptionsPtr,
+                                RecordedRefCounts  > MFRecRenderOptionsPtr;
+typedef FieldContainerPtrMField<RenderOptionsPtr,
+                                UnrecordedRefCounts> MFUnrecRenderOptionsPtr;
+typedef FieldContainerPtrMField<RenderOptionsPtr,
+                                WeakRefCounts      > MFWeakRenderOptionsPtr;
+typedef FieldContainerPtrMField<RenderOptionsPtr,
+                                NoRefCounts        > MFUncountedRenderOptionsPtr;
 #endif
 
 

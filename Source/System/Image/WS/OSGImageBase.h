@@ -65,7 +65,7 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGParentFieldContainerFields.h" // Parents type
+#include "OSGFieldContainerFields.h" // Parents type
 #include "OSGInt32Fields.h" // Dimension type
 #include "OSGInt32Fields.h" // Width type
 #include "OSGInt32Fields.h" // Height type

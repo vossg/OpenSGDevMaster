@@ -96,9 +96,63 @@ struct FieldTraits<PolygonBackgroundPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFPolygonBackgroundPtr"; }
-    static const char *getMName(void) { return "MFPolygonBackgroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFPolygonBackgroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFPolygonBackgroundPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecPolygonBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecPolygonBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakPolygonBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdPolygonBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecPolygonBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecPolygonBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakPolygonBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdPolygonBackgroundPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<PolygonBackgroundPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<PolygonBackgroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<PolygonBackgroundPtr> SFPolygonBackgroundPtr;
+typedef FieldContainerPtrSField<PolygonBackgroundPtr,
+                                RecordedRefCounts  > SFRecPolygonBackgroundPtr;
+typedef FieldContainerPtrSField<PolygonBackgroundPtr,
+                                UnrecordedRefCounts> SFUnrecPolygonBackgroundPtr;
+typedef FieldContainerPtrSField<PolygonBackgroundPtr,
+                                WeakRefCounts      > SFWeakPolygonBackgroundPtr;
+typedef FieldContainerPtrSField<PolygonBackgroundPtr,
+                                NoRefCounts        > SFUncountedPolygonBackgroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<PolygonBackgroundPtr> MFPolygonBackgroundPtr;
+typedef FieldContainerPtrMField<PolygonBackgroundPtr,
+                                RecordedRefCounts  > MFRecPolygonBackgroundPtr;
+typedef FieldContainerPtrMField<PolygonBackgroundPtr,
+                                UnrecordedRefCounts> MFUnrecPolygonBackgroundPtr;
+typedef FieldContainerPtrMField<PolygonBackgroundPtr,
+                                WeakRefCounts      > MFWeakPolygonBackgroundPtr;
+typedef FieldContainerPtrMField<PolygonBackgroundPtr,
+                                NoRefCounts        > MFUncountedPolygonBackgroundPtr;
 #endif
 
 

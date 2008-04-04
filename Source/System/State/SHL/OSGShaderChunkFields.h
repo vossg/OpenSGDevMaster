@@ -96,9 +96,63 @@ struct FieldTraits<ShaderChunkPtr> :
 
     static OSG_STATE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFShaderChunkPtr"; }
-    static const char *getMName(void) { return "MFShaderChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFShaderChunkPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFShaderChunkPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecShaderChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecShaderChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakShaderChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdShaderChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecShaderChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecShaderChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakShaderChunkPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdShaderChunkPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ShaderChunkPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ShaderChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<ShaderChunkPtr> SFShaderChunkPtr;
+typedef FieldContainerPtrSField<ShaderChunkPtr,
+                                RecordedRefCounts  > SFRecShaderChunkPtr;
+typedef FieldContainerPtrSField<ShaderChunkPtr,
+                                UnrecordedRefCounts> SFUnrecShaderChunkPtr;
+typedef FieldContainerPtrSField<ShaderChunkPtr,
+                                WeakRefCounts      > SFWeakShaderChunkPtr;
+typedef FieldContainerPtrSField<ShaderChunkPtr,
+                                NoRefCounts        > SFUncountedShaderChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<ShaderChunkPtr> MFShaderChunkPtr;
+typedef FieldContainerPtrMField<ShaderChunkPtr,
+                                RecordedRefCounts  > MFRecShaderChunkPtr;
+typedef FieldContainerPtrMField<ShaderChunkPtr,
+                                UnrecordedRefCounts> MFUnrecShaderChunkPtr;
+typedef FieldContainerPtrMField<ShaderChunkPtr,
+                                WeakRefCounts      > MFWeakShaderChunkPtr;
+typedef FieldContainerPtrMField<ShaderChunkPtr,
+                                NoRefCounts        > MFUncountedShaderChunkPtr;
 #endif
 
 

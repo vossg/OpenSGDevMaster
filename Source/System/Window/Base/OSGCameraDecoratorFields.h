@@ -96,9 +96,63 @@ struct FieldTraits<CameraDecoratorPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFCameraDecoratorPtr"; }
-    static const char *getMName(void) { return "MFCameraDecoratorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFCameraDecoratorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFCameraDecoratorPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<CameraDecoratorPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CameraDecoratorPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CameraDecoratorPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CameraDecoratorPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CameraDecoratorPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CameraDecoratorPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CameraDecoratorPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakCameraDecoratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CameraDecoratorPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdCameraDecoratorPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<CameraDecoratorPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<CameraDecoratorPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<CameraDecoratorPtr> SFCameraDecoratorPtr;
+typedef FieldContainerPtrSField<CameraDecoratorPtr,
+                                RecordedRefCounts  > SFRecCameraDecoratorPtr;
+typedef FieldContainerPtrSField<CameraDecoratorPtr,
+                                UnrecordedRefCounts> SFUnrecCameraDecoratorPtr;
+typedef FieldContainerPtrSField<CameraDecoratorPtr,
+                                WeakRefCounts      > SFWeakCameraDecoratorPtr;
+typedef FieldContainerPtrSField<CameraDecoratorPtr,
+                                NoRefCounts        > SFUncountedCameraDecoratorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<CameraDecoratorPtr> MFCameraDecoratorPtr;
+typedef FieldContainerPtrMField<CameraDecoratorPtr,
+                                RecordedRefCounts  > MFRecCameraDecoratorPtr;
+typedef FieldContainerPtrMField<CameraDecoratorPtr,
+                                UnrecordedRefCounts> MFUnrecCameraDecoratorPtr;
+typedef FieldContainerPtrMField<CameraDecoratorPtr,
+                                WeakRefCounts      > MFWeakCameraDecoratorPtr;
+typedef FieldContainerPtrMField<CameraDecoratorPtr,
+                                NoRefCounts        > MFUncountedCameraDecoratorPtr;
 #endif
 
 

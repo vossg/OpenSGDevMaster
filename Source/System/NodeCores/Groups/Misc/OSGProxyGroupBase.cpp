@@ -165,8 +165,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUnrecNodePtr::Description(
+        SFUnrecNodePtr::getClassType(),
         "root",
         "",
         RootFieldId, RootFieldMask,
@@ -488,7 +488,7 @@ SFString            *ProxyGroupBase::getSFUrl            (void)
 #endif
 
 //! Get the ProxyGroup::_sfRoot field.
-const SFNodePtr *ProxyGroupBase::getSFRoot(void) const
+const SFUnrecNodePtr *ProxyGroupBase::getSFRoot(void) const
 {
     return &_sfRoot;
 }
@@ -1105,8 +1105,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleUrl            (void)
 
 GetFieldHandlePtr ProxyGroupBase::getHandleRoot            (void) const
 {
-    SFNodePtr::GetHandlePtr returnValue(
-        new  SFNodePtr::GetHandle(
+    SFUnrecNodePtr::GetHandlePtr returnValue(
+        new  SFUnrecNodePtr::GetHandle(
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 
@@ -1115,8 +1115,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleRoot            (void) const
 
 EditFieldHandlePtr ProxyGroupBase::editHandleRoot           (void)
 {
-    SFNodePtr::EditHandlePtr returnValue(
-        new  SFNodePtr::EditHandle(
+    SFUnrecNodePtr::EditHandlePtr returnValue(
+        new  SFUnrecNodePtr::EditHandle(
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 

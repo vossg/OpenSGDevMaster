@@ -564,24 +564,12 @@ DataType FieldTraits<InlinePtr>::_type("InlinePtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(InlinePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    InlinePtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           InlinePtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         InlinePtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    InlinePtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         InlinePtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           InlinePtr, 
+                           0);
 
 OSG_END_NAMESPACE

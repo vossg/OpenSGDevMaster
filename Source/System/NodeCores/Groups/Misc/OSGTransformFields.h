@@ -96,9 +96,63 @@ struct FieldTraits<TransformPtr> :
 
     static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFTransformPtr"; }
-    static const char *getMName(void) { return "MFTransformPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFTransformPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFTransformPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<TransformPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakTransformPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TransformPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdTransformPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<TransformPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<TransformPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<TransformPtr> SFTransformPtr;
+typedef FieldContainerPtrSField<TransformPtr,
+                                RecordedRefCounts  > SFRecTransformPtr;
+typedef FieldContainerPtrSField<TransformPtr,
+                                UnrecordedRefCounts> SFUnrecTransformPtr;
+typedef FieldContainerPtrSField<TransformPtr,
+                                WeakRefCounts      > SFWeakTransformPtr;
+typedef FieldContainerPtrSField<TransformPtr,
+                                NoRefCounts        > SFUncountedTransformPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<TransformPtr> MFTransformPtr;
+typedef FieldContainerPtrMField<TransformPtr,
+                                RecordedRefCounts  > MFRecTransformPtr;
+typedef FieldContainerPtrMField<TransformPtr,
+                                UnrecordedRefCounts> MFUnrecTransformPtr;
+typedef FieldContainerPtrMField<TransformPtr,
+                                WeakRefCounts      > MFWeakTransformPtr;
+typedef FieldContainerPtrMField<TransformPtr,
+                                NoRefCounts        > MFUncountedTransformPtr;
 #endif
 
 

@@ -5183,24 +5183,12 @@ DataType FieldTraits<RegisterCombinersChunkPtr>::_type("RegisterCombinersChunkPt
 
 OSG_FIELDTRAITS_GETTYPE(RegisterCombinersChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    RegisterCombinersChunkPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           RegisterCombinersChunkPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         RegisterCombinersChunkPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    RegisterCombinersChunkPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         RegisterCombinersChunkPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           RegisterCombinersChunkPtr, 
+                           0);
 
 OSG_END_NAMESPACE

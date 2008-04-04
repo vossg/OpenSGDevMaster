@@ -96,9 +96,63 @@ struct FieldTraits<FrameBufferObjectPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFFrameBufferObjectPtr"; }
-    static const char *getMName(void) { return "MFFrameBufferObjectPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFFrameBufferObjectPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFFrameBufferObjectPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecFrameBufferObjectPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFrameBufferObjectPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFrameBufferObjectPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFrameBufferObjectPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecFrameBufferObjectPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFrameBufferObjectPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFrameBufferObjectPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFrameBufferObjectPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<FrameBufferObjectPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<FrameBufferObjectPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<FrameBufferObjectPtr> SFFrameBufferObjectPtr;
+typedef FieldContainerPtrSField<FrameBufferObjectPtr,
+                                RecordedRefCounts  > SFRecFrameBufferObjectPtr;
+typedef FieldContainerPtrSField<FrameBufferObjectPtr,
+                                UnrecordedRefCounts> SFUnrecFrameBufferObjectPtr;
+typedef FieldContainerPtrSField<FrameBufferObjectPtr,
+                                WeakRefCounts      > SFWeakFrameBufferObjectPtr;
+typedef FieldContainerPtrSField<FrameBufferObjectPtr,
+                                NoRefCounts        > SFUncountedFrameBufferObjectPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<FrameBufferObjectPtr> MFFrameBufferObjectPtr;
+typedef FieldContainerPtrMField<FrameBufferObjectPtr,
+                                RecordedRefCounts  > MFRecFrameBufferObjectPtr;
+typedef FieldContainerPtrMField<FrameBufferObjectPtr,
+                                UnrecordedRefCounts> MFUnrecFrameBufferObjectPtr;
+typedef FieldContainerPtrMField<FrameBufferObjectPtr,
+                                WeakRefCounts      > MFWeakFrameBufferObjectPtr;
+typedef FieldContainerPtrMField<FrameBufferObjectPtr,
+                                NoRefCounts        > MFUncountedFrameBufferObjectPtr;
 #endif
 
 

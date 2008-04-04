@@ -108,8 +108,8 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFFieldContainerPtr::Description(
-        MFFieldContainerPtr::getClassType(),
+    pDesc = new MFUnrecFieldContainerPtr::Description(
+        MFUnrecFieldContainerPtr::getClassType(),
         "containers",
         "A list of containers held in the pool.\n",
         ContainersFieldId, ContainersFieldMask,
@@ -206,7 +206,7 @@ SFString            *ContainerPoolBase::getSFName           (void)
 #endif
 
 //! Get the ContainerPool::_mfContainers field.
-const MFFieldContainerPtr *ContainerPoolBase::getMFContainers(void) const
+const MFUnrecFieldContainerPtr *ContainerPoolBase::getMFContainers(void) const
 {
     return &_mfContainers;
 }
@@ -225,11 +225,11 @@ void ContainerPoolBase::pushToContainers(FieldContainerPtrConstArg value)
     _mfContainers.push_back(value);
 }
 
-void ContainerPoolBase::assignContainers(const MFFieldContainerPtr &value)
+void ContainerPoolBase::assignContainers(const MFUnrecFieldContainerPtr &value)
 {
-    MFFieldContainerPtr::const_iterator elemIt  =
+    MFUnrecFieldContainerPtr::const_iterator elemIt  =
         value.begin();
-    MFFieldContainerPtr::const_iterator elemEnd =
+    MFUnrecFieldContainerPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<ContainerPool *>(this)->clearContainers();
@@ -250,7 +250,7 @@ void ContainerPoolBase::insertIntoContainers(UInt32                uiIndex,
 
     editMField(ContainersFieldMask, _mfContainers);
 
-    MFFieldContainerPtr::iterator fieldIt = _mfContainers.begin();
+    MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.begin();
 
     //addRef(value);
 
@@ -308,7 +308,7 @@ void ContainerPoolBase::removeFromContainers(UInt32 uiIndex)
     {
         editMField(ContainersFieldMask, _mfContainers);
 
-        MFFieldContainerPtr::iterator fieldIt = _mfContainers.begin();
+        MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.begin();
 
         fieldIt += uiIndex;
 
@@ -326,7 +326,7 @@ void ContainerPoolBase::removeFromContainers(FieldContainerPtrConstArg value)
     {
         editMField(ContainersFieldMask, _mfContainers);
 
-        MFFieldContainerPtr::iterator fieldIt = _mfContainers.begin();
+        MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.begin();
 
         fieldIt += iElemIdx;
 
@@ -339,8 +339,8 @@ void ContainerPoolBase::clearContainers(void)
 {
     editMField(ContainersFieldMask, _mfContainers);
 
-    MFFieldContainerPtr::iterator       fieldIt  = _mfContainers.begin();
-    MFFieldContainerPtr::const_iterator fieldEnd = _mfContainers.end  ();
+    MFUnrecFieldContainerPtr::iterator       fieldIt  = _mfContainers.begin();
+    MFUnrecFieldContainerPtr::const_iterator fieldEnd = _mfContainers.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -519,9 +519,9 @@ void ContainerPoolBase::onCreate(const ContainerPool *source)
     if(source != NULL)
     {
 
-        MFFieldContainerPtr::const_iterator ContainersIt  =
+        MFUnrecFieldContainerPtr::const_iterator ContainersIt  =
             source->_mfContainers.begin();
-        MFFieldContainerPtr::const_iterator ContainersEnd =
+        MFUnrecFieldContainerPtr::const_iterator ContainersEnd =
             source->_mfContainers.end  ();
 
         while(ContainersIt != ContainersEnd)
@@ -557,8 +557,8 @@ EditFieldHandlePtr ContainerPoolBase::editHandleName           (void)
 
 GetFieldHandlePtr ContainerPoolBase::getHandleContainers      (void) const
 {
-    MFFieldContainerPtr::GetHandlePtr returnValue(
-        new  MFFieldContainerPtr::GetHandle(
+    MFUnrecFieldContainerPtr::GetHandlePtr returnValue(
+        new  MFUnrecFieldContainerPtr::GetHandle(
              &_mfContainers, 
              this->getType().getFieldDesc(ContainersFieldId)));
 
@@ -567,8 +567,8 @@ GetFieldHandlePtr ContainerPoolBase::getHandleContainers      (void) const
 
 EditFieldHandlePtr ContainerPoolBase::editHandleContainers     (void)
 {
-    MFFieldContainerPtr::EditHandlePtr returnValue(
-        new  MFFieldContainerPtr::EditHandle(
+    MFUnrecFieldContainerPtr::EditHandlePtr returnValue(
+        new  MFUnrecFieldContainerPtr::EditHandle(
              &_mfContainers, 
              this->getType().getFieldDesc(ContainersFieldId)));
 
@@ -624,24 +624,12 @@ DataType FieldTraits<ContainerPoolPtr>::_type("ContainerPoolPtr", "FieldContaine
 
 OSG_FIELDTRAITS_GETTYPE(ContainerPoolPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    ContainerPoolPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           ContainerPoolPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         ContainerPoolPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    ContainerPoolPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         ContainerPoolPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           ContainerPoolPtr, 
+                           0);
 
 OSG_END_NAMESPACE

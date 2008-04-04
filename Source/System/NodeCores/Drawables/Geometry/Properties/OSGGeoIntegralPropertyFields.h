@@ -96,9 +96,63 @@ struct FieldTraits<GeoIntegralPropertyPtr> :
 
     static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFGeoIntegralPropertyPtr"; }
-    static const char *getMName(void) { return "MFGeoIntegralPropertyPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFGeoIntegralPropertyPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFGeoIntegralPropertyPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdGeoIntegralPropertyPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<GeoIntegralPropertyPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<GeoIntegralPropertyPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<GeoIntegralPropertyPtr> SFGeoIntegralPropertyPtr;
+typedef FieldContainerPtrSField<GeoIntegralPropertyPtr,
+                                RecordedRefCounts  > SFRecGeoIntegralPropertyPtr;
+typedef FieldContainerPtrSField<GeoIntegralPropertyPtr,
+                                UnrecordedRefCounts> SFUnrecGeoIntegralPropertyPtr;
+typedef FieldContainerPtrSField<GeoIntegralPropertyPtr,
+                                WeakRefCounts      > SFWeakGeoIntegralPropertyPtr;
+typedef FieldContainerPtrSField<GeoIntegralPropertyPtr,
+                                NoRefCounts        > SFUncountedGeoIntegralPropertyPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<GeoIntegralPropertyPtr> MFGeoIntegralPropertyPtr;
+typedef FieldContainerPtrMField<GeoIntegralPropertyPtr,
+                                RecordedRefCounts  > MFRecGeoIntegralPropertyPtr;
+typedef FieldContainerPtrMField<GeoIntegralPropertyPtr,
+                                UnrecordedRefCounts> MFUnrecGeoIntegralPropertyPtr;
+typedef FieldContainerPtrMField<GeoIntegralPropertyPtr,
+                                WeakRefCounts      > MFWeakGeoIntegralPropertyPtr;
+typedef FieldContainerPtrMField<GeoIntegralPropertyPtr,
+                                NoRefCounts        > MFUncountedGeoIntegralPropertyPtr;
 #endif
 
 

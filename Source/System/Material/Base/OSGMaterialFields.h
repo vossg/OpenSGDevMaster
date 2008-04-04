@@ -96,9 +96,63 @@ struct FieldTraits<MaterialPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFMaterialPtr"; }
-    static const char *getMName(void) { return "MFMaterialPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFMaterialPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFMaterialPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<MaterialPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<MaterialPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdMaterialPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<MaterialPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<MaterialPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<MaterialPtr> SFMaterialPtr;
+typedef FieldContainerPtrSField<MaterialPtr,
+                                RecordedRefCounts  > SFRecMaterialPtr;
+typedef FieldContainerPtrSField<MaterialPtr,
+                                UnrecordedRefCounts> SFUnrecMaterialPtr;
+typedef FieldContainerPtrSField<MaterialPtr,
+                                WeakRefCounts      > SFWeakMaterialPtr;
+typedef FieldContainerPtrSField<MaterialPtr,
+                                NoRefCounts        > SFUncountedMaterialPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<MaterialPtr> MFMaterialPtr;
+typedef FieldContainerPtrMField<MaterialPtr,
+                                RecordedRefCounts  > MFRecMaterialPtr;
+typedef FieldContainerPtrMField<MaterialPtr,
+                                UnrecordedRefCounts> MFUnrecMaterialPtr;
+typedef FieldContainerPtrMField<MaterialPtr,
+                                WeakRefCounts      > MFWeakMaterialPtr;
+typedef FieldContainerPtrMField<MaterialPtr,
+                                NoRefCounts        > MFUncountedMaterialPtr;
 #endif
 
 

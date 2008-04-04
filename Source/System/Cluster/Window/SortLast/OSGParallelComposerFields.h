@@ -95,6 +95,8 @@ struct FieldTraits<ParallelComposerPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ParallelComposerPtr, 0>
     \hideinhierarchy

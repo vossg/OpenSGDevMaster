@@ -107,12 +107,70 @@ struct FieldTraits<@!Classname!@Ptr> :
 
 @@endif // PointerField
 @@if SFPointerField
-    static const char *getSName(void) { return "SF@!Classname!@Ptr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SF@!Classname!@Ptr"; }
 @@endif // SFPointerField
 @@if MFPointerField
-    static const char *getMName(void) { return "MF@!Classname!@Ptr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MF@!Classname!@Ptr"; }
 @@endif // MFPointerField
 };
+
+@@if SFPointerField
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRec@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrec@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeak@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefd@!Classname!@Ptr"; 
+}
+@@endif
+
+@@if MFPointerField
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRec@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrec@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeak@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefd@!Classname!@Ptr"; 
+}
+@@endif
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<@!Classname!@Ptr, 0>
@@ -129,7 +187,14 @@ struct FieldTraits<@!Classname!@Ptr> :
 /*! \ingroup Grp@!Libname!@FieldSingle */
 
     @@endif // isInLibrary
-typedef FieldContainerPtrSField<@!Classname!@Ptr> SF@!Classname!@Ptr;
+typedef FieldContainerPtrSField<@!Classname!@Ptr,
+                                RecordedRefCounts  > SFRec@!Classname!@Ptr;
+typedef FieldContainerPtrSField<@!Classname!@Ptr,
+                                UnrecordedRefCounts> SFUnrec@!Classname!@Ptr;
+typedef FieldContainerPtrSField<@!Classname!@Ptr,
+                                WeakRefCounts      > SFWeak@!Classname!@Ptr;
+typedef FieldContainerPtrSField<@!Classname!@Ptr,
+                                NoRefCounts        > SFUncounted@!Classname!@Ptr;
 #endif
 
 @@endif
@@ -140,7 +205,14 @@ typedef FieldContainerPtrSField<@!Classname!@Ptr> SF@!Classname!@Ptr;
 /*! \ingroup Grp@!Libname!@FieldMulti */
 
     @@endif // isInLibrary
-typedef FieldContainerPtrMField<@!Classname!@Ptr> MF@!Classname!@Ptr;
+typedef FieldContainerPtrMField<@!Classname!@Ptr,
+                                RecordedRefCounts  > MFRec@!Classname!@Ptr;
+typedef FieldContainerPtrMField<@!Classname!@Ptr,
+                                UnrecordedRefCounts> MFUnrec@!Classname!@Ptr;
+typedef FieldContainerPtrMField<@!Classname!@Ptr,
+                                WeakRefCounts      > MFWeak@!Classname!@Ptr;
+typedef FieldContainerPtrMField<@!Classname!@Ptr,
+                                NoRefCounts        > MFUncounted@!Classname!@Ptr;
 #endif
 
 

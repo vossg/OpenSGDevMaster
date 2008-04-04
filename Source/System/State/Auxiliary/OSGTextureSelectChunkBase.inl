@@ -116,7 +116,7 @@ TextureBaseChunkPtrConst TextureSelectChunkBase::getTextures(const UInt32 index)
 
 //! Get the TextureSelectChunk::_mfTextures field.
 inline
-const MFTextureBaseChunkPtr &TextureSelectChunkBase::getTextures(void) const
+const MFUnrecTextureBaseChunkPtr &TextureSelectChunkBase::getTextures(void) const
 {
     return _mfTextures;
 }

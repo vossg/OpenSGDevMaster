@@ -120,8 +120,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFGeoIntegralPropertyPtr::Description(
-        SFGeoIntegralPropertyPtr::getClassType(),
+    pDesc = new SFUnrecGeoIntegralPropertyPtr::Description(
+        SFUnrecGeoIntegralPropertyPtr::getClassType(),
         "types",
         "The types property contains the primitive's types. Legal values are \n"
         "everything that can be passed to glBegin(). There have to be as many \n"
@@ -134,8 +134,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFGeoIntegralPropertyPtr::Description(
-        SFGeoIntegralPropertyPtr::getClassType(),
+    pDesc = new SFUnrecGeoIntegralPropertyPtr::Description(
+        SFUnrecGeoIntegralPropertyPtr::getClassType(),
         "lengths",
         "The lengths property contains the number of vertices to use for the \n"
         "corresponding primitive. There have to be as many  lengths as types.\n",
@@ -147,8 +147,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFGeoVectorPropertyPtr::Description(
-        MFGeoVectorPropertyPtr::getClassType(),
+    pDesc = new MFUnrecGeoVectorPropertyPtr::Description(
+        MFUnrecGeoVectorPropertyPtr::getClassType(),
         "properties",
         "The attributes used to render the geometry. The order is based on the \n"
         "the one given in ARB_vertex_program.\n",
@@ -160,8 +160,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFGeoIntegralPropertyPtr::Description(
-        MFGeoIntegralPropertyPtr::getClassType(),
+    pDesc = new MFUnrecGeoIntegralPropertyPtr::Description(
+        MFUnrecGeoIntegralPropertyPtr::getClassType(),
         "propIndices",
         "The indices property contains the index data. See \\ref \n"
         "PageSystemGeoIndexing for a description of the indexing options.\n",
@@ -316,25 +316,25 @@ UInt32 GeometryBase::getContainerSize(void) const
 
 
 //! Get the Geometry::_sfTypes field.
-const SFGeoIntegralPropertyPtr *GeometryBase::getSFTypes(void) const
+const SFUnrecGeoIntegralPropertyPtr *GeometryBase::getSFTypes(void) const
 {
     return &_sfTypes;
 }
 
 //! Get the Geometry::_sfLengths field.
-const SFGeoIntegralPropertyPtr *GeometryBase::getSFLengths(void) const
+const SFUnrecGeoIntegralPropertyPtr *GeometryBase::getSFLengths(void) const
 {
     return &_sfLengths;
 }
 
 //! Get the Geometry::_mfProperties field.
-const MFGeoVectorPropertyPtr *GeometryBase::getMFProperties(void) const
+const MFUnrecGeoVectorPropertyPtr *GeometryBase::getMFProperties(void) const
 {
     return &_mfProperties;
 }
 
 //! Get the Geometry::_mfPropIndices field.
-const MFGeoIntegralPropertyPtr *GeometryBase::getMFPropIndices(void) const
+const MFUnrecGeoIntegralPropertyPtr *GeometryBase::getMFPropIndices(void) const
 {
     return &_mfPropIndices;
 }
@@ -393,11 +393,11 @@ void GeometryBase::pushToProperties(GeoVectorPropertyPtrConstArg value)
     value->addParent(this, PropertiesFieldMask);
 }
 
-void GeometryBase::assignProperties(const MFGeoVectorPropertyPtr &value)
+void GeometryBase::assignProperties(const MFUnrecGeoVectorPropertyPtr &value)
 {
-    MFGeoVectorPropertyPtr::const_iterator elemIt  =
+    MFUnrecGeoVectorPropertyPtr::const_iterator elemIt  =
         value.begin();
-    MFGeoVectorPropertyPtr::const_iterator elemEnd =
+    MFUnrecGeoVectorPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Geometry *>(this)->clearProperties();
@@ -415,7 +415,7 @@ void GeometryBase::insertIntoProperties(UInt32                uiIndex,
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
-    MFGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
+    MFUnrecGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
 
     //addRef(value);
 
@@ -493,7 +493,7 @@ void GeometryBase::removeFromProperties(UInt32 uiIndex)
     {
         editMField(PropertiesFieldMask, _mfProperties);
 
-        MFGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
+        MFUnrecGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
 
         fieldIt += uiIndex;
 
@@ -517,7 +517,7 @@ void GeometryBase::removeFromProperties(GeoVectorPropertyPtrConstArg value)
     {
         editMField(PropertiesFieldMask, _mfProperties);
 
-        MFGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
+        MFUnrecGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
 
         fieldIt += iElemIdx;
 
@@ -536,8 +536,8 @@ void GeometryBase::clearProperties(void)
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
-    MFGeoVectorPropertyPtr::iterator       fieldIt  = _mfProperties.begin();
-    MFGeoVectorPropertyPtr::const_iterator fieldEnd = _mfProperties.end  ();
+    MFUnrecGeoVectorPropertyPtr::iterator       fieldIt  = _mfProperties.begin();
+    MFUnrecGeoVectorPropertyPtr::const_iterator fieldEnd = _mfProperties.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -568,11 +568,11 @@ void GeometryBase::pushToPropIndices(GeoIntegralPropertyPtrConstArg value)
     value->addParent(this, PropIndicesFieldMask);
 }
 
-void GeometryBase::assignPropIndices(const MFGeoIntegralPropertyPtr &value)
+void GeometryBase::assignPropIndices(const MFUnrecGeoIntegralPropertyPtr &value)
 {
-    MFGeoIntegralPropertyPtr::const_iterator elemIt  =
+    MFUnrecGeoIntegralPropertyPtr::const_iterator elemIt  =
         value.begin();
-    MFGeoIntegralPropertyPtr::const_iterator elemEnd =
+    MFUnrecGeoIntegralPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Geometry *>(this)->clearPropIndices();
@@ -590,7 +590,7 @@ void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
-    MFGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
+    MFUnrecGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
 
     //addRef(value);
 
@@ -668,7 +668,7 @@ void GeometryBase::removeFromPropIndices(UInt32 uiIndex)
     {
         editMField(PropIndicesFieldMask, _mfPropIndices);
 
-        MFGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
+        MFUnrecGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
 
         fieldIt += uiIndex;
 
@@ -692,7 +692,7 @@ void GeometryBase::removeFromPropIndices(GeoIntegralPropertyPtrConstArg value)
     {
         editMField(PropIndicesFieldMask, _mfPropIndices);
 
-        MFGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
+        MFUnrecGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
 
         fieldIt += iElemIdx;
 
@@ -711,8 +711,8 @@ void GeometryBase::clearPropIndices(void)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
-    MFGeoIntegralPropertyPtr::iterator       fieldIt  = _mfPropIndices.begin();
-    MFGeoIntegralPropertyPtr::const_iterator fieldEnd = _mfPropIndices.end  ();
+    MFUnrecGeoIntegralPropertyPtr::iterator       fieldIt  = _mfPropIndices.begin();
+    MFUnrecGeoIntegralPropertyPtr::const_iterator fieldEnd = _mfPropIndices.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -956,9 +956,9 @@ void GeometryBase::onCreate(const Geometry *source)
 
         this->setLengths(source->getLengths());
 
-        MFGeoVectorPropertyPtr::const_iterator PropertiesIt  =
+        MFUnrecGeoVectorPropertyPtr::const_iterator PropertiesIt  =
             source->_mfProperties.begin();
-        MFGeoVectorPropertyPtr::const_iterator PropertiesEnd =
+        MFUnrecGeoVectorPropertyPtr::const_iterator PropertiesEnd =
             source->_mfProperties.end  ();
 
         while(PropertiesIt != PropertiesEnd)
@@ -968,9 +968,9 @@ void GeometryBase::onCreate(const Geometry *source)
             ++PropertiesIt;
         }
 
-        MFGeoIntegralPropertyPtr::const_iterator PropIndicesIt  =
+        MFUnrecGeoIntegralPropertyPtr::const_iterator PropIndicesIt  =
             source->_mfPropIndices.begin();
-        MFGeoIntegralPropertyPtr::const_iterator PropIndicesEnd =
+        MFUnrecGeoIntegralPropertyPtr::const_iterator PropIndicesEnd =
             source->_mfPropIndices.end  ();
 
         while(PropIndicesIt != PropIndicesEnd)
@@ -984,8 +984,8 @@ void GeometryBase::onCreate(const Geometry *source)
 
 GetFieldHandlePtr GeometryBase::getHandleTypes           (void) const
 {
-    SFGeoIntegralPropertyPtr::GetHandlePtr returnValue(
-        new  SFGeoIntegralPropertyPtr::GetHandle(
+    SFUnrecGeoIntegralPropertyPtr::GetHandlePtr returnValue(
+        new  SFUnrecGeoIntegralPropertyPtr::GetHandle(
              &_sfTypes, 
              this->getType().getFieldDesc(TypesFieldId)));
 
@@ -994,8 +994,8 @@ GetFieldHandlePtr GeometryBase::getHandleTypes           (void) const
 
 EditFieldHandlePtr GeometryBase::editHandleTypes          (void)
 {
-    SFGeoIntegralPropertyPtr::EditHandlePtr returnValue(
-        new  SFGeoIntegralPropertyPtr::EditHandle(
+    SFUnrecGeoIntegralPropertyPtr::EditHandlePtr returnValue(
+        new  SFUnrecGeoIntegralPropertyPtr::EditHandle(
              &_sfTypes, 
              this->getType().getFieldDesc(TypesFieldId)));
 
@@ -1009,8 +1009,8 @@ EditFieldHandlePtr GeometryBase::editHandleTypes          (void)
 
 GetFieldHandlePtr GeometryBase::getHandleLengths         (void) const
 {
-    SFGeoIntegralPropertyPtr::GetHandlePtr returnValue(
-        new  SFGeoIntegralPropertyPtr::GetHandle(
+    SFUnrecGeoIntegralPropertyPtr::GetHandlePtr returnValue(
+        new  SFUnrecGeoIntegralPropertyPtr::GetHandle(
              &_sfLengths, 
              this->getType().getFieldDesc(LengthsFieldId)));
 
@@ -1019,8 +1019,8 @@ GetFieldHandlePtr GeometryBase::getHandleLengths         (void) const
 
 EditFieldHandlePtr GeometryBase::editHandleLengths        (void)
 {
-    SFGeoIntegralPropertyPtr::EditHandlePtr returnValue(
-        new  SFGeoIntegralPropertyPtr::EditHandle(
+    SFUnrecGeoIntegralPropertyPtr::EditHandlePtr returnValue(
+        new  SFUnrecGeoIntegralPropertyPtr::EditHandle(
              &_sfLengths, 
              this->getType().getFieldDesc(LengthsFieldId)));
 
@@ -1034,8 +1034,8 @@ EditFieldHandlePtr GeometryBase::editHandleLengths        (void)
 
 GetFieldHandlePtr GeometryBase::getHandleProperties      (void) const
 {
-    MFGeoVectorPropertyPtr::GetHandlePtr returnValue(
-        new  MFGeoVectorPropertyPtr::GetHandle(
+    MFUnrecGeoVectorPropertyPtr::GetHandlePtr returnValue(
+        new  MFUnrecGeoVectorPropertyPtr::GetHandle(
              &_mfProperties, 
              this->getType().getFieldDesc(PropertiesFieldId)));
 
@@ -1044,8 +1044,8 @@ GetFieldHandlePtr GeometryBase::getHandleProperties      (void) const
 
 EditFieldHandlePtr GeometryBase::editHandleProperties     (void)
 {
-    MFGeoVectorPropertyPtr::EditHandlePtr returnValue(
-        new  MFGeoVectorPropertyPtr::EditHandle(
+    MFUnrecGeoVectorPropertyPtr::EditHandlePtr returnValue(
+        new  MFUnrecGeoVectorPropertyPtr::EditHandle(
              &_mfProperties, 
              this->getType().getFieldDesc(PropertiesFieldId)));
 
@@ -1059,8 +1059,8 @@ EditFieldHandlePtr GeometryBase::editHandleProperties     (void)
 
 GetFieldHandlePtr GeometryBase::getHandlePropIndices     (void) const
 {
-    MFGeoIntegralPropertyPtr::GetHandlePtr returnValue(
-        new  MFGeoIntegralPropertyPtr::GetHandle(
+    MFUnrecGeoIntegralPropertyPtr::GetHandlePtr returnValue(
+        new  MFUnrecGeoIntegralPropertyPtr::GetHandle(
              &_mfPropIndices, 
              this->getType().getFieldDesc(PropIndicesFieldId)));
 
@@ -1069,8 +1069,8 @@ GetFieldHandlePtr GeometryBase::getHandlePropIndices     (void) const
 
 EditFieldHandlePtr GeometryBase::editHandlePropIndices    (void)
 {
-    MFGeoIntegralPropertyPtr::EditHandlePtr returnValue(
-        new  MFGeoIntegralPropertyPtr::EditHandle(
+    MFUnrecGeoIntegralPropertyPtr::EditHandlePtr returnValue(
+        new  MFUnrecGeoIntegralPropertyPtr::EditHandle(
              &_mfPropIndices, 
              this->getType().getFieldDesc(PropIndicesFieldId)));
 
@@ -1175,24 +1175,12 @@ DataType FieldTraits<GeometryPtr>::_type("GeometryPtr", "MaterialDrawablePtr");
 
 OSG_FIELDTRAITS_GETTYPE(GeometryPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    GeometryPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           GeometryPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         GeometryPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    GeometryPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         GeometryPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           GeometryPtr, 
+                           0);
 
 OSG_END_NAMESPACE

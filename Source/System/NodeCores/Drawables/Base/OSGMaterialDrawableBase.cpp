@@ -92,8 +92,8 @@ void MaterialDrawableBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFMaterialPtr::Description(
-        SFMaterialPtr::getClassType(),
+    pDesc = new SFUnrecMaterialPtr::Description(
+        SFUnrecMaterialPtr::getClassType(),
         "material",
         "The material used to render the Drawable.\n",
         MaterialFieldId, MaterialFieldMask,
@@ -163,7 +163,7 @@ UInt32 MaterialDrawableBase::getContainerSize(void) const
 
 
 //! Get the MaterialDrawable::_sfMaterial field.
-const SFMaterialPtr *MaterialDrawableBase::getSFMaterial(void) const
+const SFUnrecMaterialPtr *MaterialDrawableBase::getSFMaterial(void) const
 {
     return &_sfMaterial;
 }
@@ -245,8 +245,8 @@ void MaterialDrawableBase::onCreate(const MaterialDrawable *source)
 
 GetFieldHandlePtr MaterialDrawableBase::getHandleMaterial        (void) const
 {
-    SFMaterialPtr::GetHandlePtr returnValue(
-        new  SFMaterialPtr::GetHandle(
+    SFUnrecMaterialPtr::GetHandlePtr returnValue(
+        new  SFUnrecMaterialPtr::GetHandle(
              &_sfMaterial, 
              this->getType().getFieldDesc(MaterialFieldId)));
 
@@ -255,8 +255,8 @@ GetFieldHandlePtr MaterialDrawableBase::getHandleMaterial        (void) const
 
 EditFieldHandlePtr MaterialDrawableBase::editHandleMaterial       (void)
 {
-    SFMaterialPtr::EditHandlePtr returnValue(
-        new  SFMaterialPtr::EditHandle(
+    SFUnrecMaterialPtr::EditHandlePtr returnValue(
+        new  SFUnrecMaterialPtr::EditHandle(
              &_sfMaterial, 
              this->getType().getFieldDesc(MaterialFieldId)));
 
@@ -302,24 +302,12 @@ DataType FieldTraits<MaterialDrawablePtr>::_type("MaterialDrawablePtr", "Drawabl
 
 OSG_FIELDTRAITS_GETTYPE(MaterialDrawablePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    MaterialDrawablePtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           MaterialDrawablePtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         MaterialDrawablePtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    MaterialDrawablePtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         MaterialDrawablePtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           MaterialDrawablePtr, 
+                           0);
 
 OSG_END_NAMESPACE

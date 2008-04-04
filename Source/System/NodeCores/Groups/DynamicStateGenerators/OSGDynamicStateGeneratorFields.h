@@ -96,9 +96,63 @@ struct FieldTraits<DynamicStateGeneratorPtr> :
 
     static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFDynamicStateGeneratorPtr"; }
-    static const char *getMName(void) { return "MFDynamicStateGeneratorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFDynamicStateGeneratorPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFDynamicStateGeneratorPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecDynamicStateGeneratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecDynamicStateGeneratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakDynamicStateGeneratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdDynamicStateGeneratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecDynamicStateGeneratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecDynamicStateGeneratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakDynamicStateGeneratorPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdDynamicStateGeneratorPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<DynamicStateGeneratorPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<DynamicStateGeneratorPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<DynamicStateGeneratorPtr> SFDynamicStateGeneratorPtr;
+typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
+                                RecordedRefCounts  > SFRecDynamicStateGeneratorPtr;
+typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
+                                UnrecordedRefCounts> SFUnrecDynamicStateGeneratorPtr;
+typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
+                                WeakRefCounts      > SFWeakDynamicStateGeneratorPtr;
+typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
+                                NoRefCounts        > SFUncountedDynamicStateGeneratorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<DynamicStateGeneratorPtr> MFDynamicStateGeneratorPtr;
+typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
+                                RecordedRefCounts  > MFRecDynamicStateGeneratorPtr;
+typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
+                                UnrecordedRefCounts> MFUnrecDynamicStateGeneratorPtr;
+typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
+                                WeakRefCounts      > MFWeakDynamicStateGeneratorPtr;
+typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
+                                NoRefCounts        > MFUncountedDynamicStateGeneratorPtr;
 #endif
 
 

@@ -94,8 +94,8 @@ void StateBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFStateChunkPtr::Description(
-        MFStateChunkPtr::getClassType(),
+    pDesc = new MFUnrecStateChunkPtr::Description(
+        MFUnrecStateChunkPtr::getClassType(),
         "chunks",
         "",
         ChunksFieldId, ChunksFieldMask,
@@ -178,7 +178,7 @@ UInt32 StateBase::getContainerSize(void) const
 
 
 //! Get the State::_mfChunks field.
-const MFStateChunkPtr *StateBase::getMFChunks(void) const
+const MFUnrecStateChunkPtr *StateBase::getMFChunks(void) const
 {
     return &_mfChunks;
 }
@@ -197,11 +197,11 @@ void StateBase::pushToChunks(StateChunkPtrConstArg value)
         return;
 }
 
-void StateBase::assignChunks   (const MFStateChunkPtr   &value)
+void StateBase::assignChunks   (const MFUnrecStateChunkPtr &value)
 {
-    MFStateChunkPtr  ::const_iterator elemIt  =
+    MFUnrecStateChunkPtr::const_iterator elemIt  =
         value.begin();
-    MFStateChunkPtr  ::const_iterator elemEnd =
+    MFUnrecStateChunkPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<State *>(this)->clearChunks();
@@ -219,7 +219,7 @@ void StateBase::insertIntoChunks(UInt32                uiIndex,
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+    MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
     //addRef(value);
 
@@ -277,7 +277,7 @@ void StateBase::removeFromChunks(UInt32 uiIndex)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
         fieldIt += uiIndex;
 
@@ -296,7 +296,7 @@ void StateBase::removeFromChunks(StateChunkPtrConstArg value)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
 
         fieldIt += iElemIdx;
 
@@ -310,8 +310,8 @@ void StateBase::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    MFStateChunkPtr::iterator       fieldIt  = _mfChunks.begin();
-    MFStateChunkPtr::const_iterator fieldEnd = _mfChunks.end  ();
+    MFUnrecStateChunkPtr::iterator       fieldIt  = _mfChunks.begin();
+    MFUnrecStateChunkPtr::const_iterator fieldEnd = _mfChunks.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -478,9 +478,9 @@ void StateBase::onCreate(const State *source)
     if(source != NULL)
     {
 
-        MFStateChunkPtr::const_iterator ChunksIt  =
+        MFUnrecStateChunkPtr::const_iterator ChunksIt  =
             source->_mfChunks.begin();
-        MFStateChunkPtr::const_iterator ChunksEnd =
+        MFUnrecStateChunkPtr::const_iterator ChunksEnd =
             source->_mfChunks.end  ();
 
         while(ChunksIt != ChunksEnd)
@@ -494,8 +494,8 @@ void StateBase::onCreate(const State *source)
 
 GetFieldHandlePtr StateBase::getHandleChunks          (void) const
 {
-    MFStateChunkPtr::GetHandlePtr returnValue(
-        new  MFStateChunkPtr::GetHandle(
+    MFUnrecStateChunkPtr::GetHandlePtr returnValue(
+        new  MFUnrecStateChunkPtr::GetHandle(
              &_mfChunks, 
              this->getType().getFieldDesc(ChunksFieldId)));
 
@@ -504,8 +504,8 @@ GetFieldHandlePtr StateBase::getHandleChunks          (void) const
 
 EditFieldHandlePtr StateBase::editHandleChunks         (void)
 {
-    MFStateChunkPtr::EditHandlePtr returnValue(
-        new  MFStateChunkPtr::EditHandle(
+    MFUnrecStateChunkPtr::EditHandlePtr returnValue(
+        new  MFUnrecStateChunkPtr::EditHandle(
              &_mfChunks, 
              this->getType().getFieldDesc(ChunksFieldId)));
 
@@ -561,24 +561,12 @@ DataType FieldTraits<StatePtr>::_type("StatePtr", "FieldContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(StatePtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    StatePtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           StatePtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         StatePtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    StatePtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         StatePtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           StatePtr, 
+                           0);
 
 OSG_END_NAMESPACE

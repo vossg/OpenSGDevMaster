@@ -111,8 +111,8 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(),
+    pDesc = new SFUnrecTextureObjChunkPtr::Description(
+        SFUnrecTextureObjChunkPtr::getClassType(),
         "texture",
         "The texture to grab into.\n",
         TextureFieldId, TextureFieldMask,
@@ -263,7 +263,7 @@ UInt32 TextureGrabBackgroundBase::getContainerSize(void) const
 
 
 //! Get the TextureGrabBackground::_sfTexture field.
-const SFTextureObjChunkPtr *TextureGrabBackgroundBase::getSFTexture(void) const
+const SFUnrecTextureObjChunkPtr *TextureGrabBackgroundBase::getSFTexture(void) const
 {
     return &_sfTexture;
 }
@@ -528,8 +528,8 @@ void TextureGrabBackgroundBase::onCreate(const TextureGrabBackground *source)
 
 GetFieldHandlePtr TextureGrabBackgroundBase::getHandleTexture         (void) const
 {
-    SFTextureObjChunkPtr::GetHandlePtr returnValue(
-        new  SFTextureObjChunkPtr::GetHandle(
+    SFUnrecTextureObjChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureObjChunkPtr::GetHandle(
              &_sfTexture, 
              this->getType().getFieldDesc(TextureFieldId)));
 
@@ -538,8 +538,8 @@ GetFieldHandlePtr TextureGrabBackgroundBase::getHandleTexture         (void) con
 
 EditFieldHandlePtr TextureGrabBackgroundBase::editHandleTexture        (void)
 {
-    SFTextureObjChunkPtr::EditHandlePtr returnValue(
-        new  SFTextureObjChunkPtr::EditHandle(
+    SFUnrecTextureObjChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureObjChunkPtr::EditHandle(
              &_sfTexture, 
              this->getType().getFieldDesc(TextureFieldId)));
 

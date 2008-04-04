@@ -96,8 +96,36 @@ struct FieldTraits<SkyBackgroundPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getMName(void) { return "MFSkyBackgroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFSkyBackgroundPtr"; }
 };
+
+
+template<> inline
+const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecSkyBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecSkyBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakSkyBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdSkyBackgroundPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<SkyBackgroundPtr, 0>
@@ -112,7 +140,14 @@ struct FieldTraits<SkyBackgroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<SkyBackgroundPtr> MFSkyBackgroundPtr;
+typedef FieldContainerPtrMField<SkyBackgroundPtr,
+                                RecordedRefCounts  > MFRecSkyBackgroundPtr;
+typedef FieldContainerPtrMField<SkyBackgroundPtr,
+                                UnrecordedRefCounts> MFUnrecSkyBackgroundPtr;
+typedef FieldContainerPtrMField<SkyBackgroundPtr,
+                                WeakRefCounts      > MFWeakSkyBackgroundPtr;
+typedef FieldContainerPtrMField<SkyBackgroundPtr,
+                                NoRefCounts        > MFUncountedSkyBackgroundPtr;
 #endif
 
 

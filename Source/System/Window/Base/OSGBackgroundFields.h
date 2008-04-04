@@ -96,9 +96,63 @@ struct FieldTraits<BackgroundPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFBackgroundPtr"; }
-    static const char *getMName(void) { return "MFBackgroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFBackgroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFBackgroundPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<BackgroundPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BackgroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BackgroundPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BackgroundPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BackgroundPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BackgroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BackgroundPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<BackgroundPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdBackgroundPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<BackgroundPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<BackgroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<BackgroundPtr> SFBackgroundPtr;
+typedef FieldContainerPtrSField<BackgroundPtr,
+                                RecordedRefCounts  > SFRecBackgroundPtr;
+typedef FieldContainerPtrSField<BackgroundPtr,
+                                UnrecordedRefCounts> SFUnrecBackgroundPtr;
+typedef FieldContainerPtrSField<BackgroundPtr,
+                                WeakRefCounts      > SFWeakBackgroundPtr;
+typedef FieldContainerPtrSField<BackgroundPtr,
+                                NoRefCounts        > SFUncountedBackgroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<BackgroundPtr> MFBackgroundPtr;
+typedef FieldContainerPtrMField<BackgroundPtr,
+                                RecordedRefCounts  > MFRecBackgroundPtr;
+typedef FieldContainerPtrMField<BackgroundPtr,
+                                UnrecordedRefCounts> MFUnrecBackgroundPtr;
+typedef FieldContainerPtrMField<BackgroundPtr,
+                                WeakRefCounts      > MFWeakBackgroundPtr;
+typedef FieldContainerPtrMField<BackgroundPtr,
+                                NoRefCounts        > MFUncountedBackgroundPtr;
 #endif
 
 

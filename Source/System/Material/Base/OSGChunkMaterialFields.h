@@ -96,9 +96,63 @@ struct FieldTraits<ChunkMaterialPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFChunkMaterialPtr"; }
-    static const char *getMName(void) { return "MFChunkMaterialPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFChunkMaterialPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFChunkMaterialPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<ChunkMaterialPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecChunkMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkMaterialPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecChunkMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkMaterialPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakChunkMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkMaterialPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdChunkMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkMaterialPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecChunkMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkMaterialPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecChunkMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkMaterialPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakChunkMaterialPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ChunkMaterialPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdChunkMaterialPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ChunkMaterialPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<ChunkMaterialPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ChunkMaterialPtr> SFChunkMaterialPtr;
+typedef FieldContainerPtrSField<ChunkMaterialPtr,
+                                RecordedRefCounts  > SFRecChunkMaterialPtr;
+typedef FieldContainerPtrSField<ChunkMaterialPtr,
+                                UnrecordedRefCounts> SFUnrecChunkMaterialPtr;
+typedef FieldContainerPtrSField<ChunkMaterialPtr,
+                                WeakRefCounts      > SFWeakChunkMaterialPtr;
+typedef FieldContainerPtrSField<ChunkMaterialPtr,
+                                NoRefCounts        > SFUncountedChunkMaterialPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ChunkMaterialPtr> MFChunkMaterialPtr;
+typedef FieldContainerPtrMField<ChunkMaterialPtr,
+                                RecordedRefCounts  > MFRecChunkMaterialPtr;
+typedef FieldContainerPtrMField<ChunkMaterialPtr,
+                                UnrecordedRefCounts> MFUnrecChunkMaterialPtr;
+typedef FieldContainerPtrMField<ChunkMaterialPtr,
+                                WeakRefCounts      > MFWeakChunkMaterialPtr;
+typedef FieldContainerPtrMField<ChunkMaterialPtr,
+                                NoRefCounts        > MFUncountedChunkMaterialPtr;
 #endif
 
 

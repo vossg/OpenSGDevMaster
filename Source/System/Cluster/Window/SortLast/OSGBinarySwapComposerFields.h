@@ -95,6 +95,8 @@ struct FieldTraits<BinarySwapComposerPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<BinarySwapComposerPtr, 0>
     \hideinhierarchy

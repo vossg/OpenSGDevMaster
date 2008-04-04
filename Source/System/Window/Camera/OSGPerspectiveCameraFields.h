@@ -96,9 +96,63 @@ struct FieldTraits<PerspectiveCameraPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFPerspectiveCameraPtr"; }
-    static const char *getMName(void) { return "MFPerspectiveCameraPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFPerspectiveCameraPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFPerspectiveCameraPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakPerspectiveCameraPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdPerspectiveCameraPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<PerspectiveCameraPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<PerspectiveCameraPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<PerspectiveCameraPtr> SFPerspectiveCameraPtr;
+typedef FieldContainerPtrSField<PerspectiveCameraPtr,
+                                RecordedRefCounts  > SFRecPerspectiveCameraPtr;
+typedef FieldContainerPtrSField<PerspectiveCameraPtr,
+                                UnrecordedRefCounts> SFUnrecPerspectiveCameraPtr;
+typedef FieldContainerPtrSField<PerspectiveCameraPtr,
+                                WeakRefCounts      > SFWeakPerspectiveCameraPtr;
+typedef FieldContainerPtrSField<PerspectiveCameraPtr,
+                                NoRefCounts        > SFUncountedPerspectiveCameraPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<PerspectiveCameraPtr> MFPerspectiveCameraPtr;
+typedef FieldContainerPtrMField<PerspectiveCameraPtr,
+                                RecordedRefCounts  > MFRecPerspectiveCameraPtr;
+typedef FieldContainerPtrMField<PerspectiveCameraPtr,
+                                UnrecordedRefCounts> MFUnrecPerspectiveCameraPtr;
+typedef FieldContainerPtrMField<PerspectiveCameraPtr,
+                                WeakRefCounts      > MFWeakPerspectiveCameraPtr;
+typedef FieldContainerPtrMField<PerspectiveCameraPtr,
+                                NoRefCounts        > MFUncountedPerspectiveCameraPtr;
 #endif
 
 

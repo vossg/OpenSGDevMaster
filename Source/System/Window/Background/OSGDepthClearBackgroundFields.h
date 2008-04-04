@@ -96,8 +96,36 @@ struct FieldTraits<DepthClearBackgroundPtr> :
 
     static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFDepthClearBackgroundPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFDepthClearBackgroundPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecDepthClearBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecDepthClearBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakDepthClearBackgroundPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdDepthClearBackgroundPtr"; 
+}
+
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<DepthClearBackgroundPtr, 0>
@@ -111,7 +139,14 @@ struct FieldTraits<DepthClearBackgroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<DepthClearBackgroundPtr> SFDepthClearBackgroundPtr;
+typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
+                                RecordedRefCounts  > SFRecDepthClearBackgroundPtr;
+typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
+                                UnrecordedRefCounts> SFUnrecDepthClearBackgroundPtr;
+typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
+                                WeakRefCounts      > SFWeakDepthClearBackgroundPtr;
+typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
+                                NoRefCounts        > SFUncountedDepthClearBackgroundPtr;
 #endif
 
 

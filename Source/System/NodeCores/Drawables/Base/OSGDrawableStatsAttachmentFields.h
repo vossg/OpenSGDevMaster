@@ -96,9 +96,63 @@ struct FieldTraits<DrawableStatsAttachmentPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFDrawableStatsAttachmentPtr"; }
-    static const char *getMName(void) { return "MFDrawableStatsAttachmentPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFDrawableStatsAttachmentPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFDrawableStatsAttachmentPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecDrawableStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecDrawableStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakDrawableStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdDrawableStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecDrawableStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecDrawableStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakDrawableStatsAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdDrawableStatsAttachmentPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<DrawableStatsAttachmentPtr, 0>
@@ -112,14 +166,28 @@ struct FieldTraits<DrawableStatsAttachmentPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr> SFDrawableStatsAttachmentPtr;
+typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
+                                RecordedRefCounts  > SFRecDrawableStatsAttachmentPtr;
+typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
+                                UnrecordedRefCounts> SFUnrecDrawableStatsAttachmentPtr;
+typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
+                                WeakRefCounts      > SFWeakDrawableStatsAttachmentPtr;
+typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
+                                NoRefCounts        > SFUncountedDrawableStatsAttachmentPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr> MFDrawableStatsAttachmentPtr;
+typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
+                                RecordedRefCounts  > MFRecDrawableStatsAttachmentPtr;
+typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
+                                UnrecordedRefCounts> MFUnrecDrawableStatsAttachmentPtr;
+typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
+                                WeakRefCounts      > MFWeakDrawableStatsAttachmentPtr;
+typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
+                                NoRefCounts        > MFUncountedDrawableStatsAttachmentPtr;
 #endif
 
 

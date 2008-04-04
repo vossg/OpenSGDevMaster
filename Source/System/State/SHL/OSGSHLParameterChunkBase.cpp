@@ -92,8 +92,8 @@ void SHLParameterChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFSHLChunkPtr::Description(
-        SFSHLChunkPtr::getClassType(),
+    pDesc = new SFUnrecSHLChunkPtr::Description(
+        SFUnrecSHLChunkPtr::getClassType(),
         "SHLChunk",
         "",
         SHLChunkFieldId, SHLChunkFieldMask,
@@ -164,7 +164,7 @@ UInt32 SHLParameterChunkBase::getContainerSize(void) const
 
 
 //! Get the SHLParameterChunk::_sfSHLChunk field.
-const SFSHLChunkPtr *SHLParameterChunkBase::getSFSHLChunk(void) const
+const SFUnrecSHLChunkPtr *SHLParameterChunkBase::getSFSHLChunk(void) const
 {
     return &_sfSHLChunk;
 }
@@ -330,8 +330,8 @@ void SHLParameterChunkBase::onCreate(const SHLParameterChunk *source)
 
 GetFieldHandlePtr SHLParameterChunkBase::getHandleSHLChunk        (void) const
 {
-    SFSHLChunkPtr::GetHandlePtr returnValue(
-        new  SFSHLChunkPtr::GetHandle(
+    SFUnrecSHLChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecSHLChunkPtr::GetHandle(
              &_sfSHLChunk, 
              this->getType().getFieldDesc(SHLChunkFieldId)));
 
@@ -340,8 +340,8 @@ GetFieldHandlePtr SHLParameterChunkBase::getHandleSHLChunk        (void) const
 
 EditFieldHandlePtr SHLParameterChunkBase::editHandleSHLChunk       (void)
 {
-    SFSHLChunkPtr::EditHandlePtr returnValue(
-        new  SFSHLChunkPtr::EditHandle(
+    SFUnrecSHLChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecSHLChunkPtr::EditHandle(
              &_sfSHLChunk, 
              this->getType().getFieldDesc(SHLChunkFieldId)));
 
@@ -398,24 +398,12 @@ DataType FieldTraits<SHLParameterChunkPtr>::_type("SHLParameterChunkPtr", "Shade
 
 OSG_FIELDTRAITS_GETTYPE(SHLParameterChunkPtr)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    SHLParameterChunkPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           SHLParameterChunkPtr, 
+                           0);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         SHLParameterChunkPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    SHLParameterChunkPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         SHLParameterChunkPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           SHLParameterChunkPtr, 
+                           0);
 
 OSG_END_NAMESPACE

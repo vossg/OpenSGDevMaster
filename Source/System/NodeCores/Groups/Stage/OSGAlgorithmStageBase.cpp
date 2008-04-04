@@ -104,8 +104,8 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFAlgorithmPtr::Description(
-        SFAlgorithmPtr::getClassType(),
+    pDesc = new SFUnrecAlgorithmPtr::Description(
+        SFUnrecAlgorithmPtr::getClassType(),
         "algorithm",
         "",
         AlgorithmFieldId, AlgorithmFieldMask,
@@ -240,7 +240,7 @@ UInt32 AlgorithmStageBase::getContainerSize(void) const
 
 
 //! Get the AlgorithmStage::_sfAlgorithm field.
-const SFAlgorithmPtr *AlgorithmStageBase::getSFAlgorithm(void) const
+const SFUnrecAlgorithmPtr *AlgorithmStageBase::getSFAlgorithm(void) const
 {
     return &_sfAlgorithm;
 }
@@ -505,8 +505,8 @@ void AlgorithmStageBase::onCreate(const AlgorithmStage *source)
 
 GetFieldHandlePtr AlgorithmStageBase::getHandleAlgorithm       (void) const
 {
-    SFAlgorithmPtr::GetHandlePtr returnValue(
-        new  SFAlgorithmPtr::GetHandle(
+    SFUnrecAlgorithmPtr::GetHandlePtr returnValue(
+        new  SFUnrecAlgorithmPtr::GetHandle(
              &_sfAlgorithm, 
              this->getType().getFieldDesc(AlgorithmFieldId)));
 
@@ -515,8 +515,8 @@ GetFieldHandlePtr AlgorithmStageBase::getHandleAlgorithm       (void) const
 
 EditFieldHandlePtr AlgorithmStageBase::editHandleAlgorithm      (void)
 {
-    SFAlgorithmPtr::EditHandlePtr returnValue(
-        new  SFAlgorithmPtr::EditHandle(
+    SFUnrecAlgorithmPtr::EditHandlePtr returnValue(
+        new  SFUnrecAlgorithmPtr::EditHandle(
              &_sfAlgorithm, 
              this->getType().getFieldDesc(AlgorithmFieldId)));
 

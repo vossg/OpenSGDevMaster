@@ -95,6 +95,8 @@ struct FieldTraits<ProxyGroupPtr> :
     enum                        { Convertible = NotConvertible };
 };
 
+
+
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<ProxyGroupPtr, 0>
     \hideinhierarchy
