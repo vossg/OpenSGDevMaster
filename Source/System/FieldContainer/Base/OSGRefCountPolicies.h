@@ -92,6 +92,21 @@ struct RecordedRefCounts
     } 
 };
 
+struct MTRecordedRefCounts : public RecordedRefCounts
+{
+    template <class T>
+    static T *validate   (T *pObject)
+    {
+        convertToCurrentAspect(pObject);
+    }
+
+    template <class T>
+    static T &dereference(T *pObject)
+    {
+        return *(validate(pObject));
+    }
+};
+
 struct UnrecordedRefCounts
 {
     static void addRef(FieldContainerPtrConst objectP)

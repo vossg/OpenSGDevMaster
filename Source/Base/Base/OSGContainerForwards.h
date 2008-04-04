@@ -91,7 +91,9 @@
     typedef       RefCountPtr< CLASST,                                    \
                                UnrecordedRefCounts> CLASST##UnrecPtr;     \
     typedef       RefCountPtr< CLASST,                                    \
-                               WeakRefCounts> CLASST##WeakPtr;  
+                               WeakRefCounts      > CLASST##WeakPtr;      \
+    typedef       RefCountPtr< CLASST,                                    \
+                               MTRecordedRefCounts> CLASST##MTRecPtr;
 
 
 #define OSG_GEN_INTERNALPTR(CLASST)                         \
@@ -166,6 +168,7 @@ class DrawEnv;
 struct ContainerChangeEntry;
 
 struct RecordedRefCounts;
+struct MTRecordedRefCounts;
 struct UnrecordedRefCounts;
 struct WeakRefCounts;
 
