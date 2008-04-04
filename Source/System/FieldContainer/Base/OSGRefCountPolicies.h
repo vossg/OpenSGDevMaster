@@ -73,6 +73,13 @@ struct RecordedRefCounts
     {
         return *pIn;
     }
+
+    template<class T>
+    static void convertTransitPtr(T *&pOut, T*&pIn)
+    {
+        pOut = pIn;
+        pIn  = NULL;
+    } 
 };
 
 struct UnrecordedRefCounts
@@ -104,6 +111,12 @@ struct UnrecordedRefCounts
     {
         return *pIn;
     }
+
+    template<class T>
+    static void convertTransitPtr(T *&pOut, T*&pIn)
+    {
+        OSG_ASSERT(false);
+    } 
 };
 
 struct NoRefCounts
@@ -128,6 +141,11 @@ struct NoRefCounts
         return pIn;
     }
 
+    template<class T>
+    static void convertTransitPtr(T *&pOut, T*&pIn)
+    {
+        OSG_ASSERT(false);
+    } 
 };
 
 struct WeakRefCounts
@@ -183,6 +201,12 @@ struct WeakRefCounts
 
         return *returnValue;
     }
+
+    template<class T>
+    static void convertTransitPtr(T *&pOut, T*&pIn)
+    {
+        OSG_ASSERT(false);
+    } 
 };
 
 
