@@ -163,6 +163,62 @@ class FieldContainerPtrChildSField : public FieldContainerPtrSFieldBase
 
   protected:
 
+    struct SingleParentHandler
+    {
+        static void updateParentLinking(ArgumentType value,
+                                        ParentT      pParent,
+                                        UInt16       usParentFieldPos)
+        {
+            // already somebody else's child?
+            if(value != NULL)
+            {
+                if(value->getParent() != NullFC)
+                {
+                    value->getParent()->subChildPointer(value, 
+                                                        usParentFieldPos);
+                }
+
+                value->setParent(pParent, usParentFieldPos);
+            }
+        }
+
+        static void clearParentLinking(ArgumentType value,
+                                       ParentT      ,
+                                       UInt16       usParentFieldPos)
+        {
+            if(value != NullFC)
+                value->setParent(NullFC, usParentFieldPos);
+        }
+    };
+
+    struct MultiParentHandler
+    {
+        static void updateParentLinking(ArgumentType value,
+                                        ParentT      pParent,
+                                        UInt16       usParentFieldPos)
+        {
+            // already somebody else's child?
+            if(value != NULL)
+            {
+                value->addParent(pParent, usParentFieldPos);
+            }
+        }
+ 
+        static void clearParentLinking(ArgumentType value,
+                                       ParentT      pParent,
+                                       UInt16              )
+        {
+            if(value != NullFC)
+                value->subParent(pParent);
+        }
+    };
+
+    typedef typename
+         boost::mpl::if_<
+              boost::mpl::bool_<(SFieldTraits::eFieldCard == SingleField)>,
+                  SingleParentHandler,
+                  MultiParentHandler>::type ParentHandler;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */

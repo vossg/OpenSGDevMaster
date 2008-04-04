@@ -142,19 +142,27 @@ void FieldContainerPtrChildSField<ValueT,
 {
     StoredType pVal = this->template dcast<typename Self::StoredType>();
 
+    ParentHandler::clearParentLinking(pVal, _pParent, _usParentFieldPos);
+
+/*
     if(pVal != NullFC)
     {
         pVal->subParent(_pParent);
     }
+ */
     
     RefCountPolicy::setRefd(_fieldValue, value);
 
     pVal = this->template dcast<typename Self::StoredType>();
 
+    ParentHandler::updateParentLinking(pVal, _pParent, _usParentFieldPos);
+
+/*
     if(pVal != NullFC)
     {
         pVal->addParent(_pParent, _usParentFieldPos);
     }
+ */
 }
 
 template<class    ValueT, 
@@ -166,19 +174,27 @@ void FieldContainerPtrChildSField<ValueT,
 {
     StoredType pVal = this->template dcast<typename Self::StoredType>();
 
+    ParentHandler::clearParentLinking(pVal, _pParent, _usParentFieldPos);
+
+/*
     if(pVal != NullFC)
     {
         pVal->subParent(_pParent);
     }
+ */
     
     RefCountPolicy::setRefd(_fieldValue, obj._fieldValue);
 
     pVal = this->template dcast<typename Self::StoredType>();
 
+    ParentHandler::updateParentLinking(pVal, _pParent, _usParentFieldPos);
+
+/*
     if(pVal != NullFC)
     {
         pVal->addParent(_pParent, _usParentFieldPos);
     }
+ */
 }
 
 

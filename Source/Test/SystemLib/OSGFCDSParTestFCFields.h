@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGFCDTESTFCFIELDS_H_
-#define _OSGFCDTESTFCFIELDS_H_
+#ifndef _OSGFCDSPARTESTFCFIELDS_H_
+#define _OSGFCDSPARTESTFCFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -64,12 +64,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-class FCDTestFC;
+class FCDSParTestFC;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! FCDTestFCPtr
+//! FCDSParTestFCPtr
 
-OSG_GEN_CONTAINERPTR(FCDTestFC);
+OSG_GEN_CONTAINERPTR(FCDSParTestFC);
 
 #endif
 
@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(FCDTestFC);
 #endif
 
 template <>
-struct FieldTraits<FCDTestFCPtr> :
-    public FieldTraitsFCPtrBase<FCDTestFCPtr>
+struct FieldTraits<FCDSParTestFCPtr> :
+    public FieldTraitsFCPtrBase<FCDSParTestFCPtr>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<FCDTestFCPtr> :
 
   public:
 
-    typedef FieldTraits<FCDTestFCPtr>  Self;
+    typedef FieldTraits<FCDSParTestFCPtr>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -99,80 +99,80 @@ struct FieldTraits<FCDTestFCPtr> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFCDTestFCPtr"; }
+//    static const char *getSName(void) { return "SFFCDSParTestFCPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFFCDTestFCPtr"; }
+//    static const char *getMName(void) { return "MFFCDSParTestFCPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 0>::getSName<RecordedRefCounts>(void)
 {
-    return "SFRecFCDTestFCPtr"; 
+    return "SFRecFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 0>::getSName<UnrecordedRefCounts>(void)
 {
-    return "SFUnrecFCDTestFCPtr"; 
+    return "SFUnrecFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 0>::getSName<WeakRefCounts>(void)
 {
-    return "SFWeakFCDTestFCPtr"; 
+    return "SFWeakFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 0>::getSName<NoRefCounts>(void)
 {
-    return "SFUnrefdFCDTestFCPtr"; 
+    return "SFUnrefdFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 0>::getMName<RecordedRefCounts>(void)
 {
-    return "MFRecFCDTestFCPtr"; 
+    return "MFRecFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 0>::getMName<UnrecordedRefCounts>(void)
 {
-    return "MFUnrecFCDTestFCPtr"; 
+    return "MFUnrecFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 0>::getMName<WeakRefCounts>(void)
 {
-    return "MFWeakFCDTestFCPtr"; 
+    return "MFWeakFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 0>::getMName<NoRefCounts>(void)
 {
-    return "MFUnrefdFCDTestFCPtr"; 
+    return "MFUnrefdFCDSParTestFCPtr"; 
 }
 
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FCDTestFCPtr, 0>
+/*! \class  FieldTraitsTemplateBase<FCDSParTestFCPtr, 0>
     \hideinhierarchy
  */
 #endif
 
 
 template <>
-struct FieldTraits<FCDTestFCPtr, 1> :
-    public FieldTraitsFCPtrBase<FCDTestFCPtr, 1>
+struct FieldTraits<FCDSParTestFCPtr, 1> :
+    public FieldTraitsFCPtrBase<FCDSParTestFCPtr, 1>
 {
   private:
 
   public:
 
-    typedef FieldTraits<FCDTestFCPtr, 1>  Self;
+    typedef FieldTraits<FCDSParTestFCPtr, 1>  Self;
     typedef FieldContainerPtr           ParentType;
 
-    static const FieldCardinality eFieldCard = MultiField;
+    static const FieldCardinality eFieldCard = SingleField;
 
     enum                        { Convertible = NotConvertible };
 
@@ -181,59 +181,59 @@ struct FieldTraits<FCDTestFCPtr, 1> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFFCDTestFCPtr"; }
+//    static const char *getSName(void) { return "SFFCDSParTestFCPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFFCDTestFCPtr"; }
+//    static const char *getMName(void) { return "MFFCDSParTestFCPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getSName<RecordedRefCounts>(void)
 {
-    return "SFRecFieldContainerChildFCDTestFCPtr"; 
+    return "SFRecFieldContainerChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getSName<UnrecordedRefCounts>(void)
 {
-    return "SFUnrecFieldContainerChildFCDTestFCPtr"; 
+    return "SFUnrecFieldContainerChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getSName<WeakRefCounts>(void)
 {
-    return "SFWeakFieldContainerChildFCDTestFCPtr"; 
+    return "SFWeakFieldContainerChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getSName<NoRefCounts>(void)
 {
-    return "SFUnrefdFieldContainerChildFCDTestFCPtr"; 
+    return "SFUnrefdFieldContainerChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getMName<RecordedRefCounts>(void)
 {
-    return "MFRecFieldContainerChildFCDTestFCPtr"; 
+    return "MFRecFieldContainerChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getMName<UnrecordedRefCounts>(void)
 {
-    return "MFUnrecFieldContainerChildFCDTestFCPtr"; 
+    return "MFUnrecFieldContainerChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getMName<WeakRefCounts>(void)
 {
-    return "MFWeakFieldContainerChildFCDTestFCPtr"; 
+    return "MFWeakFieldContainerChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getMName<NoRefCounts>(void)
 {
-    return "MFUnrefdFieldContainerChildFCDTestFCPtr"; 
+    return "MFUnrefdFieldContainerChildFCDSParTestFCPtr"; 
 }
 
 
@@ -243,49 +243,49 @@ const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<NoRefCounts>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<FCDTestFCPtr,
-                                RecordedRefCounts  > SFRecFCDTestFCPtr;
-typedef FieldContainerPtrSField<FCDTestFCPtr,
-                                UnrecordedRefCounts> SFUnrecFCDTestFCPtr;
-typedef FieldContainerPtrSField<FCDTestFCPtr,
-                                WeakRefCounts      > SFWeakFCDTestFCPtr;
-typedef FieldContainerPtrSField<FCDTestFCPtr,
-                                NoRefCounts        > SFUncountedFCDTestFCPtr;
+typedef FieldContainerPtrSField<FCDSParTestFCPtr,
+                                RecordedRefCounts  > SFRecFCDSParTestFCPtr;
+typedef FieldContainerPtrSField<FCDSParTestFCPtr,
+                                UnrecordedRefCounts> SFUnrecFCDSParTestFCPtr;
+typedef FieldContainerPtrSField<FCDSParTestFCPtr,
+                                WeakRefCounts      > SFWeakFCDSParTestFCPtr;
+typedef FieldContainerPtrSField<FCDSParTestFCPtr,
+                                NoRefCounts        > SFUncountedFCDSParTestFCPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<FCDTestFCPtr,
-                                RecordedRefCounts  > MFRecFCDTestFCPtr;
-typedef FieldContainerPtrMField<FCDTestFCPtr,
-                                UnrecordedRefCounts> MFUnrecFCDTestFCPtr;
-typedef FieldContainerPtrMField<FCDTestFCPtr,
-                                WeakRefCounts      > MFWeakFCDTestFCPtr;
-typedef FieldContainerPtrMField<FCDTestFCPtr,
-                                NoRefCounts        > MFUncountedFCDTestFCPtr;
+typedef FieldContainerPtrMField<FCDSParTestFCPtr,
+                                RecordedRefCounts  > MFRecFCDSParTestFCPtr;
+typedef FieldContainerPtrMField<FCDSParTestFCPtr,
+                                UnrecordedRefCounts> MFUnrecFCDSParTestFCPtr;
+typedef FieldContainerPtrMField<FCDSParTestFCPtr,
+                                WeakRefCounts      > MFWeakFCDSParTestFCPtr;
+typedef FieldContainerPtrMField<FCDSParTestFCPtr,
+                                NoRefCounts        > MFUncountedFCDSParTestFCPtr;
 #endif
 
 
 
 typedef FieldContainerPtrChildSField<
-          FCDTestFCPtr, 
+          FCDSParTestFCPtr, 
           UnrecordedRefCounts,
-          1                  > SFUnrecFieldContainerChildFCDTestFCPtr;
+          1                  > SFUnrecFieldContainerChildFCDSParTestFCPtr;
 
-typedef SFUnrecFieldContainerChildFCDTestFCPtr 
-    SFUnrecChildFCDTestFCPtr;
+typedef SFUnrecFieldContainerChildFCDSParTestFCPtr 
+    SFUnrecChildFCDSParTestFCPtr;
 
 
 typedef FieldContainerPtrChildMField<
-          FCDTestFCPtr, 
+          FCDSParTestFCPtr, 
           UnrecordedRefCounts,
-          1                  > MFUnrecFieldContainerChildFCDTestFCPtr;
+          1                  > MFUnrecFieldContainerChildFCDSParTestFCPtr;
 
-typedef MFUnrecFieldContainerChildFCDTestFCPtr
-    MFUnrecChildFCDTestFCPtr;
+typedef MFUnrecFieldContainerChildFCDSParTestFCPtr
+    MFUnrecChildFCDSParTestFCPtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGFCDTESTFCFIELDS_H_ */
+#endif /* _OSGFCDSPARTESTFCFIELDS_H_ */

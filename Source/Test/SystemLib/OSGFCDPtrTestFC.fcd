@@ -1,0 +1,410 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="FCDPtrTestFC"
+	parent="NodeCore"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+    isNodeCore="true"
+>
+  <!-- SF, multi parent, public -->
+    <Field
+        name = "fieldSFPub_ptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "pointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPub_weakptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "weakpointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPub_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "childpointer"
+    >
+    </Field>
+
+
+
+
+
+  <!-- SF, multi parent, protected -->
+    <Field
+        name = "fieldSFPro_ptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "pointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPro_weakptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "weakpointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPro_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "childpointer"
+    >
+    </Field>
+
+
+  <!-- SF, multi parent, private -->
+    <Field
+        name = "fieldSFPri_ptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "pointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPri_weakptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "weakpointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPri_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "childpointer"
+    >
+    </Field>
+
+
+  <!-- SF, multi parent, none -->
+    <Field
+        name = "fieldSFNo_ptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "pointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFNo_weakptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "weakpointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFNo_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "childpointer"
+    >
+    </Field>
+
+
+
+
+
+  <!-- MF, multi parent, public -->
+    <Field
+        name = "fieldMFPub_ptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "pointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPub_weakptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "weakpointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPub_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "childpointer"
+    >
+    </Field>
+
+
+
+
+  <!-- MF, multi parent, protected -->
+
+    <Field
+        name = "fieldMFPro_ptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "pointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPro_weakptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "weakpointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPro_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "childpointer"
+    >
+    </Field>
+
+
+  <!-- MF, multi parent, private -->
+
+    <Field
+        name = "fieldMFPri_ptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "pointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPri_weakptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "weakpointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPri_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "childpointer"
+    >
+    </Field>
+
+
+  <!-- MF, multi parent, none -->
+    <Field
+        name = "fieldMFNo_ptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "pointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFNo_weakptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "weakpointer"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFNo_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "childpointer"
+    >
+    </Field>
+
+
+
+
+  <!-- SF, single parent, public -->
+
+    <Field
+        name = "fieldSFPub_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "childpointer"
+    >
+    </Field>
+
+  <!-- SF, single parent, protected -->
+
+    <Field
+        name = "fieldSFPro_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "childpointer"
+    >
+    </Field>
+
+  <!-- SF, single parent, private -->
+
+    <Field
+        name = "fieldSFPri_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "childpointer"
+    >
+    </Field>
+
+  <!-- SF, single parent, none -->
+
+    <Field
+        name = "fieldSFNo_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "childpointer"
+    >
+    </Field>
+
+
+  <!-- MF, single parent, public -->
+
+    <Field
+        name = "fieldMFPub_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "childpointer"
+    >
+    </Field>
+
+  <!-- MF, single parent, protected -->
+
+    <Field
+        name = "fieldMFPro_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "childpointer"
+    >
+    </Field>
+
+  <!-- MF, single parent, private -->
+
+    <Field
+        name = "fieldMFPri_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "childpointer"
+    >
+    </Field>
+
+  <!-- MF, multi parent, none -->
+
+    <Field
+        name = "fieldMFNo_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "childpointer"
+    >
+    </Field>
+
+</FieldContainer>

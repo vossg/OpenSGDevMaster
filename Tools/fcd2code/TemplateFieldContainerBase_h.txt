@@ -593,7 +593,7 @@ class @!Classname!@Base : public @!Parent!@
     @@if !isDecorator
         @@BeginFieldLoop@@
             @@if field.isPrivate
-    @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:15!@ _@!field.VarName!@;
+    @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@ _@!field.VarName!@;
             @@endif // field.isPrivate
         @@EndFieldLoop@@
     @@endif // !isDecorator
@@ -606,16 +606,16 @@ class @!Classname!@Base : public @!Parent!@
     @@BeginFieldLoop@@
         @@if field.isPrivate
             @@if field.isPtrField
-    @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
+    @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
             @@else // field.isPtrField
 
                 @@if CompatOneSix
 #ifdef OSG_1_GET_COMPAT
-    @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void);
+    @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void);
 #endif
                 @@endif // CompatOneSix
-    @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
-    @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
+    @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
+    @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
             @@endif // field.isPtrField
         @@endif // field.isPrivate
     @@EndFieldLoop@@
@@ -642,14 +642,14 @@ class @!Classname!@Base : public @!Parent!@
                     @@if CompatOneSix
 #ifdef OSG_1_GET_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@ (const UInt32 index);
-    @!field.MethodType:7!@       @!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@(void);
+    @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ &get@!field.Name:15!@(void);
 #endif
                     @@endif // CompatOneSix
     @!field.MethodType:7!@       @!field.Type:19!@ &edit@!field.Name:15!@(const UInt32 index);
     @!field.MethodType:7!@ const @!field.Type:19!@ &get@!field.Name:15!@ (const UInt32 index) const;
-    @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ &edit@!field.Name:15!@(void);
+    @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ &edit@!field.Name:15!@(void);
                 @@endif // field.isPtrField
-    @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@(void) const;
+    @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ &get@!field.Name:15!@(void) const;
             @@endif // field.isSField
         @@endif // field.isPrivate
     @@EndFieldLoop@@
@@ -681,7 +681,7 @@ class @!Classname!@Base : public @!Parent!@
     void @!field.PushToField:15!@           (@!field.Type!@ConstArg value   );
                 @@endif // field.writePushToField
                 @@if field.writeAssignMField
-    void @!field.AssignMField:15!@           (@!field.Type!@ConstArg value   );
+    void @!field.AssignMField:15!@           (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value   );
                 @@endif // field.writeAssignMField
                 @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,

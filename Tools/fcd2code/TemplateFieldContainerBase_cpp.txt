@@ -679,6 +679,7 @@ void @!Classname!@Base::subChildPointer(FieldContainerPtr pObj,
                                         UInt16            usFieldPos)
 {
     @@BeginFieldLoop@@
+        @@if !field.noAccess
         @@if field.isChildField
             @@if field.isFirstChildField
     if(usFieldPos == @!field.Name!@FieldId)
@@ -701,6 +702,7 @@ void @!Classname!@Base::subChildPointer(FieldContainerPtr pObj,
             @@endif
     }
         @@endif
+        @@endif // !noAccess
     @@EndFieldLoop@@
     else
     {
@@ -922,10 +924,14 @@ EditFieldHandlePtr @!Classname!@Base::editHandleDecoratee(void)
 @@BeginFieldLoop@@
 GetFieldHandlePtr @!Classname!@Base::getHandle@!field.Name:15!@ (void) const
 {
+@@if !field.noAccess
     @!field.CARD!@@!field.FieldTypeCaps!@::GetHandlePtr returnValue(
         new  @!field.CARD!@@!field.FieldTypeCaps!@::GetHandle(
              &_@!field.VarName!@, 
              this->getType().getFieldDesc(@!field.Name!@FieldId)));
+@@else // !field.noAccess
+    @!field.CARD!@@!field.FieldTypeCaps!@::GetHandlePtr returnValue;
+@@endif
 
     return returnValue;
 }
@@ -954,8 +960,8 @@ EditFieldHandlePtr @!Classname!@Base::editHandle@!field.Name:15!@(void)
 
     editSField(@!field.Name!@FieldMask);
 @@endif // field.isMField
-@@else
-    @!field.CARD!@@!field.TypeCaps!@::EditHandlePtr returnValue;
+@@else // !field.noAccess
+    @!field.CARD!@@!field.FieldTypeCaps!@::EditHandlePtr returnValue;
 @@endif
 
     return returnValue;

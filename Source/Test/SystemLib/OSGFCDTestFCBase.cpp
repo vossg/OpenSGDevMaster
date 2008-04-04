@@ -239,6 +239,9 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
     "    isNodeCore=\"true\"\n"
+    "    childFields=\"both\"\n"
+    "    childfieldparent=\"FieldContainer\"\n"
+    "    parentfieldcard=\"multi\"\n"
     ">\n"
     "    <Field\n"
     "        name = \"fieldSFPub\"\n"
@@ -777,10 +780,7 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldSFPri     (void)
 
 GetFieldHandlePtr FCDTestFCBase::getHandleFieldSFNo       (void) const
 {
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
-             &_sfFieldSFNo, 
-             this->getType().getFieldDesc(FieldSFNoFieldId)));
+    SFUInt32::GetHandlePtr returnValue;
 
     return returnValue;
 }
@@ -860,10 +860,7 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldMFPri     (void)
 
 GetFieldHandlePtr FCDTestFCBase::getHandleFieldMFNo       (void) const
 {
-    MFUInt32::GetHandlePtr returnValue(
-        new  MFUInt32::GetHandle(
-             &_mfFieldMFNo, 
-             this->getType().getFieldDesc(FieldMFNoFieldId)));
+    MFUInt32::GetHandlePtr returnValue;
 
     return returnValue;
 }
@@ -946,5 +943,23 @@ OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField,
 OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
                            FCDTestFCPtr, 
                            0);
+
+DataType &FieldTraits< FCDTestFCPtr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<FCDTestFCPtr, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+                      FCDTestFCPtr,       
+                      UnrecordedRefCounts,  
+                      1);
+
+
+OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+                      FCDTestFCPtr,       
+                      UnrecordedRefCounts,  
+                      1);
+
 
 OSG_END_NAMESPACE

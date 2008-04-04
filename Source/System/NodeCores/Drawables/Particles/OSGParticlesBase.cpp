@@ -915,7 +915,7 @@ void ParticlesBase::subChildPointer(FieldContainerPtr pObj,
             _sfPositions.setValue(NullFC);
         }
     }
-    if(usFieldPos == SecPositionsFieldId)
+    else if(usFieldPos == SecPositionsFieldId)
     {
         if(_sfSecPositions.getValue() == pObj)
         {
@@ -924,7 +924,7 @@ void ParticlesBase::subChildPointer(FieldContainerPtr pObj,
             _sfSecPositions.setValue(NullFC);
         }
     }
-    if(usFieldPos == ColorsFieldId)
+    else if(usFieldPos == ColorsFieldId)
     {
         if(_sfColors.getValue() == pObj)
         {
@@ -933,7 +933,7 @@ void ParticlesBase::subChildPointer(FieldContainerPtr pObj,
             _sfColors.setValue(NullFC);
         }
     }
-    if(usFieldPos == NormalsFieldId)
+    else if(usFieldPos == NormalsFieldId)
     {
         if(_sfNormals.getValue() == pObj)
         {

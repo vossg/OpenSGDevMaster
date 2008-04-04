@@ -859,10 +859,7 @@ EditFieldHandlePtr SimpleStageBase::editHandleBackground     (void)
 
 GetFieldHandlePtr SimpleStageBase::getHandlePreRenderCallbacks (void) const
 {
-    MFRenderFunctorCallback::GetHandlePtr returnValue(
-        new  MFRenderFunctorCallback::GetHandle(
-             &_mfPreRenderCallbacks, 
-             this->getType().getFieldDesc(PreRenderCallbacksFieldId)));
+    MFRenderFunctorCallback::GetHandlePtr returnValue;
 
     return returnValue;
 }
@@ -876,10 +873,7 @@ EditFieldHandlePtr SimpleStageBase::editHandlePreRenderCallbacks(void)
 
 GetFieldHandlePtr SimpleStageBase::getHandlePostRenderCallbacks (void) const
 {
-    MFRenderFunctorCallback::GetHandlePtr returnValue(
-        new  MFRenderFunctorCallback::GetHandle(
-             &_mfPostRenderCallbacks, 
-             this->getType().getFieldDesc(PostRenderCallbacksFieldId)));
+    MFRenderFunctorCallback::GetHandlePtr returnValue;
 
     return returnValue;
 }

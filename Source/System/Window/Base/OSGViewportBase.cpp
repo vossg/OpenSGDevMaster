@@ -1192,10 +1192,7 @@ EditFieldHandlePtr ViewportBase::editHandleTop            (void)
 
 GetFieldHandlePtr ViewportBase::getHandleParent          (void) const
 {
-    SFParentFieldContainerPtr::GetHandlePtr returnValue(
-        new  SFParentFieldContainerPtr::GetHandle(
-             &_sfParent, 
-             this->getType().getFieldDesc(ParentFieldId)));
+    SFParentFieldContainerPtr::GetHandlePtr returnValue;
 
     return returnValue;
 }

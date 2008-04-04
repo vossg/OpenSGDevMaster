@@ -804,7 +804,7 @@ void GeometryBase::subChildPointer(FieldContainerPtr pObj,
             _sfTypes.setValue(NullFC);
         }
     }
-    if(usFieldPos == LengthsFieldId)
+    else if(usFieldPos == LengthsFieldId)
     {
         if(_sfLengths.getValue() == pObj)
         {
@@ -813,14 +813,14 @@ void GeometryBase::subChildPointer(FieldContainerPtr pObj,
             _sfLengths.setValue(NullFC);
         }
     }
-    if(usFieldPos == PropertiesFieldId)
+    else if(usFieldPos == PropertiesFieldId)
     {
         GeoVectorPropertyPtr pChild = dynamic_cast<GeoVectorPropertyPtr>(pObj);
 
         if(pChild != NullFC)
             removeFromProperties(pChild);
     }
-    if(usFieldPos == PropIndicesFieldId)
+    else if(usFieldPos == PropIndicesFieldId)
     {
         GeoIntegralPropertyPtr pChild = dynamic_cast<GeoIntegralPropertyPtr>(pObj);
 

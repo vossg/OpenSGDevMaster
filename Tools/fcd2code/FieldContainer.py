@@ -206,7 +206,7 @@ class FieldContainer(FCDElement):
 
                 if foundChildField == False:
                     field["isFirstChildField"] = True
-                    foundChildField = False
+                    foundChildField = True
                 else:
                     field["isFirstChildField"] = False
 

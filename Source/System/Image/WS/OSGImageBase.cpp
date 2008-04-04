@@ -1693,10 +1693,7 @@ void ImageBase::onCreate(const Image *source)
 
 GetFieldHandlePtr ImageBase::getHandleParents         (void) const
 {
-    MFParentFieldContainerPtr::GetHandlePtr returnValue(
-        new  MFParentFieldContainerPtr::GetHandle(
-             &_mfParents, 
-             this->getType().getFieldDesc(ParentsFieldId)));
+    MFParentFieldContainerPtr::GetHandlePtr returnValue;
 
     return returnValue;
 }

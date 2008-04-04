@@ -45,13 +45,13 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CallbackAlgorithm!
+ **     class FCDSParTestFC!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#define OSG_COMPILECALLBACKALGORITHMINST
+#define OSG_COMPILEFCDSPARTESTFCINST
 
 #include <cstdlib>
 #include <cstdio>
@@ -61,9 +61,10 @@
 
 
 
+#include <OSGFieldContainer.h> // Parent Class
 
-#include "OSGCallbackAlgorithmBase.h"
-#include "OSGCallbackAlgorithm.h"
+#include "OSGFCDSParTestFCBase.h"
+#include "OSGFCDSParTestFC.h"
 
 #include "boost/bind.hpp"
 
@@ -73,7 +74,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::CallbackAlgorithm
+/*! \class OSG::FCDSParTestFC
     
  */
 
@@ -81,83 +82,84 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var RenderFunctorCallback CallbackAlgorithmBase::_sfCallback
-    Inherited the parent target if none is set  
+/*! \var ParentFieldContainerPtr FCDSParTestFCBase::_sfParent
+    
 */
 
 
-void CallbackAlgorithmBase::classDescInserter(TypeObject &oType)
+void FCDSParTestFCBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFRenderFunctorCallback::Description(
-        SFRenderFunctorCallback::getClassType(),
-        "callback",
-        "Inherited the parent target if none is set  \n",
-        CallbackFieldId, CallbackFieldMask,
-        false,
+    pDesc = new SFParentFieldContainerPtr::Description(
+        SFParentFieldContainerPtr::getClassType(),
+        "parent",
+        "",
+        ParentFieldId, ParentFieldMask,
+        true,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&CallbackAlgorithmBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&CallbackAlgorithmBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDSParTestFCBase::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDSParTestFCBase::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-CallbackAlgorithmBase::TypeObject CallbackAlgorithmBase::_type(
-    CallbackAlgorithmBase::getClassname(),
+FCDSParTestFCBase::TypeObject FCDSParTestFCBase::_type(
+    FCDSParTestFCBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &CallbackAlgorithmBase::createEmptyLocal,
-    CallbackAlgorithm::initMethod,
-    CallbackAlgorithm::exitMethod,
-    (InitalInsertDescFunc) &CallbackAlgorithmBase::classDescInserter,
+    (PrototypeCreateF) &FCDSParTestFCBase::createEmptyLocal,
+    FCDSParTestFC::initMethod,
+    FCDSParTestFC::exitMethod,
+    (InitalInsertDescFunc) &FCDSParTestFCBase::classDescInserter,
     false,
     0,
-    "<?xml version=\"1.0\"?>\n"
+    "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"CallbackAlgorithm\"\n"
-    "\tparent=\"Algorithm\"\n"
-    "\tlibrary=\"Group\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
+    "\tname=\"FCDSParTestFC\"\n"
+    "\tparent=\"AttachmentContainer\"\n"
+    "\tlibrary=\"System\"\n"
     "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"true\"\n"
+    "    isNodeCore=\"false\"\n"
+    "    childFields=\"both\"\n"
+    "    childfieldparent=\"FieldContainer\"\n"
+    "    parentfieldcard=\"single\"\n"
     ">\n"
-    "        <Field\n"
-    "                name=\"callback\"\n"
-    "                type=\"RenderFunctorCallback\"\n"
-    "                cardinality=\"single\"\n"
-    "                visibility=\"external\"\n"
-    "                access=\"none\"\n"
-    "        >\n"
-    "        Inherited the parent target if none is set  \n"
-    "        </Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"parent\"\n"
+    "\t\ttype=\"FieldContainer\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"none\"\n"
+    "        category=\"parentpointer\"\n"
+    "\t>\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
     ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &CallbackAlgorithmBase::getType(void)
+FieldContainerType &FCDSParTestFCBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &CallbackAlgorithmBase::getType(void) const
+const FieldContainerType &FCDSParTestFCBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 CallbackAlgorithmBase::getContainerSize(void) const
+UInt32 FCDSParTestFCBase::getContainerSize(void) const
 {
-    return sizeof(CallbackAlgorithm);
+    return sizeof(FCDSParTestFC);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -170,78 +172,78 @@ UInt32 CallbackAlgorithmBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CallbackAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 FCDSParTestFCBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (CallbackFieldMask & whichField))
+    if(FieldBits::NoField != (ParentFieldMask & whichField))
     {
-        returnValue += _sfCallback.getBinSize();
+        returnValue += _sfParent.getBinSize();
     }
 
     return returnValue;
 }
 
-void CallbackAlgorithmBase::copyToBin(BinaryDataHandler &pMem,
+void FCDSParTestFCBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (CallbackFieldMask & whichField))
+    if(FieldBits::NoField != (ParentFieldMask & whichField))
     {
-        _sfCallback.copyToBin(pMem);
+        _sfParent.copyToBin(pMem);
     }
 }
 
-void CallbackAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
+void FCDSParTestFCBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (CallbackFieldMask & whichField))
+    if(FieldBits::NoField != (ParentFieldMask & whichField))
     {
-        _sfCallback.copyFromBin(pMem);
+        _sfParent.copyFromBin(pMem);
     }
 }
 
 //! create a new instance of the class
-CallbackAlgorithmTransitPtr CallbackAlgorithmBase::create(void)
+FCDSParTestFCTransitPtr FCDSParTestFCBase::create(void)
 {
-    CallbackAlgorithmTransitPtr fc;
+    FCDSParTestFCTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<CallbackAlgorithm>(tmpPtr);
+        fc = dynamic_pointer_cast<FCDSParTestFC>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-CallbackAlgorithmTransitPtr CallbackAlgorithmBase::createLocal(BitVector bFlags)
+FCDSParTestFCTransitPtr FCDSParTestFCBase::createLocal(BitVector bFlags)
 {
-    CallbackAlgorithmTransitPtr fc;
+    FCDSParTestFCTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<CallbackAlgorithm>(tmpPtr);
+        fc = dynamic_pointer_cast<FCDSParTestFC>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-CallbackAlgorithmPtr CallbackAlgorithmBase::createEmpty(void)
+FCDSParTestFCPtr FCDSParTestFCBase::createEmpty(void)
 {
-    CallbackAlgorithmPtr returnValue;
+    FCDSParTestFCPtr returnValue;
 
-    newPtr<CallbackAlgorithm>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<FCDSParTestFC>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &= 
         ~Thread::getCurrentLocalFlags(); 
@@ -249,23 +251,23 @@ CallbackAlgorithmPtr CallbackAlgorithmBase::createEmpty(void)
     return returnValue;
 }
 
-CallbackAlgorithmPtr CallbackAlgorithmBase::createEmptyLocal(BitVector bFlags)
+FCDSParTestFCPtr FCDSParTestFCBase::createEmptyLocal(BitVector bFlags)
 {
-    CallbackAlgorithmPtr returnValue;
+    FCDSParTestFCPtr returnValue;
 
-    newPtr<CallbackAlgorithm>(returnValue, bFlags);
+    newPtr<FCDSParTestFC>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
 
-FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopy(void) const
+FieldContainerTransitPtr FCDSParTestFCBase::shallowCopy(void) const
 {
-    CallbackAlgorithmPtr tmpPtr;
+    FCDSParTestFCPtr tmpPtr;
 
     newPtr(tmpPtr, 
-           dynamic_cast<const CallbackAlgorithm *>(this), 
+           dynamic_cast<const FCDSParTestFC *>(this), 
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -275,12 +277,12 @@ FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopyLocal(
+FieldContainerTransitPtr FCDSParTestFCBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    CallbackAlgorithmPtr tmpPtr;
+    FCDSParTestFCPtr tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const CallbackAlgorithm *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const FCDSParTestFC *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -293,49 +295,57 @@ FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopyLocal(
 
 /*------------------------- constructors ----------------------------------*/
 
-CallbackAlgorithmBase::CallbackAlgorithmBase(void) :
+FCDSParTestFCBase::FCDSParTestFCBase(void) :
     Inherited(),
-    _sfCallback               ()
+    _sfParent                 (NullFC)
 {
 }
 
-CallbackAlgorithmBase::CallbackAlgorithmBase(const CallbackAlgorithmBase &source) :
+FCDSParTestFCBase::FCDSParTestFCBase(const FCDSParTestFCBase &source) :
     Inherited(source),
-    _sfCallback               (source._sfCallback               )
+    _sfParent                 (NullFC)
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-CallbackAlgorithmBase::~CallbackAlgorithmBase(void)
+FCDSParTestFCBase::~FCDSParTestFCBase(void)
 {
 }
 
-
-GetFieldHandlePtr CallbackAlgorithmBase::getHandleCallback        (void) const
+void FCDSParTestFCBase::onCreate(const FCDSParTestFC *source)
 {
-    SFRenderFunctorCallback::GetHandlePtr returnValue;
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+    }
+}
+
+GetFieldHandlePtr FCDSParTestFCBase::getHandleParent          (void) const
+{
+    SFParentFieldContainerPtr::GetHandlePtr returnValue;
 
     return returnValue;
 }
 
-EditFieldHandlePtr CallbackAlgorithmBase::editHandleCallback       (void)
+EditFieldHandlePtr FCDSParTestFCBase::editHandleParent         (void)
 {
-    SFRenderFunctorCallback::EditHandlePtr returnValue;
+    SFParentFieldContainerPtr::EditHandlePtr returnValue;
 
     return returnValue;
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void CallbackAlgorithmBase::execSyncV(      FieldContainer    &oFrom,
+void FCDSParTestFCBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CallbackAlgorithmBase *>(&oFrom),
+    this->execSync(static_cast<FCDSParTestFCBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -345,18 +355,18 @@ void CallbackAlgorithmBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr CallbackAlgorithmBase::createAspectCopy(void) const
+FieldContainerPtr FCDSParTestFCBase::createAspectCopy(void) const
 {
-    CallbackAlgorithmPtr returnValue;
+    FCDSParTestFCPtr returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const CallbackAlgorithm *>(this));
+                  dynamic_cast<const FCDSParTestFC *>(this));
 
     return returnValue;
 }
 #endif
 
-void CallbackAlgorithmBase::resolveLinks(void)
+void FCDSParTestFCBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
@@ -365,17 +375,35 @@ void CallbackAlgorithmBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CallbackAlgorithmPtr>::_type("CallbackAlgorithmPtr", "AlgorithmPtr");
+DataType FieldTraits<FCDSParTestFCPtr>::_type("FCDSParTestFCPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CallbackAlgorithmPtr)
+OSG_FIELDTRAITS_GETTYPE(FCDSParTestFCPtr)
 
 OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
-                           CallbackAlgorithmPtr, 
+                           FCDSParTestFCPtr, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
-                           CallbackAlgorithmPtr, 
+                           FCDSParTestFCPtr, 
                            0);
+
+DataType &FieldTraits< FCDSParTestFCPtr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<FCDSParTestFCPtr, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+                      FCDSParTestFCPtr,       
+                      UnrecordedRefCounts,  
+                      1);
+
+
+OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+                      FCDSParTestFCPtr,       
+                      UnrecordedRefCounts,  
+                      1);
+
 
 OSG_END_NAMESPACE
