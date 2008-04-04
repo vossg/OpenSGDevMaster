@@ -375,13 +375,15 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
 
         EditFieldHandlePtr fHandle  = fieldCon->editField(fieldId);
 
-        SFFieldContainerPtr::EditHandlePtr pSFHandle = 
-            boost::dynamic_pointer_cast<SFFieldContainerPtr::EditHandle>(
-                fHandle);
+        FieldContainerPtrSFieldBase::EditHandlePtr pSFHandle = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrSFieldBase::EditHandle>(
+                    fHandle);
 
-        MFFieldContainerPtr::EditHandlePtr pMFHandle = 
-            boost::dynamic_pointer_cast<MFFieldContainerPtr::EditHandle>(
-                fHandle);
+        FieldContainerPtrMFieldBase::EditHandlePtr pMFHandle = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrMFieldBase::EditHandle>(
+                    fHandle);
 
         for(; idIt != idEnd; ++idIt)
         {

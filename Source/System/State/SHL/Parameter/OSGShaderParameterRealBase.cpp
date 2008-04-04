@@ -337,20 +337,18 @@ void ShaderParameterRealBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ShaderParameterRealPtr>::_type("ShaderParameterRealPtr", "ShaderParameterPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterRealPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ShaderParameterRealPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ShaderParameterRealPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ShaderParameterRealPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ShaderParameterRealPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ShaderParameterRealPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ShaderParameterRealPtr, 0);
 
 OSG_END_NAMESPACE

@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGClusterDef.h"
 
-#include "OSGAttachmentContainerFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<ImageComposerPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldSingle */
 
-typedef SFieldAdaptor<ImageComposerPtr, SFFieldContainerPtr> SFImageComposerPtr;
+typedef FieldContainerPtrSField<ImageComposerPtr> SFImageComposerPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldMulti */
 
-typedef MFieldAdaptor<ImageComposerPtr, MFFieldContainerPtr> MFImageComposerPtr;
+typedef FieldContainerPtrMField<ImageComposerPtr> MFImageComposerPtr;
 #endif
 
 

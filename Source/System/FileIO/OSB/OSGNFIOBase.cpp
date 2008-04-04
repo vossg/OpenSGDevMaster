@@ -329,9 +329,10 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
                 return;
         }
 
-        SFFieldContainerPtr::EditHandlePtr pHandle = 
-            boost::dynamic_pointer_cast<SFFieldContainerPtr::EditHandle>(
-                info._fc->editField(info._fieldId));
+        FieldContainerPtrSFieldBase::EditHandlePtr pHandle = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrSFieldBase::EditHandle>(
+                    info._fc->editField(info._fieldId));
 
         if(pHandle != NULL && pHandle->isValid())
         {
@@ -346,9 +347,10 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
         if(info._ids.empty())
             return;
 
-        MFFieldContainerPtr::EditHandlePtr pHandle = 
-            boost::dynamic_pointer_cast<MFFieldContainerPtr::EditHandle>(
-                info._fc->editField(info._fieldId));
+        FieldContainerPtrMFieldBase::EditHandlePtr pHandle = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrMFieldBase::EditHandle>(
+                    info._fc->editField(info._fieldId));
 
         SFFieldContainerAttachmentPtrMap::EditHandlePtr pAMapHandle =
             boost::dynamic_pointer_cast<
@@ -574,13 +576,15 @@ void NFIOBase::getFCCount(const FieldContainerPtr &fc, UInt32 &count)
             if(fType.getContentType().isDerivedFrom(
                FieldTraits<FieldContainerPtr>::getType()) == true)
             {
-                SFFieldContainerPtr::GetHandlePtr sfPtrHandle =
+                FieldContainerPtrSFieldBase::GetHandlePtr sfPtrHandle =
                     boost::dynamic_pointer_cast<
-                        SFFieldContainerPtr::GetHandle>(fc->getField(i));
+                        FieldContainerPtrSFieldBase::GetHandle>(
+                            fc->getField(i));
 
-                MFFieldContainerPtr::GetHandlePtr mfPtrHandle =
+                FieldContainerPtrMFieldBase::GetHandlePtr mfPtrHandle =
                     boost::dynamic_pointer_cast<
-                        MFFieldContainerPtr::GetHandle>(fc->getField(i));
+                        FieldContainerPtrMFieldBase::GetHandle>(
+                            fc->getField(i));
 
                 if(sfPtrHandle != NULL && sfPtrHandle->isValid() == true)
                 {
@@ -741,13 +745,15 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
                FieldTraits<FieldContainerPtr>::getType()) == true)
             {
 
-                SFFieldContainerPtr::GetHandlePtr sfPtrHandle =
+                FieldContainerPtrSFieldBase::GetHandlePtr sfPtrHandle =
                     boost::dynamic_pointer_cast<
-                        SFFieldContainerPtr::GetHandle>(fc->getField(i));
+                        FieldContainerPtrSFieldBase::GetHandle>(
+                            fc->getField(i));
 
-                MFFieldContainerPtr::GetHandlePtr mfPtrHandle =
+                FieldContainerPtrMFieldBase::GetHandlePtr mfPtrHandle =
                     boost::dynamic_pointer_cast<
-                        MFFieldContainerPtr::GetHandle>(fc->getField(i));
+                        FieldContainerPtrMFieldBase::GetHandle>(
+                            fc->getField(i));
  
                 //if(fieldPtr->getCardinality() == FieldType::SINGLE_FIELD)
                 if(sfPtrHandle != NULL && sfPtrHandle->isValid() == true)
@@ -823,14 +829,14 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
 
 /*! Write the information for a single field ptr. */
 void NFIOBase::writeSFFieldContainerPtr(
-    SFFieldContainerPtr::GetHandlePtr field)
+    FieldContainerPtrSFieldBase::GetHandlePtr field)
 {
     writeFCId((*field)->getValue());
 }
 
 /*! Write the information for a mffield ptr. */
 void NFIOBase::writeMFFieldContainerPtr(
-    MFFieldContainerPtr::GetHandlePtr field)
+    FieldContainerPtrMFieldBase::GetHandlePtr field)
 {
     UInt32 noe = (*field)->size();
     _out->putValue(noe);

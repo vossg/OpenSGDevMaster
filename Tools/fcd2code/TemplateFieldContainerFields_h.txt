@@ -59,10 +59,9 @@
 #include "OSG@!Libname!@Def.h"
 @@endif
 
-#include "@!ParentHeaderPrefix!@OSG@!Parent!@Fields.h"
-
-#include "@!HeaderPrefix!@OSGSFieldAdaptor.h"
-#include "@!HeaderPrefix!@OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -130,7 +129,7 @@ struct FieldTraits<@!Classname!@Ptr> :
 /*! \ingroup Grp@!Libname!@FieldSingle */
 
     @@endif // isInLibrary
-typedef SFieldAdaptor<@!Classname!@Ptr, SFFieldContainerPtr> SF@!Classname!@Ptr;
+typedef FieldContainerPtrSField<@!Classname!@Ptr> SF@!Classname!@Ptr;
 #endif
 
 @@endif
@@ -141,7 +140,7 @@ typedef SFieldAdaptor<@!Classname!@Ptr, SFFieldContainerPtr> SF@!Classname!@Ptr;
 /*! \ingroup Grp@!Libname!@FieldMulti */
 
     @@endif // isInLibrary
-typedef MFieldAdaptor<@!Classname!@Ptr, MFFieldContainerPtr> MF@!Classname!@Ptr;
+typedef FieldContainerPtrMField<@!Classname!@Ptr> MF@!Classname!@Ptr;
 #endif
 
 

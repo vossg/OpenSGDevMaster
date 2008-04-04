@@ -64,10 +64,9 @@
 #include "OSGFieldContainerAttachment.h"
 #include "OSGDynamicAttachmentMixin.h"
 #include "OSGFieldContainerFieldTraits.h"
-#include "OSGSField.h"
-#include "OSGMField.h"
-#include "OSGMFieldAdaptor.h"
-#include "OSGSFieldAdaptor.h"
+
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -145,8 +144,7 @@ struct FieldTraits<ImageGenericAttPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef SFieldAdaptor<FieldContainerAttachmentPtr, 
-                      ImageGenericAttPtr         > SFImageGenericAttPtr;
+typedef FieldContainerPtrSField<ImageGenericAttPtr> SFImageGenericAttPtr;
 #endif
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -156,8 +154,7 @@ typedef SFieldAdaptor<FieldContainerAttachmentPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef MFieldAdaptor<FieldContainerAttachmentPtr, 
-                      ImageGenericAttPtr         > MFImageGenericAttPtr;
+typedef FieldContainerPtrMField<ImageGenericAttPtr> MFImageGenericAttPtr;
 #endif
 
 OSG_END_NAMESPACE

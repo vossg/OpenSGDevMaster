@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGUtilDef.h"
 
-#include "OSGStatisticsForegroundFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<SimpleStatisticsForegroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpUtilFieldSingle */
 
-typedef SFieldAdaptor<SimpleStatisticsForegroundPtr, SFFieldContainerPtr> SFSimpleStatisticsForegroundPtr;
+typedef FieldContainerPtrSField<SimpleStatisticsForegroundPtr> SFSimpleStatisticsForegroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpUtilFieldMulti */
 
-typedef MFieldAdaptor<SimpleStatisticsForegroundPtr, MFFieldContainerPtr> MFSimpleStatisticsForegroundPtr;
+typedef FieldContainerPtrMField<SimpleStatisticsForegroundPtr> MFSimpleStatisticsForegroundPtr;
 #endif
 
 

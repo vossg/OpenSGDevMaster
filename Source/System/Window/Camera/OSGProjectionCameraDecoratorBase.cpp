@@ -950,20 +950,18 @@ void ProjectionCameraDecoratorBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ProjectionCameraDecoratorPtr>::_type("ProjectionCameraDecoratorPtr", "StereoCameraDecoratorPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ProjectionCameraDecoratorPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ProjectionCameraDecoratorPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ProjectionCameraDecoratorPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ProjectionCameraDecoratorPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ProjectionCameraDecoratorPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ProjectionCameraDecoratorPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ProjectionCameraDecoratorPtr, 0);
 
 OSG_END_NAMESPACE

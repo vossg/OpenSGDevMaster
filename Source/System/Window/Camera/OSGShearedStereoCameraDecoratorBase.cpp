@@ -428,20 +428,18 @@ void ShearedStereoCameraDecoratorBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ShearedStereoCameraDecoratorPtr>::_type("ShearedStereoCameraDecoratorPtr", "StereoCameraDecoratorPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ShearedStereoCameraDecoratorPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ShearedStereoCameraDecoratorPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ShearedStereoCameraDecoratorPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ShearedStereoCameraDecoratorPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ShearedStereoCameraDecoratorPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ShearedStereoCameraDecoratorPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ShearedStereoCameraDecoratorPtr, 0);
 
 OSG_END_NAMESPACE

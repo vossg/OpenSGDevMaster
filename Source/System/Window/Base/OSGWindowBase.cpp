@@ -1261,20 +1261,18 @@ void WindowBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<WindowPtr>::_type("WindowPtr", "AttachmentContainerPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(WindowPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, WindowPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, WindowPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, WindowPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, WindowPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, WindowPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, WindowPtr, 0);
 
 OSG_END_NAMESPACE

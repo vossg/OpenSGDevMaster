@@ -56,9 +56,6 @@
 
 #include "OSGTypedGeoVectorPropertyFields.h"
 
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
@@ -81,31 +78,40 @@ OSG_FIELDTRAITS_GETTYPE(GeoColor4fPropertyPtr)
 
 #endif //!defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, 
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoPnt3fPropertyPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoPnt3fPropertyPtr, 0);
+
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoVec3fPropertyPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoVec3fPropertyPtr, 0);
+
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoColor4fPropertyPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoColor4fPropertyPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField,
                          GeoPnt3fPropertyPtr, 
-                         SFFieldContainerPtr);
+                         0);
 
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, 
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField,
                          GeoPnt3fPropertyPtr, 
-                         MFFieldContainerPtr);
+                         0);
 
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, 
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField,
                          GeoVec3fPropertyPtr, 
-                         SFFieldContainerPtr);
+                         0);
 
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, 
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField,
                          GeoVec3fPropertyPtr, 
-                         MFFieldContainerPtr);
+                         0);
 
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, 
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField,
                          GeoColor4fPropertyPtr, 
-                         SFFieldContainerPtr);
+                         0);
 
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor,
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField,
                          GeoColor4fPropertyPtr, 
-                         MFFieldContainerPtr);
+                         0);
 OSG_END_NAMESPACE
 
 OSG_USING_NAMESPACE

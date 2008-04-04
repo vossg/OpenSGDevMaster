@@ -784,20 +784,18 @@ void MatrixCameraDecoratorBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<MatrixCameraDecoratorPtr>::_type("MatrixCameraDecoratorPtr", "CameraDecoratorPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(MatrixCameraDecoratorPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, MatrixCameraDecoratorPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, MatrixCameraDecoratorPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MatrixCameraDecoratorPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MatrixCameraDecoratorPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MatrixCameraDecoratorPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, MatrixCameraDecoratorPtr, 0);
 
 OSG_END_NAMESPACE

@@ -61,10 +61,6 @@
 
 #include "@!ParentHeaderPrefix!@OSG@!Parent!@Fields.h"
 
-#include "@!HeaderPrefix!@OSGSFieldAdaptor.h"
-#include "@!HeaderPrefix!@OSGMFieldAdaptor.h"
-
-
 OSG_BEGIN_NAMESPACE
 
 class @!Classname!@;

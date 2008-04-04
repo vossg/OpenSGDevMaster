@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGStateChunkFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<BlendChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef SFieldAdaptor<BlendChunkPtr, SFFieldContainerPtr> SFBlendChunkPtr;
+typedef FieldContainerPtrSField<BlendChunkPtr> SFBlendChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef MFieldAdaptor<BlendChunkPtr, MFFieldContainerPtr> MFBlendChunkPtr;
+typedef FieldContainerPtrMField<BlendChunkPtr> MFBlendChunkPtr;
 #endif
 
 

@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGStereoCameraDecoratorFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<ProjectionCameraDecoratorPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef SFieldAdaptor<ProjectionCameraDecoratorPtr, SFFieldContainerPtr> SFProjectionCameraDecoratorPtr;
+typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr> SFProjectionCameraDecoratorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef MFieldAdaptor<ProjectionCameraDecoratorPtr, MFFieldContainerPtr> MFProjectionCameraDecoratorPtr;
+typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr> MFProjectionCameraDecoratorPtr;
 #endif
 
 

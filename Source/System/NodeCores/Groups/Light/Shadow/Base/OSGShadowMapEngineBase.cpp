@@ -699,20 +699,18 @@ void ShadowMapEngineBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ShadowMapEnginePtr>::_type("ShadowMapEnginePtr", "LightEnginePtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ShadowMapEnginePtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ShadowMapEnginePtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ShadowMapEnginePtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ShadowMapEnginePtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ShadowMapEnginePtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ShadowMapEnginePtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ShadowMapEnginePtr, 0);
 
 OSG_END_NAMESPACE

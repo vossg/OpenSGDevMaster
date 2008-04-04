@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGWindowCoreGLDef.h"
 
-#include "OSGWindowFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<CoreGLWindowPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCoreGLFieldSingle */
 
-typedef SFieldAdaptor<CoreGLWindowPtr, SFFieldContainerPtr> SFCoreGLWindowPtr;
+typedef FieldContainerPtrSField<CoreGLWindowPtr> SFCoreGLWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCoreGLFieldMulti */
 
-typedef MFieldAdaptor<CoreGLWindowPtr, MFFieldContainerPtr> MFCoreGLWindowPtr;
+typedef FieldContainerPtrMField<CoreGLWindowPtr> MFCoreGLWindowPtr;
 #endif
 
 

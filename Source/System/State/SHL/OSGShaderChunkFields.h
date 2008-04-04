@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGShaderParameterChunkFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<ShaderChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef SFieldAdaptor<ShaderChunkPtr, SFFieldContainerPtr> SFShaderChunkPtr;
+typedef FieldContainerPtrSField<ShaderChunkPtr> SFShaderChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef MFieldAdaptor<ShaderChunkPtr, MFFieldContainerPtr> MFShaderChunkPtr;
+typedef FieldContainerPtrMField<ShaderChunkPtr> MFShaderChunkPtr;
 #endif
 
 

@@ -2369,20 +2369,18 @@ void QuadTreeTerrainBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<QuadTreeTerrainPtr>::_type("QuadTreeTerrainPtr", "GeometryPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(QuadTreeTerrainPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, QuadTreeTerrainPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, QuadTreeTerrainPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, QuadTreeTerrainPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, QuadTreeTerrainPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, QuadTreeTerrainPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, QuadTreeTerrainPtr, 0);
 
 OSG_END_NAMESPACE

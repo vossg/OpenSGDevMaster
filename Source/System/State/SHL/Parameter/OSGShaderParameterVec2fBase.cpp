@@ -337,20 +337,18 @@ void ShaderParameterVec2fBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ShaderParameterVec2fPtr>::_type("ShaderParameterVec2fPtr", "ShaderParameterPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterVec2fPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ShaderParameterVec2fPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ShaderParameterVec2fPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ShaderParameterVec2fPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ShaderParameterVec2fPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ShaderParameterVec2fPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ShaderParameterVec2fPtr, 0);
 
 OSG_END_NAMESPACE

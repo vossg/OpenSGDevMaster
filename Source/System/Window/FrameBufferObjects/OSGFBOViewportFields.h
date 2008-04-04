@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGViewportFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<FBOViewportPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef SFieldAdaptor<FBOViewportPtr, SFFieldContainerPtr> SFFBOViewportPtr;
+typedef FieldContainerPtrSField<FBOViewportPtr> SFFBOViewportPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef MFieldAdaptor<FBOViewportPtr, MFFieldContainerPtr> MFFBOViewportPtr;
+typedef FieldContainerPtrMField<FBOViewportPtr> MFFBOViewportPtr;
 #endif
 
 

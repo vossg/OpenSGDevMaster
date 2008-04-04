@@ -68,6 +68,16 @@ struct FieldTraitsFCPtrBase :
 
     typedef FieldContainerPtr ParentContainerPtr;
 
+    static const Char8 *getSPName(void)
+    {
+        return "FieldContainerPtrSFieldBase";   
+    }
+
+    static const Char8 *getMPName(void) 
+    {
+        return "FieldContainerPtrMFieldBase";   
+    }
+
     static UInt32 getBinSize(const FieldContainerPtr &)
     {
         return sizeof(UInt32);

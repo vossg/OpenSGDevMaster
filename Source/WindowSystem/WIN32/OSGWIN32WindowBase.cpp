@@ -499,20 +499,18 @@ void WIN32WindowBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<WIN32WindowPtr>::_type("WIN32WindowPtr", "WindowPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(WIN32WindowPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, WIN32WindowPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, WIN32WindowPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, WIN32WindowPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, WIN32WindowPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, WIN32WindowPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, WIN32WindowPtr, 0);
 
 OSG_END_NAMESPACE

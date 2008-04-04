@@ -58,6 +58,12 @@ class SField;
 template<class ValueT, Int32 iNamespace, class AllocT>
 class MField;
 
+template<class ValueT, Int32 iNamespace>
+class FieldContainerPtrSField;
+
+template<class ValueT, Int32 iNamespace>
+class FieldContainerPtrMField;
+
 class FieldDescriptionBase;
 class ReflexiveContainer;
 
@@ -88,6 +94,12 @@ enum FieldCardinality
 {
     SingleField,
     MultiField
+};
+
+enum FieldClass
+{
+    ValueField,
+    PtrField
 };
 
 OSG_END_NAMESPACE

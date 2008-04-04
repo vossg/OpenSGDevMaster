@@ -583,20 +583,18 @@ void TextureSelectChunkBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<TextureSelectChunkPtr>::_type("TextureSelectChunkPtr", "TextureBaseChunkPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(TextureSelectChunkPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, TextureSelectChunkPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, TextureSelectChunkPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TextureSelectChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TextureSelectChunkPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TextureSelectChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, TextureSelectChunkPtr, 0);
 
 OSG_END_NAMESPACE

@@ -493,20 +493,18 @@ void MultiPassMaterialBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<MultiPassMaterialPtr>::_type("MultiPassMaterialPtr", "MaterialPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(MultiPassMaterialPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, MultiPassMaterialPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, MultiPassMaterialPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MultiPassMaterialPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MultiPassMaterialPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MultiPassMaterialPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, MultiPassMaterialPtr, 0);
 
 OSG_END_NAMESPACE

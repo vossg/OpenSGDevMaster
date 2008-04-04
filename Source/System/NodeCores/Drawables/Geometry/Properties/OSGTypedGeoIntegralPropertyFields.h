@@ -94,16 +94,14 @@ struct FieldTraits<GeoUInt8PropertyPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef SFieldAdaptor<GeoUInt8PropertyPtr, 
-                      SFFieldContainerPtr> SFGeoUInt8PropertyPtr;
+typedef FieldContainerPtrSField<GeoUInt8PropertyPtr> SFGeoUInt8PropertyPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef MFieldAdaptor<GeoUInt8PropertyPtr,
-                      MFFieldContainerPtr> MFGeoUInt8PropertyPtr;
+typedef FieldContainerPtrMField<GeoUInt8PropertyPtr> MFGeoUInt8PropertyPtr;
 #endif
 
 
@@ -156,16 +154,14 @@ struct FieldTraits<GeoUInt32PropertyPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef SFieldAdaptor<GeoUInt32PropertyPtr, 
-                      SFFieldContainerPtr> SFGeoUInt32PropertyPtr;
+typedef FieldContainerPtrSField<GeoUInt32PropertyPtr> SFGeoUInt32PropertyPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef MFieldAdaptor<GeoUInt32PropertyPtr,
-                      MFFieldContainerPtr> MFGeoUInt32PropertyPtr;
+typedef FieldContainerPtrMField<GeoUInt32PropertyPtr> MFGeoUInt32PropertyPtr;
 #endif
 
 

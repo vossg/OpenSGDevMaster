@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,36 +36,19 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#include <OSGFieldContainerPtrMFieldBase.h>
+
 OSG_BEGIN_NAMESPACE
 
-#if defined(OSG_STATIC_MEMEBER_NEEDS_COPY_ASIGN_INIT)
+FieldType FieldContainerPtrMFieldBase::_fieldType(
+    "FieldContainerPtrMFieldBase",
+    "Field",                    
+    MFieldTraits::getType (),   
+    FieldType::MULTI_FIELD);
 
-template <class ValueT, class ParentT, Int32 iNamespace>
-FieldType SFieldAdaptor<ValueT, ParentT, iNamespace>::_fieldType = FieldType(
-             SFieldTraits::getSName(),
-    ParentT::SFieldTraits::getSName(),
-             SFieldTraits::getType (),
-    FieldType::SINGLE_FIELD);
-
-#else
-
-template <class ValueT, class ParentT, Int32 iNamespace>
-FieldType SFieldAdaptor<ValueT, ParentT, iNamespace>::_fieldType(
-             SFieldTraits::getSName(),
-    ParentT::SFieldTraits::getSName(),
-             SFieldTraits::getType (),
-    FieldType::SINGLE_FIELD);
-
-#endif
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_HELPER_FCT)
-template <class ValueT, class ParentT, Int32 iNamespace>
-const FieldType &SFieldAdaptor<ValueT, 
-                               ParentT,
-                               iNamespace>::fieldTypeExportHelper(void)
+const FieldType &FieldContainerPtrMFieldBase::getClassType(void)
 {
     return _fieldType;
 }
-#endif
 
 OSG_END_NAMESPACE

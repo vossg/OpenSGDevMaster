@@ -164,9 +164,10 @@ EditFieldHandlePtr DynFieldAttachment<AttachmentDescT>::editDynamicField(
             }
 #endif
 
-            MFFieldContainerPtr::EditHandlePtr pMFHandle = 
-                boost::dynamic_pointer_cast<MFFieldContainerPtr::EditHandle>(
-                    returnValue);
+            FieldContainerPtrMFieldBase::EditHandlePtr pMFHandle = 
+                boost::dynamic_pointer_cast<
+                    FieldContainerPtrMFieldBase::EditHandle>(
+                        returnValue);
 
             if(pMFHandle != NULL && pMFHandle->isValid() == true)
             {
@@ -176,9 +177,10 @@ EditFieldHandlePtr DynFieldAttachment<AttachmentDescT>::editDynamicField(
         }
         else
         {
-            SFFieldContainerPtr::EditHandlePtr pSFHandle = 
-                boost::dynamic_pointer_cast<SFFieldContainerPtr::EditHandle>(
-                    returnValue);
+            FieldContainerPtrSFieldBase::EditHandlePtr pSFHandle = 
+                boost::dynamic_pointer_cast<
+                    FieldContainerPtrSFieldBase::EditHandle>(
+                        returnValue);
 
             if(pSFHandle != NULL && pSFHandle->isValid() == true)
             {

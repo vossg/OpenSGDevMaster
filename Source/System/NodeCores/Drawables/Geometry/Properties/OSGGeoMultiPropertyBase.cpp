@@ -839,20 +839,18 @@ void GeoMultiPropertyBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<GeoMultiPropertyPtr>::_type("GeoMultiPropertyPtr", "GeoVectorPropertyPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(GeoMultiPropertyPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, GeoMultiPropertyPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, GeoMultiPropertyPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoMultiPropertyPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, GeoMultiPropertyPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoMultiPropertyPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, GeoMultiPropertyPtr, 0);
 
 OSG_END_NAMESPACE

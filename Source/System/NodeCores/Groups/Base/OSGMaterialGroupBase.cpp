@@ -349,20 +349,18 @@ void MaterialGroupBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<MaterialGroupPtr>::_type("MaterialGroupPtr", "GroupPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(MaterialGroupPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, MaterialGroupPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, MaterialGroupPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MaterialGroupPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MaterialGroupPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MaterialGroupPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, MaterialGroupPtr, 0);
 
 OSG_END_NAMESPACE

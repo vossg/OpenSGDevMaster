@@ -69,13 +69,23 @@
 #include "OSGNodeCoreSFields.h"
 #include "OSGNodeCoreMFields.h"
 
-#include <OSGSFieldAdaptor.ins>
-#include <OSGMFieldAdaptor.ins>
 
 OSG_BEGIN_NAMESPACE
 
-OSG_SFIELDTYPE_SPEZ_INST(FieldContainerPtr, 0);
-OSG_MFIELDTYPE_SPEZ_INST(FieldContainerPtr, 0);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, FieldContainerPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FieldContainerPtr, 0);
+
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, NodePtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, NodePtr, 0);
+
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, NodeCorePtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, NodeCorePtr, 0);
+
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, AttachmentContainerPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, AttachmentContainerPtr, 0);
+
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, FieldContainerAttachmentPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FieldContainerAttachmentPtr, 0);
 
 OSG_SFIELDTYPE_SPEZ_INST(ParentFieldContainerPtr, 0);
 OSG_MFIELDTYPE_SPEZ_INST(ParentFieldContainerPtr, 0);
@@ -126,27 +136,23 @@ OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback     )
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_FIELD_SPEZ_DLLEXPORT_DEF2(SField, FieldContainerPtr, 0);
-OSG_FIELD_SPEZ_DLLEXPORT_DEF2(MField, FieldContainerPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, FieldContainerPtr, 0);
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, FieldContainerPtr, 0);
 
 OSG_FIELD_SPEZ_DLLEXPORT_DEF2(SField, ParentFieldContainerPtr, 0);
 OSG_FIELD_SPEZ_DLLEXPORT_DEF2(MField, ParentFieldContainerPtr, 0);
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, 
-                         FieldContainerAttachmentPtr, 
-                         SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, 
-                         FieldContainerAttachmentPtr, 
-                         MFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, FieldContainerAttachmentPtr);
+OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, FieldContainerAttachmentPtr);
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, NodeCorePtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodeCorePtr, MFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, NodeCorePtr);
+OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, NodeCorePtr);
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, NodePtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodePtr, MFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, NodePtr);
+OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, NodePtr);
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, NodeRefPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodeRefPtr, MFFieldContainerPtr);
+//OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrSField, NodeRefPtr);
+//OSG_FIELD_DLLEXPORT_DEF1(FieldContainerPtrMField, NodeRefPtr, );
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, ChangedFunctorCallback);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ChangedFunctorCallback);

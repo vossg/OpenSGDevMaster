@@ -529,20 +529,18 @@ void MultiCoreBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<MultiCorePtr>::_type("MultiCorePtr", "GroupPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(MultiCorePtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, MultiCorePtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, MultiCorePtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, MultiCorePtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, MultiCorePtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, MultiCorePtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, MultiCorePtr, 0);
 
 OSG_END_NAMESPACE

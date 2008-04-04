@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGStateChunkFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<GeoMultiPropertyDataPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef SFieldAdaptor<GeoMultiPropertyDataPtr, SFFieldContainerPtr> SFGeoMultiPropertyDataPtr;
+typedef FieldContainerPtrSField<GeoMultiPropertyDataPtr> SFGeoMultiPropertyDataPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef MFieldAdaptor<GeoMultiPropertyDataPtr, MFFieldContainerPtr> MFGeoMultiPropertyDataPtr;
+typedef FieldContainerPtrMField<GeoMultiPropertyDataPtr> MFGeoMultiPropertyDataPtr;
 #endif
 
 

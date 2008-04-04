@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGStereoCameraDecoratorFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<ShearedStereoCameraDecoratorPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef SFieldAdaptor<ShearedStereoCameraDecoratorPtr, SFFieldContainerPtr> SFShearedStereoCameraDecoratorPtr;
+typedef FieldContainerPtrSField<ShearedStereoCameraDecoratorPtr> SFShearedStereoCameraDecoratorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef MFieldAdaptor<ShearedStereoCameraDecoratorPtr, MFFieldContainerPtr> MFShearedStereoCameraDecoratorPtr;
+typedef FieldContainerPtrMField<ShearedStereoCameraDecoratorPtr> MFShearedStereoCameraDecoratorPtr;
 #endif
 
 

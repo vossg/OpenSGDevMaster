@@ -494,20 +494,18 @@ void ChunkOverrideGroupBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ChunkOverrideGroupPtr>::_type("ChunkOverrideGroupPtr", "GroupPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ChunkOverrideGroupPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ChunkOverrideGroupPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ChunkOverrideGroupPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ChunkOverrideGroupPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ChunkOverrideGroupPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ChunkOverrideGroupPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ChunkOverrideGroupPtr, 0);
 
 OSG_END_NAMESPACE

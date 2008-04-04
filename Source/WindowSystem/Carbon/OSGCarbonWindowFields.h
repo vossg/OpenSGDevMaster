@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGWindowCarbonDef.h"
 
-#include "OSGWindowFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<CarbonWindowPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCarbonFieldSingle */
 
-typedef SFieldAdaptor<CarbonWindowPtr, SFFieldContainerPtr> SFCarbonWindowPtr;
+typedef FieldContainerPtrSField<CarbonWindowPtr> SFCarbonWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCarbonFieldMulti */
 
-typedef MFieldAdaptor<CarbonWindowPtr, MFFieldContainerPtr> MFCarbonWindowPtr;
+typedef FieldContainerPtrMField<CarbonWindowPtr> MFCarbonWindowPtr;
 #endif
 
 

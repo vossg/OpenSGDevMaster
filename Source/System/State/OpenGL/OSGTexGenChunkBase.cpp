@@ -1249,20 +1249,18 @@ void TexGenChunkBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<TexGenChunkPtr>::_type("TexGenChunkPtr", "StateChunkPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(TexGenChunkPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, TexGenChunkPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, TexGenChunkPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TexGenChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TexGenChunkPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TexGenChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, TexGenChunkPtr, 0);
 
 OSG_END_NAMESPACE

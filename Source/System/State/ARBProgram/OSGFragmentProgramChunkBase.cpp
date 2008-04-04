@@ -260,20 +260,18 @@ void FragmentProgramChunkBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<FragmentProgramChunkPtr>::_type("FragmentProgramChunkPtr", "ProgramChunkPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(FragmentProgramChunkPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, FragmentProgramChunkPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, FragmentProgramChunkPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, FragmentProgramChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, FragmentProgramChunkPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FragmentProgramChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, FragmentProgramChunkPtr, 0);
 
 OSG_END_NAMESPACE

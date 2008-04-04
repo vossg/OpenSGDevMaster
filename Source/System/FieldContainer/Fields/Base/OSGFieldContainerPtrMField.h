@@ -36,59 +36,67 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGMFIELDADAPTOR_H_
-#define _OSGMFIELDADAPTOR_H_
+#ifndef _OSGFIELDCONTAINERPTRMFIELD_H_
+#define _OSGFIELDCONTAINERPTRMFIELD_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
+#include "OSGFieldContainerPtrMFieldBase.h"
+
+#include "OSGFieldContainerFieldTraits.h"
+#include <boost/function.hpp>  
 
 OSG_BEGIN_NAMESPACE
 
-template<class ValueT, class ParentT, Int32 iNamespace = 0>
-class MFieldAdaptor : public ParentT
+template<class ValueT, Int32 iNamespace = 0>
+class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef          MFieldAdaptor<ValueT, 
-                                   ParentT,
-                                   iNamespace>          Self;
+    typedef          MFieldVector <ValueT>                 StorageType;
+    typedef typename StorageType::Inherited                StorageTypeParent;
 
-    typedef          MFieldVector <ValueT    >          StorageType;
+    typedef typename StorageType::iterator                 iterator;
+    typedef typename StorageType::const_iterator           const_iterator;
 
-    typedef typename StorageType::reference             reference;
-    typedef typename StorageType::const_reference       const_reference;
-
-    typedef typename StorageType::iterator              iterator;
-    typedef typename StorageType::const_iterator        const_iterator;
-
-    typedef typename 
-                    StorageType::reverse_iterator       reverse_iterator;
-    typedef typename 
-                    StorageType::const_reverse_iterator const_reverse_iterator;
+    typedef typename StorageType::reverse_iterator         reverse_iterator;
+    typedef typename StorageType::const_reverse_iterator const_reverse_iterator;
 
 
-    typedef          FieldTraits      <ValueT, 
-                                       iNamespace>      MFieldTraits;
+    typedef typename StorageType::reference                reference;
+    typedef typename StorageType::const_reference          const_reference;
 
-    typedef typename MFieldTraits::ArgumentType         ArgumentType;
+    typedef          FieldTraits            <ValueT, 
+                                             iNamespace>   MFieldTraits;
+ 
+    typedef          FieldContainerPtrMField<ValueT, 
+                                             iNamespace>   Self;
 
-    typedef typename
-    boost::mpl::if_<boost::mpl::bool_<MFieldTraits::bIsPointerField>,
-                    EditFCPtrMFieldHandle<Self>,
-                    EditMFieldHandle     <Self>  >::type  EditHandle;
+    typedef          ValueT                                StoredType;
 
-    typedef boost::shared_ptr<EditHandle> EditHandlePtr;
+    typedef typename MFieldTraits::ArgumentType            ArgumentType;
 
-    typedef typename
-    boost::mpl::if_<boost::mpl::bool_<MFieldTraits::bIsPointerField>,
-                    GetFCPtrMFieldHandle<Self> ,
-                    GetMFieldHandle     <Self> >::type  GetHandle;
+    typedef          FieldDescription       <MFieldTraits,
+                                             MultiField,
+                                             PtrField    > Description;
 
-    typedef boost::shared_ptr<GetHandle> GetHandlePtr;
+    typedef          EditFCPtrMFieldHandle  <Self        > EditHandle;
+    typedef          boost::shared_ptr      <EditHandle  > EditHandlePtr;
+
+    typedef          GetFCPtrMFieldHandle   <Self        > GetHandle;
+    typedef          boost::shared_ptr      <GetHandle   > GetHandlePtr;
+
+    /*---------------------------------------------------------------------*/
+
+    static const Int32 Namespace     = iNamespace;
+
+    static const bool isSField       = false;
+    static const bool isMField       = true;
+
+    static const bool isPointerField = true;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */
@@ -98,67 +106,19 @@ class MFieldAdaptor : public ParentT
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      dcast                                   */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name        General Fieldcontainer Declaration                    */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    MFieldAdaptor(void);
-    MFieldAdaptor(const MFieldAdaptor &source);
+             FieldContainerPtrMField(void);
+             FieldContainerPtrMField(const Self   &obj );
+    explicit FieldContainerPtrMField(const UInt32  size);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    ~MFieldAdaptor(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                  Index Operator                              */
-    /*! \{                                                                 */
-
-          reference operator [](UInt32 index);
-    const_reference operator [](UInt32 index) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Helper                                    */
-    /*! \{                                                                 */
-
-    iterator               begin    (void                              );
-    iterator               end      (void                              );
-
-    reverse_iterator       rbegin   (void                              );
-    reverse_iterator       rend     (void                              );
-
-    
-    const_iterator         begin    (void                              ) const;
-    const_iterator         end      (void                              ) const;
-    
-    const_reverse_iterator rbegin   (void                              ) const;
-    const_reverse_iterator rend     (void                              ) const;
-
-    reference              front    (void                              );
-    const_reference        front    (void                              ) const;
-    
-    reference              back     (void                              );
-    const_reference        back     (void                              ) const;
-
-    iterator               insert   (iterator     pos, 
-                                     ArgumentType value                );
-    iterator               erase    (iterator     pos                  );
-    
-    iterator               find     (ArgumentType value                );
-    const_iterator         find     (ArgumentType value                ) const;
+    ~FieldContainerPtrMField(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -173,39 +133,130 @@ class MFieldAdaptor : public ParentT
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   your_category                              */
-    /*! \{                                                                 */
+    void setValues          (const StorageType       &value);
+    void setValues          (const StorageTypeParent &value);
+    void setValues          (const Self              &obj  );
+    
+#if 0
+    void addValueFromCString(const Char8             *str  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                 Container Access                             */
+    /*! \name                      Push                                    */
     /*! \{                                                                 */
+
+    void pushValuesToString  (std::string  &str) const;
+    void pushValuesFromStream(std::istream &str);
+    void pushValuesToStream  (OutStream    &str) const;
+    void pushSizeToStream    (OutStream    &str) const;
+#endif
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Binary Interface                           */
+    /*! \{                                                                 */
+
+    void   copyFromBin(BinaryDataHandler &pMem);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Binary Access                              */
+    /*! \name                   STL Interface                              */
     /*! \{                                                                 */
+
+    iterator               begin    (void                              );
+    iterator               end      (void                              );
+
+    reverse_iterator       rbegin   (void                              );
+    reverse_iterator       rend     (void                              );
+
+    const_iterator         begin    (void                              ) const;
+    const_iterator         end      (void                              ) const;
+    
+    const_reverse_iterator rbegin   (void                              ) const;
+    const_reverse_iterator rend     (void                              ) const;
+
+    reference              front    (void                              );
+    const_reference        front    (void                              ) const;
+
+    reference              back     (void                              );
+    const_reference        back     (void                              ) const;
+    
+   
+    iterator               insert   (iterator     pos, 
+                                     ArgumentType value                );
+#ifdef __STL_MEMBER_TEMPLATES
+    template <class InputIterator>
+    void                   insert   (iterator      pos, 
+                                     InputIterator first, 
+                                     InputIterator last                );
+#else
+    void                   insert   (iterator      pos, 
+                                     iterator      first,
+                                     iterator      last                );
+#endif /* __STL_MEMBER_TEMPLATES */
+ 
+    iterator               erase    (iterator     pos                  );
+    
+    iterator               find     (ArgumentType value                );
+    const_iterator         find     (ArgumentType value                ) const;
+
+    void                   push_back(ArgumentType value                );
+
+    void                   resize   (size_t       newsize, 
+                                     StoredType   t      = StoredType());
+    void                   reserve  (size_t       newsize              );
+
+    void                   swap     (Self                        &right);
+
+#ifdef OSG_1_COMPAT
+    void                   addValue (ArgumentType value                );
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   your_operators                             */
+    /*! \name                  Index Operator                              */
     /*! \{                                                                 */
+
+          reference operator [](UInt32 index);
+    const_reference operator [](UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Assignment                                */
+    /*! \name                  Compare                                     */
     /*! \{                                                                 */
+
+    bool operator ==(const Self &source) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Comparison                                */
+    /*! \name                  Assignment                                  */
     /*! \{                                                                 */
+
+    void operator =(const Self &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
+    /*! \name                      MT Sync                                 */
+    /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    void syncWith       (Self               &source, 
+                         ConstFieldMaskArg   syncMode,
+                         UInt32              uiSyncInfo,
+                         AspectOffsetStore  &oOffsets    );
+#endif
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      MT Sync                                 */
+    /*! \{                                                                 */
+
+    void dump(      UInt32    uiIndent = 0, 
+              const BitVector bvFlags  = 0) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      MT Sync                                 */
     /*! \{                                                                 */
 
     /*! \}                                                                 */
@@ -217,7 +268,7 @@ class MFieldAdaptor : public ParentT
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    static FieldType _fieldType;
+    typedef FieldContainerPtrMFieldBase Inherited;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -243,20 +294,7 @@ class MFieldAdaptor : public ParentT
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Changed                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   MT Destruction                             */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
+    static FieldType   _fieldType;
 
 #if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_HELPER_FCT)
     const FieldType &fieldTypeExportHelper(void);
@@ -266,15 +304,12 @@ class MFieldAdaptor : public ParentT
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    typedef ParentT Inherited;
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const MFieldAdaptor &source);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGMFieldAdaptor.inl"
+#ifndef OSG_COMPILECONTAINERFIELDINST
+#include "OSGFieldContainerPtrMField.inl"
+#endif
 
-#endif /* _OSGMFIELDADAPTOR_H_ */
+#endif /* _OSGFIELDCONTAINERPTRMFIELD_H_ */

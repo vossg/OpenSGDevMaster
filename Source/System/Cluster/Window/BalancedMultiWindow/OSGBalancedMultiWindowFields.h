@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGClusterDef.h"
 
-#include "OSGMultiDisplayWindowFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE

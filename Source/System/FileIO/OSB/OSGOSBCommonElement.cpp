@@ -631,8 +631,8 @@ OSBCommonElement::preWritePtrSingleField(const UInt32 fieldId)
 
     OSBRootElement     *root       = editRoot();
 
-    SFFieldContainerPtr::GetHandlePtr sfPtrField =
-        boost::dynamic_pointer_cast<SFFieldContainerPtr::GetHandle>(
+    FieldContainerPtrSFieldBase::GetHandlePtr sfPtrField =
+        boost::dynamic_pointer_cast<FieldContainerPtrSFieldBase::GetHandle>(
             getContainer()->getField(fieldId));
 
     if(sfPtrField == NULL || sfPtrField->isValid() == false)
@@ -674,8 +674,8 @@ OSBCommonElement::preWritePtrMultiField(const UInt32 fieldId)
 
     OSBRootElement           *root       = editRoot();
 
-    MFFieldContainerPtr::GetHandlePtr mfPtrField =
-        boost::dynamic_pointer_cast<MFFieldContainerPtr::GetHandle>(
+    FieldContainerPtrMFieldBase::GetHandlePtr mfPtrField =
+        boost::dynamic_pointer_cast<FieldContainerPtrMFieldBase::GetHandle>(
             getContainer()->getField(fieldId));
 
     if(mfPtrField == NULL || mfPtrField->isValid() == false)

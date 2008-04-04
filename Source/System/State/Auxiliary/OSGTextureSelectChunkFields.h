@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGTextureBaseChunkFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<TextureSelectChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef SFieldAdaptor<TextureSelectChunkPtr, SFFieldContainerPtr> SFTextureSelectChunkPtr;
+typedef FieldContainerPtrSField<TextureSelectChunkPtr> SFTextureSelectChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef MFieldAdaptor<TextureSelectChunkPtr, MFFieldContainerPtr> MFTextureSelectChunkPtr;
+typedef FieldContainerPtrMField<TextureSelectChunkPtr> MFTextureSelectChunkPtr;
 #endif
 
 

@@ -317,13 +317,13 @@ FieldContainerPtr NFIOGeometry::readFC(const std::string &/*typeName*/)
                     continue;
                 }
 
-                SFFieldContainerPtr::GetHandlePtr sfPtrHandle =
+                FieldContainerPtrSFieldBase::GetHandlePtr sfPtrHandle =
                     boost::dynamic_pointer_cast<
-                        SFFieldContainerPtr::GetHandle>(field);
+                        FieldContainerPtrSFieldBase::GetHandle>(field);
 
-                MFFieldContainerPtr::GetHandlePtr mfPtrHandle =
+                FieldContainerPtrMFieldBase::GetHandlePtr mfPtrHandle =
                     boost::dynamic_pointer_cast<
-                        MFFieldContainerPtr::GetHandle>(field);
+                        FieldContainerPtrMFieldBase::GetHandle>(field);
 
         
 //                if(strstr(fieldType.c_str(), "Ptr") != NULL)

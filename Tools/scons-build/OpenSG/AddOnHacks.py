@@ -542,6 +542,7 @@ def EnvironmentBuilder_gcc_linux_misc(bldr, env):
 
       if bldr.extraWarningLevel == SConsAddons.EnvironmentBuilder.EnvironmentBuilder.GV:
           env.Append(CCFLAGS = ['-Winline', '-Wreturn-type', '-Werror'])
+          env.Append(LINKFLAGS = ['-Wl,--no-undefined'])
 
 
 

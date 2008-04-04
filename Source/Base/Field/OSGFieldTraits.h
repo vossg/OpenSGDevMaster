@@ -83,7 +83,8 @@ struct FieldTraitsBase
         FromStreamConvertible = 0x20
     };
 
-    static const Char8 *getPName(void) { return "Field";   }
+    static const Char8 *getSPName(void) { return "Field";   }
+    static const Char8 *getMPName(void) { return "Field";   }
 };
 
 enum VecSize
@@ -470,13 +471,16 @@ struct FieldDescBase
     typedef       FieldDescriptionBase Parent;
 };
 
-template<class DescT, enum FieldCardinality eFieldCard>
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass = ValueField>
 class FieldDescription : public DescT::FieldDescParent
 {
   protected:
 
     typedef          FieldDescription<DescT,
-                                      eFieldCard> Self;
+                                      eFieldCard,
+                                      eFieldClass> Self;
 
 
     typedef typename DescT::FieldDescParent       Inherited;
@@ -487,7 +491,19 @@ class FieldDescription : public DescT::FieldDescParent
                                       DescT::iNamespace>,
                       MField<typename DescT::ValueType,
                                       DescT::iNamespace,
-                             typename DescT::MFAlloc   > >::type HandledField;
+                             typename DescT::MFAlloc   > >::type HandledVField;
+
+    typedef typename
+      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
+              FieldContainerPtrSField<typename DescT::ValueType,
+                                      DescT::iNamespace>,
+              FieldContainerPtrMField<typename DescT::ValueType,
+                                      DescT::iNamespace> >::type HandledPField;
+
+    typedef typename
+      boost::mpl::if_<boost::mpl::bool_<(eFieldClass == ValueField)>,
+              HandledVField,
+              HandledPField>::type HandledField;
 
     typedef typename HandledField::GetHandle    GetHandle;
     typedef typename HandledField::GetHandlePtr GetHandlePtr;

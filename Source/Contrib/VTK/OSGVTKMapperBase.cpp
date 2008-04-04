@@ -2327,20 +2327,18 @@ void VTKMapperBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<VTKMapperPtr>::_type("VTKMapperPtr", "GroupPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(VTKMapperPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, VTKMapperPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, VTKMapperPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, VTKMapperPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, VTKMapperPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, VTKMapperPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, VTKMapperPtr, 0);
 
 OSG_END_NAMESPACE

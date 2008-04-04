@@ -680,20 +680,18 @@ void DepthChunkBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<DepthChunkPtr>::_type("DepthChunkPtr", "StateChunkPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(DepthChunkPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, DepthChunkPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, DepthChunkPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, DepthChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, DepthChunkPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, DepthChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, DepthChunkPtr, 0);
 
 OSG_END_NAMESPACE

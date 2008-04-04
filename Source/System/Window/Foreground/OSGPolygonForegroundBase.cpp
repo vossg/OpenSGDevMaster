@@ -1191,20 +1191,18 @@ void PolygonForegroundBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<PolygonForegroundPtr>::_type("PolygonForegroundPtr", "ForegroundPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(PolygonForegroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, PolygonForegroundPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, PolygonForegroundPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, PolygonForegroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, PolygonForegroundPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, PolygonForegroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, PolygonForegroundPtr, 0);
 
 OSG_END_NAMESPACE

@@ -529,20 +529,18 @@ void ClipPlaneChunkBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ClipPlaneChunkPtr>::_type("ClipPlaneChunkPtr", "StateChunkPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ClipPlaneChunkPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ClipPlaneChunkPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ClipPlaneChunkPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ClipPlaneChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ClipPlaneChunkPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ClipPlaneChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ClipPlaneChunkPtr, 0);
 
 OSG_END_NAMESPACE

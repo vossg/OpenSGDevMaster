@@ -346,20 +346,18 @@ void DynamicStateGeneratorBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<DynamicStateGeneratorPtr>::_type("DynamicStateGeneratorPtr", "ChunkOverrideGroupPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(DynamicStateGeneratorPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, DynamicStateGeneratorPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, DynamicStateGeneratorPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, DynamicStateGeneratorPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, DynamicStateGeneratorPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, DynamicStateGeneratorPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, DynamicStateGeneratorPtr, 0);
 
 OSG_END_NAMESPACE

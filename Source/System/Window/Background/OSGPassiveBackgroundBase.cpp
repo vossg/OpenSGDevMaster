@@ -249,18 +249,15 @@ void PassiveBackgroundBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<PassiveBackgroundPtr>::_type("PassiveBackgroundPtr", "BackgroundPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(PassiveBackgroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, PassiveBackgroundPtr, SFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, PassiveBackgroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, PassiveBackgroundPtr, 0);
+
 
 OSG_END_NAMESPACE

@@ -38,11 +38,96 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if 0
-template <class ValueT, Int32 iNamespace> inline
-const FieldType &SField<ValueT, iNamespace>::getClassType(void)
+#ifdef OSG_LINUX_ICC
+#pragma warning( disable : 488 )
+#endif
+
+template<class ValueT, Int32 iNamespace> 
+template<class To> inline
+To &FieldContainerPtrSField<ValueT, iNamespace>::dcast(void)
 {
-    return _fieldType;
+    return reinterpret_cast<To &>(Self::_fieldValue); 
+}
+
+template<class ValueT, Int32 iNamespace> 
+template<class To> inline
+const To &FieldContainerPtrSField<ValueT, iNamespace>::dcast(void) const 
+{
+    return reinterpret_cast<const To &>(Self::_fieldValue); 
+}
+
+#ifdef OSG_LINUX_ICC
+#pragma warning( default : 488 )
+#endif
+
+template<class ValueT, Int32 iNamespace> inline
+FieldContainerPtrSField<ValueT, iNamespace>::FieldContainerPtrSField(void) :
+    Inherited()
+{
+}
+
+template<class ValueT, Int32 iNamespace> inline
+FieldContainerPtrSField<ValueT, iNamespace>::FieldContainerPtrSField(
+    const FieldContainerPtrSField &obj) :
+
+    Inherited(obj)
+{
+    
+}
+
+template<class ValueT, Int32 iNamespace> inline
+FieldContainerPtrSField<ValueT, iNamespace>::FieldContainerPtrSField(
+    ArgumentType value) : 
+
+    Inherited(value)
+{
+}
+
+template<class ValueT, Int32 iNamespace> inline
+FieldContainerPtrSField<ValueT, iNamespace>::~FieldContainerPtrSField(void)
+{
+}
+
+template<class ValueT, Int32 iNamespace> inline
+typename FieldContainerPtrSField<ValueT, iNamespace>::reference 
+    FieldContainerPtrSField<ValueT, iNamespace>::getValue(void)
+{
+    return this->template dcast<typename Self::StoredType>();
+}
+
+template<class ValueT, Int32 iNamespace> inline
+typename FieldContainerPtrSField<ValueT, iNamespace>::const_reference 
+    FieldContainerPtrSField<ValueT, iNamespace>::getValue(void) const
+{
+    return this->template dcast<typename Self::StoredType>();
+}
+
+template<class ValueT, Int32 iNamespace> inline
+void FieldContainerPtrSField<ValueT, iNamespace>::setValue(ArgumentType value)
+{
+    Inherited::setValue(value);
+}
+
+template<class ValueT, Int32 iNamespace> inline
+void FieldContainerPtrSField<ValueT, iNamespace>::setValue(const Self &obj)
+{
+    Inherited::setValue(obj);
+}
+
+
+template<class ValueT, Int32 iNamespace> inline
+void FieldContainerPtrSField<ValueT, iNamespace>::copyFromBin(
+    BinaryDataHandler &pMem)
+{
+    SFieldTraits::copyFromBin( pMem, 
+                              _fieldValue);
+}
+
+#ifdef OSG_MT_CPTR_ASPECT
+template<class ValueT, Int32 iNamespace> inline
+void FieldContainerPtrSField<ValueT, iNamespace>::syncWith(Self &source)
+{
+    Inherited::syncWith(source);
 }
 #endif
 

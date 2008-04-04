@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGGroupFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<BillboardPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef SFieldAdaptor<BillboardPtr, SFFieldContainerPtr> SFBillboardPtr;
+typedef FieldContainerPtrSField<BillboardPtr> SFBillboardPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef MFieldAdaptor<BillboardPtr, MFFieldContainerPtr> MFBillboardPtr;
+typedef FieldContainerPtrMField<BillboardPtr> MFBillboardPtr;
 #endif
 
 

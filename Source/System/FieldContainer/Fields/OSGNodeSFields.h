@@ -42,26 +42,25 @@
 #pragma once
 #endif
 
-#include "OSGSField.h"
-#include "OSGSFieldAdaptor.h"
 #include "OSGNodeFieldTraits.h"
-#include "OSGFieldContainerSFields.h"
+#include "OSGFieldContainerPtrSField.h"
 
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef SFieldAdaptor<NodePtr, SFFieldContainerPtr> SFNodePtr;
+typedef FieldContainerPtrSField<NodePtr> SFNodePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
+#if 0
 typedef SFieldAdaptor   <NodeRefPtr, 
                          SFFieldContainerPtr> SFNodeRefPtr;
-
+#endif
 #endif
 
 

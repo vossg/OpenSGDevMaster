@@ -525,20 +525,18 @@ void StatisticsForegroundBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<StatisticsForegroundPtr>::_type("StatisticsForegroundPtr", "ForegroundPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(StatisticsForegroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, StatisticsForegroundPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, StatisticsForegroundPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, StatisticsForegroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, StatisticsForegroundPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, StatisticsForegroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, StatisticsForegroundPtr, 0);
 
 OSG_END_NAMESPACE

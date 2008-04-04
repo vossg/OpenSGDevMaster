@@ -246,20 +246,18 @@ void PassiveViewportBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<PassiveViewportPtr>::_type("PassiveViewportPtr", "ViewportPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(PassiveViewportPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, PassiveViewportPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, PassiveViewportPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, PassiveViewportPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, PassiveViewportPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, PassiveViewportPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, PassiveViewportPtr, 0);
 
 OSG_END_NAMESPACE

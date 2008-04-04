@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGForegroundFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<PolygonForegroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef SFieldAdaptor<PolygonForegroundPtr, SFFieldContainerPtr> SFPolygonForegroundPtr;
+typedef FieldContainerPtrSField<PolygonForegroundPtr> SFPolygonForegroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef MFieldAdaptor<PolygonForegroundPtr, MFFieldContainerPtr> MFPolygonForegroundPtr;
+typedef FieldContainerPtrMField<PolygonForegroundPtr> MFPolygonForegroundPtr;
 #endif
 
 

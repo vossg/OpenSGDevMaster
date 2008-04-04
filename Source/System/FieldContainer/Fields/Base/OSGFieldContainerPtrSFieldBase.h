@@ -36,53 +36,53 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSFIELDADAPTOR_H_
-#define _OSGSFIELDADAPTOR_H_
+#ifndef _OSGFIELDCONTAINERPTRSFIELDBASE_H_
+#define _OSGFIELDCONTAINERPTRSFIELDBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
-#include "OSGFieldTraits.h"
+#include "OSGSystemDef.h"
+#include "OSGSField.h"
+#include "OSGFieldContainerFieldTraits.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseField
- */
-
-template<class ValueT, class ParentT, Int32 iNamespace = 0>
-class SFieldAdaptor : public ParentT
+class OSG_SYSTEM_DLLMAPPING FieldContainerPtrSFieldBase : public Field
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef          SFieldAdaptor    <ValueT, 
-                                       ParentT, 
-                                       iNamespace>  Self;
+    typedef       FieldTraits      <FieldContainerPtr, 0>  SFieldTraits;
+    typedef       FieldContainerPtrSFieldBase              Self;
 
-    typedef          ValueT                         StoredType;
-    typedef          ValueT                        &reference;
-    typedef const    ValueT                        &const_reference;
+    typedef       FieldContainerPtr                        StoredType;
+    typedef       FieldContainerPtr                       &reference;
+    typedef const FieldContainerPtr                        const_reference;
 
-    typedef          FieldTraits      <ValueT, 
-                                       iNamespace>  SFieldTraits;
+    typedef       FieldContainerPtr                        ArgumentType;
 
-    typedef typename SFieldTraits::ArgumentType        ArgumentType;
+//    typedef       SFieldTraits::ArgumentType               ArgumentType;
 
-    typedef typename
-    boost::mpl::if_<boost::mpl::bool_<SFieldTraits::bIsPointerField>,
-                    EditFCPtrSFieldHandle<Self>,
-                    EditSFieldHandle     <Self>  >::type  EditHandle;
+//    typedef       FieldDescription<SFieldTraits,
+//                                   SingleField        >    Description;
 
-    typedef boost::shared_ptr<EditHandle> EditHandlePtr;
 
-    typedef typename
-    boost::mpl::if_<boost::mpl::bool_<SFieldTraits::bIsPointerField>,
-                    GetFCPtrSFieldHandle<Self> ,
-                    GetSFieldHandle     <Self> >::type  GetHandle;
+    typedef       EditSFieldHandle <Self      >            EditHandle;
+    typedef       boost::shared_ptr<EditHandle>            EditHandlePtr;
 
-    typedef boost::shared_ptr<GetHandle> GetHandlePtr;
+    typedef       GetSFieldHandle  <Self     >             GetHandle;
+    typedef       boost::shared_ptr<GetHandle>             GetHandlePtr;
+
+    /*---------------------------------------------------------------------*/
+
+    static const Int32 Namespace = 0;
+
+    static const bool isSField       = true;
+    static const bool isMField       = false;
+
+    static const bool isPointerField = true;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */
@@ -92,82 +92,31 @@ class SFieldAdaptor : public ParentT
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      dcast                                   */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name        General Fieldcontainer Declaration                    */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-             SFieldAdaptor(void                       );
-             SFieldAdaptor(const SFieldAdaptor &source);
-    explicit SFieldAdaptor(      ArgumentType   value );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    ~SFieldAdaptor(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Helper                                    */
-    /*! \{                                                                 */
-
-          reference getValue(void);
-    const_reference getValue(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
+
+    const_reference getValue(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Binary Interface                           */
+    /*! \{                                                                 */
+
+    UInt32 getBinSize(void                   ) const;
+    
+    void   copyToBin (BinaryDataHandler &pMem) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   your_category                              */
+    /*! \name                      Compare                                 */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                 Container Access                             */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Binary Access                              */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   your_operators                             */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Assignment                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Comparison                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
-    /*! \{                                                                 */
+    bool operator ==(const Self &source) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -178,46 +127,70 @@ class SFieldAdaptor : public ParentT
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    static FieldType _fieldType;
+    typedef Field Inherited;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
+    /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 488 )
+             FieldContainerPtrSFieldBase(void                     );
+             FieldContainerPtrSFieldBase(const Self         &obj  );
+    explicit FieldContainerPtrSFieldBase(      ArgumentType  value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    ~FieldContainerPtrSFieldBase(void); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Get                                     */
+    /*! \{                                                                 */
+
+    reference getValue(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Set                                     */
+    /*! \{                                                                 */
+
+    void setValue           (      ArgumentType  value);
+    void setValue           (const Self         &obj  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Binary Interface                           */
+    /*! \{                                                                 */
+
+//    void copyFromBin(BinaryDataHandler &pMem);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      MT Sync                                 */
+    /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    void syncWith(Self &source);
 #endif
 
-    template<class To>
-          To &dcast(void);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Assign                                  */
+    /*! \{                                                                 */
 
-    template<class To>
-    const To &dcast(void) const;
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( default : 488 )
-#endif
+    void operator =(const Self &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Changed                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   MT Destruction                             */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
+    static FieldType            _fieldType;
+     
+           FieldContainerPtr    _fieldValue;
 
 #if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_HELPER_FCT)
     const FieldType &fieldTypeExportHelper(void);
@@ -227,15 +200,12 @@ class SFieldAdaptor : public ParentT
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    typedef ParentT Inherited;
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const SFieldAdaptor &source);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGSFieldAdaptor.inl"
+#ifndef OSG_COMPILECONTAINERFIELDINST
+#include "OSGFieldContainerPtrSFieldBase.inl"
+#endif
 
-#endif /* _OSGSFIELDADAPTOR_H_ */
+#endif /* _OSGFIELDCONTAINERPTRSFIELDBASE_H_ */

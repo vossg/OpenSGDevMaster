@@ -2672,18 +2672,15 @@ void SkyBackgroundBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<SkyBackgroundPtr>::_type("SkyBackgroundPtr", "BackgroundPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(SkyBackgroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, SkyBackgroundPtr, MFFieldContainerPtr);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, SkyBackgroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, SkyBackgroundPtr, 0);
 
 OSG_END_NAMESPACE

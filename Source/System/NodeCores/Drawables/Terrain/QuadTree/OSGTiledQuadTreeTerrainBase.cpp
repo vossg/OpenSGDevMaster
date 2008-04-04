@@ -1675,20 +1675,18 @@ void TiledQuadTreeTerrainBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<TiledQuadTreeTerrainPtr>::_type("TiledQuadTreeTerrainPtr", "MaterialGroupPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(TiledQuadTreeTerrainPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, TiledQuadTreeTerrainPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, TiledQuadTreeTerrainPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TiledQuadTreeTerrainPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TiledQuadTreeTerrainPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TiledQuadTreeTerrainPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, TiledQuadTreeTerrainPtr, 0);
 
 OSG_END_NAMESPACE

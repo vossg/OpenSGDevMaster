@@ -437,20 +437,18 @@ void StereoBufferViewportBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<StereoBufferViewportPtr>::_type("StereoBufferViewportPtr", "ViewportPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(StereoBufferViewportPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, StereoBufferViewportPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, StereoBufferViewportPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, StereoBufferViewportPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, StereoBufferViewportPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, StereoBufferViewportPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, StereoBufferViewportPtr, 0);
 
 OSG_END_NAMESPACE

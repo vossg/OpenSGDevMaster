@@ -674,20 +674,18 @@ void ImageForegroundBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ImageForegroundPtr>::_type("ImageForegroundPtr", "ForegroundPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ImageForegroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ImageForegroundPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ImageForegroundPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ImageForegroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ImageForegroundPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ImageForegroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ImageForegroundPtr, 0);
 
 OSG_END_NAMESPACE

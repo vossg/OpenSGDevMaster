@@ -459,20 +459,18 @@ void GeoPropertyBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<GeoPropertyPtr>::_type("GeoPropertyPtr", "StateChunkPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(GeoPropertyPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, GeoPropertyPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, GeoPropertyPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoPropertyPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, GeoPropertyPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoPropertyPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, GeoPropertyPtr, 0);
 
 OSG_END_NAMESPACE

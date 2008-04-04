@@ -38,11 +38,83 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if 0
-template <class ValueT, Int32 iNamespace> inline
-const FieldType &MField<ValueT, iNamespace>::getClassType(void)
+inline
+FieldContainerPtrSFieldBase::FieldContainerPtrSFieldBase(void) :
+     Inherited (      ),
+    _fieldValue(NullFC)
 {
-    return _fieldType;
+}
+
+inline
+FieldContainerPtrSFieldBase::FieldContainerPtrSFieldBase(const Self &obj) :
+     Inherited (obj            ),
+    _fieldValue(obj._fieldValue)
+{
+}
+
+inline
+FieldContainerPtrSFieldBase::FieldContainerPtrSFieldBase(ArgumentType value) :
+     Inherited (     ),
+    _fieldValue(value)
+{
+}
+
+inline
+FieldContainerPtrSFieldBase::~FieldContainerPtrSFieldBase(void)
+{
+}
+
+inline
+UInt32 FieldContainerPtrSFieldBase::getBinSize(void) const
+{
+    return SFieldTraits::getBinSize(_fieldValue);
+}
+
+inline
+FieldContainerPtrSFieldBase::const_reference 
+    FieldContainerPtrSFieldBase::getValue(void) const
+{
+    return _fieldValue;
+}
+
+inline
+void FieldContainerPtrSFieldBase::copyToBin(BinaryDataHandler &pMem) const
+{
+    SFieldTraits::copyToBin( pMem, 
+                            _fieldValue);
+}
+
+inline
+bool FieldContainerPtrSFieldBase::operator ==(const Self &source) const
+{
+    return _fieldValue == source._fieldValue;
+}
+
+
+inline
+FieldContainerPtrSFieldBase::reference 
+    FieldContainerPtrSFieldBase::getValue(void)
+{
+    return _fieldValue;
+}
+
+inline
+void FieldContainerPtrSFieldBase::setValue(ArgumentType value)
+{
+    _fieldValue = value;
+}
+
+inline
+void FieldContainerPtrSFieldBase::setValue(const Self &obj)
+{
+    _fieldValue = obj._fieldValue;
+}
+
+#ifdef OSG_MT_CPTR_ASPECT
+inline
+void FieldContainerPtrSFieldBase::syncWith(Self &source)
+{
+    setValue(convertToCurrentAspect(source.getValue()));
 }
 #endif
 

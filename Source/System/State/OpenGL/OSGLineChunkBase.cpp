@@ -612,20 +612,18 @@ void LineChunkBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<LineChunkPtr>::_type("LineChunkPtr", "StateChunkPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(LineChunkPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, LineChunkPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, LineChunkPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, LineChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, LineChunkPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, LineChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, LineChunkPtr, 0);
 
 OSG_END_NAMESPACE

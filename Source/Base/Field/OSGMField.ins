@@ -42,18 +42,18 @@ OSG_BEGIN_NAMESPACE
 
 template <class ValueT, Int32 iNamespace, class AllocT>
 FieldType MField<ValueT, iNamespace, AllocT>::_fieldType = FieldType(
-    MFieldTraits::getMName(),
-    MFieldTraits::getPName(),
-    MFieldTraits::getType (),
+    MFieldTraits::getMName (),
+    MFieldTraits::getMPName(),
+    MFieldTraits::getType  (),
     FieldType::MULTI_FIELD);
 
 #else
 
 template <class ValueT, Int32 iNamespace, class AllocT>
 FieldType MField<ValueT, iNamespace, AllocT>::_fieldType(
-    MFieldTraits::getMName(),
-    MFieldTraits::getPName(),
-    MFieldTraits::getType (),
+    MFieldTraits::getMName (),
+    MFieldTraits::getMPName(),
+    MFieldTraits::getType  (),
     FieldType::MULTI_FIELD);
 
 #endif

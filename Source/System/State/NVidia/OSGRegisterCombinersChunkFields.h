@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGStateChunkFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<RegisterCombinersChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef SFieldAdaptor<RegisterCombinersChunkPtr, SFFieldContainerPtr> SFRegisterCombinersChunkPtr;
+typedef FieldContainerPtrSField<RegisterCombinersChunkPtr> SFRegisterCombinersChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef MFieldAdaptor<RegisterCombinersChunkPtr, MFFieldContainerPtr> MFRegisterCombinersChunkPtr;
+typedef FieldContainerPtrMField<RegisterCombinersChunkPtr> MFRegisterCombinersChunkPtr;
 #endif
 
 

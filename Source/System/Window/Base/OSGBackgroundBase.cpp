@@ -411,20 +411,18 @@ void BackgroundBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<BackgroundPtr>::_type("BackgroundPtr", "AttachmentContainerPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(BackgroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, BackgroundPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, BackgroundPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, BackgroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, BackgroundPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, BackgroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, BackgroundPtr, 0);
 
 OSG_END_NAMESPACE

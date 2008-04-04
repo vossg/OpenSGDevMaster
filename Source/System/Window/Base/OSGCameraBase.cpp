@@ -544,20 +544,18 @@ void CameraBase::setFar(const Real32 &value)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<CameraPtr>::_type("CameraPtr", "AttachmentContainerPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(CameraPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, CameraPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, CameraPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, CameraPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, CameraPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, CameraPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, CameraPtr, 0);
 
 OSG_END_NAMESPACE

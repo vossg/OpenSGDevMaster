@@ -115,14 +115,14 @@ DataType &FieldTraits< CLASSNAME, NAMESPACE >::getType(void) \
 #define OSG_SFIELDTYPE_SPEZ_INST(T1, T2)                 \
 FieldType SField< T1 , T2 >::_fieldType = FieldType(     \
     SFieldTraits::getSName(),                            \
-    SFieldTraits::getPName(),                            \
+    SFieldTraits::getSPName(),                           \
     SFieldTraits::getType (),                            \
     FieldType::SINGLE_FIELD)
 
 #define OSG_MFIELDTYPE_SPEZ_INST(T1, T2)                 \
 FieldType MField< T1, T2 >::_fieldType = FieldType(      \
     MFieldTraits::getMName(),                            \
-    MFieldTraits::getPName(),                            \
+    MFieldTraits::getMPName(),                           \
     MFieldTraits::getType (),                            \
     FieldType::MULTI_FIELD)
 
@@ -131,14 +131,31 @@ FieldType MField< T1, T2 >::_fieldType = FieldType(      \
 #define OSG_SFIELDTYPE_SPEZ_INST(T1, T2)                 \
 FieldType SField< T1 , T2 >::_fieldType(                 \
     SFieldTraits::getSName(),                            \
-    SFieldTraits::getPName(),                            \
+    SFieldTraits::getSPName(),                           \
     SFieldTraits::getType (),                            \
     FieldType::SINGLE_FIELD)
 
 #define OSG_MFIELDTYPE_SPEZ_INST(T1, T2)                 \
 FieldType MField< T1 , T2 >::_fieldType(                 \
     MFieldTraits::getMName(),                            \
-    MFieldTraits::getPName(),                            \
+    MFieldTraits::getMPName(),                           \
+    MFieldTraits::getType (),                            \
+    FieldType::MULTI_FIELD)
+
+#define OSG_SFIELDTYPE_INST(CLASSNAME, T1, T2)           \
+template<>                                               \
+FieldType CLASSNAME< T1 , T2 >::_fieldType(              \
+    SFieldTraits::getSName(),                            \
+    SFieldTraits::getSPName(),                           \
+    SFieldTraits::getType (),                            \
+    FieldType::SINGLE_FIELD)
+
+
+#define OSG_MFIELDTYPE_INST(CLASSNAME, T1, T2)           \
+template<>                                               \
+FieldType CLASSNAME< T1 , T2 >::_fieldType(              \
+    MFieldTraits::getMName(),                            \
+    MFieldTraits::getMPName(),                           \
     MFieldTraits::getType (),                            \
     FieldType::MULTI_FIELD)
 

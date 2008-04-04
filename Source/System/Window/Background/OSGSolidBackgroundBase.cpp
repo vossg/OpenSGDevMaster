@@ -431,18 +431,15 @@ void SolidBackgroundBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<SolidBackgroundPtr>::_type("SolidBackgroundPtr", "BackgroundPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(SolidBackgroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, SolidBackgroundPtr, SFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, SolidBackgroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, SolidBackgroundPtr, 0);
+
 
 OSG_END_NAMESPACE

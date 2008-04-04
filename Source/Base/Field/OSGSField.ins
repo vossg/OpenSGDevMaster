@@ -42,18 +42,18 @@ OSG_BEGIN_NAMESPACE
 
 template <class ValueT, Int32 iNamespace>
 FieldType SField<ValueT, iNamespace>::_fieldType = FieldType(
-    SFieldTraits::getSName(),
-    SFieldTraits::getPName(),
-    SFieldTraits::getType (),
+    SFieldTraits::getSName (),
+    SFieldTraits::getSPName(),
+    SFieldTraits::getType  (),
     FieldType::SINGLE_FIELD);
 
 #else
 
 template <class ValueT, Int32 iNamespace>
 FieldType SField<ValueT, iNamespace>::_fieldType(
-    SFieldTraits::getSName(),
-    SFieldTraits::getPName(),
-    SFieldTraits::getType (),
+    SFieldTraits::getSName (),
+    SFieldTraits::getSPName(),
+    SFieldTraits::getType  (),
     FieldType::SINGLE_FIELD);
 
 #endif

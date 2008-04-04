@@ -56,9 +56,6 @@
 
 #include "OSGTypedGeoIntegralPropertyFields.h"
 
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
@@ -76,22 +73,24 @@ OSG_FIELDTRAITS_GETTYPE(GeoUInt32PropertyPtr)
 
 #endif //!defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, 
-                         GeoUInt8PropertyPtr, 
-                         SFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoUInt8PropertyPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoUInt8PropertyPtr, 0);
 
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, 
-                         GeoUInt8PropertyPtr, 
-                         MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, GeoUInt32PropertyPtr, 0);
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, GeoUInt32PropertyPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, 
+                         GeoUInt8PropertyPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, 
+                         GeoUInt8PropertyPtr, 0);
 
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, 
-                         GeoUInt32PropertyPtr, 
-                         SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, 
+                         GeoUInt32PropertyPtr, 0);
 
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, 
-                         GeoUInt32PropertyPtr, 
-                         MFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, 
+                         GeoUInt32PropertyPtr, 0);
 
 OSG_END_NAMESPACE
 

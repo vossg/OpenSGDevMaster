@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGAttachmentContainerFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<FrameBufferObjectPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef SFieldAdaptor<FrameBufferObjectPtr, SFFieldContainerPtr> SFFrameBufferObjectPtr;
+typedef FieldContainerPtrSField<FrameBufferObjectPtr> SFFrameBufferObjectPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef MFieldAdaptor<FrameBufferObjectPtr, MFFieldContainerPtr> MFFrameBufferObjectPtr;
+typedef FieldContainerPtrMField<FrameBufferObjectPtr> MFFrameBufferObjectPtr;
 #endif
 
 

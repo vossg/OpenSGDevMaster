@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGShaderParameterFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<ShaderParameterMVec4fPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef SFieldAdaptor<ShaderParameterMVec4fPtr, SFFieldContainerPtr> SFShaderParameterMVec4fPtr;
+typedef FieldContainerPtrSField<ShaderParameterMVec4fPtr> SFShaderParameterMVec4fPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef MFieldAdaptor<ShaderParameterMVec4fPtr, MFFieldContainerPtr> MFShaderParameterMVec4fPtr;
+typedef FieldContainerPtrMField<ShaderParameterMVec4fPtr> MFShaderParameterMVec4fPtr;
 #endif
 
 

@@ -415,20 +415,18 @@ void OrthographicCameraBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<OrthographicCameraPtr>::_type("OrthographicCameraPtr", "CameraPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(OrthographicCameraPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, OrthographicCameraPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, OrthographicCameraPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, OrthographicCameraPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, OrthographicCameraPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, OrthographicCameraPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, OrthographicCameraPtr, 0);
 
 OSG_END_NAMESPACE

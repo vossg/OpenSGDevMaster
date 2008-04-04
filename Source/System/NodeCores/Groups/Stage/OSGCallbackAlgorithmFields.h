@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGAlgorithmFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<CallbackAlgorithmPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef SFieldAdaptor<CallbackAlgorithmPtr, SFFieldContainerPtr> SFCallbackAlgorithmPtr;
+typedef FieldContainerPtrSField<CallbackAlgorithmPtr> SFCallbackAlgorithmPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef MFieldAdaptor<CallbackAlgorithmPtr, MFFieldContainerPtr> MFCallbackAlgorithmPtr;
+typedef FieldContainerPtrMField<CallbackAlgorithmPtr> MFCallbackAlgorithmPtr;
 #endif
 
 

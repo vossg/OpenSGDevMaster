@@ -139,10 +139,12 @@ protected:
                                          const std::string &exclude = "",
                                          bool endMarker = true);
     static 
-    void writeSFFieldContainerPtr(SFFieldContainerPtr::GetHandlePtr field  );
+    void writeSFFieldContainerPtr(
+        FieldContainerPtrSFieldBase::GetHandlePtr field  );
 
     static 
-    void writeMFFieldContainerPtr(MFFieldContainerPtr::GetHandlePtr field  );
+    void writeMFFieldContainerPtr(
+        FieldContainerPtrMFieldBase::GetHandlePtr field  );
 
     static 
     void writeSFAttachmentMap    (

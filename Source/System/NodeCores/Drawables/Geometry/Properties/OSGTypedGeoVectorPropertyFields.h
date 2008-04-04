@@ -94,16 +94,14 @@ struct FieldTraits<GeoPnt3fPropertyPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef SFieldAdaptor<GeoPnt3fPropertyPtr, 
-                      SFFieldContainerPtr> SFGeoPnt3fPropertyPtr;
+typedef FieldContainerPtrSField<GeoPnt3fPropertyPtr> SFGeoPnt3fPropertyPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef MFieldAdaptor<GeoPnt3fPropertyPtr,
-                      MFFieldContainerPtr> MFGeoPnt3fPropertyPtr;
+typedef FieldContainerPtrMField<GeoPnt3fPropertyPtr> MFGeoPnt3fPropertyPtr;
 #endif
 
 
@@ -156,16 +154,14 @@ struct FieldTraits<GeoVec3fPropertyPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef SFieldAdaptor<GeoVec3fPropertyPtr, 
-                      SFFieldContainerPtr> SFGeoVec3fPropertyPtr;
+typedef FieldContainerPtrSField<GeoVec3fPropertyPtr> SFGeoVec3fPropertyPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef MFieldAdaptor<GeoVec3fPropertyPtr,
-                      MFFieldContainerPtr> MFGeoVec3fPropertyPtr;
+typedef FieldContainerPtrMField<GeoVec3fPropertyPtr> MFGeoVec3fPropertyPtr;
 #endif
 
 
@@ -220,16 +216,14 @@ struct FieldTraits<GeoColor4fPropertyPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef SFieldAdaptor<GeoColor4fPropertyPtr, 
-                      SFFieldContainerPtr  > SFGeoColor4fPropertyPtr;
+typedef FieldContainerPtrSField<GeoColor4fPropertyPtr> SFGeoColor4fPropertyPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef MFieldAdaptor<GeoColor4fPropertyPtr,
-                      MFFieldContainerPtr  > MFGeoColor4fPropertyPtr;
+typedef FieldContainerPtrMField<GeoColor4fPropertyPtr> MFGeoColor4fPropertyPtr;
 #endif
 
 

@@ -5032,20 +5032,18 @@ void TextureChunkBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<TextureChunkPtr>::_type("TextureChunkPtr", "TextureBaseChunkPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(TextureChunkPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, TextureChunkPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, TextureChunkPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TextureChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TextureChunkPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, TextureChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, TextureChunkPtr, 0);
 
 OSG_END_NAMESPACE

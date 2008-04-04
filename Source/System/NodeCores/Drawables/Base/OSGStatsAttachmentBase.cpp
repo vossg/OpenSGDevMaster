@@ -203,20 +203,18 @@ void StatsAttachmentBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<StatsAttachmentPtr>::_type("StatsAttachmentPtr", "FieldContainerAttachmentPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(StatsAttachmentPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, StatsAttachmentPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, StatsAttachmentPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, StatsAttachmentPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, StatsAttachmentPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, StatsAttachmentPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, StatsAttachmentPtr, 0);
 
 OSG_END_NAMESPACE

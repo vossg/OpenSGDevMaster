@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGMaterialDrawableFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<GeometryPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef SFieldAdaptor<GeometryPtr, SFFieldContainerPtr> SFGeometryPtr;
+typedef FieldContainerPtrSField<GeometryPtr> SFGeometryPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef MFieldAdaptor<GeometryPtr, MFFieldContainerPtr> MFGeometryPtr;
+typedef FieldContainerPtrMField<GeometryPtr> MFGeometryPtr;
 #endif
 
 

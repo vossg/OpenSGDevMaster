@@ -58,9 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<StatePtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef SFieldAdaptor<StatePtr, SFFieldContainerPtr> SFStatePtr;
+typedef FieldContainerPtrSField<StatePtr> SFStatePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef MFieldAdaptor<StatePtr, MFFieldContainerPtr> MFStatePtr;
+typedef FieldContainerPtrMField<StatePtr> MFStatePtr;
 #endif
 
 

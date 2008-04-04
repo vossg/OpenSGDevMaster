@@ -278,13 +278,15 @@ void OSGLoader::setFieldContainerValue(FieldContainerPtr pNewNode)
 {
     if(_pCurrentField != NullFC)
     {
-        SFFieldContainerPtr::EditHandlePtr pSFHandle = 
-            boost::dynamic_pointer_cast<SFFieldContainerPtr::EditHandle>(
-                _pCurrentField);
+        FieldContainerPtrSFieldBase::EditHandlePtr pSFHandle = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrSFieldBase::EditHandle>(
+                    _pCurrentField);
 
-        MFFieldContainerPtr::EditHandlePtr pMFHandle = 
-            boost::dynamic_pointer_cast<MFFieldContainerPtr::EditHandle>(
-                _pCurrentField);
+        FieldContainerPtrMFieldBase::EditHandlePtr pMFHandle = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrMFieldBase::EditHandle>(
+                    _pCurrentField);
 
         SFFieldContainerAttachmentPtrMap::EditHandlePtr pAMapHandle =
             boost::dynamic_pointer_cast<

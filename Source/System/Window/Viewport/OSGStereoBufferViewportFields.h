@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGViewportFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<StereoBufferViewportPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef SFieldAdaptor<StereoBufferViewportPtr, SFFieldContainerPtr> SFStereoBufferViewportPtr;
+typedef FieldContainerPtrSField<StereoBufferViewportPtr> SFStereoBufferViewportPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef MFieldAdaptor<StereoBufferViewportPtr, MFFieldContainerPtr> MFStereoBufferViewportPtr;
+typedef FieldContainerPtrMField<StereoBufferViewportPtr> MFStereoBufferViewportPtr;
 #endif
 
 

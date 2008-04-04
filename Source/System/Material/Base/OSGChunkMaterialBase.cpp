@@ -678,20 +678,18 @@ void ChunkMaterialBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ChunkMaterialPtr>::_type("ChunkMaterialPtr", "MaterialPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ChunkMaterialPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ChunkMaterialPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ChunkMaterialPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ChunkMaterialPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ChunkMaterialPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ChunkMaterialPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ChunkMaterialPtr, 0);
 
 OSG_END_NAMESPACE

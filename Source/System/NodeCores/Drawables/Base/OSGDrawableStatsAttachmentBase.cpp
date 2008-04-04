@@ -854,20 +854,18 @@ void DrawableStatsAttachmentBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<DrawableStatsAttachmentPtr>::_type("DrawableStatsAttachmentPtr", "StatsAttachmentPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(DrawableStatsAttachmentPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, DrawableStatsAttachmentPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, DrawableStatsAttachmentPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, DrawableStatsAttachmentPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, DrawableStatsAttachmentPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, DrawableStatsAttachmentPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, DrawableStatsAttachmentPtr, 0);
 
 OSG_END_NAMESPACE

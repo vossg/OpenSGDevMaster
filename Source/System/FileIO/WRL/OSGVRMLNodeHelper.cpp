@@ -828,13 +828,15 @@ void VRMLNodeHelper::setContainerFieldValue(
     if((pFieldDesc != NULL  ) && 
        (pFieldFC   != NullFC)   )
     {
-         SFFieldContainerPtr::EditHandlePtr pSFHandle = 
-            boost::dynamic_pointer_cast<SFFieldContainerPtr::EditHandle>(
-                pFieldFC->editField(pFieldDesc->getFieldId()));
+         FieldContainerPtrSFieldBase::EditHandlePtr pSFHandle = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrSFieldBase::EditHandle>(
+                    pFieldFC->editField(pFieldDesc->getFieldId()));
 
-        MFFieldContainerPtr::EditHandlePtr pMFHandle = 
-            boost::dynamic_pointer_cast<MFFieldContainerPtr::EditHandle>(
-                pFieldFC->editField(pFieldDesc->getFieldId()));
+         FieldContainerPtrMFieldBase::EditHandlePtr pMFHandle = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrMFieldBase::EditHandle>(
+                    pFieldFC->editField(pFieldDesc->getFieldId()));
 
         if(pSFHandle != NULL && pSFHandle->isValid())
         {

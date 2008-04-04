@@ -1440,20 +1440,18 @@ void ManipulatorBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ManipulatorPtr>::_type("ManipulatorPtr", "TransformPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ManipulatorPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ManipulatorPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ManipulatorPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ManipulatorPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ManipulatorPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ManipulatorPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ManipulatorPtr, 0);
 
 OSG_END_NAMESPACE

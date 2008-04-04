@@ -1602,20 +1602,18 @@ void ParticlesBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ParticlesPtr>::_type("ParticlesPtr", "MaterialDrawablePtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ParticlesPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ParticlesPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ParticlesPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, ParticlesPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, ParticlesPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, ParticlesPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, ParticlesPtr, 0);
 
 OSG_END_NAMESPACE

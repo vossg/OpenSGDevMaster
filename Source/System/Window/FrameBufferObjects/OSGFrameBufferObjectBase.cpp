@@ -1060,20 +1060,18 @@ void FrameBufferObjectBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<FrameBufferObjectPtr>::_type("FrameBufferObjectPtr", "AttachmentContainerPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(FrameBufferObjectPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, FrameBufferObjectPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, FrameBufferObjectPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, FrameBufferObjectPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, FrameBufferObjectPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, FrameBufferObjectPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, FrameBufferObjectPtr, 0);
 
 OSG_END_NAMESPACE

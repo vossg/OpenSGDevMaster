@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGMaterialDrawableFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<ParticlesPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef SFieldAdaptor<ParticlesPtr, SFFieldContainerPtr> SFParticlesPtr;
+typedef FieldContainerPtrSField<ParticlesPtr> SFParticlesPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef MFieldAdaptor<ParticlesPtr, MFFieldContainerPtr> MFParticlesPtr;
+typedef FieldContainerPtrMField<ParticlesPtr> MFParticlesPtr;
 #endif
 
 

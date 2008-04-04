@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGGroupFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<ChunkOverrideGroupPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef SFieldAdaptor<ChunkOverrideGroupPtr, SFFieldContainerPtr> SFChunkOverrideGroupPtr;
+typedef FieldContainerPtrSField<ChunkOverrideGroupPtr> SFChunkOverrideGroupPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef MFieldAdaptor<ChunkOverrideGroupPtr, MFFieldContainerPtr> MFChunkOverrideGroupPtr;
+typedef FieldContainerPtrMField<ChunkOverrideGroupPtr> MFChunkOverrideGroupPtr;
 #endif
 
 

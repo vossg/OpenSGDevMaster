@@ -260,11 +260,13 @@ void OSGWriter::visitField(GetFieldHandlePtr hF)
 //        if(strstr(fType->getCName(), "Ptr") != NULL)
 //       {
 
-        SFFieldContainerPtr::GetHandlePtr sfFCPtr = 
-            boost::dynamic_pointer_cast<SFFieldContainerPtr::GetHandle>(hF);
+        FieldContainerPtrSFieldBase::GetHandlePtr sfFCPtr = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrSFieldBase::GetHandle>(hF);
 
-        MFFieldContainerPtr::GetHandlePtr mfFCPtr = 
-            boost::dynamic_pointer_cast<MFFieldContainerPtr::GetHandle>(hF);
+        FieldContainerPtrMFieldBase::GetHandlePtr mfFCPtr = 
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrMFieldBase::GetHandle>(hF);
 
 //        if(hF->getCardinality() == FieldType::SINGLE_FIELD)
         if(sfFCPtr != NULL && sfFCPtr->isValid() == true)
@@ -398,11 +400,11 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
         boost::dynamic_pointer_cast<
             SFFieldContainerAttachmentPtrMap::GetHandle>(hF);
 
-    SFFieldContainerPtr::GetHandlePtr sfFCPtr = 
-        boost::dynamic_pointer_cast<SFFieldContainerPtr::GetHandle>(hF);
+    FieldContainerPtrSFieldBase::GetHandlePtr sfFCPtr = 
+        boost::dynamic_pointer_cast<FieldContainerPtrSFieldBase::GetHandle>(hF);
     
-    MFFieldContainerPtr::GetHandlePtr mfFCPtr = 
-        boost::dynamic_pointer_cast<MFFieldContainerPtr::GetHandle>(hF);
+    FieldContainerPtrMFieldBase::GetHandlePtr mfFCPtr = 
+        boost::dynamic_pointer_cast<FieldContainerPtrMFieldBase::GetHandle>(hF);
 
     if(sfAttMap != NULL && sfAttMap->isValid() == true)
     {

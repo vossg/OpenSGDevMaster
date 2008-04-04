@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGWindowWIN32Def.h"
 
-#include "OSGWindowFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<WIN32WindowPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowWIN32FieldSingle */
 
-typedef SFieldAdaptor<WIN32WindowPtr, SFFieldContainerPtr> SFWIN32WindowPtr;
+typedef FieldContainerPtrSField<WIN32WindowPtr> SFWIN32WindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowWIN32FieldMulti */
 
-typedef MFieldAdaptor<WIN32WindowPtr, MFFieldContainerPtr> MFWIN32WindowPtr;
+typedef FieldContainerPtrMField<WIN32WindowPtr> MFWIN32WindowPtr;
 #endif
 
 

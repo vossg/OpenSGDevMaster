@@ -506,20 +506,18 @@ void InlineBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<InlinePtr>::_type("InlinePtr", "NodeCorePtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(InlinePtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, InlinePtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, InlinePtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, InlinePtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, InlinePtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, InlinePtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, InlinePtr, 0);
 
 OSG_END_NAMESPACE

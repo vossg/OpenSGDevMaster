@@ -38,8 +38,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-FieldDescription<DescT, eFieldCard>::FieldDescription(
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
+FieldDescription<DescT, eFieldCard, eFieldClass>::FieldDescription(
     const FieldType       &elementType,
     const Char8           *szName,
           std::string      documentation,
@@ -64,8 +66,10 @@ FieldDescription<DescT, eFieldCard>::FieldDescription(
 {
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-FieldDescription<DescT, eFieldCard>::FieldDescription(
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
+FieldDescription<DescT, eFieldCard, eFieldClass>::FieldDescription(
     const FieldType            &elementType,
     const Char8                *szName,
     std::string                 documentation,
@@ -90,56 +94,80 @@ FieldDescription<DescT, eFieldCard>::FieldDescription(
 {
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-FieldDescription<DescT, eFieldCard>::FieldDescription(
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
+FieldDescription<DescT, eFieldCard, eFieldClass>::FieldDescription(
     const FieldDescription &source) :
 
     Inherited(source)
 {
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-FieldDescription<DescT, eFieldCard>::~FieldDescription(void)
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
+FieldDescription<DescT, eFieldCard, eFieldClass>::~FieldDescription(void)
 {
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-const typename FieldDescription<DescT, eFieldCard>::HandledField *
-    FieldDescription<DescT, eFieldCard>::dcast_const(const Field *pField) const
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
+const typename FieldDescription<DescT, eFieldCard, eFieldClass>::HandledField *
+    FieldDescription<DescT, 
+                     eFieldCard, 
+                     eFieldClass>::dcast_const(const Field *pField) const
 {
     return static_cast<const HandledField *>(pField);
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-typename FieldDescription<DescT, eFieldCard>::HandledField *
-    FieldDescription<DescT, eFieldCard>::dcast(Field *pField) const
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
+typename FieldDescription<DescT, eFieldCard, eFieldClass>::HandledField *
+    FieldDescription<DescT, eFieldCard, eFieldClass>::dcast(Field *pField) const
 {
     return static_cast<HandledField *>(pField);
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-Field *FieldDescription<DescT, eFieldCard>::createField(void) const
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
+Field *FieldDescription<DescT, eFieldCard, eFieldClass>::createField(void) const
 {
     return new HandledField();
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::destroyField(Field *pField) const
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
+void FieldDescription<DescT, 
+                      eFieldCard, 
+                      eFieldClass>::destroyField(Field *pField) const
 {
     HandledField *pDelField = dcast(pField);
 
     delete pDelField;
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-FieldDescriptionBase *FieldDescription<DescT, eFieldCard>::clone(void) const
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
+FieldDescriptionBase *FieldDescription<DescT, 
+                                       eFieldCard, 
+                                       eFieldClass>::clone(void) const
 {
     return new Self(*this);
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
 GetFieldHandlePtr 
-    FieldDescription<DescT, eFieldCard>::createGetHandler(const Field *pField)
+    FieldDescription<DescT, 
+                     eFieldCard, 
+                     eFieldClass>::createGetHandler(const Field *pField)
 {
     const HandledField *pTypedField = dcast_const(pField);
 
@@ -148,9 +176,13 @@ GetFieldHandlePtr
     return returnValue;
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
 EditFieldHandlePtr 
-    FieldDescription<DescT, eFieldCard>::createEditHandler(Field *pField)
+    FieldDescription<DescT, 
+                     eFieldCard, 
+                     eFieldClass>::createEditHandler(Field *pField)
 {
     HandledField *pTypedField = dcast(pField);
 
@@ -160,18 +192,24 @@ EditFieldHandlePtr
 }
 
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
 void FieldDescription<DescT,
-                      eFieldCard>::SFieldFunctions::beginEdit(
+                     eFieldCard,
+                     eFieldClass>::SFieldFunctions::beginEdit(
                           HandledField       *,
                           UInt32              ,
                           AspectOffsetStore  &)
 {
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
+template<class DescT,
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
 void FieldDescription<DescT,
-                      eFieldCard>::MFieldFunctions::beginEdit(
+                      eFieldCard,
+                      eFieldClass>::MFieldFunctions::beginEdit(
                           HandledField       *pField,
                           UInt32              uiAspect,
                           AspectOffsetStore  &oOffsets)
@@ -180,17 +218,23 @@ void FieldDescription<DescT,
 }
 
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
 bool FieldDescription<DescT,
-                      eFieldCard>::SFieldFunctions::isShared(
+                      eFieldCard, 
+                      eFieldClass>::SFieldFunctions::isShared(
                           HandledField *)
 {
     return false;
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
 bool FieldDescription<DescT,
-                      eFieldCard>::MFieldFunctions::isShared(
+                      eFieldCard, 
+                      eFieldClass>::MFieldFunctions::isShared(
                           HandledField *pField)
 {
     return pField->isShared();
@@ -198,20 +242,26 @@ bool FieldDescription<DescT,
 
 
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
 void FieldDescription<DescT,
-                      eFieldCard>::beginEdit(Field              *pField,
-                                             UInt32              uiAspect,
-                                             AspectOffsetStore  &oOffsets)
+                      eFieldCard,
+                      eFieldClass>::beginEdit(Field              *pField,
+                                              UInt32              uiAspect,
+                                              AspectOffsetStore  &oOffsets)
 {
     HandledField *pTypedField = dcast(pField);
     
     FieldFunctions::beginEdit(pTypedField, uiAspect, oOffsets);
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
+template<class DescT, 
+         enum  FieldCardinality eFieldCard, 
+         enum  FieldClass       eFieldClass> inline
 bool FieldDescription<DescT,
-                      eFieldCard>::isShared(Field *pField)
+                      eFieldCard,
+                      eFieldClass>::isShared(Field *pField)
 {
     HandledField *pTypedField = dcast(pField);
     

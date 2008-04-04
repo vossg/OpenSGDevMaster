@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGGrabForegroundFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<FileGrabForegroundPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef SFieldAdaptor<FileGrabForegroundPtr, SFFieldContainerPtr> SFFileGrabForegroundPtr;
+typedef FieldContainerPtrSField<FileGrabForegroundPtr> SFFileGrabForegroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef MFieldAdaptor<FileGrabForegroundPtr, MFFieldContainerPtr> MFFileGrabForegroundPtr;
+typedef FieldContainerPtrMField<FileGrabForegroundPtr> MFFileGrabForegroundPtr;
 #endif
 
 

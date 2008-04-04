@@ -131,13 +131,13 @@ bool isEqual(const OSG::FieldContainerPtr& a, const OSG::FieldContainerPtr& b)
             continue;
         
 
-        SFFieldContainerPtr::GetHandlePtr sfPtrHandleA =
+        FieldContainerPtrSFieldBase::GetHandlePtr sfPtrHandleA =
             boost::dynamic_pointer_cast<
-                SFFieldContainerPtr::GetHandle>(fhandlea);
+                FieldContainerPtrSFieldBase::GetHandle>(fhandlea);
 
-        MFFieldContainerPtr::GetHandlePtr mfPtrHandleA =
+        FieldContainerPtrMFieldBase::GetHandlePtr mfPtrHandleA =
             boost::dynamic_pointer_cast<
-                MFFieldContainerPtr::GetHandle>(fhandlea);
+                FieldContainerPtrMFieldBase::GetHandle>(fhandlea);
 
         if(sfPtrHandleA == NULL || mfPtrHandleA == NULL)
         {
@@ -161,9 +161,9 @@ bool isEqual(const OSG::FieldContainerPtr& a, const OSG::FieldContainerPtr& b)
         {
             if(sfPtrHandleA != NULL && sfPtrHandleA->isValid() == true)
             {
-                SFFieldContainerPtr::GetHandlePtr sfPtrHandleB =
+                FieldContainerPtrSFieldBase::GetHandlePtr sfPtrHandleB =
                     boost::dynamic_pointer_cast<
-                        SFFieldContainerPtr::GetHandle>(fhandleb);
+                        FieldContainerPtrSFieldBase::GetHandle>(fhandleb);
 
                 if(isEqual((*sfPtrHandleA)->getValue(),
                            (*sfPtrHandleB)->getValue()) == false)
@@ -173,9 +173,9 @@ bool isEqual(const OSG::FieldContainerPtr& a, const OSG::FieldContainerPtr& b)
             }
             else if(mfPtrHandleA != NULL && mfPtrHandleA->isValid() == true)
             {
-                MFFieldContainerPtr::GetHandlePtr mfPtrHandleB =
+                FieldContainerPtrMFieldBase::GetHandlePtr mfPtrHandleB =
                     boost::dynamic_pointer_cast<
-                        MFFieldContainerPtr::GetHandle>(fhandleb);
+                        FieldContainerPtrMFieldBase::GetHandle>(fhandleb);
 
                 if((*mfPtrHandleA)->size() !=
                    (*mfPtrHandleB)->size())

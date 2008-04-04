@@ -269,13 +269,13 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr &fc)
 
         const FieldType   &ftype    = fdesc->getFieldType();
 
-        SFFieldContainerPtr::GetHandlePtr sfPtrHandle =
+        FieldContainerPtrSFieldBase::GetHandlePtr sfPtrHandle =
             boost::dynamic_pointer_cast<
-                SFFieldContainerPtr::GetHandle>(fc->getField(i));
+                FieldContainerPtrSFieldBase::GetHandle>(fc->getField(i));
 
-        MFFieldContainerPtr::GetHandlePtr mfPtrHandle =
+        FieldContainerPtrMFieldBase::GetHandlePtr mfPtrHandle =
             boost::dynamic_pointer_cast<
-                MFFieldContainerPtr::GetHandle>(fc->getField(i));
+                FieldContainerPtrMFieldBase::GetHandle>(fc->getField(i));
         
 
         // field
@@ -291,9 +291,10 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr &fc)
                 
                 if(nffc != ffc)
                 {
-                    SFFieldContainerPtr::EditHandlePtr sfPtrEditHandle =
+                    FieldContainerPtrSFieldBase::EditHandlePtr sfPtrEditHandle =
                         boost::dynamic_pointer_cast<
-                           SFFieldContainerPtr::EditHandle>(fc->editField(i));
+                           FieldContainerPtrSFieldBase::EditHandle>(
+                               fc->editField(i));
                     
                     sfPtrEditHandle->setValue(nffc);
 #if 0
@@ -327,10 +328,11 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr &fc)
                     if(nffc != ffc)
                     {
 
-                        MFFieldContainerPtr::EditHandlePtr mfPtrEditHandle =
-                            boost::dynamic_pointer_cast<
-                                MFFieldContainerPtr::EditHandle>(
-                                    fc->editField(i));
+                        FieldContainerPtrMFieldBase::EditHandlePtr 
+                            mfPtrEditHandle =
+                                boost::dynamic_pointer_cast<
+                                    FieldContainerPtrMFieldBase::EditHandle>(
+                                        fc->editField(i));
 
                         mfPtrEditHandle->replace(j, nffc);
 
@@ -624,13 +626,13 @@ bool SharePtrGraphOp::isEqual(const OSG::FieldContainerPtr &a,
             continue;
         
 
-        SFFieldContainerPtr::GetHandlePtr sfPtrHandleA =
+        FieldContainerPtrSFieldBase::GetHandlePtr sfPtrHandleA =
             boost::dynamic_pointer_cast<
-                SFFieldContainerPtr::GetHandle>(fhandlea);
+                FieldContainerPtrSFieldBase::GetHandle>(fhandlea);
 
-        MFFieldContainerPtr::GetHandlePtr mfPtrHandleA =
+        FieldContainerPtrMFieldBase::GetHandlePtr mfPtrHandleA =
             boost::dynamic_pointer_cast<
-                MFFieldContainerPtr::GetHandle>(fhandlea);
+                FieldContainerPtrMFieldBase::GetHandle>(fhandlea);
 
         if(sfPtrHandleA == NULL || mfPtrHandleA == NULL)
         {
@@ -654,9 +656,9 @@ bool SharePtrGraphOp::isEqual(const OSG::FieldContainerPtr &a,
         {
             if(sfPtrHandleA != NULL && sfPtrHandleA->isValid() == true)
             {
-                SFFieldContainerPtr::GetHandlePtr sfPtrHandleB =
+                FieldContainerPtrSFieldBase::GetHandlePtr sfPtrHandleB =
                     boost::dynamic_pointer_cast<
-                        SFFieldContainerPtr::GetHandle>(fhandleb);
+                        FieldContainerPtrSFieldBase::GetHandle>(fhandleb);
 
                 if(isEqual((*sfPtrHandleA)->getValue(),
                            (*sfPtrHandleB)->getValue()) == false)
@@ -666,9 +668,9 @@ bool SharePtrGraphOp::isEqual(const OSG::FieldContainerPtr &a,
             }
             else if(mfPtrHandleA != NULL && mfPtrHandleA->isValid() == true)
             {
-                MFFieldContainerPtr::GetHandlePtr mfPtrHandleB =
+                FieldContainerPtrMFieldBase::GetHandlePtr mfPtrHandleB =
                     boost::dynamic_pointer_cast<
-                        MFFieldContainerPtr::GetHandle>(fhandleb);
+                        FieldContainerPtrMFieldBase::GetHandle>(fhandleb);
 
                 if((*mfPtrHandleA)->size() !=
                    (*mfPtrHandleB)->size())

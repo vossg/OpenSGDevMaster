@@ -59,10 +59,6 @@
 
 #include "OSGFieldBundleFields.h"
 
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
-
-
 OSG_BEGIN_NAMESPACE
 
 class StageData;

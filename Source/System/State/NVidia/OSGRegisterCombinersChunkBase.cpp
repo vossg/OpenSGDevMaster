@@ -5125,20 +5125,18 @@ void RegisterCombinersChunkBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<RegisterCombinersChunkPtr>::_type("RegisterCombinersChunkPtr", "StateChunkPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(RegisterCombinersChunkPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, RegisterCombinersChunkPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, RegisterCombinersChunkPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, RegisterCombinersChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, RegisterCombinersChunkPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, RegisterCombinersChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, RegisterCombinersChunkPtr, 0);
 
 OSG_END_NAMESPACE

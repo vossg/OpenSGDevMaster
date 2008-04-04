@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGProgramChunkFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<VertexProgramChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef SFieldAdaptor<VertexProgramChunkPtr, SFFieldContainerPtr> SFVertexProgramChunkPtr;
+typedef FieldContainerPtrSField<VertexProgramChunkPtr> SFVertexProgramChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef MFieldAdaptor<VertexProgramChunkPtr, MFFieldContainerPtr> MFVertexProgramChunkPtr;
+typedef FieldContainerPtrMField<VertexProgramChunkPtr> MFVertexProgramChunkPtr;
 #endif
 
 

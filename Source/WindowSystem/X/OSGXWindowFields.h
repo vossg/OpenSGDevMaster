@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGWindowXDef.h"
 
-#include "OSGWindowFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<XWindowPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowXFieldSingle */
 
-typedef SFieldAdaptor<XWindowPtr, SFFieldContainerPtr> SFXWindowPtr;
+typedef FieldContainerPtrSField<XWindowPtr> SFXWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowXFieldMulti */
 
-typedef MFieldAdaptor<XWindowPtr, MFFieldContainerPtr> MFXWindowPtr;
+typedef FieldContainerPtrMField<XWindowPtr> MFXWindowPtr;
 #endif
 
 

@@ -58,9 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -113,14 +112,14 @@ struct FieldTraits<AlgorithmPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef SFieldAdaptor<AlgorithmPtr, SFFieldContainerPtr> SFAlgorithmPtr;
+typedef FieldContainerPtrSField<AlgorithmPtr> SFAlgorithmPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef MFieldAdaptor<AlgorithmPtr, MFFieldContainerPtr> MFAlgorithmPtr;
+typedef FieldContainerPtrMField<AlgorithmPtr> MFAlgorithmPtr;
 #endif
 
 

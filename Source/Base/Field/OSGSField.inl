@@ -36,13 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if !defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) && \
-    !defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/

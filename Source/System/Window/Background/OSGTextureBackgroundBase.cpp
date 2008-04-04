@@ -920,18 +920,15 @@ void TextureBackgroundBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<TextureBackgroundPtr>::_type("TextureBackgroundPtr", "BackgroundPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(TextureBackgroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, TextureBackgroundPtr, SFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, TextureBackgroundPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, TextureBackgroundPtr, 0);
+
 
 OSG_END_NAMESPACE

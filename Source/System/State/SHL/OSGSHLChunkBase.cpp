@@ -930,20 +930,18 @@ void SHLChunkBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<SHLChunkPtr>::_type("SHLChunkPtr", "ShaderChunkPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(SHLChunkPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, SHLChunkPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, SHLChunkPtr, MFFieldContainerPtr);
+OSG_SFIELDTYPE_INST(FieldContainerPtrSField, SHLChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrSField, SHLChunkPtr, 0);
+
+OSG_MFIELDTYPE_INST(FieldContainerPtrMField, SHLChunkPtr, 0);
+
+OSG_FIELD_DLLEXPORT_DEF2(FieldContainerPtrMField, SHLChunkPtr, 0);
 
 OSG_END_NAMESPACE
