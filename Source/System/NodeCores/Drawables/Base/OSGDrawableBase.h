@@ -201,6 +201,7 @@ class OSG_SYSTEM_DLLMAPPING DrawableBase : public NodeCore
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const DrawableBase &source);

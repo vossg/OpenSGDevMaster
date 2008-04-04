@@ -420,133 +420,22 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \{                                                                 */
 
 
-    void pushToSkyColor                    (const Color4f   &value   );
-    void insertIntoSkyColor                (      UInt32     uiIndex,
-                                            const Color4f   &value   );
-    void replaceInSkyColor                 (      UInt32     uiIndex,
-                                            const Color4f   &value   );
-    void replaceInSkyColor                 (const Color4f   &pOldElem,
-                                            const Color4f   &pNewElem);
-    void removeFromSkyColor                (      UInt32     uiIndex );
-    void removeFromSkyColor                (const Color4f   &value   );
-    void clearSkyColor                     (      void               );
 
 
 
-    void pushToSkyAngle                    (const Real32    &value   );
-    void insertIntoSkyAngle                (      UInt32     uiIndex,
-                                            const Real32    &value   );
-    void replaceInSkyAngle                 (      UInt32     uiIndex,
-                                            const Real32    &value   );
-    void replaceInSkyAngle                 (const Real32    &pOldElem,
-                                            const Real32    &pNewElem);
-    void removeFromSkyAngle                (      UInt32     uiIndex );
-    void removeFromSkyAngle                (const Real32    &value   );
-    void clearSkyAngle                     (      void               );
 
 
 
-    void pushToGroundColor                 (const Color4f   &value   );
-    void insertIntoGroundColor             (      UInt32     uiIndex,
-                                            const Color4f   &value   );
-    void replaceInGroundColor              (      UInt32     uiIndex,
-                                            const Color4f   &value   );
-    void replaceInGroundColor              (const Color4f   &pOldElem,
-                                            const Color4f   &pNewElem);
-    void removeFromGroundColor             (      UInt32     uiIndex );
-    void removeFromGroundColor             (const Color4f   &value   );
-    void clearGroundColor                  (      void               );
 
 
 
-    void pushToGroundAngle                 (const Real32    &value   );
-    void insertIntoGroundAngle             (      UInt32     uiIndex,
-                                            const Real32    &value   );
-    void replaceInGroundAngle              (      UInt32     uiIndex,
-                                            const Real32    &value   );
-    void replaceInGroundAngle              (const Real32    &pOldElem,
-                                            const Real32    &pNewElem);
-    void removeFromGroundAngle             (      UInt32     uiIndex );
-    void removeFromGroundAngle             (const Real32    &value   );
-    void clearGroundAngle                  (      void               );
 
 
 
-    void pushToTopTexCoord                 (const Vec3f     &value   );
-    void insertIntoTopTexCoord             (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInTopTexCoord              (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInTopTexCoord              (const Vec3f     &pOldElem,
-                                            const Vec3f     &pNewElem);
-    void removeFromTopTexCoord             (      UInt32     uiIndex );
-    void removeFromTopTexCoord             (const Vec3f     &value   );
-    void clearTopTexCoord                  (      void               );
 
 
 
-    void pushToBottomTexCoord              (const Vec3f     &value   );
-    void insertIntoBottomTexCoord          (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInBottomTexCoord           (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInBottomTexCoord           (const Vec3f     &pOldElem,
-                                            const Vec3f     &pNewElem);
-    void removeFromBottomTexCoord          (      UInt32     uiIndex );
-    void removeFromBottomTexCoord          (const Vec3f     &value   );
-    void clearBottomTexCoord               (      void               );
 
-
-
-    void pushToRightTexCoord               (const Vec3f     &value   );
-    void insertIntoRightTexCoord           (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInRightTexCoord            (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInRightTexCoord            (const Vec3f     &pOldElem,
-                                            const Vec3f     &pNewElem);
-    void removeFromRightTexCoord           (      UInt32     uiIndex );
-    void removeFromRightTexCoord           (const Vec3f     &value   );
-    void clearRightTexCoord                (      void               );
-
-
-
-    void pushToLeftTexCoord                (const Vec3f     &value   );
-    void insertIntoLeftTexCoord            (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInLeftTexCoord             (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInLeftTexCoord             (const Vec3f     &pOldElem,
-                                            const Vec3f     &pNewElem);
-    void removeFromLeftTexCoord            (      UInt32     uiIndex );
-    void removeFromLeftTexCoord            (const Vec3f     &value   );
-    void clearLeftTexCoord                 (      void               );
-
-
-
-    void pushToFrontTexCoord               (const Vec3f     &value   );
-    void insertIntoFrontTexCoord           (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInFrontTexCoord            (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInFrontTexCoord            (const Vec3f     &pOldElem,
-                                            const Vec3f     &pNewElem);
-    void removeFromFrontTexCoord           (      UInt32     uiIndex );
-    void removeFromFrontTexCoord           (const Vec3f     &value   );
-    void clearFrontTexCoord                (      void               );
-
-
-
-    void pushToBackTexCoord                (const Vec3f     &value   );
-    void insertIntoBackTexCoord            (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInBackTexCoord             (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInBackTexCoord             (const Vec3f     &pOldElem,
-                                            const Vec3f     &pNewElem);
-    void removeFromBackTexCoord            (      UInt32     uiIndex );
-    void removeFromBackTexCoord            (const Vec3f     &value   );
-    void clearBackTexCoord                 (      void               );
 
 
     /*! \}                                                                 */
@@ -732,6 +621,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SkyBackgroundBase &source);

@@ -449,6 +449,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ViewportBase &source);

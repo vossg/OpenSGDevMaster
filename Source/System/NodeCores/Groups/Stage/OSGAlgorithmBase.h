@@ -201,6 +201,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public FieldContainer
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const AlgorithmBase &source);

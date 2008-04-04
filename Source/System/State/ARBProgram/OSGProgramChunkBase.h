@@ -194,29 +194,6 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-    void pushToParamValues                 (const Vec4f     &value   );
-    void insertIntoParamValues             (      UInt32     uiIndex,
-                                            const Vec4f     &value   );
-    void replaceInParamValues              (      UInt32     uiIndex,
-                                            const Vec4f     &value   );
-    void replaceInParamValues              (const Vec4f     &pOldElem,
-                                            const Vec4f     &pNewElem);
-    void removeFromParamValues             (      UInt32     uiIndex );
-    void removeFromParamValues             (const Vec4f     &value   );
-    void clearParamValues                  (      void               );
-
-
-
-    void pushToParamNames                  (const std::string&value   );
-    void insertIntoParamNames              (      UInt32     uiIndex,
-                                            const std::string&value   );
-    void replaceInParamNames               (      UInt32     uiIndex,
-                                            const std::string&value   );
-    void replaceInParamNames               (const std::string&pOldElem,
-                                            const std::string&pNewElem);
-    void removeFromParamNames              (      UInt32     uiIndex );
-    void removeFromParamNames              (const std::string&value   );
-    void clearParamNames                   (      void               );
 
 
     /*! \}                                                                 */
@@ -315,10 +292,6 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -363,6 +336,7 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ProgramChunkBase &source);

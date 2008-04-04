@@ -256,30 +256,6 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     /*! \{                                                                 */
 
 
-    void pushToKeys                (const std::string& value   );
-    void insertIntoKeys       (UInt32                uiIndex,
-                                             const std::string& value   );
-    void replaceInKeys    (UInt32                uiIndex,
-                                             const std::string& value   );
-    void replaceInKeys   (const std::string& pOldElem,
-                                             const std::string& pNewElem);
-    void removeFromKeys  (UInt32                uiIndex );
-    void removeFromKeys (const std::string& value   );
-    void clearKeys                  (void                          );
-
-
-
-    void pushToValues              (const std::string& value   );
-    void insertIntoValues      (UInt32                uiIndex,
-                                             const std::string& value   );
-    void replaceInValues  (UInt32                uiIndex,
-                                             const std::string& value   );
-    void replaceInValues (const std::string& pOldElem,
-                                             const std::string& pNewElem);
-    void removeFromValues (UInt32                uiIndex );
-    void removeFromValues(const std::string& value   );
-    void clearValues                (void                          );
-
 
 
     /*! \}                                                                 */
@@ -330,6 +306,7 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const StringAttributeMapBase &source);

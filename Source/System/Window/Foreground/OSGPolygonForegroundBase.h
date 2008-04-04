@@ -288,29 +288,6 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*! \{                                                                 */
 
 
-    void pushToPositions                   (const Pnt2f     &value   );
-    void insertIntoPositions               (      UInt32     uiIndex,
-                                            const Pnt2f     &value   );
-    void replaceInPositions                (      UInt32     uiIndex,
-                                            const Pnt2f     &value   );
-    void replaceInPositions                (const Pnt2f     &pOldElem,
-                                            const Pnt2f     &pNewElem);
-    void removeFromPositions               (      UInt32     uiIndex );
-    void removeFromPositions               (const Pnt2f     &value   );
-    void clearPositions                    (      void               );
-
-
-
-    void pushToTexCoords                   (const Vec3f     &value   );
-    void insertIntoTexCoords               (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInTexCoords                (      UInt32     uiIndex,
-                                            const Vec3f     &value   );
-    void replaceInTexCoords                (const Vec3f     &pOldElem,
-                                            const Vec3f     &pNewElem);
-    void removeFromTexCoords               (      UInt32     uiIndex );
-    void removeFromTexCoords               (const Vec3f     &value   );
-    void clearTexCoords                    (      void               );
 
 
     /*! \}                                                                 */
@@ -466,6 +443,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const PolygonForegroundBase &source);

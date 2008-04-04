@@ -235,8 +235,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     void removeFromChunks(StateChunkPtrConstArg value   );
     void clearChunks                (void                          );
 
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -285,6 +283,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ChunkOverrideGroupBase &source);

@@ -248,6 +248,7 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CallbackAlgorithmBase &source);

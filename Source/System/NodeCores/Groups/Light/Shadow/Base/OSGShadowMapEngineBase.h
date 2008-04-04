@@ -233,7 +233,6 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -351,6 +350,7 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShadowMapEngineBase &source);

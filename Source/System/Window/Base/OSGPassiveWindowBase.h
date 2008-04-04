@@ -228,6 +228,7 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const PassiveWindowBase &source);

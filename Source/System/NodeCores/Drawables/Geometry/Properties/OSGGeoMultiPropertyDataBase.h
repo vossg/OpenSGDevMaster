@@ -171,18 +171,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \{                                                                 */
 
 
-    void pushToIData                       (const UInt8     &value   );
-    void insertIntoIData                   (      UInt32     uiIndex,
-                                            const UInt8     &value   );
-    void replaceInIData                    (      UInt32     uiIndex,
-                                            const UInt8     &value   );
-    void replaceInIData                    (const UInt8     &pOldElem,
-                                            const UInt8     &pNewElem);
-    void removeFromIData                   (      UInt32     uiIndex );
-    void removeFromIData                   (const UInt8     &value   );
-    void clearIData                        (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -314,6 +302,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const GeoMultiPropertyDataBase &source);

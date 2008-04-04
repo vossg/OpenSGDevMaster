@@ -372,6 +372,7 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     void clearHeightTiles            (void                          );
 
 
+
     void pushToHeightTextures           (MaterialPtrConstArg value   );
     void assignHeightTextures           (const MFUnrecMaterialPtr &value);
     void insertIntoHeightTextures      (UInt32                uiIndex,
@@ -553,6 +554,7 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TiledQuadTreeTerrainBase &source);

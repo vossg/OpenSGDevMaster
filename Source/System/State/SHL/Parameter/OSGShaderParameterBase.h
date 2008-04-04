@@ -159,8 +159,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -266,6 +264,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterBase &source);

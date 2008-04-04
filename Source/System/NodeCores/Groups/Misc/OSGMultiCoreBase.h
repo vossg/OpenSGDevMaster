@@ -297,6 +297,7 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const MultiCoreBase &source);

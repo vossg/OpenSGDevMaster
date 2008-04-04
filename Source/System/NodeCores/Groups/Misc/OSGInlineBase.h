@@ -171,18 +171,6 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \{                                                                 */
 
 
-    void pushToUrl                         (const std::string&value   );
-    void insertIntoUrl                     (      UInt32     uiIndex,
-                                            const std::string&value   );
-    void replaceInUrl                      (      UInt32     uiIndex,
-                                            const std::string&value   );
-    void replaceInUrl                      (const std::string&pOldElem,
-                                            const std::string&pNewElem);
-    void removeFromUrl                     (      UInt32     uiIndex );
-    void removeFromUrl                     (const std::string&value   );
-    void clearUrl                          (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -314,6 +302,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const InlineBase &source);

@@ -228,6 +228,7 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const LightEnvBase &source);

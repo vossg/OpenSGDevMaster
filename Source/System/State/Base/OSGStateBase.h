@@ -289,6 +289,7 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const StateBase &source);

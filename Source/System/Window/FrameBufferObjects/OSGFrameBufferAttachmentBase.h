@@ -227,8 +227,6 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -273,6 +271,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const FrameBufferAttachmentBase &source);

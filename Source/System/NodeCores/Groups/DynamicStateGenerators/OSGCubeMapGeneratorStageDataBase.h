@@ -228,6 +228,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public StageData
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CubeMapGeneratorStageDataBase &source);

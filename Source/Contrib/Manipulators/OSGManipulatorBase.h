@@ -280,7 +280,6 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -414,8 +413,6 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -460,6 +457,7 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ManipulatorBase &source);

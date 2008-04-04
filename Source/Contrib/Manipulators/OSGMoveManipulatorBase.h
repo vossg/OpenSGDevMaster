@@ -228,6 +228,7 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const MoveManipulatorBase &source);

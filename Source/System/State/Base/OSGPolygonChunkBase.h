@@ -324,18 +324,6 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-    void pushToStipple                     (const Int32     &value   );
-    void insertIntoStipple                 (      UInt32     uiIndex,
-                                            const Int32     &value   );
-    void replaceInStipple                  (      UInt32     uiIndex,
-                                            const Int32     &value   );
-    void replaceInStipple                  (const Int32     &pOldElem,
-                                            const Int32     &pNewElem);
-    void removeFromStipple                 (      UInt32     uiIndex );
-    void removeFromStipple                 (const Int32     &value   );
-    void clearStipple                      (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -494,6 +482,7 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const PolygonChunkBase &source);

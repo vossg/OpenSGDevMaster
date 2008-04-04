@@ -201,7 +201,6 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -339,6 +338,7 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ColorBufferViewportBase &source);

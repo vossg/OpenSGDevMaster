@@ -195,7 +195,6 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -340,6 +339,7 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CubeTextureObjChunkBase &source);

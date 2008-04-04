@@ -218,7 +218,6 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -359,6 +358,7 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ComponentTransformBase &source);

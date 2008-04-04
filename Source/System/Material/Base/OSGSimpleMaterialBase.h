@@ -269,7 +269,6 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -419,6 +418,7 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SimpleMaterialBase &source);

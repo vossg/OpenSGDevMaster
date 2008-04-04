@@ -224,29 +224,6 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*! \{                                                                 */
 
 
-    void pushToProgramParameterNames       (const GLenum    &value   );
-    void insertIntoProgramParameterNames   (      UInt32     uiIndex,
-                                            const GLenum    &value   );
-    void replaceInProgramParameterNames    (      UInt32     uiIndex,
-                                            const GLenum    &value   );
-    void replaceInProgramParameterNames    (const GLenum    &pOldElem,
-                                            const GLenum    &pNewElem);
-    void removeFromProgramParameterNames   (      UInt32     uiIndex );
-    void removeFromProgramParameterNames   (const GLenum    &value   );
-    void clearProgramParameterNames        (      void               );
-
-
-
-    void pushToProgramParameterValues      (const UInt32    &value   );
-    void insertIntoProgramParameterValues  (      UInt32     uiIndex,
-                                            const UInt32    &value   );
-    void replaceInProgramParameterValues   (      UInt32     uiIndex,
-                                            const UInt32    &value   );
-    void replaceInProgramParameterValues   (const UInt32    &pOldElem,
-                                            const UInt32    &pNewElem);
-    void removeFromProgramParameterValues  (      UInt32     uiIndex );
-    void removeFromProgramParameterValues  (const UInt32    &value   );
-    void clearProgramParameterValues       (      void               );
 
 
     /*! \}                                                                 */
@@ -389,6 +366,7 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SHLChunkBase &source);

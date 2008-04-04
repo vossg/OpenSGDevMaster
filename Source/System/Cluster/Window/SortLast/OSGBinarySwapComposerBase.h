@@ -184,7 +184,6 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -319,6 +318,7 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const BinarySwapComposerBase &source);

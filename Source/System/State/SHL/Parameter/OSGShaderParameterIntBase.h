@@ -150,7 +150,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterIntBase : public ShaderParameter
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -279,6 +278,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterIntBase : public ShaderParameter
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterIntBase &source);

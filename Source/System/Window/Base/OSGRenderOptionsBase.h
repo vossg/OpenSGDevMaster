@@ -490,7 +490,6 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -679,6 +678,7 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const RenderOptionsBase &source);

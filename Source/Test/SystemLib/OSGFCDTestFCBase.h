@@ -45,49 +45,54 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class GeoProperty
+ **     class FCDTestFC
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGGEOPROPERTYBASE_H_
-#define _OSGGEOPROPERTYBASE_H_
+#ifndef _OSGFCDTESTFCBASE_H_
+#define _OSGFCDTESTFCBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 
 #include "OSGConfig.h"
-#include "OSGDrawableDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGBaseTypes.h"
 
-#include "OSGStateChunk.h" // Parent
+#include "OSGNodeCore.h" // Parent
 
-#include "OSGBoolFields.h" // UseVBO type
-#include "OSGUInt32Fields.h" // GLId type
-#include "OSGInt32Fields.h" // Usage type
+#include "OSGUInt32Fields.h" // FieldSFPub type
+#include "OSGUInt32Fields.h" // FieldSFPro type
+#include "OSGUInt32Fields.h" // FieldSFPri type
+#include "OSGUInt32Fields.h" // FieldSFNo type
+#include "OSGUInt32Fields.h" // FieldMFPub type
+#include "OSGUInt32Fields.h" // FieldMFPro type
+#include "OSGUInt32Fields.h" // FieldMFPri type
+#include "OSGUInt32Fields.h" // FieldMFNo type
 
-#include "OSGGeoPropertyFields.h"
+#include "OSGFCDTestFCFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class GeoProperty;
+class FCDTestFC;
 
-//! \brief GeoProperty Base Class.
+//! \brief FCDTestFC Base Class.
 
-class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
+class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
 {
   public:
 
-    typedef StateChunk Inherited;
-    typedef StateChunk ParentContainer;
+    typedef NodeCore Inherited;
+    typedef NodeCore ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(GeoProperty);
+    OSG_GEN_INTERNALPTR(FCDTestFC);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -95,18 +100,33 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
 
     enum
     {
-        UseVBOFieldId = Inherited::NextFieldId,
-        GLIdFieldId = UseVBOFieldId + 1,
-        UsageFieldId = GLIdFieldId + 1,
-        NextFieldId = UsageFieldId + 1
+        FieldSFPubFieldId = Inherited::NextFieldId,
+        FieldSFProFieldId = FieldSFPubFieldId + 1,
+        FieldSFPriFieldId = FieldSFProFieldId + 1,
+        FieldSFNoFieldId = FieldSFPriFieldId + 1,
+        FieldMFPubFieldId = FieldSFNoFieldId + 1,
+        FieldMFProFieldId = FieldMFPubFieldId + 1,
+        FieldMFPriFieldId = FieldMFProFieldId + 1,
+        FieldMFNoFieldId = FieldMFPriFieldId + 1,
+        NextFieldId = FieldMFNoFieldId + 1
     };
 
-    static const OSG::BitVector UseVBOFieldMask =
-        (TypeTraits<BitVector>::One << UseVBOFieldId);
-    static const OSG::BitVector GLIdFieldMask =
-        (TypeTraits<BitVector>::One << GLIdFieldId);
-    static const OSG::BitVector UsageFieldMask =
-        (TypeTraits<BitVector>::One << UsageFieldId);
+    static const OSG::BitVector FieldSFPubFieldMask =
+        (TypeTraits<BitVector>::One << FieldSFPubFieldId);
+    static const OSG::BitVector FieldSFProFieldMask =
+        (TypeTraits<BitVector>::One << FieldSFProFieldId);
+    static const OSG::BitVector FieldSFPriFieldMask =
+        (TypeTraits<BitVector>::One << FieldSFPriFieldId);
+    static const OSG::BitVector FieldSFNoFieldMask =
+        (TypeTraits<BitVector>::One << FieldSFNoFieldId);
+    static const OSG::BitVector FieldMFPubFieldMask =
+        (TypeTraits<BitVector>::One << FieldMFPubFieldId);
+    static const OSG::BitVector FieldMFProFieldMask =
+        (TypeTraits<BitVector>::One << FieldMFProFieldId);
+    static const OSG::BitVector FieldMFPriFieldMask =
+        (TypeTraits<BitVector>::One << FieldMFPriFieldId);
+    static const OSG::BitVector FieldMFNoFieldMask =
+        (TypeTraits<BitVector>::One << FieldMFNoFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -135,29 +155,46 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
 
 
 #ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFUseVBO          (void);
+                  SFUInt32            *getSFFieldSFPub      (void);
 #endif
-                  SFBool              *editSFUseVBO         (void);
-            const SFBool              *getSFUseVBO          (void) const;
+                  SFUInt32            *editSFFieldSFPub     (void);
+            const SFUInt32            *getSFFieldSFPub      (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  MFUInt32            *getMFFieldMFPub      (void);
+#endif
+                  MFUInt32            *editMFFieldMFPub     (void);
+            const MFUInt32            *getMFFieldMFPub      (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
-                  bool                &getUseVBO          (void);
+                  UInt32              &getFieldSFPub      (void);
 #endif
-                  bool                &editUseVBO         (void);
-            const bool                &getUseVBO          (void) const;
+                  UInt32              &editFieldSFPub     (void);
+            const UInt32              &getFieldSFPub      (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  UInt32              &getFieldMFPub      (const UInt32 index);
+                  MFUInt32            &getFieldMFPub     (void);
+#endif
+                  UInt32              &editFieldMFPub     (const UInt32 index);
+            const UInt32              &getFieldMFPub      (const UInt32 index) const;
+                  MFUInt32            &editFieldMFPub     (void);
+            const MFUInt32            &getFieldMFPub     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setUseVBO         (const bool &value);
+            void setFieldSFPub     (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -169,6 +206,29 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    static  FCDTestFCTransitPtr create          (void);
+    static  FCDTestFCPtr        createEmpty     (void);
+
+    static  FCDTestFCTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  FCDTestFCPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Copy                                   */
+    /*! \{                                                                 */
+
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -184,24 +244,27 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool            _sfUseVBO;
-    SFUInt32          _sfGLId;
-    SFInt32           _sfUsage;
+    SFUInt32          _sfFieldSFPub;
+    SFUInt32          _sfFieldSFPro;
+    SFUInt32          _sfFieldSFNo;
+    MFUInt32          _mfFieldMFPub;
+    MFUInt32          _mfFieldMFPro;
+    MFUInt32          _mfFieldMFNo;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    GeoPropertyBase(void);
-    GeoPropertyBase(const GeoPropertyBase &source);
+    FCDTestFCBase(void);
+    FCDTestFCBase(const FCDTestFCBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoPropertyBase(void);
+    virtual ~FCDTestFCBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,12 +277,22 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleUseVBO          (void) const;
-    EditFieldHandlePtr editHandleUseVBO         (void);
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
-    GetFieldHandlePtr  getHandleUsage           (void) const;
-    EditFieldHandlePtr editHandleUsage          (void);
+    GetFieldHandlePtr  getHandleFieldSFPub      (void) const;
+    EditFieldHandlePtr editHandleFieldSFPub     (void);
+    GetFieldHandlePtr  getHandleFieldSFPro      (void) const;
+    EditFieldHandlePtr editHandleFieldSFPro     (void);
+    GetFieldHandlePtr  getHandleFieldSFPri      (void) const;
+    EditFieldHandlePtr editHandleFieldSFPri     (void);
+    GetFieldHandlePtr  getHandleFieldSFNo       (void) const;
+    EditFieldHandlePtr editHandleFieldSFNo      (void);
+    GetFieldHandlePtr  getHandleFieldMFPub      (void) const;
+    EditFieldHandlePtr editHandleFieldMFPub     (void);
+    GetFieldHandlePtr  getHandleFieldMFPro      (void) const;
+    EditFieldHandlePtr editHandleFieldMFPro     (void);
+    GetFieldHandlePtr  getHandleFieldMFPri      (void) const;
+    EditFieldHandlePtr editHandleFieldMFPri     (void);
+    GetFieldHandlePtr  getHandleFieldMFNo       (void) const;
+    EditFieldHandlePtr editHandleFieldMFNo      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -228,42 +301,46 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
 
 
 #ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFGLId            (void);
+                  SFUInt32            *getSFFieldSFPro      (void);
 #endif
-                  SFUInt32            *editSFGLId           (void);
-            const SFUInt32            *getSFGLId            (void) const;
+                  SFUInt32            *editSFFieldSFPro     (void);
+            const SFUInt32            *getSFFieldSFPro      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFUsage           (void);
+                  MFUInt32            *getMFFieldMFPro      (void);
 #endif
-                  SFInt32             *editSFUsage          (void);
-            const SFInt32             *getSFUsage           (void) const;
+                  MFUInt32            *editMFFieldMFPro     (void);
+            const MFUInt32            *getMFFieldMFPro      (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
-                  UInt32              &getGLId            (void);
+                  UInt32              &getFieldSFPro      (void);
 #endif
-                  UInt32              &editGLId           (void);
-            const UInt32              &getGLId            (void) const;
+                  UInt32              &editFieldSFPro     (void);
+            const UInt32              &getFieldSFPro      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
-                  Int32               &getUsage           (void);
+                  UInt32              &getFieldMFPro      (const UInt32 index);
+                  MFUInt32            &getFieldMFPro     (void);
 #endif
-                  Int32               &editUsage          (void);
-            const Int32               &getUsage           (void) const;
+                  UInt32              &editFieldMFPro     (const UInt32 index);
+            const UInt32              &getFieldMFPro      (const UInt32 index) const;
+                  MFUInt32            &editFieldMFPro     (void);
+            const MFUInt32            &getFieldMFPro      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setGLId           (const UInt32 &value);
-            void setUsage          (const Int32 &value);
+            void setFieldSFPro     (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -276,7 +353,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      GeoPropertyBase *pFrom,
+            void execSync (      FCDTestFCBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -293,6 +370,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainerPtr createAspectCopy(void) const;
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
@@ -308,14 +389,69 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFUInt32          _sfFieldSFPri;
+    MFUInt32          _mfFieldMFPri;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+#ifdef OSG_1_GET_COMPAT
+                  SFUInt32            *getSFFieldSFPri      (void);
+#endif
+                  SFUInt32            *editSFFieldSFPri     (void);
+            const SFUInt32            *getSFFieldSFPri      (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  MFUInt32            *getMFFieldMFPri      (void);
+#endif
+                  MFUInt32            *editMFFieldMFPri     (void);
+            const MFUInt32            *getMFFieldMFPri      (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  UInt32              &getFieldSFPri     (void);
+#endif
+                  UInt32              &editFieldSFPri     (void);
+            const UInt32              &getFieldSFPri     (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  UInt32              &getFieldMFPri      (const UInt32 index);
+                  MFUInt32            &getFieldMFPri     (void);
+#endif
+                  UInt32              &editFieldMFPri     (const UInt32 index);
+            const UInt32              &getFieldMFPri      (const UInt32 index) const;
+                  MFUInt32            &editFieldMFPri     (void);
+            const MFUInt32            &getFieldMFPri     (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setFieldSFPri     (const UInt32 &value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const GeoPropertyBase &source);
+    void operator =(const FCDTestFCBase &source);
 };
 
-typedef GeoPropertyBase *GeoPropertyBaseP;
+typedef FCDTestFCBase *FCDTestFCBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGGEOPROPERTYBASE_H_ */
+#endif /* _OSGFCDTESTFCBASE_H_ */

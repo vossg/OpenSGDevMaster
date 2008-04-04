@@ -167,7 +167,6 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -299,6 +298,7 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const RenderBufferBase &source);

@@ -154,18 +154,6 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
     /*! \{                                                                 */
 
 
-    void pushToCoverageOverride            (const Real32    &value   );
-    void insertIntoCoverageOverride        (      UInt32     uiIndex,
-                                            const Real32    &value   );
-    void replaceInCoverageOverride         (      UInt32     uiIndex,
-                                            const Real32    &value   );
-    void replaceInCoverageOverride         (const Real32    &pOldElem,
-                                            const Real32    &pNewElem);
-    void removeFromCoverageOverride        (      UInt32     uiIndex );
-    void removeFromCoverageOverride        (const Real32    &value   );
-    void clearCoverageOverride             (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -294,6 +282,7 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ScreenLODBase &source);

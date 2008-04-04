@@ -228,6 +228,7 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const FragmentProgramChunkBase &source);

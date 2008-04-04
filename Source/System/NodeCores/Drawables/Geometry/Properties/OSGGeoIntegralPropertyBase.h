@@ -201,6 +201,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralPropertyBase : public GeoProperty
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const GeoIntegralPropertyBase &source);

@@ -184,7 +184,6 @@ class OSG_SYSTEM_DLLMAPPING MatrixCameraBase : public Camera
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -319,6 +318,7 @@ class OSG_SYSTEM_DLLMAPPING MatrixCameraBase : public Camera
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const MatrixCameraBase &source);

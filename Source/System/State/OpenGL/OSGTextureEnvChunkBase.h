@@ -613,18 +613,6 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-    void pushToShaderOffsetMatrix          (const Real32    &value   );
-    void insertIntoShaderOffsetMatrix      (      UInt32     uiIndex,
-                                            const Real32    &value   );
-    void replaceInShaderOffsetMatrix       (      UInt32     uiIndex,
-                                            const Real32    &value   );
-    void replaceInShaderOffsetMatrix       (const Real32    &pOldElem,
-                                            const Real32    &pNewElem);
-    void removeFromShaderOffsetMatrix      (      UInt32     uiIndex );
-    void removeFromShaderOffsetMatrix      (const Real32    &value   );
-    void clearShaderOffsetMatrix           (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -834,6 +822,7 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TextureEnvChunkBase &source);

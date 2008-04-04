@@ -228,6 +228,7 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const VertexProgramChunkBase &source);

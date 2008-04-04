@@ -341,18 +341,6 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     /*! \{                                                                 */
 
 
-    void pushToFormats                     (const std::string&value   );
-    void insertIntoFormats                 (      UInt32     uiIndex,
-                                            const std::string&value   );
-    void replaceInFormats                  (      UInt32     uiIndex,
-                                            const std::string&value   );
-    void replaceInFormats                  (const std::string&pOldElem,
-                                            const std::string&pNewElem);
-    void removeFromFormats                 (      UInt32     uiIndex );
-    void removeFromFormats                 (const std::string&value   );
-    void clearFormats                      (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -514,6 +502,7 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SimpleStatisticsForegroundBase &source);

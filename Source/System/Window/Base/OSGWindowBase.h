@@ -240,8 +240,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     void clearPorts                 (void                          );
 
 
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -392,31 +390,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
 
 
-    void pushToGlObjectLastRefresh           (const UInt32& value   );
-    void insertIntoGlObjectLastRefresh      (UInt32                uiIndex,
-                                             const UInt32& value   );
-    void replaceInGlObjectLastRefresh  (UInt32                uiIndex,
-                                             const UInt32& value   );
-    void replaceInGlObjectLastRefresh (const UInt32& pOldElem,
-                                             const UInt32& pNewElem);
-    void removeFromGlObjectLastRefresh (UInt32                uiIndex );
-    void removeFromGlObjectLastRefresh(const UInt32& value   );
-    void clearGlObjectLastRefresh            (void                          );
-
-
-
-    void pushToGlObjectLastReinitialize           (const UInt32& value   );
-    void insertIntoGlObjectLastReinitialize      (UInt32                uiIndex,
-                                             const UInt32& value   );
-    void replaceInGlObjectLastReinitialize  (UInt32                uiIndex,
-                                             const UInt32& value   );
-    void replaceInGlObjectLastReinitialize (const UInt32& pOldElem,
-                                             const UInt32& pNewElem);
-    void removeFromGlObjectLastReinitialize (UInt32                uiIndex );
-    void removeFromGlObjectLastReinitialize(const UInt32& value   );
-    void clearGlObjectLastReinitialize            (void                          );
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -462,6 +435,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const WindowBase &source);

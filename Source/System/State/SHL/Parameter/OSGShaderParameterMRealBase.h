@@ -154,18 +154,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterMRealBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-    void pushToValue                       (const Real32    &value   );
-    void insertIntoValue                   (      UInt32     uiIndex,
-                                            const Real32    &value   );
-    void replaceInValue                    (      UInt32     uiIndex,
-                                            const Real32    &value   );
-    void replaceInValue                    (const Real32    &pOldElem,
-                                            const Real32    &pNewElem);
-    void removeFromValue                   (      UInt32     uiIndex );
-    void removeFromValue                   (const Real32    &value   );
-    void clearValue                        (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -294,6 +282,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMRealBase : public ShaderParameter
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterMRealBase &source);

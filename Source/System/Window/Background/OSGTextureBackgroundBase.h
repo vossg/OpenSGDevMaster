@@ -252,18 +252,6 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \{                                                                 */
 
 
-    void pushToTexCoords                   (const Pnt2f     &value   );
-    void insertIntoTexCoords               (      UInt32     uiIndex,
-                                            const Pnt2f     &value   );
-    void replaceInTexCoords                (      UInt32     uiIndex,
-                                            const Pnt2f     &value   );
-    void replaceInTexCoords                (const Pnt2f     &pOldElem,
-                                            const Pnt2f     &pNewElem);
-    void removeFromTexCoords               (      UInt32     uiIndex );
-    void removeFromTexCoords               (const Pnt2f     &value   );
-    void clearTexCoords                    (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -411,6 +399,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TextureBackgroundBase &source);

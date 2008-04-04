@@ -201,7 +201,6 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposerBase : public ImageComposer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -339,6 +338,7 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposerBase : public ImageComposer
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const PipelineComposerBase &source);

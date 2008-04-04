@@ -214,7 +214,6 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -356,6 +355,7 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SimpleTexturedMaterialBase &source);

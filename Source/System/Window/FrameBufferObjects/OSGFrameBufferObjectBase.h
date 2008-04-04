@@ -247,17 +247,6 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
 
 
 
-    void pushToDrawBuffers                 (const GLenum    &value   );
-    void insertIntoDrawBuffers             (      UInt32     uiIndex,
-                                            const GLenum    &value   );
-    void replaceInDrawBuffers              (      UInt32     uiIndex,
-                                            const GLenum    &value   );
-    void replaceInDrawBuffers              (const GLenum    &pOldElem,
-                                            const GLenum    &pNewElem);
-    void removeFromDrawBuffers             (      UInt32     uiIndex );
-    void removeFromDrawBuffers             (const GLenum    &value   );
-    void clearDrawBuffers                  (      void               );
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -406,6 +395,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const FrameBufferObjectBase &source);

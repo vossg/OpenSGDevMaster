@@ -222,18 +222,6 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
     /*! \{                                                                 */
 
 
-    void pushToRegion                      (const UInt32    &value   );
-    void insertIntoRegion                  (      UInt32     uiIndex,
-                                            const UInt32    &value   );
-    void replaceInRegion                   (      UInt32     uiIndex,
-                                            const UInt32    &value   );
-    void replaceInRegion                   (const UInt32    &pOldElem,
-                                            const UInt32    &pNewElem);
-    void removeFromRegion                  (      UInt32     uiIndex );
-    void removeFromRegion                  (const UInt32    &value   );
-    void clearRegion                       (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -374,6 +362,7 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SortFirstWindowBase &source);

@@ -228,6 +228,7 @@ class OSG_CLUSTER_DLLMAPPING SepiaComposerBase : public ImageComposer
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SepiaComposerBase &source);

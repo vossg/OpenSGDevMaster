@@ -309,6 +309,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TextureSelectChunkBase &source);

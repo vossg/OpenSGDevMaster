@@ -347,29 +347,6 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     /*! \{                                                                 */
 
 
-    void pushToServers                     (const std::string&value   );
-    void insertIntoServers                 (      UInt32     uiIndex,
-                                            const std::string&value   );
-    void replaceInServers                  (      UInt32     uiIndex,
-                                            const std::string&value   );
-    void replaceInServers                  (const std::string&pOldElem,
-                                            const std::string&pNewElem);
-    void removeFromServers                 (      UInt32     uiIndex );
-    void removeFromServers                 (const std::string&value   );
-    void clearServers                      (      void               );
-
-
-
-    void pushToAutostart                   (const std::string&value   );
-    void insertIntoAutostart               (      UInt32     uiIndex,
-                                            const std::string&value   );
-    void replaceInAutostart                (      UInt32     uiIndex,
-                                            const std::string&value   );
-    void replaceInAutostart                (const std::string&pOldElem,
-                                            const std::string&pNewElem);
-    void removeFromAutostart               (      UInt32     uiIndex );
-    void removeFromAutostart               (const std::string&value   );
-    void clearAutostart                    (      void               );
 
 
     /*! \}                                                                 */
@@ -537,6 +514,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ClusterWindowBase &source);

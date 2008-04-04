@@ -224,8 +224,6 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -274,6 +272,7 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const DynamicStateGeneratorBase &source);

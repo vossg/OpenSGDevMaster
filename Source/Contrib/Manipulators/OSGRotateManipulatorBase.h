@@ -228,6 +228,7 @@ class OSG_CONTRIBGUI_DLLMAPPING RotateManipulatorBase : public Manipulator
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const RotateManipulatorBase &source);

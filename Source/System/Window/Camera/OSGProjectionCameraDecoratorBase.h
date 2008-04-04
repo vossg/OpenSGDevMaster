@@ -213,18 +213,6 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \{                                                                 */
 
 
-    void pushToSurface                     (const Pnt3f     &value   );
-    void insertIntoSurface                 (      UInt32     uiIndex,
-                                            const Pnt3f     &value   );
-    void replaceInSurface                  (      UInt32     uiIndex,
-                                            const Pnt3f     &value   );
-    void replaceInSurface                  (const Pnt3f     &pOldElem,
-                                            const Pnt3f     &pNewElem);
-    void removeFromSurface                 (      UInt32     uiIndex );
-    void removeFromSurface                 (const Pnt3f     &value   );
-    void clearSurface                      (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -380,9 +368,6 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -431,6 +416,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ProjectionCameraDecoratorBase &source);

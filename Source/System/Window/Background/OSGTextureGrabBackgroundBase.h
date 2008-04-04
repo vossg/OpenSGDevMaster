@@ -197,7 +197,6 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -336,6 +335,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TextureGrabBackgroundBase &source);

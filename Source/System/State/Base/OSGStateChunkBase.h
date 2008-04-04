@@ -150,7 +150,6 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -252,6 +251,7 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const StateChunkBase &source);

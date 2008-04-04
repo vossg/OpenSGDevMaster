@@ -165,7 +165,6 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -298,6 +297,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const StageBase &source);

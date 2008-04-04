@@ -228,6 +228,7 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const PassiveBackgroundBase &source);

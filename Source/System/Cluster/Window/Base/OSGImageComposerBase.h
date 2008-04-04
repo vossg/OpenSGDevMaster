@@ -167,7 +167,6 @@ class OSG_CLUSTER_DLLMAPPING ImageComposerBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -272,6 +271,7 @@ class OSG_CLUSTER_DLLMAPPING ImageComposerBase : public AttachmentContainer
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ImageComposerBase &source);

@@ -167,7 +167,6 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -299,6 +298,7 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SolidBackgroundBase &source);

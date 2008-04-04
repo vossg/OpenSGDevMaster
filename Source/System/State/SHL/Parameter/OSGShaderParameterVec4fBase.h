@@ -150,7 +150,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterVec4fBase : public ShaderParameter
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -279,6 +278,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterVec4fBase : public ShaderParameter
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterVec4fBase &source);

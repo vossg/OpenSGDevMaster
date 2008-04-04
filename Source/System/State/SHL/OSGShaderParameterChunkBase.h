@@ -270,6 +270,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterChunkBase &source);

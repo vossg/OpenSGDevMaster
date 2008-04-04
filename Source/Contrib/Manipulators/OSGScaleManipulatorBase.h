@@ -228,6 +228,7 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ScaleManipulatorBase &source);

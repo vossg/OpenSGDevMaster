@@ -256,30 +256,6 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
     /*! \{                                                                 */
 
 
-    void pushToColor               (const Color3f& value   );
-    void insertIntoColor      (UInt32                uiIndex,
-                                             const Color3f& value   );
-    void replaceInColor   (UInt32                uiIndex,
-                                             const Color3f& value   );
-    void replaceInColor  (const Color3f& pOldElem,
-                                             const Color3f& pNewElem);
-    void removeFromColor (UInt32                uiIndex );
-    void removeFromColor(const Color3f& value   );
-    void clearColor                 (void                          );
-
-
-
-    void pushToPosition            (const Real32& value   );
-    void insertIntoPosition      (UInt32                uiIndex,
-                                             const Real32& value   );
-    void replaceInPosition  (UInt32                uiIndex,
-                                             const Real32& value   );
-    void replaceInPosition (const Real32& pOldElem,
-                                             const Real32& pNewElem);
-    void removeFromPosition (UInt32                uiIndex );
-    void removeFromPosition(const Real32& value   );
-    void clearPosition              (void                          );
-
 
 
     /*! \}                                                                 */
@@ -330,6 +306,7 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const GradientBackgroundBase &source);

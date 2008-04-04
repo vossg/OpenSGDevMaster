@@ -184,7 +184,6 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -319,6 +318,7 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const FileGrabForegroundBase &source);

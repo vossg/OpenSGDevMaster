@@ -154,18 +154,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec4fBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-    void pushToValue                       (const Vec4f     &value   );
-    void insertIntoValue                   (      UInt32     uiIndex,
-                                            const Vec4f     &value   );
-    void replaceInValue                    (      UInt32     uiIndex,
-                                            const Vec4f     &value   );
-    void replaceInValue                    (const Vec4f     &pOldElem,
-                                            const Vec4f     &pNewElem);
-    void removeFromValue                   (      UInt32     uiIndex );
-    void removeFromValue                   (const Vec4f     &value   );
-    void clearValue                        (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -294,6 +282,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec4fBase : public ShaderParameter
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterMVec4fBase &source);

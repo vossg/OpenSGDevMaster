@@ -154,18 +154,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterMMatrixBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-    void pushToValue                       (const Matrix    &value   );
-    void insertIntoValue                   (      UInt32     uiIndex,
-                                            const Matrix    &value   );
-    void replaceInValue                    (      UInt32     uiIndex,
-                                            const Matrix    &value   );
-    void replaceInValue                    (const Matrix    &pOldElem,
-                                            const Matrix    &pNewElem);
-    void removeFromValue                   (      UInt32     uiIndex );
-    void removeFromValue                   (const Matrix    &value   );
-    void clearValue                        (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -294,6 +282,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMMatrixBase : public ShaderParameter
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterMMatrixBase &source);

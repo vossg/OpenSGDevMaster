@@ -150,7 +150,6 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -279,6 +278,7 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const DirectionalLightBase &source);

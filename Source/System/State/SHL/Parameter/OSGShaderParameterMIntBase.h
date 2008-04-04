@@ -154,18 +154,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterMIntBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-    void pushToValue                       (const Int32     &value   );
-    void insertIntoValue                   (      UInt32     uiIndex,
-                                            const Int32     &value   );
-    void replaceInValue                    (      UInt32     uiIndex,
-                                            const Int32     &value   );
-    void replaceInValue                    (const Int32     &pOldElem,
-                                            const Int32     &pNewElem);
-    void removeFromValue                   (      UInt32     uiIndex );
-    void removeFromValue                   (const Int32     &value   );
-    void clearValue                        (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -294,6 +282,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMIntBase : public ShaderParameter
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterMIntBase &source);

@@ -197,17 +197,6 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
 
 
 
-    void pushToGroupLengths                (const UInt32    &value   );
-    void insertIntoGroupLengths            (      UInt32     uiIndex,
-                                            const UInt32    &value   );
-    void replaceInGroupLengths             (      UInt32     uiIndex,
-                                            const UInt32    &value   );
-    void replaceInGroupLengths             (const UInt32    &pOldElem,
-                                            const UInt32    &pNewElem);
-    void removeFromGroupLengths            (      UInt32     uiIndex );
-    void removeFromGroupLengths            (const UInt32    &value   );
-    void clearGroupLengths                 (      void               );
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -344,6 +333,7 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SortLastWindowBase &source);

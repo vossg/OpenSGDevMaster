@@ -235,7 +235,6 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -379,6 +378,7 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TileCameraDecoratorBase &source);

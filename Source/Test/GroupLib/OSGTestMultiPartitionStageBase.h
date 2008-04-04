@@ -205,18 +205,6 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
     /*! \{                                                                 */
 
 
-    void pushToOrder                       (const Int32     &value   );
-    void insertIntoOrder                   (      UInt32     uiIndex,
-                                            const Int32     &value   );
-    void replaceInOrder                    (      UInt32     uiIndex,
-                                            const Int32     &value   );
-    void replaceInOrder                    (const Int32     &pOldElem,
-                                            const Int32     &pNewElem);
-    void removeFromOrder                   (      UInt32     uiIndex );
-    void removeFromOrder                   (const Int32     &value   );
-    void clearOrder                        (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -354,6 +342,7 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TestMultiPartitionStageBase &source);

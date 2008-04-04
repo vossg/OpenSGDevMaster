@@ -163,7 +163,6 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -296,6 +295,7 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const GrabForegroundBase &source);

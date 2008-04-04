@@ -146,7 +146,6 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -276,6 +275,7 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const VisitSubTreeBase &source);

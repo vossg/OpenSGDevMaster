@@ -453,6 +453,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CubeMapGeneratorBase &source);

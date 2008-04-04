@@ -201,6 +201,7 @@ class OSG_SYSTEM_DLLMAPPING StatsAttachmentBase : public FieldContainerAttachmen
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const StatsAttachmentBase &source);

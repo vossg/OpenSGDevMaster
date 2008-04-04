@@ -303,7 +303,6 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -459,6 +458,7 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const PointChunkBase &source);

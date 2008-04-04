@@ -309,6 +309,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SwitchMaterialBase &source);

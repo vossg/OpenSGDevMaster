@@ -171,18 +171,6 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     /*! \{                                                                 */
 
 
-    void pushToElementIDs                  (const Int32     &value   );
-    void insertIntoElementIDs              (      UInt32     uiIndex,
-                                            const Int32     &value   );
-    void replaceInElementIDs               (      UInt32     uiIndex,
-                                            const Int32     &value   );
-    void replaceInElementIDs               (const Int32     &pOldElem,
-                                            const Int32     &pNewElem);
-    void removeFromElementIDs              (      UInt32     uiIndex );
-    void removeFromElementIDs              (const Int32     &value   );
-    void clearElementIDs                   (      void               );
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -287,6 +275,7 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const StatisticsForegroundBase &source);
