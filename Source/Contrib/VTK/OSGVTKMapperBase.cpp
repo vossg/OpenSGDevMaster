@@ -583,15 +583,6 @@ void VTKMapperBase::clearGeoRoots(void)
 {
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
-    MFUnrecNodePtr::iterator       fieldIt  = _mfGeoRoots.begin();
-    MFUnrecNodePtr::const_iterator fieldEnd = _mfGeoRoots.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfGeoRoots.clear();
 }
@@ -722,15 +713,6 @@ void VTKMapperBase::clearGeometries(void)
 {
     editMField(GeometriesFieldMask, _mfGeometries);
 
-    MFUnrecGeometryPtr::iterator       fieldIt  = _mfGeometries.begin();
-    MFUnrecGeometryPtr::const_iterator fieldEnd = _mfGeometries.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfGeometries.clear();
 }
@@ -861,15 +843,6 @@ void VTKMapperBase::clearMaterials(void)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    MFUnrecChunkMaterialPtr::iterator       fieldIt  = _mfMaterials.begin();
-    MFUnrecChunkMaterialPtr::const_iterator fieldEnd = _mfMaterials.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfMaterials.clear();
 }
@@ -1000,15 +973,6 @@ void VTKMapperBase::clearMaterialChunks(void)
 {
     editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
-    MFUnrecMaterialChunkPtr::iterator       fieldIt  = _mfMaterialChunks.begin();
-    MFUnrecMaterialChunkPtr::const_iterator fieldEnd = _mfMaterialChunks.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfMaterialChunks.clear();
 }
@@ -1139,15 +1103,6 @@ void VTKMapperBase::clearPositions(void)
 {
     editMField(PositionsFieldMask, _mfPositions);
 
-    MFUnrecGeoPnt3fPropertyPtr::iterator       fieldIt  = _mfPositions.begin();
-    MFUnrecGeoPnt3fPropertyPtr::const_iterator fieldEnd = _mfPositions.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfPositions.clear();
 }
@@ -1278,15 +1233,6 @@ void VTKMapperBase::clearLength(void)
 {
     editMField(LengthFieldMask, _mfLength);
 
-    MFUnrecGeoUInt32PropertyPtr::iterator       fieldIt  = _mfLength.begin();
-    MFUnrecGeoUInt32PropertyPtr::const_iterator fieldEnd = _mfLength.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfLength.clear();
 }
@@ -1417,15 +1363,6 @@ void VTKMapperBase::clearTypes(void)
 {
     editMField(TypesFieldMask, _mfTypes);
 
-    MFUnrecGeoUInt8PropertyPtr::iterator       fieldIt  = _mfTypes.begin();
-    MFUnrecGeoUInt8PropertyPtr::const_iterator fieldEnd = _mfTypes.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfTypes.clear();
 }
@@ -1556,15 +1493,6 @@ void VTKMapperBase::clearColors(void)
 {
     editMField(ColorsFieldMask, _mfColors);
 
-    MFUnrecGeoColor4fPropertyPtr::iterator       fieldIt  = _mfColors.begin();
-    MFUnrecGeoColor4fPropertyPtr::const_iterator fieldEnd = _mfColors.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfColors.clear();
 }
@@ -1695,15 +1623,6 @@ void VTKMapperBase::clearNormals(void)
 {
     editMField(NormalsFieldMask, _mfNormals);
 
-    MFUnrecGeoVec3fPropertyPtr::iterator       fieldIt  = _mfNormals.begin();
-    MFUnrecGeoVec3fPropertyPtr::const_iterator fieldEnd = _mfNormals.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfNormals.clear();
 }

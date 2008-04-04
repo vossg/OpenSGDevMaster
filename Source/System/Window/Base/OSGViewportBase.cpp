@@ -330,6 +330,9 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
+    "    childfieldparent=\"FieldContainer\"\n"
+    "    parentfieldcard=\"single\"\n"
+    "    childFields=\"multi\"\n"
     ">\n"
     "\\ingroup GrpSystemWindowsViewports\n"
     "\n"
@@ -782,15 +785,6 @@ void ViewportBase::clearForegrounds(void)
 {
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
-    MFUnrecForegroundPtr::iterator       fieldIt  = _mfForegrounds.begin();
-    MFUnrecForegroundPtr::const_iterator fieldEnd = _mfForegrounds.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfForegrounds.clear();
 }
@@ -1414,5 +1408,17 @@ OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField,
 OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
                            ViewportPtr, 
                            0);
+
+DataType &FieldTraits< ViewportPtr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<ViewportPtr, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+                      ViewportPtr,       
+                      UnrecordedRefCounts,  
+                      1);
+
 
 OSG_END_NAMESPACE

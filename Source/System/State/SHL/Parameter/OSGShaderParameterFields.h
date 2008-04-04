@@ -160,6 +160,83 @@ const Char8 *FieldTraits<ShaderParameterPtr, 0>::getMName<NoRefCounts>(void)
  */
 #endif
 
+
+template <>
+struct FieldTraits<ShaderParameterPtr, 1> :
+    public FieldTraitsFCPtrBase<ShaderParameterPtr, 1>
+{
+  private:
+
+  public:
+
+    typedef FieldTraits<ShaderParameterPtr, 1>  Self;
+    typedef FieldContainerPtr           ParentType;
+
+    static const FieldCardinality eFieldCard = MultiField;
+
+    enum                        { Convertible = NotConvertible };
+
+    static OSG_STATE_DLLMAPPING DataType &getType(void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFShaderParameterPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFShaderParameterPtr"; }
+};
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterPtr, 1>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecFieldContainerChildShaderParameterPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterPtr, 1>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFieldContainerChildShaderParameterPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterPtr, 1>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFieldContainerChildShaderParameterPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterPtr, 1>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFieldContainerChildShaderParameterPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterPtr, 1>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecFieldContainerChildShaderParameterPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterPtr, 1>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFieldContainerChildShaderParameterPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterPtr, 1>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFieldContainerChildShaderParameterPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ShaderParameterPtr, 1>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFieldContainerChildShaderParameterPtr"; 
+}
+
+
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
@@ -190,6 +267,12 @@ typedef FieldContainerPtrMField<ShaderParameterPtr,
                                 NoRefCounts        > MFUncountedShaderParameterPtr;
 #endif
 
+
+
+typedef FieldContainerPtrChildMField<
+          ShaderParameterPtr, 
+          UnrecordedRefCounts,
+          1                  > MFUnrecFieldContainerChildShaderParameterPtr;
 
 OSG_END_NAMESPACE
 

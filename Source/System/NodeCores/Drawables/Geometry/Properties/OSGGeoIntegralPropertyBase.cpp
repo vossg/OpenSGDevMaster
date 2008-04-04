@@ -100,6 +100,9 @@ GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
+    "    childfieldparent=\"FieldContainer\"\n"
+    "    parentfieldcard=\"multi\"\n"
+    "    childFields=\"both\"\n"
     ">\n"
     "Parent class for integral (i.e. one dimensional unsigned integer typed) properties.\n"
     "\n"
@@ -222,5 +225,23 @@ OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField,
 OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
                            GeoIntegralPropertyPtr, 
                            0);
+
+DataType &FieldTraits< GeoIntegralPropertyPtr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<GeoIntegralPropertyPtr, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+                      GeoIntegralPropertyPtr,       
+                      UnrecordedRefCounts,  
+                      1);
+
+
+OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+                      GeoIntegralPropertyPtr,       
+                      UnrecordedRefCounts,  
+                      1);
+
 
 OSG_END_NAMESPACE

@@ -123,8 +123,8 @@ void MultiCore::changed(ConstFieldMaskArg whichField,
 
 void MultiCore::accumulateMatrix(Matrix &result)
 {
-    MFUnrecNodeCorePtr::iterator coreIt  = _mfCores.begin();
-    MFUnrecNodeCorePtr::iterator coreEnd = _mfCores.end  ();
+    CoresFieldType::iterator coreIt  = _mfCores.begin();
+    CoresFieldType::iterator coreEnd = _mfCores.end  ();
 
     while(coreIt != coreEnd)
     {
@@ -136,8 +136,8 @@ void MultiCore::accumulateMatrix(Matrix &result)
 
 void MultiCore::adjustVolume(Volume &volume)
 {
-    MFUnrecNodeCorePtr::iterator coreIt  = _mfCores.begin();
-    MFUnrecNodeCorePtr::iterator coreEnd = _mfCores.end  ();
+    CoresFieldType::iterator coreIt  = _mfCores.begin();
+    CoresFieldType::iterator coreEnd = _mfCores.end  ();
 
     while(coreIt != coreEnd)
     {
@@ -157,8 +157,8 @@ ActionBase::ResultE MultiCore::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    MFUnrecNodeCorePtr::const_iterator coreIt  = this->getCores().begin();
-    MFUnrecNodeCorePtr::const_iterator coreEnd = this->getCores().end  ();
+    CoresFieldType::const_iterator coreIt  = this->getCores().begin();
+    CoresFieldType::const_iterator coreEnd = this->getCores().end  ();
 
     Action::ResultE returnValue = Action::Continue;
 
@@ -182,8 +182,8 @@ ActionBase::ResultE MultiCore::renderLeave(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    MFUnrecNodeCorePtr::const_iterator coreIt  = this->getCores().begin();
-    MFUnrecNodeCorePtr::const_iterator coreEnd = this->getCores().end  ();
+    CoresFieldType::const_iterator coreIt  = this->getCores().begin();
+    CoresFieldType::const_iterator coreEnd = this->getCores().end  ();
 
     Action::ResultE returnValue = Action::Continue;
 

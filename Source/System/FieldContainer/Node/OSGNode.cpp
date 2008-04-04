@@ -100,8 +100,8 @@ void Node::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 
-    pDesc = new SFUnrecNodeCorePtr::Description(
-        SFUnrecNodeCorePtr::getClassType(),
+    pDesc = new SFUnrecFieldContainerChildNodeCorePtr::Description(
+        SFUnrecFieldContainerChildNodeCorePtr::getClassType(),
         "core",
         "The core to use for this node.",
         OSG_RC_FIELD_DESC(Node::Core),
@@ -113,8 +113,8 @@ void Node::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 
-    pDesc = new MFUnrecNodePtr::Description(
-        MFUnrecNodePtr::getClassType(),
+    pDesc = new MFUnrecNodeChildNodePtr::Description(
+        MFUnrecNodeChildNodePtr::getClassType(),
         "children",
         "A list of our children in the scene graph.",
         OSG_RC_FIELD_DESC(Node::Children),
@@ -153,19 +153,19 @@ void Node::setCore(NodeCorePtrConstArg core)
 
 //    addRef(core);
 
-    if(_sfCore.getValue() != NullFC)
-    {
-        _sfCore.getValue()->subParent(this);
+//    if(_sfCore.getValue() != NullFC)
+//    {
+//        _sfCore.getValue()->subParent(this);
 
 //        subRef(_sfCore.getValue());
-    }
+//    }
 
     _sfCore.setValue(core);
 
-    if(_sfCore.getValue() != NullFC)
-    {
-        _sfCore.getValue()->addParent(this, CoreFieldId);
-    }
+//    if(_sfCore.getValue() != NullFC)
+//    {
+//        _sfCore.getValue()->addParent(this, CoreFieldId);
+//    }
 }
 
 
@@ -183,12 +183,12 @@ void Node::addChild(NodePtrConstArg childP)
         _mfChildren.push_back(childP);
 
         // already somebody else's child?
-        if(childP->getParent() != NullFC)
-        {
-            childP->getParent()->subChild(childP);
-        }
-
-        childP->setParent(this);
+//        if(childP->getParent() != NullFC)
+//        {
+//            childP->getParent()->subChild(childP);
+//        }
+//
+//        childP->setParent(this);
     }
 }
 
@@ -205,12 +205,12 @@ void Node::addChild(NodeTransitPtr childP)
         _mfChildren.push_back(tmpChild);
 
         // already somebody else's child?
-        if(tmpChild->getParent() != NullFC)
-        {
-            tmpChild->getParent()->subChild(tmpChild);
-        }
-
-        tmpChild->setParent(this);
+//        if(tmpChild->getParent() != NullFC)
+//        {
+//            tmpChild->getParent()->subChild(tmpChild);
+//        }
+//
+//        tmpChild->setParent(this);
     }
 }
 
@@ -235,21 +235,21 @@ void Node::insertChild(UInt32 childIndex, NodePtrConstArg childP)
 
         editMField(ChildrenFieldMask, _mfChildren);
 
-//        MFNodePtr::iterator childIt = _mfChildren.begin();
+        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.begin();
 
-//        childIt += childIndex;
+        childIt += childIndex;
 
-//        _mfChildren.insert(childIt, childP);
+        _mfChildren.insert(childIt, childP);
 
-        _mfChildren.replace(childIndex, childP);
+//        _mfChildren.insert(childIndex, childP);
 
         // already somebody else's child?
-        if(childP->getParent() != NullFC)
-        {
-            childP->getParent()->subChild(childP);
-        }
-
-        childP->setParent(this);
+//        if(childP->getParent() != NullFC)
+//        {
+//            childP->getParent()->subChild(childP);
+//        }
+//
+//        childP->setParent(this);
     }
 }
 
@@ -263,7 +263,6 @@ void Node::replaceChild(UInt32 childIndex, NodePtrConstArg childP)
 //        addRef(childP);
 
         // remove the current child
-        _mfChildren[childIndex]->setParent(NullFC);
 
 //        subRef(_mfChildren[childIndex]);
 
@@ -272,13 +271,17 @@ void Node::replaceChild(UInt32 childIndex, NodePtrConstArg childP)
         // set the new child
 //        _mfChildren[childIndex] = childP;
 
-        // already somebody else's child?
-        if(childP->getParent() != NullFC)
-        {
-            childP->getParent()->subChild(childP);
-        }
+//        _mfChildren[childIndex]->setParent(NullFC);
 
-        childP->setParent(this);
+        _mfChildren.replace(childIndex, childP);
+
+        // already somebody else's child?
+//        if(childP->getParent() != NullFC)
+//        {
+//            childP->getParent()->subChild(childP);
+//        }
+
+//        childP->setParent(this);
     }
 }
 
@@ -298,7 +301,7 @@ bool Node::replaceChildBy(NodePtrConstArg childP,
 
 //            addRef(newChildP);
 
-            childP->setParent(NullFC);
+//            childP->setParent(NullFC);
 
 //            subRef(childP);
 
@@ -309,12 +312,12 @@ bool Node::replaceChildBy(NodePtrConstArg childP,
             _mfChildren.replace(childIdx, newChildP);
 
             // already somebody else's child?
-            if(newChildP->getParent() != NullFC)
-            {
-                newChildP->getParent()->subChild(newChildP);
-            }
-
-            newChildP->setParent(this);
+//            if(newChildP->getParent() != NullFC)
+//            {
+//                newChildP->getParent()->subChild(newChildP);
+//            }
+//
+//            newChildP->setParent(this);
 
             return true;
         }
@@ -351,11 +354,11 @@ void Node::subChild(NodePtrConstArg childP)
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFUnrecNodePtr::iterator childIt = _mfChildren.begin();
+        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.begin();
 
         childIt += childIdx;
 
-        childP->setParent(NullFC);
+//        childP->setParent(NullFC);
 
 //        subRef(childP);
 
@@ -374,11 +377,11 @@ void Node::subChild(UInt32 childIndex)
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFUnrecNodePtr::iterator childIt = _mfChildren.begin();
+        MFUnrecNodeChildNodePtr::iterator childIt = _mfChildren.begin();
 
         childIt += childIndex;
 
-        (*childIt)->setParent(NullFC);
+//        (*childIt)->setParent(NullFC);
 
 //        subRef(*childIt);
 
@@ -388,10 +391,7 @@ void Node::subChild(UInt32 childIndex)
 
 void Node::clearChildren(void)
 {
-    while(getNChildren() != 0)
-    {
-        subChild(0u);
-    }
+    _mfChildren.clear();
 }
 
 #if 0
@@ -488,6 +488,31 @@ void Node::clearField(const UInt32 uiFieldId)
     }
 }
 #endif
+
+void Node::subChildPointer(FieldContainerPtr pObj, 
+                           UInt16            usFieldPos)
+{
+    if(usFieldPos == ChildrenFieldId)
+    {
+        NodePtr pChild = dynamic_cast<NodePtr>(pObj);
+
+        if(pChild != NullFC)
+            subChild(pChild);
+    }
+    else if(usFieldPos == CoreFieldId)
+    {
+        if(_sfCore.getValue() == pObj)
+        {
+            editSField(CoreFieldMask);
+
+            _sfCore.setValue(NullFC);
+        }
+    }
+    else
+    {
+        Inherited::subChildPointer(pObj, usFieldPos);
+    }
+}
 
 UInt32 Node::getBinSize(ConstFieldMaskArg whichField)
 {
@@ -646,7 +671,7 @@ void Node::updateVolume(void)
 
     DynamicVolume vol = _sfVolume.getValue();
 
-    MFUnrecNodePtr::iterator it;
+    MFUnrecNodeChildNodePtr::iterator it;
 
     vol.getInstance().setEmpty();
 
@@ -680,8 +705,8 @@ Node::Node(void) :
     _sfVolume  (                            ),
     _sfTravMask(TypeTraits<UInt32>::getMax()),
     _sfParent  (NullFC                      ),
-    _mfChildren(                            ),
-    _sfCore    (NullFC                      )
+    _mfChildren(this, ChildrenFieldId       ),
+    _sfCore    (NullFC, this, CoreFieldId   )
 #ifdef OSG_1_COMPAT
    ,_occlusionMask(0)
 #endif
@@ -689,15 +714,15 @@ Node::Node(void) :
 }
 
 Node::Node(const Node &source) :
-     Inherited    (source            ),
-    _sfVolume     (                  ),
+     Inherited    (source                   ),
+    _sfVolume     (                         ),
 
-    _sfTravMask   (source._sfTravMask),
+    _sfTravMask   (source._sfTravMask       ),
 
-    _sfParent     (NullFC            ),
-    _mfChildren   (                  ),
+    _sfParent     (NullFC                   ),
+    _mfChildren   (this, ChildrenFieldId    ),
 
-    _sfCore       (NullFC            )
+    _sfCore       (NullFC, this, CoreFieldId)
 #ifdef OSG_1_COMPAT
    ,_occlusionMask(source._occlusionMask)
 #endif
@@ -848,12 +873,12 @@ const SFUncountedNodePtr *Node::getSFParent(void) const
     return &_sfParent;
 }
 
-const SFUnrecNodeCorePtr *Node::getSFCore(void) const
+const SFUnrecFieldContainerChildNodeCorePtr *Node::getSFCore(void) const
 {
     return &_sfCore;
 }
 
-const MFUnrecNodePtr *Node::getMFChildren(void) const
+const MFUnrecNodeChildNodePtr *Node::getMFChildren(void) const
 {
     return &_mfChildren;
 }
@@ -941,8 +966,8 @@ GetFieldHandlePtr Node::getHandleParent(void) const
 
 EditFieldHandlePtr Node::editHandleCore(void)
 {
-    SFUnrecNodeCorePtr::EditHandlePtr returnValue(
-        new  SFUnrecNodeCorePtr::EditHandle(
+    SFUnrecFieldContainerChildNodeCorePtr::EditHandlePtr returnValue(
+        new SFUnrecFieldContainerChildNodeCorePtr::EditHandle(
              &_sfCore, 
              this->getType().getFieldDesc(CoreFieldId)));
 
@@ -959,8 +984,8 @@ EditFieldHandlePtr Node::editHandleCore(void)
 
 GetFieldHandlePtr Node::getHandleCore(void) const
 {
-    SFUnrecNodeCorePtr::GetHandlePtr returnValue(
-        new  SFUnrecNodeCorePtr::GetHandle(
+    SFUnrecFieldContainerChildNodeCorePtr::GetHandlePtr returnValue(
+        new SFUnrecFieldContainerChildNodeCorePtr::GetHandle(
              &_sfCore, 
              this->getType().getFieldDesc(CoreFieldId)));
 
@@ -969,8 +994,8 @@ GetFieldHandlePtr Node::getHandleCore(void) const
 
 EditFieldHandlePtr Node::editHandleChildren(void)
 {
-    MFUnrecNodePtr::EditHandlePtr returnValue(
-        new  MFUnrecNodePtr::EditHandle(
+    MFUnrecNodeChildNodePtr::EditHandlePtr returnValue(
+        new  MFUnrecNodeChildNodePtr::EditHandle(
              &_mfChildren, 
              this->getType().getFieldDesc(ChildrenFieldId)));
 
@@ -987,8 +1012,8 @@ EditFieldHandlePtr Node::editHandleChildren(void)
 
 GetFieldHandlePtr  Node::getHandleChildren(void) const
 {
-    MFUnrecNodePtr::GetHandlePtr returnValue(
-        new  MFUnrecNodePtr::GetHandle(
+    MFUnrecNodeChildNodePtr::GetHandlePtr returnValue(
+        new  MFUnrecNodeChildNodePtr::GetHandle(
              &_mfChildren, 
              this->getType().getFieldDesc(ChildrenFieldId)));
 
@@ -999,26 +1024,27 @@ void Node::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    if(_sfCore.getValue() != NullFC)
-    {
-        _sfCore.getValue()->subParent(this);
+//    if(_sfCore.getValue() != NullFC)
+//    {
+//        _sfCore.getValue()->subParent(this);
 
 //        subRef(_sfCore.getValue());
-        _sfCore.setValue(NullFC);
-    }
+//    }
 
-    MFUnrecNodePtr::iterator       vChildIt    = _mfChildren.begin();
-    MFUnrecNodePtr::const_iterator endChildren = _mfChildren.end  ();
+    _sfCore.setValue(NullFC);
 
-    while(vChildIt != endChildren)
-    {
-        (*vChildIt)->setParent(NullFC);
+//    MFUnrecNodeChildNodePtr::iterator       vChildIt    = _mfChildren.begin();
+//    MFUnrecNodeChildNodePtr::const_iterator endChildren = _mfChildren.end  ();
+
+//    while(vChildIt != endChildren)
+//    {
+//        (*vChildIt)->setParent(NullFC);
 
 //        subRef(*vChildIt);
 //        _mfChildren.replace(vChildIt, NullFC);
 
-        ++vChildIt;
-    }
+//        ++vChildIt;
+//    }
 
     _mfChildren.clear();
 }

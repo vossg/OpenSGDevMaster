@@ -358,15 +358,6 @@ void ImageForegroundBase::clearImages(void)
 {
     editMField(ImagesFieldMask, _mfImages);
 
-    MFUnrecImagePtr::iterator       fieldIt  = _mfImages.begin();
-    MFUnrecImagePtr::const_iterator fieldEnd = _mfImages.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfImages.clear();
 }

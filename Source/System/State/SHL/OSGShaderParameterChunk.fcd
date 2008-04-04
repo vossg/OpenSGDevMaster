@@ -13,11 +13,12 @@
 >
 	<Field
 		name="parameters"
-		type="ShaderParameterPtr"
+		type="ShaderParameter"
 		cardinality="multi"
 		visibility="external"
 		access="public"
-        linkMParent="true"
+        category="childpointer"
+        childParentType="FieldContainer"
 
         pushToFieldAs="addParameter"
         insertIntoMFieldAs="insertParameter"

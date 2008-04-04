@@ -45,11 +45,12 @@ On hardware that supports it (i.e. NVidia boards) the texture shader
 extension(s) are also available.
 	<Field
 		name="image"
-		type="ImagePtr"
+		type="Image"
 		cardinality="single"
 		visibility="external"
 		access="public"
-        linkMParent="true"
+        category="childpointer"
+        childParentType="FieldContainer"
 	>
 	The texture image.
 	</Field>

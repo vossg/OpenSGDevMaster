@@ -120,18 +120,7 @@ void ParticlesBase::setPositions(GeoVectorPropertyPtrConstArg value)
 {
     editSField(PositionsFieldMask);
 
-
-    if(_sfPositions.getValue() != NullFC)
-    {
-        _sfPositions.getValue()->subParent(this);
-    }
-
     _sfPositions.setValue(value);
-
-    if(_sfPositions.getValue() != NullFC)
-    {
-        _sfPositions.getValue()->addParent(this, PositionsFieldMask);
-    }
 
 }
 
@@ -148,18 +137,7 @@ void ParticlesBase::setSecPositions(GeoVectorPropertyPtrConstArg value)
 {
     editSField(SecPositionsFieldMask);
 
-
-    if(_sfSecPositions.getValue() != NullFC)
-    {
-        _sfSecPositions.getValue()->subParent(this);
-    }
-
     _sfSecPositions.setValue(value);
-
-    if(_sfSecPositions.getValue() != NullFC)
-    {
-        _sfSecPositions.getValue()->addParent(this, SecPositionsFieldMask);
-    }
 
 }
 
@@ -176,18 +154,7 @@ void ParticlesBase::setColors(GeoVectorPropertyPtrConstArg value)
 {
     editSField(ColorsFieldMask);
 
-
-    if(_sfColors.getValue() != NullFC)
-    {
-        _sfColors.getValue()->subParent(this);
-    }
-
     _sfColors.setValue(value);
-
-    if(_sfColors.getValue() != NullFC)
-    {
-        _sfColors.getValue()->addParent(this, ColorsFieldMask);
-    }
 
 }
 
@@ -204,18 +171,7 @@ void ParticlesBase::setNormals(GeoVectorPropertyPtrConstArg value)
 {
     editSField(NormalsFieldMask);
 
-
-    if(_sfNormals.getValue() != NullFC)
-    {
-        _sfNormals.getValue()->subParent(this);
-    }
-
     _sfNormals.setValue(value);
-
-    if(_sfNormals.getValue() != NullFC)
-    {
-        _sfNormals.getValue()->addParent(this, NormalsFieldMask);
-    }
 
 }
 //! Get the value of the Particles::_sfDrawOrder field.

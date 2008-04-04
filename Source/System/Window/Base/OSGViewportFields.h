@@ -160,6 +160,83 @@ const Char8 *FieldTraits<ViewportPtr, 0>::getMName<NoRefCounts>(void)
  */
 #endif
 
+
+template <>
+struct FieldTraits<ViewportPtr, 1> :
+    public FieldTraitsFCPtrBase<ViewportPtr, 1>
+{
+  private:
+
+  public:
+
+    typedef FieldTraits<ViewportPtr, 1>  Self;
+    typedef FieldContainerPtr           ParentType;
+
+    static const FieldCardinality eFieldCard = SingleField;
+
+    enum                        { Convertible = NotConvertible };
+
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFViewportPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFViewportPtr"; }
+};
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 1>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecFieldContainerChildViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 1>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFieldContainerChildViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 1>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFieldContainerChildViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 1>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFieldContainerChildViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 1>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecFieldContainerChildViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 1>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFieldContainerChildViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 1>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFieldContainerChildViewportPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ViewportPtr, 1>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFieldContainerChildViewportPtr"; 
+}
+
+
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
@@ -190,6 +267,12 @@ typedef FieldContainerPtrMField<ViewportPtr,
                                 NoRefCounts        > MFUncountedViewportPtr;
 #endif
 
+
+
+typedef FieldContainerPtrChildMField<
+          ViewportPtr, 
+          UnrecordedRefCounts,
+          1                  > MFUnrecFieldContainerChildViewportPtr;
 
 OSG_END_NAMESPACE
 

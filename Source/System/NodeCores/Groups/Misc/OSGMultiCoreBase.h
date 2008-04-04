@@ -125,11 +125,11 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecNodeCorePtr  *getMFCores           (void) const;
+            const MFUnrecFieldContainerChildNodeCorePtr *getMFCores           (void) const;
 
 
                   NodeCorePtrConst getCores          (const UInt32 index) const;
-            const MFUnrecNodeCorePtr  &getCores          (void) const;
+            const MFUnrecFieldContainerChildNodeCorePtr &getCores          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -148,7 +148,7 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*! \{                                                                 */
 
     void addCore                   (NodeCorePtrConstArg value   );
-    void assignCoresFrom           (const MFUnrecNodeCorePtr &value);
+    void assignCoresFrom           (const MFUnrecFieldContainerChildNodeCorePtr &value);
     void insertCore           (UInt32                uiIndex,
                                              NodeCorePtrConstArg value   );
     void replaceCore      (UInt32                uiIndex,
@@ -171,6 +171,14 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    virtual void subChildPointer(FieldContainerPtr pObj, 
+                                 UInt16            usFieldPos);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -209,7 +217,7 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecNodeCorePtr _mfCores;
+    MFUnrecFieldContainerChildNodeCorePtr _mfCores;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

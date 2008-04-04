@@ -10,6 +10,9 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 	useLocalIncludes="false"
+    childfieldparent="FieldContainer"
+    parentfieldcard="multi"
+    childFields="multi"
 >
 	<Field
 		name="name"

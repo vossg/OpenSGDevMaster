@@ -37,6 +37,9 @@ class FieldContainer(FCDElement):
         self.setFCD("fcdFileLines",           []);
         self.setFCD("fieldsUnmarkedOnCreate", "0")
         self.setFCD("libnamespace",           "OSG")
+        self.setFCD("childfieldparent",       "")
+        self.setFCD("parentfieldcard",         "")
+        self.setFCD("childFields",            "none")
 
     #
     # Access fields
@@ -155,13 +158,16 @@ class FieldContainer(FCDElement):
         self["hasProtectedFields"] = False;
         self["hasPublicFields"]    = False;
         self["hasPtrFields"]       = False;
-        
+        self["hasChildFields"]     = False;
+
         self["Fields"]  = [];
         self["SFields"] = [];
         self["MFields"] = [];
 
         self["hasValueMField"] = False;
         
+        foundChildField = False;
+
         for i, field in enumerate(self.m_fields):
             
             field.finalize();
@@ -196,6 +202,16 @@ class FieldContainer(FCDElement):
             if field.isPtrField():
                 self["hasPtrFields"] = True;
             
+            if field.isChildField():
+
+                if foundChildField == False:
+                    field["isFirstChildField"] = True
+                    foundChildField = False
+                else:
+                    field["isFirstChildField"] = False
+
+                self["hasChildFields"] = True
+
             if field.isSField():
                 self["SFields"].append(field);
             
@@ -208,7 +224,12 @@ class FieldContainer(FCDElement):
         self["PointerField"]   = False;
         self["SFPointerField"] = False;
         self["MFPointerField"] = False;
-        
+        self["ChildField"]     = False;
+        self["ChildSFields"]   = False;
+        self["ChildMFields"]   = False;
+        self["ChildSParent"]   = False;
+        self["ChildMParent"]   = False;
+
         if self.getFCD("pointerfieldtypes") == "both":
             self["PointerField"]   = True;
             self["SFPointerField"] = True;
@@ -219,7 +240,25 @@ class FieldContainer(FCDElement):
         elif self.getFCD("pointerfieldtypes") == "multi":
             self["PointerField"]   = True;
             self["MFPointerField"] = True;
+
+        if self.getFCD("childfieldparent") != "":
+            self["ChildField"]       = True
+            self["ChildFieldParent"] = self.getFCD("childfieldparent")
         
+        if self.getFCD("childFields") == "multi" or \
+           self.getFCD("childFields") == "both":
+            self["ChildMFields"] = True
+
+        if self.getFCD("childFields") == "single" or \
+           self.getFCD("childFields") == "both":
+            self["ChildSFields"] = True
+            
+        if self.getFCD("parentfieldcard") == "single":
+            self["ChildSParent"] = True;
+
+        if self.getFCD("parentfieldcard") == "multi":
+            self["ChildMParent"] = True;
+
         self["MethodType"]  = "";
         
         if self.getFCD("decoratable") == "true":

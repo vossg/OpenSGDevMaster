@@ -8,6 +8,9 @@
 	structure="concrete"
 	systemcomponent="true"
 	parentsystemcomponent="true"
+    childfieldparent="FieldContainer"
+    parentfieldcard="single"
+    childFields="multi"
 >
 \ingroup GrpSystemWindowsViewports
 

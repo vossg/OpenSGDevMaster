@@ -259,8 +259,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFUnrecImagePtr::Description(
-        SFUnrecImagePtr::getClassType(),
+    pDesc = new SFUnrecFieldContainerChildImagePtr::Description(
+        SFUnrecFieldContainerChildImagePtr::getClassType(),
         "image",
         "The texture image.\n",
         ImageFieldId, ImageFieldMask,
@@ -665,11 +665,12 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "extension(s) are also available.\n"
     "\t<Field\n"
     "\t\tname=\"image\"\n"
-    "\t\ttype=\"ImagePtr\"\n"
+    "\t\ttype=\"Image\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
-    "        linkMParent=\"true\"\n"
+    "        category=\"childpointer\"\n"
+    "        childParentType=\"FieldContainer\"\n"
     "\t>\n"
     "\tThe texture image.\n"
     "\t</Field>\n"
@@ -1029,7 +1030,7 @@ UInt32 TextureObjChunkBase::getContainerSize(void) const
 
 
 //! Get the TextureObjChunk::_sfImage field.
-const SFUnrecImagePtr *TextureObjChunkBase::getSFImage(void) const
+const SFUnrecFieldContainerChildImagePtr *TextureObjChunkBase::getSFImage(void) const
 {
     return &_sfImage;
 }
@@ -1880,6 +1881,25 @@ void TextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+void TextureObjChunkBase::subChildPointer(FieldContainerPtr pObj, 
+                                        UInt16            usFieldPos)
+{
+    if(usFieldPos == ImageFieldId)
+    {
+        if(_sfImage.getValue() == pObj)
+        {
+            editSField(ImageFieldMask);
+
+            _sfImage.setValue(NullFC);
+        }
+    }
+    else
+    {
+        Inherited::subChildPointer(pObj, usFieldPos);
+    }
+}
+
+
 //! create a new instance of the class
 TextureObjChunkTransitPtr TextureObjChunkBase::create(void)
 {
@@ -1971,7 +1991,7 @@ FieldContainerTransitPtr TextureObjChunkBase::shallowCopyLocal(
 
 TextureObjChunkBase::TextureObjChunkBase(void) :
     Inherited(),
-    _sfImage                  (NullFC),
+    _sfImage                  (this, ImageFieldId),
     _sfInternalFormat         (GLenum(GL_NONE)),
     _sfExternalFormat         (GLenum(GL_NONE)),
     _sfScale                  (bool(true)),
@@ -2003,7 +2023,7 @@ TextureObjChunkBase::TextureObjChunkBase(void) :
 
 TextureObjChunkBase::TextureObjChunkBase(const TextureObjChunkBase &source) :
     Inherited(source),
-    _sfImage                  (NullFC),
+    _sfImage                  (this, ImageFieldId),
     _sfInternalFormat         (source._sfInternalFormat         ),
     _sfExternalFormat         (source._sfExternalFormat         ),
     _sfScale                  (source._sfScale                  ),
@@ -2053,8 +2073,8 @@ void TextureObjChunkBase::onCreate(const TextureObjChunk *source)
 
 GetFieldHandlePtr TextureObjChunkBase::getHandleImage           (void) const
 {
-    SFUnrecImagePtr::GetHandlePtr returnValue(
-        new  SFUnrecImagePtr::GetHandle(
+    SFUnrecFieldContainerChildImagePtr::GetHandlePtr returnValue(
+        new  SFUnrecFieldContainerChildImagePtr::GetHandle(
              &_sfImage, 
              this->getType().getFieldDesc(ImageFieldId)));
 
@@ -2063,8 +2083,8 @@ GetFieldHandlePtr TextureObjChunkBase::getHandleImage           (void) const
 
 EditFieldHandlePtr TextureObjChunkBase::editHandleImage          (void)
 {
-    SFUnrecImagePtr::EditHandlePtr returnValue(
-        new  SFUnrecImagePtr::EditHandle(
+    SFUnrecFieldContainerChildImagePtr::EditHandlePtr returnValue(
+        new  SFUnrecFieldContainerChildImagePtr::EditHandle(
              &_sfImage, 
              this->getType().getFieldDesc(ImageFieldId)));
 

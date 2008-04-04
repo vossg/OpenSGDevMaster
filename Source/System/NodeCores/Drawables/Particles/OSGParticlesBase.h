@@ -179,16 +179,16 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
 #endif
                   SFUInt32            *editSFMode           (void);
             const SFUInt32            *getSFMode            (void) const;
-            const SFUnrecGeoVectorPropertyPtr *getSFPositions       (void) const;
+            const SFUnrecFieldContainerChildGeoVectorPropertyPtr *getSFPositions       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFSizes           (void);
 #endif
                   MFVec3f             *editMFSizes          (void);
             const MFVec3f             *getMFSizes           (void) const;
-            const SFUnrecGeoVectorPropertyPtr *getSFSecPositions    (void) const;
-            const SFUnrecGeoVectorPropertyPtr *getSFColors          (void) const;
-            const SFUnrecGeoVectorPropertyPtr *getSFNormals         (void) const;
+            const SFUnrecFieldContainerChildGeoVectorPropertyPtr *getSFSecPositions    (void) const;
+            const SFUnrecFieldContainerChildGeoVectorPropertyPtr *getSFColors          (void) const;
+            const SFUnrecFieldContainerChildGeoVectorPropertyPtr *getSFNormals         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   MFInt32             *getMFIndices         (void);
@@ -373,6 +373,14 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
+    virtual void subChildPointer(FieldContainerPtr pObj, 
+                                 UInt16            usFieldPos);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
     static  ParticlesTransitPtr create          (void);
     static  ParticlesPtr        createEmpty     (void);
 
@@ -406,11 +414,11 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \{                                                                 */
 
     SFUInt32          _sfMode;
-    SFUnrecGeoVectorPropertyPtr _sfPositions;
+    SFUnrecFieldContainerChildGeoVectorPropertyPtr _sfPositions;
     MFVec3f           _mfSizes;
-    SFUnrecGeoVectorPropertyPtr _sfSecPositions;
-    SFUnrecGeoVectorPropertyPtr _sfColors;
-    SFUnrecGeoVectorPropertyPtr _sfNormals;
+    SFUnrecFieldContainerChildGeoVectorPropertyPtr _sfSecPositions;
+    SFUnrecFieldContainerChildGeoVectorPropertyPtr _sfColors;
+    SFUnrecFieldContainerChildGeoVectorPropertyPtr _sfNormals;
     MFInt32           _mfIndices;
     MFReal32          _mfTextureZs;
     SFUInt32          _sfDrawOrder;

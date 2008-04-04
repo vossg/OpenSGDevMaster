@@ -58,8 +58,10 @@ class OSG_GROUP_DLLMAPPING MultiCore : public MultiCoreBase
 
   public:
 
-    typedef MultiCoreBase Inherited;
-    typedef MultiCore     Self;
+    typedef MultiCoreBase                         Inherited;
+    typedef MultiCore                             Self;
+
+    typedef MFUnrecFieldContainerChildNodeCorePtr CoresFieldType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */

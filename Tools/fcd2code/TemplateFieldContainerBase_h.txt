@@ -349,6 +349,16 @@ class @!Classname!@Base : public @!Parent!@
 
 
     /*! \}                                                                 */
+@@if hasChildFields
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    virtual void subChildPointer(FieldContainerPtr pObj, 
+                                 UInt16            usFieldPos);
+
+    /*! \}                                                                 */
+@@endif // !isAbstract
 @@if !isAbstract
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */

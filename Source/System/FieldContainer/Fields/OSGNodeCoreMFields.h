@@ -59,6 +59,11 @@ typedef FieldContainerPtrMField<NodeCorePtr,
 typedef FieldContainerPtrMField<NodeCorePtr, 
                                 NoRefCounts        > MFUncountedNodeCorePtr;
 
+typedef FieldContainerPtrChildMField<
+          NodeCorePtr, 
+          UnrecordedRefCounts,
+          1                  > MFUnrecFieldContainerChildNodeCorePtr;
+
 //typedef MFNodeCorePtr MFRecNodeCorePtr;
 #endif
 

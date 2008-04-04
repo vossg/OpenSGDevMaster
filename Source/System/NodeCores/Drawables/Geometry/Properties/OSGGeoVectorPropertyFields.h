@@ -160,6 +160,83 @@ const Char8 *FieldTraits<GeoVectorPropertyPtr, 0>::getMName<NoRefCounts>(void)
  */
 #endif
 
+
+template <>
+struct FieldTraits<GeoVectorPropertyPtr, 1> :
+    public FieldTraitsFCPtrBase<GeoVectorPropertyPtr, 1>
+{
+  private:
+
+  public:
+
+    typedef FieldTraits<GeoVectorPropertyPtr, 1>  Self;
+    typedef FieldContainerPtr           ParentType;
+
+    static const FieldCardinality eFieldCard = MultiField;
+
+    enum                        { Convertible = NotConvertible };
+
+    static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFGeoVectorPropertyPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFGeoVectorPropertyPtr"; }
+};
+
+template<> inline
+const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecFieldContainerChildGeoVectorPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFieldContainerChildGeoVectorPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFieldContainerChildGeoVectorPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFieldContainerChildGeoVectorPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecFieldContainerChildGeoVectorPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFieldContainerChildGeoVectorPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFieldContainerChildGeoVectorPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFieldContainerChildGeoVectorPropertyPtr"; 
+}
+
+
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
@@ -190,6 +267,18 @@ typedef FieldContainerPtrMField<GeoVectorPropertyPtr,
                                 NoRefCounts        > MFUncountedGeoVectorPropertyPtr;
 #endif
 
+
+
+typedef FieldContainerPtrChildSField<
+          GeoVectorPropertyPtr, 
+          UnrecordedRefCounts,
+          1                  > SFUnrecFieldContainerChildGeoVectorPropertyPtr;
+
+
+typedef FieldContainerPtrChildMField<
+          GeoVectorPropertyPtr, 
+          UnrecordedRefCounts,
+          1                  > MFUnrecFieldContainerChildGeoVectorPropertyPtr;
 
 OSG_END_NAMESPACE
 

@@ -83,6 +83,8 @@ struct FieldTraitsBase
         FromStreamConvertible = 0x20
     };
 
+    typedef void ParentType;
+
     static const Char8 *getSPName(void) { return "Field";   }
     static const Char8 *getMPName(void) { return "Field";   }
 };
@@ -515,6 +517,16 @@ class FieldDescription : public DescT::FieldDescParent
               >::type HandledPPField;
 
     typedef typename
+      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
+              FieldContainerPtrChildSField<typename DescT::ValueType,
+                                           RefCountPolicy,
+                                           DescT::iNamespace>,
+              FieldContainerPtrChildMField<typename DescT::ValueType,
+                                           RefCountPolicy,
+                                           DescT::iNamespace> 
+              >::type HandledChField;
+
+    typedef typename
       boost::mpl::if_<boost::mpl::bool_<(eFieldClass == ValueField)>,
               HandledVField,
               HandledPField>::type HandledFieldA;
@@ -522,7 +534,12 @@ class FieldDescription : public DescT::FieldDescParent
     typedef typename
       boost::mpl::if_<boost::mpl::bool_<(eFieldClass == ParentPtrField)>,
               HandledPPField,
-              HandledFieldA>::type HandledField;
+              HandledFieldA>::type HandledFieldB;
+
+    typedef typename
+      boost::mpl::if_<boost::mpl::bool_<(eFieldClass == ChildPtrField)>,
+              HandledChField,
+              HandledFieldB>::type HandledField;
 
     typedef typename HandledField::GetHandle    GetHandle;
     typedef typename HandledField::GetHandlePtr GetHandlePtr;
@@ -547,6 +564,27 @@ class FieldDescription : public DescT::FieldDescParent
 
         static bool isShared (HandledField       *pField  );
     };
+
+    struct DefaultFieldCreateHandler
+    {
+        static Field *createField(void)
+        {
+            return new HandledField();
+        }
+    };
+    
+    struct ChildFieldCreateHandler
+    {
+        static Field *createField(void)
+        {
+            return NULL;
+        }
+    };
+
+    typedef typename
+      boost::mpl::if_<boost::mpl::bool_<(eFieldClass == ChildPtrField)>,
+              ChildFieldCreateHandler,
+              DefaultFieldCreateHandler>::type FieldCreateHandler;
 
     typedef typename
         boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,

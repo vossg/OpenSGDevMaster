@@ -60,6 +60,12 @@ typedef FieldContainerPtrSField<NodeCorePtr,
                                 NoRefCounts        > SFUncountedNodeCorePtr;
 
 
+
+typedef FieldContainerPtrChildSField<
+          NodeCorePtr, 
+          UnrecordedRefCounts,
+          1                  > SFUnrecFieldContainerChildNodeCorePtr;
+
 //typedef SFNodeCorePtr SFRecNodeCorePtr;
 #endif
 

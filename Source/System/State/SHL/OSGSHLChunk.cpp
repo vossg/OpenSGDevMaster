@@ -811,8 +811,8 @@ void SHLChunk::updateParameterLocation(Window *win, GLuint program,
 }
 
 void SHLChunk::updateParameterLocations(
-          Window                    *win,
-    const MFUnrecShaderParameterPtr &parameters)
+          Window                   *win,
+    const ShaderParameterFieldType &parameters)
 {
     GLuint program = (GLuint) win->getGLObjectId(getGLId());
 
@@ -843,11 +843,11 @@ void SHLChunk::updateParameterLocations(
 }
 
 void SHLChunk::updateParameters(      
-          Window                    *win,
-    const MFUnrecShaderParameterPtr &parameters,
-          bool                       useProgram, 
-          bool                       force,
-          bool                       keepProgramActive)
+          Window                   *win,
+    const ShaderParameterFieldType &parameters,
+          bool                      useProgram, 
+          bool                      force,
+          bool                      keepProgramActive)
 {
     GLuint program = (GLuint) win->getGLObjectId(getGLId());
 
@@ -1293,7 +1293,7 @@ void SHLChunk::checkOSGParameters(bool force)
     _oldParameterSize = getParameters().size();
 
     _osgParametersCallbacks.clear();
-    const MFUnrecShaderParameterPtr &parameters = getParameters();
+    const ShaderParameterFieldType &parameters = getParameters();
     for(UInt32 i = 0; i < parameters.size(); ++i)
     {
         //

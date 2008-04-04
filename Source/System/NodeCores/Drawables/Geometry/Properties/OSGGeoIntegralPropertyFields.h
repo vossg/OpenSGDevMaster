@@ -160,6 +160,83 @@ const Char8 *FieldTraits<GeoIntegralPropertyPtr, 0>::getMName<NoRefCounts>(void)
  */
 #endif
 
+
+template <>
+struct FieldTraits<GeoIntegralPropertyPtr, 1> :
+    public FieldTraitsFCPtrBase<GeoIntegralPropertyPtr, 1>
+{
+  private:
+
+  public:
+
+    typedef FieldTraits<GeoIntegralPropertyPtr, 1>  Self;
+    typedef FieldContainerPtr           ParentType;
+
+    static const FieldCardinality eFieldCard = MultiField;
+
+    enum                        { Convertible = NotConvertible };
+
+    static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFGeoIntegralPropertyPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFGeoIntegralPropertyPtr"; }
+};
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 1>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecFieldContainerChildGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 1>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFieldContainerChildGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 1>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFieldContainerChildGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 1>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFieldContainerChildGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 1>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecFieldContainerChildGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 1>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFieldContainerChildGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 1>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFieldContainerChildGeoIntegralPropertyPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoIntegralPropertyPtr, 1>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFieldContainerChildGeoIntegralPropertyPtr"; 
+}
+
+
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
@@ -190,6 +267,18 @@ typedef FieldContainerPtrMField<GeoIntegralPropertyPtr,
                                 NoRefCounts        > MFUncountedGeoIntegralPropertyPtr;
 #endif
 
+
+
+typedef FieldContainerPtrChildSField<
+          GeoIntegralPropertyPtr, 
+          UnrecordedRefCounts,
+          1                  > SFUnrecFieldContainerChildGeoIntegralPropertyPtr;
+
+
+typedef FieldContainerPtrChildMField<
+          GeoIntegralPropertyPtr, 
+          UnrecordedRefCounts,
+          1                  > MFUnrecFieldContainerChildGeoIntegralPropertyPtr;
 
 OSG_END_NAMESPACE
 

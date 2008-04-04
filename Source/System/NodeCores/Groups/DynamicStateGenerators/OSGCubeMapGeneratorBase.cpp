@@ -691,15 +691,6 @@ void CubeMapGeneratorBase::clearExclude(void)
 {
     editMField(ExcludeFieldMask, _mfExclude);
 
-    MFUnrecNodePtr::iterator       fieldIt  = _mfExclude.begin();
-    MFUnrecNodePtr::const_iterator fieldEnd = _mfExclude.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfExclude.clear();
 }

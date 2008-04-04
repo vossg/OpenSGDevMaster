@@ -124,8 +124,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFUnrecGeoIntegralPropertyPtr::Description(
-        SFUnrecGeoIntegralPropertyPtr::getClassType(),
+    pDesc = new SFUnrecFieldContainerChildGeoIntegralPropertyPtr::Description(
+        SFUnrecFieldContainerChildGeoIntegralPropertyPtr::getClassType(),
         "types",
         "The types property contains the primitive's types. Legal values are \n"
         "everything that can be passed to glBegin(). There have to be as many \n"
@@ -138,8 +138,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecGeoIntegralPropertyPtr::Description(
-        SFUnrecGeoIntegralPropertyPtr::getClassType(),
+    pDesc = new SFUnrecFieldContainerChildGeoIntegralPropertyPtr::Description(
+        SFUnrecFieldContainerChildGeoIntegralPropertyPtr::getClassType(),
         "lengths",
         "The lengths property contains the number of vertices to use for the \n"
         "corresponding primitive. There have to be as many  lengths as types.\n",
@@ -151,8 +151,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFUnrecGeoVectorPropertyPtr::Description(
-        MFUnrecGeoVectorPropertyPtr::getClassType(),
+    pDesc = new MFUnrecFieldContainerChildGeoVectorPropertyPtr::Description(
+        MFUnrecFieldContainerChildGeoVectorPropertyPtr::getClassType(),
         "properties",
         "The attributes used to render the geometry. The order is based on the \n"
         "the one given in ARB_vertex_program.\n",
@@ -164,8 +164,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFUnrecGeoIntegralPropertyPtr::Description(
-        MFUnrecGeoIntegralPropertyPtr::getClassType(),
+    pDesc = new MFUnrecFieldContainerChildGeoIntegralPropertyPtr::Description(
+        MFUnrecFieldContainerChildGeoIntegralPropertyPtr::getClassType(),
         "propIndices",
         "The indices property contains the index data. See \\ref \n"
         "PageSystemGeoIndexing for a description of the indexing options.\n",
@@ -240,11 +240,12 @@ GeometryBase::TypeObject GeometryBase::_type(
     ">\n"
     "\t<Field\n"
     "\t\tname=\"types\"\n"
-    "\t\ttype=\"GeoIntegralPropertyPtr\"\n"
+    "\t\ttype=\"GeoIntegralProperty\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
-    "        linkMParent=\"true\"\n"
+    "        category=\"childpointer\"\n"
+    "        childParentType=\"FieldContainer\"\n"
     "\t>\n"
     "        The types property contains the primitive's types. Legal values are \n"
     "        everything that can be passed to glBegin(). There have to be as many \n"
@@ -252,22 +253,24 @@ GeometryBase::TypeObject GeometryBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"lengths\"\n"
-    "\t\ttype=\"GeoIntegralPropertyPtr\"\n"
+    "\t\ttype=\"GeoIntegralProperty\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
-    "        linkMParent=\"true\"\n"
+    "        category=\"childpointer\"\n"
+    "        childParentType=\"FieldContainer\"\n"
     "\t>\n"
     "        The lengths property contains the number of vertices to use for the \n"
     "        corresponding primitive. There have to be as many  lengths as types.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"properties\"\n"
-    "\t\ttype=\"GeoVectorPropertyPtr\"\n"
+    "\t\ttype=\"GeoVectorProperty\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
-    "        linkMParent=\"true\"\n"
+    "        category=\"childpointer\"\n"
+    "        childParentType=\"FieldContainer\"\n"
     "        checkNilPtr=\"false\"\n"
     "\t>\n"
     "        The attributes used to render the geometry. The order is based on the \n"
@@ -275,11 +278,12 @@ GeometryBase::TypeObject GeometryBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"propIndices\"\n"
-    "\t\ttype=\"GeoIntegralPropertyPtr\"\n"
+    "\t\ttype=\"GeoIntegralProperty\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
-    "        linkMParent=\"true\"\n"
+    "        category=\"childpointer\"\n"
+    "        childParentType=\"FieldContainer\"\n"
     "        checkNilPtr=\"false\"\n"
     "\t>\n"
     "        The indices property contains the index data. See \\ref \n"
@@ -342,25 +346,25 @@ UInt32 GeometryBase::getContainerSize(void) const
 
 
 //! Get the Geometry::_sfTypes field.
-const SFUnrecGeoIntegralPropertyPtr *GeometryBase::getSFTypes(void) const
+const SFUnrecFieldContainerChildGeoIntegralPropertyPtr *GeometryBase::getSFTypes(void) const
 {
     return &_sfTypes;
 }
 
 //! Get the Geometry::_sfLengths field.
-const SFUnrecGeoIntegralPropertyPtr *GeometryBase::getSFLengths(void) const
+const SFUnrecFieldContainerChildGeoIntegralPropertyPtr *GeometryBase::getSFLengths(void) const
 {
     return &_sfLengths;
 }
 
 //! Get the Geometry::_mfProperties field.
-const MFUnrecGeoVectorPropertyPtr *GeometryBase::getMFProperties(void) const
+const MFUnrecFieldContainerChildGeoVectorPropertyPtr *GeometryBase::getMFProperties(void) const
 {
     return &_mfProperties;
 }
 
 //! Get the Geometry::_mfPropIndices field.
-const MFUnrecGeoIntegralPropertyPtr *GeometryBase::getMFPropIndices(void) const
+const MFUnrecFieldContainerChildGeoIntegralPropertyPtr *GeometryBase::getMFPropIndices(void) const
 {
     return &_mfPropIndices;
 }
@@ -432,17 +436,15 @@ void GeometryBase::pushToProperties(GeoVectorPropertyPtrConstArg value)
 
     _mfProperties.push_back(value);
 
-    if(value == NullFC)
-        return;
-
-    value->addParent(this, PropertiesFieldMask);
+//    if(value == NullFC)
+//        return;
 }
 
-void GeometryBase::assignProperties(const MFUnrecGeoVectorPropertyPtr &value)
+void GeometryBase::assignProperties(const MFUnrecFieldContainerChildGeoVectorPropertyPtr &value)
 {
-    MFUnrecGeoVectorPropertyPtr::const_iterator elemIt  =
+    MFUnrecFieldContainerChildGeoVectorPropertyPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecGeoVectorPropertyPtr::const_iterator elemEnd =
+    MFUnrecFieldContainerChildGeoVectorPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Geometry *>(this)->clearProperties();
@@ -460,7 +462,7 @@ void GeometryBase::insertIntoProperties(UInt32                uiIndex,
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
-    MFUnrecGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
+    MFUnrecFieldContainerChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
 
     //addRef(value);
 
@@ -468,10 +470,8 @@ void GeometryBase::insertIntoProperties(UInt32                uiIndex,
 
     _mfProperties.insert(fieldIt, value);
 
-    if(value == NullFC)
-        return;
-
-    value->addParent(this, PropertiesFieldMask);
+//    if(value == NullFC)
+//        return;
 }
 
 void GeometryBase::replaceInProperties(UInt32                uiIndex,
@@ -483,11 +483,6 @@ void GeometryBase::replaceInProperties(UInt32                uiIndex,
     editMField(PropertiesFieldMask, _mfProperties);
 
 
-    if(_mfProperties[uiIndex] != NullFC)
-    {
-        _mfProperties[uiIndex]->subParent(this);
-    }
-
 //    addRef(value);
 //    subRef(_mfProperties[uiIndex]);
 
@@ -495,10 +490,8 @@ void GeometryBase::replaceInProperties(UInt32                uiIndex,
 
       _mfProperties.replace(uiIndex, value);
 
-    if(value == NullFC)
-        return;
-
-    value->addParent(this, PropertiesFieldMask);
+//    if(value == NullFC)
+//        return;
 }
 
 void GeometryBase::replaceInProperties(GeoVectorPropertyPtrConstArg pOldElem,
@@ -509,17 +502,6 @@ void GeometryBase::replaceInProperties(GeoVectorPropertyPtrConstArg pOldElem,
     if(elemIdx != -1)
     {
         editMField(PropertiesFieldMask, _mfProperties);
-
-
-        if(pOldElem != NullFC)
-        {
-            pOldElem->subParent(this);
-        }
-
-        if(pNewElem != NullFC)
-        {
-            pNewElem->addParent(this, PropertiesFieldMask);
-        }
 
 //        MFGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
 
@@ -538,15 +520,9 @@ void GeometryBase::removeFromProperties(UInt32 uiIndex)
     {
         editMField(PropertiesFieldMask, _mfProperties);
 
-        MFUnrecGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
+        MFUnrecFieldContainerChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
 
         fieldIt += uiIndex;
-
-
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
 
         //subRef(*fieldIt);
 
@@ -562,15 +538,9 @@ void GeometryBase::removeFromProperties(GeoVectorPropertyPtrConstArg value)
     {
         editMField(PropertiesFieldMask, _mfProperties);
 
-        MFUnrecGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
+        MFUnrecFieldContainerChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
 
         fieldIt += iElemIdx;
-
-
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
 
         //subRef(*fieldIt);
 
@@ -581,20 +551,6 @@ void GeometryBase::clearProperties(void)
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
-    MFUnrecGeoVectorPropertyPtr::iterator       fieldIt  = _mfProperties.begin();
-    MFUnrecGeoVectorPropertyPtr::const_iterator fieldEnd = _mfProperties.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
-
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfProperties.clear();
 }
@@ -607,17 +563,15 @@ void GeometryBase::pushToPropIndices(GeoIntegralPropertyPtrConstArg value)
 
     _mfPropIndices.push_back(value);
 
-    if(value == NullFC)
-        return;
-
-    value->addParent(this, PropIndicesFieldMask);
+//    if(value == NullFC)
+//        return;
 }
 
-void GeometryBase::assignPropIndices(const MFUnrecGeoIntegralPropertyPtr &value)
+void GeometryBase::assignPropIndices(const MFUnrecFieldContainerChildGeoIntegralPropertyPtr &value)
 {
-    MFUnrecGeoIntegralPropertyPtr::const_iterator elemIt  =
+    MFUnrecFieldContainerChildGeoIntegralPropertyPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecGeoIntegralPropertyPtr::const_iterator elemEnd =
+    MFUnrecFieldContainerChildGeoIntegralPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Geometry *>(this)->clearPropIndices();
@@ -635,7 +589,7 @@ void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
-    MFUnrecGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
+    MFUnrecFieldContainerChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
 
     //addRef(value);
 
@@ -643,10 +597,8 @@ void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,
 
     _mfPropIndices.insert(fieldIt, value);
 
-    if(value == NullFC)
-        return;
-
-    value->addParent(this, PropIndicesFieldMask);
+//    if(value == NullFC)
+//        return;
 }
 
 void GeometryBase::replaceInPropIndices(UInt32                uiIndex,
@@ -658,11 +610,6 @@ void GeometryBase::replaceInPropIndices(UInt32                uiIndex,
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
 
-    if(_mfPropIndices[uiIndex] != NullFC)
-    {
-        _mfPropIndices[uiIndex]->subParent(this);
-    }
-
 //    addRef(value);
 //    subRef(_mfPropIndices[uiIndex]);
 
@@ -670,10 +617,8 @@ void GeometryBase::replaceInPropIndices(UInt32                uiIndex,
 
       _mfPropIndices.replace(uiIndex, value);
 
-    if(value == NullFC)
-        return;
-
-    value->addParent(this, PropIndicesFieldMask);
+//    if(value == NullFC)
+//        return;
 }
 
 void GeometryBase::replaceInPropIndices(GeoIntegralPropertyPtrConstArg pOldElem,
@@ -684,17 +629,6 @@ void GeometryBase::replaceInPropIndices(GeoIntegralPropertyPtrConstArg pOldElem,
     if(elemIdx != -1)
     {
         editMField(PropIndicesFieldMask, _mfPropIndices);
-
-
-        if(pOldElem != NullFC)
-        {
-            pOldElem->subParent(this);
-        }
-
-        if(pNewElem != NullFC)
-        {
-            pNewElem->addParent(this, PropIndicesFieldMask);
-        }
 
 //        MFGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
 
@@ -713,15 +647,9 @@ void GeometryBase::removeFromPropIndices(UInt32 uiIndex)
     {
         editMField(PropIndicesFieldMask, _mfPropIndices);
 
-        MFUnrecGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
+        MFUnrecFieldContainerChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
 
         fieldIt += uiIndex;
-
-
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
 
         //subRef(*fieldIt);
 
@@ -737,15 +665,9 @@ void GeometryBase::removeFromPropIndices(GeoIntegralPropertyPtrConstArg value)
     {
         editMField(PropIndicesFieldMask, _mfPropIndices);
 
-        MFUnrecGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
+        MFUnrecFieldContainerChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
 
         fieldIt += iElemIdx;
-
-
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
 
         //subRef(*fieldIt);
 
@@ -756,20 +678,6 @@ void GeometryBase::clearPropIndices(void)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
-    MFUnrecGeoIntegralPropertyPtr::iterator       fieldIt  = _mfPropIndices.begin();
-    MFUnrecGeoIntegralPropertyPtr::const_iterator fieldEnd = _mfPropIndices.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
-
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfPropIndices.clear();
 }
@@ -884,6 +792,48 @@ void GeometryBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+void GeometryBase::subChildPointer(FieldContainerPtr pObj, 
+                                        UInt16            usFieldPos)
+{
+    if(usFieldPos == TypesFieldId)
+    {
+        if(_sfTypes.getValue() == pObj)
+        {
+            editSField(TypesFieldMask);
+
+            _sfTypes.setValue(NullFC);
+        }
+    }
+    if(usFieldPos == LengthsFieldId)
+    {
+        if(_sfLengths.getValue() == pObj)
+        {
+            editSField(LengthsFieldMask);
+
+            _sfLengths.setValue(NullFC);
+        }
+    }
+    if(usFieldPos == PropertiesFieldId)
+    {
+        GeoVectorPropertyPtr pChild = dynamic_cast<GeoVectorPropertyPtr>(pObj);
+
+        if(pChild != NullFC)
+            removeFromProperties(pChild);
+    }
+    if(usFieldPos == PropIndicesFieldId)
+    {
+        GeoIntegralPropertyPtr pChild = dynamic_cast<GeoIntegralPropertyPtr>(pObj);
+
+        if(pChild != NullFC)
+            removeFromPropIndices(pChild);
+    }
+    else
+    {
+        Inherited::subChildPointer(pObj, usFieldPos);
+    }
+}
+
+
 //! create a new instance of the class
 GeometryTransitPtr GeometryBase::create(void)
 {
@@ -975,10 +925,10 @@ FieldContainerTransitPtr GeometryBase::shallowCopyLocal(
 
 GeometryBase::GeometryBase(void) :
     Inherited(),
-    _sfTypes                  (NullFC),
-    _sfLengths                (NullFC),
-    _mfProperties             (),
-    _mfPropIndices            (),
+    _sfTypes                  (this, TypesFieldId),
+    _sfLengths                (this, LengthsFieldId),
+    _mfProperties             (this, PropertiesFieldId),
+    _mfPropIndices            (this, PropIndicesFieldId),
     _sfDlistCache             (bool(true)),
     _sfClassicGLId            (Int32(0)),
     _sfAttGLId                (Int32(0))
@@ -987,10 +937,10 @@ GeometryBase::GeometryBase(void) :
 
 GeometryBase::GeometryBase(const GeometryBase &source) :
     Inherited(source),
-    _sfTypes                  (NullFC),
-    _sfLengths                (NullFC),
-    _mfProperties             (),
-    _mfPropIndices            (),
+    _sfTypes                  (this, TypesFieldId),
+    _sfLengths                (this, LengthsFieldId),
+    _mfProperties             (this, PropertiesFieldId),
+    _mfPropIndices            (this, PropIndicesFieldId),
     _sfDlistCache             (source._sfDlistCache             ),
     _sfClassicGLId            (source._sfClassicGLId            ),
     _sfAttGLId                (source._sfAttGLId                )
@@ -1015,9 +965,9 @@ void GeometryBase::onCreate(const Geometry *source)
 
         this->setLengths(source->getLengths());
 
-        MFUnrecGeoVectorPropertyPtr::const_iterator PropertiesIt  =
+        MFUnrecFieldContainerChildGeoVectorPropertyPtr::const_iterator PropertiesIt  =
             source->_mfProperties.begin();
-        MFUnrecGeoVectorPropertyPtr::const_iterator PropertiesEnd =
+        MFUnrecFieldContainerChildGeoVectorPropertyPtr::const_iterator PropertiesEnd =
             source->_mfProperties.end  ();
 
         while(PropertiesIt != PropertiesEnd)
@@ -1027,9 +977,9 @@ void GeometryBase::onCreate(const Geometry *source)
             ++PropertiesIt;
         }
 
-        MFUnrecGeoIntegralPropertyPtr::const_iterator PropIndicesIt  =
+        MFUnrecFieldContainerChildGeoIntegralPropertyPtr::const_iterator PropIndicesIt  =
             source->_mfPropIndices.begin();
-        MFUnrecGeoIntegralPropertyPtr::const_iterator PropIndicesEnd =
+        MFUnrecFieldContainerChildGeoIntegralPropertyPtr::const_iterator PropIndicesEnd =
             source->_mfPropIndices.end  ();
 
         while(PropIndicesIt != PropIndicesEnd)
@@ -1043,8 +993,8 @@ void GeometryBase::onCreate(const Geometry *source)
 
 GetFieldHandlePtr GeometryBase::getHandleTypes           (void) const
 {
-    SFUnrecGeoIntegralPropertyPtr::GetHandlePtr returnValue(
-        new  SFUnrecGeoIntegralPropertyPtr::GetHandle(
+    SFUnrecFieldContainerChildGeoIntegralPropertyPtr::GetHandlePtr returnValue(
+        new  SFUnrecFieldContainerChildGeoIntegralPropertyPtr::GetHandle(
              &_sfTypes, 
              this->getType().getFieldDesc(TypesFieldId)));
 
@@ -1053,8 +1003,8 @@ GetFieldHandlePtr GeometryBase::getHandleTypes           (void) const
 
 EditFieldHandlePtr GeometryBase::editHandleTypes          (void)
 {
-    SFUnrecGeoIntegralPropertyPtr::EditHandlePtr returnValue(
-        new  SFUnrecGeoIntegralPropertyPtr::EditHandle(
+    SFUnrecFieldContainerChildGeoIntegralPropertyPtr::EditHandlePtr returnValue(
+        new  SFUnrecFieldContainerChildGeoIntegralPropertyPtr::EditHandle(
              &_sfTypes, 
              this->getType().getFieldDesc(TypesFieldId)));
 
@@ -1068,8 +1018,8 @@ EditFieldHandlePtr GeometryBase::editHandleTypes          (void)
 
 GetFieldHandlePtr GeometryBase::getHandleLengths         (void) const
 {
-    SFUnrecGeoIntegralPropertyPtr::GetHandlePtr returnValue(
-        new  SFUnrecGeoIntegralPropertyPtr::GetHandle(
+    SFUnrecFieldContainerChildGeoIntegralPropertyPtr::GetHandlePtr returnValue(
+        new  SFUnrecFieldContainerChildGeoIntegralPropertyPtr::GetHandle(
              &_sfLengths, 
              this->getType().getFieldDesc(LengthsFieldId)));
 
@@ -1078,8 +1028,8 @@ GetFieldHandlePtr GeometryBase::getHandleLengths         (void) const
 
 EditFieldHandlePtr GeometryBase::editHandleLengths        (void)
 {
-    SFUnrecGeoIntegralPropertyPtr::EditHandlePtr returnValue(
-        new  SFUnrecGeoIntegralPropertyPtr::EditHandle(
+    SFUnrecFieldContainerChildGeoIntegralPropertyPtr::EditHandlePtr returnValue(
+        new  SFUnrecFieldContainerChildGeoIntegralPropertyPtr::EditHandle(
              &_sfLengths, 
              this->getType().getFieldDesc(LengthsFieldId)));
 
@@ -1093,8 +1043,8 @@ EditFieldHandlePtr GeometryBase::editHandleLengths        (void)
 
 GetFieldHandlePtr GeometryBase::getHandleProperties      (void) const
 {
-    MFUnrecGeoVectorPropertyPtr::GetHandlePtr returnValue(
-        new  MFUnrecGeoVectorPropertyPtr::GetHandle(
+    MFUnrecFieldContainerChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
+        new  MFUnrecFieldContainerChildGeoVectorPropertyPtr::GetHandle(
              &_mfProperties, 
              this->getType().getFieldDesc(PropertiesFieldId)));
 
@@ -1103,8 +1053,8 @@ GetFieldHandlePtr GeometryBase::getHandleProperties      (void) const
 
 EditFieldHandlePtr GeometryBase::editHandleProperties     (void)
 {
-    MFUnrecGeoVectorPropertyPtr::EditHandlePtr returnValue(
-        new  MFUnrecGeoVectorPropertyPtr::EditHandle(
+    MFUnrecFieldContainerChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
+        new  MFUnrecFieldContainerChildGeoVectorPropertyPtr::EditHandle(
              &_mfProperties, 
              this->getType().getFieldDesc(PropertiesFieldId)));
 
@@ -1118,8 +1068,8 @@ EditFieldHandlePtr GeometryBase::editHandleProperties     (void)
 
 GetFieldHandlePtr GeometryBase::getHandlePropIndices     (void) const
 {
-    MFUnrecGeoIntegralPropertyPtr::GetHandlePtr returnValue(
-        new  MFUnrecGeoIntegralPropertyPtr::GetHandle(
+    MFUnrecFieldContainerChildGeoIntegralPropertyPtr::GetHandlePtr returnValue(
+        new  MFUnrecFieldContainerChildGeoIntegralPropertyPtr::GetHandle(
              &_mfPropIndices, 
              this->getType().getFieldDesc(PropIndicesFieldId)));
 
@@ -1128,8 +1078,8 @@ GetFieldHandlePtr GeometryBase::getHandlePropIndices     (void) const
 
 EditFieldHandlePtr GeometryBase::editHandlePropIndices    (void)
 {
-    MFUnrecGeoIntegralPropertyPtr::EditHandlePtr returnValue(
-        new  MFUnrecGeoIntegralPropertyPtr::EditHandle(
+    MFUnrecFieldContainerChildGeoIntegralPropertyPtr::EditHandlePtr returnValue(
+        new  MFUnrecFieldContainerChildGeoIntegralPropertyPtr::EditHandle(
              &_mfPropIndices, 
              this->getType().getFieldDesc(PropIndicesFieldId)));
 

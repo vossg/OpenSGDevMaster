@@ -156,8 +156,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFUnrecViewportPtr::Description(
-        MFUnrecViewportPtr::getClassType(),
+    pDesc = new MFUnrecFieldContainerChildViewportPtr::Description(
+        MFUnrecFieldContainerChildViewportPtr::getClassType(),
         "port",
         "",
         PortFieldId, PortFieldMask,
@@ -283,19 +283,20 @@ WindowBase::TypeObject WindowBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"port\"\n"
-    "\t\ttype=\"ViewportPtr\"\n"
+    "\t\ttype=\"Viewport\"\n"
     "\t\tcardinality=\"multi\"\n"
+    "        category=\"childpointer\"\n"
+    "        childParentType=\"FieldContainer\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
-    "                pushToFieldAs=\"addPort\"\n"
-    "                insertIntoMFieldAs=\"insertPort\"\n"
-    "                replaceInMFieldIndexAs=\"replacePort\"\n"
-    "                replaceInMFieldObjectAs=\"replacePortBy\"\n"
-    "                removeFromMFieldIndexAs=\"subPort\"\n"
-    "                removeFromMFieldObjectAs=\"subPort\"\n"
-    "                clearFieldAs=\"clearPorts\"        \n"
-    "                linkSParent=\"true\"\n"
-    "                checkNilPtr=\"true\"\n"
+    "        pushToFieldAs=\"addPort\"\n"
+    "        insertIntoMFieldAs=\"insertPort\"\n"
+    "        replaceInMFieldIndexAs=\"replacePort\"\n"
+    "        replaceInMFieldObjectAs=\"replacePortBy\"\n"
+    "        removeFromMFieldIndexAs=\"subPort\"\n"
+    "        removeFromMFieldObjectAs=\"subPort\"\n"
+    "        clearFieldAs=\"clearPorts\"        \n"
+    "        checkNilPtr=\"true\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -422,7 +423,7 @@ SFUInt16            *WindowBase::getSFHeight         (void)
 #endif
 
 //! Get the Window::_mfPort field.
-const MFUnrecViewportPtr *WindowBase::getMFPort(void) const
+const MFUnrecFieldContainerChildViewportPtr *WindowBase::getMFPort(void) const
 {
     return &_mfPort;
 }
@@ -534,15 +535,13 @@ void WindowBase::addPort(ViewportPtrConstArg value)
     //addRef(value);
 
     _mfPort.push_back(value);
-
-    value->setParent(this, PortFieldMask);
 }
 
-void WindowBase::assignPort     (const MFUnrecViewportPtr &value)
+void WindowBase::assignPort     (const MFUnrecFieldContainerChildViewportPtr &value)
 {
-    MFUnrecViewportPtr::const_iterator elemIt  =
+    MFUnrecFieldContainerChildViewportPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecViewportPtr::const_iterator elemEnd =
+    MFUnrecFieldContainerChildViewportPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Window *>(this)->clearPorts();
@@ -563,15 +562,13 @@ void WindowBase::insertPort(UInt32                uiIndex,
 
     editMField(PortFieldMask, _mfPort);
 
-    MFUnrecViewportPtr::iterator fieldIt = _mfPort.begin();
+    MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.begin();
 
     //addRef(value);
 
     fieldIt += uiIndex;
 
     _mfPort.insert(fieldIt, value);
-
-    value->setParent(this, PortFieldMask);
 }
 
 void WindowBase::replacePort(UInt32                uiIndex,
@@ -586,19 +583,12 @@ void WindowBase::replacePort(UInt32                uiIndex,
     editMField(PortFieldMask, _mfPort);
 
 
-    if(_mfPort[uiIndex] != NullFC)
-    {
-        _mfPort[uiIndex]->setParent(this, PortFieldMask);
-    }
-
 //    addRef(value);
 //    subRef(_mfPort[uiIndex]);
 
 //    _mfPort[uiIndex] = value;
 
       _mfPort.replace(uiIndex, value);
-
-    value->setParent(this, PortFieldMask);
 }
 
 void WindowBase::replacePortBy(ViewportPtrConstArg pOldElem,
@@ -612,16 +602,6 @@ void WindowBase::replacePortBy(ViewportPtrConstArg pOldElem,
     if(elemIdx != -1)
     {
         editMField(PortFieldMask, _mfPort);
-
-        if(pOldElem != NullFC)
-        {
-            pOldElem->setParent(NullFC, PortFieldMask);
-        }
-
-        if(pNewElem != NullFC)
-        {
-            pNewElem->setParent(this, PortFieldMask);
-        }
 
 //        MFViewportPtr::iterator fieldIt = _mfPort.begin();
 
@@ -640,14 +620,9 @@ void WindowBase::subPort(UInt32 uiIndex)
     {
         editMField(PortFieldMask, _mfPort);
 
-        MFUnrecViewportPtr::iterator fieldIt = _mfPort.begin();
+        MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.begin();
 
         fieldIt += uiIndex;
-
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->setParent(NullFC, PortFieldMask);
-        }
 
         //subRef(*fieldIt);
 
@@ -663,14 +638,9 @@ void WindowBase::subPort(ViewportPtrConstArg value)
     {
         editMField(PortFieldMask, _mfPort);
 
-        MFUnrecViewportPtr::iterator fieldIt = _mfPort.begin();
+        MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.begin();
 
         fieldIt += iElemIdx;
-
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->setParent(NullFC, PortFieldMask);
-        }
 
         //subRef(*fieldIt);
 
@@ -681,20 +651,6 @@ void WindowBase::clearPorts(void)
 {
     editMField(PortFieldMask, _mfPort);
 
-    MFUnrecViewportPtr::iterator       fieldIt  = _mfPort.begin();
-    MFUnrecViewportPtr::const_iterator fieldEnd = _mfPort.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->setParent(NullFC, PortFieldMask);
-        }
-
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfPort.clear();
 }
@@ -985,6 +941,23 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
+void WindowBase::subChildPointer(FieldContainerPtr pObj, 
+                                        UInt16            usFieldPos)
+{
+    if(usFieldPos == PortFieldId)
+    {
+        ViewportPtr pChild = dynamic_cast<ViewportPtr>(pObj);
+
+        if(pChild != NullFC)
+            subPort(pChild);
+    }
+    else
+    {
+        Inherited::subChildPointer(pObj, usFieldPos);
+    }
+}
+
+
 
 
 
@@ -994,7 +967,7 @@ WindowBase::WindowBase(void) :
     Inherited(),
     _sfWidth                  (),
     _sfHeight                 (),
-    _mfPort                   (),
+    _mfPort                   (this, PortFieldId),
     _sfResizePending          (),
     _sfGlObjectEventCounter   (UInt32(1)),
     _mfGlObjectLastRefresh    (),
@@ -1007,7 +980,7 @@ WindowBase::WindowBase(const WindowBase &source) :
     Inherited(source),
     _sfWidth                  (source._sfWidth                  ),
     _sfHeight                 (source._sfHeight                 ),
-    _mfPort                   (),
+    _mfPort                   (this, PortFieldId),
     _sfResizePending          (source._sfResizePending          ),
     _sfGlObjectEventCounter   (source._sfGlObjectEventCounter   ),
     _mfGlObjectLastRefresh    (source._mfGlObjectLastRefresh    ),
@@ -1030,9 +1003,9 @@ void WindowBase::onCreate(const Window *source)
     if(source != NULL)
     {
 
-        MFUnrecViewportPtr::const_iterator PortIt  =
+        MFUnrecFieldContainerChildViewportPtr::const_iterator PortIt  =
             source->_mfPort.begin();
-        MFUnrecViewportPtr::const_iterator PortEnd =
+        MFUnrecFieldContainerChildViewportPtr::const_iterator PortEnd =
             source->_mfPort.end  ();
 
         while(PortIt != PortEnd)
@@ -1090,8 +1063,8 @@ EditFieldHandlePtr WindowBase::editHandleHeight         (void)
 
 GetFieldHandlePtr WindowBase::getHandlePort            (void) const
 {
-    MFUnrecViewportPtr::GetHandlePtr returnValue(
-        new  MFUnrecViewportPtr::GetHandle(
+    MFUnrecFieldContainerChildViewportPtr::GetHandlePtr returnValue(
+        new  MFUnrecFieldContainerChildViewportPtr::GetHandle(
              &_mfPort, 
              this->getType().getFieldDesc(PortFieldId)));
 
@@ -1100,8 +1073,8 @@ GetFieldHandlePtr WindowBase::getHandlePort            (void) const
 
 EditFieldHandlePtr WindowBase::editHandlePort           (void)
 {
-    MFUnrecViewportPtr::EditHandlePtr returnValue(
-        new  MFUnrecViewportPtr::EditHandle(
+    MFUnrecFieldContainerChildViewportPtr::EditHandlePtr returnValue(
+        new  MFUnrecFieldContainerChildViewportPtr::EditHandle(
              &_mfPort, 
              this->getType().getFieldDesc(PortFieldId)));
 

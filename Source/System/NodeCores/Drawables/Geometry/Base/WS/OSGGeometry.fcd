@@ -12,11 +12,12 @@
 >
 	<Field
 		name="types"
-		type="GeoIntegralPropertyPtr"
+		type="GeoIntegralProperty"
 		cardinality="single"
 		visibility="external"
 		access="public"
-        linkMParent="true"
+        category="childpointer"
+        childParentType="FieldContainer"
 	>
         The types property contains the primitive's types. Legal values are 
         everything that can be passed to glBegin(). There have to be as many 
@@ -24,22 +25,24 @@
 	</Field>
 	<Field
 		name="lengths"
-		type="GeoIntegralPropertyPtr"
+		type="GeoIntegralProperty"
 		cardinality="single"
 		visibility="external"
 		access="public"
-        linkMParent="true"
+        category="childpointer"
+        childParentType="FieldContainer"
 	>
         The lengths property contains the number of vertices to use for the 
         corresponding primitive. There have to be as many  lengths as types.
 	</Field>
 	<Field
 		name="properties"
-		type="GeoVectorPropertyPtr"
+		type="GeoVectorProperty"
 		cardinality="multi"
 		visibility="external"
 		access="public"
-        linkMParent="true"
+        category="childpointer"
+        childParentType="FieldContainer"
         checkNilPtr="false"
 	>
         The attributes used to render the geometry. The order is based on the 
@@ -47,11 +50,12 @@
 	</Field>
 	<Field
 		name="propIndices"
-		type="GeoIntegralPropertyPtr"
+		type="GeoIntegralProperty"
 		cardinality="multi"
 		visibility="external"
 		access="public"
-        linkMParent="true"
+        category="childpointer"
+        childParentType="FieldContainer"
         checkNilPtr="false"
 	>
         The indices property contains the index data. See \ref 

@@ -150,11 +150,11 @@ void FieldContainer::subReferenceUnrecordedX(void)
 
     if(_iRefCount <= 0 && _iWeakRefCount <= 0)
     {
-        Thread::getCurrentChangeList()->incSubRefLevel();
+//      Thread::getCurrentChangeList()->incSubRefLevel();
 
         this->resolveLinks();
 
-        Thread::getCurrentChangeList()->decSubRefLevel();
+//        Thread::getCurrentChangeList()->decSubRefLevel();
 
 //        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
@@ -251,13 +251,13 @@ void FieldContainer::subWeakReference(void)
 
     if(_iRefCount <= 0 && _iWeakRefCount <= 0)
     {
-        Thread::getCurrentChangeList()->incSubRefLevel();
+//        Thread::getCurrentChangeList()->incSubRefLevel();
 
         this->resolveLinks();
 
-        Thread::getCurrentChangeList()->decSubRefLevel();
+//        Thread::getCurrentChangeList()->decSubRefLevel();
 
-        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+//        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
 #ifdef OSG_MT_CPTR_ASPECT
         this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
@@ -281,7 +281,7 @@ void FieldContainer::subWeakReference(void)
     }
     else
     {
-        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+//        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
     }
 
 }

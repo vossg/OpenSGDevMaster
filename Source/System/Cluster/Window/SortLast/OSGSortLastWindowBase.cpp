@@ -383,15 +383,6 @@ void SortLastWindowBase::clearGroupNodes(void)
 {
     editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-    MFUnrecNodePtr::iterator       fieldIt  = _mfGroupNodes.begin();
-    MFUnrecNodePtr::const_iterator fieldEnd = _mfGroupNodes.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfGroupNodes.clear();
 }

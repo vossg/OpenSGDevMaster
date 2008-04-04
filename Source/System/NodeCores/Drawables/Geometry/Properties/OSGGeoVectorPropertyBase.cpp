@@ -102,6 +102,9 @@ GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
+    "    childfieldparent=\"FieldContainer\"\n"
+    "    parentfieldcard=\"multi\"\n"
+    "    childFields=\"both\"\n"
     ">\n"
     "Abstract base class for all vector-valued GeoProperties.\n"
     "Provides a uniform interface for accessing all vector data in geometry using\n"
@@ -222,5 +225,23 @@ OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField,
 OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
                            GeoVectorPropertyPtr, 
                            0);
+
+DataType &FieldTraits< GeoVectorPropertyPtr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<GeoVectorPropertyPtr, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+                      GeoVectorPropertyPtr,       
+                      UnrecordedRefCounts,  
+                      1);
+
+
+OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+                      GeoVectorPropertyPtr,       
+                      UnrecordedRefCounts,  
+                      1);
+
 
 OSG_END_NAMESPACE

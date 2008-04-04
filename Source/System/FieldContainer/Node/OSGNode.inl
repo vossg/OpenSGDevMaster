@@ -59,21 +59,21 @@ void Node::setCore(TransitPtr<ObjectT> core)
 
 //    addRef(core);
 
-    if(_sfCore.getValue() != NullFC)
-    {
-        _sfCore.getValue()->subParent(this);
+//    if(_sfCore.getValue() != NullFC)
+//    {
+//        _sfCore.getValue()->subParent(this);
 
 //        subRef(_sfCore.getValue());
-    }
+//    }
 
     NodeCoreUnrecPtr pCore = core;
 
     _sfCore.setValue(pCore);
 
-    if(_sfCore.getValue() != NullFC)
-    {
-        _sfCore.getValue()->addParent(this, CoreFieldId);
-    }
+//    if(_sfCore.getValue() != NullFC)
+//    {
+//        _sfCore.getValue()->addParent(this, CoreFieldId);
+//    }
 }
 
 inline
@@ -171,7 +171,7 @@ DynamicVolume &Node::getVolume(bool update)
 #endif
 
 inline
-void Node::setParent(NodePtrConst &parent)
+void Node::setParent(NodePtrConst &parent, UInt16)
 {
     editSField(ParentFieldMask);
 

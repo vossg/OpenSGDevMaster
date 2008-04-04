@@ -24,11 +24,12 @@ See \ref PageSystemParticles for details.
 	</Field>
 	<Field
 		name="positions"
-		type="GeoVectorPropertyPtr"
+		type="GeoVectorProperty"
 		cardinality="single"
 		visibility="external"
 		access="public"
-        linkMParent="true"
+        category="childpointer"
+        childParentType="FieldContainer"
 	>
         The positions of the particles. This is the primary defining
         information for a particle.
@@ -48,11 +49,12 @@ See \ref PageSystemParticles for details.
 	</Field>
 	<Field
 		name="secPositions"
-		type="GeoVectorPropertyPtr"
+		type="GeoVectorProperty"
 		cardinality="single"
 		visibility="external"
 		access="public"
-        linkMParent="true"
+        category="childpointer"
+        childParentType="FieldContainer"
 	>
         The secondary position of the particle. This information is only used
         by a few rendering modes, e.g. the streak mode. Usually it represents
@@ -60,21 +62,23 @@ See \ref PageSystemParticles for details.
 	</Field>
 	<Field
 		name="colors"
-		type="GeoVectorPropertyPtr"
+		type="GeoVectorProperty"
 		cardinality="single"
 		visibility="external"
 		access="public"
-        linkMParent="true"
+        category="childpointer"
+        childParentType="FieldContainer"
 	>
 	The particle colors (optional).
 	</Field>
 	<Field
 		name="normals"
-		type="GeoVectorPropertyPtr"
+		type="GeoVectorProperty"
 		cardinality="single"
 		visibility="external"
 		access="public"
-        linkMParent="true"
+        category="childpointer"
+        childParentType="FieldContainer"
 	>
         Most particles will be automatically aligned to the view
         direction. If normals are set they will be used to define the

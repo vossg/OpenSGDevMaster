@@ -75,6 +75,8 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     typedef AttachmentContainer                    Inherited;
     typedef AttachmentContainer                    ParentContainer;
 
+    typedef MFUnrecNodeChildNodePtr                ChildFieldType;
+
     OSG_GEN_INTERNALPTR(Node);
 
     typedef Inherited::TypeObject                  TypeObject;
@@ -213,6 +215,9 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
+    virtual void subChildPointer(FieldContainerPtr pObj, 
+                                 UInt16            usFieldPos);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -275,15 +280,15 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-          SFDynamicVolume    *editSFVolume  (void);
-    const SFDynamicVolume    *getSFVolume   (void) const;
+          SFDynamicVolume                       *editSFVolume  (void);
+    const SFDynamicVolume                       *getSFVolume   (void) const;
 
-          SFUInt32           *editSFTravMask(void);
-    const SFUInt32           *getSFTravMask (void) const;
+          SFUInt32                              *editSFTravMask(void);
+    const SFUInt32                              *getSFTravMask (void) const;
 
-    const SFUncountedNodePtr *getSFParent   (void) const;
-    const SFUnrecNodeCorePtr *getSFCore     (void) const;
-    const MFUnrecNodePtr     *getMFChildren (void) const;
+    const SFUncountedNodePtr                    *getSFParent   (void) const;
+    const SFUnrecFieldContainerChildNodeCorePtr *getSFCore     (void) const;
+    const MFUnrecNodeChildNodePtr               *getMFChildren (void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -304,14 +309,14 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFDynamicVolume    _sfVolume;
+    SFDynamicVolume                       _sfVolume;
 
-    SFUInt32           _sfTravMask;
+    SFUInt32                              _sfTravMask;
 
-    SFUncountedNodePtr _sfParent;
-    MFUnrecNodePtr     _mfChildren;
+    SFUncountedNodePtr                    _sfParent;
+    MFUnrecNodeChildNodePtr               _mfChildren;
 
-    SFUnrecNodeCorePtr _sfCore;
+    SFUnrecFieldContainerChildNodeCorePtr _sfCore;
 
 #ifdef OSG_1_COMPAT
     UInt8           _occlusionMask;
@@ -332,7 +337,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    void setParent(const NodePtr &parent);
+    void setParent(const NodePtr &parent, UInt16 usFieldPos);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -394,6 +399,10 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
   private:
 
     friend class  FieldContainer;
+    template<class    ValueT, 
+             typename RefCountPolicy, 
+             Int32    iNamespace    >
+    friend class FieldContainerPtrChildMField;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const Node &source);

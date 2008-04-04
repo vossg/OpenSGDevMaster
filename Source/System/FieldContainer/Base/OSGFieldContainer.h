@@ -248,6 +248,15 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING
+    virtual void subChildPointer(FieldContainerPtr pObj,
+                                 UInt16            usFieldPos);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    OSG_SYSTEM_DLLMAPPING
     virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 

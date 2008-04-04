@@ -149,10 +149,10 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecGeoIntegralPropertyPtr *getSFTypes           (void) const;
-            const SFUnrecGeoIntegralPropertyPtr *getSFLengths         (void) const;
-            const MFUnrecGeoVectorPropertyPtr *getMFProperties      (void) const;
-            const MFUnrecGeoIntegralPropertyPtr *getMFPropIndices     (void) const;
+            const SFUnrecFieldContainerChildGeoIntegralPropertyPtr *getSFTypes           (void) const;
+            const SFUnrecFieldContainerChildGeoIntegralPropertyPtr *getSFLengths         (void) const;
+            const MFUnrecFieldContainerChildGeoVectorPropertyPtr *getMFProperties      (void) const;
+            const MFUnrecFieldContainerChildGeoIntegralPropertyPtr *getMFPropIndices     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFDlistCache      (void);
@@ -166,10 +166,10 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
                   GeoIntegralPropertyPtrConst getLengths        (void) const;
 
                   GeoVectorPropertyPtrConst getProperties     (const UInt32 index) const;
-            const MFUnrecGeoVectorPropertyPtr &getProperties     (void) const;
+            const MFUnrecFieldContainerChildGeoVectorPropertyPtr &getProperties     (void) const;
 
                   GeoIntegralPropertyPtrConst getPropIndices    (const UInt32 index) const;
-            const MFUnrecGeoIntegralPropertyPtr &getPropIndices    (void) const;
+            const MFUnrecFieldContainerChildGeoIntegralPropertyPtr &getPropIndices    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getDlistCache      (void);
@@ -197,7 +197,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \{                                                                 */
 
     void pushToProperties           (GeoVectorPropertyPtrConstArg value   );
-    void assignProperties           (const MFUnrecGeoVectorPropertyPtr &value);
+    void assignProperties           (const MFUnrecFieldContainerChildGeoVectorPropertyPtr &value);
     void insertIntoProperties      (UInt32                uiIndex,
                                              GeoVectorPropertyPtrConstArg value   );
     void replaceInProperties  (UInt32                uiIndex,
@@ -210,7 +210,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
 
     void pushToPropIndices           (GeoIntegralPropertyPtrConstArg value   );
-    void assignPropIndices           (const MFUnrecGeoIntegralPropertyPtr &value);
+    void assignPropIndices           (const MFUnrecFieldContainerChildGeoIntegralPropertyPtr &value);
     void insertIntoPropIndices      (UInt32                uiIndex,
                                              GeoIntegralPropertyPtrConstArg value   );
     void replaceInPropIndices  (UInt32                uiIndex,
@@ -233,6 +233,14 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    virtual void subChildPointer(FieldContainerPtr pObj, 
+                                 UInt16            usFieldPos);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -271,10 +279,10 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecGeoIntegralPropertyPtr _sfTypes;
-    SFUnrecGeoIntegralPropertyPtr _sfLengths;
-    MFUnrecGeoVectorPropertyPtr _mfProperties;
-    MFUnrecGeoIntegralPropertyPtr _mfPropIndices;
+    SFUnrecFieldContainerChildGeoIntegralPropertyPtr _sfTypes;
+    SFUnrecFieldContainerChildGeoIntegralPropertyPtr _sfLengths;
+    MFUnrecFieldContainerChildGeoVectorPropertyPtr _mfProperties;
+    MFUnrecFieldContainerChildGeoIntegralPropertyPtr _mfPropIndices;
     SFBool            _sfDlistCache;
     SFInt32           _sfClassicGLId;
     SFInt32           _sfAttGLId;

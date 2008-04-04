@@ -110,6 +110,16 @@ DataType &FieldTraits< FieldContainerPtr, 1 >::getType(void)
     return FieldTraits<FieldContainerPtr, 0>::getType();
 }
 
+DataType &FieldTraits< NodeCorePtr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<NodeCorePtr, 0>::getType();
+}
+
+DataType &FieldTraits< NodePtr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<NodePtr, 0>::getType();
+}
+
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 // FieldContainer
@@ -161,6 +171,26 @@ OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField,
 OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
                            FieldContainerAttachmentPtr, 
                            0);
+
+// FieldContainerChildNodeCore
+
+
+OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+                      NodeCorePtr,
+                      UnrecordedRefCounts, 
+                      1);
+
+OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+                      NodeCorePtr,
+                      UnrecordedRefCounts, 
+                      1);
+
+// NodeChildNode
+OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+                      NodePtr,
+                      UnrecordedRefCounts, 
+                      1);
+
 
 // ParentFieldContainer
 

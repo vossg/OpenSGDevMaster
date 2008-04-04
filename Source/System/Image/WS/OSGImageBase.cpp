@@ -510,6 +510,9 @@ ImageBase::TypeObject ImageBase::_type(
     "\tdecoratable=\"false\"\n"
     "\tuseLocalIncludes=\"false\"\n"
     "    fieldsUnmarkedOnCreate=\"(ComponentSizeFieldMask | SideSizeFieldMask | FrameSizeFieldMask)\"\n"
+    "    childfieldparent=\"FieldContainer\"\n"
+    "    parentfieldcard=\"multi\"\n"
+    "    childFields=\"single\"\n"
     ">\n"
     "1D/2D/3D Image with various pixel types data, optionally also can hold\n"
     "mipMap and simple multi-frame data.\n"
@@ -2352,5 +2355,17 @@ OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField,
 OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
                            ImagePtr, 
                            0);
+
+DataType &FieldTraits< ImagePtr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<ImagePtr, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+                      ImagePtr,       
+                      UnrecordedRefCounts,  
+                      1);
+
 
 OSG_END_NAMESPACE

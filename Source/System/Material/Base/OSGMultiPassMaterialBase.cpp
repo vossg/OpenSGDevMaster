@@ -304,15 +304,6 @@ void MultiPassMaterialBase::clearMaterials(void)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    MFUnrecMaterialPtr::iterator       fieldIt  = _mfMaterials.begin();
-    MFUnrecMaterialPtr::const_iterator fieldEnd = _mfMaterials.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfMaterials.clear();
 }

@@ -38,19 +38,20 @@ init(void), activate(void), deactivate(void) and swap(void).
 	</Field>
 	<Field
 		name="port"
-		type="ViewportPtr"
+		type="Viewport"
 		cardinality="multi"
+        category="childpointer"
+        childParentType="FieldContainer"
 		visibility="external"
 		access="public"
-                pushToFieldAs="addPort"
-                insertIntoMFieldAs="insertPort"
-                replaceInMFieldIndexAs="replacePort"
-                replaceInMFieldObjectAs="replacePortBy"
-                removeFromMFieldIndexAs="subPort"
-                removeFromMFieldObjectAs="subPort"
-                clearFieldAs="clearPorts"        
-                linkSParent="true"
-                checkNilPtr="true"
+        pushToFieldAs="addPort"
+        insertIntoMFieldAs="insertPort"
+        replaceInMFieldIndexAs="replacePort"
+        replaceInMFieldObjectAs="replacePortBy"
+        removeFromMFieldIndexAs="subPort"
+        removeFromMFieldObjectAs="subPort"
+        clearFieldAs="clearPorts"        
+        checkNilPtr="true"
 	>
 	</Field>
 	<Field

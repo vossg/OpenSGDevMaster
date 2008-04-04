@@ -9,6 +9,9 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 	decoratable="false"
+    childfieldparent="FieldContainer"
+    parentfieldcard="multi"
+    childFields="both"
 >
 Parent class for integral (i.e. one dimensional unsigned integer typed) properties.
 

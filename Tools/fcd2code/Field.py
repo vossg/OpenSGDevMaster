@@ -54,6 +54,7 @@ class Field(FCDElement):
         self.setFCD("removeFromMFieldObjectAs", "");
         self.setFCD("clearFieldAs",             "");
         self.setFCD("needClassInclude",         "true");
+        self.setFCD("childParentType",          "");
     
     def setFieldContainer(self, container):
         self.m_fieldContainer = container;
@@ -81,6 +82,9 @@ class Field(FCDElement):
     
     def isPtrField(self):
         return self["category"] == "pointer";
+
+    def isChildField(self):
+        return self["pointertype"] == "child";
 
     #
     # Fill out dictionary from in (fcd) dictionary
@@ -120,7 +124,8 @@ class Field(FCDElement):
         self["category"]        = "";
         self["pointertype"]     = "";
         self["pointerbasetype"] = "";
-        
+        self["isChildField"]    = False
+
         if self.getFCD("category") == "data" or self.getFCD("category") == "":
             self.m_log.info("finalize: \"category\" is empty, assuming \"data\"");
             FieldType     = Type;
@@ -140,13 +145,17 @@ class Field(FCDElement):
         elif self.getFCD("category") == "childpointer":
             self["category"]        = "pointer";
             self["pointertype"]     = "child";
-            self["ParentLinkField"] = self._upcaseFirst(self.getFCD("parentLinkField"));
-         
+            self["isChildField"]    = True
+            if self.getFCD("childParentType") == "":
+                self["childparenttype"] = "FieldContainer"
+            else:
+                self["childparenttype"] = self.getFCD("childParentType")
+                
             Type          = Type + "Ptr";
             TypeCaps      = self._upcaseFirst(Type);
-            FieldType     = TypeRaw + "ChildPtr";
+            FieldType     = "Unrec" + self["childparenttype"] + "Child" + TypeRaw + "Ptr";
             FieldTypeNS   = TypeNS;
-            FieldTypeCaps = TypeRawCaps + "ChildPtr";
+            FieldTypeCaps = "Unrec" + self["childparenttype"] + "Child" + TypeRawCaps + "Ptr";
             
         elif self.getFCD("category") == "parentpointer":
             self["category"]        = "pointer";

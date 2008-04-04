@@ -145,6 +145,9 @@ ShaderParameterBase::TypeObject ShaderParameterBase::_type(
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
     "\tuseLocalIncludes=\"false\"\n"
+    "    childfieldparent=\"FieldContainer\"\n"
+    "    parentfieldcard=\"multi\"\n"
+    "    childFields=\"multi\"\n"
     ">\n"
     "\t<Field\n"
     "\t\tname=\"name\"\n"
@@ -376,5 +379,17 @@ OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField,
 OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
                            ShaderParameterPtr, 
                            0);
+
+DataType &FieldTraits< ShaderParameterPtr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<ShaderParameterPtr, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+                      ShaderParameterPtr,       
+                      UnrecordedRefCounts,  
+                      1);
+
 
 OSG_END_NAMESPACE

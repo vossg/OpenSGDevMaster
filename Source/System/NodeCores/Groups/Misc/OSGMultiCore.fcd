@@ -11,11 +11,12 @@
 >
 	<Field
 		name="cores"
-		type="NodeCorePtr"
+		type="NodeCore"
 		cardinality="multi"
 		visibility="external"
-        linkMParent="true"
         access="public"
+        category="childpointer"
+        childParentType="FieldContainer"
 
         pushToFieldAs="addCore"
         assignMFieldAs="assignCoresFrom"

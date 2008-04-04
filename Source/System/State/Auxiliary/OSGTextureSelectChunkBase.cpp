@@ -358,15 +358,6 @@ void TextureSelectChunkBase::clearTextures(void)
 {
     editMField(TexturesFieldMask, _mfTextures);
 
-    MFUnrecTextureBaseChunkPtr::iterator       fieldIt  = _mfTextures.begin();
-    MFUnrecTextureBaseChunkPtr::const_iterator fieldEnd = _mfTextures.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfTextures.clear();
 }

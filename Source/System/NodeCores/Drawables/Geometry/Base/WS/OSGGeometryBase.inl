@@ -87,18 +87,7 @@ void GeometryBase::setTypes(GeoIntegralPropertyPtrConstArg value)
 {
     editSField(TypesFieldMask);
 
-
-    if(_sfTypes.getValue() != NullFC)
-    {
-        _sfTypes.getValue()->subParent(this);
-    }
-
     _sfTypes.setValue(value);
-
-    if(_sfTypes.getValue() != NullFC)
-    {
-        _sfTypes.getValue()->addParent(this, TypesFieldMask);
-    }
 
 }
 
@@ -115,18 +104,7 @@ void GeometryBase::setLengths(GeoIntegralPropertyPtrConstArg value)
 {
     editSField(LengthsFieldMask);
 
-
-    if(_sfLengths.getValue() != NullFC)
-    {
-        _sfLengths.getValue()->subParent(this);
-    }
-
     _sfLengths.setValue(value);
-
-    if(_sfLengths.getValue() != NullFC)
-    {
-        _sfLengths.getValue()->addParent(this, LengthsFieldMask);
-    }
 
 }
 //! Get the value of the Geometry::_sfDlistCache field.
@@ -238,7 +216,7 @@ GeoVectorPropertyPtrConst GeometryBase::getProperties(const UInt32 index) const
 
 //! Get the Geometry::_mfProperties field.
 inline
-const MFUnrecGeoVectorPropertyPtr &GeometryBase::getProperties(void) const
+const MFUnrecFieldContainerChildGeoVectorPropertyPtr &GeometryBase::getProperties(void) const
 {
     return _mfProperties;
 }
@@ -252,7 +230,7 @@ GeoIntegralPropertyPtrConst GeometryBase::getPropIndices(const UInt32 index) con
 
 //! Get the Geometry::_mfPropIndices field.
 inline
-const MFUnrecGeoIntegralPropertyPtr &GeometryBase::getPropIndices(void) const
+const MFUnrecFieldContainerChildGeoIntegralPropertyPtr &GeometryBase::getPropIndices(void) const
 {
     return _mfPropIndices;
 }

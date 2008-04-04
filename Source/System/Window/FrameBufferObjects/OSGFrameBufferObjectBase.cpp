@@ -550,15 +550,6 @@ void FrameBufferObjectBase::clearColorAttachments(void)
 {
     editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
-    MFUnrecFrameBufferAttachmentPtr::iterator       fieldIt  = _mfColorAttachments.begin();
-    MFUnrecFrameBufferAttachmentPtr::const_iterator fieldEnd = _mfColorAttachments.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfColorAttachments.clear();
 }

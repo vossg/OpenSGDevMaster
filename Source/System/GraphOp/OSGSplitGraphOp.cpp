@@ -276,8 +276,8 @@ if (geo->getmethod()!=NullFC && geo->getmethod()->size()>0)                     
 
 Action::ResultE SplitGraphOp::traverseLeave(NodePtrConstArg node, Action::ResultE res)
 {
-    MFUnrecNodePtr::const_iterator mfit = node->getMFChildren()->begin();
-    MFUnrecNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
+    Node::ChildFieldType::const_iterator mfit = node->getMFChildren()->begin();
+    Node::ChildFieldType::const_iterator mfen = node->getMFChildren()->end  ();
 
     std::vector<NodePtr> toAdd;
     std::vector<NodePtr> toSub;

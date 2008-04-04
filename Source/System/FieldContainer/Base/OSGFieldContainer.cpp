@@ -117,6 +117,12 @@ void FieldContainer::invalidateVolume(void)
 {
 }
 
+void FieldContainer::subChildPointer(FieldContainerPtr pObj,
+                                     UInt16            usFieldPos)
+{
+    OSG_ASSERT(false);
+}
+
 void FieldContainer::registerChangedContainer(void)
 {
 #ifndef SILENT

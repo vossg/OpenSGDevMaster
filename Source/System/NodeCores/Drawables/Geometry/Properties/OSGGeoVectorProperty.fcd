@@ -9,6 +9,9 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 	decoratable="false"
+    childfieldparent="FieldContainer"
+    parentfieldcard="multi"
+    childFields="both"
 >
 Abstract base class for all vector-valued GeoProperties.
 Provides a uniform interface for accessing all vector data in geometry using

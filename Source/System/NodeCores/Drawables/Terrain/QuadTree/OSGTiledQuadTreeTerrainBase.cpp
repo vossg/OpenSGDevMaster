@@ -865,15 +865,6 @@ void TiledQuadTreeTerrainBase::clearHeightTiles(void)
 {
     editMField(HeightTilesFieldMask, _mfHeightTiles);
 
-    MFUnrecImagePtr::iterator       fieldIt  = _mfHeightTiles.begin();
-    MFUnrecImagePtr::const_iterator fieldEnd = _mfHeightTiles.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfHeightTiles.clear();
 }
@@ -1004,15 +995,6 @@ void TiledQuadTreeTerrainBase::clearHeightTextures(void)
 {
     editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
-    MFUnrecMaterialPtr::iterator       fieldIt  = _mfHeightTextures.begin();
-    MFUnrecMaterialPtr::const_iterator fieldEnd = _mfHeightTextures.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfHeightTextures.clear();
 }

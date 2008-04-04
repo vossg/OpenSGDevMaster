@@ -305,15 +305,6 @@ void ChunkOverrideGroupBase::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    MFUnrecStateChunkPtr::iterator       fieldIt  = _mfChunks.begin();
-    MFUnrecStateChunkPtr::const_iterator fieldEnd = _mfChunks.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfChunks.clear();
 }

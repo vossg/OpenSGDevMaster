@@ -87,18 +87,7 @@ void TextureObjChunkBase::setImage(ImagePtrConstArg value)
 {
     editSField(ImageFieldMask);
 
-
-    if(_sfImage.getValue() != NullFC)
-    {
-        _sfImage.getValue()->subParent(this);
-    }
-
     _sfImage.setValue(value);
-
-    if(_sfImage.getValue() != NullFC)
-    {
-        _sfImage.getValue()->addParent(this, ImageFieldMask);
-    }
 
 }
 //! Get the value of the TextureObjChunk::_sfInternalFormat field.

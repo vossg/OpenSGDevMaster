@@ -315,16 +315,16 @@ void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ConstArg value)
     _mf@!field.Name!@.push_back(value);
             @@if !field.checkNilPtr
 
-    if(value == NullFC)
-        return;
+//    if(value == NullFC)
+//        return;
             @@endif // field.checkNilPtr
             @@if field.linkMParent
 
-    value->addParent(this, @!field.Name!@FieldMask);
+//    value->addParent(this, @!field.Name!@FieldId);
             @@endif // field.linkMParent
             @@if field.linkSParent
 
-    value->setParent(this, @!field.Name!@FieldMask);
+//    value->setParent(this, @!field.Name!@FieldId);
             @@endif // field.linkSParent
 }
 
@@ -368,16 +368,16 @@ void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32                uiIndex
     _mf@!field.Name!@.insert(fieldIt, value);
             @@if !field.checkNilPtr
 
-    if(value == NullFC)
-        return;
+//    if(value == NullFC)
+//        return;
             @@endif // !field.checkNilPtr
             @@if field.linkMParent
 
-    value->addParent(this, @!field.Name!@FieldMask);
+//    value->addParent(this, @!field.Name!@FieldId);
             @@endif // field.linkMParent
             @@if field.linkSParent
 
-    value->setParent(this, @!field.Name!@FieldMask);
+//    value->setParent(this, @!field.Name!@FieldId);
             @@endif // field.linkSParent
 }
 
@@ -398,17 +398,17 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32                uiI
 
             @@if field.linkMParent
 
-    if(_mf@!field.Name!@[uiIndex] != NullFC)
-    {
-        _mf@!field.Name!@[uiIndex]->subParent(this);
-    }
+//    if(_mf@!field.Name!@[uiIndex] != NullFC)
+//    {
+//        _mf@!field.Name!@[uiIndex]->subParent(this);
+//    }
             @@endif // field.linkMParent
             @@if field.linkSParent
 
-    if(_mf@!field.Name!@[uiIndex] != NullFC)
-    {
-        _mf@!field.Name!@[uiIndex]->setParent(this, @!field.Name!@FieldMask);
-    }
+//    if(_mf@!field.Name!@[uiIndex] != NullFC)
+//    {
+//        _mf@!field.Name!@[uiIndex]->setParent(this, @!field.Name!@FieldId);
+//    }
             @@endif // field.linkSParent
 
 //    addRef(value);
@@ -419,16 +419,16 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32                uiI
       _mf@!field.Name!@.replace(uiIndex, value);
             @@if !field.checkNilPtr
 
-    if(value == NullFC)
-        return;
+//    if(value == NullFC)
+//        return;
             @@endif // !field.checkNilPtr
             @@if field.linkMParent
 
-    value->addParent(this, @!field.Name!@FieldMask);
+//    value->addParent(this, @!field.Name!@FieldId);
             @@endif // field.linkMParent
             @@if field.linkSParent
 
-    value->setParent(this, @!field.Name!@FieldMask);
+//    value->setParent(this, @!field.Name!@FieldId);
             @@endif // field.linkSParent
 }
 
@@ -450,31 +450,31 @@ void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(@!field.Type!@ConstArg p
 
             @@if field.linkMParent
 
-        if(pOldElem != NullFC)
-        {
-            pOldElem->subParent(this);
-        }
+//        if(pOldElem != NullFC)
+//        {
+//            pOldElem->subParent(this);
+//        }
 
                 @@if !field.checkNilPtr
-        if(pNewElem != NullFC)
-        {
-            pNewElem->addParent(this, @!field.Name!@FieldMask);
-        }
+//        if(pNewElem != NullFC)
+//        {
+//            pNewElem->addParent(this, @!field.Name!@FieldMask);
+//        }
                 @@else // !field.checkNilPtr
-        pNewElem->addParent(this, @!field.Name!@FieldMask);
+//        pNewElem->addParent(this, @!field.Name!@FieldMask);
                 @@endif
 
             @@endif // field.linkMParent
             @@if field.linkSParent
-        if(pOldElem != NullFC)
-        {
-            pOldElem->setParent(NullFC, @!field.Name!@FieldMask);
-        }
+//        if(pOldElem != NullFC)
+//        {
+//            pOldElem->setParent(NullFC, @!field.Name!@FieldMask);
+//        }
 
-        if(pNewElem != NullFC)
-        {
-            pNewElem->setParent(this, @!field.Name!@FieldMask);
-        }
+//        if(pNewElem != NullFC)
+//        {
+//            pNewElem->setParent(this, @!field.Name!@FieldMask);
+//        }
 
             @@endif // field.linkSParent
 //        MF@!field.TypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin();
@@ -502,17 +502,17 @@ void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
 
             @@if field.linkMParent
 
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
+//        if(*fieldIt != NullFC)
+//        {
+//            (*fieldIt)->subParent(this);
+//        }
 
             @@endif // field.linkMParent
             @@if field.linkSParent
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->setParent(NullFC, @!field.Name!@FieldMask);
-        }
+//        if(*fieldIt != NullFC)
+//        {
+//            (*fieldIt)->setParent(NullFC, @!field.Name!@FieldMask);
+//        }
 
             @@endif // field.linkSParent
         //subRef(*fieldIt);
@@ -542,17 +542,17 @@ void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(@!field.Type!@ConstArg 
 
             @@if field.linkMParent
 
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
+//        if(*fieldIt != NullFC)
+//        {
+//            (*fieldIt)->subParent(this);
+//        }
 
             @@endif // field.linkMParent
             @@if field.linkSParent
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->setParent(NullFC, @!field.Name!@FieldMask);
-        }
+//        if(*fieldIt != NullFC)
+//        {
+//            (*fieldIt)->setParent(NullFC, @!field.Name!@FieldMask);
+//        }
 
             @@endif // field.linkSParent
         //subRef(*fieldIt);
@@ -571,37 +571,38 @@ void @!Classname!@Base::@!field.ClearField!@(void)
 {
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
+            @@if field.isRemoveToSet
     MF@!field.FieldTypeCaps!@::iterator       fieldIt  = _mf@!field.Name!@.begin();
     MF@!field.FieldTypeCaps!@::const_iterator fieldEnd = _mf@!field.Name!@.end  ();
 
     while(fieldIt != fieldEnd)
     {
             @@if field.linkMParent
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
+//        if(*fieldIt != NullFC)
+//        {
+//            (*fieldIt)->subParent(this);
+//        }
 
             @@endif // field.linkMParent
             @@if field.linkSParent
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->setParent(NullFC, @!field.Name!@FieldMask);
-        }
+//        if(*fieldIt != NullFC)
+//        {
+//            (*fieldIt)->setParent(NullFC, @!field.Name!@FieldMask);
+//        }
 
             @@endif // field.linkSParent
         //subRef(*fieldIt);
 
-            @@if field.isRemoveToSet
-        //*fieldIt = @!field.RemoveTo!@;
+        _mf@!field.Name!@.replace(fieldIt, @!field.RemoveTo!@);
 
-            @@endif // field.isRemoveToSet
         ++fieldIt;
     }
+            @@else // field.isRemoveToSet
             @@if field.doClearMField
 
     _mf@!field.Name!@.clear();
             @@endif // field.doClearMField
+            @@endif // field.isRemoveToSet
 }
         @@endif // field.writeClearField
 
@@ -771,6 +772,42 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
     @@EndFieldLoop@@
 @@endif // isDecorator
 }
+@@if hasChildFields
+
+void @!Classname!@Base::subChildPointer(FieldContainerPtr pObj, 
+                                        UInt16            usFieldPos)
+{
+    @@BeginFieldLoop@@
+        @@if field.isChildField
+            @@if field.isFirstChildField
+    if(usFieldPos == @!field.Name!@FieldId)
+            @@else
+    else if(usFieldPos == @!field.Name!@FieldId)
+            @@endif
+    {
+            @@if field.isSField
+        if(_@!field.VarName!@.getValue() == pObj)
+        {
+            editSField(@!field.Name!@FieldMask);
+
+            _@!field.VarName!@.setValue(NullFC);
+        }
+            @@else
+        @!field.Type!@ pChild = dynamic_cast<@!field.Type!@>(pObj);
+
+        if(pChild != NullFC)
+            @!field.RemoveFromMFieldObject!@(pChild);
+            @@endif
+    }
+        @@endif
+    @@EndFieldLoop@@
+    else
+    {
+        Inherited::subChildPointer(pObj, usFieldPos);
+    }
+}
+
+@@endif // !isAbstract
 
 @@if !isAbstract
 //! create a new instance of the class
@@ -874,7 +911,11 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopyLocal(
     _sfDecoratee()
     @@else // isDecorator
         @@BeginFieldLoop@@
+            @@if field.isChildField
+    _@!field.VarName:25!@(this, @!field.Name!@FieldId)@!field.Separator!@
+            @@else
     _@!field.VarName:25!@(@!field.TypedDefault!@)@!field.Separator!@
+            @@endif
         @@EndFieldLoop@@
     @@endif // isDecorator
 @@endif // !hasFields
@@ -891,11 +932,15 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopyLocal(
     @@else // isDecorator
         @@BeginFieldLoop@@
             @@if field.isPtrField
-              @@if field.isSField
+                @@if field.isChildField
+    _@!field.VarName:25!@(this, @!field.Name!@FieldId)@!field.Separator!@
+                @@else
+                    @@if field.isSField
     _@!field.VarName:25!@(NullFC)@!field.Separator!@
-              @@else
+                    @@else
     _@!field.VarName:25!@()@!field.Separator!@
-              @@endif // isSField
+                    @@endif // isSField
+                @@endif // ChildField
             @@else // field.isPtrField
     _@!field.VarName:25!@(source._@!field.VarName:25!@)@!field.Separator!@
             @@endif // field.isPtrField
@@ -1349,5 +1394,29 @@ OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField,
                            0);
     @@endif // MFPointerField
 @@endif // PointerField
+@@if ChildField
+
+DataType &FieldTraits< @!Classname!@Ptr, 1 >::getType(void)
+{                                                           
+    return FieldTraits<@!Classname!@Ptr, 0>::getType();
+}
+
+@@endif
+@@if ChildSFields
+
+OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+                      @!Classname!@Ptr,       
+                      UnrecordedRefCounts,  
+                      1);
+
+@@endif
+@@if ChildMFields
+
+OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+                      @!Classname!@Ptr,       
+                      UnrecordedRefCounts,  
+                      1);
+
+@@endif
 
 OSG_END_NAMESPACE

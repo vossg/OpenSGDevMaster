@@ -339,15 +339,6 @@ void ContainerPoolBase::clearContainers(void)
 {
     editMField(ContainersFieldMask, _mfContainers);
 
-    MFUnrecFieldContainerPtr::iterator       fieldIt  = _mfContainers.begin();
-    MFUnrecFieldContainerPtr::const_iterator fieldEnd = _mfContainers.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfContainers.clear();
 }

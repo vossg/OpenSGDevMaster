@@ -139,7 +139,6 @@ StateBase::TypeObject StateBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "        checkNilPtr=\"false\"\n"
-    "        linkParent=\"false\"\n"
     "        removeTo=\"NullFC\"\n"
     "        clearMField=\"true\"\n"
     "        pushToField=\"\"\n"
@@ -193,8 +192,8 @@ void StateBase::pushToChunks(StateChunkPtrConstArg value)
 
     _mfChunks.push_back(value);
 
-    if(value == NullFC)
-        return;
+//    if(value == NullFC)
+//        return;
 }
 
 void StateBase::assignChunks   (const MFUnrecStateChunkPtr &value)
@@ -227,8 +226,8 @@ void StateBase::insertIntoChunks(UInt32                uiIndex,
 
     _mfChunks.insert(fieldIt, value);
 
-    if(value == NullFC)
-        return;
+//    if(value == NullFC)
+//        return;
 }
 
 void StateBase::replaceInChunks(UInt32                uiIndex,
@@ -247,8 +246,8 @@ void StateBase::replaceInChunks(UInt32                uiIndex,
 
       _mfChunks.replace(uiIndex, value);
 
-    if(value == NullFC)
-        return;
+//    if(value == NullFC)
+//        return;
 }
 
 void StateBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
@@ -317,12 +316,10 @@ void StateBase::clearChunks(void)
     {
         //subRef(*fieldIt);
 
-        //*fieldIt = NullFC;
+        _mfChunks.replace(fieldIt, NullFC);
 
         ++fieldIt;
     }
-
-    _mfChunks.clear();
 }
 
 

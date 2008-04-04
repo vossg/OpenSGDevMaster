@@ -18,7 +18,6 @@ The state base class. See \ref PageSystemState for the conceptual background.
 		cardinality="multi"
 		visibility="external"
         checkNilPtr="false"
-        linkParent="false"
         removeTo="NullFC"
         clearMField="true"
         pushToField=""

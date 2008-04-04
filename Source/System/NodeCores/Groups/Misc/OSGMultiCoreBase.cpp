@@ -92,8 +92,8 @@ void MultiCoreBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFUnrecNodeCorePtr::Description(
-        MFUnrecNodeCorePtr::getClassType(),
+    pDesc = new MFUnrecFieldContainerChildNodeCorePtr::Description(
+        MFUnrecFieldContainerChildNodeCorePtr::getClassType(),
         "cores",
         "",
         CoresFieldId, CoresFieldMask,
@@ -130,11 +130,12 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     ">\n"
     "\t<Field\n"
     "\t\tname=\"cores\"\n"
-    "\t\ttype=\"NodeCorePtr\"\n"
+    "\t\ttype=\"NodeCore\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
-    "        linkMParent=\"true\"\n"
     "        access=\"public\"\n"
+    "        category=\"childpointer\"\n"
+    "        childParentType=\"FieldContainer\"\n"
     "\n"
     "        pushToFieldAs=\"addCore\"\n"
     "        assignMFieldAs=\"assignCoresFrom\"\n"
@@ -171,7 +172,7 @@ UInt32 MultiCoreBase::getContainerSize(void) const
 
 
 //! Get the MultiCore::_mfCores field.
-const MFUnrecNodeCorePtr *MultiCoreBase::getMFCores(void) const
+const MFUnrecFieldContainerChildNodeCorePtr *MultiCoreBase::getMFCores(void) const
 {
     return &_mfCores;
 }
@@ -188,15 +189,13 @@ void MultiCoreBase::addCore(NodeCorePtrConstArg value)
     //addRef(value);
 
     _mfCores.push_back(value);
-
-    value->addParent(this, CoresFieldMask);
 }
 
-void MultiCoreBase::assignCoresFrom(const MFUnrecNodeCorePtr &value)
+void MultiCoreBase::assignCoresFrom(const MFUnrecFieldContainerChildNodeCorePtr &value)
 {
-    MFUnrecNodeCorePtr::const_iterator elemIt  =
+    MFUnrecFieldContainerChildNodeCorePtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecNodeCorePtr::const_iterator elemEnd =
+    MFUnrecFieldContainerChildNodeCorePtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<MultiCore *>(this)->clearCores();
@@ -217,15 +216,13 @@ void MultiCoreBase::insertCore(UInt32                uiIndex,
 
     editMField(CoresFieldMask, _mfCores);
 
-    MFUnrecNodeCorePtr::iterator fieldIt = _mfCores.begin();
+    MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.begin();
 
     //addRef(value);
 
     fieldIt += uiIndex;
 
     _mfCores.insert(fieldIt, value);
-
-    value->addParent(this, CoresFieldMask);
 }
 
 void MultiCoreBase::replaceCore(UInt32                uiIndex,
@@ -240,19 +237,12 @@ void MultiCoreBase::replaceCore(UInt32                uiIndex,
     editMField(CoresFieldMask, _mfCores);
 
 
-    if(_mfCores[uiIndex] != NullFC)
-    {
-        _mfCores[uiIndex]->subParent(this);
-    }
-
 //    addRef(value);
 //    subRef(_mfCores[uiIndex]);
 
 //    _mfCores[uiIndex] = value;
 
       _mfCores.replace(uiIndex, value);
-
-    value->addParent(this, CoresFieldMask);
 }
 
 void MultiCoreBase::replaceCore(NodeCorePtrConstArg pOldElem,
@@ -266,14 +256,6 @@ void MultiCoreBase::replaceCore(NodeCorePtrConstArg pOldElem,
     if(elemIdx != -1)
     {
         editMField(CoresFieldMask, _mfCores);
-
-
-        if(pOldElem != NullFC)
-        {
-            pOldElem->subParent(this);
-        }
-
-        pNewElem->addParent(this, CoresFieldMask);
 
 //        MFNodeCorePtr::iterator fieldIt = _mfCores.begin();
 
@@ -292,15 +274,9 @@ void MultiCoreBase::subCore(UInt32 uiIndex)
     {
         editMField(CoresFieldMask, _mfCores);
 
-        MFUnrecNodeCorePtr::iterator fieldIt = _mfCores.begin();
+        MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.begin();
 
         fieldIt += uiIndex;
-
-
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
 
         //subRef(*fieldIt);
 
@@ -316,15 +292,9 @@ void MultiCoreBase::subCore(NodeCorePtrConstArg value)
     {
         editMField(CoresFieldMask, _mfCores);
 
-        MFUnrecNodeCorePtr::iterator fieldIt = _mfCores.begin();
+        MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.begin();
 
         fieldIt += iElemIdx;
-
-
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
 
         //subRef(*fieldIt);
 
@@ -335,20 +305,6 @@ void MultiCoreBase::clearCores(void)
 {
     editMField(CoresFieldMask, _mfCores);
 
-    MFUnrecNodeCorePtr::iterator       fieldIt  = _mfCores.begin();
-    MFUnrecNodeCorePtr::const_iterator fieldEnd = _mfCores.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        if(*fieldIt != NullFC)
-        {
-            (*fieldIt)->subParent(this);
-        }
-
-        //subRef(*fieldIt);
-
-        ++fieldIt;
-    }
 
     _mfCores.clear();
 }
@@ -390,6 +346,23 @@ void MultiCoreBase::copyFromBin(BinaryDataHandler &pMem,
         _mfCores.copyFromBin(pMem);
     }
 }
+
+void MultiCoreBase::subChildPointer(FieldContainerPtr pObj, 
+                                        UInt16            usFieldPos)
+{
+    if(usFieldPos == CoresFieldId)
+    {
+        NodeCorePtr pChild = dynamic_cast<NodeCorePtr>(pObj);
+
+        if(pChild != NullFC)
+            subCore(pChild);
+    }
+    else
+    {
+        Inherited::subChildPointer(pObj, usFieldPos);
+    }
+}
+
 
 //! create a new instance of the class
 MultiCoreTransitPtr MultiCoreBase::create(void)
@@ -482,13 +455,13 @@ FieldContainerTransitPtr MultiCoreBase::shallowCopyLocal(
 
 MultiCoreBase::MultiCoreBase(void) :
     Inherited(),
-    _mfCores                  ()
+    _mfCores                  (this, CoresFieldId)
 {
 }
 
 MultiCoreBase::MultiCoreBase(const MultiCoreBase &source) :
     Inherited(source),
-    _mfCores                  ()
+    _mfCores                  (this, CoresFieldId)
 {
 }
 
@@ -506,9 +479,9 @@ void MultiCoreBase::onCreate(const MultiCore *source)
     if(source != NULL)
     {
 
-        MFUnrecNodeCorePtr::const_iterator CoresIt  =
+        MFUnrecFieldContainerChildNodeCorePtr::const_iterator CoresIt  =
             source->_mfCores.begin();
-        MFUnrecNodeCorePtr::const_iterator CoresEnd =
+        MFUnrecFieldContainerChildNodeCorePtr::const_iterator CoresEnd =
             source->_mfCores.end  ();
 
         while(CoresIt != CoresEnd)
@@ -522,8 +495,8 @@ void MultiCoreBase::onCreate(const MultiCore *source)
 
 GetFieldHandlePtr MultiCoreBase::getHandleCores           (void) const
 {
-    MFUnrecNodeCorePtr::GetHandlePtr returnValue(
-        new  MFUnrecNodeCorePtr::GetHandle(
+    MFUnrecFieldContainerChildNodeCorePtr::GetHandlePtr returnValue(
+        new  MFUnrecFieldContainerChildNodeCorePtr::GetHandle(
              &_mfCores, 
              this->getType().getFieldDesc(CoresFieldId)));
 
@@ -532,8 +505,8 @@ GetFieldHandlePtr MultiCoreBase::getHandleCores           (void) const
 
 EditFieldHandlePtr MultiCoreBase::editHandleCores          (void)
 {
-    MFUnrecNodeCorePtr::EditHandlePtr returnValue(
-        new  MFUnrecNodeCorePtr::EditHandle(
+    MFUnrecFieldContainerChildNodeCorePtr::EditHandlePtr returnValue(
+        new  MFUnrecFieldContainerChildNodeCorePtr::EditHandle(
              &_mfCores, 
              this->getType().getFieldDesc(CoresFieldId)));
 

@@ -160,6 +160,83 @@ const Char8 *FieldTraits<ImagePtr, 0>::getMName<NoRefCounts>(void)
  */
 #endif
 
+
+template <>
+struct FieldTraits<ImagePtr, 1> :
+    public FieldTraitsFCPtrBase<ImagePtr, 1>
+{
+  private:
+
+  public:
+
+    typedef FieldTraits<ImagePtr, 1>  Self;
+    typedef FieldContainerPtr           ParentType;
+
+    static const FieldCardinality eFieldCard = MultiField;
+
+    enum                        { Convertible = NotConvertible };
+
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFImagePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFImagePtr"; }
+};
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 1>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecFieldContainerChildImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 1>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecFieldContainerChildImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 1>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakFieldContainerChildImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 1>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdFieldContainerChildImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 1>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecFieldContainerChildImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 1>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecFieldContainerChildImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 1>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakFieldContainerChildImagePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ImagePtr, 1>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdFieldContainerChildImagePtr"; 
+}
+
+
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
@@ -190,6 +267,12 @@ typedef FieldContainerPtrMField<ImagePtr,
                                 NoRefCounts        > MFUncountedImagePtr;
 #endif
 
+
+
+typedef FieldContainerPtrChildSField<
+          ImagePtr, 
+          UnrecordedRefCounts,
+          1                  > SFUnrecFieldContainerChildImagePtr;
 
 OSG_END_NAMESPACE
 

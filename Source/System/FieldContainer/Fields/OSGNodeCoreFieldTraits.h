@@ -140,6 +140,84 @@ const Char8 *FieldTraits<NodeCorePtr, 0>::getMName<NoRefCounts>(void)
     return "MFUnrefdNodeCorePtr"; 
 }
 
+
+
+template <>
+struct FieldTraits<NodeCorePtr, 1> : 
+    public FieldTraitsFCPtrBase<NodeCorePtr, 1>
+{
+  private:
+
+    static  DataType                    _type;
+
+  public:
+
+    typedef FieldTraits<NodeCorePtr, 1>  Self;
+    typedef FieldContainerPtr            ParentType;
+    static const FieldCardinality eFieldCard = MultiField;
+
+    enum             { Convertible = Self::NotConvertible                  };
+
+    static OSG_SYSTEM_DLLMAPPING
+                 DataType &getType      (void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+};
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 1>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRecNodeChildNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 1>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrecNodeChildNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 1>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeakNodeChildNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 1>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefdNodeChildNodeCorePtr"; 
+}
+
+
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 1>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRecNodeChildNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 1>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrecNodeChildNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 1>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeakNodeChildNodeCorePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<NodeCorePtr, 1>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefdNodeChildNodeCorePtr"; 
+}
+
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE

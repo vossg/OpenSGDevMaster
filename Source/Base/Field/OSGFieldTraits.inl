@@ -168,7 +168,7 @@ Field *FieldDescription<DescT,
                         RefCountPolicy, 
                         eFieldClass   >::createField(void) const
 {
-    return new HandledField();
+    return FieldCreateHandler::createField(); //return new HandledField();
 }
 
 template<class    DescT, 

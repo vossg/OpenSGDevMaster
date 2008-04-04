@@ -177,6 +177,104 @@ const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<NoRefCounts>(void)
     \hideinhierarchy
  */
 #endif
+@@if ChildField
+
+
+template <>
+struct FieldTraits<@!Classname!@Ptr, 1> :
+    public FieldTraitsFCPtrBase<@!Classname!@Ptr, 1>
+{
+  private:
+
+  public:
+
+    typedef FieldTraits<@!Classname!@Ptr, 1>  Self;
+    typedef @!ChildFieldParent!@Ptr           ParentType;
+
+@@if ChildSParent
+    static const FieldCardinality eFieldCard = SingleField;
+@@endif
+@@if ChildMParent
+    static const FieldCardinality eFieldCard = MultiField;
+@@endif
+
+    enum                        { Convertible = NotConvertible };
+@@if PointerField
+
+    @@if isInLibrary
+    static OSG_@!LIBNAME!@_DLLMAPPING DataType &getType(void);
+    @@else // isInLibrary
+    static DataType &getType(void);
+    @@endif // isInLibrary
+
+@@endif // PointerField
+@@if SFPointerField
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SF@!Classname!@Ptr"; }
+@@endif // SFPointerField
+@@if MFPointerField
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MF@!Classname!@Ptr"; }
+@@endif // MFPointerField
+};
+
+@@if SFPointerField
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<RecordedRefCounts>(void)
+{
+    return "SFRec@!ChildFieldParent!@Child@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<UnrecordedRefCounts>(void)
+{
+    return "SFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<WeakRefCounts>(void)
+{
+    return "SFWeak@!ChildFieldParent!@Child@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<NoRefCounts>(void)
+{
+    return "SFUnrefd@!ChildFieldParent!@Child@!Classname!@Ptr"; 
+}
+@@endif
+
+@@if MFPointerField
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<RecordedRefCounts>(void)
+{
+    return "MFRec@!ChildFieldParent!@Child@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<UnrecordedRefCounts>(void)
+{
+    return "MFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<WeakRefCounts>(void)
+{
+    return "MFWeak@!ChildFieldParent!@Child@!Classname!@Ptr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<NoRefCounts>(void)
+{
+    return "MFUnrefd@!ChildFieldParent!@Child@!Classname!@Ptr"; 
+}
+@@endif
+
+@@endif
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
@@ -215,6 +313,22 @@ typedef FieldContainerPtrMField<@!Classname!@Ptr,
                                 NoRefCounts        > MFUncounted@!Classname!@Ptr;
 #endif
 
+
+@@endif
+@@if ChildSFields
+
+typedef FieldContainerPtrChildSField<
+          @!Classname!@Ptr, 
+          UnrecordedRefCounts,
+          1                  > SFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr;
+
+@@endif
+@@if ChildMFields
+
+typedef FieldContainerPtrChildMField<
+          @!Classname!@Ptr, 
+          UnrecordedRefCounts,
+          1                  > MFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr;
 
 @@endif
 OSG_END_NAMESPACE

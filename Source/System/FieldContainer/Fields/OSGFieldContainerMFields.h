@@ -47,6 +47,7 @@
 
 #include "OSGFieldContainerPtrMField.h"
 #include "OSGFieldContainerPtrParentMField.h"
+#include "OSGFieldContainerPtrChildMField.h"
 
 #include "OSGFieldContainerMFieldHandle.h"  
 
