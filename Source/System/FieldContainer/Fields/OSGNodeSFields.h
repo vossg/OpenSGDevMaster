@@ -44,7 +44,6 @@
 
 #include "OSGNodeFieldTraits.h"
 #include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrChildSField.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -44,6 +44,7 @@
 
 #include "OSGNodeCoreFieldTraits.h"
 #include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrChildSField.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -65,6 +66,8 @@ typedef FieldContainerPtrChildSField<
           NodeCorePtr, 
           UnrecordedRefCounts,
           1                  > SFUnrecFieldContainerChildNodeCorePtr;
+
+typedef SFUnrecFieldContainerChildNodeCorePtr SFUnrecChildNodeCorePtr;
 
 //typedef SFNodeCorePtr SFRecNodeCorePtr;
 #endif

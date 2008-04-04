@@ -47,7 +47,7 @@ TransitPtr<ObjectT>::TransitPtr(ObjectPtrConstArg pObj) :
     _pObj(pObj)
 {
     if(_pObj != NULL)
-        _pObj->addReferenceX();
+        _pObj->addReferenceUnrecordedX();
 }
 
 template<class ObjectT> inline
@@ -76,14 +76,14 @@ template<class ObjectT> inline
 TransitPtr<ObjectT>::~TransitPtr(void)
 {
     if(_pObj != NULL)
-        _pObj->subReferenceX();
+        _pObj->subReferenceUnrecordedX();
 }
 
 template<class ObjectT> inline
 typename TransitPtr<ObjectT>::Self &TransitPtr<ObjectT>::operator =(Self &other)
 {
     if(_pObj != NULL)
-        _pObj->subReferenceX();
+        _pObj->subReferenceUnrecordedX();
 
     _pObj = other._pObj;
 
@@ -97,7 +97,7 @@ typename TransitPtr<ObjectT>::Self &TransitPtr<ObjectT>::operator =(
     const Self &other)
 {
     if(_pObj != NULL)
-        _pObj->subReferenceX();
+        _pObj->subReferenceUnrecordedX();
 
     _pObj = other._pObj;
 
@@ -111,10 +111,10 @@ typename TransitPtr<ObjectT>::Self &
     TransitPtr<ObjectT>::operator =(ObjectPtrConstArg  pObj)
 {
     if(pObj != NULL)
-        pObj->addReferenceX();
+        pObj->addReferenceUnrecordedX();
 
     if(_pObj != NULL)
-        _pObj->subReferenceX();
+        _pObj->subReferenceUnrecordedX();
 
 
     _pObj = pObj;
@@ -128,7 +128,7 @@ typename TransitPtr<ObjectT>::Self &
     TransitPtr<ObjectT>::operator =(TransitPtr<OtherObjT> const &other)
 {
     if(_pObj != NULL)
-        _pObj->subReferenceX();
+        _pObj->subReferenceUnrecordedX();
 
     _pObj = other._pObj;
 

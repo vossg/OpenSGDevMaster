@@ -274,6 +274,9 @@ typedef FieldContainerPtrChildMField<
           UnrecordedRefCounts,
           1                  > MFUnrecFieldContainerChildViewportPtr;
 
+typedef MFUnrecFieldContainerChildViewportPtr
+    MFUnrecChildViewportPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGVIEWPORTFIELDS_H_ */

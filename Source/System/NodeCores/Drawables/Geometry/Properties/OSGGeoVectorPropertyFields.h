@@ -274,11 +274,17 @@ typedef FieldContainerPtrChildSField<
           UnrecordedRefCounts,
           1                  > SFUnrecFieldContainerChildGeoVectorPropertyPtr;
 
+typedef SFUnrecFieldContainerChildGeoVectorPropertyPtr 
+    SFUnrecChildGeoVectorPropertyPtr;
+
 
 typedef FieldContainerPtrChildMField<
           GeoVectorPropertyPtr, 
           UnrecordedRefCounts,
           1                  > MFUnrecFieldContainerChildGeoVectorPropertyPtr;
+
+typedef MFUnrecFieldContainerChildGeoVectorPropertyPtr
+    MFUnrecChildGeoVectorPropertyPtr;
 
 OSG_END_NAMESPACE
 

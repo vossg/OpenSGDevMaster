@@ -84,6 +84,11 @@ struct RecordedRefCounts
     {
         pOut = pIn;
         pIn  = NULL;
+
+        if(pOut != NULL)
+        {
+            Thread::getCurrentChangeList()->addAddRefd(pOut->getId());
+        }
     } 
 };
 

@@ -274,6 +274,9 @@ typedef FieldContainerPtrChildSField<
           UnrecordedRefCounts,
           1                  > SFUnrecFieldContainerChildImagePtr;
 
+typedef SFUnrecFieldContainerChildImagePtr 
+    SFUnrecChildImagePtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGIMAGEFIELDS_H_ */

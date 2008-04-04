@@ -351,10 +351,11 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
 
   private:
 
-    friend class PThreadBase;
-    friend class SprocBase;
-    friend class WinThreadBase;
-    friend class FieldContainer;
+    friend class  PThreadBase;
+    friend class  SprocBase;
+    friend class  WinThreadBase;
+    friend class  FieldContainer;
+    friend struct RecordedRefCounts;
 
     typedef MemoryObject Inherited;
 

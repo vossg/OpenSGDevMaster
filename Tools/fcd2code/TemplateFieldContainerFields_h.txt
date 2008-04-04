@@ -322,6 +322,9 @@ typedef FieldContainerPtrChildSField<
           UnrecordedRefCounts,
           1                  > SFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr;
 
+typedef SFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr 
+    SFUnrecChild@!Classname!@Ptr;
+
 @@endif
 @@if ChildMFields
 
@@ -329,6 +332,9 @@ typedef FieldContainerPtrChildMField<
           @!Classname!@Ptr, 
           UnrecordedRefCounts,
           1                  > MFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr;
+
+typedef MFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr
+    MFUnrecChild@!Classname!@Ptr;
 
 @@endif
 OSG_END_NAMESPACE

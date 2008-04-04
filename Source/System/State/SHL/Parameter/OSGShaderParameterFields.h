@@ -274,6 +274,9 @@ typedef FieldContainerPtrChildMField<
           UnrecordedRefCounts,
           1                  > MFUnrecFieldContainerChildShaderParameterPtr;
 
+typedef MFUnrecFieldContainerChildShaderParameterPtr
+    MFUnrecChildShaderParameterPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGSHADERPARAMETERFIELDS_H_ */
