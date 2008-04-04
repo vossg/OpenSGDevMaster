@@ -52,14 +52,6 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
 
-typedef SField<FieldBundleAttachmentMap> SFFieldBundleAttachmentPtrMap;
-#endif
-
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<FieldContainerAttachmentMap> SFFieldContainerAttachmentPtrMap;
 #endif
 

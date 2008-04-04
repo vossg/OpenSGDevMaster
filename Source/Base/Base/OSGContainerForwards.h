@@ -152,19 +152,9 @@
 
 
 
-#define OSG_GEN_BUNDLEP(CLASST)                           \
-    typedef       CLASST *       CLASST##P;               \
-    typedef       CLASST * const CLASST##PConst;          \
-    typedef const CLASST *       CLASST##ConstP;          \
-    typedef const CLASST * const CLASST##ConstPConst;     \
-                                                          \
-    typedef       CLASST *       CLASST##PArg;            \
-    typedef       CLASST * const CLASST##PConstArg;       \
-    typedef const CLASST *       CLASST##ConstPArg
 
 #define NullFC      NULL
 #define OSGNullFC   NULL
-#define NilP        NULL
 
 
 OSG_BEGIN_NAMESPACE
@@ -172,21 +162,18 @@ OSG_BEGIN_NAMESPACE
 class TypeBase;
 
 class ReflexiveContainerType;
-class FieldBundleType;
 class FieldContainerType;
 
 class FieldDescriptionBase;
 
 
 class ReflexiveContainer;
-class FieldBundle;
 class FieldContainer;
 
 class AttachmentContainer;
 class Node;
 class NodeCore;
 
-class FieldBundleAttachment;
 class FieldContainerAttachment;
 
 class DrawEnv;
@@ -203,8 +190,6 @@ class TransitPtr;
 template<class ObjT, class RefCountPolicyT> 
 class RefCountPtr;
 
-OSG_GEN_BUNDLEP(FieldBundle);
-
 OSG_GEN_CONTAINERPTR(FieldContainer);
 OSG_GEN_CONTAINERPTR(FieldContainerAttachment);
 OSG_GEN_CONTAINERPTR(AttachmentContainer);
@@ -220,10 +205,8 @@ template <class SingletonBaseT>
 class SingletonHolder;
 
 class FieldContainerFactoryBase;
-class FieldBundleFactoryBase;
 
 typedef SingletonHolder<FieldContainerFactoryBase> FieldContainerFactory;
-typedef SingletonHolder<FieldBundleFactoryBase   > FieldBundleFactory;
 
 typedef boost::function<
               void (FieldContainerCPtrArg, ConstFieldMaskArg )> ChangedFunctor;

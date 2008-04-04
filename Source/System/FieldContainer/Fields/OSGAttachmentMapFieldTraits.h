@@ -47,14 +47,11 @@
 #include "OSGContainerPtrFuncs.h"
 
 #include "OSGFieldContainerAttachment.h"
-#include "OSGFieldBundleAttachment.h"
 
 #include "map"
 
 OSG_BEGIN_NAMESPACE
 
-typedef std::map<UInt32, 
-                 FieldBundleAttachmentP     >  FieldBundleAttachmentMap;
 typedef std::map<UInt32, 
                  FieldContainerAttachmentPtr>  FieldContainerAttachmentMap;
 
@@ -66,47 +63,6 @@ typedef std::map<UInt32,
     \ingroup GrpBaseFieldTraits
 */
 #endif
-
-/*! \ingroup GrpBaseFieldTraits
- */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
-template <>
-struct FieldTraits<FieldBundleAttachmentMap> : 
-    public FieldTraitsTemplateBase<FieldBundleAttachmentMap>
-{
-  private:
-
-    static  DataType                              _type;
-
-  public:
-
-    typedef FieldTraits<FieldBundleAttachmentMap>  Self;
-
-
-    enum             { Convertible = Self::NotConvertible };
-
-    static  OSG_SYSTEM_DLLMAPPING
-                 DataType &getType      (void);
-
-    static const Char8    *getSName     (void) 
-    {
-        return "SFBundeAttachmentMap"; 
-    }
-
-    static const Char8    *getMName     (void) 
-    {
-        return "MFBundleAttachmentMap"; 
-    }
-};
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<BundleAttachmentMap> */
-/*! \hideinhierarchy                               */
-#endif
-
 
 /*! \ingroup GrpBaseFieldTraits
  */

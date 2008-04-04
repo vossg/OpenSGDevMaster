@@ -50,7 +50,6 @@
 #include "OSGMixinHead.h"
 #include "OSGDataSlotMixin.h"
 
-#include "OSGFieldBundleMFields.h"
 #include "OSGRenderPartitionBase.h"
 
 OSG_BEGIN_NAMESPACE

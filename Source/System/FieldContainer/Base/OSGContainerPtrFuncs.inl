@@ -43,21 +43,21 @@ OSG_BEGIN_NAMESPACE
 template <class PtrT> inline
 void PointerFuncs::addRefX(const PtrT objectP)
 {
-    if(objectP != NilP)
+    if(objectP != NullFC)
         objectP->addReferenceX();
 }
 
 template <class PtrT> inline
 void PointerFuncs::subRefX(const PtrT objectP)
 {
-    if(objectP != NilP)
+    if(objectP != NullFC)
         objectP->subReferenceX();
 }
 
 template <class PtrT> inline
 void PointerFuncs::subRefLocalVarX(const PtrT objectP)
 {
-    if(objectP != NilP)
+    if(objectP != NullFC)
         objectP->subReferenceLocalVarX();
 }
 
@@ -130,25 +130,12 @@ Ptr PointerFuncs::getCPtr(Ptr pObject)
 
 
 inline
-void addRefX(FieldBundlePConst objectP)
-{
-    PointerFuncs::addRefX(objectP);
-
-}
-
-inline
 void addRefX(FieldContainerPtrConst objectP)
 {
     PointerFuncs::addRefX(objectP);
 }
 
 
-
-inline
-void subRefX(FieldBundlePConst objectP)
-{
-    PointerFuncs::subRefX(objectP);
-}
 
 inline
 void subRefX(FieldContainerPtrConst objectP)
@@ -162,12 +149,6 @@ void subRefLocalVarX(FieldContainerPtrConst objectP)
     PointerFuncs::subRefLocalVarX(objectP);
 }
 
-
-inline
-void shallowSubRefX(FieldBundlePConst objectP)
-{
-    PointerFuncs::shallowSubRefX(objectP);
-}
 
 inline
 void shallowSubRefX(FieldContainerPtrConst objectP)
@@ -185,16 +166,6 @@ void setRefdX(StoreT  &pTarget,
     pTarget = pSource;
 }
 
-inline
-UInt32 getContainerId(FieldBundleConstPConst objectP)
-{
-    return PointerFuncs::getContainerId(objectP);
-}
-
-Int32 getRefCount(FieldBundleConstPConst objectP)
-{
-    return PointerFuncs::getRefCount(objectP);
-}
 
 inline
 UInt32 getContainerId(FieldContainerConstPtrConst objectP)
@@ -208,17 +179,6 @@ Int32 getRefCount(FieldContainerConstPtrConst objectP)
     return PointerFuncs::getRefCount(objectP);
 }
 
-inline 
-FieldBundleConstP getCPtr(FieldBundleConstPConst objectP)
-{
-    return objectP;
-}
-
-inline 
-FieldBundleP getCPtr(FieldBundlePConst objectP)
-{
-    return objectP;
-}
 
 template <class Ptr> inline 
 typename PtrStripper<Ptr>::Object *getCPtr(Ptr objectP)

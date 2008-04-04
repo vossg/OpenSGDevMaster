@@ -45,10 +45,6 @@
 #include "OSGBaseTypes.h"
 #include "OSGContainerBase.h"
 
-#ifdef OSG_FIELDBUNDLE
-#include "OSGFieldBundle.h"
-#endif
-
 #include "OSGFieldContainer.h"
 
 OSG_BEGIN_NAMESPACE
@@ -103,17 +99,11 @@ struct PointerFuncs
  */
 
 inline
-void addRefX(FieldBundlePConst objectP);
-
-inline
 void addRefX(FieldContainerPtrConst objectP);
 
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
-
-inline
-void subRefX(FieldBundlePConst objectP);
 
 inline
 void subRefX(FieldContainerPtrConst objectP);
@@ -124,9 +114,6 @@ void subRefLocalVarX(FieldContainerPtrConst objectP);
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
-
-inline
-void shallowSubRefX(FieldBundlePConst      objectP);
 
 inline
 void shallowSubRefX(FieldContainerPtrConst objectP);
@@ -141,22 +128,10 @@ void setRefdX(StoreT  &pTarget,
 
 
 inline
-UInt32 getContainerId(FieldBundleConstPConst      objectP);
-
-inline
-Int32  getRefCount   (FieldBundleConstPConst      objectP);
-
-inline
 UInt32 getContainerId(FieldContainerConstPtrConst objectP);
 
 inline
 Int32  getRefCount   (FieldContainerConstPtrConst objectP);
-
-inline 
-FieldBundleConstP getCPtr(FieldBundleConstPConst objectP);
-
-inline 
-FieldBundleP      getCPtr(FieldBundlePConst      objectP);
 
 
 template <class Ptr> inline 
