@@ -307,10 +307,10 @@ void HDRStage::initMethod(InitPhase ePhase)
     }
 }
 
-HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
-                                       Int32 iPixelHeight)
+HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
+                                                Int32 iPixelHeight)
 {
-    HDRStageDataP returnValue = HDRStageData::create();
+    HDRStageDataTransitPtr returnValue = HDRStageData::createLocal();
 
     if(returnValue == NULL)
         return returnValue;
@@ -601,9 +601,9 @@ HDRStageDataP HDRStage::setupStageData(Int32 iPixelWidth,
     return returnValue;
 }
 
-void HDRStage::resizeStageData(HDRStageDataP pData,
-                               Int32         iPixelWidth,
-                               Int32         iPixelHeight)
+void HDRStage::resizeStageData(HDRStageDataPtr pData,
+                               Int32           iPixelWidth,
+                               Int32           iPixelHeight)
 {
     FWARNING(("HDRStage resize not implemented ==> wrong results\n"));
 }
@@ -634,7 +634,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
         return;
 
 
-    HDRStageDataP  pData     = pAction->getData<HDRStageData *>(_iDataSlotId);
+    HDRStageDataPtr pData = pAction->getData<HDRStageData *>(_iDataSlotId);
 
     if(pData == NULL)
     {
@@ -834,7 +834,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 void HDRStage::initData(Viewport         *pViewport,
                         RenderActionBase *pAction  )
 {
-    HDRStageDataP pData = pAction->getData<HDRStageData *>(_iDataSlotId);
+    HDRStageDataUnrecPtr pData = pAction->getData<HDRStageData *>(_iDataSlotId);
 
     if(pData == NULL)
     {

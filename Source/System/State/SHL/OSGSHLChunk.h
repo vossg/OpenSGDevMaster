@@ -120,12 +120,13 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     /*! \name                       Paramerters                            */
     /*! \{                                                                 */
 
-    void updateParameters(      Window               *win,
-                          const MFShaderParameterPtr &parameters,
-                                bool                 useProgram       = true,
-                                bool                 force            = false,
-                                bool                 keepProgramActive=false);
-
+    void updateParameters(      
+              Window                    *win,
+        const MFUnrecShaderParameterPtr &parameters,
+              bool                       useProgram       = true,
+              bool                       force            = false,
+              bool                       keepProgramActive=false);
+    
 
     void updateProgramParameters(Window *win);
 
@@ -133,8 +134,10 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
                                         GLuint program,
                                         const ShaderParameterPtr &parameter);
 
-    void updateParameterLocations(Window *win,
-                                  const MFShaderParameterPtr &parameters);
+    void updateParameterLocations(
+              Window                    *win,
+        const MFUnrecShaderParameterPtr &parameters);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       State                                  */

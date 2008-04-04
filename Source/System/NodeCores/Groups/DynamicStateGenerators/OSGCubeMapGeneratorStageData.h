@@ -110,7 +110,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageData : public CubeMapGeneratorSt
 
   private:
 
-    friend class FieldBundle;
+    friend class FieldContainer;
     friend class CubeMapGeneratorStageDataBase;
 
     // prohibit default functions (move to 'public' if you need one)

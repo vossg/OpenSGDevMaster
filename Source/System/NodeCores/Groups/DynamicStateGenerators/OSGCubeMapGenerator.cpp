@@ -316,11 +316,11 @@ ActionBase::ResultE CubeMapGenerator::renderLeave(Action *action)
 }
 
 
-CubeMapGeneratorStageDataP CubeMapGenerator::setupStageData(
+CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
     RenderActionBase *pAction)
 {
-    CubeMapGeneratorStageDataP returnValue = 
-        CubeMapGeneratorStageData::create();
+    CubeMapGeneratorStageDataTransitPtr returnValue = 
+        CubeMapGeneratorStageData::createLocal();
     
     if(returnValue == NULL)
         return returnValue;
@@ -436,7 +436,7 @@ CubeMapGeneratorStageDataP CubeMapGenerator::setupStageData(
 
 void CubeMapGenerator::initData(RenderActionBase *pAction)
 {
-    CubeMapGeneratorStageDataP pData = 
+    CubeMapGeneratorStageDataUnrecPtr pData = 
         pAction->getData<CubeMapGeneratorStageData *>(_iDataSlotId);
 
     if(pData == NULL)

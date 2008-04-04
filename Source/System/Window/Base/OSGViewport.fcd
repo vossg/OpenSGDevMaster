@@ -79,12 +79,13 @@ all the different ClusterWindows!
 	</Field>
 	<Field
 		name="parent"
-		type="ParentFieldContainerPtr"
+		type="FieldContainer"
 		cardinality="single"
 		visibility="external"
 		access="none"
         doRefCount="false"
         passFieldMask="true"
+        category="parentpointer"
 	>
 	The Window this viewport is contained in.
 	</Field>

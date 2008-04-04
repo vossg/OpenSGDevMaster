@@ -66,105 +66,6 @@ OSG_USING_NAMESPACE
 // To modify it, please change the .fcd file (OSGSimpleShadowMapEngine.fcd) and
 // regenerate the base file.
 
-#if 0
-SimpleShadowMapEngine::EngineData::EngineData(void) :
-     Inherited   (      ),
-    _pCamera     (NullFC),
-    _pTexChunk   (NullFC),
-    _pTexBuffer  (NullFC),
-    _pLightChunk (NullFC),
-    _pBlendChunk (NullFC),
-    _pTexGenChunk(NullFC),
-    _pPolyChunk  (NullFC)
-{
-}
-
-SimpleShadowMapEngine::EngineData::~EngineData(void)
-{
-    OSG::subRef(_pCamera     );
-    OSG::subRef(_pTexChunk   );
-    OSG::subRef(_pTexBuffer  );
-    OSG::subRef(_pLightChunk );
-    OSG::subRef(_pBlendChunk );
-    OSG::subRef(_pTexGenChunk);
-    OSG::subRef(_pPolyChunk  );
-}
-
-void SimpleShadowMapEngine::EngineData::setCamera(CameraPtr pCamera)
-{
-    setRefd(_pCamera, pCamera);
-}
-
-CameraPtr SimpleShadowMapEngine::EngineData::getCamera(void)
-{
-    return _pCamera;
-}
-
-
-void SimpleShadowMapEngine::EngineData::setTextureChunk(
-    TextureObjChunkPtr pChunk)
-{
-    setRefd(_pTexChunk, pChunk);
-}
-
-TextureObjChunkPtr SimpleShadowMapEngine::EngineData::getTextureChunk(void)
-{
-    return _pTexChunk;
-}
-
-void SimpleShadowMapEngine::EngineData::setTextureBuffer(
-    TextureBufferPtr pBuffer)
-{
-    setRefd(_pTexBuffer, pBuffer);
-}
-
-TextureBufferPtr SimpleShadowMapEngine::EngineData::getTextureBuffer(void)
-{
-    return _pTexBuffer;
-}
-
-void SimpleShadowMapEngine::EngineData::setLightChunk(LightChunkPtr pLight)
-{
-    setRefd(_pLightChunk, pLight);
-}
-
-LightChunkPtr SimpleShadowMapEngine::EngineData::getLightChunk(void)
-{
-    return _pLightChunk;
-}
-
-void SimpleShadowMapEngine::EngineData::setBlendChunk(BlendChunkPtr pBlend)
-{
-    setRefd(_pBlendChunk, pBlend);
-}
-
-BlendChunkPtr SimpleShadowMapEngine::EngineData::getBlendChunk(void)
-{
-    return _pBlendChunk;
-}
-
-void SimpleShadowMapEngine::EngineData::setTexGenChunk(TexGenChunkPtr pTexGen)
-{
-    setRefd(_pTexGenChunk, pTexGen);
-}
-
-TexGenChunkPtr SimpleShadowMapEngine::EngineData::getTexGenChunk(void)
-{
-    return _pTexGenChunk;
-}
-
-void SimpleShadowMapEngine::EngineData::setPolyChunk(PolygonChunkPtr pPoly)
-{
-    setRefd(_pPolyChunk, pPoly);
-}
-
-PolygonChunkPtr SimpleShadowMapEngine::EngineData::getPolyChunk(void)
-{
-    return _pPolyChunk;
-}
-
-#endif
-
 
 /*! \class OSG::SimpleShadowMapEngine
 */
@@ -256,10 +157,10 @@ void SimpleShadowMapEngine::lightRenderEnter(LightPtr      pLight,
     }
 }
 
-void SimpleShadowMapEngine::setupCamera(LightPtr      pLight,
-                                        LightTypeE    eType,
-                                        RenderAction *pAction,
-                                        EngineData   *pEngineData)
+void SimpleShadowMapEngine::setupCamera(LightPtr       pLight,
+                                        LightTypeE     eType,
+                                        RenderAction  *pAction,
+                                        EngineDataPtr  pEngineData)
 {
     if(eType == Directional)
     {
@@ -389,10 +290,10 @@ void SimpleShadowMapEngine::setupCamera(LightPtr      pLight,
     }
 }
 
-void SimpleShadowMapEngine::setupLightChunk(LightPtr      pLight,
-                                            LightTypeE    eType,
-                                            RenderAction *pAction,
-                                            EngineData   *pEngineData)
+void SimpleShadowMapEngine::setupLightChunk(LightPtr       pLight,
+                                            LightTypeE     eType,
+                                            RenderAction  *pAction,
+                                            EngineDataPtr  pEngineData)
 {
     if(eType == Directional)
     {
@@ -467,9 +368,9 @@ void SimpleShadowMapEngine::setupLightChunk(LightPtr      pLight,
 }
 
 
-void SimpleShadowMapEngine::doLightPass(LightPtr      pLight,
-                                        RenderAction *pAction,
-                                        EngineData   *pEngineData)
+void SimpleShadowMapEngine::doLightPass(LightPtr       pLight,
+                                        RenderAction  *pAction,
+                                        EngineDataPtr  pEngineData)
 {
     pAction->pushPartition();
 
@@ -586,9 +487,9 @@ void SimpleShadowMapEngine::doLightPass(LightPtr      pLight,
     pAction->popPartition();
 }
 
-void SimpleShadowMapEngine::doAmbientPass(LightPtr      pLight,
-                                          RenderAction *pAction,
-                                          EngineData   *pEngineData)
+void SimpleShadowMapEngine::doAmbientPass(LightPtr       pLight,
+                                          RenderAction  *pAction,
+                                          EngineDataPtr  pEngineData)
 {
     pAction->pushPartition((RenderPartition::CopyViewing      |
                             RenderPartition::CopyProjection   |
@@ -626,9 +527,9 @@ void SimpleShadowMapEngine::doAmbientPass(LightPtr      pLight,
     pAction->popPartition ();
 }
 
-void SimpleShadowMapEngine::doFinalPass(LightPtr      pLight,
-                                        RenderAction *pAction,
-                                        EngineData   *pEngineData)
+void SimpleShadowMapEngine::doFinalPass(LightPtr       pLight,
+                                        RenderAction  *pAction,
+                                        EngineDataPtr  pEngineData)
 {
     pAction->pushPartition((RenderPartition::CopyViewing      |
                             RenderPartition::CopyProjection   |
@@ -797,12 +698,12 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
     LightTypeE    eType,
     RenderAction *pAction)
 {
-    EngineData *pEngineData = 
+    EngineDataUnrecPtr pEngineData = 
         pAction->getData<SimpleShadowMapEngineData *>(_iDataSlotId);
 
     if(pEngineData == NULL)
     {
-        pEngineData = EngineData::create();
+        pEngineData = EngineData::createLocal();
 
         this->setData(pEngineData, _iDataSlotId, pAction);
 //        pAction->setData(pEngineData, _iDataSlotId);

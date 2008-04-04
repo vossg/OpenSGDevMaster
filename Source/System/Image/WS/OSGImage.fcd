@@ -16,10 +16,11 @@
 mipMap and simple multi-frame data.
 	<Field
 		name="parents"
-		type="ParentFieldContainerPtr"
+		type="FieldContainer"
 		cardinality="multi"
 		visibility="internal"
 		access="none"
+        category="parentpointer"
 	>
 	</Field>
 	<Field

@@ -756,9 +756,9 @@ void SortLastWindow::collectDrawables(NodePtrConstArg  node,
         }
     }
     
-    for(MFNodePtr::const_iterator nI  = node->getMFChildren()->begin();
-                                  nI != node->getMFChildren()->end();
-                                ++nI)
+    for(MFUnrecNodePtr::const_iterator nI  = node->getMFChildren()->begin();
+                                       nI != node->getMFChildren()->end();
+                                     ++nI)
     {
         collectDrawables(*nI, drawables);
     }

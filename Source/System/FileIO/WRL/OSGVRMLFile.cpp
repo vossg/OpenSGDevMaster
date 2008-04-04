@@ -635,7 +635,7 @@ void VRMLFile::initIntExtFieldTypeMapper(void)
     Self::setIntExtMapping(SFReal32::getClassType().getId(),
                            ScanParseSkel::OSGsfFloat);
 
-    Self::setIntExtMapping(SFImagePtr::getClassType().getId(),
+    Self::setIntExtMapping(SFUnrecImagePtr::getClassType().getId(),
                            ScanParseSkel::OSGsfImage);
 
     Self::setIntExtMapping(SFInt32::getClassType().getId(),
@@ -690,16 +690,16 @@ void VRMLFile::initIntExtFieldTypeMapper(void)
                            ScanParseSkel::OSGmfVec2f);
 
 
-    Self::setIntExtMapping(SFFieldContainerPtr::getClassType().getId(),
+    Self::setIntExtMapping(SFUnrecFieldContainerPtr::getClassType().getId(),
                            ScanParseSkel::OSGsfNode);
 
-    Self::setIntExtMapping(MFFieldContainerPtr::getClassType().getId(),
+    Self::setIntExtMapping(MFUnrecFieldContainerPtr::getClassType().getId(),
                            ScanParseSkel::OSGmfNode);
 
-    Self::setIntExtMapping(SFNodePtr::getClassType().getId(),
+    Self::setIntExtMapping(SFUnrecNodePtr::getClassType().getId(),
                            ScanParseSkel::OSGsfNode);
 
-    Self::setIntExtMapping(MFNodePtr::getClassType().getId(),
+    Self::setIntExtMapping(MFUnrecNodePtr::getClassType().getId(),
                            ScanParseSkel::OSGmfNode);
 
     /* To Base Type Mappings */
@@ -718,10 +718,10 @@ void VRMLFile::initIntExtFieldTypeMapper(void)
 
     /* To Node Mappings */
 
-    Self::setIntExtMapping(SFNodeCorePtr::getClassType().getId(),
+    Self::setIntExtMapping(SFUnrecNodeCorePtr::getClassType().getId(),
                            ScanParseSkel::OSGsfNode);
 
-    Self::setIntExtMapping(SFMaterialPtr::getClassType().getId(),
+    Self::setIntExtMapping(SFUnrecMaterialPtr::getClassType().getId(),
                            ScanParseSkel::OSGsfNode);
 
     // AMZ
@@ -747,7 +747,7 @@ void VRMLFile::initIntExtFieldTypeMapper(void)
     Self::setIntExtMapping(SFGeoTexCoordsPtr::getClassType().getId(),
                            ScanParseSkel::OSGsfNode);
 #endif
-    Self::setIntExtMapping(MFStateChunkPtr::getClassType().getId(),
+    Self::setIntExtMapping(MFUnrecStateChunkPtr::getClassType().getId(),
                            ScanParseSkel::OSGmfNode);
 
     //SFAttachmentMap
@@ -784,7 +784,7 @@ void VRMLFile::initExtIntFieldTypeMapper(void)
                      */
 
     Self::setExtIntMapping(ScanParseSkel::OSGsfImage,
-                           SFImagePtr::getClassType().getId());
+                           SFUnrecImagePtr::getClassType().getId());
 
     Self::setExtIntMapping(ScanParseSkel::OSGsfInt32,
                            SFInt32::getClassType().getId());
@@ -834,10 +834,10 @@ void VRMLFile::initExtIntFieldTypeMapper(void)
 
 
     Self::setExtIntMapping(ScanParseSkel::OSGsfNode,
-                           SFFieldContainerPtr::getClassType().getId());
+                           SFUnrecFieldContainerPtr::getClassType().getId());
 
     Self::setExtIntMapping(ScanParseSkel::OSGmfNode,
-                           MFFieldContainerPtr::getClassType().getId());
+                           MFUnrecFieldContainerPtr::getClassType().getId());
 
 
     /* extended types */
@@ -856,7 +856,7 @@ void VRMLFile::initExtIntFieldTypeMapper(void)
 FieldContainerPtr VRMLFile::findFCByName(const Char8  *szName,
                                                NodePtr pNode)
 {
-    MFNodePtr::const_iterator i;
+    MFUnrecNodePtr::const_iterator i;
 
     NamePtr           pNodename = NullFC;
     NodeCorePtr       pCore     = NullFC;

@@ -200,7 +200,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
 
     BaseType                  _baseType;
 
-    FieldContainerUnrecRefPtr _pPrototype;
+    FieldContainerPtr         _pPrototype;
     PrototypeCreateF          _fPrototypeCreate;
 
     InitContainerF            _fInitMethod;

@@ -51,7 +51,21 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup  */
 
 typedef FieldContainerPtrSField<
-          AttachmentContainerPtr> SFAttachmentContainerPtr;
+          AttachmentContainerPtr,
+          RecordedRefCounts     > SFRecAttachmentContainerPtr;
+
+typedef FieldContainerPtrSField<
+          AttachmentContainerPtr,
+          UnrecordedRefCounts   > SFUnrecAttachmentContainerPtr;
+
+typedef FieldContainerPtrSField<
+          AttachmentContainerPtr,
+          WeakRefCounts         > SFWeakAttachmentContainerPtr;
+
+typedef FieldContainerPtrSField<
+          AttachmentContainerPtr,
+          NoRefCounts           > SFUncountedAttachmentContainerPtr;
+
 #endif
 
 OSG_END_NAMESPACE

@@ -394,9 +394,9 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
             (GLFramebufferRenderbufferEXTProcT) win->getFunction(
                 _uiFuncFramebufferRenderbuffer);
 
-        MFFrameBufferAttachmentPtr::iterator attIt  = 
+        MFUnrecFrameBufferAttachmentPtr::iterator attIt  = 
             _mfColorAttachments.begin();
-        MFFrameBufferAttachmentPtr::iterator attEnd = 
+        MFUnrecFrameBufferAttachmentPtr::iterator attEnd = 
             _mfColorAttachments.end  ();
 
         GLint iMaxColorAttachments;
@@ -471,9 +471,9 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
     }
     else if(mode == Window::needrefresh)
     {
-        MFFrameBufferAttachmentPtr::iterator attIt  = 
+        MFUnrecFrameBufferAttachmentPtr::iterator attIt  = 
             _mfColorAttachments.begin();
-        MFFrameBufferAttachmentPtr::iterator attEnd = 
+        MFUnrecFrameBufferAttachmentPtr::iterator attEnd = 
             _mfColorAttachments.end  ();
 
         while(attIt != attEnd)

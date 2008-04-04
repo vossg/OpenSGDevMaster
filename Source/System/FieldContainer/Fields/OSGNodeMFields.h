@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup  */
 
 typedef FieldContainerPtrMField<NodePtr, 
-                                RecordedRefCounts  > MFNodePtr;
+                                RecordedRefCounts  > MFRecNodePtr;
 typedef FieldContainerPtrMField<NodePtr, 
                                 UnrecordedRefCounts> MFUnrecNodePtr;
 typedef FieldContainerPtrMField<NodePtr, 
@@ -59,7 +59,7 @@ typedef FieldContainerPtrMField<NodePtr,
 typedef FieldContainerPtrMField<NodePtr, 
                                 NoRefCounts        > MFUncountedNodePtr;
 
-typedef MFNodePtr MFRecNodePtr;
+//typedef MFNodePtr MFRecNodePtr;
 
 #endif
 

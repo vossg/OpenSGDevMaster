@@ -46,7 +46,7 @@ ValuePtr DataSlotMixin<ParentT>::getData(Int32 iSlotId)
 
     if(iSlotId >= 0 && static_cast<UInt32>(iSlotId) < _mfData.size())
     {
-        FieldBundleP pTmp = _mfData[iSlotId];
+        FieldContainerPtr pTmp = _mfData[iSlotId];
 
         returnValue = dynamic_cast<ValuePtr>(pTmp);
     }
@@ -55,17 +55,17 @@ ValuePtr DataSlotMixin<ParentT>::getData(Int32 iSlotId)
 }
 
 template <class ParentT> inline
-void DataSlotMixin<ParentT>::setData(FieldBundleP pBundle, Int32 iSlotId)
+void DataSlotMixin<ParentT>::setData(FieldContainerPtr pData, Int32 iSlotId)
 {
     if(iSlotId < 0)
         return;
 
     if(_mfData.size() <= static_cast<UInt32>(iSlotId))
     {
-        _mfData.resize(iSlotId + 1, NULL);
+        _mfData.resize(iSlotId + 1, NullFC);
     }
 
-    OSG::setRefdX(_mfData[iSlotId], pBundle);
+    _mfData.replace(iSlotId, pData);
 }
 
 template <class ParentT> inline
@@ -87,7 +87,7 @@ DataSlotMixin<ParentT>::~DataSlotMixin(void)
 {
     for(UInt32 i = 0; i < _mfData.size(); ++i)
     {
-        OSG::subRefX(_mfData[i]);
+        _mfData.replace(i, NullFC);
     }
 }
 

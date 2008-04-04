@@ -228,12 +228,29 @@ VRMLNodeHelper::VRMLNodeHelper(void) :
     _pNodeProto         (NullFC),
     _pNodeCoreProto     (NullFC),
 
-    OSG_INIT_DESC(_sfVec3fDesc,   SFVec3f,             "sfVec3fHelperDesc"  ),
-    OSG_INIT_DESC(_sfFCPtrDesc,   SFFieldContainerPtr, "sfFCPtrHelperDesc"  ),
-    OSG_INIT_DESC(_sfReal32Desc,  SFReal32,            "sfReal32HelperDesc" ),
-    OSG_INIT_DESC(_sfColor3fDesc, SFColor3f,           "sfColor3fHelperDesc"),
-    OSG_INIT_DESC(_mfStringDesc,  MFString,            "mfStringHelperDesc" ),
-    OSG_INIT_DESC(_sfBoolDesc,    SFBool,              "sfBoolDesc"         )
+    OSG_INIT_DESC(_sfVec3fDesc,   
+                  SFVec3f,             
+                  "sfVec3fHelperDesc"  ),
+
+    OSG_INIT_DESC(_sfFCPtrDesc,  
+                  SFUnrecFieldContainerPtr, 
+                  "sfFCPtrHelperDesc"  ),
+
+    OSG_INIT_DESC(_sfReal32Desc,
+                  SFReal32,            
+                  "sfReal32HelperDesc" ),
+
+    OSG_INIT_DESC(_sfColor3fDesc, 
+                  SFColor3f,           
+                  "sfColor3fHelperDesc"),
+
+    OSG_INIT_DESC(_mfStringDesc, 
+                  MFString,            
+                  "mfStringHelperDesc" ),
+
+    OSG_INIT_DESC(_sfBoolDesc,
+                  SFBool,              
+                  "sfBoolDesc"         )
 {
 }
 
@@ -803,7 +820,7 @@ FieldDescriptionBase *VRMLNodeHelper::getFieldDescription(
     OSG_CREATE_DESC_ELSE(MFColor3f)
     OSG_CREATE_DESC_ELSE(SFColor3f)
 
-    OSG_CREATE_DESC_ELSE(SFFieldContainerPtr)
+    OSG_CREATE_DESC_ELSE(SFUnrecFieldContainerPtr)
 
     return returnValue;
 }

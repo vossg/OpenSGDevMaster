@@ -62,51 +62,10 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngine :
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-    typedef SimpleShadowMapEngineData EngineData;
-
-#if 0
-    struct EngineData : public LightEngineData
-    {
-        typedef LightEngineData Inherited;
-
-      private:
-
-        CameraPtr           _pCamera;
-        TextureObjChunkPtr  _pTexChunk;
-        TextureBufferPtr    _pTexBuffer;
-        LightChunkPtr       _pLightChunk;
-        BlendChunkPtr       _pBlendChunk;
-        TexGenChunkPtr      _pTexGenChunk;
-        PolygonChunkPtr     _pPolyChunk;
-
-      public:
-
-        EngineData(void);
-        virtual ~EngineData(void);
-
-        void                setCamera       (CameraPtr          pCamera);
-        CameraPtr           getCamera       (void                      );
-
-        void                setTextureChunk (TextureObjChunkPtr pChunk );
-        TextureObjChunkPtr  getTextureChunk (void                      );
-        
-        void                setTextureBuffer(TextureBufferPtr   pBuffer);
-        TextureBufferPtr    getTextureBuffer(void                      );
-        
-        void                setLightChunk   (LightChunkPtr      pLight );
-        LightChunkPtr       getLightChunk   (void                      );
-        
-        void                setBlendChunk   (BlendChunkPtr      pBlend );
-        BlendChunkPtr       getBlendChunk   (void                      );
-        
-        void                setTexGenChunk  (TexGenChunkPtr     pTexGen);
-        TexGenChunkPtr      getTexGenChunk  (void                      );
-        
-        void                setPolyChunk    (PolygonChunkPtr    pPoly  );
-        PolygonChunkPtr     getPolyChunk    (void                      );
-    };
-#endif
+    
+    typedef SimpleShadowMapEngineData         EngineData;
+    typedef SimpleShadowMapEngineDataPtr      EngineDataPtr;
+    typedef SimpleShadowMapEngineDataUnrecPtr EngineDataUnrecPtr;
 
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -174,27 +133,27 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngine :
     /*! \name                       Action Callbacks                       */
     /*! \{                                                                 */
 
-    void lightRenderEnter(LightPtr      pLight,
-                          RenderAction *pAction);
+    void lightRenderEnter(LightPtr       pLight,
+                          RenderAction  *pAction);
     
-    void setupCamera     (LightPtr      pLight,
-                          LightTypeE    eType,
-                          RenderAction *pAction,
-                          EngineData   *pEngineData);
-    void setupLightChunk (LightPtr      pLight,
-                          LightTypeE    eType,
-                          RenderAction *pAction,
-                          EngineData   *pEngineData);
+    void setupCamera     (LightPtr       pLight,
+                          LightTypeE     eType,
+                          RenderAction  *pAction,
+                          EngineDataPtr  pEngineData);
+    void setupLightChunk (LightPtr       pLight,
+                          LightTypeE     eType,
+                          RenderAction  *pAction,
+                          EngineDataPtr  pEngineData);
 
-    void doLightPass     (LightPtr      pLight,
-                          RenderAction *pAction,
-                          EngineData   *pEngineData);
-    void doAmbientPass   (LightPtr      pLight,
-                          RenderAction *pAction,
-                          EngineData   *pEngineData);
+    void doLightPass     (LightPtr       pLight,
+                          RenderAction  *pAction,
+                          EngineDataPtr  pEngineData);
+    void doAmbientPass   (LightPtr       pLight,
+                          RenderAction  *pAction,
+                          EngineDataPtr  pEngineData);
     void doFinalPass     (LightPtr      pLight,
                           RenderAction *pAction,
-                          EngineData   *pEngineData);
+                          EngineDataPtr pEngineData);
                      
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

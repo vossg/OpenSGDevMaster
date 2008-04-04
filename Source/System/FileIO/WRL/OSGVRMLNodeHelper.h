@@ -365,12 +365,12 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    SFVec3f            ::Description _sfVec3fDesc;
-    SFFieldContainerPtr::Description _sfFCPtrDesc;
-    SFReal32           ::Description _sfReal32Desc;
-    SFColor3f          ::Description _sfColor3fDesc;
-    MFString           ::Description _mfStringDesc;
-    SFBool             ::Description _sfBoolDesc;
+    SFVec3f                 ::Description _sfVec3fDesc;
+    SFUnrecFieldContainerPtr::Description _sfFCPtrDesc;
+    SFReal32                ::Description _sfReal32Desc;
+    SFColor3f               ::Description _sfColor3fDesc;
+    MFString                ::Description _mfStringDesc;
+    SFBool                  ::Description _sfBoolDesc;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

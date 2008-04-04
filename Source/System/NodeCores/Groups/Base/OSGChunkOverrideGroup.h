@@ -95,8 +95,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : public ChunkOverrideGroupBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    MFStateChunkPtr::const_iterator beginChunks(void) const;
-    MFStateChunkPtr::const_iterator endChunks  (void) const;
+    MFUnrecStateChunkPtr::const_iterator beginChunks(void) const;
+    MFUnrecStateChunkPtr::const_iterator endChunks  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

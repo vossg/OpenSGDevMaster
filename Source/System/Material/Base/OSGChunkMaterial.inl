@@ -43,7 +43,7 @@ StateChunkPtrConst ChunkMaterial::getChunk (const UInt32 index) const
 }
 
 inline
-const MFStateChunkPtr &ChunkMaterial::getChunks(void) const
+const MFUnrecStateChunkPtr &ChunkMaterial::getChunks(void) const
 {
     return Inherited::getChunks();
 }

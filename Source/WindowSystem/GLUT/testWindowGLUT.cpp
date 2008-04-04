@@ -557,8 +557,8 @@ int main (int argc, char **argv)
     tball.setTranslationScale(scale);
     tball.setRotationCenter(tCenter);
 
-    fprintf(stderr, "%d\n", MFNodePtr          ::getClassType().getId());
-    fprintf(stderr, "%d\n", MFFieldContainerPtr::getClassType().getId());
+    fprintf(stderr, "%d\n", MFUnrecNodePtr          ::getClassType().getId());
+    fprintf(stderr, "%d\n", MFUnrecFieldContainerPtr::getClassType().getId());
 
 //    MFNodePtr          ::getClassType().dump();
 //    MFFieldContainerPtr::getClassType().dump();
@@ -568,8 +568,6 @@ int main (int argc, char **argv)
     pPoly = PolygonChunk::create();
 
     pCOver->subChunk(pPoly);
-
-    OSG::addRefX(pPoly);
 
 #if 0
     GroupNodePtr pGr = GroupNodePtr::create();

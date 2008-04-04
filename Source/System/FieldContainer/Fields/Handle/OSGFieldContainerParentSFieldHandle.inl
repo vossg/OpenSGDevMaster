@@ -173,7 +173,7 @@ inline
 const FieldType &
     GetSFieldHandle<SFParentFieldContainerPtr>::getType(void) const
 {
-    return SFFieldContainerPtr::getClassType();
+    return SFParentFieldContainerPtr::getClassType();
 }
 
 

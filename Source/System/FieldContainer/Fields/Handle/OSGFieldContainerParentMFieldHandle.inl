@@ -176,7 +176,7 @@ inline
 const FieldType &
     GetMFieldHandle<MFParentFieldContainerPtr>::getType(void) const
 {
-    return MFFieldContainerPtr::getClassType();
+    return MFParentFieldContainerPtr::getClassType();
 }
 
 

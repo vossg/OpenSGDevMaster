@@ -339,9 +339,9 @@ ActionBase::ResultE ChunkOverrideGroup::renderEnter(Action *action)
     {
         pAction->pushState();
 
-        MFStateChunkPtr::const_iterator chIt   = this->beginChunks();
-        MFStateChunkPtr::const_iterator chEnd  = this->endChunks  ();
-        UInt32                          uiSlot = 0;
+        MFUnrecStateChunkPtr::const_iterator chIt   = this->beginChunks();
+        MFUnrecStateChunkPtr::const_iterator chEnd  = this->endChunks  ();
+        UInt32                               uiSlot = 0;
 
         while(chIt != chEnd)
         {

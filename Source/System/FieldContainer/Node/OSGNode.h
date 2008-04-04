@@ -283,8 +283,8 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     const SFUInt32           *getSFTravMask (void) const;
 
     const SFUncountedNodePtr *getSFParent   (void) const;
-    const SFNodeCorePtr      *getSFCore     (void) const;
-    const MFNodePtr          *getMFChildren (void) const;
+    const SFUnrecNodeCorePtr *getSFCore     (void) const;
+    const MFUnrecNodePtr     *getMFChildren (void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -310,9 +310,9 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     SFUInt32           _sfTravMask;
 
     SFUncountedNodePtr _sfParent;
-    MFNodePtr          _mfChildren;
+    MFUnrecNodePtr     _mfChildren;
 
-    SFNodeCorePtr      _sfCore;
+    SFUnrecNodeCorePtr _sfCore;
 
 #ifdef OSG_1_COMPAT
     UInt8           _occlusionMask;

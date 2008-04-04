@@ -87,8 +87,8 @@ void Node::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 
-    pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(),
+    pDesc = new SFUncountedNodePtr::Description(
+        SFUncountedNodePtr::getClassType(),
         "parent",
         "This node's parent.",
         OSG_RC_FIELD_DESC(Node::Parent),
@@ -100,8 +100,8 @@ void Node::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 
-    pDesc = new SFNodeCorePtr::Description(
-        SFNodeCorePtr::getClassType(),
+    pDesc = new SFUnrecNodeCorePtr::Description(
+        SFUnrecNodeCorePtr::getClassType(),
         "core",
         "The core to use for this node.",
         OSG_RC_FIELD_DESC(Node::Core),
@@ -113,8 +113,8 @@ void Node::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 
-    pDesc = new MFNodePtr::Description(
-        MFNodePtr::getClassType(),
+    pDesc = new MFUnrecNodePtr::Description(
+        MFUnrecNodePtr::getClassType(),
         "children",
         "A list of our children in the scene graph.",
         OSG_RC_FIELD_DESC(Node::Children),
@@ -351,7 +351,7 @@ void Node::subChild(NodePtrConstArg childP)
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFNodePtr::iterator childIt = _mfChildren.begin();
+        MFUnrecNodePtr::iterator childIt = _mfChildren.begin();
 
         childIt += childIdx;
 
@@ -374,7 +374,7 @@ void Node::subChild(UInt32 childIndex)
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFNodePtr::iterator childIt = _mfChildren.begin();
+        MFUnrecNodePtr::iterator childIt = _mfChildren.begin();
 
         childIt += childIndex;
 
@@ -646,7 +646,7 @@ void Node::updateVolume(void)
 
     DynamicVolume vol = _sfVolume.getValue();
 
-    MFNodePtr::iterator it;
+    MFUnrecNodePtr::iterator it;
 
     vol.getInstance().setEmpty();
 
@@ -848,12 +848,12 @@ const SFUncountedNodePtr *Node::getSFParent(void) const
     return &_sfParent;
 }
 
-const SFNodeCorePtr *Node::getSFCore(void) const
+const SFUnrecNodeCorePtr *Node::getSFCore(void) const
 {
     return &_sfCore;
 }
 
-const MFNodePtr *Node::getMFChildren(void) const
+const MFUnrecNodePtr *Node::getMFChildren(void) const
 {
     return &_mfChildren;
 }
@@ -941,8 +941,8 @@ GetFieldHandlePtr Node::getHandleParent(void) const
 
 EditFieldHandlePtr Node::editHandleCore(void)
 {
-    SFNodeCorePtr::EditHandlePtr returnValue(
-        new  SFNodeCorePtr::EditHandle(
+    SFUnrecNodeCorePtr::EditHandlePtr returnValue(
+        new  SFUnrecNodeCorePtr::EditHandle(
              &_sfCore, 
              this->getType().getFieldDesc(CoreFieldId)));
 
@@ -959,8 +959,8 @@ EditFieldHandlePtr Node::editHandleCore(void)
 
 GetFieldHandlePtr Node::getHandleCore(void) const
 {
-    SFNodeCorePtr::GetHandlePtr returnValue(
-        new  SFNodeCorePtr::GetHandle(
+    SFUnrecNodeCorePtr::GetHandlePtr returnValue(
+        new  SFUnrecNodeCorePtr::GetHandle(
              &_sfCore, 
              this->getType().getFieldDesc(CoreFieldId)));
 
@@ -969,8 +969,8 @@ GetFieldHandlePtr Node::getHandleCore(void) const
 
 EditFieldHandlePtr Node::editHandleChildren(void)
 {
-    MFNodePtr::EditHandlePtr returnValue(
-        new  MFNodePtr::EditHandle(
+    MFUnrecNodePtr::EditHandlePtr returnValue(
+        new  MFUnrecNodePtr::EditHandle(
              &_mfChildren, 
              this->getType().getFieldDesc(ChildrenFieldId)));
 
@@ -987,8 +987,8 @@ EditFieldHandlePtr Node::editHandleChildren(void)
 
 GetFieldHandlePtr  Node::getHandleChildren(void) const
 {
-    MFNodePtr::GetHandlePtr returnValue(
-        new  MFNodePtr::GetHandle(
+    MFUnrecNodePtr::GetHandlePtr returnValue(
+        new  MFUnrecNodePtr::GetHandle(
              &_mfChildren, 
              this->getType().getFieldDesc(ChildrenFieldId)));
 
@@ -1007,8 +1007,8 @@ void Node::resolveLinks(void)
         _sfCore.setValue(NullFC);
     }
 
-    MFNodePtr::iterator       vChildIt    = _mfChildren.begin();
-    MFNodePtr::const_iterator endChildren = _mfChildren.end  ();
+    MFUnrecNodePtr::iterator       vChildIt    = _mfChildren.begin();
+    MFUnrecNodePtr::const_iterator endChildren = _mfChildren.end  ();
 
     while(vChildIt != endChildren)
     {

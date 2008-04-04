@@ -369,7 +369,7 @@ ActionBase::ResultE traverse(const std::vector<NodePtr> &nodeList,
                                    TraverseEnterFunctor  func);
 
 OSG_SYSTEM_DLLMAPPING
-ActionBase::ResultE traverse(const MFNodePtr            &nodeList, 
+ActionBase::ResultE traverse(const MFUnrecNodePtr       &nodeList, 
                                    TraverseEnterFunctor  func);
                             
 OSG_SYSTEM_DLLMAPPING
@@ -382,7 +382,7 @@ ActionBase::ResultE traverse(const std::vector<NodePtr> &nodeList,
                                    TraverseLeaveFunctor  leave);
 
 OSG_SYSTEM_DLLMAPPING
-ActionBase::ResultE traverse(const MFNodePtr            &nodeList, 
+ActionBase::ResultE traverse(const MFUnrecNodePtr       &nodeList, 
                                    TraverseEnterFunctor  enter, 
                                    TraverseLeaveFunctor  leave);
                             

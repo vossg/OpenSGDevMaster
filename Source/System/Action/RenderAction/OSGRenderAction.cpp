@@ -484,7 +484,7 @@ ActionBase::ResultE RenderAction::recurceNoNodeCallbacks(
     }
     else if(! _useNewList) // new list is empty, but not used?
     {
-        MFNodePtr::const_iterator it;
+        MFUnrecNodePtr::const_iterator it;
 
         for(  it  = node->getMFChildren()->begin();
               it != node->getMFChildren()->end();

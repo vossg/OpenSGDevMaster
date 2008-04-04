@@ -41,13 +41,13 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-MFStateChunkPtr::const_iterator ChunkOverrideGroup::beginChunks(void) const
+MFUnrecStateChunkPtr::const_iterator ChunkOverrideGroup::beginChunks(void) const
 {
     return _mfChunks.begin();
 }
 
 inline
-MFStateChunkPtr::const_iterator ChunkOverrideGroup::endChunks(void) const
+MFUnrecStateChunkPtr::const_iterator ChunkOverrideGroup::endChunks(void) const
 {
     return _mfChunks.end();
 }

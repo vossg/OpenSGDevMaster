@@ -186,8 +186,8 @@ bool MultiPassMaterial::isTransparent(void) const
         return (tm == Material::TransparencyForceTransparent);
     }
 
-    MFMaterialPtr::const_iterator it      = _mfMaterials.begin();
-    MFMaterialPtr::const_iterator matsEnd = _mfMaterials.end();
+    MFUnrecMaterialPtr::const_iterator it      = _mfMaterials.begin();
+    MFUnrecMaterialPtr::const_iterator matsEnd = _mfMaterials.end();
 
     // ok just check the first (base) material.
     if(  it                   != matsEnd && 

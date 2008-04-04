@@ -129,8 +129,8 @@ void DrawEnv::activate(State         *pState,
         return;
     }
 
-    MFStateChunkPtr::const_iterator it;
-    StateOverride::ChunkStoreIt     overIt = pOverride->begin();
+    MFUnrecStateChunkPtr::const_iterator it;
+    StateOverride::ChunkStoreIt          overIt = pOverride->begin();
 
     Int32                     ind  = 0;
     UInt32                    cind = 0;
@@ -188,8 +188,8 @@ void DrawEnv::changeTo(State         *pState,
         return;
     }
 
-    MFStateChunkPtr::const_iterator it;
-    StateOverride::ChunkStoreIt     overIt = pOldOverride->begin();
+    MFUnrecStateChunkPtr::const_iterator it;
+    StateOverride::ChunkStoreIt          overIt = pOldOverride->begin();
 
     Int32                     ind = 0;
     UInt32                    i;
@@ -251,8 +251,8 @@ void DrawEnv::changeTo(State         *pState,
         return;
     }
 
-    MFStateChunkPtr::const_iterator it;
-    StateOverride::ChunkStoreIt     overIt = pOverride->begin();
+    MFUnrecStateChunkPtr::const_iterator it;
+    StateOverride::ChunkStoreIt          overIt = pOverride->begin();
 
     Int32                     ind = 0;
     UInt32                    i;
@@ -359,9 +359,9 @@ void DrawEnv::changeTo(State         *pState,
         return;
     }
 
-    MFStateChunkPtr::const_iterator it;
-    StateOverride::ChunkStoreIt     newOverIt = pOverride  ->begin();
-    StateOverride::ChunkStoreIt     oldOverIt = pOldOverride->begin();
+    MFUnrecStateChunkPtr::const_iterator it;
+    StateOverride::ChunkStoreIt          newOverIt = pOverride  ->begin();
+    StateOverride::ChunkStoreIt          oldOverIt = pOldOverride->begin();
 
     Int32                     ind  = 0;
     UInt32                    i;
@@ -509,8 +509,8 @@ void DrawEnv::deactivate(State         *pState,
         return;
     }
 
-    MFStateChunkPtr::const_iterator it;
-    StateOverride::ChunkStoreIt     overIt = pOverride->begin();
+    MFUnrecStateChunkPtr::const_iterator it;
+    StateOverride::ChunkStoreIt          overIt = pOverride->begin();
 
     Int32                     ind  = 0;
     UInt32                    cind = 0;

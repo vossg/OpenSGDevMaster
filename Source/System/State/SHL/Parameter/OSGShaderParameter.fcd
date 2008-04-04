@@ -23,10 +23,11 @@
 
 	<Field
 		name="parents"
-		type="ParentFieldContainerPtr"
+		type="FieldContainer"
 		cardinality="multi"
 		visibility="internal"
 		access="none"
+        category="parentpointer"
 	>
 	parameter name
 	</Field>

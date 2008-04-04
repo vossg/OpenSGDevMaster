@@ -65,8 +65,8 @@ class StageValidator;
 
 struct RenderDataSlotDesc
 {
-    typedef Action         ParentT;
-    typedef MFFieldBundleP DataStore;
+    typedef Action                   ParentT;
+    typedef MFUnrecFieldContainerPtr DataStore;
 };
 
 typedef DataSlotMixin< 

@@ -301,8 +301,8 @@ bool ChunkMaterial::isTransparent(void) const
 
     bool             returnValue = false;
 
-    MFStateChunkPtr::const_iterator it        = _mfChunks.begin();
-    MFStateChunkPtr::const_iterator chunksEnd = _mfChunks.end();
+    MFUnrecStateChunkPtr::const_iterator it        = _mfChunks.begin();
+    MFUnrecStateChunkPtr::const_iterator chunksEnd = _mfChunks.end();
 
     for(; it != chunksEnd && returnValue == false; ++it)
     {

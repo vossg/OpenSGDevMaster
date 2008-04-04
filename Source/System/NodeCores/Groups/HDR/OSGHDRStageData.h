@@ -110,7 +110,7 @@ class OSG_GROUP_DLLMAPPING HDRStageData : public HDRStageDataBase
 
   private:
 
-    friend class FieldBundle;
+    friend class FieldContainer;
     friend class HDRStageDataBase;
 
     // prohibit default functions (move to 'public' if you need one)

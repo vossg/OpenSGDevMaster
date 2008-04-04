@@ -77,17 +77,17 @@ _Function for_each_iterator(_InputIterator __first,
     return __f;
 }
 
-struct ClearSlot : public std::unary_function<MFStateChunkPtr::iterator &, 
+struct ClearSlot : public std::unary_function<MFUnrecStateChunkPtr::iterator &, 
                                               void>
 {
-    MFStateChunkPtr &_mfChunks;
+    MFUnrecStateChunkPtr &_mfChunks;
 
-    ClearSlot(MFStateChunkPtr &mfChunks) :
+    ClearSlot(MFUnrecStateChunkPtr &mfChunks) :
         _mfChunks(mfChunks)
     {
     }
 
-    void operator() (MFStateChunkPtr::iterator &slotIt) 
+    void operator() (MFUnrecStateChunkPtr::iterator &slotIt) 
     { 
 //        subRef(slotPtr);
         
@@ -261,7 +261,7 @@ void State::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 {
     std::cerr << "State at " << this << std::endl;
 
-    MFStateChunkPtr::const_iterator it;
+    MFUnrecStateChunkPtr::const_iterator it;
     UInt32 cind;
 
     for(it = _mfChunks.begin(), cind = 0; it != _mfChunks.end(); ++it, ++cind)
@@ -287,9 +287,9 @@ void State::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 
 void State::activate(DrawEnv *pEnv)
 {
-    MFStateChunkPtr::iterator it;
-    Int32                     ind = 0;
-    UInt32                    cind;
+    MFUnrecStateChunkPtr::iterator it;
+    Int32                          ind = 0;
+    UInt32                         cind;
 
     for(  it  = _mfChunks.begin(), cind = 0; 
           it != _mfChunks.end  ();
@@ -312,10 +312,10 @@ void State::activate(DrawEnv *pEnv)
 
 void State::changeFrom(DrawEnv *pEnv, State *pOld)
 {
-    MFStateChunkPtr::iterator it;
-    Int32                     ind = 0;
-    UInt32                    i;
-    UInt32                    cind;
+    MFUnrecStateChunkPtr::iterator it;
+    Int32                          ind = 0;
+    UInt32                         i;
+    UInt32                         cind;
 
     for(  it = _mfChunks.begin(), cind = 0; 
           it != _mfChunks.end();
@@ -370,9 +370,9 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
 
 void State::deactivate(DrawEnv *pEnv)
 {
-    MFStateChunkPtr::iterator it;
-    Int32                     ind = 0;
-    UInt32                    cind;
+    MFUnrecStateChunkPtr::iterator it;
+    Int32                          ind = 0;
+    UInt32                         cind;
 
     for(  it =  _mfChunks.begin(), cind = 0; 
           it != _mfChunks.end  ();
@@ -573,8 +573,8 @@ bool State::isTransparent(void) const
 {
     bool returnValue = false;
 
-    MFStateChunkPtr::const_iterator it        = _mfChunks.begin();
-    MFStateChunkPtr::const_iterator chunksEnd = _mfChunks.end();
+    MFUnrecStateChunkPtr::const_iterator it        = _mfChunks.begin();
+    MFUnrecStateChunkPtr::const_iterator chunksEnd = _mfChunks.end();
 
     for(; it != chunksEnd && returnValue == false; ++it)
     {

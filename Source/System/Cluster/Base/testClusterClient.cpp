@@ -256,7 +256,7 @@ void prepareSceneGraph(NodePtrConstArg &node)
             }
         }
     }
-    for(MFNodePtr::const_iterator nI=node->getMFChildren()->begin();
+    for(MFUnrecNodePtr::const_iterator nI=node->getMFChildren()->begin();
         nI != node->getMFChildren()->end();
         ++nI)
     {

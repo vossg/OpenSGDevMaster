@@ -73,23 +73,26 @@
     typedef       CLASST * const CLASST##PtrConstArg;      \
     typedef const CLASST * const CLASST##ConstPtrConst;    \
     typedef       CLASST *       CLASST##PtrArg;           \
-    typedef const CLASST *       CLASST##ConstPtr;         \
-                                                           \
-    typedef       CLASST *       CLASST##UnrecRefPtr;      \
+    typedef const CLASST *       CLASST##ConstPtr;
 
 #define NEW_REFPTR
 
 #ifdef NEW_REFPTR
 
-#define TMP_INTERNAL_PTR(CLASST)                            \
-    typedef       TransitPtr< CLASST> ObjTransitPtr;        \
-    typedef       RefCountPtr<CLASST, RecordedRefCounts> ObjRefPtr;  \
-    typedef       RefCountPtr<CLASST, UnrecordedRefCounts> ObjUnrecPtr;  
+#define TMP_INTERNAL_PTR(CLASST)                                          \
+    typedef       TransitPtr< CLASST                     > ObjTransitPtr; \
+    typedef       RefCountPtr<CLASST, RecordedRefCounts  > ObjRefPtr;     \
+    typedef       RefCountPtr<CLASST, UnrecordedRefCounts> ObjUnrecPtr;   \
+    typedef       RefCountPtr<CLASST, WeakRefCounts      > ObjWeakPtr;  
 
-#define TMP_PTR(CLASST)                                     \
-    typedef       TransitPtr< CLASST> CLASST##TransitPtr;   \
-    typedef       RefCountPtr<CLASST, RecordedRefCounts> CLASST##RefPtr;  \
-    typedef       RefCountPtr<CLASST, UnrecordedRefCounts> CLASST##UnrecPtr;  
+#define TMP_PTR(CLASST)                                                   \
+    typedef       TransitPtr < CLASST             > CLASST##TransitPtr;   \
+    typedef       RefCountPtr< CLASST,                                    \
+                               RecordedRefCounts  > CLASST##RefPtr;       \
+    typedef       RefCountPtr< CLASST,                                    \
+                               UnrecordedRefCounts> CLASST##UnrecPtr;     \
+    typedef       RefCountPtr< CLASST,                                    \
+                               WeakRefCounts> CLASST##WeakPtr;  
 
 #else
 
@@ -192,6 +195,7 @@ struct ContainerChangeEntry;
 
 struct RecordedRefCounts;
 struct UnrecordedRefCounts;
+struct WeakRefCounts;
 
 template<class ObjT> 
 class TransitPtr;

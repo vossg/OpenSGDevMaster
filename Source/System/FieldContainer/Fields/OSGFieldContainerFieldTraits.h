@@ -185,7 +185,7 @@ template<> inline
 const Char8 *FieldTraits<FieldContainerPtr, 
                          0                >::getSName<RecordedRefCounts>(void)
 {
-    return "SFFieldContainerPtr"; 
+    return "SFRecFieldContainerPtr"; 
 }
 
 template<> inline
@@ -215,7 +215,7 @@ template<> inline
 const Char8 *FieldTraits<FieldContainerPtr, 
                          0               >::getMName<RecordedRefCounts>(void)
 {
-    return "MFFieldContainerPtr"; 
+    return "MFRecFieldContainerPtr"; 
 }
 
 template<> inline

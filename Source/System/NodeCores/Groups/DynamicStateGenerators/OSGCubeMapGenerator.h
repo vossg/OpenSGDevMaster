@@ -154,7 +154,8 @@ class OSG_GROUP_DLLMAPPING CubeMapGenerator : public CubeMapGeneratorBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    CubeMapGeneratorStageDataP setupStageData(RenderActionBase *pAction);
+    CubeMapGeneratorStageDataTransitPtr setupStageData(
+        RenderActionBase *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

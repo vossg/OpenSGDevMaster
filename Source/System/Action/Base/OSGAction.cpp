@@ -373,7 +373,7 @@ ActionBase::ResultE Action::recurse(NodePtrConstArg node)
     }
     else if(! _useNewList) // new list is empty, but not used?
     {
-        MFNodePtr::const_iterator it;
+        MFUnrecNodePtr::const_iterator it;
 
         for(  it  = node->getMFChildren()->begin(); 
               it != node->getMFChildren()->end(); 
@@ -601,13 +601,13 @@ ActionBase::ResultE traverse(const std::vector<NodePtr> &nodeList,
     return res;
 }
 
-ActionBase::ResultE traverse(const MFNodePtr            &nodeList, 
+ActionBase::ResultE traverse(const MFUnrecNodePtr       &nodeList, 
                                    TraverseEnterFunctor  func    )
 {
     ActionBase::ResultE res = ActionBase::Continue;
 
-    MFNodePtr::const_iterator it = nodeList.begin();
-    MFNodePtr::const_iterator en = nodeList.end  ();
+    MFUnrecNodePtr::const_iterator it = nodeList.begin();
+    MFUnrecNodePtr::const_iterator en = nodeList.end  ();
     
     for(; it != en; ++it)
     {
@@ -670,14 +670,14 @@ ActionBase::ResultE traverse(const std::vector<NodePtr> &nodeList,
     return res;
 }
 
-ActionBase::ResultE traverse(const MFNodePtr             &nodeList, 
+ActionBase::ResultE traverse(const MFUnrecNodePtr       &nodeList, 
                                    TraverseEnterFunctor  enter, 
                                    TraverseLeaveFunctor  leave )
 {
     ActionBase::ResultE res = ActionBase::Continue;
 
-    MFNodePtr::const_iterator it = nodeList.begin();
-    MFNodePtr::const_iterator en = nodeList.end  ();
+    MFUnrecNodePtr::const_iterator it = nodeList.begin();
+    MFUnrecNodePtr::const_iterator en = nodeList.end  ();
     
     for(; it != en; ++it)
     {

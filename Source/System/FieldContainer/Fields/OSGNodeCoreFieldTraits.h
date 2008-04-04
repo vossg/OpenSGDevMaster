@@ -93,7 +93,7 @@ struct FieldTraits<NodeCorePtr> :
 template<> inline
 const Char8 *FieldTraits<NodeCorePtr, 0>::getSName<RecordedRefCounts>(void)
 {
-    return "SFNodeCorePtr"; 
+    return "SFRecNodeCorePtr"; 
 }
 
 template<> inline
@@ -119,7 +119,7 @@ const Char8 *FieldTraits<NodeCorePtr, 0>::getSName<NoRefCounts>(void)
 template<> inline
 const Char8 *FieldTraits<NodeCorePtr, 0>::getMName<RecordedRefCounts>(void)
 {
-    return "MFNodeCorePtr"; 
+    return "MFRecNodeCorePtr"; 
 }
 
 template<> inline
