@@ -216,7 +216,7 @@ void MultiCoreBase::insertCore(UInt32                uiIndex,
 
     editMField(CoresFieldMask, _mfCores);
 
-    MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.begin();
+    MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.beginNC();
 
     //addRef(value);
 
@@ -274,7 +274,7 @@ void MultiCoreBase::subCore(UInt32 uiIndex)
     {
         editMField(CoresFieldMask, _mfCores);
 
-        MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.begin();
+        MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.beginNC();
 
         fieldIt += uiIndex;
 
@@ -292,7 +292,7 @@ void MultiCoreBase::subCore(NodeCorePtrConstArg value)
     {
         editMField(CoresFieldMask, _mfCores);
 
-        MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.begin();
+        MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.beginNC();
 
         fieldIt += iElemIdx;
 

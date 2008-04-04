@@ -273,7 +273,7 @@ void ChunkMaterialBase::insertIntoChunks(UInt32                uiIndex,
 
     editMField(ChunksFieldMask, _mfChunks);
 
-    MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+    MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.beginNC();
 
     //addRef(value);
 
@@ -331,7 +331,7 @@ void ChunkMaterialBase::removeFromChunks(UInt32 uiIndex)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.beginNC();
 
         fieldIt += uiIndex;
 
@@ -349,7 +349,7 @@ void ChunkMaterialBase::removeFromChunks(StateChunkPtrConstArg value)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.beginNC();
 
         fieldIt += iElemIdx;
 

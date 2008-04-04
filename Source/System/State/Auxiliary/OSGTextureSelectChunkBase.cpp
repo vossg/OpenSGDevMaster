@@ -269,7 +269,7 @@ void TextureSelectChunkBase::insertIntoTextures(UInt32                uiIndex,
 
     editMField(TexturesFieldMask, _mfTextures);
 
-    MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
+    MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.beginNC();
 
     //addRef(value);
 
@@ -327,7 +327,7 @@ void TextureSelectChunkBase::removeFromTextures(UInt32 uiIndex)
     {
         editMField(TexturesFieldMask, _mfTextures);
 
-        MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
+        MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.beginNC();
 
         fieldIt += uiIndex;
 
@@ -345,7 +345,7 @@ void TextureSelectChunkBase::removeFromTextures(TextureBaseChunkPtrConstArg valu
     {
         editMField(TexturesFieldMask, _mfTextures);
 
-        MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
+        MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.beginNC();
 
         fieldIt += iElemIdx;
 

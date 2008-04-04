@@ -218,7 +218,7 @@ void StateBase::insertIntoChunks(UInt32                uiIndex,
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+    MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.beginNC();
 
     //addRef(value);
 
@@ -276,7 +276,7 @@ void StateBase::removeFromChunks(UInt32 uiIndex)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.beginNC();
 
         fieldIt += uiIndex;
 
@@ -295,7 +295,7 @@ void StateBase::removeFromChunks(StateChunkPtrConstArg value)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.beginNC();
 
         fieldIt += iElemIdx;
 
@@ -309,8 +309,8 @@ void StateBase::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
-    MFUnrecStateChunkPtr::iterator       fieldIt  = _mfChunks.begin();
-    MFUnrecStateChunkPtr::const_iterator fieldEnd = _mfChunks.end  ();
+    MFUnrecStateChunkPtr::iterator       fieldIt  = _mfChunks.beginNC();
+    MFUnrecStateChunkPtr::const_iterator fieldEnd = _mfChunks.end    ();
 
     while(fieldIt != fieldEnd)
     {

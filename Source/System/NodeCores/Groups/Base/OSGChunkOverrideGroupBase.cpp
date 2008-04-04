@@ -216,7 +216,7 @@ void ChunkOverrideGroupBase::insertIntoChunks(UInt32                uiIndex,
 
     editMField(ChunksFieldMask, _mfChunks);
 
-    MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+    MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.beginNC();
 
     //addRef(value);
 
@@ -274,7 +274,7 @@ void ChunkOverrideGroupBase::removeFromChunks(UInt32 uiIndex)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.beginNC();
 
         fieldIt += uiIndex;
 
@@ -292,7 +292,7 @@ void ChunkOverrideGroupBase::removeFromChunks(StateChunkPtrConstArg value)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin();
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.beginNC();
 
         fieldIt += iElemIdx;
 

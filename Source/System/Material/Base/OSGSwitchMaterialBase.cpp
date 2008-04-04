@@ -256,7 +256,7 @@ void SwitchMaterialBase::insertIntoMaterials(UInt32                uiIndex,
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
-    MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+    MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.beginNC();
 
     //addRef(value);
 
@@ -314,7 +314,7 @@ void SwitchMaterialBase::removeFromMaterials(UInt32 uiIndex)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.beginNC();
 
         fieldIt += uiIndex;
 
@@ -332,7 +332,7 @@ void SwitchMaterialBase::removeFromMaterials(MaterialPtrConstArg value)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin();
+        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.beginNC();
 
         fieldIt += iElemIdx;
 

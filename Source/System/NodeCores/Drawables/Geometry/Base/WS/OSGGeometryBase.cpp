@@ -462,7 +462,7 @@ void GeometryBase::insertIntoProperties(UInt32                uiIndex,
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
-    MFUnrecFieldContainerChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
+    MFUnrecFieldContainerChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.beginNC();
 
     //addRef(value);
 
@@ -520,7 +520,7 @@ void GeometryBase::removeFromProperties(UInt32 uiIndex)
     {
         editMField(PropertiesFieldMask, _mfProperties);
 
-        MFUnrecFieldContainerChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
+        MFUnrecFieldContainerChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.beginNC();
 
         fieldIt += uiIndex;
 
@@ -538,7 +538,7 @@ void GeometryBase::removeFromProperties(GeoVectorPropertyPtrConstArg value)
     {
         editMField(PropertiesFieldMask, _mfProperties);
 
-        MFUnrecFieldContainerChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
+        MFUnrecFieldContainerChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.beginNC();
 
         fieldIt += iElemIdx;
 
@@ -589,7 +589,7 @@ void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
-    MFUnrecFieldContainerChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
+    MFUnrecFieldContainerChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.beginNC();
 
     //addRef(value);
 
@@ -647,7 +647,7 @@ void GeometryBase::removeFromPropIndices(UInt32 uiIndex)
     {
         editMField(PropIndicesFieldMask, _mfPropIndices);
 
-        MFUnrecFieldContainerChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
+        MFUnrecFieldContainerChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.beginNC();
 
         fieldIt += uiIndex;
 
@@ -665,7 +665,7 @@ void GeometryBase::removeFromPropIndices(GeoIntegralPropertyPtrConstArg value)
     {
         editMField(PropIndicesFieldMask, _mfPropIndices);
 
-        MFUnrecFieldContainerChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
+        MFUnrecFieldContainerChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.beginNC();
 
         fieldIt += iElemIdx;
 
