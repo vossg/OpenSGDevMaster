@@ -103,6 +103,9 @@ public:
     
     std::string usage(void);
 
+protected:
+    virtual ~MaterialMergeGraphOp(void);
+
 private:
     Action::ResultE traverseEnter(NodePtrConstArg node);
     Action::ResultE traverseLeave(NodePtrConstArg node, Action::ResultE res);

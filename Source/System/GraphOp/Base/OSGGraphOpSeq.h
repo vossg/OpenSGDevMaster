@@ -51,10 +51,13 @@ OSG_BEGIN_NAMESPACE
 //! \ingroup GrpSystemRenderingBackend
 //! GraphOpSeq class
 
-class OSG_SYSTEM_DLLMAPPING GraphOpSeq
+class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
 {
     /*==========================  PUBLIC  =================================*/
-public:
+    
+  public:
+
+    typedef MemoryObject Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -69,13 +72,6 @@ public:
     
     GraphOpSeq(void);
     GraphOpSeq(const std::string params);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    ~GraphOpSeq(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -98,10 +94,19 @@ public:
     bool        removeGraphOp  (UInt16 index                );
 
     /*=========================  PROTECTED  ===============================*/
-protected:    
 
+  protected:    
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    ~GraphOpSeq(void);
+
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-private:
+  private:
     std::vector<GraphOp *> _GraphOperators;
     std::list<std::string> _excludeNames;
 

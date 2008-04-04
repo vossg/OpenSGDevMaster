@@ -145,6 +145,8 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
 
     /*-------------------------- comparison ---------------------------------*/
 
+    static bool staticInit(void);
+
     /*-------------------------- comparison ---------------------------------*/
 
   protected:
@@ -211,6 +213,7 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     static bool                    _isOccStateCreated;
     static StatePtr                _testingStatePtr;
     static State                  *_testingState;
+
 
     GLuint* _testSamples;
     UInt32  _numTestSamples;

@@ -59,7 +59,7 @@ Removes nodes of size smaller than a given threshold from the scene.
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the().registerOp(new PruneGraphOp);
+    GraphOpFactory::the()->registerOp(new PruneGraphOp);
     return true;
 }
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
@@ -68,6 +68,10 @@ PruneGraphOp::PruneGraphOp(float size, Method method, const char* name)
     : GraphOp(name)
     , _size(size)
     , _method(method)
+{
+}
+
+PruneGraphOp::~PruneGraphOp(void)
 {
 }
 

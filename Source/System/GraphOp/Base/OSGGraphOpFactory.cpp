@@ -43,9 +43,13 @@
 
 #include <OSGGraphOpFactory.h>
 
-OSG_USING_NAMESPACE
+#include "OSGSingletonHolder.ins"
 
-GraphOpFactory *GraphOpFactory::_the=NULL;
+OSG_BEGIN_NAMESPACE
+
+OSG_SINGLETON_INST(GraphOpFactoryBase)
+
+template class SingletonHolder<GraphOpFactoryBase>;
 
 /***************************************************************************\
  *                            Description                                  *
@@ -67,51 +71,90 @@ A base class used to traverse geometries.
 \*-------------------------------------------------------------------------*/
 
 
-void GraphOpFactory::registerOp(GraphOp* prototype)
+void GraphOpFactoryBase::registerOp(GraphOp* prototype)
 {
-    _typeMap[prototype->getName()]=prototype;
+    MapIt iIt = _typeMap.find(prototype->getName());
+
+    if(iIt != _typeMap.end())
+    {
+        addRef(prototype);
+        subRef(iIt->second);
+
+        iIt->second = prototype;
+    }
+    else
+    {
+        _typeMap[prototype->getName()] = prototype;
+
+        addRef(prototype);
+    }
 }
 
-void GraphOpFactory::unRegisterOp(GraphOp* prototype)
+void GraphOpFactoryBase::unRegisterOp(GraphOp* prototype)
 {
     unRegisterOp(prototype->getName().c_str());
 }
 
-void GraphOpFactory::unRegisterOp(const char* name)
+void GraphOpFactoryBase::unRegisterOp(const char* name)
 {
-    _typeMap.erase(name);
+    MapIt iIt = _typeMap.find(name);
+    
+    if(iIt != _typeMap.end())
+    {
+        subRef(iIt->second);
+
+        _typeMap.erase(iIt);
+    }
 }
     
-GraphOp *GraphOpFactory::create(const char* name)
+GraphOp *GraphOpFactoryBase::create(const char* name)
 {
-    GraphOp *proto = _typeMap[name];     
-    if (proto != NULL)
-        return proto->create();
+    iterator iIt = _typeMap.find(name);
+    
+    if(iIt != _typeMap.end())
+    {
+        if(iIt->second != NULL)
+            return iIt->second->create();
+        else
+            return NULL;
+    }
     else
+    {
         return NULL;
+    }
 }
 
-GraphOpFactory& GraphOpFactory::the()
+GraphOpFactoryBase::iterator GraphOpFactoryBase::begin()
 {
-    if(_the == NULL)
-        _the=new GraphOpFactory();
-    return *_the;
+    return _typeMap.begin();
 }
 
-GraphOpFactory::iterator GraphOpFactory::begin()
+GraphOpFactoryBase::iterator GraphOpFactoryBase::end()
 {
-    return _typeMap.begin();;
-}
-
-GraphOpFactory::iterator GraphOpFactory::end()
-{
-    return _typeMap.end();;
+    return _typeMap.end();
 }
 
 /*-------------------------------------------------------------------------*\
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-GraphOpFactory::GraphOpFactory()
+GraphOpFactoryBase::GraphOpFactoryBase()
 {
 }
+
+GraphOpFactoryBase::~GraphOpFactoryBase(void)
+{
+    MapIt    iIt  = _typeMap.begin();
+    iterator iEnd = _typeMap.end  ();
+
+    while(iIt != iEnd)
+    {
+        subRef(iIt->second);
+
+        iIt->second = NULL;
+
+        ++iIt;
+    }
+}
+
+OSG_END_NAMESPACE

@@ -48,7 +48,7 @@ OSG_USING_NAMESPACE
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the().registerOp(new MakeTransparentGraphOp);
+    GraphOpFactory::the()->registerOp(new MakeTransparentGraphOp);
     return true;
 }
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
@@ -56,6 +56,10 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 MakeTransparentGraphOp::MakeTransparentGraphOp(const char* name)
     : GraphOp(name),
       _transparency(0.5)
+{
+}
+
+MakeTransparentGraphOp::~MakeTransparentGraphOp(void)
 {
 }
 

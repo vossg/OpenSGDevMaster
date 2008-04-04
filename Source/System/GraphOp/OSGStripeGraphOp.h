@@ -75,13 +75,6 @@ public:
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    virtual ~StripeGraphOp(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
     
@@ -97,6 +90,13 @@ protected:
     bool travNodeEnter(NodePtr node);
     bool travNodeLeave(NodePtr node);       
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    virtual ~StripeGraphOp(void);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 private:
 

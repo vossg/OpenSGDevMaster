@@ -72,7 +72,7 @@ A class used to optimize geometries a bit.
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the().registerOp(new SplitGraphOp);
+    GraphOpFactory::the()->registerOp(new SplitGraphOp);
     return true;
 }
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
@@ -306,7 +306,7 @@ Action::ResultE SplitGraphOp::traverseLeave(NodePtrConstArg node, Action::Result
     
     for ( ; it != en; ++it )
     {
-        addRef(*it);
+        OSG::addRef(*it);
         node->subChild(*it);
     }
     return res;

@@ -630,7 +630,7 @@ GraphOpSeq *SceneFileHandlerBase::getDefaultGraphOp(void)
 
 void SceneFileHandlerBase::setDefaultGraphOp(GraphOpSeq *graphOpSeq)
 {
-    _defaultgraphOpSeq = graphOpSeq;
+    setRefd(_defaultgraphOpSeq, graphOpSeq);
 }
 
 /*! Set the options for the loader of the given file type.
@@ -817,6 +817,7 @@ bool SceneFileHandlerBase::subSceneFileType(SceneFileType &fileType)
 static bool initializeDefaultGraphOps(void)
 {
     GraphOpSeq *ops = new GraphOpSeq;
+
     ops->setGraphOps(
             "Stripe() SharePtr(includes=Material,StateChunk)");
 
@@ -824,6 +825,15 @@ static bool initializeDefaultGraphOps(void)
     
     the->setDefaultGraphOp(ops);
     
+    return true;
+}
+
+static bool terminateDefaultGraphOps(void)
+{
+    SceneFileHandlerBase *the = SceneFileHandler::the();
+    
+    the->setDefaultGraphOp(NULL);
+
     return true;
 }
 
@@ -842,6 +852,7 @@ SceneFileHandlerBase::SceneFileHandlerBase(void) :
     _progressData.is = NULL;
 
     addPreFactoryInitFunction(initializeDefaultGraphOps);
+    addPreFactoryExitFunction(terminateDefaultGraphOps );
 }
 
 // read progress stuff.

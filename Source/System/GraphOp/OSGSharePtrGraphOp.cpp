@@ -68,7 +68,7 @@ A class used to create indexed geometries.
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the().registerOp(new SharePtrGraphOp);
+    GraphOpFactory::the()->registerOp(new SharePtrGraphOp);
     return true;
 }
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);

@@ -104,6 +104,8 @@ public:
     void setParams(const std::string params);
     
     std::string usage(void);
+protected:
+    virtual ~MakeTransparentGraphOp(void);
 
 private:
     Action::ResultE traverseEnter(NodePtrConstArg node);

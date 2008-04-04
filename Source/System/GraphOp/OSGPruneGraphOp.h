@@ -68,6 +68,9 @@ public:
     void setParams(const std::string params);
     
     std::string usage(void);
+protected:
+
+    virtual ~PruneGraphOp(void);
 
 private:
     Action::ResultE traverseEnter(NodePtrConstArg node);

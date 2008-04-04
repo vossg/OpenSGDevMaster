@@ -45,13 +45,14 @@
 
 #include "OSGAction.h"
 #include "OSGGraphOp.h"
+#include "OSGSingletonHolder.h"
 
 OSG_BEGIN_NAMESPACE
 
 //! \ingroup GrpSystemRenderingBackend
 //! GraphOpSeq class
 
-class OSG_SYSTEM_DLLMAPPING GraphOpFactory
+class OSG_SYSTEM_DLLMAPPING GraphOpFactoryBase
 {
   public:
         
@@ -61,8 +62,6 @@ class OSG_SYSTEM_DLLMAPPING GraphOpFactory
         
     GraphOp *create(const char* name);
 
-    static GraphOpFactory& the();
-    
     
     /* map access */
     typedef std::map<std::string, GraphOp*>::const_iterator iterator;
@@ -72,14 +71,20 @@ class OSG_SYSTEM_DLLMAPPING GraphOpFactory
     
   private:
 
+    template <class SingletonT>
+    friend class SingletonHolder;
+
+    typedef std::map<std::string, GraphOp*>::iterator MapIt;
+
     typedef std::pair <std::string, GraphOp*> GraphOpPair;
         
-    GraphOpFactory(void);
-
-    static GraphOpFactory *_the;
+    GraphOpFactoryBase(void);
+    ~GraphOpFactoryBase(void);
 
     std::map<std::string, GraphOp*> _typeMap;
 };
+
+typedef SingletonHolder<GraphOpFactoryBase> GraphOpFactory;
 
 typedef GraphOpFactory *GraphOpFactoryP;
 

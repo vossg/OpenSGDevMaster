@@ -233,6 +233,9 @@ void FrameBufferObject::initMethod(InitPhase ePhase)
 
 void FrameBufferObject::onCreate(const FrameBufferObject *source)
 {
+    if(GlobalSystemState == Startup)
+        return;
+
     setGLId(               
         Window::registerGLObject(
             boost::bind(&FrameBufferObject::handleGL, this, 

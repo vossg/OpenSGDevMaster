@@ -183,6 +183,9 @@ void RenderBuffer::initMethod(InitPhase ePhase)
 
 void RenderBuffer::onCreate(const RenderBuffer *source)
 {
+    if(GlobalSystemState == Startup)
+        return;
+
     setGLId(               
         Window::registerGLObject(
             boost::bind(&RenderBuffer::handleGL, this, 

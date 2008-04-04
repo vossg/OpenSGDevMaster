@@ -63,7 +63,7 @@ A base class used to traverse geometries.
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the().registerOp(new VerifyGraphOp);
+    GraphOpFactory::the()->registerOp(new VerifyGraphOp);
     return true;
 }
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);

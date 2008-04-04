@@ -69,7 +69,10 @@ A base class used to traverse geometries.
 
 /*------------- constructors & destructors --------------------------------*/
 
-GraphOpSeq::GraphOpSeq(): _GraphOperators(), _excludeNames()
+GraphOpSeq::GraphOpSeq(): 
+    Inherited(),
+    _GraphOperators(), 
+    _excludeNames()
 {
 }
 
@@ -81,6 +84,7 @@ GraphOpSeq::GraphOpSeq(const std::string params):
 
 GraphOpSeq::~GraphOpSeq()
 {
+    clearGraphOps();
 }
 
 bool GraphOpSeq::run(NodePtr &root)
@@ -140,7 +144,7 @@ void GraphOpSeq::setGraphOps(const std::string params)
         UInt16 pos = extractStr(command, 0, "(", goname);
         FDEBUG(("GraphOpSeq::setGraphOps: goname: %s\n",goname.c_str()));
         
-        GraphOp * go = GraphOpFactory::the().create(goname.c_str());
+        GraphOp * go = GraphOpFactory::the()->create(goname.c_str());
         if (go == NULL)
         {
             if (goname=="Exclude" || goname=="AddExclude")
@@ -176,6 +180,7 @@ void GraphOpSeq::setGraphOps(const std::string params)
                 go->addToExcludeList(*it);
                 FDEBUG(("GraphOpSeq::setGraphOps: Added to op: %s\n",(*it).c_str()));
             }
+            OSG::addRef(go);
             _GraphOperators.push_back(go);
         }
     }
@@ -183,15 +188,18 @@ void GraphOpSeq::setGraphOps(const std::string params)
 
 void GraphOpSeq::addGraphOp(GraphOp *op)
 {
+    OSG::addRef(op);
     _GraphOperators.push_back(op);
 }
 
 void GraphOpSeq::removeGraphOp(GraphOp *op)
 {
     std::vector<GraphOp *>::iterator it=_GraphOperators.begin();
+
     for (; it!=_GraphOperators.end(); ++it)
         if (*it==op)
         {
+            OSG::subRef(op);
             _GraphOperators.erase(it);
             break;
         }
@@ -199,6 +207,15 @@ void GraphOpSeq::removeGraphOp(GraphOp *op)
 
 void GraphOpSeq::clearGraphOps(void)
 {
+    std::vector<GraphOp *>::iterator it = _GraphOperators.begin();
+    std::vector<GraphOp *>::iterator en = _GraphOperators.end();
+
+    while(it != en)
+    {
+        OSG::subRef(*it);
+
+        ++it;
+    }
     _GraphOperators.clear();
 }
 
@@ -219,6 +236,8 @@ bool GraphOpSeq::setGraphOp(UInt16 index, GraphOp *op)
 {
     if (index<getSize())
     {
+        OSG::addRef(op);
+        OSG::subRef(_GraphOperators[index]);
         _GraphOperators[index]=op;
         return true;
     }
@@ -230,6 +249,7 @@ bool GraphOpSeq::removeGraphOp(UInt16 index)
 {
     if (index<getSize())
     {
+        OSG::subRef(_GraphOperators[index]);
         _GraphOperators.erase(_GraphOperators.begin()+index);
         return true;
     }

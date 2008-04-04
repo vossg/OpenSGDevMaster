@@ -64,7 +64,8 @@ public:
     
     // Individual sets
     void setFilter(const OSG::BitVector &filter);
-
+protected:
+    virtual ~GeoTypeGraphOp(void);
 private:
     bool travNodeEnter(NodePtr node);
     bool travNodeLeave(NodePtr node);

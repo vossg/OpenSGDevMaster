@@ -116,15 +116,18 @@ typedef void (OSG_APIENTRY *BeginQueryT)(GLenum target, GLuint id);
 typedef void (OSG_APIENTRY *EndQueryT)(GLenum target); 
 
 
-/*-------------------------------------------------------------------------*/
-/*                            Constructors                                 */
+//! Register the GraphOp with the factory
+static bool initOccTreeBuilder(void)
+{
+    addPostFactoryInitFunction(&OcclusionCullingTreeBuilder::staticInit);
 
+    return true;
+}
 
-OcclusionCullingTreeBuilder::OcclusionCullingTreeBuilder(void)
-: uNumNodes (0),
-  _isOccSetup(false),
-  _currSample(0),
-  _numTestSamples(0)
+static OSG::StaticInitFuncWrapper registerOccTreeInitWrapper(
+    initOccTreeBuilder);
+
+bool OcclusionCullingTreeBuilder::staticInit(void)
 {
     _extOcclusionQuery = Window::registerExtension("GL_ARB_occlusion_query");
     
@@ -136,7 +139,21 @@ OcclusionCullingTreeBuilder::OcclusionCullingTreeBuilder(void)
             (OSG_DLSYM_UNDERSCORE"glEndQueryARB",          _extOcclusionQuery);
     _funcGetQueryObjectuivARB = Window::registerFunction
             (OSG_DLSYM_UNDERSCORE"glGetQueryObjectuivARB", _extOcclusionQuery);
-      
+
+    return true;
+}
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+
+OcclusionCullingTreeBuilder::OcclusionCullingTreeBuilder(void)
+: uNumNodes (0),
+  _isOccSetup(false),
+  _currSample(0),
+  _numTestSamples(0)
+{
+     
     _buckets.clear();
     _buckets.resize(_nBuckets);   
     _bucketsWork.clear();

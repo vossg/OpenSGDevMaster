@@ -74,13 +74,6 @@ public:
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    virtual ~VerifyGraphOp(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
@@ -100,6 +93,13 @@ protected:
     Action::ResultE traverseEnter(NodePtrConstArg node);
     Action::ResultE traverseLeave(NodePtrConstArg node, Action::ResultE res);
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    virtual ~VerifyGraphOp(void);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 private:
 

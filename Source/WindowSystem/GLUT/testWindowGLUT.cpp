@@ -402,7 +402,7 @@ int main (int argc, char **argv)
     }
 #endif
 
-    GraphOp *op = GraphOpFactory::the().create("Stripe");
+    GraphOp *op = GraphOpFactory::the()->create("Stripe");
 
     op->traverse(file);
 //   createOptimizedPrimitives(pGeo);

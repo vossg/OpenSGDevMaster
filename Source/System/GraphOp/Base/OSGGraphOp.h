@@ -46,6 +46,7 @@
 #include "OSGUtilDef.h"
 #include "OSGAction.h"
 #include "OSGBaseTypes.h"
+#include "OSGMemoryObject.h"
 
 #include <map>
 #include <string>
@@ -55,10 +56,12 @@ OSG_BEGIN_NAMESPACE
 //! \ingroup GrpSystemRenderingBackend
 //! GraphOp class
 
-class OSG_SYSTEM_DLLMAPPING GraphOp
+class OSG_SYSTEM_DLLMAPPING GraphOp : public MemoryObject
 {
     /*==========================  PUBLIC  =================================*/
 public:
+
+    typedef MemoryObject Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -74,13 +77,6 @@ public:
     GraphOp(const char* name = "");
 
     virtual GraphOp *create(void) = 0;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    virtual ~GraphOp(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -149,6 +145,13 @@ protected:
         valuesT _values;
         usedT _used;    
     };
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    virtual ~GraphOp(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

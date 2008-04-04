@@ -61,7 +61,7 @@ Merges equivalent materials in a scene.
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the().registerOp(new MaterialMergeGraphOp);
+    GraphOpFactory::the()->registerOp(new MaterialMergeGraphOp);
     return true;
 }
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
@@ -69,6 +69,10 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
 MaterialMergeGraphOp::MaterialMergeGraphOp(const char* name)
     : GraphOp(name)
+{
+}
+
+MaterialMergeGraphOp::~MaterialMergeGraphOp(void)
 {
 }
 

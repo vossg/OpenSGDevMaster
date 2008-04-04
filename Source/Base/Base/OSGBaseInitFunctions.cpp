@@ -232,7 +232,7 @@ bool CompileConfig::compare(const CompileConfig &c)
 /*! Version string that is composed of each library's version 
     contributions
 */
-static std::vector<std::string>   osgLibraryVersions;
+static std::vector<std::string>   *osgLibraryVersions = NULL;
 
 /*! \ingroup GrpBaseBaseInitExit
  */
@@ -460,7 +460,10 @@ void preloadSharedObject(const TChar *szName)
 OSG_BASE_DLLMAPPING
 void addLibraryVersion(const Char8 *szName)
 {
-    osgLibraryVersions.push_back(szName);
+    if(osgLibraryVersions == NULL)
+        osgLibraryVersions = new std::vector<std::string>;
+
+    osgLibraryVersions->push_back(szName);
 }
 
 /*! Initializes the system and performs startup tasks registered with
@@ -613,9 +616,9 @@ bool osgInit(Int32,
 #endif
 
     FNOTICE(("osgInit: Main Version:        %s\n", OSG_VERSION_STRING));
-    for(UInt16 i = 0; i < osgLibraryVersions.size(); ++i)
+    for(UInt16 i = 0; i < osgLibraryVersions->size(); ++i)
     {
-        FNOTICE(("osgInit: %s\n", osgLibraryVersions[i].c_str()));
+        FNOTICE(("osgInit: %s\n", (*osgLibraryVersions)[i].c_str()));
     }
     
     //SharedObjectHandler::the()->dump();
@@ -796,6 +799,8 @@ bool osgExit(void)
 
     SharedObjectHandler::the()->terminate();
     Log::terminate();
+
+    delete osgLibraryVersions;
 
     return returnValue;
 }

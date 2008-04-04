@@ -71,13 +71,6 @@ public:
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    virtual ~SingleTypeGraphOp(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
     
@@ -87,9 +80,16 @@ public:
     /*=========================  PROTECTED  ===============================*/
 protected:    
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    virtual ~SingleTypeGraphOp(void);
+
     virtual bool travNodeEnter(NodePtr node) = 0; // only called for Type type objects 
     virtual bool travNodeLeave(NodePtr node) = 0; // only called for Type type objects 
         
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 private:
     Action::ResultE traverseEnter(NodePtrConstArg node);

@@ -32,7 +32,7 @@ void ModelRequest::execute()
    vop->setVerbose(true);
    NodePtr node(mModel);
    vop->traverse(node);
-   delete vop;
+   subRef(vop);
 #endif
 }
 

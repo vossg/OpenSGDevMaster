@@ -62,7 +62,7 @@ A base class used to traverse geometries.
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the().registerOp(new StripeGraphOp);
+    GraphOpFactory::the()->registerOp(new StripeGraphOp);
     return true;
 }
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);

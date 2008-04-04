@@ -75,13 +75,6 @@ public:
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    virtual ~VerifyGeoGraphOp(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
     
@@ -98,6 +91,13 @@ protected:
     bool travNodeEnter(NodePtr node);
     bool travNodeLeave(NodePtr node);       
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    virtual ~VerifyGeoGraphOp(void);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 private:
 
