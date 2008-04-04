@@ -649,14 +649,16 @@ void StencilChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-StencilChunkPtr StencilChunkBase::create(void)
+StencilChunkTransitPtr StencilChunkBase::create(void)
 {
-    StencilChunkPtr fc;
+    StencilChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<StencilChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<StencilChunk>(tmpPtr);
     }
 
     return fc;
@@ -672,11 +674,13 @@ StencilChunkPtr StencilChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr StencilChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr StencilChunkBase::shallowCopy(void) const
 {
-    StencilChunkPtr returnValue;
+    StencilChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const StencilChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const StencilChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

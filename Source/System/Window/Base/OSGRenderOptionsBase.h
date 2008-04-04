@@ -508,15 +508,15 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  RenderOptionsPtr create     (void);
-    static  RenderOptionsPtr createEmpty(void);
+    static  RenderOptionsTransitPtr create     (void);
+    static  RenderOptionsPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

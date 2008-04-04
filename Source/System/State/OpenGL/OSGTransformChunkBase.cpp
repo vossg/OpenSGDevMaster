@@ -231,14 +231,16 @@ void TransformChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TransformChunkPtr TransformChunkBase::create(void)
+TransformChunkTransitPtr TransformChunkBase::create(void)
 {
-    TransformChunkPtr fc;
+    TransformChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<TransformChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TransformChunk>(tmpPtr);
     }
 
     return fc;
@@ -254,11 +256,13 @@ TransformChunkPtr TransformChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr TransformChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr TransformChunkBase::shallowCopy(void) const
 {
-    TransformChunkPtr returnValue;
+    TransformChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const TransformChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const TransformChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

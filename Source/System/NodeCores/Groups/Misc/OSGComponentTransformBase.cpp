@@ -435,14 +435,16 @@ void ComponentTransformBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ComponentTransformPtr ComponentTransformBase::create(void)
+ComponentTransformTransitPtr ComponentTransformBase::create(void)
 {
-    ComponentTransformPtr fc;
+    ComponentTransformTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ComponentTransform::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ComponentTransform>(tmpPtr);
     }
 
     return fc;
@@ -458,11 +460,13 @@ ComponentTransformPtr ComponentTransformBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ComponentTransformBase::shallowCopy(void) const
+FieldContainerTransitPtr ComponentTransformBase::shallowCopy(void) const
 {
-    ComponentTransformPtr returnValue;
+    ComponentTransformPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ComponentTransform *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ComponentTransform *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

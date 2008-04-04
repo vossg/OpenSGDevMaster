@@ -232,15 +232,15 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleTexturedMaterialPtr create     (void);
-    static  SimpleTexturedMaterialPtr createEmpty(void);
+    static  SimpleTexturedMaterialTransitPtr create     (void);
+    static  SimpleTexturedMaterialPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

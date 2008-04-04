@@ -275,7 +275,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
 #endif
                   MFVec3f             *editMFBackTexCoord   (void);
             const MFVec3f             *getMFBackTexCoord    (void) const;
-            const SFUncountedNodePtr  *getSFBeacon          (void) const;
+            const SFWeakNodePtr       *getSFBeacon          (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -566,15 +566,15 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SkyBackgroundPtr create     (void);
-    static  SkyBackgroundPtr createEmpty(void);
+    static  SkyBackgroundTransitPtr create     (void);
+    static  SkyBackgroundPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -608,7 +608,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     MFVec3f           _mfLeftTexCoord;
     MFVec3f           _mfFrontTexCoord;
     MFVec3f           _mfBackTexCoord;
-    SFUncountedNodePtr _sfBeacon;
+    SFWeakNodePtr     _sfBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

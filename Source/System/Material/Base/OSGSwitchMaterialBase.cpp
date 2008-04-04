@@ -409,14 +409,16 @@ void SwitchMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SwitchMaterialPtr SwitchMaterialBase::create(void)
+SwitchMaterialTransitPtr SwitchMaterialBase::create(void)
 {
-    SwitchMaterialPtr fc;
+    SwitchMaterialTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<SwitchMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SwitchMaterial>(tmpPtr);
     }
 
     return fc;
@@ -432,11 +434,13 @@ SwitchMaterialPtr SwitchMaterialBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SwitchMaterialBase::shallowCopy(void) const
+FieldContainerTransitPtr SwitchMaterialBase::shallowCopy(void) const
 {
-    SwitchMaterialPtr returnValue;
+    SwitchMaterialPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const SwitchMaterial *>(this));
+    newPtr(tmpPtr, dynamic_cast<const SwitchMaterial *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

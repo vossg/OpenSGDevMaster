@@ -389,15 +389,15 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ClusterWindowPtr create     (void);
-    static  ClusterWindowPtr createEmpty(void);
+    static  ClusterWindowTransitPtr create     (void);
+    static  ClusterWindowPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

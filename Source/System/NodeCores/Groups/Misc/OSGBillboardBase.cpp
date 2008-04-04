@@ -445,14 +445,16 @@ void BillboardBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-BillboardPtr BillboardBase::create(void)
+BillboardTransitPtr BillboardBase::create(void)
 {
-    BillboardPtr fc;
+    BillboardTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<Billboard::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Billboard>(tmpPtr);
     }
 
     return fc;
@@ -468,11 +470,13 @@ BillboardPtr BillboardBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr BillboardBase::shallowCopy(void) const
+FieldContainerTransitPtr BillboardBase::shallowCopy(void) const
 {
-    BillboardPtr returnValue;
+    BillboardPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const Billboard *>(this));
+    newPtr(tmpPtr, dynamic_cast<const Billboard *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

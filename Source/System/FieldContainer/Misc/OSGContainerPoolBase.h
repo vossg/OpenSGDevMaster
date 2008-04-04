@@ -194,15 +194,15 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ContainerPoolPtr create     (void);
-    static  ContainerPoolPtr createEmpty(void);
+    static  ContainerPoolTransitPtr create     (void);
+    static  ContainerPoolPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

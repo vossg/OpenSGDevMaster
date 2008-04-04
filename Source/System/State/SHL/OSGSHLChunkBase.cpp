@@ -706,14 +706,16 @@ void SHLChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SHLChunkPtr SHLChunkBase::create(void)
+SHLChunkTransitPtr SHLChunkBase::create(void)
 {
-    SHLChunkPtr fc;
+    SHLChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<SHLChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SHLChunk>(tmpPtr);
     }
 
     return fc;
@@ -729,11 +731,13 @@ SHLChunkPtr SHLChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SHLChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr SHLChunkBase::shallowCopy(void) const
 {
-    SHLChunkPtr returnValue;
+    SHLChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const SHLChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const SHLChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

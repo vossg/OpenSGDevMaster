@@ -202,15 +202,15 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ParallelComposerPtr create     (void);
-    static  ParallelComposerPtr createEmpty(void);
+    static  ParallelComposerTransitPtr create     (void);
+    static  ParallelComposerPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -856,14 +856,16 @@ void PolygonForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-PolygonForegroundPtr PolygonForegroundBase::create(void)
+PolygonForegroundTransitPtr PolygonForegroundBase::create(void)
 {
-    PolygonForegroundPtr fc;
+    PolygonForegroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<PolygonForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<PolygonForeground>(tmpPtr);
     }
 
     return fc;
@@ -879,11 +881,13 @@ PolygonForegroundPtr PolygonForegroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr PolygonForegroundBase::shallowCopy(void) const
+FieldContainerTransitPtr PolygonForegroundBase::shallowCopy(void) const
 {
-    PolygonForegroundPtr returnValue;
+    PolygonForegroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const PolygonForeground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const PolygonForeground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

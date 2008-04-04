@@ -1343,14 +1343,16 @@ void RenderOptionsBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-RenderOptionsPtr RenderOptionsBase::create(void)
+RenderOptionsTransitPtr RenderOptionsBase::create(void)
 {
-    RenderOptionsPtr fc;
+    RenderOptionsTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<RenderOptions::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<RenderOptions>(tmpPtr);
     }
 
     return fc;
@@ -1366,11 +1368,13 @@ RenderOptionsPtr RenderOptionsBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr RenderOptionsBase::shallowCopy(void) const
+FieldContainerTransitPtr RenderOptionsBase::shallowCopy(void) const
 {
-    RenderOptionsPtr returnValue;
+    RenderOptionsPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const RenderOptions *>(this));
+    newPtr(tmpPtr, dynamic_cast<const RenderOptions *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

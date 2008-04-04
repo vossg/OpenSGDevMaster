@@ -390,14 +390,16 @@ void PipelineComposerBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-PipelineComposerPtr PipelineComposerBase::create(void)
+PipelineComposerTransitPtr PipelineComposerBase::create(void)
 {
-    PipelineComposerPtr fc;
+    PipelineComposerTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<PipelineComposer::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<PipelineComposer>(tmpPtr);
     }
 
     return fc;
@@ -413,11 +415,13 @@ PipelineComposerPtr PipelineComposerBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr PipelineComposerBase::shallowCopy(void) const
+FieldContainerTransitPtr PipelineComposerBase::shallowCopy(void) const
 {
-    PipelineComposerPtr returnValue;
+    PipelineComposerPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const PipelineComposer *>(this));
+    newPtr(tmpPtr, dynamic_cast<const PipelineComposer *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

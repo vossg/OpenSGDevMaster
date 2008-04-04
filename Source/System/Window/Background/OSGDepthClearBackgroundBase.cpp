@@ -231,14 +231,16 @@ void DepthClearBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-DepthClearBackgroundPtr DepthClearBackgroundBase::create(void)
+DepthClearBackgroundTransitPtr DepthClearBackgroundBase::create(void)
 {
-    DepthClearBackgroundPtr fc;
+    DepthClearBackgroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<DepthClearBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<DepthClearBackground>(tmpPtr);
     }
 
     return fc;
@@ -254,11 +256,13 @@ DepthClearBackgroundPtr DepthClearBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr DepthClearBackgroundBase::shallowCopy(void) const
+FieldContainerTransitPtr DepthClearBackgroundBase::shallowCopy(void) const
 {
-    DepthClearBackgroundPtr returnValue;
+    DepthClearBackgroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const DepthClearBackground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const DepthClearBackground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

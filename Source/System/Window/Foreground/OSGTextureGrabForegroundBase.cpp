@@ -393,14 +393,16 @@ void TextureGrabForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TextureGrabForegroundPtr TextureGrabForegroundBase::create(void)
+TextureGrabForegroundTransitPtr TextureGrabForegroundBase::create(void)
 {
-    TextureGrabForegroundPtr fc;
+    TextureGrabForegroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<TextureGrabForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TextureGrabForeground>(tmpPtr);
     }
 
     return fc;
@@ -416,11 +418,13 @@ TextureGrabForegroundPtr TextureGrabForegroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr TextureGrabForegroundBase::shallowCopy(void) const
+FieldContainerTransitPtr TextureGrabForegroundBase::shallowCopy(void) const
 {
-    TextureGrabForegroundPtr returnValue;
+    TextureGrabForegroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const TextureGrabForeground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const TextureGrabForeground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

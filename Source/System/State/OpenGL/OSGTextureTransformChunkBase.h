@@ -168,15 +168,15 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureTransformChunkPtr create     (void);
-    static  TextureTransformChunkPtr createEmpty(void);
+    static  TextureTransformChunkTransitPtr create     (void);
+    static  TextureTransformChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

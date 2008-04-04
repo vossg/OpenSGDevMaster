@@ -463,14 +463,16 @@ void GradientBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-GradientBackgroundPtr GradientBackgroundBase::create(void)
+GradientBackgroundTransitPtr GradientBackgroundBase::create(void)
 {
-    GradientBackgroundPtr fc;
+    GradientBackgroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<GradientBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<GradientBackground>(tmpPtr);
     }
 
     return fc;
@@ -486,11 +488,13 @@ GradientBackgroundPtr GradientBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr GradientBackgroundBase::shallowCopy(void) const
+FieldContainerTransitPtr GradientBackgroundBase::shallowCopy(void) const
 {
-    GradientBackgroundPtr returnValue;
+    GradientBackgroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const GradientBackground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const GradientBackground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

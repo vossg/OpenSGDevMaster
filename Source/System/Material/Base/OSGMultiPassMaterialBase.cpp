@@ -356,14 +356,16 @@ void MultiPassMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-MultiPassMaterialPtr MultiPassMaterialBase::create(void)
+MultiPassMaterialTransitPtr MultiPassMaterialBase::create(void)
 {
-    MultiPassMaterialPtr fc;
+    MultiPassMaterialTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<MultiPassMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<MultiPassMaterial>(tmpPtr);
     }
 
     return fc;
@@ -379,11 +381,13 @@ MultiPassMaterialPtr MultiPassMaterialBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr MultiPassMaterialBase::shallowCopy(void) const
+FieldContainerTransitPtr MultiPassMaterialBase::shallowCopy(void) const
 {
-    MultiPassMaterialPtr returnValue;
+    MultiPassMaterialPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const MultiPassMaterial *>(this));
+    newPtr(tmpPtr, dynamic_cast<const MultiPassMaterial *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

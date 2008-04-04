@@ -1667,14 +1667,16 @@ void QuadTreeTerrainBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-QuadTreeTerrainPtr QuadTreeTerrainBase::create(void)
+QuadTreeTerrainTransitPtr QuadTreeTerrainBase::create(void)
 {
-    QuadTreeTerrainPtr fc;
+    QuadTreeTerrainTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<QuadTreeTerrain::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<QuadTreeTerrain>(tmpPtr);
     }
 
     return fc;
@@ -1690,11 +1692,13 @@ QuadTreeTerrainPtr QuadTreeTerrainBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr QuadTreeTerrainBase::shallowCopy(void) const
+FieldContainerTransitPtr QuadTreeTerrainBase::shallowCopy(void) const
 {
-    QuadTreeTerrainPtr returnValue;
+    QuadTreeTerrainPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const QuadTreeTerrain *>(this));
+    newPtr(tmpPtr, dynamic_cast<const QuadTreeTerrain *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

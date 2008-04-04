@@ -168,15 +168,15 @@ class OSG_STATE_DLLMAPPING ShaderParameterPnt3fBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterPnt3fPtr create     (void);
-    static  ShaderParameterPnt3fPtr createEmpty(void);
+    static  ShaderParameterPnt3fTransitPtr create     (void);
+    static  ShaderParameterPnt3fPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

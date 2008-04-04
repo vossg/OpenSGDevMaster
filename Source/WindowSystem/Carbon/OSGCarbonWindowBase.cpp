@@ -222,14 +222,16 @@ void CarbonWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-CarbonWindowPtr CarbonWindowBase::create(void)
+CarbonWindowTransitPtr CarbonWindowBase::create(void)
 {
-    CarbonWindowPtr fc;
+    CarbonWindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<CarbonWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<CarbonWindow>(tmpPtr);
     }
 
     return fc;
@@ -245,11 +247,13 @@ CarbonWindowPtr CarbonWindowBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr CarbonWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr CarbonWindowBase::shallowCopy(void) const
 {
-    CarbonWindowPtr returnValue;
+    CarbonWindowPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const CarbonWindow *>(this));
+    newPtr(tmpPtr, dynamic_cast<const CarbonWindow *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

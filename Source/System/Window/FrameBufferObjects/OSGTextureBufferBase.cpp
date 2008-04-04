@@ -390,14 +390,16 @@ void TextureBufferBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TextureBufferPtr TextureBufferBase::create(void)
+TextureBufferTransitPtr TextureBufferBase::create(void)
 {
-    TextureBufferPtr fc;
+    TextureBufferTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<TextureBuffer::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TextureBuffer>(tmpPtr);
     }
 
     return fc;
@@ -413,11 +415,13 @@ TextureBufferPtr TextureBufferBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr TextureBufferBase::shallowCopy(void) const
+FieldContainerTransitPtr TextureBufferBase::shallowCopy(void) const
 {
-    TextureBufferPtr returnValue;
+    TextureBufferPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const TextureBuffer *>(this));
+    newPtr(tmpPtr, dynamic_cast<const TextureBuffer *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -505,14 +505,16 @@ void HDRStageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-HDRStagePtr HDRStageBase::create(void)
+HDRStageTransitPtr HDRStageBase::create(void)
 {
-    HDRStagePtr fc;
+    HDRStageTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<HDRStage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<HDRStage>(tmpPtr);
     }
 
     return fc;
@@ -528,11 +530,13 @@ HDRStagePtr HDRStageBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr HDRStageBase::shallowCopy(void) const
+FieldContainerTransitPtr HDRStageBase::shallowCopy(void) const
 {
-    HDRStagePtr returnValue;
+    HDRStagePtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const HDRStage *>(this));
+    newPtr(tmpPtr, dynamic_cast<const HDRStage *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -213,15 +213,15 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CubeTextureChunkPtr create     (void);
-    static  CubeTextureChunkPtr createEmpty(void);
+    static  CubeTextureChunkTransitPtr create     (void);
+    static  CubeTextureChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -357,14 +357,16 @@ void ChunkOverrideGroupBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ChunkOverrideGroupPtr ChunkOverrideGroupBase::create(void)
+ChunkOverrideGroupTransitPtr ChunkOverrideGroupBase::create(void)
 {
-    ChunkOverrideGroupPtr fc;
+    ChunkOverrideGroupTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ChunkOverrideGroup::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ChunkOverrideGroup>(tmpPtr);
     }
 
     return fc;
@@ -380,11 +382,13 @@ ChunkOverrideGroupPtr ChunkOverrideGroupBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ChunkOverrideGroupBase::shallowCopy(void) const
+FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopy(void) const
 {
-    ChunkOverrideGroupPtr returnValue;
+    ChunkOverrideGroupPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ChunkOverrideGroup *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ChunkOverrideGroup *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

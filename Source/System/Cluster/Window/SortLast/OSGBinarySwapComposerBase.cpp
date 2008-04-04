@@ -334,14 +334,16 @@ void BinarySwapComposerBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-BinarySwapComposerPtr BinarySwapComposerBase::create(void)
+BinarySwapComposerTransitPtr BinarySwapComposerBase::create(void)
 {
-    BinarySwapComposerPtr fc;
+    BinarySwapComposerTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<BinarySwapComposer::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<BinarySwapComposer>(tmpPtr);
     }
 
     return fc;
@@ -357,11 +359,13 @@ BinarySwapComposerPtr BinarySwapComposerBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr BinarySwapComposerBase::shallowCopy(void) const
+FieldContainerTransitPtr BinarySwapComposerBase::shallowCopy(void) const
 {
-    BinarySwapComposerPtr returnValue;
+    BinarySwapComposerPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const BinarySwapComposer *>(this));
+    newPtr(tmpPtr, dynamic_cast<const BinarySwapComposer *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -137,15 +137,15 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ChunkOverrideGroupPtr create     (void);
-    static  ChunkOverrideGroupPtr createEmpty(void);
+    static  ChunkOverrideGroupTransitPtr create     (void);
+    static  ChunkOverrideGroupPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

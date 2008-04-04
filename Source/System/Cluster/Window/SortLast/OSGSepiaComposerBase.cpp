@@ -155,14 +155,16 @@ void SepiaComposerBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SepiaComposerPtr SepiaComposerBase::create(void)
+SepiaComposerTransitPtr SepiaComposerBase::create(void)
 {
-    SepiaComposerPtr fc;
+    SepiaComposerTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<SepiaComposer::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SepiaComposer>(tmpPtr);
     }
 
     return fc;
@@ -178,11 +180,13 @@ SepiaComposerPtr SepiaComposerBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SepiaComposerBase::shallowCopy(void) const
+FieldContainerTransitPtr SepiaComposerBase::shallowCopy(void) const
 {
-    SepiaComposerPtr returnValue;
+    SepiaComposerPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const SepiaComposer *>(this));
+    newPtr(tmpPtr, dynamic_cast<const SepiaComposer *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

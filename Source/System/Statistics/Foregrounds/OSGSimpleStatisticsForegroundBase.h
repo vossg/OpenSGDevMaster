@@ -370,15 +370,15 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleStatisticsForegroundPtr create     (void);
-    static  SimpleStatisticsForegroundPtr createEmpty(void);
+    static  SimpleStatisticsForegroundTransitPtr create     (void);
+    static  SimpleStatisticsForegroundPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

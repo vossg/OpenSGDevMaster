@@ -205,14 +205,16 @@ void CallbackAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-CallbackAlgorithmPtr CallbackAlgorithmBase::create(void)
+CallbackAlgorithmTransitPtr CallbackAlgorithmBase::create(void)
 {
-    CallbackAlgorithmPtr fc;
+    CallbackAlgorithmTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<CallbackAlgorithm::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<CallbackAlgorithm>(tmpPtr);
     }
 
     return fc;
@@ -228,11 +230,13 @@ CallbackAlgorithmPtr CallbackAlgorithmBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr CallbackAlgorithmBase::shallowCopy(void) const
+FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopy(void) const
 {
-    CallbackAlgorithmPtr returnValue;
+    CallbackAlgorithmPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const CallbackAlgorithm *>(this));
+    newPtr(tmpPtr, dynamic_cast<const CallbackAlgorithm *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

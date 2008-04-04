@@ -270,15 +270,15 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DrawableStatsAttachmentPtr create     (void);
-    static  DrawableStatsAttachmentPtr createEmpty(void);
+    static  DrawableStatsAttachmentTransitPtr create     (void);
+    static  DrawableStatsAttachmentPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

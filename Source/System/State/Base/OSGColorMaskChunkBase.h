@@ -219,15 +219,15 @@ class OSG_SYSTEM_DLLMAPPING ColorMaskChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ColorMaskChunkPtr create     (void);
-    static  ColorMaskChunkPtr createEmpty(void);
+    static  ColorMaskChunkTransitPtr create     (void);
+    static  ColorMaskChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

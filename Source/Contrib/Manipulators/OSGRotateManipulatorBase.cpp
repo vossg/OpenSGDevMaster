@@ -156,14 +156,16 @@ void RotateManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-RotateManipulatorPtr RotateManipulatorBase::create(void)
+RotateManipulatorTransitPtr RotateManipulatorBase::create(void)
 {
-    RotateManipulatorPtr fc;
+    RotateManipulatorTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<RotateManipulator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<RotateManipulator>(tmpPtr);
     }
 
     return fc;
@@ -179,11 +181,13 @@ RotateManipulatorPtr RotateManipulatorBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr RotateManipulatorBase::shallowCopy(void) const
+FieldContainerTransitPtr RotateManipulatorBase::shallowCopy(void) const
 {
-    RotateManipulatorPtr returnValue;
+    RotateManipulatorPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const RotateManipulator *>(this));
+    newPtr(tmpPtr, dynamic_cast<const RotateManipulator *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

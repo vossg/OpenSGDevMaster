@@ -450,14 +450,16 @@ void BalancedMultiWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-BalancedMultiWindowPtr BalancedMultiWindowBase::create(void)
+BalancedMultiWindowTransitPtr BalancedMultiWindowBase::create(void)
 {
-    BalancedMultiWindowPtr fc;
+    BalancedMultiWindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<BalancedMultiWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<BalancedMultiWindow>(tmpPtr);
     }
 
     return fc;
@@ -473,11 +475,13 @@ BalancedMultiWindowPtr BalancedMultiWindowBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr BalancedMultiWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr BalancedMultiWindowBase::shallowCopy(void) const
 {
-    BalancedMultiWindowPtr returnValue;
+    BalancedMultiWindowPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const BalancedMultiWindow *>(this));
+    newPtr(tmpPtr, dynamic_cast<const BalancedMultiWindow *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

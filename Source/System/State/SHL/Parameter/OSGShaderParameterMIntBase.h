@@ -183,15 +183,15 @@ class OSG_STATE_DLLMAPPING ShaderParameterMIntBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterMIntPtr create     (void);
-    static  ShaderParameterMIntPtr createEmpty(void);
+    static  ShaderParameterMIntTransitPtr create     (void);
+    static  ShaderParameterMIntPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

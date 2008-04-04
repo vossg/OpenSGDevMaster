@@ -1903,14 +1903,16 @@ void TextureEnvChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TextureEnvChunkPtr TextureEnvChunkBase::create(void)
+TextureEnvChunkTransitPtr TextureEnvChunkBase::create(void)
 {
-    TextureEnvChunkPtr fc;
+    TextureEnvChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<TextureEnvChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TextureEnvChunk>(tmpPtr);
     }
 
     return fc;
@@ -1926,11 +1928,13 @@ TextureEnvChunkPtr TextureEnvChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr TextureEnvChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr TextureEnvChunkBase::shallowCopy(void) const
 {
-    TextureEnvChunkPtr returnValue;
+    TextureEnvChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const TextureEnvChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const TextureEnvChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

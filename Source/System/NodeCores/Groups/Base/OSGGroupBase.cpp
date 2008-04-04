@@ -162,14 +162,16 @@ void GroupBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-GroupPtr GroupBase::create(void)
+GroupTransitPtr GroupBase::create(void)
 {
-    GroupPtr fc;
+    GroupTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<Group::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Group>(tmpPtr);
     }
 
     return fc;
@@ -185,11 +187,13 @@ GroupPtr GroupBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr GroupBase::shallowCopy(void) const
+FieldContainerTransitPtr GroupBase::shallowCopy(void) const
 {
-    GroupPtr returnValue;
+    GroupPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const Group *>(this));
+    newPtr(tmpPtr, dynamic_cast<const Group *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

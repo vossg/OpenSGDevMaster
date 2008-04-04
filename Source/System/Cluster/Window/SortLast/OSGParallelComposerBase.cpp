@@ -334,14 +334,16 @@ void ParallelComposerBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ParallelComposerPtr ParallelComposerBase::create(void)
+ParallelComposerTransitPtr ParallelComposerBase::create(void)
 {
-    ParallelComposerPtr fc;
+    ParallelComposerTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ParallelComposer::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ParallelComposer>(tmpPtr);
     }
 
     return fc;
@@ -357,11 +359,13 @@ ParallelComposerPtr ParallelComposerBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ParallelComposerBase::shallowCopy(void) const
+FieldContainerTransitPtr ParallelComposerBase::shallowCopy(void) const
 {
-    ParallelComposerPtr returnValue;
+    ParallelComposerPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ParallelComposer *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ParallelComposer *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

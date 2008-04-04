@@ -134,8 +134,8 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUncountedNodePtr::Description(
-        SFUncountedNodePtr::getClassType(),
+    pDesc = new SFWeakNodePtr::Description(
+        SFWeakNodePtr::getClassType(),
         "beacon",
         "The object that defines the clip planes's coordinate system. The clip\n"
         "plane is positioned relative to this system.\n",
@@ -282,7 +282,7 @@ SFBool              *ClipPlaneChunkBase::getSFEnable         (void)
 #endif
 
 //! Get the ClipPlaneChunk::_sfBeacon field.
-const SFUncountedNodePtr *ClipPlaneChunkBase::getSFBeacon(void) const
+const SFWeakNodePtr *ClipPlaneChunkBase::getSFBeacon(void) const
 {
     return &_sfBeacon;
 }
@@ -352,14 +352,16 @@ void ClipPlaneChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ClipPlaneChunkPtr ClipPlaneChunkBase::create(void)
+ClipPlaneChunkTransitPtr ClipPlaneChunkBase::create(void)
 {
-    ClipPlaneChunkPtr fc;
+    ClipPlaneChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ClipPlaneChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ClipPlaneChunk>(tmpPtr);
     }
 
     return fc;
@@ -375,11 +377,13 @@ ClipPlaneChunkPtr ClipPlaneChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ClipPlaneChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr ClipPlaneChunkBase::shallowCopy(void) const
 {
-    ClipPlaneChunkPtr returnValue;
+    ClipPlaneChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ClipPlaneChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ClipPlaneChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }
@@ -468,8 +472,8 @@ EditFieldHandlePtr ClipPlaneChunkBase::editHandleEnable         (void)
 
 GetFieldHandlePtr ClipPlaneChunkBase::getHandleBeacon          (void) const
 {
-    SFUncountedNodePtr::GetHandlePtr returnValue(
-        new  SFUncountedNodePtr::GetHandle(
+    SFWeakNodePtr::GetHandlePtr returnValue(
+        new  SFWeakNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -478,8 +482,8 @@ GetFieldHandlePtr ClipPlaneChunkBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr ClipPlaneChunkBase::editHandleBeacon         (void)
 {
-    SFUncountedNodePtr::EditHandlePtr returnValue(
-        new  SFUncountedNodePtr::EditHandle(
+    SFWeakNodePtr::EditHandlePtr returnValue(
+        new  SFWeakNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

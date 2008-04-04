@@ -253,15 +253,15 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  HDRStagePtr create     (void);
-    static  HDRStagePtr createEmpty(void);
+    static  HDRStageTransitPtr create     (void);
+    static  HDRStagePtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

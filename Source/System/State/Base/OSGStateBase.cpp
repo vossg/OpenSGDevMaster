@@ -364,14 +364,16 @@ void StateBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-StatePtr StateBase::create(void)
+StateTransitPtr StateBase::create(void)
 {
-    StatePtr fc;
+    StateTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<State::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<State>(tmpPtr);
     }
 
     return fc;
@@ -387,11 +389,13 @@ StatePtr StateBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr StateBase::shallowCopy(void) const
+FieldContainerTransitPtr StateBase::shallowCopy(void) const
 {
-    StatePtr returnValue;
+    StatePtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const State *>(this));
+    newPtr(tmpPtr, dynamic_cast<const State *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

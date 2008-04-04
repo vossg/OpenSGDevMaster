@@ -336,14 +336,16 @@ void EGLWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-EGLWindowPtr EGLWindowBase::create(void)
+EGLWindowTransitPtr EGLWindowBase::create(void)
 {
-    EGLWindowPtr fc;
+    EGLWindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<EGLWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<EGLWindow>(tmpPtr);
     }
 
     return fc;
@@ -359,11 +361,13 @@ EGLWindowPtr EGLWindowBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr EGLWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr EGLWindowBase::shallowCopy(void) const
 {
-    EGLWindowPtr returnValue;
+    EGLWindowPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const EGLWindow *>(this));
+    newPtr(tmpPtr, dynamic_cast<const EGLWindow *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

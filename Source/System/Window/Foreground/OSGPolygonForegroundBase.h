@@ -330,15 +330,15 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PolygonForegroundPtr create     (void);
-    static  PolygonForegroundPtr createEmpty(void);
+    static  PolygonForegroundTransitPtr create     (void);
+    static  PolygonForegroundPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

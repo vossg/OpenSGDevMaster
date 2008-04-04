@@ -222,14 +222,16 @@ void CoreGLWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-CoreGLWindowPtr CoreGLWindowBase::create(void)
+CoreGLWindowTransitPtr CoreGLWindowBase::create(void)
 {
-    CoreGLWindowPtr fc;
+    CoreGLWindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<CoreGLWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<CoreGLWindow>(tmpPtr);
     }
 
     return fc;
@@ -245,11 +247,13 @@ CoreGLWindowPtr CoreGLWindowBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr CoreGLWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr CoreGLWindowBase::shallowCopy(void) const
 {
-    CoreGLWindowPtr returnValue;
+    CoreGLWindowPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const CoreGLWindow *>(this));
+    newPtr(tmpPtr, dynamic_cast<const CoreGLWindow *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

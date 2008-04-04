@@ -236,15 +236,15 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindowBase : public MultiDisplayWindow
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  BalancedMultiWindowPtr create     (void);
-    static  BalancedMultiWindowPtr createEmpty(void);
+    static  BalancedMultiWindowTransitPtr create     (void);
+    static  BalancedMultiWindowPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

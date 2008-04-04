@@ -304,14 +304,16 @@ void ShaderParameterMMatrixBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ShaderParameterMMatrixPtr ShaderParameterMMatrixBase::create(void)
+ShaderParameterMMatrixTransitPtr ShaderParameterMMatrixBase::create(void)
 {
-    ShaderParameterMMatrixPtr fc;
+    ShaderParameterMMatrixTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ShaderParameterMMatrix::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ShaderParameterMMatrix>(tmpPtr);
     }
 
     return fc;
@@ -327,11 +329,13 @@ ShaderParameterMMatrixPtr ShaderParameterMMatrixBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ShaderParameterMMatrixBase::shallowCopy(void) const
+FieldContainerTransitPtr ShaderParameterMMatrixBase::shallowCopy(void) const
 {
-    ShaderParameterMMatrixPtr returnValue;
+    ShaderParameterMMatrixPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ShaderParameterMMatrix *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ShaderParameterMMatrix *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

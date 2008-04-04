@@ -885,14 +885,16 @@ void GeometryBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-GeometryPtr GeometryBase::create(void)
+GeometryTransitPtr GeometryBase::create(void)
 {
-    GeometryPtr fc;
+    GeometryTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<Geometry::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Geometry>(tmpPtr);
     }
 
     return fc;
@@ -908,11 +910,13 @@ GeometryPtr GeometryBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr GeometryBase::shallowCopy(void) const
+FieldContainerTransitPtr GeometryBase::shallowCopy(void) const
 {
-    GeometryPtr returnValue;
+    GeometryPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const Geometry *>(this));
+    newPtr(tmpPtr, dynamic_cast<const Geometry *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

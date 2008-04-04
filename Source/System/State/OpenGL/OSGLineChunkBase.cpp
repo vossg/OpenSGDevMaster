@@ -425,14 +425,16 @@ void LineChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-LineChunkPtr LineChunkBase::create(void)
+LineChunkTransitPtr LineChunkBase::create(void)
 {
-    LineChunkPtr fc;
+    LineChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<LineChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<LineChunk>(tmpPtr);
     }
 
     return fc;
@@ -448,11 +450,13 @@ LineChunkPtr LineChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr LineChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr LineChunkBase::shallowCopy(void) const
 {
-    LineChunkPtr returnValue;
+    LineChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const LineChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const LineChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

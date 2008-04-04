@@ -215,15 +215,15 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  AlgorithmStagePtr create     (void);
-    static  AlgorithmStagePtr createEmpty(void);
+    static  AlgorithmStageTransitPtr create     (void);
+    static  AlgorithmStagePtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

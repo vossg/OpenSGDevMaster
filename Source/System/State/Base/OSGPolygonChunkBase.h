@@ -353,15 +353,15 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PolygonChunkPtr create     (void);
-    static  PolygonChunkPtr createEmpty(void);
+    static  PolygonChunkTransitPtr create     (void);
+    static  PolygonChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

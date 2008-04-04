@@ -221,14 +221,16 @@ void SimpleShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SimpleShadowMapEnginePtr SimpleShadowMapEngineBase::create(void)
+SimpleShadowMapEngineTransitPtr SimpleShadowMapEngineBase::create(void)
 {
-    SimpleShadowMapEnginePtr fc;
+    SimpleShadowMapEngineTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<SimpleShadowMapEngine::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SimpleShadowMapEngine>(tmpPtr);
     }
 
     return fc;
@@ -244,11 +246,13 @@ SimpleShadowMapEnginePtr SimpleShadowMapEngineBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SimpleShadowMapEngineBase::shallowCopy(void) const
+FieldContainerTransitPtr SimpleShadowMapEngineBase::shallowCopy(void) const
 {
-    SimpleShadowMapEnginePtr returnValue;
+    SimpleShadowMapEnginePtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const SimpleShadowMapEngine *>(this));
+    newPtr(tmpPtr, dynamic_cast<const SimpleShadowMapEngine *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

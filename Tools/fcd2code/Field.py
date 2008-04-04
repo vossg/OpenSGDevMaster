@@ -164,9 +164,9 @@ class Field(FCDElement):
          
             Type          = Type + "Ptr";
             TypeCaps      = self._upcaseFirst(Type);
-            FieldType     = "Uncounted" + TypeRaw + "Ptr"; #TypeRaw + "WeakPtr";
+            FieldType     = "Weak" + TypeRaw + "Ptr"; #TypeRaw + "WeakPtr";
             FieldTypeNS   = TypeNS;
-            FieldTypeCaps = "Uncounted" + TypeRawCaps + "Ptr"; #TypeRawCaps + "WeakPtr";
+            FieldTypeCaps = "Weak" + TypeRawCaps + "Ptr"; #TypeRawCaps + "WeakPtr";
             
         else:
             self.m_log.warning("finalize: \"category\" has invalid value: >%s<",

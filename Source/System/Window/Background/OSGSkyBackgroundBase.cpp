@@ -408,8 +408,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUncountedNodePtr::Description(
-        SFUncountedNodePtr::getClassType(),
+    pDesc = new SFWeakNodePtr::Description(
+        SFWeakNodePtr::getClassType(),
         "beacon",
         "The object that defines the orientation of the background, i.e. the\n"
         "local coordinate system it is drawn in.\n",
@@ -942,7 +942,7 @@ MFVec3f             *SkyBackgroundBase::getMFBackTexCoord   (void)
 #endif
 
 //! Get the SkyBackground::_sfBeacon field.
-const SFUncountedNodePtr *SkyBackgroundBase::getSFBeacon(void) const
+const SFWeakNodePtr *SkyBackgroundBase::getSFBeacon(void) const
 {
     return &_sfBeacon;
 }
@@ -2024,14 +2024,16 @@ void SkyBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SkyBackgroundPtr SkyBackgroundBase::create(void)
+SkyBackgroundTransitPtr SkyBackgroundBase::create(void)
 {
-    SkyBackgroundPtr fc;
+    SkyBackgroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<SkyBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SkyBackground>(tmpPtr);
     }
 
     return fc;
@@ -2047,11 +2049,13 @@ SkyBackgroundPtr SkyBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SkyBackgroundBase::shallowCopy(void) const
+FieldContainerTransitPtr SkyBackgroundBase::shallowCopy(void) const
 {
-    SkyBackgroundPtr returnValue;
+    SkyBackgroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const SkyBackground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const SkyBackground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }
@@ -2554,8 +2558,8 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBackTexCoord   (void)
 
 GetFieldHandlePtr SkyBackgroundBase::getHandleBeacon          (void) const
 {
-    SFUncountedNodePtr::GetHandlePtr returnValue(
-        new  SFUncountedNodePtr::GetHandle(
+    SFWeakNodePtr::GetHandlePtr returnValue(
+        new  SFWeakNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -2564,8 +2568,8 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr SkyBackgroundBase::editHandleBeacon         (void)
 {
-    SFUncountedNodePtr::EditHandlePtr returnValue(
-        new  SFUncountedNodePtr::EditHandle(
+    SFWeakNodePtr::EditHandlePtr returnValue(
+        new  SFWeakNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

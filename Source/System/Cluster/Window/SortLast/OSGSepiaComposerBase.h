@@ -126,15 +126,15 @@ class OSG_CLUSTER_DLLMAPPING SepiaComposerBase : public ImageComposer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SepiaComposerPtr create     (void);
-    static  SepiaComposerPtr createEmpty(void);
+    static  SepiaComposerTransitPtr create     (void);
+    static  SepiaComposerPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

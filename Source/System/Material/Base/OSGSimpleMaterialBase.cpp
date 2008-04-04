@@ -653,14 +653,16 @@ void SimpleMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SimpleMaterialPtr SimpleMaterialBase::create(void)
+SimpleMaterialTransitPtr SimpleMaterialBase::create(void)
 {
-    SimpleMaterialPtr fc;
+    SimpleMaterialTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<SimpleMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SimpleMaterial>(tmpPtr);
     }
 
     return fc;
@@ -676,11 +678,13 @@ SimpleMaterialPtr SimpleMaterialBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SimpleMaterialBase::shallowCopy(void) const
+FieldContainerTransitPtr SimpleMaterialBase::shallowCopy(void) const
 {
-    SimpleMaterialPtr returnValue;
+    SimpleMaterialPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const SimpleMaterial *>(this));
+    newPtr(tmpPtr, dynamic_cast<const SimpleMaterial *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

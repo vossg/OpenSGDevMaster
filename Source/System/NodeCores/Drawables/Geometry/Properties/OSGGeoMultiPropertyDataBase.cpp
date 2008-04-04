@@ -361,14 +361,16 @@ void GeoMultiPropertyDataBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-GeoMultiPropertyDataPtr GeoMultiPropertyDataBase::create(void)
+GeoMultiPropertyDataTransitPtr GeoMultiPropertyDataBase::create(void)
 {
-    GeoMultiPropertyDataPtr fc;
+    GeoMultiPropertyDataTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<GeoMultiPropertyData::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<GeoMultiPropertyData>(tmpPtr);
     }
 
     return fc;
@@ -384,11 +386,13 @@ GeoMultiPropertyDataPtr GeoMultiPropertyDataBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr GeoMultiPropertyDataBase::shallowCopy(void) const
+FieldContainerTransitPtr GeoMultiPropertyDataBase::shallowCopy(void) const
 {
-    GeoMultiPropertyDataPtr returnValue;
+    GeoMultiPropertyDataPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const GeoMultiPropertyData *>(this));
+    newPtr(tmpPtr, dynamic_cast<const GeoMultiPropertyData *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

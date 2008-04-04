@@ -168,15 +168,15 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DirectionalLightPtr create     (void);
-    static  DirectionalLightPtr createEmpty(void);
+    static  DirectionalLightTransitPtr create     (void);
+    static  DirectionalLightPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

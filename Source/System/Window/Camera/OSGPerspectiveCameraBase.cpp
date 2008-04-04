@@ -291,14 +291,16 @@ void PerspectiveCameraBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-PerspectiveCameraPtr PerspectiveCameraBase::create(void)
+PerspectiveCameraTransitPtr PerspectiveCameraBase::create(void)
 {
-    PerspectiveCameraPtr fc;
+    PerspectiveCameraTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<PerspectiveCamera::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<PerspectiveCamera>(tmpPtr);
     }
 
     return fc;
@@ -314,11 +316,13 @@ PerspectiveCameraPtr PerspectiveCameraBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr PerspectiveCameraBase::shallowCopy(void) const
+FieldContainerTransitPtr PerspectiveCameraBase::shallowCopy(void) const
 {
-    PerspectiveCameraPtr returnValue;
+    PerspectiveCameraPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const PerspectiveCamera *>(this));
+    newPtr(tmpPtr, dynamic_cast<const PerspectiveCamera *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

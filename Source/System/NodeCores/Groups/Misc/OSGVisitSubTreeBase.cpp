@@ -228,14 +228,16 @@ void VisitSubTreeBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-VisitSubTreePtr VisitSubTreeBase::create(void)
+VisitSubTreeTransitPtr VisitSubTreeBase::create(void)
 {
-    VisitSubTreePtr fc;
+    VisitSubTreeTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<VisitSubTree::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<VisitSubTree>(tmpPtr);
     }
 
     return fc;
@@ -251,11 +253,13 @@ VisitSubTreePtr VisitSubTreeBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr VisitSubTreeBase::shallowCopy(void) const
+FieldContainerTransitPtr VisitSubTreeBase::shallowCopy(void) const
 {
-    VisitSubTreePtr returnValue;
+    VisitSubTreePtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const VisitSubTree *>(this));
+    newPtr(tmpPtr, dynamic_cast<const VisitSubTree *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

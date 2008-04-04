@@ -215,15 +215,15 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureGrabBackgroundPtr create     (void);
-    static  TextureGrabBackgroundPtr createEmpty(void);
+    static  TextureGrabBackgroundTransitPtr create     (void);
+    static  TextureGrabBackgroundPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

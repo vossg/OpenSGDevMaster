@@ -1855,14 +1855,16 @@ void VTKMapperBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-VTKMapperPtr VTKMapperBase::create(void)
+VTKMapperTransitPtr VTKMapperBase::create(void)
 {
-    VTKMapperPtr fc;
+    VTKMapperTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<VTKMapper::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<VTKMapper>(tmpPtr);
     }
 
     return fc;
@@ -1878,11 +1880,13 @@ VTKMapperPtr VTKMapperBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr VTKMapperBase::shallowCopy(void) const
+FieldContainerTransitPtr VTKMapperBase::shallowCopy(void) const
 {
-    VTKMapperPtr returnValue;
+    VTKMapperPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const VTKMapper *>(this));
+    newPtr(tmpPtr, dynamic_cast<const VTKMapper *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

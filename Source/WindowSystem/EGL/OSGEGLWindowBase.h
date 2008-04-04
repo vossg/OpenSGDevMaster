@@ -202,15 +202,15 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  EGLWindowPtr create     (void);
-    static  EGLWindowPtr createEmpty(void);
+    static  EGLWindowTransitPtr create     (void);
+    static  EGLWindowPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

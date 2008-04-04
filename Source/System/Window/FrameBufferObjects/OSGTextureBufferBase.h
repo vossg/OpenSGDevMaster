@@ -215,15 +215,15 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureBufferPtr create     (void);
-    static  TextureBufferPtr createEmpty(void);
+    static  TextureBufferTransitPtr create     (void);
+    static  TextureBufferPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

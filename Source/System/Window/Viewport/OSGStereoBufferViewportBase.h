@@ -185,15 +185,15 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StereoBufferViewportPtr create     (void);
-    static  StereoBufferViewportPtr createEmpty(void);
+    static  StereoBufferViewportTransitPtr create     (void);
+    static  StereoBufferViewportPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -253,15 +253,15 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MatrixCameraDecoratorPtr create     (void);
-    static  MatrixCameraDecoratorPtr createEmpty(void);
+    static  MatrixCameraDecoratorTransitPtr create     (void);
+    static  MatrixCameraDecoratorPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

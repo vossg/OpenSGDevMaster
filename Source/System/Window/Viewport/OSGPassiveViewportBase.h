@@ -126,15 +126,15 @@ class OSG_WINDOW_DLLMAPPING PassiveViewportBase : public Viewport
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PassiveViewportPtr create     (void);
-    static  PassiveViewportPtr createEmpty(void);
+    static  PassiveViewportTransitPtr create     (void);
+    static  PassiveViewportPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

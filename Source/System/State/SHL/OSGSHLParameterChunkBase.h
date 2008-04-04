@@ -164,15 +164,15 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SHLParameterChunkPtr create     (void);
-    static  SHLParameterChunkPtr createEmpty(void);
+    static  SHLParameterChunkTransitPtr create     (void);
+    static  SHLParameterChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

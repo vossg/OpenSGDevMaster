@@ -202,15 +202,15 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FileGrabForegroundPtr create     (void);
-    static  FileGrabForegroundPtr createEmpty(void);
+    static  FileGrabForegroundTransitPtr create     (void);
+    static  FileGrabForegroundPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

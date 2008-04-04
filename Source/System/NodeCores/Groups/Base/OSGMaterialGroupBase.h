@@ -164,15 +164,15 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MaterialGroupPtr create     (void);
-    static  MaterialGroupPtr createEmpty(void);
+    static  MaterialGroupTransitPtr create     (void);
+    static  MaterialGroupPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

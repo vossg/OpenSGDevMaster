@@ -155,14 +155,16 @@ void PassiveViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-PassiveViewportPtr PassiveViewportBase::create(void)
+PassiveViewportTransitPtr PassiveViewportBase::create(void)
 {
-    PassiveViewportPtr fc;
+    PassiveViewportTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<PassiveViewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<PassiveViewport>(tmpPtr);
     }
 
     return fc;
@@ -178,11 +180,13 @@ PassiveViewportPtr PassiveViewportBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr PassiveViewportBase::shallowCopy(void) const
+FieldContainerTransitPtr PassiveViewportBase::shallowCopy(void) const
 {
-    PassiveViewportPtr returnValue;
+    PassiveViewportPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const PassiveViewport *>(this));
+    newPtr(tmpPtr, dynamic_cast<const PassiveViewport *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

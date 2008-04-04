@@ -168,15 +168,15 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TransformPtr create     (void);
-    static  TransformPtr createEmpty(void);
+    static  TransformTransitPtr create     (void);
+    static  TransformPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

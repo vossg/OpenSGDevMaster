@@ -292,14 +292,16 @@ void SolidBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SolidBackgroundPtr SolidBackgroundBase::create(void)
+SolidBackgroundTransitPtr SolidBackgroundBase::create(void)
 {
-    SolidBackgroundPtr fc;
+    SolidBackgroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<SolidBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SolidBackground>(tmpPtr);
     }
 
     return fc;
@@ -315,11 +317,13 @@ SolidBackgroundPtr SolidBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SolidBackgroundBase::shallowCopy(void) const
+FieldContainerTransitPtr SolidBackgroundBase::shallowCopy(void) const
 {
-    SolidBackgroundPtr returnValue;
+    SolidBackgroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const SolidBackground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const SolidBackground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

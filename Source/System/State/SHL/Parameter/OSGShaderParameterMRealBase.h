@@ -183,15 +183,15 @@ class OSG_STATE_DLLMAPPING ShaderParameterMRealBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterMRealPtr create     (void);
-    static  ShaderParameterMRealPtr createEmpty(void);
+    static  ShaderParameterMRealTransitPtr create     (void);
+    static  ShaderParameterMRealPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

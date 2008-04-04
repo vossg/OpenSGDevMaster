@@ -756,14 +756,16 @@ void FrameBufferObjectBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-FrameBufferObjectPtr FrameBufferObjectBase::create(void)
+FrameBufferObjectTransitPtr FrameBufferObjectBase::create(void)
 {
-    FrameBufferObjectPtr fc;
+    FrameBufferObjectTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<FrameBufferObject::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<FrameBufferObject>(tmpPtr);
     }
 
     return fc;
@@ -779,11 +781,13 @@ FrameBufferObjectPtr FrameBufferObjectBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr FrameBufferObjectBase::shallowCopy(void) const
+FieldContainerTransitPtr FrameBufferObjectBase::shallowCopy(void) const
 {
-    FrameBufferObjectPtr returnValue;
+    FrameBufferObjectPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const FrameBufferObject *>(this));
+    newPtr(tmpPtr, dynamic_cast<const FrameBufferObject *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -175,7 +175,7 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
 #endif
                   SFColor4r           *editSFSpecular       (void);
             const SFColor4r           *getSFSpecular        (void) const;
-            const SFUncountedNodePtr  *getSFBeacon          (void) const;
+            const SFWeakNodePtr       *getSFBeacon          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFOn              (void);
@@ -303,7 +303,7 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
     SFColor4r         _sfAmbient;
     SFColor4r         _sfDiffuse;
     SFColor4r         _sfSpecular;
-    SFUncountedNodePtr _sfBeacon;
+    SFWeakNodePtr     _sfBeacon;
     SFBool            _sfOn;
     SFReal            _sfConstantAttenuation;
     SFReal            _sfLinearAttenuation;

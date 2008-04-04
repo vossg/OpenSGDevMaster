@@ -226,14 +226,16 @@ void SwitchBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SwitchPtr SwitchBase::create(void)
+SwitchTransitPtr SwitchBase::create(void)
 {
-    SwitchPtr fc;
+    SwitchTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<Switch::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Switch>(tmpPtr);
     }
 
     return fc;
@@ -249,11 +251,13 @@ SwitchPtr SwitchBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SwitchBase::shallowCopy(void) const
+FieldContainerTransitPtr SwitchBase::shallowCopy(void) const
 {
-    SwitchPtr returnValue;
+    SwitchPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const Switch *>(this));
+    newPtr(tmpPtr, dynamic_cast<const Switch *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

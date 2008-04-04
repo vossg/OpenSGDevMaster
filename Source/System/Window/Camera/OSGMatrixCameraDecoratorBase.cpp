@@ -549,14 +549,16 @@ void MatrixCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::create(void)
+MatrixCameraDecoratorTransitPtr MatrixCameraDecoratorBase::create(void)
 {
-    MatrixCameraDecoratorPtr fc;
+    MatrixCameraDecoratorTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<MatrixCameraDecorator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<MatrixCameraDecorator>(tmpPtr);
     }
 
     return fc;
@@ -572,11 +574,13 @@ MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr MatrixCameraDecoratorBase::shallowCopy(void) const
+FieldContainerTransitPtr MatrixCameraDecoratorBase::shallowCopy(void) const
 {
-    MatrixCameraDecoratorPtr returnValue;
+    MatrixCameraDecoratorPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const MatrixCameraDecorator *>(this));
+    newPtr(tmpPtr, dynamic_cast<const MatrixCameraDecorator *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

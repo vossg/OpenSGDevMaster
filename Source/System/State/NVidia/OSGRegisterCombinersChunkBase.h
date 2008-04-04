@@ -1083,15 +1083,15 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  RegisterCombinersChunkPtr create     (void);
-    static  RegisterCombinersChunkPtr createEmpty(void);
+    static  RegisterCombinersChunkTransitPtr create     (void);
+    static  RegisterCombinersChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

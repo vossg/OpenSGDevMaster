@@ -195,7 +195,7 @@ const SFCameraPtr *CameraDecoratorBase::getSFDecoratee(void) const
 }
 
 //! Get the CameraDecorator::_sfBeacon field.
-const SFUncountedNodePtr *CameraDecoratorBase::getSFBeacon(void) const
+const SFWeakNodePtr *CameraDecoratorBase::getSFBeacon(void) const
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
@@ -370,8 +370,8 @@ EditFieldHandlePtr CameraDecoratorBase::editHandleDecoratee(void)
 
 GetFieldHandlePtr CameraDecoratorBase::getHandleBeacon          (void) const
 {
-    SFUncountedNodePtr::GetHandlePtr returnValue(
-        new  SFUncountedNodePtr::GetHandle(
+    SFWeakNodePtr::GetHandlePtr returnValue(
+        new  SFWeakNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -380,8 +380,8 @@ GetFieldHandlePtr CameraDecoratorBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr CameraDecoratorBase::editHandleBeacon         (void)
 {
-    SFUncountedNodePtr::EditHandlePtr returnValue(
-        new  SFUncountedNodePtr::EditHandle(
+    SFWeakNodePtr::EditHandlePtr returnValue(
+        new  SFWeakNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

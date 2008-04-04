@@ -155,14 +155,16 @@ void TwoSidedLightingChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::create(void)
+TwoSidedLightingChunkTransitPtr TwoSidedLightingChunkBase::create(void)
 {
-    TwoSidedLightingChunkPtr fc;
+    TwoSidedLightingChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<TwoSidedLightingChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TwoSidedLightingChunk>(tmpPtr);
     }
 
     return fc;
@@ -178,11 +180,13 @@ TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr TwoSidedLightingChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr TwoSidedLightingChunkBase::shallowCopy(void) const
 {
-    TwoSidedLightingChunkPtr returnValue;
+    TwoSidedLightingChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const TwoSidedLightingChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const TwoSidedLightingChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -774,14 +774,16 @@ void PointChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-PointChunkPtr PointChunkBase::create(void)
+PointChunkTransitPtr PointChunkBase::create(void)
 {
-    PointChunkPtr fc;
+    PointChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<PointChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<PointChunk>(tmpPtr);
     }
 
     return fc;
@@ -797,11 +799,13 @@ PointChunkPtr PointChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr PointChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr PointChunkBase::shallowCopy(void) const
 {
-    PointChunkPtr returnValue;
+    PointChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const PointChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const PointChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

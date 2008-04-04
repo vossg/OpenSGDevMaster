@@ -465,14 +465,16 @@ void DistanceLODBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-DistanceLODPtr DistanceLODBase::create(void)
+DistanceLODTransitPtr DistanceLODBase::create(void)
 {
-    DistanceLODPtr fc;
+    DistanceLODTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<DistanceLOD::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<DistanceLOD>(tmpPtr);
     }
 
     return fc;
@@ -488,11 +490,13 @@ DistanceLODPtr DistanceLODBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr DistanceLODBase::shallowCopy(void) const
+FieldContainerTransitPtr DistanceLODBase::shallowCopy(void) const
 {
-    DistanceLODPtr returnValue;
+    DistanceLODPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const DistanceLOD *>(this));
+    newPtr(tmpPtr, dynamic_cast<const DistanceLOD *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

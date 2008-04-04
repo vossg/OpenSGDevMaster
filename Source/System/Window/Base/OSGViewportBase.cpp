@@ -953,14 +953,16 @@ void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ViewportPtr ViewportBase::create(void)
+ViewportTransitPtr ViewportBase::create(void)
 {
-    ViewportPtr fc;
+    ViewportTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<Viewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Viewport>(tmpPtr);
     }
 
     return fc;
@@ -976,11 +978,13 @@ ViewportPtr ViewportBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ViewportBase::shallowCopy(void) const
+FieldContainerTransitPtr ViewportBase::shallowCopy(void) const
 {
-    ViewportPtr returnValue;
+    ViewportPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const Viewport *>(this));
+    newPtr(tmpPtr, dynamic_cast<const Viewport *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

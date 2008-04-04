@@ -498,14 +498,16 @@ void SimpleTexturedMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::create(void)
+SimpleTexturedMaterialTransitPtr SimpleTexturedMaterialBase::create(void)
 {
-    SimpleTexturedMaterialPtr fc;
+    SimpleTexturedMaterialTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<SimpleTexturedMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SimpleTexturedMaterial>(tmpPtr);
     }
 
     return fc;
@@ -521,11 +523,13 @@ SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SimpleTexturedMaterialBase::shallowCopy(void) const
+FieldContainerTransitPtr SimpleTexturedMaterialBase::shallowCopy(void) const
 {
-    SimpleTexturedMaterialPtr returnValue;
+    SimpleTexturedMaterialPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const SimpleTexturedMaterial *>(this));
+    newPtr(tmpPtr, dynamic_cast<const SimpleTexturedMaterial *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

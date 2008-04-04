@@ -265,8 +265,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUncountedNodePtr::Description(
-        SFUncountedNodePtr::getClassType(),
+    pDesc = new SFWeakNodePtr::Description(
+        SFWeakNodePtr::getClassType(),
         "beacon",
         "",
         BeaconFieldId, BeaconFieldMask,
@@ -644,7 +644,7 @@ SFReal              *LightChunkBase::getSFQuadraticAttenuation(void)
 #endif
 
 //! Get the LightChunk::_sfBeacon field.
-const SFUncountedNodePtr *LightChunkBase::getSFBeacon(void) const
+const SFWeakNodePtr *LightChunkBase::getSFBeacon(void) const
 {
     return &_sfBeacon;
 }
@@ -810,14 +810,16 @@ void LightChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-LightChunkPtr LightChunkBase::create(void)
+LightChunkTransitPtr LightChunkBase::create(void)
 {
-    LightChunkPtr fc;
+    LightChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<LightChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<LightChunk>(tmpPtr);
     }
 
     return fc;
@@ -833,11 +835,13 @@ LightChunkPtr LightChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr LightChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr LightChunkBase::shallowCopy(void) const
 {
-    LightChunkPtr returnValue;
+    LightChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const LightChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const LightChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }
@@ -1118,8 +1122,8 @@ EditFieldHandlePtr LightChunkBase::editHandleQuadraticAttenuation(void)
 
 GetFieldHandlePtr LightChunkBase::getHandleBeacon          (void) const
 {
-    SFUncountedNodePtr::GetHandlePtr returnValue(
-        new  SFUncountedNodePtr::GetHandle(
+    SFWeakNodePtr::GetHandlePtr returnValue(
+        new  SFWeakNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -1128,8 +1132,8 @@ GetFieldHandlePtr LightChunkBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr LightChunkBase::editHandleBeacon         (void)
 {
-    SFUncountedNodePtr::EditHandlePtr returnValue(
-        new  SFUncountedNodePtr::EditHandle(
+    SFWeakNodePtr::EditHandlePtr returnValue(
+        new  SFWeakNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

@@ -353,15 +353,15 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ProxyGroupPtr create     (void);
-    static  ProxyGroupPtr createEmpty(void);
+    static  ProxyGroupTransitPtr create     (void);
+    static  ProxyGroupPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

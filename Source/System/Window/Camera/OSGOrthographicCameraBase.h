@@ -185,15 +185,15 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  OrthographicCameraPtr create     (void);
-    static  OrthographicCameraPtr createEmpty(void);
+    static  OrthographicCameraTransitPtr create     (void);
+    static  OrthographicCameraPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

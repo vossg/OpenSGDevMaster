@@ -289,14 +289,16 @@ void RenderBufferBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-RenderBufferPtr RenderBufferBase::create(void)
+RenderBufferTransitPtr RenderBufferBase::create(void)
 {
-    RenderBufferPtr fc;
+    RenderBufferTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<RenderBuffer::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<RenderBuffer>(tmpPtr);
     }
 
     return fc;
@@ -312,11 +314,13 @@ RenderBufferPtr RenderBufferBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr RenderBufferBase::shallowCopy(void) const
+FieldContainerTransitPtr RenderBufferBase::shallowCopy(void) const
 {
-    RenderBufferPtr returnValue;
+    RenderBufferPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const RenderBuffer *>(this));
+    newPtr(tmpPtr, dynamic_cast<const RenderBuffer *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

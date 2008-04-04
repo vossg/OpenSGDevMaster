@@ -395,14 +395,16 @@ void ColorMaskChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ColorMaskChunkPtr ColorMaskChunkBase::create(void)
+ColorMaskChunkTransitPtr ColorMaskChunkBase::create(void)
 {
-    ColorMaskChunkPtr fc;
+    ColorMaskChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ColorMaskChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ColorMaskChunk>(tmpPtr);
     }
 
     return fc;
@@ -418,11 +420,13 @@ ColorMaskChunkPtr ColorMaskChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ColorMaskChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr ColorMaskChunkBase::shallowCopy(void) const
 {
-    ColorMaskChunkPtr returnValue;
+    ColorMaskChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ColorMaskChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ColorMaskChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

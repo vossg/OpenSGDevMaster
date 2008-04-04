@@ -353,15 +353,15 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  VTKMapperPtr create     (void);
-    static  VTKMapperPtr createEmpty(void);
+    static  VTKMapperTransitPtr create     (void);
+    static  VTKMapperPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

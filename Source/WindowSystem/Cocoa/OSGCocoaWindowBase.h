@@ -168,15 +168,15 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CocoaWindowPtr create     (void);
-    static  CocoaWindowPtr createEmpty(void);
+    static  CocoaWindowTransitPtr create     (void);
+    static  CocoaWindowPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

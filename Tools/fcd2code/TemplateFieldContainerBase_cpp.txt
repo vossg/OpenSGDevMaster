@@ -774,14 +774,16 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 
 @@if !isAbstract
 //! create a new instance of the class
-@!Classname!@Ptr @!Classname!@Base::create(void)
+@!Classname!@TransitPtr @!Classname!@Base::create(void)
 {
-    @!Classname!@Ptr fc;
+    @!Classname!@TransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<@!Classname!@::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<@!Classname!@>(tmpPtr);
     }
 
     return fc;
@@ -799,11 +801,13 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
     return returnValue;
 }
 
-FieldContainerPtr @!Classname!@Base::shallowCopy(void) const
+FieldContainerTransitPtr @!Classname!@Base::shallowCopy(void) const
 {
-    @!Classname!@Ptr returnValue;
+    @!Classname!@Ptr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const @!Classname!@ *>(this));
+    newPtr(tmpPtr, dynamic_cast<const @!Classname!@ *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

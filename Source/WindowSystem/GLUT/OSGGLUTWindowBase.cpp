@@ -222,14 +222,16 @@ void GLUTWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-GLUTWindowPtr GLUTWindowBase::create(void)
+GLUTWindowTransitPtr GLUTWindowBase::create(void)
 {
-    GLUTWindowPtr fc;
+    GLUTWindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<GLUTWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<GLUTWindow>(tmpPtr);
     }
 
     return fc;
@@ -245,11 +247,13 @@ GLUTWindowPtr GLUTWindowBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr GLUTWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr GLUTWindowBase::shallowCopy(void) const
 {
-    GLUTWindowPtr returnValue;
+    GLUTWindowPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const GLUTWindow *>(this));
+    newPtr(tmpPtr, dynamic_cast<const GLUTWindow *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

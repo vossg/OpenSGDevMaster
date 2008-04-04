@@ -126,15 +126,15 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PassiveBackgroundPtr create     (void);
-    static  PassiveBackgroundPtr createEmpty(void);
+    static  PassiveBackgroundTransitPtr create     (void);
+    static  PassiveBackgroundPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

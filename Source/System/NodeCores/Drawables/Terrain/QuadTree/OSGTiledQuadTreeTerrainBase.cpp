@@ -1212,14 +1212,16 @@ void TiledQuadTreeTerrainBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::create(void)
+TiledQuadTreeTerrainTransitPtr TiledQuadTreeTerrainBase::create(void)
 {
-    TiledQuadTreeTerrainPtr fc;
+    TiledQuadTreeTerrainTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<TiledQuadTreeTerrain::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TiledQuadTreeTerrain>(tmpPtr);
     }
 
     return fc;
@@ -1235,11 +1237,13 @@ TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr TiledQuadTreeTerrainBase::shallowCopy(void) const
+FieldContainerTransitPtr TiledQuadTreeTerrainBase::shallowCopy(void) const
 {
-    TiledQuadTreeTerrainPtr returnValue;
+    TiledQuadTreeTerrainPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const TiledQuadTreeTerrain *>(this));
+    newPtr(tmpPtr, dynamic_cast<const TiledQuadTreeTerrain *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

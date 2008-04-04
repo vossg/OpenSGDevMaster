@@ -277,14 +277,16 @@ void GrabForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-GrabForegroundPtr GrabForegroundBase::create(void)
+GrabForegroundTransitPtr GrabForegroundBase::create(void)
 {
-    GrabForegroundPtr fc;
+    GrabForegroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<GrabForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<GrabForeground>(tmpPtr);
     }
 
     return fc;
@@ -300,11 +302,13 @@ GrabForegroundPtr GrabForegroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr GrabForegroundBase::shallowCopy(void) const
+FieldContainerTransitPtr GrabForegroundBase::shallowCopy(void) const
 {
-    GrabForegroundPtr returnValue;
+    GrabForegroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const GrabForeground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const GrabForeground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

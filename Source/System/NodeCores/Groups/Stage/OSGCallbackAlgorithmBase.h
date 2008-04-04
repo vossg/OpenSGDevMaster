@@ -137,15 +137,15 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CallbackAlgorithmPtr create     (void);
-    static  CallbackAlgorithmPtr createEmpty(void);
+    static  CallbackAlgorithmTransitPtr create     (void);
+    static  CallbackAlgorithmPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

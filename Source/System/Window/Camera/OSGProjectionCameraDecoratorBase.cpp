@@ -667,14 +667,16 @@ void ProjectionCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::create(void)
+ProjectionCameraDecoratorTransitPtr ProjectionCameraDecoratorBase::create(void)
 {
-    ProjectionCameraDecoratorPtr fc;
+    ProjectionCameraDecoratorTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ProjectionCameraDecorator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ProjectionCameraDecorator>(tmpPtr);
     }
 
     return fc;
@@ -690,11 +692,13 @@ ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ProjectionCameraDecoratorBase::shallowCopy(void) const
+FieldContainerTransitPtr ProjectionCameraDecoratorBase::shallowCopy(void) const
 {
-    ProjectionCameraDecoratorPtr returnValue;
+    ProjectionCameraDecoratorPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ProjectionCameraDecorator *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ProjectionCameraDecorator *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

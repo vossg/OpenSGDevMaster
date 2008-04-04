@@ -541,14 +541,16 @@ void SortLastWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SortLastWindowPtr SortLastWindowBase::create(void)
+SortLastWindowTransitPtr SortLastWindowBase::create(void)
 {
-    SortLastWindowPtr fc;
+    SortLastWindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<SortLastWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SortLastWindow>(tmpPtr);
     }
 
     return fc;
@@ -564,11 +566,13 @@ SortLastWindowPtr SortLastWindowBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SortLastWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr SortLastWindowBase::shallowCopy(void) const
 {
-    SortLastWindowPtr returnValue;
+    SortLastWindowPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const SortLastWindow *>(this));
+    newPtr(tmpPtr, dynamic_cast<const SortLastWindow *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

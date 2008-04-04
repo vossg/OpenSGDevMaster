@@ -1146,14 +1146,16 @@ void ParticlesBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ParticlesPtr ParticlesBase::create(void)
+ParticlesTransitPtr ParticlesBase::create(void)
 {
-    ParticlesPtr fc;
+    ParticlesTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<Particles::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Particles>(tmpPtr);
     }
 
     return fc;
@@ -1169,11 +1171,13 @@ ParticlesPtr ParticlesBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ParticlesBase::shallowCopy(void) const
+FieldContainerTransitPtr ParticlesBase::shallowCopy(void) const
 {
-    ParticlesPtr returnValue;
+    ParticlesPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const Particles *>(this));
+    newPtr(tmpPtr, dynamic_cast<const Particles *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

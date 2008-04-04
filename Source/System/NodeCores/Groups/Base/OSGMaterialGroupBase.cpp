@@ -219,14 +219,16 @@ void MaterialGroupBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-MaterialGroupPtr MaterialGroupBase::create(void)
+MaterialGroupTransitPtr MaterialGroupBase::create(void)
 {
-    MaterialGroupPtr fc;
+    MaterialGroupTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<MaterialGroup::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<MaterialGroup>(tmpPtr);
     }
 
     return fc;
@@ -242,11 +244,13 @@ MaterialGroupPtr MaterialGroupBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr MaterialGroupBase::shallowCopy(void) const
+FieldContainerTransitPtr MaterialGroupBase::shallowCopy(void) const
 {
-    MaterialGroupPtr returnValue;
+    MaterialGroupPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const MaterialGroup *>(this));
+    newPtr(tmpPtr, dynamic_cast<const MaterialGroup *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

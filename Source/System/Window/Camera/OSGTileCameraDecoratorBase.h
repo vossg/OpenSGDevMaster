@@ -253,15 +253,15 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TileCameraDecoratorPtr create     (void);
-    static  TileCameraDecoratorPtr createEmpty(void);
+    static  TileCameraDecoratorTransitPtr create     (void);
+    static  TileCameraDecoratorPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

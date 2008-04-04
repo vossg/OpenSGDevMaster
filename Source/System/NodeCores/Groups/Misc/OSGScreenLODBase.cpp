@@ -325,14 +325,16 @@ void ScreenLODBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ScreenLODPtr ScreenLODBase::create(void)
+ScreenLODTransitPtr ScreenLODBase::create(void)
 {
-    ScreenLODPtr fc;
+    ScreenLODTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ScreenLOD::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ScreenLOD>(tmpPtr);
     }
 
     return fc;
@@ -348,11 +350,13 @@ ScreenLODPtr ScreenLODBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ScreenLODBase::shallowCopy(void) const
+FieldContainerTransitPtr ScreenLODBase::shallowCopy(void) const
 {
-    ScreenLODPtr returnValue;
+    ScreenLODPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ScreenLOD *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ScreenLOD *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

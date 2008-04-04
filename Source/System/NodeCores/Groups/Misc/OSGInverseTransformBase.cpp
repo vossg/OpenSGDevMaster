@@ -156,14 +156,16 @@ void InverseTransformBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-InverseTransformPtr InverseTransformBase::create(void)
+InverseTransformTransitPtr InverseTransformBase::create(void)
 {
-    InverseTransformPtr fc;
+    InverseTransformTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<InverseTransform::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<InverseTransform>(tmpPtr);
     }
 
     return fc;
@@ -179,11 +181,13 @@ InverseTransformPtr InverseTransformBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr InverseTransformBase::shallowCopy(void) const
+FieldContainerTransitPtr InverseTransformBase::shallowCopy(void) const
 {
-    InverseTransformPtr returnValue;
+    InverseTransformPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const InverseTransform *>(this));
+    newPtr(tmpPtr, dynamic_cast<const InverseTransform *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -289,14 +289,16 @@ void ShearedStereoCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::create(void)
+ShearedStereoCameraDecoratorTransitPtr ShearedStereoCameraDecoratorBase::create(void)
 {
-    ShearedStereoCameraDecoratorPtr fc;
+    ShearedStereoCameraDecoratorTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ShearedStereoCameraDecorator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ShearedStereoCameraDecorator>(tmpPtr);
     }
 
     return fc;
@@ -312,11 +314,13 @@ ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::createEmpty(vo
     return returnValue;
 }
 
-FieldContainerPtr ShearedStereoCameraDecoratorBase::shallowCopy(void) const
+FieldContainerTransitPtr ShearedStereoCameraDecoratorBase::shallowCopy(void) const
 {
-    ShearedStereoCameraDecoratorPtr returnValue;
+    ShearedStereoCameraDecoratorPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ShearedStereoCameraDecorator *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ShearedStereoCameraDecorator *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

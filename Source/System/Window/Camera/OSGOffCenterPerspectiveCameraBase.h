@@ -168,15 +168,15 @@ class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveC
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  OffCenterPerspectiveCameraPtr create     (void);
-    static  OffCenterPerspectiveCameraPtr createEmpty(void);
+    static  OffCenterPerspectiveCameraTransitPtr create     (void);
+    static  OffCenterPerspectiveCameraPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

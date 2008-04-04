@@ -139,15 +139,15 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DynamicStateGeneratorPtr create     (void);
-    static  DynamicStateGeneratorPtr createEmpty(void);
+    static  DynamicStateGeneratorTransitPtr create     (void);
+    static  DynamicStateGeneratorPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -637,14 +637,16 @@ void TextureBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TextureBackgroundPtr TextureBackgroundBase::create(void)
+TextureBackgroundTransitPtr TextureBackgroundBase::create(void)
 {
-    TextureBackgroundPtr fc;
+    TextureBackgroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<TextureBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TextureBackground>(tmpPtr);
     }
 
     return fc;
@@ -660,11 +662,13 @@ TextureBackgroundPtr TextureBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr TextureBackgroundBase::shallowCopy(void) const
+FieldContainerTransitPtr TextureBackgroundBase::shallowCopy(void) const
 {
-    TextureBackgroundPtr returnValue;
+    TextureBackgroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const TextureBackground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const TextureBackground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -168,15 +168,15 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SwitchPtr create     (void);
-    static  SwitchPtr createEmpty(void);
+    static  SwitchTransitPtr create     (void);
+    static  SwitchPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

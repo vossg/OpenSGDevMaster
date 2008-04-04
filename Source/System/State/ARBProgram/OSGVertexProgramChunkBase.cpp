@@ -177,14 +177,16 @@ void VertexProgramChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-VertexProgramChunkPtr VertexProgramChunkBase::create(void)
+VertexProgramChunkTransitPtr VertexProgramChunkBase::create(void)
 {
-    VertexProgramChunkPtr fc;
+    VertexProgramChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<VertexProgramChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<VertexProgramChunk>(tmpPtr);
     }
 
     return fc;
@@ -200,11 +202,13 @@ VertexProgramChunkPtr VertexProgramChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr VertexProgramChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr VertexProgramChunkBase::shallowCopy(void) const
 {
-    VertexProgramChunkPtr returnValue;
+    VertexProgramChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const VertexProgramChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const VertexProgramChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -216,14 +216,16 @@ void DynamicStateGeneratorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-DynamicStateGeneratorPtr DynamicStateGeneratorBase::create(void)
+DynamicStateGeneratorTransitPtr DynamicStateGeneratorBase::create(void)
 {
-    DynamicStateGeneratorPtr fc;
+    DynamicStateGeneratorTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<DynamicStateGenerator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<DynamicStateGenerator>(tmpPtr);
     }
 
     return fc;
@@ -239,11 +241,13 @@ DynamicStateGeneratorPtr DynamicStateGeneratorBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr DynamicStateGeneratorBase::shallowCopy(void) const
+FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopy(void) const
 {
-    DynamicStateGeneratorPtr returnValue;
+    DynamicStateGeneratorPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const DynamicStateGenerator *>(this));
+    newPtr(tmpPtr, dynamic_cast<const DynamicStateGenerator *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

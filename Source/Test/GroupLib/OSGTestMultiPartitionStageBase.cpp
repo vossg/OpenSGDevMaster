@@ -471,14 +471,16 @@ void TestMultiPartitionStageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TestMultiPartitionStagePtr TestMultiPartitionStageBase::create(void)
+TestMultiPartitionStageTransitPtr TestMultiPartitionStageBase::create(void)
 {
-    TestMultiPartitionStagePtr fc;
+    TestMultiPartitionStageTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<TestMultiPartitionStage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TestMultiPartitionStage>(tmpPtr);
     }
 
     return fc;
@@ -494,11 +496,13 @@ TestMultiPartitionStagePtr TestMultiPartitionStageBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr TestMultiPartitionStageBase::shallowCopy(void) const
+FieldContainerTransitPtr TestMultiPartitionStageBase::shallowCopy(void) const
 {
-    TestMultiPartitionStagePtr returnValue;
+    TestMultiPartitionStagePtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const TestMultiPartitionStage *>(this));
+    newPtr(tmpPtr, dynamic_cast<const TestMultiPartitionStage *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

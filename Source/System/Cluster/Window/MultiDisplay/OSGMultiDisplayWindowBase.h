@@ -236,15 +236,15 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MultiDisplayWindowPtr create     (void);
-    static  MultiDisplayWindowPtr createEmpty(void);
+    static  MultiDisplayWindowTransitPtr create     (void);
+    static  MultiDisplayWindowPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

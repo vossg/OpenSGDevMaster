@@ -1064,14 +1064,16 @@ void ClusterWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ClusterWindowPtr ClusterWindowBase::create(void)
+ClusterWindowTransitPtr ClusterWindowBase::create(void)
 {
-    ClusterWindowPtr fc;
+    ClusterWindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ClusterWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ClusterWindow>(tmpPtr);
     }
 
     return fc;
@@ -1087,11 +1089,13 @@ ClusterWindowPtr ClusterWindowBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ClusterWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr ClusterWindowBase::shallowCopy(void) const
 {
-    ClusterWindowPtr returnValue;
+    ClusterWindowPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ClusterWindow *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ClusterWindow *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

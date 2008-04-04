@@ -250,15 +250,15 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleStagePtr create     (void);
-    static  SimpleStagePtr createEmpty(void);
+    static  SimpleStageTransitPtr create     (void);
+    static  SimpleStagePtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

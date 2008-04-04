@@ -402,15 +402,15 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TiledQuadTreeTerrainPtr create     (void);
-    static  TiledQuadTreeTerrainPtr createEmpty(void);
+    static  TiledQuadTreeTerrainTransitPtr create     (void);
+    static  TiledQuadTreeTerrainPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

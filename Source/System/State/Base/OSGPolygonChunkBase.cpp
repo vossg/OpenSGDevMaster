@@ -934,14 +934,16 @@ void PolygonChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-PolygonChunkPtr PolygonChunkBase::create(void)
+PolygonChunkTransitPtr PolygonChunkBase::create(void)
 {
-    PolygonChunkPtr fc;
+    PolygonChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<PolygonChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<PolygonChunk>(tmpPtr);
     }
 
     return fc;
@@ -957,11 +959,13 @@ PolygonChunkPtr PolygonChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr PolygonChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr PolygonChunkBase::shallowCopy(void) const
 {
-    PolygonChunkPtr returnValue;
+    PolygonChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const PolygonChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const PolygonChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

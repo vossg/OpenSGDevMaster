@@ -217,10 +217,10 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
 #endif
                   SFVec4f             *editSFGenFuncQPlane  (void);
             const SFVec4f             *getSFGenFuncQPlane   (void) const;
-            const SFUncountedNodePtr  *getSFSBeacon         (void) const;
-            const SFUncountedNodePtr  *getSFTBeacon         (void) const;
-            const SFUncountedNodePtr  *getSFRBeacon         (void) const;
-            const SFUncountedNodePtr  *getSFQBeacon         (void) const;
+            const SFWeakNodePtr       *getSFSBeacon         (void) const;
+            const SFWeakNodePtr       *getSFTBeacon         (void) const;
+            const SFWeakNodePtr       *getSFRBeacon         (void) const;
+            const SFWeakNodePtr       *getSFQBeacon         (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -324,15 +324,15 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TexGenChunkPtr create     (void);
-    static  TexGenChunkPtr createEmpty(void);
+    static  TexGenChunkTransitPtr create     (void);
+    static  TexGenChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -356,10 +356,10 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
     SFVec4f           _sfGenFuncTPlane;
     SFVec4f           _sfGenFuncRPlane;
     SFVec4f           _sfGenFuncQPlane;
-    SFUncountedNodePtr _sfSBeacon;
-    SFUncountedNodePtr _sfTBeacon;
-    SFUncountedNodePtr _sfRBeacon;
-    SFUncountedNodePtr _sfQBeacon;
+    SFWeakNodePtr     _sfSBeacon;
+    SFWeakNodePtr     _sfTBeacon;
+    SFWeakNodePtr     _sfRBeacon;
+    SFWeakNodePtr     _sfQBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

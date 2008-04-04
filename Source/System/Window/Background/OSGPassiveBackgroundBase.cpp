@@ -158,14 +158,16 @@ void PassiveBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-PassiveBackgroundPtr PassiveBackgroundBase::create(void)
+PassiveBackgroundTransitPtr PassiveBackgroundBase::create(void)
 {
-    PassiveBackgroundPtr fc;
+    PassiveBackgroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<PassiveBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<PassiveBackground>(tmpPtr);
     }
 
     return fc;
@@ -181,11 +183,13 @@ PassiveBackgroundPtr PassiveBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr PassiveBackgroundBase::shallowCopy(void) const
+FieldContainerTransitPtr PassiveBackgroundBase::shallowCopy(void) const
 {
-    PassiveBackgroundPtr returnValue;
+    PassiveBackgroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const PassiveBackground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const PassiveBackground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

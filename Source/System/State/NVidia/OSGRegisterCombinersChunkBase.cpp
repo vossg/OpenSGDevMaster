@@ -4177,14 +4177,16 @@ void RegisterCombinersChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-RegisterCombinersChunkPtr RegisterCombinersChunkBase::create(void)
+RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::create(void)
 {
-    RegisterCombinersChunkPtr fc;
+    RegisterCombinersChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<RegisterCombinersChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<RegisterCombinersChunk>(tmpPtr);
     }
 
     return fc;
@@ -4200,11 +4202,13 @@ RegisterCombinersChunkPtr RegisterCombinersChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr RegisterCombinersChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr RegisterCombinersChunkBase::shallowCopy(void) const
 {
-    RegisterCombinersChunkPtr returnValue;
+    RegisterCombinersChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const RegisterCombinersChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const RegisterCombinersChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

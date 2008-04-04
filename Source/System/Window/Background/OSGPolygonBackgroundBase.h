@@ -347,15 +347,15 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PolygonBackgroundPtr create     (void);
-    static  PolygonBackgroundPtr createEmpty(void);
+    static  PolygonBackgroundTransitPtr create     (void);
+    static  PolygonBackgroundPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

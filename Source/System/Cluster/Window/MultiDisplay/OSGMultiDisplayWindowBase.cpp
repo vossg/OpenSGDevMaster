@@ -450,14 +450,16 @@ void MultiDisplayWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-MultiDisplayWindowPtr MultiDisplayWindowBase::create(void)
+MultiDisplayWindowTransitPtr MultiDisplayWindowBase::create(void)
 {
-    MultiDisplayWindowPtr fc;
+    MultiDisplayWindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<MultiDisplayWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<MultiDisplayWindow>(tmpPtr);
     }
 
     return fc;
@@ -473,11 +475,13 @@ MultiDisplayWindowPtr MultiDisplayWindowBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr MultiDisplayWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr MultiDisplayWindowBase::shallowCopy(void) const
 {
-    MultiDisplayWindowPtr returnValue;
+    MultiDisplayWindowPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const MultiDisplayWindow *>(this));
+    newPtr(tmpPtr, dynamic_cast<const MultiDisplayWindow *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

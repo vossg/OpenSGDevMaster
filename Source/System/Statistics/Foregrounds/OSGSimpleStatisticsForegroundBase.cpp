@@ -987,14 +987,16 @@ void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::create(void)
+SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::create(void)
 {
-    SimpleStatisticsForegroundPtr fc;
+    SimpleStatisticsForegroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<SimpleStatisticsForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SimpleStatisticsForeground>(tmpPtr);
     }
 
     return fc;
@@ -1010,11 +1012,13 @@ SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SimpleStatisticsForegroundBase::shallowCopy(void) const
+FieldContainerTransitPtr SimpleStatisticsForegroundBase::shallowCopy(void) const
 {
-    SimpleStatisticsForegroundPtr returnValue;
+    SimpleStatisticsForegroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const SimpleStatisticsForeground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const SimpleStatisticsForeground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

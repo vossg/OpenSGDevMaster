@@ -168,15 +168,15 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DepthClearBackgroundPtr create     (void);
-    static  DepthClearBackgroundPtr createEmpty(void);
+    static  DepthClearBackgroundTransitPtr create     (void);
+    static  DepthClearBackgroundPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

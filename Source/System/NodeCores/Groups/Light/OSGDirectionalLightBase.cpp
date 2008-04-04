@@ -224,14 +224,16 @@ void DirectionalLightBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-DirectionalLightPtr DirectionalLightBase::create(void)
+DirectionalLightTransitPtr DirectionalLightBase::create(void)
 {
-    DirectionalLightPtr fc;
+    DirectionalLightTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<DirectionalLight::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<DirectionalLight>(tmpPtr);
     }
 
     return fc;
@@ -247,11 +249,13 @@ DirectionalLightPtr DirectionalLightBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr DirectionalLightBase::shallowCopy(void) const
+FieldContainerTransitPtr DirectionalLightBase::shallowCopy(void) const
 {
-    DirectionalLightPtr returnValue;
+    DirectionalLightPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const DirectionalLight *>(this));
+    newPtr(tmpPtr, dynamic_cast<const DirectionalLight *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

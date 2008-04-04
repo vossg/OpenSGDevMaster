@@ -266,15 +266,15 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SHLChunkPtr create     (void);
-    static  SHLChunkPtr createEmpty(void);
+    static  SHLChunkTransitPtr create     (void);
+    static  SHLChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

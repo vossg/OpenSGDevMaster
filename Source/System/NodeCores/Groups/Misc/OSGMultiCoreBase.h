@@ -177,15 +177,15 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MultiCorePtr create     (void);
-    static  MultiCorePtr createEmpty(void);
+    static  MultiCoreTransitPtr create     (void);
+    static  MultiCorePtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

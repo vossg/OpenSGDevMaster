@@ -209,15 +209,15 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ImageForegroundPtr create     (void);
-    static  ImageForegroundPtr createEmpty(void);
+    static  ImageForegroundTransitPtr create     (void);
+    static  ImageForegroundPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

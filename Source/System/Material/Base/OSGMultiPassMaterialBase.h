@@ -177,15 +177,15 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MultiPassMaterialPtr create     (void);
-    static  MultiPassMaterialPtr createEmpty(void);
+    static  MultiPassMaterialTransitPtr create     (void);
+    static  MultiPassMaterialPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -219,15 +219,15 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposerBase : public ImageComposer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PipelineComposerPtr create     (void);
-    static  PipelineComposerPtr createEmpty(void);
+    static  PipelineComposerTransitPtr create     (void);
+    static  PipelineComposerPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

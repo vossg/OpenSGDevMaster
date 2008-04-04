@@ -219,15 +219,15 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ColorBufferViewportPtr create     (void);
-    static  ColorBufferViewportPtr createEmpty(void);
+    static  ColorBufferViewportTransitPtr create     (void);
+    static  ColorBufferViewportPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

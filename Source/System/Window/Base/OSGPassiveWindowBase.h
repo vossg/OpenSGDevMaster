@@ -126,15 +126,15 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PassiveWindowPtr create     (void);
-    static  PassiveWindowPtr createEmpty(void);
+    static  PassiveWindowTransitPtr create     (void);
+    static  PassiveWindowPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

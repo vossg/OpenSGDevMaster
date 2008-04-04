@@ -185,15 +185,15 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  RenderBufferPtr create     (void);
-    static  RenderBufferPtr createEmpty(void);
+    static  RenderBufferTransitPtr create     (void);
+    static  RenderBufferPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

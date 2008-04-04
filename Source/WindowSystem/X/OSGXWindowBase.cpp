@@ -334,14 +334,16 @@ void XWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-XWindowPtr XWindowBase::create(void)
+XWindowTransitPtr XWindowBase::create(void)
 {
-    XWindowPtr fc;
+    XWindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<XWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<XWindow>(tmpPtr);
     }
 
     return fc;
@@ -357,11 +359,13 @@ XWindowPtr XWindowBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr XWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr XWindowBase::shallowCopy(void) const
 {
-    XWindowPtr returnValue;
+    XWindowPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const XWindow *>(this));
+    newPtr(tmpPtr, dynamic_cast<const XWindow *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

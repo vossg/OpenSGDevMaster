@@ -233,14 +233,16 @@ void PointLightBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-PointLightPtr PointLightBase::create(void)
+PointLightTransitPtr PointLightBase::create(void)
 {
-    PointLightPtr fc;
+    PointLightTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<PointLight::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<PointLight>(tmpPtr);
     }
 
     return fc;
@@ -256,11 +258,13 @@ PointLightPtr PointLightBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr PointLightBase::shallowCopy(void) const
+FieldContainerTransitPtr PointLightBase::shallowCopy(void) const
 {
-    PointLightPtr returnValue;
+    PointLightPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const PointLight *>(this));
+    newPtr(tmpPtr, dynamic_cast<const PointLight *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -126,15 +126,15 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ScaleManipulatorPtr create     (void);
-    static  ScaleManipulatorPtr createEmpty(void);
+    static  ScaleManipulatorTransitPtr create     (void);
+    static  ScaleManipulatorPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

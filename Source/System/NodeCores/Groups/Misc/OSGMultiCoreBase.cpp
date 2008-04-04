@@ -392,14 +392,16 @@ void MultiCoreBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-MultiCorePtr MultiCoreBase::create(void)
+MultiCoreTransitPtr MultiCoreBase::create(void)
 {
-    MultiCorePtr fc;
+    MultiCoreTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<MultiCore::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<MultiCore>(tmpPtr);
     }
 
     return fc;
@@ -415,11 +417,13 @@ MultiCorePtr MultiCoreBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr MultiCoreBase::shallowCopy(void) const
+FieldContainerTransitPtr MultiCoreBase::shallowCopy(void) const
 {
-    MultiCorePtr returnValue;
+    MultiCorePtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const MultiCore *>(this));
+    newPtr(tmpPtr, dynamic_cast<const MultiCore *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

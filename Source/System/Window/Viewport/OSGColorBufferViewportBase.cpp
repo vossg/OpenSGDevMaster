@@ -412,14 +412,16 @@ void ColorBufferViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ColorBufferViewportPtr ColorBufferViewportBase::create(void)
+ColorBufferViewportTransitPtr ColorBufferViewportBase::create(void)
 {
-    ColorBufferViewportPtr fc;
+    ColorBufferViewportTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ColorBufferViewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ColorBufferViewport>(tmpPtr);
     }
 
     return fc;
@@ -435,11 +437,13 @@ ColorBufferViewportPtr ColorBufferViewportBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ColorBufferViewportBase::shallowCopy(void) const
+FieldContainerTransitPtr ColorBufferViewportBase::shallowCopy(void) const
 {
-    ColorBufferViewportPtr returnValue;
+    ColorBufferViewportPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ColorBufferViewport *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ColorBufferViewport *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

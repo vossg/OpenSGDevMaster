@@ -183,15 +183,15 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ScreenLODPtr create     (void);
-    static  ScreenLODPtr createEmpty(void);
+    static  ScreenLODTransitPtr create     (void);
+    static  ScreenLODPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

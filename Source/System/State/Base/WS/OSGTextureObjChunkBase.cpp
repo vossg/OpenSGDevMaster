@@ -1881,14 +1881,16 @@ void TextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TextureObjChunkPtr TextureObjChunkBase::create(void)
+TextureObjChunkTransitPtr TextureObjChunkBase::create(void)
 {
-    TextureObjChunkPtr fc;
+    TextureObjChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<TextureObjChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TextureObjChunk>(tmpPtr);
     }
 
     return fc;
@@ -1904,11 +1906,13 @@ TextureObjChunkPtr TextureObjChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr TextureObjChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr TextureObjChunkBase::shallowCopy(void) const
 {
-    TextureObjChunkPtr returnValue;
+    TextureObjChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const TextureObjChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const TextureObjChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

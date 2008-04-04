@@ -141,15 +141,15 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GradientBackgroundPtr create     (void);
-    static  GradientBackgroundPtr createEmpty(void);
+    static  GradientBackgroundTransitPtr create     (void);
+    static  GradientBackgroundPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

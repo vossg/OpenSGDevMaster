@@ -194,15 +194,15 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SwitchMaterialPtr create     (void);
-    static  SwitchMaterialPtr createEmpty(void);
+    static  SwitchMaterialTransitPtr create     (void);
+    static  SwitchMaterialPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

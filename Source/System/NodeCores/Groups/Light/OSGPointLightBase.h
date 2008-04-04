@@ -168,15 +168,15 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PointLightPtr create     (void);
-    static  PointLightPtr createEmpty(void);
+    static  PointLightTransitPtr create     (void);
+    static  PointLightPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

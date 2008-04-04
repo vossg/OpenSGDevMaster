@@ -358,14 +358,16 @@ void InlineBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-InlinePtr InlineBase::create(void)
+InlineTransitPtr InlineBase::create(void)
 {
-    InlinePtr fc;
+    InlineTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<Inline::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Inline>(tmpPtr);
     }
 
     return fc;
@@ -381,11 +383,13 @@ InlinePtr InlineBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr InlineBase::shallowCopy(void) const
+FieldContainerTransitPtr InlineBase::shallowCopy(void) const
 {
-    InlinePtr returnValue;
+    InlinePtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const Inline *>(this));
+    newPtr(tmpPtr, dynamic_cast<const Inline *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

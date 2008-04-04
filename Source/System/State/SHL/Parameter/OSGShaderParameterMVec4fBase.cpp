@@ -304,14 +304,16 @@ void ShaderParameterMVec4fBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ShaderParameterMVec4fPtr ShaderParameterMVec4fBase::create(void)
+ShaderParameterMVec4fTransitPtr ShaderParameterMVec4fBase::create(void)
 {
-    ShaderParameterMVec4fPtr fc;
+    ShaderParameterMVec4fTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ShaderParameterMVec4f::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ShaderParameterMVec4f>(tmpPtr);
     }
 
     return fc;
@@ -327,11 +329,13 @@ ShaderParameterMVec4fPtr ShaderParameterMVec4fBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ShaderParameterMVec4fBase::shallowCopy(void) const
+FieldContainerTransitPtr ShaderParameterMVec4fBase::shallowCopy(void) const
 {
-    ShaderParameterMVec4fPtr returnValue;
+    ShaderParameterMVec4fPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ShaderParameterMVec4f *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ShaderParameterMVec4f *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

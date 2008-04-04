@@ -469,14 +469,16 @@ void DepthChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-DepthChunkPtr DepthChunkBase::create(void)
+DepthChunkTransitPtr DepthChunkBase::create(void)
 {
-    DepthChunkPtr fc;
+    DepthChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<DepthChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<DepthChunk>(tmpPtr);
     }
 
     return fc;
@@ -492,11 +494,13 @@ DepthChunkPtr DepthChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr DepthChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr DepthChunkBase::shallowCopy(void) const
 {
-    DepthChunkPtr returnValue;
+    DepthChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const DepthChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const DepthChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

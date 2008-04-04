@@ -403,14 +403,16 @@ void ContainerPoolBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ContainerPoolPtr ContainerPoolBase::create(void)
+ContainerPoolTransitPtr ContainerPoolBase::create(void)
 {
-    ContainerPoolPtr fc;
+    ContainerPoolTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ContainerPool::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ContainerPool>(tmpPtr);
     }
 
     return fc;
@@ -426,11 +428,13 @@ ContainerPoolPtr ContainerPoolBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ContainerPoolBase::shallowCopy(void) const
+FieldContainerTransitPtr ContainerPoolBase::shallowCopy(void) const
 {
-    ContainerPoolPtr returnValue;
+    ContainerPoolPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ContainerPool *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ContainerPool *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

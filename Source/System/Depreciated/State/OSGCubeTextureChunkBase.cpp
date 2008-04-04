@@ -475,14 +475,16 @@ void CubeTextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-CubeTextureChunkPtr CubeTextureChunkBase::create(void)
+CubeTextureChunkTransitPtr CubeTextureChunkBase::create(void)
 {
-    CubeTextureChunkPtr fc;
+    CubeTextureChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<CubeTextureChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<CubeTextureChunk>(tmpPtr);
     }
 
     return fc;
@@ -498,11 +500,13 @@ CubeTextureChunkPtr CubeTextureChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr CubeTextureChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr CubeTextureChunkBase::shallowCopy(void) const
 {
-    CubeTextureChunkPtr returnValue;
+    CubeTextureChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const CubeTextureChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const CubeTextureChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

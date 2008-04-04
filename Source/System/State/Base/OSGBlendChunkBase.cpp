@@ -677,14 +677,16 @@ void BlendChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-BlendChunkPtr BlendChunkBase::create(void)
+BlendChunkTransitPtr BlendChunkBase::create(void)
 {
-    BlendChunkPtr fc;
+    BlendChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<BlendChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<BlendChunk>(tmpPtr);
     }
 
     return fc;
@@ -700,11 +702,13 @@ BlendChunkPtr BlendChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr BlendChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr BlendChunkBase::shallowCopy(void) const
 {
-    BlendChunkPtr returnValue;
+    BlendChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const BlendChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const BlendChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

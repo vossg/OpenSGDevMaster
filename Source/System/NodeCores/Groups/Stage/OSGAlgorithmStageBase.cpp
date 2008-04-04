@@ -379,14 +379,16 @@ void AlgorithmStageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-AlgorithmStagePtr AlgorithmStageBase::create(void)
+AlgorithmStageTransitPtr AlgorithmStageBase::create(void)
 {
-    AlgorithmStagePtr fc;
+    AlgorithmStageTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<AlgorithmStage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<AlgorithmStage>(tmpPtr);
     }
 
     return fc;
@@ -402,11 +404,13 @@ AlgorithmStagePtr AlgorithmStageBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr AlgorithmStageBase::shallowCopy(void) const
+FieldContainerTransitPtr AlgorithmStageBase::shallowCopy(void) const
 {
-    AlgorithmStagePtr returnValue;
+    AlgorithmStagePtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const AlgorithmStage *>(this));
+    newPtr(tmpPtr, dynamic_cast<const AlgorithmStage *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

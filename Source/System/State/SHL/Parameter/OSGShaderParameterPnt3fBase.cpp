@@ -222,14 +222,16 @@ void ShaderParameterPnt3fBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ShaderParameterPnt3fPtr ShaderParameterPnt3fBase::create(void)
+ShaderParameterPnt3fTransitPtr ShaderParameterPnt3fBase::create(void)
 {
-    ShaderParameterPnt3fPtr fc;
+    ShaderParameterPnt3fTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ShaderParameterPnt3f::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ShaderParameterPnt3f>(tmpPtr);
     }
 
     return fc;
@@ -245,11 +247,13 @@ ShaderParameterPnt3fPtr ShaderParameterPnt3fBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ShaderParameterPnt3fBase::shallowCopy(void) const
+FieldContainerTransitPtr ShaderParameterPnt3fBase::shallowCopy(void) const
 {
-    ShaderParameterPnt3fPtr returnValue;
+    ShaderParameterPnt3fPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ShaderParameterPnt3f *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ShaderParameterPnt3f *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

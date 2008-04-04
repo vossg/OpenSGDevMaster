@@ -185,15 +185,15 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SolidBackgroundPtr create     (void);
-    static  SolidBackgroundPtr createEmpty(void);
+    static  SolidBackgroundTransitPtr create     (void);
+    static  SolidBackgroundPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

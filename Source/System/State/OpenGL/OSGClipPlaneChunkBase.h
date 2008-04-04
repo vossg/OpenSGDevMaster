@@ -145,7 +145,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
 #endif
                   SFBool              *editSFEnable         (void);
             const SFBool              *getSFEnable          (void) const;
-            const SFUncountedNodePtr  *getSFBeacon          (void) const;
+            const SFWeakNodePtr       *getSFBeacon          (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -198,15 +198,15 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ClipPlaneChunkPtr create     (void);
-    static  ClipPlaneChunkPtr createEmpty(void);
+    static  ClipPlaneChunkTransitPtr create     (void);
+    static  ClipPlaneChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -224,7 +224,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
 
     SFVec4f           _sfEquation;
     SFBool            _sfEnable;
-    SFUncountedNodePtr _sfBeacon;
+    SFWeakNodePtr     _sfBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

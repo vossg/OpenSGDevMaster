@@ -225,7 +225,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
 #endif
                   SFReal              *editSFQuadraticAttenuation(void);
             const SFReal              *getSFQuadraticAttenuation (void) const;
-            const SFUncountedNodePtr  *getSFBeacon          (void) const;
+            const SFWeakNodePtr       *getSFBeacon          (void) const;
 
 
 #ifdef OSG_1_GET_COMPAT
@@ -334,15 +334,15 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  LightChunkPtr create     (void);
-    static  LightChunkPtr createEmpty(void);
+    static  LightChunkTransitPtr create     (void);
+    static  LightChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -368,7 +368,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     SFReal            _sfConstantAttenuation;
     SFReal            _sfLinearAttenuation;
     SFReal            _sfQuadraticAttenuation;
-    SFUncountedNodePtr _sfBeacon;
+    SFWeakNodePtr     _sfBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

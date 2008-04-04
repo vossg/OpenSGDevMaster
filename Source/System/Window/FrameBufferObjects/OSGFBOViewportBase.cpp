@@ -216,14 +216,16 @@ void FBOViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-FBOViewportPtr FBOViewportBase::create(void)
+FBOViewportTransitPtr FBOViewportBase::create(void)
 {
-    FBOViewportPtr fc;
+    FBOViewportTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<FBOViewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<FBOViewport>(tmpPtr);
     }
 
     return fc;
@@ -239,11 +241,13 @@ FBOViewportPtr FBOViewportBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr FBOViewportBase::shallowCopy(void) const
+FieldContainerTransitPtr FBOViewportBase::shallowCopy(void) const
 {
-    FBOViewportPtr returnValue;
+    FBOViewportPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const FBOViewport *>(this));
+    newPtr(tmpPtr, dynamic_cast<const FBOViewport *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -141,15 +141,15 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ChunkMaterialPtr create     (void);
-    static  ChunkMaterialPtr createEmpty(void);
+    static  ChunkMaterialTransitPtr create     (void);
+    static  ChunkMaterialPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

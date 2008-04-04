@@ -221,14 +221,16 @@ void OffCenterPerspectiveCameraBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-OffCenterPerspectiveCameraPtr OffCenterPerspectiveCameraBase::create(void)
+OffCenterPerspectiveCameraTransitPtr OffCenterPerspectiveCameraBase::create(void)
 {
-    OffCenterPerspectiveCameraPtr fc;
+    OffCenterPerspectiveCameraTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<OffCenterPerspectiveCamera::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<OffCenterPerspectiveCamera>(tmpPtr);
     }
 
     return fc;
@@ -244,11 +246,13 @@ OffCenterPerspectiveCameraPtr OffCenterPerspectiveCameraBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr OffCenterPerspectiveCameraBase::shallowCopy(void) const
+FieldContainerTransitPtr OffCenterPerspectiveCameraBase::shallowCopy(void) const
 {
-    OffCenterPerspectiveCameraPtr returnValue;
+    OffCenterPerspectiveCameraPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const OffCenterPerspectiveCamera *>(this));
+    newPtr(tmpPtr, dynamic_cast<const OffCenterPerspectiveCamera *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

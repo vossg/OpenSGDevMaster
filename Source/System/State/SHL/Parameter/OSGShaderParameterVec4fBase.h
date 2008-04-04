@@ -168,15 +168,15 @@ class OSG_STATE_DLLMAPPING ShaderParameterVec4fBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterVec4fPtr create     (void);
-    static  ShaderParameterVec4fPtr createEmpty(void);
+    static  ShaderParameterVec4fTransitPtr create     (void);
+    static  ShaderParameterVec4fPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

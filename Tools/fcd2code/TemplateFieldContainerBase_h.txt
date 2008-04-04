@@ -354,15 +354,15 @@ class @!Classname!@Base : public @!Parent!@
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  @!Classname!@Ptr create     (void);
-    static  @!Classname!@Ptr createEmpty(void);
+    static  @!Classname!@TransitPtr create     (void);
+    static  @!Classname!@Ptr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
 @@endif // !isAbstract

@@ -886,14 +886,16 @@ void PolygonBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-PolygonBackgroundPtr PolygonBackgroundBase::create(void)
+PolygonBackgroundTransitPtr PolygonBackgroundBase::create(void)
 {
-    PolygonBackgroundPtr fc;
+    PolygonBackgroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<PolygonBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<PolygonBackground>(tmpPtr);
     }
 
     return fc;
@@ -909,11 +911,13 @@ PolygonBackgroundPtr PolygonBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr PolygonBackgroundBase::shallowCopy(void) const
+FieldContainerTransitPtr PolygonBackgroundBase::shallowCopy(void) const
 {
-    PolygonBackgroundPtr returnValue;
+    PolygonBackgroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const PolygonBackground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const PolygonBackground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -219,15 +219,15 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  LineChunkPtr create     (void);
-    static  LineChunkPtr createEmpty(void);
+    static  LineChunkTransitPtr create     (void);
+    static  LineChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

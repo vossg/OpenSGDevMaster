@@ -200,15 +200,15 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DistanceLODPtr create     (void);
-    static  DistanceLODPtr createEmpty(void);
+    static  DistanceLODTransitPtr create     (void);
+    static  DistanceLODPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

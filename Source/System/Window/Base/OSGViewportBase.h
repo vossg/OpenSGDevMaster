@@ -307,15 +307,15 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ViewportPtr create     (void);
-    static  ViewportPtr createEmpty(void);
+    static  ViewportTransitPtr create     (void);
+    static  ViewportPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -223,14 +223,16 @@ void TestStageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TestStagePtr TestStageBase::create(void)
+TestStageTransitPtr TestStageBase::create(void)
 {
-    TestStagePtr fc;
+    TestStageTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<TestStage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TestStage>(tmpPtr);
     }
 
     return fc;
@@ -246,11 +248,13 @@ TestStagePtr TestStageBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr TestStageBase::shallowCopy(void) const
+FieldContainerTransitPtr TestStageBase::shallowCopy(void) const
 {
-    TestStagePtr returnValue;
+    TestStagePtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const TestStage *>(this));
+    newPtr(tmpPtr, dynamic_cast<const TestStage *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

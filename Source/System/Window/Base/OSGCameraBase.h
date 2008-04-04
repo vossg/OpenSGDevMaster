@@ -133,7 +133,7 @@ class OSG_SYSTEM_DLLMAPPING CameraBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-    virtual const SFUncountedNodePtr  *getSFBeacon          (void) const;
+    virtual const SFWeakNodePtr       *getSFBeacon          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
     virtual       SFReal32            *getSFNear            (void);
@@ -207,7 +207,7 @@ class OSG_SYSTEM_DLLMAPPING CameraBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUncountedNodePtr _sfBeacon;
+    SFWeakNodePtr     _sfBeacon;
     SFReal32          _sfNear;
     SFReal32          _sfFar;
 

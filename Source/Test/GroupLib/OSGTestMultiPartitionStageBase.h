@@ -234,15 +234,15 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TestMultiPartitionStagePtr create     (void);
-    static  TestMultiPartitionStagePtr createEmpty(void);
+    static  TestMultiPartitionStageTransitPtr create     (void);
+    static  TestMultiPartitionStagePtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

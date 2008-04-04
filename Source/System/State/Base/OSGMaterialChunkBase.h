@@ -389,15 +389,15 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MaterialChunkPtr create     (void);
-    static  MaterialChunkPtr createEmpty(void);
+    static  MaterialChunkTransitPtr create     (void);
+    static  MaterialChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

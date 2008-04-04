@@ -504,14 +504,16 @@ void ImageForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ImageForegroundPtr ImageForegroundBase::create(void)
+ImageForegroundTransitPtr ImageForegroundBase::create(void)
 {
-    ImageForegroundPtr fc;
+    ImageForegroundTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ImageForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ImageForeground>(tmpPtr);
     }
 
     return fc;
@@ -527,11 +529,13 @@ ImageForegroundPtr ImageForegroundBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ImageForegroundBase::shallowCopy(void) const
+FieldContainerTransitPtr ImageForegroundBase::shallowCopy(void) const
 {
-    ImageForegroundPtr returnValue;
+    ImageForegroundPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ImageForeground *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ImageForeground *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

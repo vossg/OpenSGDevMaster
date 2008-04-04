@@ -126,15 +126,15 @@ class OSG_CONTRIBGUI_DLLMAPPING RotateManipulatorBase : public Manipulator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  RotateManipulatorPtr create     (void);
-    static  RotateManipulatorPtr createEmpty(void);
+    static  RotateManipulatorTransitPtr create     (void);
+    static  RotateManipulatorPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

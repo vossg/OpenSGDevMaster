@@ -336,14 +336,16 @@ void WIN32WindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-WIN32WindowPtr WIN32WindowBase::create(void)
+WIN32WindowTransitPtr WIN32WindowBase::create(void)
 {
-    WIN32WindowPtr fc;
+    WIN32WindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<WIN32Window::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<WIN32Window>(tmpPtr);
     }
 
     return fc;
@@ -359,11 +361,13 @@ WIN32WindowPtr WIN32WindowBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr WIN32WindowBase::shallowCopy(void) const
+FieldContainerTransitPtr WIN32WindowBase::shallowCopy(void) const
 {
-    WIN32WindowPtr returnValue;
+    WIN32WindowPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const WIN32Window *>(this));
+    newPtr(tmpPtr, dynamic_cast<const WIN32Window *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

@@ -164,15 +164,15 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  VisitSubTreePtr create     (void);
-    static  VisitSubTreePtr createEmpty(void);
+    static  VisitSubTreeTransitPtr create     (void);
+    static  VisitSubTreePtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

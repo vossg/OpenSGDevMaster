@@ -202,15 +202,15 @@ class OSG_SYSTEM_DLLMAPPING MatrixCameraBase : public Camera
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MatrixCameraPtr create     (void);
-    static  MatrixCameraPtr createEmpty(void);
+    static  MatrixCameraTransitPtr create     (void);
+    static  MatrixCameraPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

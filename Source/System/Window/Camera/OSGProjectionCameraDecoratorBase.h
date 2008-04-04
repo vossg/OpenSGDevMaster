@@ -242,15 +242,15 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ProjectionCameraDecoratorPtr create     (void);
-    static  ProjectionCameraDecoratorPtr createEmpty(void);
+    static  ProjectionCameraDecoratorTransitPtr create     (void);
+    static  ProjectionCameraDecoratorPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

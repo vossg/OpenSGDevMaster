@@ -169,14 +169,16 @@ void FragmentProgramChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-FragmentProgramChunkPtr FragmentProgramChunkBase::create(void)
+FragmentProgramChunkTransitPtr FragmentProgramChunkBase::create(void)
 {
-    FragmentProgramChunkPtr fc;
+    FragmentProgramChunkTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<FragmentProgramChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<FragmentProgramChunk>(tmpPtr);
     }
 
     return fc;
@@ -192,11 +194,13 @@ FragmentProgramChunkPtr FragmentProgramChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr FragmentProgramChunkBase::shallowCopy(void) const
+FieldContainerTransitPtr FragmentProgramChunkBase::shallowCopy(void) const
 {
-    FragmentProgramChunkPtr returnValue;
+    FragmentProgramChunkPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const FragmentProgramChunk *>(this));
+    newPtr(tmpPtr, dynamic_cast<const FragmentProgramChunk *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

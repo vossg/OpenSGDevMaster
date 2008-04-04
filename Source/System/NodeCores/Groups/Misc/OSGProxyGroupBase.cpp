@@ -919,14 +919,16 @@ void ProxyGroupBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ProxyGroupPtr ProxyGroupBase::create(void)
+ProxyGroupTransitPtr ProxyGroupBase::create(void)
 {
-    ProxyGroupPtr fc;
+    ProxyGroupTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ProxyGroup::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ProxyGroup>(tmpPtr);
     }
 
     return fc;
@@ -942,11 +944,13 @@ ProxyGroupPtr ProxyGroupBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ProxyGroupBase::shallowCopy(void) const
+FieldContainerTransitPtr ProxyGroupBase::shallowCopy(void) const
 {
-    ProxyGroupPtr returnValue;
+    ProxyGroupPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ProxyGroup *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ProxyGroup *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

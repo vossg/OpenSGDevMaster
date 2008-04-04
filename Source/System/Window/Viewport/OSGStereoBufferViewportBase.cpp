@@ -298,14 +298,16 @@ void StereoBufferViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-StereoBufferViewportPtr StereoBufferViewportBase::create(void)
+StereoBufferViewportTransitPtr StereoBufferViewportBase::create(void)
 {
-    StereoBufferViewportPtr fc;
+    StereoBufferViewportTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<StereoBufferViewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<StereoBufferViewport>(tmpPtr);
     }
 
     return fc;
@@ -321,11 +323,13 @@ StereoBufferViewportPtr StereoBufferViewportBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr StereoBufferViewportBase::shallowCopy(void) const
+FieldContainerTransitPtr StereoBufferViewportBase::shallowCopy(void) const
 {
-    StereoBufferViewportPtr returnValue;
+    StereoBufferViewportPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const StereoBufferViewport *>(this));
+    newPtr(tmpPtr, dynamic_cast<const StereoBufferViewport *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

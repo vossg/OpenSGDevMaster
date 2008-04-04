@@ -304,14 +304,16 @@ void ShaderParameterMRealBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ShaderParameterMRealPtr ShaderParameterMRealBase::create(void)
+ShaderParameterMRealTransitPtr ShaderParameterMRealBase::create(void)
 {
-    ShaderParameterMRealPtr fc;
+    ShaderParameterMRealTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ShaderParameterMReal::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ShaderParameterMReal>(tmpPtr);
     }
 
     return fc;
@@ -327,11 +329,13 @@ ShaderParameterMRealPtr ShaderParameterMRealBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ShaderParameterMRealBase::shallowCopy(void) const
+FieldContainerTransitPtr ShaderParameterMRealBase::shallowCopy(void) const
 {
-    ShaderParameterMRealPtr returnValue;
+    ShaderParameterMRealPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ShaderParameterMReal *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ShaderParameterMReal *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

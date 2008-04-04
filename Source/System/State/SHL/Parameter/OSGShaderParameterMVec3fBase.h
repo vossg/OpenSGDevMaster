@@ -183,15 +183,15 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec3fBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterMVec3fPtr create     (void);
-    static  ShaderParameterMVec3fPtr createEmpty(void);
+    static  ShaderParameterMVec3fTransitPtr create     (void);
+    static  ShaderParameterMVec3fPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -168,15 +168,15 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleShadowMapEnginePtr create     (void);
-    static  SimpleShadowMapEnginePtr createEmpty(void);
+    static  SimpleShadowMapEngineTransitPtr create     (void);
+    static  SimpleShadowMapEnginePtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

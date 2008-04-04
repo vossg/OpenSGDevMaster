@@ -508,14 +508,16 @@ void ChunkMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ChunkMaterialPtr ChunkMaterialBase::create(void)
+ChunkMaterialTransitPtr ChunkMaterialBase::create(void)
 {
-    ChunkMaterialPtr fc;
+    ChunkMaterialTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ChunkMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ChunkMaterial>(tmpPtr);
     }
 
     return fc;
@@ -531,11 +533,13 @@ ChunkMaterialPtr ChunkMaterialBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ChunkMaterialBase::shallowCopy(void) const
+FieldContainerTransitPtr ChunkMaterialBase::shallowCopy(void) const
 {
-    ChunkMaterialPtr returnValue;
+    ChunkMaterialPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ChunkMaterial *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ChunkMaterial *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

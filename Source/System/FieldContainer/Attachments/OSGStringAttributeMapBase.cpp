@@ -447,14 +447,16 @@ void StringAttributeMapBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-StringAttributeMapPtr StringAttributeMapBase::create(void)
+StringAttributeMapTransitPtr StringAttributeMapBase::create(void)
 {
-    StringAttributeMapPtr fc;
+    StringAttributeMapTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<StringAttributeMap::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<StringAttributeMap>(tmpPtr);
     }
 
     return fc;
@@ -470,11 +472,13 @@ StringAttributeMapPtr StringAttributeMapBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr StringAttributeMapBase::shallowCopy(void) const
+FieldContainerTransitPtr StringAttributeMapBase::shallowCopy(void) const
 {
-    StringAttributeMapPtr returnValue;
+    StringAttributeMapPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const StringAttributeMap *>(this));
+    newPtr(tmpPtr, dynamic_cast<const StringAttributeMap *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

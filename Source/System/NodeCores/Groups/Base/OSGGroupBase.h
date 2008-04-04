@@ -126,15 +126,15 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GroupPtr create     (void);
-    static  GroupPtr createEmpty(void);
+    static  GroupTransitPtr create     (void);
+    static  GroupPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

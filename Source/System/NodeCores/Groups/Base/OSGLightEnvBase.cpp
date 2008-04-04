@@ -156,14 +156,16 @@ void LightEnvBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-LightEnvPtr LightEnvBase::create(void)
+LightEnvTransitPtr LightEnvBase::create(void)
 {
-    LightEnvPtr fc;
+    LightEnvTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<LightEnv::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<LightEnv>(tmpPtr);
     }
 
     return fc;
@@ -179,11 +181,13 @@ LightEnvPtr LightEnvBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr LightEnvBase::shallowCopy(void) const
+FieldContainerTransitPtr LightEnvBase::shallowCopy(void) const
 {
-    LightEnvPtr returnValue;
+    LightEnvPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const LightEnv *>(this));
+    newPtr(tmpPtr, dynamic_cast<const LightEnv *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

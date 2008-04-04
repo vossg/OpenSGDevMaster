@@ -595,14 +595,16 @@ void DrawableStatsAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-DrawableStatsAttachmentPtr DrawableStatsAttachmentBase::create(void)
+DrawableStatsAttachmentTransitPtr DrawableStatsAttachmentBase::create(void)
 {
-    DrawableStatsAttachmentPtr fc;
+    DrawableStatsAttachmentTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<DrawableStatsAttachment::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<DrawableStatsAttachment>(tmpPtr);
     }
 
     return fc;
@@ -618,11 +620,13 @@ DrawableStatsAttachmentPtr DrawableStatsAttachmentBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr DrawableStatsAttachmentBase::shallowCopy(void) const
+FieldContainerTransitPtr DrawableStatsAttachmentBase::shallowCopy(void) const
 {
-    DrawableStatsAttachmentPtr returnValue;
+    DrawableStatsAttachmentPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const DrawableStatsAttachment *>(this));
+    newPtr(tmpPtr, dynamic_cast<const DrawableStatsAttachment *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

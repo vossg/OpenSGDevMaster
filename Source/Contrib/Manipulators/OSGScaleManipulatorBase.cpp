@@ -156,14 +156,16 @@ void ScaleManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ScaleManipulatorPtr ScaleManipulatorBase::create(void)
+ScaleManipulatorTransitPtr ScaleManipulatorBase::create(void)
 {
-    ScaleManipulatorPtr fc;
+    ScaleManipulatorTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<ScaleManipulator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ScaleManipulator>(tmpPtr);
     }
 
     return fc;
@@ -179,11 +181,13 @@ ScaleManipulatorPtr ScaleManipulatorBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr ScaleManipulatorBase::shallowCopy(void) const
+FieldContainerTransitPtr ScaleManipulatorBase::shallowCopy(void) const
 {
-    ScaleManipulatorPtr returnValue;
+    ScaleManipulatorPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const ScaleManipulator *>(this));
+    newPtr(tmpPtr, dynamic_cast<const ScaleManipulator *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

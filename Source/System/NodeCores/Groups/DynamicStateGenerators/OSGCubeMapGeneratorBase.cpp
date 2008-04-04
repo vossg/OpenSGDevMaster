@@ -196,8 +196,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUncountedNodePtr::Description(
-        SFUncountedNodePtr::getClassType(),
+    pDesc = new SFWeakNodePtr::Description(
+        SFWeakNodePtr::getClassType(),
         "beacon",
         "",
         BeaconFieldId, BeaconFieldMask,
@@ -476,7 +476,7 @@ SFGLenum            *CubeMapGeneratorBase::getSFTextureFormat  (void)
 #endif
 
 //! Get the CubeMapGenerator::_sfBeacon field.
-const SFUncountedNodePtr *CubeMapGeneratorBase::getSFBeacon(void) const
+const SFWeakNodePtr *CubeMapGeneratorBase::getSFBeacon(void) const
 {
     return &_sfBeacon;
 }
@@ -863,14 +863,16 @@ void CubeMapGeneratorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-CubeMapGeneratorPtr CubeMapGeneratorBase::create(void)
+CubeMapGeneratorTransitPtr CubeMapGeneratorBase::create(void)
 {
-    CubeMapGeneratorPtr fc;
+    CubeMapGeneratorTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<CubeMapGenerator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<CubeMapGenerator>(tmpPtr);
     }
 
     return fc;
@@ -886,11 +888,13 @@ CubeMapGeneratorPtr CubeMapGeneratorBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr CubeMapGeneratorBase::shallowCopy(void) const
+FieldContainerTransitPtr CubeMapGeneratorBase::shallowCopy(void) const
 {
-    CubeMapGeneratorPtr returnValue;
+    CubeMapGeneratorPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const CubeMapGenerator *>(this));
+    newPtr(tmpPtr, dynamic_cast<const CubeMapGenerator *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }
@@ -1088,8 +1092,8 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleTextureFormat  (void)
 
 GetFieldHandlePtr CubeMapGeneratorBase::getHandleBeacon          (void) const
 {
-    SFUncountedNodePtr::GetHandlePtr returnValue(
-        new  SFUncountedNodePtr::GetHandle(
+    SFWeakNodePtr::GetHandlePtr returnValue(
+        new  SFWeakNodePtr::GetHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 
@@ -1098,8 +1102,8 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleBeacon          (void) const
 
 EditFieldHandlePtr CubeMapGeneratorBase::editHandleBeacon         (void)
 {
-    SFUncountedNodePtr::EditHandlePtr returnValue(
-        new  SFUncountedNodePtr::EditHandle(
+    SFWeakNodePtr::EditHandlePtr returnValue(
+        new  SFWeakNodePtr::EditHandle(
              &_sfBeacon, 
              this->getType().getFieldDesc(BeaconFieldId)));
 

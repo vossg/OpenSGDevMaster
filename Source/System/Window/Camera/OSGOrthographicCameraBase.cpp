@@ -276,14 +276,16 @@ void OrthographicCameraBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-OrthographicCameraPtr OrthographicCameraBase::create(void)
+OrthographicCameraTransitPtr OrthographicCameraBase::create(void)
 {
-    OrthographicCameraPtr fc;
+    OrthographicCameraTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<OrthographicCamera::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<OrthographicCamera>(tmpPtr);
     }
 
     return fc;
@@ -299,11 +301,13 @@ OrthographicCameraPtr OrthographicCameraBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr OrthographicCameraBase::shallowCopy(void) const
+FieldContainerTransitPtr OrthographicCameraBase::shallowCopy(void) const
 {
-    OrthographicCameraPtr returnValue;
+    OrthographicCameraPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const OrthographicCamera *>(this));
+    newPtr(tmpPtr, dynamic_cast<const OrthographicCamera *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

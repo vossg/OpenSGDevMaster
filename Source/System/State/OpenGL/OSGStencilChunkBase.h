@@ -287,15 +287,15 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StencilChunkPtr create     (void);
-    static  StencilChunkPtr createEmpty(void);
+    static  StencilChunkTransitPtr create     (void);
+    static  StencilChunkPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

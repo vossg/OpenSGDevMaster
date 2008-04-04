@@ -126,15 +126,15 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MoveManipulatorPtr create     (void);
-    static  MoveManipulatorPtr createEmpty(void);
+    static  MoveManipulatorTransitPtr create     (void);
+    static  MoveManipulatorPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

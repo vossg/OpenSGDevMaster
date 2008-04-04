@@ -531,14 +531,16 @@ void TileCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TileCameraDecoratorPtr TileCameraDecoratorBase::create(void)
+TileCameraDecoratorTransitPtr TileCameraDecoratorBase::create(void)
 {
-    TileCameraDecoratorPtr fc;
+    TileCameraDecoratorTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<TileCameraDecorator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TileCameraDecorator>(tmpPtr);
     }
 
     return fc;
@@ -554,11 +556,13 @@ TileCameraDecoratorPtr TileCameraDecoratorBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr TileCameraDecoratorBase::shallowCopy(void) const
+FieldContainerTransitPtr TileCameraDecoratorBase::shallowCopy(void) const
 {
-    TileCameraDecoratorPtr returnValue;
+    TileCameraDecoratorPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const TileCameraDecorator *>(this));
+    newPtr(tmpPtr, dynamic_cast<const TileCameraDecorator *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

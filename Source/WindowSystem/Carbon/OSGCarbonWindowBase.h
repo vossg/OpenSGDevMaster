@@ -168,15 +168,15 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CarbonWindowPtr create     (void);
-    static  CarbonWindowPtr createEmpty(void);
+    static  CarbonWindowTransitPtr create     (void);
+    static  CarbonWindowPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

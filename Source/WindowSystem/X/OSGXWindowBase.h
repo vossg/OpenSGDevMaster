@@ -202,15 +202,15 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  XWindowPtr create     (void);
-    static  XWindowPtr createEmpty(void);
+    static  XWindowTransitPtr create     (void);
+    static  XWindowPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

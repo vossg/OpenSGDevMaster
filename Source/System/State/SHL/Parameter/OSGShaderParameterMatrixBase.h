@@ -168,15 +168,15 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterMatrixPtr create     (void);
-    static  ShaderParameterMatrixPtr createEmpty(void);
+    static  ShaderParameterMatrixTransitPtr create     (void);
+    static  ShaderParameterMatrixPtr        createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

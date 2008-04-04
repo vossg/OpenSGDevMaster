@@ -354,14 +354,16 @@ void SpotLightBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SpotLightPtr SpotLightBase::create(void)
+SpotLightTransitPtr SpotLightBase::create(void)
 {
-    SpotLightPtr fc;
+    SpotLightTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<SpotLight::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SpotLight>(tmpPtr);
     }
 
     return fc;
@@ -377,11 +379,13 @@ SpotLightPtr SpotLightBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr SpotLightBase::shallowCopy(void) const
+FieldContainerTransitPtr SpotLightBase::shallowCopy(void) const
 {
-    SpotLightPtr returnValue;
+    SpotLightPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const SpotLight *>(this));
+    newPtr(tmpPtr, dynamic_cast<const SpotLight *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }

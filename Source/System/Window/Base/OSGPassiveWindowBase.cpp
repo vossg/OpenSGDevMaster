@@ -160,14 +160,16 @@ void PassiveWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-PassiveWindowPtr PassiveWindowBase::create(void)
+PassiveWindowTransitPtr PassiveWindowBase::create(void)
 {
-    PassiveWindowPtr fc;
+    PassiveWindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<PassiveWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<PassiveWindow>(tmpPtr);
     }
 
     return fc;
@@ -183,11 +185,13 @@ PassiveWindowPtr PassiveWindowBase::createEmpty(void)
     return returnValue;
 }
 
-FieldContainerPtr PassiveWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr PassiveWindowBase::shallowCopy(void) const
 {
-    PassiveWindowPtr returnValue;
+    PassiveWindowPtr tmpPtr;
 
-    newPtr(returnValue, dynamic_cast<const PassiveWindow *>(this));
+    newPtr(tmpPtr, dynamic_cast<const PassiveWindow *>(this));
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
 
     return returnValue;
 }
