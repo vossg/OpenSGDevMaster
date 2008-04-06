@@ -44,7 +44,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-struct RecordedRefCounts
+struct RecordedRefCountPolicy
 {
     static void addRef(FieldContainerPtrConst objectP)
     {
@@ -61,8 +61,8 @@ struct RecordedRefCounts
     static void setRefd(StoreT  &pTarget,
                         SourceT  pSource)
     {
-        RecordedRefCounts::addRef(pSource);
-        RecordedRefCounts::subRef(pTarget);
+        RecordedRefCountPolicy::addRef(pSource);
+        RecordedRefCountPolicy::subRef(pTarget);
     
         pTarget = pSource;
     }
@@ -92,7 +92,7 @@ struct RecordedRefCounts
     } 
 };
 
-struct MTRecordedRefCounts : public RecordedRefCounts
+struct MTRecordedRefCountPolicy : public RecordedRefCountPolicy
 {
     template <class T>
     static T *validate   (T *pObject)
@@ -107,7 +107,7 @@ struct MTRecordedRefCounts : public RecordedRefCounts
     }
 };
 
-struct UnrecordedRefCounts
+struct UnrecordedRefCountPolicy
 {
     static void addRef(FieldContainerPtrConst objectP)
     {
@@ -124,8 +124,8 @@ struct UnrecordedRefCounts
     static void setRefd(StoreT  &pTarget,
                         SourceT  pSource)
     {
-        UnrecordedRefCounts::addRef(pSource);
-        UnrecordedRefCounts::subRef(pTarget);
+        UnrecordedRefCountPolicy::addRef(pSource);
+        UnrecordedRefCountPolicy::subRef(pTarget);
     
         pTarget = pSource;
     }
@@ -150,7 +150,7 @@ struct UnrecordedRefCounts
     } 
 };
 
-struct NoRefCounts
+struct NoRefCountPolicy
 {
     static void addRef(FieldContainerPtrConst)
     {
@@ -179,7 +179,7 @@ struct NoRefCounts
     } 
 };
 
-struct WeakRefCounts
+struct WeakRefCountPolicy
 {
     static void addRef(FieldContainerPtrConst objectP)
     {
@@ -197,8 +197,8 @@ struct WeakRefCounts
     static void setRefd(StoreT  &pTarget,
                         SourceT  pSource)
     {
-        WeakRefCounts::addRef(pSource);
-        WeakRefCounts::subRef(pTarget);
+        WeakRefCountPolicy::addRef(pSource);
+        WeakRefCountPolicy::subRef(pTarget);
     
         pTarget = pSource;
     }

@@ -68,6 +68,8 @@
 #include "OSGFieldContainerPtrSField.h"
 #include "OSGFieldContainerPtrMField.h"
 
+#include "OSGRefCountPolicies.h"
+
 OSG_BEGIN_NAMESPACE
 
 class FieldDescriptionBase;
@@ -95,7 +97,7 @@ typedef DynFieldAttachment<ImageGenericAttDesc>  ImageGenericAtt;
 
 typedef ImageGenericAtt::ObjPtr                  ImageGenericAttPtr;
 typedef RefCountPtr<ImageGenericAtt, 
-                    UnrecordedRefCounts>         ImageGenericAttUnrecPtr;
+                    UnrecordedRefCountPolicy>    ImageGenericAttUnrecPtr;
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -132,8 +134,8 @@ struct FieldTraits<ImageGenericAttPtr> :
 
     static DataType &getType (void) { return _type;                      }
 
-    static Char8    *getSName(void) { return "SFImageGenericAttPtr";     }
-    static Char8    *getMName(void) { return "MFImageGenericAttPtr";     }
+    static Char8    *getSName(void) { return "SFUnrecImageGenericAttPtr";     }
+    static Char8    *getMName(void) { return "MFUnrecImageGenericAttPtr";     }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
@@ -146,7 +148,9 @@ struct FieldTraits<ImageGenericAttPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ImageGenericAttPtr> SFImageGenericAttPtr;
+typedef 
+  FieldContainerPtrSField<ImageGenericAttPtr,
+                          UnrecordedRefCountPolicy> SFUnrecImageGenericAttPtr;
 #endif
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -156,7 +160,9 @@ typedef FieldContainerPtrSField<ImageGenericAttPtr> SFImageGenericAttPtr;
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ImageGenericAttPtr> MFImageGenericAttPtr;
+typedef 
+  FieldContainerPtrMField<ImageGenericAttPtr,
+                          UnrecordedRefCountPolicy> MFUnrecImageGenericAttPtr;
 #endif
 
 OSG_END_NAMESPACE

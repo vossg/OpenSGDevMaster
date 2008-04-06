@@ -91,29 +91,32 @@ struct FieldTraits<FieldContainerAttachmentPtr>
 
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
-                         0                >::getSName<RecordedRefCounts>(void)
+const Char8 *
+  FieldTraits<FieldContainerAttachmentPtr, 
+              0                >::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFieldContainerAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
-                         0                >::getSName<UnrecordedRefCounts>(void)
+const Char8 *
+  FieldTraits<FieldContainerAttachmentPtr, 
+              0                >::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFieldContainerAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
-                         0                >::getSName<WeakRefCounts>(void)
+const Char8 *
+  FieldTraits<FieldContainerAttachmentPtr, 
+              0                >::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFieldContainerAttachmentPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
-                         0                >::getSName<NoRefCounts>(void)
+                         0                >::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFieldContainerAttachmentPtr"; 
 }
@@ -121,29 +124,31 @@ const Char8 *FieldTraits<FieldContainerAttachmentPtr,
 
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
-                         0               >::getMName<RecordedRefCounts>(void)
+const Char8 *
+  FieldTraits<FieldContainerAttachmentPtr, 
+              0               >::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFieldContainerAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
-                         0                >::getMName<UnrecordedRefCounts>(void)
+const Char8 *
+  FieldTraits<FieldContainerAttachmentPtr, 
+              0                >::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFieldContainerAttachmentPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
-                         0                >::getMName<WeakRefCounts>(void)
+                         0                >::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFieldContainerAttachmentPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
-                         0                >::getMName<NoRefCounts>(void)
+                         0                >::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFieldContainerAttachmentPtr"; 
 }

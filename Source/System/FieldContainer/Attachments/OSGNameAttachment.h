@@ -95,7 +95,7 @@ typedef SimpleAttachment<NameAttachmentDesc> Name;
 
 typedef Name::ObjPtr NamePtr;
 typedef RefCountPtr<Name, 
-                    UnrecordedRefCounts>         NameUnrecPtr;
+                    UnrecordedRefCountPolicy>         NameUnrecPtr;
 
 #ifdef WIN32
 template <> OSG_SYSTEM_DLLMAPPING

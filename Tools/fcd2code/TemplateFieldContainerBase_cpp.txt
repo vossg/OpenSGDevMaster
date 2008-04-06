@@ -1313,7 +1313,7 @@ DataType &FieldTraits< @!Classname!@Ptr, 1 >::getType(void)
 
 OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
                       @!Classname!@Ptr,       
-                      UnrecordedRefCounts,  
+                      UnrecordedRefCountPolicy,  
                       1);
 
 @@endif
@@ -1321,7 +1321,7 @@ OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
 
 OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
                       @!Classname!@Ptr,       
-                      UnrecordedRefCounts,  
+                      UnrecordedRefCountPolicy,  
                       1);
 
 @@endif

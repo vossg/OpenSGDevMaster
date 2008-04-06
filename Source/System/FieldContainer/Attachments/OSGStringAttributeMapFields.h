@@ -103,25 +103,25 @@ struct FieldTraits<StringAttributeMapPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStringAttributeMapPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStringAttributeMapPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStringAttributeMapPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStringAttributeMapPtr"; 
 }
@@ -140,13 +140,13 @@ const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<StringAttributeMapPtr,
-                                RecordedRefCounts  > SFRecStringAttributeMapPtr;
+                                RecordedRefCountPolicy  > SFRecStringAttributeMapPtr;
 typedef FieldContainerPtrSField<StringAttributeMapPtr,
-                                UnrecordedRefCounts> SFUnrecStringAttributeMapPtr;
+                                UnrecordedRefCountPolicy> SFUnrecStringAttributeMapPtr;
 typedef FieldContainerPtrSField<StringAttributeMapPtr,
-                                WeakRefCounts      > SFWeakStringAttributeMapPtr;
+                                WeakRefCountPolicy      > SFWeakStringAttributeMapPtr;
 typedef FieldContainerPtrSField<StringAttributeMapPtr,
-                                NoRefCounts        > SFUncountedStringAttributeMapPtr;
+                                NoRefCountPolicy        > SFUncountedStringAttributeMapPtr;
 #endif
 
 

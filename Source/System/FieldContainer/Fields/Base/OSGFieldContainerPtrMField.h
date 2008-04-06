@@ -51,7 +51,7 @@
 OSG_BEGIN_NAMESPACE
 
 template<class    ValueT, 
-         typename RefCountPolicy = RecordedRefCounts, 
+         typename RefCountPolicy, 
          Int32    iNamespace     = 0>
 class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 {

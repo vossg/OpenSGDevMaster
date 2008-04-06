@@ -694,24 +694,24 @@ void ChangeList::setAspectTo(UInt32 uiNewAspect)
 
 
 template<>
-void ChangeList::addSyncAddRef<NoRefCounts>(FieldContainerPtr)
+void ChangeList::addSyncAddRef<NoRefCountPolicy>(FieldContainerPtr)
 {
 }
 
 template<>
-void ChangeList::addSyncAddRef<RecordedRefCounts>(FieldContainerPtr pFC)
+void ChangeList::addSyncAddRef<RecordedRefCountPolicy>(FieldContainerPtr pFC)
 {
     _vSyncRecAddRef.push_back(pFC);
 }
 
 template<>
-void ChangeList::addSyncAddRef<UnrecordedRefCounts>(FieldContainerPtr pFC)
+void ChangeList::addSyncAddRef<UnrecordedRefCountPolicy>(FieldContainerPtr pFC)
 {
     _vSyncUnrecAddRef.push_back(pFC);
 }
 
 template<>
-void ChangeList::addSyncAddRef<WeakRefCounts>(FieldContainerPtr pFC)
+void ChangeList::addSyncAddRef<WeakRefCountPolicy>(FieldContainerPtr pFC)
 {
     _vSyncWeakAddRef.push_back(pFC);
 }

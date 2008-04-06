@@ -78,22 +78,22 @@
 #define NEW_REFPTR
 
 
-#define TMP_INTERNAL_PTR(CLASST)                                          \
-    typedef       TransitPtr< CLASST                     > ObjTransitPtr; \
-    typedef       RefCountPtr<CLASST, RecordedRefCounts  > ObjRecPtr;     \
-    typedef       RefCountPtr<CLASST, UnrecordedRefCounts> ObjUnrecPtr;   \
-    typedef       RefCountPtr<CLASST, WeakRefCounts      > ObjWeakPtr;  
+#define TMP_INTERNAL_PTR(CLASST)                                               \
+    typedef       TransitPtr< CLASST                          > ObjTransitPtr; \
+    typedef       RefCountPtr<CLASST, RecordedRefCountPolicy  > ObjRecPtr;     \
+    typedef       RefCountPtr<CLASST, UnrecordedRefCountPolicy> ObjUnrecPtr;   \
+    typedef       RefCountPtr<CLASST, WeakRefCountPolicy      > ObjWeakPtr;  
 
-#define TMP_PTR(CLASST)                                                   \
-    typedef       TransitPtr < CLASST             > CLASST##TransitPtr;   \
-    typedef       RefCountPtr< CLASST,                                    \
-                               RecordedRefCounts  > CLASST##RecPtr;       \
-    typedef       RefCountPtr< CLASST,                                    \
-                               UnrecordedRefCounts> CLASST##UnrecPtr;     \
-    typedef       RefCountPtr< CLASST,                                    \
-                               WeakRefCounts      > CLASST##WeakPtr;      \
-    typedef       RefCountPtr< CLASST,                                    \
-                               MTRecordedRefCounts> CLASST##MTRecPtr;
+#define TMP_PTR(CLASST)                                                        \
+    typedef       TransitPtr < CLASST                  > CLASST##TransitPtr;   \
+    typedef       RefCountPtr< CLASST,                                         \
+                               RecordedRefCountPolicy  > CLASST##RecPtr;       \
+    typedef       RefCountPtr< CLASST,                                         \
+                               UnrecordedRefCountPolicy> CLASST##UnrecPtr;     \
+    typedef       RefCountPtr< CLASST,                                         \
+                               WeakRefCountPolicy      > CLASST##WeakPtr;      \
+    typedef       RefCountPtr< CLASST,                                         \
+                               MTRecordedRefCountPolicy> CLASST##MTRecPtr;
 
 
 #define OSG_GEN_INTERNALPTR(CLASST)                         \
@@ -167,10 +167,11 @@ class DrawEnv;
 
 struct ContainerChangeEntry;
 
-struct RecordedRefCounts;
-struct MTRecordedRefCounts;
-struct UnrecordedRefCounts;
-struct WeakRefCounts;
+struct NoRefCountPolicy;
+struct RecordedRefCountPolicy;
+struct MTRecordedRefCountPolicy;
+struct UnrecordedRefCountPolicy;
+struct WeakRefCountPolicy;
 
 template<class ObjT> 
 class TransitPtr;

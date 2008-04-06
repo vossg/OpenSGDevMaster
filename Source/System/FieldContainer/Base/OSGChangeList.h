@@ -369,7 +369,7 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     friend class  SprocBase;
     friend class  WinThreadBase;
     friend class  FieldContainer;
-    friend struct RecordedRefCounts;
+    friend struct RecordedRefCountPolicy;
 
     typedef MemoryObject Inherited;
 

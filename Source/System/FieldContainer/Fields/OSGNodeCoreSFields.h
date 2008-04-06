@@ -52,20 +52,20 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup  */
 
 typedef FieldContainerPtrSField<NodeCorePtr, 
-                                RecordedRefCounts  > SFRecNodeCorePtr;
+                                RecordedRefCountPolicy  > SFRecNodeCorePtr;
 typedef FieldContainerPtrSField<NodeCorePtr, 
-                                UnrecordedRefCounts> SFUnrecNodeCorePtr;
+                                UnrecordedRefCountPolicy> SFUnrecNodeCorePtr;
 typedef FieldContainerPtrSField<NodeCorePtr, 
-                                WeakRefCounts      > SFWeakNodeCorePtr;
+                                WeakRefCountPolicy      > SFWeakNodeCorePtr;
 typedef FieldContainerPtrSField<NodeCorePtr, 
-                                NoRefCounts        > SFUncountedNodeCorePtr;
+                                NoRefCountPolicy        > SFUncountedNodeCorePtr;
 
 
 
 typedef FieldContainerPtrChildSField<
           NodeCorePtr, 
-          UnrecordedRefCounts,
-          1                  > SFUnrecFieldContainerChildNodeCorePtr;
+          UnrecordedRefCountPolicy,
+          1                       > SFUnrecFieldContainerChildNodeCorePtr;
 
 typedef SFUnrecFieldContainerChildNodeCorePtr SFUnrecChildNodeCorePtr;
 

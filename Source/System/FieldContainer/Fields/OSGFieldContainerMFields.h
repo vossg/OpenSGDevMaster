@@ -57,18 +57,21 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup  */
 
-typedef FieldContainerPtrMField<FieldContainerPtr,
-                                RecordedRefCounts  > MFRecFieldContainerPtr;
-
-typedef FieldContainerPtrMField<FieldContainerPtr,
-                                UnrecordedRefCounts> MFUnrecFieldContainerPtr;
-
-typedef FieldContainerPtrMField<FieldContainerPtr,
-                                WeakRefCounts      > MFWeakFieldContainerPtr;
+typedef 
+  FieldContainerPtrMField<FieldContainerPtr,
+                          RecordedRefCountPolicy  > MFRecFieldContainerPtr;
 
 typedef 
-    FieldContainerPtrMField<FieldContainerPtr,
-                            NoRefCounts      > MFUncountedFieldContainerPtr;
+  FieldContainerPtrMField<FieldContainerPtr,
+                          UnrecordedRefCountPolicy> MFUnrecFieldContainerPtr;
+
+typedef 
+  FieldContainerPtrMField<FieldContainerPtr,
+                          WeakRefCountPolicy      > MFWeakFieldContainerPtr;
+
+typedef 
+  FieldContainerPtrMField<FieldContainerPtr,
+                          NoRefCountPolicy       > MFUncountedFieldContainerPtr;
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
@@ -76,7 +79,7 @@ typedef
 
 typedef 
     FieldContainerPtrParentMField<FieldContainerPtr, 
-                                  NoRefCounts,
+                                  NoRefCountPolicy,
                                   1                > MFParentFieldContainerPtr;
 #endif
 

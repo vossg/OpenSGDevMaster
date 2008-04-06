@@ -122,25 +122,25 @@ struct FieldTraits<@!Classname!@Ptr> :
 
 @@if SFPointerField
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRec@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrec@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeak@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefd@!Classname!@Ptr"; 
 }
@@ -148,25 +148,25 @@ const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getSName<NoRefCounts>(void)
 
 @@if MFPointerField
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRec@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrec@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeak@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefd@!Classname!@Ptr"; 
 }
@@ -224,25 +224,25 @@ struct FieldTraits<@!Classname!@Ptr, 1> :
 
 @@if SFPointerField
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRec@!ChildFieldParent!@Child@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeak@!ChildFieldParent!@Child@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefd@!ChildFieldParent!@Child@!Classname!@Ptr"; 
 }
@@ -250,25 +250,25 @@ const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getSName<NoRefCounts>(void)
 
 @@if MFPointerField
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRec@!ChildFieldParent!@Child@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeak@!ChildFieldParent!@Child@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefd@!ChildFieldParent!@Child@!Classname!@Ptr"; 
 }
@@ -286,13 +286,13 @@ const Char8 *FieldTraits<@!Classname!@Ptr, 1>::getMName<NoRefCounts>(void)
 
     @@endif // isInLibrary
 typedef FieldContainerPtrSField<@!Classname!@Ptr,
-                                RecordedRefCounts  > SFRec@!Classname!@Ptr;
+                                RecordedRefCountPolicy  > SFRec@!Classname!@Ptr;
 typedef FieldContainerPtrSField<@!Classname!@Ptr,
-                                UnrecordedRefCounts> SFUnrec@!Classname!@Ptr;
+                                UnrecordedRefCountPolicy> SFUnrec@!Classname!@Ptr;
 typedef FieldContainerPtrSField<@!Classname!@Ptr,
-                                WeakRefCounts      > SFWeak@!Classname!@Ptr;
+                                WeakRefCountPolicy      > SFWeak@!Classname!@Ptr;
 typedef FieldContainerPtrSField<@!Classname!@Ptr,
-                                NoRefCounts        > SFUncounted@!Classname!@Ptr;
+                                NoRefCountPolicy        > SFUncounted@!Classname!@Ptr;
 #endif
 
 @@endif
@@ -304,13 +304,13 @@ typedef FieldContainerPtrSField<@!Classname!@Ptr,
 
     @@endif // isInLibrary
 typedef FieldContainerPtrMField<@!Classname!@Ptr,
-                                RecordedRefCounts  > MFRec@!Classname!@Ptr;
+                                RecordedRefCountPolicy  > MFRec@!Classname!@Ptr;
 typedef FieldContainerPtrMField<@!Classname!@Ptr,
-                                UnrecordedRefCounts> MFUnrec@!Classname!@Ptr;
+                                UnrecordedRefCountPolicy> MFUnrec@!Classname!@Ptr;
 typedef FieldContainerPtrMField<@!Classname!@Ptr,
-                                WeakRefCounts      > MFWeak@!Classname!@Ptr;
+                                WeakRefCountPolicy      > MFWeak@!Classname!@Ptr;
 typedef FieldContainerPtrMField<@!Classname!@Ptr,
-                                NoRefCounts        > MFUncounted@!Classname!@Ptr;
+                                NoRefCountPolicy        > MFUncounted@!Classname!@Ptr;
 #endif
 
 
@@ -319,7 +319,7 @@ typedef FieldContainerPtrMField<@!Classname!@Ptr,
 
 typedef FieldContainerPtrChildSField<
           @!Classname!@Ptr, 
-          UnrecordedRefCounts,
+          UnrecordedRefCountPolicy,
           1                  > SFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr;
 
 typedef SFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr 
@@ -330,7 +330,7 @@ typedef SFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr
 
 typedef FieldContainerPtrChildMField<
           @!Classname!@Ptr, 
-          UnrecordedRefCounts,
+          UnrecordedRefCountPolicy,
           1                  > MFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr;
 
 typedef MFUnrec@!ChildFieldParent!@Child@!Classname!@Ptr

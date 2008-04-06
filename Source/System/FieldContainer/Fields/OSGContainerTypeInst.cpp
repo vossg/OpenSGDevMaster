@@ -169,18 +169,18 @@ OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField,
 
 OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
                       NodeCorePtr,
-                      UnrecordedRefCounts, 
+                      UnrecordedRefCountPolicy, 
                       1);
 
 OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
                       NodeCorePtr,
-                      UnrecordedRefCounts, 
+                      UnrecordedRefCountPolicy, 
                       1);
 
 // NodeChildNode
 OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
                       NodePtr,
-                      UnrecordedRefCounts, 
+                      UnrecordedRefCountPolicy, 
                       1);
 
 
@@ -188,20 +188,20 @@ OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
 
 OSG_SFIELDTYPE_INST(FieldContainerPtrParentSField,
                     FieldContainerPtr, 
-                    NoRefCounts,
+                    NoRefCountPolicy,
                     1);
 OSG_MFIELDTYPE_INST(FieldContainerPtrParentMField, 
                     FieldContainerPtr, 
-                    NoRefCounts,
+                    NoRefCountPolicy,
                     1);
 
 OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrParentSField, 
                          FieldContainerPtr, 
-                         NoRefCounts,
+                         NoRefCountPolicy,
                          1);
 OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrParentMField, 
                          FieldContainerPtr, 
-                         NoRefCounts,
+                         NoRefCountPolicy,
                          1);
 
 
