@@ -107,49 +107,49 @@ struct FieldTraits<DepthChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDepthChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDepthChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<DepthChunkPtr,
-                                RecordedRefCounts  > SFRecDepthChunkPtr;
+                                RecordedRefCountPolicy  > SFRecDepthChunkPtr;
 typedef FieldContainerPtrSField<DepthChunkPtr,
-                                UnrecordedRefCounts> SFUnrecDepthChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecDepthChunkPtr;
 typedef FieldContainerPtrSField<DepthChunkPtr,
-                                WeakRefCounts      > SFWeakDepthChunkPtr;
+                                WeakRefCountPolicy      > SFWeakDepthChunkPtr;
 typedef FieldContainerPtrSField<DepthChunkPtr,
-                                NoRefCounts        > SFUncountedDepthChunkPtr;
+                                NoRefCountPolicy        > SFUncountedDepthChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<DepthChunkPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<DepthChunkPtr,
-                                RecordedRefCounts  > MFRecDepthChunkPtr;
+                                RecordedRefCountPolicy  > MFRecDepthChunkPtr;
 typedef FieldContainerPtrMField<DepthChunkPtr,
-                                UnrecordedRefCounts> MFUnrecDepthChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecDepthChunkPtr;
 typedef FieldContainerPtrMField<DepthChunkPtr,
-                                WeakRefCounts      > MFWeakDepthChunkPtr;
+                                WeakRefCountPolicy      > MFWeakDepthChunkPtr;
 typedef FieldContainerPtrMField<DepthChunkPtr,
-                                NoRefCounts        > MFUncountedDepthChunkPtr;
+                                NoRefCountPolicy        > MFUncountedDepthChunkPtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<ChunkOverrideGroupPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChunkOverrideGroupPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
-                                RecordedRefCounts  > SFRecChunkOverrideGroupPtr;
+                                RecordedRefCountPolicy  > SFRecChunkOverrideGroupPtr;
 typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
-                                UnrecordedRefCounts> SFUnrecChunkOverrideGroupPtr;
+                                UnrecordedRefCountPolicy> SFUnrecChunkOverrideGroupPtr;
 typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
-                                WeakRefCounts      > SFWeakChunkOverrideGroupPtr;
+                                WeakRefCountPolicy      > SFWeakChunkOverrideGroupPtr;
 typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
-                                NoRefCounts        > SFUncountedChunkOverrideGroupPtr;
+                                NoRefCountPolicy        > SFUncountedChunkOverrideGroupPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
-                                RecordedRefCounts  > MFRecChunkOverrideGroupPtr;
+                                RecordedRefCountPolicy  > MFRecChunkOverrideGroupPtr;
 typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
-                                UnrecordedRefCounts> MFUnrecChunkOverrideGroupPtr;
+                                UnrecordedRefCountPolicy> MFUnrecChunkOverrideGroupPtr;
 typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
-                                WeakRefCounts      > MFWeakChunkOverrideGroupPtr;
+                                WeakRefCountPolicy      > MFWeakChunkOverrideGroupPtr;
 typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
-                                NoRefCounts        > MFUncountedChunkOverrideGroupPtr;
+                                NoRefCountPolicy        > MFUncountedChunkOverrideGroupPtr;
 #endif
 
 

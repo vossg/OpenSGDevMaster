@@ -107,49 +107,49 @@ struct FieldTraits<LightEnginePtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<LightEnginePtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakLightEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdLightEnginePtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<LightEnginePtr,
-                                RecordedRefCounts  > SFRecLightEnginePtr;
+                                RecordedRefCountPolicy  > SFRecLightEnginePtr;
 typedef FieldContainerPtrSField<LightEnginePtr,
-                                UnrecordedRefCounts> SFUnrecLightEnginePtr;
+                                UnrecordedRefCountPolicy> SFUnrecLightEnginePtr;
 typedef FieldContainerPtrSField<LightEnginePtr,
-                                WeakRefCounts      > SFWeakLightEnginePtr;
+                                WeakRefCountPolicy      > SFWeakLightEnginePtr;
 typedef FieldContainerPtrSField<LightEnginePtr,
-                                NoRefCounts        > SFUncountedLightEnginePtr;
+                                NoRefCountPolicy        > SFUncountedLightEnginePtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<LightEnginePtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<LightEnginePtr,
-                                RecordedRefCounts  > MFRecLightEnginePtr;
+                                RecordedRefCountPolicy  > MFRecLightEnginePtr;
 typedef FieldContainerPtrMField<LightEnginePtr,
-                                UnrecordedRefCounts> MFUnrecLightEnginePtr;
+                                UnrecordedRefCountPolicy> MFUnrecLightEnginePtr;
 typedef FieldContainerPtrMField<LightEnginePtr,
-                                WeakRefCounts      > MFWeakLightEnginePtr;
+                                WeakRefCountPolicy      > MFWeakLightEnginePtr;
 typedef FieldContainerPtrMField<LightEnginePtr,
-                                NoRefCounts        > MFUncountedLightEnginePtr;
+                                NoRefCountPolicy        > MFUncountedLightEnginePtr;
 #endif
 
 

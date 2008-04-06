@@ -107,49 +107,49 @@ struct FieldTraits<ColorMaskChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdColorMaskChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<ColorMaskChunkPtr,
-                                RecordedRefCounts  > SFRecColorMaskChunkPtr;
+                                RecordedRefCountPolicy  > SFRecColorMaskChunkPtr;
 typedef FieldContainerPtrSField<ColorMaskChunkPtr,
-                                UnrecordedRefCounts> SFUnrecColorMaskChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecColorMaskChunkPtr;
 typedef FieldContainerPtrSField<ColorMaskChunkPtr,
-                                WeakRefCounts      > SFWeakColorMaskChunkPtr;
+                                WeakRefCountPolicy      > SFWeakColorMaskChunkPtr;
 typedef FieldContainerPtrSField<ColorMaskChunkPtr,
-                                NoRefCounts        > SFUncountedColorMaskChunkPtr;
+                                NoRefCountPolicy        > SFUncountedColorMaskChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ColorMaskChunkPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<ColorMaskChunkPtr,
-                                RecordedRefCounts  > MFRecColorMaskChunkPtr;
+                                RecordedRefCountPolicy  > MFRecColorMaskChunkPtr;
 typedef FieldContainerPtrMField<ColorMaskChunkPtr,
-                                UnrecordedRefCounts> MFUnrecColorMaskChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecColorMaskChunkPtr;
 typedef FieldContainerPtrMField<ColorMaskChunkPtr,
-                                WeakRefCounts      > MFWeakColorMaskChunkPtr;
+                                WeakRefCountPolicy      > MFWeakColorMaskChunkPtr;
 typedef FieldContainerPtrMField<ColorMaskChunkPtr,
-                                NoRefCounts        > MFUncountedColorMaskChunkPtr;
+                                NoRefCountPolicy        > MFUncountedColorMaskChunkPtr;
 #endif
 
 

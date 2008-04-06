@@ -107,49 +107,49 @@ struct FieldTraits<MultiPassMaterialPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakMultiPassMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdMultiPassMaterialPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<MultiPassMaterialPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<MultiPassMaterialPtr,
-                                RecordedRefCounts  > SFRecMultiPassMaterialPtr;
+                                RecordedRefCountPolicy  > SFRecMultiPassMaterialPtr;
 typedef FieldContainerPtrSField<MultiPassMaterialPtr,
-                                UnrecordedRefCounts> SFUnrecMultiPassMaterialPtr;
+                                UnrecordedRefCountPolicy> SFUnrecMultiPassMaterialPtr;
 typedef FieldContainerPtrSField<MultiPassMaterialPtr,
-                                WeakRefCounts      > SFWeakMultiPassMaterialPtr;
+                                WeakRefCountPolicy      > SFWeakMultiPassMaterialPtr;
 typedef FieldContainerPtrSField<MultiPassMaterialPtr,
-                                NoRefCounts        > SFUncountedMultiPassMaterialPtr;
+                                NoRefCountPolicy        > SFUncountedMultiPassMaterialPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<MultiPassMaterialPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<MultiPassMaterialPtr,
-                                RecordedRefCounts  > MFRecMultiPassMaterialPtr;
+                                RecordedRefCountPolicy  > MFRecMultiPassMaterialPtr;
 typedef FieldContainerPtrMField<MultiPassMaterialPtr,
-                                UnrecordedRefCounts> MFUnrecMultiPassMaterialPtr;
+                                UnrecordedRefCountPolicy> MFUnrecMultiPassMaterialPtr;
 typedef FieldContainerPtrMField<MultiPassMaterialPtr,
-                                WeakRefCounts      > MFWeakMultiPassMaterialPtr;
+                                WeakRefCountPolicy      > MFWeakMultiPassMaterialPtr;
 typedef FieldContainerPtrMField<MultiPassMaterialPtr,
-                                NoRefCounts        > MFUncountedMultiPassMaterialPtr;
+                                NoRefCountPolicy        > MFUncountedMultiPassMaterialPtr;
 #endif
 
 

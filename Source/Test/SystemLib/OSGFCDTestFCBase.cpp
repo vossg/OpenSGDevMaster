@@ -952,13 +952,13 @@ DataType &FieldTraits< FCDTestFCPtr, 1 >::getType(void)
 
 OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
                       FCDTestFCPtr,       
-                      UnrecordedRefCounts,  
+                      UnrecordedRefCountPolicy,  
                       1);
 
 
 OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
                       FCDTestFCPtr,       
-                      UnrecordedRefCounts,  
+                      UnrecordedRefCountPolicy,  
                       1);
 
 

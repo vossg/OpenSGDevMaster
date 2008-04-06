@@ -107,49 +107,49 @@ struct FieldTraits<ShaderParameterRealPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShaderParameterRealPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShaderParameterRealPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShaderParameterRealPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShaderParameterRealPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShaderParameterRealPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShaderParameterRealPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShaderParameterRealPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShaderParameterRealPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ShaderParameterRealPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<ShaderParameterRealPtr,
-                                RecordedRefCounts  > SFRecShaderParameterRealPtr;
+                                RecordedRefCountPolicy  > SFRecShaderParameterRealPtr;
 typedef FieldContainerPtrSField<ShaderParameterRealPtr,
-                                UnrecordedRefCounts> SFUnrecShaderParameterRealPtr;
+                                UnrecordedRefCountPolicy> SFUnrecShaderParameterRealPtr;
 typedef FieldContainerPtrSField<ShaderParameterRealPtr,
-                                WeakRefCounts      > SFWeakShaderParameterRealPtr;
+                                WeakRefCountPolicy      > SFWeakShaderParameterRealPtr;
 typedef FieldContainerPtrSField<ShaderParameterRealPtr,
-                                NoRefCounts        > SFUncountedShaderParameterRealPtr;
+                                NoRefCountPolicy        > SFUncountedShaderParameterRealPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ShaderParameterRealPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<ShaderParameterRealPtr,
-                                RecordedRefCounts  > MFRecShaderParameterRealPtr;
+                                RecordedRefCountPolicy  > MFRecShaderParameterRealPtr;
 typedef FieldContainerPtrMField<ShaderParameterRealPtr,
-                                UnrecordedRefCounts> MFUnrecShaderParameterRealPtr;
+                                UnrecordedRefCountPolicy> MFUnrecShaderParameterRealPtr;
 typedef FieldContainerPtrMField<ShaderParameterRealPtr,
-                                WeakRefCounts      > MFWeakShaderParameterRealPtr;
+                                WeakRefCountPolicy      > MFWeakShaderParameterRealPtr;
 typedef FieldContainerPtrMField<ShaderParameterRealPtr,
-                                NoRefCounts        > MFUncountedShaderParameterRealPtr;
+                                NoRefCountPolicy        > MFUncountedShaderParameterRealPtr;
 #endif
 
 

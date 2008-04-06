@@ -107,49 +107,49 @@ struct FieldTraits<LineChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<LineChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakLineChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdLineChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<LineChunkPtr,
-                                RecordedRefCounts  > SFRecLineChunkPtr;
+                                RecordedRefCountPolicy  > SFRecLineChunkPtr;
 typedef FieldContainerPtrSField<LineChunkPtr,
-                                UnrecordedRefCounts> SFUnrecLineChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecLineChunkPtr;
 typedef FieldContainerPtrSField<LineChunkPtr,
-                                WeakRefCounts      > SFWeakLineChunkPtr;
+                                WeakRefCountPolicy      > SFWeakLineChunkPtr;
 typedef FieldContainerPtrSField<LineChunkPtr,
-                                NoRefCounts        > SFUncountedLineChunkPtr;
+                                NoRefCountPolicy        > SFUncountedLineChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<LineChunkPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<LineChunkPtr,
-                                RecordedRefCounts  > MFRecLineChunkPtr;
+                                RecordedRefCountPolicy  > MFRecLineChunkPtr;
 typedef FieldContainerPtrMField<LineChunkPtr,
-                                UnrecordedRefCounts> MFUnrecLineChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecLineChunkPtr;
 typedef FieldContainerPtrMField<LineChunkPtr,
-                                WeakRefCounts      > MFWeakLineChunkPtr;
+                                WeakRefCountPolicy      > MFWeakLineChunkPtr;
 typedef FieldContainerPtrMField<LineChunkPtr,
-                                NoRefCounts        > MFUncountedLineChunkPtr;
+                                NoRefCountPolicy        > MFUncountedLineChunkPtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<ImageComposerPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakImageComposerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdImageComposerPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpClusterFieldSingle */
 
 typedef FieldContainerPtrSField<ImageComposerPtr,
-                                RecordedRefCounts  > SFRecImageComposerPtr;
+                                RecordedRefCountPolicy  > SFRecImageComposerPtr;
 typedef FieldContainerPtrSField<ImageComposerPtr,
-                                UnrecordedRefCounts> SFUnrecImageComposerPtr;
+                                UnrecordedRefCountPolicy> SFUnrecImageComposerPtr;
 typedef FieldContainerPtrSField<ImageComposerPtr,
-                                WeakRefCounts      > SFWeakImageComposerPtr;
+                                WeakRefCountPolicy      > SFWeakImageComposerPtr;
 typedef FieldContainerPtrSField<ImageComposerPtr,
-                                NoRefCounts        > SFUncountedImageComposerPtr;
+                                NoRefCountPolicy        > SFUncountedImageComposerPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ImageComposerPtr,
 /*! \ingroup GrpClusterFieldMulti */
 
 typedef FieldContainerPtrMField<ImageComposerPtr,
-                                RecordedRefCounts  > MFRecImageComposerPtr;
+                                RecordedRefCountPolicy  > MFRecImageComposerPtr;
 typedef FieldContainerPtrMField<ImageComposerPtr,
-                                UnrecordedRefCounts> MFUnrecImageComposerPtr;
+                                UnrecordedRefCountPolicy> MFUnrecImageComposerPtr;
 typedef FieldContainerPtrMField<ImageComposerPtr,
-                                WeakRefCounts      > MFWeakImageComposerPtr;
+                                WeakRefCountPolicy      > MFWeakImageComposerPtr;
 typedef FieldContainerPtrMField<ImageComposerPtr,
-                                NoRefCounts        > MFUncountedImageComposerPtr;
+                                NoRefCountPolicy        > MFUncountedImageComposerPtr;
 #endif
 
 

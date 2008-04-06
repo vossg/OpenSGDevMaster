@@ -107,49 +107,49 @@ struct FieldTraits<VTKMapperPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdVTKMapperPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpContribVTKFieldSingle */
 
 typedef FieldContainerPtrSField<VTKMapperPtr,
-                                RecordedRefCounts  > SFRecVTKMapperPtr;
+                                RecordedRefCountPolicy  > SFRecVTKMapperPtr;
 typedef FieldContainerPtrSField<VTKMapperPtr,
-                                UnrecordedRefCounts> SFUnrecVTKMapperPtr;
+                                UnrecordedRefCountPolicy> SFUnrecVTKMapperPtr;
 typedef FieldContainerPtrSField<VTKMapperPtr,
-                                WeakRefCounts      > SFWeakVTKMapperPtr;
+                                WeakRefCountPolicy      > SFWeakVTKMapperPtr;
 typedef FieldContainerPtrSField<VTKMapperPtr,
-                                NoRefCounts        > SFUncountedVTKMapperPtr;
+                                NoRefCountPolicy        > SFUncountedVTKMapperPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<VTKMapperPtr,
 /*! \ingroup GrpContribVTKFieldMulti */
 
 typedef FieldContainerPtrMField<VTKMapperPtr,
-                                RecordedRefCounts  > MFRecVTKMapperPtr;
+                                RecordedRefCountPolicy  > MFRecVTKMapperPtr;
 typedef FieldContainerPtrMField<VTKMapperPtr,
-                                UnrecordedRefCounts> MFUnrecVTKMapperPtr;
+                                UnrecordedRefCountPolicy> MFUnrecVTKMapperPtr;
 typedef FieldContainerPtrMField<VTKMapperPtr,
-                                WeakRefCounts      > MFWeakVTKMapperPtr;
+                                WeakRefCountPolicy      > MFWeakVTKMapperPtr;
 typedef FieldContainerPtrMField<VTKMapperPtr,
-                                NoRefCounts        > MFUncountedVTKMapperPtr;
+                                NoRefCountPolicy        > MFUncountedVTKMapperPtr;
 #endif
 
 

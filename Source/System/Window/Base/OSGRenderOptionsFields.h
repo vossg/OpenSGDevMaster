@@ -107,49 +107,49 @@ struct FieldTraits<RenderOptionsPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecRenderOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecRenderOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakRenderOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdRenderOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecRenderOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecRenderOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakRenderOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdRenderOptionsPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<RenderOptionsPtr,
-                                RecordedRefCounts  > SFRecRenderOptionsPtr;
+                                RecordedRefCountPolicy  > SFRecRenderOptionsPtr;
 typedef FieldContainerPtrSField<RenderOptionsPtr,
-                                UnrecordedRefCounts> SFUnrecRenderOptionsPtr;
+                                UnrecordedRefCountPolicy> SFUnrecRenderOptionsPtr;
 typedef FieldContainerPtrSField<RenderOptionsPtr,
-                                WeakRefCounts      > SFWeakRenderOptionsPtr;
+                                WeakRefCountPolicy      > SFWeakRenderOptionsPtr;
 typedef FieldContainerPtrSField<RenderOptionsPtr,
-                                NoRefCounts        > SFUncountedRenderOptionsPtr;
+                                NoRefCountPolicy        > SFUncountedRenderOptionsPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<RenderOptionsPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<RenderOptionsPtr,
-                                RecordedRefCounts  > MFRecRenderOptionsPtr;
+                                RecordedRefCountPolicy  > MFRecRenderOptionsPtr;
 typedef FieldContainerPtrMField<RenderOptionsPtr,
-                                UnrecordedRefCounts> MFUnrecRenderOptionsPtr;
+                                UnrecordedRefCountPolicy> MFUnrecRenderOptionsPtr;
 typedef FieldContainerPtrMField<RenderOptionsPtr,
-                                WeakRefCounts      > MFWeakRenderOptionsPtr;
+                                WeakRefCountPolicy      > MFWeakRenderOptionsPtr;
 typedef FieldContainerPtrMField<RenderOptionsPtr,
-                                NoRefCounts        > MFUncountedRenderOptionsPtr;
+                                NoRefCountPolicy        > MFUncountedRenderOptionsPtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<TileCameraDecoratorPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTileCameraDecoratorPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<TileCameraDecoratorPtr,
-                                RecordedRefCounts  > SFRecTileCameraDecoratorPtr;
+                                RecordedRefCountPolicy  > SFRecTileCameraDecoratorPtr;
 typedef FieldContainerPtrSField<TileCameraDecoratorPtr,
-                                UnrecordedRefCounts> SFUnrecTileCameraDecoratorPtr;
+                                UnrecordedRefCountPolicy> SFUnrecTileCameraDecoratorPtr;
 typedef FieldContainerPtrSField<TileCameraDecoratorPtr,
-                                WeakRefCounts      > SFWeakTileCameraDecoratorPtr;
+                                WeakRefCountPolicy      > SFWeakTileCameraDecoratorPtr;
 typedef FieldContainerPtrSField<TileCameraDecoratorPtr,
-                                NoRefCounts        > SFUncountedTileCameraDecoratorPtr;
+                                NoRefCountPolicy        > SFUncountedTileCameraDecoratorPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<TileCameraDecoratorPtr,
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<TileCameraDecoratorPtr,
-                                RecordedRefCounts  > MFRecTileCameraDecoratorPtr;
+                                RecordedRefCountPolicy  > MFRecTileCameraDecoratorPtr;
 typedef FieldContainerPtrMField<TileCameraDecoratorPtr,
-                                UnrecordedRefCounts> MFUnrecTileCameraDecoratorPtr;
+                                UnrecordedRefCountPolicy> MFUnrecTileCameraDecoratorPtr;
 typedef FieldContainerPtrMField<TileCameraDecoratorPtr,
-                                WeakRefCounts      > MFWeakTileCameraDecoratorPtr;
+                                WeakRefCountPolicy      > MFWeakTileCameraDecoratorPtr;
 typedef FieldContainerPtrMField<TileCameraDecoratorPtr,
-                                NoRefCounts        > MFUncountedTileCameraDecoratorPtr;
+                                NoRefCountPolicy        > MFUncountedTileCameraDecoratorPtr;
 #endif
 
 

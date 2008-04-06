@@ -104,25 +104,25 @@ struct FieldTraits<SkyBackgroundPtr> :
 
 
 template<> inline
-const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSkyBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSkyBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSkyBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSkyBackgroundPtr"; 
 }
@@ -141,13 +141,13 @@ const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<SkyBackgroundPtr,
-                                RecordedRefCounts  > MFRecSkyBackgroundPtr;
+                                RecordedRefCountPolicy  > MFRecSkyBackgroundPtr;
 typedef FieldContainerPtrMField<SkyBackgroundPtr,
-                                UnrecordedRefCounts> MFUnrecSkyBackgroundPtr;
+                                UnrecordedRefCountPolicy> MFUnrecSkyBackgroundPtr;
 typedef FieldContainerPtrMField<SkyBackgroundPtr,
-                                WeakRefCounts      > MFWeakSkyBackgroundPtr;
+                                WeakRefCountPolicy      > MFWeakSkyBackgroundPtr;
 typedef FieldContainerPtrMField<SkyBackgroundPtr,
-                                NoRefCounts        > MFUncountedSkyBackgroundPtr;
+                                NoRefCountPolicy        > MFUncountedSkyBackgroundPtr;
 #endif
 
 

@@ -103,25 +103,25 @@ struct FieldTraits<SolidBackgroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSolidBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSolidBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSolidBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSolidBackgroundPtr"; 
 }
@@ -140,13 +140,13 @@ const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<NoRefCounts>(void)
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<SolidBackgroundPtr,
-                                RecordedRefCounts  > SFRecSolidBackgroundPtr;
+                                RecordedRefCountPolicy  > SFRecSolidBackgroundPtr;
 typedef FieldContainerPtrSField<SolidBackgroundPtr,
-                                UnrecordedRefCounts> SFUnrecSolidBackgroundPtr;
+                                UnrecordedRefCountPolicy> SFUnrecSolidBackgroundPtr;
 typedef FieldContainerPtrSField<SolidBackgroundPtr,
-                                WeakRefCounts      > SFWeakSolidBackgroundPtr;
+                                WeakRefCountPolicy      > SFWeakSolidBackgroundPtr;
 typedef FieldContainerPtrSField<SolidBackgroundPtr,
-                                NoRefCounts        > SFUncountedSolidBackgroundPtr;
+                                NoRefCountPolicy        > SFUncountedSolidBackgroundPtr;
 #endif
 
 

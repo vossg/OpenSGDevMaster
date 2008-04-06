@@ -107,49 +107,49 @@ struct FieldTraits<ShaderParameterPnt3fPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShaderParameterPnt3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShaderParameterPnt3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShaderParameterPnt3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShaderParameterPnt3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShaderParameterPnt3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShaderParameterPnt3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShaderParameterPnt3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShaderParameterPnt3fPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ShaderParameterPnt3fPtr, 0>::getMName<NoRefCounts>(void
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<ShaderParameterPnt3fPtr,
-                                RecordedRefCounts  > SFRecShaderParameterPnt3fPtr;
+                                RecordedRefCountPolicy  > SFRecShaderParameterPnt3fPtr;
 typedef FieldContainerPtrSField<ShaderParameterPnt3fPtr,
-                                UnrecordedRefCounts> SFUnrecShaderParameterPnt3fPtr;
+                                UnrecordedRefCountPolicy> SFUnrecShaderParameterPnt3fPtr;
 typedef FieldContainerPtrSField<ShaderParameterPnt3fPtr,
-                                WeakRefCounts      > SFWeakShaderParameterPnt3fPtr;
+                                WeakRefCountPolicy      > SFWeakShaderParameterPnt3fPtr;
 typedef FieldContainerPtrSField<ShaderParameterPnt3fPtr,
-                                NoRefCounts        > SFUncountedShaderParameterPnt3fPtr;
+                                NoRefCountPolicy        > SFUncountedShaderParameterPnt3fPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ShaderParameterPnt3fPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<ShaderParameterPnt3fPtr,
-                                RecordedRefCounts  > MFRecShaderParameterPnt3fPtr;
+                                RecordedRefCountPolicy  > MFRecShaderParameterPnt3fPtr;
 typedef FieldContainerPtrMField<ShaderParameterPnt3fPtr,
-                                UnrecordedRefCounts> MFUnrecShaderParameterPnt3fPtr;
+                                UnrecordedRefCountPolicy> MFUnrecShaderParameterPnt3fPtr;
 typedef FieldContainerPtrMField<ShaderParameterPnt3fPtr,
-                                WeakRefCounts      > MFWeakShaderParameterPnt3fPtr;
+                                WeakRefCountPolicy      > MFWeakShaderParameterPnt3fPtr;
 typedef FieldContainerPtrMField<ShaderParameterPnt3fPtr,
-                                NoRefCounts        > MFUncountedShaderParameterPnt3fPtr;
+                                NoRefCountPolicy        > MFUncountedShaderParameterPnt3fPtr;
 #endif
 
 

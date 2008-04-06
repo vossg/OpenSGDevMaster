@@ -107,49 +107,49 @@ struct FieldTraits<TiledQuadTreeTerrainPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTiledQuadTreeTerrainPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<NoRefCounts>(void
 /*! \ingroup GrpDrawableFieldSingle */
 
 typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
-                                RecordedRefCounts  > SFRecTiledQuadTreeTerrainPtr;
+                                RecordedRefCountPolicy  > SFRecTiledQuadTreeTerrainPtr;
 typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
-                                UnrecordedRefCounts> SFUnrecTiledQuadTreeTerrainPtr;
+                                UnrecordedRefCountPolicy> SFUnrecTiledQuadTreeTerrainPtr;
 typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
-                                WeakRefCounts      > SFWeakTiledQuadTreeTerrainPtr;
+                                WeakRefCountPolicy      > SFWeakTiledQuadTreeTerrainPtr;
 typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
-                                NoRefCounts        > SFUncountedTiledQuadTreeTerrainPtr;
+                                NoRefCountPolicy        > SFUncountedTiledQuadTreeTerrainPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
 /*! \ingroup GrpDrawableFieldMulti */
 
 typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
-                                RecordedRefCounts  > MFRecTiledQuadTreeTerrainPtr;
+                                RecordedRefCountPolicy  > MFRecTiledQuadTreeTerrainPtr;
 typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
-                                UnrecordedRefCounts> MFUnrecTiledQuadTreeTerrainPtr;
+                                UnrecordedRefCountPolicy> MFUnrecTiledQuadTreeTerrainPtr;
 typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
-                                WeakRefCounts      > MFWeakTiledQuadTreeTerrainPtr;
+                                WeakRefCountPolicy      > MFWeakTiledQuadTreeTerrainPtr;
 typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
-                                NoRefCounts        > MFUncountedTiledQuadTreeTerrainPtr;
+                                NoRefCountPolicy        > MFUncountedTiledQuadTreeTerrainPtr;
 #endif
 
 

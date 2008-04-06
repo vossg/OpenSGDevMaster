@@ -107,49 +107,49 @@ struct FieldTraits<ShaderParameterChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShaderParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShaderParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShaderParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShaderParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShaderParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShaderParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShaderParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShaderParameterChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ShaderParameterChunkPtr, 0>::getMName<NoRefCounts>(void
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<ShaderParameterChunkPtr,
-                                RecordedRefCounts  > SFRecShaderParameterChunkPtr;
+                                RecordedRefCountPolicy  > SFRecShaderParameterChunkPtr;
 typedef FieldContainerPtrSField<ShaderParameterChunkPtr,
-                                UnrecordedRefCounts> SFUnrecShaderParameterChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecShaderParameterChunkPtr;
 typedef FieldContainerPtrSField<ShaderParameterChunkPtr,
-                                WeakRefCounts      > SFWeakShaderParameterChunkPtr;
+                                WeakRefCountPolicy      > SFWeakShaderParameterChunkPtr;
 typedef FieldContainerPtrSField<ShaderParameterChunkPtr,
-                                NoRefCounts        > SFUncountedShaderParameterChunkPtr;
+                                NoRefCountPolicy        > SFUncountedShaderParameterChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ShaderParameterChunkPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<ShaderParameterChunkPtr,
-                                RecordedRefCounts  > MFRecShaderParameterChunkPtr;
+                                RecordedRefCountPolicy  > MFRecShaderParameterChunkPtr;
 typedef FieldContainerPtrMField<ShaderParameterChunkPtr,
-                                UnrecordedRefCounts> MFUnrecShaderParameterChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecShaderParameterChunkPtr;
 typedef FieldContainerPtrMField<ShaderParameterChunkPtr,
-                                WeakRefCounts      > MFWeakShaderParameterChunkPtr;
+                                WeakRefCountPolicy      > MFWeakShaderParameterChunkPtr;
 typedef FieldContainerPtrMField<ShaderParameterChunkPtr,
-                                NoRefCounts        > MFUncountedShaderParameterChunkPtr;
+                                NoRefCountPolicy        > MFUncountedShaderParameterChunkPtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<ClipPlaneChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdClipPlaneChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
-                                RecordedRefCounts  > SFRecClipPlaneChunkPtr;
+                                RecordedRefCountPolicy  > SFRecClipPlaneChunkPtr;
 typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
-                                UnrecordedRefCounts> SFUnrecClipPlaneChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecClipPlaneChunkPtr;
 typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
-                                WeakRefCounts      > SFWeakClipPlaneChunkPtr;
+                                WeakRefCountPolicy      > SFWeakClipPlaneChunkPtr;
 typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
-                                NoRefCounts        > SFUncountedClipPlaneChunkPtr;
+                                NoRefCountPolicy        > SFUncountedClipPlaneChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
-                                RecordedRefCounts  > MFRecClipPlaneChunkPtr;
+                                RecordedRefCountPolicy  > MFRecClipPlaneChunkPtr;
 typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
-                                UnrecordedRefCounts> MFUnrecClipPlaneChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecClipPlaneChunkPtr;
 typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
-                                WeakRefCounts      > MFWeakClipPlaneChunkPtr;
+                                WeakRefCountPolicy      > MFWeakClipPlaneChunkPtr;
 typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
-                                NoRefCounts        > MFUncountedClipPlaneChunkPtr;
+                                NoRefCountPolicy        > MFUncountedClipPlaneChunkPtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<ShaderChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShaderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShaderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShaderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShaderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShaderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShaderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShaderChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShaderChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<ShaderChunkPtr,
-                                RecordedRefCounts  > SFRecShaderChunkPtr;
+                                RecordedRefCountPolicy  > SFRecShaderChunkPtr;
 typedef FieldContainerPtrSField<ShaderChunkPtr,
-                                UnrecordedRefCounts> SFUnrecShaderChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecShaderChunkPtr;
 typedef FieldContainerPtrSField<ShaderChunkPtr,
-                                WeakRefCounts      > SFWeakShaderChunkPtr;
+                                WeakRefCountPolicy      > SFWeakShaderChunkPtr;
 typedef FieldContainerPtrSField<ShaderChunkPtr,
-                                NoRefCounts        > SFUncountedShaderChunkPtr;
+                                NoRefCountPolicy        > SFUncountedShaderChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ShaderChunkPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<ShaderChunkPtr,
-                                RecordedRefCounts  > MFRecShaderChunkPtr;
+                                RecordedRefCountPolicy  > MFRecShaderChunkPtr;
 typedef FieldContainerPtrMField<ShaderChunkPtr,
-                                UnrecordedRefCounts> MFUnrecShaderChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecShaderChunkPtr;
 typedef FieldContainerPtrMField<ShaderChunkPtr,
-                                WeakRefCounts      > MFWeakShaderChunkPtr;
+                                WeakRefCountPolicy      > MFWeakShaderChunkPtr;
 typedef FieldContainerPtrMField<ShaderChunkPtr,
-                                NoRefCounts        > MFUncountedShaderChunkPtr;
+                                NoRefCountPolicy        > MFUncountedShaderChunkPtr;
 #endif
 
 

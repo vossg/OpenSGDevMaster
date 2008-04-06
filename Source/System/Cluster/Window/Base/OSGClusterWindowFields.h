@@ -107,49 +107,49 @@ struct FieldTraits<ClusterWindowPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdClusterWindowPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpClusterFieldSingle */
 
 typedef FieldContainerPtrSField<ClusterWindowPtr,
-                                RecordedRefCounts  > SFRecClusterWindowPtr;
+                                RecordedRefCountPolicy  > SFRecClusterWindowPtr;
 typedef FieldContainerPtrSField<ClusterWindowPtr,
-                                UnrecordedRefCounts> SFUnrecClusterWindowPtr;
+                                UnrecordedRefCountPolicy> SFUnrecClusterWindowPtr;
 typedef FieldContainerPtrSField<ClusterWindowPtr,
-                                WeakRefCounts      > SFWeakClusterWindowPtr;
+                                WeakRefCountPolicy      > SFWeakClusterWindowPtr;
 typedef FieldContainerPtrSField<ClusterWindowPtr,
-                                NoRefCounts        > SFUncountedClusterWindowPtr;
+                                NoRefCountPolicy        > SFUncountedClusterWindowPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ClusterWindowPtr,
 /*! \ingroup GrpClusterFieldMulti */
 
 typedef FieldContainerPtrMField<ClusterWindowPtr,
-                                RecordedRefCounts  > MFRecClusterWindowPtr;
+                                RecordedRefCountPolicy  > MFRecClusterWindowPtr;
 typedef FieldContainerPtrMField<ClusterWindowPtr,
-                                UnrecordedRefCounts> MFUnrecClusterWindowPtr;
+                                UnrecordedRefCountPolicy> MFUnrecClusterWindowPtr;
 typedef FieldContainerPtrMField<ClusterWindowPtr,
-                                WeakRefCounts      > MFWeakClusterWindowPtr;
+                                WeakRefCountPolicy      > MFWeakClusterWindowPtr;
 typedef FieldContainerPtrMField<ClusterWindowPtr,
-                                NoRefCounts        > MFUncountedClusterWindowPtr;
+                                NoRefCountPolicy        > MFUncountedClusterWindowPtr;
 #endif
 
 

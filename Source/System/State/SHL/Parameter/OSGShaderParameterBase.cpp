@@ -385,7 +385,7 @@ DataType &FieldTraits< ShaderParameterPtr, 1 >::getType(void)
 
 OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
                       ShaderParameterPtr,       
-                      UnrecordedRefCounts,  
+                      UnrecordedRefCountPolicy,  
                       1);
 
 

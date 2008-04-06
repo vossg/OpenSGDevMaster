@@ -107,49 +107,49 @@ struct FieldTraits<BlendChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdBlendChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<BlendChunkPtr,
-                                RecordedRefCounts  > SFRecBlendChunkPtr;
+                                RecordedRefCountPolicy  > SFRecBlendChunkPtr;
 typedef FieldContainerPtrSField<BlendChunkPtr,
-                                UnrecordedRefCounts> SFUnrecBlendChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecBlendChunkPtr;
 typedef FieldContainerPtrSField<BlendChunkPtr,
-                                WeakRefCounts      > SFWeakBlendChunkPtr;
+                                WeakRefCountPolicy      > SFWeakBlendChunkPtr;
 typedef FieldContainerPtrSField<BlendChunkPtr,
-                                NoRefCounts        > SFUncountedBlendChunkPtr;
+                                NoRefCountPolicy        > SFUncountedBlendChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<BlendChunkPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<BlendChunkPtr,
-                                RecordedRefCounts  > MFRecBlendChunkPtr;
+                                RecordedRefCountPolicy  > MFRecBlendChunkPtr;
 typedef FieldContainerPtrMField<BlendChunkPtr,
-                                UnrecordedRefCounts> MFUnrecBlendChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecBlendChunkPtr;
 typedef FieldContainerPtrMField<BlendChunkPtr,
-                                WeakRefCounts      > MFWeakBlendChunkPtr;
+                                WeakRefCountPolicy      > MFWeakBlendChunkPtr;
 typedef FieldContainerPtrMField<BlendChunkPtr,
-                                NoRefCounts        > MFUncountedBlendChunkPtr;
+                                NoRefCountPolicy        > MFUncountedBlendChunkPtr;
 #endif
 
 

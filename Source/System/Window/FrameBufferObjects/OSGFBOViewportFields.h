@@ -107,49 +107,49 @@ struct FieldTraits<FBOViewportPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFBOViewportPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<FBOViewportPtr,
-                                RecordedRefCounts  > SFRecFBOViewportPtr;
+                                RecordedRefCountPolicy  > SFRecFBOViewportPtr;
 typedef FieldContainerPtrSField<FBOViewportPtr,
-                                UnrecordedRefCounts> SFUnrecFBOViewportPtr;
+                                UnrecordedRefCountPolicy> SFUnrecFBOViewportPtr;
 typedef FieldContainerPtrSField<FBOViewportPtr,
-                                WeakRefCounts      > SFWeakFBOViewportPtr;
+                                WeakRefCountPolicy      > SFWeakFBOViewportPtr;
 typedef FieldContainerPtrSField<FBOViewportPtr,
-                                NoRefCounts        > SFUncountedFBOViewportPtr;
+                                NoRefCountPolicy        > SFUncountedFBOViewportPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<FBOViewportPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<FBOViewportPtr,
-                                RecordedRefCounts  > MFRecFBOViewportPtr;
+                                RecordedRefCountPolicy  > MFRecFBOViewportPtr;
 typedef FieldContainerPtrMField<FBOViewportPtr,
-                                UnrecordedRefCounts> MFUnrecFBOViewportPtr;
+                                UnrecordedRefCountPolicy> MFUnrecFBOViewportPtr;
 typedef FieldContainerPtrMField<FBOViewportPtr,
-                                WeakRefCounts      > MFWeakFBOViewportPtr;
+                                WeakRefCountPolicy      > MFWeakFBOViewportPtr;
 typedef FieldContainerPtrMField<FBOViewportPtr,
-                                NoRefCounts        > MFUncountedFBOViewportPtr;
+                                NoRefCountPolicy        > MFUncountedFBOViewportPtr;
 #endif
 
 

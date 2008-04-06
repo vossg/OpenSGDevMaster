@@ -107,49 +107,49 @@ struct FieldTraits<SHLChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SHLChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SHLChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SHLChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SHLChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<SHLChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SHLChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SHLChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SHLChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSHLChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<SHLChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSHLChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<SHLChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<SHLChunkPtr,
-                                RecordedRefCounts  > SFRecSHLChunkPtr;
+                                RecordedRefCountPolicy  > SFRecSHLChunkPtr;
 typedef FieldContainerPtrSField<SHLChunkPtr,
-                                UnrecordedRefCounts> SFUnrecSHLChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecSHLChunkPtr;
 typedef FieldContainerPtrSField<SHLChunkPtr,
-                                WeakRefCounts      > SFWeakSHLChunkPtr;
+                                WeakRefCountPolicy      > SFWeakSHLChunkPtr;
 typedef FieldContainerPtrSField<SHLChunkPtr,
-                                NoRefCounts        > SFUncountedSHLChunkPtr;
+                                NoRefCountPolicy        > SFUncountedSHLChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<SHLChunkPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<SHLChunkPtr,
-                                RecordedRefCounts  > MFRecSHLChunkPtr;
+                                RecordedRefCountPolicy  > MFRecSHLChunkPtr;
 typedef FieldContainerPtrMField<SHLChunkPtr,
-                                UnrecordedRefCounts> MFUnrecSHLChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecSHLChunkPtr;
 typedef FieldContainerPtrMField<SHLChunkPtr,
-                                WeakRefCounts      > MFWeakSHLChunkPtr;
+                                WeakRefCountPolicy      > MFWeakSHLChunkPtr;
 typedef FieldContainerPtrMField<SHLChunkPtr,
-                                NoRefCounts        > MFUncountedSHLChunkPtr;
+                                NoRefCountPolicy        > MFUncountedSHLChunkPtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<ProjectionCameraDecoratorPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakProjectionCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdProjectionCameraDecoratorPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<NoRefCounts>
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
-                                RecordedRefCounts  > SFRecProjectionCameraDecoratorPtr;
+                                RecordedRefCountPolicy  > SFRecProjectionCameraDecoratorPtr;
 typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
-                                UnrecordedRefCounts> SFUnrecProjectionCameraDecoratorPtr;
+                                UnrecordedRefCountPolicy> SFUnrecProjectionCameraDecoratorPtr;
 typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
-                                WeakRefCounts      > SFWeakProjectionCameraDecoratorPtr;
+                                WeakRefCountPolicy      > SFWeakProjectionCameraDecoratorPtr;
 typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
-                                NoRefCounts        > SFUncountedProjectionCameraDecoratorPtr;
+                                NoRefCountPolicy        > SFUncountedProjectionCameraDecoratorPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
-                                RecordedRefCounts  > MFRecProjectionCameraDecoratorPtr;
+                                RecordedRefCountPolicy  > MFRecProjectionCameraDecoratorPtr;
 typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
-                                UnrecordedRefCounts> MFUnrecProjectionCameraDecoratorPtr;
+                                UnrecordedRefCountPolicy> MFUnrecProjectionCameraDecoratorPtr;
 typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
-                                WeakRefCounts      > MFWeakProjectionCameraDecoratorPtr;
+                                WeakRefCountPolicy      > MFWeakProjectionCameraDecoratorPtr;
 typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
-                                NoRefCounts        > MFUncountedProjectionCameraDecoratorPtr;
+                                NoRefCountPolicy        > MFUncountedProjectionCameraDecoratorPtr;
 #endif
 
 

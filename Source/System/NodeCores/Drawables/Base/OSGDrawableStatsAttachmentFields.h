@@ -107,49 +107,49 @@ struct FieldTraits<DrawableStatsAttachmentPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDrawableStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDrawableStatsAttachmentPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<NoRefCounts>(v
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
-                                RecordedRefCounts  > SFRecDrawableStatsAttachmentPtr;
+                                RecordedRefCountPolicy  > SFRecDrawableStatsAttachmentPtr;
 typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
-                                UnrecordedRefCounts> SFUnrecDrawableStatsAttachmentPtr;
+                                UnrecordedRefCountPolicy> SFUnrecDrawableStatsAttachmentPtr;
 typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
-                                WeakRefCounts      > SFWeakDrawableStatsAttachmentPtr;
+                                WeakRefCountPolicy      > SFWeakDrawableStatsAttachmentPtr;
 typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
-                                NoRefCounts        > SFUncountedDrawableStatsAttachmentPtr;
+                                NoRefCountPolicy        > SFUncountedDrawableStatsAttachmentPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
-                                RecordedRefCounts  > MFRecDrawableStatsAttachmentPtr;
+                                RecordedRefCountPolicy  > MFRecDrawableStatsAttachmentPtr;
 typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
-                                UnrecordedRefCounts> MFUnrecDrawableStatsAttachmentPtr;
+                                UnrecordedRefCountPolicy> MFUnrecDrawableStatsAttachmentPtr;
 typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
-                                WeakRefCounts      > MFWeakDrawableStatsAttachmentPtr;
+                                WeakRefCountPolicy      > MFWeakDrawableStatsAttachmentPtr;
 typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
-                                NoRefCounts        > MFUncountedDrawableStatsAttachmentPtr;
+                                NoRefCountPolicy        > MFUncountedDrawableStatsAttachmentPtr;
 #endif
 
 

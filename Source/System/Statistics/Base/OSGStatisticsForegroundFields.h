@@ -107,49 +107,49 @@ struct FieldTraits<StatisticsForegroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdStatisticsForegroundPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<NoRefCounts>(void
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<StatisticsForegroundPtr,
-                                RecordedRefCounts  > SFRecStatisticsForegroundPtr;
+                                RecordedRefCountPolicy  > SFRecStatisticsForegroundPtr;
 typedef FieldContainerPtrSField<StatisticsForegroundPtr,
-                                UnrecordedRefCounts> SFUnrecStatisticsForegroundPtr;
+                                UnrecordedRefCountPolicy> SFUnrecStatisticsForegroundPtr;
 typedef FieldContainerPtrSField<StatisticsForegroundPtr,
-                                WeakRefCounts      > SFWeakStatisticsForegroundPtr;
+                                WeakRefCountPolicy      > SFWeakStatisticsForegroundPtr;
 typedef FieldContainerPtrSField<StatisticsForegroundPtr,
-                                NoRefCounts        > SFUncountedStatisticsForegroundPtr;
+                                NoRefCountPolicy        > SFUncountedStatisticsForegroundPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<StatisticsForegroundPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<StatisticsForegroundPtr,
-                                RecordedRefCounts  > MFRecStatisticsForegroundPtr;
+                                RecordedRefCountPolicy  > MFRecStatisticsForegroundPtr;
 typedef FieldContainerPtrMField<StatisticsForegroundPtr,
-                                UnrecordedRefCounts> MFUnrecStatisticsForegroundPtr;
+                                UnrecordedRefCountPolicy> MFUnrecStatisticsForegroundPtr;
 typedef FieldContainerPtrMField<StatisticsForegroundPtr,
-                                WeakRefCounts      > MFWeakStatisticsForegroundPtr;
+                                WeakRefCountPolicy      > MFWeakStatisticsForegroundPtr;
 typedef FieldContainerPtrMField<StatisticsForegroundPtr,
-                                NoRefCounts        > MFUncountedStatisticsForegroundPtr;
+                                NoRefCountPolicy        > MFUncountedStatisticsForegroundPtr;
 #endif
 
 

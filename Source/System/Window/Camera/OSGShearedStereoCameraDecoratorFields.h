@@ -107,49 +107,49 @@ struct FieldTraits<ShearedStereoCameraDecoratorPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShearedStereoCameraDecoratorPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<NoRefCoun
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<ShearedStereoCameraDecoratorPtr,
-                                RecordedRefCounts  > SFRecShearedStereoCameraDecoratorPtr;
+                                RecordedRefCountPolicy  > SFRecShearedStereoCameraDecoratorPtr;
 typedef FieldContainerPtrSField<ShearedStereoCameraDecoratorPtr,
-                                UnrecordedRefCounts> SFUnrecShearedStereoCameraDecoratorPtr;
+                                UnrecordedRefCountPolicy> SFUnrecShearedStereoCameraDecoratorPtr;
 typedef FieldContainerPtrSField<ShearedStereoCameraDecoratorPtr,
-                                WeakRefCounts      > SFWeakShearedStereoCameraDecoratorPtr;
+                                WeakRefCountPolicy      > SFWeakShearedStereoCameraDecoratorPtr;
 typedef FieldContainerPtrSField<ShearedStereoCameraDecoratorPtr,
-                                NoRefCounts        > SFUncountedShearedStereoCameraDecoratorPtr;
+                                NoRefCountPolicy        > SFUncountedShearedStereoCameraDecoratorPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ShearedStereoCameraDecoratorPtr,
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<ShearedStereoCameraDecoratorPtr,
-                                RecordedRefCounts  > MFRecShearedStereoCameraDecoratorPtr;
+                                RecordedRefCountPolicy  > MFRecShearedStereoCameraDecoratorPtr;
 typedef FieldContainerPtrMField<ShearedStereoCameraDecoratorPtr,
-                                UnrecordedRefCounts> MFUnrecShearedStereoCameraDecoratorPtr;
+                                UnrecordedRefCountPolicy> MFUnrecShearedStereoCameraDecoratorPtr;
 typedef FieldContainerPtrMField<ShearedStereoCameraDecoratorPtr,
-                                WeakRefCounts      > MFWeakShearedStereoCameraDecoratorPtr;
+                                WeakRefCountPolicy      > MFWeakShearedStereoCameraDecoratorPtr;
 typedef FieldContainerPtrMField<ShearedStereoCameraDecoratorPtr,
-                                NoRefCounts        > MFUncountedShearedStereoCameraDecoratorPtr;
+                                NoRefCountPolicy        > MFUncountedShearedStereoCameraDecoratorPtr;
 #endif
 
 

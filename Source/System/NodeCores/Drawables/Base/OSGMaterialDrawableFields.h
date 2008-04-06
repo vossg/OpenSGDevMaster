@@ -107,49 +107,49 @@ struct FieldTraits<MaterialDrawablePtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdMaterialDrawablePtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<MaterialDrawablePtr,
-                                RecordedRefCounts  > SFRecMaterialDrawablePtr;
+                                RecordedRefCountPolicy  > SFRecMaterialDrawablePtr;
 typedef FieldContainerPtrSField<MaterialDrawablePtr,
-                                UnrecordedRefCounts> SFUnrecMaterialDrawablePtr;
+                                UnrecordedRefCountPolicy> SFUnrecMaterialDrawablePtr;
 typedef FieldContainerPtrSField<MaterialDrawablePtr,
-                                WeakRefCounts      > SFWeakMaterialDrawablePtr;
+                                WeakRefCountPolicy      > SFWeakMaterialDrawablePtr;
 typedef FieldContainerPtrSField<MaterialDrawablePtr,
-                                NoRefCounts        > SFUncountedMaterialDrawablePtr;
+                                NoRefCountPolicy        > SFUncountedMaterialDrawablePtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<MaterialDrawablePtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<MaterialDrawablePtr,
-                                RecordedRefCounts  > MFRecMaterialDrawablePtr;
+                                RecordedRefCountPolicy  > MFRecMaterialDrawablePtr;
 typedef FieldContainerPtrMField<MaterialDrawablePtr,
-                                UnrecordedRefCounts> MFUnrecMaterialDrawablePtr;
+                                UnrecordedRefCountPolicy> MFUnrecMaterialDrawablePtr;
 typedef FieldContainerPtrMField<MaterialDrawablePtr,
-                                WeakRefCounts      > MFWeakMaterialDrawablePtr;
+                                WeakRefCountPolicy      > MFWeakMaterialDrawablePtr;
 typedef FieldContainerPtrMField<MaterialDrawablePtr,
-                                NoRefCounts        > MFUncountedMaterialDrawablePtr;
+                                NoRefCountPolicy        > MFUncountedMaterialDrawablePtr;
 #endif
 
 

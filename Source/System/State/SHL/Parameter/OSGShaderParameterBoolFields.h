@@ -107,49 +107,49 @@ struct FieldTraits<ShaderParameterBoolPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShaderParameterBoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShaderParameterBoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShaderParameterBoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShaderParameterBoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShaderParameterBoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShaderParameterBoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShaderParameterBoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShaderParameterBoolPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ShaderParameterBoolPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<ShaderParameterBoolPtr,
-                                RecordedRefCounts  > SFRecShaderParameterBoolPtr;
+                                RecordedRefCountPolicy  > SFRecShaderParameterBoolPtr;
 typedef FieldContainerPtrSField<ShaderParameterBoolPtr,
-                                UnrecordedRefCounts> SFUnrecShaderParameterBoolPtr;
+                                UnrecordedRefCountPolicy> SFUnrecShaderParameterBoolPtr;
 typedef FieldContainerPtrSField<ShaderParameterBoolPtr,
-                                WeakRefCounts      > SFWeakShaderParameterBoolPtr;
+                                WeakRefCountPolicy      > SFWeakShaderParameterBoolPtr;
 typedef FieldContainerPtrSField<ShaderParameterBoolPtr,
-                                NoRefCounts        > SFUncountedShaderParameterBoolPtr;
+                                NoRefCountPolicy        > SFUncountedShaderParameterBoolPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ShaderParameterBoolPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<ShaderParameterBoolPtr,
-                                RecordedRefCounts  > MFRecShaderParameterBoolPtr;
+                                RecordedRefCountPolicy  > MFRecShaderParameterBoolPtr;
 typedef FieldContainerPtrMField<ShaderParameterBoolPtr,
-                                UnrecordedRefCounts> MFUnrecShaderParameterBoolPtr;
+                                UnrecordedRefCountPolicy> MFUnrecShaderParameterBoolPtr;
 typedef FieldContainerPtrMField<ShaderParameterBoolPtr,
-                                WeakRefCounts      > MFWeakShaderParameterBoolPtr;
+                                WeakRefCountPolicy      > MFWeakShaderParameterBoolPtr;
 typedef FieldContainerPtrMField<ShaderParameterBoolPtr,
-                                NoRefCounts        > MFUncountedShaderParameterBoolPtr;
+                                NoRefCountPolicy        > MFUncountedShaderParameterBoolPtr;
 #endif
 
 

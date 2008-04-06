@@ -107,49 +107,49 @@ struct FieldTraits<FCDTestFCPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFCDTestFCPtr"; 
 }
@@ -189,49 +189,49 @@ struct FieldTraits<FCDTestFCPtr, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFieldContainerChildFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFieldContainerChildFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFieldContainerChildFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFieldContainerChildFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFieldContainerChildFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFieldContainerChildFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFieldContainerChildFCDTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFieldContainerChildFCDTestFCPtr"; 
 }
@@ -244,13 +244,13 @@ const Char8 *FieldTraits<FCDTestFCPtr, 1>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<FCDTestFCPtr,
-                                RecordedRefCounts  > SFRecFCDTestFCPtr;
+                                RecordedRefCountPolicy  > SFRecFCDTestFCPtr;
 typedef FieldContainerPtrSField<FCDTestFCPtr,
-                                UnrecordedRefCounts> SFUnrecFCDTestFCPtr;
+                                UnrecordedRefCountPolicy> SFUnrecFCDTestFCPtr;
 typedef FieldContainerPtrSField<FCDTestFCPtr,
-                                WeakRefCounts      > SFWeakFCDTestFCPtr;
+                                WeakRefCountPolicy      > SFWeakFCDTestFCPtr;
 typedef FieldContainerPtrSField<FCDTestFCPtr,
-                                NoRefCounts        > SFUncountedFCDTestFCPtr;
+                                NoRefCountPolicy        > SFUncountedFCDTestFCPtr;
 #endif
 
 
@@ -258,20 +258,20 @@ typedef FieldContainerPtrSField<FCDTestFCPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<FCDTestFCPtr,
-                                RecordedRefCounts  > MFRecFCDTestFCPtr;
+                                RecordedRefCountPolicy  > MFRecFCDTestFCPtr;
 typedef FieldContainerPtrMField<FCDTestFCPtr,
-                                UnrecordedRefCounts> MFUnrecFCDTestFCPtr;
+                                UnrecordedRefCountPolicy> MFUnrecFCDTestFCPtr;
 typedef FieldContainerPtrMField<FCDTestFCPtr,
-                                WeakRefCounts      > MFWeakFCDTestFCPtr;
+                                WeakRefCountPolicy      > MFWeakFCDTestFCPtr;
 typedef FieldContainerPtrMField<FCDTestFCPtr,
-                                NoRefCounts        > MFUncountedFCDTestFCPtr;
+                                NoRefCountPolicy        > MFUncountedFCDTestFCPtr;
 #endif
 
 
 
 typedef FieldContainerPtrChildSField<
           FCDTestFCPtr, 
-          UnrecordedRefCounts,
+          UnrecordedRefCountPolicy,
           1                  > SFUnrecFieldContainerChildFCDTestFCPtr;
 
 typedef SFUnrecFieldContainerChildFCDTestFCPtr 
@@ -280,7 +280,7 @@ typedef SFUnrecFieldContainerChildFCDTestFCPtr
 
 typedef FieldContainerPtrChildMField<
           FCDTestFCPtr, 
-          UnrecordedRefCounts,
+          UnrecordedRefCountPolicy,
           1                  > MFUnrecFieldContainerChildFCDTestFCPtr;
 
 typedef MFUnrecFieldContainerChildFCDTestFCPtr

@@ -107,49 +107,49 @@ struct FieldTraits<DrawablePtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<DrawablePtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<DrawablePtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawablePtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<DrawablePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawablePtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<DrawablePtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawablePtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<DrawablePtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawablePtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<DrawablePtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawablePtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<DrawablePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawablePtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<DrawablePtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawablePtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<DrawablePtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDrawablePtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<DrawablePtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<DrawablePtr,
-                                RecordedRefCounts  > SFRecDrawablePtr;
+                                RecordedRefCountPolicy  > SFRecDrawablePtr;
 typedef FieldContainerPtrSField<DrawablePtr,
-                                UnrecordedRefCounts> SFUnrecDrawablePtr;
+                                UnrecordedRefCountPolicy> SFUnrecDrawablePtr;
 typedef FieldContainerPtrSField<DrawablePtr,
-                                WeakRefCounts      > SFWeakDrawablePtr;
+                                WeakRefCountPolicy      > SFWeakDrawablePtr;
 typedef FieldContainerPtrSField<DrawablePtr,
-                                NoRefCounts        > SFUncountedDrawablePtr;
+                                NoRefCountPolicy        > SFUncountedDrawablePtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<DrawablePtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<DrawablePtr,
-                                RecordedRefCounts  > MFRecDrawablePtr;
+                                RecordedRefCountPolicy  > MFRecDrawablePtr;
 typedef FieldContainerPtrMField<DrawablePtr,
-                                UnrecordedRefCounts> MFUnrecDrawablePtr;
+                                UnrecordedRefCountPolicy> MFUnrecDrawablePtr;
 typedef FieldContainerPtrMField<DrawablePtr,
-                                WeakRefCounts      > MFWeakDrawablePtr;
+                                WeakRefCountPolicy      > MFWeakDrawablePtr;
 typedef FieldContainerPtrMField<DrawablePtr,
-                                NoRefCounts        > MFUncountedDrawablePtr;
+                                NoRefCountPolicy        > MFUncountedDrawablePtr;
 #endif
 
 

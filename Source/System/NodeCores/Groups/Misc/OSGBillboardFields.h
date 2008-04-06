@@ -107,49 +107,49 @@ struct FieldTraits<BillboardPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<BillboardPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<BillboardPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BillboardPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<BillboardPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BillboardPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<BillboardPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BillboardPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<BillboardPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BillboardPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<BillboardPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BillboardPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<BillboardPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BillboardPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<BillboardPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakBillboardPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BillboardPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<BillboardPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdBillboardPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<BillboardPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpGroupFieldSingle */
 
 typedef FieldContainerPtrSField<BillboardPtr,
-                                RecordedRefCounts  > SFRecBillboardPtr;
+                                RecordedRefCountPolicy  > SFRecBillboardPtr;
 typedef FieldContainerPtrSField<BillboardPtr,
-                                UnrecordedRefCounts> SFUnrecBillboardPtr;
+                                UnrecordedRefCountPolicy> SFUnrecBillboardPtr;
 typedef FieldContainerPtrSField<BillboardPtr,
-                                WeakRefCounts      > SFWeakBillboardPtr;
+                                WeakRefCountPolicy      > SFWeakBillboardPtr;
 typedef FieldContainerPtrSField<BillboardPtr,
-                                NoRefCounts        > SFUncountedBillboardPtr;
+                                NoRefCountPolicy        > SFUncountedBillboardPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<BillboardPtr,
 /*! \ingroup GrpGroupFieldMulti */
 
 typedef FieldContainerPtrMField<BillboardPtr,
-                                RecordedRefCounts  > MFRecBillboardPtr;
+                                RecordedRefCountPolicy  > MFRecBillboardPtr;
 typedef FieldContainerPtrMField<BillboardPtr,
-                                UnrecordedRefCounts> MFUnrecBillboardPtr;
+                                UnrecordedRefCountPolicy> MFUnrecBillboardPtr;
 typedef FieldContainerPtrMField<BillboardPtr,
-                                WeakRefCounts      > MFWeakBillboardPtr;
+                                WeakRefCountPolicy      > MFWeakBillboardPtr;
 typedef FieldContainerPtrMField<BillboardPtr,
-                                NoRefCounts        > MFUncountedBillboardPtr;
+                                NoRefCountPolicy        > MFUncountedBillboardPtr;
 #endif
 
 

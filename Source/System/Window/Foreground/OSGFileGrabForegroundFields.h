@@ -107,49 +107,49 @@ struct FieldTraits<FileGrabForegroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFileGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFileGrabForegroundPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<FileGrabForegroundPtr,
-                                RecordedRefCounts  > SFRecFileGrabForegroundPtr;
+                                RecordedRefCountPolicy  > SFRecFileGrabForegroundPtr;
 typedef FieldContainerPtrSField<FileGrabForegroundPtr,
-                                UnrecordedRefCounts> SFUnrecFileGrabForegroundPtr;
+                                UnrecordedRefCountPolicy> SFUnrecFileGrabForegroundPtr;
 typedef FieldContainerPtrSField<FileGrabForegroundPtr,
-                                WeakRefCounts      > SFWeakFileGrabForegroundPtr;
+                                WeakRefCountPolicy      > SFWeakFileGrabForegroundPtr;
 typedef FieldContainerPtrSField<FileGrabForegroundPtr,
-                                NoRefCounts        > SFUncountedFileGrabForegroundPtr;
+                                NoRefCountPolicy        > SFUncountedFileGrabForegroundPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<FileGrabForegroundPtr,
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<FileGrabForegroundPtr,
-                                RecordedRefCounts  > MFRecFileGrabForegroundPtr;
+                                RecordedRefCountPolicy  > MFRecFileGrabForegroundPtr;
 typedef FieldContainerPtrMField<FileGrabForegroundPtr,
-                                UnrecordedRefCounts> MFUnrecFileGrabForegroundPtr;
+                                UnrecordedRefCountPolicy> MFUnrecFileGrabForegroundPtr;
 typedef FieldContainerPtrMField<FileGrabForegroundPtr,
-                                WeakRefCounts      > MFWeakFileGrabForegroundPtr;
+                                WeakRefCountPolicy      > MFWeakFileGrabForegroundPtr;
 typedef FieldContainerPtrMField<FileGrabForegroundPtr,
-                                NoRefCounts        > MFUncountedFileGrabForegroundPtr;
+                                NoRefCountPolicy        > MFUncountedFileGrabForegroundPtr;
 #endif
 
 

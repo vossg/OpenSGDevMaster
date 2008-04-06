@@ -107,49 +107,49 @@ struct FieldTraits<RenderBufferPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<RenderBufferPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<RenderBufferPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBufferPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<RenderBufferPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBufferPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<RenderBufferPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBufferPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<RenderBufferPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBufferPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<RenderBufferPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBufferPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<RenderBufferPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBufferPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<RenderBufferPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakRenderBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RenderBufferPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<RenderBufferPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdRenderBufferPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<RenderBufferPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<RenderBufferPtr,
-                                RecordedRefCounts  > SFRecRenderBufferPtr;
+                                RecordedRefCountPolicy  > SFRecRenderBufferPtr;
 typedef FieldContainerPtrSField<RenderBufferPtr,
-                                UnrecordedRefCounts> SFUnrecRenderBufferPtr;
+                                UnrecordedRefCountPolicy> SFUnrecRenderBufferPtr;
 typedef FieldContainerPtrSField<RenderBufferPtr,
-                                WeakRefCounts      > SFWeakRenderBufferPtr;
+                                WeakRefCountPolicy      > SFWeakRenderBufferPtr;
 typedef FieldContainerPtrSField<RenderBufferPtr,
-                                NoRefCounts        > SFUncountedRenderBufferPtr;
+                                NoRefCountPolicy        > SFUncountedRenderBufferPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<RenderBufferPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<RenderBufferPtr,
-                                RecordedRefCounts  > MFRecRenderBufferPtr;
+                                RecordedRefCountPolicy  > MFRecRenderBufferPtr;
 typedef FieldContainerPtrMField<RenderBufferPtr,
-                                UnrecordedRefCounts> MFUnrecRenderBufferPtr;
+                                UnrecordedRefCountPolicy> MFUnrecRenderBufferPtr;
 typedef FieldContainerPtrMField<RenderBufferPtr,
-                                WeakRefCounts      > MFWeakRenderBufferPtr;
+                                WeakRefCountPolicy      > MFWeakRenderBufferPtr;
 typedef FieldContainerPtrMField<RenderBufferPtr,
-                                NoRefCounts        > MFUncountedRenderBufferPtr;
+                                NoRefCountPolicy        > MFUncountedRenderBufferPtr;
 #endif
 
 

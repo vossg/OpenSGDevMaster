@@ -107,49 +107,49 @@ struct FieldTraits<PassiveWindowPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<PassiveWindowPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<PassiveWindowPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveWindowPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<PassiveWindowPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveWindowPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<PassiveWindowPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveWindowPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<PassiveWindowPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveWindowPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<PassiveWindowPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveWindowPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<PassiveWindowPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveWindowPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<PassiveWindowPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakPassiveWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveWindowPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<PassiveWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdPassiveWindowPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<PassiveWindowPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<PassiveWindowPtr,
-                                RecordedRefCounts  > SFRecPassiveWindowPtr;
+                                RecordedRefCountPolicy  > SFRecPassiveWindowPtr;
 typedef FieldContainerPtrSField<PassiveWindowPtr,
-                                UnrecordedRefCounts> SFUnrecPassiveWindowPtr;
+                                UnrecordedRefCountPolicy> SFUnrecPassiveWindowPtr;
 typedef FieldContainerPtrSField<PassiveWindowPtr,
-                                WeakRefCounts      > SFWeakPassiveWindowPtr;
+                                WeakRefCountPolicy      > SFWeakPassiveWindowPtr;
 typedef FieldContainerPtrSField<PassiveWindowPtr,
-                                NoRefCounts        > SFUncountedPassiveWindowPtr;
+                                NoRefCountPolicy        > SFUncountedPassiveWindowPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<PassiveWindowPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<PassiveWindowPtr,
-                                RecordedRefCounts  > MFRecPassiveWindowPtr;
+                                RecordedRefCountPolicy  > MFRecPassiveWindowPtr;
 typedef FieldContainerPtrMField<PassiveWindowPtr,
-                                UnrecordedRefCounts> MFUnrecPassiveWindowPtr;
+                                UnrecordedRefCountPolicy> MFUnrecPassiveWindowPtr;
 typedef FieldContainerPtrMField<PassiveWindowPtr,
-                                WeakRefCounts      > MFWeakPassiveWindowPtr;
+                                WeakRefCountPolicy      > MFWeakPassiveWindowPtr;
 typedef FieldContainerPtrMField<PassiveWindowPtr,
-                                NoRefCounts        > MFUncountedPassiveWindowPtr;
+                                NoRefCountPolicy        > MFUncountedPassiveWindowPtr;
 #endif
 
 

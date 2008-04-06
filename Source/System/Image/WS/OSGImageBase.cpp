@@ -2279,7 +2279,7 @@ DataType &FieldTraits< ImagePtr, 1 >::getType(void)
 
 OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
                       ImagePtr,       
-                      UnrecordedRefCounts,  
+                      UnrecordedRefCountPolicy,  
                       1);
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<GLUTWindowPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGLUTWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGLUTWindowPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowGLUTFieldSingle */
 
 typedef FieldContainerPtrSField<GLUTWindowPtr,
-                                RecordedRefCounts  > SFRecGLUTWindowPtr;
+                                RecordedRefCountPolicy  > SFRecGLUTWindowPtr;
 typedef FieldContainerPtrSField<GLUTWindowPtr,
-                                UnrecordedRefCounts> SFUnrecGLUTWindowPtr;
+                                UnrecordedRefCountPolicy> SFUnrecGLUTWindowPtr;
 typedef FieldContainerPtrSField<GLUTWindowPtr,
-                                WeakRefCounts      > SFWeakGLUTWindowPtr;
+                                WeakRefCountPolicy      > SFWeakGLUTWindowPtr;
 typedef FieldContainerPtrSField<GLUTWindowPtr,
-                                NoRefCounts        > SFUncountedGLUTWindowPtr;
+                                NoRefCountPolicy        > SFUncountedGLUTWindowPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<GLUTWindowPtr,
 /*! \ingroup GrpWindowGLUTFieldMulti */
 
 typedef FieldContainerPtrMField<GLUTWindowPtr,
-                                RecordedRefCounts  > MFRecGLUTWindowPtr;
+                                RecordedRefCountPolicy  > MFRecGLUTWindowPtr;
 typedef FieldContainerPtrMField<GLUTWindowPtr,
-                                UnrecordedRefCounts> MFUnrecGLUTWindowPtr;
+                                UnrecordedRefCountPolicy> MFUnrecGLUTWindowPtr;
 typedef FieldContainerPtrMField<GLUTWindowPtr,
-                                WeakRefCounts      > MFWeakGLUTWindowPtr;
+                                WeakRefCountPolicy      > MFWeakGLUTWindowPtr;
 typedef FieldContainerPtrMField<GLUTWindowPtr,
-                                NoRefCounts        > MFUncountedGLUTWindowPtr;
+                                NoRefCountPolicy        > MFUncountedGLUTWindowPtr;
 #endif
 
 

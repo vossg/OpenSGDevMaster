@@ -107,49 +107,49 @@ struct FieldTraits<ColorBufferViewportPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdColorBufferViewportPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<ColorBufferViewportPtr,
-                                RecordedRefCounts  > SFRecColorBufferViewportPtr;
+                                RecordedRefCountPolicy  > SFRecColorBufferViewportPtr;
 typedef FieldContainerPtrSField<ColorBufferViewportPtr,
-                                UnrecordedRefCounts> SFUnrecColorBufferViewportPtr;
+                                UnrecordedRefCountPolicy> SFUnrecColorBufferViewportPtr;
 typedef FieldContainerPtrSField<ColorBufferViewportPtr,
-                                WeakRefCounts      > SFWeakColorBufferViewportPtr;
+                                WeakRefCountPolicy      > SFWeakColorBufferViewportPtr;
 typedef FieldContainerPtrSField<ColorBufferViewportPtr,
-                                NoRefCounts        > SFUncountedColorBufferViewportPtr;
+                                NoRefCountPolicy        > SFUncountedColorBufferViewportPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ColorBufferViewportPtr,
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<ColorBufferViewportPtr,
-                                RecordedRefCounts  > MFRecColorBufferViewportPtr;
+                                RecordedRefCountPolicy  > MFRecColorBufferViewportPtr;
 typedef FieldContainerPtrMField<ColorBufferViewportPtr,
-                                UnrecordedRefCounts> MFUnrecColorBufferViewportPtr;
+                                UnrecordedRefCountPolicy> MFUnrecColorBufferViewportPtr;
 typedef FieldContainerPtrMField<ColorBufferViewportPtr,
-                                WeakRefCounts      > MFWeakColorBufferViewportPtr;
+                                WeakRefCountPolicy      > MFWeakColorBufferViewportPtr;
 typedef FieldContainerPtrMField<ColorBufferViewportPtr,
-                                NoRefCounts        > MFUncountedColorBufferViewportPtr;
+                                NoRefCountPolicy        > MFUncountedColorBufferViewportPtr;
 #endif
 
 

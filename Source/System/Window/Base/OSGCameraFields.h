@@ -107,49 +107,49 @@ struct FieldTraits<CameraPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<CameraPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<CameraPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<CameraPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<CameraPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<CameraPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<CameraPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<CameraPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<CameraPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCameraPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<CameraPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<CameraPtr,
-                                RecordedRefCounts  > SFRecCameraPtr;
+                                RecordedRefCountPolicy  > SFRecCameraPtr;
 typedef FieldContainerPtrSField<CameraPtr,
-                                UnrecordedRefCounts> SFUnrecCameraPtr;
+                                UnrecordedRefCountPolicy> SFUnrecCameraPtr;
 typedef FieldContainerPtrSField<CameraPtr,
-                                WeakRefCounts      > SFWeakCameraPtr;
+                                WeakRefCountPolicy      > SFWeakCameraPtr;
 typedef FieldContainerPtrSField<CameraPtr,
-                                NoRefCounts        > SFUncountedCameraPtr;
+                                NoRefCountPolicy        > SFUncountedCameraPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<CameraPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<CameraPtr,
-                                RecordedRefCounts  > MFRecCameraPtr;
+                                RecordedRefCountPolicy  > MFRecCameraPtr;
 typedef FieldContainerPtrMField<CameraPtr,
-                                UnrecordedRefCounts> MFUnrecCameraPtr;
+                                UnrecordedRefCountPolicy> MFUnrecCameraPtr;
 typedef FieldContainerPtrMField<CameraPtr,
-                                WeakRefCounts      > MFWeakCameraPtr;
+                                WeakRefCountPolicy      > MFWeakCameraPtr;
 typedef FieldContainerPtrMField<CameraPtr,
-                                NoRefCounts        > MFUncountedCameraPtr;
+                                NoRefCountPolicy        > MFUncountedCameraPtr;
 #endif
 
 

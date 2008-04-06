@@ -107,49 +107,49 @@ struct FieldTraits<ManipulatorPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdManipulatorPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpContribGUIFieldSingle */
 
 typedef FieldContainerPtrSField<ManipulatorPtr,
-                                RecordedRefCounts  > SFRecManipulatorPtr;
+                                RecordedRefCountPolicy  > SFRecManipulatorPtr;
 typedef FieldContainerPtrSField<ManipulatorPtr,
-                                UnrecordedRefCounts> SFUnrecManipulatorPtr;
+                                UnrecordedRefCountPolicy> SFUnrecManipulatorPtr;
 typedef FieldContainerPtrSField<ManipulatorPtr,
-                                WeakRefCounts      > SFWeakManipulatorPtr;
+                                WeakRefCountPolicy      > SFWeakManipulatorPtr;
 typedef FieldContainerPtrSField<ManipulatorPtr,
-                                NoRefCounts        > SFUncountedManipulatorPtr;
+                                NoRefCountPolicy        > SFUncountedManipulatorPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ManipulatorPtr,
 /*! \ingroup GrpContribGUIFieldMulti */
 
 typedef FieldContainerPtrMField<ManipulatorPtr,
-                                RecordedRefCounts  > MFRecManipulatorPtr;
+                                RecordedRefCountPolicy  > MFRecManipulatorPtr;
 typedef FieldContainerPtrMField<ManipulatorPtr,
-                                UnrecordedRefCounts> MFUnrecManipulatorPtr;
+                                UnrecordedRefCountPolicy> MFUnrecManipulatorPtr;
 typedef FieldContainerPtrMField<ManipulatorPtr,
-                                WeakRefCounts      > MFWeakManipulatorPtr;
+                                WeakRefCountPolicy      > MFWeakManipulatorPtr;
 typedef FieldContainerPtrMField<ManipulatorPtr,
-                                NoRefCounts        > MFUncountedManipulatorPtr;
+                                NoRefCountPolicy        > MFUncountedManipulatorPtr;
 #endif
 
 

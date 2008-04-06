@@ -107,49 +107,49 @@ struct FieldTraits<StagePtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<StagePtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<StagePtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StagePtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<StagePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StagePtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<StagePtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StagePtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<StagePtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StagePtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<StagePtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StagePtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<StagePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StagePtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<StagePtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakStagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StagePtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<StagePtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdStagePtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<StagePtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpGroupFieldSingle */
 
 typedef FieldContainerPtrSField<StagePtr,
-                                RecordedRefCounts  > SFRecStagePtr;
+                                RecordedRefCountPolicy  > SFRecStagePtr;
 typedef FieldContainerPtrSField<StagePtr,
-                                UnrecordedRefCounts> SFUnrecStagePtr;
+                                UnrecordedRefCountPolicy> SFUnrecStagePtr;
 typedef FieldContainerPtrSField<StagePtr,
-                                WeakRefCounts      > SFWeakStagePtr;
+                                WeakRefCountPolicy      > SFWeakStagePtr;
 typedef FieldContainerPtrSField<StagePtr,
-                                NoRefCounts        > SFUncountedStagePtr;
+                                NoRefCountPolicy        > SFUncountedStagePtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<StagePtr,
 /*! \ingroup GrpGroupFieldMulti */
 
 typedef FieldContainerPtrMField<StagePtr,
-                                RecordedRefCounts  > MFRecStagePtr;
+                                RecordedRefCountPolicy  > MFRecStagePtr;
 typedef FieldContainerPtrMField<StagePtr,
-                                UnrecordedRefCounts> MFUnrecStagePtr;
+                                UnrecordedRefCountPolicy> MFUnrecStagePtr;
 typedef FieldContainerPtrMField<StagePtr,
-                                WeakRefCounts      > MFWeakStagePtr;
+                                WeakRefCountPolicy      > MFWeakStagePtr;
 typedef FieldContainerPtrMField<StagePtr,
-                                NoRefCounts        > MFUncountedStagePtr;
+                                NoRefCountPolicy        > MFUncountedStagePtr;
 #endif
 
 

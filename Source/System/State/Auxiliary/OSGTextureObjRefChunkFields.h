@@ -107,49 +107,49 @@ struct FieldTraits<TextureObjRefChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTextureObjRefChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTextureObjRefChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<TextureObjRefChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<TextureObjRefChunkPtr,
-                                RecordedRefCounts  > SFRecTextureObjRefChunkPtr;
+                                RecordedRefCountPolicy  > SFRecTextureObjRefChunkPtr;
 typedef FieldContainerPtrSField<TextureObjRefChunkPtr,
-                                UnrecordedRefCounts> SFUnrecTextureObjRefChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecTextureObjRefChunkPtr;
 typedef FieldContainerPtrSField<TextureObjRefChunkPtr,
-                                WeakRefCounts      > SFWeakTextureObjRefChunkPtr;
+                                WeakRefCountPolicy      > SFWeakTextureObjRefChunkPtr;
 typedef FieldContainerPtrSField<TextureObjRefChunkPtr,
-                                NoRefCounts        > SFUncountedTextureObjRefChunkPtr;
+                                NoRefCountPolicy        > SFUncountedTextureObjRefChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<TextureObjRefChunkPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<TextureObjRefChunkPtr,
-                                RecordedRefCounts  > MFRecTextureObjRefChunkPtr;
+                                RecordedRefCountPolicy  > MFRecTextureObjRefChunkPtr;
 typedef FieldContainerPtrMField<TextureObjRefChunkPtr,
-                                UnrecordedRefCounts> MFUnrecTextureObjRefChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecTextureObjRefChunkPtr;
 typedef FieldContainerPtrMField<TextureObjRefChunkPtr,
-                                WeakRefCounts      > MFWeakTextureObjRefChunkPtr;
+                                WeakRefCountPolicy      > MFWeakTextureObjRefChunkPtr;
 typedef FieldContainerPtrMField<TextureObjRefChunkPtr,
-                                NoRefCounts        > MFUncountedTextureObjRefChunkPtr;
+                                NoRefCountPolicy        > MFUncountedTextureObjRefChunkPtr;
 #endif
 
 

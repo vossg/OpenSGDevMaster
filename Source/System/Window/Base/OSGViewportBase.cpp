@@ -1414,7 +1414,7 @@ DataType &FieldTraits< ViewportPtr, 1 >::getType(void)
 
 OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
                       ViewportPtr,       
-                      UnrecordedRefCounts,  
+                      UnrecordedRefCountPolicy,  
                       1);
 
 

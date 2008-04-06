@@ -104,25 +104,25 @@ struct FieldTraits<GradientBackgroundPtr> :
 
 
 template<> inline
-const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGradientBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGradientBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGradientBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGradientBackgroundPtr"; 
 }
@@ -141,13 +141,13 @@ const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<GradientBackgroundPtr,
-                                RecordedRefCounts  > MFRecGradientBackgroundPtr;
+                                RecordedRefCountPolicy  > MFRecGradientBackgroundPtr;
 typedef FieldContainerPtrMField<GradientBackgroundPtr,
-                                UnrecordedRefCounts> MFUnrecGradientBackgroundPtr;
+                                UnrecordedRefCountPolicy> MFUnrecGradientBackgroundPtr;
 typedef FieldContainerPtrMField<GradientBackgroundPtr,
-                                WeakRefCounts      > MFWeakGradientBackgroundPtr;
+                                WeakRefCountPolicy      > MFWeakGradientBackgroundPtr;
 typedef FieldContainerPtrMField<GradientBackgroundPtr,
-                                NoRefCounts        > MFUncountedGradientBackgroundPtr;
+                                NoRefCountPolicy        > MFUncountedGradientBackgroundPtr;
 #endif
 
 

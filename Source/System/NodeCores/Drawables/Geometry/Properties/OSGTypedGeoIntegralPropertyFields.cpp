@@ -65,44 +65,19 @@ OSG_FIELDTRAITS_GETTYPE(GeoUInt32PropertyPtr)
 
 #endif //!defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    GeoUInt8PropertyPtr, 
-                    RecordedRefCounts,
-                    0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    GeoUInt8PropertyPtr, 
-                    RecordedRefCounts,
-                    0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           GeoUInt8PropertyPtr, 
+                           0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           GeoUInt8PropertyPtr, 
+                           0);
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrSField, 
-                    GeoUInt32PropertyPtr, 
-                    RecordedRefCounts,
-                    0);
-OSG_MFIELDTYPE_INST(FieldContainerPtrMField, 
-                    GeoUInt32PropertyPtr, 
-                    RecordedRefCounts,
-                    0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         GeoUInt8PropertyPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         GeoUInt8PropertyPtr, 
-                         RecordedRefCounts,
-                         0);
-
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrSField, 
-                         GeoUInt32PropertyPtr, 
-                         RecordedRefCounts,
-                         0);
-
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrMField, 
-                         GeoUInt32PropertyPtr, 
-                         RecordedRefCounts,
-                         0);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           GeoUInt32PropertyPtr, 
+                           0);
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           GeoUInt32PropertyPtr, 
+                           0);
 
 OSG_END_NAMESPACE
 

@@ -78,31 +78,21 @@ struct FieldTraits<GeoUInt8PropertyPtr> :
     static OSG_DRAWABLE_DLLMAPPING 
                      DataType &getType (void);
 
-    static char     *getSName(void) { return "SFGeoUInt8PropertyPtr"; }
-    static char     *getMName(void) { return "MFGeoUInt8PropertyPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8 *getSName(void); 
+
+    template<typename RefCountPolicy> inline
+    static const Char8 *getMName(void); 
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GeoIntegralPropertyPtr, 0>
-    \hideinhierarchy
- */
-#endif
+
+OSG_FIELD_TRAITS_NAME_INST(GeoUInt8PropertyPtr)
+
+OSG_FIELDCONTAINER_FIELDS_INST(GeoUInt8PropertyPtr);
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
-typedef FieldContainerPtrSField<GeoUInt8PropertyPtr> SFGeoUInt8PropertyPtr;
-#endif
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
-typedef FieldContainerPtrMField<GeoUInt8PropertyPtr> MFGeoUInt8PropertyPtr;
-#endif
 
 
 
@@ -138,31 +128,18 @@ struct FieldTraits<GeoUInt32PropertyPtr> :
     static OSG_DRAWABLE_DLLMAPPING 
                      DataType &getType (void);
 
-    static char     *getSName(void) { return "SFGeoUInt32PropertyPtr"; }
-    static char     *getMName(void) { return "MFGeoUInt32PropertyPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8 *getSName(void);
+ 
+    template<typename RefCountPolicy> inline
+    static const Char8 *getMName(void);
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GeoIntegralPropertyPtr, 0>
-    \hideinhierarchy
- */
-#endif
+OSG_FIELD_TRAITS_NAME_INST(GeoUInt32PropertyPtr)
+
+OSG_FIELDCONTAINER_FIELDS_INST(GeoUInt32PropertyPtr);
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
-typedef FieldContainerPtrSField<GeoUInt32PropertyPtr> SFGeoUInt32PropertyPtr;
-#endif
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
-typedef FieldContainerPtrMField<GeoUInt32PropertyPtr> MFGeoUInt32PropertyPtr;
-#endif
 
 
 OSG_END_NAMESPACE

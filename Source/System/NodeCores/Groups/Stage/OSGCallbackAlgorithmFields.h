@@ -107,49 +107,49 @@ struct FieldTraits<CallbackAlgorithmPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCallbackAlgorithmPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpGroupFieldSingle */
 
 typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
-                                RecordedRefCounts  > SFRecCallbackAlgorithmPtr;
+                                RecordedRefCountPolicy  > SFRecCallbackAlgorithmPtr;
 typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
-                                UnrecordedRefCounts> SFUnrecCallbackAlgorithmPtr;
+                                UnrecordedRefCountPolicy> SFUnrecCallbackAlgorithmPtr;
 typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
-                                WeakRefCounts      > SFWeakCallbackAlgorithmPtr;
+                                WeakRefCountPolicy      > SFWeakCallbackAlgorithmPtr;
 typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
-                                NoRefCounts        > SFUncountedCallbackAlgorithmPtr;
+                                NoRefCountPolicy        > SFUncountedCallbackAlgorithmPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
 /*! \ingroup GrpGroupFieldMulti */
 
 typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
-                                RecordedRefCounts  > MFRecCallbackAlgorithmPtr;
+                                RecordedRefCountPolicy  > MFRecCallbackAlgorithmPtr;
 typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
-                                UnrecordedRefCounts> MFUnrecCallbackAlgorithmPtr;
+                                UnrecordedRefCountPolicy> MFUnrecCallbackAlgorithmPtr;
 typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
-                                WeakRefCounts      > MFWeakCallbackAlgorithmPtr;
+                                WeakRefCountPolicy      > MFWeakCallbackAlgorithmPtr;
 typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
-                                NoRefCounts        > MFUncountedCallbackAlgorithmPtr;
+                                NoRefCountPolicy        > MFUncountedCallbackAlgorithmPtr;
 #endif
 
 

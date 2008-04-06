@@ -107,49 +107,49 @@ struct FieldTraits<ComponentTransformPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransformPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ComponentTransformPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransformPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ComponentTransformPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransformPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ComponentTransformPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransformPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ComponentTransformPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransformPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ComponentTransformPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransformPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ComponentTransformPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransformPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ComponentTransformPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakComponentTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentTransformPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ComponentTransformPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdComponentTransformPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ComponentTransformPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpGroupFieldSingle */
 
 typedef FieldContainerPtrSField<ComponentTransformPtr,
-                                RecordedRefCounts  > SFRecComponentTransformPtr;
+                                RecordedRefCountPolicy  > SFRecComponentTransformPtr;
 typedef FieldContainerPtrSField<ComponentTransformPtr,
-                                UnrecordedRefCounts> SFUnrecComponentTransformPtr;
+                                UnrecordedRefCountPolicy> SFUnrecComponentTransformPtr;
 typedef FieldContainerPtrSField<ComponentTransformPtr,
-                                WeakRefCounts      > SFWeakComponentTransformPtr;
+                                WeakRefCountPolicy      > SFWeakComponentTransformPtr;
 typedef FieldContainerPtrSField<ComponentTransformPtr,
-                                NoRefCounts        > SFUncountedComponentTransformPtr;
+                                NoRefCountPolicy        > SFUncountedComponentTransformPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ComponentTransformPtr,
 /*! \ingroup GrpGroupFieldMulti */
 
 typedef FieldContainerPtrMField<ComponentTransformPtr,
-                                RecordedRefCounts  > MFRecComponentTransformPtr;
+                                RecordedRefCountPolicy  > MFRecComponentTransformPtr;
 typedef FieldContainerPtrMField<ComponentTransformPtr,
-                                UnrecordedRefCounts> MFUnrecComponentTransformPtr;
+                                UnrecordedRefCountPolicy> MFUnrecComponentTransformPtr;
 typedef FieldContainerPtrMField<ComponentTransformPtr,
-                                WeakRefCounts      > MFWeakComponentTransformPtr;
+                                WeakRefCountPolicy      > MFWeakComponentTransformPtr;
 typedef FieldContainerPtrMField<ComponentTransformPtr,
-                                NoRefCounts        > MFUncountedComponentTransformPtr;
+                                NoRefCountPolicy        > MFUncountedComponentTransformPtr;
 #endif
 
 

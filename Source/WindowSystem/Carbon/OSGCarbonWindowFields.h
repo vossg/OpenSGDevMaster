@@ -107,49 +107,49 @@ struct FieldTraits<CarbonWindowPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCarbonWindowPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowCarbonFieldSingle */
 
 typedef FieldContainerPtrSField<CarbonWindowPtr,
-                                RecordedRefCounts  > SFRecCarbonWindowPtr;
+                                RecordedRefCountPolicy  > SFRecCarbonWindowPtr;
 typedef FieldContainerPtrSField<CarbonWindowPtr,
-                                UnrecordedRefCounts> SFUnrecCarbonWindowPtr;
+                                UnrecordedRefCountPolicy> SFUnrecCarbonWindowPtr;
 typedef FieldContainerPtrSField<CarbonWindowPtr,
-                                WeakRefCounts      > SFWeakCarbonWindowPtr;
+                                WeakRefCountPolicy      > SFWeakCarbonWindowPtr;
 typedef FieldContainerPtrSField<CarbonWindowPtr,
-                                NoRefCounts        > SFUncountedCarbonWindowPtr;
+                                NoRefCountPolicy        > SFUncountedCarbonWindowPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<CarbonWindowPtr,
 /*! \ingroup GrpWindowCarbonFieldMulti */
 
 typedef FieldContainerPtrMField<CarbonWindowPtr,
-                                RecordedRefCounts  > MFRecCarbonWindowPtr;
+                                RecordedRefCountPolicy  > MFRecCarbonWindowPtr;
 typedef FieldContainerPtrMField<CarbonWindowPtr,
-                                UnrecordedRefCounts> MFUnrecCarbonWindowPtr;
+                                UnrecordedRefCountPolicy> MFUnrecCarbonWindowPtr;
 typedef FieldContainerPtrMField<CarbonWindowPtr,
-                                WeakRefCounts      > MFWeakCarbonWindowPtr;
+                                WeakRefCountPolicy      > MFWeakCarbonWindowPtr;
 typedef FieldContainerPtrMField<CarbonWindowPtr,
-                                NoRefCounts        > MFUncountedCarbonWindowPtr;
+                                NoRefCountPolicy        > MFUncountedCarbonWindowPtr;
 #endif
 
 

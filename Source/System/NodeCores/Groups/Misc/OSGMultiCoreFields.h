@@ -107,49 +107,49 @@ struct FieldTraits<MultiCorePtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdMultiCorePtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpGroupFieldSingle */
 
 typedef FieldContainerPtrSField<MultiCorePtr,
-                                RecordedRefCounts  > SFRecMultiCorePtr;
+                                RecordedRefCountPolicy  > SFRecMultiCorePtr;
 typedef FieldContainerPtrSField<MultiCorePtr,
-                                UnrecordedRefCounts> SFUnrecMultiCorePtr;
+                                UnrecordedRefCountPolicy> SFUnrecMultiCorePtr;
 typedef FieldContainerPtrSField<MultiCorePtr,
-                                WeakRefCounts      > SFWeakMultiCorePtr;
+                                WeakRefCountPolicy      > SFWeakMultiCorePtr;
 typedef FieldContainerPtrSField<MultiCorePtr,
-                                NoRefCounts        > SFUncountedMultiCorePtr;
+                                NoRefCountPolicy        > SFUncountedMultiCorePtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<MultiCorePtr,
 /*! \ingroup GrpGroupFieldMulti */
 
 typedef FieldContainerPtrMField<MultiCorePtr,
-                                RecordedRefCounts  > MFRecMultiCorePtr;
+                                RecordedRefCountPolicy  > MFRecMultiCorePtr;
 typedef FieldContainerPtrMField<MultiCorePtr,
-                                UnrecordedRefCounts> MFUnrecMultiCorePtr;
+                                UnrecordedRefCountPolicy> MFUnrecMultiCorePtr;
 typedef FieldContainerPtrMField<MultiCorePtr,
-                                WeakRefCounts      > MFWeakMultiCorePtr;
+                                WeakRefCountPolicy      > MFWeakMultiCorePtr;
 typedef FieldContainerPtrMField<MultiCorePtr,
-                                NoRefCounts        > MFUncountedMultiCorePtr;
+                                NoRefCountPolicy        > MFUncountedMultiCorePtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<FrameBufferAttachmentPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFrameBufferAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFrameBufferAttachmentPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<FrameBufferAttachmentPtr, 0>::getMName<NoRefCounts>(voi
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<FrameBufferAttachmentPtr,
-                                RecordedRefCounts  > SFRecFrameBufferAttachmentPtr;
+                                RecordedRefCountPolicy  > SFRecFrameBufferAttachmentPtr;
 typedef FieldContainerPtrSField<FrameBufferAttachmentPtr,
-                                UnrecordedRefCounts> SFUnrecFrameBufferAttachmentPtr;
+                                UnrecordedRefCountPolicy> SFUnrecFrameBufferAttachmentPtr;
 typedef FieldContainerPtrSField<FrameBufferAttachmentPtr,
-                                WeakRefCounts      > SFWeakFrameBufferAttachmentPtr;
+                                WeakRefCountPolicy      > SFWeakFrameBufferAttachmentPtr;
 typedef FieldContainerPtrSField<FrameBufferAttachmentPtr,
-                                NoRefCounts        > SFUncountedFrameBufferAttachmentPtr;
+                                NoRefCountPolicy        > SFUncountedFrameBufferAttachmentPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<FrameBufferAttachmentPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<FrameBufferAttachmentPtr,
-                                RecordedRefCounts  > MFRecFrameBufferAttachmentPtr;
+                                RecordedRefCountPolicy  > MFRecFrameBufferAttachmentPtr;
 typedef FieldContainerPtrMField<FrameBufferAttachmentPtr,
-                                UnrecordedRefCounts> MFUnrecFrameBufferAttachmentPtr;
+                                UnrecordedRefCountPolicy> MFUnrecFrameBufferAttachmentPtr;
 typedef FieldContainerPtrMField<FrameBufferAttachmentPtr,
-                                WeakRefCounts      > MFWeakFrameBufferAttachmentPtr;
+                                WeakRefCountPolicy      > MFWeakFrameBufferAttachmentPtr;
 typedef FieldContainerPtrMField<FrameBufferAttachmentPtr,
-                                NoRefCounts        > MFUncountedFrameBufferAttachmentPtr;
+                                NoRefCountPolicy        > MFUncountedFrameBufferAttachmentPtr;
 #endif
 
 

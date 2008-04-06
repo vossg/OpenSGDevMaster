@@ -107,49 +107,49 @@ struct FieldTraits<GroupPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<GroupPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<GroupPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<GroupPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<GroupPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<GroupPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<GroupPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<GroupPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<GroupPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGroupPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<GroupPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<GroupPtr,
-                                RecordedRefCounts  > SFRecGroupPtr;
+                                RecordedRefCountPolicy  > SFRecGroupPtr;
 typedef FieldContainerPtrSField<GroupPtr,
-                                UnrecordedRefCounts> SFUnrecGroupPtr;
+                                UnrecordedRefCountPolicy> SFUnrecGroupPtr;
 typedef FieldContainerPtrSField<GroupPtr,
-                                WeakRefCounts      > SFWeakGroupPtr;
+                                WeakRefCountPolicy      > SFWeakGroupPtr;
 typedef FieldContainerPtrSField<GroupPtr,
-                                NoRefCounts        > SFUncountedGroupPtr;
+                                NoRefCountPolicy        > SFUncountedGroupPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<GroupPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<GroupPtr,
-                                RecordedRefCounts  > MFRecGroupPtr;
+                                RecordedRefCountPolicy  > MFRecGroupPtr;
 typedef FieldContainerPtrMField<GroupPtr,
-                                UnrecordedRefCounts> MFUnrecGroupPtr;
+                                UnrecordedRefCountPolicy> MFUnrecGroupPtr;
 typedef FieldContainerPtrMField<GroupPtr,
-                                WeakRefCounts      > MFWeakGroupPtr;
+                                WeakRefCountPolicy      > MFWeakGroupPtr;
 typedef FieldContainerPtrMField<GroupPtr,
-                                NoRefCounts        > MFUncountedGroupPtr;
+                                NoRefCountPolicy        > MFUncountedGroupPtr;
 #endif
 
 

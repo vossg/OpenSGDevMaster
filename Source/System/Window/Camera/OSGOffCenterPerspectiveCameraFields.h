@@ -107,49 +107,49 @@ struct FieldTraits<OffCenterPerspectiveCameraPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdOffCenterPerspectiveCameraPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<NoRefCounts
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
-                                RecordedRefCounts  > SFRecOffCenterPerspectiveCameraPtr;
+                                RecordedRefCountPolicy  > SFRecOffCenterPerspectiveCameraPtr;
 typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
-                                UnrecordedRefCounts> SFUnrecOffCenterPerspectiveCameraPtr;
+                                UnrecordedRefCountPolicy> SFUnrecOffCenterPerspectiveCameraPtr;
 typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
-                                WeakRefCounts      > SFWeakOffCenterPerspectiveCameraPtr;
+                                WeakRefCountPolicy      > SFWeakOffCenterPerspectiveCameraPtr;
 typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
-                                NoRefCounts        > SFUncountedOffCenterPerspectiveCameraPtr;
+                                NoRefCountPolicy        > SFUncountedOffCenterPerspectiveCameraPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
-                                RecordedRefCounts  > MFRecOffCenterPerspectiveCameraPtr;
+                                RecordedRefCountPolicy  > MFRecOffCenterPerspectiveCameraPtr;
 typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
-                                UnrecordedRefCounts> MFUnrecOffCenterPerspectiveCameraPtr;
+                                UnrecordedRefCountPolicy> MFUnrecOffCenterPerspectiveCameraPtr;
 typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
-                                WeakRefCounts      > MFWeakOffCenterPerspectiveCameraPtr;
+                                WeakRefCountPolicy      > MFWeakOffCenterPerspectiveCameraPtr;
 typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
-                                NoRefCounts        > MFUncountedOffCenterPerspectiveCameraPtr;
+                                NoRefCountPolicy        > MFUncountedOffCenterPerspectiveCameraPtr;
 #endif
 
 

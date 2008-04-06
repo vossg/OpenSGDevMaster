@@ -107,49 +107,49 @@ struct FieldTraits<SwitchPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SwitchPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SwitchPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SwitchPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<SwitchPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SwitchPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SwitchPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SwitchPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<SwitchPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSwitchPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<SwitchPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpGroupFieldSingle */
 
 typedef FieldContainerPtrSField<SwitchPtr,
-                                RecordedRefCounts  > SFRecSwitchPtr;
+                                RecordedRefCountPolicy  > SFRecSwitchPtr;
 typedef FieldContainerPtrSField<SwitchPtr,
-                                UnrecordedRefCounts> SFUnrecSwitchPtr;
+                                UnrecordedRefCountPolicy> SFUnrecSwitchPtr;
 typedef FieldContainerPtrSField<SwitchPtr,
-                                WeakRefCounts      > SFWeakSwitchPtr;
+                                WeakRefCountPolicy      > SFWeakSwitchPtr;
 typedef FieldContainerPtrSField<SwitchPtr,
-                                NoRefCounts        > SFUncountedSwitchPtr;
+                                NoRefCountPolicy        > SFUncountedSwitchPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<SwitchPtr,
 /*! \ingroup GrpGroupFieldMulti */
 
 typedef FieldContainerPtrMField<SwitchPtr,
-                                RecordedRefCounts  > MFRecSwitchPtr;
+                                RecordedRefCountPolicy  > MFRecSwitchPtr;
 typedef FieldContainerPtrMField<SwitchPtr,
-                                UnrecordedRefCounts> MFUnrecSwitchPtr;
+                                UnrecordedRefCountPolicy> MFUnrecSwitchPtr;
 typedef FieldContainerPtrMField<SwitchPtr,
-                                WeakRefCounts      > MFWeakSwitchPtr;
+                                WeakRefCountPolicy      > MFWeakSwitchPtr;
 typedef FieldContainerPtrMField<SwitchPtr,
-                                NoRefCounts        > MFUncountedSwitchPtr;
+                                NoRefCountPolicy        > MFUncountedSwitchPtr;
 #endif
 
 

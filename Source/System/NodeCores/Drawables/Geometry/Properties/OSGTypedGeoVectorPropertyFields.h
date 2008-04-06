@@ -78,31 +78,18 @@ struct FieldTraits<GeoPnt3fPropertyPtr> :
     static OSG_DRAWABLE_DLLMAPPING 
                      DataType &getType (void);
 
-    static char     *getSName(void) { return "SFGeoPnt3fPropertyPtr"; }
-    static char     *getMName(void) { return "MFGeoPnt3fPropertyPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8 *getSName(void);
+ 
+    template<typename RefCountPolicy> inline
+    static const Char8 *getMName(void);
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GeoVectorPropertyPtr, 0>
-    \hideinhierarchy
- */
-#endif
+OSG_FIELD_TRAITS_NAME_INST(GeoPnt3fPropertyPtr)
+
+OSG_FIELDCONTAINER_FIELDS_INST(GeoPnt3fPropertyPtr);
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
-typedef FieldContainerPtrSField<GeoPnt3fPropertyPtr> SFGeoPnt3fPropertyPtr;
-#endif
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
-typedef FieldContainerPtrMField<GeoPnt3fPropertyPtr> MFGeoPnt3fPropertyPtr;
-#endif
 
 
 
@@ -138,33 +125,18 @@ struct FieldTraits<GeoVec3fPropertyPtr> :
     static OSG_DRAWABLE_DLLMAPPING 
                      DataType &getType (void);
 
-    static char     *getSName(void) { return "SFGeoVec3fPropertyPtr"; }
-    static char     *getMName(void) { return "MFGeoVec3fPropertyPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8 *getSName(void);
+ 
+    template<typename RefCountPolicy> inline
+    static const Char8 *getMName(void);
 };
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GeoVectorPropertyPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
+OSG_FIELD_TRAITS_NAME_INST(GeoVec3fPropertyPtr)
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
-typedef FieldContainerPtrSField<GeoVec3fPropertyPtr> SFGeoVec3fPropertyPtr;
-#endif
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
-typedef FieldContainerPtrMField<GeoVec3fPropertyPtr> MFGeoVec3fPropertyPtr;
-#endif
-
-
+OSG_FIELDCONTAINER_FIELDS_INST(GeoVec3fPropertyPtr);
 
 
 
@@ -200,31 +172,20 @@ struct FieldTraits<GeoColor4fPropertyPtr> :
     static OSG_DRAWABLE_DLLMAPPING 
                      DataType &getType (void);
 
-    static char     *getSName(void) { return "SFGeoColor4fPropertyPtr"; }
-    static char     *getMName(void) { return "MFGeoColor4fPropertyPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8 *getSName(void);
+ 
+    template<typename RefCountPolicy> inline
+    static const Char8 *getMName(void);
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GeoVectorPropertyPtr, 0>
-    \hideinhierarchy
- */
-#endif
+OSG_FIELD_TRAITS_NAME_INST(GeoColor4fPropertyPtr)
+
+OSG_FIELDCONTAINER_FIELDS_INST(GeoColor4fPropertyPtr);
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
-typedef FieldContainerPtrSField<GeoColor4fPropertyPtr> SFGeoColor4fPropertyPtr;
-#endif
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
-typedef FieldContainerPtrMField<GeoColor4fPropertyPtr> MFGeoColor4fPropertyPtr;
-#endif
 
 
 OSG_END_NAMESPACE

@@ -107,49 +107,49 @@ struct FieldTraits<ContainerPoolPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecContainerPoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecContainerPoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakContainerPoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdContainerPoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecContainerPoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecContainerPoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakContainerPoolPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdContainerPoolPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<ContainerPoolPtr,
-                                RecordedRefCounts  > SFRecContainerPoolPtr;
+                                RecordedRefCountPolicy  > SFRecContainerPoolPtr;
 typedef FieldContainerPtrSField<ContainerPoolPtr,
-                                UnrecordedRefCounts> SFUnrecContainerPoolPtr;
+                                UnrecordedRefCountPolicy> SFUnrecContainerPoolPtr;
 typedef FieldContainerPtrSField<ContainerPoolPtr,
-                                WeakRefCounts      > SFWeakContainerPoolPtr;
+                                WeakRefCountPolicy      > SFWeakContainerPoolPtr;
 typedef FieldContainerPtrSField<ContainerPoolPtr,
-                                NoRefCounts        > SFUncountedContainerPoolPtr;
+                                NoRefCountPolicy        > SFUncountedContainerPoolPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ContainerPoolPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<ContainerPoolPtr,
-                                RecordedRefCounts  > MFRecContainerPoolPtr;
+                                RecordedRefCountPolicy  > MFRecContainerPoolPtr;
 typedef FieldContainerPtrMField<ContainerPoolPtr,
-                                UnrecordedRefCounts> MFUnrecContainerPoolPtr;
+                                UnrecordedRefCountPolicy> MFUnrecContainerPoolPtr;
 typedef FieldContainerPtrMField<ContainerPoolPtr,
-                                WeakRefCounts      > MFWeakContainerPoolPtr;
+                                WeakRefCountPolicy      > MFWeakContainerPoolPtr;
 typedef FieldContainerPtrMField<ContainerPoolPtr,
-                                NoRefCounts        > MFUncountedContainerPoolPtr;
+                                NoRefCountPolicy        > MFUncountedContainerPoolPtr;
 #endif
 
 

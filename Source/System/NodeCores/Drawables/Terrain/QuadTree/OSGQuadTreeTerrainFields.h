@@ -107,49 +107,49 @@ struct FieldTraits<QuadTreeTerrainPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdQuadTreeTerrainPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<QuadTreeTerrainPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpDrawableFieldSingle */
 
 typedef FieldContainerPtrSField<QuadTreeTerrainPtr,
-                                RecordedRefCounts  > SFRecQuadTreeTerrainPtr;
+                                RecordedRefCountPolicy  > SFRecQuadTreeTerrainPtr;
 typedef FieldContainerPtrSField<QuadTreeTerrainPtr,
-                                UnrecordedRefCounts> SFUnrecQuadTreeTerrainPtr;
+                                UnrecordedRefCountPolicy> SFUnrecQuadTreeTerrainPtr;
 typedef FieldContainerPtrSField<QuadTreeTerrainPtr,
-                                WeakRefCounts      > SFWeakQuadTreeTerrainPtr;
+                                WeakRefCountPolicy      > SFWeakQuadTreeTerrainPtr;
 typedef FieldContainerPtrSField<QuadTreeTerrainPtr,
-                                NoRefCounts        > SFUncountedQuadTreeTerrainPtr;
+                                NoRefCountPolicy        > SFUncountedQuadTreeTerrainPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<QuadTreeTerrainPtr,
 /*! \ingroup GrpDrawableFieldMulti */
 
 typedef FieldContainerPtrMField<QuadTreeTerrainPtr,
-                                RecordedRefCounts  > MFRecQuadTreeTerrainPtr;
+                                RecordedRefCountPolicy  > MFRecQuadTreeTerrainPtr;
 typedef FieldContainerPtrMField<QuadTreeTerrainPtr,
-                                UnrecordedRefCounts> MFUnrecQuadTreeTerrainPtr;
+                                UnrecordedRefCountPolicy> MFUnrecQuadTreeTerrainPtr;
 typedef FieldContainerPtrMField<QuadTreeTerrainPtr,
-                                WeakRefCounts      > MFWeakQuadTreeTerrainPtr;
+                                WeakRefCountPolicy      > MFWeakQuadTreeTerrainPtr;
 typedef FieldContainerPtrMField<QuadTreeTerrainPtr,
-                                NoRefCounts        > MFUncountedQuadTreeTerrainPtr;
+                                NoRefCountPolicy        > MFUncountedQuadTreeTerrainPtr;
 #endif
 
 

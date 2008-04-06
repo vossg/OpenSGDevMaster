@@ -107,49 +107,49 @@ struct FieldTraits<AlgorithmPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAlgorithmPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpGroupFieldSingle */
 
 typedef FieldContainerPtrSField<AlgorithmPtr,
-                                RecordedRefCounts  > SFRecAlgorithmPtr;
+                                RecordedRefCountPolicy  > SFRecAlgorithmPtr;
 typedef FieldContainerPtrSField<AlgorithmPtr,
-                                UnrecordedRefCounts> SFUnrecAlgorithmPtr;
+                                UnrecordedRefCountPolicy> SFUnrecAlgorithmPtr;
 typedef FieldContainerPtrSField<AlgorithmPtr,
-                                WeakRefCounts      > SFWeakAlgorithmPtr;
+                                WeakRefCountPolicy      > SFWeakAlgorithmPtr;
 typedef FieldContainerPtrSField<AlgorithmPtr,
-                                NoRefCounts        > SFUncountedAlgorithmPtr;
+                                NoRefCountPolicy        > SFUncountedAlgorithmPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<AlgorithmPtr,
 /*! \ingroup GrpGroupFieldMulti */
 
 typedef FieldContainerPtrMField<AlgorithmPtr,
-                                RecordedRefCounts  > MFRecAlgorithmPtr;
+                                RecordedRefCountPolicy  > MFRecAlgorithmPtr;
 typedef FieldContainerPtrMField<AlgorithmPtr,
-                                UnrecordedRefCounts> MFUnrecAlgorithmPtr;
+                                UnrecordedRefCountPolicy> MFUnrecAlgorithmPtr;
 typedef FieldContainerPtrMField<AlgorithmPtr,
-                                WeakRefCounts      > MFWeakAlgorithmPtr;
+                                WeakRefCountPolicy      > MFWeakAlgorithmPtr;
 typedef FieldContainerPtrMField<AlgorithmPtr,
-                                NoRefCounts        > MFUncountedAlgorithmPtr;
+                                NoRefCountPolicy        > MFUncountedAlgorithmPtr;
 #endif
 
 

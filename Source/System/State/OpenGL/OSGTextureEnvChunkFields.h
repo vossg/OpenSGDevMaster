@@ -107,49 +107,49 @@ struct FieldTraits<TextureEnvChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTextureEnvChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTextureEnvChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<TextureEnvChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<TextureEnvChunkPtr,
-                                RecordedRefCounts  > SFRecTextureEnvChunkPtr;
+                                RecordedRefCountPolicy  > SFRecTextureEnvChunkPtr;
 typedef FieldContainerPtrSField<TextureEnvChunkPtr,
-                                UnrecordedRefCounts> SFUnrecTextureEnvChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecTextureEnvChunkPtr;
 typedef FieldContainerPtrSField<TextureEnvChunkPtr,
-                                WeakRefCounts      > SFWeakTextureEnvChunkPtr;
+                                WeakRefCountPolicy      > SFWeakTextureEnvChunkPtr;
 typedef FieldContainerPtrSField<TextureEnvChunkPtr,
-                                NoRefCounts        > SFUncountedTextureEnvChunkPtr;
+                                NoRefCountPolicy        > SFUncountedTextureEnvChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<TextureEnvChunkPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<TextureEnvChunkPtr,
-                                RecordedRefCounts  > MFRecTextureEnvChunkPtr;
+                                RecordedRefCountPolicy  > MFRecTextureEnvChunkPtr;
 typedef FieldContainerPtrMField<TextureEnvChunkPtr,
-                                UnrecordedRefCounts> MFUnrecTextureEnvChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecTextureEnvChunkPtr;
 typedef FieldContainerPtrMField<TextureEnvChunkPtr,
-                                WeakRefCounts      > MFWeakTextureEnvChunkPtr;
+                                WeakRefCountPolicy      > MFWeakTextureEnvChunkPtr;
 typedef FieldContainerPtrMField<TextureEnvChunkPtr,
-                                NoRefCounts        > MFUncountedTextureEnvChunkPtr;
+                                NoRefCountPolicy        > MFUncountedTextureEnvChunkPtr;
 #endif
 
 

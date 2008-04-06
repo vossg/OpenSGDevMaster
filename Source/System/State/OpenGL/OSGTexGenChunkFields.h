@@ -107,49 +107,49 @@ struct FieldTraits<TexGenChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<TexGenChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<TexGenChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<TexGenChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<TexGenChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<TexGenChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<TexGenChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<TexGenChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTexGenChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TexGenChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<TexGenChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTexGenChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<TexGenChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<TexGenChunkPtr,
-                                RecordedRefCounts  > SFRecTexGenChunkPtr;
+                                RecordedRefCountPolicy  > SFRecTexGenChunkPtr;
 typedef FieldContainerPtrSField<TexGenChunkPtr,
-                                UnrecordedRefCounts> SFUnrecTexGenChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecTexGenChunkPtr;
 typedef FieldContainerPtrSField<TexGenChunkPtr,
-                                WeakRefCounts      > SFWeakTexGenChunkPtr;
+                                WeakRefCountPolicy      > SFWeakTexGenChunkPtr;
 typedef FieldContainerPtrSField<TexGenChunkPtr,
-                                NoRefCounts        > SFUncountedTexGenChunkPtr;
+                                NoRefCountPolicy        > SFUncountedTexGenChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<TexGenChunkPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<TexGenChunkPtr,
-                                RecordedRefCounts  > MFRecTexGenChunkPtr;
+                                RecordedRefCountPolicy  > MFRecTexGenChunkPtr;
 typedef FieldContainerPtrMField<TexGenChunkPtr,
-                                UnrecordedRefCounts> MFUnrecTexGenChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecTexGenChunkPtr;
 typedef FieldContainerPtrMField<TexGenChunkPtr,
-                                WeakRefCounts      > MFWeakTexGenChunkPtr;
+                                WeakRefCountPolicy      > MFWeakTexGenChunkPtr;
 typedef FieldContainerPtrMField<TexGenChunkPtr,
-                                NoRefCounts        > MFUncountedTexGenChunkPtr;
+                                NoRefCountPolicy        > MFUncountedTexGenChunkPtr;
 #endif
 
 

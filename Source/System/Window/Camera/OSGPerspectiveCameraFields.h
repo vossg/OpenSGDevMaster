@@ -107,49 +107,49 @@ struct FieldTraits<PerspectiveCameraPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdPerspectiveCameraPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<PerspectiveCameraPtr,
-                                RecordedRefCounts  > SFRecPerspectiveCameraPtr;
+                                RecordedRefCountPolicy  > SFRecPerspectiveCameraPtr;
 typedef FieldContainerPtrSField<PerspectiveCameraPtr,
-                                UnrecordedRefCounts> SFUnrecPerspectiveCameraPtr;
+                                UnrecordedRefCountPolicy> SFUnrecPerspectiveCameraPtr;
 typedef FieldContainerPtrSField<PerspectiveCameraPtr,
-                                WeakRefCounts      > SFWeakPerspectiveCameraPtr;
+                                WeakRefCountPolicy      > SFWeakPerspectiveCameraPtr;
 typedef FieldContainerPtrSField<PerspectiveCameraPtr,
-                                NoRefCounts        > SFUncountedPerspectiveCameraPtr;
+                                NoRefCountPolicy        > SFUncountedPerspectiveCameraPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<PerspectiveCameraPtr,
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<PerspectiveCameraPtr,
-                                RecordedRefCounts  > MFRecPerspectiveCameraPtr;
+                                RecordedRefCountPolicy  > MFRecPerspectiveCameraPtr;
 typedef FieldContainerPtrMField<PerspectiveCameraPtr,
-                                UnrecordedRefCounts> MFUnrecPerspectiveCameraPtr;
+                                UnrecordedRefCountPolicy> MFUnrecPerspectiveCameraPtr;
 typedef FieldContainerPtrMField<PerspectiveCameraPtr,
-                                WeakRefCounts      > MFWeakPerspectiveCameraPtr;
+                                WeakRefCountPolicy      > MFWeakPerspectiveCameraPtr;
 typedef FieldContainerPtrMField<PerspectiveCameraPtr,
-                                NoRefCounts        > MFUncountedPerspectiveCameraPtr;
+                                NoRefCountPolicy        > MFUncountedPerspectiveCameraPtr;
 #endif
 
 

@@ -103,25 +103,25 @@ struct FieldTraits<DepthClearBackgroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDepthClearBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDepthClearBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDepthClearBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDepthClearBackgroundPtr"; 
 }
@@ -140,13 +140,13 @@ const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<NoRefCounts>(void
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
-                                RecordedRefCounts  > SFRecDepthClearBackgroundPtr;
+                                RecordedRefCountPolicy  > SFRecDepthClearBackgroundPtr;
 typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
-                                UnrecordedRefCounts> SFUnrecDepthClearBackgroundPtr;
+                                UnrecordedRefCountPolicy> SFUnrecDepthClearBackgroundPtr;
 typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
-                                WeakRefCounts      > SFWeakDepthClearBackgroundPtr;
+                                WeakRefCountPolicy      > SFWeakDepthClearBackgroundPtr;
 typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
-                                NoRefCounts        > SFUncountedDepthClearBackgroundPtr;
+                                NoRefCountPolicy        > SFUncountedDepthClearBackgroundPtr;
 #endif
 
 

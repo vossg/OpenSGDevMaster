@@ -107,49 +107,49 @@ struct FieldTraits<StatsAttachmentPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdStatsAttachmentPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<StatsAttachmentPtr,
-                                RecordedRefCounts  > SFRecStatsAttachmentPtr;
+                                RecordedRefCountPolicy  > SFRecStatsAttachmentPtr;
 typedef FieldContainerPtrSField<StatsAttachmentPtr,
-                                UnrecordedRefCounts> SFUnrecStatsAttachmentPtr;
+                                UnrecordedRefCountPolicy> SFUnrecStatsAttachmentPtr;
 typedef FieldContainerPtrSField<StatsAttachmentPtr,
-                                WeakRefCounts      > SFWeakStatsAttachmentPtr;
+                                WeakRefCountPolicy      > SFWeakStatsAttachmentPtr;
 typedef FieldContainerPtrSField<StatsAttachmentPtr,
-                                NoRefCounts        > SFUncountedStatsAttachmentPtr;
+                                NoRefCountPolicy        > SFUncountedStatsAttachmentPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<StatsAttachmentPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<StatsAttachmentPtr,
-                                RecordedRefCounts  > MFRecStatsAttachmentPtr;
+                                RecordedRefCountPolicy  > MFRecStatsAttachmentPtr;
 typedef FieldContainerPtrMField<StatsAttachmentPtr,
-                                UnrecordedRefCounts> MFUnrecStatsAttachmentPtr;
+                                UnrecordedRefCountPolicy> MFUnrecStatsAttachmentPtr;
 typedef FieldContainerPtrMField<StatsAttachmentPtr,
-                                WeakRefCounts      > MFWeakStatsAttachmentPtr;
+                                WeakRefCountPolicy      > MFWeakStatsAttachmentPtr;
 typedef FieldContainerPtrMField<StatsAttachmentPtr,
-                                NoRefCounts        > MFUncountedStatsAttachmentPtr;
+                                NoRefCountPolicy        > MFUncountedStatsAttachmentPtr;
 #endif
 
 

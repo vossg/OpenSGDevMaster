@@ -107,49 +107,49 @@ struct FieldTraits<InverseTransformPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdInverseTransformPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpGroupFieldSingle */
 
 typedef FieldContainerPtrSField<InverseTransformPtr,
-                                RecordedRefCounts  > SFRecInverseTransformPtr;
+                                RecordedRefCountPolicy  > SFRecInverseTransformPtr;
 typedef FieldContainerPtrSField<InverseTransformPtr,
-                                UnrecordedRefCounts> SFUnrecInverseTransformPtr;
+                                UnrecordedRefCountPolicy> SFUnrecInverseTransformPtr;
 typedef FieldContainerPtrSField<InverseTransformPtr,
-                                WeakRefCounts      > SFWeakInverseTransformPtr;
+                                WeakRefCountPolicy      > SFWeakInverseTransformPtr;
 typedef FieldContainerPtrSField<InverseTransformPtr,
-                                NoRefCounts        > SFUncountedInverseTransformPtr;
+                                NoRefCountPolicy        > SFUncountedInverseTransformPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<InverseTransformPtr,
 /*! \ingroup GrpGroupFieldMulti */
 
 typedef FieldContainerPtrMField<InverseTransformPtr,
-                                RecordedRefCounts  > MFRecInverseTransformPtr;
+                                RecordedRefCountPolicy  > MFRecInverseTransformPtr;
 typedef FieldContainerPtrMField<InverseTransformPtr,
-                                UnrecordedRefCounts> MFUnrecInverseTransformPtr;
+                                UnrecordedRefCountPolicy> MFUnrecInverseTransformPtr;
 typedef FieldContainerPtrMField<InverseTransformPtr,
-                                WeakRefCounts      > MFWeakInverseTransformPtr;
+                                WeakRefCountPolicy      > MFWeakInverseTransformPtr;
 typedef FieldContainerPtrMField<InverseTransformPtr,
-                                NoRefCounts        > MFUncountedInverseTransformPtr;
+                                NoRefCountPolicy        > MFUncountedInverseTransformPtr;
 #endif
 
 

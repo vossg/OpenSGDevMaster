@@ -107,49 +107,49 @@ struct FieldTraits<FrameBufferObjectPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFrameBufferObjectPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<FrameBufferObjectPtr,
-                                RecordedRefCounts  > SFRecFrameBufferObjectPtr;
+                                RecordedRefCountPolicy  > SFRecFrameBufferObjectPtr;
 typedef FieldContainerPtrSField<FrameBufferObjectPtr,
-                                UnrecordedRefCounts> SFUnrecFrameBufferObjectPtr;
+                                UnrecordedRefCountPolicy> SFUnrecFrameBufferObjectPtr;
 typedef FieldContainerPtrSField<FrameBufferObjectPtr,
-                                WeakRefCounts      > SFWeakFrameBufferObjectPtr;
+                                WeakRefCountPolicy      > SFWeakFrameBufferObjectPtr;
 typedef FieldContainerPtrSField<FrameBufferObjectPtr,
-                                NoRefCounts        > SFUncountedFrameBufferObjectPtr;
+                                NoRefCountPolicy        > SFUncountedFrameBufferObjectPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<FrameBufferObjectPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<FrameBufferObjectPtr,
-                                RecordedRefCounts  > MFRecFrameBufferObjectPtr;
+                                RecordedRefCountPolicy  > MFRecFrameBufferObjectPtr;
 typedef FieldContainerPtrMField<FrameBufferObjectPtr,
-                                UnrecordedRefCounts> MFUnrecFrameBufferObjectPtr;
+                                UnrecordedRefCountPolicy> MFUnrecFrameBufferObjectPtr;
 typedef FieldContainerPtrMField<FrameBufferObjectPtr,
-                                WeakRefCounts      > MFWeakFrameBufferObjectPtr;
+                                WeakRefCountPolicy      > MFWeakFrameBufferObjectPtr;
 typedef FieldContainerPtrMField<FrameBufferObjectPtr,
-                                NoRefCounts        > MFUncountedFrameBufferObjectPtr;
+                                NoRefCountPolicy        > MFUncountedFrameBufferObjectPtr;
 #endif
 
 

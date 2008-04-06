@@ -107,49 +107,49 @@ struct FieldTraits<CocoaWindowPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCocoaWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCocoaWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCocoaWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCocoaWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCocoaWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCocoaWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCocoaWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCocoaWindowPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowCocoaFieldSingle */
 
 typedef FieldContainerPtrSField<CocoaWindowPtr,
-                                RecordedRefCounts  > SFRecCocoaWindowPtr;
+                                RecordedRefCountPolicy  > SFRecCocoaWindowPtr;
 typedef FieldContainerPtrSField<CocoaWindowPtr,
-                                UnrecordedRefCounts> SFUnrecCocoaWindowPtr;
+                                UnrecordedRefCountPolicy> SFUnrecCocoaWindowPtr;
 typedef FieldContainerPtrSField<CocoaWindowPtr,
-                                WeakRefCounts      > SFWeakCocoaWindowPtr;
+                                WeakRefCountPolicy      > SFWeakCocoaWindowPtr;
 typedef FieldContainerPtrSField<CocoaWindowPtr,
-                                NoRefCounts        > SFUncountedCocoaWindowPtr;
+                                NoRefCountPolicy        > SFUncountedCocoaWindowPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<CocoaWindowPtr,
 /*! \ingroup GrpWindowCocoaFieldMulti */
 
 typedef FieldContainerPtrMField<CocoaWindowPtr,
-                                RecordedRefCounts  > MFRecCocoaWindowPtr;
+                                RecordedRefCountPolicy  > MFRecCocoaWindowPtr;
 typedef FieldContainerPtrMField<CocoaWindowPtr,
-                                UnrecordedRefCounts> MFUnrecCocoaWindowPtr;
+                                UnrecordedRefCountPolicy> MFUnrecCocoaWindowPtr;
 typedef FieldContainerPtrMField<CocoaWindowPtr,
-                                WeakRefCounts      > MFWeakCocoaWindowPtr;
+                                WeakRefCountPolicy      > MFWeakCocoaWindowPtr;
 typedef FieldContainerPtrMField<CocoaWindowPtr,
-                                NoRefCounts        > MFUncountedCocoaWindowPtr;
+                                NoRefCountPolicy        > MFUncountedCocoaWindowPtr;
 #endif
 
 

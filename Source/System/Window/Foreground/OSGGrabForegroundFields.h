@@ -107,49 +107,49 @@ struct FieldTraits<GrabForegroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGrabForegroundPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<GrabForegroundPtr,
-                                RecordedRefCounts  > SFRecGrabForegroundPtr;
+                                RecordedRefCountPolicy  > SFRecGrabForegroundPtr;
 typedef FieldContainerPtrSField<GrabForegroundPtr,
-                                UnrecordedRefCounts> SFUnrecGrabForegroundPtr;
+                                UnrecordedRefCountPolicy> SFUnrecGrabForegroundPtr;
 typedef FieldContainerPtrSField<GrabForegroundPtr,
-                                WeakRefCounts      > SFWeakGrabForegroundPtr;
+                                WeakRefCountPolicy      > SFWeakGrabForegroundPtr;
 typedef FieldContainerPtrSField<GrabForegroundPtr,
-                                NoRefCounts        > SFUncountedGrabForegroundPtr;
+                                NoRefCountPolicy        > SFUncountedGrabForegroundPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<GrabForegroundPtr,
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<GrabForegroundPtr,
-                                RecordedRefCounts  > MFRecGrabForegroundPtr;
+                                RecordedRefCountPolicy  > MFRecGrabForegroundPtr;
 typedef FieldContainerPtrMField<GrabForegroundPtr,
-                                UnrecordedRefCounts> MFUnrecGrabForegroundPtr;
+                                UnrecordedRefCountPolicy> MFUnrecGrabForegroundPtr;
 typedef FieldContainerPtrMField<GrabForegroundPtr,
-                                WeakRefCounts      > MFWeakGrabForegroundPtr;
+                                WeakRefCountPolicy      > MFWeakGrabForegroundPtr;
 typedef FieldContainerPtrMField<GrabForegroundPtr,
-                                NoRefCounts        > MFUncountedGrabForegroundPtr;
+                                NoRefCountPolicy        > MFUncountedGrabForegroundPtr;
 #endif
 
 

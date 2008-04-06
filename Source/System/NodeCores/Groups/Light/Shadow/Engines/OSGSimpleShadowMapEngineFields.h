@@ -107,49 +107,49 @@ struct FieldTraits<SimpleShadowMapEnginePtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSimpleShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSimpleShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSimpleShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSimpleShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSimpleShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSimpleShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSimpleShadowMapEnginePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSimpleShadowMapEnginePtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<NoRefCounts>(voi
 /*! \ingroup GrpGroupFieldSingle */
 
 typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
-                                RecordedRefCounts  > SFRecSimpleShadowMapEnginePtr;
+                                RecordedRefCountPolicy  > SFRecSimpleShadowMapEnginePtr;
 typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
-                                UnrecordedRefCounts> SFUnrecSimpleShadowMapEnginePtr;
+                                UnrecordedRefCountPolicy> SFUnrecSimpleShadowMapEnginePtr;
 typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
-                                WeakRefCounts      > SFWeakSimpleShadowMapEnginePtr;
+                                WeakRefCountPolicy      > SFWeakSimpleShadowMapEnginePtr;
 typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
-                                NoRefCounts        > SFUncountedSimpleShadowMapEnginePtr;
+                                NoRefCountPolicy        > SFUncountedSimpleShadowMapEnginePtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
 /*! \ingroup GrpGroupFieldMulti */
 
 typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
-                                RecordedRefCounts  > MFRecSimpleShadowMapEnginePtr;
+                                RecordedRefCountPolicy  > MFRecSimpleShadowMapEnginePtr;
 typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
-                                UnrecordedRefCounts> MFUnrecSimpleShadowMapEnginePtr;
+                                UnrecordedRefCountPolicy> MFUnrecSimpleShadowMapEnginePtr;
 typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
-                                WeakRefCounts      > MFWeakSimpleShadowMapEnginePtr;
+                                WeakRefCountPolicy      > MFWeakSimpleShadowMapEnginePtr;
 typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
-                                NoRefCounts        > MFUncountedSimpleShadowMapEnginePtr;
+                                NoRefCountPolicy        > MFUncountedSimpleShadowMapEnginePtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<ProgramChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ProgramChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ProgramChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProgramChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ProgramChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProgramChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ProgramChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProgramChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ProgramChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProgramChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ProgramChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProgramChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ProgramChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProgramChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ProgramChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ProgramChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ProgramChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdProgramChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ProgramChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<ProgramChunkPtr,
-                                RecordedRefCounts  > SFRecProgramChunkPtr;
+                                RecordedRefCountPolicy  > SFRecProgramChunkPtr;
 typedef FieldContainerPtrSField<ProgramChunkPtr,
-                                UnrecordedRefCounts> SFUnrecProgramChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecProgramChunkPtr;
 typedef FieldContainerPtrSField<ProgramChunkPtr,
-                                WeakRefCounts      > SFWeakProgramChunkPtr;
+                                WeakRefCountPolicy      > SFWeakProgramChunkPtr;
 typedef FieldContainerPtrSField<ProgramChunkPtr,
-                                NoRefCounts        > SFUncountedProgramChunkPtr;
+                                NoRefCountPolicy        > SFUncountedProgramChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ProgramChunkPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<ProgramChunkPtr,
-                                RecordedRefCounts  > MFRecProgramChunkPtr;
+                                RecordedRefCountPolicy  > MFRecProgramChunkPtr;
 typedef FieldContainerPtrMField<ProgramChunkPtr,
-                                UnrecordedRefCounts> MFUnrecProgramChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecProgramChunkPtr;
 typedef FieldContainerPtrMField<ProgramChunkPtr,
-                                WeakRefCounts      > MFWeakProgramChunkPtr;
+                                WeakRefCountPolicy      > MFWeakProgramChunkPtr;
 typedef FieldContainerPtrMField<ProgramChunkPtr,
-                                NoRefCounts        > MFUncountedProgramChunkPtr;
+                                NoRefCountPolicy        > MFUncountedProgramChunkPtr;
 #endif
 
 

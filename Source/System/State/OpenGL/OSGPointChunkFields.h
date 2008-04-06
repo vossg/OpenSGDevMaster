@@ -107,49 +107,49 @@ struct FieldTraits<PointChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPointChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPointChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPointChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<PointChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPointChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecPointChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecPointChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakPointChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdPointChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<PointChunkPtr,
-                                RecordedRefCounts  > SFRecPointChunkPtr;
+                                RecordedRefCountPolicy  > SFRecPointChunkPtr;
 typedef FieldContainerPtrSField<PointChunkPtr,
-                                UnrecordedRefCounts> SFUnrecPointChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecPointChunkPtr;
 typedef FieldContainerPtrSField<PointChunkPtr,
-                                WeakRefCounts      > SFWeakPointChunkPtr;
+                                WeakRefCountPolicy      > SFWeakPointChunkPtr;
 typedef FieldContainerPtrSField<PointChunkPtr,
-                                NoRefCounts        > SFUncountedPointChunkPtr;
+                                NoRefCountPolicy        > SFUncountedPointChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<PointChunkPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<PointChunkPtr,
-                                RecordedRefCounts  > MFRecPointChunkPtr;
+                                RecordedRefCountPolicy  > MFRecPointChunkPtr;
 typedef FieldContainerPtrMField<PointChunkPtr,
-                                UnrecordedRefCounts> MFUnrecPointChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecPointChunkPtr;
 typedef FieldContainerPtrMField<PointChunkPtr,
-                                WeakRefCounts      > MFWeakPointChunkPtr;
+                                WeakRefCountPolicy      > MFWeakPointChunkPtr;
 typedef FieldContainerPtrMField<PointChunkPtr,
-                                NoRefCounts        > MFUncountedPointChunkPtr;
+                                NoRefCountPolicy        > MFUncountedPointChunkPtr;
 #endif
 
 

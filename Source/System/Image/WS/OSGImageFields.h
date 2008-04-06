@@ -107,49 +107,49 @@ struct FieldTraits<ImagePtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdImagePtr"; 
 }
@@ -189,49 +189,49 @@ struct FieldTraits<ImagePtr, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 1>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFieldContainerChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 1>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFieldContainerChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 1>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFieldContainerChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 1>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFieldContainerChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 1>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFieldContainerChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 1>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFieldContainerChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 1>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFieldContainerChildImagePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ImagePtr, 1>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ImagePtr, 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFieldContainerChildImagePtr"; 
 }
@@ -244,13 +244,13 @@ const Char8 *FieldTraits<ImagePtr, 1>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<ImagePtr,
-                                RecordedRefCounts  > SFRecImagePtr;
+                                RecordedRefCountPolicy  > SFRecImagePtr;
 typedef FieldContainerPtrSField<ImagePtr,
-                                UnrecordedRefCounts> SFUnrecImagePtr;
+                                UnrecordedRefCountPolicy> SFUnrecImagePtr;
 typedef FieldContainerPtrSField<ImagePtr,
-                                WeakRefCounts      > SFWeakImagePtr;
+                                WeakRefCountPolicy      > SFWeakImagePtr;
 typedef FieldContainerPtrSField<ImagePtr,
-                                NoRefCounts        > SFUncountedImagePtr;
+                                NoRefCountPolicy        > SFUncountedImagePtr;
 #endif
 
 
@@ -258,20 +258,20 @@ typedef FieldContainerPtrSField<ImagePtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<ImagePtr,
-                                RecordedRefCounts  > MFRecImagePtr;
+                                RecordedRefCountPolicy  > MFRecImagePtr;
 typedef FieldContainerPtrMField<ImagePtr,
-                                UnrecordedRefCounts> MFUnrecImagePtr;
+                                UnrecordedRefCountPolicy> MFUnrecImagePtr;
 typedef FieldContainerPtrMField<ImagePtr,
-                                WeakRefCounts      > MFWeakImagePtr;
+                                WeakRefCountPolicy      > MFWeakImagePtr;
 typedef FieldContainerPtrMField<ImagePtr,
-                                NoRefCounts        > MFUncountedImagePtr;
+                                NoRefCountPolicy        > MFUncountedImagePtr;
 #endif
 
 
 
 typedef FieldContainerPtrChildSField<
           ImagePtr, 
-          UnrecordedRefCounts,
+          UnrecordedRefCountPolicy,
           1                  > SFUnrecFieldContainerChildImagePtr;
 
 typedef SFUnrecFieldContainerChildImagePtr 

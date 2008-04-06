@@ -107,49 +107,49 @@ struct FieldTraits<GeoMultiPropertyPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGeoMultiPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGeoMultiPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGeoMultiPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGeoMultiPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGeoMultiPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGeoMultiPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGeoMultiPropertyPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGeoMultiPropertyPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpDrawableFieldSingle */
 
 typedef FieldContainerPtrSField<GeoMultiPropertyPtr,
-                                RecordedRefCounts  > SFRecGeoMultiPropertyPtr;
+                                RecordedRefCountPolicy  > SFRecGeoMultiPropertyPtr;
 typedef FieldContainerPtrSField<GeoMultiPropertyPtr,
-                                UnrecordedRefCounts> SFUnrecGeoMultiPropertyPtr;
+                                UnrecordedRefCountPolicy> SFUnrecGeoMultiPropertyPtr;
 typedef FieldContainerPtrSField<GeoMultiPropertyPtr,
-                                WeakRefCounts      > SFWeakGeoMultiPropertyPtr;
+                                WeakRefCountPolicy      > SFWeakGeoMultiPropertyPtr;
 typedef FieldContainerPtrSField<GeoMultiPropertyPtr,
-                                NoRefCounts        > SFUncountedGeoMultiPropertyPtr;
+                                NoRefCountPolicy        > SFUncountedGeoMultiPropertyPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<GeoMultiPropertyPtr,
 /*! \ingroup GrpDrawableFieldMulti */
 
 typedef FieldContainerPtrMField<GeoMultiPropertyPtr,
-                                RecordedRefCounts  > MFRecGeoMultiPropertyPtr;
+                                RecordedRefCountPolicy  > MFRecGeoMultiPropertyPtr;
 typedef FieldContainerPtrMField<GeoMultiPropertyPtr,
-                                UnrecordedRefCounts> MFUnrecGeoMultiPropertyPtr;
+                                UnrecordedRefCountPolicy> MFUnrecGeoMultiPropertyPtr;
 typedef FieldContainerPtrMField<GeoMultiPropertyPtr,
-                                WeakRefCounts      > MFWeakGeoMultiPropertyPtr;
+                                WeakRefCountPolicy      > MFWeakGeoMultiPropertyPtr;
 typedef FieldContainerPtrMField<GeoMultiPropertyPtr,
-                                NoRefCounts        > MFUncountedGeoMultiPropertyPtr;
+                                NoRefCountPolicy        > MFUncountedGeoMultiPropertyPtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<ShaderParameterStringPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShaderParameterStringPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShaderParameterStringPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShaderParameterStringPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShaderParameterStringPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShaderParameterStringPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShaderParameterStringPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShaderParameterStringPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShaderParameterStringPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<ShaderParameterStringPtr, 0>::getMName<NoRefCounts>(voi
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<ShaderParameterStringPtr,
-                                RecordedRefCounts  > SFRecShaderParameterStringPtr;
+                                RecordedRefCountPolicy  > SFRecShaderParameterStringPtr;
 typedef FieldContainerPtrSField<ShaderParameterStringPtr,
-                                UnrecordedRefCounts> SFUnrecShaderParameterStringPtr;
+                                UnrecordedRefCountPolicy> SFUnrecShaderParameterStringPtr;
 typedef FieldContainerPtrSField<ShaderParameterStringPtr,
-                                WeakRefCounts      > SFWeakShaderParameterStringPtr;
+                                WeakRefCountPolicy      > SFWeakShaderParameterStringPtr;
 typedef FieldContainerPtrSField<ShaderParameterStringPtr,
-                                NoRefCounts        > SFUncountedShaderParameterStringPtr;
+                                NoRefCountPolicy        > SFUncountedShaderParameterStringPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<ShaderParameterStringPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<ShaderParameterStringPtr,
-                                RecordedRefCounts  > MFRecShaderParameterStringPtr;
+                                RecordedRefCountPolicy  > MFRecShaderParameterStringPtr;
 typedef FieldContainerPtrMField<ShaderParameterStringPtr,
-                                UnrecordedRefCounts> MFUnrecShaderParameterStringPtr;
+                                UnrecordedRefCountPolicy> MFUnrecShaderParameterStringPtr;
 typedef FieldContainerPtrMField<ShaderParameterStringPtr,
-                                WeakRefCounts      > MFWeakShaderParameterStringPtr;
+                                WeakRefCountPolicy      > MFWeakShaderParameterStringPtr;
 typedef FieldContainerPtrMField<ShaderParameterStringPtr,
-                                NoRefCounts        > MFUncountedShaderParameterStringPtr;
+                                NoRefCountPolicy        > MFUncountedShaderParameterStringPtr;
 #endif
 
 

@@ -234,13 +234,13 @@ DataType &FieldTraits< GeoVectorPropertyPtr, 1 >::getType(void)
 
 OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
                       GeoVectorPropertyPtr,       
-                      UnrecordedRefCounts,  
+                      UnrecordedRefCountPolicy,  
                       1);
 
 
 OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
                       GeoVectorPropertyPtr,       
-                      UnrecordedRefCounts,  
+                      UnrecordedRefCountPolicy,  
                       1);
 
 

@@ -396,13 +396,13 @@ DataType &FieldTraits< FCDSParTestFCPtr, 1 >::getType(void)
 
 OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
                       FCDSParTestFCPtr,       
-                      UnrecordedRefCounts,  
+                      UnrecordedRefCountPolicy,  
                       1);
 
 
 OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
                       FCDSParTestFCPtr,       
-                      UnrecordedRefCounts,  
+                      UnrecordedRefCountPolicy,  
                       1);
 
 

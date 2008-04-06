@@ -107,49 +107,49 @@ struct FieldTraits<PolygonForegroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakPolygonForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdPolygonForegroundPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<PolygonForegroundPtr,
-                                RecordedRefCounts  > SFRecPolygonForegroundPtr;
+                                RecordedRefCountPolicy  > SFRecPolygonForegroundPtr;
 typedef FieldContainerPtrSField<PolygonForegroundPtr,
-                                UnrecordedRefCounts> SFUnrecPolygonForegroundPtr;
+                                UnrecordedRefCountPolicy> SFUnrecPolygonForegroundPtr;
 typedef FieldContainerPtrSField<PolygonForegroundPtr,
-                                WeakRefCounts      > SFWeakPolygonForegroundPtr;
+                                WeakRefCountPolicy      > SFWeakPolygonForegroundPtr;
 typedef FieldContainerPtrSField<PolygonForegroundPtr,
-                                NoRefCounts        > SFUncountedPolygonForegroundPtr;
+                                NoRefCountPolicy        > SFUncountedPolygonForegroundPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<PolygonForegroundPtr,
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<PolygonForegroundPtr,
-                                RecordedRefCounts  > MFRecPolygonForegroundPtr;
+                                RecordedRefCountPolicy  > MFRecPolygonForegroundPtr;
 typedef FieldContainerPtrMField<PolygonForegroundPtr,
-                                UnrecordedRefCounts> MFUnrecPolygonForegroundPtr;
+                                UnrecordedRefCountPolicy> MFUnrecPolygonForegroundPtr;
 typedef FieldContainerPtrMField<PolygonForegroundPtr,
-                                WeakRefCounts      > MFWeakPolygonForegroundPtr;
+                                WeakRefCountPolicy      > MFWeakPolygonForegroundPtr;
 typedef FieldContainerPtrMField<PolygonForegroundPtr,
-                                NoRefCounts        > MFUncountedPolygonForegroundPtr;
+                                NoRefCountPolicy        > MFUncountedPolygonForegroundPtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<MaterialGroupPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<MaterialGroupPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<MaterialGroupPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecMaterialGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialGroupPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<MaterialGroupPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecMaterialGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialGroupPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<MaterialGroupPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakMaterialGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialGroupPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<MaterialGroupPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdMaterialGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialGroupPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<MaterialGroupPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecMaterialGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialGroupPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<MaterialGroupPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecMaterialGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialGroupPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<MaterialGroupPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakMaterialGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialGroupPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<MaterialGroupPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdMaterialGroupPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<MaterialGroupPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<MaterialGroupPtr,
-                                RecordedRefCounts  > SFRecMaterialGroupPtr;
+                                RecordedRefCountPolicy  > SFRecMaterialGroupPtr;
 typedef FieldContainerPtrSField<MaterialGroupPtr,
-                                UnrecordedRefCounts> SFUnrecMaterialGroupPtr;
+                                UnrecordedRefCountPolicy> SFUnrecMaterialGroupPtr;
 typedef FieldContainerPtrSField<MaterialGroupPtr,
-                                WeakRefCounts      > SFWeakMaterialGroupPtr;
+                                WeakRefCountPolicy      > SFWeakMaterialGroupPtr;
 typedef FieldContainerPtrSField<MaterialGroupPtr,
-                                NoRefCounts        > SFUncountedMaterialGroupPtr;
+                                NoRefCountPolicy        > SFUncountedMaterialGroupPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<MaterialGroupPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<MaterialGroupPtr,
-                                RecordedRefCounts  > MFRecMaterialGroupPtr;
+                                RecordedRefCountPolicy  > MFRecMaterialGroupPtr;
 typedef FieldContainerPtrMField<MaterialGroupPtr,
-                                UnrecordedRefCounts> MFUnrecMaterialGroupPtr;
+                                UnrecordedRefCountPolicy> MFUnrecMaterialGroupPtr;
 typedef FieldContainerPtrMField<MaterialGroupPtr,
-                                WeakRefCounts      > MFWeakMaterialGroupPtr;
+                                WeakRefCountPolicy      > MFWeakMaterialGroupPtr;
 typedef FieldContainerPtrMField<MaterialGroupPtr,
-                                NoRefCounts        > MFUncountedMaterialGroupPtr;
+                                NoRefCountPolicy        > MFUncountedMaterialGroupPtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<GeometryPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<GeometryPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<GeometryPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeometryPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<GeometryPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeometryPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<GeometryPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeometryPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<GeometryPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeometryPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<GeometryPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeometryPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<GeometryPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeometryPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<GeometryPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GeometryPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<GeometryPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGeometryPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<GeometryPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpDrawableFieldSingle */
 
 typedef FieldContainerPtrSField<GeometryPtr,
-                                RecordedRefCounts  > SFRecGeometryPtr;
+                                RecordedRefCountPolicy  > SFRecGeometryPtr;
 typedef FieldContainerPtrSField<GeometryPtr,
-                                UnrecordedRefCounts> SFUnrecGeometryPtr;
+                                UnrecordedRefCountPolicy> SFUnrecGeometryPtr;
 typedef FieldContainerPtrSField<GeometryPtr,
-                                WeakRefCounts      > SFWeakGeometryPtr;
+                                WeakRefCountPolicy      > SFWeakGeometryPtr;
 typedef FieldContainerPtrSField<GeometryPtr,
-                                NoRefCounts        > SFUncountedGeometryPtr;
+                                NoRefCountPolicy        > SFUncountedGeometryPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<GeometryPtr,
 /*! \ingroup GrpDrawableFieldMulti */
 
 typedef FieldContainerPtrMField<GeometryPtr,
-                                RecordedRefCounts  > MFRecGeometryPtr;
+                                RecordedRefCountPolicy  > MFRecGeometryPtr;
 typedef FieldContainerPtrMField<GeometryPtr,
-                                UnrecordedRefCounts> MFUnrecGeometryPtr;
+                                UnrecordedRefCountPolicy> MFUnrecGeometryPtr;
 typedef FieldContainerPtrMField<GeometryPtr,
-                                WeakRefCounts      > MFWeakGeometryPtr;
+                                WeakRefCountPolicy      > MFWeakGeometryPtr;
 typedef FieldContainerPtrMField<GeometryPtr,
-                                NoRefCounts        > MFUncountedGeometryPtr;
+                                NoRefCountPolicy        > MFUncountedGeometryPtr;
 #endif
 
 

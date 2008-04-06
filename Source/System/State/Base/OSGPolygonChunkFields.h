@@ -107,49 +107,49 @@ struct FieldTraits<PolygonChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPolygonChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPolygonChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPolygonChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPolygonChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecPolygonChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecPolygonChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakPolygonChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdPolygonChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<PolygonChunkPtr,
-                                RecordedRefCounts  > SFRecPolygonChunkPtr;
+                                RecordedRefCountPolicy  > SFRecPolygonChunkPtr;
 typedef FieldContainerPtrSField<PolygonChunkPtr,
-                                UnrecordedRefCounts> SFUnrecPolygonChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecPolygonChunkPtr;
 typedef FieldContainerPtrSField<PolygonChunkPtr,
-                                WeakRefCounts      > SFWeakPolygonChunkPtr;
+                                WeakRefCountPolicy      > SFWeakPolygonChunkPtr;
 typedef FieldContainerPtrSField<PolygonChunkPtr,
-                                NoRefCounts        > SFUncountedPolygonChunkPtr;
+                                NoRefCountPolicy        > SFUncountedPolygonChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<PolygonChunkPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<PolygonChunkPtr,
-                                RecordedRefCounts  > MFRecPolygonChunkPtr;
+                                RecordedRefCountPolicy  > MFRecPolygonChunkPtr;
 typedef FieldContainerPtrMField<PolygonChunkPtr,
-                                UnrecordedRefCounts> MFUnrecPolygonChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecPolygonChunkPtr;
 typedef FieldContainerPtrMField<PolygonChunkPtr,
-                                WeakRefCounts      > MFWeakPolygonChunkPtr;
+                                WeakRefCountPolicy      > MFWeakPolygonChunkPtr;
 typedef FieldContainerPtrMField<PolygonChunkPtr,
-                                NoRefCounts        > MFUncountedPolygonChunkPtr;
+                                NoRefCountPolicy        > MFUncountedPolygonChunkPtr;
 #endif
 
 

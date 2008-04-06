@@ -107,49 +107,49 @@ struct FieldTraits<LightChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<LightChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakLightChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdLightChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<LightChunkPtr,
-                                RecordedRefCounts  > SFRecLightChunkPtr;
+                                RecordedRefCountPolicy  > SFRecLightChunkPtr;
 typedef FieldContainerPtrSField<LightChunkPtr,
-                                UnrecordedRefCounts> SFUnrecLightChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecLightChunkPtr;
 typedef FieldContainerPtrSField<LightChunkPtr,
-                                WeakRefCounts      > SFWeakLightChunkPtr;
+                                WeakRefCountPolicy      > SFWeakLightChunkPtr;
 typedef FieldContainerPtrSField<LightChunkPtr,
-                                NoRefCounts        > SFUncountedLightChunkPtr;
+                                NoRefCountPolicy        > SFUncountedLightChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<LightChunkPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<LightChunkPtr,
-                                RecordedRefCounts  > MFRecLightChunkPtr;
+                                RecordedRefCountPolicy  > MFRecLightChunkPtr;
 typedef FieldContainerPtrMField<LightChunkPtr,
-                                UnrecordedRefCounts> MFUnrecLightChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecLightChunkPtr;
 typedef FieldContainerPtrMField<LightChunkPtr,
-                                WeakRefCounts      > MFWeakLightChunkPtr;
+                                WeakRefCountPolicy      > MFWeakLightChunkPtr;
 typedef FieldContainerPtrMField<LightChunkPtr,
-                                NoRefCounts        > MFUncountedLightChunkPtr;
+                                NoRefCountPolicy        > MFUncountedLightChunkPtr;
 #endif
 
 

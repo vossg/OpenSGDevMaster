@@ -107,49 +107,49 @@ struct FieldTraits<SwitchMaterialPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSwitchMaterialPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef FieldContainerPtrSField<SwitchMaterialPtr,
-                                RecordedRefCounts  > SFRecSwitchMaterialPtr;
+                                RecordedRefCountPolicy  > SFRecSwitchMaterialPtr;
 typedef FieldContainerPtrSField<SwitchMaterialPtr,
-                                UnrecordedRefCounts> SFUnrecSwitchMaterialPtr;
+                                UnrecordedRefCountPolicy> SFUnrecSwitchMaterialPtr;
 typedef FieldContainerPtrSField<SwitchMaterialPtr,
-                                WeakRefCounts      > SFWeakSwitchMaterialPtr;
+                                WeakRefCountPolicy      > SFWeakSwitchMaterialPtr;
 typedef FieldContainerPtrSField<SwitchMaterialPtr,
-                                NoRefCounts        > SFUncountedSwitchMaterialPtr;
+                                NoRefCountPolicy        > SFUncountedSwitchMaterialPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<SwitchMaterialPtr,
 /*! \ingroup GrpSystemFieldMulti */
 
 typedef FieldContainerPtrMField<SwitchMaterialPtr,
-                                RecordedRefCounts  > MFRecSwitchMaterialPtr;
+                                RecordedRefCountPolicy  > MFRecSwitchMaterialPtr;
 typedef FieldContainerPtrMField<SwitchMaterialPtr,
-                                UnrecordedRefCounts> MFUnrecSwitchMaterialPtr;
+                                UnrecordedRefCountPolicy> MFUnrecSwitchMaterialPtr;
 typedef FieldContainerPtrMField<SwitchMaterialPtr,
-                                WeakRefCounts      > MFWeakSwitchMaterialPtr;
+                                WeakRefCountPolicy      > MFWeakSwitchMaterialPtr;
 typedef FieldContainerPtrMField<SwitchMaterialPtr,
-                                NoRefCounts        > MFUncountedSwitchMaterialPtr;
+                                NoRefCountPolicy        > MFUncountedSwitchMaterialPtr;
 #endif
 
 

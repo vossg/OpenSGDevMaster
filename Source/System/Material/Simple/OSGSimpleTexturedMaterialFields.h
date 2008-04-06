@@ -107,49 +107,49 @@ struct FieldTraits<SimpleTexturedMaterialPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSimpleTexturedMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSimpleTexturedMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSimpleTexturedMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSimpleTexturedMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSimpleTexturedMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSimpleTexturedMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSimpleTexturedMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSimpleTexturedMaterialPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<NoRefCounts>(vo
 /*! \ingroup GrpDrawableFieldSingle */
 
 typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
-                                RecordedRefCounts  > SFRecSimpleTexturedMaterialPtr;
+                                RecordedRefCountPolicy  > SFRecSimpleTexturedMaterialPtr;
 typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
-                                UnrecordedRefCounts> SFUnrecSimpleTexturedMaterialPtr;
+                                UnrecordedRefCountPolicy> SFUnrecSimpleTexturedMaterialPtr;
 typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
-                                WeakRefCounts      > SFWeakSimpleTexturedMaterialPtr;
+                                WeakRefCountPolicy      > SFWeakSimpleTexturedMaterialPtr;
 typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
-                                NoRefCounts        > SFUncountedSimpleTexturedMaterialPtr;
+                                NoRefCountPolicy        > SFUncountedSimpleTexturedMaterialPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
 /*! \ingroup GrpDrawableFieldMulti */
 
 typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
-                                RecordedRefCounts  > MFRecSimpleTexturedMaterialPtr;
+                                RecordedRefCountPolicy  > MFRecSimpleTexturedMaterialPtr;
 typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
-                                UnrecordedRefCounts> MFUnrecSimpleTexturedMaterialPtr;
+                                UnrecordedRefCountPolicy> MFUnrecSimpleTexturedMaterialPtr;
 typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
-                                WeakRefCounts      > MFWeakSimpleTexturedMaterialPtr;
+                                WeakRefCountPolicy      > MFWeakSimpleTexturedMaterialPtr;
 typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
-                                NoRefCounts        > MFUncountedSimpleTexturedMaterialPtr;
+                                NoRefCountPolicy        > MFUncountedSimpleTexturedMaterialPtr;
 #endif
 
 

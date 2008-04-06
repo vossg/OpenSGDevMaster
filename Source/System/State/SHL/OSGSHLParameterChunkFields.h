@@ -107,49 +107,49 @@ struct FieldTraits<SHLParameterChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSHLParameterChunkPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpStateFieldSingle */
 
 typedef FieldContainerPtrSField<SHLParameterChunkPtr,
-                                RecordedRefCounts  > SFRecSHLParameterChunkPtr;
+                                RecordedRefCountPolicy  > SFRecSHLParameterChunkPtr;
 typedef FieldContainerPtrSField<SHLParameterChunkPtr,
-                                UnrecordedRefCounts> SFUnrecSHLParameterChunkPtr;
+                                UnrecordedRefCountPolicy> SFUnrecSHLParameterChunkPtr;
 typedef FieldContainerPtrSField<SHLParameterChunkPtr,
-                                WeakRefCounts      > SFWeakSHLParameterChunkPtr;
+                                WeakRefCountPolicy      > SFWeakSHLParameterChunkPtr;
 typedef FieldContainerPtrSField<SHLParameterChunkPtr,
-                                NoRefCounts        > SFUncountedSHLParameterChunkPtr;
+                                NoRefCountPolicy        > SFUncountedSHLParameterChunkPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<SHLParameterChunkPtr,
 /*! \ingroup GrpStateFieldMulti */
 
 typedef FieldContainerPtrMField<SHLParameterChunkPtr,
-                                RecordedRefCounts  > MFRecSHLParameterChunkPtr;
+                                RecordedRefCountPolicy  > MFRecSHLParameterChunkPtr;
 typedef FieldContainerPtrMField<SHLParameterChunkPtr,
-                                UnrecordedRefCounts> MFUnrecSHLParameterChunkPtr;
+                                UnrecordedRefCountPolicy> MFUnrecSHLParameterChunkPtr;
 typedef FieldContainerPtrMField<SHLParameterChunkPtr,
-                                WeakRefCounts      > MFWeakSHLParameterChunkPtr;
+                                WeakRefCountPolicy      > MFWeakSHLParameterChunkPtr;
 typedef FieldContainerPtrMField<SHLParameterChunkPtr,
-                                NoRefCounts        > MFUncountedSHLParameterChunkPtr;
+                                NoRefCountPolicy        > MFUncountedSHLParameterChunkPtr;
 #endif
 
 

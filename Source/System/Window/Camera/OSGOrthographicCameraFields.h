@@ -107,49 +107,49 @@ struct FieldTraits<OrthographicCameraPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdOrthographicCameraPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<NoRefCounts>(void)
 /*! \ingroup GrpWindowFieldSingle */
 
 typedef FieldContainerPtrSField<OrthographicCameraPtr,
-                                RecordedRefCounts  > SFRecOrthographicCameraPtr;
+                                RecordedRefCountPolicy  > SFRecOrthographicCameraPtr;
 typedef FieldContainerPtrSField<OrthographicCameraPtr,
-                                UnrecordedRefCounts> SFUnrecOrthographicCameraPtr;
+                                UnrecordedRefCountPolicy> SFUnrecOrthographicCameraPtr;
 typedef FieldContainerPtrSField<OrthographicCameraPtr,
-                                WeakRefCounts      > SFWeakOrthographicCameraPtr;
+                                WeakRefCountPolicy      > SFWeakOrthographicCameraPtr;
 typedef FieldContainerPtrSField<OrthographicCameraPtr,
-                                NoRefCounts        > SFUncountedOrthographicCameraPtr;
+                                NoRefCountPolicy        > SFUncountedOrthographicCameraPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<OrthographicCameraPtr,
 /*! \ingroup GrpWindowFieldMulti */
 
 typedef FieldContainerPtrMField<OrthographicCameraPtr,
-                                RecordedRefCounts  > MFRecOrthographicCameraPtr;
+                                RecordedRefCountPolicy  > MFRecOrthographicCameraPtr;
 typedef FieldContainerPtrMField<OrthographicCameraPtr,
-                                UnrecordedRefCounts> MFUnrecOrthographicCameraPtr;
+                                UnrecordedRefCountPolicy> MFUnrecOrthographicCameraPtr;
 typedef FieldContainerPtrMField<OrthographicCameraPtr,
-                                WeakRefCounts      > MFWeakOrthographicCameraPtr;
+                                WeakRefCountPolicy      > MFWeakOrthographicCameraPtr;
 typedef FieldContainerPtrMField<OrthographicCameraPtr,
-                                NoRefCounts        > MFUncountedOrthographicCameraPtr;
+                                NoRefCountPolicy        > MFUncountedOrthographicCameraPtr;
 #endif
 
 

@@ -107,49 +107,49 @@ struct FieldTraits<DynamicStateGeneratorPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<WeakRefCounts>(void)
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<NoRefCounts>(void)
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<RecordedRefCounts>(void)
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<UnrecordedRefCounts>(void)
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<WeakRefCounts>(void)
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakDynamicStateGeneratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<NoRefCounts>(void)
+const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdDynamicStateGeneratorPtr"; 
 }
@@ -167,13 +167,13 @@ const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<NoRefCounts>(voi
 /*! \ingroup GrpGroupFieldSingle */
 
 typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
-                                RecordedRefCounts  > SFRecDynamicStateGeneratorPtr;
+                                RecordedRefCountPolicy  > SFRecDynamicStateGeneratorPtr;
 typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
-                                UnrecordedRefCounts> SFUnrecDynamicStateGeneratorPtr;
+                                UnrecordedRefCountPolicy> SFUnrecDynamicStateGeneratorPtr;
 typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
-                                WeakRefCounts      > SFWeakDynamicStateGeneratorPtr;
+                                WeakRefCountPolicy      > SFWeakDynamicStateGeneratorPtr;
 typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
-                                NoRefCounts        > SFUncountedDynamicStateGeneratorPtr;
+                                NoRefCountPolicy        > SFUncountedDynamicStateGeneratorPtr;
 #endif
 
 
@@ -181,13 +181,13 @@ typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
 /*! \ingroup GrpGroupFieldMulti */
 
 typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
-                                RecordedRefCounts  > MFRecDynamicStateGeneratorPtr;
+                                RecordedRefCountPolicy  > MFRecDynamicStateGeneratorPtr;
 typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
-                                UnrecordedRefCounts> MFUnrecDynamicStateGeneratorPtr;
+                                UnrecordedRefCountPolicy> MFUnrecDynamicStateGeneratorPtr;
 typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
-                                WeakRefCounts      > MFWeakDynamicStateGeneratorPtr;
+                                WeakRefCountPolicy      > MFWeakDynamicStateGeneratorPtr;
 typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
-                                NoRefCounts        > MFUncountedDynamicStateGeneratorPtr;
+                                NoRefCountPolicy        > MFUncountedDynamicStateGeneratorPtr;
 #endif
 
 
