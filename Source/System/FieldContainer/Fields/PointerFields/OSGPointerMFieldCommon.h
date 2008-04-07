@@ -42,9 +42,9 @@ class PointerMFieldCommon : public PointerMFieldBase
     typedef          PointerFieldTraitsBase<NamespaceI>  PtrBaseTraitsType;
 
     typedef typename Inherited::StoredType               StoredType;
-    typedef typename Inherited::PtrStoreType             PtrStoreType;
-    typedef typename Inherited::PtrStoreItType           PtrStoreItType;
-    typedef typename Inherited::PtrStoreConstItType      PtrStoreConstItType;
+    typedef typename Inherited::StorageType              PtrStoreType;
+    typedef typename Inherited::StorageIt                PtrStoreItType;
+    typedef typename Inherited::StorageConstIt           PtrStoreConstItType;
 
     typedef typename Inherited::size_type                size_type;
     typedef typename Inherited::difference_type          difference_type;

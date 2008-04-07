@@ -17,6 +17,16 @@
 
 OSG_BEGIN_NAMESPACE
 
+#define OSG_INHERIT_NAMED_PTR_TMPL(BASECLASS, NAME)                        \
+    typedef typename BASECLASS::NAME##Ptr            NAME##Ptr;            \
+    typedef typename BASECLASS::NAME##PtrConst       NAME##PtrConst;       \
+    typedef typename BASECLASS::NAME##ConstPtr       NAME##ConstPtr;       \
+    typedef typename BASECLASS::NAME##ConstPtrConst  NAME##ConstPtrConst;  \
+                                                                           \
+    typedef typename BASECLASS::NAME##PtrArg         NAME##PtrArg;         \
+    typedef typename BASECLASS::NAME##PtrConstArg    NAME##PtrConstArg;    \
+    typedef typename BASECLASS::NAME##ConstPtrArg    NAME##ConstPtrArg
+
 /*---------------------------------------------------------------------------*/
 /* PointerFieldConfigBase<ObjectTypeT>                                       */
 /*---------------------------------------------------------------------------*/
@@ -110,8 +120,8 @@ struct ChildFieldConfig
     /*! \name Constants                                                    */
     /*! \{                                                                 */
     
-    static UInt32           const Namespace  = NamespaceI;
-    static FieldType::Class const fieldClass = FieldType::CHILD_POINTER_FIELD;
+    static UInt32     const Namespace  = NamespaceI;
+    static FieldClass const fieldClass = ChildPtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -164,8 +174,8 @@ struct ParentFieldConfig
     /*! \name Constants                                                    */
     /*! \{                                                                 */
     
-    static UInt32           const Namespace  = NamespaceI;
-    static FieldType::Class const fieldClass = FieldType::PARENT_POINTER_FIELD;
+    static UInt32     const Namespace  = NamespaceI;
+    static FieldClass const fieldClass = ParentPtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -225,8 +235,8 @@ struct UnrecordedFieldConfig
     /*! \name Constants                                                    */
     /*! \{                                                                 */
     
-    static UInt32           const Namespace  = NamespaceI;
-    static FieldType::Class const fieldClass = FieldType::UNRECORDED_POINTER_FIELD;
+    static UInt32     const Namespace  = NamespaceI;
+    static FieldClass const fieldClass = PtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -286,8 +296,8 @@ struct WeakFieldConfig
     /*! \name Constants                                                    */
     /*! \{                                                                 */
     
-    static UInt32           const Namespace  = NamespaceI;
-    static FieldType::Class const fieldClass = FieldType::WEAK_POINTER_FIELD;
+    static UInt32     const Namespace  = NamespaceI;
+    static FieldClass const fieldClass = WeakPtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
