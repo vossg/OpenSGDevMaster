@@ -46,14 +46,16 @@ FieldContainerPtrSFieldBase::FieldContainerPtrSFieldBase(void) :
 }
 
 inline
-FieldContainerPtrSFieldBase::FieldContainerPtrSFieldBase(const Self &obj) :
-     Inherited (obj            ),
-    _fieldValue(obj._fieldValue)
+FieldContainerPtrSFieldBase::FieldContainerPtrSFieldBase(const Self &source) :
+     Inherited (source            ),
+    _fieldValue(source._fieldValue)
 {
 }
 
 inline
-FieldContainerPtrSFieldBase::FieldContainerPtrSFieldBase(ArgumentType value) :
+FieldContainerPtrSFieldBase::FieldContainerPtrSFieldBase(
+    const_value value) :
+
      Inherited (     ),
     _fieldValue(value)
 {
@@ -65,17 +67,18 @@ FieldContainerPtrSFieldBase::~FieldContainerPtrSFieldBase(void)
 }
 
 inline
+FieldContainerPtrSFieldBase::const_value 
+    FieldContainerPtrSFieldBase::getValue(void) const
+{
+    return _fieldValue;
+}
+
+inline
 UInt32 FieldContainerPtrSFieldBase::getBinSize(void) const
 {
     return SFieldTraits::getBinSize(_fieldValue);
 }
 
-inline
-FieldContainerPtrSFieldBase::const_reference 
-    FieldContainerPtrSFieldBase::getValue(void) const
-{
-    return _fieldValue;
-}
 
 inline
 void FieldContainerPtrSFieldBase::copyToBin(BinaryDataHandler &pMem) const

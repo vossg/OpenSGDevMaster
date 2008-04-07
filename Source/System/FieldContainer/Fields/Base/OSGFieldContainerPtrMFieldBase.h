@@ -56,21 +56,25 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
 
   public:
 
-    typedef       MFieldVector<FieldContainerPtr>     StorageType;
-    typedef       StorageType::Inherited              StorageTypeParent;
-
-    typedef       StorageType::const_iterator         const_iterator;
-
-    typedef const FieldContainerPtr                   const_reference;
-
-    typedef       StorageType::size_type              size_type;
-
-    typedef       FieldTraits<FieldContainerPtr, 0>   MFieldTraits;
- 
+    typedef       Field                               Inherited;
     typedef       FieldContainerPtrMFieldBase         Self;
 
     typedef       FieldContainerPtr                   StoredType;
-    typedef       FieldContainerPtr                   ArgumentType;
+    typedef       MFieldVector<StoredType>            StorageType;
+
+    typedef       StorageType::const_iterator         const_iterator;
+    typedef       StorageType::const_reverse_iterator const_reverse_iterator;
+
+    typedef       StorageType::const_iterator         StorageConstIt;
+
+    typedef const FieldContainerPtr                   const_value;
+
+    typedef       StorageType::size_type              size_type;
+    typedef       StorageType::difference_type        difference_type;
+
+
+    typedef       FieldTraits<FieldContainerPtr, 0>   MFieldTraits;
+ 
 
     typedef       EditMFieldHandle <Self      >       EditHandle;
     typedef       boost::shared_ptr<EditHandle>       EditHandlePtr;
@@ -110,21 +114,29 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
     /*! \name                   STL Interface                              */
     /*! \{                                                                 */
 
-    const_iterator begin    (void              ) const;
-    const_iterator end      (void              ) const;
+    const_iterator         begin    (void             ) const;
+    const_iterator         end      (void             ) const;
     
-    Int32          findIndex(ArgumentType value) const;
+    const_reverse_iterator rbegin   (void             ) const;
+    const_reverse_iterator rend     (void             ) const;
 
-    size_type      size     (void              ) const;
-    size_type      capacity (void              ) const;
-    bool           empty    (void              ) const;
+    const_value            front    (void             ) const;
+    const_value            back     (void             ) const;
+
+    bool                   empty    (void             ) const;
+    size_type              size     (void             ) const;
+    size_type              max_size (void             ) const;
+    size_type              capacity (void             ) const;
+
+    Int32                  findIndex(const_value value) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
-    const_reference operator [](UInt32 index) const;
+    const_value operator [](const UInt32 index) const;
+    const_value at         (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -165,21 +177,20 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
   protected:
 
     typedef StorageType::iterator iterator;
+    typedef StorageType::iterator StorageIt;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    typedef Field Inherited;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-             FieldContainerPtrMFieldBase(void);
-//    explicit FieldContainerPtrMFieldBase(const UInt32  size);
-
+    FieldContainerPtrMFieldBase(void);
+             
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
@@ -190,27 +201,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   STL Interface                              */
-    /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Get                                     */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Binary Interface                           */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      MT Sync                                 */
     /*! \{                                                                 */
 
     /*! \}                                                                 */

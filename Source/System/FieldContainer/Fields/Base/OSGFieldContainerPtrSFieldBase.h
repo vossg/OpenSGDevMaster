@@ -54,13 +54,13 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrSFieldBase : public Field
 
   public:
 
-    typedef       FieldTraits      <FieldContainerPtr, 0>  SFieldTraits;
+    typedef       Field                                    Inherited;
+
     typedef       FieldContainerPtrSFieldBase              Self;
+    typedef       FieldTraits      <FieldContainerPtr, 0>  SFieldTraits;
 
     typedef       FieldContainerPtr                        StoredType;
-    typedef const FieldContainerPtr                        const_reference;
-
-    typedef const FieldContainerPtr                        ArgumentType;
+    typedef const FieldContainerPtr                        const_value;
 
     typedef       EditSFieldHandle <Self      >            EditHandle;
     typedef       boost::shared_ptr<EditHandle>            EditHandlePtr;
@@ -86,7 +86,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrSFieldBase : public Field
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    const_reference getValue(void) const;
+    const_value getValue(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -118,16 +118,14 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrSFieldBase : public Field
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    typedef Field Inherited;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-             FieldContainerPtrSFieldBase(void                     );
-             FieldContainerPtrSFieldBase(const Self         &obj  );
-    explicit FieldContainerPtrSFieldBase(      ArgumentType  value);
+             FieldContainerPtrSFieldBase(      void               );
+             FieldContainerPtrSFieldBase(const Self        &source);
+    explicit FieldContainerPtrSFieldBase(      const_value  value );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

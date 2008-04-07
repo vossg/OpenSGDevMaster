@@ -77,8 +77,64 @@ FieldContainerPtrMFieldBase::const_iterator
     return _values.end();
 }
 
+inline 
+FieldContainerPtrMFieldBase::const_reverse_iterator
+    FieldContainerPtrMFieldBase::rbegin(void) const
+{
+    return _values.rbegin();
+}
+
+inline 
+FieldContainerPtrMFieldBase::const_reverse_iterator
+    FieldContainerPtrMFieldBase::rend(void) const
+{
+    return _values.rend();
+}
+
+inline 
+FieldContainerPtrMFieldBase::const_value
+    FieldContainerPtrMFieldBase::front(void) const
+{
+    return _values.front();
+}
+
+inline 
+FieldContainerPtrMFieldBase::const_value
+    FieldContainerPtrMFieldBase::back(void) const
+{
+    return _values.back();
+}
+
 inline
-Int32 FieldContainerPtrMFieldBase::findIndex(ArgumentType value) const
+bool FieldContainerPtrMFieldBase::empty(void) const
+{
+    return _values.empty();
+}
+
+inline
+FieldContainerPtrMFieldBase::size_type 
+    FieldContainerPtrMFieldBase::size(void) const
+{
+    return _values.size();
+}
+
+inline 
+FieldContainerPtrMFieldBase::size_type
+    FieldContainerPtrMFieldBase::max_size(void) const
+{
+    return _values.max_size();
+}
+
+inline
+FieldContainerPtrMFieldBase::size_type
+    FieldContainerPtrMFieldBase::capacity(void) const
+{
+    return _values.capacity();
+}
+
+
+inline
+Int32 FieldContainerPtrMFieldBase::findIndex(const_value value) const
 {
     const_iterator it = std::find(_values.begin(), _values.end(), value);
 
@@ -92,37 +148,25 @@ Int32 FieldContainerPtrMFieldBase::findIndex(ArgumentType value) const
     }
 }
 
-inline
-FieldContainerPtrMFieldBase::size_type 
-    FieldContainerPtrMFieldBase::size(void) const
-{
-    return _values.size();
-}
 
 inline
-FieldContainerPtrMFieldBase::size_type
-    FieldContainerPtrMFieldBase::capacity(void) const
+FieldContainerPtrMFieldBase::const_value 
+    FieldContainerPtrMFieldBase::operator [](UInt32 index) const
 {
-    return _values.capacity();
+    return _values[index];
 }
 
-inline
-bool FieldContainerPtrMFieldBase::empty(void) const
+inline 
+FieldContainerPtrMFieldBase::const_value 
+    FieldContainerPtrMFieldBase::at(UInt32 const index) const
 {
-    return _values.empty();
+    return _values.at(index);
 }
 
 inline
 bool FieldContainerPtrMFieldBase::operator ==(const Self &source) const
 {
     return _values == source._values;
-}
-
-inline
-FieldContainerPtrMFieldBase::const_reference 
-    FieldContainerPtrMFieldBase::operator [](UInt32 index) const
-{
-    return _values[index];
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -148,11 +192,12 @@ void FieldContainerPtrMFieldBase::terminateShare(UInt32              ,
 }
 
 inline
-bool  FieldContainerPtrMFieldBase::isShared(void)
+bool FieldContainerPtrMFieldBase::isShared(void)
 {
     return false;
 }
 #endif
+
 
 inline
 FieldContainerPtrMFieldBase::FieldContainerPtrMFieldBase(void) :
@@ -160,23 +205,6 @@ FieldContainerPtrMFieldBase::FieldContainerPtrMFieldBase(void) :
     _values   ()
 {
 }
-
-#if 0
-inline
-FieldContainerPtrMFieldBase::FieldContainerPtrMFieldBase(const Self &obj) :
-     Inherited(obj        ),
-    _values   (obj._values)
-{
-}
-
-inline
-FieldContainerPtrMFieldBase::FieldContainerPtrMFieldBase(const UInt32 size) :
-     Inherited(),
-    _values   ()
-{
-    _values.resize(size, NULL);
-}
-#endif
 
 inline
 FieldContainerPtrMFieldBase::~FieldContainerPtrMFieldBase(void)

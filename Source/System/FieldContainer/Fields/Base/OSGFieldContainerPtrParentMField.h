@@ -62,7 +62,7 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
     typedef typename StorageType::Inherited                   StorageTypeParent;
 
     typedef typename StorageType::reference                   reference;
-    typedef typename StorageType::const_reference             const_reference;
+    typedef const    ValueT                                   const_reference;
 
     typedef typename StorageType::size_type                   size_type;
 
