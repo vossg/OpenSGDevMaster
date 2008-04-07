@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGUNRECORDEDACCESSHANDLERDECL_H_
-#define _OSGUNRECORDEDACCESSHANDLERDECL_H_
+#ifndef _OSGNOREFCOUNTACCESSHANDLERDECL_H_
+#define _OSGNOREFCOUNTACCESSHANDLERDECL_H_
 
 #ifdef __sgi
 #pragma once
@@ -47,7 +47,7 @@
 #include "OSGRefCountPolicies.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGUnrecordedAccessHandlerDecl.h
+/*! \file OSGNoRefCountAccessHandlerDecl.h
     \ingroup GrpSystemFieldContainer
  */
 #endif
@@ -59,7 +59,7 @@ class PointerMFieldBase;
 class PointerSFieldBase;
 
 
-class UnrecordedAccessHandler 
+class NoRefCountAccessHandler 
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -67,13 +67,13 @@ class UnrecordedAccessHandler
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
-    typedef UnrecordedAccessHandler        Self;
-    typedef UnrecordedRefCountPolicy       Inherited;
+    typedef NoRefCountAccessHandler   Self;
+    typedef NoRefCountPolicy          Inherited;
+      
+    typedef NoRefCountPolicy          RefCountPolicyType;
     
-    typedef UnrecordedRefCountPolicy       RefCountPolicyType;
-    
-    typedef PointerMFieldBase              MFieldBaseType;
-    typedef PointerSFieldBase              SFieldBaseType;
+    typedef PointerMFieldBase         MFieldBaseType;
+    typedef PointerSFieldBase         SFieldBaseType;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -131,4 +131,4 @@ class UnrecordedAccessHandler
 
 OSG_END_NAMESPACE
 
-#endif // _OSGUNRECORDEDACCESSHANDLERDECL_H_
+#endif // _OSGWEAKACCESSHANDLERDECL_H_

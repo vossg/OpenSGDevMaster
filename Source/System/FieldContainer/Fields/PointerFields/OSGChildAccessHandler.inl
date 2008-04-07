@@ -61,7 +61,7 @@ inline void
 {
     if(pObj != NULL)
     {
-        RefCountPolicyType::addRef(pObj, false);
+        RefCountPolicyType::addRef(pObj /*, false*/);
 
         linkParent(dcastSField(pSField)->getEnclosingObject(),
                    dcastSField(pSField)->getChildFieldId   (),
@@ -76,7 +76,7 @@ inline void
 {
     if(pObj != NULL)
     {
-        RefCountPolicyType::addRef(pObj, false);
+        RefCountPolicyType::addRef(pObj /*, false*/);
 
         linkParent(dcastMField(pMField)->getEnclosingObject(),
                    dcastMField(pMField)->getChildFieldId   (),
@@ -95,7 +95,7 @@ inline void
                      pObj,
                      dcastSField(pSField)->getParentFieldId()   );
 
-        RefCountPolicyType::subRef(pObj, false);
+        RefCountPolicyType::subRef(pObj/*, false*/);
     }
 }
 
@@ -109,7 +109,7 @@ inline void
                      pObj,
                      dcastMField(pMField)->getParentFieldId()   );
 
-        RefCountPolicyType::subRef(pObj, false);
+        RefCountPolicyType::subRef(pObj/*, false*/);
     }
 }
 
@@ -126,7 +126,7 @@ inline void
                      pOldObj,
                      dcastSField(pSField)->getParentFieldId()   );
 
-        RefCountPolicyType::subRef(pOldObj, false);
+        RefCountPolicyType::subRef(pOldObj/*, false*/);
     }
 
     if(pNewObj != NULL)
@@ -150,7 +150,7 @@ inline void
                      pOldObj,
                      dcastMField(pMField)->getParentFieldId()   );
 
-        RefCountPolicyType::subRef(pOldObj, false);
+        RefCountPolicyType::subRef(pOldObj/*, false*/);
     }
 
     if(pNewObj != NULL)

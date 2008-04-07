@@ -56,18 +56,10 @@ OSG_BEGIN_NAMESPACE
 
 // forward declarations
 class PointerMFieldBase;
-
 class PointerSFieldBase;
 
-template <Int32 NamespaceI>
-class WeakPointerMFieldBase;
 
-template <Int32 NamespaceI>
-class WeakPointerSFieldBase;
-
-
-
-class WeakAccessHandler : public WeakRefCountPolicy
+class WeakAccessHandler
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -82,9 +74,6 @@ class WeakAccessHandler : public WeakRefCountPolicy
     
     typedef PointerMFieldBase         MFieldBaseType;
     typedef PointerSFieldBase         SFieldBaseType;
-    
-    typedef WeakPointerMFieldBase<0>  MFieldType;
-    typedef WeakPointerSFieldBase<0>  SFieldType;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -132,6 +121,12 @@ class WeakAccessHandler : public WeakRefCountPolicy
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+
+    template <class ObjectT>
+    static ObjectT *validate(ObjectT * const pObject)
+    {
+        return RefCountPolicyType::validate(pObject);
+    }
 };
 
 OSG_END_NAMESPACE

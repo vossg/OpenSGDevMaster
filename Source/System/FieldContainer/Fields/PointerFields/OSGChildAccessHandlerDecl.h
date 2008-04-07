@@ -65,15 +65,8 @@ class ChildPointerMFieldBase;
 template <Int32 NamespaceI>
 class ChildPointerSFieldBase;
 
-template <Int32 NamespaceI>
-class ParentPointerMFieldBase;
 
-template <Int32 NamespaceI>
-class ParentPointerSFieldBase;
-
-
-
-class ChildAccessHandler : public RecordedRefCountPolicy
+class ChildAccessHandler 
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -91,9 +84,6 @@ class ChildAccessHandler : public RecordedRefCountPolicy
     
     typedef ChildPointerMFieldBase <0> MFieldType;
     typedef ChildPointerSFieldBase <0> SFieldType;
-    
-    typedef ParentPointerMFieldBase<0> ParentMFieldType;
-    typedef ParentPointerSFieldBase<0> ParentSFieldType;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -140,6 +130,14 @@ class ChildAccessHandler : public RecordedRefCountPolicy
                               FieldContainerPtrConst         pNewObj );
                             
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    template <class ObjectT>
+    static ObjectT *validate(ObjectT * const pObject)
+    {
+        return RefCountPolicyType::validate(pObject);
+    }
+
     /*==========================  PRIVATE  ================================*/
   private:
     /*---------------------------------------------------------------------*/
