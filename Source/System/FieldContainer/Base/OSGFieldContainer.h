@@ -259,14 +259,18 @@ class FieldContainer : public ReflexiveContainer
     OSG_SYSTEM_DLLMAPPING
     virtual bool linkParent  (FieldContainerPtrConst pParent,
                               UInt16 const           childFieldId,
-                              UInt16 const           parentFieldId);
+                              UInt16 const           parentFieldId) 
+        {return false;}
+
     OSG_SYSTEM_DLLMAPPING
     virtual bool unlinkParent(FieldContainerPtrConst pParent,
-                              UInt16 const           parentFieldId);
+                              UInt16 const           parentFieldId) 
+        {return false;}
             
     OSG_SYSTEM_DLLMAPPING
     virtual bool unlinkChild (FieldContainerPtrConst pChild,
-                              UInt16 const           childFieldId );
+                              UInt16 const           childFieldId ) 
+        {return false;}
     
 #endif
     /*! \}                                                                 */
