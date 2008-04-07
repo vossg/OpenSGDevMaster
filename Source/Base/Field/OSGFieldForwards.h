@@ -126,6 +126,10 @@ enum FieldClass
     PtrField,
     ParentPtrField,
     ChildPtrField
+#ifndef OSG_DELETE_LATER
+    ,WeakPtrField
+#endif
+
 };
 
 struct NoRefCounts;

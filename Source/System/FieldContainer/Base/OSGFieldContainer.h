@@ -250,7 +250,25 @@ class FieldContainer : public ReflexiveContainer
     OSG_SYSTEM_DLLMAPPING
     virtual void subChildPointer(FieldContainerPtr pObj,
                                  UInt16            usFieldPos);
+#ifndef OSG_DELETE_LATER
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Parent Linking (Internal Use Only)                           */
+    /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING
+    virtual bool linkParent  (FieldContainerPtrConst pParent,
+                              UInt16 const           childFieldId,
+                              UInt16 const           parentFieldId);
+    OSG_SYSTEM_DLLMAPPING
+    virtual bool unlinkParent(FieldContainerPtrConst pParent,
+                              UInt16 const           parentFieldId);
+            
+    OSG_SYSTEM_DLLMAPPING
+    virtual bool unlinkChild (FieldContainerPtrConst pChild,
+                              UInt16 const           childFieldId );
+    
+#endif
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
