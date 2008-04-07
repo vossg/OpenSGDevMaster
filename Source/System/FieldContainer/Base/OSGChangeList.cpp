@@ -693,24 +693,24 @@ void ChangeList::setAspectTo(UInt32 uiNewAspect)
 #endif
 
 
-template<>
+template<> OSG_DLL_EXPORT 
 void ChangeList::addSyncAddRef<NoRefCountPolicy>(FieldContainerPtr)
 {
 }
 
-template<>
+template<> OSG_DLL_EXPORT 
 void ChangeList::addSyncAddRef<RecordedRefCountPolicy>(FieldContainerPtr pFC)
 {
     _vSyncRecAddRef.push_back(pFC);
 }
 
-template<>
+template<> OSG_DLL_EXPORT 
 void ChangeList::addSyncAddRef<UnrecordedRefCountPolicy>(FieldContainerPtr pFC)
 {
     _vSyncUnrecAddRef.push_back(pFC);
 }
 
-template<>
+template<> OSG_DLL_EXPORT 
 void ChangeList::addSyncAddRef<WeakRefCountPolicy>(FieldContainerPtr pFC)
 {
     _vSyncWeakAddRef.push_back(pFC);
