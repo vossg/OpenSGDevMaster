@@ -342,8 +342,8 @@ const FieldType &EditFCPtrMFieldHandle<FieldT>::getType(void) const
 template<class FieldT> inline
 void EditFCPtrMFieldHandle<FieldT>::add(FieldContainerPtrConstArg pNewElement)
 {
-    typename FieldT::ArgumentType pVal = 
-        dynamic_cast<typename FieldT::ArgumentType>(pNewElement);
+    typename FieldT::const_reference pVal = 
+        dynamic_cast<typename FieldT::const_reference>(pNewElement);
 
     if(pNewElement != NULL && pVal == NULL)
         return;

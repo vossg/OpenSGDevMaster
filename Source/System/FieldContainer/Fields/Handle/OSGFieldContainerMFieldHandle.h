@@ -56,8 +56,7 @@ class OSG_SYSTEM_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
 
     typedef EditFieldHandle Inherited;
 
-    typedef boost::function<void(
-        FieldContainerPtrMFieldBase::ArgumentType)> AddMethod;
+    typedef boost::function<void(const FieldContainerPtr)> AddMethod;
 
     AddMethod _fAddMethod;
 
@@ -207,7 +206,7 @@ class EditFCPtrMFieldHandle :
     typedef EditMFieldHandle<FieldContainerPtrMFieldBase> Inherited;
 
 
-    typedef boost::function<void (typename FieldT::ArgumentType)> AddMethod;
+    typedef boost::function<void (typename FieldT::const_reference)> AddMethod;
 
     AddMethod _fAddMethod;
 

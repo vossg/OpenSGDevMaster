@@ -338,8 +338,8 @@ const FieldType &EditFCPtrSFieldHandle<FieldT>::getType(void) const
 template<class FieldT> inline
 void EditFCPtrSFieldHandle<FieldT>::setValue(FieldContainerPtrConstArg rhs)
 {
-    typename FieldT::ArgumentType pVal = 
-        dynamic_cast<typename FieldT::ArgumentType>(rhs);
+    typename FieldT::const_reference pVal = 
+        dynamic_cast<typename FieldT::const_reference>(rhs);
 
     if(rhs != NULL && pVal == NULL)
         return;
