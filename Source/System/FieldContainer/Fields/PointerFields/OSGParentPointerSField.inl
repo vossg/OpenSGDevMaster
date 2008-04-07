@@ -57,21 +57,21 @@ inline
     ParentSFieldConstReferenceProxy<ObjectTypeT>::operator value_type(
         void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_pPtrValue));
+    return AccessHandler::validate(*_pPtrValue);
 }
 
 template <class ObjectTypeT>
 inline typename ParentSFieldConstReferenceProxy<ObjectTypeT>::value_type
     ParentSFieldConstReferenceProxy<ObjectTypeT>::operator->(void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_pPtrValue));
+    return AccessHandler::validate(*_pPtrValue);
 }
 
 template <class ObjectTypeT>
 inline typename ParentSFieldConstReferenceProxy<ObjectTypeT>::value_type
     ParentSFieldConstReferenceProxy<ObjectTypeT>::getPtr(void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_pPtrValue));
+    return AccessHandler::validate(*_pPtrValue);
 }
 
 template <class ObjectTypeT>

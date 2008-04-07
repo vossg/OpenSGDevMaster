@@ -53,24 +53,23 @@ template <class ObjectTypeT>
 inline
     ChildSFieldReferenceProxy<ObjectTypeT>::operator value_type(void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_pValue));
+    return AccessHandler::validate(*_pValue);
 }
             
 template <class ObjectTypeT>
 inline  typename ChildSFieldReferenceProxy<ObjectTypeT>::value_type
      ChildSFieldReferenceProxy<ObjectTypeT>::operator->(void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_pValue));
+    return AccessHandler::validate(*_pValue);
 }
     
 template <class ObjectTypeT>
 inline void
      ChildSFieldReferenceProxy<ObjectTypeT>::operator=(value_type newValue)
 {
-    AccessHandler::onReplace(
-        _pField, *_pValue, detail::void_cast<StoredType>(newValue));
+    AccessHandler::onReplace(_pField, *_pValue, newValue);
     
-    *_pValue = detail::void_cast<StoredType>(newValue);
+    *_pValue = newValue;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -155,7 +154,7 @@ inline void
     ChildPointerSField<ObjectTypeT,
                        NamespaceI  >::setValue(ValueType value)
 {
-    this->ptrStoreSet(detail::void_cast<StoredType>(value));
+    this->ptrStoreSet(value);
 }
 
 template <class ObjectTypeT, Int32 NamespaceI>
@@ -163,7 +162,7 @@ inline void
     ChildPointerSField<ObjectTypeT,
                        NamespaceI  >::setValue(Self const &source)
 {
-    this->ptrStoreSet(detail::void_cast<StoredType>(source.ptrStoreGet()));
+    this->ptrStoreSet(source.ptrStoreGet());
 }
 
 /*-------------------------------------------------------------------------*/

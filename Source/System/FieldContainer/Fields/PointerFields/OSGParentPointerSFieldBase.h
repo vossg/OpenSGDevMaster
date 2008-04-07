@@ -9,7 +9,7 @@
 #include "OSGConfig.h"
 
 #include "OSGPointerSFieldCommon.h"
-#include "OSGWeakAccessHandlerDecl.h"
+#include "OSGNoRefCountAccessHandlerDecl.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGParentPointerSFieldBase.h
@@ -22,7 +22,7 @@ OSG_BEGIN_NAMESPACE
 
 template <Int32 NamespaceI = 0>
 class ParentPointerSFieldBase 
-    : public PointerSFieldCommon<WeakAccessHandler, NamespaceI>
+    : public PointerSFieldCommon<NoRefCountAccessHandler, NamespaceI>
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -30,7 +30,7 @@ class ParentPointerSFieldBase
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
-    typedef PointerSFieldCommon<WeakAccessHandler,
+    typedef PointerSFieldCommon<NoRefCountAccessHandler,
                                 NamespaceI        > Inherited;
     typedef ParentPointerSFieldBase                 Self;
           

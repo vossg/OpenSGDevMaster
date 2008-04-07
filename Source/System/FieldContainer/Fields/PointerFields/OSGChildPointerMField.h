@@ -10,8 +10,8 @@
 #include "OSGConfig.h"
 #include "OSGChildPointerMFieldBase.h"
 #include "OSGPointerFieldConfigs.h"
-#include "OSGEditPointerMFieldHandle.h"
-#include "OSGGetPointerMFieldHandle.h"
+//#include "OSGEditPointerMFieldHandle.h"
+//#include "OSGGetPointerMFieldHandle.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGChildPointerMField.h
@@ -349,22 +349,23 @@ class ChildPointerMField : public ChildPointerMFieldBase<NamespaceI>
     typedef FieldTraits     <ValueType,
                              NamespaceI                    >  MFieldTraits;
     typedef FieldDescription<MFieldTraits,
-                             FieldType::MULTI_FIELD,
-                             FieldType::CHILD_POINTER_FIELD>  Description;
+                             MultiField,
+                             UnrecordedRefCountPolicy,
+                             ChildPtrField>  Description;
                                       
     // handles
-    typedef          EditPointerMFieldHandle<Self>      EditHandle;
-    typedef typename EditPointerMFieldHandle<Self>::Ptr EditHandlePtr;
+//    typedef          EditPointerMFieldHandle<Self>      EditHandle;
+//    typedef typename EditPointerMFieldHandle<Self>::Ptr EditHandlePtr;
     
-    typedef          GetPointerMFieldHandle <Self>      GetHandle;
-    typedef typename GetPointerMFieldHandle <Self>::Ptr GetHandlePtr;
+//    typedef          GetPointerMFieldHandle <Self>      GetHandle;
+//    typedef typename GetPointerMFieldHandle <Self>::Ptr GetHandlePtr;
     
     // handles for dynamic fields -- XXX TODO
-    typedef          EditPointerMFieldHandle<Self>      DynamicEditHandle;
-    typedef typename EditPointerMFieldHandle<Self>::Ptr DynamicEditHandlePtr;
+//    typedef          EditPointerMFieldHandle<Self>      DynamicEditHandle;
+//    typedef typename EditPointerMFieldHandle<Self>::Ptr DynamicEditHandlePtr;
     
-    typedef          GetPointerMFieldHandle <Self>      DynamicGetHandle;
-    typedef typename GetPointerMFieldHandle <Self>::Ptr DynamicGetHandlePtr;
+//    typedef          GetPointerMFieldHandle <Self>      DynamicGetHandle;
+//    typedef typename GetPointerMFieldHandle <Self>::Ptr DynamicGetHandlePtr;
                              
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -372,7 +373,7 @@ class ChildPointerMField : public ChildPointerMFieldBase<NamespaceI>
     /*! \{                                                                 */
         
     static FieldType::Cardinality const fieldCard  = FieldType  ::MULTI_FIELD;
-    static FieldType::Class       const fieldClass = FieldConfig::fieldClass;
+    static FieldClass             const fieldClass = FieldConfig::fieldClass;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

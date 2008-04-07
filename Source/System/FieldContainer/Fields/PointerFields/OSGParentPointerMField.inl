@@ -167,8 +167,7 @@ template <class ObjectTypeT>
 inline typename ParentMFieldConstIterator<ObjectTypeT>::value_type
     ParentMFieldConstIterator<ObjectTypeT>::getPtr(void) const
 {
-    return detail::void_cast<value_type>(
-        AccessHandler::validate(this->Inherited::operator*()));
+    return AccessHandler::validate(this->Inherited::operator*());
 }
 
 template <class ObjectTypeT>
@@ -233,14 +232,14 @@ template <class ObjectTypeT>
 inline
     ParentMFieldConstReferenceProxy<ObjectTypeT>::operator value_type(void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_storeIt));
+    return AccessHandler::validate(*_storeIt);
 }
           
 template <class ObjectTypeT>
 inline typename ParentMFieldConstReferenceProxy<ObjectTypeT>::value_type
     ParentMFieldConstReferenceProxy<ObjectTypeT>::operator->(void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_storeIt));
+    return AccessHandler::validate(*_storeIt);
 }
 
 
@@ -248,7 +247,7 @@ template <class ObjectTypeT>
 inline typename ParentMFieldConstReferenceProxy<ObjectTypeT>::value_type
     ParentMFieldConstReferenceProxy<ObjectTypeT>::getPtr(void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_storeIt));
+    return AccessHandler::validate(*_storeIt);
 }    
     
 template <class ObjectTypeT>

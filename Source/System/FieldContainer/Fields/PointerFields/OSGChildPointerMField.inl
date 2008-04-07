@@ -444,14 +444,14 @@ template <class ObjectTypeT>
 inline
     ChildMFieldReferenceProxy<ObjectTypeT>::operator value_type(void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_storeIter));
+    return AccessHandler::validate(*_storeIter);
 }
             
 template <class ObjectTypeT>
 inline  typename ChildMFieldReferenceProxy<ObjectTypeT>::value_type
      ChildMFieldReferenceProxy<ObjectTypeT>::operator->(void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_storeIter));
+    return AccessHandler::validate(*_storeIter);
 }
     
 template <class ObjectTypeT>
@@ -459,9 +459,9 @@ inline void
      ChildMFieldReferenceProxy<ObjectTypeT>::operator=(value_type newValue)
 {
     AccessHandler::onReplace(
-        _pField, *_storeIter, detail::void_cast<StoredType>(newValue));
+        _pField, *_storeIter, newValue);
     
-    *_storeIter = detail::void_cast<StoredType>(newValue);
+    *_storeIter = newValue;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -656,7 +656,7 @@ inline void
                        NamespaceI  >::insert(
         iterator pos, ValueType value)
 {
-    this->ptrStoreInsert(pos.base(), detail::void_cast<FieldContainerPtr>(value));
+    this->ptrStoreInsert(pos.base(), value);
 }
 
 template <class ObjectTypeT,   Int32 NamespaceI>
@@ -692,7 +692,7 @@ inline typename ChildPointerMField<ObjectTypeT,
     ChildPointerMField<ObjectTypeT,
                        NamespaceI  >::find(ValueType value)
 {
-    return iterator(this->ptrStoreFind(detail::void_cast<FieldContainerPtr>(value)),
+    return iterator(this->ptrStoreFind(value),
                     this                                                            );
 }
 
@@ -703,8 +703,8 @@ inline typename ChildPointerMField<ObjectTypeT,
                        NamespaceI  >::find(ValueType value) const
 {
     return const_iterator(
-        this->ptrStoreFind(detail::void_cast<FieldContainerPtr>(value)),
-        this                                                            );
+        this->ptrStoreFind(value),
+        this                     );
 }
 
 template <class ObjectTypeT, Int32 NamespaceI>
@@ -712,7 +712,7 @@ inline Int32
     ChildPointerMField<ObjectTypeT,
                        NamespaceI  >::findIndex(ValueType value) const
 {
-    return this->ptrStoreFindIndex(detail::void_cast<FieldContainerPtr>(value));
+    return this->ptrStoreFindIndex(value);
 }
 
 template <class ObjectTypeT, Int32 NamespaceI>
@@ -720,7 +720,7 @@ inline void
     ChildPointerMField<ObjectTypeT,
                        NamespaceI  >::push_back(ValueType value)
 {
-    this->ptrStoreAppend(detail::void_cast<FieldContainerPtr>(value));
+    this->ptrStoreAppend(value);
 }
    
 template <class ObjectTypeT, Int32 NamespaceI>
@@ -728,7 +728,7 @@ inline void
     ChildPointerMField<ObjectTypeT,
                        NamespaceI  >::resize(size_t newSize, ValueType value)
 {
-    this->ptrStoreResize(newSize, detail::void_cast<FieldContainerPtr>(value));
+    this->ptrStoreResize(newSize, value);
 }
 
 template <class ObjectTypeT, Int32 NamespaceI>
