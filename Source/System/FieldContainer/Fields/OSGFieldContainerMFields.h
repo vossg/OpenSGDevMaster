@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGMField.h"
+
 #include "OSGFieldContainerFieldTraits.h"
 
 #include "OSGFieldContainerPtrMField.h"
@@ -50,6 +51,8 @@
 #include "OSGFieldContainerPtrChildMField.h"
 
 #include "OSGFieldContainerMFieldHandle.h"  
+
+#include "OSGRefCountPolicies.h"
 
 OSG_BEGIN_NAMESPACE
 

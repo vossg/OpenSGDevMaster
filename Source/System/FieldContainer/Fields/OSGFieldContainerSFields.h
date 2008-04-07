@@ -44,11 +44,12 @@
 
 #include "OSGSField.h"
 
+#include "OSGFieldContainerFieldTraits.h"
+
 #include "OSGFieldContainerPtrSField.h"
 #include "OSGFieldContainerPtrParentSField.h"
 #include "OSGFieldContainerPtrChildSField.h"
 
-#include "OSGFieldContainerFieldTraits.h"
 #include "OSGFieldContainerSFieldHandle.h"
 
 #include "OSGRefCountPolicies.h"
