@@ -242,9 +242,11 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                         _receivedFC.insert(fcPtr->getId());
 
 
+#if 0
                         fprintf(stderr, "create :%d %s\n",
                                 fcPtr->getId(),
                                 fcType->getCName()); 
+#endif
 
                         
                         // local <-> remote mapping
@@ -443,7 +445,9 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
     {
         fcPtr = fcFactory->getContainer((*changedI)->uiContainerId);
 
-        if(fcPtr == NullFC)
+        if((fcPtr  == NullFC                                     ) || 
+           (0x0000 == (fcPtr->getFieldFlags()->_bNamespaceMask & 
+                       FCLocal::Cluster                         ))  )
         {
             continue;
         }
@@ -492,10 +496,13 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
     {
         fcPtr = fcFactory->getContainer((*changedI)->uiContainerId);
 
-        if(fcPtr == NullFC)
+        if((fcPtr  == NullFC                                     ) || 
+           (0x0000 == (fcPtr->getFieldFlags()->_bNamespaceMask & 
+                       FCLocal::Cluster                         ))  )
         {
             continue;
         }
+
         if((*changedI)->uiEntryDesc == ContainerChangeEntry::Change)
         {
         

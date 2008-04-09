@@ -143,7 +143,7 @@ static void connectCluster(void)
             FieldContainerFactory::the()->getNumContainers());
 
     Thread::getCurrentChangeList()->fillFromCurrentState(_first_fc);
-    Thread::getCurrentChangeList()->dump();
+    //Thread::getCurrentChangeList()->dump();
     // create from the current state a changelist.
 
     // initialize window
