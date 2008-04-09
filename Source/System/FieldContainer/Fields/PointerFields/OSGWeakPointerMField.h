@@ -10,8 +10,8 @@
 #include "OSGConfig.h"
 #include "OSGWeakPointerMFieldBase.h"
 #include "OSGPointerFieldConfigs.h"
-#include "OSGEditPointerMFieldHandle.h"
-#include "OSGGetPointerMFieldHandle.h"
+//#include "OSGEditPointerMFieldHandle.h"
+//#include "OSGGetPointerMFieldHandle.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGWeakPointerMField.h
@@ -35,6 +35,7 @@ class WeakMFieldIterator
 {
     /*==========================  PUBLIC  =================================*/
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
@@ -247,7 +248,8 @@ class WeakMFieldReferenceProxy
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
-    
+
+   
     typedef          ObjectTypeT                        ObjectType;
     
     typedef          WeakMFieldReferenceProxy           Self;
@@ -312,6 +314,8 @@ class WeakPointerMField : public WeakPointerMFieldBase<NamespaceI>
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
 
+  protected:
+
     typedef ObjectTypeT                               ObjectType;
     
     typedef WeakPointerMFieldBase<NamespaceI  >       Inherited;
@@ -341,22 +345,23 @@ class WeakPointerMField : public WeakPointerMFieldBase<NamespaceI>
     typedef FieldTraits     <ValueType,
                              NamespaceI                   >  MFieldTraits;
     typedef FieldDescription<MFieldTraits,
-                             FieldType::MULTI_FIELD,
-                             FieldType::WEAK_POINTER_FIELD>  Description;
+                             MultiField,
+                             WeakRefCountPolicy,
+                             PtrField>  Description;
     
     // handles
-    typedef          EditPointerMFieldHandle<Self>      EditHandle;
-    typedef typename EditPointerMFieldHandle<Self>::Ptr EditHandlePtr;
+//    typedef          EditPointerMFieldHandle<Self>      EditHandle;
+//    typedef typename EditPointerMFieldHandle<Self>::Ptr EditHandlePtr;
     
-    typedef          GetPointerMFieldHandle <Self>      GetHandle;
-    typedef typename GetPointerMFieldHandle <Self>::Ptr GetHandlePtr;
+//    typedef          GetPointerMFieldHandle <Self>      GetHandle;
+//    typedef typename GetPointerMFieldHandle <Self>::Ptr GetHandlePtr;
     
     // handles for dynamic fields -- XXX TODO
-    typedef          EditPointerMFieldHandle<Self>      DynamicEditHandle;
-    typedef typename EditPointerMFieldHandle<Self>::Ptr DynamicEditHandlePtr;
+//    typedef          EditPointerMFieldHandle<Self>      DynamicEditHandle;
+//    typedef typename EditPointerMFieldHandle<Self>::Ptr DynamicEditHandlePtr;
     
-    typedef          GetPointerMFieldHandle <Self>      DynamicGetHandle;
-    typedef typename GetPointerMFieldHandle <Self>::Ptr DynamicGetHandlePtr;
+//    typedef          GetPointerMFieldHandle <Self>      DynamicGetHandle;
+//    typedef typename GetPointerMFieldHandle <Self>::Ptr DynamicGetHandlePtr;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -364,7 +369,7 @@ class WeakPointerMField : public WeakPointerMFieldBase<NamespaceI>
     /*! \{                                                                 */
         
     static FieldType::Cardinality const fieldCard  = FieldType  ::MULTI_FIELD;
-    static FieldType::Class       const fieldClass = FieldConfig::fieldClass;
+    static FieldClass             const fieldClass = FieldConfig::fieldClass;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -492,8 +497,6 @@ class WeakPointerMField : public WeakPointerMFieldBase<NamespaceI>
 };
 
 OSG_END_NAMESPACE
-
-#include "OSGWeakAccessHandler.h"
 
 #include "OSGWeakPointerMField.inl"
 

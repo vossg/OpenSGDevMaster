@@ -10,8 +10,8 @@
 #include "OSGConfig.h"
 #include "OSGUnrecordedPointerMFieldBase.h"
 #include "OSGPointerFieldConfigs.h"
-#include "OSGEditPointerMFieldHandle.h"
-#include "OSGGetPointerMFieldHandle.h"
+//#include "OSGEditPointerMFieldHandle.h"
+//#include "OSGGetPointerMFieldHandle.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGUnrecordedPointerMField.h
@@ -313,6 +313,8 @@ class UnrecordedPointerMField :
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
 
+  protected:
+
     typedef ObjectTypeT                                  ObjectType;
     
     typedef PointerMFieldCommon<UnrecordedAccessHandler, 
@@ -343,22 +345,23 @@ class UnrecordedPointerMField :
     typedef FieldTraits     <ValueType,
                              NamespaceI                         >  MFieldTraits;
     typedef FieldDescription<MFieldTraits,
-                             FieldType::MULTI_FIELD,
-                             FieldType::UNRECORDED_POINTER_FIELD>  Description;
+                             MultiField,
+                             UnrecordedRefCountPolicy,
+                             PtrField                >  Description;
     
     // handles
-    typedef          EditPointerMFieldHandle<Self>      EditHandle;
-    typedef typename EditPointerMFieldHandle<Self>::Ptr EditHandlePtr;
+//    typedef          EditPointerMFieldHandle<Self>      EditHandle;
+//    typedef typename EditPointerMFieldHandle<Self>::Ptr EditHandlePtr;
     
-    typedef          GetPointerMFieldHandle <Self>      GetHandle;
-    typedef typename GetPointerMFieldHandle <Self>::Ptr GetHandlePtr;
+//    typedef          GetPointerMFieldHandle <Self>      GetHandle;
+//    typedef typename GetPointerMFieldHandle <Self>::Ptr GetHandlePtr;
     
     // handles for dynamic fields -- XXX TODO
-    typedef          EditPointerMFieldHandle<Self>      DynamicEditHandle;
-    typedef typename EditPointerMFieldHandle<Self>::Ptr DynamicEditHandlePtr;
+//    typedef          EditPointerMFieldHandle<Self>      DynamicEditHandle;
+//    typedef typename EditPointerMFieldHandle<Self>::Ptr DynamicEditHandlePtr;
     
-    typedef          GetPointerMFieldHandle <Self>      DynamicGetHandle;
-    typedef typename GetPointerMFieldHandle <Self>::Ptr DynamicGetHandlePtr;
+//    typedef          GetPointerMFieldHandle <Self>      DynamicGetHandle;
+//    typedef typename GetPointerMFieldHandle <Self>::Ptr DynamicGetHandlePtr;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -366,7 +369,7 @@ class UnrecordedPointerMField :
     /*! \{                                                                 */
         
     static FieldType::Cardinality const fieldCard  = FieldType  ::MULTI_FIELD;
-    static FieldType::Class       const fieldClass = FieldConfig::fieldClass;
+    static FieldClass             const fieldClass = FieldConfig::fieldClass;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -495,8 +498,6 @@ class UnrecordedPointerMField :
 };
 
 OSG_END_NAMESPACE
-
-#include "OSGUnrecordedAccessHandler.h"
 
 #include "OSGUnrecordedPointerMField.inl"
 

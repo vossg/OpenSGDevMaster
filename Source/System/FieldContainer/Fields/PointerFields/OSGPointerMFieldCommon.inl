@@ -36,13 +36,24 @@ inline
     PointerMFieldCommon<AccessHandlerT,
                         NamespaceI     >::PointerMFieldCommon(
         Self const &source)
-    : Inherited(source)
+    : Inherited()
 {
-    PtrStoreItType sI = this->editRawStore().begin();
-    PtrStoreItType sE = this->editRawStore().end  ();
-    
-    for(; sI != sE; ++sI)
-        AccessHandler::onAdd(this, *sI);
+    if(source.getRawStore().size() > 0)
+    {
+        this->editRawStore().resize(source.getRawStore().size(), NullFC);
+
+        PtrStoreItType sI = this->editRawStore().begin();
+        PtrStoreItType sE = this->editRawStore().end  ();
+
+        PtrStoreConstItType sSE = source.getRawStore().begin();
+
+        for(; sI != sE; ++sI, ++sSE)
+        {
+            AccessHandler::onAdd(this, *sI);
+
+            *sI = *sSE;
+        }
+    }
 }
 
 template <class AccessHandlerT, Int32 NamespaceI>

@@ -9,7 +9,7 @@
 #include "OSGConfig.h"
 
 #include "OSGPointerSFieldCommon.h"
-#include "OSGUnrecordedAccessHandlerDecl.h"
+#include "OSGPointerAccessHandler.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGUnrecordedPointerSFieldBase.h
@@ -30,6 +30,8 @@ class UnrecordedPointerSFieldBase
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
        
+  protected:
+
     typedef PointerSFieldCommon<UnrecordedAccessHandler,
                                 NamespaceI              > Inherited;
     typedef UnrecordedPointerSFieldBase                   Self;

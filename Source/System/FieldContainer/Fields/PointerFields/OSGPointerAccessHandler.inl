@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2008 by the OpenSG Forum                          *
+ *                 Copyright (C) 2008 by the OpenSG Forum                    *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -37,89 +37,120 @@
 \*---------------------------------------------------------------------------*/
 
 #ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGPointerSFieldBase.inl
+/*! \file PointerAccessHandlerDecl.inl
     \ingroup GrpSystemFieldContainer
  */
 #endif
 
 OSG_BEGIN_NAMESPACE
 
-/*! \class PointerSFieldBase
- */
- 
 /*-------------------------------------------------------------------------*/
-/* Constructors                                                            */
+/* Access Handling                                                         */
 
-inline
-PointerSFieldBase::PointerSFieldBase(void) : 
-     Inherited (      ),
-    _fieldValue(NullFC)
+template<typename RefCountPolicyT> inline 
+void PointerAccessHandler<RefCountPolicyT>::onAdd(SFieldBaseType * const, 
+                                 FieldContainerPtrConst pObj)
 {
+    RefCountPolicyType::addRef(pObj);
 }
 
-inline 
-PointerSFieldBase::PointerSFieldBase(Self const &source) :
-     Inherited (source            ),
-    _fieldValue(source._fieldValue)
+template<typename RefCountPolicyT> inline 
+void PointerAccessHandler<RefCountPolicyT>::onAdd(
+        MFieldBaseType * const, FieldContainerPtrConst pObj)
 {
+    RefCountPolicyType::addRef(pObj);
 }
 
-inline
-PointerSFieldBase::PointerSFieldBase(const_value value) :
-     Inherited (     ),
-    _fieldValue(value)
+template<typename RefCountPolicyT> inline 
+void PointerAccessHandler<RefCountPolicyT>::onSub(
+        SFieldBaseType * const, FieldContainerPtrConst pObj)
 {
+    RefCountPolicyType::subRef(pObj);
+}
+
+template<typename RefCountPolicyT> inline 
+void PointerAccessHandler<RefCountPolicyT>::onSub(
+        MFieldBaseType * const, FieldContainerPtrConst pObj)
+{
+    RefCountPolicyType::subRef(pObj);
+}
+
+template<typename RefCountPolicyT> inline 
+void PointerAccessHandler<RefCountPolicyT>::onReplace(
+        SFieldBaseType         * const pSField,
+        FieldContainerPtrConst         pOldObj,
+        FieldContainerPtrConst         pNewObj)
+{
+    onAdd(pSField, pNewObj);
+    onSub(pSField, pOldObj);
+}
+
+template<typename RefCountPolicyT> inline 
+void
+    PointerAccessHandler<RefCountPolicyT>::onReplace(
+        MFieldBaseType         * const pMField,
+        FieldContainerPtrConst         pOldObj,
+        FieldContainerPtrConst         pNewObj)
+{
+    onAdd(pMField, pNewObj);
+    onSub(pMField, pOldObj);
 }
 
 /*-------------------------------------------------------------------------*/
-/* Destructor                                                              */
+/* Sync Access Handling                                                    */
 
-inline
-PointerSFieldBase::~PointerSFieldBase(void)
+template<typename RefCountPolicyT> inline 
+void
+    PointerAccessHandler<RefCountPolicyT>::onSyncAdd(
+        SFieldBaseType * const pSField, FieldContainerPtrConst pObj)
 {
+    onAdd(pSField, pObj);
 }
 
-/*-------------------------------------------------------------------------*/
-/* Raw Store Access                                                        */
-
-
-inline 
-PointerSFieldBase::const_value PointerSFieldBase::getValue(void) const
+template<typename RefCountPolicyT> inline 
+void
+    PointerAccessHandler<RefCountPolicyT>::onSyncAdd(
+        MFieldBaseType * const pMField, FieldContainerPtrConst pObj)
 {
-    return _fieldValue;
+    onAdd(pMField, pObj);
 }
 
-inline
-UInt32 PointerSFieldBase::getBinSize(void) const
+template<typename RefCountPolicyT> inline 
+void
+    PointerAccessHandler<RefCountPolicyT>::onSyncSub(
+        SFieldBaseType * const pSField, FieldContainerPtrConst pObj)
 {
-    return SFieldTraits::getBinSize(_fieldValue);
+    onSub(pSField, pObj);
 }
 
-
-inline
-void PointerSFieldBase::copyToBin(BinaryDataHandler &pMem) const
+template<typename RefCountPolicyT> inline 
+void
+    PointerAccessHandler<RefCountPolicyT>::onSyncSub(
+        MFieldBaseType * const pMField, FieldContainerPtrConst pObj)
 {
-    SFieldTraits::copyToBin( pMem, 
-                            _fieldValue);
+    onSub(pMField, pObj);
 }
 
-inline
-bool PointerSFieldBase::operator ==(const Self &source) const
+template<typename RefCountPolicyT> inline 
+void
+    PointerAccessHandler<RefCountPolicyT>::onSyncReplace(
+        SFieldBaseType         * const pSField,
+        FieldContainerPtrConst         pOldObj,
+        FieldContainerPtrConst         pNewObj)
 {
-    return _fieldValue == source._fieldValue;
+    onSyncAdd(pSField, pNewObj);
+    onSyncSub(pSField, pOldObj);
 }
 
-
-inline
-PointerSFieldBase::StoredType &PointerSFieldBase::editRawStore(void)
+template<typename RefCountPolicyT> inline 
+void
+    PointerAccessHandler<RefCountPolicyT>::onSyncReplace(
+        MFieldBaseType         * const pMField,
+        FieldContainerPtrConst         pOldObj,
+        FieldContainerPtrConst         pNewObj)
 {
-    return _fieldValue;
-}
-
-inline
-PointerSFieldBase::StoredType const &PointerSFieldBase::getRawStore (void) const
-{
-    return _fieldValue;
+    onSyncAdd(pMField, pNewObj);
+    onSyncSub(pMField, pOldObj);
 }
 
 OSG_END_NAMESPACE

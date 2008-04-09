@@ -36,18 +36,17 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGUNRECORDEDACCESSHANDLERDECL_H_
-#define _OSGUNRECORDEDACCESSHANDLERDECL_H_
+#ifndef _OSGPOINTERACCESSHANDLERDECL_H_
+#define _OSGPOINTERACCESSHANDLERDECL_H_
 
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGConfig.h"
-#include "OSGRefCountPolicies.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGUnrecordedAccessHandlerDecl.h
+/*! \file OSGWeakAccessHandlerDecl.h
     \ingroup GrpSystemFieldContainer
  */
 #endif
@@ -58,8 +57,8 @@ OSG_BEGIN_NAMESPACE
 class PointerMFieldBase;
 class PointerSFieldBase;
 
-
-class UnrecordedAccessHandler 
+template<typename RefCountPolicyT>
+class PointerAccessHandler
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -67,13 +66,12 @@ class UnrecordedAccessHandler
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
-    typedef UnrecordedAccessHandler        Self;
-    typedef UnrecordedRefCountPolicy       Inherited;
+    typedef PointerAccessHandler  Self;
+      
+    typedef RefCountPolicyT       RefCountPolicyType;
     
-    typedef UnrecordedRefCountPolicy       RefCountPolicyType;
-    
-    typedef PointerMFieldBase              MFieldBaseType;
-    typedef PointerSFieldBase              SFieldBaseType;
+    typedef PointerMFieldBase     MFieldBaseType;
+    typedef PointerSFieldBase     SFieldBaseType;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -129,6 +127,12 @@ class UnrecordedAccessHandler
     }
 };
 
+typedef PointerAccessHandler<NoRefCountPolicy        > NoRefCountAccessHandler;
+typedef PointerAccessHandler<WeakRefCountPolicy      > WeakAccessHandler;
+typedef PointerAccessHandler<UnrecordedRefCountPolicy> UnrecordedAccessHandler;
+
 OSG_END_NAMESPACE
 
-#endif // _OSGUNRECORDEDACCESSHANDLERDECL_H_
+#include "OSGPointerAccessHandler.inl"
+
+#endif // _OSGWEAKACCESSHANDLERDECL_H_

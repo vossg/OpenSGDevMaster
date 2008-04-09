@@ -157,6 +157,9 @@ class OSG_SYSTEM_DLLMAPPING PointerSFieldBase : public Field
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
+    StoredType       &editRawStore(void);
+    StoredType const &getRawStore (void) const;
+
   private:
 };
 

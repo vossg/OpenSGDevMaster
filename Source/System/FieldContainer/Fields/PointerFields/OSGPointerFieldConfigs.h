@@ -72,10 +72,10 @@ struct PointerFieldConfigBase
 /*---------------------------------------------------------------------------*/
 
 // forward declarations
-template <class ObjectTypeT>
+template <class ObjectTypeT, Int32 iNamespace>
 class ChildMFieldIterator;
 
-template <class ObjectTypeT>
+template <class ObjectTypeT, Int32 iNamespace>
 class ChildMFieldConstIterator;
 
 template <class ObjectTypeT>
@@ -110,8 +110,8 @@ struct ChildFieldConfig
     typedef ObjectPtrConst &                        MFieldConstRefType;
     typedef ObjectPtrConst &                        SFieldConstRefType;
     
-    typedef ChildMFieldIterator     <ObjectType >   ItType;
-    typedef ChildMFieldConstIterator<ObjectType >   ConstItType;
+    typedef ChildMFieldIterator     <ObjectType, NamespaceI >   ItType;
+    typedef ChildMFieldConstIterator<ObjectType, NamespaceI >   ConstItType;
     typedef std::reverse_iterator   <ItType     >   ReverseItType;
     typedef std::reverse_iterator   <ConstItType>   ConstReverseItType;
         

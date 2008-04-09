@@ -9,7 +9,7 @@
 #include "OSGConfig.h"
 
 #include "OSGPointerMFieldCommon.h"
-#include "OSGWeakAccessHandlerDecl.h"
+#include "OSGPointerAccessHandler.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGWeakPointerMFieldBase.h
@@ -30,6 +30,8 @@ class WeakPointerMFieldBase
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
        
+  protected:
+
     typedef PointerMFieldCommon<WeakAccessHandler,
                                 NamespaceI        >  Inherited;
     typedef WeakPointerMFieldBase                    Self;

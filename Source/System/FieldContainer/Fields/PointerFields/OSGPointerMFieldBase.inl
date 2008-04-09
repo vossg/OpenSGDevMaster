@@ -55,6 +55,7 @@ OSG_BEGIN_NAMESPACE
     has to be used.
  */
 
+
 inline
 UInt32 PointerMFieldBase::getBinSize(void) const
 {

@@ -29,19 +29,25 @@ template <class AccessHandlerT,
 class PointerSFieldCommon : public PointerSFieldBase
 {
     /*==========================  PUBLIC  =================================*/
+
+    typedef          PointerSFieldBase                   Inherited;
+
   public:
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
-    typedef          AccessHandlerT                      AccessHandler;
 
-    typedef          PointerSFieldBase                   Inherited;
+    typedef          AccessHandlerT                      AccessHandler;
+    typedef typename Inherited::StoredType               StoredType;
+
+  protected:
     typedef          PointerSFieldCommon                 Self;
 
-    typedef          PointerFieldTraitsBase<NamespaceI>  PtrBaseTraitsType;
-    
-    typedef typename Inherited::StoredType               StoredType;
+//    typedef          PointerFieldTraitsBase<NamespaceI>  PtrBaseTraitsType;
+  
+    typedef FieldTraitsFCPtrBase<FieldContainerPtr, NamespaceI> PtrBaseTraitsType;
+  
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

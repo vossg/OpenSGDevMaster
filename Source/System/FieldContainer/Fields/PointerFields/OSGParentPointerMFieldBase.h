@@ -9,7 +9,7 @@
 #include "OSGConfig.h"
 
 #include "OSGPointerMFieldCommon.h"
-#include "OSGNoRefCountAccessHandlerDecl.h"
+#include "OSGPointerAccessHandler.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGParentPointerMFieldBase.h
@@ -39,8 +39,7 @@ class ParentPointerMFieldBase
     typedef typename IdStoreType::iterator                   IdStoreItType;
     typedef typename IdStoreType::const_iterator             IdStoreConstItType;
     
-    typedef          FieldTraits<IdStoredType,
-                                 NamespaceI   >              IdBaseTraitsType;
+    typedef          FieldTraits<IdStoredType >              IdBaseTraitsType;
     
     typedef typename Inherited::size_type                    size_type;
     typedef typename Inherited::difference_type              difference_type;

@@ -55,12 +55,14 @@ inline
 /*-------------------------------------------------------------------------*/
 /* Operators                                                               */
 
+#if 0
 template <class ObjectTypeT>
 inline typename ParentMFieldConstIterator<ObjectTypeT>::reference
     ParentMFieldConstIterator<ObjectTypeT>::operator*(void) const
 {
     return reference(*this, _idStoreIt);
 }
+#endif
 
 template <class ObjectTypeT>
 inline typename ParentMFieldConstIterator<ObjectTypeT>::pointer

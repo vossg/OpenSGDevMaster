@@ -34,18 +34,24 @@ class PointerMFieldCommon : public PointerMFieldBase
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
 
+
     typedef          AccessHandlerT                      AccessHandler;
+
+  protected:
 
     typedef          PointerMFieldBase                   Inherited;
     typedef          PointerMFieldCommon                 Self;
 
-    typedef          PointerFieldTraitsBase<NamespaceI>  PtrBaseTraitsType;
+    typedef          FieldTraitsFCPtrBase<FieldContainerPtr, NamespaceI>  PtrBaseTraitsType;
 
-    typedef typename Inherited::StoredType               StoredType;
-    typedef typename Inherited::StorageType              PtrStoreType;
+  public:
+
     typedef typename Inherited::StorageIt                PtrStoreItType;
     typedef typename Inherited::StorageConstIt           PtrStoreConstItType;
+    typedef typename Inherited::StoredType               StoredType;
+    typedef typename Inherited::StorageType              PtrStoreType;
 
+  protected:
     typedef typename Inherited::size_type                size_type;
     typedef typename Inherited::difference_type          difference_type;
     

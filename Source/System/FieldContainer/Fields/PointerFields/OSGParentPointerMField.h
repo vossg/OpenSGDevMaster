@@ -87,7 +87,7 @@ class ParentMFieldConstIterator
     /*! \name Operators                                                    */
     /*! \{                                                                 */
     
-    reference operator* (void) const;
+//    value_type operator* (void) const;
     pointer   operator->(void) const;
     
     Self &operator++(void);
@@ -321,8 +321,6 @@ class ParentPointerMField : public ParentPointerMFieldBase<NamespaceI>
 };
 
 OSG_END_NAMESPACE
-
-#include "OSGWeakAccessHandler.h"
 
 #include "OSGParentPointerMField.inl"
 

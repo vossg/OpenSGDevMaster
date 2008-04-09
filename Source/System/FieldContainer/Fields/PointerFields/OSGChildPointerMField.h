@@ -25,7 +25,7 @@ OSG_BEGIN_NAMESPACE
 template <class ObjectTypeT, Int32 NamespaceI>
 class ChildPointerMField;
 
-template <class ObjectTypeT>
+template <class ObjectTypeT, Int32 NamespaceI>
 class ChildMFieldConstIterator;
 
 
@@ -33,9 +33,9 @@ class ChildMFieldConstIterator;
 /* ChildMFieldIterator<ObjectTypeT>                                          */
 /*---------------------------------------------------------------------------*/
 
-template <class ObjectTypeT>
+template <class ObjectTypeT, Int32 iNamespace>
 class ChildMFieldIterator 
-    : public ChildPointerMField<ObjectTypeT, 0>::PtrStoreItType
+    : public ChildPointerMField<ObjectTypeT, iNamespace>::PtrStoreItType
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -46,11 +46,11 @@ class ChildMFieldIterator
     typedef          ObjectTypeT                           ObjectType;
     
     typedef          ChildMFieldIterator                   Self;
-    typedef typename ChildPointerMField<ObjectTypeT, 0>::PtrStoreItType
+    typedef typename ChildPointerMField<ObjectTypeT, iNamespace>::PtrStoreItType
                                                            Inherited;
            
-    typedef          ChildPointerMField<ObjectTypeT, 0>    MFieldType;
-    typedef          ChildFieldConfig  <ObjectTypeT, 0>    FieldConfig;
+    typedef          ChildPointerMField<ObjectTypeT, iNamespace>    MFieldType;
+    typedef          ChildFieldConfig  <ObjectTypeT, iNamespace>    FieldConfig;
     typedef typename MFieldType::AccessHandler             AccessHandler;
     
     // store types
@@ -119,24 +119,24 @@ class ChildMFieldIterator
     MFieldType  *_pField;
 };
 
-template <class ObjectTypeT>
-typename ChildMFieldIterator<ObjectTypeT>::difference_type
-    operator-(ChildMFieldIterator<ObjectTypeT> const &lhs,
-              ChildMFieldIterator<ObjectTypeT> const &rhs );
+template <class ObjectTypeT, Int32 iNamespace>
+typename ChildMFieldIterator<ObjectTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldIterator<ObjectTypeT, iNamespace> const &lhs,
+              ChildMFieldIterator<ObjectTypeT, iNamespace> const &rhs );
 
-template <class ObjectTypeT>
-ChildMFieldIterator<ObjectTypeT>
+template <class ObjectTypeT, Int32 iNamespace>
+ChildMFieldIterator<ObjectTypeT, iNamespace>
     operator+(
-        typename ChildMFieldIterator<ObjectTypeT>::differece_type const offset,
-        ChildMFieldIterator<ObjectTypeT>                          const &rhs   );
+        typename ChildMFieldIterator<ObjectTypeT, iNamespace>::differece_type const offset,
+        ChildMFieldIterator<ObjectTypeT, iNamespace>                          const &rhs   );
 
 /*---------------------------------------------------------------------------*/
 /* ChildMFieldConstIterator<ObjectTypeT>                                     */
 /*---------------------------------------------------------------------------*/
 
-template <class ObjectTypeT>
+template <class ObjectTypeT, Int32 iNamespace>
 class ChildMFieldConstIterator
-    : public ChildPointerMField<ObjectTypeT, 0>::PtrStoreConstItType
+    : public ChildPointerMField<ObjectTypeT, iNamespace>::PtrStoreConstItType
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -147,11 +147,11 @@ class ChildMFieldConstIterator
     typedef          ObjectTypeT                           ObjectType;
     
     typedef          ChildMFieldConstIterator              Self;
-    typedef typename ChildPointerMField<ObjectTypeT, 0>::PtrStoreConstItType
+    typedef typename ChildPointerMField<ObjectTypeT, iNamespace>::PtrStoreConstItType
                                                            Inherited;
            
-    typedef          ChildPointerMField<ObjectTypeT, 0>    MFieldType;
-    typedef          ChildFieldConfig  <ObjectTypeT, 0>    FieldConfig;
+    typedef          ChildPointerMField<ObjectTypeT, iNamespace>    MFieldType;
+    typedef          ChildFieldConfig  <ObjectTypeT, iNamespace>    FieldConfig;
     typedef typename MFieldType::AccessHandler             AccessHandler;
     
     // store types
@@ -174,7 +174,7 @@ class ChildMFieldConstIterator
     
     ChildMFieldConstIterator(void                                             );
     ChildMFieldConstIterator(Self                             const &source   );
-    ChildMFieldConstIterator(ChildMFieldIterator<ObjectTypeT> const &fieldIter);
+    ChildMFieldConstIterator(ChildMFieldIterator<ObjectTypeT, iNamespace> const &fieldIter);
     ChildMFieldConstIterator(PtrStoreConstItType              const &storeIter);
     
     /*! \}                                                                 */
@@ -218,26 +218,26 @@ class ChildMFieldConstIterator
   private:
 };
 
-template <class ObjectTypeT>
-typename ChildMFieldConstIterator<ObjectTypeT>::difference_type
-    operator-(ChildMFieldConstIterator<ObjectTypeT> const &lhs,
-              ChildMFieldConstIterator<ObjectTypeT> const &rhs );
+template <class ObjectTypeT, Int32 iNamespace>
+typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &lhs,
+              ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &rhs );
               
-template <class ObjectTypeT>
-typename ChildMFieldConstIterator<ObjectTypeT>::difference_type
-    operator-(ChildMFieldIterator     <ObjectTypeT> const &lhs,
-              ChildMFieldConstIterator<ObjectTypeT> const &rhs );
+template <class ObjectTypeT, Int32 iNamespace>
+typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldIterator     <ObjectTypeT, iNamespace> const &lhs,
+              ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &rhs );
 
-template <class ObjectTypeT>
-typename ChildMFieldConstIterator<ObjectTypeT>::difference_type
-    operator-(ChildMFieldConstIterator<ObjectTypeT> const &lhs,
-              ChildMFieldIterator     <ObjectTypeT> const &rhs );
+template <class ObjectTypeT, Int32 iNamespace>
+typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &lhs,
+              ChildMFieldIterator     <ObjectTypeT, iNamespace> const &rhs );
               
-template <class ObjectTypeT>
-ChildMFieldConstIterator<ObjectTypeT>
+template <class ObjectTypeT, Int32 iNamespace>
+ChildMFieldConstIterator<ObjectTypeT, iNamespace>
     operator+(
-        typename ChildMFieldConstIterator<ObjectTypeT>::difference_type const  offset,
-        ChildMFieldConstIterator<ObjectTypeT>                           const &rhs    );
+        typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type const  offset,
+        ChildMFieldConstIterator<ObjectTypeT, iNamespace>                           const &rhs    );
 
 /*-------------------------------------------------------------------------*/
 /* ChildMFieldReferenceProxy<ObjectTypeT>                                  */

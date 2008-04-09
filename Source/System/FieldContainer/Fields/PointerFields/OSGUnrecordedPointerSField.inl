@@ -52,14 +52,16 @@ template <class ObjectTypeT>
 inline
     UnrecordedSFieldReferenceProxy<ObjectTypeT>::operator value_type(void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_pValue));
+//    return detail::void_cast<value_type>(AccessHandler::validate(*_pValue));
+    return AccessHandler::validate(*_pValue);
 }
             
 template <class ObjectTypeT>
 inline  typename UnrecordedSFieldReferenceProxy<ObjectTypeT>::value_type
      UnrecordedSFieldReferenceProxy<ObjectTypeT>::operator->(void) const
 {
-    return detail::void_cast<value_type>(AccessHandler::validate(*_pValue));
+//    return detail::void_cast<value_type>(AccessHandler::validate(*_pValue));
+    return AccessHandler::validate(*_pValue);
 }
     
 template <class ObjectTypeT>
@@ -69,9 +71,9 @@ inline void
     AccessHandler::onReplace(
         static_cast<SFieldType *>(0),
         *_pValue,
-        detail::void_cast<StoredType>(newValue));
+        newValue);
     
-    *_pValue = detail::void_cast<StoredType>(newValue);
+    *_pValue = newValue;
 }
 
 /*-------------------------------------------------------------------------*/

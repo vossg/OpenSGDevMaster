@@ -9,7 +9,7 @@
 #include "OSGConfig.h"
 
 #include "OSGPointerSFieldCommon.h"
-#include "OSGNoRefCountAccessHandlerDecl.h"
+#include "OSGPointerAccessHandler.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGParentPointerSFieldBase.h
@@ -38,8 +38,7 @@ class ParentPointerSFieldBase
     typedef UInt16                                 &IdStoredTypeRef;
     typedef UInt16 const                           &IdStoredTypeConstRef;
     
-    typedef FieldTraits<IdStoredType,
-                        NamespaceI   >              IdBaseTraitsType;
+    typedef FieldTraits<IdStoredType >              IdBaseTraitsType;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

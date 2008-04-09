@@ -196,8 +196,6 @@ class ParentPointerSField : public ParentPointerSFieldBase<NamespaceI>
 
 OSG_END_NAMESPACE
 
-#include "OSGWeakAccessHandler.h"
-
 #include "OSGParentPointerSField.inl"
 
 #endif // _OSGPARENTPOINTERSFIELD_H_

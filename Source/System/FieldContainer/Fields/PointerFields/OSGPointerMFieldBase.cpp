@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2008 by the OpenSG Forum                          *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,90 +36,20 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGPointerSFieldBase.inl
-    \ingroup GrpSystemFieldContainer
- */
-#endif
+#include <OSGPointerMFieldBase.h>
 
 OSG_BEGIN_NAMESPACE
 
-/*! \class PointerSFieldBase
- */
- 
-/*-------------------------------------------------------------------------*/
-/* Constructors                                                            */
+FieldType PointerMFieldBase::_fieldType(
+    "FieldContainerPtrMFieldBase",
+    "Field",                    
+    MFieldTraits::getType (),   
+    FieldType::MULTI_FIELD);
 
-inline
-PointerSFieldBase::PointerSFieldBase(void) : 
-     Inherited (      ),
-    _fieldValue(NullFC)
+
+const FieldType &PointerMFieldBase::getClassType(void)
 {
-}
-
-inline 
-PointerSFieldBase::PointerSFieldBase(Self const &source) :
-     Inherited (source            ),
-    _fieldValue(source._fieldValue)
-{
-}
-
-inline
-PointerSFieldBase::PointerSFieldBase(const_value value) :
-     Inherited (     ),
-    _fieldValue(value)
-{
-}
-
-/*-------------------------------------------------------------------------*/
-/* Destructor                                                              */
-
-inline
-PointerSFieldBase::~PointerSFieldBase(void)
-{
-}
-
-/*-------------------------------------------------------------------------*/
-/* Raw Store Access                                                        */
-
-
-inline 
-PointerSFieldBase::const_value PointerSFieldBase::getValue(void) const
-{
-    return _fieldValue;
-}
-
-inline
-UInt32 PointerSFieldBase::getBinSize(void) const
-{
-    return SFieldTraits::getBinSize(_fieldValue);
-}
-
-
-inline
-void PointerSFieldBase::copyToBin(BinaryDataHandler &pMem) const
-{
-    SFieldTraits::copyToBin( pMem, 
-                            _fieldValue);
-}
-
-inline
-bool PointerSFieldBase::operator ==(const Self &source) const
-{
-    return _fieldValue == source._fieldValue;
-}
-
-
-inline
-PointerSFieldBase::StoredType &PointerSFieldBase::editRawStore(void)
-{
-    return _fieldValue;
-}
-
-inline
-PointerSFieldBase::StoredType const &PointerSFieldBase::getRawStore (void) const
-{
-    return _fieldValue;
+    return _fieldType;
 }
 
 OSG_END_NAMESPACE
