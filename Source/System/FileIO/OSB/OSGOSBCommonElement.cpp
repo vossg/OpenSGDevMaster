@@ -322,8 +322,7 @@ OSBCommonElement::readFieldContent(
         return false;
     }
 
-    if(fieldType.getContentType().isDerivedFrom(
-        FieldTraits<FieldContainerAttachmentMap>::getType()) == true)
+    if(fieldDesc->getName() == "attachments")
     {
         ptrFieldIt = readAttachmentMapField(fieldId, fieldSize);
         isPtrField = true;
@@ -331,15 +330,23 @@ OSBCommonElement::readFieldContent(
     else if(fieldType.getContentType().isDerivedFrom(
         FieldTraits<FieldContainerPtr>::getType()) == true)
     {
-        if(fieldType.getCardinality() == FieldType::SINGLE_FIELD)
+        if(fieldType.getClass() == FieldType::ParentPtrField)
         {
-            ptrFieldIt = readPtrSingleField(fieldId);
-            isPtrField = true;
+            rh->skip(fieldSize);
+            isPtrField = false;
         }
-        else if(fieldType.getCardinality() == FieldType::MULTI_FIELD)
+        else
         {
-            ptrFieldIt = readPtrMultiField(fieldId, fieldSize);
-            isPtrField = true;
+            if(fieldType.getCardinality() == FieldType::SINGLE_FIELD)
+            {
+                ptrFieldIt = readPtrSingleField(fieldId);
+                isPtrField = true;
+            }
+            else if(fieldType.getCardinality() == FieldType::MULTI_FIELD)
+            {
+                ptrFieldIt = readPtrMultiField(fieldId, fieldSize);
+                isPtrField = true;
+            }
         }
     }
     else
@@ -494,10 +501,10 @@ OSBCommonElement::readPtrSingleField(const UInt32 fieldId)
             "fieldId: [%u]\n", fieldId));
 
     OSBRootElement *root  = editRoot();
-    UInt32           ptrId;
+    UInt32          ptrId;
 
     root->getReadHandler()->getValue(ptrId);
-
+    
     root->editPtrFieldList().push_back(PtrFieldInfo(getContainer(), fieldId));
     root->editPtrFieldList().back().editIdStore().push_back(ptrId);
 
@@ -521,7 +528,7 @@ OSBCommonElement::readPtrMultiField(
 
     UInt32             ptrId;
     UInt32             numElements;
-    OSBRootElement   *root        = editRoot();
+    OSBRootElement    *root        = editRoot();
     BinaryReadHandler *rh          = editRoot()->getReadHandler();
 
     root->editPtrFieldList().push_back(PtrFieldInfo(getContainer(), fieldId));
@@ -558,7 +565,7 @@ OSBCommonElement::readAttachmentMapField(
     UInt32             ptrId;
     UInt16             binding;
     UInt32             numElements;
-    OSBRootElement   *root           = editRoot();
+    OSBRootElement    *root           = editRoot();
     BinaryReadHandler *rh             = editRoot()->getReadHandler();
 
     root->editPtrFieldList().push_back(PtrFieldInfo(getContainer(), fieldId));
@@ -574,7 +581,7 @@ OSBCommonElement::readAttachmentMapField(
             FINFO(("OSBCommonElement::readAttachmentMapField: "
                    "Unknown header version, trying to read as latest.\n"));
         }
-
+    
         hasBindingInfo = true;
     }
     else if(root->getHeaderVersion() >= OSGOSBHeaderVersion100)
@@ -592,10 +599,17 @@ OSBCommonElement::readAttachmentMapField(
 
     if(hasBindingInfo == true)
     {
+        FDEBUG(("OSBCommonElement::readAttachmentMapField: "
+                "reading [%u] attachments with binding info.\n", numElements));
+    
         for(UInt32 i = 0; i < numElements; ++i)
         {
             rh->getValue(binding);
             rh->getValue(ptrId  );
+
+            FDEBUG(("OSBCommonElement::readAttachmentMapField: "
+                    "attachment [%u], binding [%u], id [%u].\n",
+                    i, binding, ptrId));
 
             pfi.editBindingStore().push_back(binding);
             pfi.editIdStore     ().push_back(ptrId  );
@@ -603,9 +617,17 @@ OSBCommonElement::readAttachmentMapField(
     }
     else
     {
+        FDEBUG(("OSBCommonElement::readAttachmentMapField: "
+                "reading [%u] attachments without binding info.\n", 
+                numElements));
+    
         for(UInt32 i = 0; i < numElements; ++i)
         {
             rh->getValue(ptrId);
+            
+            FDEBUG(("OSBCommonElement::readAttachmentMapField: "
+                    "attachment [%u], id [%u].\n", i, ptrId));
+                    
             pfi.editIdStore().push_back(ptrId);
         }
     }
@@ -643,7 +665,7 @@ OSBCommonElement::preWritePtrSingleField(const UInt32 fieldId)
     if(refedFC == NullFC)
         return;
 
-    UInt32      refedId  = OSG::getContainerId(refedFC);
+    UInt32      refedId  = refedFC->getId  ();
     std::string typeName = refedFC->getType().getCName();
 
     // only schedule a container once
@@ -681,8 +703,11 @@ OSBCommonElement::preWritePtrMultiField(const UInt32 fieldId)
     if(mfPtrField == NULL || mfPtrField->isValid() == false)
         return;
 
-    MFFieldContainerPtr::const_iterator fieldIt  = (*mfPtrField)->begin();
-    MFFieldContainerPtr::const_iterator fieldEnd = (*mfPtrField)->end  ();
+    FieldContainerPtrMFieldBase::const_iterator fieldIt  = 
+        (*mfPtrField)->begin();
+
+    FieldContainerPtrMFieldBase::const_iterator fieldEnd = 
+        (*mfPtrField)->end  ();
 
     for(; fieldIt != fieldEnd; ++fieldIt)
     {
@@ -691,7 +716,7 @@ OSBCommonElement::preWritePtrMultiField(const UInt32 fieldId)
         if(refedFC == NullFC)
             continue;
 
-        UInt32      refedId  = OSG::getContainerId(refedFC);
+        UInt32      refedId  = refedFC->getId  ();
         std::string typeName = refedFC->getType().getCName();
 
         // only schedule a container once
@@ -705,7 +730,6 @@ OSBCommonElement::preWritePtrMultiField(const UInt32 fieldId)
         root->editElementList().push_back(elem   );
         elem->setContainer(refedFC);
         elem->preWrite    (refedFC);
-
     }
 }
 
@@ -744,7 +768,7 @@ OSBCommonElement::preWriteAttachmentMapField(const UInt32 fieldId)
         if(refedFC == NullFC)
             continue;
 
-        UInt32      refedId  = OSG::getContainerId(refedFC);
+        UInt32      refedId  = refedFC->getId  ();
         std::string typeName = refedFC->getType().getCName();
 
         // only schedule a container once
@@ -811,7 +835,11 @@ OSBCommonElement::preWriteFieldContainer(
 
         // check if field refers to another FC, i.e. its a field holding
         // FieldContainerPtr or an FieldContainerAttachmentMap
-        if(fieldType.getContentType().isDerivedFrom(
+        if(fieldName == "attachments")
+        {
+            preWriteAttachmentMapField(fieldId);
+        }
+        else if(fieldType.getContentType().isDerivedFrom(
             FieldTraits<FieldContainerPtr>::getType()) == true)
         {
             if(fieldType.getCardinality() == FieldType::SINGLE_FIELD)
@@ -822,11 +850,6 @@ OSBCommonElement::preWriteFieldContainer(
             {
                 preWritePtrMultiField(fieldId);
             }
-        }
-        else if(fieldType.getContentType().isDerivedFrom(
-            FieldTraits<FieldContainerAttachmentMap>::getType()) == true)
-        {
-            preWriteAttachmentMapField(fieldId);
         }
     }
 }
@@ -845,7 +868,7 @@ OSBCommonElement::writeFieldContainerHeader(const FieldContainerPtr &fc)
 
     BinaryWriteHandler *wh       = editRoot()->getWriteHandler();
     std::string         typeName = fc->getType().getCName();
-    UInt32              fcId     = OSG::getContainerId(fc);
+    UInt32              fcId     = fc->getId  ();
 
     wh->putValue(typeName);
     wh->putValue(fcId    );
@@ -973,10 +996,10 @@ OSBCommonElement::writeEndMarker(void)
     \return A container that can act as replacement for a missing type or
     NullFC if no such container was found.
  */
-FieldContainerPtr
-OSBCommonElement::createReplacementFC(const UInt8 fcPtrType)
+FieldContainerTransitPtr 
+    OSBCommonElement::createReplacementFC(const UInt8 fcPtrType)
 {
-    FieldContainerPtr fc = NullFC;
+    FieldContainerTransitPtr fc(NullFC);
 
     switch(fcPtrType)
     {
@@ -1016,7 +1039,7 @@ OSBCommonElement::createReplacementFC(const UInt8 fcPtrType)
     \return One of the constants in this class.
  */
 UInt8
-OSBCommonElement::getFCPtrType(const FieldContainerPtr &container)
+OSBCommonElement::getFCPtrType(const FieldContainerPtr container)
 {
     FieldContainerType &fcType  = container->getType();
     UInt8               ptrType = OSBCommonElement::FCPtrFieldContainer;

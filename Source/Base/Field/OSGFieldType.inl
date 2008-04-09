@@ -51,6 +51,12 @@ FieldType::Cardinality FieldType::getCardinality(void) const
 }
 
 inline
+FieldType::Class FieldType::getClass(void) const
+{
+    return _fieldClass;
+}
+
+inline
 UInt32 FieldType::getScanTypeId(void) const
 {
     if(_pScanAsType == NULL)

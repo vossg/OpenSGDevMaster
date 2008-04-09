@@ -107,7 +107,7 @@ OSBTypedGeoVectorPropertyElement<GeoPropertyTypeT>::read(
     rh->getValue(flags);
     UInt8 quanRes = flags & FlagQuantizeResolutionMask;
 
-    GeoPropertyPtrType prop = GeoPropertyType::create();
+    GeoPropertyUnrecPtrType prop = GeoPropertyType::create();
     setContainer(prop);
 
     while(true)

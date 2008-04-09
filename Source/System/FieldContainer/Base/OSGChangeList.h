@@ -225,9 +225,9 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \{                                                                 */
 
     template<typename RefCountPolicy>
-    void addSyncAddRef  (FieldContainerPtr pFC);
+    void addDelayedSubRef    (FieldContainerPtr pFC);
 
-    void clearSyncAddRef(void                 );
+    void commitDelayedSubRefs(void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -268,9 +268,9 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
 
     bool                           _bExternal;
     
-    std::vector<FieldContainerPtr> _vSyncUnrecAddRef;
-    std::vector<FieldContainerPtr> _vSyncRecAddRef;
-    std::vector<FieldContainerPtr> _vSyncWeakAddRef;
+    std::vector<FieldContainerPtr> _vDelayedUnrecSubRefs;
+    std::vector<FieldContainerPtr> _vDelayedRecSubRefs;
+    std::vector<FieldContainerPtr> _vDelayedWeakSubRefs;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -45,7 +45,8 @@ FieldType MField<ValueT, iNamespace, AllocT>::_fieldType = FieldType(
     MFieldTraits::getMName (),
     MFieldTraits::getMPName(),
     MFieldTraits::getType  (),
-    FieldType::MULTI_FIELD);
+    FieldType::MULTI_FIELD,
+    Self::Class);
 
 #else
 
@@ -54,7 +55,8 @@ FieldType MField<ValueT, iNamespace, AllocT>::_fieldType(
     MFieldTraits::getMName (),
     MFieldTraits::getMPName(),
     MFieldTraits::getType  (),
-    FieldType::MULTI_FIELD);
+    FieldType::MULTI_FIELD,
+    Self::Class);
 
 #endif
 

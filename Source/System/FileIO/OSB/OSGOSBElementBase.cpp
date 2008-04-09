@@ -161,7 +161,7 @@ OSBElementBase::BinaryWriteHandler::write(MemoryHandle mem, UInt32 size)
     \dev
     It is needed while reading an OSB file, because containers pointed to from
     fields of the currently read container might not be loaded yet. To resolve
-    this, for each such fields an instance of this type is created and the
+    this, for each such field an instance of this type is created and the
     container ids read from the file are stored therein. After the postRead
     processing is complete, this information is used to fill the pointer fields
     with the correct data.
@@ -175,7 +175,7 @@ OSBElementBase::BinaryWriteHandler::write(MemoryHandle mem, UInt32 size)
     given \a fieldId of the given FieldContainer \a fc.
  */
 OSBElementBase::PtrFieldInfo::PtrFieldInfo(
-    const FieldContainerPtr &fc, UInt32 fieldId)
+    const FieldContainerPtr fc, UInt32 fieldId)
     : _fc      (fc     ),
       _fieldId (fieldId),
       _ptrIds  (       ),
@@ -217,9 +217,11 @@ OSBElementBase::PtrFieldInfo::~PtrFieldInfo(void)
 
 const UInt16      OSBElementBase::OSGOSBHeaderVersion100 = 100;
 const UInt16      OSBElementBase::OSGOSBHeaderVersion200 = 200;
+// const UInt16      OSBElementBase::OSGOSBHeaderVersion201 = 201;
 
-const std::string OSBElementBase::OSGOSB_HEADER_ID_1("OpenSG binary V1.0");
-const std::string OSBElementBase::OSGOSB_HEADER_ID_2("OpenSG binary V2.0");
+const std::string OSBElementBase::OSGOSB_HEADER_ID_1  ("OpenSG binary V1.0" );
+const std::string OSBElementBase::OSGOSB_HEADER_ID_2  ("OpenSG binary V2.0" );
+// const std::string OSBElementBase::OSGOSB_HEADER_ID_201("OpenSG binary V2.01");
 
 /*-------------------------------------------------------------------------*/
 /* Constructor                                                             */

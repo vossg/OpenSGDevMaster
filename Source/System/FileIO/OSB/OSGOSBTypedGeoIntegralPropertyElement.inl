@@ -105,7 +105,7 @@ OSBTypedGeoIntegralPropertyElement<GeoPropertyTypeT>::read(
 
     rh->getValue(flags);
 
-    GeoPropertyPtrType prop = GeoPropertyType::create();
+    GeoPropertyUnrecPtrType prop = GeoPropertyType::create();
     setContainer(prop);
 
     while(true)

@@ -63,6 +63,7 @@ class OSG_FILEIO_DLLMAPPING OSBTypedGeoVectorPropertyElement
 
     typedef          GeoPropertyTypeT                  GeoPropertyType;
     typedef typename GeoPropertyType::ObjPtr           GeoPropertyPtrType;
+    typedef typename GeoPropertyType::ObjUnrecPtr      GeoPropertyUnrecPtrType;
     typedef typename GeoPropertyType::StoredFieldType  GeoPropertyFieldType;
     typedef typename GeoPropertyFieldType::StoredType  VectorType;
     typedef typename VectorType::ValueType             ElementType;

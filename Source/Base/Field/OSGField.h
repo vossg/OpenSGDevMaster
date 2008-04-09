@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGBaseTypes.h"
+#include "OSGFieldForwards.h"
 
 #include <string>
 

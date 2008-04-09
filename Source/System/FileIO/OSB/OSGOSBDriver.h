@@ -51,12 +51,12 @@ OSG_BEGIN_NAMESPACE
 class OSG_FILEIO_DLLMAPPING OSBDriver
 {
   public:
-    static NodePtr read (      std::istream &inStream,
-                         const std::string  &options   );
+    static NodeTransitPtr read (      std::istream &inStream,
+                                const std::string  &options   );
 
-    static bool    write(const NodePtr      &node,
-                               std::ostream &outStream,
-                         const std::string  &options   );
+    static bool           write(const NodePtr       node,
+                                      std::ostream &outStream,
+                                const std::string  &options   );
 };
 
 OSG_END_NAMESPACE

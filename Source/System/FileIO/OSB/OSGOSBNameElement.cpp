@@ -84,7 +84,7 @@ OSBNameElement::read(const std::string &typeName)
     rh->getValue(fcPtrType);
     rh->getValue(version  );
 
-    setContainer(Name::create());
+    setContainer(NameUnrecPtr(Name::create()));
     readFields("", "");
 }
 

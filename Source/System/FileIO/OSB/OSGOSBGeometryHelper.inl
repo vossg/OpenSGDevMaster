@@ -53,17 +53,17 @@ template <class GeoPropPtrTypeT>
 void
 OSBGeometryHelper::readPackedIntegralProperty(
           BinaryReadHandler *rh,
-    const GeoPropPtrTypeT   &prop,
+    const GeoPropPtrTypeT    prop,
     const UInt32             maxValue,
     const UInt32             propSize,
     const UInt32             byteSize )
 {
     FDEBUG(("OSBGeometryHelper::readPackedIntegralProperty<>:\n"));
 
-    typedef          GeoPropPtrTypeT                     GeoPropPtrType;
-    typedef typename PtrStripper<GeoPropPtrType>::Object GeoPropType;
-    typedef typename GeoPropType::StoredFieldType        GeoPropFieldType;
-    typedef typename GeoPropFieldType::StoredType        IntegralType;
+    typedef          GeoPropPtrTypeT              GeoPropPtrType;
+    typedef typename GeoPropPtrType::Object       GeoPropType;
+    typedef typename GeoPropType::StoredFieldType GeoPropFieldType;
+    typedef typename GeoPropFieldType::StoredType IntegralType;
 
     // read packed values into a buffer
     BitUnpacker::BufferType buffer;
@@ -89,8 +89,8 @@ OSBGeometryHelper::readPackedIntegralProperty(
 template <class GeoPropPtrTypeT>
 void
 OSBGeometryHelper::readQuantizedVectorProperty(
-         BinaryReadHandler *rh,
-    const GeoPropPtrTypeT   &prop,
+          BinaryReadHandler *rh,
+    const GeoPropPtrTypeT    prop,
     const UInt32             fieldSize,
     const UInt8              resolution,
     const Real32             minValue,
@@ -100,7 +100,7 @@ OSBGeometryHelper::readQuantizedVectorProperty(
     FDEBUG(("OSBGeometryHelper::readQuantizedVectorProperty<>:\n"));
 
     typedef          GeoPropPtrTypeT                     GeoPropPtrType;
-    typedef typename PtrStripper<GeoPropPtrType>::Object GeoPropType;
+    typedef typename GeoPropPtrType::Object              GeoPropType;
     typedef typename GeoPropType::StoredFieldType        GeoPropFieldType;
     typedef typename GeoPropFieldType::StoredType        VectorType;
     typedef typename VectorType::ValueType               ElementType;
@@ -190,25 +190,25 @@ template <class OutIndexPtrTypeT, class InIndexPtrTypeT>
 void
 OSBGeometryHelper::splitMultiIndex(
     const std::vector<UInt16> &indexMapping,
-    const InIndexPtrTypeT     &inIndex,
-    const GeometryPtr         &geo          )
+    const InIndexPtrTypeT      inIndex,
+    const GeometryPtr          geo          )
 {
-    typedef          InIndexPtrTypeT                      InIndexPtrType;
-    typedef          OutIndexPtrTypeT                     OutIndexPtrType;
-    typedef typename PtrStripper<OutIndexPtrType>::Object OutIndexType;
-    typedef typename OutIndexType::StoredFieldType        OutIndexFieldType;
+    typedef          InIndexPtrTypeT                       InIndexPtrType;
+    typedef typename PtrStripper<OutIndexPtrTypeT>::Object OutIndexType;
+    typedef typename OutIndexType::ObjUnrecPtr             OutIndexUnrecPtrType;
+    typedef typename OutIndexType::StoredFieldType         OutIndexFieldType;
 
     UInt32 indexMappingSize = indexMapping.size();
     UInt32 inIndexSize      = inIndex->size();
 
-    std::vector<OutIndexPtrType    > outIndices;
-    std::vector<OutIndexFieldType *> outFields;
+    std::vector<OutIndexUnrecPtrType  > outIndices;
+    std::vector<OutIndexFieldType    *> outFields;
 
     // create the index properties
     for(UInt32 i = 0; i < indexMappingSize; ++i)
     {
-        OutIndexPtrType    index = OutIndexType::create();
-        OutIndexFieldType *field = index->editFieldPtr();
+        OutIndexUnrecPtrType  index = OutIndexType::create();
+        OutIndexFieldType    *field = index->editFieldPtr();
 
         outIndices.push_back(index);
         outFields .push_back(field);

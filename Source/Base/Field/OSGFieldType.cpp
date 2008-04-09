@@ -57,11 +57,13 @@ FieldType::FieldType(const Char8             *szName,
                      const Char8             *szParentName,
                      const DataType          &contentType,
                            Cardinality        cardinality,
+                           Class              fieldClass,
                      const UInt32             uiNameSpace) :
      Inherited   (szName, 
                   szParentName, 
                   uiNameSpace ),
     _cardinality (cardinality ),
+    _fieldClass  (fieldClass  ),
     _contentType (contentType ),
     _pScanAsType (NULL        )
 {
@@ -71,12 +73,14 @@ FieldType::FieldType(const Char8              *szName,
                      const Char8              *szParentName,
                      const DataType           &contentType,
                            Cardinality         cardinality,
+                           Class              fieldClass,
                      const FieldType          &pScanAsType,
                      const UInt32             uiNameSpace ) :
      Inherited   ( szName, 
                    szParentName,
                    uiNameSpace ),
     _cardinality ( cardinality ),
+    _fieldClass  ( fieldClass  ),
     _contentType ( contentType ),
     _pScanAsType (&pScanAsType )
 {

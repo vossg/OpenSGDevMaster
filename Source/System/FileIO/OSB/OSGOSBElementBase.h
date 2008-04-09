@@ -110,9 +110,11 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
 
     static const UInt16      OSGOSBHeaderVersion100;
     static const UInt16      OSGOSBHeaderVersion200;
+//     static const UInt16      OSGOSBHeaderVersion201;
 
     static const std::string OSGOSB_HEADER_ID_1;
     static const std::string OSGOSB_HEADER_ID_2;
+//     static const std::string OSGOSB_HEADER_ID_201;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -133,8 +135,8 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
     /*! \name State access                                                 */
     /*! \{                                                                 */
 
-    inline FieldContainerPtr getContainer(void                         );
-    inline void              setContainer(const FieldContainerPtr &cont);
+    inline FieldContainerPtr getContainer(      void                  );
+    inline void              setContainer(const FieldContainerPtr cont);
 
     inline const OSBRootElement *getRoot (void) const;
     inline       OSBRootElement *editRoot(void);
@@ -175,7 +177,7 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
         typedef BindingStore::iterator       BindingStoreIt;
         typedef BindingStore::const_iterator BindingStoreConstIt;
 
-        PtrFieldInfo(const FieldContainerPtr &fc, UInt32 fieldId);
+        PtrFieldInfo(const FieldContainerPtr fc, UInt32 fieldId);
         ~PtrFieldInfo(void);
 
         inline FieldContainerPtr  getContainer(void) const;
@@ -221,9 +223,10 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
-    FieldContainerPtr  _container;
-    OSBRootElement    *_rootElement;
-    UInt16             _version;
+
+    FieldContainerUnrecPtr  _container;
+    OSBRootElement         *_rootElement;
+    UInt16                  _version;
 
     /*!\brief prohibit default function (move to 'public' if needed)       */
     OSBElementBase(const OSBElementBase &source);

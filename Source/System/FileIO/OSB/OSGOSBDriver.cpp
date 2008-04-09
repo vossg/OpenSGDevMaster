@@ -60,10 +60,10 @@ OSG_USING_NAMESPACE
     \return On success a NodePtr to the root of the read scene,
     NullFC otherwise.
  */
-NodePtr
-OSBDriver::read(std::istream &inStream, const std::string &optionStr)
+NodeTransitPtr OSBDriver::read(      std::istream &inStream, 
+                               const std::string  &optionStr)
 {
-    NodePtr         node = NullFC;
+    NodeTransitPtr  node(NullFC);
     OSBRootElement *root = dynamic_cast<OSBRootElement *>(
         OSBElementFactory::the()->acquire("RootElement", 0));
 
@@ -77,6 +77,8 @@ OSBDriver::read(std::istream &inStream, const std::string &optionStr)
 
     root->terminateRead();
 
+    OSBElementFactory::the()->release(root);
+
     return node;
 }
 
@@ -89,9 +91,9 @@ OSBDriver::read(std::istream &inStream, const std::string &optionStr)
     \return true.
     \todo Should only return true if write was successful.
  */
-bool
-OSBDriver::write(
-    const NodePtr &node, std::ostream &outStream, const std::string &optionStr)
+bool OSBDriver::write(const NodePtr       node, 
+                            std::ostream &outStream, 
+                      const std::string  &optionStr)
 {
     OSBRootElement *root = dynamic_cast<OSBRootElement *>(
         OSBElementFactory::the()->acquire("RootElement", 0));

@@ -144,7 +144,7 @@ void FieldContainerPtrSField<ValueT,
 
     if(_fieldValue != NullFC)
     {
-        Thread::getCurrentChangeList()->addSyncAddRef<
+        Thread::getCurrentChangeList()->addDelayedSubRef<
             RefCountPolicy>(_fieldValue);
     }
 
@@ -161,7 +161,7 @@ void FieldContainerPtrSField<ValueT,
 {
     if(_fieldValue != NullFC)
     {
-        Thread::getCurrentChangeList()->addSyncAddRef<
+        Thread::getCurrentChangeList()->addDelayedSubRef<
             RefCountPolicy>(_fieldValue);
     }
 

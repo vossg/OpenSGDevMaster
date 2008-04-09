@@ -168,8 +168,9 @@ class OSG_FILEIO_DLLMAPPING OSBCommonElement : public OSBElementBase
     /*! \name Misc Helper Methods                                          */
     /*! \{                                                                 */
 
-    FieldContainerPtr createReplacementFC(const UInt8              fcPtrType);
-    UInt8             getFCPtrType       (const FieldContainerPtr &container);
+    FieldContainerTransitPtr 
+                      createReplacementFC(const UInt8             fcPtrType);
+    UInt8             getFCPtrType       (const FieldContainerPtr container);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

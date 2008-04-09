@@ -96,7 +96,9 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
     /*---------------------------------------------------------------------*/
 
-    static const Int32 Namespace = iNamespace;
+    static const Int32            Namespace = iNamespace;
+
+    static const FieldType::Class Class     = FieldType::PtrField;
 
     /*---------------------------------------------------------------------*/
 

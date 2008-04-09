@@ -72,7 +72,7 @@ OSBElementBase::getContainer(void)
 }
 
 inline void
-OSBElementBase::setContainer(const FieldContainerPtr &cont)
+OSBElementBase::setContainer(const FieldContainerPtr cont)
 {
     _container = cont;
 }

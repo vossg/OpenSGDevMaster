@@ -82,7 +82,9 @@ class FieldContainerPtrSField : public FieldContainerPtrSFieldBase
 
     /*---------------------------------------------------------------------*/
 
-    static const Int32 Namespace = iNamespace;
+    static const Int32            Namespace = iNamespace;
+
+    static const FieldType::Class Class     = FieldType::PtrField;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */

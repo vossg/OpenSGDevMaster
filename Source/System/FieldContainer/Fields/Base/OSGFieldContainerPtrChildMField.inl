@@ -196,7 +196,7 @@ void FieldContainerPtrChildMField<ValueT,
             {
                 if(*sIt != NULL)
                 {
-                    Thread::getCurrentChangeList()->addSyncAddRef
+                    Thread::getCurrentChangeList()->addDelayedSubRef
                         <RefCountPolicy>(*sIt);
                 }
 
@@ -216,7 +216,7 @@ void FieldContainerPtrChildMField<ValueT,
                 {
                     if(*sIt != NULL)
                     {
-                        Thread::getCurrentChangeList()->addSyncAddRef<
+                        Thread::getCurrentChangeList()->addDelayedSubRef<
                             RefCountPolicy>(*sIt);
                     }
                 
@@ -520,8 +520,82 @@ void FieldContainerPtrChildMField<ValueT, RefCountPolicy, iNamespace>::syncWith(
     Self               &source, 
     ConstFieldMaskArg   syncMode,
     UInt32              uiSyncInfo,
-    AspectOffsetStore  &oOffsets    )
+    AspectOffsetStore  &oOffsets  )
 {
+    size_type n = source.size();
+
+    if(n != 0)
+    {
+        if(_values.size() == 0)
+        {
+            _values.resize(n, NULL);
+
+            Inherited::iterator sIt  = source._values.begin();
+            Inherited::iterator sEnd = source._values.end  ();
+
+            Inherited::iterator fIt  = _values.begin();
+        
+            while(sIt != sEnd)
+            {
+                *fIt = convertToCurrentAspect(*sIt);
+
+                RefCountPolicy::addRef(*fIt);
+                
+                ++sIt;
+                ++fIt;
+            }
+        }
+        else
+        {
+            if(n > _values.size())
+            {
+                _values.resize(n, NullFC);
+            }
+
+            Inherited::      iterator sIt  =  source._values.begin();
+
+            Inherited::iterator       fIt  = _values.begin();
+            Inherited::const_iterator fEnd = _values.end  ();
+
+            for(UInt32 i = 0; i < n; ++i)
+            {
+                if(*fIt != NULL)
+                {
+                    Thread::getCurrentChangeList()->addDelayedSubRef<
+                        RefCountPolicy>(*fIt);
+                }
+
+                *fIt = convertToCurrentAspect(*sIt);
+
+                RefCountPolicy::addRef(*fIt);
+
+                ++sIt;
+                ++fIt;
+            }
+
+            if(n < _values.size())
+            {
+                while(fIt != fEnd)
+                {
+                    if(*fIt != NULL)
+                    {
+                        Thread::getCurrentChangeList()->addDelayedSubRef
+                            <RefCountPolicy>(*fIt);
+                    }
+
+                    ++fIt;
+                };
+
+                _values.resize(n);
+            }
+        }
+    }
+    else
+    {
+        this->clear();
+    }
+
+#if 0
     if(source.size() != 0)
     {
         this->resize(source.size(), NullFC);
@@ -547,6 +621,7 @@ void FieldContainerPtrChildMField<ValueT, RefCountPolicy, iNamespace>::syncWith(
     {
         this->clear();
     }
+#endif
 }
 
 OSG_END_NAMESPACE

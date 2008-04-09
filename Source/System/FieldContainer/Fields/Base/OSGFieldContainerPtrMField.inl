@@ -176,7 +176,7 @@ void FieldContainerPtrMField<ValueT,
             {
                 if(*sIt != NULL)
                 {
-                    Thread::getCurrentChangeList()->addSyncAddRef<
+                    Thread::getCurrentChangeList()->addDelayedSubRef<
                         RefCountPolicy>(*sIt);
                 }
 
@@ -196,7 +196,7 @@ void FieldContainerPtrMField<ValueT,
                 {
                     if(*sIt != NULL)
                     {
-                        Thread::getCurrentChangeList()->addSyncAddRef
+                        Thread::getCurrentChangeList()->addDelayedSubRef
                             <RefCountPolicy>(*sIt);
                     }
 
@@ -446,22 +446,72 @@ void FieldContainerPtrMField<ValueT, RefCountPolicy, iNamespace>::syncWith(
     UInt32              uiSyncInfo,
     AspectOffsetStore  &oOffsets    )
 {
-    if(source.size() != 0)
+    size_type n = source.size();
+
+    if(n != 0)
     {
-        this->resize(source.size(), NullFC);
-
-        Inherited::iterator sIt  = source._values.begin();
-        Inherited::iterator sEnd = source._values.end  ();
-
-        Inherited::iterator fIt  = _values.begin();
-        
-        while(sIt != sEnd)
+        if(_values.size() == 0)
         {
-            RefCountPolicy::setRefd((*fIt),
-                                    convertToCurrentAspect(*sIt));
+            _values.resize(n, NULL);
 
-            ++sIt;
-            ++fIt;
+            Inherited::iterator sIt  = source._values.begin();
+            Inherited::iterator sEnd = source._values.end  ();
+
+            Inherited::iterator fIt  = _values.begin();
+        
+            while(sIt != sEnd)
+            {
+                *fIt = convertToCurrentAspect(*sIt);
+                
+                RefCountPolicy::addRef(*fIt);
+
+                ++sIt;
+                ++fIt;
+            }
+        }
+        else
+        {
+            if(n > _values.size())
+            {
+                _values.resize(n, NullFC);
+            }
+
+            Inherited::      iterator sIt  =  source._values.begin();
+
+            Inherited::iterator       fIt  = _values.begin();
+            Inherited::const_iterator fEnd = _values.end  ();
+
+            for(UInt32 i = 0; i < n; ++i)
+            {
+                if(*fIt != NULL)
+                {
+                    Thread::getCurrentChangeList()->addDelayedSubRef<
+                        RefCountPolicy>(*fIt);
+                }
+
+                *fIt = convertToCurrentAspect(*sIt);
+                
+                RefCountPolicy::addRef(*fIt);
+
+                ++sIt;
+                ++fIt;
+            }
+
+            if(n < _values.size())
+            {
+                while(fIt != fEnd)
+                {
+                    if(*fIt != NULL)
+                    {
+                        Thread::getCurrentChangeList()->addDelayedSubRef
+                            <RefCountPolicy>(*fIt);
+                    }
+
+                    ++fIt;
+                };
+
+                _values.resize(n);
+            }
         }
     }
     else

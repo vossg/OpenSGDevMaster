@@ -91,12 +91,14 @@ class SField : public Field
 
     /*---------------------------------------------------------------------*/
 
-    static const Int32 Namespace     = iNamespace;
+    static const Int32            Namespace     = iNamespace;
 
-    static const bool isSField       = true;
-    static const bool isMField       = false;
+    static const bool             isSField       = true;
+    static const bool             isMField       = false;
 
-    static const bool isPointerField = false;
+    static const bool             isPointerField = false;
+
+    static const FieldType::Class Class          = FieldType::ValueField;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */

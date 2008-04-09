@@ -44,6 +44,7 @@
 
 #include <typeinfo>
 #include "OSGDataType.h"
+#include "OSGFieldForwards.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -66,8 +67,16 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
 
     enum Cardinality 
     { 
-        SINGLE_FIELD, 
-        MULTI_FIELD 
+        SINGLE_FIELD = SingleField, 
+        MULTI_FIELD  = MultiField 
+    };
+
+    enum Class
+    {
+        ValueField      = OSG::ValueField,
+        PtrField        = OSG::PtrField,
+        ParentPtrField  = OSG::ParentPtrField,
+        ChildPtrField   = OSG::ChildPtrField
     };
 
     /*---------------------------------------------------------------------*/
@@ -78,12 +87,14 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
               const Char8             *szParentName,
               const DataType          &contentType,
                     Cardinality        cardinality,
+                    Class              fieldClass,
               const UInt32             uiNameSpace = GlobalNamespace);
 
     FieldType(const Char8             *szName, 
               const Char8             *szParentName,
               const DataType          &contentType ,
                     Cardinality        cardinality ,
+                    Class              fieldClass,
               const FieldType         &pScanAsType,
               const UInt32             uiNameSpace = GlobalNamespace);
 
@@ -108,6 +119,7 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
 
     const DataType    &getContentType(void) const;
           Cardinality  getCardinality(void) const;
+          Class        getClass      (void) const;
 
           UInt32       getScanTypeId (void) const;
 
@@ -129,11 +141,12 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
     /*---------------------------------------------------------------------*/
     /*                             Member                                  */
 
-          Cardinality        _cardinality;
-          UInt32             _uiLoadTypeId;
+          Cardinality  _cardinality;
+          UInt32       _uiLoadTypeId;
+          Class        _fieldClass;
 
-    const DataType          &_contentType;
-    const FieldType         *_pScanAsType;
+    const DataType    &_contentType;
+    const FieldType   *_pScanAsType;
 
     /*==========================  PRIVATE  ================================*/
 

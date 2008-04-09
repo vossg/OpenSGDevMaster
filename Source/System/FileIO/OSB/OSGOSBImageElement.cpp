@@ -100,7 +100,7 @@ OSBImageElement::read(const std::string &typeName)
         rh->getValue(fcPtrType);
     }
 
-    ImagePtr img = Image::create();
+    ImageUnrecPtr img = Image::create();
     setContainer(img);
 
     rh->getValue(_version);
@@ -126,7 +126,6 @@ OSBImageElement::read(const std::string &typeName)
 
             // read out-of-line image data
             const std::string &fileName = img->getName();
-            subRefX(img);
             img = ImageFileHandler::the()->read(fileName.c_str());
             setContainer(img);
         }
@@ -149,7 +148,6 @@ OSBImageElement::read(const std::string &typeName)
         if(img->getPixel().empty())
         {
             const std::string &fileName = img->getName();
-            subRefX(img);
             img = ImageFileHandler::the()->read(fileName.c_str());
             setContainer(img);
         }
@@ -184,10 +182,10 @@ OSBImageElement::write(void)
         return;
     }
 
-    ImagePtr               img   = dynamic_cast<ImagePtr>(getContainer());
-    BinaryWriteHandler    *wh    = editRoot()->getWriteHandler();
+    ImagePtr              img   = dynamic_cast<ImagePtr>(getContainer());
+    BinaryWriteHandler   *wh    = editRoot()->getWriteHandler();
     const OSBRootElement *root  = getRoot();
-    UInt8                  flags = 0;
+    UInt8                 flags = 0;
 
     wh->putValue(getFCPtrType(getContainer()));
     wh->putValue(getVersion()                );

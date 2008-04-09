@@ -129,7 +129,7 @@ OSBGeometryElement::read(const std::string &typeName)
                    "Unknown version, trying to read as latest.\n"));
         }
 
-        setContainer(Geometry::create());
+        setContainer(GeometryUnrecPtr(Geometry::create()));
         readFields("", "");
     }
     else if(_version >= OSGOSBHeaderVersion100)
@@ -194,15 +194,19 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
         if(fieldName == "properties")
         {
             // "properties" might be quantized
-            MFGeoVectorPropertyPtr::GetHandlePtr fP =
-                boost::dynamic_pointer_cast<MFGeoVectorPropertyPtr::GetHandle>(
-                    getContainer()->getField(fieldId));
+            FieldContainerPtrMFieldBase::GetHandlePtr fP =
+                boost::dynamic_pointer_cast<
+                    FieldContainerPtrMFieldBase::GetHandle>(
+                        getContainer()->getField(fieldId));
 
             if(fP == NULL || fP->isValid() == false)
                 continue;
 
-            MFGeoVectorPropertyPtr::const_iterator fieldIt  = (*fP)->begin();
-            MFGeoVectorPropertyPtr::const_iterator fieldEnd = (*fP)->end  ();
+            FieldContainerPtrMFieldBase::const_iterator fieldIt  = 
+                (*fP)->begin();
+
+            FieldContainerPtrMFieldBase::const_iterator fieldEnd = 
+                (*fP)->end  ();
 
             for(UInt32 i = 0; fieldIt != fieldEnd; ++fieldIt, ++i)
             {
@@ -211,7 +215,7 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
                 if(refedFC == NullFC)
                     continue;
 
-                UInt32      refedId  = OSG::getContainerId(refedFC);
+                UInt32      refedId  = refedFC->getId  ();
                 std::string typeName = refedFC->getType().getCName();
 
                 // only schedule a container once
@@ -246,16 +250,18 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
         else if(fieldName == "propIndices")
         {
             // "propIndices" might be packed
-            MFGeoIntegralPropertyPtr::GetHandlePtr fP =
+            FieldContainerPtrMFieldBase::GetHandlePtr fP =
                 boost::dynamic_pointer_cast<
-                    MFGeoIntegralPropertyPtr::GetHandle>(
+                    FieldContainerPtrMFieldBase::GetHandle>(
                         getContainer()->getField(fieldId));
 
             if(fP == NULL || fP->isValid() == false)
                 continue;
 
-            MFGeoIntegralPropertyPtr::const_iterator fieldIt  = (*fP)->begin();
-            MFGeoIntegralPropertyPtr::const_iterator fieldEnd = (*fP)->end  ();
+            FieldContainerPtrMFieldBase::const_iterator fieldIt  = 
+                (*fP)->begin();
+            FieldContainerPtrMFieldBase::const_iterator fieldEnd = 
+                (*fP)->end  ();
 
             for(UInt32 i = 0; fieldIt != fieldEnd; ++fieldIt, ++i)
             {
@@ -264,7 +270,7 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
                 if(refedFC == NullFC)
                     continue;
 
-                UInt32      refedId  = OSG::getContainerId(refedFC);
+                UInt32      refedId  = refedFC->getId  ();
                 std::string typeName = refedFC->getType().getCName();
 
                 // only schedule a container once
@@ -287,6 +293,10 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
                 elem->preWrite    (refedFC);
             }
         }
+        else if(fieldName == "attachments")
+        {
+            preWriteAttachmentMapField(fieldId);
+        }
         else
         {
             // check if field refers to another FC, i.e. its a field holding
@@ -302,11 +312,6 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
                 {
                     preWritePtrMultiField(fieldId);
                 }
-            }
-            else if(fieldType.getContentType().isDerivedFrom(
-                FieldTraits<FieldContainerAttachmentMap>::getType()) == true)
-            {
-                preWriteAttachmentMapField(fieldId);
             }
         }
     }
@@ -337,7 +342,7 @@ OSBGeometryElement::readV100(void)
     BinaryReadHandler *rh   = editRoot()->getReadHandler();
     OSBGeometryHelper  gh;
 
-    GeometryPtr geo = Geometry::create();
+    GeometryUnrecPtr geo = Geometry::create();
     setContainer(geo);
 
     // The "properties" mfield can be thought of the unification of the
@@ -480,7 +485,7 @@ OSBGeometryElement::readV100(void)
             {
                 if(maxValue > TypeTraits<UInt16>::getMax())
                 {
-                    GeoUInt32PropertyPtr ui32Indices =
+                    GeoUInt32PropertyUnrecPtr ui32Indices =
                         GeoUInt32Property::create();
                     gh.readPackedIntegralProperty(rh, ui32Indices, maxValue,
                                                   propSize, byteSize        );
@@ -490,7 +495,7 @@ OSBGeometryElement::readV100(void)
                 }
                 else
                 {
-                    GeoUInt16PropertyPtr ui16Indices =
+                    GeoUInt16PropertyUnrecPtr ui16Indices =
                         GeoUInt16Property::create();
                     gh.readPackedIntegralProperty(rh, ui16Indices, maxValue,
                                                   propSize, byteSize        );
@@ -501,7 +506,7 @@ OSBGeometryElement::readV100(void)
             }
             else
             {
-                GeoUInt32PropertyPtr ui32Indices =
+                GeoUInt32PropertyUnrecPtr ui32Indices =
                     GeoUInt32Property::create();
                 gh.readPackedIntegralProperty(rh, ui32Indices, maxValue,
                                               propSize, byteSize        );
@@ -514,11 +519,11 @@ OSBGeometryElement::readV100(void)
         {
             // Quantized positions are stored inside the geometry object, not
             // in the geo-property. They are always of type Pnt3f.
-            GeoPnt3fPropertyPtr propPos    = GeoPnt3fProperty::create();
-            UInt8               resolution;
-            Real32              minValue;
-            Real32              maxValue;
-            UInt32              propSize;
+            GeoPnt3fPropertyUnrecPtr propPos    = GeoPnt3fProperty::create();
+            UInt8                    resolution;
+            Real32                   minValue;
+            Real32                   maxValue;
+            UInt32                   propSize;
 
             gh.readQuantizedVectorPropertyHeader(rh, resolution, minValue,
                                                  maxValue, propSize       );
@@ -531,11 +536,11 @@ OSBGeometryElement::readV100(void)
         {
             // Quantized normals are stored inside the geometry object, not
             // in the geo-property. They are always of type Vec3f.
-            GeoVec3fPropertyPtr propNorm   = GeoVec3fProperty::create();
-            UInt8               resolution;
-            Real32              minValue;
-            Real32              maxValue;
-            UInt32              propSize;
+            GeoVec3fPropertyUnrecPtr propNorm   = GeoVec3fProperty::create();
+            UInt8                    resolution;
+            Real32                   minValue;
+            Real32                   maxValue;
+            UInt32                   propSize;
 
             gh.readQuantizedVectorPropertyHeader(
                 rh, resolution, minValue, maxValue, propSize);
@@ -549,11 +554,11 @@ OSBGeometryElement::readV100(void)
         {
             // Quantized texCoords are stored inside the geometry object, not
             // in the geo-property. They are always of type Vec2f.
-            GeoVec2fPropertyPtr propTexCoords = GeoVec2fProperty::create();
-            UInt8               resolution;
-            Real32              minValue;
-            Real32              maxValue;
-            UInt32              propSize;
+            GeoVec2fPropertyUnrecPtr propTexCoords = GeoVec2fProperty::create();
+            UInt8                    resolution;
+            Real32                   minValue;
+            Real32                   maxValue;
+            UInt32                   propSize;
 
             gh.readQuantizedVectorPropertyHeader(
                 rh, resolution, minValue, maxValue, propSize);

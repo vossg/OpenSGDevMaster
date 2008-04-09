@@ -62,7 +62,7 @@ class OSG_FILEIO_DLLMAPPING OSBGeoPropertyConversionElement
     /*! \{                                                                 */
 
     typedef          GeoPropertyTypeT                  GeoPropertyType;
-    typedef typename GeoPropertyType::ObjPtr           GeoPropertyPtrType;
+    typedef typename GeoPropertyType::ObjUnrecPtr      GeoPropertyUnrecPtrType;
     typedef typename GeoPropertyType::StoredFieldType  GeoPropertyFieldType;
 
     typedef OSBGeoPropertyConversionElement<GeoPropertyType> Self;

@@ -207,20 +207,20 @@ ChangeList *ChangeList::create(void)
 /*                            Constructors                                 */
 
 ChangeList::ChangeList(void) :
-     Inherited         (                   ),
-    _entryPool         (                   ),
-    _currentPoolElement(                   ),
-    _currentEntry      (                   ),
-    _changedStore      (                   ),
-    _createdStore      (                   ),
-    _uncommitedChanges (                   ),
-    _workStore         (                   ),
-    _uiAspect          (                  0),
-    _iSubRefLevel      (                  0),
-    _bExternal         (false              ),
-    _vSyncUnrecAddRef  (                   ),
-    _vSyncRecAddRef    (                   ),
-    _vSyncWeakAddRef   (                   )
+     Inherited           (                   ),
+    _entryPool           (                   ),
+    _currentPoolElement  (                   ),
+    _currentEntry        (                   ),
+    _changedStore        (                   ),
+    _createdStore        (                   ),
+    _uncommitedChanges   (                   ),
+    _workStore           (                   ),
+    _uiAspect            (                  0),
+    _iSubRefLevel        (                  0),
+    _bExternal           (false              ),
+    _vDelayedUnrecSubRefs(                   ),
+    _vDelayedRecSubRefs  (                   ),
+    _vDelayedWeakSubRefs (                   )
 {
     _entryPool.push_back(ChangeEntryStore());
 
@@ -558,6 +558,8 @@ void ChangeList::doApply(bool bClear)
 
         ++cIt;
     }
+
+    commitDelayedSubRefs();
 #endif
 }
 
@@ -694,35 +696,37 @@ void ChangeList::setAspectTo(UInt32 uiNewAspect)
 
 
 template<> OSG_DLL_EXPORT 
-void ChangeList::addSyncAddRef<NoRefCountPolicy>(FieldContainerPtr)
+void ChangeList::addDelayedSubRef<NoRefCountPolicy>(FieldContainerPtr)
 {
 }
 
 template<> OSG_DLL_EXPORT 
-void ChangeList::addSyncAddRef<RecordedRefCountPolicy>(FieldContainerPtr pFC)
+void ChangeList::addDelayedSubRef<RecordedRefCountPolicy>(FieldContainerPtr pFC)
 {
-    _vSyncRecAddRef.push_back(pFC);
+    _vDelayedRecSubRefs.push_back(pFC);
 }
 
 template<> OSG_DLL_EXPORT 
-void ChangeList::addSyncAddRef<UnrecordedRefCountPolicy>(FieldContainerPtr pFC)
+void ChangeList::addDelayedSubRef<UnrecordedRefCountPolicy>(
+    FieldContainerPtr pFC)
 {
-    _vSyncUnrecAddRef.push_back(pFC);
+    _vDelayedUnrecSubRefs.push_back(pFC);
 }
 
 template<> OSG_DLL_EXPORT 
-void ChangeList::addSyncAddRef<WeakRefCountPolicy>(FieldContainerPtr pFC)
+void ChangeList::addDelayedSubRef<WeakRefCountPolicy>(FieldContainerPtr pFC)
 {
-    _vSyncWeakAddRef.push_back(pFC);
+    _vDelayedWeakSubRefs.push_back(pFC);
 }
 
-void ChangeList::clearSyncAddRef(void)
+void ChangeList::commitDelayedSubRefs(void)
 {
+    // Unrec
     std::vector<FieldContainerPtr>::      iterator vIt  = 
-        _vSyncUnrecAddRef.begin();
+        _vDelayedUnrecSubRefs.begin();
 
     std::vector<FieldContainerPtr>::const_iterator vEnd = 
-        _vSyncUnrecAddRef.end  ();
+        _vDelayedUnrecSubRefs.end  ();
 
     while(vIt != vEnd)
     {
@@ -731,11 +735,11 @@ void ChangeList::clearSyncAddRef(void)
         ++vIt;
     }
 
-    _vSyncUnrecAddRef.clear();
+    _vDelayedUnrecSubRefs.clear();
 
-
-    vIt  = _vSyncRecAddRef.begin();
-    vEnd = _vSyncRecAddRef.end  ();
+    // Rec
+    vIt  = _vDelayedRecSubRefs.begin();
+    vEnd = _vDelayedRecSubRefs.end  ();
 
     while(vIt != vEnd)
     {
@@ -744,11 +748,12 @@ void ChangeList::clearSyncAddRef(void)
         ++vIt;
     }
 
-    _vSyncRecAddRef.clear();
+    _vDelayedRecSubRefs.clear();
 
-
-    vIt  = _vSyncWeakAddRef.begin();
-    vEnd = _vSyncWeakAddRef.end  ();
+    
+    // Weak
+    vIt  = _vDelayedWeakSubRefs.begin();
+    vEnd = _vDelayedWeakSubRefs.end  ();
 
     while(vIt != vEnd)
     {
@@ -757,7 +762,7 @@ void ChangeList::clearSyncAddRef(void)
         ++vIt;
     }
 
-    _vSyncWeakAddRef.clear();
+    _vDelayedWeakSubRefs.clear();
 }
 
 /*-------------------------------------------------------------------------*/

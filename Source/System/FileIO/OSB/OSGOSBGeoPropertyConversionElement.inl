@@ -77,10 +77,10 @@ OSBGeoPropertyConversionElement<GeoPropertyTypeT>::read(
     FDEBUG(("OSBGeoPropertyConversionElement<>::read: typeName: [%s]\n",
             typeName.c_str()));
 
-    OSBRootElement       *root      = editRoot();
-    BinaryReadHandler    *rh        = editRoot()->getReadHandler();
-    GeoPropertyPtrType    prop      = GeoPropertyType::create();
-    GeoPropertyFieldType *propField = prop->editFieldPtr();
+    OSBRootElement          *root      = editRoot();
+    BinaryReadHandler       *rh        = editRoot()->getReadHandler();
+    GeoPropertyUnrecPtrType  prop      = GeoPropertyType::create();
+    GeoPropertyFieldType    *propField = prop->editFieldPtr();
 
     setContainer(prop);
 

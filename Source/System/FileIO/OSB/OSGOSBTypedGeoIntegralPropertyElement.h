@@ -61,10 +61,11 @@ class OSG_FILEIO_DLLMAPPING OSBTypedGeoIntegralPropertyElement
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef          GeoPropertyTypeT                  GeoPropertyType;
-    typedef typename GeoPropertyType::ObjPtr           GeoPropertyPtrType;
-    typedef typename GeoPropertyType::StoredFieldType  GeoPropertyFieldType;
-    typedef typename GeoPropertyFieldType::StoredType  IntegralType;
+    typedef          GeoPropertyTypeT                 GeoPropertyType;
+    typedef typename GeoPropertyType::ObjPtr          GeoPropertyPtrType;
+    typedef typename GeoPropertyType::ObjUnrecPtr     GeoPropertyUnrecPtrType;
+    typedef typename GeoPropertyType::StoredFieldType GeoPropertyFieldType;
+    typedef typename GeoPropertyFieldType::StoredType IntegralType;
 
     typedef OSBTypedGeoIntegralPropertyElement<GeoPropertyType> Self;
     typedef OSBGeoIntegralPropertyElement                       Inherited;

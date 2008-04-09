@@ -105,8 +105,8 @@ OSBGenericElement::read(const std::string &typeName)
 
     FDEBUG(("OSBGenericElement::read: version: [%u]\n", version));
 
-    setContainer(
-        FieldContainerFactory::the()->createContainer(typeName.c_str()));
+    setContainer(FieldContainerUnrecPtr(
+        FieldContainerFactory::the()->createContainer(typeName.c_str())));
 
     if(getContainer() == NullFC)
     {
@@ -115,7 +115,7 @@ OSBGenericElement::read(const std::string &typeName)
 
         skipFields();
 
-        setContainer(createReplacementFC(ptrTypeId));
+        setContainer(FieldContainerUnrecPtr(createReplacementFC(ptrTypeId)));
         return;
     }
 

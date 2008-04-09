@@ -559,5 +559,7 @@ OSG_END_NAMESPACE
 #include "OSGFieldContainerFactory.h"
 #include "OSGFieldContainer.inl"
 
+#include "OSGRefCountPolicies.h"
+
 #endif /* _OSGFIELDCONTAINER_H_ */
 

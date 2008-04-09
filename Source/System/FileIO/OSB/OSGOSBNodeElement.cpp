@@ -94,7 +94,7 @@ OSBNodeElement::read(const std::string &typeName)
         return;
     }
 
-    setContainer(Node::create());
+    setContainer(NodeUnrecPtr(Node::create()));
     readFields("'volume'", "");
 }
 

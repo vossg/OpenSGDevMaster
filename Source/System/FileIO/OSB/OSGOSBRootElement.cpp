@@ -111,6 +111,18 @@ OSBRootElement::initialiseRead(std::istream &inStream)
 void
 OSBRootElement::terminateRead(void)
 {
+    ElementListIt eI = editElementList().begin();
+    ElementListIt eE = editElementList().end  ();
+
+    for(; eI != eE; ++eI)
+    {
+        OSBElementFactory::the()->release(*eI);
+    }
+
+    _elements     .clear();
+    _readIdMap    .clear();
+    _readPtrFields.clear();
+    
     delete _readHandler;
     _readHandler = 0;
 }
@@ -143,6 +155,12 @@ OSBRootElement::read(const std::string &/*typeName*/)
                 OSGOSBHeaderVersion200));
         setHeaderVersion(OSGOSBHeaderVersion200);
     }
+//     else if(headerMarker == OSGOSB_HEADER_ID_201)
+//     {
+//         FDEBUG(("OSBRootElement::read: Header version: [%u]\n",
+//                 OSGOSBHeaderVersion201));
+//         setHeaderVersion(OSGOSBHeaderVersion201);
+//     }
     else
     {
         FWARNING(("OSBRootElement::read: Unrecognized file header, could not "
@@ -179,7 +197,7 @@ OSBRootElement::read(const std::string &/*typeName*/)
 
         if(elem->getContainer() != NullFC)
         {
-            fcIdSystem = getContainerId(elem->getContainer());
+            fcIdSystem = elem->getContainer()->getId();
 
             FDEBUG(("OSBRootElement::read: fcIdFile: [%u] fcIdSystem: [%u]\n",
                     fcIdFile, fcIdSystem));
@@ -251,6 +269,18 @@ OSBRootElement::initialiseWrite(std::ostream &outStream)
 void
 OSBRootElement::terminateWrite(void)
 {
+    ElementListIt eI = editElementList().begin();
+    ElementListIt eE = editElementList().end  ();
+
+    for(; eI != eE; ++eI)
+    {
+        OSBElementFactory::the()->release(*eI);
+    }
+    
+    _elements   .clear();
+    _writeFCList.clear();
+    _writeIdSet .clear();
+
     _writeHandler->flush();
 
     delete _writeHandler;

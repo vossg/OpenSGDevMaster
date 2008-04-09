@@ -75,7 +75,7 @@ class OSG_FILEIO_DLLMAPPING OSBGeometryHelper
 
     template <class GeoPropPtrTypeT>
     void readPackedIntegralProperty   (      BinaryReadHandler *rh,
-                                       const GeoPropPtrTypeT   &prop,
+                                       const GeoPropPtrTypeT    prop,
                                        const UInt32             maxValue,
                                        const UInt32             propSize,
                                        const UInt32             byteSize );
@@ -88,7 +88,7 @@ class OSG_FILEIO_DLLMAPPING OSBGeometryHelper
 
     template <class GeoPropPtrTypeT>
     void readQuantizedVectorProperty(      BinaryReadHandler *rh,
-                                     const GeoPropPtrTypeT   &prop,
+                                     const GeoPropPtrTypeT    prop,
                                      const UInt32             fieldSize,
                                      const UInt8              resolution,
                                      const Real32             minValue,
@@ -102,8 +102,8 @@ class OSG_FILEIO_DLLMAPPING OSBGeometryHelper
 
     template <class OutIndexPtrTypeT, class InIndexPtrTypeT>
     void splitMultiIndex(const std::vector<UInt16>           &indexMapping,
-                         const InIndexPtrTypeT               &inIndex,
-                         const GeometryPtr                   &geo          );
+                         const InIndexPtrTypeT                inIndex,
+                         const GeometryPtr                    geo          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

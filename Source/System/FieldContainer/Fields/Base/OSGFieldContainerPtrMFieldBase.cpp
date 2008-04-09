@@ -44,7 +44,8 @@ FieldType FieldContainerPtrMFieldBase::_fieldType(
     "FieldContainerPtrMFieldBase",
     "Field",                    
     MFieldTraits::getType (),   
-    FieldType::MULTI_FIELD);
+    FieldType::MULTI_FIELD,
+    FieldType::PtrField);
 
 const FieldType &FieldContainerPtrMFieldBase::getClassType(void)
 {
