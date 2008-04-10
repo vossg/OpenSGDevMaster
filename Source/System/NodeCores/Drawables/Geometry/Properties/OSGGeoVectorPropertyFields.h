@@ -172,7 +172,7 @@ struct FieldTraits<GeoVectorPropertyPtr, 1> :
     typedef FieldTraits<GeoVectorPropertyPtr, 1>  Self;
     typedef FieldContainerPtr           ParentType;
 
-    static const FieldCardinality eFieldCard = MultiField;
+    static const FieldType::Cardinality eParentCard = FieldType::MultiField;
 
     enum                        { Convertible = NotConvertible };
 

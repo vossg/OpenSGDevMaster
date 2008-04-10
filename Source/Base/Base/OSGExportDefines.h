@@ -117,7 +117,7 @@ FieldType SField< T1 , T2 >::_fieldType = FieldType(     \
     SFieldTraits::getSName(),                            \
     SFieldTraits::getSPName(),                           \
     SFieldTraits::getType (),                            \
-    FieldType::SINGLE_FIELD,                             \
+    FieldType::SingleField,                              \
     Self::Class)
 
 #define OSG_MFIELDTYPE_SPEZ_INST(T1, T2)                 \
@@ -125,7 +125,7 @@ FieldType MField< T1, T2 >::_fieldType = FieldType(      \
     MFieldTraits::getMName(),                            \
     MFieldTraits::getMPName(),                           \
     MFieldTraits::getType (),                            \
-    FieldType::MULTI_FIELD,                              \
+    FieldType::MultiField,                               \
     Self::Class)
 
 #define OSG_SFIELDTYPE_INST(CLASSNAME, T1, T2, T3)           \
@@ -134,7 +134,7 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType = FieldType(  \
     SFieldTraits::getSName(),                                \
     SFieldTraits::getSPName(),                               \
     SFieldTraits::getType (),                                \
-    FieldType::SINGLE_FIELD,                                 \
+    FieldType::SingleField,                                  \
     Self::Class)
 
 #define OSG_SFIELDTYPE_INST_X(CLASSNAME, T1, T2, T3)        \
@@ -143,7 +143,7 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType = FieldType( \
     SFieldTraits::getSName< T2 >(),                         \
     SFieldTraits::getSPName(),                              \
     SFieldTraits::getType (),                               \
-    FieldType::SINGLE_FIELD,                                \
+    FieldType::SingleField,                                 \
     Self::Class)
 
 #define OSG_MFIELDTYPE_INST(CLASSNAME, T1, T2, T3)          \
@@ -152,7 +152,7 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType = FieldType( \
     MFieldTraits::getMName(),                               \
     MFieldTraits::getMPName(),                              \
     MFieldTraits::getType (),                               \
-    FieldType::MULTI_FIELD,                                 \
+    FieldType::MultiField,                                  \
     Self::Class)
 
 #define OSG_MFIELDTYPE_INST_X(CLASSNAME, T1, T2, T3)        \
@@ -161,7 +161,7 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType = FieldType( \
     MFieldTraits::getMName< T2 >(),                         \
     MFieldTraits::getMPName(),                              \
     MFieldTraits::getType (),                               \
-    FieldType::MULTI_FIELD,                                 \
+    FieldType::MultiField,                                  \
     Self::Class)
 
 #else
@@ -171,7 +171,7 @@ FieldType SField< T1 , T2 >::_fieldType(                 \
     SFieldTraits::getSName(),                            \
     SFieldTraits::getSPName(),                           \
     SFieldTraits::getType (),                            \
-    FieldType::SINGLE_FIELD,                             \
+    FieldType::SingleField,                              \
     Self::Class)
 
 #define OSG_MFIELDTYPE_SPEZ_INST(T1, T2)                 \
@@ -179,7 +179,7 @@ FieldType MField< T1 , T2 >::_fieldType(                 \
     MFieldTraits::getMName(),                            \
     MFieldTraits::getMPName(),                           \
     MFieldTraits::getType (),                            \
-    FieldType::MULTI_FIELD,                              \
+    FieldType::MultiField,                               \
     Self::Class)
 
 #define OSG_SFIELDTYPE_INST(CLASSNAME, T1, T2, T3)       \
@@ -188,7 +188,7 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
     SFieldTraits::getSName(),                            \
     SFieldTraits::getSPName(),                           \
     SFieldTraits::getType (),                            \
-    FieldType::SINGLE_FIELD,                             \
+    FieldType::SingleField,                              \
     Self::Class)
 
 #define OSG_SFIELDTYPE_INST_X(CLASSNAME, T1, T2, T3)     \
@@ -197,7 +197,7 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
     SFieldTraits::getSName< T2 >(),                      \
     SFieldTraits::getSPName(),                           \
     SFieldTraits::getType (),                            \
-    FieldType::SINGLE_FIELD,                             \
+    FieldType::SingleField,                              \
     Self::Class)
 
 
@@ -207,7 +207,7 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
     MFieldTraits::getMName(),                            \
     MFieldTraits::getMPName(),                           \
     MFieldTraits::getType (),                            \
-    FieldType::MULTI_FIELD,                              \
+    FieldType::MultiField,                               \
     Self::Class)
 
 #define OSG_MFIELDTYPE_INST_X(CLASSNAME, T1, T2, T3)     \
@@ -216,7 +216,7 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
     MFieldTraits::getMName< T2 >(),                      \
     MFieldTraits::getMPName(),                           \
     MFieldTraits::getType (),                            \
-    FieldType::MULTI_FIELD,                              \
+    FieldType::MultiField,                               \
     Self::Class)
 
 #endif

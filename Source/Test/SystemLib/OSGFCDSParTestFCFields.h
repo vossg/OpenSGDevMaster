@@ -172,7 +172,7 @@ struct FieldTraits<FCDSParTestFCPtr, 1> :
     typedef FieldTraits<FCDSParTestFCPtr, 1>  Self;
     typedef FieldContainerPtr           ParentType;
 
-    static const FieldCardinality eFieldCard = SingleField;
+    static const FieldType::Cardinality eParentCard = FieldType::SingleField;
 
     enum                        { Convertible = NotConvertible };
 

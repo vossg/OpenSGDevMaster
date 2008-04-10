@@ -114,24 +114,6 @@ typedef const Field *(ReflexiveContainer::*FieldIndexGetMethod )(UInt32) const;
 typedef Field * (ReflexiveContainer::*FieldIndexAccessMethod)(UInt32);
 #endif
 
-enum FieldCardinality
-{
-    SingleField,
-    MultiField
-};
-
-enum FieldClass
-{
-    ValueField,
-    PtrField,
-    ParentPtrField,
-    ChildPtrField
-#ifndef OSG_DELETE_LATER
-    ,WeakPtrField
-#endif
-
-};
-
 struct NoRefCounts;
 
 OSG_END_NAMESPACE

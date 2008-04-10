@@ -44,7 +44,7 @@ FieldType FieldContainerPtrSFieldBase::_fieldType(
     "FieldContainerPtrSFieldBase",
     "Field",                    
     SFieldTraits::getType (),   
-    FieldType::SINGLE_FIELD,
+    FieldType::SingleField,
     FieldType::PtrField);
 
 

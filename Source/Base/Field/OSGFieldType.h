@@ -59,6 +59,11 @@ class Field;
 /*! \ingroup GrpBaseField
  */
 
+#ifdef OSG_1_GET_COMPAT
+#define SINGLE_FIELD SingleField
+#define MULTI_FIELD MultiField
+#endif
+
 class OSG_BASE_DLLMAPPING FieldType : public DataType
 {
     /*==========================  PUBLIC  =================================*/
@@ -67,10 +72,12 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
 
     enum Cardinality 
     { 
-        SINGLE_FIELD = SingleField, 
-        MULTI_FIELD  = MultiField 
+        SingleField,
+        MultiField
     };
 
+    
+#if 0
     enum Class
     {
         ValueField      = OSG::ValueField,
@@ -78,6 +85,15 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
         ParentPtrField  = OSG::ParentPtrField,
         ChildPtrField   = OSG::ChildPtrField
     };
+#else
+    enum Class
+    {
+        ValueField,
+        PtrField,
+        ParentPtrField,
+        ChildPtrField
+    };
+#endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */

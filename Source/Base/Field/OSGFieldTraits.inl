@@ -39,9 +39,9 @@
 OSG_BEGIN_NAMESPACE
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 FieldDescription<DescT, 
                  eFieldCard, 
                  RefCountPolicy, 
@@ -71,9 +71,9 @@ FieldDescription<DescT,
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 FieldDescription<DescT, 
                  eFieldCard, 
                  RefCountPolicy, 
@@ -103,9 +103,9 @@ FieldDescription<DescT,
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 FieldDescription<DescT, 
                  eFieldCard, 
                  RefCountPolicy, 
@@ -117,9 +117,9 @@ FieldDescription<DescT,
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 FieldDescription<DescT, 
                  eFieldCard, 
                  RefCountPolicy, 
@@ -128,9 +128,9 @@ FieldDescription<DescT,
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 const typename FieldDescription<DescT, 
                                 eFieldCard, 
                                 RefCountPolicy, 
@@ -144,9 +144,9 @@ const typename FieldDescription<DescT,
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 typename FieldDescription<DescT, 
                           eFieldCard, 
                           RefCountPolicy, 
@@ -160,9 +160,9 @@ typename FieldDescription<DescT,
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 Field *FieldDescription<DescT, 
                         eFieldCard, 
                         RefCountPolicy, 
@@ -172,9 +172,9 @@ Field *FieldDescription<DescT,
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 void FieldDescription<DescT, 
                       eFieldCard,  
                       RefCountPolicy,
@@ -186,9 +186,9 @@ void FieldDescription<DescT,
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 FieldDescriptionBase *FieldDescription<DescT, 
                                        eFieldCard,  
                                        RefCountPolicy,
@@ -198,9 +198,9 @@ FieldDescriptionBase *FieldDescription<DescT,
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 GetFieldHandlePtr 
     FieldDescription<DescT, 
                      eFieldCard,  
@@ -215,9 +215,9 @@ GetFieldHandlePtr
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 EditFieldHandlePtr 
     FieldDescription<DescT, 
                      eFieldCard,  
@@ -233,9 +233,9 @@ EditFieldHandlePtr
 
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 void FieldDescription<DescT,
                      eFieldCard, 
                      RefCountPolicy,
@@ -247,9 +247,9 @@ void FieldDescription<DescT,
 }
 
 template<class    DescT,
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 void FieldDescription<DescT,
                       eFieldCard, 
                       RefCountPolicy,
@@ -263,9 +263,9 @@ void FieldDescription<DescT,
 
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 bool FieldDescription<DescT,
                       eFieldCard,
                       RefCountPolicy,
@@ -276,9 +276,9 @@ bool FieldDescription<DescT,
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 bool FieldDescription<DescT,
                       eFieldCard,  
                       RefCountPolicy,
@@ -291,9 +291,9 @@ bool FieldDescription<DescT,
 
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 void FieldDescription<DescT,
                       eFieldCard, 
                       RefCountPolicy,
@@ -307,9 +307,9 @@ void FieldDescription<DescT,
 }
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
+         enum     FieldType::Cardinality eFieldCard, 
          typename RefCountPolicy,
-         enum     FieldClass       eFieldClass> inline
+         enum     FieldType::Class       eFieldClass> inline
 bool FieldDescription<DescT,
                       eFieldCard, 
                       RefCountPolicy,

@@ -73,10 +73,11 @@ class FieldContainerPtrChildSField : public FieldContainerPtrSFieldBase
 
     typedef const    ValueT                                  ArgumentType;
 
-    typedef          FieldDescription      <SFieldTraits,
-                                            SingleField,
-                                            RefCountPolicy,
-                                            ChildPtrField >  Description;
+    typedef          FieldDescription      <
+                         SFieldTraits,
+                         FieldType::SingleField,
+                         RefCountPolicy,
+                         FieldType::ChildPtrField         >  Description;
 
     typedef          EditFCPtrSFieldHandle <Self          >  EditHandle;
     typedef          boost::shared_ptr     <EditHandle    >  EditHandlePtr;
@@ -216,10 +217,11 @@ class FieldContainerPtrChildSField : public FieldContainerPtrSFieldBase
     };
 
     typedef typename
-         boost::mpl::if_<
-              boost::mpl::bool_<(SFieldTraits::eFieldCard == SingleField)>,
-                  SingleParentHandler,
-                  MultiParentHandler>::type ParentHandler;
+      boost::mpl::if_<
+        boost::mpl::bool_<
+                  (SFieldTraits::eParentCard == FieldType::SingleField)>,
+        SingleParentHandler,
+        MultiParentHandler>::type ParentHandler;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */

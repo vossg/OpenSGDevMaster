@@ -192,10 +192,10 @@ struct FieldTraits<@!Classname!@Ptr, 1> :
     typedef @!ChildFieldParent!@Ptr           ParentType;
 
 @@if ChildSParent
-    static const FieldCardinality eFieldCard = SingleField;
+    static const FieldType::Cardinality eParentCard = FieldType::SingleField;
 @@endif
 @@if ChildMParent
-    static const FieldCardinality eFieldCard = MultiField;
+    static const FieldType::Cardinality eParentCard = FieldType::MultiField;
 @@endif
 
     enum                        { Convertible = NotConvertible };

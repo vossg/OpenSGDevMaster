@@ -520,7 +520,7 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
 
         //to access the content of a field via a Field*
         //one must know the cardinality
-        if(hF->getCardinality() == FieldType::SINGLE_FIELD)
+        if(hF->getCardinality() == FieldType::SingleField)
         {
             _outStream << " ";
 
@@ -528,7 +528,7 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
 
             _outStream << EndElemNL;
         }
-        else if(hF->getCardinality() == FieldType::MULTI_FIELD)
+        else if(hF->getCardinality() == FieldType::MultiField)
         {
             _outStream << " #";
 

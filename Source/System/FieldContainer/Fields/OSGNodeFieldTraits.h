@@ -152,7 +152,7 @@ struct FieldTraits<NodePtr, 1> : public FieldTraitsFCPtrBase<NodePtr, 1>
 
     enum             { Convertible = Self::NotConvertible              };
 
-    static const FieldCardinality eFieldCard = SingleField;
+    static const FieldType::Cardinality eParentCard = FieldType::SingleField;
 
     static OSG_SYSTEM_DLLMAPPING
                  DataType &getType      (void);

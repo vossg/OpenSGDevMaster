@@ -113,13 +113,13 @@ bool FieldDescriptionBase::isInternal(void)  const
 inline
 bool FieldDescriptionBase::isSField(void) const
 {
-    return (_fieldType.getCardinality() == FieldType::SINGLE_FIELD);
+    return (_fieldType.getCardinality() == FieldType::SingleField);
 }
 
 inline
 bool FieldDescriptionBase::isMField(void) const
 {
-    return (_fieldType.getCardinality() == FieldType::MULTI_FIELD);
+    return (_fieldType.getCardinality() == FieldType::MultiField);
 }
 
 inline

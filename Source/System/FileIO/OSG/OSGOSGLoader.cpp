@@ -596,7 +596,7 @@ Int32 OSGLoader::mapExtIntFieldType(const Char8 *szFieldname,
                       << "parsing as Node"
                       << std::endl;
 
-                if(oFieldType.getCardinality() == FieldType::SINGLE_FIELD)
+                if(oFieldType.getCardinality() == FieldType::SingleField)
                 {
                     returnValue = ScanParseSkel::OSGsfNode;
                 }

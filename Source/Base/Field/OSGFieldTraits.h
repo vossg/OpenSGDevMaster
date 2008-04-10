@@ -46,6 +46,7 @@
 #include "OSGFieldForwards.h"
 #include "OSGLog.h"
 #include "OSGContainerForwards.h"
+#include "OSGFieldType.h"
 
 #include <iosfwd>
 
@@ -474,9 +475,9 @@ struct FieldDescBase
 };
 
 template<class    DescT, 
-         enum     FieldCardinality eFieldCard, 
-         typename RefCountPolicy   = NoRefCounts, 
-         enum     FieldClass       eFieldClass = ValueField>
+         enum     FieldType::Cardinality eFieldCard, 
+         typename RefCountPolicy                     = NoRefCounts, 
+         enum     FieldType::Class       eFieldClass = FieldType::ValueField>
 class FieldDescription : public DescT::FieldDescParent
 {
   protected:
@@ -490,7 +491,7 @@ class FieldDescription : public DescT::FieldDescParent
     typedef typename DescT::FieldDescParent       Inherited;
 
     typedef typename
-      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
+      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == FieldType::SingleField)>,
                       SField<typename DescT::ValueType,
                                       DescT::iNamespace>,
                       MField<typename DescT::ValueType,
@@ -498,7 +499,7 @@ class FieldDescription : public DescT::FieldDescParent
                              typename DescT::MFAlloc   > >::type HandledVField;
 
     typedef typename
-      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
+      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == FieldType::SingleField)>,
               FieldContainerPtrSField<typename DescT::ValueType,
                                       RefCountPolicy,
                                       DescT::iNamespace>,
@@ -507,7 +508,7 @@ class FieldDescription : public DescT::FieldDescParent
                                       DescT::iNamespace> >::type HandledPField;
 
     typedef typename
-      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
+      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == FieldType::SingleField)>,
               FieldContainerPtrParentSField<typename DescT::ValueType,
                                             RefCountPolicy,
                                             DescT::iNamespace>,
@@ -517,7 +518,7 @@ class FieldDescription : public DescT::FieldDescParent
               >::type HandledPPField;
 
     typedef typename
-      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
+      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == FieldType::SingleField)>,
               FieldContainerPtrChildSField<typename DescT::ValueType,
                                            RefCountPolicy,
                                            DescT::iNamespace>,
@@ -527,17 +528,19 @@ class FieldDescription : public DescT::FieldDescParent
               >::type HandledChField;
 
     typedef typename
-      boost::mpl::if_<boost::mpl::bool_<(eFieldClass == ValueField)>,
+      boost::mpl::if_<boost::mpl::bool_<(eFieldClass == FieldType::ValueField)>,
               HandledVField,
               HandledPField>::type HandledFieldA;
 
     typedef typename
-      boost::mpl::if_<boost::mpl::bool_<(eFieldClass == ParentPtrField)>,
+      boost::mpl::if_<
+              boost::mpl::bool_<(eFieldClass == FieldType::ParentPtrField)>,
               HandledPPField,
               HandledFieldA>::type HandledFieldB;
 
     typedef typename
-      boost::mpl::if_<boost::mpl::bool_<(eFieldClass == ChildPtrField)>,
+      boost::mpl::if_<
+              boost::mpl::bool_<(eFieldClass == FieldType::ChildPtrField)>,
               HandledChField,
               HandledFieldB>::type HandledField;
 
@@ -582,14 +585,16 @@ class FieldDescription : public DescT::FieldDescParent
     };
 
     typedef typename
-      boost::mpl::if_<boost::mpl::bool_<(eFieldClass == ChildPtrField)>,
+        boost::mpl::if_<
+              boost::mpl::bool_<(eFieldClass == FieldType::ChildPtrField)>,
               ChildFieldCreateHandler,
               DefaultFieldCreateHandler>::type FieldCreateHandler;
 
     typedef typename
-        boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
-                         SFieldFunctions,
-                         MFieldFunctions>::type FieldFunctions;
+        boost::mpl::if_<
+              boost::mpl::bool_<(eFieldCard == FieldType::SingleField)>,
+              SFieldFunctions,
+              MFieldFunctions>::type FieldFunctions;
 
 
     virtual void beginEdit(Field              *pField,

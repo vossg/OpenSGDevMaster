@@ -337,12 +337,12 @@ OSBCommonElement::readFieldContent(
         }
         else
         {
-            if(fieldType.getCardinality() == FieldType::SINGLE_FIELD)
+            if(fieldType.getCardinality() == FieldType::SingleField)
             {
                 ptrFieldIt = readPtrSingleField(fieldId);
                 isPtrField = true;
             }
-            else if(fieldType.getCardinality() == FieldType::MULTI_FIELD)
+            else if(fieldType.getCardinality() == FieldType::MultiField)
             {
                 ptrFieldIt = readPtrMultiField(fieldId, fieldSize);
                 isPtrField = true;
@@ -842,11 +842,11 @@ OSBCommonElement::preWriteFieldContainer(
         else if(fieldType.getContentType().isDerivedFrom(
             FieldTraits<FieldContainerPtr>::getType()) == true)
         {
-            if(fieldType.getCardinality() == FieldType::SINGLE_FIELD)
+            if(fieldType.getCardinality() == FieldType::SingleField)
             {
                 preWritePtrSingleField(fieldId);
             }
-            else if(fieldType.getCardinality() == FieldType::MULTI_FIELD)
+            else if(fieldType.getCardinality() == FieldType::MultiField)
             {
                 preWritePtrMultiField(fieldId);
             }

@@ -83,10 +83,11 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
     typedef const    ValueT                                  ArgumentType;
 
-    typedef          FieldDescription       <MFieldTraits,
-                                             MultiField,
-                                             RefCountPolicy,
-                                             PtrField      > Description;
+    typedef          FieldDescription       <
+                         MFieldTraits,
+                         FieldType::MultiField,
+                         RefCountPolicy,
+                         FieldType::PtrField               > Description;
 
     typedef          EditFCPtrMFieldHandle  <Self          > EditHandle;
     typedef          boost::shared_ptr      <EditHandle    > EditHandlePtr;

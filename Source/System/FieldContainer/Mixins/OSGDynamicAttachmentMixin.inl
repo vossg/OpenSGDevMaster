@@ -149,7 +149,7 @@ EditFieldHandlePtr DynFieldAttachment<AttachmentDescT>::editDynamicField(
 
         this->editSField(pDesc->getFieldMask());
 
-        if(returnValue->getCardinality() == FieldType::MULTI_FIELD)
+        if(returnValue->getCardinality() == FieldType::MultiField)
         {
 #ifdef OSG_MT_CPTR_ASPECT
             if(pDesc->isShared(pField) == true)

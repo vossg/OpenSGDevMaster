@@ -102,8 +102,9 @@ class MField : public Field
 
     typedef typename MFieldTraits::ArgumentType         ArgumentType;
 
-    typedef          FieldDescription<MFieldTraits,
-                                      MultiField     >  Description;
+    typedef          FieldDescription<
+                         MFieldTraits,
+                         FieldType::MultiField   >      Description;
 
     typedef          EditMFieldHandle <Self      >      EditHandle;
     typedef          boost::shared_ptr<EditHandle>      EditHandlePtr;

@@ -304,11 +304,11 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
             if(fieldType.getContentType().isDerivedFrom(
                 FieldTraits<FieldContainerPtr>::getType()) == true)
             {
-                if(fieldType.getCardinality() == FieldType::SINGLE_FIELD)
+                if(fieldType.getCardinality() == FieldType::SingleField)
                 {
                     preWritePtrSingleField(fieldId);
                 }
-                else if(fieldType.getCardinality() == FieldType::MULTI_FIELD)
+                else if(fieldType.getCardinality() == FieldType::MultiField)
                 {
                     preWritePtrMultiField(fieldId);
                 }

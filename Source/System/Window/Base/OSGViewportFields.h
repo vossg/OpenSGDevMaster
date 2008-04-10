@@ -172,7 +172,7 @@ struct FieldTraits<ViewportPtr, 1> :
     typedef FieldTraits<ViewportPtr, 1>  Self;
     typedef FieldContainerPtr           ParentType;
 
-    static const FieldCardinality eFieldCard = SingleField;
+    static const FieldType::Cardinality eParentCard = FieldType::SingleField;
 
     enum                        { Convertible = NotConvertible };
 

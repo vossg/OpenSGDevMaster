@@ -72,10 +72,11 @@ class FieldContainerPtrParentSField : public FieldContainerPtrSFieldBase
   
     typedef const ValueT                                        ArgumentType;
 
-    typedef       FieldDescription             <PtrSFieldTraits,
-                                                SingleField,
-                                                RefCountPolicy,
-                                                ParentPtrField> Description;
+    typedef       FieldDescription             <
+                      PtrSFieldTraits,
+                      FieldType::SingleField,
+                      RefCountPolicy,
+                      FieldType::ParentPtrField               > Description;
 
     typedef       EditFCPtrSFieldHandle        <Self          > EditHandle;
     typedef       boost::shared_ptr            <EditHandle    > EditHandlePtr;

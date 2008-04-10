@@ -79,8 +79,9 @@ class SField : public Field
 
     typedef typename SFieldTraits::ArgumentType             ArgumentType;
 
-    typedef          FieldDescription<SFieldTraits,
-                                      SingleField        >  Description;
+    typedef          FieldDescription<
+                         SFieldTraits,
+                         FieldType::SingleField  >          Description;
 
     typedef          EditSFieldHandle <Self      >          EditHandle;
     typedef          boost::shared_ptr<EditHandle>          EditHandlePtr;
