@@ -7,10 +7,9 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGUnrecordedPointerSFieldBase.h"
+#include "OSGPointerSFieldCommon.h"
+#include "OSGPointerAccessHandler.h"
 #include "OSGPointerFieldConfigs.h"
-//#include "OSGEditPointerSFieldHandle.h"
-//#include "OSGGetPointerSFieldHandle.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGUnrecordedPointerSField.h
@@ -88,7 +87,8 @@ class UnrecordedSFieldReferenceProxy
 
 template <class ObjectTypeT,
           Int32 NamespaceI  = 0>
-class UnrecordedPointerSField : public UnrecordedPointerSFieldBase<NamespaceI>
+class UnrecordedPointerSField : 
+    public PointerSFieldCommon<UnrecordedAccessHandler, NamespaceI>
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -100,7 +100,8 @@ class UnrecordedPointerSField : public UnrecordedPointerSFieldBase<NamespaceI>
 
     typedef ObjectTypeT                                   ObjectType;
     
-    typedef UnrecordedPointerSFieldBase<NamespaceI >      Inherited;
+    typedef PointerSFieldCommon<UnrecordedAccessHandler, 
+                                        NamespaceI>       Inherited;
     typedef UnrecordedPointerSField    <ObjectType,
                                         NamespaceI >      Self;
     
@@ -119,9 +120,9 @@ class UnrecordedPointerSField : public UnrecordedPointerSFieldBase<NamespaceI>
     typedef FieldTraits     <ValueType,
                              NamespaceI                         >  SFieldTraits;
     typedef FieldDescription<SFieldTraits,
-                             SingleField,
+                             FieldType::SingleField,
                              UnrecordedRefCountPolicy,
-                             PtrField                >  Description;
+                             FieldType::PtrField                >  Description;
                              
     // handles
 //    typedef          EditPointerSFieldHandle<Self>      EditHandle;

@@ -284,7 +284,8 @@ inline
     ParentPointerMField<ObjectTypeT,
                         NamespaceI  >::ParentPointerMField(void)
     
-    : Inherited()
+    : Inherited(),
+      _childIdStore()
 {
 }
 
@@ -294,7 +295,8 @@ inline
     ParentPointerMField<ObjectTypeT,
                         NamespaceI  >::ParentPointerMField(Self const &source)
     
-    : Inherited(source)
+    : Inherited(source),
+      _childIdStore(source._childIdStore)
 {
 }
 
@@ -304,7 +306,8 @@ inline
     ParentPointerMField<ObjectTypeT,
                         NamespaceI  >::ParentPointerMField(UInt32 const size)
     
-    : Inherited(size)
+    : Inherited(size),
+      _childIdStore(size)
 {
 }
 
@@ -384,6 +387,290 @@ inline typename ParentPointerMField<ObjectTypeT,
 {
     return const_reference(this->getRawStore  ().end() - 1,
                            this->getRawIdStore().end() - 1 );
+}
+
+/*-------------------------------------------------------------------------*/
+/* IdStore Interface                                                       */
+
+/*-------------------------------------------------------------------------*/
+/* Reading Values                                                          */
+    
+template <class ObjectTypeT, Int32 NamespaceI>
+inline UInt16 const
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreGet(UInt32 const index) const
+{
+    return _childIdStore[index];
+}
+    
+template <class ObjectTypeT, Int32 NamespaceI>
+inline UInt16 const
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreGet(IdStoreItType pos) const
+{
+    return *pos;
+}    
+    
+template <class ObjectTypeT, Int32 NamespaceI>
+inline UInt16 const
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreGet(
+        IdStoreConstItType pos) const
+{
+    return *pos;
+}
+    
+/*-------------------------------------------------------------------------*/
+/* Adding Values                                                           */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreAppend(UInt16 const newId)
+{
+    _childIdStore.push_back(newId);
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreInsert(
+        UInt32 const index, UInt16 const newId)
+{
+    _childIdStore.insert(_childIdStore.begin() + index, newId);
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreInsert(
+        IdStoreItType pos, UInt16 const newId)
+{
+    _childIdStore.insert(pos, newId);
+}
+
+template <class ObjectTypeT, Int32 NamespaceI    >
+template <class InputIteratorT>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreInsert(
+        IdStoreItType pos, InputIteratorT first, InputIteratorT last)
+{
+    _childIdStore.insert(pos, first, last);
+}
+
+/*-------------------------------------------------------------------------*/
+/* Changing Values                                                         */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreReplace(
+        UInt32 const index, UInt16 const newId)
+{
+    IdStoreItType sI = _childIdStore.begin() + index;
+    
+    *sI = newId;
+}
+                         
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreReplace(
+        IdStoreItType pos, UInt16 const newId)
+{
+    *pos = newId;
+}
+
+/*-------------------------------------------------------------------------*/
+/* Removing Values                                                         */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreErase(UInt32 const index)
+{
+    idStoreErase(_childIdStore.begin() + index);
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreErase(IdStoreItType pos)
+{
+    _childIdStore.erase(pos);
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreErase(
+        UInt32 const beginIndex, UInt32 const endIndex)
+{
+    idStoreErase(_childIdStore.begin() + beginIndex,
+                 _childIdStore.begin() + endIndex   );
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreErase(
+        IdStoreItType begin, IdStoreItType end)
+{
+    _childIdStore.erase(begin, end);
+}
+    
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreClear(void)
+{
+    _childIdStore.clear();
+}
+
+/*-------------------------------------------------------------------------*/
+/* Finding Values                                                          */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline Int32
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreFindIndex(
+        UInt16 const fieldId) const
+{
+    IdStoreConstItType sI = std::find(_childIdStore.begin(),
+                                      _childIdStore.end  (), fieldId);
+                                  
+    if(sI != _childIdStore.end())
+    {
+        return std::distance(_childIdStore.begin(), sI);
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline typename ParentPointerMField<ObjectTypeT, NamespaceI>::IdStoreItType
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreFind(UInt16 const fieldId)
+{
+    return std::find(_childIdStore.begin(),
+                     _childIdStore.end  (), fieldId);
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline typename ParentPointerMField<ObjectTypeT, NamespaceI>::IdStoreConstItType
+    ParentPointerMField<ObjectTypeT, NamespaceI>::idStoreFind(
+        UInt16 const fieldId) const
+{
+    return std::find(_childIdStore.begin(),
+                     _childIdStore.end  (), fieldId);
+}
+
+/*-------------------------------------------------------------------------*/
+/* Raw IdStore Access                                                      */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline typename ParentPointerMField<ObjectTypeT, NamespaceI>::IdStoreType &
+    ParentPointerMField<ObjectTypeT, NamespaceI>::editRawIdStore(void)
+{
+    return _childIdStore;
+}
+    
+template <class ObjectTypeT, Int32 NamespaceI>
+inline typename ParentPointerMField<ObjectTypeT, NamespaceI>::IdStoreType const &
+    ParentPointerMField<ObjectTypeT, NamespaceI>::getRawIdStore (void) const
+{
+    return _childIdStore;
+}
+
+/*-------------------------------------------------------------------------*/
+/* Std library interface                                                   */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::reserve(size_type size)
+{
+    this->editRawStore  ().reserve(size);
+    this->editRawIdStore().reserve(size);
+}
+
+/*-------------------------------------------------------------------------*/
+/* Binary IO                                                               */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline UInt32
+    ParentPointerMField<ObjectTypeT, NamespaceI>::getBinSize(void) const
+{
+    return Inherited::getBinSize() +
+        IdBaseTraitsType::getBinSize(&(this->getRawIdStore().front()),
+                                       this->getRawIdStore().size ()  );
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::copyToBin(
+        BinaryDataHandler &pMem) const
+{
+    UInt32 thisSize = this->getRawIdStore().size();
+
+    Inherited::copyToBin(pMem);
+    
+    if(thisSize > 0)
+    {
+        IdBaseTraitsType::copyToBin(
+            pMem, &(this->getRawIdStore().front()), thisSize);
+    }
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::copyFromBin(
+        BinaryDataHandler &pMem)
+{
+    Inherited::copyFromBin(pMem);
+
+    UInt32 newSize = this->ptrStoreSize();
+    
+    this->editRawIdStore().clear();
+    
+    if(newSize > 0)
+    {
+        this->editRawIdStore().resize(newSize);
+        
+        IdBaseTraitsType::copyFromBin(
+            pMem, &(this->editRawIdStore().front()), newSize);
+    }
+}
+
+/*-------------------------------------------------------------------------*/
+/* MT Sync                                                                 */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::syncWith(
+        Self   &source,     ConstFieldMaskArg   syncMode,
+        UInt32  uiSyncInfo, AspectOffsetStore  &oOffsets )
+{
+    Inherited::syncWith(source, syncMode, uiSyncInfo, oOffsets);
+    
+    _childIdStore = source._childIdStore;
+}
+                         
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::beginEdit(
+        UInt32, AspectOffsetStore &)
+{
+    // nothing to do
+}
+                         
+template <class ObjectTypeT, Int32 NamespaceI>
+inline typename ParentPointerMField<ObjectTypeT, NamespaceI>::Self *
+    ParentPointerMField<ObjectTypeT, NamespaceI>::resolveShare(
+        UInt32 uiAspect, AspectOffsetStore &oOffsets)
+{
+    return Inherited::resolveShare(uiAspect, oOffsets);
+}        
+        
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerMField<ObjectTypeT, NamespaceI>::terminateShare(
+        UInt32, AspectOffsetStore &)
+{
+    // nothing to do
+}
+                         
+template <class ObjectTypeT, Int32 NamespaceI>
+inline bool
+    ParentPointerMField<ObjectTypeT, NamespaceI>::isShared(void)
+{
+    return Inherited::isShared();
 }
 
 /*-------------------------------------------------------------------------*/

@@ -7,10 +7,9 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGParentPointerMFieldBase.h"
+#include "OSGPointerMFieldCommon.h"
+#include "OSGPointerAccessHandler.h"
 #include "OSGPointerFieldConfigs.h"
-//#include "OSGEditParentPointerMFieldHandle.h"
-//#include "OSGGetParentPointerMFieldHandle.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGParentPointerMField.h
@@ -205,7 +204,8 @@ class ParentMFieldConstReferenceProxy
 
 template <class ObjectTypeT,
           Int32 NamespaceI  = 0>
-class ParentPointerMField : public ParentPointerMFieldBase<NamespaceI>
+class ParentPointerMField 
+    : public PointerMFieldCommon<NoRefCountAccessHandler, NamespaceI>
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -215,7 +215,8 @@ class ParentPointerMField : public ParentPointerMFieldBase<NamespaceI>
 
     typedef          ObjectTypeT                           ObjectType;
         
-    typedef          ParentPointerMFieldBase<NamespaceI  > Inherited;
+    typedef          PointerMFieldCommon<NoRefCountAccessHandler, 
+                                         NamespaceI      > Inherited;
     typedef          ParentPointerMField    <ObjectTypeT,
                                              NamespaceI  > Self;
                                              
@@ -231,14 +232,24 @@ class ParentPointerMField : public ParentPointerMFieldBase<NamespaceI>
     
     typedef typename FieldConfig::ConstPtrType             const_pointer;
     typedef typename FieldConfig::MFieldConstRefType       const_reference;
+
+    typedef          UInt16                                  IdStoredType;
+    typedef          MFieldVector<IdStoredType>              IdStoreType;
+    typedef typename IdStoreType::iterator                   IdStoreItType;
+    typedef typename IdStoreType::const_iterator             IdStoreConstItType;
+    
+    typedef          FieldTraits<IdStoredType >              IdBaseTraitsType;
+    
+    typedef typename Inherited::size_type                    size_type;
+    typedef typename Inherited::difference_type              difference_type;
     
     typedef FieldTraits     <ValueType,
                              NamespaceI                     >  MFieldTraits;
 
     typedef FieldDescription<MFieldTraits,
-                             MultiField,
+                             FieldType::MultiField,
                              NoRefCountPolicy,
-                             ParentPtrField>  Description;
+                             FieldType::ParentPtrField>  Description;
     
     // handles
 //    typedef          EditParentPointerMFieldHandle<Self>      EditHandle;
@@ -301,6 +312,87 @@ class ParentPointerMField : public ParentPointerMFieldBase<NamespaceI>
         
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name IdStore Interface                                            */
+    /*! \{                                                                 */
+    
+    // reading values
+    UInt16 const idStoreGet(UInt32 const       index) const;
+    UInt16 const idStoreGet(IdStoreItType      pos  ) const;
+    UInt16 const idStoreGet(IdStoreConstItType pos  ) const;
+  
+    // adding values
+    void  idStoreAppend (UInt16 const   newId     );
+    void  idStoreInsert (UInt32 const   index,
+                         UInt16 const   newId     );
+    void  idStoreInsert (IdStoreItType  pos,
+                         UInt16 const   newId     );
+    template <class InputIteratorT>
+    void  idStoreInsert (IdStoreItType  pos,
+                         InputIteratorT first,
+                         InputIteratorT last      );
+    // changing values
+    void  idStoreReplace(UInt32 const  index,
+                         UInt16 const  newId      );
+    void  idStoreReplace(IdStoreItType pos,
+                         UInt16 const  newId      );
+    
+    // removing values
+    void  idStoreErase  (UInt32 const  index      );
+    void  idStoreErase  (IdStoreItType pos        );
+    void  idStoreErase  (UInt32 const  beginIndex,
+                         UInt32 const  endIndex   );
+    void  idStoreErase  (IdStoreItType begin,
+                         IdStoreItType end        );
+    void  idStoreClear  (void                     );
+    
+    // finding values
+    Int32              idStoreFindIndex(UInt16 const fieldId) const;
+    IdStoreItType      idStoreFind     (UInt16 const fieldId);
+    IdStoreConstItType idStoreFind     (UInt16 const fieldId) const;
+        
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Raw IdStore Access                                           */
+    /*! \{                                                                 */
+    
+    IdStoreType       &editRawIdStore(void);
+    IdStoreType const &getRawIdStore (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Std library interface                                        */
+    /*! \{                                                                 */
+    
+    void reserve(size_type size);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Binary IO                                                    */
+    /*! \{                                                                 */
+
+    UInt32 getBinSize (void                   ) const;
+    void   copyToBin  (BinaryDataHandler &pMem) const;
+    void   copyFromBin(BinaryDataHandler &pMem);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name MT Sync                                                      */
+    /*! \{                                                                 */
+
+    void  syncWith      (Self               &source, 
+                         ConstFieldMaskArg   syncMode,
+                         UInt32              uiSyncInfo,
+                         AspectOffsetStore  &oOffsets    );
+    void  beginEdit     (UInt32              uiAspect,
+                         AspectOffsetStore  &oOffsets    );
+    Self *resolveShare  (UInt32              uiAspect, 
+                         AspectOffsetStore  &oOffsets    );
+    void  terminateShare(UInt32              uiAspect, 
+                         AspectOffsetStore  &oOffsets    );
+    bool  isShared      (void                            );
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name Index Operator                                               */
     /*! \{                                                                 */
 
@@ -313,7 +405,8 @@ class ParentPointerMField : public ParentPointerMFieldBase<NamespaceI>
     /*! \name Members                                                      */
     /*! \{                                                                 */
     
-    static FieldType _fieldType;
+    static FieldType   _fieldType;
+           IdStoreType _childIdStore;
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

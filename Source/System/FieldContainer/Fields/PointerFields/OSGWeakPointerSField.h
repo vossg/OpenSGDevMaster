@@ -7,10 +7,9 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGWeakPointerSFieldBase.h"
+#include "OSGPointerSFieldCommon.h"
+#include "OSGPointerAccessHandler.h"
 #include "OSGPointerFieldConfigs.h"
-//#include "OSGEditPointerSFieldHandle.h"
-//#include "OSGGetPointerSFieldHandle.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGWeakPointerSField.h
@@ -88,7 +87,8 @@ class WeakSFieldReferenceProxy
 
 template <class ObjectTypeT,
           Int32 NamespaceI  = 0>
-class WeakPointerSField : public WeakPointerSFieldBase<NamespaceI>
+class WeakPointerSField : 
+    public PointerSFieldCommon<WeakAccessHandler, NamespaceI>
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -100,7 +100,8 @@ class WeakPointerSField : public WeakPointerSFieldBase<NamespaceI>
 
     typedef ObjectTypeT                               ObjectType;
     
-    typedef WeakPointerSFieldBase<NamespaceI >        Inherited;
+    typedef PointerSFieldCommon  <WeakAccessHandler, 
+                                  NamespaceI       >  Inherited;
     typedef WeakPointerSField    <ObjectType,
                                   NamespaceI >        Self;
     
@@ -119,9 +120,9 @@ class WeakPointerSField : public WeakPointerSFieldBase<NamespaceI>
     typedef FieldTraits     <ValueType,
                              NamespaceI                   >  SFieldTraits;
     typedef FieldDescription<SFieldTraits,
-                             SingleField,
+                             FieldType::SingleField,
                              WeakRefCountPolicy,
-                             PtrField          >             Description;
+                             FieldType::PtrField          >  Description;
     
     // handles
 //    typedef          EditPointerSFieldHandle<Self>      EditHandle;

@@ -104,7 +104,8 @@ template <class ObjectTypeT, Int32 NamespaceI>
 inline
     ParentPointerSField<ObjectTypeT,
                         NamespaceI  >::ParentPointerSField(void)
-    : Inherited()
+    : Inherited(),
+      _childIdValue()
 {
     // nothing to do
 }
@@ -113,7 +114,8 @@ template <class ObjectTypeT, Int32 NamespaceI>
 inline
     ParentPointerSField<ObjectTypeT,
                         NamespaceI  >::ParentPointerSField(Self const &source)
-    : Inherited(source)
+    : Inherited(source),
+      _childIdValue(source._childIdValue)
 {
     // nothing to do
 }
@@ -124,7 +126,8 @@ inline
                         NamespaceI  >::ParentPointerSField(
         ValueType ptrValue, IdStoredType idValue)
     
-    : Inherited(ptrValue, idValue)
+    : Inherited(ptrValue),
+      _childIdValue(idValue )
 {
     // nothing to do
 }
@@ -138,6 +141,96 @@ inline
                         NamespaceI  >::~ParentPointerSField(void)
 {
     // nothing to do
+}
+
+/*-------------------------------------------------------------------------*/
+/* IdStore Interface                                                       */
+
+/*-------------------------------------------------------------------------*/
+/* Reading Values                                                          */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline UInt16 const
+    ParentPointerSField<ObjectTypeT, NamespaceI>::idStoreGet(void) const
+{
+    return _childIdValue;
+}
+    
+/*-------------------------------------------------------------------------*/
+/* Changing Values                                                         */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerSField<ObjectTypeT, NamespaceI>::idStoreSet(UInt16 const newId)
+{
+    _childIdValue = newId;
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerSField<ObjectTypeT, NamespaceI>::idStoreClear(void)
+{
+    _childIdValue = 0;
+}
+
+/*-------------------------------------------------------------------------*/
+/* Raw IdStore Access                                                      */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline typename ParentPointerSField<ObjectTypeT, NamespaceI>::IdStoredTypeRef
+    ParentPointerSField<ObjectTypeT, NamespaceI>::editRawIdStore(void)
+{
+    return _childIdValue;
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline typename ParentPointerSField<ObjectTypeT, NamespaceI>::IdStoredTypeConstRef
+    ParentPointerSField<ObjectTypeT, NamespaceI>::getRawIdStore (void) const
+{
+    return _childIdValue;
+}
+
+/*-------------------------------------------------------------------------*/
+/* Binary IO                                                               */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline UInt32
+    ParentPointerSField<ObjectTypeT, NamespaceI>::getBinSize(void) const
+{
+    return
+        Inherited::getBinSize() + IdBaseTraitsType::getBinSize(_childIdValue);
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void
+    ParentPointerSField<ObjectTypeT, NamespaceI>::copyToBin(
+        BinaryDataHandler &pMem) const
+{
+    Inherited::copyToBin(pMem);
+    
+    IdBaseTraitsType::copyToBin(pMem, _childIdValue);
+}
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void 
+    ParentPointerSField<ObjectTypeT, NamespaceI>::copyFromBin(
+        BinaryDataHandler &pMem)
+{
+    Inherited::copyFromBin(pMem);
+    
+    IdBaseTraitsType::copyFromBin(pMem, _childIdValue);
+}
+
+/*-------------------------------------------------------------------------*/
+/* MT Sync                                                                 */
+
+template <class ObjectTypeT, Int32 NamespaceI>
+inline void 
+    ParentPointerSField<ObjectTypeT, NamespaceI>::syncWith(Self &source)
+{
+    Inherited::syncWith(source);
+    
+    _childIdValue = source._childIdValue;
 }
 
 /*-------------------------------------------------------------------------*/

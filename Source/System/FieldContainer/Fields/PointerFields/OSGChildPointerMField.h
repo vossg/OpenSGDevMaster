@@ -349,9 +349,9 @@ class ChildPointerMField : public ChildPointerMFieldBase<NamespaceI>
     typedef FieldTraits     <ValueType,
                              NamespaceI                    >  MFieldTraits;
     typedef FieldDescription<MFieldTraits,
-                             MultiField,
+                             FieldType::MultiField,
                              UnrecordedRefCountPolicy,
-                             ChildPtrField>  Description;
+                             FieldType::ChildPtrField>  Description;
                                       
     // handles
 //    typedef          EditPointerMFieldHandle<Self>      EditHandle;

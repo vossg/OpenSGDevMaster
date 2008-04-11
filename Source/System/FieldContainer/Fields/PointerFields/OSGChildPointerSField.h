@@ -121,9 +121,9 @@ class ChildPointerSField : public ChildPointerSFieldBase<NamespaceI>
     typedef FieldTraits     <ValueType,
                              NamespaceI                    >  SFieldTraits;
     typedef FieldDescription<SFieldTraits,
-                             SingleField,
+                             FieldType::SingleField,
                              UnrecordedRefCountPolicy,
-                             ChildPtrField>  Description;
+                             FieldType::ChildPtrField>  Description;
     
     // handles
 //    typedef          EditPointerSFieldHandle<Self>      EditHandle;

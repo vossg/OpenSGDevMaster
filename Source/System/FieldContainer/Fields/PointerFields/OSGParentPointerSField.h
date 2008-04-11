@@ -7,7 +7,8 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGParentPointerSFieldBase.h"
+#include "OSGPointerSFieldCommon.h"
+#include "OSGPointerAccessHandler.h"
 #include "OSGPointerFieldConfigs.h"
 //#include "OSGEditParentPointerSFieldHandle.h"
 //#include "OSGGetParentPointerSFieldHandle.h"
@@ -94,7 +95,8 @@ class ParentSFieldConstReferenceProxy
 
 template <class ObjectTypeT,
           Int32 NamespaceI  = 0>
-class ParentPointerSField : public ParentPointerSFieldBase<NamespaceI>
+class ParentPointerSField
+    : public PointerSFieldCommon<NoRefCountAccessHandler, NamespaceI>
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -104,7 +106,8 @@ class ParentPointerSField : public ParentPointerSFieldBase<NamespaceI>
 
     typedef          ObjectTypeT                           ObjectType;
         
-    typedef          ParentPointerSFieldBase<NamespaceI  > Inherited;
+    typedef          PointerSFieldCommon    <NoRefCountAccessHandler,
+                                             NamespaceI  > Inherited;
     typedef          ParentPointerSField    <ObjectTypeT,
                                              NamespaceI  > Self;
                                              
@@ -118,14 +121,18 @@ class ParentPointerSField : public ParentPointerSFieldBase<NamespaceI>
     typedef typename FieldConfig::ConstPtrType             const_pointer;
     typedef typename FieldConfig::SFieldConstRefType       const_reference;
     
-    typedef typename Inherited::IdStoredType               IdStoredType;
+    typedef UInt16                                  IdStoredType;
+    typedef UInt16                                 &IdStoredTypeRef;
+    typedef UInt16 const                           &IdStoredTypeConstRef;
+    
+    typedef FieldTraits<IdStoredType >              IdBaseTraitsType;
     
     typedef FieldTraits     <ValueType,
                              NamespaceI                     >  SFieldTraits;
     typedef FieldDescription<SFieldTraits,
-                             SingleField,
+                             FieldType::SingleField,
                              NoRefCountPolicy,
-                             ParentPtrField  >  Description;
+                             FieldType::ParentPtrField  >  Description;
     
     // handles
 //    typedef          EditParentPointerSFieldHandle<Self>      EditHandle;
@@ -175,6 +182,42 @@ class ParentPointerSField : public ParentPointerSFieldBase<NamespaceI>
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name IdStore Interface                                            */
+    /*! \{                                                                 */
+    
+    // reading values
+    UInt16 const idStoreGet(void) const;
+    
+    // changing values
+    void idStoreSet  (UInt16 const newId);
+    void idStoreClear(void              );
+
+     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Raw IdStore Access                                           */
+    /*! \{                                                                 */
+    
+    IdStoredTypeRef      editRawIdStore(void);
+    IdStoredTypeConstRef getRawIdStore (void) const;
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Binary IO                                                    */
+    /*! \{                                                                 */
+
+    UInt32 getBinSize (void                   ) const;
+    void   copyToBin  (BinaryDataHandler &pMem) const;
+    void   copyFromBin(BinaryDataHandler &pMem);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name MT Sync                                                      */
+    /*! \{                                                                 */
+
+    void  syncWith(Self &source);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
     
@@ -182,15 +225,19 @@ class ParentPointerSField : public ParentPointerSFieldBase<NamespaceI>
         
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Members                                                      */
     /*! \{                                                                 */
     
-    static FieldType _fieldType;
-    
+    static FieldType    _fieldType;
+           IdStoredType _childIdValue;
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 };
 
