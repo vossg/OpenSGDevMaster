@@ -66,6 +66,7 @@ class FieldContainerPtrSField : public FieldContainerPtrSFieldBase
 
     typedef       ValueT                                  StoredType;
     typedef const ValueT                                  const_reference;
+    typedef const ValueT                                  const_value;
   
     typedef const ValueT                                  ArgumentType;
 
