@@ -46,22 +46,6 @@ FieldContainerPtrSFieldBase::FieldContainerPtrSFieldBase(void) :
 }
 
 inline
-FieldContainerPtrSFieldBase::FieldContainerPtrSFieldBase(const Self &source) :
-     Inherited (source            ),
-    _fieldValue(source._fieldValue)
-{
-}
-
-inline
-FieldContainerPtrSFieldBase::FieldContainerPtrSFieldBase(
-    const_value value) :
-
-     Inherited (     ),
-    _fieldValue(value)
-{
-}
-
-inline
 FieldContainerPtrSFieldBase::~FieldContainerPtrSFieldBase(void)
 {
 }

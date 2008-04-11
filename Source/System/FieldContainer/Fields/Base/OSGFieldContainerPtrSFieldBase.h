@@ -123,9 +123,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrSFieldBase : public Field
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-             FieldContainerPtrSFieldBase(      void               );
-             FieldContainerPtrSFieldBase(const Self        &source);
-    explicit FieldContainerPtrSFieldBase(      const_value  value );
+    FieldContainerPtrSFieldBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -159,8 +157,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrSFieldBase : public Field
     /*! \name                      Assign                                  */
     /*! \{                                                                 */
 
-    void operator =(const Self &source);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -178,6 +174,9 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrSFieldBase : public Field
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    FieldContainerPtrSFieldBase(const Self &source);
+    void operator =(const Self &source);
 };
 
 OSG_END_NAMESPACE
