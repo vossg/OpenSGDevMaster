@@ -1,4 +1,40 @@
-
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGChildPointerSFieldBase.inl
@@ -9,70 +45,6 @@
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
-/* ChildSFieldReferenceProxy<ObjectTypeT>                                  */
-/*-------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------*/
-/* Constructors                                                            */
-
-template <class ObjectTypeT>
-inline
-    ChildSFieldReferenceProxy<ObjectTypeT>::ChildSFieldReferenceProxy(
-        StoredType * const value, SFieldType *pField)
-
-    : _pValue(value ),
-      _pField(pField)
-{
-    // nothing to do
-}
-
-template <class ObjectTypeT>
-    ChildSFieldReferenceProxy<ObjectTypeT>::ChildSFieldReferenceProxy(
-        Self const &source)
-    
-    : _pValue(source._pValue),
-      _pField(source._pField)
-{
-    // nothing to do
-}
-
-/*-------------------------------------------------------------------------*/
-/* Destructor                                                              */
-
-template <class ObjectTypeT>
-inline
-    ChildSFieldReferenceProxy<ObjectTypeT>::~ChildSFieldReferenceProxy(void)
-{
-    // nothing to do
-}
-
-/*-------------------------------------------------------------------------*/
-/* Operators                                                               */
-
-template <class ObjectTypeT>
-inline
-    ChildSFieldReferenceProxy<ObjectTypeT>::operator value_type(void) const
-{
-    return AccessHandler::validate(*_pValue);
-}
-            
-template <class ObjectTypeT>
-inline  typename ChildSFieldReferenceProxy<ObjectTypeT>::value_type
-     ChildSFieldReferenceProxy<ObjectTypeT>::operator->(void) const
-{
-    return AccessHandler::validate(*_pValue);
-}
-    
-template <class ObjectTypeT>
-inline void
-     ChildSFieldReferenceProxy<ObjectTypeT>::operator=(value_type newValue)
-{
-    AccessHandler::onReplace(_pField, *_pValue, newValue);
-    
-    *_pValue = newValue;
-}
-
-/*-------------------------------------------------------------------------*/
 /* ChildPointerSField<ObjectTypeT,                                         */
 /*                    NamespaceI  >                                        */
 /*-------------------------------------------------------------------------*/
@@ -80,10 +52,9 @@ inline void
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline FieldType const &
-    ChildPointerSField<ObjectTypeT,
-                       NamespaceI  >::getClassType(void)
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+FieldType const &ChildPointerSField<ObjectTypeT,
+                                    NamespaceI >::getClassType(void)
 {
     return _fieldType;
 }
@@ -91,29 +62,26 @@ inline FieldType const &
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    ChildPointerSField<ObjectTypeT,
-                       NamespaceI  >::ChildPointerSField(void)
-    : Inherited()
+template <class ObjectTypeT, Int32 NamespaceI> inline
+ChildPointerSField<ObjectTypeT,
+                   NamespaceI >::ChildPointerSField(void) : 
+    Inherited()
 {
     // nothing to do
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    ChildPointerSField<ObjectTypeT,
-                       NamespaceI  >::ChildPointerSField(Self const &source)
-    : Inherited(source)
+template <class ObjectTypeT, Int32 NamespaceI> inline
+ChildPointerSField<ObjectTypeT,
+                   NamespaceI >::ChildPointerSField(Self const &source) :
+    Inherited(source)
 {
     // nothing to do
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    ChildPointerSField<ObjectTypeT,
-                       NamespaceI  >::ChildPointerSField(ValueType value)
-    : Inherited(value)
+template <class ObjectTypeT, Int32 NamespaceI> inline
+ChildPointerSField<ObjectTypeT,
+                   NamespaceI >::ChildPointerSField(ValueType value) :
+    Inherited(value)
 {
     // nothing to do
 }
@@ -121,46 +89,34 @@ inline
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    ChildPointerSField<ObjectTypeT,
-                       NamespaceI  >::~ChildPointerSField(void)
+template <class ObjectTypeT, Int32 NamespaceI> inline
+ChildPointerSField<ObjectTypeT,
+                   NamespaceI >::~ChildPointerSField(void)
 {
 }
 
 /*-------------------------------------------------------------------------*/
 /* Access                                                                  */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline typename ChildPointerSField<ObjectTypeT,
-                                   NamespaceI  >::reference
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+typename ChildPointerSField<ObjectTypeT,
+                            NamespaceI >::const_reference
     ChildPointerSField<ObjectTypeT,
-                       NamespaceI  >::editValue(void)
-{
-    return reference(&this->editRawStore(), this);
-}
-
-template <class ObjectTypeT, Int32 NamespaceI>
-inline typename ChildPointerSField<ObjectTypeT,
-                                   NamespaceI  >::const_reference
-    ChildPointerSField<ObjectTypeT,
-                       NamespaceI  >::getValue(void) const
+                       NamespaceI >::getValue(void) const
 {
     return reinterpret_cast<const_reference>(this->getRawStore());
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline void
-    ChildPointerSField<ObjectTypeT,
-                       NamespaceI  >::setValue(ValueType value)
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+void ChildPointerSField<ObjectTypeT,
+                        NamespaceI >::setValue(ValueType value)
 {
     this->ptrStoreSet(value);
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline void
-    ChildPointerSField<ObjectTypeT,
-                       NamespaceI  >::setValue(Self const &source)
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+void ChildPointerSField<ObjectTypeT,
+                        NamespaceI >::setValue(Self const &source)
 {
     this->ptrStoreSet(source.ptrStoreGet());
 }
@@ -178,10 +134,9 @@ inline void
 /*-------------------------------------------------------------------------*/
 /* Assignment                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline void
-    ChildPointerSField<ObjectTypeT,
-                       NamespaceI  >::operator =(Self const &other)
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+void ChildPointerSField<ObjectTypeT,
+                        NamespaceI >::operator =(Self const &other)
 {   
     this->ptrStoreSet(other.ptrStoreGet());
 }

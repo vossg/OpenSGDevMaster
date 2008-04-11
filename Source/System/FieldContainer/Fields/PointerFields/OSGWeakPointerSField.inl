@@ -1,4 +1,40 @@
-
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGWeakPointerSFieldBase.inl
@@ -9,73 +45,6 @@
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
-/* WeakSFieldReferenceProxy<ObjectTypeT>                                   */
-/*-------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------*/
-/* Constructors                                                            */
-
-template <class ObjectTypeT>
-inline
-    WeakSFieldReferenceProxy<ObjectTypeT>::WeakSFieldReferenceProxy(
-        FieldContainerPtr *pValue)
-
-    : _pValue(pValue)
-{
-    // nothing to do
-}
-
-template <class ObjectTypeT>
-    WeakSFieldReferenceProxy<ObjectTypeT>::WeakSFieldReferenceProxy(
-        Self const &source)
-    
-    : _pValue(source._pValue)
-{
-    // nothing to do
-}
-
-/*-------------------------------------------------------------------------*/
-/* Destructor                                                              */
-
-template <class ObjectTypeT>
-inline
-    WeakSFieldReferenceProxy<ObjectTypeT>::~WeakSFieldReferenceProxy(void)
-{
-    // nothing to do
-}
-
-/*-------------------------------------------------------------------------*/
-/* Operators                                                               */
-
-template <class ObjectTypeT>
-inline
-    WeakSFieldReferenceProxy<ObjectTypeT>::operator value_type(void) const
-{
-//    return detail::void_cast<value_type>(AccessHandler::validate(*_pValue));
-    return AccessHandler::validate(*_pValue);
-}
-
-template <class ObjectTypeT>
-inline  typename WeakSFieldReferenceProxy<ObjectTypeT>::value_type
-     WeakSFieldReferenceProxy<ObjectTypeT>::operator->(void) const
-{
-//    return detail::void_cast<value_type>(AccessHandler::validate(*_pValue));
-    return AccessHandler::validate(*_pValue);
-}
-
-template <class ObjectTypeT>
-inline void
-     WeakSFieldReferenceProxy<ObjectTypeT>::operator=(value_type newValue)
-{
-    AccessHandler::onReplace(
-        static_cast<SFieldType *>(0),
-        *_pValue,
-        newValue);
-    
-    *_pValue = newValue;
-}
-
-/*-------------------------------------------------------------------------*/
 /* WeakPointerSField<ObjectTypeT,                                          */
 /*                   NamespaceI  >                                         */
 /*-------------------------------------------------------------------------*/
@@ -83,10 +52,9 @@ inline void
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline FieldType const &
-    WeakPointerSField<ObjectTypeT,
-                      NamespaceI  >::getClassType(void)
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+FieldType const &WeakPointerSField<ObjectTypeT,
+                                   NamespaceI >::getClassType(void)
 {
     return _fieldType;
 }
@@ -94,29 +62,26 @@ inline FieldType const &
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    WeakPointerSField<ObjectTypeT,
-                      NamespaceI  >::WeakPointerSField(void)
-    : Inherited()
+template <class ObjectTypeT, Int32 NamespaceI> inline
+WeakPointerSField<ObjectTypeT,
+                  NamespaceI >::WeakPointerSField(void) : 
+    Inherited()
 {
     // nothing to do
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    WeakPointerSField<ObjectTypeT,
-                      NamespaceI  >::WeakPointerSField(Self const &source)
-    : Inherited(source)
+template <class ObjectTypeT, Int32 NamespaceI> inline
+WeakPointerSField<ObjectTypeT,
+                  NamespaceI >::WeakPointerSField(Self const &source) :
+     Inherited(source)
 {
     // nothing to do
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    WeakPointerSField<ObjectTypeT,
-                      NamespaceI  >::WeakPointerSField(ValueType value)
-    : Inherited(value)
+template <class ObjectTypeT, Int32 NamespaceI> inline
+WeakPointerSField<ObjectTypeT,
+                  NamespaceI >::WeakPointerSField(ValueType value) :
+    Inherited(value)
 {
     // nothing to do
 }
@@ -124,57 +89,18 @@ inline
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    WeakPointerSField<ObjectTypeT,
-                      NamespaceI  >::~WeakPointerSField(void)
+template <class ObjectTypeT, Int32 NamespaceI> inline
+WeakPointerSField<ObjectTypeT, 
+                  NamespaceI >::~WeakPointerSField(void)
 {
-}
-
-/*-------------------------------------------------------------------------*/
-/* Access                                                                  */
-
-template <class ObjectTypeT, Int32 NamespaceI>
-inline typename WeakPointerSField<ObjectTypeT,
-                                  NamespaceI  >::reference
-    WeakPointerSField<ObjectTypeT,
-                      NamespaceI  >::editValue(void)
-{
-    return reference(&this->editRawStore());
-}
-
-template <class ObjectTypeT, Int32 NamespaceI>
-inline typename WeakPointerSField<ObjectTypeT,
-                                  NamespaceI  >::const_reference
-    WeakPointerSField<ObjectTypeT,
-                      NamespaceI  >::getValue(void) const
-{
-    return reinterpret_cast<const_reference>(this->getRawStore());
-}
-
-template <class ObjectTypeT, Int32 NamespaceI>
-inline void
-    WeakPointerSField<ObjectTypeT,
-                      NamespaceI  >::setValue(ValueType value)
-{
-    this->ptrStoreSet(value);
-}
-
-template <class ObjectTypeT, Int32 NamespaceI>
-inline void
-    WeakPointerSField<ObjectTypeT,
-                      NamespaceI  >::setValue(Self const &source)
-{
-    this->ptrStoreSet(source.ptrStoreGet());
 }
 
 /*-------------------------------------------------------------------------*/
 /* Assignment                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline void
-    WeakPointerSField<ObjectTypeT,
-                      NamespaceI  >::operator =(Self const &other)
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+void WeakPointerSField<ObjectTypeT,
+                       NamespaceI  >::operator =(Self const &other)
 {
     this->ptrStoreSet(other.ptrStoreGet());
 }

@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 #ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGUnrecordedPointerSFieldBase.inl
+/*! \file PointerSFieldBase.inl
     \ingroup GrpSystemFieldContainer
  */
 #endif
@@ -45,16 +45,19 @@
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
-/* UnrecordedPointerSField<ObjectTypeT,                                    */
-/*                         NamespaceI  >                                   */
+/* PointerSField<ObjectTypeT,                                          */
+/*               NamespaceI  >                                         */
 /*-------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline 
-FieldType const &UnrecordedPointerSField<ObjectTypeT,
-                                         NamespaceI >::getClassType(void)
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+FieldType const &PointerSField<ObjectTypeT,
+                               RefCountPolicy,
+                               NamespaceI    >::getClassType(void)
 {
     return _fieldType;
 }
@@ -62,26 +65,34 @@ FieldType const &UnrecordedPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline
-UnrecordedPointerSField<ObjectTypeT,
-                        NamespaceI >::UnrecordedPointerSField(void) :
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline
+PointerSField<ObjectTypeT,
+              RefCountPolicy,
+              NamespaceI    >::PointerSField(void) : 
     Inherited()
 {
     // nothing to do
 }
 
-template <class ObjectTypeT, Int32 NamespaceI> inline
-UnrecordedPointerSField<ObjectTypeT,
-                        NamespaceI >::UnrecordedPointerSField(
-                            Self const &source) :
-    Inherited(source)
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline
+PointerSField<ObjectTypeT,
+              RefCountPolicy,
+              NamespaceI    >::PointerSField(Self const &source) :
+     Inherited(source)
 {
     // nothing to do
 }
 
-template <class ObjectTypeT, Int32 NamespaceI> inline
-UnrecordedPointerSField<ObjectTypeT,
-                        NamespaceI >::UnrecordedPointerSField(ValueType value):
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline
+PointerSField<ObjectTypeT,
+              RefCountPolicy,
+              NamespaceI    >::PointerSField(ValueType value) :
     Inherited(value)
 {
     // nothing to do
@@ -90,18 +101,60 @@ UnrecordedPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline
-UnrecordedPointerSField<ObjectTypeT,
-                        NamespaceI >::~UnrecordedPointerSField(void)
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline
+PointerSField<ObjectTypeT, 
+              RefCountPolicy,
+              NamespaceI    >::~PointerSField(void)
 {
+}
+
+/*-------------------------------------------------------------------------*/
+/* Access                                                                  */
+
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+typename PointerSField<ObjectTypeT,
+                       RefCountPolicy,
+                       NamespaceI    >::const_reference
+    PointerSField<ObjectTypeT,
+                  RefCountPolicy,
+                  NamespaceI    >::getValue(void) const
+{
+    return reinterpret_cast<const_reference>(this->getRawStore());
+}
+
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+void PointerSField<ObjectTypeT,
+                   RefCountPolicy,
+                   NamespaceI    >::setValue(ValueType value)
+{
+    this->ptrStoreSet(value);
+}
+
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+void PointerSField<ObjectTypeT,
+                   RefCountPolicy,
+                   NamespaceI    >::setValue(Self const &source)
+{
+    this->ptrStoreSet(source.ptrStoreGet());
 }
 
 /*-------------------------------------------------------------------------*/
 /* Assignment                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline 
-void UnrecordedPointerSField<ObjectTypeT,
-                             NamespaceI >::operator =(Self const &other)
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+void PointerSField<ObjectTypeT,
+                   RefCountPolicy,
+                   NamespaceI    >::operator =(Self const &other)
 {
     this->ptrStoreSet(other.ptrStoreGet());
 }

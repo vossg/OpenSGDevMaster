@@ -36,15 +36,15 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGWEAKPOINTERSFIELD_H_
-#define _OSGWEAKPOINTERSFIELD_H_
+#ifndef _OSGPOINTERSFIELD_H_
+#define _OSGPOINTERSFIELD_H_
 
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGConfig.h"
-#include "OSGPointerSField.h"
+#include "OSGPointerSFieldCommon.h"
 #include "OSGPointerAccessHandler.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
@@ -60,10 +60,11 @@ OSG_BEGIN_NAMESPACE
 /*---------------------------------------------------------------------------*/
 
 template <class    ObjectTypeT,
+          typename RefCountPolicy,
           Int32    NamespaceI  = 0>
-class WeakPointerSField : public PointerSField<ObjectTypeT,
-                                               WeakRefCountPolicy, 
-                                               NamespaceI        >
+class PointerSField : 
+    public PointerSFieldCommon<PointerAccessHandler<RefCountPolicy>, 
+                               NamespaceI                          >
 {
 
     /*==========================  PUBLIC  =================================*/
@@ -78,10 +79,10 @@ class WeakPointerSField : public PointerSField<ObjectTypeT,
 
     typedef ObjectTypeT                               ObjectType;
     
-    typedef PointerSField<ObjectTypeT,
-                          WeakRefCountPolicy, 
-                          NamespaceI        > Inherited;
-    typedef WeakPointerSField    <ObjectType,
+    typedef PointerSFieldCommon  <PointerAccessHandler<RefCountPolicy>, 
+                                  NamespaceI       >  Inherited;
+    typedef PointerSField        <ObjectType,
+                                  RefCountPolicy,
                                   NamespaceI >        Self;
     
     typedef ObjectTypeT * ValueType;
@@ -98,7 +99,7 @@ class WeakPointerSField : public PointerSField<ObjectTypeT,
                              NamespaceI                   >  SFieldTraits;
     typedef FieldDescription<SFieldTraits,
                              FieldType::SingleField,
-                             WeakRefCountPolicy,
+                             RefCountPolicy,
                              FieldType::PtrField          >  Description;
     
     // handles
@@ -135,17 +136,17 @@ class WeakPointerSField : public PointerSField<ObjectTypeT,
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
 
-             WeakPointerSField(void              );
-             WeakPointerSField(Self const &source);
+             PointerSField(void              );
+             PointerSField(Self const &source);
 
-    explicit WeakPointerSField(ValueType   value );
+    explicit PointerSField(ValueType   value );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Destructor                                                   */
     /*! \{                                                                 */
     
-    ~WeakPointerSField(void);
+    ~PointerSField(void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -154,7 +155,12 @@ class WeakPointerSField : public PointerSField<ObjectTypeT,
 
   protected:
     
-  /*! \}                                                                 */
+    const_reference getValue (void           ) const;
+    
+    void            setValue (ValueType   value );
+    void            setValue (Self const &source);
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
@@ -180,6 +186,6 @@ class WeakPointerSField : public PointerSField<ObjectTypeT,
 
 OSG_END_NAMESPACE
 
-#include "OSGWeakPointerSField.inl"
+#include "OSGPointerSField.inl"
 
 #endif // _OSGWEAKPOINTERSFIELD_H_

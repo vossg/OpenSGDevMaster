@@ -1,3 +1,40 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
 
 #ifndef _OSGPARENTPOINTERSFIELD_H_
 #define _OSGPARENTPOINTERSFIELD_H_
@@ -6,7 +43,6 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
 #include "OSGPointerSFieldCommon.h"
 #include "OSGPointerAccessHandler.h"
 
@@ -18,75 +54,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-// forward declarations
-template <class ObjectTypeT, Int32 NamespaceI>
-class ParentPointerSField;
-
-/*---------------------------------------------------------------------------*/
-/* ParentSFieldConstReferenceProxy<ObjectTypeT>                              */
-/*---------------------------------------------------------------------------*/
-
-template <class ObjectTypeT>
-class ParentSFieldConstReferenceProxy
-{
-    /*==========================  PUBLIC  =================================*/
-  public:
-    /*---------------------------------------------------------------------*/
-    /*! \name Public Types                                                 */
-    /*! \{                                                                 */
-    
-    typedef          ObjectTypeT                          ObjectType;
-    
-    typedef          ParentSFieldConstReferenceProxy      Self;
-    
-    typedef          ParentPointerSField<ObjectTypeT, 0>  SFieldType;
-//    typedef          ParentFieldConfig  <ObjectTypeT, 0>  FieldConfig;
-    typedef typename SFieldType::AccessHandler            AccessHandler;
-        
-    typedef ObjectTypeT * ValueType;
-    typedef ObjectTypeT * value_type;
-//    typedef typename FieldConfig::ValueType               ValueType;
-//    typedef typename FieldConfig::ValueType               value_type;
-    
-    // store types
-    typedef typename SFieldType::StoredType               StoredType;
-    typedef typename SFieldType::IdStoredType             IdStoredType;
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Constructors                                                 */
-    /*! \{                                                                 */
-    
-    ParentSFieldConstReferenceProxy(
-        StoredType   const * const pPtrValue,
-        IdStoredType const * const pIdValue  );
-    ParentSFieldConstReferenceProxy(Self const &source);
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Destructor                                                   */
-    /*! \{                                                                 */
-    
-    ~ParentSFieldConstReferenceProxy(void);
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Operators                                                    */
-    /*! \{                                                                 */
-    
-               operator value_type(void) const;
-    value_type operator->         (void) const;
-    
-    value_type   getPtr(void) const;
-    IdStoredType getId (void) const;
-    
-    /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
-  private:
-    StoredType   const *_pPtrValue;
-    IdStoredType const *_pIdValue;
-};
-
 /*---------------------------------------------------------------------------*/
 /* ParentPointerSField<ObjectTypeT,                                          */
 /*                     NamespaceI  >                                         */
@@ -94,11 +61,13 @@ class ParentSFieldConstReferenceProxy
 
 template <class ObjectTypeT,
           Int32 NamespaceI  = 0>
-class ParentPointerSField
-    : public PointerSFieldCommon<NoRefCountAccessHandler, NamespaceI>
+class ParentPointerSField : 
+    public PointerSFieldCommon<NoRefCountAccessHandler, NamespaceI>
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
@@ -110,22 +79,12 @@ class ParentPointerSField
     typedef          ParentPointerSField    <ObjectTypeT,
                                              NamespaceI  > Self;
                                              
-//    typedef          ParentFieldConfig      <ObjectTypeT,
-//                                             NamespaceI  > FieldConfig;
-    
     typedef ObjectTypeT * ValueType;
     typedef ObjectTypeT * const ArgumentType;
     typedef ObjectTypeT * value_type;
 
-//    typedef typename FieldConfig::ValueType                ValueType;
-//    typedef typename FieldConfig::ArgumentType             ArgumentType;
-//    typedef typename FieldConfig::ValueType                value_type;
-        
-//    typedef typename FieldConfig::ConstPtrType             const_pointer;
-//    typedef typename FieldConfig::SFieldConstRefType       const_reference;
-
     typedef ArgumentType *const_pointer;
-    typedef ParentSFieldConstReferenceProxy<ObjectType>   const_reference; 
+    typedef ValueType const                             &const_reference; 
     
     typedef UInt16                                  IdStoredType;
     typedef UInt16                                 &IdStoredTypeRef;
@@ -139,6 +98,7 @@ class ParentPointerSField
                              FieldType::SingleField,
                              NoRefCountPolicy,
                              FieldType::ParentPtrField  >  Description;
+  protected:
     
     // handles
 //    typedef          EditParentPointerSFieldHandle<Self>      EditHandle;
@@ -159,7 +119,7 @@ class ParentPointerSField
     /*! \name Constants                                                    */
     /*! \{                                                                 */
         
-    static FieldType::Cardinality const fieldCard  = FieldType  ::SingleField;
+    static FieldType::Cardinality const fieldCard  = FieldType::SingleField;
     static FieldType::Class       const Class      = FieldType::ParentPtrField;
     
     /*! \}                                                                 */

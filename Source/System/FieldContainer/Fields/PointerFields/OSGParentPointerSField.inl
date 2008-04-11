@@ -1,4 +1,40 @@
-
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGParentPointerSFieldBase.inl
@@ -9,79 +45,6 @@
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
-/* ParentSFieldConstReferenceProxy<ObjectTypeT>                            */
-/*-------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------*/
-/* Constructors                                                            */
-
-template <class ObjectTypeT>
-inline
-    ParentSFieldConstReferenceProxy<ObjectTypeT>::ParentSFieldConstReferenceProxy(
-        StoredType   const * const pPtrValue,
-        IdStoredType const * const pIdValue  )
-
-    : _pPtrValue(pPtrValue),
-      _pIdValue (pIdValue )
-{
-    // nothing to do
-}
-
-template <class ObjectTypeT>
-inline
-    ParentSFieldConstReferenceProxy<ObjectTypeT>::ParentSFieldConstReferenceProxy(
-        Self const &source)
-    
-    : _pPtrValue(source._pPtrValue),
-      _pIdValue (source._pIdValue )
-{
-    // nothing to do
-}
-
-/*-------------------------------------------------------------------------*/
-/* Destructor                                                              */
-
-template <class ObjectTypeT>
-inline
-    ParentSFieldConstReferenceProxy<ObjectTypeT>::~ParentSFieldConstReferenceProxy(
-        void)
-{
-    // nothing to do
-}
-
-/*-------------------------------------------------------------------------*/
-/* Operators                                                               */
-
-template <class ObjectTypeT>
-inline
-    ParentSFieldConstReferenceProxy<ObjectTypeT>::operator value_type(
-        void) const
-{
-    return AccessHandler::validate(*_pPtrValue);
-}
-
-template <class ObjectTypeT>
-inline typename ParentSFieldConstReferenceProxy<ObjectTypeT>::value_type
-    ParentSFieldConstReferenceProxy<ObjectTypeT>::operator->(void) const
-{
-    return AccessHandler::validate(*_pPtrValue);
-}
-
-template <class ObjectTypeT>
-inline typename ParentSFieldConstReferenceProxy<ObjectTypeT>::value_type
-    ParentSFieldConstReferenceProxy<ObjectTypeT>::getPtr(void) const
-{
-    return AccessHandler::validate(*_pPtrValue);
-}
-
-template <class ObjectTypeT>
-inline typename ParentSFieldConstReferenceProxy<ObjectTypeT>::IdStoredType
-    ParentSFieldConstReferenceProxy<ObjectTypeT>::getId(void) const
-{
-    return *_pIdValue;
-}
-
-/*-------------------------------------------------------------------------*/
 /* ParentPointerSField<ObjectTypeT,                                        */
 /*                     NamespaceI  >                                       */
 /*-------------------------------------------------------------------------*/
@@ -89,10 +52,9 @@ inline typename ParentSFieldConstReferenceProxy<ObjectTypeT>::IdStoredType
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline FieldType const &
-    ParentPointerSField<ObjectTypeT,
-                        NamespaceI  >::getClassType(void)
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+FieldType const &ParentPointerSField<ObjectTypeT,
+                                     NamespaceI >::getClassType(void)
 {
     return _fieldType;
 }
@@ -100,34 +62,30 @@ inline FieldType const &
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    ParentPointerSField<ObjectTypeT,
-                        NamespaceI  >::ParentPointerSField(void)
-    : Inherited(),
-      _childIdValue()
+template <class ObjectTypeT, Int32 NamespaceI> inline
+ParentPointerSField<ObjectTypeT,
+                    NamespaceI >::ParentPointerSField(void) : 
+     Inherited   (),
+    _childIdValue()
 {
     // nothing to do
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    ParentPointerSField<ObjectTypeT,
-                        NamespaceI  >::ParentPointerSField(Self const &source)
-    : Inherited(source),
-      _childIdValue(source._childIdValue)
+template <class ObjectTypeT, Int32 NamespaceI> inline
+ParentPointerSField<ObjectTypeT,
+                    NamespaceI >::ParentPointerSField(Self const &source) :
+     Inherited   (source              ),
+    _childIdValue(source._childIdValue)
 {
     // nothing to do
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    ParentPointerSField<ObjectTypeT,
-                        NamespaceI  >::ParentPointerSField(
-        ValueType ptrValue, IdStoredType idValue)
-    
-    : Inherited(ptrValue),
-      _childIdValue(idValue )
+template <class ObjectTypeT, Int32 NamespaceI> inline
+ParentPointerSField<ObjectTypeT,
+                    NamespaceI >::ParentPointerSField(ValueType    ptrValue, 
+                                                      IdStoredType idValue ) :
+     Inherited   (ptrValue),
+    _childIdValue(idValue )
 {
     // nothing to do
 }
@@ -135,10 +93,9 @@ inline
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline
-    ParentPointerSField<ObjectTypeT,
-                        NamespaceI  >::~ParentPointerSField(void)
+template <class ObjectTypeT, Int32 NamespaceI> inline
+ParentPointerSField<ObjectTypeT,
+                    NamespaceI >::~ParentPointerSField(void)
 {
     // nothing to do
 }
@@ -149,9 +106,9 @@ inline
 /*-------------------------------------------------------------------------*/
 /* Reading Values                                                          */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline UInt16 const
-    ParentPointerSField<ObjectTypeT, NamespaceI>::idStoreGet(void) const
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+UInt16 const ParentPointerSField<ObjectTypeT, 
+                                 NamespaceI >::idStoreGet(void) const
 {
     return _childIdValue;
 }
@@ -159,16 +116,15 @@ inline UInt16 const
 /*-------------------------------------------------------------------------*/
 /* Changing Values                                                         */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline void
-    ParentPointerSField<ObjectTypeT, NamespaceI>::idStoreSet(UInt16 const newId)
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+void ParentPointerSField<ObjectTypeT, 
+                         NamespaceI >::idStoreSet(UInt16 const newId)
 {
     _childIdValue = newId;
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline void
-    ParentPointerSField<ObjectTypeT, NamespaceI>::idStoreClear(void)
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+void ParentPointerSField<ObjectTypeT, NamespaceI>::idStoreClear(void)
 {
     _childIdValue = 0;
 }
@@ -176,15 +132,15 @@ inline void
 /*-------------------------------------------------------------------------*/
 /* Raw IdStore Access                                                      */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline typename ParentPointerSField<ObjectTypeT, NamespaceI>::IdStoredTypeRef
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+typename ParentPointerSField<ObjectTypeT, NamespaceI>::IdStoredTypeRef
     ParentPointerSField<ObjectTypeT, NamespaceI>::editRawIdStore(void)
 {
     return _childIdValue;
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline typename ParentPointerSField<ObjectTypeT, NamespaceI>::IdStoredTypeConstRef
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+typename ParentPointerSField<ObjectTypeT, NamespaceI>::IdStoredTypeConstRef
     ParentPointerSField<ObjectTypeT, NamespaceI>::getRawIdStore (void) const
 {
     return _childIdValue;
@@ -193,28 +149,25 @@ inline typename ParentPointerSField<ObjectTypeT, NamespaceI>::IdStoredTypeConstR
 /*-------------------------------------------------------------------------*/
 /* Binary IO                                                               */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline UInt32
-    ParentPointerSField<ObjectTypeT, NamespaceI>::getBinSize(void) const
+template <class ObjectTypeT, Int32 NamespaceI> inline
+UInt32 ParentPointerSField<ObjectTypeT, NamespaceI>::getBinSize(void) const
 {
     return
         Inherited::getBinSize() + IdBaseTraitsType::getBinSize(_childIdValue);
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline void
-    ParentPointerSField<ObjectTypeT, NamespaceI>::copyToBin(
-        BinaryDataHandler &pMem) const
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+void ParentPointerSField<ObjectTypeT, 
+                         NamespaceI >::copyToBin(BinaryDataHandler &pMem) const
 {
     Inherited::copyToBin(pMem);
     
     IdBaseTraitsType::copyToBin(pMem, _childIdValue);
 }
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline void 
-    ParentPointerSField<ObjectTypeT, NamespaceI>::copyFromBin(
-        BinaryDataHandler &pMem)
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+void ParentPointerSField<ObjectTypeT, 
+                         NamespaceI>::copyFromBin(BinaryDataHandler &pMem)
 {
     Inherited::copyFromBin(pMem);
     
@@ -224,9 +177,8 @@ inline void
 /*-------------------------------------------------------------------------*/
 /* MT Sync                                                                 */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline void 
-    ParentPointerSField<ObjectTypeT, NamespaceI>::syncWith(Self &source)
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+void ParentPointerSField<ObjectTypeT, NamespaceI>::syncWith(Self &source)
 {
     Inherited::syncWith(source);
     
@@ -236,13 +188,13 @@ inline void
 /*-------------------------------------------------------------------------*/
 /* Access                                                                  */
 
-template <class ObjectTypeT, Int32 NamespaceI>
-inline typename ParentPointerSField<ObjectTypeT,
-                                    NamespaceI  >::const_reference
+template <class ObjectTypeT, Int32 NamespaceI> inline 
+typename ParentPointerSField<ObjectTypeT,
+                             NamespaceI >::const_reference
     ParentPointerSField<ObjectTypeT,
-                        NamespaceI  >::getValue(void) const
+                        NamespaceI >::getValue(void) const
 {
-    return const_reference(&this->getRawStore(), &this->getRawIdStore());
+    return this->getRawStore();
 }
 
 /*-------------------------------------------------------------------------*/

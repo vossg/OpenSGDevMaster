@@ -1,3 +1,40 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
 
 #ifndef _OSGUNRECORDEDPOINTERSFIELD_H_
 #define _OSGUNRECORDEDPOINTERSFIELD_H_
@@ -7,7 +44,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGPointerSFieldCommon.h"
+#include "OSGPointerSField.h"
 #include "OSGPointerAccessHandler.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
@@ -18,80 +55,21 @@
 
 OSG_BEGIN_NAMESPACE
 
-// forward declarations
-template <class ObjectTypeT, Int32 NamespaceI>
-class UnrecordedPointerSField;
-
-/*-------------------------------------------------------------------------*/
-/* UnrecordedSFieldReferenceProxy<ObjectTypeT>                             */
-/*-------------------------------------------------------------------------*/
-
-template <class ObjectTypeT>
-class UnrecordedSFieldReferenceProxy
-{
-    /*==========================  PUBLIC  =================================*/
-  public:
-    /*---------------------------------------------------------------------*/
-    /*! \name Public Types                                                 */
-    /*! \{                                                                 */
-    
-    typedef          ObjectTypeT                              ObjectType;
-    
-    typedef          UnrecordedSFieldReferenceProxy           Self;
-    
-    typedef          UnrecordedPointerSField<ObjectTypeT, 0>  SFieldType;
-//    typedef          UnrecordedFieldConfig  <ObjectTypeT, 0>  FieldConfig;
-    typedef typename SFieldType::AccessHandler                AccessHandler;
-    
-    // store types
-    typedef typename SFieldType::StoredType                   StoredType;
-    
-    // std library types
-    typedef ObjectTypeT * value_type;
-//    typedef typename FieldConfig::ValueType                   value_type;
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Constructors                                                 */
-    /*! \{                                                                 */
-    
-    explicit UnrecordedSFieldReferenceProxy(FieldContainerPtr *pValue);
-             UnrecordedSFieldReferenceProxy(Self const        &source);
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Destructor                                                   */
-    /*! \{                                                                 */
-    
-    ~UnrecordedSFieldReferenceProxy(void);
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Operators                                                    */
-    /*! \{                                                                 */
-    
-               operator value_type(void) const;
-    value_type operator->         (void) const;
-    
-    void operator=(value_type newValue);
-    
-    /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
-  private:
-    FieldContainerPtr *_pValue;
-};
-
 /*---------------------------------------------------------------------------*/
 /* UnrecordedPointerSField<FieldConfigT>                                     */
 /*---------------------------------------------------------------------------*/
 
 template <class ObjectTypeT,
           Int32 NamespaceI  = 0>
-class UnrecordedPointerSField : 
-    public PointerSFieldCommon<UnrecordedAccessHandler, NamespaceI>
+class UnrecordedPointerSField : public PointerSField<ObjectTypeT, 
+                                                     UnrecordedRefCountPolicy, 
+                                                     NamespaceI              >
 {
+
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
@@ -100,18 +78,13 @@ class UnrecordedPointerSField :
 
     typedef ObjectTypeT                                   ObjectType;
     
-    typedef PointerSFieldCommon<UnrecordedAccessHandler, 
-                                        NamespaceI>       Inherited;
+    typedef PointerSField<ObjectTypeT, 
+                          UnrecordedRefCountPolicy, 
+                          NamespaceI              >      Inherited;
+    
     typedef UnrecordedPointerSField    <ObjectType,
                                         NamespaceI >      Self;
     
-//    typedef UnrecordedFieldConfig      <ObjectTypeT,
-//                                        NamespaceI  >     FieldConfig;
-    
-//    typedef typename FieldConfig::ValueType               ValueType;
-//    typedef typename FieldConfig::ArgumentType            ArgumentType;
-//    typedef typename FieldConfig::ValueType               value_type;
-
     typedef ObjectTypeT * ValueType;
     typedef ObjectTypeT * const ArgumentType;
     typedef ObjectTypeT * value_type;
@@ -119,15 +92,8 @@ class UnrecordedPointerSField :
     typedef ValueType *pointer;
     typedef ArgumentType *const_pointer;
 
-//    typedef typename FieldConfig::PtrType                 pointer;
-//    typedef typename FieldConfig::ConstPtrType            const_pointer;
-
-    typedef UnrecordedSFieldReferenceProxy<ObjectType>   reference;
     typedef ValueType const                             &const_reference; 
 
-//    typedef typename FieldConfig::SFieldRefType           reference;
-//    typedef typename FieldConfig::SFieldConstRefType      const_reference;
-    
     typedef FieldTraits     <ValueType,
                              NamespaceI                         >  SFieldTraits;
     typedef FieldDescription<SFieldTraits,
@@ -182,17 +148,6 @@ class UnrecordedPointerSField :
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Access                                                       */
-    /*! \{                                                                 */
-    
-    reference       editValue(void           );
-    const_reference getValue (void           ) const;
-    
-    void            setValue (ValueType   value );
-    void            setValue (Self const &source);
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
 
@@ -200,7 +155,9 @@ class UnrecordedPointerSField :
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Members                                                      */
     /*! \{                                                                 */
@@ -209,6 +166,7 @@ class UnrecordedPointerSField :
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 };
 
