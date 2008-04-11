@@ -144,8 +144,8 @@ class ChildPointerSField : public ChildPointerSFieldBase<NamespaceI>
     /*! \name Constants                                                    */
     /*! \{                                                                 */
         
-    static FieldType::Cardinality const fieldCard  = FieldType  ::SINGLE_FIELD;
-    static FieldClass             const fieldClass = FieldConfig::fieldClass;
+    static FieldType::Cardinality const fieldCard  = FieldType  ::SingleField;
+    static FieldType::Class       const Class      = FieldConfig::fieldClass;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

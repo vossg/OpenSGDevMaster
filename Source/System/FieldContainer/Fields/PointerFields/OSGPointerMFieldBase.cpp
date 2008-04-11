@@ -44,7 +44,8 @@ FieldType PointerMFieldBase::_fieldType(
     "FieldContainerPtrMFieldBase",
     "Field",                    
     MFieldTraits::getType (),   
-    FieldType::MULTI_FIELD);
+    FieldType::MultiField,
+    FieldType::PtrField);
 
 
 const FieldType &PointerMFieldBase::getClassType(void)

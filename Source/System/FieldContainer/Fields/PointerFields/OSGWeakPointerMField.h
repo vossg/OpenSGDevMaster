@@ -368,8 +368,8 @@ class WeakPointerMField : public WeakPointerMFieldBase<NamespaceI>
     /*! \name Constants                                                    */
     /*! \{                                                                 */
         
-    static FieldType::Cardinality const fieldCard  = FieldType  ::MULTI_FIELD;
-    static FieldClass             const fieldClass = FieldConfig::fieldClass;
+    static FieldType::Cardinality const fieldCard = FieldType  ::MultiField;
+    static FieldType::Class       const Class     = FieldConfig::fieldClass;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

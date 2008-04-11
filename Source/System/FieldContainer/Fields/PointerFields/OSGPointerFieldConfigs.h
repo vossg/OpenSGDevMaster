@@ -120,8 +120,8 @@ struct ChildFieldConfig
     /*! \name Constants                                                    */
     /*! \{                                                                 */
     
-    static UInt32     const Namespace  = NamespaceI;
-    static FieldClass const fieldClass = ChildPtrField;
+    static UInt32           const Namespace  = NamespaceI;
+    static FieldType::Class const fieldClass = FieldType::ChildPtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -174,8 +174,8 @@ struct ParentFieldConfig
     /*! \name Constants                                                    */
     /*! \{                                                                 */
     
-    static UInt32     const Namespace  = NamespaceI;
-    static FieldClass const fieldClass = ParentPtrField;
+    static UInt32           const Namespace  = NamespaceI;
+    static FieldType::Class const fieldClass = FieldType::ParentPtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,8 +235,8 @@ struct UnrecordedFieldConfig
     /*! \name Constants                                                    */
     /*! \{                                                                 */
     
-    static UInt32     const Namespace  = NamespaceI;
-    static FieldClass const fieldClass = PtrField;
+    static UInt32           const Namespace  = NamespaceI;
+    static FieldType::Class const fieldClass = FieldType::PtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -296,8 +296,8 @@ struct WeakFieldConfig
     /*! \name Constants                                                    */
     /*! \{                                                                 */
     
-    static UInt32     const Namespace  = NamespaceI;
-    static FieldClass const fieldClass = WeakPtrField;
+    static UInt32           const Namespace  = NamespaceI;
+    static FieldType::Class const fieldClass = FieldType::WeakPtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

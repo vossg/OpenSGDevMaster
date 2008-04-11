@@ -84,6 +84,9 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
         PtrField        = OSG::PtrField,
         ParentPtrField  = OSG::ParentPtrField,
         ChildPtrField   = OSG::ChildPtrField
+#ifndef OSG_DELETE_LATER
+        ,WeakPtrField   = OSG::WeakPtrField
+#endif
     };
 #else
     enum Class

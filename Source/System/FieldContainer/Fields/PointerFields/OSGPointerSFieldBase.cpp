@@ -44,7 +44,8 @@ FieldType PointerSFieldBase::_fieldType(
     "FieldContainerPtrSFieldBase",
     "Field",                    
     SFieldTraits::getType (),   
-    FieldType::SINGLE_FIELD);
+    FieldType::SingleField,
+    FieldType::PtrField);
 
 
 const FieldType &PointerSFieldBase::getClassType(void)
