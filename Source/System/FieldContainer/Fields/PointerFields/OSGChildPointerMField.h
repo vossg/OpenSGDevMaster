@@ -510,8 +510,6 @@ class ChildPointerMField : public ChildPointerMFieldBase<NamespaceI>
 
 OSG_END_NAMESPACE
 
-#include "OSGChildAccessHandler.h"
-
 #include "OSGChildPointerMField.inl"
 
 #endif // _OSGCHILDPOINTERMFIELD_H_

@@ -9,7 +9,7 @@
 #include "OSGConfig.h"
 
 #include "OSGPointerSFieldCommon.h"
-#include "OSGChildAccessHandlerDecl.h"
+#include "OSGChildAccessHandler.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGChildPointerSFieldBase.h
@@ -22,7 +22,7 @@ OSG_BEGIN_NAMESPACE
 
 template <Int32 NamespaceI = 0>
 class ChildPointerSFieldBase 
-    : public PointerSFieldCommon<ChildAccessHandler, NamespaceI>
+    : public PointerSFieldCommon<UnrecChildAccessHandler, NamespaceI>
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -30,8 +30,8 @@ class ChildPointerSFieldBase
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
        
-    typedef PointerSFieldCommon<ChildAccessHandler,
-                                NamespaceI         > Inherited;
+    typedef PointerSFieldCommon<UnrecChildAccessHandler,
+                                NamespaceI             > Inherited;
     typedef ChildPointerSFieldBase                   Self;
     
     /*! \}                                                                 */

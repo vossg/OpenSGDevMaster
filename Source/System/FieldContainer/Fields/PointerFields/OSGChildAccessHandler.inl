@@ -1,3 +1,40 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGChildAccessHandlerDecl.inl
@@ -18,14 +55,18 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /* Internal Helper                                                         */
 
-inline ChildAccessHandler::SFieldType * const
-    ChildAccessHandler::dcastSField(SFieldBaseType * const pSField)
+template<typename RefCountPolicyT> inline 
+typename ChildAccessHandler<RefCountPolicyT>::SFieldType * const
+    ChildAccessHandler<RefCountPolicyT>::dcastSField(
+        SFieldBaseType * const pSField)
 {
     return static_cast<SFieldType *>(pSField);
 }
 
-inline ChildAccessHandler::MFieldType * const
-    ChildAccessHandler::dcastMField(MFieldBaseType * const pMField)
+template<typename RefCountPolicyT> inline 
+typename ChildAccessHandler<RefCountPolicyT>::MFieldType * const
+    ChildAccessHandler<RefCountPolicyT>::dcastMField(
+        MFieldBaseType * const pMField)
 {
     return static_cast<MFieldType *>(pMField);
 }
@@ -33,21 +74,21 @@ inline ChildAccessHandler::MFieldType * const
 /*-------------------------------------------------------------------------*/
 /* Linking                                                                 */
 
-inline void
-    ChildAccessHandler::linkParent(
-        FieldContainerPtrConst pParent,
-        UInt16 const           childFieldId,
-        FieldContainerPtrConst pChild,
-        UInt16 const           parentFieldId )
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::linkParent(
+    FieldContainerPtr const pParent,
+    UInt16            const childFieldId,
+    FieldContainerPtr const pChild,
+    UInt16            const parentFieldId)
 {
-        pChild->linkParent(pParent, childFieldId, parentFieldId);
+    pChild->linkParent(pParent, childFieldId, parentFieldId);
 }
 
-inline void
-    ChildAccessHandler::unlinkParent(
-        FieldContainerPtrConst pParent,
-        FieldContainerPtrConst pChild,
-        UInt16 const           parentFieldId)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::unlinkParent(
+    FieldContainerPtr const pParent,
+    FieldContainerPtr const pChild,
+    UInt16            const parentFieldId)
 {
     pChild->unlinkParent(pParent, parentFieldId);
 }
@@ -55,9 +96,10 @@ inline void
 /*-------------------------------------------------------------------------*/
 /* Access Handling                                                         */
 
-inline void
-    ChildAccessHandler::onAdd(
-        SFieldBaseType * const pSField, FieldContainerPtrConst pObj)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onAdd(
+    SFieldBaseType    * const pSField, 
+    FieldContainerPtr   const pObj   )
 {
     if(pObj != NULL)
     {
@@ -70,9 +112,10 @@ inline void
     }
 }
 
-inline void
-    ChildAccessHandler::onAdd(
-        MFieldBaseType * const pMField, FieldContainerPtrConst pObj)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onAdd(
+    MFieldBaseType    * const pMField, 
+    FieldContainerPtr   const pObj   )
 {
     if(pObj != NULL)
     {
@@ -85,38 +128,41 @@ inline void
     }
 }
 
-inline void
-    ChildAccessHandler::onSub(
-        SFieldBaseType * const pSField, FieldContainerPtrConst pObj)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onSub(
+    SFieldBaseType    * const pSField, 
+    FieldContainerPtr   const pObj   )
 {
     if(pObj != NULL)
     {
         unlinkParent(dcastSField(pSField)->getEnclosingObject(),
                      pObj,
-                     dcastSField(pSField)->getParentFieldId()   );
+                     dcastSField(pSField)->getParentFieldId()  );
 
         RefCountPolicyType::subRef(pObj/*, false*/);
     }
 }
 
-inline void
-    ChildAccessHandler::onSub(
-        MFieldBaseType * const pMField, FieldContainerPtrConst pObj)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onSub(
+    MFieldBaseType    * const pMField, 
+    FieldContainerPtr   const pObj   )
 {
     if(pObj != NULL)
     {
         unlinkParent(dcastMField(pMField)->getEnclosingObject(),
                      pObj,
-                     dcastMField(pMField)->getParentFieldId()   );
+                     dcastMField(pMField)->getParentFieldId()  );
 
         RefCountPolicyType::subRef(pObj/*, false*/);
     }
 }
 
-inline void
-    ChildAccessHandler::onReplace(
-        SFieldBaseType * const pSField,
-        FieldContainerPtrConst pOldObj, FieldContainerPtrConst pNewObj)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onReplace(
+    SFieldBaseType    * const pSField,
+    FieldContainerPtr   const pOldObj, 
+    FieldContainerPtr   const pNewObj)
 {
     RefCountPolicyType::addRef(pNewObj);
 
@@ -124,23 +170,25 @@ inline void
     {
         unlinkParent(dcastSField(pSField)->getEnclosingObject(),
                      pOldObj,
-                     dcastSField(pSField)->getParentFieldId()   );
+                     dcastSField(pSField)->getParentFieldId() );
 
         RefCountPolicyType::subRef(pOldObj/*, false*/);
     }
 
     if(pNewObj != NULL)
+    {
         linkParent(dcastSField(pSField)->getEnclosingObject(),
                    dcastSField(pSField)->getChildFieldId   (),
                    pNewObj,
-                   dcastSField(pSField)->getParentFieldId  () );
+                   dcastSField(pSField)->getParentFieldId  ());
+    }
 }
 
-inline void
-    ChildAccessHandler::onReplace(
-        MFieldBaseType      * const pMField,
-        FieldContainerPtrConst         pOldObj,
-        FieldContainerPtrConst         pNewObj)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onReplace(
+    MFieldBaseType    * const pMField,
+    FieldContainerPtr   const pOldObj,
+    FieldContainerPtr   const pNewObj)
 {
     RefCountPolicyType::addRef(pNewObj);
 
@@ -148,64 +196,70 @@ inline void
     {
         unlinkParent(dcastMField(pMField)->getEnclosingObject(),
                      pOldObj,
-                     dcastMField(pMField)->getParentFieldId()   );
+                     dcastMField(pMField)->getParentFieldId()  );
 
         RefCountPolicyType::subRef(pOldObj/*, false*/);
     }
 
     if(pNewObj != NULL)
+    {
         linkParent(dcastMField(pMField)->getEnclosingObject(),
                    dcastMField(pMField)->getChildFieldId   (),
                    pNewObj,
-                   dcastMField(pMField)->getParentFieldId  () );
+                   dcastMField(pMField)->getParentFieldId  ());
+    }
 }
 
 /*-------------------------------------------------------------------------*/
 /* Sync Access Handling                                                    */
 
-inline void
-    ChildAccessHandler::onSyncAdd(
-        SFieldBaseType * const, FieldContainerPtrConst pObj)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onSyncAdd(
+    SFieldBaseType    * const, 
+    FieldContainerPtr   const pObj)
 {
     RefCountPolicyType::addRef(pObj);
 }
 
-inline void
-    ChildAccessHandler::onSyncAdd(
-        MFieldBaseType * const, FieldContainerPtrConst pObj)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onSyncAdd(
+    MFieldBaseType    * const, 
+    FieldContainerPtr   const pObj)
 {
     RefCountPolicyType::addRef(pObj);
 }
 
-inline void
-    ChildAccessHandler::onSyncSub(
-        SFieldBaseType * const, FieldContainerPtrConst pObj)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onSyncSub(
+    SFieldBaseType    * const, 
+    FieldContainerPtr   const pObj)
 {
     RefCountPolicyType::subRef(pObj);
 }
 
-inline void
-    ChildAccessHandler::onSyncSub(
-        MFieldBaseType * const, FieldContainerPtrConst pObj)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onSyncSub(
+    MFieldBaseType    * const, 
+    FieldContainerPtr   const pObj)
 {
     RefCountPolicyType::subRef(pObj);
 }
 
-inline void
-    ChildAccessHandler::onSyncReplace(
-        SFieldBaseType         * const pSField,
-        FieldContainerPtrConst         pOldObj,
-        FieldContainerPtrConst         pNewObj )
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onSyncReplace(
+    SFieldBaseType    * const pSField,
+    FieldContainerPtr   const pOldObj,
+    FieldContainerPtr   const pNewObj)
 {
     onSyncAdd(pSField, pNewObj);
     onSyncSub(pSField, pOldObj);
 }
 
-inline void
-    ChildAccessHandler::onSyncReplace(
-        MFieldBaseType         * const pMField,
-        FieldContainerPtrConst         pOldObj,
-        FieldContainerPtrConst         pNewObj)
+template<typename RefCountPolicyT> inline 
+void ChildAccessHandler<RefCountPolicyT>::onSyncReplace(
+    MFieldBaseType    * const pMField,
+    FieldContainerPtr   const pOldObj,
+    FieldContainerPtr   const pNewObj)
 {
     onSyncAdd(pMField, pNewObj);
     onSyncSub(pMField, pOldObj);

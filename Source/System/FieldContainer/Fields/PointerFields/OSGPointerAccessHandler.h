@@ -61,7 +61,9 @@ template<typename RefCountPolicyT>
 class PointerAccessHandler
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
@@ -78,44 +80,44 @@ class PointerAccessHandler
     /*! \name Access Handling                                              */
     /*! \{                                                                 */
     
-    static void onAdd    (SFieldBaseType         * const pSField,
-                          FieldContainerPtrConst         pObj    );
-    static void onAdd    (MFieldBaseType         * const pMField,
-                          FieldContainerPtrConst         pObj    );
+    static void onAdd    (SFieldBaseType    * const pSField,
+                          FieldContainerPtr   const pObj   );
+    static void onAdd    (MFieldBaseType    * const pMField,
+                          FieldContainerPtr   const pObj   );
     
-    static void onSub    (SFieldBaseType         * const pSField,
-                          FieldContainerPtrConst         pObj    );
-    static void onSub    (MFieldBaseType         * const pMField,
-                          FieldContainerPtrConst         pObj    );
+    static void onSub    (SFieldBaseType    * const pSField,
+                          FieldContainerPtr   const pObj   );
+    static void onSub    (MFieldBaseType    * const pMField,
+                          FieldContainerPtr   const pObj   );
     
-    static void onReplace(SFieldBaseType         * const pSField,
-                          FieldContainerPtrConst         pOldObj,
-                          FieldContainerPtrConst         pNewObj );
-    static void onReplace(MFieldBaseType         * const pMField,
-                          FieldContainerPtrConst         pOldObj,
-                          FieldContainerPtrConst         pNewObj );
+    static void onReplace(SFieldBaseType    * const pSField,
+                          FieldContainerPtr   const pOldObj,
+                          FieldContainerPtr   const pNewObj);
+    static void onReplace(MFieldBaseType    * const pMField,
+                          FieldContainerPtr   const pOldObj,
+                          FieldContainerPtr   const pNewObj);
                    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Sync Access Handling                                         */
     /*! \{                                                                 */
     
-    static void onSyncAdd    (SFieldBaseType         * const pSField,
-                              FieldContainerPtrConst         pObj    );
-    static void onSyncAdd    (MFieldBaseType         * const pMField,
-                              FieldContainerPtrConst         pObj    );
+    static void onSyncAdd    (SFieldBaseType    * const pSField,
+                              FieldContainerPtr   const pObj   );
+    static void onSyncAdd    (MFieldBaseType    * const pMField,
+                              FieldContainerPtr   const pObj   );
     
-    static void onSyncSub    (SFieldBaseType         * const pSField,
-                              FieldContainerPtrConst         pObj    );
-    static void onSyncSub    (MFieldBaseType         * const pMField,
-                              FieldContainerPtrConst         pObj    );
+    static void onSyncSub    (SFieldBaseType    * const pSField,
+                              FieldContainerPtr   const pObj   );
+    static void onSyncSub    (MFieldBaseType    * const pMField,
+                              FieldContainerPtr   const pObj   );
     
-    static void onSyncReplace(SFieldBaseType         * const pSField,
-                              FieldContainerPtrConst         pOldObj,
-                              FieldContainerPtrConst         pNewObj );
-    static void onSyncReplace(MFieldBaseType         * const pMField,
-                              FieldContainerPtrConst         pOldObj,
-                              FieldContainerPtrConst         pNewObj );
+    static void onSyncReplace(SFieldBaseType    * const pSField,
+                              FieldContainerPtr   const pOldObj,
+                              FieldContainerPtr   const pNewObj);
+    static void onSyncReplace(MFieldBaseType    * const pMField,
+                              FieldContainerPtr   const pOldObj,
+                              FieldContainerPtr   const pNewObj);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
