@@ -73,7 +73,6 @@ PointerSField<ObjectTypeT,
               NamespaceI    >::PointerSField(void) : 
     Inherited()
 {
-    // nothing to do
 }
 
 template <class    ObjectTypeT, 
@@ -81,10 +80,9 @@ template <class    ObjectTypeT,
           Int32    NamespaceI    > inline
 PointerSField<ObjectTypeT,
               RefCountPolicy,
-              NamespaceI    >::PointerSField(Self const &source) :
+              NamespaceI    >::PointerSField(const Self &source) :
      Inherited(source)
 {
-    // nothing to do
 }
 
 template <class    ObjectTypeT, 
@@ -92,10 +90,9 @@ template <class    ObjectTypeT,
           Int32    NamespaceI    > inline
 PointerSField<ObjectTypeT,
               RefCountPolicy,
-              NamespaceI    >::PointerSField(ValueType value) :
+              NamespaceI    >::PointerSField(const_value value) :
     Inherited(value)
 {
-    // nothing to do
 }
 
 /*-------------------------------------------------------------------------*/
@@ -118,12 +115,12 @@ template <class    ObjectTypeT,
           Int32    NamespaceI    > inline 
 typename PointerSField<ObjectTypeT,
                        RefCountPolicy,
-                       NamespaceI    >::const_reference
+                       NamespaceI    >::const_value
     PointerSField<ObjectTypeT,
                   RefCountPolicy,
                   NamespaceI    >::getValue(void) const
 {
-    return reinterpret_cast<const_reference>(this->getRawStore());
+    return static_cast<const_value>(this->ptrStoreGet());
 }
 
 template <class    ObjectTypeT, 
@@ -131,7 +128,7 @@ template <class    ObjectTypeT,
           Int32    NamespaceI    > inline 
 void PointerSField<ObjectTypeT,
                    RefCountPolicy,
-                   NamespaceI    >::setValue(ValueType value)
+                   NamespaceI    >::setValue(const_value value)
 {
     this->ptrStoreSet(value);
 }
@@ -141,10 +138,32 @@ template <class    ObjectTypeT,
           Int32    NamespaceI    > inline 
 void PointerSField<ObjectTypeT,
                    RefCountPolicy,
-                   NamespaceI    >::setValue(Self const &source)
+                   NamespaceI    >::setValue(const Self &source)
 {
     this->ptrStoreSet(source.ptrStoreGet());
 }
+
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+void PointerSField<ObjectTypeT,
+                   RefCountPolicy,
+                   NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)
+{
+    Inherited::copyFromBin(pMem);
+}
+
+#ifdef OSG_MT_CPTR_ASPECT
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI    > inline 
+void PointerSField<ObjectTypeT,
+                   RefCountPolicy,
+                   NamespaceI    >::syncWith(Self &source)
+{
+    Inherited::syncWith(source);
+}
+#endif
 
 /*-------------------------------------------------------------------------*/
 /* Assignment                                                              */
@@ -154,7 +173,7 @@ template <class    ObjectTypeT,
           Int32    NamespaceI    > inline 
 void PointerSField<ObjectTypeT,
                    RefCountPolicy,
-                   NamespaceI    >::operator =(Self const &other)
+                   NamespaceI    >::operator =(const Self &other)
 {
     this->ptrStoreSet(other.ptrStoreGet());
 }

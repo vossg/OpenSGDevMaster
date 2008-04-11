@@ -57,20 +57,6 @@ PointerSFieldBase::PointerSFieldBase(void) :
 {
 }
 
-inline 
-PointerSFieldBase::PointerSFieldBase(Self const &source) :
-     Inherited (source            ),
-    _fieldValue(source._fieldValue)
-{
-}
-
-inline
-PointerSFieldBase::PointerSFieldBase(const_value value) :
-     Inherited (     ),
-    _fieldValue(value)
-{
-}
-
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 

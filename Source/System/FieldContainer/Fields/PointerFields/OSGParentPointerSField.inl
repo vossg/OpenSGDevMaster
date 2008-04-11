@@ -52,9 +52,10 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline 
-FieldType const &ParentPointerSField<ObjectTypeT,
-                                     NamespaceI >::getClassType(void)
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+const FieldType &ParentPointerSField<ObjectTypeT,
+                                     RefCountPolicy,
+                                     NamespaceI    >::getClassType(void)
 {
     return _fieldType;
 }
@@ -62,140 +63,126 @@ FieldType const &ParentPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 ParentPointerSField<ObjectTypeT,
-                    NamespaceI >::ParentPointerSField(void) : 
-     Inherited   (),
-    _childIdValue()
+                    RefCountPolicy,
+                    NamespaceI    >::ParentPointerSField(void) : 
+     Inherited       (      ),
+    _uiParentFieldPos(0xFFFF)
 {
-    // nothing to do
 }
 
-template <class ObjectTypeT, Int32 NamespaceI> inline
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 ParentPointerSField<ObjectTypeT,
-                    NamespaceI >::ParentPointerSField(Self const &source) :
-     Inherited   (source              ),
-    _childIdValue(source._childIdValue)
+                    RefCountPolicy,
+                    NamespaceI    >::ParentPointerSField(
+                        const_value value, 
+                        UInt16      uiParentFieldPos) :
+     Inherited       (value           ),
+    _uiParentFieldPos(uiParentFieldPos)
 {
-    // nothing to do
-}
-
-template <class ObjectTypeT, Int32 NamespaceI> inline
-ParentPointerSField<ObjectTypeT,
-                    NamespaceI >::ParentPointerSField(ValueType    ptrValue, 
-                                                      IdStoredType idValue ) :
-     Inherited   (ptrValue),
-    _childIdValue(idValue )
-{
-    // nothing to do
 }
 
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 ParentPointerSField<ObjectTypeT,
-                    NamespaceI >::~ParentPointerSField(void)
+                    RefCountPolicy,
+                    NamespaceI    >::~ParentPointerSField(void)
 {
-    // nothing to do
 }
 
-/*-------------------------------------------------------------------------*/
-/* IdStore Interface                                                       */
 
 /*-------------------------------------------------------------------------*/
 /* Reading Values                                                          */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline 
-UInt16 const ParentPointerSField<ObjectTypeT, 
-                                 NamespaceI >::idStoreGet(void) const
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+UInt16 ParentPointerSField<ObjectTypeT, 
+                           RefCountPolicy,
+                           NamespaceI    >::getParentFieldPos(void) const
 {
-    return _childIdValue;
+    return _uiParentFieldPos;
+}
+
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ParentPointerSField<ObjectTypeT,
+                             RefCountPolicy,
+                             NamespaceI    >::const_value
+    ParentPointerSField<ObjectTypeT,
+                        RefCountPolicy,
+                        NamespaceI >::getValue(void) const
+{
+    return static_cast<const_value>(this->ptrStoreGet());
 }
     
 /*-------------------------------------------------------------------------*/
 /* Changing Values                                                         */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline 
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 void ParentPointerSField<ObjectTypeT, 
-                         NamespaceI >::idStoreSet(UInt16 const newId)
+                           RefCountPolicy,
+                           NamespaceI    >::setValue(
+                               const_value  value,
+                               UInt16       uiParentFieldPos)
 {
-    _childIdValue = newId;
+    this->ptrStoreSet(value);
+    
+    _uiParentFieldPos = uiParentFieldPos;
 }
 
-template <class ObjectTypeT, Int32 NamespaceI> inline 
-void ParentPointerSField<ObjectTypeT, NamespaceI>::idStoreClear(void)
-{
-    _childIdValue = 0;
-}
-
-/*-------------------------------------------------------------------------*/
-/* Raw IdStore Access                                                      */
-
-template <class ObjectTypeT, Int32 NamespaceI> inline 
-typename ParentPointerSField<ObjectTypeT, NamespaceI>::IdStoredTypeRef
-    ParentPointerSField<ObjectTypeT, NamespaceI>::editRawIdStore(void)
-{
-    return _childIdValue;
-}
-
-template <class ObjectTypeT, Int32 NamespaceI> inline 
-typename ParentPointerSField<ObjectTypeT, NamespaceI>::IdStoredTypeConstRef
-    ParentPointerSField<ObjectTypeT, NamespaceI>::getRawIdStore (void) const
-{
-    return _childIdValue;
-}
 
 /*-------------------------------------------------------------------------*/
 /* Binary IO                                                               */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline
-UInt32 ParentPointerSField<ObjectTypeT, NamespaceI>::getBinSize(void) const
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+UInt32 ParentPointerSField<ObjectTypeT, 
+                           RefCountPolicy,
+                           NamespaceI    >::getBinSize(void) const
 {
-    return
-        Inherited::getBinSize() + IdBaseTraitsType::getBinSize(_childIdValue);
+    return (Inherited      ::getBinSize() + 
+            PosSFieldTraits::getBinSize(_uiParentFieldPos));
 }
 
-template <class ObjectTypeT, Int32 NamespaceI> inline 
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 void ParentPointerSField<ObjectTypeT, 
-                         NamespaceI >::copyToBin(BinaryDataHandler &pMem) const
+                         RefCountPolicy,
+                         NamespaceI    >::copyToBin(
+                             BinaryDataHandler &pMem) const
 {
-    Inherited::copyToBin(pMem);
+    Inherited      ::copyToBin(pMem);
     
-    IdBaseTraitsType::copyToBin(pMem, _childIdValue);
+    PosSFieldTraits::copyToBin(pMem, _uiParentFieldPos);
 }
 
-template <class ObjectTypeT, Int32 NamespaceI> inline 
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 void ParentPointerSField<ObjectTypeT, 
-                         NamespaceI>::copyFromBin(BinaryDataHandler &pMem)
+                         RefCountPolicy,
+                         NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)
 {
     Inherited::copyFromBin(pMem);
     
-    IdBaseTraitsType::copyFromBin(pMem, _childIdValue);
+    PosSFieldTraits::copyFromBin(pMem, _uiParentFieldPos);
 }
 
 /*-------------------------------------------------------------------------*/
 /* MT Sync                                                                 */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline 
-void ParentPointerSField<ObjectTypeT, NamespaceI>::syncWith(Self &source)
+#ifdef OSG_MT_CPTR_ASPECT
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ParentPointerSField<ObjectTypeT, 
+                         RefCountPolicy,
+                         NamespaceI    >::syncWith(Self &source)
 {
     Inherited::syncWith(source);
     
-    _childIdValue = source._childIdValue;
+    _uiParentFieldPos = source._uiParentFieldPos;
 }
+#endif
 
 /*-------------------------------------------------------------------------*/
 /* Access                                                                  */
 
-template <class ObjectTypeT, Int32 NamespaceI> inline 
-typename ParentPointerSField<ObjectTypeT,
-                             NamespaceI >::const_reference
-    ParentPointerSField<ObjectTypeT,
-                        NamespaceI >::getValue(void) const
-{
-    return this->getRawStore();
-}
 
 /*-------------------------------------------------------------------------*/
 /* Comparison                                                              */

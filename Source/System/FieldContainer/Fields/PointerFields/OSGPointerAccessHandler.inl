@@ -141,7 +141,14 @@ void PointerAccessHandler<RefCountPolicyT>::onSyncReplace(
     FieldContainerPtr   const pNewObj)
 {
     onSyncAdd(pSField, pNewObj);
-    onSyncSub(pSField, pOldObj);
+
+    if(pOldObj != NullFC)
+    {
+        Thread::getCurrentChangeList()->addDelayedSubRef<
+            RefCountPolicyT>(pOldObj);
+    }
+
+//    onSyncSub(pSField, pOldObj);
 }
 
 template<typename RefCountPolicyT> inline 

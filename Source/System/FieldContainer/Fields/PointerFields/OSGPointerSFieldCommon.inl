@@ -14,44 +14,39 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI     >::PointerSFieldCommon(void)
-    : Inherited()
+template <class AccessHandlerT, Int32 NamespaceI> inline
+PointerSFieldCommon<AccessHandlerT,
+                    NamespaceI    >::PointerSFieldCommon(void) :
+    Inherited()
 {
-    // nothing to do
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI     >::PointerSFieldCommon(
-        Self const &source)
-    
-    : Inherited(source)
+template <class AccessHandlerT, Int32 NamespaceI> inline
+PointerSFieldCommon<AccessHandlerT,
+                    NamespaceI    >::PointerSFieldCommon(const Self &source) :
+    Inherited()
 {
+    _fieldValue = source._fieldValue;
+
     AccessHandler::onAdd(this, _fieldValue);
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI     >::PointerSFieldCommon(
-        FieldContainerPtrConst value)
-    
-    : Inherited(value)
+template <class AccessHandlerT, Int32 NamespaceI> inline
+PointerSFieldCommon<AccessHandlerT,
+                    NamespaceI    >::PointerSFieldCommon(const_value value) :
+    Inherited()
 {
+    _fieldValue = value;
+
     AccessHandler::onAdd(this, _fieldValue);
 }
 
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI     >::~PointerSFieldCommon(void)
+template <class AccessHandlerT, Int32 NamespaceI> inline
+PointerSFieldCommon<AccessHandlerT,
+                    NamespaceI    >::~PointerSFieldCommon(void)
 {
     AccessHandler::onSub(this, _fieldValue);
 }
@@ -62,10 +57,11 @@ inline
 /*-------------------------------------------------------------------------*/
 /* Reading Values                                                          */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline FieldContainerPtr
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+typename PointerSFieldCommon<AccessHandlerT,
+                             NamespaceI    >::const_value 
     PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreGet(void) const
+                        NamespaceI    >::ptrStoreGet(void) const
 {
     return AccessHandler::validate(_fieldValue);
 }
@@ -73,21 +69,18 @@ inline FieldContainerPtr
 /*-------------------------------------------------------------------------*/
 /* Changing Values                                                         */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreSet(
-        FieldContainerPtrConst pNewObj)
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+void PointerSFieldCommon<AccessHandlerT,
+                         NamespaceI     >::ptrStoreSet(const_value pNewObj)
 {
     AccessHandler::onReplace(this, _fieldValue, pNewObj);
     
     _fieldValue = pNewObj;
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreClear(void)
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+void PointerSFieldCommon<AccessHandlerT,
+                         NamespaceI    >::ptrStoreClear(void)
 {
     AccessHandler::onSub(this, _fieldValue);
     
@@ -97,33 +90,19 @@ inline void
 /*-------------------------------------------------------------------------*/
 /* Binary IO                                                               */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline UInt32
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI     >::getBinSize(void) const
-{
-    return PtrBaseTraitsType::getBinSize(_fieldValue);
-}
-
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI     >::copyToBin(
-        BinaryDataHandler &pMem) const
-{
-    PtrBaseTraitsType::copyToBin(pMem, _fieldValue);
-}
         
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI     >::copyFromBin(
-        BinaryDataHandler &pMem)
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+void PointerSFieldCommon<AccessHandlerT,
+                         NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)
 {
     FieldContainerPtr pNewObj;
     
-    PtrBaseTraitsType::copyFromBin  (pMem, pNewObj             );
-    AccessHandler    ::onSyncReplace(this, _fieldValue, pNewObj);
+    PtrBaseTraitsType::copyFromBin  ( pMem, 
+                                      pNewObj   );
+
+    AccessHandler    ::onSyncReplace( this, 
+                                     _fieldValue, 
+                                      pNewObj   );
     
     _fieldValue = pNewObj;
 }
@@ -131,17 +110,20 @@ inline void
 /*-------------------------------------------------------------------------*/
 /* MT Sync                                                                 */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerSFieldCommon<AccessHandlerT,
-                        NamespaceI     >::syncWith(Self &source)
+#ifdef OSG_MT_CPTR_ASPECT
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+void PointerSFieldCommon<AccessHandlerT,
+                         NamespaceI     >::syncWith(Self &source)
 {
     FieldContainerPtr pNewObj = convertToCurrentAspect(source.ptrStoreGet());
     
-    AccessHandler::onSyncReplace(this, _fieldValue, pNewObj);
+    AccessHandler::onSyncReplace( this, 
+                                 _fieldValue, 
+                                  pNewObj);
     
     _fieldValue = pNewObj;
 }
+#endif
 
 /*-------------------------------------------------------------------------*/
 /* Free functions                                                          */

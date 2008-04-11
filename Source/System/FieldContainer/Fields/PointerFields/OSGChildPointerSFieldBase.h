@@ -20,28 +20,40 @@
 OSG_BEGIN_NAMESPACE
 
 
-template <Int32 NamespaceI = 0>
+template <typename AccessHandlerT,
+          Int32    NamespaceI = 0>
 class ChildPointerSFieldBase 
-    : public PointerSFieldCommon<UnrecChildAccessHandler, NamespaceI>
+    : public PointerSFieldCommon<AccessHandlerT, NamespaceI>
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
        
-    typedef PointerSFieldCommon<UnrecChildAccessHandler,
-                                NamespaceI             > Inherited;
-    typedef ChildPointerSFieldBase                   Self;
+    typedef PointerSFieldCommon   <AccessHandlerT,
+                                   NamespaceI    > Inherited;
+    typedef ChildPointerSFieldBase                 Self;
     
+    typedef const FieldContainerPtr                const_value;
+
     /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-             ChildPointerSFieldBase(void                          );
-             ChildPointerSFieldBase(Self const             &source);
-    explicit ChildPointerSFieldBase(FieldContainerPtrConst  value );
+    ChildPointerSFieldBase(const FieldContainerPtr  pParent,
+                                 UInt16             usParentFieldPos);
+
+    ChildPointerSFieldBase(      const_value        value,
+                           const FieldContainerPtr  pParent,
+                                 UInt16             usParentFieldPos);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -55,29 +67,35 @@ class ChildPointerSFieldBase
     /*! \name Child Linking Information                                    */
     /*! \{                                                                 */
     
-    FieldContainerPtr getEnclosingObject(void                       ) const;
-    void              setEnclosingObject(FieldContainerPtrConst pObj);
+    FieldContainerPtr getEnclosingObject(      void                   ) const;
+    void              setEnclosingObject(const FieldContainerPtr pObj );
     
-    UInt16 getChildFieldId (void                      ) const;
-    void   setChildFieldId (UInt16 const childFieldId );
+    UInt16            getChildFieldId   (      void                   ) const;
+    void              setChildFieldId   (const UInt16 childFieldId    );
     
-    UInt16 getParentFieldId(void                      ) const;
-    void   setParentFieldId(UInt16 const parentFieldId);
-    
+    UInt16            getParentFieldPos (      void                   ) const;
+    void              setParentFieldPos (const UInt16 usParentFieldPos);
+
     /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-  protected:
     /*---------------------------------------------------------------------*/
     /*! \name Members                                                      */
     /*! \{                                                                 */
   
     FieldContainerPtr _pEnclosingObj;
     UInt16            _childFieldId;
-    UInt16            _parentFieldId;
+    UInt16            _usParentFieldPos;
   
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private: 
+
+    template<typename RefCountPolicyT>
+    friend class ChildAccessHandler;
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    ChildPointerSFieldBase(const Self &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator = (const Self &source);
 };
 
 OSG_END_NAMESPACE

@@ -88,7 +88,7 @@ inline void
 
 template <Int32 NamespaceI>
 inline UInt16
-    ChildPointerMFieldBase<NamespaceI>::getParentFieldId(void) const
+    ChildPointerMFieldBase<NamespaceI>::getParentFieldPos(void) const
 {
     return _parentFieldId;
 }

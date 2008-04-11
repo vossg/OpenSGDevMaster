@@ -61,7 +61,7 @@ class ChildPointerMFieldBase
     UInt16 getChildFieldId (void                      ) const;
     void   setChildFieldId (UInt16 const childFieldId );
     
-    UInt16 getParentFieldId(void                      ) const;
+    UInt16 getParentFieldPos(void                      ) const;
     void   setParentFieldId(UInt16 const parentFieldId);
     
     /*! \}                                                                 */

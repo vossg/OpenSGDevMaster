@@ -75,39 +75,36 @@ class PointerSField :
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
-  protected:
+    typedef PointerSFieldCommon<
+                PointerAccessHandler<RefCountPolicy>, 
+                NamespaceI                              >  Inherited;
 
-    typedef ObjectTypeT                               ObjectType;
     
-    typedef PointerSFieldCommon  <PointerAccessHandler<RefCountPolicy>, 
-                                  NamespaceI       >  Inherited;
-    typedef PointerSField        <ObjectType,
+    typedef PointerSField                                  Self;
+
+    typedef ObjectTypeT *                                  value_type;
+    typedef ObjectTypeT * const                            const_value;
+
+    typedef value_type                                     StoredType;
+
+    typedef FieldTraits          <value_type,
+                                  NamespaceI            >  SFieldTraits;
+
+    typedef FieldDescription     <SFieldTraits,
+                                  FieldType::SingleField,
                                   RefCountPolicy,
-                                  NamespaceI >        Self;
-    
-    typedef ObjectTypeT * ValueType;
-    typedef ObjectTypeT * const ArgumentType;
-    typedef ObjectTypeT * value_type;
+                                  FieldType::PtrField   >  Description;
+ 
 
-    typedef ValueType *pointer;
-    typedef ArgumentType *const_pointer;
+    typedef ObjectTypeT                                    ObjectType;
 
-    typedef ValueType const                             &const_reference; 
-
-    
-    typedef FieldTraits     <ValueType,
-                             NamespaceI                   >  SFieldTraits;
-    typedef FieldDescription<SFieldTraits,
-                             FieldType::SingleField,
-                             RefCountPolicy,
-                             FieldType::PtrField          >  Description;
-    
     // handles
-//    typedef          EditPointerSFieldHandle<Self>      EditHandle;
-//    typedef typename EditPointerSFieldHandle<Self>::Ptr EditHandlePtr;
-    
-//    typedef          GetPointerSFieldHandle <Self>      GetHandle;
-//    typedef typename GetPointerSFieldHandle <Self>::Ptr GetHandlePtr;
+
+//    typedef EditFCPtrSFieldHandle<Self                  > EditHandle;
+//    typedef boost::shared_ptr    <EditHandle            > EditHandlePtr;
+
+//    typedef GetFCPtrSFieldHandle <Self                  > GetHandle;
+//    typedef boost::shared_ptr    <GetHandle             > GetHandlePtr;
     
     // handles for dynamic fields -- XXX TODO
 //    typedef          EditPointerSFieldHandle<Self>      DynamicEditHandle;
@@ -115,31 +112,32 @@ class PointerSField :
     
 //    typedef          GetPointerSFieldHandle <Self>      DynamicGetHandle;
 //    typedef typename GetPointerSFieldHandle <Self>::Ptr DynamicGetHandlePtr;
-    
+
+   
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constants                                                    */
     /*! \{                                                                 */
     
-    static FieldType::Cardinality const fieldCard  = FieldType::SingleField;
-    static FieldType::Class       const Class      = FieldType::PtrField;
+    static FieldType::Cardinality const Card  = FieldType::SingleField;
+    static FieldType::Class       const Class = FieldType::PtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Class Type                                                   */
     /*! \{                                                                 */
 
-    static FieldType const &getClassType(void);
+    static const FieldType &getClassType(void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
 
-             PointerSField(void              );
-             PointerSField(Self const &source);
+             PointerSField(      void               );
+             PointerSField(const Self        &source);
 
-    explicit PointerSField(ValueType   value );
+    explicit PointerSField(      const_value  value );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -153,19 +151,33 @@ class PointerSField :
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-  protected:
+    const_value getValue(      void               ) const;
     
-    const_reference getValue (void           ) const;
-    
-    void            setValue (ValueType   value );
-    void            setValue (Self const &source);
+    void        setValue(      const_value  value );
+    void        setValue(const Self        &source);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Binary IO                                                    */
+    /*! \{                                                                 */
+
+    void copyFromBin(BinaryDataHandler &pMem);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name MT Sync                                                      */
+    /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    void syncWith(Self &source);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
 
-    void operator = (Self const &source);
+    void operator = (const Self &source);
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -30,40 +30,45 @@ class PointerSFieldCommon : public PointerSFieldBase
 {
     /*==========================  PUBLIC  =================================*/
 
-    typedef          PointerSFieldBase                   Inherited;
-
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
 
-    typedef          AccessHandlerT                      AccessHandler;
-    typedef typename Inherited::StoredType               StoredType;
-
-  protected:
+    typedef          PointerSFieldBase                   Inherited;
     typedef          PointerSFieldCommon                 Self;
 
-//    typedef          PointerFieldTraitsBase<NamespaceI>  PtrBaseTraitsType;
-  
-    typedef FieldTraitsFCPtrBase<FieldContainerPtr, NamespaceI> PtrBaseTraitsType;
-  
-    
+    typedef typename Inherited::const_value              const_value;
+
+    typedef typename Inherited::StoredType               StoredType;
+
+    typedef          AccessHandlerT                      AccessHandler;
+
+    typedef          FieldTraitsFCPtrBase<
+                         FieldContainerPtr, 
+                         NamespaceI       >              PtrBaseTraitsType;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constants                                                    */
     /*! \{                                                                 */
     
-    static Int32 const Namespace = NamespaceI;
+    static const Int32 Namespace = NamespaceI;
     
     /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-             PointerSFieldCommon(void                          );
-             PointerSFieldCommon(Self const             &source);
-    explicit PointerSFieldCommon(FieldContainerPtrConst  value );
+             PointerSFieldCommon(      void               );
+             PointerSFieldCommon(const Self        &source);
+    explicit PointerSFieldCommon(      const_value  value );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -77,31 +82,34 @@ class PointerSFieldCommon : public PointerSFieldBase
     /*! \name Store Interface                                              */
     /*! \{                                                                 */
     
-    // reading values
-    FieldContainerPtr ptrStoreGet(void) const;
+    const_value ptrStoreGet  (void               ) const;
     
-    // changing values
-    void ptrStoreSet  (FieldContainerPtrConst pNewObj);
-    void ptrStoreClear(void                          );
+    void        ptrStoreSet  (const_value pNewObj);
+    void        ptrStoreClear(void               );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Binary IO                                                    */
     /*! \{                                                                 */
 
-    UInt32 getBinSize (void                   ) const;
-    void   copyToBin  (BinaryDataHandler &pMem) const;
-    void   copyFromBin(BinaryDataHandler &pMem);
+    void copyFromBin(BinaryDataHandler &pMem);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name MT Sync                                                      */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
     void syncWith(Self &source);
+#endif
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const Self &source);
 };
 
 template <class LHSAccessHandlerT,

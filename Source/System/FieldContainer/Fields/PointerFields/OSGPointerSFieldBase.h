@@ -74,6 +74,7 @@ class OSG_SYSTEM_DLLMAPPING PointerSFieldBase : public Field
     // storage
     typedef       FieldContainerPtr                        StoredType;
     typedef const FieldContainerPtr                        const_value;
+    typedef       FieldContainerPtr                        value_type;
 
     typedef       EditSFieldHandle <Self      >            EditHandle;
     typedef       boost::shared_ptr<EditHandle>            EditHandlePtr;
@@ -136,9 +137,7 @@ class OSG_SYSTEM_DLLMAPPING PointerSFieldBase : public Field
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-             PointerSFieldBase(      void               );
-             PointerSFieldBase(const Self        &source);
-    explicit PointerSFieldBase(      const_value  value );
+    PointerSFieldBase(void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -152,8 +151,6 @@ class OSG_SYSTEM_DLLMAPPING PointerSFieldBase : public Field
     /*! \name                      Assign                                  */
     /*! \{                                                                 */
 
-    void operator =(const Self &source);
-
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
@@ -161,6 +158,11 @@ class OSG_SYSTEM_DLLMAPPING PointerSFieldBase : public Field
     StoredType const &getRawStore (void) const;
 
   private:
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    PointerSFieldBase(const Self &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const Self &source);
 };
 
 typedef PointerSFieldBase FieldContainerPtrSFieldBase;

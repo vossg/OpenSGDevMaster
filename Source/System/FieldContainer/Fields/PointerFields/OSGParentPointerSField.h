@@ -59,10 +59,12 @@ OSG_BEGIN_NAMESPACE
 /*                     NamespaceI  >                                         */
 /*---------------------------------------------------------------------------*/
 
-template <class ObjectTypeT,
-          Int32 NamespaceI  = 0>
+template <class    ObjectTypeT,
+          typename RefCountPolicy,
+          Int32    NamespaceI  = 0>
 class ParentPointerSField : 
-    public PointerSFieldCommon<NoRefCountAccessHandler, NamespaceI>
+    public PointerSFieldCommon<PointerAccessHandler<RefCountPolicy>, 
+                               NamespaceI                          >
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -71,34 +73,29 @@ class ParentPointerSField :
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
-
-    typedef          ObjectTypeT                           ObjectType;
         
-    typedef          PointerSFieldCommon    <NoRefCountAccessHandler,
-                                             NamespaceI  > Inherited;
-    typedef          ParentPointerSField    <ObjectTypeT,
-                                             NamespaceI  > Self;
-                                             
-    typedef ObjectTypeT * ValueType;
-    typedef ObjectTypeT * const ArgumentType;
-    typedef ObjectTypeT * value_type;
+    typedef PointerSFieldCommon<
+                PointerAccessHandler<RefCountPolicy>, 
+                NamespaceI                               > Inherited;
 
-    typedef ArgumentType *const_pointer;
-    typedef ValueType const                             &const_reference; 
+    typedef ParentPointerSField                            Self;
+                                             
+    typedef ObjectTypeT *                                  value_type;
+    typedef ObjectTypeT * const                            const_value;
+
     
-    typedef UInt16                                  IdStoredType;
-    typedef UInt16                                 &IdStoredTypeRef;
-    typedef UInt16 const                           &IdStoredTypeConstRef;
+    typedef FieldTraits        <UInt16                   > PosSFieldTraits;
     
-    typedef FieldTraits<IdStoredType >              IdBaseTraitsType;
-    
-    typedef FieldTraits     <ValueType,
-                             NamespaceI                     >  SFieldTraits;
-    typedef FieldDescription<SFieldTraits,
-                             FieldType::SingleField,
-                             NoRefCountPolicy,
-                             FieldType::ParentPtrField  >  Description;
-  protected:
+    typedef FieldTraits        <value_type,
+                                NamespaceI               > PtrSFieldTraits;
+    typedef PtrSFieldTraits                                SFieldTraits;
+
+    typedef FieldDescription   <PtrSFieldTraits,
+                                FieldType::SingleField,
+                                NoRefCountPolicy,
+                                FieldType::ParentPtrField> Description;
+
+    typedef ObjectTypeT                                    ObjectType;
     
     // handles
 //    typedef          EditParentPointerSFieldHandle<Self>      EditHandle;
@@ -127,17 +124,15 @@ class ParentPointerSField :
     /*! \name Class Type                                                   */
     /*! \{                                                                 */
 
-    static FieldType const &getClassType(void);
+    static const FieldType &getClassType(void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
 
-    ParentPointerSField(void                          );
-    ParentPointerSField(Self const   &other           );
-    ParentPointerSField(ValueType     ptrValue,
-                        IdStoredType  idValue = 0x0000);
+    ParentPointerSField(const_value value,
+                        UInt16      uiParentFieldPos = 0xFFFF);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -148,24 +143,20 @@ class ParentPointerSField :
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+    
+    const_value getValue         (void) const;
+    UInt16      getParentFieldPos(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name IdStore Interface                                            */
     /*! \{                                                                 */
-    
-    // reading values
-    UInt16 const idStoreGet(void) const;
-    
-    // changing values
-    void idStoreSet  (UInt16 const newId);
-    void idStoreClear(void              );
 
-     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Raw IdStore Access                                           */
-    /*! \{                                                                 */
-    
-    IdStoredTypeRef      editRawIdStore(void);
-    IdStoredTypeConstRef getRawIdStore (void) const;
-    
+    void setValue(const_value  value,
+                  UInt16       uiParentFieldPos);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Binary IO                                                    */
@@ -180,31 +171,44 @@ class ParentPointerSField :
     /*! \name MT Sync                                                      */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
     void  syncWith(Self &source);
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Access                                                       */
-    /*! \{                                                                 */
-    
-    const_reference getValue(void) const;
-        
+#endif
+   
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
     /*---------------------------------------------------------------------*/
+    /*! \name Constructors                                                 */
+    /*! \{                                                                 */
+
+    ParentPointerSField(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name Members                                                      */
     /*! \{                                                                 */
     
-    static FieldType    _fieldType;
-           IdStoredType _childIdValue;
+    static FieldType _fieldType;
+           UInt16    _uiParentFieldPos;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    template<class    DescT, 
+             enum     FieldType::Cardinality eFieldCard, 
+             typename RefCountPolicyT,                    
+             enum     FieldType::Class       eFieldClass>
+    friend class FieldDescription;
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    ParentPointerSField(const ParentPointerSField &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const ParentPointerSField &rhs);
 };
 
 OSG_END_NAMESPACE

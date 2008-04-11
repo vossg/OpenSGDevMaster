@@ -108,7 +108,7 @@ void ChildAccessHandler<RefCountPolicyT>::onAdd(
         linkParent(dcastSField(pSField)->getEnclosingObject(),
                    dcastSField(pSField)->getChildFieldId   (),
                    pObj,
-                   dcastSField(pSField)->getParentFieldId  () );
+                   dcastSField(pSField)->getParentFieldPos () );
     }
 }
 
@@ -124,7 +124,7 @@ void ChildAccessHandler<RefCountPolicyT>::onAdd(
         linkParent(dcastMField(pMField)->getEnclosingObject(),
                    dcastMField(pMField)->getChildFieldId   (),
                    pObj,
-                   dcastMField(pMField)->getParentFieldId  () );
+                   dcastMField(pMField)->getParentFieldPos () );
     }
 }
 
@@ -137,7 +137,7 @@ void ChildAccessHandler<RefCountPolicyT>::onSub(
     {
         unlinkParent(dcastSField(pSField)->getEnclosingObject(),
                      pObj,
-                     dcastSField(pSField)->getParentFieldId()  );
+                     dcastSField(pSField)->getParentFieldPos() );
 
         RefCountPolicyType::subRef(pObj/*, false*/);
     }
@@ -152,7 +152,7 @@ void ChildAccessHandler<RefCountPolicyT>::onSub(
     {
         unlinkParent(dcastMField(pMField)->getEnclosingObject(),
                      pObj,
-                     dcastMField(pMField)->getParentFieldId()  );
+                     dcastMField(pMField)->getParentFieldPos() );
 
         RefCountPolicyType::subRef(pObj/*, false*/);
     }
@@ -170,7 +170,7 @@ void ChildAccessHandler<RefCountPolicyT>::onReplace(
     {
         unlinkParent(dcastSField(pSField)->getEnclosingObject(),
                      pOldObj,
-                     dcastSField(pSField)->getParentFieldId() );
+                     dcastSField(pSField)->getParentFieldPos());
 
         RefCountPolicyType::subRef(pOldObj/*, false*/);
     }
@@ -180,7 +180,7 @@ void ChildAccessHandler<RefCountPolicyT>::onReplace(
         linkParent(dcastSField(pSField)->getEnclosingObject(),
                    dcastSField(pSField)->getChildFieldId   (),
                    pNewObj,
-                   dcastSField(pSField)->getParentFieldId  ());
+                   dcastSField(pSField)->getParentFieldPos ());
     }
 }
 
@@ -196,7 +196,7 @@ void ChildAccessHandler<RefCountPolicyT>::onReplace(
     {
         unlinkParent(dcastMField(pMField)->getEnclosingObject(),
                      pOldObj,
-                     dcastMField(pMField)->getParentFieldId()  );
+                     dcastMField(pMField)->getParentFieldPos() );
 
         RefCountPolicyType::subRef(pOldObj/*, false*/);
     }
@@ -206,7 +206,7 @@ void ChildAccessHandler<RefCountPolicyT>::onReplace(
         linkParent(dcastMField(pMField)->getEnclosingObject(),
                    dcastMField(pMField)->getChildFieldId   (),
                    pNewObj,
-                   dcastMField(pMField)->getParentFieldId  ());
+                   dcastMField(pMField)->getParentFieldPos ());
     }
 }
 
@@ -252,7 +252,14 @@ void ChildAccessHandler<RefCountPolicyT>::onSyncReplace(
     FieldContainerPtr   const pNewObj)
 {
     onSyncAdd(pSField, pNewObj);
-    onSyncSub(pSField, pOldObj);
+
+    if(pOldObj != NullFC)
+    {
+        Thread::getCurrentChangeList()->addDelayedSubRef<
+            RefCountPolicyT>(pOldObj);
+    }
+
+//    onSyncSub(pSField, pOldObj);
 }
 
 template<typename RefCountPolicyT> inline 
@@ -262,7 +269,14 @@ void ChildAccessHandler<RefCountPolicyT>::onSyncReplace(
     FieldContainerPtr   const pNewObj)
 {
     onSyncAdd(pMField, pNewObj);
-    onSyncSub(pMField, pOldObj);
+
+    if(pOldObj != NullFC)
+    {
+        Thread::getCurrentChangeList()->addDelayedSubRef<
+            RefCountPolicyT>(pOldObj);
+    }
+
+//    onSyncSub(pMField, pOldObj);
 }
 
 OSG_END_NAMESPACE

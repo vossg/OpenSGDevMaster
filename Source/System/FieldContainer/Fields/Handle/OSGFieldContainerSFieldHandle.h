@@ -203,7 +203,7 @@ class EditFCPtrSFieldHandle :
 
     /*==========================  PUBLIC  =================================*/
 
-    typedef boost::function<void (typename FieldT::const_reference)> SetMethod;
+    typedef boost::function<void (typename FieldT::const_value)> SetMethod;
 
     SetMethod _fSetMethod;
 

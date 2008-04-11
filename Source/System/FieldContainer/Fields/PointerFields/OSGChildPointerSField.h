@@ -57,9 +57,12 @@ OSG_BEGIN_NAMESPACE
 /* ChildPointerSField<FieldConfigT>                                          */
 /*---------------------------------------------------------------------------*/
 
-template <class ObjectTypeT,
-          Int32 NamespaceI  = 0>
-class ChildPointerSField : public ChildPointerSFieldBase<NamespaceI>
+template <class    ObjectTypeT,
+          typename RefCountPolicy,
+          Int32    NamespaceI  = 0>
+class ChildPointerSField : 
+    public ChildPointerSFieldBase<ChildAccessHandler<RefCountPolicy>,
+                                  NamespaceI                       >
 {
 
     /*==========================  PUBLIC  =================================*/
@@ -70,33 +73,28 @@ class ChildPointerSField : public ChildPointerSFieldBase<NamespaceI>
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
-    typedef ObjectTypeT                              ObjectType;
+    typedef ChildPointerSFieldBase<
+                ChildAccessHandler<RefCountPolicy>,
+                NamespaceI                        >          Inherited;
     
-    typedef ChildPointerSFieldBase<NamespaceI >      Inherited;
-    typedef ChildPointerSField    <ObjectType,
-                                   NamespaceI >      Self;
+    typedef ChildPointerSField                               Self;
                                    
+    typedef ObjectTypeT *                                    value_type;
+    typedef ObjectTypeT * const                              const_value;
+         
+    typedef value_type                                       StoredType;
     
-    typedef ObjectTypeT * ValueType;
-    typedef ObjectTypeT * const ArgumentType;
-    typedef ObjectTypeT * value_type;
+    typedef FieldTraits           <value_type,
+                                   NamespaceI              > SFieldTraits;
 
-       
-    typedef ValueType *pointer;
-    typedef ArgumentType *const_pointer;
+    typedef FieldDescription      <SFieldTraits,
+                                   FieldType::SingleField,
+                                   UnrecordedRefCountPolicy,
+                                   FieldType::ChildPtrField> Description;
 
-    typedef ValueType const                             &const_reference; 
-    
-    typedef typename Inherited::StoredType           StoredType;
-    
-    typedef FieldTraits     <ValueType,
-                             NamespaceI                    >  SFieldTraits;
+    typedef typename SFieldTraits::ParentType                ParentT;
 
-    typedef FieldDescription<SFieldTraits,
-                             FieldType::SingleField,
-                             UnrecordedRefCountPolicy,
-                             FieldType::ChildPtrField>  Description;
-  protected:
+    typedef ObjectTypeT                                      ObjectType;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -117,11 +115,14 @@ class ChildPointerSField : public ChildPointerSFieldBase<NamespaceI>
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
-    
-             ChildPointerSField(void              );
-             ChildPointerSField(Self const &source);
-    explicit ChildPointerSField(ValueType   value );
-    
+
+    ChildPointerSField(ParentT     pParent,
+                       UInt16      usParentFieldPos); 
+
+    ChildPointerSField(const_value value,
+                       ParentT     pParent,
+                       UInt16      usParentFieldPos); 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Destructor                                                   */
@@ -134,18 +135,32 @@ class ChildPointerSField : public ChildPointerSFieldBase<NamespaceI>
     /*! \name Access                                                       */
     /*! \{                                                                 */
     
-    const_reference getValue (void           ) const;
+    const_value getValue (      void               ) const;
     
-    void            setValue (ValueType   value );
-    void            setValue (Self const &source);
+    void        setValue (      const_value  value );
+    void        setValue (const Self        &source);
     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Binary IO                                                    */
+    /*! \{                                                                 */
+
+    void copyFromBin(BinaryDataHandler &pMem);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name MT Sync                                                      */
+    /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    void syncWith(Self &source);
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
-
-    void operator = (Self const &source);
-    
+   
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -162,6 +177,10 @@ class ChildPointerSField : public ChildPointerSFieldBase<NamespaceI>
 
   private:
 
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    ChildPointerSField(const Self &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator = (const Self &source);
 };
 
 OSG_END_NAMESPACE
