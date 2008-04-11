@@ -8,9 +8,6 @@
 
 #include "OSGConfig.h"
 #include "OSGChildPointerSFieldBase.h"
-#include "OSGPointerFieldConfigs.h"
-//#include "OSGEditPointerSFieldHandle.h"
-//#include "OSGGetPointerSFieldHandle.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGChildPointerSField.h
@@ -42,15 +39,16 @@ class ChildSFieldReferenceProxy
     typedef          ChildSFieldReferenceProxy           Self;
             
     typedef          ChildPointerSField<ObjectTypeT, 0>  SFieldType;
-    typedef          ChildFieldConfig  <ObjectTypeT, 0>  FieldConfig;
+//    typedef          ChildFieldConfig  <ObjectTypeT, 0>  FieldConfig;
     typedef typename SFieldType::AccessHandler           AccessHandler;
     
     // store types
     typedef typename SFieldType::StoredType              StoredType;
     
     // std library types
-    typedef typename FieldConfig::ValueType              value_type;
-    
+//    typedef typename FieldConfig::ValueType              value_type;
+    typedef ObjectTypeT * value_type;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
@@ -104,17 +102,28 @@ class ChildPointerSField : public ChildPointerSFieldBase<NamespaceI>
     typedef ChildPointerSField    <ObjectType,
                                    NamespaceI >      Self;
                                    
-    typedef ChildFieldConfig      <ObjectTypeT,
-                                   NamespaceI  >     FieldConfig;
+//    typedef ChildFieldConfig      <ObjectTypeT,
+//                                   NamespaceI  >     FieldConfig;
     
-    typedef typename FieldConfig::ValueType          ValueType;
-    typedef typename FieldConfig::ArgumentType       ArgumentType;
-    typedef typename FieldConfig::ValueType          value_type;
+    typedef ObjectTypeT * ValueType;
+    typedef ObjectTypeT * const ArgumentType;
+    typedef ObjectTypeT * value_type;
+
+//    typedef typename FieldConfig::ValueType          ValueType;
+//    typedef typename FieldConfig::ArgumentType       ArgumentType;
+//    typedef typename FieldConfig::ValueType          value_type;
        
-    typedef typename FieldConfig::PtrType            pointer;
-    typedef typename FieldConfig::ConstPtrType       const_pointer;
-    typedef typename FieldConfig::SFieldRefType      reference;
-    typedef typename FieldConfig::SFieldConstRefType const_reference;
+    typedef ValueType *pointer;
+    typedef ArgumentType *const_pointer;
+
+//    typedef typename FieldConfig::PtrType            pointer;
+//    typedef typename FieldConfig::ConstPtrType       const_pointer;
+
+//    typedef typename FieldConfig::SFieldRefType      reference;
+//    typedef typename FieldConfig::SFieldConstRefType const_reference;
+
+    typedef ChildSFieldReferenceProxy<ObjectType>   reference;
+    typedef ValueType const                             &const_reference; 
     
     typedef typename Inherited::StoredType           StoredType;
     
@@ -144,8 +153,8 @@ class ChildPointerSField : public ChildPointerSFieldBase<NamespaceI>
     /*! \name Constants                                                    */
     /*! \{                                                                 */
         
-    static FieldType::Cardinality const fieldCard  = FieldType  ::SingleField;
-    static FieldType::Class       const Class      = FieldConfig::fieldClass;
+    static FieldType::Cardinality const fieldCard  = FieldType::SingleField;
+    static FieldType::Class       const Class      = FieldType::ChildPtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

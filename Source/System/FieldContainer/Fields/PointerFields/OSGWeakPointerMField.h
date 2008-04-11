@@ -10,7 +10,6 @@
 #include "OSGConfig.h"
 #include "OSGPointerMFieldCommon.h"
 #include "OSGPointerAccessHandler.h"
-#include "OSGPointerFieldConfigs.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGWeakPointerMField.h
@@ -23,6 +22,9 @@ OSG_BEGIN_NAMESPACE
 // forward declarations
 template <class ObjectTypeT, Int32 NamespaceI>
 class WeakPointerMField;
+
+template <class ObjectTypeT>
+class WeakMFieldReferenceProxy;
 
 /*---------------------------------------------------------------------------*/
 /* WeakMFieldIterator<ObjectTypeT>                                           */
@@ -46,7 +48,7 @@ class WeakMFieldIterator
                                                         Inherited;
            
     typedef          WeakPointerMField<ObjectTypeT, 0>  MFieldType;
-    typedef          WeakFieldConfig  <ObjectTypeT, 0>  FieldConfig;
+//    typedef          WeakFieldConfig  <ObjectTypeT, 0>  FieldConfig;
     typedef typename MFieldType::AccessHandler          AccessHandler;
     
     // store types
@@ -58,9 +60,13 @@ class WeakMFieldIterator
     typedef typename Inherited::iterator_category       iterator_category;
     typedef typename Inherited::difference_type         difference_type;
     
-    typedef typename FieldConfig::ValueType             value_type;
-    typedef typename FieldConfig::PtrType               pointer;
-    typedef typename FieldConfig::MFieldRefType         reference;
+//    typedef typename FieldConfig::ValueType             value_type;
+//    typedef typename FieldConfig::PtrType               pointer;
+//    typedef typename FieldConfig::MFieldRefType         reference;
+
+    typedef ObjectTypeT * ValueType;
+    typedef ValueType *pointer;
+    typedef WeakMFieldReferenceProxy<ObjectType>        reference; 
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -147,7 +153,7 @@ class WeakMFieldConstIterator
                                                         Inherited;
            
     typedef          WeakPointerMField<ObjectTypeT, 0>  MFieldType;
-    typedef          WeakFieldConfig  <ObjectTypeT, 0>  FieldConfig;
+//    typedef          WeakFieldConfig  <ObjectTypeT, 0>  FieldConfig;
     typedef typename MFieldType::AccessHandler          AccessHandler;
     
     // store types
@@ -159,9 +165,13 @@ class WeakMFieldConstIterator
     typedef typename Inherited::iterator_category       iterator_category;
     typedef typename Inherited::difference_type         difference_type;
     
-    typedef typename FieldConfig::ConstValueType        value_type;
-    typedef typename FieldConfig::ConstPtrType          pointer;
-    typedef typename FieldConfig::MFieldConstRefType    reference;
+    typedef ObjectTypeT * const value_type;
+    typedef value_type *pointer;
+    typedef value_type const                             &reference; 
+
+//    typedef typename FieldConfig::ConstValueType        value_type;
+//    typedef typename FieldConfig::ConstPtrType          pointer;
+//    typedef typename FieldConfig::MFieldConstRefType    reference;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -254,7 +264,7 @@ class WeakMFieldReferenceProxy
     typedef          WeakMFieldReferenceProxy           Self;
             
     typedef          WeakPointerMField<ObjectTypeT, 0>  MFieldType;
-    typedef          WeakFieldConfig  <ObjectTypeT, 0>  FieldConfig;
+//    typedef          WeakFieldConfig  <ObjectTypeT, 0>  FieldConfig;
     typedef typename MFieldType::AccessHandler          AccessHandler;
     
     // store types
@@ -264,7 +274,8 @@ class WeakMFieldReferenceProxy
     typedef typename MFieldType::PtrStoreConstItType    PtrStoreConstItType;
     
     // std library types
-    typedef typename FieldConfig::ValueType             value_type;
+    typedef ObjectTypeT * value_type;
+//    typedef typename FieldConfig::ValueType             value_type;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -323,22 +334,37 @@ class WeakPointerMField
     typedef WeakPointerMField    <ObjectTypeT,
                                   NamespaceI  >       Self;
     
-    typedef WeakFieldConfig      <ObjectTypeT,
-                                  NamespaceI  >       FieldConfig;
+//    typedef WeakFieldConfig      <ObjectTypeT,
+//                                  NamespaceI  >       FieldConfig;
     
-    typedef typename FieldConfig::ValueType           ValueType;
-    typedef typename FieldConfig::ArgumentType        ArgumentType;
-    typedef typename FieldConfig::ValueType           value_type;
+//    typedef typename FieldConfig::ValueType           ValueType;
+//    typedef typename FieldConfig::ArgumentType        ArgumentType;
+//    typedef typename FieldConfig::ValueType           value_type;
     
-    typedef typename FieldConfig::ItType              iterator;
-    typedef typename FieldConfig::ConstItType         const_iterator;
-    typedef typename FieldConfig::ReverseItType       reverse_iterator;
-    typedef typename FieldConfig::ConstReverseItType  const_reverse_iterator;
+    typedef ObjectTypeT * ValueType;
+    typedef ObjectTypeT * const ArgumentType;
+    typedef ObjectTypeT * value_type;
+
+    typedef WeakMFieldIterator     <ObjectType >   iterator;
+    typedef WeakMFieldConstIterator<ObjectType >   const_iterator;
+    typedef std::reverse_iterator  <iterator     >   reverse_iterator;
+    typedef std::reverse_iterator  <const_iterator>  const_reverse_iterator;
+
+//    typedef typename FieldConfig::ItType              iterator;
+//    typedef typename FieldConfig::ConstItType         const_iterator;
+//    typedef typename FieldConfig::ReverseItType       reverse_iterator;
+//    typedef typename FieldConfig::ConstReverseItType  const_reverse_iterator;
     
-    typedef typename FieldConfig::PtrType             pointer;
-    typedef typename FieldConfig::ConstPtrType        const_pointer;
-    typedef typename FieldConfig::MFieldRefType       reference;
-    typedef typename FieldConfig::MFieldConstRefType  const_reference;
+    typedef ValueType *pointer;
+    typedef ArgumentType *const_pointer;
+
+//    typedef typename FieldConfig::PtrType             pointer;
+//    typedef typename FieldConfig::ConstPtrType        const_pointer;
+//    typedef typename FieldConfig::MFieldRefType       reference;
+//    typedef typename FieldConfig::MFieldConstRefType  const_reference;
+
+    typedef WeakMFieldReferenceProxy<ObjectType>         reference;
+    typedef ValueType const                             &const_reference; 
 
     typedef typename Inherited::size_type             size_type;
     typedef typename Inherited::difference_type       difference_type;
@@ -369,8 +395,8 @@ class WeakPointerMField
     /*! \name Constants                                                    */
     /*! \{                                                                 */
         
-    static FieldType::Cardinality const fieldCard = FieldType  ::MultiField;
-    static FieldType::Class       const Class     = FieldConfig::fieldClass;
+    static FieldType::Cardinality const fieldCard = FieldType::MultiField;
+    static FieldType::Class       const Class     = FieldType::PtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

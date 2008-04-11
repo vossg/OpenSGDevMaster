@@ -9,9 +9,6 @@
 #include "OSGConfig.h"
 #include "OSGPointerSFieldCommon.h"
 #include "OSGPointerAccessHandler.h"
-#include "OSGPointerFieldConfigs.h"
-//#include "OSGEditParentPointerSFieldHandle.h"
-//#include "OSGGetParentPointerSFieldHandle.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGParentPointerSField.h
@@ -43,11 +40,13 @@ class ParentSFieldConstReferenceProxy
     typedef          ParentSFieldConstReferenceProxy      Self;
     
     typedef          ParentPointerSField<ObjectTypeT, 0>  SFieldType;
-    typedef          ParentFieldConfig  <ObjectTypeT, 0>  FieldConfig;
+//    typedef          ParentFieldConfig  <ObjectTypeT, 0>  FieldConfig;
     typedef typename SFieldType::AccessHandler            AccessHandler;
         
-    typedef typename FieldConfig::ValueType               ValueType;
-    typedef typename FieldConfig::ValueType               value_type;
+    typedef ObjectTypeT * ValueType;
+    typedef ObjectTypeT * value_type;
+//    typedef typename FieldConfig::ValueType               ValueType;
+//    typedef typename FieldConfig::ValueType               value_type;
     
     // store types
     typedef typename SFieldType::StoredType               StoredType;
@@ -111,15 +110,22 @@ class ParentPointerSField
     typedef          ParentPointerSField    <ObjectTypeT,
                                              NamespaceI  > Self;
                                              
-    typedef          ParentFieldConfig      <ObjectTypeT,
-                                             NamespaceI  > FieldConfig;
+//    typedef          ParentFieldConfig      <ObjectTypeT,
+//                                             NamespaceI  > FieldConfig;
     
-    typedef typename FieldConfig::ValueType                ValueType;
-    typedef typename FieldConfig::ArgumentType             ArgumentType;
-    typedef typename FieldConfig::ValueType                value_type;
+    typedef ObjectTypeT * ValueType;
+    typedef ObjectTypeT * const ArgumentType;
+    typedef ObjectTypeT * value_type;
+
+//    typedef typename FieldConfig::ValueType                ValueType;
+//    typedef typename FieldConfig::ArgumentType             ArgumentType;
+//    typedef typename FieldConfig::ValueType                value_type;
         
-    typedef typename FieldConfig::ConstPtrType             const_pointer;
-    typedef typename FieldConfig::SFieldConstRefType       const_reference;
+//    typedef typename FieldConfig::ConstPtrType             const_pointer;
+//    typedef typename FieldConfig::SFieldConstRefType       const_reference;
+
+    typedef ArgumentType *const_pointer;
+    typedef ParentSFieldConstReferenceProxy<ObjectType>   const_reference; 
     
     typedef UInt16                                  IdStoredType;
     typedef UInt16                                 &IdStoredTypeRef;
@@ -154,7 +160,7 @@ class ParentPointerSField
     /*! \{                                                                 */
         
     static FieldType::Cardinality const fieldCard  = FieldType  ::SingleField;
-    static FieldType::Class       const Class      = FieldConfig::fieldClass;
+    static FieldType::Class       const Class      = FieldType::ParentPtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

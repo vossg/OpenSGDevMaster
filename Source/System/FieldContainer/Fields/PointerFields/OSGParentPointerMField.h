@@ -9,7 +9,6 @@
 #include "OSGConfig.h"
 #include "OSGPointerMFieldCommon.h"
 #include "OSGPointerAccessHandler.h"
-#include "OSGPointerFieldConfigs.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGParentPointerMField.h
@@ -22,6 +21,9 @@ OSG_BEGIN_NAMESPACE
 // forward declarations
 template <class ObjectTypeT, Int32 NamespaceI>
 class ParentPointerMField;
+
+template <class ObjectTypeT>
+class ParentMFieldConstReferenceProxy;
 
 /*---------------------------------------------------------------------------*/
 /* ParentMFieldConstIterator<ObjectTypeT>                                    */
@@ -44,7 +46,7 @@ class ParentMFieldConstIterator
                                                             Inherited;
                                                             
     typedef          ParentPointerMField<ObjectTypeT, 0>    MFieldType;
-    typedef          ParentFieldConfig  <ObjectTypeT, 0>    FieldConfig;
+//    typedef          ParentFieldConfig  <ObjectTypeT, 0>    FieldConfig;
     typedef typename MFieldType::AccessHandler              AccessHandler;
     
     // store types
@@ -60,9 +62,14 @@ class ParentMFieldConstIterator
     typedef typename PtrStoreConstItType::iterator_category iterator_category;
     typedef typename PtrStoreConstItType::difference_type   difference_type;
     
-    typedef typename FieldConfig::ValueType                 value_type;
-    typedef typename FieldConfig::ConstPtrType              pointer;
-    typedef typename FieldConfig::MFieldConstRefType        reference;
+//    typedef typename FieldConfig::ValueType                 value_type;
+//    typedef typename FieldConfig::ConstPtrType              pointer;
+//    typedef typename FieldConfig::MFieldConstRefType        reference;
+
+    typedef ObjectTypeT * ValueType;
+    typedef ObjectTypeT * value_type;
+    typedef ValueType *pointer;
+    typedef ParentMFieldConstReferenceProxy<ObjectType>        reference; 
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -147,11 +154,14 @@ class ParentMFieldConstReferenceProxy
     typedef          ParentMFieldConstReferenceProxy     Self;
     
     typedef          ParentPointerMField<ObjectTypeT, 0> MFieldType;
-    typedef          ParentFieldConfig  <ObjectTypeT, 0> FieldConfig;
+//    typedef          ParentFieldConfig  <ObjectTypeT, 0> FieldConfig;
     typedef typename MFieldType::AccessHandler           AccessHandler;
     
-    typedef typename FieldConfig::ValueType              ValueType;
-    typedef typename FieldConfig::ValueType              value_type;
+    typedef ObjectTypeT * const ValueType;
+    typedef ObjectTypeT * const value_type;
+
+//    typedef typename FieldConfig::ValueType              ValueType;
+//    typedef typename FieldConfig::ValueType              value_type;
     
     // store types
     typedef typename MFieldType::StoredType              StoredType;
@@ -220,18 +230,28 @@ class ParentPointerMField
     typedef          ParentPointerMField    <ObjectTypeT,
                                              NamespaceI  > Self;
                                              
-    typedef          ParentFieldConfig      <ObjectTypeT,
-                                             NamespaceI  > FieldConfig;
+//    typedef          ParentFieldConfig      <ObjectTypeT,
+//                                             NamespaceI  > FieldConfig;
     
-    typedef typename FieldConfig::ValueType                ValueType;
-    typedef typename FieldConfig::ArgumentType             ArgumentType;
-    typedef typename FieldConfig::ValueType                value_type;
+//    typedef typename FieldConfig::ValueType                ValueType;
+//    typedef typename FieldConfig::ArgumentType             ArgumentType;
+//    typedef typename FieldConfig::ValueType                value_type;
+
+    typedef ObjectTypeT * ValueType;
+    typedef ObjectTypeT * const ArgumentType;
+    typedef ObjectTypeT * value_type;
     
-    typedef typename FieldConfig::ConstItType              const_iterator;
-    typedef typename FieldConfig::ConstReverseItType       const_reverse_iterator;
+    typedef ParentMFieldConstIterator      <ObjectType>  const_iterator;
+    typedef std::reverse_iterator  <const_iterator>  const_reverse_iterator;
+
+//    typedef typename FieldConfig::ConstItType              const_iterator;
+//    typedef typename FieldConfig::ConstReverseItType       const_reverse_iterator;
     
-    typedef typename FieldConfig::ConstPtrType             const_pointer;
-    typedef typename FieldConfig::MFieldConstRefType       const_reference;
+//    typedef typename FieldConfig::ConstPtrType             const_pointer;
+//    typedef typename FieldConfig::MFieldConstRefType       const_reference;
+
+    typedef ArgumentType *const_pointer;
+    typedef ParentMFieldConstReferenceProxy<ObjectType> const_reference; 
 
     typedef          UInt16                                  IdStoredType;
     typedef          MFieldVector<IdStoredType>              IdStoreType;
@@ -270,8 +290,8 @@ class ParentPointerMField
     /*! \name Constants                                                    */
     /*! \{                                                                 */
         
-    static FieldType::Cardinality const fieldCard  = FieldType  ::MultiField;
-    static FieldType::Class       const Class      = FieldConfig::fieldClass;
+    static FieldType::Cardinality const fieldCard  = FieldType::MultiField;
+    static FieldType::Class       const Class      = FieldType::ParentPtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -10,7 +10,6 @@
 #include "OSGConfig.h"
 #include "OSGPointerMFieldCommon.h"
 #include "OSGPointerAccessHandler.h"
-#include "OSGPointerFieldConfigs.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGUnrecordedPointerMField.h
@@ -23,6 +22,9 @@ OSG_BEGIN_NAMESPACE
 // forward declarations
 template <class ObjectTypeT, Int32 NamespaceI>
 class UnrecordedPointerMField;
+
+template <class ObjectTypeT>
+class UnrecordedMFieldReferenceProxy;
 
 /*---------------------------------------------------------------------------*/
 /* UnrecordedMFieldIterator<ObjectTypeT>                                     */
@@ -45,7 +47,7 @@ class UnrecordedMFieldIterator
                                                               Inherited;
            
     typedef          UnrecordedPointerMField<ObjectTypeT, 0>  MFieldType;
-    typedef          UnrecordedFieldConfig  <ObjectTypeT, 0>  FieldConfig;
+//    typedef          UnrecordedFieldConfig  <ObjectTypeT, 0>  FieldConfig;
     typedef typename MFieldType::AccessHandler                AccessHandler;
     
     // store types
@@ -57,9 +59,13 @@ class UnrecordedMFieldIterator
     typedef typename Inherited::iterator_category             iterator_category;
     typedef typename Inherited::difference_type               difference_type;
     
-    typedef typename FieldConfig::ValueType                   value_type;
-    typedef typename FieldConfig::PtrType                     pointer;
-    typedef typename FieldConfig::MFieldRefType               reference;
+    typedef ObjectTypeT * ValueType;
+    typedef ValueType *pointer;
+    typedef UnrecordedMFieldReferenceProxy<ObjectType>        reference; 
+
+//    typedef typename FieldConfig::ValueType                   value_type;
+//    typedef typename FieldConfig::PtrType                     pointer;
+//    typedef typename FieldConfig::MFieldRefType               reference;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -145,7 +151,7 @@ class UnrecordedMFieldConstIterator
                                                               Inherited;
            
     typedef          UnrecordedPointerMField<ObjectTypeT, 0>  MFieldType;
-    typedef          UnrecordedFieldConfig  <ObjectTypeT, 0>  FieldConfig;
+//    typedef          UnrecordedFieldConfig  <ObjectTypeT, 0>  FieldConfig;
     typedef typename MFieldType::AccessHandler                AccessHandler;
     
     // store types
@@ -157,9 +163,13 @@ class UnrecordedMFieldConstIterator
     typedef typename Inherited::iterator_category             iterator_category;
     typedef typename Inherited::difference_type               difference_type;
     
-    typedef typename FieldConfig::ConstValueType              value_type;
-    typedef typename FieldConfig::ConstPtrType                pointer;
-    typedef typename FieldConfig::MFieldConstRefType          reference;
+    typedef ObjectTypeT * const value_type;
+    typedef value_type *pointer;
+    typedef value_type const                             &reference; 
+
+//    typedef typename FieldConfig::ConstValueType              value_type;
+//    typedef typename FieldConfig::ConstPtrType                pointer;
+//    typedef typename FieldConfig::MFieldConstRefType          reference;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -252,7 +262,7 @@ class UnrecordedMFieldReferenceProxy
     typedef          UnrecordedMFieldReferenceProxy           Self;
             
     typedef          UnrecordedPointerMField<ObjectTypeT, 0>  MFieldType;
-    typedef          UnrecordedFieldConfig  <ObjectTypeT, 0>  FieldConfig;
+//    typedef          UnrecordedFieldConfig  <ObjectTypeT, 0>  FieldConfig;
     typedef typename MFieldType::AccessHandler                AccessHandler;
     
     // store types
@@ -262,7 +272,8 @@ class UnrecordedMFieldReferenceProxy
     typedef typename MFieldType::PtrStoreConstItType          PtrStoreConstItType;
     
     // std library types
-    typedef typename FieldConfig::ValueType                   value_type;
+    typedef ObjectTypeT * value_type;
+//    typedef typename FieldConfig::ValueType                   value_type;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -321,22 +332,39 @@ class UnrecordedPointerMField :
     typedef UnrecordedPointerMField    <ObjectTypeT,
                                         NamespaceI     > Self;
     
+#if 0
     typedef UnrecordedFieldConfig      <ObjectTypeT,
                                         NamespaceI     > FieldConfig;
+#endif
     
-    typedef typename FieldConfig::ValueType              ValueType;
-    typedef typename FieldConfig::ArgumentType           ArgumentType;
-    typedef typename FieldConfig::ValueType              value_type;
+    typedef ObjectTypeT * ValueType;
+    typedef ObjectTypeT * const ArgumentType;
+    typedef ObjectTypeT * value_type;
+
+//    typedef typename FieldConfig::ValueType              ValueType;
+//    typedef typename FieldConfig::ArgumentType           ArgumentType;
+//    typedef typename FieldConfig::ValueType              value_type;
     
-    typedef typename FieldConfig::ItType                 iterator;
-    typedef typename FieldConfig::ConstItType            const_iterator;
-    typedef typename FieldConfig::ReverseItType          reverse_iterator;
-    typedef typename FieldConfig::ConstReverseItType     const_reverse_iterator;
+    typedef UnrecordedMFieldIterator     <ObjectType > iterator;
+    typedef UnrecordedMFieldConstIterator<ObjectType > const_iterator;
+    typedef std::reverse_iterator        <iterator     >  reverse_iterator;
+    typedef std::reverse_iterator        <const_iterator> const_reverse_iterator;
+
+//    typedef typename FieldConfig::ItType                 iterator;
+//    typedef typename FieldConfig::ConstItType            const_iterator;
+//    typedef typename FieldConfig::ReverseItType          reverse_iterator;
+//    typedef typename FieldConfig::ConstReverseItType     const_reverse_iterator;
     
-    typedef typename FieldConfig::PtrType                pointer;
-    typedef typename FieldConfig::ConstPtrType           const_pointer;
-    typedef typename FieldConfig::MFieldRefType          reference;
-    typedef typename FieldConfig::MFieldConstRefType     const_reference;
+    typedef ValueType *pointer;
+    typedef ArgumentType *const_pointer;
+
+    //    typedef typename FieldConfig::PtrType                pointer;
+    //    typedef typename FieldConfig::ConstPtrType           const_pointer;
+
+    typedef UnrecordedMFieldReferenceProxy<ObjectType>   reference;
+    typedef ValueType const                             &const_reference; 
+//    typedef typename FieldConfig::MFieldRefType          reference;
+//    typedef typename FieldConfig::MFieldConstRefType     const_reference;
 
     typedef typename Inherited::size_type                size_type;
     typedef typename Inherited::difference_type          difference_type;
@@ -367,8 +395,8 @@ class UnrecordedPointerMField :
     /*! \name Constants                                                    */
     /*! \{                                                                 */
         
-    static FieldType::Cardinality const fieldCard  = FieldType  ::MultiField;
-    static FieldType::Class       const Class      = FieldConfig::fieldClass;
+    static FieldType::Cardinality const fieldCard  = FieldType::MultiField;
+    static FieldType::Class       const Class      = FieldType::PtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

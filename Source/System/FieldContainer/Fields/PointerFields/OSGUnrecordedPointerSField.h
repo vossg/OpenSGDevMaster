@@ -9,7 +9,6 @@
 #include "OSGConfig.h"
 #include "OSGPointerSFieldCommon.h"
 #include "OSGPointerAccessHandler.h"
-#include "OSGPointerFieldConfigs.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGUnrecordedPointerSField.h
@@ -41,14 +40,15 @@ class UnrecordedSFieldReferenceProxy
     typedef          UnrecordedSFieldReferenceProxy           Self;
     
     typedef          UnrecordedPointerSField<ObjectTypeT, 0>  SFieldType;
-    typedef          UnrecordedFieldConfig  <ObjectTypeT, 0>  FieldConfig;
+//    typedef          UnrecordedFieldConfig  <ObjectTypeT, 0>  FieldConfig;
     typedef typename SFieldType::AccessHandler                AccessHandler;
     
     // store types
     typedef typename SFieldType::StoredType                   StoredType;
     
     // std library types
-    typedef typename FieldConfig::ValueType                   value_type;
+    typedef ObjectTypeT * value_type;
+//    typedef typename FieldConfig::ValueType                   value_type;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -105,17 +105,28 @@ class UnrecordedPointerSField :
     typedef UnrecordedPointerSField    <ObjectType,
                                         NamespaceI >      Self;
     
-    typedef UnrecordedFieldConfig      <ObjectTypeT,
-                                        NamespaceI  >     FieldConfig;
+//    typedef UnrecordedFieldConfig      <ObjectTypeT,
+//                                        NamespaceI  >     FieldConfig;
     
-    typedef typename FieldConfig::ValueType               ValueType;
-    typedef typename FieldConfig::ArgumentType            ArgumentType;
-    typedef typename FieldConfig::ValueType               value_type;
+//    typedef typename FieldConfig::ValueType               ValueType;
+//    typedef typename FieldConfig::ArgumentType            ArgumentType;
+//    typedef typename FieldConfig::ValueType               value_type;
+
+    typedef ObjectTypeT * ValueType;
+    typedef ObjectTypeT * const ArgumentType;
+    typedef ObjectTypeT * value_type;
     
-    typedef typename FieldConfig::PtrType                 pointer;
-    typedef typename FieldConfig::ConstPtrType            const_pointer;
-    typedef typename FieldConfig::SFieldRefType           reference;
-    typedef typename FieldConfig::SFieldConstRefType      const_reference;
+    typedef ValueType *pointer;
+    typedef ArgumentType *const_pointer;
+
+//    typedef typename FieldConfig::PtrType                 pointer;
+//    typedef typename FieldConfig::ConstPtrType            const_pointer;
+
+    typedef UnrecordedSFieldReferenceProxy<ObjectType>   reference;
+    typedef ValueType const                             &const_reference; 
+
+//    typedef typename FieldConfig::SFieldRefType           reference;
+//    typedef typename FieldConfig::SFieldConstRefType      const_reference;
     
     typedef FieldTraits     <ValueType,
                              NamespaceI                         >  SFieldTraits;
@@ -143,8 +154,8 @@ class UnrecordedPointerSField :
     /*! \name Constants                                                    */
     /*! \{                                                                 */
     
-    static FieldType::Cardinality const fieldCard  = FieldType  ::SingleField;
-    static FieldType::Class       const Class      = FieldConfig::fieldClass;
+    static FieldType::Cardinality const fieldCard  = FieldType::SingleField;
+    static FieldType::Class       const Class      = FieldType::PtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
