@@ -61,8 +61,10 @@ class ChildPointerMField;
 template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
 class ChildMFieldConstIterator;
 
+#ifndef OSG_CLEAN_FCFIELDS
 template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
 class ChildMFieldReferenceProxy;
+#endif
 
 /*---------------------------------------------------------------------------*/
 /* ChildMFieldIterator<ObjectTypeT>                                          */
@@ -97,11 +99,15 @@ class ChildMFieldIterator :
     typedef typename MFieldType::PtrStoreItType         Inherited;
 
     typedef typename MFieldType::AccessHandler          AccessHandler;
+
+    typedef          ObjectTypeT * const                const_value;
     
+#ifndef OSG_CLEAN_FCFIELDS
     typedef          ChildMFieldReferenceProxy<
                          ObjectTypeT, 
                          RefCountPolicy, 
                          iNamespace                   > reference; 
+#endif
 
     // store types
     typedef typename MFieldType::PtrStoreType           PtrStoreType;
@@ -138,9 +144,14 @@ class ChildMFieldIterator :
     /*! \name Operators                                                    */
     /*! \{                                                                 */
     
-    reference operator* (      void                  ) const;
-    reference operator[](const difference_type offset) const;
-    
+#ifndef OSG_CLEAN_FCFIELDS
+    reference   operator * (      void                  ) const;
+    reference   operator [](const difference_type offset) const;
+#else
+    const_value operator * (      void                  ) const;
+    const_value operator [](const difference_type offset) const;
+#endif    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Operators                                                    */
@@ -453,9 +464,11 @@ class ChildPointerMField :
                 UnrecordedRefCountPolicy,
                 FieldType::ChildPtrField            > Description;
 
+#ifndef OSG_CLEAN_FCFIELDS
     typedef ChildMFieldReferenceProxy<ObjectTypeT,
                                       RefCountPolicy, 
                                       NamespaceI    > reference;
+#endif
 
     typedef ObjectTypeT                               ObjectType;
                                       
@@ -617,7 +630,9 @@ class ChildPointerMField :
     /*! \name Index Operator                                               */
     /*! \{                                                                 */
 
+#ifndef OSG_CLEAN_FCFIELDS
     reference   operator [](const UInt32 index);
+#endif
     const_value operator [](const UInt32 index) const;
     
     /*! \}                                                                 */

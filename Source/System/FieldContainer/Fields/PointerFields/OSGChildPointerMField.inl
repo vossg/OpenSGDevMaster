@@ -94,6 +94,7 @@ ChildMFieldIterator<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Operators                                                               */
 
+#ifndef OSG_CLEAN_FCFIELDS
 template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
 typename ChildMFieldIterator<ObjectTypeT, 
                              RefCountPolicy, 
@@ -117,6 +118,32 @@ typename ChildMFieldIterator<ObjectTypeT,
 {
     return reference(*this + offset, _pField);
 }
+#else
+template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<ObjectTypeT, 
+                             RefCountPolicy, 
+                             iNamespace    >::const_value
+ChildMFieldIterator<ObjectTypeT, 
+                    RefCountPolicy, 
+                    iNamespace    >::operator * (void) const
+{
+    return static_cast<const_value>(
+        AccessHandler::validate(this->Inherited::operator*()));
+}
+
+
+template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<ObjectTypeT, 
+                             RefCountPolicy, 
+                             iNamespace    >::const_value
+    ChildMFieldIterator<ObjectTypeT, 
+                        RefCountPolicy, 
+                        iNamespace    >::operator [](
+                            const difference_type offset) const
+{
+    return reference(*this + offset, _pField);
+}
+#endif
 
     
 template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
@@ -1021,6 +1048,7 @@ void ChildPointerMField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Index Operator                                                          */
 
+#ifndef OSG_CLEAN_FCFIELDS
 template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ChildPointerMField<ObjectTypeT,
                             RefCountPolicy, 
@@ -1031,6 +1059,7 @@ typename ChildPointerMField<ObjectTypeT,
 {
     return reference(this->_ptrStore.begin() + index, this);
 }
+#endif
 
 template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ChildPointerMField<ObjectTypeT,
