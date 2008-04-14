@@ -68,60 +68,6 @@ const To &FieldContainerPtrChildMField<ValueT,
 #pragma warning( default : 488 )
 #endif
 
-#if 0
-template<class    ValueT, 
-         typename RefCountPolicy, 
-         Int32    iNamespace    > inline
-FieldContainerPtrChildMField<ValueT, 
-                             RefCountPolicy, 
-                             iNamespace    >::FieldContainerPtrChildMField(
-                                 void) :
-    Inherited()
-{
-}
-
-template<class    ValueT, 
-         typename RefCountPolicy, 
-         Int32    iNamespace    > inline
-FieldContainerPtrChildMField<ValueT, 
-                             RefCountPolicy, 
-                             iNamespace    >::FieldContainerPtrChildMField(
-    const Self &obj) :
-
-    Inherited()
-{
-    if(obj._values.size() > 0)
-    {
-        _values.resize(obj._values.size(), NULL);
-
-        typename StorageType::const_iterator sIt  = obj._values.begin();
-        typename StorageType::const_iterator sEnd = obj._values.end  ();
-
-        typename StorageType::iterator fIt  = _values.begin();
-        
-        while(sIt != sEnd)
-        {
-            RefCountPolicy::setRefd((*fIt), *sIt);
-
-            ++sIt;
-            ++fIt;
-        }
-    }
-}
-
-
-template<class    ValueT, 
-         typename RefCountPolicy, 
-         Int32    iNamespace    > inline
-FieldContainerPtrChildMField<ValueT, 
-                             RefCountPolicy, 
-                             iNamespace    >::FieldContainerPtrChildMField(
-    const UInt32 size) : 
-
-    Inherited(size)
-{
-}
-#endif
 
 template<class    ValueT, 
          typename RefCountPolicy, 
@@ -513,6 +459,7 @@ typename FieldContainerPtrChildMField<ValueT,
 }
 #endif
 
+#ifdef OSG_MT_CPTR_ASPECT
 template<class    ValueT, 
          typename RefCountPolicy, 
          Int32    iNamespace    > inline
@@ -623,6 +570,7 @@ void FieldContainerPtrChildMField<ValueT, RefCountPolicy, iNamespace>::syncWith(
     }
 #endif
 }
+#endif
 
 OSG_END_NAMESPACE
 

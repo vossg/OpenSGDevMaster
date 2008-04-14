@@ -435,9 +435,11 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
+#if 0
     void setValues(const StorageType       &value);
     void setValues(const StorageTypeParent &value);
     void setValues(const Self              &obj  );
+#endif
        
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -459,18 +461,16 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
     
 #ifndef OSG_CLEAN_FCFIELDS
     reference              front_nc (void                              );
-#endif
-    const_reference        front    (void                              ) const;
-
-#ifndef OSG_CLEAN_FCFIELDS
     reference              back_nc  (void                              );
 #endif
+
+    const_reference        front    (void                              ) const;
     const_reference        back     (void                              ) const;
-    
    
     iterator               insert   (iterator     pos, 
                                      ArgumentType value                );
 
+#if 0
 #ifdef __STL_MEMBER_TEMPLATES
     template <class InputIterator>
     void                   insert   (iterator      pos, 
@@ -481,10 +481,12 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
                                      iterator      first,
                                      iterator      last                );
 #endif /* __STL_MEMBER_TEMPLATES */
+#endif
 
     void                   clear    (void                              );
 
     iterator               erase    (iterator     pos                  );
+
     iterator               erase    (iterator     first,
                                      iterator     last                 );
     
@@ -497,7 +499,6 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
                                      StoredType   t      = NullFC      );
 
     void                   reserve  (size_t       newsize              );
-
 
 #ifdef OSG_1_COMPAT
     void                   addValue (ArgumentType value                );
@@ -529,14 +530,14 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
     /*! \name                  Compare                                     */
     /*! \{                                                                 */
 
+#if 0
     bool operator ==(const Self &source) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Assignment                                  */
     /*! \{                                                                 */
-
-    void operator =(const Self &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -673,6 +674,8 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    void operator =(const Self &source);
 };
 
 OSG_END_NAMESPACE

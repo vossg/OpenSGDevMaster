@@ -424,10 +424,12 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
+#ifdef OSG_FIELD_TOCHECK
     void setValues(const StorageType       &value);
     void setValues(const StorageTypeParent &value);
     void setValues(const Self              &obj  );
-       
+#endif       
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Interface                           */
@@ -446,45 +448,38 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 #ifndef OSG_CLEAN_FCFIELDS
     reference front_nc(void              );
     reference back_nc (void              );
-#endif
 
     iterator  find_nc (ArgumentType value);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   STL Interface                              */
     /*! \{                                                                 */
 
-
     const_iterator         begin    (void                              ) const;
     const_iterator         end      (void                              ) const;
     
     const_reference        front    (void                              ) const;
-
     const_reference        back     (void                              ) const;
-    
    
     iterator               insert   (iterator     pos, 
                                      ArgumentType value                );
 
-#ifdef __STL_MEMBER_TEMPLATES
     template <class InputIterator>
     void                   insert   (iterator      pos, 
                                      InputIterator first, 
                                      InputIterator last                );
-#else
-    void                   insert   (iterator      pos, 
-                                     iterator      first,
-                                     iterator      last                );
-#endif /* __STL_MEMBER_TEMPLATES */
-
-    void                   clear    (void                              );
 
     iterator               erase    (iterator     pos                  );
+
     iterator               erase    (iterator     first,
                                      iterator     last                 );
     
     const_iterator         find     (ArgumentType value                ) const;
+#ifndef OSG_CLEAN_FCFIELDS
+    iterator               find     (ArgumentType value);
+#endif
 
     void                   push_back(ArgumentType value                );
 
@@ -493,7 +488,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
 
     void                   reserve  (size_t       newsize              );
 
-    void                   swap     (Self                        &right);
+    void                   clear    (void                              );
 
 #ifdef OSG_1_COMPAT
     void                   addValue (ArgumentType value                );
@@ -525,6 +520,7 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*! \name                  Compare                                     */
     /*! \{                                                                 */
 
+#if 0
     bool operator ==(const Self &source) const;
 
     /*! \}                                                                 */
@@ -532,7 +528,10 @@ class FieldContainerPtrMField : public FieldContainerPtrMFieldBase
     /*! \name                  Assignment                                  */
     /*! \{                                                                 */
 
+#ifdef OSG_FIELD_TOCHECK
     void operator =(const Self &source);
+#endif
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

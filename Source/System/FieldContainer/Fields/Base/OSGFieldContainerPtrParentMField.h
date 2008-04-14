@@ -317,6 +317,7 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
                                      UInt16       parentFieldPos       );
 
     iterator               erase    (iterator     pos                  );
+
     void                   erase    (size_type    pos                  );
     
     iterator               find     (ArgumentType value                );
@@ -327,24 +328,18 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
 
     void                   reserve  (size_t       newsize              );
 
-
-#ifdef OSG_1_COMPAT
-    void                   addValue (ArgumentType value,
-                                     UInt16       parentFieldPos       );
-#endif
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
-#if 0
     void replace(UInt32       uiIdx, 
-                 ArgumentType value);
+                 ArgumentType value,
+                 UInt16       parentFieldPos);
 
     void replace(iterator     pos, 
-                 ArgumentType value);
-#endif
+                 ArgumentType value,
+                 UInt16       parentFieldPos);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -357,9 +352,9 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
     /*---------------------------------------------------------------------*/
     /*! \name                  Compare                                     */
     /*! \{                                                                 */
-
+#if 0
     bool operator ==(const Self &source) const;
-
+#endif
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Assignment                                  */
