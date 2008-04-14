@@ -416,7 +416,8 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
     /*! \{                                                                 */
 
     FieldContainerPtrChildMField(ParentT pParent,
-                                 UInt16  usParentFieldPos);
+                                 UInt16  usChildFieldId,
+                                 UInt16  usParentFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -569,6 +570,7 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
 
   protected:
 
+#if 0
     struct SingleParentHandler
     {
         static void updateParentLinking(ArgumentType value,
@@ -625,6 +627,7 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
                   (MFieldTraits::eParentCard == FieldType::SingleField)>,
         SingleParentHandler,
         MultiParentHandler>::type ParentHandler;
+#endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
@@ -657,7 +660,8 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
     /*! \{                                                                 */
 
     ParentT _pParent;
-    UInt16  _usParentFieldPos;
+    UInt16  _usChildFieldId;
+    UInt16  _usParentFieldId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

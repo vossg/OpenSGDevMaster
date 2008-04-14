@@ -75,10 +75,12 @@ FieldContainerPtrChildSField<ValueT,
                              RefCountPolicy, 
                              iNamespace    >::FieldContainerPtrChildSField(    
                                  ParentT      pParent,
-                                 UInt16       usParentFieldPos) :
-     Inherited       (                ),
-    _pParent         (pParent         ),
-    _usParentFieldPos(usParentFieldPos)
+                                 UInt16       usChildFieldId,
+                                 UInt16       usParentFieldId) :
+     Inherited      (               ),
+    _pParent        (pParent        ),
+    _usChildFieldId (usChildFieldId ),
+    _usParentFieldId(usParentFieldId)
 {
 }
 
@@ -91,10 +93,12 @@ FieldContainerPtrChildSField<ValueT,
                              iNamespace    >::FieldContainerPtrChildSField(
                                  ArgumentType value,
                                  ParentT      pParent,
-                                 UInt16       usParentFieldPos) :
-     Inherited       (                ),
-    _pParent         (pParent         ),
-    _usParentFieldPos(usParentFieldPos)
+                                 UInt16       usChildFieldId,
+                                 UInt16       usParentFieldId) :
+     Inherited      (               ),
+    _pParent        (pParent        ),
+    _usChildFieldId (usChildFieldId ),
+    _usParentFieldId(usParentFieldId)
 {
     RefCountPolicy::setRefd(_fieldValue, value);
 }
@@ -142,7 +146,10 @@ void FieldContainerPtrChildSField<ValueT,
 {
     StoredType pVal = this->template dcast<typename Self::StoredType>();
 
-    ParentHandler::clearParentLinking(pVal, _pParent, _usParentFieldPos);
+//    ParentHandler::clearParentLinking(pVal, _pParent, _usParentFieldPos);
+
+    if(_fieldValue != NullFC)
+        _fieldValue->unlinkParent(_pParent, _usParentFieldId);
 
 /*
     if(pVal != NullFC)
@@ -155,7 +162,11 @@ void FieldContainerPtrChildSField<ValueT,
 
     pVal = this->template dcast<typename Self::StoredType>();
 
-    ParentHandler::updateParentLinking(pVal, _pParent, _usParentFieldPos);
+//    ParentHandler::updateParentLinking(pVal, _pParent, _usParentFieldPos);
+
+    if(_fieldValue != NullFC)
+        _fieldValue->linkParent(_pParent, _usChildFieldId, _usParentFieldId);
+
 
 /*
     if(pVal != NullFC)
@@ -174,7 +185,10 @@ void FieldContainerPtrChildSField<ValueT,
 {
     StoredType pVal = this->template dcast<typename Self::StoredType>();
 
-    ParentHandler::clearParentLinking(pVal, _pParent, _usParentFieldPos);
+//    ParentHandler::clearParentLinking(pVal, _pParent, _usParentFieldPos);
+
+    if(pVal != NullFC)
+        pVal->unlinkParent(_pParent, _usParentFieldId);
 
 /*
     if(pVal != NullFC)
@@ -187,7 +201,10 @@ void FieldContainerPtrChildSField<ValueT,
 
     pVal = this->template dcast<typename Self::StoredType>();
 
-    ParentHandler::updateParentLinking(pVal, _pParent, _usParentFieldPos);
+//    ParentHandler::updateParentLinking(pVal, _pParent, _usParentFieldPos);
+
+    if(pVal != NullFC)
+        pVal->linkParent(_pParent, _usChildFieldId, _usParentFieldId);
 
 /*
     if(pVal != NullFC)

@@ -119,7 +119,8 @@ class FieldContainerPtrParentSField : public FieldContainerPtrSFieldBase
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    const_reference getValue(void) const;
+    const_reference getValue         (void) const;
+    UInt16          getParentFieldPos(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

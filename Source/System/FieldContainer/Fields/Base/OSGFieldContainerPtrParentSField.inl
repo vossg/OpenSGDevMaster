@@ -122,6 +122,15 @@ typename FieldContainerPtrParentSField<ValueT,
 }
 
 template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+UInt16 FieldContainerPtrParentSField<ValueT, 
+                                     RefCountPolicy, 
+                                     iNamespace    >::getParentFieldPos(
+                                         void) const
+{
+    return _uiParentFieldPos;
+}
+
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 void FieldContainerPtrParentSField<ValueT, 
                                    RefCountPolicy, 
                                    iNamespace    >::setValue(

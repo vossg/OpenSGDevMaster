@@ -76,10 +76,12 @@ FieldContainerPtrChildMField<ValueT,
                              RefCountPolicy, 
                              iNamespace    >::FieldContainerPtrChildMField(
                                  ParentT pParent,
-                                 UInt16  usParentFieldPos) :
-     Inherited       (                ),
-    _pParent         (pParent         ),
-    _usParentFieldPos(usParentFieldPos)
+                                 UInt16  usChildFieldId,
+                                 UInt16  usParentFieldId) :
+     Inherited      (               ),
+    _pParent        (pParent        ),
+    _usChildFieldId (usChildFieldId ),
+    _usParentFieldId(usParentFieldId)
 {
 }
 
@@ -257,7 +259,12 @@ typename FieldContainerPtrChildMField<ValueT,
                                                                     value),
         this);
 
-    ParentHandler::updateParentLinking(value, _pParent, _usParentFieldPos);
+//    ParentHandler::updateParentLinking(value, _pParent, _usParentFieldPos);
+
+    FieldContainerPtr pTmp = value;
+
+    if(pTmp != NullFC)
+        pTmp->linkParent(_pParent, _usChildFieldId, _usParentFieldId);
 
     return returnValue;
 }
@@ -274,9 +281,18 @@ void FieldContainerPtrChildMField<ValueT,
 
     while(fieldIt != fieldEnd)
     {
+/*
         ParentHandler::clearParentLinking(*fieldIt, 
                                           _pParent,
                                           _usParentFieldPos);
+ */
+
+        FieldContainerPtr pTmp = *fieldIt;
+
+        if(pTmp != NullFC)
+        {
+            pTmp->unlinkParent(_pParent, _usParentFieldId);
+        }
 
         RefCountPolicy::subRef(*fieldIt);
 
@@ -298,8 +314,13 @@ typename FieldContainerPtrChildMField<ValueT,
 {
     typename StorageType::iterator tmpIt(pos);
 
-    ParentHandler::clearParentLinking(*tmpIt, _pParent, _usParentFieldPos);
-    
+//    ParentHandler::clearParentLinking(*tmpIt, _pParent, _usParentFieldPos);
+  
+    FieldContainerPtr pTmp = *tmpIt;
+
+    if(pTmp != NullFC)
+        pTmp->unlinkParent(_pParent, _usParentFieldId);
+  
     RefCountPolicy::subRef(*tmpIt);
 
     return typename Self::iterator(
@@ -323,9 +344,18 @@ typename FieldContainerPtrChildMField<ValueT,
 
     for(; first != last; ++first)
     {
+/*
         ParentHandler::clearParentLinking( first.deref(), 
                                           _pParent, 
                                           _usParentFieldPos);
+ */
+        
+        FieldContainerPtr pTmp = first.deref();
+
+        if(pTmp != NullFC)
+        {
+            pTmp->unlinkParent(_pParent, _usParentFieldId);
+        }
 
         RefCountPolicy::subRef(first.deref());
     }
@@ -340,6 +370,27 @@ typename FieldContainerPtrChildMField<ValueT,
 template<class    ValueT, 
          typename RefCountPolicy, 
          Int32    iNamespace    > inline
+typename FieldContainerPtrChildMField<ValueT, 
+                                      RefCountPolicy, 
+                                      iNamespace    >::iterator 
+    FieldContainerPtrChildMField<ValueT, 
+                                  RefCountPolicy, 
+                                  iNamespace    >::find_nc(ArgumentType value)
+{
+    typename StorageType::iterator sIt  = 
+        (this->template dcast<typename Self::StorageType>()).begin();
+    typename StorageType::iterator sEnd = 
+        (this->template dcast<typename Self::StorageType>()).end  ();
+
+    typename StorageType::iterator ptrIt = std::find(sIt, sEnd, value);
+
+    return iterator(ptrIt, this);
+}
+
+
+template<class    ValueT, 
+         typename RefCountPolicy, 
+         Int32    iNamespace    > inline
 void FieldContainerPtrChildMField<ValueT, 
                                   RefCountPolicy, 
                                   iNamespace    >::push_back(ArgumentType value)
@@ -348,7 +399,10 @@ void FieldContainerPtrChildMField<ValueT,
 
     _values.push_back(value);
 
-    ParentHandler::updateParentLinking(value, _pParent, _usParentFieldPos);
+//    ParentHandler::updateParentLinking(value, _pParent, _usParentFieldPos);
+    
+    if(_values.back() != NullFC)
+        _values.back()->linkParent(_pParent, _usChildFieldId, _usParentFieldId);
 }
 
 template<class    ValueT, 
@@ -369,7 +423,12 @@ void FieldContainerPtrChildMField<ValueT,
     {
         _values.resize(newsize, t);
 
-        ParentHandler::updateParentLinking(t, _pParent, _usParentFieldPos);
+        //ParentHandler::updateParentLinking(t, _pParent, _usParentFieldPos);
+
+        FieldContainerPtr pTmp = t;
+
+        if(pTmp != NullFC)
+            pTmp->linkParent(_pParent, _usChildFieldId, _usParentFieldId);
 
         typename Inherited::iterator       vI = _values.begin() + oldSize;
         typename Inherited::const_iterator vE = _values.end  ();
@@ -401,13 +460,25 @@ void FieldContainerPtrChildMField<ValueT,
 {
     StorageType &oStorage = this->template dcast<typename Self::StorageType>();
 
+/*
     ParentHandler::clearParentLinking( oStorage[uiIdx], 
                                       _pParent, 
                                       _usParentFieldPos);
+ */
+
+    if(_values[uiIdx] != NullFC)
+    {
+        _values[uiIdx]->unlinkParent(_pParent, _usParentFieldId);
+    }
 
     RefCountPolicy::setRefd(oStorage[uiIdx], value);
 
-    ParentHandler::updateParentLinking(value, _pParent, _usParentFieldPos);
+//    ParentHandler::updateParentLinking(value, _pParent, _usParentFieldPos);
+
+    if(_values[uiIdx] != NullFC)
+    {
+        _values[uiIdx]->linkParent(_pParent, _usChildFieldId, _usParentFieldId);
+    }
 }
 
 template<class    ValueT, 
@@ -420,11 +491,21 @@ void FieldContainerPtrChildMField<ValueT,
 {
     typename StorageType::iterator tmpIt(pos);
 
-    ParentHandler::clearParentLinking(*tmpIt, _pParent, _usParentFieldPos);
+//    ParentHandler::clearParentLinking(*tmpIt, _pParent, _usParentFieldPos);
+
+    if(*tmpIt != NullFC)
+    {
+        (*tmpIt)->unlinkParent(_pParent, _usParentFieldId);
+    }
 
     RefCountPolicy::setRefd(*tmpIt, value);
 
-    ParentHandler::updateParentLinking(value, _pParent, _usParentFieldPos);
+//    ParentHandler::updateParentLinking(value, _pParent, _usParentFieldPos);
+
+    if(value != NullFC)
+    {
+        value->linkParent(_pParent, _usChildFieldId, _usParentFieldId);
+    }
 }
 
 template<class    ValueT, 

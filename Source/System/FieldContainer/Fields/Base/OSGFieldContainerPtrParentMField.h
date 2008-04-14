@@ -101,12 +101,20 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
     /*---------------------------------------------------------------------*/
 
     template<class StorageTypeT>
+    class const_ptrfield_iterator;
+
+    template<class StorageTypeT>
     class ptrfield_iterator : protected StorageTypeT::iterator
     {
         typedef typename StorageTypeT::iterator Inherited;
 
         typedef std::vector<UInt16>           PosStorage;
         typedef std::vector<UInt16>::iterator PosStorageIt;
+
+        typedef const_ptrfield_iterator<StorageTypeT> const_it;
+
+        template<class ST>
+        friend class const_ptrfield_iterator;
 
         PosStorageIt _posIt;
 
@@ -155,6 +163,16 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
             return ! (*this == rhs);
         }
 
+        bool operator ==(const const_it &rhs) const
+        {
+            return *(static_cast<const Inherited *>(this)) == rhs;
+        }
+
+        bool operator !=(const const_it &rhs) const
+        {
+            return ! (*this == rhs);
+        }
+
         ptrfield_iterator &operator ++(void)
         {
             Inherited::operator ++();
@@ -174,6 +192,16 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
             }
         }
 
+        PosStorageIt getPosIt(void) const
+        {
+            return _posIt;
+        }
+
+        Inherited getBaseIt(void) const
+        {
+            return *this;
+        }
+
       protected:
     };
 
@@ -184,6 +212,9 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
 
         typedef std::vector<UInt16>                 PosStorage;
         typedef std::vector<UInt16>::const_iterator PosStorageIt;
+
+        template<class ST>
+        friend class ptrfield_iterator;
 
         PosStorageIt _posIt;
 
@@ -320,6 +351,8 @@ class FieldContainerPtrParentMField : public FieldContainerPtrMFieldBase
 
     void                   erase    (size_type    pos                  );
     
+    iterator               find_nc  (ArgumentType value                );
+
     iterator               find     (ArgumentType value                );
     const_iterator         find     (ArgumentType value                ) const;
 

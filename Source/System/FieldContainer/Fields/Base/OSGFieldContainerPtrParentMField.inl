@@ -239,6 +239,26 @@ typename FieldContainerParentPtrMField<ValueT,
 #endif
 
 template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+typename FieldContainerPtrParentMField<ValueT, 
+                                       RefCountPolicy, 
+                                       iNamespace    >::iterator 
+    FieldContainerPtrParentMField<ValueT, 
+                                  RefCountPolicy, 
+                                  iNamespace    >::erase(iterator pos)
+{
+    typename StorageType::iterator tmpIt(pos.getBaseIt());
+    
+    RefCountPolicy::subRef(*tmpIt);
+
+    std::vector<UInt16> ::iterator posIt = _vParentPos.erase(pos.getPosIt());
+
+    return iterator(
+        (this->template dcast<typename Self::StorageType>()).erase(tmpIt),
+        posIt);
+
+}
+
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
 void FieldContainerPtrParentMField<ValueT, 
                                    RefCountPolicy, 
                                    iNamespace    >::erase(size_type pos)
@@ -254,6 +274,29 @@ void FieldContainerPtrParentMField<ValueT,
     (this->template dcast<typename Self::StorageType>()).erase(sIt);
 
     _vParentPos.erase(pIt);
+}
+
+template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
+typename FieldContainerPtrParentMField<ValueT, 
+                                       RefCountPolicy, 
+                                       iNamespace    >::iterator  
+    FieldContainerPtrParentMField<ValueT, 
+                                  RefCountPolicy, 
+                                  iNamespace    >::find_nc(ArgumentType value)
+{
+    typename StorageType::iterator sIt  = 
+        (this->template dcast<typename Self::StorageType>()).begin();
+    typename StorageType::iterator sEnd = 
+        (this->template dcast<typename Self::StorageType>()).end  ();
+
+    typename StorageType::iterator ptrIt = std::find(sIt, sEnd, value);
+
+    std::vector<UInt16>::iterator posIt = _vParentPos.begin();
+
+    posIt += (ptrIt - 
+              (this->template dcast<typename Self::StorageType>()).begin());
+
+    return iterator(ptrIt, posIt);
 }
 
 template<class ValueT, typename RefCountPolicy, Int32 iNamespace> inline
