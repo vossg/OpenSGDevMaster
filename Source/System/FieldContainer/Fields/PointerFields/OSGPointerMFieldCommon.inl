@@ -1,3 +1,40 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *           Copyright (C) 2008 by the OpenSG Forum                          *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGPointerMFieldCommon.inl
@@ -23,29 +60,26 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::PointerMFieldCommon(void)
-    : Inherited()
+template <class AccessHandlerT, Int32 NamespaceI> inline
+PointerMFieldCommon<AccessHandlerT,
+                    NamespaceI    >::PointerMFieldCommon(void) : 
+                        Inherited()
 {
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::PointerMFieldCommon(
-        Self const &source)
-    : Inherited()
+template <class AccessHandlerT, Int32 NamespaceI> inline
+PointerMFieldCommon<AccessHandlerT,
+                    NamespaceI     >::PointerMFieldCommon(const Self &source) :
+    Inherited()
 {
-    if(source.getRawStore().size() > 0)
+    if(source.size() > 0)
     {
-        this->editRawStore().resize(source.getRawStore().size(), NullFC);
+        _ptrStore.resize(source.size(), NullFC);
 
-        PtrStoreItType sI = this->editRawStore().begin();
-        PtrStoreItType sE = this->editRawStore().end  ();
+        PtrStoreItType      sI = _ptrStore.begin();
+        PtrStoreConstItType sE = _ptrStore.end  ();
 
-        PtrStoreConstItType sSE = source.getRawStore().begin();
+        PtrStoreConstItType sSE = source._ptrStore.begin();
 
         for(; sI != sE; ++sI, ++sSE)
         {
@@ -56,28 +90,21 @@ inline
     }
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::PointerMFieldCommon(
-        UInt32 const size)
-    : Inherited(size)
+template <class AccessHandlerT, Int32 NamespaceI> inline
+PointerMFieldCommon<AccessHandlerT,
+                    NamespaceI    >::PointerMFieldCommon(const UInt32 size) :
+    Inherited(size)
 {
 }
 
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::~PointerMFieldCommon(void)
+template <class AccessHandlerT, Int32 NamespaceI> inline
+PointerMFieldCommon<AccessHandlerT,
+                    NamespaceI    >::~PointerMFieldCommon(void)
 {
-    PtrStoreItType sI = this->editRawStore().begin();
-    PtrStoreItType sE = this->editRawStore().end  ();
-    
-    for(; sI != sE; ++sI)
-        AccessHandler::onSub(this, *sI);
+    Self::ptrStoreClear();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -97,27 +124,30 @@ inline
 /*-------------------------------------------------------------------------*/
 /* Reading Values                                                          */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline FieldContainerPtr
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+typename PointerMFieldCommon<AccessHandlerT,
+                             NamespaceI    >::const_value
     PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreGet(UInt32 const index) const
+                        NamespaceI    >::ptrStoreGet(const UInt32 index) const
 {
-    return AccessHandler::validate(getRawStore()[index]);
+    return AccessHandler::validate(_ptrStore[index]);
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline FieldContainerPtr
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+typename PointerMFieldCommon<AccessHandlerT,
+                             NamespaceI    >::const_value
     PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreGet(PtrStoreItType pos) const
+                        NamespaceI    >::ptrStoreGet(PtrStoreItType pos) const
 {
     return AccessHandler::validate(*pos);
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline FieldContainerPtr
+template <class AccessHandlerT, Int32 NamespaceI> inline
+typename PointerMFieldCommon<AccessHandlerT,
+                             NamespaceI    >::const_value
     PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreGet(
-        PtrStoreConstItType pos) const
+                        NamespaceI    >::ptrStoreGet(
+                            PtrStoreConstItType pos) const
 {
     return AccessHandler::validate(*pos);
 }
@@ -125,26 +155,23 @@ inline FieldContainerPtr
 /*-------------------------------------------------------------------------*/
 /* Adding Values                                                           */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreAppend(
-        FieldContainerPtrConst pNewObj)
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI    >::ptrStoreAppend(const_value pNewObj)
 {
     AccessHandler::onAdd(this, pNewObj);
 
-    this->editRawStore().push_back(pNewObj);
+    _ptrStore.push_back(pNewObj);
 }
 
 template <class AccessHandlerT, Int32 NamespaceI>
-template <class InputIteratorT                  >
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreAssign(
-        InputIteratorT first, InputIteratorT last)
+template <class InputIteratorT                  > inline 
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI     >::ptrStoreAssign(InputIteratorT first,
+                                                          InputIteratorT last )
 {
-    PtrStoreItType sI = this->editRawStore().begin();
-    PtrStoreItType sE = this->editRawStore().end  ();
+    PtrStoreItType      sI = _ptrStore.begin();
+    PtrStoreConstItType sE = _ptrStore.end  ();
     
     InputIteratorT iI = first;
     InputIteratorT iE = last;
@@ -152,6 +179,7 @@ inline void
     for(; (iI != iE) && (sI != sE); ++iI, ++sI)
     {
         AccessHandler::onReplace(this, *sI, *iI);
+
         *sI = *iI;
     }
     
@@ -166,32 +194,35 @@ inline void
     }
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreInsert(
-        UInt32 const index, FieldContainerPtrConst pNewObj)
-{
-    this->ptrStoreInsert(this->editRawStore().begin() + index, pNewObj);
-}
-
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreInsert(
-        PtrStoreItType pos, FieldContainerPtrConst pNewObj)
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+typename PointerMFieldCommon<AccessHandlerT,
+                             NamespaceI     >::PtrStoreItType
+     PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI     >::ptrStoreInsert(
+                             PtrStoreItType pos, 
+                             const_value     pNewObj)
 {
     AccessHandler::onAdd(this, pNewObj);
 
-    this->editRawStore().insert(pos, pNewObj);
+    return _ptrStore.insert(pos, pNewObj);
+}
+
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI     >::ptrStoreInsert(
+                             const UInt32      index, 
+                                   const_value pNewObj)
+{
+    this->ptrStoreInsert(_ptrStore.begin() + index, pNewObj);
 }
 
 template <class AccessHandlerT, Int32 NamespaceI>
-template <class InputIteratorT                  >
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreInsert(
-        PtrStoreItType pos, InputIteratorT first, InputIteratorT last)
+template <class InputIteratorT                  > inline 
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI    >::ptrStoreInsert(
+                             PtrStoreItType pos, 
+                             InputIteratorT first, 
+                             InputIteratorT last)
 {
     InputIteratorT iI = first;
     InputIteratorT iE = last;
@@ -205,285 +236,212 @@ inline void
 /*-------------------------------------------------------------------------*/
 /* Changing Values                                                         */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreReplace(
-        UInt32 const index, FieldContainerPtrConst pNewObj)
-{
-    this->ptrStoreReplace(this->editRawStore().begin() + index, pNewObj);
-}
-
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreReplace(
-        PtrStoreItType pos, FieldContainerPtrConst pNewObj)
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI    >::ptrStoreReplace(
+                             PtrStoreItType pos, 
+                             const_value    pNewObj)
 {
     AccessHandler::onReplace(this, *pos, pNewObj);
 
     *pos = pNewObj;
 }
 
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI    >::ptrStoreReplace(
+                             const UInt32      index, 
+                                   const_value pNewObj)
+{
+    this->ptrStoreReplace(_ptrStore.begin() + index, pNewObj);
+}
+
 /*-------------------------------------------------------------------------*/
 /* Removing Values                                                         */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreErase(
-        UInt32 const index)
-{
-    this->ptrStoreErase(this->editRawStore().begin() + index);
-}
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+typename PointerMFieldCommon<AccessHandlerT,
+                             NamespaceI    >::PtrStoreItType
     PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreErase(
-        PtrStoreItType pos)
+                        NamespaceI    >::ptrStoreErase(PtrStoreItType pos)
 {
     AccessHandler::onSub(this, *pos);
 
-    this->editRawStore().erase(pos);
+    return _ptrStore.erase(pos);
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreErase(
-        UInt32 const beginIndex, UInt32 const endIndex)
-{
-    this->ptrStoreErase(this->editRawStore().begin() + beginIndex,
-                        this->editRawStore().begin() + endIndex   );
-}
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+typename PointerMFieldCommon<AccessHandlerT,
+                             NamespaceI    >::PtrStoreItType
     PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreErase(
-    PtrStoreItType begin, PtrStoreItType end)
+                        NamespaceI    >::ptrStoreErase(PtrStoreItType begin, 
+                                                       PtrStoreItType end  )
 {
-    for(PtrStoreItType sI = begin; sI != end; ++sI)
+    for(PtrStoreConstItType sI = begin; sI != end; ++sI)
         AccessHandler::onSub(this, *sI);
 
-    this->editRawStore().erase(begin, end);
+    return _ptrStore.erase(begin, end);
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreClear(void)
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+void PointerMFieldCommon<AccessHandlerT,
+                        NamespaceI     >::ptrStoreErase(const UInt32 index)
 {
-    PtrStoreItType sI = this->editRawStore().begin();
-    PtrStoreItType sE = this->editRawStore().end  ();
+    this->ptrStoreErase(_ptrStore.begin() + index);
+}
+
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI    >::ptrStoreErase(
+                             const UInt32 beginIndex, 
+                             const UInt32 endIndex  )
+{
+    this->ptrStoreErase(_ptrStore.begin() + beginIndex,
+                        _ptrStore.begin() + endIndex   );
+}
+
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI     >::ptrStoreClear(void)
+{
+    PtrStoreConstItType sI = _ptrStore.begin();
+    PtrStoreConstItType sE = _ptrStore.end  ();
 
     for(; sI != sE; ++sI)
         AccessHandler::onSub(this, *sI);
 
-    this->editRawStore().clear();
+    _ptrStore.clear();
 }
 
 /*-------------------------------------------------------------------------*/
 /* Resizing                                                                */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreResize(
-        UInt32 const newSize, FieldContainerPtrConst pNewObj)
+template <class AccessHandlerT, Int32 NamespaceI> inline
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI    >::ptrStoreResize(
+                             const UInt32      newSize, 
+                                   const_value pNewObj)
 {
-    UInt32 oldSize = this->getRawStore().size();
+    size_type oldSize = _ptrStore.size();
 
     if(newSize > oldSize)
     {
-        this->editRawStore().resize(newSize, pNewObj);
+        _ptrStore.resize(newSize, pNewObj);
 
-        PtrStoreItType sI = this->editRawStore().begin() + oldSize;
-        PtrStoreItType sE = this->editRawStore().end  ();
+        PtrStoreConstItType sI = _ptrStore.begin() + oldSize;
+        PtrStoreConstItType sE = _ptrStore.end  ();
 
         for(; sI != sE; ++sI)
             AccessHandler::onAdd(this, *sI);
     }
     else if(newSize < oldSize)
     {
-        PtrStoreItType sI = this->editRawStore().begin() + newSize;
-        PtrStoreItType sE = this->editRawStore().end  ();
+        PtrStoreConstItType sI = _ptrStore.begin() + newSize;
+        PtrStoreConstItType sE = _ptrStore.end  ();
 
         for(; sI != sE; ++sI)
             AccessHandler::onSub(this, *sI);
 
-        this->editRawStore().resize(newSize);
+        _ptrStore.resize(newSize);
     }
 }
 
 /*-------------------------------------------------------------------------*/
 /* Finding Values                                                          */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline Int32
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreFindIndex(
-        FieldContainerPtrConst pOldObj) const
-{
-    PtrStoreConstItType sI = std::find(this->getRawStore().begin(),
-                                       this->getRawStore().end  (), pOldObj);
 
-    if(sI != this->getRawStore().end())
-    {
-        return std::distance(this->getRawStore().begin(), sI);
-    }
-    else
-    {
-        return -1;
-    }
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+typename PointerMFieldCommon<AccessHandlerT,
+                             NamespaceI    >::PtrStoreItType
+    PointerMFieldCommon<AccessHandlerT,
+                        NamespaceI    >::ptrStoreFind(const_value pObj)
+{
+    return std::find(_ptrStore.begin(),
+                     _ptrStore.end  (), pObj);
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline typename PointerMFieldCommon<AccessHandlerT,
-                                    NamespaceI     >::PtrStoreItType
+template <class AccessHandlerT, Int32 NamespaceI> inline 
+typename PointerMFieldCommon<AccessHandlerT,
+                             NamespaceI    >::PtrStoreConstItType
     PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreFind(
-        FieldContainerPtrConst pObj)
+                        NamespaceI    >::ptrStoreFind(const_value pObj) const
 {
-    return std::find(this->editRawStore().begin(),
-                     this->editRawStore().end  (), pObj);
-}
-
-template <class AccessHandlerT, Int32 NamespaceI>
-inline typename PointerMFieldCommon<AccessHandlerT,
-                                    NamespaceI     >::PtrStoreConstItType
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreFind(
-        FieldContainerPtrConst pObj) const
-{
-    return std::find(this->getRawStore().begin(),
-                     this->getRawStore().end  (), pObj);
-}
-
-template <class AccessHandlerT, Int32 NamespaceI>
-inline UInt32
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::ptrStoreSize(void) const
-{
-    return this->getRawStore().size();
+    return std::find(_ptrStore.begin(),
+                     _ptrStore.end  (), pObj);
 }
 
 /*-------------------------------------------------------------------------*/
 /* Std library interface                                                   */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::reserve(size_type size)
-{
-    this->editRawStore().reserve(size);
-}
 
 /*-------------------------------------------------------------------------*/
 /* Binary IO                                                               */
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline UInt32
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::getBinSize(void) const
+
+template <class AccessHandlerT, Int32 NamespaceI> inline
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)
 {
-    return sizeof(UInt32) +
-        PtrBaseTraitsType::getBinSize(&(this->getRawStore().front()),
-                                        this->getRawStore().size ()  );
-}
+    size_type n;
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::copyToBin(
-        BinaryDataHandler &pMem) const
-{
-    UInt32 thisSize = this->getRawStore().size();
+    pMem.getValue(n);
 
-    pMem.putValue(thisSize);
-
-    if(thisSize != 0)
+    if(n != 0)
     {
-        PtrBaseTraitsType::copyToBin(
-            pMem, &(this->getRawStore().front()), thisSize);
-    }
-}
-
-template <class AccessHandlerT, Int32 NamespaceI>
-void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::copyFromBin(
-        BinaryDataHandler &pMem)
-{
-    UInt32 thisSize   = this->ptrStoreSize();
-    UInt32 sourceSize;
-
-    pMem.getValue(sourceSize);
-
-    if(sourceSize > 0)
-    {
-        if(sourceSize > thisSize)
+        if(_ptrStore.size() == 0)
         {
-            // [0, thisSize[ contains entries that are being replaced
-            this->editRawStore().resize(sourceSize);
+            _ptrStore.resize(n, NULL);
 
-            PtrStoreItType tI = this->editRawStore().begin();
-            PtrStoreItType tE = this->editRawStore().begin() + thisSize;
-
-            for(; tI != tE; ++tI)
-            {
-                FieldContainerPtr pNewObj;
-
-                PtrBaseTraitsType::copyFromBin  (pMem, pNewObj     );
-                AccessHandler    ::onSyncReplace(this, *tI, pNewObj);
-
-                *tI = pNewObj;
-            }
-
-            // [thisSize, sourceSize[ contains entries that are added
-            PtrBaseTraitsType::copyFromBin(pMem, &(*tI), sourceSize - thisSize);
-
-            tE = this->editRawStore().end();
-
-            for(; tI != tE; ++tI)
-                AccessHandler::onSyncAdd(this, *tI);
+            MFieldTraits::copyFromBin(   pMem, 
+                                      &(_ptrStore[0]),
+                                         n);
+            
+            PtrStoreConstItType sIt  = _ptrStore.begin();
+            PtrStoreConstItType sEnd = _ptrStore.end  ();
+            
+            for(;sIt != sEnd; ++sIt)
+                AccessHandler::onSyncAdd(this, *sIt);
         }
         else
         {
-            // [0, sourceSize[ contains entries that are being replaced
-            PtrStoreItType tI = this->editRawStore().begin();
-            PtrStoreItType tE = this->editRawStore().begin() + sourceSize;
-
-            for(; tI != tE; ++tI)
+            if(n > _ptrStore.size())
             {
-                FieldContainerPtr pNewObj;
+                _ptrStore.resize(n, NullFC);
+            }
+            
+            PtrStoreItType      sIt  = _ptrStore.begin();
+            PtrStoreConstItType sEnd = _ptrStore.end  ();
 
-                PtrBaseTraitsType::copyFromBin  (pMem, pNewObj     );
-                AccessHandler    ::onSyncReplace(this, *tI, pNewObj);
+            FieldContainerPtr tmpVal;
 
-                *tI = pNewObj;
+            for(size_type i = 0; i < n; ++i)
+            {
+                MFieldTraits::copyFromBin(pMem, 
+                                          tmpVal);
+
+                AccessHandler::onSyncReplace(this, *sIt, tmpVal);
+
+                *sIt = tmpVal;
+                
+                ++sIt;
             }
 
-            // [sourceSize, thisSize[ contains entries that are being removed
-            tE = this->editRawStore().end();
+            if(n < _ptrStore.size())
+            {
+                for(; sIt != sEnd; ++sIt)
+                {
+                    AccessHandler::onSyncSub(this, *sIt);
+                };
 
-            for(; tI != tE; ++tI)
-                AccessHandler::onSyncSub(this, *tI);
-
-            this->editRawStore().resize(sourceSize);
+                _ptrStore.resize(n);
+            }
         }
     }
     else
     {
-        // [0, thisSize[ contains entries that are being removed
-        PtrStoreItType tI = this->editRawStore().begin();
-        PtrStoreItType tE = this->editRawStore().end  ();
-
-        for(; tI != tE; ++tI)
-            AccessHandler::onSyncSub(this, *tI);
-
-        this->editRawStore().clear();
+        Self::ptrStoreClear();
     }
 }
 
@@ -498,121 +456,56 @@ void
     Second, the onSync{Add,Sub,Replace} functions of the AccessHandler have to
     be called.
  */
-template <class AccessHandlerT, Int32 NamespaceI>
-void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::syncWith(
-        Self   &source,     ConstFieldMaskArg  syncMode,
-        UInt32  uiSyncInfo, AspectOffsetStore &oOffsets )
+
+template <class AccessHandlerT, Int32 NamespaceI> inline
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI    >::syncWith(
+                             Self              &source,     
+                             ConstFieldMaskArg  syncMode,
+                             UInt32             uiSyncInfo, 
+                             AspectOffsetStore &oOffsets )
 {
-    UInt32 thisSize   = this  ->ptrStoreSize();
-    UInt32 sourceSize = source. ptrStoreSize();
+    size_type n = source.size();
 
-    if(sourceSize > 0)
+    if(n != 0)
     {
-        if(sourceSize > thisSize)
+        if(n > _ptrStore.size())
         {
-            // [0, thisSize[ contains entries that are being replaced
-            this->editRawStore().resize(sourceSize);
-
-            PtrStoreConstItType sI = source.getRawStore().begin();
-            PtrStoreConstItType sE = source.getRawStore().end  ();
-
-            PtrStoreItType tI = this->editRawStore().begin();
-            PtrStoreItType tE = this->editRawStore().begin() + thisSize;
-
-            for(; tI != tE; ++tI, ++sI)
-            {
-                FieldContainerPtr pNewObj = convertToCurrentAspect(*sI);
-
-                AccessHandler::onSyncReplace(this, *tI, pNewObj);
-
-                *tI = pNewObj;
-            }
-
-            // [thisSize, sourceSize[ contains entries that are added
-            for(; sI != sE; ++tI, ++sI)
-            {
-                FieldContainerPtr pNewObj = convertToCurrentAspect(*sI);
-            
-                AccessHandler::onSyncAdd(this, pNewObj);
-
-                *tI = pNewObj;
-            }
+            _ptrStore.resize(n, NullFC);
         }
-        else
-        {        
-            // [0, sourceSize[ contains entries that are being replaced
-            PtrStoreConstItType sI = source.getRawStore().begin();
-            PtrStoreConstItType sE = source.getRawStore().end  ();
 
-            PtrStoreItType tI = this->editRawStore().begin();
-            PtrStoreItType tE = this->editRawStore().end  ();
+        PtrStoreConstItType sIt  = source._ptrStore.begin();
 
-            for(; sI != sE; ++tI, ++sI)
-            {
-                FieldContainerPtr pNewObj = convertToCurrentAspect(*sI);
+        PtrStoreItType      fIt  =        _ptrStore.begin();
+        
+        for(size_type i = 0; i < n; ++i)
+        {
+            FieldContainerPtr pNewObj = convertToCurrentAspect(*sIt);
+            
+            AccessHandler::onSyncReplace(this, *fIt, pNewObj);
+            
+            *fIt = pNewObj;
 
-                AccessHandler::onSyncReplace(this, *tI, pNewObj);
+            ++fIt;
+            ++sIt;
+        }
+        
+        if(n < _ptrStore.size())
+        {
+            PtrStoreConstItType fEnd  = _ptrStore.end();
+            
+            for(; fIt != fEnd; ++fIt)
+                AccessHandler::onSyncSub(this, *fIt);
 
-                *tI = pNewObj;
-            }
-
-            // [sourceSize, thisSize[ contains entries that are being removed
-            for(; tI != tE; ++tI)
-                AccessHandler::onSyncSub(this, *tI);
-
-            this->editRawStore().resize(sourceSize);
+            _ptrStore.resize(n);
         }
     }
     else
-    {    
-        // [0, thisSize[ contains entries that are being removed
-        PtrStoreItType tI = this->editRawStore().begin();
-        PtrStoreItType tE = this->editRawStore().end  ();
-
-        for(; tI != tE; ++tI)
-            AccessHandler::onSyncSub(this, *tI);
-
-        this->editRawStore().clear();
+    {
+        this->ptrStoreClear();
     }
 }
 
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::beginEdit(
-        UInt32, AspectOffsetStore &)
-{
-    // nothing to do
-}
-
-template <class AccessHandlerT, Int32 NamespaceI>
-inline typename PointerMFieldCommon<AccessHandlerT,
-                                    NamespaceI     >::Self *
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::resolveShare(
-        UInt32, AspectOffsetStore &)
-{
-    return NULL;
-}
-
-template <class AccessHandlerT, Int32 NamespaceI>
-inline void
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::terminateShare(
-        UInt32, AspectOffsetStore &)
-{
-    // nothing to do
-}
-
-template <class AccessHandlerT, Int32 NamespaceI>
-inline bool
-    PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI     >::isShared(void)
-{
-    return false;
-}
 
 /*-------------------------------------------------------------------------*/
 /* Free functions                                                          */

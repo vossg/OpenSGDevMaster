@@ -36,18 +36,18 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCHILDPOINTERMFIELD_H_
-#define _OSGCHILDPOINTERMFIELD_H_
+#ifndef _OSGPOINTERMFIELD_H_
+#define _OSGPOINTERMFIELD_H_
 
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-#include "OSGChildPointerMFieldBase.h"
+#include "OSGPointerMFieldCommon.h"
+#include "OSGPointerAccessHandler.h"
 
 #ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGChildPointerMField.h
+/*! \file OSGWeakPointerMField.h
     \ingroup GrpSystemFieldContainer
  */
 #endif
@@ -55,64 +55,84 @@
 OSG_BEGIN_NAMESPACE
 
 // forward declarations
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
-class ChildPointerMField;
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI>
+class PointerMField;
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
-class ChildMFieldConstIterator;
+#ifndef OSG_CLEAN_FCFIELDS
+template <class    ObjectTypeT, 
+          typename RefCountPolicy,
+          Int32    NamespaceI>
+class PointerMFieldReferenceProxy;
+#endif
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
-class ChildMFieldReferenceProxy;
+template <class    ObjectTypeT, 
+          typename RefCountPolicy, 
+          Int32    NamespaceI>
+class PointerMFieldConstIterator;
 
 /*---------------------------------------------------------------------------*/
-/* ChildMFieldIterator<ObjectTypeT>                                          */
+/* WeakMFieldIterator<ObjectTypeT>                                           */
 /*---------------------------------------------------------------------------*/
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace>
-class ChildMFieldIterator :
-    protected ChildPointerMField<ObjectTypeT, 
-                                 RefCountPolicy, 
-                                 iNamespace   >::PtrStoreItType
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
+class PointerMFieldIterator : 
+    protected PointerMField<ObjectTypeT, 
+                            RefCountPolicy, 
+                            NamespaceI    >::PtrStoreItType
 {
-    template <class OT, typename RC, Int32 NI>
-    friend class ChildPointerMField;
-
-    template <class OT, typename RC, Int32 NI>
-    friend class ChildMFieldConstIterator;
-
     /*==========================  PUBLIC  =================================*/
+
+    template <class    OT, 
+              typename RC, 
+              Int32    NI>
+    friend class PointerMFieldConstIterator;
+
+    template <class    OT, 
+              typename RC,
+              Int32    NI>
+    friend class PointerMField;    
 
   public:
 
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
-    
-    typedef          ChildMFieldIterator                Self;
+   
+    typedef          PointerMFieldIterator                 Self;
            
-    typedef          ChildPointerMField<ObjectTypeT, 
-                                        RefCountPolicy, 
-                                        iNamespace    > MFieldType;
+    typedef          PointerMField<ObjectTypeT, 
+                                   RefCountPolicy,
+                                   NamespaceI    >      MFieldType;
 
     typedef typename MFieldType::PtrStoreItType         Inherited;
 
     typedef typename MFieldType::AccessHandler          AccessHandler;
-    
-    typedef          ChildMFieldReferenceProxy<
-                         ObjectTypeT, 
-                         RefCountPolicy, 
-                         iNamespace                   > reference; 
 
+    typedef          ObjectTypeT * const                const_value;
+    
     // store types
+    typedef typename MFieldType::StoredType             StoredType;
     typedef typename MFieldType::PtrStoreType           PtrStoreType;
     typedef typename MFieldType::PtrStoreItType         PtrStoreItType;
 
     typedef typename MFieldType::const_iterator         const_iterator;
     
     // std library typedefs
+
     typedef typename Inherited::iterator_category       iterator_category;
     typedef typename Inherited::difference_type         difference_type;
+    
 
+
+#ifndef OSG_CLEAN_FCFIELDS
+    typedef          PointerMFieldReferenceProxy<
+                         ObjectType,
+                         RefCountPolicy,
+                         NamespaceI                   > reference; 
+#endif
+    
     typedef          ObjectTypeT                        ObjectType;
 
     /*! \}                                                                 */
@@ -120,49 +140,55 @@ class ChildMFieldIterator :
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    ChildMFieldIterator(      void                     );
-    ChildMFieldIterator(const Self           &source   );
-       
-    ChildMFieldIterator(const PtrStoreItType &storeIter,
-                              MFieldType     *pField   );
+    PointerMFieldIterator(      void                     );
+    PointerMFieldIterator(const Self           &source   );
+    
+    PointerMFieldIterator(const PtrStoreItType &storeIter,
+                                MFieldType     *pField   );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Destructor                                                   */
     /*! \{                                                                 */
                                
-    ~ChildMFieldIterator(void);
+    ~PointerMFieldIterator(void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Operators                                                    */
     /*! \{                                                                 */
     
-    reference operator* (      void                  ) const;
-    reference operator[](const difference_type offset) const;
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Operators                                                    */
-    /*! \{                                                                 */
+#ifndef OSG_CLEAN_FCFIELDS
+    reference   operator  *(      void                  ) const;
+    reference   operator [](const difference_type offset) const;
+#else
+    const_value operator  *(      void                  ) const;
+    const_value operator [](const difference_type offset) const;
+#endif
 
-    Self &operator ++(      void                  );
-    Self  operator ++(      int                   );
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Operators                                                    */
+    /*! \{                                                                 */
     
-    Self &operator --(      void                  );
-    Self  operator --(      int                   );
+    Self &operator ++(      void                   );
+    Self  operator ++(      int                    );
     
-    Self &operator +=(const difference_type offset);
-    Self  operator + (const difference_type offset) const;
+    Self &operator --(      void                   );
+    Self  operator --(      int                    );
     
-    Self &operator -=(const difference_type offset);
-    Self  operator - (const difference_type offset) const;
+    Self &operator +=(const difference_type  offset);
+    Self  operator + (const difference_type  offset) const;
+    
+    Self &operator -=(const difference_type  offset);
+    Self  operator - (const difference_type  offset) const;
+
         
-    bool operator == (const Self            &rhs  ) const;
-    bool operator != (const Self            &rhs  ) const;
+    bool operator == (const Self            &rhs   ) const;
+    bool operator != (const Self            &rhs   ) const;
     
-    bool operator == (const const_iterator  &rhs  ) const;
-    bool operator != (const const_iterator  &rhs  ) const;
+    bool operator == (const const_iterator  &rhs   ) const;
+    bool operator != (const const_iterator  &rhs   ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -173,7 +199,7 @@ class ChildMFieldIterator :
     /*! \name Base                                                         */
     /*! \{                                                                 */
     
-    const PtrStoreItType &base(void) const;
+     const PtrStoreItType &base(void) const;
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -184,33 +210,37 @@ class ChildMFieldIterator :
 };
 
 #if 0
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldIterator<ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldIterator<ObjectTypeT, iNamespace> const &rhs );
+template <class ObjectTypeT>
+typename WeakMFieldIterator<ObjectTypeT>::difference_type
+    operator-(WeakMFieldIterator<ObjectTypeT> const &lhs,
+              WeakMFieldIterator<ObjectTypeT> const &rhs );
 
-template <class ObjectTypeT, Int32 iNamespace>
-ChildMFieldIterator<ObjectTypeT, iNamespace>
+template <class ObjectTypeT>
+WeakMFieldIterator<ObjectTypeT>
     operator+(
-        typename ChildMFieldIterator<ObjectTypeT, iNamespace>::differece_type const offset,
-        ChildMFieldIterator<ObjectTypeT, iNamespace>                          const &rhs   );
+        typename WeakMFieldIterator<ObjectTypeT>::differece_type const offset,
+        WeakMFieldIterator<ObjectTypeT>                          const &rhs   );
 #endif
 
 /*---------------------------------------------------------------------------*/
-/* ChildMFieldConstIterator<ObjectTypeT>                                     */
+/* WeakMFieldConstIterator<ObjectTypeT>                                      */
 /*---------------------------------------------------------------------------*/
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace>
-class ChildMFieldConstIterator :
-    protected ChildPointerMField<ObjectTypeT, 
-                                 RefCountPolicy, 
-                                 iNamespace    >::PtrStoreConstItType
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
+class PointerMFieldConstIterator :
+    protected PointerMField<ObjectTypeT,
+                            RefCountPolicy,  
+                            NamespaceI    >::PtrStoreConstItType
 {
-    template <class OT, typename RC, Int32 NI>
-    friend class ChildPointerMField;
+    template <class    OT, 
+              typename RC, 
+              Int32    NI>
+    friend class PointerMFieldIterator;
 
-    template <class OT, typename RC, Int32 NI>
-    friend class ChildMFieldIterator;
+    template <class    OT, 
+              typename RC,
+              Int32    NI>
+    friend class PointerMField;    
 
     /*==========================  PUBLIC  =================================*/
 
@@ -220,11 +250,11 @@ class ChildMFieldConstIterator :
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
-    typedef          ChildMFieldConstIterator           Self;
+    typedef          PointerMFieldConstIterator         Self;
 
-    typedef          ChildPointerMField<ObjectTypeT, 
-                                        RefCountPolicy, 
-                                        iNamespace    > MFieldType;
+    typedef          PointerMField<ObjectTypeT,
+                                   RefCountPolicy,  
+                                   NamespaceI       >   MFieldType;
 
     typedef typename MFieldType::PtrStoreConstItType    Inherited;
            
@@ -233,6 +263,7 @@ class ChildMFieldConstIterator :
     typedef          ObjectTypeT * const                const_value;
     
     // store types
+    typedef typename MFieldType::StoredType             StoredType;
     typedef typename MFieldType::PtrStoreType           PtrStoreType;
     typedef typename MFieldType::PtrStoreConstItType    PtrStoreConstItType;
 
@@ -241,56 +272,57 @@ class ChildMFieldConstIterator :
     // std library types
     typedef typename Inherited::iterator_category       iterator_category;
     typedef typename Inherited::difference_type         difference_type;
-
-    typedef          ObjectTypeT                        ObjectType;
     
+    typedef          ObjectTypeT                        ObjectType;
+   
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    ChildMFieldConstIterator(      void                          );
-    ChildMFieldConstIterator(const Self                &source   );
-    ChildMFieldConstIterator(const iterator            &fieldIter);
-    ChildMFieldConstIterator(const PtrStoreConstItType &storeIter);
+             PointerMFieldConstIterator(      void                          );
+             PointerMFieldConstIterator(const Self                &source   );
+    explicit PointerMFieldConstIterator(const iterator            &fieldIter);
+    explicit PointerMFieldConstIterator(const PtrStoreConstItType &storeIter);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Destructor                                                   */
     /*! \{                                                                 */
                                
-    ~ChildMFieldConstIterator(void);
+    ~PointerMFieldConstIterator(void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Operators                                                    */
     /*! \{                                                                 */
     
-    const_value operator * (void                  ) const;   
-    const_value operator [](difference_type offset) const;
-
+    const_value operator * (       void                 ) const;
+    const_value operator [](const difference_type offset) const;
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Operators                                                    */
     /*! \{                                                                 */
-    
-    Self &operator ++(void);
-    Self  operator ++(int );
-    
-    Self &operator --(void);
-    Self  operator --(int );
-    
-    Self &operator +=(const difference_type offset);
-    Self  operator + (const difference_type offset) const;
-    
-    Self &operator -=(const difference_type offset);
-    Self  operator - (const difference_type offset) const;
 
-    bool operator == (const Self            &rhs  ) const;
-    bool operator != (const Self            &rhs  ) const;
+    Self &operator ++(      void                   );
+    Self  operator ++(      int                    );
+    
+    Self &operator --(      void                   );
+    Self  operator --(      int                    );
+    
+    Self &operator +=(const difference_type  offset);
+    Self  operator + (const difference_type  offset) const;
+    
+    Self &operator -=(const difference_type  offset);
+    Self  operator - (const difference_type  offset) const;
 
-    bool operator == (const iterator        &rhs  ) const;
-    bool operator != (const iterator        &rhs  ) const;
+
+    bool operator == (const Self            &rhs   ) const;
+    bool operator != (const Self            &rhs   ) const;
+
+    bool operator == (const iterator        &rhs   ) const;
+    bool operator != (const iterator        &rhs   ) const;
        
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -301,43 +333,45 @@ class ChildMFieldConstIterator :
     /*! \name Base                                                         */
     /*! \{                                                                 */
     
-    PtrStoreConstItType const &base(void) const;
+    const PtrStoreConstItType &base(void) const;
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
+
 };
 
 #if 0
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &rhs );
+template <class ObjectTypeT>
+typename WeakMFieldConstIterator<ObjectTypeT>::difference_type
+    operator-(WeakMFieldConstIterator<ObjectTypeT> const &lhs,
+              WeakMFieldConstIterator<ObjectTypeT> const &rhs );
               
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldIterator     <ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &rhs );
+template <class ObjectTypeT>
+typename WeakMFieldConstIterator<ObjectTypeT>::difference_type
+    operator-(WeakMFieldIterator     <ObjectTypeT> const &lhs,
+              WeakMFieldConstIterator<ObjectTypeT> const &rhs );
 
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldIterator     <ObjectTypeT, iNamespace> const &rhs );
+template <class ObjectTypeT>
+typename WeakMFieldConstIterator<ObjectTypeT>::difference_type
+    operator-(WeakMFieldConstIterator<ObjectTypeT> const &lhs,
+              WeakMFieldIterator     <ObjectTypeT> const &rhs );
               
-template <class ObjectTypeT, Int32 iNamespace>
-ChildMFieldConstIterator<ObjectTypeT, iNamespace>
+template <class ObjectTypeT>
+WeakMFieldConstIterator<ObjectTypeT>
     operator+(
-        typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type const  offset,
-        ChildMFieldConstIterator<ObjectTypeT, iNamespace>                           const &rhs    );
+        typename WeakMFieldConstIterator<ObjectTypeT>::difference_type const  offset,
+        WeakMFieldConstIterator<ObjectTypeT>                           const &rhs    );
 #endif
 
+#ifndef OSG_CLEAN_FCFIELDS
 /*-------------------------------------------------------------------------*/
-/* ChildMFieldReferenceProxy<ObjectTypeT>                                  */
+/* WeakMFieldReferenceProxy<ObjectTypeT>                                   */
 /*-------------------------------------------------------------------------*/
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace>
-class ChildMFieldReferenceProxy
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
+class PointerMFieldReferenceProxy
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -346,50 +380,53 @@ class ChildMFieldReferenceProxy
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
+
+   
+    typedef          ObjectTypeT                        ObjectType;
     
-    typedef          ObjectTypeT                         ObjectType;
-    
-    typedef          ChildMFieldReferenceProxy           Self;
+    typedef          PointerMFieldReferenceProxy        Self;
             
-    typedef          ChildPointerMField<ObjectTypeT, 
-                                        RefCountPolicy, 
-                                        iNamespace    >  MFieldType;
-    typedef typename MFieldType::AccessHandler           AccessHandler;
+    typedef          PointerMField<ObjectTypeT,
+                                   RefCountPolicy,
+                                   NamespaceI    >      MFieldType;
+
+    typedef typename MFieldType::AccessHandler          AccessHandler;
     
     // store types
-    typedef typename MFieldType::StoredType              StoredType;
-    typedef typename MFieldType::PtrStoreType            PtrStoreType;    
-    typedef typename MFieldType::PtrStoreItType          PtrStoreItType;
-    typedef typename MFieldType::PtrStoreConstItType     PtrStoreConstItType;
+    typedef typename MFieldType::StoredType             StoredType;
+    typedef typename MFieldType::PtrStoreType           PtrStoreType;    
+    typedef typename MFieldType::PtrStoreItType         PtrStoreItType;
+    typedef typename MFieldType::PtrStoreConstItType    PtrStoreConstItType;
     
     // std library types
-    typedef          ObjectTypeT * const                 const_value;
+    typedef          ObjectTypeT                       *value_type;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    ChildMFieldReferenceProxy(const PtrStoreItType &storeIter,
-                                    MFieldType     *pField   );
-    ChildMFieldReferenceProxy(const Self           &source   );
+    PointerMFieldReferenceProxy(const PtrStoreItType &storeIter,
+                                      MFieldType     *pField   );
+
+    PointerMFieldReferenceProxy(const Self           &source   );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Destructor                                                   */
     /*! \{                                                                 */
     
-    ~ChildMFieldReferenceProxy(void);
+    ~PointerMFieldReferenceProxy(void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Operators                                                    */
     /*! \{                                                                 */
     
-                operator const_value(void                ) const;
-    const_value operator->          (void                ) const;
+               operator value_type(void) const;
+    value_type operator->         (void) const;
     
-    void        operator =          (const_value newValue);
+    void operator=(value_type newValue);
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -399,19 +436,19 @@ class ChildMFieldReferenceProxy
     PtrStoreItType  _storeIter;
     MFieldType     *_pField;
 };
+#endif
 
 /*---------------------------------------------------------------------------*/
-/* ChildPointerMField<FieldConfigT>                                          */
+/* WeakPointerMField<FieldConfigT>                                           */
 /*---------------------------------------------------------------------------*/
 
 template <class    ObjectTypeT,
           typename RefCountPolicy,
           Int32    NamespaceI  = 0>
-class ChildPointerMField : 
-    public ChildPointerMFieldBase<ChildAccessHandler<RefCountPolicy>,
-                                  NamespaceI                        >
+class PointerMField :
+    public PointerMFieldCommon<PointerAccessHandler<RefCountPolicy>,
+                               NamespaceI                          >
 {
-
     /*==========================  PUBLIC  =================================*/
 
   public:
@@ -419,46 +456,48 @@ class ChildPointerMField :
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
-
     
-    typedef ChildPointerMFieldBase<
-                ChildAccessHandler  <RefCountPolicy>,
-                NamespaceI                          > Inherited;
+    typedef PointerMFieldCommon  <
+                PointerAccessHandler<RefCountPolicy>, 
+                NamespaceI                           > Inherited;
 
-    typedef ChildPointerMField Self;
+    typedef PointerMField                              Self;
     
-    typedef ObjectTypeT *                             value_type;
-    typedef ObjectTypeT * const                       const_value;
-    typedef value_type                                StoredType;
+    typedef ObjectTypeT * const                        const_value;
+    typedef ObjectTypeT *                              value_type;
+    typedef value_type                                 StoredType;
 
-    typedef typename Inherited::size_type             size_type;
-    typedef typename Inherited::difference_type       difference_type;
+    typedef typename Inherited::size_type              size_type;
+    typedef typename Inherited::difference_type        difference_type;
 
-    typedef ChildMFieldIterator      <ObjectTypeT, 
-                                      RefCountPolicy, 
-                                      NamespaceI    > iterator;
+    typedef PointerMFieldIterator      <ObjectTypeT,
+                                        RefCountPolicy,
+                                        NamespaceI    > iterator;
 
-    typedef ChildMFieldConstIterator <ObjectTypeT, 
-                                      RefCountPolicy, 
-                                      NamespaceI    > const_iterator;
+    typedef PointerMFieldConstIterator <ObjectTypeT,
+                                        RefCountPolicy,
+                                        NamespaceI    > const_iterator;
 
-    typedef std::reverse_iterator    <iterator      > reverse_iterator;
-    typedef std::reverse_iterator    <const_iterator> const_reverse_iterator;
+    typedef std::reverse_iterator      <iterator      > reverse_iterator;
+    typedef std::reverse_iterator      <const_iterator> const_reverse_iterator;
 
-    typedef FieldTraits              <value_type,
-                                      NamespaceI    > MFieldTraits;
-    typedef FieldDescription<
+
+    typedef FieldTraits                <value_type,
+                                        NamespaceI    > MFieldTraits;
+    typedef FieldDescription           <
                 MFieldTraits,
                 FieldType::MultiField,
-                UnrecordedRefCountPolicy,
-                FieldType::ChildPtrField            > Description;
+                WeakRefCountPolicy,
+                FieldType::PtrField                   > Description;
 
-    typedef ChildMFieldReferenceProxy<ObjectTypeT,
-                                      RefCountPolicy, 
-                                      NamespaceI    > reference;
+#ifndef OSG_CLEAN_FCFIELDS
+    typedef PointerMFieldReferenceProxy<ObjectTypeT,
+                                        RefCountPolicy,
+                                        NamespaceI    > reference;
+#endif
 
-    typedef ObjectTypeT                               ObjectType;
-                                      
+    typedef ObjectTypeT                                 ObjectType;
+   
     // handles
 //    typedef          EditPointerMFieldHandle<Self>      EditHandle;
 //    typedef typename EditPointerMFieldHandle<Self>::Ptr EditHandlePtr;
@@ -472,14 +511,14 @@ class ChildPointerMField :
     
 //    typedef          GetPointerMFieldHandle <Self>      DynamicGetHandle;
 //    typedef typename GetPointerMFieldHandle <Self>::Ptr DynamicGetHandlePtr;
-                             
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constants                                                    */
     /*! \{                                                                 */
         
-    static FieldType::Cardinality const fieldCard  = FieldType::MultiField;
-    static FieldType::Class       const Class      = FieldType::ChildPtrField;
+    static FieldType::Cardinality const fieldCard = FieldType::MultiField;
+    static FieldType::Class       const Class     = FieldType::PtrField;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -493,22 +532,22 @@ class ChildPointerMField :
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
 
-    ChildPointerMField(FieldContainerPtr pParent,
-                       UInt16            usParentFieldPos);
-    
+             PointerMField(      void         );
+             PointerMField(const Self   &other);
+    explicit PointerMField(const UInt32  size );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Destructor                                                   */
     /*! \{                                                                 */
 
-    ~ChildPointerMField(void); 
+    ~PointerMField(void); 
        
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name String/Stream IO (Input)                                     */
     /*! \{                                                                 */
-   
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
@@ -560,7 +599,7 @@ class ChildPointerMField :
     
     const_reverse_iterator rbegin   (void                           ) const;
     const_reverse_iterator rend     (void                           ) const;
-    
+
 #ifndef OSG_CLEAN_FCFIELDS
     reference              front    (void                           );
     reference              back     (void                           );
@@ -568,7 +607,7 @@ class ChildPointerMField :
 
     const_value            front    (void                           ) const;
     const_value            back     (void                           ) const;
-   
+
     iterator               insert   (iterator       pos,
                                      const_value    value           );
 
@@ -578,21 +617,18 @@ class ChildPointerMField :
                                      InputIteratorT last            );
  
     iterator               erase    (iterator       pos             );
-
     iterator               erase    (iterator       first,
                                      iterator       last            );
     
 #ifndef OSG_CLEAN_FCFIELDS
     iterator               find     (const_value    value           );
 #endif
-
     const_iterator         find     (const_value    value           ) const;
 
     void                   push_back(const_value    value           );
    
     void                   resize   (size_t         newSize,
                                      const_value    value   = NullFC);
-
     void                   clear    (void                           );
                                
 #ifdef OSG_1_COMPAT
@@ -617,18 +653,27 @@ class ChildPointerMField :
     /*! \name Index Operator                                               */
     /*! \{                                                                 */
 
-    reference   operator [](const UInt32 index);
-    const_value operator [](const UInt32 index) const;
+#ifndef OSG_CLEAN_FCFIELDS
+          reference operator [](UInt32 const index);
+#endif
+    const_value     operator [](UInt32 const index) const;
     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Compare                                     */
+    /*! \{                                                                 */
+
+    bool operator ==(const Self &source) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
 
 #ifdef OSG_FIELD_TOCHECK
-    Self & operator =(const Self &source);
+    Self & operator =(Self const &source);
 #endif
-   
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      MT Sync                                 */
@@ -638,7 +683,7 @@ class ChildPointerMField :
     void syncWith(Self               &source, 
                   ConstFieldMaskArg   syncMode,
                   UInt32              uiSyncInfo,
-                  AspectOffsetStore  &oOffsets  );
+                  AspectOffsetStore  &oOffsets    );
 #endif
 
     /*! \}                                                                 */
@@ -656,12 +701,10 @@ class ChildPointerMField :
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    ChildPointerMField(const Self &other);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGChildPointerMField.inl"
+#include "OSGPointerMField.inl"
 
-#endif // _OSGCHILDPOINTERMFIELD_H_
+#endif // _OSGPOINTERMFIELD_H_

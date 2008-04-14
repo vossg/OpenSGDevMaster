@@ -20,28 +20,37 @@
 OSG_BEGIN_NAMESPACE
 
 
-template <Int32 NamespaceI = 0>
-class ChildPointerMFieldBase 
-    : public PointerMFieldCommon<UnrecChildAccessHandler, NamespaceI>
+template <typename AccessHandlerT,
+          Int32    NamespaceI = 0>
+class ChildPointerMFieldBase : 
+    public PointerMFieldCommon<AccessHandlerT, NamespaceI>
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
        
-    typedef PointerMFieldCommon<UnrecChildAccessHandler,
-                                NamespaceI             > Inherited;
-    typedef ChildPointerMFieldBase                   Self;
+    typedef       PointerMFieldCommon<AccessHandlerT,
+                                      NamespaceI    > Inherited;
+
+    typedef       ChildPointerMFieldBase              Self;
+
+    typedef const FieldContainerPtr                   const_value;
     
     /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-             ChildPointerMFieldBase(void                );
-             ChildPointerMFieldBase(Self   const &source);
-    explicit ChildPointerMFieldBase(UInt32 const  size  );
+    ChildPointerMFieldBase(const FieldContainerPtr  pParent,
+                                 UInt16             usParentFieldPos);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -55,18 +64,20 @@ class ChildPointerMFieldBase
     /*! \name Child Linking Information                                    */
     /*! \{                                                                 */
     
-    FieldContainerPtr getEnclosingObject(void                       ) const;
-    void              setEnclosingObject(FieldContainerPtrConst pObj);
+    FieldContainerPtr getEnclosingObject(      void                  ) const;
+    void              setEnclosingObject(const FieldContainerPtr pObj);
     
-    UInt16 getChildFieldId (void                      ) const;
-    void   setChildFieldId (UInt16 const childFieldId );
+    UInt16            getChildFieldId   (      void                  ) const;
+    void              setChildFieldId   (const UInt16 childFieldId   );
     
-    UInt16 getParentFieldPos(void                      ) const;
-    void   setParentFieldId(UInt16 const parentFieldId);
+    UInt16            getParentFieldPos (      void                  ) const;
+    void              setParentFieldId  (const UInt16 parentFieldId  );
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Members                                                      */
     /*! \{                                                                 */
@@ -77,7 +88,16 @@ class ChildPointerMFieldBase
   
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private: 
+
+    template<typename RefCountPolicyT>
+    friend class ChildAccessHandler;
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    ChildPointerMFieldBase(const Self &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator = (const Self &source);
 };
 
 OSG_END_NAMESPACE

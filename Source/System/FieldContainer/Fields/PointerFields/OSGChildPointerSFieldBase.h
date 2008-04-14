@@ -33,11 +33,11 @@ class ChildPointerSFieldBase
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
        
-    typedef PointerSFieldCommon   <AccessHandlerT,
-                                   NamespaceI    > Inherited;
-    typedef ChildPointerSFieldBase                 Self;
+    typedef       PointerSFieldCommon   <AccessHandlerT,
+                                         NamespaceI    > Inherited;
+    typedef       ChildPointerSFieldBase                 Self;
     
-    typedef const FieldContainerPtr                const_value;
+    typedef const FieldContainerPtr                      const_value;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -87,6 +87,7 @@ class ChildPointerSFieldBase
   
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private: 
 
     template<typename RefCountPolicyT>

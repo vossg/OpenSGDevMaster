@@ -1,4 +1,40 @@
-
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *           Copyright (C) 2008 by the OpenSG Forum                          *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
 
 #ifndef _OSGPOINTERMFIELDCOMMON_H_
 #define _OSGPOINTERMFIELDCOMMON_H_
@@ -29,32 +65,35 @@ template <class AccessHandlerT,
 class PointerMFieldCommon : public PointerMFieldBase
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
 
-
     typedef          AccessHandlerT                      AccessHandler;
-
-  protected:
-
     typedef          PointerMFieldBase                   Inherited;
-    typedef          PointerMFieldCommon                 Self;
-
-    typedef          FieldTraitsFCPtrBase<FieldContainerPtr, NamespaceI>  PtrBaseTraitsType;
-
-  public:
 
     typedef typename Inherited::StorageIt                PtrStoreItType;
     typedef typename Inherited::StorageConstIt           PtrStoreConstItType;
+
     typedef typename Inherited::StoredType               StoredType;
     typedef typename Inherited::StorageType              PtrStoreType;
 
-  protected:
+    typedef typename Inherited::const_value              const_value;
+
     typedef typename Inherited::size_type                size_type;
     typedef typename Inherited::difference_type          difference_type;
-    
+
+  protected:
+
+    typedef          PointerMFieldCommon                 Self;
+
+    typedef          FieldTraitsFCPtrBase<
+                         FieldContainerPtr, 
+                         NamespaceI       >              PtrBaseTraitsType;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constants                                                    */
@@ -63,13 +102,17 @@ class PointerMFieldCommon : public PointerMFieldBase
     static Int32 const Namespace = NamespaceI;
     
     /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
              PointerMFieldCommon(void                );
-             PointerMFieldCommon(Self   const &source);
-    explicit PointerMFieldCommon(UInt32 const  size  );
+             PointerMFieldCommon(const Self   &source);
+    explicit PointerMFieldCommon(const UInt32  size  );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -84,85 +127,93 @@ class PointerMFieldCommon : public PointerMFieldBase
     /*! \{                                                                 */
 
     // reading values
-    FieldContainerPtr ptrStoreGet(UInt32 const        index) const;
-    FieldContainerPtr ptrStoreGet(PtrStoreItType      pos  ) const;
-    FieldContainerPtr ptrStoreGet(PtrStoreConstItType pos  ) const;
+    const_value ptrStoreGet(const UInt32             index) const;
+    const_value ptrStoreGet(      PtrStoreItType      pos  ) const;
+    const_value ptrStoreGet(      PtrStoreConstItType pos  ) const;
 
+    /*---------------------------------------------------------------------*/
     // adding values
-    void ptrStoreAppend (FieldContainerPtrConst  pNewObj    );
-    template <class InputIteratorT>
-    void ptrStoreAssign (InputIteratorT          first,
-                         InputIteratorT          last       );
-    void ptrStoreInsert (UInt32 const            index,
-                         FieldContainerPtrConst  pNewObj    );
-    void ptrStoreInsert (PtrStoreItType          pos,
-                         FieldContainerPtrConst  pNewObj    );
-    template <class InputIteratorT>
-    void ptrStoreInsert (PtrStoreItType          pos,
-                         InputIteratorT          first,
-                         InputIteratorT          last       );
 
+    void           ptrStoreAppend (      const_value    pNewObj);
+
+    template <class InputIteratorT>
+    void           ptrStoreAssign (      InputIteratorT first,
+                                         InputIteratorT last   );
+
+    void           ptrStoreInsert (const UInt32         index,
+                                         const_value    pNewObj);
+
+    PtrStoreItType ptrStoreInsert (      PtrStoreItType pos,
+                                         const_value    pNewObj);
+
+    template <class InputIteratorT>
+    void           ptrStoreInsert (      PtrStoreItType pos,
+                                         InputIteratorT first,
+                                         InputIteratorT last   );
+
+
+    /*---------------------------------------------------------------------*/
     // changing values
-    void ptrStoreReplace(UInt32 const            index,
-                         FieldContainerPtrConst  pNewObj    );
-    void ptrStoreReplace(PtrStoreItType          pos,
-                         FieldContainerPtrConst  pNewObj    );
 
+    void ptrStoreReplace(const UInt32         index,
+                               const_value    pNewObj);
+    void ptrStoreReplace(      PtrStoreItType pos,
+                               const_value    pNewObj);
+
+    /*---------------------------------------------------------------------*/
     // removing values
-    void ptrStoreErase  (UInt32 const            index      );
-    void ptrStoreErase  (PtrStoreItType          pos        );
-    void ptrStoreErase  (UInt32 const            beginIndex,
-                         UInt32 const            endIndex   );
-    void ptrStoreErase  (PtrStoreItType          begin,
-                         PtrStoreItType          end        );
-    void ptrStoreClear  (void                               );
 
+    void           ptrStoreErase  (const UInt32         index     );
+    void           ptrStoreErase  (const UInt32         beginIndex,
+                                   const UInt32         endIndex  );
+
+    PtrStoreItType ptrStoreErase  (      PtrStoreItType pos       );
+    PtrStoreItType ptrStoreErase  (      PtrStoreItType begin,
+                                         PtrStoreItType end       );
+
+    void           ptrStoreClear  (      void                     );
+
+    /*---------------------------------------------------------------------*/
     // resizing
-    void ptrStoreResize (UInt32 const            newSize,
-                         FieldContainerPtrConst  pNewObj    );
 
+    void ptrStoreResize(const UInt32      newSize,
+                              const_value pNewObj);
+
+    /*---------------------------------------------------------------------*/
     // finding values
-    Int32               ptrStoreFindIndex(FieldContainerPtrConst pObj) const;
-    PtrStoreItType      ptrStoreFind     (FieldContainerPtrConst pObj);
-    PtrStoreConstItType ptrStoreFind     (FieldContainerPtrConst pObj) const;
-    
-    UInt32              ptrStoreSize     (void                       ) const;
+
+    PtrStoreItType      ptrStoreFind(const_value pObj);
+    PtrStoreConstItType ptrStoreFind(const_value pObj) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Std library interface                                        */
     /*! \{                                                                 */
     
-    void reserve(size_type size);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Binary IO                                                    */
     /*! \{                                                                 */
 
-    UInt32 getBinSize (void                   ) const;
-    void   copyToBin  (BinaryDataHandler &pMem) const;
-    void   copyFromBin(BinaryDataHandler &pMem);
+    void copyFromBin(BinaryDataHandler &pMem);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name MT Sync                                                      */
     /*! \{                                                                 */
 
-    void  syncWith      (Self               &source,
-                         ConstFieldMaskArg   syncMode,
-                         UInt32              uiSyncInfo,
-                         AspectOffsetStore  &oOffsets    );
-    void  beginEdit     (UInt32              uiAspect,
-                         AspectOffsetStore  &oOffsets    );
-    Self *resolveShare  (UInt32              uiAspect,
-                         AspectOffsetStore  &oOffsets    );
-    void  terminateShare(UInt32              uiAspect,
-                         AspectOffsetStore  &oOffsets    );
-    bool  isShared      (void                            );
+    void syncWith(Self               &source,
+                  ConstFieldMaskArg   syncMode,
+                  UInt32              uiSyncInfo,
+                  AspectOffsetStore  &oOffsets  );
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    void operator =(const Self &other);
 };
 
 template <class LHSAccessHandlerT,

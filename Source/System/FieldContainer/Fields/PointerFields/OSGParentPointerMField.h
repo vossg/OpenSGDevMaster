@@ -1,3 +1,40 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *           Copyright (C) 2008 by the OpenSG Forum                          *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
 
 #ifndef _OSGPARENTPOINTERMFIELD_H_
 #define _OSGPARENTPOINTERMFIELD_H_
@@ -19,67 +56,57 @@
 OSG_BEGIN_NAMESPACE
 
 // forward declarations
-template <class ObjectTypeT, Int32 NamespaceI>
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
 class ParentPointerMField;
 
-template <class ObjectTypeT>
-class ParentMFieldConstReferenceProxy;
+template <class StorageTypeT>
+class ParentMFieldIterator;
 
 /*---------------------------------------------------------------------------*/
 /* ParentMFieldConstIterator<ObjectTypeT>                                    */
 /*---------------------------------------------------------------------------*/
 
-template <class ObjectTypeT>
-class ParentMFieldConstIterator
-    : public ParentPointerMField<ObjectTypeT, 0>::PtrStoreConstItType
+template <class StorageTypeT>
+class ParentMFieldConstIterator : protected StorageTypeT::PtrStoreConstItType
 {
     /*==========================  PUBLIC  =================================*/
+
+    template <class ST>
+    friend class ParentMFieldIterator;
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
-    
-    typedef          ObjectTypeT                            ObjectType;
-    
-    typedef          ParentMFieldConstIterator              Self;
-    typedef typename ParentPointerMField<ObjectTypeT, 0>::PtrStoreConstItType
-                                                            Inherited;
-                                                            
-    typedef          ParentPointerMField<ObjectTypeT, 0>    MFieldType;
-//    typedef          ParentFieldConfig  <ObjectTypeT, 0>    FieldConfig;
-    typedef typename MFieldType::AccessHandler              AccessHandler;
-    
-    // store types
-    typedef typename MFieldType::StoredType                 StoredType;
-    typedef typename MFieldType::PtrStoreType               PtrStoreType;    
-    typedef typename MFieldType::PtrStoreConstItType        PtrStoreConstItType;
-    
-    typedef typename MFieldType::IdStoredType               IdStoredType;
-    typedef typename MFieldType::IdStoreType                IdStoreType;
-    typedef typename MFieldType::IdStoreConstItType         IdStoreConstItType;
-    
-    // std library types
-    typedef typename PtrStoreConstItType::iterator_category iterator_category;
-    typedef typename PtrStoreConstItType::difference_type   difference_type;
-    
-//    typedef typename FieldConfig::ValueType                 value_type;
-//    typedef typename FieldConfig::ConstPtrType              pointer;
-//    typedef typename FieldConfig::MFieldConstRefType        reference;
 
-    typedef ObjectTypeT * ValueType;
-    typedef ObjectTypeT * value_type;
-    typedef ValueType *pointer;
-    typedef ParentMFieldConstReferenceProxy<ObjectType>        reference; 
+    typedef      typename StorageTypeT::PtrStoreConstItType Inherited;
     
+    typedef               ParentMFieldConstIterator         Self;
+    
+    typedef       typename StorageTypeT::AccessHandler      AccessHandler;
+
+    typedef               std::vector<UInt16>               PosStorage;
+    typedef               std::vector<
+                              UInt16>::const_iterator       PosStorageIt;
+
+    // std library types
+    typedef      typename Inherited::iterator_category      iterator_category;
+    typedef      typename Inherited::difference_type        difference_type;
+    
+
+    typedef const typename StorageTypeT::value_type         const_value;
+    typedef       typename StorageTypeT::iterator           iterator;
+   
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    ParentMFieldConstIterator(void                                );
-    ParentMFieldConstIterator(Self                const &source   );
-    ParentMFieldConstIterator(PtrStoreConstItType const &storeIt,
-                              IdStoreConstItType  const &idStoreIt);
+    ParentMFieldConstIterator(      void                 );
+    ParentMFieldConstIterator(const Self         &source );
+    ParentMFieldConstIterator(const Inherited    &storeIt,
+                              const PosStorageIt &posIt  );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -93,39 +120,64 @@ class ParentMFieldConstIterator
     /*! \name Operators                                                    */
     /*! \{                                                                 */
     
-//    value_type operator* (void) const;
-    pointer   operator->(void) const;
+    const_value operator  *(      void                  ) const;
+    const_value operator [](const difference_type offset) const;
     
-    Self &operator++(void);
-    Self  operator++(int );
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Operators                                                    */
+    /*! \{                                                                 */
+
+    Self &operator ++(      void                  );
+    Self  operator ++(      int                   );
     
-    Self &operator--(void);
-    Self  operator--(int );
+    Self &operator --(      void                  );
+    Self  operator --(      int                   );
     
-    reference operator[](difference_type const offset) const;
     
-    Self &operator+=(difference_type const offset);
-    Self  operator+ (difference_type const offset) const;
+    Self &operator +=(const difference_type offset);
+    Self  operator + (const difference_type offset) const;
     
-    Self &operator-=(difference_type const offset);
-    Self  operator- (difference_type const offset) const;
+    Self &operator -=(const difference_type offset);
+    Self  operator - (const difference_type offset) const;
+ 
+    bool operator == (const Self            &rhs   ) const;
+    bool operator != (const Self            &rhs   ) const;
     
-    value_type   getPtr(void) const;
-    IdStoredType getId (void) const;
+    bool operator == (const iterator        &rhs   ) const;
+    bool operator != (const iterator        &rhs   ) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Operators                                                    */
+    /*! \{                                                                 */
+   
+    const_value getPtr           (void) const;
+    UInt16      getParentFieldPos(void) const;
     
+    /*! \}                                                                 */
+    /*========================  PROTECTED  ================================*/
+
+  protected:
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Base                                                         */
     /*! \{                                                                 */
     
-    PtrStoreConstItType const &base(void) const;
-    
+    const Inherited    &ptrBase(void) const;
+    const PosStorageIt &idBase (void) const;
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
-    IdStoreConstItType _idStoreIt;
+
+    PosStorageIt _posIt;
 };
 
+
+#if 0
 template <class ObjectTypeT>
 typename ParentMFieldConstIterator<ObjectTypeT>::difference_type
     operator-(ParentMFieldConstIterator<ObjectTypeT> const &lhs,
@@ -135,141 +187,192 @@ template <class ObjectTypeT>
 ParentMFieldConstIterator<ObjectTypeT>
     operator+(typename ParentMFieldConstIterator<ObjectTypeT>::differece_type const offset,
               ParentMFieldConstIterator<ObjectTypeT>                          const &rhs   );
+#endif
 
 /*---------------------------------------------------------------------------*/
-/* ParentMFieldConstReferenceProxy<ObjectTypeT>                              */
+/* ParentMFieldIterator<ObjectTypeT>                                    */
 /*---------------------------------------------------------------------------*/
 
-template <class ObjectTypeT>
-class ParentMFieldConstReferenceProxy
+template <class StorageTypeT>
+class ParentMFieldIterator : protected StorageTypeT::PtrStoreItType
 {
+    template <class ST>
+    friend class ParentMFieldConstIterator;
+
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
-    typedef          ObjectTypeT                         ObjectType;
     
-    typedef          ParentMFieldConstReferenceProxy     Self;
-    
-    typedef          ParentPointerMField<ObjectTypeT, 0> MFieldType;
-//    typedef          ParentFieldConfig  <ObjectTypeT, 0> FieldConfig;
-    typedef typename MFieldType::AccessHandler           AccessHandler;
-    
-    typedef ObjectTypeT * const ValueType;
-    typedef ObjectTypeT * const value_type;
+    typedef       typename StorageTypeT::PtrStoreItType  Inherited;
 
-//    typedef typename FieldConfig::ValueType              ValueType;
-//    typedef typename FieldConfig::ValueType              value_type;
+    typedef                ParentMFieldIterator          Self;
+                                                            
+    typedef       typename StorageTypeT::AccessHandler   AccessHandler;
+
+    typedef                std::vector<UInt16>           PosStorage;
+    typedef                std::vector<UInt16>::iterator PosStorageIt;
+
+    // std library types
+    typedef       typename Inherited::iterator_category  iterator_category;
+    typedef       typename Inherited::difference_type    difference_type;
+
     
-    // store types
-    typedef typename MFieldType::StoredType              StoredType;
-    typedef typename MFieldType::PtrStoreType            PtrStoreType;
-    typedef typename MFieldType::PtrStoreConstItType     PtrStoreConstItType;
-    
-    typedef typename MFieldType::IdStoredType            IdStoredType;
-    typedef typename MFieldType::IdStoreType             IdStoreType;
-    typedef typename MFieldType::IdStoreConstItType      IdStoreConstItType;
+    typedef const typename StorageTypeT::value_type      const_value;
+    typedef const typename StorageTypeT::const_iterator  const_iterator;
+
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    ParentMFieldConstReferenceProxy(
-        PtrStoreConstItType const &storeIt,
-        IdStoreConstItType  const &idStoreIt);
-    ParentMFieldConstReferenceProxy(Self const &source);
+    ParentMFieldIterator(      void                 );
+    ParentMFieldIterator(const Self         &source );
+    ParentMFieldIterator(const Inherited    &storeIt,
+                         const PosStorageIt &posIt  );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Destructor                                                   */
     /*! \{                                                                 */
     
-    ~ParentMFieldConstReferenceProxy(void);
+    ~ParentMFieldIterator(void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Operators                                                    */
     /*! \{                                                                 */
     
-               operator value_type(void) const;
-    value_type operator->         (void) const;
+    const_value operator  *(      void                  ) const;
+    const_value operator [](const difference_type offset) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Operators                                                    */
+    /*! \{                                                                 */
     
-    value_type   getPtr(void) const;
-    IdStoredType getId (void) const;
+    Self &operator ++(      void                  );
+    Self  operator ++(      int                   );
+    
+    Self &operator --(      void                  );
+    Self  operator --(      int                   );
+    
+    
+    Self &operator +=(const difference_type offset);
+    Self  operator + (const difference_type offset) const;
+    
+    Self &operator -=(const difference_type offset);
+    Self  operator - (const difference_type offset) const;
+    
+    bool operator == (const Self            &rhs   ) const;
+    bool operator != (const Self            &rhs   ) const;
+    
+    bool operator == (const const_iterator  &rhs   ) const;
+    bool operator != (const const_iterator  &rhs   ) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Operators                                                    */
+    /*! \{                                                                 */
+
+    const_value getPtr           (void) const;
+    UInt16      getParentFieldPos(void) const;
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Base                                                         */
+    /*! \{                                                                 */
+    
+    /*! \}                                                                 */
+    /*========================  PROTECTED  ================================*/
+
+  protected:
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Base                                                         */
+    /*! \{                                                                 */
+    
+    const Inherited    &ptrBase(void) const;
+    const PosStorageIt &idBase (void) const;
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
-    PtrStoreConstItType _storeIt;
-    IdStoreConstItType  _idStoreIt;
+
+    PosStorageIt _posIt;
 };
+
 
 /*---------------------------------------------------------------------------*/
 /* ParentPointerMField<ObjectTypeT,                                          */
 /*                     NamespaceI  >                                         */
 /*---------------------------------------------------------------------------*/
 
-template <class ObjectTypeT,
-          Int32 NamespaceI  = 0>
-class ParentPointerMField 
-    : public PointerMFieldCommon<NoRefCountAccessHandler, NamespaceI>
+template <class    ObjectTypeT,
+          typename RefCountPolicy, 
+          Int32    NamespaceI  = 0>
+class ParentPointerMField :
+    public PointerMFieldCommon<PointerAccessHandler<RefCountPolicy>,
+                               NamespaceI                          >
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
 
-    typedef          ObjectTypeT                           ObjectType;
-        
-    typedef          PointerMFieldCommon<NoRefCountAccessHandler, 
-                                         NamespaceI      > Inherited;
-    typedef          ParentPointerMField    <ObjectTypeT,
-                                             NamespaceI  > Self;
-                                             
-//    typedef          ParentFieldConfig      <ObjectTypeT,
-//                                             NamespaceI  > FieldConfig;
-    
-//    typedef typename FieldConfig::ValueType                ValueType;
-//    typedef typename FieldConfig::ArgumentType             ArgumentType;
-//    typedef typename FieldConfig::ValueType                value_type;
+    typedef          PointerMFieldCommon<
+                         PointerAccessHandler<
+                             RefCountPolicy>,
+                         NamespaceI                   > Inherited;
 
-    typedef ObjectTypeT * ValueType;
-    typedef ObjectTypeT * const ArgumentType;
-    typedef ObjectTypeT * value_type;
-    
-    typedef ParentMFieldConstIterator      <ObjectType>  const_iterator;
-    typedef std::reverse_iterator  <const_iterator>  const_reverse_iterator;
+    typedef          ParentPointerMField                Self;
 
-//    typedef typename FieldConfig::ConstItType              const_iterator;
-//    typedef typename FieldConfig::ConstReverseItType       const_reverse_iterator;
-    
-//    typedef typename FieldConfig::ConstPtrType             const_pointer;
-//    typedef typename FieldConfig::MFieldConstRefType       const_reference;
+    typedef          ObjectTypeT *                      ValueType;
+    typedef          ObjectTypeT * const                const_value;
+    typedef          ObjectTypeT *                      value_type;
 
-    typedef ArgumentType *const_pointer;
-    typedef ParentMFieldConstReferenceProxy<ObjectType> const_reference; 
+    typedef typename Inherited::size_type               size_type;
+    typedef typename Inherited::difference_type         difference_type;
 
-    typedef          UInt16                                  IdStoredType;
-    typedef          MFieldVector<IdStoredType>              IdStoreType;
-    typedef typename IdStoreType::iterator                   IdStoreItType;
-    typedef typename IdStoreType::const_iterator             IdStoreConstItType;
-    
-    typedef          FieldTraits<IdStoredType >              IdBaseTraitsType;
-    
-    typedef typename Inherited::size_type                    size_type;
-    typedef typename Inherited::difference_type              difference_type;
-    
-    typedef FieldTraits     <ValueType,
-                             NamespaceI                     >  MFieldTraits;
+    typedef typename Inherited::PtrStoreItType          PtrStoreItType;
 
-    typedef FieldDescription<MFieldTraits,
+    typedef          ParentMFieldConstIterator<Self   > const_iterator;
+    typedef          std::reverse_iterator    <
+                         const_iterator               > const_reverse_iterator;
+
+    typedef          ParentMFieldIterator     <Self   > iterator;
+
+
+    typedef          UInt16                             IdStoredType;
+    typedef          MFieldVector<IdStoredType        > IdStoreType;
+    typedef typename IdStoreType::iterator              IdStoreItType;
+    typedef typename IdStoreType::const_iterator        IdStoreConstItType;
+    
+    typedef          FieldTraits<IdStoredType         > PosMFieldTraits;
+    
+    
+    typedef          FieldTraits     <ValueType,
+                                      NamespaceI      > PtrMFieldTraits;
+
+    typedef          FieldDescription<PtrMFieldTraits,
                              FieldType::MultiField,
                              NoRefCountPolicy,
-                             FieldType::ParentPtrField>  Description;
+                             FieldType::ParentPtrField> Description;
+
+    typedef          PointerAccessHandler<
+                         RefCountPolicy               > AccessHandler;
+
+    typedef          ObjectTypeT                        ObjectType;
     
     // handles
 //    typedef          EditParentPointerMFieldHandle<Self>      EditHandle;
@@ -279,11 +382,12 @@ class ParentPointerMField
 //    typedef typename GetParentPointerMFieldHandle <Self>::Ptr GetHandlePtr;
     
     // handles for dynamic fields -- XXX TODO
-//    typedef          EditParentPointerMFieldHandle<Self>      DynamicEditHandle;
-//    typedef typename EditParentPointerMFieldHandle<Self>::Ptr DynamicEditHandlePtr;
+//    typedef          EditParentPointerMFieldHandle<Self>      DynEditHandle;
+//    typedef 
+//        typename EditParentPointerMFieldHandle<Self>::Ptr DynEditHandlePtr;
     
-//    typedef          GetParentPointerMFieldHandle <Self>      DynamicGetHandle;
-//    typedef typename GetParentPointerMFieldHandle <Self>::Ptr DynamicGetHandlePtr;
+//    typedef          GetParentPointerMFieldHandle <Self>      DynGetHandle;
+//    typedef typename GetParentPointerMFieldHandle <Self>::Ptr DynGetHandlePtr;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -305,9 +409,8 @@ class ParentPointerMField
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
 
-             ParentPointerMField(void               );
-             ParentPointerMField(Self   const &other);
-    explicit ParentPointerMField(UInt32 const  size );
+    ParentPointerMField(      void       );
+    ParentPointerMField(const Self &other);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -316,6 +419,16 @@ class ParentPointerMField
 
     ~ParentPointerMField(void); 
               
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Binary IO                                                    */
+    /*! \{                                                                 */
+
+    UInt32 getBinSize (void                   ) const;
+
+    void   copyToBin  (BinaryDataHandler &pMem) const;
+    void   copyFromBin(BinaryDataHandler &pMem);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Std Library Interface                                        */
@@ -327,110 +440,119 @@ class ParentPointerMField
     const_reverse_iterator rbegin(void) const;
     const_reverse_iterator rend  (void) const;
 
-    const_reference        front (void) const;
-    const_reference        back  (void) const;
+    const_value            front (void) const;
+    const_value            back  (void) const;
         
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name IdStore Interface                                            */
     /*! \{                                                                 */
+
+    iterator               begin_nc (void                       );
+    iterator               end_nc   (void                       );
     
-    // reading values
-    UInt16 const idStoreGet(UInt32 const       index) const;
-    UInt16 const idStoreGet(IdStoreItType      pos  ) const;
-    UInt16 const idStoreGet(IdStoreConstItType pos  ) const;
-  
-    // adding values
-    void  idStoreAppend (UInt16 const   newId     );
-    void  idStoreInsert (UInt32 const   index,
-                         UInt16 const   newId     );
-    void  idStoreInsert (IdStoreItType  pos,
-                         UInt16 const   newId     );
-    template <class InputIteratorT>
-    void  idStoreInsert (IdStoreItType  pos,
-                         InputIteratorT first,
-                         InputIteratorT last      );
-    // changing values
-    void  idStoreReplace(UInt32 const  index,
-                         UInt16 const  newId      );
-    void  idStoreReplace(IdStoreItType pos,
-                         UInt16 const  newId      );
-    
-    // removing values
-    void  idStoreErase  (UInt32 const  index      );
-    void  idStoreErase  (IdStoreItType pos        );
-    void  idStoreErase  (UInt32 const  beginIndex,
-                         UInt32 const  endIndex   );
-    void  idStoreErase  (IdStoreItType begin,
-                         IdStoreItType end        );
-    void  idStoreClear  (void                     );
-    
-    // finding values
-    Int32              idStoreFindIndex(UInt16 const fieldId) const;
-    IdStoreItType      idStoreFind     (UInt16 const fieldId);
-    IdStoreConstItType idStoreFind     (UInt16 const fieldId) const;
+#ifndef OSG_CLEAN_FCFIELDS
+    iterator               begin    (void                       );
+    iterator               end      (void                       );
+
+    reverse_iterator       rbegin   (void                       );
+    reverse_iterator       rend     (void                       );
+#endif
         
+    iterator               insert   (iterator     pos, 
+                                     const_value  value,
+                                     UInt16       parentFieldPos);
+
+    iterator               erase    (iterator     pos           );
+
+    void                   erase    (size_type    pos           );
+
+#ifndef OSG_CLEAN_FCFIELDS
+    iterator               find     (const_value value          );
+#endif
+
+    const_iterator         find     (const_value value          ) const;
+
+    void                   push_back(const_value value,
+                                     UInt16      parentFieldPos );
+
+    void                   reserve  (size_type   newsize        );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Raw IdStore Access                                           */
     /*! \{                                                                 */
-    
-    IdStoreType       &editRawIdStore(void);
-    IdStoreType const &getRawIdStore (void) const;
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Std library interface                                        */
-    /*! \{                                                                 */
-    
-    void reserve(size_type size);
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Binary IO                                                    */
-    /*! \{                                                                 */
+    void replace(UInt32      uiIdx, 
+                 const_value value,
+                 UInt16      parentFieldPos);
 
-    UInt32 getBinSize (void                   ) const;
-    void   copyToBin  (BinaryDataHandler &pMem) const;
-    void   copyFromBin(BinaryDataHandler &pMem);
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name MT Sync                                                      */
-    /*! \{                                                                 */
-
-    void  syncWith      (Self               &source, 
-                         ConstFieldMaskArg   syncMode,
-                         UInt32              uiSyncInfo,
-                         AspectOffsetStore  &oOffsets    );
-    void  beginEdit     (UInt32              uiAspect,
-                         AspectOffsetStore  &oOffsets    );
-    Self *resolveShare  (UInt32              uiAspect, 
-                         AspectOffsetStore  &oOffsets    );
-    void  terminateShare(UInt32              uiAspect, 
-                         AspectOffsetStore  &oOffsets    );
-    bool  isShared      (void                            );
+    void replace(iterator    pos, 
+                 const_value value,
+                 UInt16      parentFieldPos);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Index Operator                                               */
     /*! \{                                                                 */
 
-    const_reference operator [](UInt32 const index) const;
+    const_value operator [](const UInt32 index) const;
     
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Index Operator                                               */
+    /*! \{                                                                 */
+
+    const_value ptrAt           (const UInt32 index) const;
+    UInt16      parentFieldPosAt(const UInt32 index) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name MT Sync                                                      */
+    /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    void  syncWith      (Self               &source, 
+                         ConstFieldMaskArg   syncMode,
+                         UInt32              uiSyncInfo,
+                         AspectOffsetStore  &oOffsets    );
+#endif
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Index Operator                                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Members                                                      */
     /*! \{                                                                 */
     
     static FieldType   _fieldType;
-           IdStoreType _childIdStore;
+           IdStoreType _vParentPos;
     
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    void resize(size_t       newsize, 
+                const_value  t      = NullFC);
+
+    void clear (void                        );
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
+
+    typedef PtrMFieldTraits MFieldTraits;
+
+    void operator =(const Self &source);
 };
 
 OSG_END_NAMESPACE

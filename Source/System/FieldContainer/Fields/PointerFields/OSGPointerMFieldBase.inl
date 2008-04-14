@@ -60,7 +60,7 @@ inline
 UInt32 PointerMFieldBase::getBinSize(void) const
 {
     return 
-        sizeof(UInt32) + // num elements
+        sizeof(size_type) + // num elements
         (_ptrStore.size() ? 
          MFieldTraits::getBinSize(&(_ptrStore[0]), _ptrStore.size()) : 0);
 }
@@ -69,7 +69,7 @@ UInt32 PointerMFieldBase::getBinSize(void) const
 inline
 void PointerMFieldBase::copyToBin(BinaryDataHandler &pMem) const
 {
-    UInt32 n = _ptrStore.size();
+    size_type n = _ptrStore.size();
 
     pMem.putValue(n);
 
@@ -145,7 +145,8 @@ PointerMFieldBase::size_type PointerMFieldBase::capacity(void) const
 }
     
 inline
-Int32 PointerMFieldBase::findIndex(const_value value) const
+PointerMFieldBase::difference_type 
+    PointerMFieldBase::findIndex(const_value value) const
 {
     const_iterator it = std::find(_ptrStore.begin(), _ptrStore.end(), value);
 
@@ -157,6 +158,12 @@ Int32 PointerMFieldBase::findIndex(const_value value) const
     {
         return -1;
     }
+}
+
+inline 
+void PointerMFieldBase::reserve(size_type size)
+{
+    return _ptrStore.reserve(size);
 }
 
 inline 

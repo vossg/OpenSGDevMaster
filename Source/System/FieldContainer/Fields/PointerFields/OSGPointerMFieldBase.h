@@ -47,6 +47,8 @@
 #include "OSGMField.h"
 #include "OSGFieldContainerFieldTraits.h"
 
+#define OSG_CLEAN_FCFIELDS
+
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGPointerMFieldBase.h
     \ingroup GrpSystemFieldContainer
@@ -134,7 +136,9 @@ class OSG_SYSTEM_DLLMAPPING PointerMFieldBase : public Field
     size_type              max_size (void             ) const;
     size_type              capacity (void             ) const;
     
-    Int32                  findIndex(const_value value) const;
+    difference_type        findIndex(const_value value) const;
+
+    void                   reserve  (size_type   size );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -123,7 +123,13 @@ void PointerAccessHandler<RefCountPolicyT>::onSyncSub(
     SFieldBaseType    * const pSField, 
     FieldContainerPtr   const pObj   )
 {
-    onSub(pSField, pObj);
+    if(pObj != NullFC)
+    {
+        Thread::getCurrentChangeList()->addDelayedSubRef<
+            RefCountPolicyT>(pObj);
+    }
+
+//    onSub(pSField, pObj);
 }
 
 template<typename RefCountPolicyT> inline 
@@ -131,7 +137,13 @@ void PointerAccessHandler<RefCountPolicyT>::onSyncSub(
     MFieldBaseType    * const pMField, 
     FieldContainerPtr   const pObj   )
 {
-    onSub(pMField, pObj);
+    if(pObj != NullFC)
+    {
+        Thread::getCurrentChangeList()->addDelayedSubRef<
+            RefCountPolicyT>(pObj);
+    }
+
+//    onSub(pMField, pObj);
 }
 
 template<typename RefCountPolicyT> inline 
@@ -141,14 +153,7 @@ void PointerAccessHandler<RefCountPolicyT>::onSyncReplace(
     FieldContainerPtr   const pNewObj)
 {
     onSyncAdd(pSField, pNewObj);
-
-    if(pOldObj != NullFC)
-    {
-        Thread::getCurrentChangeList()->addDelayedSubRef<
-            RefCountPolicyT>(pOldObj);
-    }
-
-//    onSyncSub(pSField, pOldObj);
+    onSyncSub(pSField, pOldObj);
 }
 
 template<typename RefCountPolicyT> inline 

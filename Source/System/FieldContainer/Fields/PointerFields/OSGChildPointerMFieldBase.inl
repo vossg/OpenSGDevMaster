@@ -11,92 +11,73 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <Int32 NamespaceI>
-inline
-    ChildPointerMFieldBase<NamespaceI>::ChildPointerMFieldBase(void)
-    : Inherited     (    ),
-      _pEnclosingObj(NULL),
-      _childFieldId (0   ),
-      _parentFieldId(0   )
+template <typename AccessHandlerT, Int32 NamespaceI> inline
+ChildPointerMFieldBase<AccessHandlerT, 
+                       NamespaceI    >::ChildPointerMFieldBase(
+                           const FieldContainerPtr  pParent,
+                                 UInt16             usParentFieldPos) : 
+     Inherited    (                ),
+    _pEnclosingObj(pParent         ),
+    _childFieldId (0xFFFF          ),
+    _parentFieldId(usParentFieldPos)
 {
 }
 
-template <Int32 NamespaceI>
-inline
-    ChildPointerMFieldBase<NamespaceI>::ChildPointerMFieldBase(
-        Self const &source)
-    : Inherited     (source                  ),
-      _pEnclosingObj(source._pEnclosingObject),
-      _childFieldId (source._childFieldId    ),
-      _parentFieldId(source._parentFieldId   )
-{
-}
-
-template <Int32 NamespaceI>
-inline
-    ChildPointerMFieldBase<NamespaceI>::ChildPointerMFieldBase(
-        UInt32 const size)
-    : Inherited     (size),
-      _pEnclosingObj(NULL),
-      _childFieldId (0   ),
-      _parentFieldId(0   )
-{
-}
 
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <Int32 NamespaceI>
-inline
-    ChildPointerMFieldBase<NamespaceI>::~ChildPointerMFieldBase(void)
+template <typename AccessHandlerT, Int32 NamespaceI> inline
+ChildPointerMFieldBase<AccessHandlerT, 
+                       NamespaceI    >::~ChildPointerMFieldBase(void)
 {
-    // nothing to do
 }
 
 /*-------------------------------------------------------------------------*/
 /* Child Linking Information                                               */
 
-template <Int32 NamespaceI>
-inline FieldContainerPtr
-    ChildPointerMFieldBase<NamespaceI>::getEnclosingObject(void) const
+template <typename AccessHandlerT, Int32 NamespaceI> inline 
+FieldContainerPtr 
+    ChildPointerMFieldBase<AccessHandlerT, 
+                           NamespaceI    >::getEnclosingObject(void) const
 {
     return _pEnclosingObj;
 }
 
-template <Int32 NamespaceI>
-inline void
-    ChildPointerMFieldBase<NamespaceI>::setEnclosingObject(
-        FieldContainerPtrConst pObj)
+template <typename AccessHandlerT, Int32 NamespaceI> inline 
+void ChildPointerMFieldBase<AccessHandlerT, 
+                            NamespaceI    >::setEnclosingObject(
+                                const FieldContainerPtr pObj)
 {
     _pEnclosingObj = pObj;
 }
 
-template <Int32 NamespaceI>
-inline UInt16
-    ChildPointerMFieldBase<NamespaceI>::getChildFieldId(void) const
+template <typename AccessHandlerT, Int32 NamespaceI> inline 
+UInt16 ChildPointerMFieldBase<AccessHandlerT, 
+                              NamespaceI    >::getChildFieldId(void) const
 {
     return _childFieldId;
 }
 
-template <Int32 NamespaceI>
-inline void
-    ChildPointerMFieldBase<NamespaceI>::setChildFieldId(
-        UInt16 const childFieldId)
+template <typename AccessHandlerT, Int32 NamespaceI> inline 
+void ChildPointerMFieldBase<AccessHandlerT, 
+                            NamespaceI    >::setChildFieldId(
+                                const UInt16 childFieldId)
 {
     _childFieldId = childFieldId;
 }
 
-template <Int32 NamespaceI>
-inline UInt16
-    ChildPointerMFieldBase<NamespaceI>::getParentFieldPos(void) const
+template <typename AccessHandlerT, Int32 NamespaceI> inline 
+UInt16 ChildPointerMFieldBase<AccessHandlerT, 
+                              NamespaceI    >::getParentFieldPos(void) const
 {
     return _parentFieldId;
 }
 
-template <Int32 NamespaceI>
-inline void
-    ChildPointerMFieldBase<NamespaceI>::setParentFieldId(
-        UInt16 const parentFieldId)
+template <typename AccessHandlerT, Int32 NamespaceI> inline 
+void ChildPointerMFieldBase<AccessHandlerT, 
+                            NamespaceI    >::setParentFieldId(
+                                const UInt16 parentFieldId)
 {
     _parentFieldId = parentFieldId;
 }

@@ -58,7 +58,7 @@ class PointerMFieldBase;
 
 class PointerSFieldBase;
 
-template <Int32 NamespaceI>
+template <typename AccessHandlerT, Int32 NamespaceI>
 class ChildPointerMFieldBase;
 
 template <typename AccessHandlerT, Int32 NamespaceI>
@@ -82,7 +82,7 @@ class ChildAccessHandler
     typedef PointerMFieldBase          MFieldBaseType;
     typedef PointerSFieldBase          SFieldBaseType;
     
-    typedef ChildPointerMFieldBase <0> MFieldType;
+    typedef ChildPointerMFieldBase <Self, 0> MFieldType;
     typedef ChildPointerSFieldBase <Self, 0> SFieldType;
     
     /*! \}                                                                 */
