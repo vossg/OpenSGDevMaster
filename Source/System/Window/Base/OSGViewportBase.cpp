@@ -1074,6 +1074,77 @@ ViewportBase::ViewportBase(const ViewportBase &source) :
 ViewportBase::~ViewportBase(void)
 {
 }
+/*-------------------------------------------------------------------------*/
+/* Parent linking                                                          */
+
+bool ViewportBase::linkParent(
+    const FieldContainerPtr pParent,
+    const UInt16            childFieldId,
+    const UInt16            parentFieldId )
+{
+    if(parentFieldId == ParentFieldId)
+    {
+        FieldContainerPtr pTypedParent =
+            dynamic_cast< FieldContainerPtr >(pParent);
+        
+        if(pTypedParent != NullFC)
+        {
+            FieldContainerPtr pOldParent =
+                _sfParent.getValue         ();
+
+            UInt16 oldChildFieldId =
+                _sfParent.getParentFieldPos();
+            
+            if(pOldParent != NullFC)
+            {
+                pOldParent->unlinkChild(this, oldChildFieldId);
+            }
+            
+            editSField(ParentFieldMask);
+
+            _sfParent.setValue(pParent, childFieldId);
+            
+            return true;
+        }
+    
+        return false;
+    }
+    
+    return Inherited::linkParent(pParent, childFieldId, parentFieldId);
+}
+
+bool ViewportBase::unlinkParent(
+    const FieldContainerPtr pParent,
+    const UInt16            parentFieldId)
+{
+    if(parentFieldId == ParentFieldId)
+    {
+        FieldContainerPtr pTypedParent =
+            dynamic_cast< FieldContainerPtr >(pParent);
+            
+        if(pTypedParent != NullFC)
+        {
+            if(_sfParent.getValue() == pParent)
+            {
+                editSField(ParentFieldMask);
+
+                _sfParent.setValue(NullFC, 0xFFFF);
+                
+                return true;
+            }
+            
+            FWARNING(("ViewportBase::unlinkParent: "
+                      "Child <-> Parent link inconsistent.\n"));
+            
+            return false;
+        }
+
+        return false;
+    }
+    
+    return Inherited::unlinkParent(pParent, parentFieldId);
+}
+
 
 void ViewportBase::onCreate(const Viewport *source)
 {

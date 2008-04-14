@@ -605,14 +605,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    virtual void subChildPointer(FieldContainerPtr pObj, 
-                                 UInt16            usFieldPos);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
     static  TextureObjChunkTransitPtr create          (void);
     static  TextureObjChunkPtr        createEmpty     (void);
 
@@ -695,6 +687,14 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
 
     void onCreate(const TextureObjChunk *source = NULL);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+    
+    virtual bool unlinkChild(const FieldContainerPtr pChild,
+                             const UInt16            childFieldId);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

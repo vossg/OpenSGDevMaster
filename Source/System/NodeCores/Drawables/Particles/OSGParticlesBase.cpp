@@ -374,6 +374,7 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     "\t\taccess=\"public\"\n"
     "        category=\"childpointer\"\n"
     "        childParentType=\"FieldContainer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "\t>\n"
     "        The positions of the particles. This is the primary defining\n"
     "        information for a particle.\n"
@@ -399,6 +400,7 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     "\t\taccess=\"public\"\n"
     "        category=\"childpointer\"\n"
     "        childParentType=\"FieldContainer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "\t>\n"
     "        The secondary position of the particle. This information is only used\n"
     "        by a few rendering modes, e.g. the streak mode. Usually it represents\n"
@@ -412,6 +414,7 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     "\t\taccess=\"public\"\n"
     "        category=\"childpointer\"\n"
     "        childParentType=\"FieldContainer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "\t>\n"
     "\tThe particle colors (optional).\n"
     "\t</Field>\n"
@@ -423,6 +426,7 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     "\t\taccess=\"public\"\n"
     "        category=\"childpointer\"\n"
     "        childParentType=\"FieldContainer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "\t>\n"
     "        Most particles will be automatically aligned to the view\n"
     "        direction. If normals are set they will be used to define the\n"
@@ -903,52 +907,6 @@ void ParticlesBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
-void ParticlesBase::subChildPointer(FieldContainerPtr pObj, 
-                                        UInt16            usFieldPos)
-{
-    if(usFieldPos == PositionsFieldId)
-    {
-        if(_sfPositions.getValue() == pObj)
-        {
-            editSField(PositionsFieldMask);
-
-            _sfPositions.setValue(NullFC);
-        }
-    }
-    else if(usFieldPos == SecPositionsFieldId)
-    {
-        if(_sfSecPositions.getValue() == pObj)
-        {
-            editSField(SecPositionsFieldMask);
-
-            _sfSecPositions.setValue(NullFC);
-        }
-    }
-    else if(usFieldPos == ColorsFieldId)
-    {
-        if(_sfColors.getValue() == pObj)
-        {
-            editSField(ColorsFieldMask);
-
-            _sfColors.setValue(NullFC);
-        }
-    }
-    else if(usFieldPos == NormalsFieldId)
-    {
-        if(_sfNormals.getValue() == pObj)
-        {
-            editSField(NormalsFieldMask);
-
-            _sfNormals.setValue(NullFC);
-        }
-    }
-    else
-    {
-        Inherited::subChildPointer(pObj, usFieldPos);
-    }
-}
-
-
 //! create a new instance of the class
 ParticlesTransitPtr ParticlesBase::create(void)
 {
@@ -1041,11 +999,19 @@ FieldContainerTransitPtr ParticlesBase::shallowCopyLocal(
 ParticlesBase::ParticlesBase(void) :
     Inherited(),
     _sfMode                   (UInt32(2)),
-    _sfPositions              (this, PositionsFieldId),
+    _sfPositions              (this, 
+                          PositionsFieldId,
+                          GeoVectorProperty::ParentsFieldId),
     _mfSizes                  (),
-    _sfSecPositions           (this, SecPositionsFieldId),
-    _sfColors                 (this, ColorsFieldId),
-    _sfNormals                (this, NormalsFieldId),
+    _sfSecPositions           (this, 
+                          SecPositionsFieldId,
+                          GeoVectorProperty::ParentsFieldId),
+    _sfColors                 (this, 
+                          ColorsFieldId,
+                          GeoVectorProperty::ParentsFieldId),
+    _sfNormals                (this, 
+                          NormalsFieldId,
+                          GeoVectorProperty::ParentsFieldId),
     _mfIndices                (),
     _mfTextureZs              (),
     _sfDrawOrder              (UInt32(0)),
@@ -1059,11 +1025,19 @@ ParticlesBase::ParticlesBase(void) :
 ParticlesBase::ParticlesBase(const ParticlesBase &source) :
     Inherited(source),
     _sfMode                   (source._sfMode                   ),
-    _sfPositions              (this, PositionsFieldId),
+    _sfPositions              (this, 
+                          PositionsFieldId,
+                          GeoVectorProperty::ParentsFieldId),
     _mfSizes                  (source._mfSizes                  ),
-    _sfSecPositions           (this, SecPositionsFieldId),
-    _sfColors                 (this, ColorsFieldId),
-    _sfNormals                (this, NormalsFieldId),
+    _sfSecPositions           (this, 
+                          SecPositionsFieldId,
+                          GeoVectorProperty::ParentsFieldId),
+    _sfColors                 (this, 
+                          ColorsFieldId,
+                          GeoVectorProperty::ParentsFieldId),
+    _sfNormals                (this, 
+                          NormalsFieldId,
+                          GeoVectorProperty::ParentsFieldId),
     _mfIndices                (source._mfIndices                ),
     _mfTextureZs              (source._mfTextureZs              ),
     _sfDrawOrder              (source._sfDrawOrder              ),
@@ -1079,6 +1053,117 @@ ParticlesBase::ParticlesBase(const ParticlesBase &source) :
 
 ParticlesBase::~ParticlesBase(void)
 {
+}
+
+/*-------------------------------------------------------------------------*/
+/* Child linking                                                           */
+
+bool ParticlesBase::unlinkChild(
+    const FieldContainerPtr pChild,
+    const UInt16            childFieldId)
+{
+    if(childFieldId == PositionsFieldId)
+    {
+        GeoVectorPropertyPtr pTypedChild =
+            dynamic_cast<GeoVectorPropertyPtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            if(pTypedChild == getPositions())
+            {
+                editSField(PositionsFieldMask);
+
+                _sfPositions.setValue(NullFC);
+                
+                return true;
+            }
+            
+            FWARNING(("ParticlesBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    if(childFieldId == SecPositionsFieldId)
+    {
+        GeoVectorPropertyPtr pTypedChild =
+            dynamic_cast<GeoVectorPropertyPtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            if(pTypedChild == getSecPositions())
+            {
+                editSField(SecPositionsFieldMask);
+
+                _sfSecPositions.setValue(NullFC);
+                
+                return true;
+            }
+            
+            FWARNING(("ParticlesBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    if(childFieldId == ColorsFieldId)
+    {
+        GeoVectorPropertyPtr pTypedChild =
+            dynamic_cast<GeoVectorPropertyPtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            if(pTypedChild == getColors())
+            {
+                editSField(ColorsFieldMask);
+
+                _sfColors.setValue(NullFC);
+                
+                return true;
+            }
+            
+            FWARNING(("ParticlesBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    if(childFieldId == NormalsFieldId)
+    {
+        GeoVectorPropertyPtr pTypedChild =
+            dynamic_cast<GeoVectorPropertyPtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            if(pTypedChild == getNormals())
+            {
+                editSField(NormalsFieldMask);
+
+                _sfNormals.setValue(NullFC);
+                
+                return true;
+            }
+            
+            FWARNING(("ParticlesBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    
+    return Inherited::unlinkChild(pChild, childFieldId);
 }
 
 void ParticlesBase::onCreate(const Particles *source)

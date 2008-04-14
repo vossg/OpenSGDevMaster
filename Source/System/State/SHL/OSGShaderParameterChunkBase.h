@@ -173,14 +173,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
 
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
-    virtual void subChildPointer(FieldContainerPtr pObj, 
-                                 UInt16            usFieldPos);
-
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -218,6 +210,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
 
     void onCreate(const ShaderParameterChunk *source = NULL);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+    
+    virtual bool unlinkChild(const FieldContainerPtr pChild,
+                             const UInt16            childFieldId);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

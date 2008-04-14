@@ -291,6 +291,69 @@ ShaderParameterBase::ShaderParameterBase(const ShaderParameterBase &source) :
 ShaderParameterBase::~ShaderParameterBase(void)
 {
 }
+/*-------------------------------------------------------------------------*/
+/* Parent linking                                                          */
+
+bool ShaderParameterBase::linkParent(
+    const FieldContainerPtr pParent,
+    const UInt16            childFieldId,
+    const UInt16            parentFieldId )
+{
+    if(parentFieldId == ParentsFieldId)
+    {
+        FieldContainerPtr pTypedParent =
+            dynamic_cast< FieldContainerPtr >(pParent);
+        
+        if(pTypedParent != NullFC)
+        {
+            editMField(ParentsFieldMask, _mfParents);
+
+            _mfParents.push_back(pParent, childFieldId);
+            
+            return true;
+        }
+    
+        return false;
+    }
+    
+    return Inherited::linkParent(pParent, childFieldId, parentFieldId);
+}
+
+bool ShaderParameterBase::unlinkParent(
+    const FieldContainerPtr pParent,
+    const UInt16            parentFieldId)
+{
+    if(parentFieldId == ParentsFieldId)
+    {
+        FieldContainerPtr pTypedParent =
+            dynamic_cast< FieldContainerPtr >(pParent);
+            
+        if(pTypedParent != NullFC)
+        {
+            MFParentFieldContainerPtr::iterator pI = 
+                _mfParents.find_nc(pParent);
+                
+            if(pI != _mfParents.end())
+            {
+                editMField(ParentsFieldMask, _mfParents);
+                
+                _mfParents.erase(pI);
+                
+                return true;
+            }
+            
+            FWARNING(("ShaderParameterBase::unlinkParent: "
+                      "Child <-> Parent link inconsistent.\n"));
+            
+            return false;
+        }
+
+        return false;
+    }
+    
+    return Inherited::unlinkParent(pParent, parentFieldId);
+}
+
 
 void ShaderParameterBase::onCreate(const ShaderParameter *source)
 {

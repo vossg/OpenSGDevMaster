@@ -240,14 +240,6 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    virtual void subChildPointer(FieldContainerPtr pObj, 
-                                 UInt16            usFieldPos);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
     static  GeometryTransitPtr create          (void);
     static  GeometryPtr        createEmpty     (void);
 
@@ -310,6 +302,14 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
     void onCreate(const Geometry *source = NULL);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+    
+    virtual bool unlinkChild(const FieldContainerPtr pChild,
+                             const UInt16            childFieldId);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

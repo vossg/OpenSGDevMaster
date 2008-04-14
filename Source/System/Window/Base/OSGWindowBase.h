@@ -253,14 +253,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
-    virtual void subChildPointer(FieldContainerPtr pObj, 
-                                 UInt16            usFieldPos);
-
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -305,6 +297,14 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
     void onCreate(const Window *source = NULL);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+    
+    virtual bool unlinkChild(const FieldContainerPtr pChild,
+                             const UInt16            childFieldId);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

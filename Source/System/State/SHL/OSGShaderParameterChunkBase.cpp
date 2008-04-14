@@ -138,6 +138,7 @@ ShaderParameterChunkBase::TypeObject ShaderParameterChunkBase::_type(
     "\t\taccess=\"public\"\n"
     "        category=\"childpointer\"\n"
     "        childParentType=\"FieldContainer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "\n"
     "        pushToFieldAs=\"addParameter\"\n"
     "        insertIntoMFieldAs=\"insertParameter\"\n"
@@ -349,23 +350,6 @@ void ShaderParameterChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
-void ShaderParameterChunkBase::subChildPointer(FieldContainerPtr pObj, 
-                                        UInt16            usFieldPos)
-{
-    if(usFieldPos == ParametersFieldId)
-    {
-        ShaderParameterPtr pChild = dynamic_cast<ShaderParameterPtr>(pObj);
-
-        if(pChild != NullFC)
-            subParameter(pChild);
-    }
-    else
-    {
-        Inherited::subChildPointer(pObj, usFieldPos);
-    }
-}
-
-
 
 
 
@@ -373,13 +357,17 @@ void ShaderParameterChunkBase::subChildPointer(FieldContainerPtr pObj,
 
 ShaderParameterChunkBase::ShaderParameterChunkBase(void) :
     Inherited(),
-    _mfParameters             (this, ParametersFieldId)
+    _mfParameters             (this, 
+                          ParametersFieldId,
+                          ShaderParameter::ParentsFieldId)
 {
 }
 
 ShaderParameterChunkBase::ShaderParameterChunkBase(const ShaderParameterChunkBase &source) :
     Inherited(source),
-    _mfParameters             (this, ParametersFieldId)
+    _mfParameters             (this, 
+                          ParametersFieldId,
+                          ShaderParameter::ParentsFieldId)
 {
 }
 
@@ -388,6 +376,45 @@ ShaderParameterChunkBase::ShaderParameterChunkBase(const ShaderParameterChunkBas
 
 ShaderParameterChunkBase::~ShaderParameterChunkBase(void)
 {
+}
+
+/*-------------------------------------------------------------------------*/
+/* Child linking                                                           */
+
+bool ShaderParameterChunkBase::unlinkChild(
+    const FieldContainerPtr pChild,
+    const UInt16            childFieldId)
+{
+    if(childFieldId == ParametersFieldId)
+    {
+        ShaderParameterPtr pTypedChild =
+            dynamic_cast<ShaderParameterPtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            MFUnrecFieldContainerChildShaderParameterPtr::iterator pI =
+                _mfParameters.find_nc(pTypedChild);
+                
+            if(pI != _mfParameters.end())
+            {
+                editMField(ParametersFieldMask, _mfParameters);
+
+                _mfParameters.erase(pI);
+                
+                return true;
+            }
+            
+            FWARNING(("ShaderParameterChunkBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    
+    return Inherited::unlinkChild(pChild, childFieldId);
 }
 
 void ShaderParameterChunkBase::onCreate(const ShaderParameterChunk *source)

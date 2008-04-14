@@ -671,6 +671,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\taccess=\"public\"\n"
     "        category=\"childpointer\"\n"
     "        childParentType=\"FieldContainer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "\t>\n"
     "\tThe texture image.\n"
     "\t</Field>\n"
@@ -1881,25 +1882,6 @@ void TextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
-void TextureObjChunkBase::subChildPointer(FieldContainerPtr pObj, 
-                                        UInt16            usFieldPos)
-{
-    if(usFieldPos == ImageFieldId)
-    {
-        if(_sfImage.getValue() == pObj)
-        {
-            editSField(ImageFieldMask);
-
-            _sfImage.setValue(NullFC);
-        }
-    }
-    else
-    {
-        Inherited::subChildPointer(pObj, usFieldPos);
-    }
-}
-
-
 //! create a new instance of the class
 TextureObjChunkTransitPtr TextureObjChunkBase::create(void)
 {
@@ -1991,7 +1973,9 @@ FieldContainerTransitPtr TextureObjChunkBase::shallowCopyLocal(
 
 TextureObjChunkBase::TextureObjChunkBase(void) :
     Inherited(),
-    _sfImage                  (this, ImageFieldId),
+    _sfImage                  (this, 
+                          ImageFieldId,
+                          Image::ParentsFieldId),
     _sfInternalFormat         (GLenum(GL_NONE)),
     _sfExternalFormat         (GLenum(GL_NONE)),
     _sfScale                  (bool(true)),
@@ -2023,7 +2007,9 @@ TextureObjChunkBase::TextureObjChunkBase(void) :
 
 TextureObjChunkBase::TextureObjChunkBase(const TextureObjChunkBase &source) :
     Inherited(source),
-    _sfImage                  (this, ImageFieldId),
+    _sfImage                  (this, 
+                          ImageFieldId,
+                          Image::ParentsFieldId),
     _sfInternalFormat         (source._sfInternalFormat         ),
     _sfExternalFormat         (source._sfExternalFormat         ),
     _sfScale                  (source._sfScale                  ),
@@ -2058,6 +2044,42 @@ TextureObjChunkBase::TextureObjChunkBase(const TextureObjChunkBase &source) :
 
 TextureObjChunkBase::~TextureObjChunkBase(void)
 {
+}
+
+/*-------------------------------------------------------------------------*/
+/* Child linking                                                           */
+
+bool TextureObjChunkBase::unlinkChild(
+    const FieldContainerPtr pChild,
+    const UInt16            childFieldId)
+{
+    if(childFieldId == ImageFieldId)
+    {
+        ImagePtr pTypedChild =
+            dynamic_cast<ImagePtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            if(pTypedChild == getImage())
+            {
+                editSField(ImageFieldMask);
+
+                _sfImage.setValue(NullFC);
+                
+                return true;
+            }
+            
+            FWARNING(("TextureObjChunkBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    
+    return Inherited::unlinkChild(pChild, childFieldId);
 }
 
 void TextureObjChunkBase::onCreate(const TextureObjChunk *source)

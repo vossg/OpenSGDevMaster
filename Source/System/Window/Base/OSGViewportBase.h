@@ -375,6 +375,17 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Parent linking                                               */
+    /*! \{                                                                 */
+
+    virtual bool linkParent  (const FieldContainerPtr pParent,
+                              const UInt16            childFieldId,
+                              const UInt16            parentFieldId);
+    virtual bool unlinkParent(const FieldContainerPtr pParent,
+                              const UInt16            parentFieldId);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 

@@ -297,6 +297,7 @@ WindowBase::TypeObject WindowBase::_type(
     "        removeFromMFieldObjectAs=\"subPort\"\n"
     "        clearFieldAs=\"clearPorts\"        \n"
     "        checkNilPtr=\"true\"\n"
+    "        linkParentField=\"Parent\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -777,23 +778,6 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
-void WindowBase::subChildPointer(FieldContainerPtr pObj, 
-                                        UInt16            usFieldPos)
-{
-    if(usFieldPos == PortFieldId)
-    {
-        ViewportPtr pChild = dynamic_cast<ViewportPtr>(pObj);
-
-        if(pChild != NullFC)
-            subPort(pChild);
-    }
-    else
-    {
-        Inherited::subChildPointer(pObj, usFieldPos);
-    }
-}
-
-
 
 
 
@@ -803,7 +787,9 @@ WindowBase::WindowBase(void) :
     Inherited(),
     _sfWidth                  (),
     _sfHeight                 (),
-    _mfPort                   (this, PortFieldId),
+    _mfPort                   (this, 
+                          PortFieldId,
+                          Viewport::ParentFieldId),
     _sfResizePending          (),
     _sfGlObjectEventCounter   (UInt32(1)),
     _mfGlObjectLastRefresh    (),
@@ -816,7 +802,9 @@ WindowBase::WindowBase(const WindowBase &source) :
     Inherited(source),
     _sfWidth                  (source._sfWidth                  ),
     _sfHeight                 (source._sfHeight                 ),
-    _mfPort                   (this, PortFieldId),
+    _mfPort                   (this, 
+                          PortFieldId,
+                          Viewport::ParentFieldId),
     _sfResizePending          (source._sfResizePending          ),
     _sfGlObjectEventCounter   (source._sfGlObjectEventCounter   ),
     _mfGlObjectLastRefresh    (source._mfGlObjectLastRefresh    ),
@@ -830,6 +818,45 @@ WindowBase::WindowBase(const WindowBase &source) :
 
 WindowBase::~WindowBase(void)
 {
+}
+
+/*-------------------------------------------------------------------------*/
+/* Child linking                                                           */
+
+bool WindowBase::unlinkChild(
+    const FieldContainerPtr pChild,
+    const UInt16            childFieldId)
+{
+    if(childFieldId == PortFieldId)
+    {
+        ViewportPtr pTypedChild =
+            dynamic_cast<ViewportPtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            MFUnrecFieldContainerChildViewportPtr::iterator pI =
+                _mfPort.find_nc(pTypedChild);
+                
+            if(pI != _mfPort.end())
+            {
+                editMField(PortFieldMask, _mfPort);
+
+                _mfPort.erase(pI);
+                
+                return true;
+            }
+            
+            FWARNING(("WindowBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    
+    return Inherited::unlinkChild(pChild, childFieldId);
 }
 
 void WindowBase::onCreate(const Window *source)

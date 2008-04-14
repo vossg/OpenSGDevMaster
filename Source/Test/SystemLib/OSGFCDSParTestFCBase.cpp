@@ -313,6 +313,77 @@ FCDSParTestFCBase::FCDSParTestFCBase(const FCDSParTestFCBase &source) :
 FCDSParTestFCBase::~FCDSParTestFCBase(void)
 {
 }
+/*-------------------------------------------------------------------------*/
+/* Parent linking                                                          */
+
+bool FCDSParTestFCBase::linkParent(
+    const FieldContainerPtr pParent,
+    const UInt16            childFieldId,
+    const UInt16            parentFieldId )
+{
+    if(parentFieldId == ParentFieldId)
+    {
+        FieldContainerPtr pTypedParent =
+            dynamic_cast< FieldContainerPtr >(pParent);
+        
+        if(pTypedParent != NullFC)
+        {
+            FieldContainerPtr pOldParent =
+                _sfParent.getValue         ();
+
+            UInt16 oldChildFieldId =
+                _sfParent.getParentFieldPos();
+            
+            if(pOldParent != NullFC)
+            {
+                pOldParent->unlinkChild(this, oldChildFieldId);
+            }
+            
+            editSField(ParentFieldMask);
+
+            _sfParent.setValue(pParent, childFieldId);
+            
+            return true;
+        }
+    
+        return false;
+    }
+    
+    return Inherited::linkParent(pParent, childFieldId, parentFieldId);
+}
+
+bool FCDSParTestFCBase::unlinkParent(
+    const FieldContainerPtr pParent,
+    const UInt16            parentFieldId)
+{
+    if(parentFieldId == ParentFieldId)
+    {
+        FieldContainerPtr pTypedParent =
+            dynamic_cast< FieldContainerPtr >(pParent);
+            
+        if(pTypedParent != NullFC)
+        {
+            if(_sfParent.getValue() == pParent)
+            {
+                editSField(ParentFieldMask);
+
+                _sfParent.setValue(NullFC, 0xFFFF);
+                
+                return true;
+            }
+            
+            FWARNING(("FCDSParTestFCBase::unlinkParent: "
+                      "Child <-> Parent link inconsistent.\n"));
+            
+            return false;
+        }
+
+        return false;
+    }
+    
+    return Inherited::unlinkParent(pParent, parentFieldId);
+}
+
 
 void FCDSParTestFCBase::onCreate(const FCDSParTestFC *source)
 {

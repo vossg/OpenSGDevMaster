@@ -735,48 +735,6 @@ void GeometryBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
-void GeometryBase::subChildPointer(FieldContainerPtr pObj, 
-                                        UInt16            usFieldPos)
-{
-    if(usFieldPos == TypesFieldId)
-    {
-        if(_sfTypes.getValue() == pObj)
-        {
-            editSField(TypesFieldMask);
-
-            _sfTypes.setValue(NullFC);
-        }
-    }
-    else if(usFieldPos == LengthsFieldId)
-    {
-        if(_sfLengths.getValue() == pObj)
-        {
-            editSField(LengthsFieldMask);
-
-            _sfLengths.setValue(NullFC);
-        }
-    }
-    else if(usFieldPos == PropertiesFieldId)
-    {
-        GeoVectorPropertyPtr pChild = dynamic_cast<GeoVectorPropertyPtr>(pObj);
-
-        if(pChild != NullFC)
-            removeFromProperties(pChild);
-    }
-    else if(usFieldPos == PropIndicesFieldId)
-    {
-        GeoIntegralPropertyPtr pChild = dynamic_cast<GeoIntegralPropertyPtr>(pObj);
-
-        if(pChild != NullFC)
-            removeFromPropIndices(pChild);
-    }
-    else
-    {
-        Inherited::subChildPointer(pObj, usFieldPos);
-    }
-}
-
-
 //! create a new instance of the class
 GeometryTransitPtr GeometryBase::create(void)
 {
@@ -868,10 +826,18 @@ FieldContainerTransitPtr GeometryBase::shallowCopyLocal(
 
 GeometryBase::GeometryBase(void) :
     Inherited(),
-    _sfTypes                  (this, TypesFieldId),
-    _sfLengths                (this, LengthsFieldId),
-    _mfProperties             (this, PropertiesFieldId),
-    _mfPropIndices            (this, PropIndicesFieldId),
+    _sfTypes                  (this, 
+                          TypesFieldId,
+                          GeoIntegralProperty::XXFieldId),
+    _sfLengths                (this, 
+                          LengthsFieldId,
+                          GeoIntegralProperty::XXFieldId),
+    _mfProperties             (this, 
+                          PropertiesFieldId,
+                          GeoVectorProperty::XXFieldId),
+    _mfPropIndices            (this, 
+                          PropIndicesFieldId,
+                          GeoIntegralProperty::XXFieldId),
     _sfClassicGLId            (Int32(0)),
     _sfAttGLId                (Int32(0))
 {
@@ -879,10 +845,18 @@ GeometryBase::GeometryBase(void) :
 
 GeometryBase::GeometryBase(const GeometryBase &source) :
     Inherited(source),
-    _sfTypes                  (this, TypesFieldId),
-    _sfLengths                (this, LengthsFieldId),
-    _mfProperties             (this, PropertiesFieldId),
-    _mfPropIndices            (this, PropIndicesFieldId),
+    _sfTypes                  (this, 
+                          TypesFieldId,
+                          GeoIntegralProperty::XXFieldId),
+    _sfLengths                (this, 
+                          LengthsFieldId,
+                          GeoIntegralProperty::XXFieldId),
+    _mfProperties             (this, 
+                          PropertiesFieldId,
+                          GeoVectorProperty::XXFieldId),
+    _mfPropIndices            (this, 
+                          PropIndicesFieldId,
+                          GeoIntegralProperty::XXFieldId),
     _sfClassicGLId            (source._sfClassicGLId            ),
     _sfAttGLId                (source._sfAttGLId                )
 {
@@ -893,6 +867,123 @@ GeometryBase::GeometryBase(const GeometryBase &source) :
 
 GeometryBase::~GeometryBase(void)
 {
+}
+
+/*-------------------------------------------------------------------------*/
+/* Child linking                                                           */
+
+bool GeometryBase::unlinkChild(
+    const FieldContainerPtr pChild,
+    const UInt16            childFieldId)
+{
+    if(childFieldId == TypesFieldId)
+    {
+        GeoIntegralPropertyPtr pTypedChild =
+            dynamic_cast<GeoIntegralPropertyPtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            if(pTypedChild == getTypes())
+            {
+                editSField(TypesFieldMask);
+
+                _sfTypes.setValue(NullFC);
+                
+                return true;
+            }
+            
+            FWARNING(("GeometryBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    if(childFieldId == LengthsFieldId)
+    {
+        GeoIntegralPropertyPtr pTypedChild =
+            dynamic_cast<GeoIntegralPropertyPtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            if(pTypedChild == getLengths())
+            {
+                editSField(LengthsFieldMask);
+
+                _sfLengths.setValue(NullFC);
+                
+                return true;
+            }
+            
+            FWARNING(("GeometryBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    if(childFieldId == PropertiesFieldId)
+    {
+        GeoVectorPropertyPtr pTypedChild =
+            dynamic_cast<GeoVectorPropertyPtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            MFUnrecFieldContainerChildGeoVectorPropertyPtr::iterator pI =
+                _mfProperties.find_nc(pTypedChild);
+                
+            if(pI != _mfProperties.end())
+            {
+                editMField(PropertiesFieldMask, _mfProperties);
+
+                _mfProperties.erase(pI);
+                
+                return true;
+            }
+            
+            FWARNING(("GeometryBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    if(childFieldId == PropIndicesFieldId)
+    {
+        GeoIntegralPropertyPtr pTypedChild =
+            dynamic_cast<GeoIntegralPropertyPtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            MFUnrecFieldContainerChildGeoIntegralPropertyPtr::iterator pI =
+                _mfPropIndices.find_nc(pTypedChild);
+                
+            if(pI != _mfPropIndices.end())
+            {
+                editMField(PropIndicesFieldMask, _mfPropIndices);
+
+                _mfPropIndices.erase(pI);
+                
+                return true;
+            }
+            
+            FWARNING(("GeometryBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    
+    return Inherited::unlinkChild(pChild, childFieldId);
 }
 
 void GeometryBase::onCreate(const Geometry *source)

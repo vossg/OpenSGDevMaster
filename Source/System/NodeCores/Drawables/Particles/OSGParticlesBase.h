@@ -339,14 +339,6 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    virtual void subChildPointer(FieldContainerPtr pObj, 
-                                 UInt16            usFieldPos);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
     static  ParticlesTransitPtr create          (void);
     static  ParticlesPtr        createEmpty     (void);
 
@@ -414,6 +406,14 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
 
     void onCreate(const Particles *source = NULL);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+    
+    virtual bool unlinkChild(const FieldContainerPtr pChild,
+                             const UInt16            childFieldId);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

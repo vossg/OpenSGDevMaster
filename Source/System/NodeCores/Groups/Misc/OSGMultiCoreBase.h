@@ -177,14 +177,6 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    virtual void subChildPointer(FieldContainerPtr pObj, 
-                                 UInt16            usFieldPos);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
     static  MultiCoreTransitPtr create          (void);
     static  MultiCorePtr        createEmpty     (void);
 
@@ -241,6 +233,14 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
 
     void onCreate(const MultiCore *source = NULL);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+    
+    virtual bool unlinkChild(const FieldContainerPtr pChild,
+                             const UInt16            childFieldId);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

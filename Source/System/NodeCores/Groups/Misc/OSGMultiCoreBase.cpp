@@ -136,6 +136,7 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     "        access=\"public\"\n"
     "        category=\"childpointer\"\n"
     "        childParentType=\"FieldContainer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "\n"
     "        pushToFieldAs=\"addCore\"\n"
     "        assignMFieldAs=\"assignCoresFrom\"\n"
@@ -347,23 +348,6 @@ void MultiCoreBase::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
-void MultiCoreBase::subChildPointer(FieldContainerPtr pObj, 
-                                        UInt16            usFieldPos)
-{
-    if(usFieldPos == CoresFieldId)
-    {
-        NodeCorePtr pChild = dynamic_cast<NodeCorePtr>(pObj);
-
-        if(pChild != NullFC)
-            subCore(pChild);
-    }
-    else
-    {
-        Inherited::subChildPointer(pObj, usFieldPos);
-    }
-}
-
-
 //! create a new instance of the class
 MultiCoreTransitPtr MultiCoreBase::create(void)
 {
@@ -455,13 +439,17 @@ FieldContainerTransitPtr MultiCoreBase::shallowCopyLocal(
 
 MultiCoreBase::MultiCoreBase(void) :
     Inherited(),
-    _mfCores                  (this, CoresFieldId)
+    _mfCores                  (this, 
+                          CoresFieldId,
+                          NodeCore::ParentsFieldId)
 {
 }
 
 MultiCoreBase::MultiCoreBase(const MultiCoreBase &source) :
     Inherited(source),
-    _mfCores                  (this, CoresFieldId)
+    _mfCores                  (this, 
+                          CoresFieldId,
+                          NodeCore::ParentsFieldId)
 {
 }
 
@@ -470,6 +458,45 @@ MultiCoreBase::MultiCoreBase(const MultiCoreBase &source) :
 
 MultiCoreBase::~MultiCoreBase(void)
 {
+}
+
+/*-------------------------------------------------------------------------*/
+/* Child linking                                                           */
+
+bool MultiCoreBase::unlinkChild(
+    const FieldContainerPtr pChild,
+    const UInt16            childFieldId)
+{
+    if(childFieldId == CoresFieldId)
+    {
+        NodeCorePtr pTypedChild =
+            dynamic_cast<NodeCorePtr>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            MFUnrecFieldContainerChildNodeCorePtr::iterator pI =
+                _mfCores.find_nc(pTypedChild);
+                
+            if(pI != _mfCores.end())
+            {
+                editMField(CoresFieldMask, _mfCores);
+
+                _mfCores.erase(pI);
+                
+                return true;
+            }
+            
+            FWARNING(("MultiCoreBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    
+    return Inherited::unlinkChild(pChild, childFieldId);
 }
 
 void MultiCoreBase::onCreate(const MultiCore *source)

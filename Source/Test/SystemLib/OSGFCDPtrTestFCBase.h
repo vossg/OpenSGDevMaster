@@ -371,14 +371,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    virtual void subChildPointer(FieldContainerPtr pObj, 
-                                 UInt16            usFieldPos);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
     static  FCDPtrTestFCTransitPtr create          (void);
     static  FCDPtrTestFCPtr        createEmpty     (void);
 
@@ -458,6 +450,14 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
     void onCreate(const FCDPtrTestFC *source = NULL);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+    
+    virtual bool unlinkChild(const FieldContainerPtr pChild,
+                             const UInt16            childFieldId);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
