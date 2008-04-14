@@ -68,9 +68,11 @@ ChildPointerSField<ObjectTypeT,
                    RefCountPolicy,
                    NamespaceI    >::ChildPointerSField(
                        ParentT pParent,
-                       UInt16  usParentFieldPos) : 
+                       UInt16  usChildFieldId,
+                       UInt16  usParentFieldId) : 
     Inherited(pParent, 
-              usParentFieldPos)
+              usChildFieldId,
+              usParentFieldId)
 {
 }
 
@@ -80,10 +82,12 @@ ChildPointerSField<ObjectTypeT,
                    NamespaceI    >::ChildPointerSField(
                        const_value value,
                        ParentT     pParent,
-                       UInt16      usParentFieldPos) :
+                       UInt16      usChildFieldId,
+                       UInt16      usParentFieldId) :
     Inherited(value,
               pParent,
-              usParentFieldPos)
+              usChildFieldId,
+              usParentFieldId)
 {
 }
 

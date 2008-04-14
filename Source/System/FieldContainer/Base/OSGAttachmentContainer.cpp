@@ -245,7 +245,9 @@ void AttachmentContainer::addAttachment(
 
     pAttachment->addReferenceX();
 
-    pAttachment->addParent(this);
+    pAttachment->linkParent(this, 
+                            AttachmentsFieldId, 
+                            FieldContainerAttachment::ParentsFieldId);
 
     Self::editSField(AttachmentsFieldMask);
 
@@ -253,7 +255,8 @@ void AttachmentContainer::addAttachment(
 
     if(fcI != _sfAttachments.getValue().end())
     {
-        (*fcI).second->subParent(this);
+        (*fcI).second->unlinkParent(this, 
+                                    FieldContainerAttachment::ParentsFieldId);
 
         (*fcI).second->subReferenceX();
 
@@ -295,7 +298,8 @@ void AttachmentContainer::subAttachment(
 
     if(fcI != _sfAttachments.getValue().end())
     {
-        (*fcI).second->subParent(this);
+        (*fcI).second->unlinkParent(this, 
+                                    FieldContainerAttachment::ParentsFieldId);
 
         (*fcI).second->subReferenceX();
 
@@ -354,7 +358,8 @@ void AttachmentContainer::resolveLinks(void)
 
     while(fcI != fcE)
     {
-        (*fcI).second->subParent(this);
+        (*fcI).second->unlinkParent(this, 
+                                    FieldContainerAttachment::ParentsFieldId);
 
         (*fcI).second->subReferenceX();
 

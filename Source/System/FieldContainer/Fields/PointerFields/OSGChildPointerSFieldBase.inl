@@ -14,11 +14,12 @@ template <typename AccessHandlerT, Int32 NamespaceI> inline
 ChildPointerSFieldBase<AccessHandlerT, 
                        NamespaceI>::ChildPointerSFieldBase(
                            const FieldContainerPtr  pParent,
-                                 UInt16             usParentFieldPos) :
-      Inherited       (                ),
-     _pEnclosingObj   (pParent         ),
-     _childFieldId    (0xFFFF          ),
-     _usParentFieldPos(usParentFieldPos)
+                                 UInt16             usChildFieldId,
+                                 UInt16             usParentFieldId) :
+      Inherited      (               ),
+     _pEnclosingObj  (pParent        ),
+     _childFieldId   (usChildFieldId ),
+     _usParentFieldId(usParentFieldId)
 {
 }
 
@@ -27,11 +28,12 @@ ChildPointerSFieldBase<AccessHandlerT,
                        NamespaceI>::ChildPointerSFieldBase(
                                  const_value        value,
                            const FieldContainerPtr  pParent,
-                                 UInt16             usParentFieldPos) : 
-     Inherited       (                ),
-    _pEnclosingObj   (pParent         ),
-    _childFieldId    (0xFFFF          ),
-    _usParentFieldPos(usParentFieldPos)
+                                 UInt16             usChildFieldId,
+                                 UInt16             usParentFieldId) : 
+     Inherited      (               ),
+    _pEnclosingObj  (pParent        ),
+    _childFieldId   (usChildFieldId ),
+    _usParentFieldId(usParentFieldId)
 {
     this->ptrStoreSet(value);
 }
@@ -80,16 +82,16 @@ void ChildPointerSFieldBase<AccessHandlerT,
 
 template <typename AccessHandlerT, Int32 NamespaceI> inline 
 UInt16 ChildPointerSFieldBase<AccessHandlerT, 
-                              NamespaceI    >::getParentFieldPos(void) const
+                              NamespaceI    >::getParentFieldId(void) const
 {
-    return _usParentFieldPos;
+    return _usParentFieldId;
 }
 
 template <typename AccessHandlerT, Int32 NamespaceI> inline 
-void ChildPointerSFieldBase<AccessHandlerT, NamespaceI>::setParentFieldPos(
-    const UInt16 usParentFieldPos)
+void ChildPointerSFieldBase<AccessHandlerT, NamespaceI>::setParentFieldId(
+    const UInt16 usParentFieldId)
 {
-    _usParentFieldPos = usParentFieldPos;
+    _usParentFieldId = usParentFieldId;
 }
 
 OSG_END_NAMESPACE

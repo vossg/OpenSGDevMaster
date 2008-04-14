@@ -30,6 +30,7 @@ See \ref PageSystemParticles for details.
 		access="public"
         category="childpointer"
         childParentType="FieldContainer"
+        linkParentField="Parents"
 	>
         The positions of the particles. This is the primary defining
         information for a particle.
@@ -55,6 +56,7 @@ See \ref PageSystemParticles for details.
 		access="public"
         category="childpointer"
         childParentType="FieldContainer"
+        linkParentField="Parents"
 	>
         The secondary position of the particle. This information is only used
         by a few rendering modes, e.g. the streak mode. Usually it represents
@@ -68,6 +70,7 @@ See \ref PageSystemParticles for details.
 		access="public"
         category="childpointer"
         childParentType="FieldContainer"
+        linkParentField="Parents"
 	>
 	The particle colors (optional).
 	</Field>
@@ -79,6 +82,7 @@ See \ref PageSystemParticles for details.
 		access="public"
         category="childpointer"
         childParentType="FieldContainer"
+        linkParentField="Parents"
 	>
         Most particles will be automatically aligned to the view
         direction. If normals are set they will be used to define the

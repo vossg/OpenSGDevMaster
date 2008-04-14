@@ -48,6 +48,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class AttachmentContainer;
+
 //! Brief
 //! \ingroup baselib
 
@@ -115,12 +117,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
     /*! \{                                                                 */
-
-    void addParent(      FieldContainerPtrConst parent, 
-                   const UInt16                 uiStoredInFieldId = 
-                                                            InvalidParentEPos);
-
-    void subParent(FieldContainerPtrConst       parent                       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -202,6 +198,18 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
+
+    virtual bool linkParent  (const FieldContainerPtr pParent,
+                              const UInt16            childFieldId,
+                              const UInt16            parentFieldId);
+
+    virtual bool unlinkParent(const FieldContainerPtr pParent,
+                              const UInt16            parentFieldId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
@@ -242,6 +250,8 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    friend class AttachmentContainer;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const FieldContainerAttachment &source);

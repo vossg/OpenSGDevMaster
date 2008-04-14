@@ -117,10 +117,23 @@ void FieldContainer::invalidateVolume(void)
 {
 }
 
-void FieldContainer::subChildPointer(FieldContainerPtr pObj,
-                                     UInt16            usFieldPos)
+bool FieldContainer::linkParent(const FieldContainerPtr pParent,
+                                const UInt16            childFieldId,
+                                const UInt16            parentFieldId) 
 {
-    OSG_ASSERT(false);
+    return false;
+}
+
+bool FieldContainer::unlinkParent(const FieldContainerPtr pParent,
+                                  const UInt16            parentFieldId) 
+{
+    return false;
+}
+            
+bool FieldContainer::unlinkChild(const FieldContainerPtr pChild,
+                                 const UInt16            childFieldId) 
+{
+    return false;
 }
 
 void FieldContainer::registerChangedContainer(void)

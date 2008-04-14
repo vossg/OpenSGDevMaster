@@ -215,9 +215,6 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
-    virtual void subChildPointer(FieldContainerPtr pObj, 
-                                 UInt16            usFieldPos);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -337,7 +334,21 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    void setParent(const NodePtr &parent, UInt16 usFieldPos);
+    virtual bool linkParent  (const FieldContainerPtr pParent,
+                              const UInt16            childFieldId,
+                              const UInt16            parentFieldId);
+
+    virtual bool unlinkParent(const FieldContainerPtr pParent,
+                              const UInt16            parentFieldId);
+            
+    virtual bool unlinkChild (const FieldContainerPtr pChild,
+                              const UInt16            childFieldId ); 
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Changed                                 */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

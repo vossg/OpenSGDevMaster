@@ -3982,35 +3982,3 @@ bool Image::operator !=(const Image &image)
     return !(*this == image);
 }
 
-void Image::addParent(      FieldContainerPtrConst &parent,
-                      const UInt16                  uiStoredInFieldId)
-{
-    editMField(ParentsFieldMask, _mfParents);
-
-/*
-    _mfParents.push_back(parent);
-    _mfParents.back().setParentFieldPos(uiStoredInFieldId);
- */
-
-    _mfParents.push_back(parent, uiStoredInFieldId);
-}
-
-void Image::subParent(FieldContainerPtrConst &parent)
-{
-    Int32 iParentIdx = _mfParents.findIndex(parent);
-
-    if(iParentIdx != -1)
-    {
-        editMField(ParentsFieldMask, _mfParents);
-
-/*
-        MFParentFieldContainerPtr::iterator parentIt = _mfParents.begin();
-
-        parentIt += iParentIdx;
-
-        _mfParents.erase(parentIt);
- */
-
-        _mfParents.erase(iParentIdx);
-    }
-}

@@ -15,11 +15,12 @@ template <typename AccessHandlerT, Int32 NamespaceI> inline
 ChildPointerMFieldBase<AccessHandlerT, 
                        NamespaceI    >::ChildPointerMFieldBase(
                            const FieldContainerPtr  pParent,
-                                 UInt16             usParentFieldPos) : 
-     Inherited    (                ),
-    _pEnclosingObj(pParent         ),
-    _childFieldId (0xFFFF          ),
-    _parentFieldId(usParentFieldPos)
+                                 UInt16             usChildFieldId,
+                                 UInt16             usParentFieldId) : 
+     Inherited    (               ),
+    _pEnclosingObj(pParent        ),
+    _childFieldId (usChildFieldId ),
+    _parentFieldId(usParentFieldId)
 {
 }
 
@@ -69,7 +70,7 @@ void ChildPointerMFieldBase<AccessHandlerT,
 
 template <typename AccessHandlerT, Int32 NamespaceI> inline 
 UInt16 ChildPointerMFieldBase<AccessHandlerT, 
-                              NamespaceI    >::getParentFieldPos(void) const
+                              NamespaceI    >::getParentFieldId(void) const
 {
     return _parentFieldId;
 }

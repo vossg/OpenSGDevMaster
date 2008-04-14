@@ -384,12 +384,6 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    void addParent(
-              FieldContainerPtrConst &parent, 
-        const UInt16                  uiStoredInFieldId = InvalidParentEPos);
-
-    void subParent(FieldContainerPtrConst &parent);
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

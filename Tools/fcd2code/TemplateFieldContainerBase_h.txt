@@ -322,16 +322,6 @@ class @!Classname!@Base : public @!Parent!@
 
 
     /*! \}                                                                 */
-@@if hasChildFields
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
-    virtual void subChildPointer(FieldContainerPtr pObj, 
-                                 UInt16            usFieldPos);
-
-    /*! \}                                                                 */
-@@endif // !isAbstract
 @@if !isAbstract
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
@@ -407,6 +397,29 @@ class @!Classname!@Base : public @!Parent!@
 @@endif // hasPtrFields
 
     /*! \}                                                                 */
+@@if hasParentFields
+    /*---------------------------------------------------------------------*/
+    /*! \name Parent linking                                               */
+    /*! \{                                                                 */
+
+    virtual bool linkParent  (const FieldContainerPtr pParent,
+                              const UInt16            childFieldId,
+                              const UInt16            parentFieldId);
+    virtual bool unlinkParent(const FieldContainerPtr pParent,
+                              const UInt16            parentFieldId);
+    
+    /*! \}                                                                 */
+@@endif // @!hasParentPtrFields!@
+@@if hasChildFields
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+    
+    virtual bool unlinkChild(const FieldContainerPtr pChild,
+                             const UInt16            childFieldId);
+    
+    /*! \}                                                                 */
+@@endif // @!hasChildPtrFields!@
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */

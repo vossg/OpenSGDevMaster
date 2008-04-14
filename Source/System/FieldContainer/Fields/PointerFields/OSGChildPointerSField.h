@@ -117,11 +117,13 @@ class ChildPointerSField :
     /*! \{                                                                 */
 
     ChildPointerSField(ParentT     pParent,
-                       UInt16      usParentFieldPos); 
+                       UInt16      usChildFieldId,
+                       UInt16      usParentFieldId); 
 
     ChildPointerSField(const_value value,
                        ParentT     pParent,
-                       UInt16      usParentFieldPos); 
+                       UInt16      usChildFieldId,
+                       UInt16      usParentFieldId); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

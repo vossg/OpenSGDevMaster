@@ -506,8 +506,9 @@ class ChildPointerMField :
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
 
-    ChildPointerMField(FieldContainerPtr pParent,
-                       UInt16            usParentFieldPos);
+    ChildPointerMField(const FieldContainerPtr pParent,
+                             UInt16            usChildFieldId,
+                             UInt16            usParentFieldId);
     
 
     /*! \}                                                                 */
@@ -551,9 +552,9 @@ class ChildPointerMField :
 #ifndef OSG_CLEAN_FCFIELDS
     reference front_nc(void             );
     reference back_nc (void             );
+#endif
 
     iterator  find_nc (const_value value);
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

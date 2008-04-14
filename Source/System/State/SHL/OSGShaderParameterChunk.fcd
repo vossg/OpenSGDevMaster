@@ -19,6 +19,7 @@
 		access="public"
         category="childpointer"
         childParentType="FieldContainer"
+        linkParentField="Parents"
 
         pushToFieldAs="addParameter"
         insertIntoMFieldAs="insertParameter"

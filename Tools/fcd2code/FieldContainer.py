@@ -159,6 +159,7 @@ class FieldContainer(FCDElement):
         self["hasPublicFields"]    = False;
         self["hasPtrFields"]       = False;
         self["hasChildFields"]     = False;
+        self["hasParentFields"]    = False;
 
         self["Fields"]  = [];
         self["SFields"] = [];
@@ -211,6 +212,9 @@ class FieldContainer(FCDElement):
                     field["isFirstChildField"] = False
 
                 self["hasChildFields"] = True
+
+            if field["category"] == "pointer" and field["pointertype"] == "parent":
+                self["hasParentFields"] = True;
 
             if field.isSField():
                 self["SFields"].append(field);

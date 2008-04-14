@@ -49,11 +49,13 @@ class ChildPointerSFieldBase
     /*! \{                                                                 */
     
     ChildPointerSFieldBase(const FieldContainerPtr  pParent,
-                                 UInt16             usParentFieldPos);
+                                 UInt16             usChildFieldId,
+                                 UInt16             usParentFieldId);
 
     ChildPointerSFieldBase(      const_value        value,
                            const FieldContainerPtr  pParent,
-                                 UInt16             usParentFieldPos);
+                                 UInt16             usChildFieldId,
+                                 UInt16             usParentFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -73,8 +75,8 @@ class ChildPointerSFieldBase
     UInt16            getChildFieldId   (      void                   ) const;
     void              setChildFieldId   (const UInt16 childFieldId    );
     
-    UInt16            getParentFieldPos (      void                   ) const;
-    void              setParentFieldPos (const UInt16 usParentFieldPos);
+    UInt16            getParentFieldId  (      void                   ) const;
+    void              setParentFieldId  (const UInt16 usParentFieldId );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -83,7 +85,7 @@ class ChildPointerSFieldBase
   
     FieldContainerPtr _pEnclosingObj;
     UInt16            _childFieldId;
-    UInt16            _usParentFieldPos;
+    UInt16            _usParentFieldId;
   
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

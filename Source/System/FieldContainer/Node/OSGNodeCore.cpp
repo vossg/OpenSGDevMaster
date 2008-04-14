@@ -289,6 +289,65 @@ GetFieldHandlePtr NodeCore::getHandleParents(void) const
     return returnValue;
 }
 
+bool NodeCore::linkParent(const FieldContainerPtr pParent,
+                          const UInt16            childFieldId,
+                          const UInt16            parentFieldId)
+{
+    if(parentFieldId == ParentsFieldId)
+    {       
+        FieldContainerPtr pTypedParent = 
+            dynamic_cast< FieldContainerPtr >(pParent);
+        
+        if(pTypedParent != NullFC)
+        {
+            editMField(ParentsFieldMask, _mfParents);
+            
+            _mfParents.push_back(pParent, childFieldId);
+            
+            return true;
+        }
+            
+        return false;
+    }
+    
+    return Inherited::linkParent(pParent, childFieldId, parentFieldId);
+}
+
+bool NodeCore::unlinkParent(const FieldContainerPtr pParent,
+                            const UInt16            parentFieldId)
+{
+    if(parentFieldId == ParentsFieldId)
+    {               
+        FieldContainerPtr pTypedParent = 
+            dynamic_cast< FieldContainerPtr >(pParent);
+        
+        if(pTypedParent != NullFC)
+        {
+            MFParentFieldContainerPtr::iterator pIt = 
+                _mfParents.find_nc(pParent);
+                
+            if(pIt != _mfParents.end())
+            {
+                editMField(ParentsFieldMask, _mfParents);
+            
+                _mfParents.erase(pIt);
+
+                return true;
+            }
+            
+            FWARNING(("NodeCore::unlinkParent: Child <-> Parent link "
+                      "inconsistent.\n"));
+                
+            return false;            
+        }
+        
+        return false;
+    }
+    
+    return Inherited::unlinkParent(pParent, parentFieldId);
+}
+
+
 #ifdef OSG_WINCE
 ActionBase::ResultE NodeCore::defaultEnter(Action *)
 {

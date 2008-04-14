@@ -199,6 +199,9 @@ class ParentMFieldIterator : protected StorageTypeT::PtrStoreItType
     template <class ST>
     friend class ParentMFieldConstIterator;
 
+    template <class OT, typename RC, Int32 NI>
+    friend class ParentPointerMField;
+
     /*==========================  PUBLIC  =================================*/
 
   public:
@@ -345,6 +348,7 @@ class ParentPointerMField :
     typedef typename Inherited::difference_type         difference_type;
 
     typedef typename Inherited::PtrStoreItType          PtrStoreItType;
+    typedef typename Inherited::PtrStoreConstItType     PtrStoreConstItType;
 
     typedef          ParentMFieldConstIterator<Self   > const_iterator;
     typedef          std::reverse_iterator    <
@@ -470,6 +474,7 @@ class ParentPointerMField :
 #ifndef OSG_CLEAN_FCFIELDS
     iterator               find     (const_value value          );
 #endif
+    iterator               find_nc  (const_value value          );
 
     const_iterator         find     (const_value value          ) const;
 

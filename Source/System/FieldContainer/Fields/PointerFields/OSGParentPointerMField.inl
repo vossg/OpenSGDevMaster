@@ -240,6 +240,19 @@ UInt16 ParentMFieldConstIterator<StorageTypeT>::getParentFieldPos(void) const
     return *_posIt;
 }
 
+template <class StorageTypeT> inline 
+const typename ParentMFieldConstIterator<StorageTypeT>::Inherited &
+    ParentMFieldConstIterator<StorageTypeT>::ptrBase(void) const
+{
+    return *this;
+}
+
+template <class StorageTypeT> inline 
+const typename ParentMFieldConstIterator<StorageTypeT>::PosStorageIt &
+    ParentMFieldConstIterator<StorageTypeT>::idBase (void) const
+{
+    return *this;
+}
 
 /*-------------------------------------------------------------------------*/
 /* Base                                                                    */
@@ -448,6 +461,19 @@ UInt16 ParentMFieldIterator<StorageTypeT>::getParentFieldPos(void) const
     return *_posIt;
 }
 
+template <class StorageTypeT> inline 
+const typename ParentMFieldIterator<StorageTypeT>::Inherited &
+    ParentMFieldIterator<StorageTypeT>::ptrBase(void) const
+{
+    return *this;
+}
+
+template <class StorageTypeT> inline 
+const typename ParentMFieldIterator<StorageTypeT>::PosStorageIt &
+    ParentMFieldIterator<StorageTypeT>::idBase (void) const
+{
+    return _posIt;
+}
 
 /*-------------------------------------------------------------------------*/
 /* Base                                                                    */
@@ -792,9 +818,32 @@ typename ParentPointerMField<ObjectTypeT,
                         RefCountPolicy,
                         NamespaceI    >::find(const_value value)
 {
-    return iterator(this->ptrStoreFind(value));
+    IdStoreItType  posIt = _vParentPos.begin();
+
+    PtrStoreItType ptrIt = this->ptrStoreFind(value);
+
+    posIt += (ptrIt - this->_ptrStore.begin());
+
+    return iterator(ptrIt, posIt);
 }
 #endif
+
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ParentPointerMField<ObjectTypeT,
+                             RefCountPolicy,
+                             NamespaceI    >::iterator
+    ParentPointerMField<ObjectTypeT,
+                        RefCountPolicy,
+                        NamespaceI    >::find_nc(const_value value)
+{
+    IdStoreItType  posIt = _vParentPos.begin();
+
+    PtrStoreItType ptrIt = this->ptrStoreFind(value);
+
+    posIt += (ptrIt - this->_ptrStore.begin());
+
+    return iterator(ptrIt, posIt);
+}
 
 template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ParentPointerMField<ObjectTypeT,
@@ -804,7 +853,13 @@ typename ParentPointerMField<ObjectTypeT,
                         RefCountPolicy,
                         NamespaceI    >::find(const_value value) const
 {
-    return const_iterator(this->ptrStoreFind(value));
+    IdStoreConstItType  posIt = _vParentPos.begin();
+
+    PtrStoreConstItType ptrIt = this->ptrStoreFind(value);
+
+    posIt += (ptrIt - this->_ptrStore.begin());
+
+    return const_iterator(ptrIt, posIt);
 }
 
 template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 

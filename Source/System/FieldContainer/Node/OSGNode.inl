@@ -170,14 +170,6 @@ DynamicVolume &Node::getVolume(bool update)
 }
 #endif
 
-inline
-void Node::setParent(NodePtrConst &parent, UInt16)
-{
-    editSField(ParentFieldMask);
-
-    _sfParent.setValue(parent);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

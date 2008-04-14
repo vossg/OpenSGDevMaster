@@ -673,44 +673,6 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
     @@EndFieldLoop@@
 @@endif // isDecorator
 }
-@@if hasChildFields
-
-void @!Classname!@Base::subChildPointer(FieldContainerPtr pObj, 
-                                        UInt16            usFieldPos)
-{
-    @@BeginFieldLoop@@
-        @@if !field.noAccess
-        @@if field.isChildField
-            @@if field.isFirstChildField
-    if(usFieldPos == @!field.Name!@FieldId)
-            @@else
-    else if(usFieldPos == @!field.Name!@FieldId)
-            @@endif
-    {
-            @@if field.isSField
-        if(_@!field.VarName!@.getValue() == pObj)
-        {
-            editSField(@!field.Name!@FieldMask);
-
-            _@!field.VarName!@.setValue(NullFC);
-        }
-            @@else
-        @!field.Type!@ pChild = dynamic_cast<@!field.Type!@>(pObj);
-
-        if(pChild != NullFC)
-            @!field.RemoveFromMFieldObject!@(pChild);
-            @@endif
-    }
-        @@endif
-        @@endif // !noAccess
-    @@EndFieldLoop@@
-    else
-    {
-        Inherited::subChildPointer(pObj, usFieldPos);
-    }
-}
-
-@@endif // !isAbstract
 
 @@if !isAbstract
 //! create a new instance of the class
@@ -815,7 +777,9 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopyLocal(
     @@else // isDecorator
         @@BeginFieldLoop@@
             @@if field.isChildField
-    _@!field.VarName:25!@(this, @!field.Name!@FieldId)@!field.Separator!@
+    _@!field.VarName:25!@(this, 
+                          @!field.Name!@FieldId,
+                          @!field.TypeRaw!@::@!field.linkParentField!@FieldId)@!field.Separator!@
             @@else
     _@!field.VarName:25!@(@!field.TypedDefault!@)@!field.Separator!@
             @@endif
@@ -836,7 +800,9 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopyLocal(
         @@BeginFieldLoop@@
             @@if field.isPtrField
                 @@if field.isChildField
-    _@!field.VarName:25!@(this, @!field.Name!@FieldId)@!field.Separator!@
+    _@!field.VarName:25!@(this, 
+                          @!field.Name!@FieldId,
+                          @!field.TypeRaw!@::@!field.linkParentField!@FieldId)@!field.Separator!@
                 @@else
                     @@if field.isSField
     _@!field.VarName:25!@(NullFC)@!field.Separator!@
@@ -859,7 +825,167 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopyLocal(
 @!Classname!@Base::~@!Classname!@Base(void)
 {
 }
+@@if hasParentFields
+/*-------------------------------------------------------------------------*/
+/* Parent linking                                                          */
 
+bool @!Classname!@Base::linkParent(
+    const FieldContainerPtr pParent,
+    const UInt16            childFieldId,
+    const UInt16            parentFieldId )
+{
+    @@BeginFieldLoop@@
+        @@if field.isParentField
+    if(parentFieldId == @!field.Name!@FieldId)
+    {
+        @!field.FieldTypeRaw!@ pTypedParent =
+            dynamic_cast< @!field.FieldTypeRaw!@ >(pParent);
+        
+        if(pTypedParent != NullFC)
+        {
+            @@if field.isSField
+            @!field.TypeNS!@@!field.FieldTypeRaw!@ pOldParent =
+                _@!field.VarName!@.getValue         ();
+
+            UInt16 oldChildFieldId =
+                _@!field.VarName!@.getParentFieldPos();
+            
+            if(pOldParent != NullFC)
+            {
+                pOldParent->unlinkChild(this, oldChildFieldId);
+            }
+            
+            editSField(@!field.Name!@FieldMask);
+
+            _@!field.VarName!@.setValue(pParent, childFieldId);
+            @@endif // @!field.cardinality!@ == "single"
+            @@if field.isMField
+            editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
+
+            _@!field.VarName!@.push_back(pParent, childFieldId);
+            @@endif // @!field.cardinality!@ == "multi"
+            
+            return true;
+        }
+    
+        return false;
+    }
+    
+        @@endif // @!field.category!@ == "pointer" and @!field.pointertype!@ == "parent"
+    @@EndFieldLoop@@
+    return Inherited::linkParent(pParent, childFieldId, parentFieldId);
+}
+
+bool @!Classname!@Base::unlinkParent(
+    const FieldContainerPtr pParent,
+    const UInt16            parentFieldId)
+{
+    @@BeginFieldLoop@@
+        @@if field.isParentField
+    if(parentFieldId == @!field.Name!@FieldId)
+    {
+        @!field.TypeNS!@@!field.FieldTypeRaw!@ pTypedParent =
+            dynamic_cast< @!field.FieldTypeNS!@@!field.FieldTypeRaw!@ >(pParent);
+            
+        if(pTypedParent != NullFC)
+        {
+            @@if field.isSField
+            if(_@!field.VarName!@.getValue() == pParent)
+            {
+                editSField(@!field.Name!@FieldMask);
+
+                _@!field.VarName!@.setValue(NullFC, 0xFFFF);
+                
+                return true;
+            }
+            @@endif // @!field.cardinality!@ == "single"
+            @@if field.isMField
+            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@::iterator pI = 
+                _@!field.VarName!@.find_nc(pParent);
+                
+            if(pI != _@!field.VarName!@.end())
+            {
+                editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
+                
+                _@!field.VarName!@.erase(pI);
+                
+                return true;
+            }
+            @@endif // @!field.cardinality!@ == "multi"
+            
+            FWARNING(("@!Classname!@Base::unlinkParent: "
+                      "Child <-> Parent link inconsistent.\n"));
+            
+            return false;
+        }
+
+        return false;
+    }
+    
+        @@endif // @!field.category!@ == "pointer" and @!field.pointertype!@ == "parent"
+    @@EndFieldLoop@@
+    return Inherited::unlinkParent(pParent, parentFieldId);
+}
+
+@@endif // @!hasParentFields!@
+
+@@if hasChildFields
+/*-------------------------------------------------------------------------*/
+/* Child linking                                                           */
+
+bool @!Classname!@Base::unlinkChild(
+    const FieldContainerPtr pChild,
+    const UInt16            childFieldId)
+{
+    @@BeginFieldLoop@@
+        @@if field.isChildField
+    if(childFieldId == @!field.Name!@FieldId)
+    {
+        @!field.TypeNS!@@!field.Type!@ pTypedChild =
+            dynamic_cast<@!field.TypeNS!@@!field.Type!@>(pChild);
+            
+        if(pTypedChild != NullFC)
+        {
+            @@if field.isSField
+            if(pTypedChild == get@!field.Name!@())
+            {
+                editSField(@!field.Name!@FieldMask);
+
+                _@!field.VarName!@.setValue(NullFC);
+                
+                return true;
+            }
+            @@endif // @!field.cardinality!@ == "single"
+            @@if field.isMField
+            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldType!@::iterator pI =
+                _@!field.VarName!@.find_nc(pTypedChild);
+                
+            if(pI != _@!field.VarName!@.end())
+            {
+                editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
+
+                _@!field.VarName!@.erase(pI);
+                
+                return true;
+            }
+            @@endif // @!field.cardinality!@ == "multi"
+            
+            FWARNING(("@!Classname!@Base::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+        @@endif // @!field.category!@ == "pointer" and @!field.pointertype!@ == "child"
+    @@EndFieldLoop@@
+    
+    return Inherited::unlinkChild(pChild, childFieldId);
+}
+
+@@endif // @!hasChildFields!@
 @@if hasPtrFields
 void @!Classname!@Base::onCreate(const @!Classname!@ *source)
 {

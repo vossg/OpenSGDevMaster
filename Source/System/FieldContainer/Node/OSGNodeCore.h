@@ -210,12 +210,6 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    void addParent(
-              FieldContainerPtrConst &parent, 
-        const UInt16                  uiStoredInFieldId = InvalidParentEPos);
-
-    void subParent(FieldContainerPtrConst &parent);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
@@ -265,6 +259,18 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
     NodeCore(const NodeCore &source);
 
     virtual ~NodeCore(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
+
+    virtual bool linkParent  (const FieldContainerPtr pParent,
+                              const UInt16            childFieldId,
+                              const UInt16            parentFieldId);
+
+    virtual bool unlinkParent(const FieldContainerPtr pParent,
+                              const UInt16            parentFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

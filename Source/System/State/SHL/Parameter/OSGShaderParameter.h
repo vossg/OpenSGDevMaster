@@ -73,12 +73,6 @@ class OSG_STATE_DLLMAPPING ShaderParameter : public ShaderParameterBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    void addParent(
-              FieldContainerPtrConst &parent, 
-        const UInt16                  uiStoredInFieldId = InvalidParentEPos);
-
-    void subParent(FieldContainerPtrConst &parent);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */

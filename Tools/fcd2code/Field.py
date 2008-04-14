@@ -55,6 +55,7 @@ class Field(FCDElement):
         self.setFCD("clearFieldAs",             "");
         self.setFCD("needClassInclude",         "true");
         self.setFCD("childParentType",          "");
+        self.setFCD("linkParentField",          "XX");
     
     def setFieldContainer(self, container):
         self.m_fieldContainer = container;
@@ -85,6 +86,9 @@ class Field(FCDElement):
 
     def isChildField(self):
         return self["pointertype"] == "child";
+
+    def isParentField(self):
+        return self["pointertype"] == "parent";
 
     #
     # Fill out dictionary from in (fcd) dictionary
@@ -125,6 +129,7 @@ class Field(FCDElement):
         self["pointertype"]     = "";
         self["pointerbasetype"] = "";
         self["isChildField"]    = False
+        self["isParentField"]   = False
 
         if self.getFCD("category") == "data" or self.getFCD("category") == "":
             self.m_log.info("finalize: \"category\" is empty, assuming \"data\"");
@@ -146,6 +151,7 @@ class Field(FCDElement):
             self["category"]        = "pointer";
             self["pointertype"]     = "child";
             self["isChildField"]    = True
+
             if self.getFCD("childParentType") == "":
                 self["childparenttype"] = "FieldContainer"
             else:
@@ -160,10 +166,12 @@ class Field(FCDElement):
         elif self.getFCD("category") == "parentpointer":
             self["category"]        = "pointer";
             self["pointertype"]     = "parent";
+            self["isParentField"]   = True
          
             Type          = "Parent" + Type + "Ptr";
             TypeCaps      = self._upcaseFirst(Type);
             FieldType     = "Parent" + TypeRaw + "Ptr";
+            self["FieldTypeRaw"]  = TypeRaw + "Ptr";
             FieldTypeNS   = TypeNS;
             FieldTypeCaps = "Parent" + TypeRawCaps + "Ptr";
         
@@ -189,11 +197,14 @@ class Field(FCDElement):
         self["TypeNS"]        = TypeNS;
         self["TypeCaps"]      = TypeCaps;
         self["FullType"]      = TypeNS + Type;
+        self["TypeRaw"]       = TypeRaw;
 
         self["FieldType"]     = FieldType;
         self["FieldTypeNS"]   = FieldTypeNS;
         self["FieldTypeCaps"] = FieldTypeCaps
         
+        self["linkParentField"] = self.getFCD("linkParentField");
+
         # -----------------------------------------------------------------
         # Name and Cardinality
         # -----------------------------------------------------------------

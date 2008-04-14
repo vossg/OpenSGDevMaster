@@ -489,31 +489,6 @@ void Node::clearField(const UInt32 uiFieldId)
 }
 #endif
 
-void Node::subChildPointer(FieldContainerPtr pObj, 
-                           UInt16            usFieldPos)
-{
-    if(usFieldPos == ChildrenFieldId)
-    {
-        NodePtr pChild = dynamic_cast<NodePtr>(pObj);
-
-        if(pChild != NullFC)
-            subChild(pChild);
-    }
-    else if(usFieldPos == CoreFieldId)
-    {
-        if(_sfCore.getValue() == pObj)
-        {
-            editSField(CoreFieldMask);
-
-            _sfCore.setValue(NullFC);
-        }
-    }
-    else
-    {
-        Inherited::subChildPointer(pObj, usFieldPos);
-    }
-}
-
 UInt32 Node::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
@@ -705,8 +680,13 @@ Node::Node(void) :
     _sfVolume  (                            ),
     _sfTravMask(TypeTraits<UInt32>::getMax()),
     _sfParent  (NullFC                      ),
-    _mfChildren(this, ChildrenFieldId       ),
-    _sfCore    (NullFC, this, CoreFieldId   )
+    _mfChildren(this, 
+                ChildrenFieldId, 
+                Node::ParentFieldId         ),
+    _sfCore    (NullFC, 
+                this, 
+                CoreFieldId,
+                NodeCore::ParentsFieldId    )
 #ifdef OSG_1_COMPAT
    ,_occlusionMask(0)
 #endif
@@ -720,9 +700,14 @@ Node::Node(const Node &source) :
     _sfTravMask   (source._sfTravMask       ),
 
     _sfParent     (NullFC                   ),
-    _mfChildren   (this, ChildrenFieldId    ),
+    _mfChildren   (this, 
+                   ChildrenFieldId, 
+                   Node::ParentFieldId      ),
 
-    _sfCore       (NullFC, this, CoreFieldId)
+    _sfCore       (NullFC, 
+                   this, 
+                   CoreFieldId, 
+                   NodeCore::ParentsFieldId )
 #ifdef OSG_1_COMPAT
    ,_occlusionMask(source._occlusionMask)
 #endif
@@ -733,6 +718,119 @@ Node::Node(const Node &source) :
 
 Node::~Node(void)
 {
+}
+
+bool Node::linkParent  (const FieldContainerPtr pParent,
+                        const UInt16            childFieldId,
+                        const UInt16            parentFieldId)
+{
+    if(parentFieldId == ParentFieldId)
+    {    
+        NodePtr pTypedParent = dynamic_cast<NodePtr>(pParent);
+                
+        if(pTypedParent != NullFC)
+        {
+            NodePtr pOldParent      = _sfParent.getValue         ();
+            
+            if(pOldParent != NullFC)
+            {
+                pOldParent->unlinkChild(this, ParentFieldId);
+            }
+            
+            editSField(ParentFieldMask);
+
+            _sfParent.setValue(pTypedParent);
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    return Inherited::linkParent(pParent, childFieldId, parentFieldId);
+}
+
+bool Node::unlinkParent(const FieldContainerPtr pParent,
+                        const UInt16            parentFieldId)
+{
+    if(parentFieldId == ParentFieldId)
+    {    
+        NodePtr pTypedParent = dynamic_cast<NodePtr>(pParent);
+                
+        if(pTypedParent != NullFC)
+        {
+            editSField(ParentFieldMask);
+
+            _sfParent.setValue(NullFC);
+            
+            return true;
+        }
+
+        return false;
+    }
+        
+    return Inherited::unlinkParent(pParent, parentFieldId);
+}
+            
+bool Node::unlinkChild (const FieldContainerPtr pChild,
+                        const UInt16            childFieldId )
+{
+    if(childFieldId == ChildrenFieldId)
+    {
+        FINFO(("Node::unlinkChild: this [%p] [%u] pChild [%p] [%u]\n",
+               this, this->getId(), pChild, 
+               pChild != NULL ? pChild->getId() : 0));
+               
+        NodePtr pTypedChild = dynamic_cast< NodePtr >(pChild);
+        
+        if(pTypedChild != NullFC)
+        {
+            MFUnrecNodeChildNodePtr::iterator pI = 
+                _mfChildren.find_nc(pTypedChild);
+            
+            if(pI != _mfChildren.end())
+            {
+                editMField(ParentFieldMask, _mfChildren);
+
+                _mfChildren.erase(pI);
+                
+                return true;
+            }
+            
+            FWARNING(("Node::unlinkChild: Child <-> Parent link "
+                      "inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    if(childFieldId == CoreFieldId)
+    {
+        NodeCorePtr pTypedChild = dynamic_cast< NodeCorePtr >(pChild);
+        
+        if(pTypedChild != NullFC)
+        {
+            if(pTypedChild == getCore())
+            {
+                editSField(CoreFieldMask);
+
+                _sfCore.setValue(NullFC);
+            
+                return true;
+            }
+            
+            FWARNING(("Node::unlinkChild: Child <-> Parent link "
+                      "inconsistent.\n"));
+        
+            return false;
+        }
+        
+        return false;
+    }
+    
+    return Inherited::unlinkChild(pChild, childFieldId);
 }
 
 void Node::invalidateVolume(void)

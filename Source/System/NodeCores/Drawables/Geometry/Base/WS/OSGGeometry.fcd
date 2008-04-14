@@ -18,6 +18,7 @@
 		access="public"
         category="childpointer"
         childParentType="FieldContainer"
+        linkParentField="Parents"
 	>
         The types property contains the primitive's types. Legal values are 
         everything that can be passed to glBegin(). There have to be as many 
@@ -31,6 +32,7 @@
 		access="public"
         category="childpointer"
         childParentType="FieldContainer"
+        linkParentField="Parents"
 	>
         The lengths property contains the number of vertices to use for the 
         corresponding primitive. There have to be as many  lengths as types.
@@ -44,6 +46,7 @@
         category="childpointer"
         childParentType="FieldContainer"
         checkNilPtr="false"
+        linkParentField="Parents"
 	>
         The attributes used to render the geometry. The order is based on the 
         the one given in ARB_vertex_program.
@@ -57,6 +60,7 @@
         category="childpointer"
         childParentType="FieldContainer"
         checkNilPtr="false"
+        linkParentField="Parents"
 	>
         The indices property contains the index data. See \ref 
         PageSystemGeoIndexing for a description of the indexing options.

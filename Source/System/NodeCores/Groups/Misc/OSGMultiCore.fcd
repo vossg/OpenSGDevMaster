@@ -17,6 +17,7 @@
         access="public"
         category="childpointer"
         childParentType="FieldContainer"
+        linkParentField="Parents"
 
         pushToFieldAs="addCore"
         assignMFieldAs="assignCoresFrom"

@@ -111,11 +111,6 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    void setParent(      FieldContainerPtrConstArg value,
-                   const UInt16                    uiStoredInFieldId = 
-                                                            InvalidParentEPos);
-    
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */

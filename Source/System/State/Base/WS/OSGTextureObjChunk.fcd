@@ -51,6 +51,7 @@ extension(s) are also available.
 		access="public"
         category="childpointer"
         childParentType="FieldContainer"
+        linkParentField="Parents"
 	>
 	The texture image.
 	</Field>

@@ -711,9 +711,10 @@ template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 ChildPointerMField<ObjectTypeT,
                    RefCountPolicy, 
                    NamespaceI  >::ChildPointerMField(
-                       FieldContainerPtr pParent,
-                       UInt16            usParentFieldPos) : 
-    Inherited(pParent, usParentFieldPos)
+                       const FieldContainerPtr pParent,
+                             UInt16            usChildFieldId,
+                             UInt16            usParentFieldId) : 
+    Inherited(pParent, usChildFieldId, usParentFieldId)
 {
 }
 
@@ -765,9 +766,18 @@ typename ChildPointerMField<ObjectTypeT,
 #ifndef OSG_CLEAN_FCFIELDS
     reference front_nc(void             );
     reference back_nc (void             );
-
-    iterator  find_nc (const_value value);
 #endif
+
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<ObjectTypeT,
+                            RefCountPolicy, 
+                            NamespaceI    >::iterator
+    ChildPointerMField<ObjectTypeT,
+                       RefCountPolicy, 
+                       NamespaceI    >::find_nc(const_value value)
+{
+    return iterator(this->ptrStoreFind(value), this);
+}
 
 #ifndef OSG_CLEAN_FCFIELDS
 template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
@@ -1042,6 +1052,25 @@ void ChildPointerMField<ObjectTypeT,
                                                 InputIteratorT last)
 {
     this->ptrStoreAssign(first, last);
+}
+
+
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerMField<ObjectTypeT,
+                        RefCountPolicy,
+                        NamespaceI    >::replace(UInt32      uiIdx, 
+                                                 const_value value)
+{
+    this->ptrStoreReplace(uiIdx, value);
+}
+
+template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerMField<ObjectTypeT,
+                        RefCountPolicy,
+                        NamespaceI    >::replace(iterator    pos, 
+                                                 const_value value)
+{
+    this->ptrStoreReplace(pos.base(), value);
 }
 
 

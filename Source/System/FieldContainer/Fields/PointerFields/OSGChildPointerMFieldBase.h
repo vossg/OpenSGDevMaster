@@ -50,7 +50,8 @@ class ChildPointerMFieldBase :
     /*! \{                                                                 */
     
     ChildPointerMFieldBase(const FieldContainerPtr  pParent,
-                                 UInt16             usParentFieldPos);
+                                 UInt16             usChildFieldId,
+                                 UInt16             usParentFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -70,7 +71,7 @@ class ChildPointerMFieldBase :
     UInt16            getChildFieldId   (      void                  ) const;
     void              setChildFieldId   (const UInt16 childFieldId   );
     
-    UInt16            getParentFieldPos (      void                  ) const;
+    UInt16            getParentFieldId  (      void                  ) const;
     void              setParentFieldId  (const UInt16 parentFieldId  );
     
     /*! \}                                                                 */

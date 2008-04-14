@@ -38,41 +38,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline
-void NodeCore::addParent(      FieldContainerPtrConst &parent,
-                         const UInt16                  uiStoredInFieldId)
-{
-    editMField(ParentsFieldMask, _mfParents);
-
-#if 0
-    _mfParents.push_back(parent);
-    _mfParents.back().setParentFieldPos(uiStoredInFieldId);
-#endif
-
-    _mfParents.push_back(parent, uiStoredInFieldId);
-}
-
-inline
-void NodeCore::subParent(FieldContainerPtrConst &parent)
-{
-    Int32 iParentIdx = _mfParents.findIndex(parent);
-
-    if(iParentIdx != -1)
-    {
-        editMField(ParentsFieldMask, _mfParents);
-
-#if 0
-        MFParentFieldContainerPtr::iterator parentIt = _mfParents.begin();
-
-        parentIt += iParentIdx;
-
-        _mfParents.erase(parentIt);
-#endif
-
-        _mfParents.erase(iParentIdx);
-    }
-}
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void NodeCore::execSync (      NodeCore          *pFrom,
