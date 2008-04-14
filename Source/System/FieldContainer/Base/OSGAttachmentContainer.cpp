@@ -360,6 +360,8 @@ void AttachmentContainer::resolveLinks(void)
 
         ++fcI;
     }
+
+    _sfAttachments.getValue().clear();
 }
 
 EditFieldHandlePtr AttachmentContainer::editHandleAttachments(void) 
