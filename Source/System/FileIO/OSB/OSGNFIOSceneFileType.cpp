@@ -52,11 +52,7 @@
 
 #include "OSGNFIOSceneFileType.h"
 
-#ifdef OSG_NEW_OSB_IO
 #include "OSGOSBDriver.h"
-#else
-#include "OSGNFIOBase.h"
-#endif
 
 OSG_USING_NAMESPACE
 
@@ -101,11 +97,7 @@ NFIOSceneFileType::~NFIOSceneFileType(void)
  */
 NodeTransitPtr NFIOSceneFileType::read(std::istream &is, const Char8 *) const
 {
-#ifdef OSG_NEW_OSB_IO
     return OSBDriver::read(is, _options);
-#else
-    return NFIOBase::read(is, _options);
-#endif
 }
 
 #ifdef __sgi
@@ -126,11 +118,7 @@ bool NFIOSceneFileType::write(const NodePtr      &node,
                                     std::ostream &os,
                               const Char8        *     ) const
 {
-#ifdef OSG_NEW_OSB_IO
     return OSBDriver::write(node, os, _options);
-#else
-    return NFIOBase::write(node, os, _options);
-#endif
 }
 
 /*-------------------------------------------------------------------------*/

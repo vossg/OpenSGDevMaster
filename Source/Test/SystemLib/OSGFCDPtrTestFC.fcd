@@ -41,6 +41,7 @@
         default = "0"
         access = "public"
         category = "childpointer"
+        linkParentField="Parents"
     >
     </Field>
 
@@ -79,6 +80,7 @@
         default = "0"
         access = "protected"
         category = "childpointer"
+        linkParentField="Parents"
     >
     </Field>
 
@@ -114,6 +116,7 @@
         default = "0"
         access = "private"
         category = "childpointer"
+        linkParentField="Parents"
     >
     </Field>
 
@@ -149,6 +152,7 @@
         default = "0"
         access = "none"
         category = "childpointer"
+        linkParentField="Parents"
     >
     </Field>
 
@@ -187,6 +191,7 @@
         default = "0"
         access = "public"
         category = "childpointer"
+        linkParentField="Parents"
     >
     </Field>
 
@@ -225,6 +230,7 @@
         default = "0"
         access = "protected"
         category = "childpointer"
+        linkParentField="Parents"
     >
     </Field>
 
@@ -261,6 +267,7 @@
         default = "0"
         access = "private"
         category = "childpointer"
+        linkParentField="Parents"
     >
     </Field>
 
@@ -296,6 +303,7 @@
         default = "0"
         access = "none"
         category = "childpointer"
+        linkParentField="Parents"
     >
     </Field>
 
@@ -312,6 +320,7 @@
         default = "0"
         access = "public"
         category = "childpointer"
+        linkParentField="Parent"
     >
     </Field>
 
@@ -325,6 +334,7 @@
         default = "0"
         access = "protected"
         category = "childpointer"
+        linkParentField="Parent"
     >
     </Field>
 
@@ -338,6 +348,7 @@
         default = "0"
         access = "private"
         category = "childpointer"
+        linkParentField="Parent"
     >
     </Field>
 
@@ -351,6 +362,7 @@
         default = "0"
         access = "none"
         category = "childpointer"
+        linkParentField="Parent"
     >
     </Field>
 
@@ -365,6 +377,7 @@
         default = "0"
         access = "public"
         category = "childpointer"
+        linkParentField="Parent"
     >
     </Field>
 
@@ -378,6 +391,7 @@
         default = "0"
         access = "protected"
         category = "childpointer"
+        linkParentField="Parent"
     >
     </Field>
 
@@ -391,6 +405,7 @@
         default = "0"
         access = "private"
         category = "childpointer"
+        linkParentField="Parent"
     >
     </Field>
 
@@ -404,6 +419,7 @@
         default = "0"
         access = "none"
         category = "childpointer"
+        linkParentField="Parent"
     >
     </Field>
 

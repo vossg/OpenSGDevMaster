@@ -947,7 +947,7 @@ bool @!Classname!@Base::unlinkChild(
         if(pTypedChild != NullFC)
         {
             @@if field.isSField
-            if(pTypedChild == get@!field.Name!@())
+            if(pTypedChild == _@!field.VarName!@.getValue())
             {
                 editSField(@!field.Name!@FieldMask);
 

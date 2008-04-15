@@ -687,6 +687,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -725,6 +726,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -760,6 +762,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"private\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -795,6 +798,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -833,6 +837,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -871,6 +876,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -907,6 +913,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"private\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -942,6 +949,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parents\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -958,6 +966,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parent\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -971,6 +980,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parent\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -984,6 +994,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"private\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parent\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -997,6 +1008,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parent\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -1011,6 +1023,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parent\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -1024,6 +1037,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parent\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -1037,6 +1051,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"private\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parent\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -1050,6 +1065,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        default = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"childpointer\"\n"
+    "        linkParentField=\"Parent\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -3296,66 +3312,66 @@ FCDPtrTestFCBase::FCDPtrTestFCBase(void) :
     _sfFieldSFPub_weakptr     (NullFC),
     _sfFieldSFPub_mpchildptr  (this, 
                           FieldSFPub_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _sfFieldSFPro_ptr         (NullFC),
     _sfFieldSFPro_weakptr     (NullFC),
     _sfFieldSFPro_mpchildptr  (this, 
                           FieldSFPro_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _sfFieldSFPri_ptr         (NullFC),
     _sfFieldSFPri_weakptr     (NullFC),
     _sfFieldSFPri_mpchildptr  (this, 
                           FieldSFPri_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _sfFieldSFNo_ptr          (NullFC),
     _sfFieldSFNo_weakptr      (NullFC),
     _sfFieldSFNo_mpchildptr   (this, 
                           FieldSFNo_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _mfFieldMFPub_ptr         (),
     _mfFieldMFPub_weakptr     (),
     _mfFieldMFPub_mpchildptr  (this, 
                           FieldMFPub_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _mfFieldMFPro_ptr         (),
     _mfFieldMFPro_weakptr     (),
     _mfFieldMFPro_mpchildptr  (this, 
                           FieldMFPro_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _mfFieldMFPri_ptr         (),
     _mfFieldMFPri_weakptr     (),
     _mfFieldMFPri_mpchildptr  (this, 
                           FieldMFPri_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _mfFieldMFNo_ptr          (),
     _mfFieldMFNo_weakptr      (),
     _mfFieldMFNo_mpchildptr   (this, 
                           FieldMFNo_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _sfFieldSFPub_spchildptr  (this, 
                           FieldSFPub_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _sfFieldSFPro_spchildptr  (this, 
                           FieldSFPro_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _sfFieldSFPri_spchildptr  (this, 
                           FieldSFPri_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _sfFieldSFNo_spchildptr   (this, 
                           FieldSFNo_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _mfFieldMFPub_spchildptr  (this, 
                           FieldMFPub_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _mfFieldMFPro_spchildptr  (this, 
                           FieldMFPro_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _mfFieldMFPri_spchildptr  (this, 
                           FieldMFPri_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _mfFieldMFNo_spchildptr   (this, 
                           FieldMFNo_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId)
+                          FCDSParTestFC::ParentFieldId)
 {
 }
 
@@ -3365,66 +3381,66 @@ FCDPtrTestFCBase::FCDPtrTestFCBase(const FCDPtrTestFCBase &source) :
     _sfFieldSFPub_weakptr     (NullFC),
     _sfFieldSFPub_mpchildptr  (this, 
                           FieldSFPub_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _sfFieldSFPro_ptr         (NullFC),
     _sfFieldSFPro_weakptr     (NullFC),
     _sfFieldSFPro_mpchildptr  (this, 
                           FieldSFPro_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _sfFieldSFPri_ptr         (NullFC),
     _sfFieldSFPri_weakptr     (NullFC),
     _sfFieldSFPri_mpchildptr  (this, 
                           FieldSFPri_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _sfFieldSFNo_ptr          (NullFC),
     _sfFieldSFNo_weakptr      (NullFC),
     _sfFieldSFNo_mpchildptr   (this, 
                           FieldSFNo_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _mfFieldMFPub_ptr         (),
     _mfFieldMFPub_weakptr     (),
     _mfFieldMFPub_mpchildptr  (this, 
                           FieldMFPub_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _mfFieldMFPro_ptr         (),
     _mfFieldMFPro_weakptr     (),
     _mfFieldMFPro_mpchildptr  (this, 
                           FieldMFPro_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _mfFieldMFPri_ptr         (),
     _mfFieldMFPri_weakptr     (),
     _mfFieldMFPri_mpchildptr  (this, 
                           FieldMFPri_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _mfFieldMFNo_ptr          (),
     _mfFieldMFNo_weakptr      (),
     _mfFieldMFNo_mpchildptr   (this, 
                           FieldMFNo_mpchildptrFieldId,
-                          FCDTestFC::XXFieldId),
+                          FCDTestFC::ParentsFieldId),
     _sfFieldSFPub_spchildptr  (this, 
                           FieldSFPub_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _sfFieldSFPro_spchildptr  (this, 
                           FieldSFPro_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _sfFieldSFPri_spchildptr  (this, 
                           FieldSFPri_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _sfFieldSFNo_spchildptr   (this, 
                           FieldSFNo_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _mfFieldMFPub_spchildptr  (this, 
                           FieldMFPub_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _mfFieldMFPro_spchildptr  (this, 
                           FieldMFPro_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _mfFieldMFPri_spchildptr  (this, 
                           FieldMFPri_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId),
+                          FCDSParTestFC::ParentFieldId),
     _mfFieldMFNo_spchildptr   (this, 
                           FieldMFNo_spchildptrFieldId,
-                          FCDSParTestFC::XXFieldId)
+                          FCDSParTestFC::ParentFieldId)
 {
 }
 
@@ -3449,7 +3465,7 @@ bool FCDPtrTestFCBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getFieldSFPub_mpchildptr())
+            if(pTypedChild == _sfFieldSFPub_mpchildptr.getValue())
             {
                 editSField(FieldSFPub_mpchildptrFieldMask);
 
@@ -3474,7 +3490,7 @@ bool FCDPtrTestFCBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getFieldSFPro_mpchildptr())
+            if(pTypedChild == _sfFieldSFPro_mpchildptr.getValue())
             {
                 editSField(FieldSFPro_mpchildptrFieldMask);
 
@@ -3499,7 +3515,7 @@ bool FCDPtrTestFCBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getFieldSFPri_mpchildptr())
+            if(pTypedChild == _sfFieldSFPri_mpchildptr.getValue())
             {
                 editSField(FieldSFPri_mpchildptrFieldMask);
 
@@ -3524,7 +3540,7 @@ bool FCDPtrTestFCBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getFieldSFNo_mpchildptr())
+            if(pTypedChild == _sfFieldSFNo_mpchildptr.getValue())
             {
                 editSField(FieldSFNo_mpchildptrFieldMask);
 
@@ -3661,7 +3677,7 @@ bool FCDPtrTestFCBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getFieldSFPub_spchildptr())
+            if(pTypedChild == _sfFieldSFPub_spchildptr.getValue())
             {
                 editSField(FieldSFPub_spchildptrFieldMask);
 
@@ -3686,7 +3702,7 @@ bool FCDPtrTestFCBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getFieldSFPro_spchildptr())
+            if(pTypedChild == _sfFieldSFPro_spchildptr.getValue())
             {
                 editSField(FieldSFPro_spchildptrFieldMask);
 
@@ -3711,7 +3727,7 @@ bool FCDPtrTestFCBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getFieldSFPri_spchildptr())
+            if(pTypedChild == _sfFieldSFPri_spchildptr.getValue())
             {
                 editSField(FieldSFPri_spchildptrFieldMask);
 
@@ -3736,7 +3752,7 @@ bool FCDPtrTestFCBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getFieldSFNo_spchildptr())
+            if(pTypedChild == _sfFieldSFNo_spchildptr.getValue())
             {
                 editSField(FieldSFNo_spchildptrFieldMask);
 

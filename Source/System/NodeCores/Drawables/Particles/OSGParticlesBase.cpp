@@ -1069,7 +1069,7 @@ bool ParticlesBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getPositions())
+            if(pTypedChild == _sfPositions.getValue())
             {
                 editSField(PositionsFieldMask);
 
@@ -1094,7 +1094,7 @@ bool ParticlesBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getSecPositions())
+            if(pTypedChild == _sfSecPositions.getValue())
             {
                 editSField(SecPositionsFieldMask);
 
@@ -1119,7 +1119,7 @@ bool ParticlesBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getColors())
+            if(pTypedChild == _sfColors.getValue())
             {
                 editSField(ColorsFieldMask);
 
@@ -1144,7 +1144,7 @@ bool ParticlesBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getNormals())
+            if(pTypedChild == _sfNormals.getValue())
             {
                 editSField(NormalsFieldMask);
 

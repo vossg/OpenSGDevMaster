@@ -946,7 +946,7 @@ bool GeometryBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getTypes())
+            if(pTypedChild == _sfTypes.getValue())
             {
                 editSField(TypesFieldMask);
 
@@ -971,7 +971,7 @@ bool GeometryBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getLengths())
+            if(pTypedChild == _sfLengths.getValue())
             {
                 editSField(LengthsFieldMask);
 

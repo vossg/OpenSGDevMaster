@@ -2060,7 +2060,7 @@ bool TextureObjChunkBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            if(pTypedChild == getImage())
+            if(pTypedChild == _sfImage.getValue())
             {
                 editSField(ImageFieldMask);
 
