@@ -45,15 +45,15 @@
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
-/* ChildPointerSField<ObjectTypeT,                                         */
+/* ChildPointerSField<PtrTypeT,                                         */
 /*                    NamespaceI  >                                        */
 /*-------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-FieldType const &ChildPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+FieldType const &ChildPointerSField<PtrTypeT,
                                     RefCountPolicy,
                                     NamespaceI    >::getClassType(void)
 {
@@ -63,8 +63,8 @@ FieldType const &ChildPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-ChildPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+ChildPointerSField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::ChildPointerSField(
                        ParentT pParent,
@@ -76,8 +76,8 @@ ChildPointerSField<ObjectTypeT,
 {
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-ChildPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+ChildPointerSField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::ChildPointerSField(
                        const_value value,
@@ -94,8 +94,8 @@ ChildPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-ChildPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+ChildPointerSField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::~ChildPointerSField(void)
 {
@@ -104,37 +104,37 @@ ChildPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Access                                                                  */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerSField<PtrTypeT,
                             RefCountPolicy,
                             NamespaceI    >::const_value
-    ChildPointerSField<ObjectTypeT,
+    ChildPointerSField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::getValue(void) const
 {
     return static_cast<const_value>(this->ptrStoreGet());
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ChildPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerSField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::setValue(const_value value)
 {
     this->ptrStoreSet(value);
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ChildPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerSField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::setValue(const Self &source)
 {
     this->ptrStoreSet(source.ptrStoreGet());
 }
 
-template <class    ObjectTypeT, 
+template <class    PtrTypeT, 
           typename RefCountPolicy,
           Int32    NamespaceI    > inline 
-void ChildPointerSField<ObjectTypeT,
+void ChildPointerSField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)
 {
@@ -142,10 +142,10 @@ void ChildPointerSField<ObjectTypeT,
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
-template <class    ObjectTypeT, 
+template <class    PtrTypeT, 
           typename RefCountPolicy,
           Int32    NamespaceI    > inline 
-void ChildPointerSField<ObjectTypeT,
+void ChildPointerSField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::syncWith(Self &source)
 {
@@ -156,7 +156,7 @@ void ChildPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Comparison                                                              */
 
-// template <class ObjectTypeT, Int32 NamespaceI>
+// template <class PtrTypeT, Int32 NamespaceI>
 // inline bool
 //     ChildPointerSField<ObjectTypeT,
 //                        NamespaceI  >::operator==(Self const &other)

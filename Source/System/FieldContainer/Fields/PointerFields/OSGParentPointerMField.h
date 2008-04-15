@@ -56,14 +56,14 @@
 OSG_BEGIN_NAMESPACE
 
 // forward declarations
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
 class ParentPointerMField;
 
 template <class StorageTypeT>
 class ParentMFieldIterator;
 
 /*---------------------------------------------------------------------------*/
-/* ParentMFieldConstIterator<ObjectTypeT>                                    */
+/* ParentMFieldConstIterator<PtrTypeT>                                    */
 /*---------------------------------------------------------------------------*/
 
 template <class StorageTypeT>
@@ -178,19 +178,19 @@ class ParentMFieldConstIterator : protected StorageTypeT::PtrStoreConstItType
 
 
 #if 0
-template <class ObjectTypeT>
-typename ParentMFieldConstIterator<ObjectTypeT>::difference_type
-    operator-(ParentMFieldConstIterator<ObjectTypeT> const &lhs,
-              ParentMFieldConstIterator<ObjectTypeT> const &rhs );
+template <class PtrTypeT>
+typename ParentMFieldConstIterator<PtrTypeT>::difference_type
+    operator-(ParentMFieldConstIterator<PtrTypeT> const &lhs,
+              ParentMFieldConstIterator<PtrTypeT> const &rhs );
 
-template <class ObjectTypeT>
-ParentMFieldConstIterator<ObjectTypeT>
-    operator+(typename ParentMFieldConstIterator<ObjectTypeT>::differece_type const offset,
-              ParentMFieldConstIterator<ObjectTypeT>                          const &rhs   );
+template <class PtrTypeT>
+ParentMFieldConstIterator<PtrTypeT>
+    operator+(typename ParentMFieldConstIterator<PtrTypeT>::differece_type const offset,
+              ParentMFieldConstIterator<PtrTypeT>                          const &rhs   );
 #endif
 
 /*---------------------------------------------------------------------------*/
-/* ParentMFieldIterator<ObjectTypeT>                                    */
+/* ParentMFieldIterator<PtrTypeT>                                    */
 /*---------------------------------------------------------------------------*/
 
 template <class StorageTypeT>
@@ -199,7 +199,7 @@ class ParentMFieldIterator : protected StorageTypeT::PtrStoreItType
     template <class ST>
     friend class ParentMFieldConstIterator;
 
-    template <class OT, typename RC, Int32 NI>
+    template <class PT, typename RC, Int32 NI>
     friend class ParentPointerMField;
 
     /*==========================  PUBLIC  =================================*/
@@ -314,11 +314,11 @@ class ParentMFieldIterator : protected StorageTypeT::PtrStoreItType
 
 
 /*---------------------------------------------------------------------------*/
-/* ParentPointerMField<ObjectTypeT,                                          */
+/* ParentPointerMField<PtrTypeT,                                          */
 /*                     NamespaceI  >                                         */
 /*---------------------------------------------------------------------------*/
 
-template <class    ObjectTypeT,
+template <class    PtrTypeT,
           typename RefCountPolicy, 
           Int32    NamespaceI  = 0>
 class ParentPointerMField :
@@ -340,9 +340,8 @@ class ParentPointerMField :
 
     typedef          ParentPointerMField                Self;
 
-    typedef          ObjectTypeT *                      ValueType;
-    typedef          ObjectTypeT * const                const_value;
-    typedef          ObjectTypeT *                      value_type;
+    typedef          PtrTypeT const                     const_value;
+    typedef          PtrTypeT                           value_type;
 
     typedef typename Inherited::size_type               size_type;
     typedef typename Inherited::difference_type         difference_type;
@@ -365,7 +364,7 @@ class ParentPointerMField :
     typedef          FieldTraits<IdStoredType         > PosMFieldTraits;
     
     
-    typedef          FieldTraits     <ValueType,
+    typedef          FieldTraits     <value_type,
                                       NamespaceI      > PtrMFieldTraits;
 
     typedef          FieldDescription<PtrMFieldTraits,
@@ -376,8 +375,6 @@ class ParentPointerMField :
     typedef          PointerAccessHandler<
                          RefCountPolicy               > AccessHandler;
 
-    typedef          ObjectTypeT                        ObjectType;
-    
     // handles
 //    typedef          EditParentPointerMFieldHandle<Self>      EditHandle;
 //    typedef typename EditParentPointerMFieldHandle<Self>::Ptr EditHandlePtr;

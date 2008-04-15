@@ -55,11 +55,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*---------------------------------------------------------------------------*/
-/* ParentPointerSField<ObjectTypeT,                                          */
+/* ParentPointerSField<PtrTypeT,                                             */
 /*                     NamespaceI  >                                         */
 /*---------------------------------------------------------------------------*/
 
-template <class    ObjectTypeT,
+template <class    PtrTypeT,
           typename RefCountPolicy,
           Int32    NamespaceI  = 0>
 class ParentPointerSField : 
@@ -80,8 +80,8 @@ class ParentPointerSField :
 
     typedef ParentPointerSField                            Self;
                                              
-    typedef ObjectTypeT *                                  value_type;
-    typedef ObjectTypeT * const                            const_value;
+    typedef PtrTypeT                                       value_type;
+    typedef PtrTypeT const                                 const_value;
 
     
     typedef FieldTraits        <UInt16                   > PosSFieldTraits;
@@ -95,8 +95,6 @@ class ParentPointerSField :
                                 NoRefCountPolicy,
                                 FieldType::ParentPtrField> Description;
 
-    typedef ObjectTypeT                                    ObjectType;
-    
     // handles
 //    typedef          EditParentPointerSFieldHandle<Self>      EditHandle;
 //    typedef typename EditParentPointerSFieldHandle<Self>::Ptr EditHandlePtr;

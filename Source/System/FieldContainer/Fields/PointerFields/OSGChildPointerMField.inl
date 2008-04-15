@@ -45,14 +45,14 @@
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
-/* ChildMFieldIterator<ObjectTypeT>                                        */
+/* ChildMFieldIterator<PtrTypeT>                                        */
 /*-------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+ChildMFieldIterator<PtrTypeT, 
                     RefCountPolicy, 
                     iNamespace    >::ChildMFieldIterator(void) : 
      Inherited(    ),
@@ -60,8 +60,8 @@ ChildMFieldIterator<ObjectTypeT,
 {
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+ChildMFieldIterator<PtrTypeT, 
                     RefCountPolicy, 
                     iNamespace    >::ChildMFieldIterator(const Self &source) :
      Inherited(source        ),
@@ -69,8 +69,8 @@ ChildMFieldIterator<ObjectTypeT,
 {
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+ChildMFieldIterator<PtrTypeT, 
                     RefCountPolicy, 
                     iNamespace    >::ChildMFieldIterator(
                         const PtrStoreItType &storeIter,  
@@ -84,8 +84,8 @@ ChildMFieldIterator<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+ChildMFieldIterator<PtrTypeT, 
                     RefCountPolicy, 
                     iNamespace    >::~ChildMFieldIterator(void)
 {
@@ -95,11 +95,11 @@ ChildMFieldIterator<ObjectTypeT,
 /* Operators                                                               */
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::reference
-ChildMFieldIterator<ObjectTypeT, 
+ChildMFieldIterator<PtrTypeT, 
                     RefCountPolicy, 
                     iNamespace    >::operator * (void) const
 {
@@ -107,11 +107,11 @@ ChildMFieldIterator<ObjectTypeT,
 }
 
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::reference
-    ChildMFieldIterator<ObjectTypeT, 
+    ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy, 
                         iNamespace    >::operator [](
                             const difference_type offset) const
@@ -119,11 +119,11 @@ typename ChildMFieldIterator<ObjectTypeT,
     return reference(*this + offset, _pField);
 }
 #else
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::const_value
-ChildMFieldIterator<ObjectTypeT, 
+ChildMFieldIterator<PtrTypeT, 
                     RefCountPolicy, 
                     iNamespace    >::operator * (void) const
 {
@@ -132,11 +132,11 @@ ChildMFieldIterator<ObjectTypeT,
 }
 
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::const_value
-    ChildMFieldIterator<ObjectTypeT, 
+    ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy, 
                         iNamespace    >::operator [](
                             const difference_type offset) const
@@ -146,11 +146,11 @@ typename ChildMFieldIterator<ObjectTypeT,
 #endif
 
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::Self &
-    ChildMFieldIterator<ObjectTypeT, 
+    ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy, 
                         iNamespace    >::operator ++(void)
 {
@@ -159,9 +159,9 @@ typename ChildMFieldIterator<ObjectTypeT,
     return *this;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, RefCountPolicy, iNamespace>::Self
-    ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, RefCountPolicy, iNamespace>::Self
+    ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy, 
                         iNamespace    >::operator ++(int)
 {
@@ -172,11 +172,11 @@ typename ChildMFieldIterator<ObjectTypeT, RefCountPolicy, iNamespace>::Self
     return retVal;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::Self &
-    ChildMFieldIterator<ObjectTypeT, 
+    ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy, 
                         iNamespace    >::operator --(void)
 {
@@ -185,9 +185,9 @@ typename ChildMFieldIterator<ObjectTypeT,
     return *this;
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, RefCountPolicy, iNamespace>::Self
-    ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, RefCountPolicy, iNamespace>::Self
+    ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy, 
                         iNamespace    >::operator --(int)
 {
@@ -198,11 +198,11 @@ typename ChildMFieldIterator<ObjectTypeT, RefCountPolicy, iNamespace>::Self
     return retVal;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::Self &
-    ChildMFieldIterator<ObjectTypeT, 
+    ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy, 
                         iNamespace>::operator +=(const difference_type offset)
 {
@@ -211,9 +211,9 @@ typename ChildMFieldIterator<ObjectTypeT,
     return *this;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, RefCountPolicy, iNamespace>::Self
-    ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, RefCountPolicy, iNamespace>::Self
+    ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy, 
                         iNamespace   >::operator +(
                             const difference_type offset) const
@@ -223,9 +223,9 @@ typename ChildMFieldIterator<ObjectTypeT, RefCountPolicy, iNamespace>::Self
     return retVal += offset;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, RefCountPolicy, iNamespace>::Self &
-    ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, RefCountPolicy, iNamespace>::Self &
+    ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy, 
                         iNamespace    >::operator -=(
                             const difference_type offset)
@@ -235,9 +235,9 @@ typename ChildMFieldIterator<ObjectTypeT, RefCountPolicy, iNamespace>::Self &
     return *this;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldIterator<ObjectTypeT, RefCountPolicy, iNamespace>::Self
-    ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldIterator<PtrTypeT, RefCountPolicy, iNamespace>::Self
+    ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy,  
                         iNamespace    >::operator -(
                             const difference_type offset) const
@@ -248,24 +248,24 @@ typename ChildMFieldIterator<ObjectTypeT, RefCountPolicy, iNamespace>::Self
 }
 
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-bool ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+bool ChildMFieldIterator<PtrTypeT, 
                          RefCountPolicy,  
                          iNamespace    >::operator == (const Self &rhs) const
 {
     return *(static_cast<const Inherited *>(this)) == rhs;
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-bool ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+bool ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy,  
                         iNamespace    >::operator != (const Self &rhs) const
 {
     return ! (*this == rhs);
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-bool ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+bool ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy,  
                         iNamespace    >::operator == (
                             const const_iterator &rhs) const
@@ -273,8 +273,8 @@ bool ChildMFieldIterator<ObjectTypeT,
     return *(static_cast<const Inherited *>(this)) == rhs;
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-bool ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+bool ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy,  
                         iNamespace    >::operator != (
                             const const_iterator &rhs) const
@@ -286,11 +286,11 @@ bool ChildMFieldIterator<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Base                                                                    */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-const typename ChildMFieldIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+const typename ChildMFieldIterator<PtrTypeT, 
                                    RefCountPolicy, 
                                    iNamespace    >::PtrStoreItType &
-    ChildMFieldIterator<ObjectTypeT, 
+    ChildMFieldIterator<PtrTypeT, 
                         RefCountPolicy, 
                         iNamespace    >::base(void) const
 {
@@ -303,44 +303,44 @@ const typename ChildMFieldIterator<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Free Functions                                                          */
 
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldIterator<ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldIterator<ObjectTypeT, iNamespace> const &rhs )
+template <class PtrTypeT, Int32 iNamespace>
+typename ChildMFieldIterator<PtrTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldIterator<PtrTypeT, iNamespace> const &lhs,
+              ChildMFieldIterator<PtrTypeT, iNamespace> const &rhs )
 {
     return std::distance<
-        typename ChildMFieldIterator<ObjectTypeT, iNamespace>::StoreItType
+        typename ChildMFieldIterator<PtrTypeT, iNamespace>::StoreItType
                          >(lhs, rhs);
 }
 
-template <class ObjectTypeT, Int32 iNamespace>
-ChildMFieldIterator<ObjectTypeT, iNamespace>
+template <class PtrTypeT, Int32 iNamespace>
+ChildMFieldIterator<PtrTypeT, iNamespace>
     operator+(
-        typename ChildMFieldIterator<ObjectTypeT, iNamespace>::differece_type const offset,
-        ChildMFieldIterator<ObjectTypeT, iNamespace>                          const &rhs   )
+        typename ChildMFieldIterator<PtrTypeT, iNamespace>::differece_type const offset,
+        ChildMFieldIterator<PtrTypeT, iNamespace>                          const &rhs   )
 {
-    return ChildMFieldIterator<ObjectTypeT, iNamespace>(rhs) += offset;
+    return ChildMFieldIterator<PtrTypeT, iNamespace>(rhs) += offset;
 }
 #endif
 
 
 /*-------------------------------------------------------------------------*/
-/* ChildMFieldConstIterator<ObjectTypeT>                            */
+/* ChildMFieldConstIterator<PtrTypeT>                            */
 /*-------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+ChildMFieldConstIterator<PtrTypeT, 
                          RefCountPolicy, 
                          iNamespace    >::ChildMFieldConstIterator(void) : 
     Inherited()
 {
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+ChildMFieldConstIterator<PtrTypeT, 
                          RefCountPolicy, 
                          iNamespace    >::ChildMFieldConstIterator(
                              const Self &source) : 
@@ -348,8 +348,8 @@ ChildMFieldConstIterator<ObjectTypeT,
 {
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline
-ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline
+ChildMFieldConstIterator<PtrTypeT, 
                          RefCountPolicy, 
                          iNamespace    >::ChildMFieldConstIterator(
                              const iterator &fieldIter) : 
@@ -357,8 +357,8 @@ ChildMFieldConstIterator<ObjectTypeT,
 {
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+ChildMFieldConstIterator<PtrTypeT, 
                          RefCountPolicy, 
                          iNamespace    >::ChildMFieldConstIterator(
                              const PtrStoreConstItType &storeIter) : 
@@ -369,8 +369,8 @@ ChildMFieldConstIterator<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+ChildMFieldConstIterator<PtrTypeT, 
                          RefCountPolicy, 
                          iNamespace    >::~ChildMFieldConstIterator(void)
 {
@@ -380,11 +380,11 @@ ChildMFieldConstIterator<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Operators                                                               */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldConstIterator<PtrTypeT, 
                                   RefCountPolicy, 
                                   iNamespace    >::const_value
-    ChildMFieldConstIterator<ObjectTypeT, 
+    ChildMFieldConstIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::operator *(void) const
 {
@@ -393,11 +393,11 @@ typename ChildMFieldConstIterator<ObjectTypeT,
 }
     
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldConstIterator<PtrTypeT, 
                                   RefCountPolicy, 
                                   iNamespace    >::const_value
-    ChildMFieldConstIterator<ObjectTypeT, 
+    ChildMFieldConstIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::operator [](
                                  const difference_type offset) const
@@ -406,11 +406,11 @@ typename ChildMFieldConstIterator<ObjectTypeT,
 }
 
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldConstIterator<PtrTypeT, 
                                   RefCountPolicy, 
                                   iNamespace    >::Self &
-    ChildMFieldConstIterator<ObjectTypeT, 
+    ChildMFieldConstIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::operator ++(void)
 {
@@ -419,11 +419,11 @@ typename ChildMFieldConstIterator<ObjectTypeT,
     return *this;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldConstIterator<PtrTypeT, 
                                   RefCountPolicy, 
                                   iNamespace    >::Self
-    ChildMFieldConstIterator<ObjectTypeT, 
+    ChildMFieldConstIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::operator ++(int)
 {
@@ -434,11 +434,11 @@ typename ChildMFieldConstIterator<ObjectTypeT,
     return retVal;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldConstIterator<PtrTypeT, 
                                   RefCountPolicy, 
                                   iNamespace    >::Self &
-    ChildMFieldConstIterator<ObjectTypeT, 
+    ChildMFieldConstIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::operator --(void)
 {
@@ -447,11 +447,11 @@ typename ChildMFieldConstIterator<ObjectTypeT,
     return *this;
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldConstIterator<PtrTypeT, 
                                   RefCountPolicy, 
                                   iNamespace    >::Self
-    ChildMFieldConstIterator<ObjectTypeT, 
+    ChildMFieldConstIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::operator --(int)
 {
@@ -462,11 +462,11 @@ typename ChildMFieldConstIterator<ObjectTypeT,
     return retVal;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldConstIterator<PtrTypeT, 
                                   RefCountPolicy, 
                                   iNamespace   >::Self &
-    ChildMFieldConstIterator<ObjectTypeT, 
+    ChildMFieldConstIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::operator +=(
                                  const difference_type offset)
@@ -476,11 +476,11 @@ typename ChildMFieldConstIterator<ObjectTypeT,
     return *this;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldConstIterator<PtrTypeT, 
                                   RefCountPolicy, 
                                   iNamespace    >::Self
-    ChildMFieldConstIterator<ObjectTypeT, 
+    ChildMFieldConstIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::operator +(
                                  const difference_type offset) const
@@ -490,11 +490,11 @@ typename ChildMFieldConstIterator<ObjectTypeT,
     return retVal += offset;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldConstIterator<PtrTypeT, 
                                   RefCountPolicy, 
                                   iNamespace    >::Self &
-    ChildMFieldConstIterator<ObjectTypeT, 
+    ChildMFieldConstIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::operator -=(
                                  const difference_type offset)
@@ -504,11 +504,11 @@ typename ChildMFieldConstIterator<ObjectTypeT,
     return *this;
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldConstIterator<PtrTypeT, 
                                   RefCountPolicy, 
                                   iNamespace    >::Self
-    ChildMFieldConstIterator<ObjectTypeT, 
+    ChildMFieldConstIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::operator -(
                                  const difference_type offset) const
@@ -518,8 +518,8 @@ typename ChildMFieldConstIterator<ObjectTypeT,
     return retVal -= offset;
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-bool ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+bool ChildMFieldConstIterator<PtrTypeT, 
                               RefCountPolicy,  
                               iNamespace    >::operator == (
                                   const Self &rhs) const
@@ -527,8 +527,8 @@ bool ChildMFieldConstIterator<ObjectTypeT,
     return *(static_cast<const Inherited *>(this)) == rhs;
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-bool ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+bool ChildMFieldConstIterator<PtrTypeT, 
                               RefCountPolicy,  
                               iNamespace    >::operator != (
                                   const Self &rhs) const
@@ -536,8 +536,8 @@ bool ChildMFieldConstIterator<ObjectTypeT,
     return ! (*this == rhs);
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-bool ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+bool ChildMFieldConstIterator<PtrTypeT, 
                               RefCountPolicy,  
                               iNamespace    >::operator == (
                                   const iterator &rhs) const
@@ -545,8 +545,8 @@ bool ChildMFieldConstIterator<ObjectTypeT,
     return *(static_cast<const Inherited *>(this)) == rhs;
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-bool ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+bool ChildMFieldConstIterator<PtrTypeT, 
                               RefCountPolicy,  
                               iNamespace    >::operator != (
                                   const iterator &rhs) const
@@ -558,11 +558,11 @@ bool ChildMFieldConstIterator<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Base                                                                    */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-const typename ChildMFieldConstIterator<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+const typename ChildMFieldConstIterator<PtrTypeT, 
                                         RefCountPolicy, 
                                         iNamespace    >::PtrStoreConstItType &
-    ChildMFieldConstIterator<ObjectTypeT, 
+    ChildMFieldConstIterator<PtrTypeT, 
                              RefCountPolicy, 
                              iNamespace    >::base(void) const
 {
@@ -574,58 +574,58 @@ const typename ChildMFieldConstIterator<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Free Functions                                                          */
 
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &rhs )
+template <class PtrTypeT, Int32 iNamespace>
+typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldConstIterator<PtrTypeT, iNamespace> const &lhs,
+              ChildMFieldConstIterator<PtrTypeT, iNamespace> const &rhs )
 {
-    return typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::
+    return typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::
                PtrStoreConstItType(lhs) -
-           typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::
+           typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::
                PtrStoreConstItType(rhs);
 }
               
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldIterator     <ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &rhs )
+template <class PtrTypeT, Int32 iNamespace>
+typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldIterator     <PtrTypeT, iNamespace> const &lhs,
+              ChildMFieldConstIterator<PtrTypeT, iNamespace> const &rhs )
 {
-    return typename ChildMFieldIterator<ObjectTypeT, iNamespace>::
+    return typename ChildMFieldIterator<PtrTypeT, iNamespace>::
                PtrStoreItType(lhs) -
-           typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::
+           typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::
                PtrStoreConstItType(rhs);
 }
 
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldIterator     <ObjectTypeT, iNamespace> const &rhs )
+template <class PtrTypeT, Int32 iNamespace>
+typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldConstIterator<PtrTypeT, iNamespace> const &lhs,
+              ChildMFieldIterator     <PtrTypeT, iNamespace> const &rhs )
 {
-    return typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::
+    return typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::
                PtrStoreConstItType(lhs) -
-           typename ChildMFieldIterator<ObjectTypeT, iNamespace>::
+           typename ChildMFieldIterator<PtrTypeT, iNamespace>::
                PtrStoreItType(rhs);
 }             
               
-template <class ObjectTypeT, Int32 iNamespace>
-ChildMFieldConstIterator<ObjectTypeT, iNamespace>
+template <class PtrTypeT, Int32 iNamespace>
+ChildMFieldConstIterator<PtrTypeT, iNamespace>
     operator+(
-        typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type const offset,
-        ChildMFieldConstIterator<ObjectTypeT, iNamespace>                           const &rhs   )
+        typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::difference_type const offset,
+        ChildMFieldConstIterator<PtrTypeT, iNamespace>                           const &rhs   )
 {
-    return ChildMFieldConstIterator<ObjectTypeT, iNamespace>(rhs) += offset;
+    return ChildMFieldConstIterator<PtrTypeT, iNamespace>(rhs) += offset;
 }
 #endif
 
 /*-------------------------------------------------------------------------*/
-/* ChildMFieldReferenceProxy<ObjectTypeT>                                  */
+/* ChildMFieldReferenceProxy<PtrTypeT>                                  */
 /*-------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline
-ChildMFieldReferenceProxy<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline
+ChildMFieldReferenceProxy<PtrTypeT, 
                           RefCountPolicy, 
                           iNamespace    >::ChildMFieldReferenceProxy(
                               const PtrStoreItType &storeIter, 
@@ -635,8 +635,8 @@ ChildMFieldReferenceProxy<ObjectTypeT,
 {
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline
-ChildMFieldReferenceProxy<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline
+ChildMFieldReferenceProxy<PtrTypeT, 
                           RefCountPolicy, 
                           iNamespace    >::ChildMFieldReferenceProxy(
                               const Self &source) : 
@@ -648,8 +648,8 @@ ChildMFieldReferenceProxy<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline
-ChildMFieldReferenceProxy<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline
+ChildMFieldReferenceProxy<PtrTypeT, 
                           RefCountPolicy, 
                           iNamespace    >::~ChildMFieldReferenceProxy(void)
 {
@@ -658,27 +658,27 @@ ChildMFieldReferenceProxy<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Operators                                                               */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline
-ChildMFieldReferenceProxy<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline
+ChildMFieldReferenceProxy<PtrTypeT, 
                           RefCountPolicy, 
                           iNamespace    >::operator const_value(void) const
 {
     return static_cast<const_value>(AccessHandler::validate(*_storeIter));
 }
             
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-typename ChildMFieldReferenceProxy<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+typename ChildMFieldReferenceProxy<PtrTypeT, 
                                    RefCountPolicy, 
                                    iNamespace    >::const_value
-     ChildMFieldReferenceProxy<ObjectTypeT, 
+     ChildMFieldReferenceProxy<PtrTypeT, 
                                RefCountPolicy, 
                                iNamespace    >::operator->(void) const
 {
     return static_cast<const_value>(AccessHandler::validate(*_storeIter));
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
-void ChildMFieldReferenceProxy<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline 
+void ChildMFieldReferenceProxy<PtrTypeT, 
                                RefCountPolicy, 
                                iNamespace    >::operator =(const_value newValue)
 {
@@ -689,15 +689,15 @@ void ChildMFieldReferenceProxy<ObjectTypeT,
 
 
 /*-------------------------------------------------------------------------*/
-/* ChildPointerMField<ObjectTypeT,                                         */
+/* ChildPointerMField<PtrTypeT,                                         */
 /*                    NamespaceI  >                                        */
 /*-------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-const FieldType &ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+const FieldType &ChildPointerMField<PtrTypeT,
                                     RefCountPolicy, 
                                     NamespaceI    >::getClassType(void)
 {
@@ -707,8 +707,8 @@ const FieldType &ChildPointerMField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+ChildPointerMField<PtrTypeT,
                    RefCountPolicy, 
                    NamespaceI  >::ChildPointerMField(
                        const FieldContainerPtr pParent,
@@ -721,8 +721,8 @@ ChildPointerMField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+ChildPointerMField<PtrTypeT,
                    RefCountPolicy, 
                    NamespaceI    >::~ChildPointerMField(void)
 {
@@ -732,8 +732,8 @@ ChildPointerMField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Std Library Interface                                                   */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-void ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+void ChildPointerMField<PtrTypeT,
                         RefCountPolicy, 
                         NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)
 {
@@ -741,22 +741,22 @@ void ChildPointerMField<ObjectTypeT,
 }
 
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI  >::iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::begin_nc(void)
 {
     return iterator(this->_ptrStore.begin(), this);
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::end_nc(void)
 {
@@ -768,11 +768,11 @@ typename ChildPointerMField<ObjectTypeT,
     reference back_nc (void             );
 #endif
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::find_nc(const_value value)
 {
@@ -780,44 +780,44 @@ typename ChildPointerMField<ObjectTypeT,
 }
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI  >::iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::begin(void)
 {
     return iterator(this->_ptrStore.begin(), this);
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::end(void)
 {
     return iterator(this->_ptrStore.end(), this);
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::reverse_iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::rbegin(void)
 {
     return reverse_iterator(this->end());
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::reverse_iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::rend(void)
 {
@@ -825,44 +825,44 @@ typename ChildPointerMField<ObjectTypeT,
 }
 #endif
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI  >::const_iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::begin(void) const
 {
     return const_iterator(this->_ptrStore.begin());
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI  >::const_iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::end(void) const
 {
     return const_iterator(this->_ptrStore.end());
 }
     
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::const_reverse_iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI  >::rbegin(void) const
 {
     return const_reverse_iterator(this->end());
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI  >::const_reverse_iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::rend(void) const
 {
@@ -871,22 +871,22 @@ typename ChildPointerMField<ObjectTypeT,
 
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::reference
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::front(void)
 {
     return reference(this->_ptrStore.begin(), this);
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::reference
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::back(void)
 {
@@ -894,11 +894,11 @@ typename ChildPointerMField<ObjectTypeT,
 }
 #endif
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI  >::const_value
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::front(void) const
 {
@@ -906,11 +906,11 @@ typename ChildPointerMField<ObjectTypeT,
 }
 
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::const_value
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::back(void) const
 {
@@ -921,11 +921,11 @@ typename ChildPointerMField<ObjectTypeT,
 
 
    
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::iterator 
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::insert(iterator    pos, 
                                                const_value value)
@@ -933,9 +933,9 @@ typename ChildPointerMField<ObjectTypeT,
     return iterator(this->ptrStoreInsert(pos.base(), value), this);
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> 
 template <class InputIteratorT                                        > inline
-void ChildPointerMField<ObjectTypeT,
+void ChildPointerMField<PtrTypeT,
                         RefCountPolicy, 
                         NamespaceI  >::insert(iterator       pos, 
                                               InputIteratorT first, 
@@ -945,22 +945,22 @@ void ChildPointerMField<ObjectTypeT,
 }
 
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::iterator 
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::erase(iterator pos)
 {
     return iterator(this->ptrStoreErase(pos.base()), this);
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::iterator 
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::erase(
         iterator first, iterator last)
@@ -970,11 +970,11 @@ typename ChildPointerMField<ObjectTypeT,
 
    
 #ifndef OSG_CLEAN_FCFIELDS
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::find(const_value value)
 {
@@ -982,11 +982,11 @@ typename ChildPointerMField<ObjectTypeT,
 }
 #endif
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI    >::const_iterator
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::find(const_value value) const
 {
@@ -995,16 +995,16 @@ typename ChildPointerMField<ObjectTypeT,
 }
 
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerMField<PtrTypeT,
                         RefCountPolicy, 
                         NamespaceI    >::push_back(const_value value)
 {
     this->ptrStoreAppend(value);
 }
    
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerMField<PtrTypeT,
                         RefCountPolicy, 
                         NamespaceI    >::resize(size_t      newSize, 
                                                 const_value value  )
@@ -1012,8 +1012,16 @@ void ChildPointerMField<ObjectTypeT,
     this->ptrStoreResize(newSize, value);
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerMField<PtrTypeT,
+                        RefCountPolicy,
+                        NamespaceI    >::reserve(size_type size)
+{
+    this->_ptrStore.reserve(size);
+}
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerMField<PtrTypeT,
                         RefCountPolicy, 
                         NamespaceI    >::clear(void)
 {
@@ -1022,8 +1030,8 @@ void ChildPointerMField<ObjectTypeT,
 
                        
 #ifdef OSG_1_COMPAT
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerMField<PtrTypeT,
                         RefCountPolicy, 
                         NamespaceI    >::addValue(const_value value)
 {
@@ -1032,8 +1040,8 @@ void ChildPointerMField<ObjectTypeT,
 #endif
 
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerMField<PtrTypeT,
                         RefCountPolicy, 
                         NamespaceI    >::assign(size_type   newSize, 
                                                 const_value value  )
@@ -1044,9 +1052,9 @@ void ChildPointerMField<ObjectTypeT,
         this->ptrStoreAppend(value);
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
 template <class InputIteratorT                                        > inline 
-void ChildPointerMField<ObjectTypeT,
+void ChildPointerMField<PtrTypeT,
                         RefCountPolicy, 
                         NamespaceI    >::assign(InputIteratorT first, 
                                                 InputIteratorT last)
@@ -1055,8 +1063,8 @@ void ChildPointerMField<ObjectTypeT,
 }
 
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerMField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::replace(UInt32      uiIdx, 
                                                  const_value value)
@@ -1064,8 +1072,8 @@ void ChildPointerMField<ObjectTypeT,
     this->ptrStoreReplace(uiIdx, value);
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerMField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::replace(iterator    pos, 
                                                  const_value value)
@@ -1078,11 +1086,11 @@ void ChildPointerMField<ObjectTypeT,
 /* Index Operator                                                          */
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI  >::reference
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::operator [](const UInt32 index)
 {
@@ -1090,11 +1098,11 @@ typename ChildPointerMField<ObjectTypeT,
 }
 #endif
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
                             NamespaceI  >::const_value
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI  >::operator [](const UInt32 index) const
 {
@@ -1103,8 +1111,8 @@ typename ChildPointerMField<ObjectTypeT,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI  >::syncWith(Self               &source, 
                                                ConstFieldMaskArg   syncMode,
@@ -1120,20 +1128,20 @@ void ChildPointerMField<ObjectTypeT,
 
 #if 0
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
 inline void
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                                RefCountPolicy, 
                        NamespaceI  >::setValues(Self const &source)
 {
     this->assign(source.begin(), source.end());
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
-inline typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
+inline typename ChildPointerMField<PtrTypeT,
                                RefCountPolicy, 
                                    NamespaceI  >::Self &
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                                RefCountPolicy, 
                        NamespaceI  >::operator=(Self const &source)
 {
@@ -1145,11 +1153,11 @@ inline typename ChildPointerMField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Value Access                                                            */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
-inline typename ChildPointerMField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
+inline typename ChildPointerMField<PtrTypeT,
                                RefCountPolicy, 
                                    NamespaceI  >::ValueStoreType const &
-    ChildPointerMField<ObjectTypeT,
+    ChildPointerMField<PtrTypeT,
                                RefCountPolicy, 
                        NamespaceI  >::getValues(void) const
 {

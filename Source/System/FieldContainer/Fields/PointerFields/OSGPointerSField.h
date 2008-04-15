@@ -59,7 +59,7 @@ OSG_BEGIN_NAMESPACE
 /* WeakPointerSField<FieldConfigT>                                           */
 /*---------------------------------------------------------------------------*/
 
-template <class    ObjectTypeT,
+template <class    PtrTypeT,
           typename RefCountPolicy,
           Int32    NamespaceI  = 0>
 class PointerSField : 
@@ -82,8 +82,8 @@ class PointerSField :
     
     typedef PointerSField                                  Self;
 
-    typedef ObjectTypeT *                                  value_type;
-    typedef ObjectTypeT * const                            const_value;
+    typedef PtrTypeT                                       value_type;
+    typedef PtrTypeT const                                 const_value;
 
     typedef value_type                                     StoredType;
 
@@ -95,8 +95,6 @@ class PointerSField :
                                   RefCountPolicy,
                                   FieldType::PtrField   >  Description;
  
-
-    typedef ObjectTypeT                                    ObjectType;
 
     // handles
 

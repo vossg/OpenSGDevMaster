@@ -57,7 +57,7 @@ OSG_BEGIN_NAMESPACE
 /* ChildPointerSField<FieldConfigT>                                          */
 /*---------------------------------------------------------------------------*/
 
-template <class    ObjectTypeT,
+template <class    PtrTypeT,
           typename RefCountPolicy,
           Int32    NamespaceI  = 0>
 class ChildPointerSField : 
@@ -79,8 +79,8 @@ class ChildPointerSField :
     
     typedef ChildPointerSField                               Self;
                                    
-    typedef ObjectTypeT *                                    value_type;
-    typedef ObjectTypeT * const                              const_value;
+    typedef PtrTypeT                                         value_type;
+    typedef PtrTypeT const                                   const_value;
          
     typedef value_type                                       StoredType;
     
@@ -94,7 +94,6 @@ class ChildPointerSField :
 
     typedef typename SFieldTraits::ParentType                ParentT;
 
-    typedef ObjectTypeT                                      ObjectType;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

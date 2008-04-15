@@ -45,15 +45,15 @@
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
-/* ParentPointerSField<ObjectTypeT,                                        */
+/* ParentPointerSField<PtrTypeT,                                           */
 /*                     NamespaceI  >                                       */
 /*-------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-const FieldType &ParentPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+const FieldType &ParentPointerSField<PtrTypeT,
                                      RefCountPolicy,
                                      NamespaceI    >::getClassType(void)
 {
@@ -63,8 +63,8 @@ const FieldType &ParentPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-ParentPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+ParentPointerSField<PtrTypeT,
                     RefCountPolicy,
                     NamespaceI    >::ParentPointerSField(void) : 
      Inherited       (      ),
@@ -72,8 +72,8 @@ ParentPointerSField<ObjectTypeT,
 {
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-ParentPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+ParentPointerSField<PtrTypeT,
                     RefCountPolicy,
                     NamespaceI    >::ParentPointerSField(
                         const_value value, 
@@ -86,8 +86,8 @@ ParentPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-ParentPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+ParentPointerSField<PtrTypeT,
                     RefCountPolicy,
                     NamespaceI    >::~ParentPointerSField(void)
 {
@@ -97,19 +97,19 @@ ParentPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Reading Values                                                          */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-UInt16 ParentPointerSField<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+UInt16 ParentPointerSField<PtrTypeT, 
                            RefCountPolicy,
                            NamespaceI    >::getParentFieldPos(void) const
 {
     return _uiParentFieldPos;
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-typename ParentPointerSField<ObjectTypeT,
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename ParentPointerSField<PtrTypeT,
                              RefCountPolicy,
                              NamespaceI    >::const_value
-    ParentPointerSField<ObjectTypeT,
+    ParentPointerSField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI >::getValue(void) const
 {
@@ -119,8 +119,8 @@ typename ParentPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Changing Values                                                         */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ParentPointerSField<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ParentPointerSField<PtrTypeT, 
                            RefCountPolicy,
                            NamespaceI    >::setValue(
                                const_value  value,
@@ -135,8 +135,8 @@ void ParentPointerSField<ObjectTypeT,
 /*-------------------------------------------------------------------------*/
 /* Binary IO                                                               */
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
-UInt32 ParentPointerSField<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+UInt32 ParentPointerSField<PtrTypeT, 
                            RefCountPolicy,
                            NamespaceI    >::getBinSize(void) const
 {
@@ -144,8 +144,8 @@ UInt32 ParentPointerSField<ObjectTypeT,
             PosSFieldTraits::getBinSize(_uiParentFieldPos));
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ParentPointerSField<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ParentPointerSField<PtrTypeT, 
                          RefCountPolicy,
                          NamespaceI    >::copyToBin(
                              BinaryDataHandler &pMem) const
@@ -155,8 +155,8 @@ void ParentPointerSField<ObjectTypeT,
     PosSFieldTraits::copyToBin(pMem, _uiParentFieldPos);
 }
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ParentPointerSField<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ParentPointerSField<PtrTypeT, 
                          RefCountPolicy,
                          NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)
 {
@@ -169,8 +169,8 @@ void ParentPointerSField<ObjectTypeT,
 /* MT Sync                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ParentPointerSField<ObjectTypeT, 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ParentPointerSField<PtrTypeT, 
                          RefCountPolicy,
                          NamespaceI    >::syncWith(Self &source)
 {

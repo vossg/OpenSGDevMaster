@@ -55,31 +55,31 @@
 OSG_BEGIN_NAMESPACE
 
 // forward declarations
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
 class ChildPointerMField;
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
 class ChildMFieldConstIterator;
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class ObjectTypeT, typename RefCountPolicy, Int32 NamespaceI>
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
 class ChildMFieldReferenceProxy;
 #endif
 
 /*---------------------------------------------------------------------------*/
-/* ChildMFieldIterator<ObjectTypeT>                                          */
+/* ChildMFieldIterator<PtrTypeT>                                          */
 /*---------------------------------------------------------------------------*/
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace>
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace>
 class ChildMFieldIterator :
-    protected ChildPointerMField<ObjectTypeT, 
+    protected ChildPointerMField<PtrTypeT, 
                                  RefCountPolicy, 
                                  iNamespace   >::PtrStoreItType
 {
-    template <class OT, typename RC, Int32 NI>
+    template <class PT, typename RC, Int32 NI>
     friend class ChildPointerMField;
 
-    template <class OT, typename RC, Int32 NI>
+    template <class PT, typename RC, Int32 NI>
     friend class ChildMFieldConstIterator;
 
     /*==========================  PUBLIC  =================================*/
@@ -92,7 +92,7 @@ class ChildMFieldIterator :
     
     typedef          ChildMFieldIterator                Self;
            
-    typedef          ChildPointerMField<ObjectTypeT, 
+    typedef          ChildPointerMField<PtrTypeT, 
                                         RefCountPolicy, 
                                         iNamespace    > MFieldType;
 
@@ -100,11 +100,11 @@ class ChildMFieldIterator :
 
     typedef typename MFieldType::AccessHandler          AccessHandler;
 
-    typedef          ObjectTypeT * const                const_value;
+    typedef          PtrTypeT const                     const_value;
     
 #ifndef OSG_CLEAN_FCFIELDS
     typedef          ChildMFieldReferenceProxy<
-                         ObjectTypeT, 
+                         PtrTypeT, 
                          RefCountPolicy, 
                          iNamespace                   > reference; 
 #endif
@@ -118,8 +118,6 @@ class ChildMFieldIterator :
     // std library typedefs
     typedef typename Inherited::iterator_category       iterator_category;
     typedef typename Inherited::difference_type         difference_type;
-
-    typedef          ObjectTypeT                        ObjectType;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -195,32 +193,32 @@ class ChildMFieldIterator :
 };
 
 #if 0
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldIterator<ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldIterator<ObjectTypeT, iNamespace> const &rhs );
+template <class PtrTypeT, Int32 iNamespace>
+typename ChildMFieldIterator<PtrTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldIterator<PtrTypeT, iNamespace> const &lhs,
+              ChildMFieldIterator<PtrTypeT, iNamespace> const &rhs );
 
-template <class ObjectTypeT, Int32 iNamespace>
-ChildMFieldIterator<ObjectTypeT, iNamespace>
+template <class PtrTypeT, Int32 iNamespace>
+ChildMFieldIterator<PtrTypeT, iNamespace>
     operator+(
-        typename ChildMFieldIterator<ObjectTypeT, iNamespace>::differece_type const offset,
-        ChildMFieldIterator<ObjectTypeT, iNamespace>                          const &rhs   );
+        typename ChildMFieldIterator<PtrTypeT, iNamespace>::differece_type const offset,
+        ChildMFieldIterator<PtrTypeT, iNamespace>                          const &rhs   );
 #endif
 
 /*---------------------------------------------------------------------------*/
-/* ChildMFieldConstIterator<ObjectTypeT>                                     */
+/* ChildMFieldConstIterator<PtrTypeT>                                     */
 /*---------------------------------------------------------------------------*/
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace>
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace>
 class ChildMFieldConstIterator :
-    protected ChildPointerMField<ObjectTypeT, 
+    protected ChildPointerMField<PtrTypeT, 
                                  RefCountPolicy, 
                                  iNamespace    >::PtrStoreConstItType
 {
-    template <class OT, typename RC, Int32 NI>
+    template <class PT, typename RC, Int32 NI>
     friend class ChildPointerMField;
 
-    template <class OT, typename RC, Int32 NI>
+    template <class PT, typename RC, Int32 NI>
     friend class ChildMFieldIterator;
 
     /*==========================  PUBLIC  =================================*/
@@ -233,7 +231,7 @@ class ChildMFieldConstIterator :
     
     typedef          ChildMFieldConstIterator           Self;
 
-    typedef          ChildPointerMField<ObjectTypeT, 
+    typedef          ChildPointerMField<PtrTypeT, 
                                         RefCountPolicy, 
                                         iNamespace    > MFieldType;
 
@@ -241,7 +239,7 @@ class ChildMFieldConstIterator :
            
     typedef typename MFieldType::AccessHandler          AccessHandler;
 
-    typedef          ObjectTypeT * const                const_value;
+    typedef          PtrTypeT const                     const_value;
     
     // store types
     typedef typename MFieldType::PtrStoreType           PtrStoreType;
@@ -253,8 +251,6 @@ class ChildMFieldConstIterator :
     typedef typename Inherited::iterator_category       iterator_category;
     typedef typename Inherited::difference_type         difference_type;
 
-    typedef          ObjectTypeT                        ObjectType;
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
@@ -321,33 +317,33 @@ class ChildMFieldConstIterator :
 };
 
 #if 0
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &rhs );
+template <class PtrTypeT, Int32 iNamespace>
+typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldConstIterator<PtrTypeT, iNamespace> const &lhs,
+              ChildMFieldConstIterator<PtrTypeT, iNamespace> const &rhs );
               
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldIterator     <ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &rhs );
+template <class PtrTypeT, Int32 iNamespace>
+typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldIterator     <PtrTypeT, iNamespace> const &lhs,
+              ChildMFieldConstIterator<PtrTypeT, iNamespace> const &rhs );
 
-template <class ObjectTypeT, Int32 iNamespace>
-typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type
-    operator-(ChildMFieldConstIterator<ObjectTypeT, iNamespace> const &lhs,
-              ChildMFieldIterator     <ObjectTypeT, iNamespace> const &rhs );
+template <class PtrTypeT, Int32 iNamespace>
+typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::difference_type
+    operator-(ChildMFieldConstIterator<PtrTypeT, iNamespace> const &lhs,
+              ChildMFieldIterator     <PtrTypeT, iNamespace> const &rhs );
               
-template <class ObjectTypeT, Int32 iNamespace>
-ChildMFieldConstIterator<ObjectTypeT, iNamespace>
+template <class PtrTypeT, Int32 iNamespace>
+ChildMFieldConstIterator<PtrTypeT, iNamespace>
     operator+(
-        typename ChildMFieldConstIterator<ObjectTypeT, iNamespace>::difference_type const  offset,
-        ChildMFieldConstIterator<ObjectTypeT, iNamespace>                           const &rhs    );
+        typename ChildMFieldConstIterator<PtrTypeT, iNamespace>::difference_type const  offset,
+        ChildMFieldConstIterator<PtrTypeT, iNamespace>                           const &rhs    );
 #endif
 
 /*-------------------------------------------------------------------------*/
-/* ChildMFieldReferenceProxy<ObjectTypeT>                                  */
+/* ChildMFieldReferenceProxy<PtrTypeT>                                  */
 /*-------------------------------------------------------------------------*/
 
-template <class ObjectTypeT, typename RefCountPolicy, Int32 iNamespace>
+template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace>
 class ChildMFieldReferenceProxy
 {
     /*==========================  PUBLIC  =================================*/
@@ -358,11 +354,9 @@ class ChildMFieldReferenceProxy
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
-    typedef          ObjectTypeT                         ObjectType;
-    
     typedef          ChildMFieldReferenceProxy           Self;
             
-    typedef          ChildPointerMField<ObjectTypeT, 
+    typedef          ChildPointerMField<PtrTypeT, 
                                         RefCountPolicy, 
                                         iNamespace    >  MFieldType;
     typedef typename MFieldType::AccessHandler           AccessHandler;
@@ -374,7 +368,7 @@ class ChildMFieldReferenceProxy
     typedef typename MFieldType::PtrStoreConstItType     PtrStoreConstItType;
     
     // std library types
-    typedef          ObjectTypeT * const                 const_value;
+    typedef          PtrTypeT const                      const_value;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -415,7 +409,7 @@ class ChildMFieldReferenceProxy
 /* ChildPointerMField<FieldConfigT>                                          */
 /*---------------------------------------------------------------------------*/
 
-template <class    ObjectTypeT,
+template <class    PtrTypeT,
           typename RefCountPolicy,
           Int32    NamespaceI  = 0>
 class ChildPointerMField : 
@@ -431,25 +425,24 @@ class ChildPointerMField :
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
 
-    
     typedef ChildPointerMFieldBase<
                 ChildAccessHandler  <RefCountPolicy>,
                 NamespaceI                          > Inherited;
 
     typedef ChildPointerMField Self;
     
-    typedef ObjectTypeT *                             value_type;
-    typedef ObjectTypeT * const                       const_value;
+    typedef PtrTypeT                                  value_type;
+    typedef PtrTypeT const                            const_value;
     typedef value_type                                StoredType;
 
     typedef typename Inherited::size_type             size_type;
     typedef typename Inherited::difference_type       difference_type;
 
-    typedef ChildMFieldIterator      <ObjectTypeT, 
+    typedef ChildMFieldIterator      <PtrTypeT, 
                                       RefCountPolicy, 
                                       NamespaceI    > iterator;
 
-    typedef ChildMFieldConstIterator <ObjectTypeT, 
+    typedef ChildMFieldConstIterator <PtrTypeT, 
                                       RefCountPolicy, 
                                       NamespaceI    > const_iterator;
 
@@ -465,13 +458,12 @@ class ChildPointerMField :
                 FieldType::ChildPtrField            > Description;
 
 #ifndef OSG_CLEAN_FCFIELDS
-    typedef ChildMFieldReferenceProxy<ObjectTypeT,
+    typedef ChildMFieldReferenceProxy<PtrTypeT,
                                       RefCountPolicy, 
                                       NamespaceI    > reference;
 #endif
 
-    typedef ObjectTypeT                               ObjectType;
-                                      
+                                     
     // handles
 //    typedef          EditPointerMFieldHandle<Self>      EditHandle;
 //    typedef typename EditPointerMFieldHandle<Self>::Ptr EditHandlePtr;
@@ -606,6 +598,8 @@ class ChildPointerMField :
    
     void                   resize   (size_t         newSize,
                                      const_value    value   = NullFC);
+
+    void                   reserve  (size_type      newsize         );
 
     void                   clear    (void                           );
                                

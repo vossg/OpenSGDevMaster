@@ -138,8 +138,6 @@ class OSG_SYSTEM_DLLMAPPING PointerMFieldBase : public Field
     
     difference_type        findIndex(const_value value) const;
 
-    void                   reserve  (size_type   size );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Index Operator                              */
@@ -210,6 +208,13 @@ class OSG_SYSTEM_DLLMAPPING PointerMFieldBase : public Field
     
     ~PointerMFieldBase(void);
     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Assignment                                  */
+    /*! \{                                                                 */
+
+    void reserve(size_type size);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Assignment                                  */
