@@ -497,14 +497,6 @@ inline typename ParentMFieldConstIterator<PtrTypeT>::PtrStoreConstItType const &
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-const FieldType &ParentPointerMField<PtrTypeT,
-                                     RefCountPolicy,
-                                     NamespaceI    >::getClassType(void)
-{
-    return _fieldType;
-}
-
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 

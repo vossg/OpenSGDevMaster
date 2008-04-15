@@ -52,14 +52,6 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-FieldType const &ChildPointerSField<PtrTypeT,
-                                    RefCountPolicy,
-                                    NamespaceI    >::getClassType(void)
-{
-    return _fieldType;
-}
-
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 

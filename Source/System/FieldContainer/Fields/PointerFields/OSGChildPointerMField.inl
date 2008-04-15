@@ -696,14 +696,6 @@ void ChildMFieldReferenceProxy<PtrTypeT,
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-const FieldType &ChildPointerMField<PtrTypeT,
-                                    RefCountPolicy, 
-                                    NamespaceI    >::getClassType(void)
-{
-    return _fieldType;
-}
-
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 

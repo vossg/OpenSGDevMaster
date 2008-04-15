@@ -80,23 +80,22 @@ class ParentMFieldConstIterator : protected StorageTypeT::PtrStoreConstItType
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
 
-    typedef      typename StorageTypeT::PtrStoreConstItType Inherited;
+    typedef typename StorageTypeT::PtrStoreConstItType   Inherited;
     
-    typedef               ParentMFieldConstIterator         Self;
+    typedef          ParentMFieldConstIterator           Self;
     
-    typedef       typename StorageTypeT::AccessHandler      AccessHandler;
+    typedef typename StorageTypeT::AccessHandler         AccessHandler;
 
-    typedef               std::vector<UInt16>               PosStorage;
-    typedef               std::vector<
-                              UInt16>::const_iterator       PosStorageIt;
+    typedef          std::vector<UInt16>                 PosStorage;
+    typedef          std::vector<UInt16>::const_iterator PosStorageIt;
 
     // std library types
-    typedef      typename Inherited::iterator_category      iterator_category;
-    typedef      typename Inherited::difference_type        difference_type;
+    typedef typename Inherited::iterator_category        iterator_category;
+    typedef typename Inherited::difference_type          difference_type;
     
 
-    typedef const typename StorageTypeT::value_type         const_value;
-    typedef       typename StorageTypeT::iterator           iterator;
+    typedef typename StorageTypeT::const_value           const_value;
+    typedef typename StorageTypeT::iterator              iterator;
    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -211,22 +210,22 @@ class ParentMFieldIterator : protected StorageTypeT::PtrStoreItType
     /*! \{                                                                 */
     
     
-    typedef       typename StorageTypeT::PtrStoreItType  Inherited;
+    typedef typename StorageTypeT::PtrStoreItType  Inherited;
 
-    typedef                ParentMFieldIterator          Self;
+    typedef          ParentMFieldIterator          Self;
                                                             
-    typedef       typename StorageTypeT::AccessHandler   AccessHandler;
+    typedef typename StorageTypeT::AccessHandler   AccessHandler;
 
-    typedef                std::vector<UInt16>           PosStorage;
-    typedef                std::vector<UInt16>::iterator PosStorageIt;
+    typedef          std::vector<UInt16>           PosStorage;
+    typedef          std::vector<UInt16>::iterator PosStorageIt;
 
     // std library types
-    typedef       typename Inherited::iterator_category  iterator_category;
-    typedef       typename Inherited::difference_type    difference_type;
+    typedef typename Inherited::iterator_category  iterator_category;
+    typedef typename Inherited::difference_type    difference_type;
 
     
-    typedef const typename StorageTypeT::value_type      const_value;
-    typedef const typename StorageTypeT::const_iterator  const_iterator;
+    typedef typename StorageTypeT::const_value     const_value;
+    typedef typename StorageTypeT::const_iterator  const_iterator;
 
     
     /*! \}                                                                 */

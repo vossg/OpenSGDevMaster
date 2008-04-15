@@ -701,14 +701,6 @@ void PointerMFieldReferenceProxy<PtrTypeT,
 /*-------------------------------------------------------------------------*/
 /* Class Type                                                              */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-const FieldType &PointerMField<PtrTypeT,
-                               RefCountPolicy,
-                               NamespaceI >::getClassType(void)
-{
-    return _fieldType;
-}
-
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
